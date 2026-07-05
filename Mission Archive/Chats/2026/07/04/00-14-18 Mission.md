@@ -1,0 +1,373 @@
+# FoxAI Mission Log
+
+Started: 2026-07-04 00:09:26.054391
+Saved:   2026-07-04 00:14:18.773683
+
+## SYSTEM
+
+Initializing neural engine: Qwen3-Coder-30B-A3B-Instruct-Q4_K_M.gguf
+
+## AGENT FOX
+
+Good morning, Eric Fox.
+
+All systems operational.
+Neural engine online.
+
+Mission:
+Operation Cyber Console
+
+Awaiting your orders.
+
+## MISSION CONTROL
+
+Receiving request...
+
+Director analyzing mission parameters.
+
+## MISSION CONTROL
+
+DIRECTOR ANALYSIS
+
+Mission Type:
+Engineering
+
+Confidence Score:
+35
+
+Evidence:
+✓ engineering trigger: engineer
+
+Selected Department:
+Engineer
+
+## MISSION CONTROL
+
+Engineer mission detected.
+
+Reading project files in read-only mode.
+
+## ERIC
+
+Engineer, investigate timeout
+
+## MISSION CONTROL
+
+Engineer online.
+
+Performing read-only project analysis.
+
+## ENGINEER
+
+INVESTIGATION ENGINE TEST
+
+Mission:
+INV-20260704-86802455
+
+Query:
+Engineer, investigate timeout
+
+Ranked Evidence:
+--- core/engineer_agent.py ---
+Rank Score: 412
+Category: source
+Confidence: 85
+Weight: 90
+Ranking Reasons:
+• location 'core' score 100
+• category 'source' score 90
+• evidence confidence 85
+• evidence weight 90
+• exact/path match bonus 12
+• current source bonus 15
+
+_from_item(term, item, "vendor"))
+
+            if evidence:
+                break
+
+        return evidence
+
+    def _terms_for(self, mission: Mission) -> list[str]:
+        lowered = mission.query.lower()
+
+        if "timeout" in lowered:
+            return ["timeout=300", "timeout", "read timeout", "ChatTimeoutError"]
+
+        if "investigation engine" in lowered or "investigation_engine" in lowered:
+            return ["investigation_engine.py", "InvestigationEngine", "EvidenceDriver", "Mission"]
+
+        if "right click" in lowered or "right-click" in lowered or "context menu" in lowered:
+            return [
+                "bind(\"<Button-3>\"",
+                "bind('<Button-3>'",
+                "context menu",
+                "tk.Menu",
+                "input_box",
+
+--- core/heuristics.py ---
+Rank Score: 412
+Category: source
+Confidence: 85
+Weight: 90
+Ranking Reasons:
+• location 'core' score 100
+• category 'source' score 90
+• evidence confidence 85
+• evidence weight 90
+• exact/path match bonus 12
+• current source bonus 15
+
+h | None:
+        hits = []
+
+        for ranked in ranked_evidence:
+            evidence = getattr(ranked, "evidence", ranked)
+            snippet = getattr(evidence, "snippet", "") or ""
+            path = getattr(evidence, "path", "") or ""
+
+            if "timeout=300" in snippet.replace(" ", "") or "timeout = 300" in snippet:
+                hits.append(path or "unknown source")
+
+        if not hits:
+            return None
+
+        unique_hits = list(dict.fromkeys(hits))
+
+        return HeuristicMatch(
+            name=self.name,
+            finding="HTTP timeout appears to be hardcoded.",
+            confidence=90,
+            reasoning=[
+                "A literal timeout value was found in source evidence.",
+                "Hardcoded operational values are harder to tune
+
+--- FoxAI_Desktop.py ---
+Rank Score: 332
+Category: source
+Confidence: 85
+Weight: 90
+Ranking Reasons:
+• unclassified location 'FoxAI_Desktop.py' score 40
+• category 'source' score 90
+• evidence confidence 85
+• evidence weight 90
+• exact/path match bonus 12
+• current source bonus 15
+
+king...")
+
+        payload = {
+            "model": "local-model",
+            "messages": messages,
+            "temperature": 0.7,
+            "max_tokens": 512,
+            "stream": False,
+        }
+
+        response = requests.post(API_URL, json=payload, timeout=300)
+        response.raise_for_status()
+
+        data = response.json()
+        answer = data["choices"][0]["message"]["content"].strip()
+
+        messages.append({"role": "assistant", "content": answer})
+        add_chat("AGENT FOX", answer)
+        status.set("Ready")
+
+    except Exception as e:
+        add_chat("System", f"Error: {e}")
+        status.set("Error")
+
+
+def update_stats():
+    cpu = psutil.cpu_percent()
+    ram = psutil.virtual_memory()
+    ram_used = ram.used / (1024 ** 3)
+    ram_total = ram.total /
+
+--- Memory/ui/main_window.py ---
+Rank Score: 332
+Category: source
+Confidence: 85
+Weight: 90
+Ranking Reasons:
+• location 'Memory' score 55
+• category 'source' score 90
+• evidence confidence 85
+• evidence weight 90
+• exact/path match bonus 12
+
+"model": "local-model",
+                "messages": self.messages,
+                "temperature": 0.7,
+                "max_tokens": 512,
+                "stream": False
+            }
+            response = requests.post(self.api_url, json=payload, timeout=300)
+            response.raise_for_status()
+            answer = response.json()["choices"][0]["message"]["content"].strip()
+            self.messages.append({"role": "assistant", "content": answer})
+            self.add_chat("AGENT FOX", answer)
+            self.mission_memory.save()
+            self.status.set("ONLINE")
+        except Exception as e:
+            self.status.set("ERROR")
+            self.add_chat("SYSTEM", f"Error: {e}")
+
+    def update_stats(self):
+        cpu = psutil.cpu_percent()
+        ram = p
+
+--- Backups/v2.2/FoxAI_Desktop.py ---
+Rank Score: 257
+Category: source
+Confidence: 85
+Weight: 90
+Ranking Reasons:
+• location 'Backups' score 20
+• category 'source' score 90
+• evidence confidence 85
+• evidence weight 90
+• exact/path match bonus 12
+• backup penalty -40
+
+king...")
+
+        payload = {
+            "model": "local-model",
+            "messages": messages,
+            "temperature": 0.7,
+            "max_tokens": 512,
+            "stream": False,
+        }
+
+        response = requests.post(API_URL, json=payload, timeout=300)
+        response.raise_for_status()
+
+        data = response.json()
+        answer = data["choices"][0]["message"]["content"].strip()
+
+        messages.append({"role": "assistant", "content": answer})
+        add_chat("AGENT FOX", answer)
+        status.set("Ready")
+
+    except Exception as e:
+        add_chat("System", f"Error: {e}")
+        status.set("Error")
+
+
+def update_stats():
+    cpu = psutil.cpu_percent()
+    ram = psutil.virtual_memory()
+    ram_used = ram.used / (1024 ** 3)
+    ram_total = ram.total /
+
+Confidence:
+Evidence Quality: 85
+Coverage: 50
+Agreement: 90
+Overall: 75
+
+ENGINEERING ASSESSMENT
+
+Finding:
+HTTP timeout appears to be hardcoded.
+
+Confidence:
+89%
+
+Reasoning:
+• A literal timeout value was found in source evidence.
+• Hardcoded operational values are harder to tune across machines and models.
+• Detected in 5 evidence source(s).
+
+Evidence Summary:
+• core/engineer_agent.py (source, rank 412)
+• core/heuristics.py (source, rank 412)
+• FoxAI_Desktop.py (source, rank 332)
+• Memory/ui/main_window.py (source, rank 332)
+• Backups/v2.2/FoxAI_Desktop.py (source, rank 257)
+
+Contradictions:
+• None found.
+
+Missing Evidence:
+• None identified.
+
+Suggested Actions:
+• Move the timeout value into configuration.
+• Add a named setting such as request_timeout_seconds.
+• Allow a safe default while permitting machine-specific overrides.
+
+Alternatives:
+• Use an environment variable for quick overrides.
+• Use a command-line argument for developer testing.
+
+Risk:
+low
+
+Impact:
+maintainability and portability
+
+Operator Summary:
+HTTP timeout appears to be hardcoded. The evidence is strong enough to recommend action.
+
+Investigation Engine Raw Recommendation:
+Evidence was collected. Review the structured evidence list before taking action.
+
+Timeline:
+• 2026-07-04T00:09:55 | Mission received
+• 2026-07-04T00:09:55 | Plan created
+• 2026-07-04T00:09:55 | Evidence collection started
+• 2026-07-04T00:09:56 | Evidence collection completed: 5 items
+• 2026-07-04T00:09:56 | Gap analysis completed
+• 2026-07-04T00:09:56 | Confidence report built
+• 2026-07-04T00:09:56 | Recommendation built
+• 2026-07-04T00:09:56 | Investigation result assembled
+
+Safety Status:
+Read-only. Investigation Engine collected evidence but modified no files.
+
+## MISSION CONTROL
+
+Receiving request...
+
+Director analyzing mission parameters.
+
+## MISSION CONTROL
+
+DIRECTOR ANALYSIS
+
+Mission Type:
+Engineering
+
+Confidence Score:
+35
+
+Evidence:
+✓ engineering trigger: engineer
+
+Selected Department:
+Engineer
+
+## MISSION CONTROL
+
+Engineer mission detected.
+
+Reading project files in read-only mode.
+
+## ERIC
+
+Engineer, please scan for new files
+
+## MISSION CONTROL
+
+Engineer online.
+
+Performing read-only project analysis.
+
+## ENGINEER
+
+ENGINEER FILE SCAN\n\nRoute:\nProject Index\n\nProject Root:\nZ:\FOXAI\n\nFiles indexed: 1054\nPython files: 750\nClasses detected: 4426\nFunctions detected: 10945\nImports detected: 6800\n\nSafety Status:\nRead-only. No files were modified.
+

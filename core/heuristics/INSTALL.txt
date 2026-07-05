@@ -1,0 +1,18 @@
+RC1 INSTALL
+
+1. Save context_menu_heuristic.py into:
+
+core/heuristics/
+
+2. Import it in core/heuristics.py
+
+from core.heuristics.context_menu_heuristic import ContextMenuHeuristic
+
+3. Register BEFORE GenericEvidenceHeuristic:
+
+DEFAULT_HEURISTICS = [
+    HardcodedTimeoutHeuristic(),
+    KernelComponentHeuristic(),
+    ContextMenuHeuristic(),
+    GenericEvidenceHeuristic(),
+]

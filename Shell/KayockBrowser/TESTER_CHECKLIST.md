@@ -1,0 +1,21 @@
+# Tester Checklist — Kayock Browser 2.5.1 RC
+
+- [ ] App launches cleanly.
+- [ ] Sidebar icon-only mode works.
+- [ ] Sidebar hover slide-out works.
+- [ ] Pin/unpin sidebar works.
+- [ ] Tracks create/rename/delete works.
+- [ ] Moving tabs into Tracks works.
+- [ ] New tab button is visible and works.
+- [ ] Zoom controls work.
+- [ ] Eagle Eye spell check highlights errors.
+- [ ] Right-click spelling suggestions work.
+- [ ] Add to dictionary works.
+- [ ] Downloads save into Trophy Room/download folder.
+- [ ] Screenshot capture works.
+- [ ] Shield/Diagnostics show blocked permission events.
+- [ ] YouTube playback works.
+- [ ] YouTube fullscreen works.
+- [ ] Common logins still work.
+- [ ] Installer build creates setup EXE.
+- [ ] Portable build creates portable EXE.

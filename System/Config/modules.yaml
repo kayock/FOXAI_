@@ -1,0 +1,19 @@
+# KayocktheOS module manager index
+# v0.0.5 moves module metadata into System/Registry/modules/*.yaml
+registry_path: System/Registry/modules
+module_manifest_extension: .yaml
+
+module_rules:
+  every_module_needs_id: true
+  every_module_needs_owner: true
+  every_module_needs_status: true
+  every_module_needs_entry_path: true
+  launch_only_enabled_modules: true
+
+valid_statuses:
+  - enabled
+  - disabled
+  - planned
+  - external
+  - missing
+  - experimental

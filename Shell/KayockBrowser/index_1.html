@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data: file:; style-src 'self' 'unsafe-inline'; script-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self';" />
+  <title>Kayock Browser 2.4 Alpha — Hunter Workspaces</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand" id="brandToggle" title="Collapse/expand Kayock brand">
+      <img class="eyeLogo" src="assets/kayock-eye-logo.png" alt="Kayock eye logo" />
+      <div class="brandText">
+        <div class="name">Kayock</div>
+        <div class="tagline">The Hunter Browser</div>
+      </div>
+    </div>
+
+    <nav class="browserControls" aria-label="Browser controls">
+      <button id="back" title="Back">←</button>
+      <button id="forward" title="Forward">→</button>
+      <button id="reload" title="Reload">↻</button>
+      <button id="homeBtn" title="Home">⌂</button>
+      <button id="bookmarkBtn" title="Mark this page">★</button>
+    </nav>
+
+    <form id="navForm" class="addressWrap">
+      <input id="address" type="text" autocomplete="off" spellcheck="false" value="kayock://home" />
+      <button id="go" type="submit">Hunt</button>
+    </form>
+
+    <div class="zoomControls" title="Page zoom"><button id="zoomOut" type="button">−</button><button id="zoomDisplay" type="button">100%</button><button id="zoomIn" type="button">+</button></div>
+    <button id="newTabTop" class="topNewTab" title="New Tab">＋</button>
+  </header>
+
+  <section class="tabsBar">
+    <div id="tabs" class="tabs"></div>
+    <button id="newTab" class="newTab" title="New Tab">＋</button>
+  </section>
+
+  <aside id="hunterPanel" class="hunterPanel" aria-label="Hunter Panel">
+    <button class="hunterBrandMini" id="hunterCollapse" title="Pin or unpin Hunter Panel">🦅</button>
+    <div class="campfire">
+      <div class="campLabel">Current Hunt</div>
+      <strong id="currentHuntName">Base Camp</strong>
+      <span id="currentHuntMeta">0 tabs</span>
+    </div>
+    <button class="hunterNav active" data-panel="tracks" id="historyBtn" title="Tracks">📂 <span>Tracks</span></button>
+    <button class="hunterNav" data-panel="marks" id="bookmarksBtn" title="Marks">⭐ <span>Marks</span></button>
+    <button class="hunterNav" data-panel="trophies" id="downloadsBtn" title="Trophy Room">🏆 <span>Trophies</span></button>
+    <button class="hunterNav" data-panel="journal" id="aboutBtn" title="Hunter Journal">📓 <span>Journal</span></button>
+    <button class="hunterNav" data-panel="shield" id="shieldBtn" title="Hunter Shield">🛡 <span>Shield</span></button>
+    <button class="hunterNav" data-panel="workshop" id="workshopBtn" title="Workshop">🧰 <span>Workshop</span></button>
+    <button class="hunterNav" data-panel="settings" id="settingsBtn" title="Settings">⚙ <span>Settings</span></button>
+    <button class="hunterNav" data-panel="diagnostics" id="diagnosticsBtn" title="Hunter Diagnostics">🔧 <span>Diagnostics</span></button>
+    <button class="hunterNav" data-panel="reading" id="accessibilityBtn" title="Reading Comfort">👓 <span>Aa</span></button>
+  </aside>
+
+
+  <aside id="shieldPanel" class="sidePanel hidden">
+    <h2>Hunter Shield v1.3</h2>
+    <p id="siteStatus">Current site: Kayock Home</p>
+
+    <label class="settingRow">Protection mode
+      <select id="shieldMode">
+        <option value="compatibility">Compatibility — allow scripts by default</option>
+        <option value="balanced">Balanced — block unknown scripts</option>
+        <option value="hunter">Hunter Mode — whitelist first</option>
+      </select>
+    </label>
+
+    <div class="permission"><span>Domain</span><strong id="shieldDomain">Kayock internal page</strong></div>
+    <div class="permission"><span>JavaScript</span><strong id="javascriptStatus">Allowed</strong></div>
+    <div class="permission"><span>Shield Status</span><strong id="shieldAdvice">Ready</strong></div>
+    <div class="permission"><span>Cookies</span><strong>Browser default</strong></div>
+    <div class="permission"><span>Popups</span><strong>Blocked unless allowed</strong></div>
+    <div class="permission"><span>Camera / Mic</span><strong>Blocked by default</strong></div>
+    <div class="permission"><span>Location / Notifications</span><strong>Blocked by default</strong></div>
+
+    <div class="panelActions shieldActions">
+      <button id="trustSiteBtn">Trust + Reload</button>
+      <button id="allowOnceBtn">Feed Once</button>
+      <button id="blockSiteBtn">Keep Blocking</button>
+    </div>
+
+    <h3>Recent Shield Events</h3>
+    <div id="securityEvents" class="trustedList"></div>
+
+    <h3>Trusted Sites</h3>
+    <div id="trustedList" class="trustedList"></div>
+
+    <p class="note">v1.3 Media Hunter: right-click images, direct video/audio, model links, PDFs, archives, or page screenshots and acquire them into Trophy Room.</p>
+  </aside>
+
+  <aside id="bookmarksPanel" class="sidePanel hidden">
+    <h2>Hunter Marks</h2>
+    <p class="note">Click ★ while browsing to save a page.</p>
+    <div id="bookmarksList" class="bookmarksList"></div>
+  </aside>
+
+  <aside id="historyPanel" class="sidePanel hidden tracksPanel">
+    <h2>Tracks</h2>
+    <p class="note">Hunter Workspaces: group tabs into missions, resume whole hunts later, and keep the sidebar compact until you need it.</p>
+    <div class="trackCreateBox">
+      <input id="newTrackName" type="text" placeholder="New Track name..." />
+      <button id="createTrackBtn">+ New Track</button>
+    </div>
+    <div id="tracksList" class="tracksList"></div>
+    <h3>Recent Paths</h3>
+    <div class="panelActions"><button id="clearHistory">Clear Recent Paths</button></div>
+    <div id="historyList" class="bookmarksList"></div>
+  </aside>
+
+  <aside id="downloadsPanel" class="sidePanel hidden">
+    <h2>Trophy Room</h2>
+    <p class="note">Actual download manager: progress, speed, ETA, pause/resume/cancel, retry failed downloads, and open the file or folder.</p>
+    <div class="downloadUrlBox">
+      <input id="directDownloadUrl" type="text" placeholder="Paste a direct model/file URL to Acquire..." />
+      <button id="startDirectDownload">Acquire URL</button>
+    </div>
+    <p class="note">Tip: right-click images, direct videos/audio, model files, PDFs, archives, or Hugging Face/GitHub links and choose an <b>Acquire</b> action. If a site hides the media, use <b>Save Page Screenshot</b> or open externally.</p>
+    <div class="panelActions"><button id="clearDownloads">Clear Trophies</button></div>
+    <div id="downloadsList" class="bookmarksList"></div>
+  </aside>
+
+  <aside id="settingsPanel" class="sidePanel hidden">
+    <h2>Settings</h2>
+    <p class="note">These settings save on this computer.</p>
+    <label class="settingRow">Search engine
+      <select id="searchEngine">
+        <option value="duckduckgo">DuckDuckGo</option>
+        <option value="google">Google</option>
+        <option value="bing">Bing</option>
+      </select>
+    </label>
+    <label class="settingRow"><input id="restoreSession" type="checkbox" /> Restore last session on launch</label>
+    <label class="settingRow"><input id="openHomeNewTab" type="checkbox" /> New tabs open Kayock Home</label>
+    <label class="settingRow">Default page zoom
+      <select id="defaultZoom">
+        <option value="0.9">90%</option>
+        <option value="1">100%</option>
+        <option value="1.1">110%</option>
+        <option value="1.25">125%</option>
+        <option value="1.5">150%</option>
+        <option value="1.75">175%</option>
+        <option value="2">200%</option>
+        <option value="2.25">225%</option>
+        <option value="2.5">250%</option>
+      </select>
+    </label>
+
+    <h3>Reading Comfort — Eagle Eye</h3>
+    <label class="settingRow">Browser UI size
+      <select id="uiSize">
+        <option value="normal">Normal</option>
+        <option value="large">Large</option>
+        <option value="extra">Extra Large</option>
+      </select>
+    </label>
+    <label class="settingRow">Browser font
+      <select id="uiFont">
+        <option value="default">Default Kayock</option>
+        <option value="legible">High Legibility</option>
+        <option value="verdana">Verdana</option>
+        <option value="dyslexic">Dyslexia Friendly</option>
+        <option value="system">System UI</option>
+      </select>
+    </label>
+    <label class="settingRow"><input id="spellcheckUS" type="checkbox" /> US English spell check / Hunter Writing highlights</label>
+    <label class="settingRow"><input id="largeMenus" type="checkbox" /> Larger context menus</label>
+    <label class="settingRow"><input id="reduceMotion" type="checkbox" /> Reduce motion / pulsing effects</label>
+    <div class="permission"><span>Download folder</span><strong id="downloadFolder">Default Windows Downloads folder</strong></div>
+    <div class="panelActions"><button id="chooseDownloadFolder">Choose Download Folder</button><button id="saveSettings">Save Settings</button></div>
+
+    <h3>Kayock Vault</h3>
+    <p class="note">Back up Marks, Tracks, Trophies, Settings, and Hunter Shield trust decisions before upgrading or showing a friend.</p>
+    <div class="panelActions vaultActions">
+      <button id="exportVault">Export Vault</button>
+      <button id="importVault">Import Vault</button>
+      <button id="privacyReset">Privacy Reset</button>
+    </div>
+    <input id="vaultImportFile" type="file" accept="application/json" class="hidden" />
+
+    <p id="settingsSaved" class="note hidden">Settings saved.</p>
+  </aside>
+
+
+  <aside id="workshopPanel" class="sidePanel hidden">
+    <h2>Workshop</h2>
+    <p class="note">Kayock's garage. This is the future home for Repair Bay, local AI, file organizer, image tools, and model manager.</p>
+    <div class="permission"><span>Repair Bay</span><strong>Planned</strong></div>
+    <div class="permission"><span>Local AI</span><strong>Planned</strong></div>
+    <div class="permission"><span>File Organizer</span><strong>Planned</strong></div>
+    <div class="permission"><span>Model Manager</span><strong>Planned</strong></div>
+  </aside>
+
+
+
+  <aside id="diagnosticsPanel" class="sidePanel hidden">
+    <h2>Hunter Diagnostics</h2>
+    <p class="note">Compatibility hotfix log. If a site acts strange, check here first.</p>
+    <div class="permission"><span>Renderer</span><strong id="diagRenderer">Watching</strong></div>
+    <div class="permission"><span>Downloads</span><strong id="diagDownloads">Ready</strong></div>
+    <div class="permission"><span>Shield</span><strong id="diagShield">Active</strong></div>
+    <div class="panelActions"><button id="clearDiagnostics">Clear Diagnostics</button><button id="openCurrentExternal">Open Current Page in System Browser</button></div>
+    <h3>Recent Events</h3>
+    <div id="diagnosticsList" class="trustedList"></div>
+  </aside>
+
+  <aside id="aboutPanel" class="sidePanel hidden">
+    <h2>Hunter's Journal</h2>
+    <p class="note">Kayock Browser 2.4 Alpha — Hunter Workspaces. Comfort build: larger UI options, readable fonts, improved context menus, zoom controls, Hunter Shield, and Daily Driver Alpha fixes.</p>
+    <div class="permission"><span>Build</span><strong>2.3 Alpha</strong></div>
+    <div class="permission"><span>Codename</span><strong>Hunter Workspaces</strong></div>
+    <div class="permission"><span>Engine</span><strong>Electron + Chromium</strong></div>
+    <div class="permission"><span>Theme</span><strong>Ancient blood · modern mind</strong></div>
+    <div class="permission"><span>Hunter Shield</span><strong id="journalShield">Active</strong></div>
+    <div class="permission"><span>Trusted Sites</span><strong id="journalTrusted">0</strong></div>
+    <div class="permission"><span>Marks</span><strong id="journalMarks">0</strong></div>
+    <div class="permission"><span>Tracks</span><strong id="journalTracks">0</strong></div>
+    <div class="permission"><span>Trophies</span><strong id="journalTrophies">0</strong></div>
+    <div class="permission"><span>New in 1.1</span><strong>Fullscreen · Paste · Zoom</strong></div>
+    <p class="note">For showing a friend: use DuckDuckGo, Wikipedia, GitHub, YouTube, and your saved Marks. Trust scripts only on sites you actually know.</p>
+  </aside>
+
+  <main class="browserShell">
+    <section id="home" class="home">
+      <img class="homeLogo" src="assets/kayock-eye-logo.png" alt="Kayock eye logo" />
+      <h1>Kayock the Hunter</h1>
+      <p>Psychic locator. Ancient blood. Modern mind.</p>
+      <form id="homeSearch" class="homeSearch">
+        <input id="homeQuery" type="text" placeholder="Search or enter a site..." />
+        <button type="submit">Begin the Hunt</button>
+      </form>
+      <div class="quickLinks">
+        <button data-url="https://duckduckgo.com">DuckDuckGo</button>
+        <button data-url="https://wikipedia.org">Wikipedia</button>
+        <button data-url="https://github.com">GitHub</button>
+        <button data-url="kayock://history">Tracks</button>
+        <button data-url="kayock://downloads">Trophies</button>
+        <button data-url="kayock://shield">Shield</button>
+        <button data-url="kayock://diagnostics">Diagnostics</button>
+        <button data-url="kayock://about">About</button>
+      </div>
+      <div class="shortcutHint">Shortcuts: Ctrl+T new tab · Ctrl+W close tab · Ctrl+L address bar · Ctrl+J trophies/downloads · Ctrl+U shield · Ctrl +/- zoom · Esc close panels</div>
+    </section>
+
+    <div id="webviews" class="webviews"></div>
+  </main>
+  <div id="hunterToast" class="hunterToast hidden"></div>
+
+  <script src="renderer.js"></script>
+</body>
+</html>

@@ -1,4 +1,4 @@
-Kayock Command OS v10.11.3 - Create Project Approval Gate
+Kayock Command OS v10.12.2 - Chapter Editor Preview
 
 Install:
 1. Backup:
@@ -13,43 +13,41 @@ Install:
    START_FOXAI_WEB_PORTABLE.bat
 
 What changed:
-- Keeps v10.11.2 Story Project Manifest Preview.
-- Adds Create Project Approval Gate page.
+- Keeps v10.12.1 Saved Chapter Health Card.
+- Adds Chapter Editor Preview page.
 - Adds endpoint:
-  POST /api/writer/create_project_gate
+  POST /api/writer/chapter_editor_preview
 
-Approval Gate shows:
-- Proposed project root
-- Proposed manifest target
-- Exact approval phrase
-- Whether typed phrase matches
-- Creation disabled in this build
-- Proposed future writes
-- Target existence checks
-- Overwrite risk checks
-- Parent folder expectations
-- Legacy source files for future copy-only import
-- Copy-only legacy import policy
-- Checks
-- Safety contract
-- Export gate report
-- Send gate report to Mission
+Chapter Editor Preview reads:
+- selected saved Markdown chapter card
+- title and metadata
+- goal / conflict / reveal / hook
+- continuity notes
+- handoff tags JSON
+- draft space
+- safety notes
+
+Editor preview modes:
+- Load Editor Preview: reads saved Markdown into fields.
+- Preview Unsaved Changes: compares typed field changes against current file content.
+- Export Editor Preview: writes report only.
 
 Exports:
-Z:\FOXAI\Reports\KayockWriter\CreateProjectGate\
+Z:\FOXAI\Reports\KayockWriter\ChapterEditorPreview\
 
-Expected current result:
-CREATE PROJECT APPROVAL GATE READY
+Expected current result for Book 2:
+CHAPTER EDITOR PREVIEW READY
 
 Safety:
-Gate preview only.
-Read-only legacy scan.
-No project creation.
+Read-only chapter editor preview.
+No chapter file edit.
 No story-file mutation.
+No project creation.
 No legacy migration.
 No rename performed.
 No overwrite.
 No delete.
+No move.
 No install.
 No model cleanup.
-Only optional gate export.
+Only optional preview export.

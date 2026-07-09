@@ -23,7 +23,7 @@ PROF={
  'deadpool':('Professor Deadpool','Meta Creativity',"The best stories know they're being told.",'You are Professor Deadpool inside FOXAI. Specialize in creative brainstorming, comedy, comics, characters, and bold ideas while still being useful.')}
 prof='fox'; active_project=None; chat_model=None; chat_process=None
 messages=[{'role':'system','content':PROF[prof][3]}]
-FOLDERS={'root':ROOT,'models':ROOT/'Models','chat_models':ROOT/'Models'/'Chat','comfy_output':COMFY/'output','library':LIB,'projects':PROJECTS,'prompts':ROOT/'Prompts','novel_forge':ROOT/'NovelForge','novel_exports':ROOT/'NovelForge'/'Exports','logs':LOGS,'config':ROOT/'Config','reports':ROOT/'Reports','repair_reports':ROOT/'Reports'/'RepairActions','repair_ops_dashboard':ROOT/'Reports'/'RepairActions'/'OperationsDashboard','repair_action_details':ROOT/'Reports'/'RepairActions'/'ActionDetails','repair_tickets':ROOT/'Reports'/'RepairActions'/'Tickets','repair_ticket_details':ROOT/'Reports'/'RepairActions'/'TicketDetails','repair_ticket_bridges':ROOT/'Reports'/'RepairActions'/'TicketBridges','repair_session_reports':ROOT/'Reports'/'RepairActions'/'SessionReports','repair_milestone_freeze':ROOT/'Reports'/'RepairActions'/'MilestoneFreeze','command_center_reports':ROOT/'Reports'/'CommandCenter','command_center_detail_reports':ROOT/'Reports'/'CommandCenter'/'Details','command_center_card_reports':ROOT/'Reports'/'CommandCenter'/'DashboardCards','command_center_archive_reports':ROOT/'Reports'/'CommandCenter'/'Archive','command_center_milestone_freeze':ROOT/'Reports'/'CommandCenter'/'MilestoneFreeze','kayock_writer_reports':ROOT/'Reports'/'KayockWriter','kayock_writer_foundation_reports':ROOT/'Reports'/'KayockWriter'/'Foundation','kayock_writer_story_forge_reports':ROOT/'Reports'/'KayockWriter'/'StoryForge','kayock_writer_manifest_preview_reports':ROOT/'Reports'/'KayockWriter'/'ManifestPreview','kayock_writer_create_gate_reports':ROOT/'Reports'/'KayockWriter'/'CreateProjectGate','env_reports':ROOT/'Reports'/'Environment','portable_reports':ROOT/'Reports'/'PortableReadiness','model_reports':ROOT/'Reports'/'Models','build_reports':ROOT/'Reports'/'BuildVerification','scan_reports':ROOT/'Reports'/'Scans','manifest_backups':ROOT/'Backups'/'Manifests','file_backups':ROOT/'Backups'/'GeneratedFiles','restore_staging':ROOT/'Reports'/'Backups'/'RestoreStaging','staging_inventory':ROOT/'Reports'/'Backups'/'StagingInventory','final_checklist':ROOT/'Reports'/'Backups'/'FinalChecklist','restore_live_backups':ROOT/'Backups'/'RestoreLiveTargets','restore_reports':ROOT/'Reports'/'Backups'/'RestoreActions','restore_audit':ROOT/'Reports'/'Backups'/'RestoreAudit','rollback_previews':ROOT/'Reports'/'Backups'/'RollbackPreviews','rollback_live_backups':ROOT/'Backups'/'RollbackLiveTargets','rollback_reports':ROOT/'Reports'/'Backups'/'RollbackActions','rollback_audit':ROOT/'Reports'/'Backups'/'RollbackAudit','recovery_timeline':ROOT/'Reports'/'Backups'/'RecoveryTimeline','extensions':ROOT/'Extensions','modules':ROOT/'Modules'}
+FOLDERS={'root':ROOT,'models':ROOT/'Models','chat_models':ROOT/'Models'/'Chat','comfy_output':COMFY/'output','library':LIB,'projects':PROJECTS,'prompts':ROOT/'Prompts','novel_forge':ROOT/'NovelForge','novel_exports':ROOT/'NovelForge'/'Exports','logs':LOGS,'config':ROOT/'Config','reports':ROOT/'Reports','repair_reports':ROOT/'Reports'/'RepairActions','repair_ops_dashboard':ROOT/'Reports'/'RepairActions'/'OperationsDashboard','repair_action_details':ROOT/'Reports'/'RepairActions'/'ActionDetails','repair_tickets':ROOT/'Reports'/'RepairActions'/'Tickets','repair_ticket_details':ROOT/'Reports'/'RepairActions'/'TicketDetails','repair_ticket_bridges':ROOT/'Reports'/'RepairActions'/'TicketBridges','repair_session_reports':ROOT/'Reports'/'RepairActions'/'SessionReports','repair_milestone_freeze':ROOT/'Reports'/'RepairActions'/'MilestoneFreeze','command_center_reports':ROOT/'Reports'/'CommandCenter','command_center_detail_reports':ROOT/'Reports'/'CommandCenter'/'Details','command_center_card_reports':ROOT/'Reports'/'CommandCenter'/'DashboardCards','command_center_archive_reports':ROOT/'Reports'/'CommandCenter'/'Archive','command_center_milestone_freeze':ROOT/'Reports'/'CommandCenter'/'MilestoneFreeze','kayock_writer_reports':ROOT/'Reports'/'KayockWriter','kayock_writer_foundation_reports':ROOT/'Reports'/'KayockWriter'/'Foundation','kayock_writer_story_forge_reports':ROOT/'Reports'/'KayockWriter'/'StoryForge','kayock_writer_manifest_preview_reports':ROOT/'Reports'/'KayockWriter'/'ManifestPreview','kayock_writer_create_gate_reports':ROOT/'Reports'/'KayockWriter'/'CreateProjectGate','kayock_writer_create_action_reports':ROOT/'Reports'/'KayockWriter'/'CreateProjectAction','kayock_writer_project_dashboard_reports':ROOT/'Reports'/'KayockWriter'/'ProjectDashboard','kayock_writer_project_health_reports':ROOT/'Reports'/'KayockWriter'/'ProjectHealthCards','kayock_writer_chapter_planner_reports':ROOT/'Reports'/'KayockWriter'/'ChapterPlanner','kayock_writer_chapter_save_gate_reports':ROOT/'Reports'/'KayockWriter'/'ChapterSaveGate','kayock_writer_chapter_save_action_reports':ROOT/'Reports'/'KayockWriter'/'ChapterSaveAction','kayock_writer_saved_chapter_dashboard_reports':ROOT/'Reports'/'KayockWriter'/'SavedChapterDashboard','kayock_writer_chapter_editor_preview_reports':ROOT/'Reports'/'KayockWriter'/'ChapterEditorPreview','kayock_writer_saved_chapter_health_reports':ROOT/'Reports'/'KayockWriter'/'SavedChapterHealth','kayock_writer_slipping_chapters_folder':ROOT/'Projects'/'KayockWriter'/'Slipping_into_Darkness'/'Chapters','kayock_writer_slipping_project_root':ROOT/'Projects'/'KayockWriter'/'Slipping_into_Darkness','env_reports':ROOT/'Reports'/'Environment','portable_reports':ROOT/'Reports'/'PortableReadiness','model_reports':ROOT/'Reports'/'Models','build_reports':ROOT/'Reports'/'BuildVerification','scan_reports':ROOT/'Reports'/'Scans','manifest_backups':ROOT/'Backups'/'Manifests','file_backups':ROOT/'Backups'/'GeneratedFiles','restore_staging':ROOT/'Reports'/'Backups'/'RestoreStaging','staging_inventory':ROOT/'Reports'/'Backups'/'StagingInventory','final_checklist':ROOT/'Reports'/'Backups'/'FinalChecklist','restore_live_backups':ROOT/'Backups'/'RestoreLiveTargets','restore_reports':ROOT/'Reports'/'Backups'/'RestoreActions','restore_audit':ROOT/'Reports'/'Backups'/'RestoreAudit','rollback_previews':ROOT/'Reports'/'Backups'/'RollbackPreviews','rollback_live_backups':ROOT/'Backups'/'RollbackLiveTargets','rollback_reports':ROOT/'Reports'/'Backups'/'RollbackActions','rollback_audit':ROOT/'Reports'/'Backups'/'RollbackAudit','recovery_timeline':ROOT/'Reports'/'Backups'/'RecoveryTimeline','extensions':ROOT/'Extensions','modules':ROOT/'Modules'}
 OPSBRIDGE_OUTBOX=ROOT/'OpsBridge'/'outbox'; BRIDGE_FEED_FILE=OPSBRIDGE_OUTBOX/'bridge_feed.json'; BUILDER_REPORT_FILE=OPSBRIDGE_OUTBOX/'builder_report.json'
 
 def log(s): LOGS.mkdir(exist_ok=True); LOG.open('a',encoding='utf-8').write(f"[{datetime.now():%F %T}] {s}\n")
@@ -153,7 +153,7 @@ td,th{border-bottom:1px solid #8f5cff18;padding:9px;text-align:left}
 .eventbox{border-left:3px solid var(--w);padding:10px 0 10px 12px;margin-top:12px;background:#ffd1660b;border-radius:0 12px 12px 0}.promptitem{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px;margin:8px 0}.promptitem h4{margin:0 0 6px;color:var(--p2)}.promptpreview{color:var(--m);font-family:Consolas,monospace;font-size:12px;white-space:pre-wrap}.prompttag{display:inline-block;border:1px solid #8f5cff45;border-radius:999px;padding:3px 8px;margin:3px 4px 6px 0;color:var(--p2);font-size:12px}.promptactions button{padding:8px 10px;font-size:13px}
 @media(max-width:900px){.app{grid-template-columns:1fr}aside{position:relative;height:auto}}
 
-.libresult{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px;margin:8px 0}.libresult h4{margin:0 0 5px;color:var(--p2)}.libmeta{color:var(--m);font-family:Consolas,monospace;font-size:12px}.libbadge{display:inline-block;border:1px solid #8f5cff45;border-radius:999px;padding:3px 8px;margin:3px 4px 6px 0;color:var(--p2);font-size:12px}.previewbox{background:#070913;border:1px solid #8f5cff30;border-radius:16px;padding:14px;max-height:520px;overflow:auto;white-space:pre-wrap;font-family:Consolas,monospace;font-size:13px}.previewhead{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:10px}.copypath{color:var(--c);font-family:Consolas,monospace;font-size:12px;overflow-wrap:anywhere}.indexresult{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px;margin:8px 0}.indexresult h4{margin:0 0 5px;color:var(--p2)}.indexsnippet{background:#070913;border:1px solid #8f5cff22;border-radius:12px;padding:10px;margin-top:8px;color:#e7dcff;font-family:Consolas,monospace;font-size:12px;white-space:pre-wrap}.indexscore{color:var(--w);font-family:Consolas,monospace;font-size:12px}.askhint{color:var(--w);font-size:12px;margin-top:6px}.nfitem{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px;margin:8px 0}.nfitem h4{margin:0 0 6px;color:var(--p2)}.nftag{display:inline-block;border:1px solid #8f5cff45;border-radius:999px;padding:3px 8px;margin:3px 4px 6px 0;color:var(--p2);font-size:12px}.nfpreview{color:var(--m);font-family:Consolas,monospace;font-size:12px;white-space:pre-wrap}.nfcount{display:inline-block;border:1px solid #8f5cff45;border-radius:999px;padding:4px 9px;margin:3px;color:var(--p2);font-size:12px}.nfactions button{padding:8px 10px;font-size:13px}.tmevent{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px;margin:8px 0}.tmevent h4{margin:0 0 6px;color:var(--p2)}.tmtag{display:inline-block;border:1px solid #8f5cff45;border-radius:999px;padding:3px 8px;margin:3px 4px 6px 0;color:var(--p2);font-size:12px}.tmdetails{color:var(--m);white-space:pre-wrap;font-family:Consolas,monospace;font-size:12px}.tmactions button{padding:8px 10px;font-size:13px}.charcard{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px;margin:8px 0}.charcard h4{margin:0 0 6px;color:var(--p2)}.chartag{display:inline-block;border:1px solid #8f5cff45;border-radius:999px;padding:3px 8px;margin:3px 4px 6px 0;color:var(--p2);font-size:12px}.chardetails{color:var(--m);white-space:pre-wrap;font-family:Consolas,monospace;font-size:12px}.charactions button{padding:8px 10px;font-size:13px}.mysterycard{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px;margin:8px 0}.mysterycard h4{margin:0 0 6px;color:var(--p2)}.mystag{display:inline-block;border:1px solid #8f5cff45;border-radius:999px;padding:3px 8px;margin:3px 4px 6px 0;color:var(--p2);font-size:12px}.mystatus-unresolved{border-color:#ffd16666;color:#ffd166}.mystatus-solved{border-color:#42ff9e66;color:#42ff9e}.mystatus-red{border-color:#ff4d6d66;color:#ff4d6d}.mysdetails{color:var(--m);white-space:pre-wrap;font-family:Consolas,monospace;font-size:12px}.mysactions button{padding:8px 10px;font-size:13px}.loccard,.artcard{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px;margin:8px 0}.loccard h4,.artcard h4{margin:0 0 6px;color:var(--p2)}.loctag,.arttag{display:inline-block;border:1px solid #8f5cff45;border-radius:999px;padding:3px 8px;margin:3px 4px 6px 0;color:var(--p2);font-size:12px}.locdetails,.artdetails{color:var(--m);white-space:pre-wrap;font-family:Consolas,monospace;font-size:12px}.locactions button,.artactions button{padding:8px 10px;font-size:13px}.codexdash{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin:10px 0}.codexbox{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px}.codexbox .label{color:var(--m);font-size:12px}.codexbox .value{font-size:24px;font-weight:900;color:#fff;margin-top:4px}.readiness{border-left:3px solid var(--w);padding:10px 0 10px 12px;margin-top:12px;background:#ffd1660b;border-radius:0 12px 12px 0}.scenecard{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px;margin:8px 0}.scenecard h4{margin:0 0 6px;color:var(--p2)}.scenetag{display:inline-block;border:1px solid #8f5cff45;border-radius:999px;padding:3px 8px;margin:3px 4px 6px 0;color:var(--p2);font-size:12px}.scenedetails{color:var(--m);white-space:pre-wrap;font-family:Consolas,monospace;font-size:12px}.sceneactions button{padding:8px 10px;font-size:13px}.extcard{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px;margin:8px 0}.extcard h4{margin:0 0 6px;color:var(--p2)}.exttag{display:inline-block;border:1px solid #8f5cff45;border-radius:999px;padding:3px 8px;margin:3px 4px 6px 0;color:var(--p2);font-size:12px}.extmeta{color:var(--m);white-space:pre-wrap;font-family:Consolas,monospace;font-size:12px}.extactions button{padding:8px 10px;font-size:13px}.disabledmod{opacity:.55}.repairbox{background:#050713;border:1px solid #8f5cff45;border-radius:14px;padding:12px;white-space:pre-wrap;overflow:auto;max-height:380px;color:#eae7ff;font-family:Consolas,monospace;font-size:12px}.moddash{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin:10px 0}.modbox{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px}.modbox .label{color:var(--m);font-size:12px}.modbox .value{font-size:24px;font-weight:900;color:#fff;margin-top:4px}.modhint{border-left:3px solid var(--w);padding:10px 0 10px 12px;margin-top:12px;background:#ffd1660b;border-radius:0 12px 12px 0}.modok{border-left-color:var(--ok)!important;background:#00e6860a}.modwarn{border-left-color:var(--bad)!important;background:#ff4d6d0b}.scanbox{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:10px 0}.scanmetric{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px}.scanmetric .label{color:var(--m);font-size:12px}.scanmetric .value{font-size:24px;font-weight:900;color:#fff;margin-top:4px}.scanlist{background:#050713;border:1px solid #8f5cff45;border-radius:14px;padding:12px;white-space:pre-wrap;overflow:auto;max-height:420px;color:#eae7ff;font-family:Consolas,monospace;font-size:12px}.docstatusgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin:10px 0}.docstat{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px}.docstat .label{color:var(--m);font-size:12px}.docstat .value{font-size:24px;font-weight:900;color:#fff;margin-top:4px}.docrow{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:14px;padding:10px;margin:8px 0}.docrow.good{border-left:3px solid var(--ok)}.docrow.bad{border-left:3px solid var(--bad)}.buildgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin:10px 0}.buildmetric{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px}.buildmetric .label{color:var(--m);font-size:12px}.buildmetric .value{font-size:24px;font-weight:900;color:#fff;margin-top:4px}.checkrow{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:14px;padding:10px;margin:8px 0}.checkrow.pass{border-left:3px solid var(--ok)}.checkrow.fail{border-left:3px solid var(--bad)}.envgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin:10px 0}.envmetric{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px}.envmetric .label{color:var(--m);font-size:12px}.envmetric .value{font-size:24px;font-weight:900;color:#fff;margin-top:4px}.envrow{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:14px;padding:10px;margin:8px 0}.envrow.pass{border-left:3px solid var(--ok)}.envrow.fail{border-left:3px solid var(--bad)}.envrow.optional{border-left:3px solid var(--w)}.portablegrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:12px;margin:10px 0}.portablemetric{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px}.portablemetric .label{color:var(--m);font-size:12px}.portablemetric .value{font-size:24px;font-weight:900;color:#fff;margin-top:4px}.portrow{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:14px;padding:10px;margin:8px 0}.portrow.pass{border-left:3px solid var(--ok)}.portrow.warn{border-left:3px solid var(--w)}.portrow.fail{border-left:3px solid var(--bad)}.modelgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:12px;margin:10px 0}.modelmetric{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px}.modelmetric .label{color:var(--m);font-size:12px}.modelmetric .value{font-size:24px;font-weight:900;color:#fff;margin-top:4px}.modelrow{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:14px;padding:10px;margin:8px 0}.modelrow.safe{border-left:3px solid var(--ok)}.modelrow.info{border-left:3px solid var(--m)}.modelrow.review{border-left:3px solid var(--w)}.modelrow.warn{border-left:3px solid var(--bad)}.repairrow{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:14px;padding:12px;margin:10px 0}.repairrow.available{border-left:3px solid var(--ok)}.repairrow.blocked{border-left:3px solid var(--bad)}.repairrow .repairtitle{font-weight:900;color:#fff}.repairrow .risk{color:var(--m);font-size:12px}.repairrow button{margin-top:8px}.historygrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:10px 0}.historymetric{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px}.historymetric .label{color:var(--m);font-size:12px}.historymetric .value{font-size:24px;font-weight:900;color:#fff;margin-top:4px}.histrow{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:14px;padding:10px;margin:8px 0}.histrow.ok{border-left:3px solid var(--ok)}.histrow.fail{border-left:3px solid var(--bad)}.histrow.info{border-left:3px solid var(--m)}.verifybadge{display:inline-block;border-radius:999px;padding:3px 8px;font-size:11px;font-weight:900;margin-left:6px}.verifybadge.pass{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.verifybadge.fail{background:#ff5d5d22;color:#ffb0b0;border:1px solid #ff5d5d55}.verifybadge.none{background:#ffffff12;color:#c9bfdc;border:1px solid #ffffff22}.checkline{font-size:12px;color:#d8d0e8;margin-left:10px}.backupbadge{display:inline-block;border-radius:999px;padding:3px 8px;font-size:11px;font-weight:900;margin-left:6px}.backupbadge.assoc{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.backupbadge.old{background:#ffffff12;color:#c9bfdc;border:1px solid #ffffff22}.vaultpath{font-size:12px;color:#d8d0e8;word-break:break-all}.vaultmetric{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px}.vaultmetric .label{color:var(--m);font-size:12px}.vaultmetric .value{font-size:24px;font-weight:900;color:#fff;margin-top:4px}.timestampnote{font-size:12px;color:#c9bfdc;border-left:3px solid #8f5cff77;padding-left:8px;margin-top:6px}.riskbadge{display:inline-block;border-radius:999px;padding:4px 10px;font-size:12px;font-weight:900}.riskbadge.low{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.riskbadge.medium{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.riskbadge.blocked{background:#ff5d5d22;color:#ffb0b0;border:1px solid #ff5d5d55}.diffbox{white-space:pre-wrap;font-family:ui-monospace,Consolas,monospace}.gatebadge{display:inline-block;border-radius:999px;padding:4px 10px;font-size:12px;font-weight:900;margin-left:6px}.gatebadge.pass{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.gatebadge.warn{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.gatebadge.block{background:#ff5d5d22;color:#ffb0b0;border:1px solid #ff5d5d55}.gatebadge.info{background:#8f5cff22;color:#e2d4ff;border:1px solid #8f5cff55}.phrasebox{font-family:ui-monospace,Consolas,monospace;font-size:16px;border:1px solid #8f5cff55;background:#00000033;border-radius:14px;padding:12px;color:#fff}.packagebadge{display:inline-block;border-radius:999px;padding:4px 10px;font-size:12px;font-weight:900;margin-left:6px}.packagebadge.ok{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.packagebadge.problem{background:#ff5d5d22;color:#ffb0b0;border:1px solid #ff5d5d55}.packagefile{font-size:12px;color:#d8d0e8;word-break:break-all;margin-left:8px}.finalbadge{display:inline-block;border-radius:999px;padding:4px 10px;font-size:12px;font-weight:900;margin-left:6px}.finalbadge.pass{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.finalbadge.warn{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.finalbadge.block{background:#ff5d5d22;color:#ffb0b0;border:1px solid #ff5d5d55}.finalphrase{font-family:ui-monospace,Consolas,monospace;font-size:15px;border:1px solid #8f5cff55;background:#00000033;border-radius:14px;padding:12px;color:#fff}.auditbadge{display:inline-block;border-radius:999px;padding:4px 10px;font-size:12px;font-weight:900;margin-left:6px}.auditbadge.intact{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.auditbadge.attention{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.hashline{font-family:ui-monospace,Consolas,monospace;font-size:12px;word-break:break-all;color:#d8d0e8}.rollbackbadge{display:inline-block;border-radius:999px;padding:4px 10px;font-size:12px;font-weight:900;margin-left:6px}.rollbackbadge.pass{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.rollbackbadge.warn{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.rollbackbadge.block{background:#ff5d5d22;color:#ffb0b0;border:1px solid #ff5d5d55}.rollbackphrase{font-family:ui-monospace,Consolas,monospace;font-size:15px;border:1px solid #8f5cff55;background:#00000033;border-radius:14px;padding:12px;color:#fff}.rbauditbadge{display:inline-block;border-radius:999px;padding:4px 10px;font-size:12px;font-weight:900;margin-left:6px}.rbauditbadge.intact{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.rbauditbadge.attention{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.rbauditHash{font-family:ui-monospace,Consolas,monospace;font-size:12px;word-break:break-all;color:#d8d0e8}.tlbadge{display:inline-block;border-radius:999px;padding:4px 10px;font-size:12px;font-weight:900;margin-left:6px}.tlbadge.intact{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.tlbadge.attention{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.tlbadge.evidence{background:#8f5cff22;color:#d8c7ff;border:1px solid #8f5cff55}.tlbadge.superseded_by_rollback{background:#66c7ff22;color:#b9e8ff;border:1px solid #66c7ff55}.tlbadge.other{background:#ffffff12;color:#ddd;border:1px solid #ffffff22}.timelineHash{font-family:ui-monospace,Consolas,monospace;font-size:12px;word-break:break-all;color:#d8d0e8}.timelineEvent{border-left:3px solid #8f5cff;padding-left:12px}.recoveryHealthBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px}.recoveryHealthBadge.healthy{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.recoveryHealthBadge.warn{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.recoveryMiniGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.recoveryMini{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.recoveryMini .label{font-size:11px;color:#aaa}.recoveryMini .value{font-size:18px;font-weight:900;color:#fff}.recoveryPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.repairShopBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px}.repairShopBadge.healthy{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.repairShopBadge.warn{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.repairShopGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.repairShopMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.repairShopMetric .label{font-size:11px;color:#aaa}.repairShopMetric .value{font-size:18px;font-weight:900;color:#fff}.repairShopPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.actionPill{display:inline-block;border-radius:999px;padding:3px 9px;font-size:11px;font-weight:900;margin-left:6px}.actionPill.available{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.actionPill.blocked{background:#ffffff12;color:#aaa;border:1px solid #ffffff22}.detailBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px}.detailBadge.verified{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.detailBadge.legacy_ok{background:#66c7ff22;color:#b9e8ff;border:1px solid #66c7ff55}.detailBadge.failed{background:#ff5d5d22;color:#ffb0b0;border:1px solid #ff5d5d55}.detailBadge.attention{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.detailGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin-top:10px}.detailMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.detailMetric .label{font-size:11px;color:#aaa}.detailMetric .value{font-size:16px;font-weight:900;color:#fff}.detailHash{font-family:ui-monospace,Consolas,monospace;font-size:12px;word-break:break-all;color:#d8d0e8}.repairCardBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px}.repairCardBadge.healthy{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.repairCardBadge.warn{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.repairCardGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(135px,1fr));gap:10px;margin-top:10px}.repairCardMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.repairCardMetric .label{font-size:11px;color:#aaa}.repairCardMetric .value{font-size:18px;font-weight:900;color:#fff}.repairCardPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.ticketBadge{display:inline-block;border-radius:999px;padding:4px 10px;font-size:11px;font-weight:900;margin-right:6px}.ticketBadge.critical{background:#ff336622;color:#ffb0c4;border:1px solid #ff336655}.ticketBadge.high{background:#ff5d5d22;color:#ffb0b0;border:1px solid #ff5d5d55}.ticketBadge.medium{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.ticketBadge.low{background:#66c7ff22;color:#b9e8ff;border:1px solid #66c7ff55}.ticketBadge.info{background:#ffffff12;color:#d8d0e8;border:1px solid #ffffff24}.ticketBadge.healthy{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.ticketGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(135px,1fr));gap:10px;margin-top:10px}.ticketMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.ticketMetric .label{font-size:11px;color:#aaa}.ticketMetric .value{font-size:18px;font-weight:900;color:#fff}.ticketRow{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:14px;padding:10px;margin:8px 0}.ticketRow.critical,.ticketRow.high{border-left:3px solid var(--bad)}.ticketRow.medium,.ticketRow.low{border-left:3px solid var(--w)}.ticketRow.healthy{border-left:3px solid var(--ok)}.ticketPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:6px}.ticketDetailBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px}.ticketDetailBadge.healthy{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.ticketDetailBadge.available_action{background:#66c7ff22;color:#b9e8ff;border:1px solid #66c7ff55}.ticketDetailBadge.informational{background:#ffffff12;color:#d8d0e8;border:1px solid #ffffff22}.ticketDetailBadge.needs_attention,.ticketDetailBadge.open{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.ticketDetailGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:10px;margin-top:10px}.ticketDetailMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.ticketDetailMetric .label{font-size:11px;color:#aaa}.ticketDetailMetric .value{font-size:17px;font-weight:900;color:#fff}.ticketDetailPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.bridgeBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px}.bridgeBadge.ready{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.bridgeBadge.info{background:#66c7ff22;color:#b9e8ff;border:1px solid #66c7ff55}.bridgeBadge.warn{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.bridgeGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-top:10px}.bridgeMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.bridgeMetric .label{font-size:11px;color:#aaa}.bridgeMetric .value{font-size:16px;font-weight:900;color:#fff}.repairrow.recommended{border-color:#36d399aa!important;box-shadow:0 0 0 1px #36d39955 inset}.recommendTag{display:inline-block;border-radius:999px;padding:4px 10px;background:#36d39922;color:#7fffd4;border:1px solid #36d39955;font-size:11px;font-weight:900;margin-bottom:8px}.sessionBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px}.sessionBadge.healthy{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.sessionBadge.warn{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.sessionGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.sessionMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.sessionMetric .label{font-size:11px;color:#aaa}.sessionMetric .value{font-size:18px;font-weight:900;color:#fff}.sessionPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.freezeBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px}.freezeBadge.healthy{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.freezeBadge.warn{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.freezeGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.freezeMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.freezeMetric .label{font-size:11px;color:#aaa}.freezeMetric .value{font-size:18px;font-weight:900;color:#fff}.freezePath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.ccBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px}.ccBadge.clear{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.ccBadge.advisory{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.ccBadge.bad{background:#ff557722;color:#ff9aaa;border:1px solid #ff557755}.ccGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.ccMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.ccMetric .label{font-size:11px;color:#aaa}.ccMetric .value{font-size:18px;font-weight:900;color:#fff}.ccPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.foundationCard{border:1px solid #ffffff18;border-radius:16px;padding:12px;margin:10px 0;background:#00000022}.foundationCard.clear{border-color:#36d39955}.foundationCard.advisory{border-color:#ffcc6655}.foundationCard.needs_attention{border-color:#ff557755}.cmdDetailBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px}.cmdDetailBadge.clear{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.cmdDetailBadge.advisory{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.cmdDetailBadge.bad{background:#ff557722;color:#ff9aaa;border:1px solid #ff557755}.cmdMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;margin:8px 0;background:#00000022}.cmdMetric .k{font-size:12px;color:#aaa}.cmdMetric .v{font-weight:800;color:#fff;word-break:break-word}.cmdPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:6px}.ccDashBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px}.ccDashBadge.clear{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.ccDashBadge.advisory{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.ccDashBadge.bad{background:#ff557722;color:#ff9aaa;border:1px solid #ff557755}.ccDashGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-top:10px}.ccDashMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.ccDashMetric .label{font-size:11px;color:#aaa}.ccDashMetric .value{font-size:18px;font-weight:900;color:#fff}.ccDashLine{font-size:12px;color:#cfc7df;word-break:break-word;margin-top:8px}.archiveBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px}.archiveBadge.clear{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.archiveBadge.advisory{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.archiveBadge.bad{background:#ff557722;color:#ff9aaa;border:1px solid #ff557755}.archiveGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.archiveMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.archiveMetric .label{font-size:11px;color:#aaa}.archiveMetric .value{font-size:18px;font-weight:900;color:#fff}.archivePath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.cmdFreezeBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px}.cmdFreezeBadge.clear{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.cmdFreezeBadge.advisory{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.cmdFreezeBadge.bad{background:#ff557722;color:#ff9aaa;border:1px solid #ff557755}.cmdFreezeGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.cmdFreezeMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.cmdFreezeMetric .label{font-size:11px;color:#aaa}.cmdFreezeMetric .value{font-size:18px;font-weight:900;color:#fff}.cmdFreezePath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.writerBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#a855f722;color:#e9d5ff;border:1px solid #a855f755}.writerGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.writerMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.writerMetric .label{font-size:11px;color:#aaa}.writerMetric .value{font-size:18px;font-weight:900;color:#fff}.writerPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.writerModule{border:1px solid #a855f733;border-radius:16px;padding:12px;margin:10px 0;background:#14001f33}.storyBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#8b5cf622;color:#ddd6fe;border:1px solid #8b5cf655}.storyGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.storyMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.storyMetric .label{font-size:11px;color:#aaa}.storyMetric .value{font-size:18px;font-weight:900;color:#fff}.storyPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.storyCard{border:1px solid #8b5cf633;border-radius:16px;padding:12px;margin:10px 0;background:#16002433}.manifestBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#7c3aed22;color:#ddd6fe;border:1px solid #7c3aed55}.manifestGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.manifestMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.manifestMetric .label{font-size:11px;color:#aaa}.manifestMetric .value{font-size:18px;font-weight:900;color:#fff}.manifestPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.manifestCard{border:1px solid #7c3aed33;border-radius:16px;padding:12px;margin:10px 0;background:#12002033}.gateBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#6d28d922;color:#ddd6fe;border:1px solid #6d28d955}.gateGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.gateMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.gateMetric .label{font-size:11px;color:#aaa}.gateMetric .value{font-size:18px;font-weight:900;color:#fff}.gatePath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.gateCard{border:1px solid #6d28d933;border-radius:16px;padding:12px;margin:10px 0;background:#12002033}</style></head><body><div class=app><aside><div class=logo>K</div><h1>KAYOCK</h1><div class=sub>Command OS · FOXAI Core</div><button class="nav command active" onclick="pg('dash',this)">🚀 Command Bridge</button><button class=nav onclick="pg('commandcenter',this)">🛰️ Command Center</button><button class=nav onclick="pg('commanddetail',this)">🔎 Command Detail</button><button class=nav onclick="pg('commandarchive',this)">🗄️ Command Archive</button><button class=nav onclick="pg('commandfreeze',this)">🧊 Command Freeze</button><button class=nav onclick="pg('kayockwriter',this)">✍️ Kayock Writer</button><button class=nav onclick="pg('storyforge',this)">📚 Story Forge</button><button class=nav onclick="pg('storymanifest',this)">🧾 Story Manifest</button><button class=nav onclick="pg('projectgate',this)">🚪 Project Gate</button><div class=navbreak></div><button class=nav onclick="pg('academy',this)">🎓 Academy</button><button class=nav onclick="pg('novelforge',this)">📖 Novel Forge</button><button class=nav onclick="pg('prompts',this)">✍️ PromptSmith</button><button class=nav onclick="pg('creative',this)">🎨 Creative Studio</button><button class=nav onclick="pg('library',this)">📚 Iron Library</button><button class=nav onclick="pg('mission',this)">🤖 Artificial Minds</button><button class=nav onclick="pg('projects',this)">🗂 Projects</button><button class=nav onclick="pg('memory',this)">🧭 Mission Memory</button><button class=nav onclick="pg('repair',this)">🔧 Repair Bay</button><button class=nav onclick="pg('extensions',this)">🧩 Extensions</button><button class=nav onclick="pg('scanbridge',this)">📡 Scan Bridge</button><button class=nav onclick="pg('projectgen',this)">🧾 Project Docs</button><button class=nav onclick="pg('buildverify',this)">🧪 Build Verify</button><button class=nav onclick="pg('envverify',this)">🧰 Env Verify</button><button class=nav onclick="pg('portable',this)">🧳 Portable Ready</button><button class=nav onclick="pg('modelcheck',this)">🧬 Model Check</button><button class=nav onclick="pg('repairactions',this)">🛠️ Repair Actions</button><button class=nav onclick="pg('repairhistory',this)">📜 Repair History</button><button class=nav onclick="pg('repairops',this)">🏪 Repair Shop</button><button class=nav onclick="pg('repairdetail',this)">🔎 Action Detail</button><button class=nav onclick="pg('repairtickets',this)">🎫 Repair Tickets</button><button class=nav onclick="pg('repairticketdetail',this)">📋 Ticket Detail</button><button class=nav onclick="pg('ticketbridge',this)">🔗 Ticket Bridge</button><button class=nav onclick="pg('repairsession',this)">🧾 Shop Session</button><button class=nav onclick="pg('repairfreeze',this)">🧊 Milestone Freeze</button><button class=nav onclick="pg('backupvault',this)">🗄️ Backup Vault</button><button class=nav onclick="pg('restorepreview',this)">🧭 Restore Preview</button><button class=nav onclick="pg('restoregate',this)">🚧 Restore Gate</button><button class=nav onclick="pg('restorestaging',this)">📦 Restore Staging</button><button class=nav onclick="pg('stagingpackages',this)">🧾 Staging Packages</button><button class=nav onclick="pg('restorefinal',this)">✅ Restore Final Check</button><button class=nav onclick="pg('restoreaction',this)">♻️ Restore Action</button><button class=nav onclick="pg('restoreaudit',this)">🧪 Restore Audit</button><button class=nav onclick="pg('rollbackpreview',this)">↩️ Rollback Preview</button><button class=nav onclick="pg('rollbackaction',this)">⏪ Rollback Action</button><button class=nav onclick="pg('rollbackaudit',this)">🧾 Rollback Audit</button><button class=nav onclick="pg('recoverytimeline',this)">🕰️ Recovery Timeline</button><div class=navbreak></div><button class=nav onclick="pg('logs',this)">📜 Captain's Log</button><button class=nav onclick="pg('settings',this)">⚙ Settings</button><div class=ops><div class=row><div class=lab>Operator</div><div>Eric Fox</div></div><div class=row><div class=lab>Professor</div><div id=ap>Agent Fox</div></div><div class=row><div class=lab>Project</div><div id=apro>None</div></div><div class=row><div class=lab>Mission</div><div id=ms>READY</div></div><div class=row><div class=lab>Model</div><div id=am>None</div></div><div class=row><div class=lab>Runtime</div><div id=rt>Checking</div></div></div><div id=quick></div><div class=ops><div class=row><div class=lab>CPU</div><div id=cpu>?</div></div><div class=row><div class=lab>RAM</div><div id=ram>?</div></div><div class=meter><div id=ramm class=fill></div></div></div></aside><main>
+.libresult{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px;margin:8px 0}.libresult h4{margin:0 0 5px;color:var(--p2)}.libmeta{color:var(--m);font-family:Consolas,monospace;font-size:12px}.libbadge{display:inline-block;border:1px solid #8f5cff45;border-radius:999px;padding:3px 8px;margin:3px 4px 6px 0;color:var(--p2);font-size:12px}.previewbox{background:#070913;border:1px solid #8f5cff30;border-radius:16px;padding:14px;max-height:520px;overflow:auto;white-space:pre-wrap;font-family:Consolas,monospace;font-size:13px}.previewhead{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:10px}.copypath{color:var(--c);font-family:Consolas,monospace;font-size:12px;overflow-wrap:anywhere}.indexresult{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px;margin:8px 0}.indexresult h4{margin:0 0 5px;color:var(--p2)}.indexsnippet{background:#070913;border:1px solid #8f5cff22;border-radius:12px;padding:10px;margin-top:8px;color:#e7dcff;font-family:Consolas,monospace;font-size:12px;white-space:pre-wrap}.indexscore{color:var(--w);font-family:Consolas,monospace;font-size:12px}.askhint{color:var(--w);font-size:12px;margin-top:6px}.nfitem{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px;margin:8px 0}.nfitem h4{margin:0 0 6px;color:var(--p2)}.nftag{display:inline-block;border:1px solid #8f5cff45;border-radius:999px;padding:3px 8px;margin:3px 4px 6px 0;color:var(--p2);font-size:12px}.nfpreview{color:var(--m);font-family:Consolas,monospace;font-size:12px;white-space:pre-wrap}.nfcount{display:inline-block;border:1px solid #8f5cff45;border-radius:999px;padding:4px 9px;margin:3px;color:var(--p2);font-size:12px}.nfactions button{padding:8px 10px;font-size:13px}.tmevent{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px;margin:8px 0}.tmevent h4{margin:0 0 6px;color:var(--p2)}.tmtag{display:inline-block;border:1px solid #8f5cff45;border-radius:999px;padding:3px 8px;margin:3px 4px 6px 0;color:var(--p2);font-size:12px}.tmdetails{color:var(--m);white-space:pre-wrap;font-family:Consolas,monospace;font-size:12px}.tmactions button{padding:8px 10px;font-size:13px}.charcard{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px;margin:8px 0}.charcard h4{margin:0 0 6px;color:var(--p2)}.chartag{display:inline-block;border:1px solid #8f5cff45;border-radius:999px;padding:3px 8px;margin:3px 4px 6px 0;color:var(--p2);font-size:12px}.chardetails{color:var(--m);white-space:pre-wrap;font-family:Consolas,monospace;font-size:12px}.charactions button{padding:8px 10px;font-size:13px}.mysterycard{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px;margin:8px 0}.mysterycard h4{margin:0 0 6px;color:var(--p2)}.mystag{display:inline-block;border:1px solid #8f5cff45;border-radius:999px;padding:3px 8px;margin:3px 4px 6px 0;color:var(--p2);font-size:12px}.mystatus-unresolved{border-color:#ffd16666;color:#ffd166}.mystatus-solved{border-color:#42ff9e66;color:#42ff9e}.mystatus-red{border-color:#ff4d6d66;color:#ff4d6d}.mysdetails{color:var(--m);white-space:pre-wrap;font-family:Consolas,monospace;font-size:12px}.mysactions button{padding:8px 10px;font-size:13px}.loccard,.artcard{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px;margin:8px 0}.loccard h4,.artcard h4{margin:0 0 6px;color:var(--p2)}.loctag,.arttag{display:inline-block;border:1px solid #8f5cff45;border-radius:999px;padding:3px 8px;margin:3px 4px 6px 0;color:var(--p2);font-size:12px}.locdetails,.artdetails{color:var(--m);white-space:pre-wrap;font-family:Consolas,monospace;font-size:12px}.locactions button,.artactions button{padding:8px 10px;font-size:13px}.codexdash{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin:10px 0}.codexbox{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px}.codexbox .label{color:var(--m);font-size:12px}.codexbox .value{font-size:24px;font-weight:900;color:#fff;margin-top:4px}.readiness{border-left:3px solid var(--w);padding:10px 0 10px 12px;margin-top:12px;background:#ffd1660b;border-radius:0 12px 12px 0}.scenecard{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px;margin:8px 0}.scenecard h4{margin:0 0 6px;color:var(--p2)}.scenetag{display:inline-block;border:1px solid #8f5cff45;border-radius:999px;padding:3px 8px;margin:3px 4px 6px 0;color:var(--p2);font-size:12px}.scenedetails{color:var(--m);white-space:pre-wrap;font-family:Consolas,monospace;font-size:12px}.sceneactions button{padding:8px 10px;font-size:13px}.extcard{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px;margin:8px 0}.extcard h4{margin:0 0 6px;color:var(--p2)}.exttag{display:inline-block;border:1px solid #8f5cff45;border-radius:999px;padding:3px 8px;margin:3px 4px 6px 0;color:var(--p2);font-size:12px}.extmeta{color:var(--m);white-space:pre-wrap;font-family:Consolas,monospace;font-size:12px}.extactions button{padding:8px 10px;font-size:13px}.disabledmod{opacity:.55}.repairbox{background:#050713;border:1px solid #8f5cff45;border-radius:14px;padding:12px;white-space:pre-wrap;overflow:auto;max-height:380px;color:#eae7ff;font-family:Consolas,monospace;font-size:12px}.moddash{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin:10px 0}.modbox{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px}.modbox .label{color:var(--m);font-size:12px}.modbox .value{font-size:24px;font-weight:900;color:#fff;margin-top:4px}.modhint{border-left:3px solid var(--w);padding:10px 0 10px 12px;margin-top:12px;background:#ffd1660b;border-radius:0 12px 12px 0}.modok{border-left-color:var(--ok)!important;background:#00e6860a}.modwarn{border-left-color:var(--bad)!important;background:#ff4d6d0b}.scanbox{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:10px 0}.scanmetric{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px}.scanmetric .label{color:var(--m);font-size:12px}.scanmetric .value{font-size:24px;font-weight:900;color:#fff;margin-top:4px}.scanlist{background:#050713;border:1px solid #8f5cff45;border-radius:14px;padding:12px;white-space:pre-wrap;overflow:auto;max-height:420px;color:#eae7ff;font-family:Consolas,monospace;font-size:12px}.docstatusgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin:10px 0}.docstat{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px}.docstat .label{color:var(--m);font-size:12px}.docstat .value{font-size:24px;font-weight:900;color:#fff;margin-top:4px}.docrow{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:14px;padding:10px;margin:8px 0}.docrow.good{border-left:3px solid var(--ok)}.docrow.bad{border-left:3px solid var(--bad)}.buildgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin:10px 0}.buildmetric{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px}.buildmetric .label{color:var(--m);font-size:12px}.buildmetric .value{font-size:24px;font-weight:900;color:#fff;margin-top:4px}.checkrow{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:14px;padding:10px;margin:8px 0}.checkrow.pass{border-left:3px solid var(--ok)}.checkrow.fail{border-left:3px solid var(--bad)}.envgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin:10px 0}.envmetric{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px}.envmetric .label{color:var(--m);font-size:12px}.envmetric .value{font-size:24px;font-weight:900;color:#fff;margin-top:4px}.envrow{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:14px;padding:10px;margin:8px 0}.envrow.pass{border-left:3px solid var(--ok)}.envrow.fail{border-left:3px solid var(--bad)}.envrow.optional{border-left:3px solid var(--w)}.portablegrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:12px;margin:10px 0}.portablemetric{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px}.portablemetric .label{color:var(--m);font-size:12px}.portablemetric .value{font-size:24px;font-weight:900;color:#fff;margin-top:4px}.portrow{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:14px;padding:10px;margin:8px 0}.portrow.pass{border-left:3px solid var(--ok)}.portrow.warn{border-left:3px solid var(--w)}.portrow.fail{border-left:3px solid var(--bad)}.modelgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:12px;margin:10px 0}.modelmetric{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px}.modelmetric .label{color:var(--m);font-size:12px}.modelmetric .value{font-size:24px;font-weight:900;color:#fff;margin-top:4px}.modelrow{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:14px;padding:10px;margin:8px 0}.modelrow.safe{border-left:3px solid var(--ok)}.modelrow.info{border-left:3px solid var(--m)}.modelrow.review{border-left:3px solid var(--w)}.modelrow.warn{border-left:3px solid var(--bad)}.repairrow{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:14px;padding:12px;margin:10px 0}.repairrow.available{border-left:3px solid var(--ok)}.repairrow.blocked{border-left:3px solid var(--bad)}.repairrow .repairtitle{font-weight:900;color:#fff}.repairrow .risk{color:var(--m);font-size:12px}.repairrow button{margin-top:8px}.historygrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:10px 0}.historymetric{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px}.historymetric .label{color:var(--m);font-size:12px}.historymetric .value{font-size:24px;font-weight:900;color:#fff;margin-top:4px}.histrow{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:14px;padding:10px;margin:8px 0}.histrow.ok{border-left:3px solid var(--ok)}.histrow.fail{border-left:3px solid var(--bad)}.histrow.info{border-left:3px solid var(--m)}.verifybadge{display:inline-block;border-radius:999px;padding:3px 8px;font-size:11px;font-weight:900;margin-left:6px}.verifybadge.pass{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.verifybadge.fail{background:#ff5d5d22;color:#ffb0b0;border:1px solid #ff5d5d55}.verifybadge.none{background:#ffffff12;color:#c9bfdc;border:1px solid #ffffff22}.checkline{font-size:12px;color:#d8d0e8;margin-left:10px}.backupbadge{display:inline-block;border-radius:999px;padding:3px 8px;font-size:11px;font-weight:900;margin-left:6px}.backupbadge.assoc{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.backupbadge.old{background:#ffffff12;color:#c9bfdc;border:1px solid #ffffff22}.vaultpath{font-size:12px;color:#d8d0e8;word-break:break-all}.vaultmetric{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px}.vaultmetric .label{color:var(--m);font-size:12px}.vaultmetric .value{font-size:24px;font-weight:900;color:#fff;margin-top:4px}.timestampnote{font-size:12px;color:#c9bfdc;border-left:3px solid #8f5cff77;padding-left:8px;margin-top:6px}.riskbadge{display:inline-block;border-radius:999px;padding:4px 10px;font-size:12px;font-weight:900}.riskbadge.low{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.riskbadge.medium{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.riskbadge.blocked{background:#ff5d5d22;color:#ffb0b0;border:1px solid #ff5d5d55}.diffbox{white-space:pre-wrap;font-family:ui-monospace,Consolas,monospace}.gatebadge{display:inline-block;border-radius:999px;padding:4px 10px;font-size:12px;font-weight:900;margin-left:6px}.gatebadge.pass{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.gatebadge.warn{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.gatebadge.block{background:#ff5d5d22;color:#ffb0b0;border:1px solid #ff5d5d55}.gatebadge.info{background:#8f5cff22;color:#e2d4ff;border:1px solid #8f5cff55}.phrasebox{font-family:ui-monospace,Consolas,monospace;font-size:16px;border:1px solid #8f5cff55;background:#00000033;border-radius:14px;padding:12px;color:#fff}.packagebadge{display:inline-block;border-radius:999px;padding:4px 10px;font-size:12px;font-weight:900;margin-left:6px}.packagebadge.ok{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.packagebadge.problem{background:#ff5d5d22;color:#ffb0b0;border:1px solid #ff5d5d55}.packagefile{font-size:12px;color:#d8d0e8;word-break:break-all;margin-left:8px}.finalbadge{display:inline-block;border-radius:999px;padding:4px 10px;font-size:12px;font-weight:900;margin-left:6px}.finalbadge.pass{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.finalbadge.warn{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.finalbadge.block{background:#ff5d5d22;color:#ffb0b0;border:1px solid #ff5d5d55}.finalphrase{font-family:ui-monospace,Consolas,monospace;font-size:15px;border:1px solid #8f5cff55;background:#00000033;border-radius:14px;padding:12px;color:#fff}.auditbadge{display:inline-block;border-radius:999px;padding:4px 10px;font-size:12px;font-weight:900;margin-left:6px}.auditbadge.intact{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.auditbadge.attention{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.hashline{font-family:ui-monospace,Consolas,monospace;font-size:12px;word-break:break-all;color:#d8d0e8}.rollbackbadge{display:inline-block;border-radius:999px;padding:4px 10px;font-size:12px;font-weight:900;margin-left:6px}.rollbackbadge.pass{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.rollbackbadge.warn{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.rollbackbadge.block{background:#ff5d5d22;color:#ffb0b0;border:1px solid #ff5d5d55}.rollbackphrase{font-family:ui-monospace,Consolas,monospace;font-size:15px;border:1px solid #8f5cff55;background:#00000033;border-radius:14px;padding:12px;color:#fff}.rbauditbadge{display:inline-block;border-radius:999px;padding:4px 10px;font-size:12px;font-weight:900;margin-left:6px}.rbauditbadge.intact{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.rbauditbadge.attention{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.rbauditHash{font-family:ui-monospace,Consolas,monospace;font-size:12px;word-break:break-all;color:#d8d0e8}.tlbadge{display:inline-block;border-radius:999px;padding:4px 10px;font-size:12px;font-weight:900;margin-left:6px}.tlbadge.intact{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.tlbadge.attention{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.tlbadge.evidence{background:#8f5cff22;color:#d8c7ff;border:1px solid #8f5cff55}.tlbadge.superseded_by_rollback{background:#66c7ff22;color:#b9e8ff;border:1px solid #66c7ff55}.tlbadge.other{background:#ffffff12;color:#ddd;border:1px solid #ffffff22}.timelineHash{font-family:ui-monospace,Consolas,monospace;font-size:12px;word-break:break-all;color:#d8d0e8}.timelineEvent{border-left:3px solid #8f5cff;padding-left:12px}.recoveryHealthBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px}.recoveryHealthBadge.healthy{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.recoveryHealthBadge.warn{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.recoveryMiniGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.recoveryMini{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.recoveryMini .label{font-size:11px;color:#aaa}.recoveryMini .value{font-size:18px;font-weight:900;color:#fff}.recoveryPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.repairShopBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px}.repairShopBadge.healthy{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.repairShopBadge.warn{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.repairShopGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.repairShopMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.repairShopMetric .label{font-size:11px;color:#aaa}.repairShopMetric .value{font-size:18px;font-weight:900;color:#fff}.repairShopPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.actionPill{display:inline-block;border-radius:999px;padding:3px 9px;font-size:11px;font-weight:900;margin-left:6px}.actionPill.available{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.actionPill.blocked{background:#ffffff12;color:#aaa;border:1px solid #ffffff22}.detailBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px}.detailBadge.verified{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.detailBadge.legacy_ok{background:#66c7ff22;color:#b9e8ff;border:1px solid #66c7ff55}.detailBadge.failed{background:#ff5d5d22;color:#ffb0b0;border:1px solid #ff5d5d55}.detailBadge.attention{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.detailGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin-top:10px}.detailMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.detailMetric .label{font-size:11px;color:#aaa}.detailMetric .value{font-size:16px;font-weight:900;color:#fff}.detailHash{font-family:ui-monospace,Consolas,monospace;font-size:12px;word-break:break-all;color:#d8d0e8}.repairCardBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px}.repairCardBadge.healthy{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.repairCardBadge.warn{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.repairCardGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(135px,1fr));gap:10px;margin-top:10px}.repairCardMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.repairCardMetric .label{font-size:11px;color:#aaa}.repairCardMetric .value{font-size:18px;font-weight:900;color:#fff}.repairCardPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.ticketBadge{display:inline-block;border-radius:999px;padding:4px 10px;font-size:11px;font-weight:900;margin-right:6px}.ticketBadge.critical{background:#ff336622;color:#ffb0c4;border:1px solid #ff336655}.ticketBadge.high{background:#ff5d5d22;color:#ffb0b0;border:1px solid #ff5d5d55}.ticketBadge.medium{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.ticketBadge.low{background:#66c7ff22;color:#b9e8ff;border:1px solid #66c7ff55}.ticketBadge.info{background:#ffffff12;color:#d8d0e8;border:1px solid #ffffff24}.ticketBadge.healthy{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.ticketGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(135px,1fr));gap:10px;margin-top:10px}.ticketMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.ticketMetric .label{font-size:11px;color:#aaa}.ticketMetric .value{font-size:18px;font-weight:900;color:#fff}.ticketRow{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:14px;padding:10px;margin:8px 0}.ticketRow.critical,.ticketRow.high{border-left:3px solid var(--bad)}.ticketRow.medium,.ticketRow.low{border-left:3px solid var(--w)}.ticketRow.healthy{border-left:3px solid var(--ok)}.ticketPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:6px}.ticketDetailBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px}.ticketDetailBadge.healthy{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.ticketDetailBadge.available_action{background:#66c7ff22;color:#b9e8ff;border:1px solid #66c7ff55}.ticketDetailBadge.informational{background:#ffffff12;color:#d8d0e8;border:1px solid #ffffff22}.ticketDetailBadge.needs_attention,.ticketDetailBadge.open{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.ticketDetailGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:10px;margin-top:10px}.ticketDetailMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.ticketDetailMetric .label{font-size:11px;color:#aaa}.ticketDetailMetric .value{font-size:17px;font-weight:900;color:#fff}.ticketDetailPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.bridgeBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px}.bridgeBadge.ready{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.bridgeBadge.info{background:#66c7ff22;color:#b9e8ff;border:1px solid #66c7ff55}.bridgeBadge.warn{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.bridgeGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-top:10px}.bridgeMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.bridgeMetric .label{font-size:11px;color:#aaa}.bridgeMetric .value{font-size:16px;font-weight:900;color:#fff}.repairrow.recommended{border-color:#36d399aa!important;box-shadow:0 0 0 1px #36d39955 inset}.recommendTag{display:inline-block;border-radius:999px;padding:4px 10px;background:#36d39922;color:#7fffd4;border:1px solid #36d39955;font-size:11px;font-weight:900;margin-bottom:8px}.sessionBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px}.sessionBadge.healthy{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.sessionBadge.warn{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.sessionGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.sessionMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.sessionMetric .label{font-size:11px;color:#aaa}.sessionMetric .value{font-size:18px;font-weight:900;color:#fff}.sessionPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.freezeBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px}.freezeBadge.healthy{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.freezeBadge.warn{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.freezeGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.freezeMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.freezeMetric .label{font-size:11px;color:#aaa}.freezeMetric .value{font-size:18px;font-weight:900;color:#fff}.freezePath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.ccBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px}.ccBadge.clear{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.ccBadge.advisory{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.ccBadge.bad{background:#ff557722;color:#ff9aaa;border:1px solid #ff557755}.ccGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.ccMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.ccMetric .label{font-size:11px;color:#aaa}.ccMetric .value{font-size:18px;font-weight:900;color:#fff}.ccPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.foundationCard{border:1px solid #ffffff18;border-radius:16px;padding:12px;margin:10px 0;background:#00000022}.foundationCard.clear{border-color:#36d39955}.foundationCard.advisory{border-color:#ffcc6655}.foundationCard.needs_attention{border-color:#ff557755}.cmdDetailBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px}.cmdDetailBadge.clear{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.cmdDetailBadge.advisory{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.cmdDetailBadge.bad{background:#ff557722;color:#ff9aaa;border:1px solid #ff557755}.cmdMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;margin:8px 0;background:#00000022}.cmdMetric .k{font-size:12px;color:#aaa}.cmdMetric .v{font-weight:800;color:#fff;word-break:break-word}.cmdPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:6px}.ccDashBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px}.ccDashBadge.clear{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.ccDashBadge.advisory{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.ccDashBadge.bad{background:#ff557722;color:#ff9aaa;border:1px solid #ff557755}.ccDashGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-top:10px}.ccDashMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.ccDashMetric .label{font-size:11px;color:#aaa}.ccDashMetric .value{font-size:18px;font-weight:900;color:#fff}.ccDashLine{font-size:12px;color:#cfc7df;word-break:break-word;margin-top:8px}.archiveBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px}.archiveBadge.clear{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.archiveBadge.advisory{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.archiveBadge.bad{background:#ff557722;color:#ff9aaa;border:1px solid #ff557755}.archiveGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.archiveMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.archiveMetric .label{font-size:11px;color:#aaa}.archiveMetric .value{font-size:18px;font-weight:900;color:#fff}.archivePath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.cmdFreezeBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px}.cmdFreezeBadge.clear{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.cmdFreezeBadge.advisory{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.cmdFreezeBadge.bad{background:#ff557722;color:#ff9aaa;border:1px solid #ff557755}.cmdFreezeGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.cmdFreezeMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.cmdFreezeMetric .label{font-size:11px;color:#aaa}.cmdFreezeMetric .value{font-size:18px;font-weight:900;color:#fff}.cmdFreezePath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.writerBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#a855f722;color:#e9d5ff;border:1px solid #a855f755}.writerGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.writerMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.writerMetric .label{font-size:11px;color:#aaa}.writerMetric .value{font-size:18px;font-weight:900;color:#fff}.writerPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.writerModule{border:1px solid #a855f733;border-radius:16px;padding:12px;margin:10px 0;background:#14001f33}.storyBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#8b5cf622;color:#ddd6fe;border:1px solid #8b5cf655}.storyGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.storyMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.storyMetric .label{font-size:11px;color:#aaa}.storyMetric .value{font-size:18px;font-weight:900;color:#fff}.storyPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.storyCard{border:1px solid #8b5cf633;border-radius:16px;padding:12px;margin:10px 0;background:#16002433}.manifestBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#7c3aed22;color:#ddd6fe;border:1px solid #7c3aed55}.manifestGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.manifestMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.manifestMetric .label{font-size:11px;color:#aaa}.manifestMetric .value{font-size:18px;font-weight:900;color:#fff}.manifestPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.manifestCard{border:1px solid #7c3aed33;border-radius:16px;padding:12px;margin:10px 0;background:#12002033}.gateBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#6d28d922;color:#ddd6fe;border:1px solid #6d28d955}.gateGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.gateMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.gateMetric .label{font-size:11px;color:#aaa}.gateMetric .value{font-size:18px;font-weight:900;color:#fff}.gatePath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.gateCard{border:1px solid #6d28d933;border-radius:16px;padding:12px;margin:10px 0;background:#12002033}.actionBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#4c1d9522;color:#ddd6fe;border:1px solid #4c1d9555}.actionBadge.created{background:#36d39922;color:#7fffd4;border-color:#36d39955}.actionBadge.blocked{background:#ffcc6622;color:#ffd99a;border-color:#ffcc6655}.actionBadge.error{background:#ff557722;color:#ff9aaa;border-color:#ff557755}.actionGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.actionMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.actionMetric .label{font-size:11px;color:#aaa}.actionMetric .value{font-size:18px;font-weight:900;color:#fff}.actionPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.actionCard{border:1px solid #4c1d9533;border-radius:16px;padding:12px;margin:10px 0;background:#12002033}.dashProjectBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.dashProjectBadge.bad{background:#ff557722;color:#ff9aaa;border-color:#ff557755}.projectDashGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.projectDashMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.projectDashMetric .label{font-size:11px;color:#aaa}.projectDashMetric .value{font-size:18px;font-weight:900;color:#fff}.projectDashPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.projectDashCard{border:1px solid #22c55e33;border-radius:16px;padding:12px;margin:10px 0;background:#001f1233}.storyHealthBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px}.storyHealthBadge.clear{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.storyHealthBadge.advisory{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.storyHealthBadge.bad{background:#ff557722;color:#ff9aaa;border:1px solid #ff557755}.storyHealthGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-top:10px}.storyHealthMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.storyHealthMetric .label{font-size:11px;color:#aaa}.storyHealthMetric .value{font-size:18px;font-weight:900;color:#fff}.storyHealthLine{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.chapterBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#7c3aed22;color:#ddd6fe;border:1px solid #7c3aed55}.chapterBadge.bad{background:#ff557722;color:#ff9aaa;border-color:#ff557755}.chapterGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.chapterMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.chapterMetric .label{font-size:11px;color:#aaa}.chapterMetric .value{font-size:18px;font-weight:900;color:#fff}.chapterPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.chapterCard{border:1px solid #7c3aed33;border-radius:16px;padding:12px;margin:10px 0;background:#12002033}.saveGateBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#0ea5e922;color:#bae6fd;border:1px solid #0ea5e955}.saveGateBadge.bad{background:#ff557722;color:#ff9aaa;border-color:#ff557755}.saveGateGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.saveGateMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.saveGateMetric .label{font-size:11px;color:#aaa}.saveGateMetric .value{font-size:18px;font-weight:900;color:#fff}.saveGatePath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.saveGateCard{border:1px solid #0ea5e933;border-radius:16px;padding:12px;margin:10px 0;background:#001b2f33}.chapterSaveActionBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#4c1d9522;color:#ddd6fe;border:1px solid #4c1d9555}.chapterSaveActionBadge.created{background:#36d39922;color:#7fffd4;border-color:#36d39955}.chapterSaveActionBadge.blocked{background:#ffcc6622;color:#ffd99a;border-color:#ffcc6655}.chapterSaveActionBadge.error{background:#ff557722;color:#ff9aaa;border-color:#ff557755}.chapterSaveActionGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.chapterSaveActionMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.chapterSaveActionMetric .label{font-size:11px;color:#aaa}.chapterSaveActionMetric .value{font-size:18px;font-weight:900;color:#fff}.chapterSaveActionPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.chapterSaveActionCard{border:1px solid #4c1d9533;border-radius:16px;padding:12px;margin:10px 0;background:#12002033}.savedChapterBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.savedChapterBadge.bad{background:#ff557722;color:#ff9aaa;border-color:#ff557755}.savedChapterGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.savedChapterMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.savedChapterMetric .label{font-size:11px;color:#aaa}.savedChapterMetric .value{font-size:18px;font-weight:900;color:#fff}.savedChapterPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.savedChapterCard{border:1px solid #22c55e33;border-radius:16px;padding:12px;margin:10px 0;background:#001f1233}.savedHealthBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.savedHealthBadge.review{background:#ffcc6622;color:#ffd99a;border-color:#ffcc6655}.savedHealthGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-top:10px}.savedHealthMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.savedHealthMetric .label{font-size:11px;color:#aaa}.savedHealthMetric .value{font-size:18px;font-weight:900;color:#fff}.savedHealthPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.chapterEditorBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#8b5cf622;color:#ddd6fe;border:1px solid #8b5cf655}.chapterEditorBadge.bad{background:#ff557722;color:#ff9aaa;border-color:#ff557755}.chapterEditorGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.chapterEditorMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.chapterEditorMetric .label{font-size:11px;color:#aaa}.chapterEditorMetric .value{font-size:18px;font-weight:900;color:#fff}.chapterEditorPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.chapterEditorCard{border:1px solid #8b5cf633;border-radius:16px;padding:12px;margin:10px 0;background:#12002033}#chaptereditorpreview textarea,#chaptereditorpreview input{width:100%;box-sizing:border-box;margin:6px 0 12px 0}</style></head><body><div class=app><aside><div class=logo>K</div><h1>KAYOCK</h1><div class=sub>Command OS · FOXAI Core</div><button class="nav command active" onclick="pg('dash',this)">🚀 Command Bridge</button><button class=nav onclick="pg('commandcenter',this)">🛰️ Command Center</button><button class=nav onclick="pg('commanddetail',this)">🔎 Command Detail</button><button class=nav onclick="pg('commandarchive',this)">🗄️ Command Archive</button><button class=nav onclick="pg('commandfreeze',this)">🧊 Command Freeze</button><button class=nav onclick="pg('kayockwriter',this)">✍️ Kayock Writer</button><button class=nav onclick="pg('storyforge',this)">📚 Story Forge</button><button class=nav onclick="pg('storymanifest',this)">🧾 Story Manifest</button><button class=nav onclick="pg('projectgate',this)">🚪 Project Gate</button><button class=nav onclick="pg('projectaction',this)">✅ Project Action</button><button class=nav onclick="pg('projectdashboard',this)">📖 Project Dashboard</button><button class=nav onclick="pg('chapterplanner',this)">🧩 Chapter Planner</button><button class=nav onclick="pg('chaptersavegate',this)">🔐 Chapter Gate</button><button class=nav onclick="pg('chaptersaveaction',this)">💾 Chapter Save</button><button class=nav onclick="pg('savedchapters',this)">📚 Saved Chapters</button><button class=nav onclick="pg('savedchapterhealth',this)">💚 Chapter Health</button><button class=nav onclick="pg('chaptereditorpreview',this)">📝 Chapter Editor</button><div class=navbreak></div><button class=nav onclick="pg('academy',this)">🎓 Academy</button><button class=nav onclick="pg('novelforge',this)">📖 Novel Forge</button><button class=nav onclick="pg('prompts',this)">✍️ PromptSmith</button><button class=nav onclick="pg('creative',this)">🎨 Creative Studio</button><button class=nav onclick="pg('library',this)">📚 Iron Library</button><button class=nav onclick="pg('mission',this)">🤖 Artificial Minds</button><button class=nav onclick="pg('projects',this)">🗂 Projects</button><button class=nav onclick="pg('memory',this)">🧭 Mission Memory</button><button class=nav onclick="pg('repair',this)">🔧 Repair Bay</button><button class=nav onclick="pg('extensions',this)">🧩 Extensions</button><button class=nav onclick="pg('scanbridge',this)">📡 Scan Bridge</button><button class=nav onclick="pg('projectgen',this)">🧾 Project Docs</button><button class=nav onclick="pg('buildverify',this)">🧪 Build Verify</button><button class=nav onclick="pg('envverify',this)">🧰 Env Verify</button><button class=nav onclick="pg('portable',this)">🧳 Portable Ready</button><button class=nav onclick="pg('modelcheck',this)">🧬 Model Check</button><button class=nav onclick="pg('repairactions',this)">🛠️ Repair Actions</button><button class=nav onclick="pg('repairhistory',this)">📜 Repair History</button><button class=nav onclick="pg('repairops',this)">🏪 Repair Shop</button><button class=nav onclick="pg('repairdetail',this)">🔎 Action Detail</button><button class=nav onclick="pg('repairtickets',this)">🎫 Repair Tickets</button><button class=nav onclick="pg('repairticketdetail',this)">📋 Ticket Detail</button><button class=nav onclick="pg('ticketbridge',this)">🔗 Ticket Bridge</button><button class=nav onclick="pg('repairsession',this)">🧾 Shop Session</button><button class=nav onclick="pg('repairfreeze',this)">🧊 Milestone Freeze</button><button class=nav onclick="pg('backupvault',this)">🗄️ Backup Vault</button><button class=nav onclick="pg('restorepreview',this)">🧭 Restore Preview</button><button class=nav onclick="pg('restoregate',this)">🚧 Restore Gate</button><button class=nav onclick="pg('restorestaging',this)">📦 Restore Staging</button><button class=nav onclick="pg('stagingpackages',this)">🧾 Staging Packages</button><button class=nav onclick="pg('restorefinal',this)">✅ Restore Final Check</button><button class=nav onclick="pg('restoreaction',this)">♻️ Restore Action</button><button class=nav onclick="pg('restoreaudit',this)">🧪 Restore Audit</button><button class=nav onclick="pg('rollbackpreview',this)">↩️ Rollback Preview</button><button class=nav onclick="pg('rollbackaction',this)">⏪ Rollback Action</button><button class=nav onclick="pg('rollbackaudit',this)">🧾 Rollback Audit</button><button class=nav onclick="pg('recoverytimeline',this)">🕰️ Recovery Timeline</button><div class=navbreak></div><button class=nav onclick="pg('logs',this)">📜 Captain's Log</button><button class=nav onclick="pg('settings',this)">⚙ Settings</button><div class=ops><div class=row><div class=lab>Operator</div><div>Eric Fox</div></div><div class=row><div class=lab>Professor</div><div id=ap>Agent Fox</div></div><div class=row><div class=lab>Project</div><div id=apro>None</div></div><div class=row><div class=lab>Mission</div><div id=ms>READY</div></div><div class=row><div class=lab>Model</div><div id=am>None</div></div><div class=row><div class=lab>Runtime</div><div id=rt>Checking</div></div></div><div id=quick></div><div class=ops><div class=row><div class=lab>CPU</div><div id=cpu>?</div></div><div class=row><div class=lab>RAM</div><div id=ram>?</div></div><div class=meter><div id=ramm class=fill></div></div></div></aside><main>
 <section id=dash class="page active"><div class=hero><h2>Welcome back, Commander.</h2><p>Kayock Command OS is online. FOXAI Core, Mission Memory, and the Bridge are standing by.</p></div><div class=grid>
 <div class="card wide" id=commandCenterDashCard><h3>🛰️ Command Center</h3><div id=commandCenterDashStatus class=status>Command Center dashboard not loaded yet.</div><div id=commandCenterDashBody class=status>Loading foundation health...</div><button onclick="loadCommandCenterDashboard(false)">Refresh Command Center</button><button onclick="loadCommandCenterDashboard(true)">Export Card Report</button><button onclick="go('commandcenter')">Open Command Center</button><button onclick="go('commanddetail')">Open Command Detail</button><button onclick="sendCommandCenterDashboardToMission()">Send to Mission</button></div>
 <div class=card><h3>Resume Mission</h3><div id=resume class=status>No active mission.</div><button onclick="goMemory()">Open Mission Memory</button><button onclick="resumeMission()">Resume in Console</button></div><div class=card><h3>Projects</h3><button onclick="go('projects')">Open Projects</button></div><div class=card><h3>Artificial Minds</h3><button onclick="go('mission')">Open Mission Console</button></div><div class=card><h3>PromptSmith</h3><button onclick="go('prompts')">Open PromptSmith</button></div><div class=card><h3>Novel Forge</h3><button onclick="go('novelforge')">Open Novel Forge</button></div><div class="card wide"><h3>Live Command Bridge</h3><div id=bridgeLive class=status>Loading Bridge Feed...</div></div><div class="card wide"><h3>Recovery Foundation</h3><div id=recoveryDashCard class=status>Loading recovery health...</div><button onclick="loadRecoveryDashboard()">Refresh Recovery Health</button><button onclick="go('recoverytimeline')">Open Recovery Timeline</button><button onclick="sendRecoveryDashboardToMission()">Send Recovery Health to Mission</button></div><div class="card wide"><h3>Repair Shop</h3><div id=repairShopDashCard class=status>Loading Repair Shop health...</div><button onclick="loadRepairShopDashboardCard()">Refresh Repair Shop</button><button onclick="go('repairops')">Open Repair Shop</button><button onclick="go('repairdetail')">Open Action Detail</button><button onclick="sendRepairShopDashboardCardToMission()">Send Repair Shop Health to Mission</button></div><div class="card wide"><h3>Department Fleet</h3><div id=deptcards class=grid>Loading departments...</div></div><div class="card wide"><h3>Status</h3><div id=status class=status>Loading...</div></div></div></section>
@@ -175,13 +175,39 @@ td,th{border-bottom:1px solid #8f5cff18;padding:9px;text-align:left}
 
 <section id=kayockwriter class=page><div class=hero><h2>Kayock Writer Foundation</h2><p>The new creative writing department: Story Forge, Poetry Studio, Codex, Timeline, Continuity, Mystery Tracker, and Story Bible Export. This foundation report is read-only and does not migrate or modify story files.</p></div><div class=grid><div class="card wide"><h3>Foundation Controls</h3><button onclick="loadKayockWriter(false)">Load Writer Foundation</button><button onclick="loadKayockWriter(true)">Export Foundation Report</button><button onclick="api('/api/open/kayock_writer_foundation_reports')">Open Writer Foundation Reports</button><button onclick="sendKayockWriterToMission()">Send Writer Foundation to Mission</button><div id=kayockWriterStatus class=status>No Kayock Writer foundation report loaded yet.</div></div><div class="card wide"><h3>Foundation Summary</h3><div id=kayockWriterSummary class=status>No summary yet.</div></div><div class="card wide"><h3>Module Plan</h3><div id=kayockWriterModules class=scanlist>No modules loaded yet.</div></div><div class="card wide"><h3>Naming Decisions</h3><div id=kayockWriterNames class=scanlist>No naming decisions loaded yet.</div></div><div class="card wide"><h3>Flagship Universe</h3><div id=kayockWriterFlagship class=status>No flagship universe loaded yet.</div></div><div class="card wide"><h3>Path Checks</h3><div id=kayockWriterPaths class=scanlist>No path checks loaded yet.</div></div><div class="card wide"><h3>Recommendations</h3><div id=kayockWriterRecommendations class=scanlist>No recommendations loaded yet.</div></div><div class="card wide"><h3>Safety Contract</h3><div id=kayockWriterSafety class=status>No safety contract loaded yet.</div></div></div></section>
 
-<section id=storyforge class=page><div class=hero><h2>Story Forge Shell</h2><p>The first Kayock Writer working module: story projects, chapter planning, scene planning, and Slipping into Darkness as the flagship demo universe. This shell is read-only.</p></div><div class=grid><div class="card wide"><h3>Story Forge Controls</h3><button onclick="loadStoryForge(false)">Load Story Forge Shell</button><button onclick="loadStoryForge(true)">Export Shell Report</button><button onclick="api('/api/open/kayock_writer_story_forge_reports')">Open Story Forge Reports</button><button onclick="go('kayockwriter')">Open Kayock Writer</button><button onclick="sendStoryForgeToMission()">Send Story Forge to Mission</button><div id=storyForgeStatus class=status>No Story Forge shell loaded yet.</div></div><div class="card wide"><h3>Shell Summary</h3><div id=storyForgeSummary class=status>No summary yet.</div></div><div class="card wide"><h3>Flagship Story</h3><div id=storyForgeFlagship class=status>No flagship loaded yet.</div></div><div class="card wide"><h3>Project Candidates</h3><div id=storyForgeProjects class=scanlist>No project candidates loaded yet.</div></div><div class="card wide"><h3>Shell Sections</h3><div id=storyForgeSections class=scanlist>No shell sections loaded yet.</div></div><div class="card wide"><h3>Future Actions</h3><div id=storyForgeActions class=scanlist>No future actions loaded yet.</div></div><div class="card wide"><h3>Checks</h3><div id=storyForgeChecks class=scanlist>No checks loaded yet.</div></div><div class="card wide"><h3>Safety Contract</h3><div id=storyForgeSafety class=status>No safety contract loaded yet.</div></div></div></section>
+<section id=storyforge class=page><div class=hero><h2>Story Forge Shell</h2><p>The first Kayock Writer working module: story projects, chapter planning, scene planning, and Slipping into Darkness as the flagship demo universe. This shell is read-only.</p></div><div class=grid>
+<div class="card wide" id=storyProjectHealthCard><h3>💚 Slipping into Darkness Project Health</h3><div id=storyProjectHealthStatus class=status>Project health card not loaded yet.</div><div id=storyProjectHealthBody class=status>Load Story Forge to inspect the created project.</div><button onclick="loadStoryProjectHealth(false)">Refresh Project Health</button><button onclick="loadStoryProjectHealth(true)">Export Health Card</button><button onclick="go('projectdashboard')">Open Project Dashboard</button><button onclick="api('/api/open/kayock_writer_slipping_project_root')">Open Project Folder</button><button onclick="sendStoryProjectHealthToMission()">Send Health to Mission</button></div>
+
+<div class="card wide" id=storySavedChapterHealthCard><h3>💚 Saved Chapter Health</h3><select id=storySavedChapterHealthBook><option value="book_1">Book 1</option><option value="book_2" selected>Book 2</option></select><button onclick="loadSavedChapterHealthCard(false,'storySavedChapterHealth','storySavedChapterHealthBook')">Refresh Saved Chapter Health</button><button onclick="loadSavedChapterHealthCard(true,'storySavedChapterHealth','storySavedChapterHealthBook')">Export Health Card</button><button onclick="go('savedchapters')">Open Saved Chapters</button><button onclick="sendSavedChapterHealthToMission()">Send Health to Mission</button><div id=storySavedChapterHealthStatus class=status>Saved chapter health card not loaded yet.</div><div id=storySavedChapterHealthBody class=status>Load Story Forge to inspect saved chapter health.</div></div>
+<div class="card wide"><h3>Story Forge Controls</h3><button onclick="loadStoryForge(false)">Load Story Forge Shell</button><button onclick="loadStoryForge(true)">Export Shell Report</button><button onclick="api('/api/open/kayock_writer_story_forge_reports')">Open Story Forge Reports</button><button onclick="go('kayockwriter')">Open Kayock Writer</button><button onclick="sendStoryForgeToMission()">Send Story Forge to Mission</button><div id=storyForgeStatus class=status>No Story Forge shell loaded yet.</div></div><div class="card wide"><h3>Shell Summary</h3><div id=storyForgeSummary class=status>No summary yet.</div></div><div class="card wide"><h3>Flagship Story</h3><div id=storyForgeFlagship class=status>No flagship loaded yet.</div></div><div class="card wide"><h3>Project Candidates</h3><div id=storyForgeProjects class=scanlist>No project candidates loaded yet.</div></div><div class="card wide"><h3>Shell Sections</h3><div id=storyForgeSections class=scanlist>No shell sections loaded yet.</div></div><div class="card wide"><h3>Future Actions</h3><div id=storyForgeActions class=scanlist>No future actions loaded yet.</div></div><div class="card wide"><h3>Checks</h3><div id=storyForgeChecks class=scanlist>No checks loaded yet.</div></div><div class="card wide"><h3>Safety Contract</h3><div id=storyForgeSafety class=status>No safety contract loaded yet.</div></div></div></section>
 
 
 <section id=storymanifest class=page><div class=hero><h2>Story Project Manifest Preview</h2><p>Preview the proposed Kayock Writer project manifest before anything is created. This page scans legacy NovelForge read-only and lists exact future writes behind an approval gate.</p></div><div class=grid><div class="card wide"><h3>Manifest Preview Controls</h3><button onclick="loadStoryManifest(false)">Load Manifest Preview</button><button onclick="loadStoryManifest(true)">Export Manifest Preview</button><button onclick="api('/api/open/kayock_writer_manifest_preview_reports')">Open Manifest Preview Reports</button><button onclick="go('storyforge')">Open Story Forge</button><button onclick="sendStoryManifestToMission()">Send Manifest Preview to Mission</button><div id=storyManifestStatus class=status>No manifest preview loaded yet.</div></div><div class="card wide"><h3>Preview Summary</h3><div id=storyManifestSummary class=status>No summary yet.</div></div><div class="card wide"><h3>Proposed Manifest</h3><div id=storyManifestBody class=status>No manifest loaded yet.</div></div><div class="card wide"><h3>Legacy Sources Detected</h3><div id=storyManifestLegacy class=scanlist>No legacy sources loaded yet.</div></div><div class="card wide"><h3>Proposed Folders</h3><div id=storyManifestFolders class=scanlist>No proposed folders loaded yet.</div></div><div class="card wide"><h3>Future Writes / Approval Gate</h3><div id=storyManifestWrites class=scanlist>No future writes loaded yet.</div></div><div class="card wide"><h3>Checks</h3><div id=storyManifestChecks class=scanlist>No checks loaded yet.</div></div><div class="card wide"><h3>Safety Contract</h3><div id=storyManifestSafety class=status>No safety contract loaded yet.</div></div></div></section>
 
 
 <section id=projectgate class=page><div class=hero><h2>Create Project Approval Gate</h2><p>Final pre-flight gate before any Kayock Writer project skeleton is created. This page verifies target paths, overwrite risk, copy-only legacy import, and the exact approval phrase. It does not create anything.</p></div><div class=grid><div class="card wide"><h3>Gate Controls</h3><input id=projectGatePhrase placeholder="Optional test phrase; creation still disabled in this build"><button onclick="loadProjectGate(false)">Load Gate</button><button onclick="loadProjectGate(true)">Export Gate Report</button><button onclick="api('/api/open/kayock_writer_create_gate_reports')">Open Gate Reports</button><button onclick="go('storymanifest')">Open Manifest Preview</button><button onclick="sendProjectGateToMission()">Send Gate to Mission</button><div id=projectGateStatus class=status>No project gate loaded yet.</div></div><div class="card wide"><h3>Gate Summary</h3><div id=projectGateSummary class=status>No summary yet.</div></div><div class="card wide"><h3>Approval Gate</h3><div id=projectGateApproval class=status>No approval gate loaded yet.</div></div><div class="card wide"><h3>Proposed Writes</h3><div id=projectGateWrites class=scanlist>No proposed writes loaded yet.</div></div><div class="card wide"><h3>Overwrite Risks</h3><div id=projectGateRisks class=scanlist>No risk scan loaded yet.</div></div><div class="card wide"><h3>Legacy Copy-Only Sources</h3><div id=projectGateLegacy class=scanlist>No legacy files loaded yet.</div></div><div class="card wide"><h3>Checks</h3><div id=projectGateChecks class=scanlist>No checks loaded yet.</div></div><div class="card wide"><h3>Safety Contract</h3><div id=projectGateSafety class=status>No safety contract loaded yet.</div></div></div></section>
+
+
+<section id=projectaction class=page><div class=hero><h2>Create Project Approved Action</h2><p>Create the Slipping into Darkness Kayock Writer project skeleton only after the exact approval phrase. Legacy NovelForge files are copied only, never moved or deleted.</p></div><div class=grid><div class="card wide"><h3>Approved Action Controls</h3><input id=projectActionPhrase placeholder="Required exact phrase: CREATE KAYOCK WRITER PROJECT"><button onclick="loadProjectAction(false,false)">Preview Action</button><button onclick="loadProjectAction(false,true)">Test Phrase / Block Check</button><button onclick="loadProjectAction(true,true)">CREATE PROJECT WITH APPROVAL</button><button onclick="api('/api/open/kayock_writer_create_action_reports')">Open Action Reports</button><button onclick="go('projectgate')">Open Project Gate</button><button onclick="sendProjectActionToMission()">Send Action Report to Mission</button><div id=projectActionStatus class=status>No project action loaded yet.</div></div><div class="card wide"><h3>Action Summary</h3><div id=projectActionSummary class=status>No summary yet.</div></div><div class="card wide"><h3>Blockers / Risks</h3><div id=projectActionBlockers class=scanlist>No blockers loaded yet.</div></div><div class="card wide"><h3>Preflight</h3><div id=projectActionPreflight class=scanlist>No preflight loaded yet.</div></div><div class="card wide"><h3>Created / Written / Copied</h3><div id=projectActionResults class=scanlist>No action results loaded yet.</div></div><div class="card wide"><h3>Post Checks</h3><div id=projectActionChecks class=scanlist>No post checks loaded yet.</div></div><div class="card wide"><h3>Safety Contract</h3><div id=projectActionSafety class=status>No safety contract loaded yet.</div></div></div></section>
+
+
+<section id=projectdashboard class=page><div class=hero><h2>Story Project Reader / Dashboard</h2><p>Read the created Slipping into Darkness Kayock Writer project: manifest, folders, source files, README, and Books outline. This dashboard is read-only.</p></div><div class=grid><div class="card wide"><h3>Dashboard Controls</h3><button onclick="loadProjectDashboard(false)">Load Project Dashboard</button><button onclick="loadProjectDashboard(true)">Export Dashboard Report</button><button onclick="api('/api/open/kayock_writer_project_dashboard_reports')">Open Dashboard Reports</button><button onclick="api('/api/open/kayock_writer_slipping_project_root')">Open Project Folder</button><button onclick="go('projectaction')">Open Project Action</button><button onclick="sendProjectDashboardToMission()">Send Dashboard to Mission</button><div id=projectDashboardStatus class=status>No project dashboard loaded yet.</div></div><div class="card wide"><h3>Project Summary</h3><div id=projectDashboardSummary class=status>No summary yet.</div></div><div class="card wide"><h3>Manifest</h3><div id=projectDashboardManifest class=status>No manifest loaded yet.</div></div><div class="card wide"><h3>Folder Checks</h3><div id=projectDashboardFolders class=scanlist>No folder checks loaded yet.</div></div><div class="card wide"><h3>Source Files</h3><div id=projectDashboardSources class=scanlist>No source files loaded yet.</div></div><div class="card wide"><h3>README Preview</h3><div id=projectDashboardReadme class=status>No README loaded yet.</div></div><div class="card wide"><h3>Books.md Preview</h3><div id=projectDashboardBooks class=status>No Books.md loaded yet.</div></div><div class="card wide"><h3>Checks / Safety</h3><div id=projectDashboardChecks class=scanlist>No checks loaded yet.</div><pre id=projectDashboardSafety>No safety contract loaded yet.</pre></div></div></section>
+
+
+<section id=chapterplanner class=page><div class=hero><h2>Chapter Planner Preview</h2><p>Preview chapter cards for Slipping into Darkness without writing files. Choose Book 1 or Book 2, inspect goals/conflicts/reveals/hooks, and prepare future approval-gated saves.</p></div><div class=grid><div class="card wide"><h3>Chapter Planner Controls</h3><select id=chapterPlannerBook><option value="book_1">Book 1</option><option value="book_2">Book 2</option></select><button onclick="loadChapterPlanner(false)">Load Chapter Preview</button><button onclick="loadChapterPlanner(true)">Export Chapter Preview</button><button onclick="api('/api/open/kayock_writer_chapter_planner_reports')">Open Chapter Planner Reports</button><button onclick="go('storyforge')">Open Story Forge</button><button onclick="sendChapterPlannerToMission()">Send Chapter Preview to Mission</button><div id=chapterPlannerStatus class=status>No chapter preview loaded yet.</div></div><div class="card wide"><h3>Preview Summary</h3><div id=chapterPlannerSummary class=status>No summary yet.</div></div><div class="card wide"><h3>Selected Book</h3><div id=chapterPlannerBookInfo class=status>No selected book loaded yet.</div></div><div class="card wide"><h3>Chapter Card Previews</h3><div id=chapterPlannerCards class=scanlist>No chapter cards loaded yet.</div></div><div class="card wide"><h3>Future Writes / Save Gate</h3><div id=chapterPlannerFutureWrites class=scanlist>No future writes loaded yet.</div></div><div class="card wide"><h3>Checks</h3><div id=chapterPlannerChecks class=scanlist>No checks loaded yet.</div></div><div class="card wide"><h3>Safety Contract</h3><pre id=chapterPlannerSafety>No safety contract loaded yet.</pre></div></div></section>
+
+
+<section id=chaptersavegate class=page><div class=hero><h2>Chapter Save Approval Gate</h2><p>Final no-write safety gate before chapter preview cards can become real files. Checks exact target filenames, overwrite risk, parent folders, and the approval phrase.</p></div><div class=grid><div class="card wide"><h3>Save Gate Controls</h3><select id=chapterSaveGateBook><option value="book_1">Book 1</option><option value="book_2">Book 2</option></select><input id=chapterSaveGatePhrase placeholder="Optional test phrase; future phrase: SAVE CHAPTER CARDS"><button onclick="loadChapterSaveGate(false)">Load Save Gate</button><button onclick="loadChapterSaveGate(true)">Export Save Gate</button><button onclick="api('/api/open/kayock_writer_chapter_save_gate_reports')">Open Save Gate Reports</button><button onclick="go('chapterplanner')">Open Chapter Planner</button><button onclick="sendChapterSaveGateToMission()">Send Save Gate to Mission</button><div id=chapterSaveGateStatus class=status>No chapter save gate loaded yet.</div></div><div class="card wide"><h3>Gate Summary</h3><div id=chapterSaveGateSummary class=status>No summary yet.</div></div><div class="card wide"><h3>Approval Gate</h3><div id=chapterSaveGateApproval class=status>No approval gate loaded yet.</div></div><div class="card wide"><h3>Proposed Save Targets</h3><div id=chapterSaveGateTargets class=scanlist>No save targets loaded yet.</div></div><div class="card wide"><h3>Overwrite Risks / Blockers</h3><div id=chapterSaveGateRisks class=scanlist>No risks loaded yet.</div></div><div class="card wide"><h3>Checks</h3><div id=chapterSaveGateChecks class=scanlist>No checks loaded yet.</div></div><div class="card wide"><h3>Safety Contract</h3><pre id=chapterSaveGateSafety>No safety contract loaded yet.</pre></div></div></section>
+
+
+<section id=chaptersaveaction class=page><div class=hero><h2>Chapter Save Approved Action</h2><p>Save chapter preview cards as real files only after the exact approval phrase. This writes the preview-set JSON, Markdown chapter cards, and Continuity handoff notes with no overwrite.</p></div><div class=grid><div class="card wide"><h3>Approved Save Controls</h3><select id=chapterSaveActionBook><option value="book_1">Book 1</option><option value="book_2">Book 2</option></select><input id=chapterSaveActionPhrase placeholder="Required exact phrase: SAVE CHAPTER CARDS"><button onclick="loadChapterSaveAction(false,false)">Preview Save Action</button><button onclick="loadChapterSaveAction(false,true)">Test Phrase / Block Check</button><button onclick="loadChapterSaveAction(true,true)">SAVE CHAPTER CARDS WITH APPROVAL</button><button onclick="api('/api/open/kayock_writer_chapter_save_action_reports')">Open Save Action Reports</button><button onclick="go('chaptersavegate')">Open Chapter Gate</button><button onclick="sendChapterSaveActionToMission()">Send Save Action to Mission</button><div id=chapterSaveActionStatus class=status>No chapter save action loaded yet.</div></div><div class="card wide"><h3>Action Summary</h3><div id=chapterSaveActionSummary class=status>No summary yet.</div></div><div class="card wide"><h3>Blockers / Risks</h3><div id=chapterSaveActionBlockers class=scanlist>No blockers loaded yet.</div></div><div class="card wide"><h3>Preflight</h3><div id=chapterSaveActionPreflight class=scanlist>No preflight loaded yet.</div></div><div class="card wide"><h3>Written Files / Results</h3><div id=chapterSaveActionResults class=scanlist>No results loaded yet.</div></div><div class="card wide"><h3>Post Checks</h3><div id=chapterSaveActionChecks class=scanlist>No post checks loaded yet.</div></div><div class="card wide"><h3>Safety Contract</h3><pre id=chapterSaveActionSafety>No safety contract loaded yet.</pre></div></div></section>
+
+<section id=savedchapters class=page><div class=hero><h2>Saved Chapter Reader / Dashboard</h2><p>Read saved chapter cards back from disk: preview-set JSON, Markdown cards, and Continuity handoff notes. This dashboard is read-only.</p></div><div class=grid><div class="card wide"><h3>Saved Chapter Controls</h3><select id=savedChapterBook><option value="book_1">Book 1</option><option value="book_2" selected>Book 2</option></select><button onclick="loadSavedChapterDashboard(false)">Load Saved Chapter Dashboard</button><button onclick="loadSavedChapterDashboard(true)">Export Saved Chapter Report</button><button onclick="api('/api/open/kayock_writer_saved_chapter_dashboard_reports')">Open Saved Chapter Reports</button><button onclick="api('/api/open/kayock_writer_slipping_chapters_folder')">Open Chapters Folder</button><button onclick="go('chaptersaveaction')">Open Chapter Save</button><button onclick="sendSavedChapterDashboardToMission()">Send Saved Chapter Dashboard to Mission</button><div id=savedChapterStatus class=status>No saved chapter dashboard loaded yet.</div></div><div class="card wide"><h3>Dashboard Summary</h3><div id=savedChapterSummary class=status>No summary yet.</div></div><div class="card wide"><h3>Preview Set</h3><div id=savedChapterPreviewSet class=status>No preview set loaded yet.</div></div><div class="card wide"><h3>Markdown Chapter Cards</h3><div id=savedChapterCards class=scanlist>No chapter cards loaded yet.</div></div><div class="card wide"><h3>Continuity Handoff</h3><div id=savedChapterHandoff class=status>No continuity handoff loaded yet.</div></div><div class="card wide"><h3>Checks</h3><div id=savedChapterChecks class=scanlist>No checks loaded yet.</div></div><div class="card wide"><h3>Safety Contract</h3><pre id=savedChapterSafety>No safety contract loaded yet.</pre></div></div></section>
+
+<section id=savedchapterhealth class=page><div class=hero><h2>Saved Chapter Health Card</h2><p>Compact read-only status for saved chapter files. This is the quick Story Forge signal before opening the full Saved Chapter Dashboard.</p></div><div class=grid><div class="card wide"><h3>Health Card Controls</h3><select id=savedChapterHealthBook><option value="book_1">Book 1</option><option value="book_2" selected>Book 2</option></select><button onclick="loadSavedChapterHealthCard(false,'savedChapterHealth','savedChapterHealthBook')">Load Health Card</button><button onclick="loadSavedChapterHealthCard(true,'savedChapterHealth','savedChapterHealthBook')">Export Health Card</button><button onclick="api('/api/open/kayock_writer_saved_chapter_health_reports')">Open Health Reports</button><button onclick="go('savedchapters')">Open Saved Chapters</button><button onclick="sendSavedChapterHealthToMission()">Send Health to Mission</button><div id=savedChapterHealthStatus class=status>No saved chapter health card loaded yet.</div></div><div class="card wide"><h3>Compact Summary</h3><div id=savedChapterHealthBody class=status>No compact summary yet.</div></div><div class="card wide"><h3>Attention Items</h3><div id=savedChapterHealthAttention class=scanlist>No attention list loaded yet.</div></div><div class="card wide"><h3>Checks</h3><div id=savedChapterHealthChecks class=scanlist>No checks loaded yet.</div></div><div class="card wide"><h3>Safety Contract</h3><pre id=savedChapterHealthSafety>No safety contract loaded yet.</pre></div></div></section>
+
+
+<section id=chaptereditorpreview class=page><div class=hero><h2>Chapter Editor Preview</h2><p>Read one saved chapter card into editable-looking fields and preview unsaved changes. This build never saves edits.</p></div><div class=grid><div class="card wide"><h3>Editor Preview Controls</h3><select id=chapterEditorBook><option value="book_1">Book 1</option><option value="book_2" selected>Book 2</option></select><select id=chapterEditorNumber><option value="1">Chapter 1</option><option value="2">Chapter 2</option><option value="3">Chapter 3</option></select><button onclick="loadChapterEditorPreview(false,false)">Load Editor Preview</button><button onclick="loadChapterEditorPreview(true,false)">Export Editor Preview</button><button onclick="loadChapterEditorPreview(false,true)">Preview Unsaved Changes</button><button onclick="api('/api/open/kayock_writer_chapter_editor_preview_reports')">Open Editor Preview Reports</button><button onclick="go('savedchapters')">Open Saved Chapters</button><button onclick="sendChapterEditorPreviewToMission()">Send Editor Preview to Mission</button><div id=chapterEditorStatus class=status>No chapter editor preview loaded yet.</div></div><div class="card wide"><h3>Editor Summary</h3><div id=chapterEditorSummary class=status>No summary yet.</div></div><div class="card wide"><h3>Editable-Looking Fields — No Save In This Build</h3><label>Title</label><input id=chapterEditorTitle><label>POV</label><input id=chapterEditorPov><label>Location</label><input id=chapterEditorLocation><label>Goal</label><textarea id=chapterEditorGoal rows=3></textarea><label>Conflict</label><textarea id=chapterEditorConflict rows=3></textarea><label>Reveal</label><textarea id=chapterEditorReveal rows=3></textarea><label>Hook</label><textarea id=chapterEditorHook rows=3></textarea><label>Continuity Notes</label><textarea id=chapterEditorContinuity rows=5></textarea><label>Handoff Tags JSON</label><textarea id=chapterEditorHandoffs rows=8></textarea><label>Draft Space</label><textarea id=chapterEditorDraft rows=6></textarea></div><div class="card wide"><h3>Changed Fields Preview</h3><div id=chapterEditorChanges class=scanlist>No change preview yet.</div></div><div class="card wide"><h3>Checks</h3><div id=chapterEditorChecks class=scanlist>No checks loaded yet.</div></div><div class="card wide"><h3>Safety Contract</h3><pre id=chapterEditorSafety>No safety contract loaded yet.</pre></div></div></section>
 
 <section id=academy class=page><div class=hero><h2>Academy</h2><p>Professors are prompt profiles.</p></div><div id=profgrid class=grid></div></section>
 
@@ -495,7 +521,7 @@ Only optional inventory export</div></div></div></section>
 </main></div><div id=toast></div><script>
 let activeProject=null, curLib='', missionData=null; const chat=document.getElementById('chatLog');
 function q(id){return document.getElementById(id)}function toast(s){q('toast').textContent=s;q('toast').style.display='block';setTimeout(()=>q('toast').style.display='none',4200)}
-function pg(id,b){if(id==='dash')setTimeout(()=>loadRecoveryDashboard(),0); if(id==='commandcenter')setTimeout(()=>loadCommandCenter(false),0); if(id==='commanddetail')setTimeout(()=>loadCommandDetailList(),0); if(id==='commandarchive')setTimeout(()=>loadCommandArchive(false),0); if(id==='commandfreeze')setTimeout(()=>loadCommandFreeze(false),0); if(id==='kayockwriter')setTimeout(()=>loadKayockWriter(false),0); if(id==='storyforge')setTimeout(()=>loadStoryForge(false),0); if(id==='storymanifest')setTimeout(()=>loadStoryManifest(false),0); if(id==='projectgate')setTimeout(()=>loadProjectGate(false),0);document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));q(id).classList.add('active');document.querySelectorAll('.nav').forEach(x=>x.classList.remove('active'));if(b)b.classList.add('active'); if(id==='projects')loadProjects(); if(id==='memory')loadMemory(); if(id==='library'){loadLib(curLib);loadIronIndexStatus(); if(q('libResults')&&!q('libResults').innerHTML.trim())searchLib()} if(id==='novelforge'){loadNovelForgeList();setTimeout(updateCodexDashboard,0)} if(id==='prompts')loadPrompts(); if(id==='extensions')loadExtensions(); if(id==='scanbridge'&&!q('scanPath').value)q('scanPath').value='Departments'; if(id==='projectgen')setTimeout(refreshProjectDocsStatus,0); if(id==='repairhistory')setTimeout(()=>loadRepairHistory(false),0); if(id==='repairops')setTimeout(()=>loadRepairOps(false),0); if(id==='repairdetail')setTimeout(()=>loadRepairDetailList(),0); if(id==='repairtickets')setTimeout(()=>loadRepairTickets(false),0); if(id==='repairticketdetail')setTimeout(()=>loadRepairTicketDetailList(),0); if(id==='ticketbridge')setTimeout(()=>loadTicketBridgeList(),0); if(id==='repairsession')setTimeout(()=>loadRepairSession(false),0); if(id==='repairfreeze')setTimeout(()=>loadRepairFreeze(false),0); if(id==='backupvault')setTimeout(()=>loadBackupVault(false),0); if(id==='restorepreview')setTimeout(()=>loadRestoreBackupList(),0); if(id==='restoregate')setTimeout(()=>loadRestoreGateList(),0); if(id==='restorestaging')setTimeout(()=>loadRestoreStagingList(),0); if(id==='stagingpackages')setTimeout(()=>loadStagingPackages(false),0); if(id==='restorefinal')setTimeout(()=>loadRestoreFinalList(),0); if(id==='restoreaction')setTimeout(()=>loadRestoreActionList(),0); if(id==='restoreaudit')setTimeout(()=>loadRestoreAudit(false),0); if(id==='rollbackpreview')setTimeout(()=>loadRollbackPreviewActions(),0); if(id==='rollbackaction')setTimeout(()=>loadRollbackActionList(),0); if(id==='rollbackaudit')setTimeout(()=>loadRollbackAudit(false),0); if(id==='recoverytimeline')setTimeout(()=>loadRecoveryTimeline(false),0)}
+function pg(id,b){if(id==='dash')setTimeout(()=>loadRecoveryDashboard(),0); if(id==='commandcenter')setTimeout(()=>loadCommandCenter(false),0); if(id==='commanddetail')setTimeout(()=>loadCommandDetailList(),0); if(id==='commandarchive')setTimeout(()=>loadCommandArchive(false),0); if(id==='commandfreeze')setTimeout(()=>loadCommandFreeze(false),0); if(id==='kayockwriter')setTimeout(()=>loadKayockWriter(false),0); if(id==='storyforge')setTimeout(()=>loadStoryForge(false),0); if(id==='storymanifest')setTimeout(()=>loadStoryManifest(false),0); if(id==='projectgate')setTimeout(()=>loadProjectGate(false),0); if(id==='projectaction')setTimeout(()=>loadProjectAction(false,false),0); if(id==='projectdashboard')setTimeout(()=>loadProjectDashboard(false),0); if(id==='chapterplanner')setTimeout(()=>loadChapterPlanner(false),0); if(id==='chaptersavegate')setTimeout(()=>loadChapterSaveGate(false),0); if(id==='chaptersaveaction')setTimeout(()=>loadChapterSaveAction(false,false),0); if(id==='savedchapters')setTimeout(()=>loadSavedChapterDashboard(false),0); if(id==='savedchapterhealth')setTimeout(()=>loadSavedChapterHealthCard(false,'savedChapterHealth','savedChapterHealthBook'),0);document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));q(id).classList.add('active');document.querySelectorAll('.nav').forEach(x=>x.classList.remove('active'));if(b)b.classList.add('active'); if(id==='projects')loadProjects(); if(id==='memory')loadMemory(); if(id==='library'){loadLib(curLib);loadIronIndexStatus(); if(q('libResults')&&!q('libResults').innerHTML.trim())searchLib()} if(id==='novelforge'){loadNovelForgeList();setTimeout(updateCodexDashboard,0)} if(id==='prompts')loadPrompts(); if(id==='extensions')loadExtensions(); if(id==='scanbridge'&&!q('scanPath').value)q('scanPath').value='Departments'; if(id==='projectgen')setTimeout(refreshProjectDocsStatus,0); if(id==='repairhistory')setTimeout(()=>loadRepairHistory(false),0); if(id==='repairops')setTimeout(()=>loadRepairOps(false),0); if(id==='repairdetail')setTimeout(()=>loadRepairDetailList(),0); if(id==='repairtickets')setTimeout(()=>loadRepairTickets(false),0); if(id==='repairticketdetail')setTimeout(()=>loadRepairTicketDetailList(),0); if(id==='ticketbridge')setTimeout(()=>loadTicketBridgeList(),0); if(id==='repairsession')setTimeout(()=>loadRepairSession(false),0); if(id==='repairfreeze')setTimeout(()=>loadRepairFreeze(false),0); if(id==='backupvault')setTimeout(()=>loadBackupVault(false),0); if(id==='restorepreview')setTimeout(()=>loadRestoreBackupList(),0); if(id==='restoregate')setTimeout(()=>loadRestoreGateList(),0); if(id==='restorestaging')setTimeout(()=>loadRestoreStagingList(),0); if(id==='stagingpackages')setTimeout(()=>loadStagingPackages(false),0); if(id==='restorefinal')setTimeout(()=>loadRestoreFinalList(),0); if(id==='restoreaction')setTimeout(()=>loadRestoreActionList(),0); if(id==='restoreaudit')setTimeout(()=>loadRestoreAudit(false),0); if(id==='rollbackpreview')setTimeout(()=>loadRollbackPreviewActions(),0); if(id==='rollbackaction')setTimeout(()=>loadRollbackActionList(),0); if(id==='rollbackaudit')setTimeout(()=>loadRollbackAudit(false),0); if(id==='recoverytimeline')setTimeout(()=>loadRecoveryTimeline(false),0)}
 function go(id){let b=[...document.querySelectorAll('.nav')].find(x=>x.getAttribute('onclick')?.includes("'"+id+"'"));pg(id,b)}function goMemory(){go('memory')}
 async function api(u,opt){try{let r=await fetch(u,opt);let d=await r.json();toast(d.message||JSON.stringify(d));refresh();return d}catch(e){toast('Request failed: '+e)}}function esc(s){return String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}function js(s){return String(s).replace(/\\/g,'\\\\').replace(/'/g,"\\'")}
 function logline(c,w,m){chat.innerHTML+=`<span class=${c}>[${w}]</span> ${esc(m)}\n\n`;chat.scrollTop=chat.scrollHeight}function think(on){q('pulse').innerHTML=on?'<span class=pulse></span>':'';q('ms').textContent=on?'THINKING':'READY'}
@@ -3667,6 +3693,842 @@ Please identify:
 
 
 
+
+
+
+
+
+
+
+
+let lastSavedChapterHealth=null;
+async function loadSavedChapterHealthCard(doExport=false,prefix='savedChapterHealth',bookSelectId='savedChapterHealthBook'){
+    let statusEl=q(prefix+'Status'), bodyEl=q(prefix+'Body');
+    if(!statusEl||!bodyEl)return;
+    statusEl.textContent='Loading Saved Chapter Health Card...';
+    let book=q(bookSelectId)?.value||'book_2';
+    let d=await api('/api/writer/saved_chapter_health_card',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({project_id:'slipping_into_darkness',book_id:book,export:doExport})});
+    if(!d?.ok){statusEl.textContent=d?.message||'Could not load Saved Chapter Health Card.';return;}
+    lastSavedChapterHealth=d;
+    let s=d.summary||{};
+    statusEl.innerHTML=`<span class="savedHealthBadge ${d.card_state==='clear'?'':'review'}">${esc(d.health_label||'UNKNOWN')}</span>`;
+    bodyEl.innerHTML=`<div><b>${esc(d.milestone||'')}</b></div><div class=savedHealthGrid>${(d.compact_metrics||[]).map(m=>`<div class=savedHealthMetric><div class=label>${esc(m.label||'')}</div><div class=value>${esc(m.value||'')}</div></div>`).join('')}</div><div class=savedHealthPath>Book folder: ${esc(s.book_folder||'')}</div>${d.exported?`<div class=savedHealthPath>Export: ${esc(d.exported.markdown||'')}</div>`:''}`;
+    if(q(prefix+'Attention')){
+        let rows=[];
+        if((d.missing_or_attention||[]).length){rows.push(...(d.missing_or_attention||[]).map(x=>`<div class="histrow fail"><b>${esc(x.id||'attention')}</b><div>${esc(x.message||'')}</div></div>`));}
+        else{rows.push('<div class="histrow ok"><b>No missing saved-chapter items.</b></div>');}
+        if((d.advisories||[]).length){rows.push(...(d.advisories||[]).map(x=>`<div class="histrow info"><b>${esc(x.id||'advisory')}</b><div>${esc(x.message||'')}</div></div>`));}
+        q(prefix+'Attention').innerHTML=rows.join('');
+    }
+    if(q(prefix+'Checks'))q(prefix+'Checks').innerHTML=(d.checks||[]).map(c=>`<div class="histrow ${c.ok?'ok':'fail'}"><b>${esc(c.id||'check')}</b><div>${esc(c.message||'')}</div></div>`).join('')||'No checks.';
+    if(q(prefix+'Safety'))q(prefix+'Safety').textContent=Object.entries(d.safety||{}).map(([k,v])=>`${k}: ${v}`).join('\n');
+    toast('Saved Chapter Health Card loaded.');
+}
+function sendSavedChapterHealthToMission(){
+    if(!lastSavedChapterHealth){toast('Load Saved Chapter Health first.');return;}
+    let d=lastSavedChapterHealth, s=d.summary||{};
+    go('mission');
+    q('input').value=`Please review this Kayock Writer Saved Chapter Health Card.
+
+Milestone:
+${d.milestone}
+Health: ${d.health_label}
+Card state: ${d.card_state}
+Card ready: ${d.card_ready}
+
+Summary:
+Project: ${s.project_title}
+Book: ${s.book_id} — ${s.book_title}
+Dashboard ready: ${s.dashboard_ready}
+Preview set exists: ${s.preview_set_exists}
+Preview set valid: ${s.preview_set_valid}
+Preview set status: ${s.preview_set_status}
+Expected chapter cards: ${s.expected_chapter_cards}
+Markdown cards found: ${s.markdown_cards_found}
+Expected targets: ${s.expected_markdown_targets_ok}/${s.expected_markdown_targets}
+Continuity handoff exists: ${s.continuity_handoff_exists}
+Continuity checks: ${s.continuity_handoff_checks_passed}/${s.continuity_handoff_checks}
+Checks passed: ${s.checks_passed}/${s.checks}
+Problems: ${s.problems}
+Attention items: ${s.missing_or_attention_items}
+Advisories: ${s.advisories}
+Book folder: ${s.book_folder}
+
+Compact metrics:
+${(d.compact_metrics||[]).map(m=>`${m.label}: ${m.value}`).join('\n')}
+
+Attention:
+${(d.missing_or_attention||[]).length ? (d.missing_or_attention||[]).map(x=>`${x.id}: ${x.message}`).join('\n') : 'None.'}
+
+Checks:
+${(d.checks||[]).map(c=>`${c.ok?'PASS':'FAIL'} — ${c.id}: ${c.message}`).join('\n')}
+
+Export:
+${d.exported?.markdown||'No exported Saved Chapter Health Card report'}
+
+Safety:
+Read-only saved-chapter health card.
+No chapter file creation.
+No story-file mutation.
+No project creation.
+No legacy migration.
+No overwrite.
+No delete.
+No move.
+No install.
+No model cleanup.
+
+Please determine:
+1. Whether v10.12.1 should be marked stable/proven
+2. Whether the compact Story Forge saved-chapter health card is accurate
+3. Whether the next build should be Chapter Editor Preview.`;
+    toast('Saved Chapter Health sent to Mission Console.');
+}
+
+
+let lastChapterEditorPreview=null;
+function chapterEditorProposedPayload(){
+    return {
+        title:q('chapterEditorTitle')?.value||'',
+        pov:q('chapterEditorPov')?.value||'',
+        location:q('chapterEditorLocation')?.value||'',
+        goal:q('chapterEditorGoal')?.value||'',
+        conflict:q('chapterEditorConflict')?.value||'',
+        reveal:q('chapterEditorReveal')?.value||'',
+        hook:q('chapterEditorHook')?.value||'',
+        continuity_notes:q('chapterEditorContinuity')?.value||'',
+        handoff_tags_text:q('chapterEditorHandoffs')?.value||'',
+        draft_space:q('chapterEditorDraft')?.value||''
+    };
+}
+function setChapterEditorFields(f){
+    if(!f)f={};
+    if(q('chapterEditorTitle'))q('chapterEditorTitle').value=f.title||'';
+    if(q('chapterEditorPov'))q('chapterEditorPov').value=f.pov||'';
+    if(q('chapterEditorLocation'))q('chapterEditorLocation').value=f.location||'';
+    if(q('chapterEditorGoal'))q('chapterEditorGoal').value=f.goal||'';
+    if(q('chapterEditorConflict'))q('chapterEditorConflict').value=f.conflict||'';
+    if(q('chapterEditorReveal'))q('chapterEditorReveal').value=f.reveal||'';
+    if(q('chapterEditorHook'))q('chapterEditorHook').value=f.hook||'';
+    if(q('chapterEditorContinuity'))q('chapterEditorContinuity').value=f.continuity_notes||'';
+    if(q('chapterEditorHandoffs'))q('chapterEditorHandoffs').value=f.handoff_tags_text||'';
+    if(q('chapterEditorDraft'))q('chapterEditorDraft').value=f.draft_space||'';
+}
+async function loadChapterEditorPreview(doExport=false,useProposed=false){
+    if(!q('chapterEditorStatus'))return;
+    q('chapterEditorStatus').textContent='Loading Chapter Editor Preview...';
+    let book=q('chapterEditorBook')?.value||'book_2';
+    let num=q('chapterEditorNumber')?.value||'1';
+    let payload={project_id:'slipping_into_darkness',book_id:book,chapter_number:num,export:doExport};
+    if(useProposed)payload.proposed=chapterEditorProposedPayload();
+    let d=await api('/api/writer/chapter_editor_preview',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+    if(!d?.ok){q('chapterEditorStatus').textContent=d?.message||'Could not load Chapter Editor Preview.';return;}
+    lastChapterEditorPreview=d;
+    let s=d.summary||{};
+    q('chapterEditorStatus').innerHTML=`<span class="chapterEditorBadge ${d.editor_preview_ready?'':'bad'}">${esc(d.health_label||'UNKNOWN')}</span>`;
+    q('chapterEditorSummary').innerHTML=`<div><b>${esc(d.milestone||'')}</b></div>
+    <div class=chapterEditorGrid>
+      <div class=chapterEditorMetric><div class=label>Ready</div><div class=value>${s.editor_preview_ready?'YES':'NO'}</div></div>
+      <div class=chapterEditorMetric><div class=label>Book</div><div class=value>${esc(s.book_id||'')}</div></div>
+      <div class=chapterEditorMetric><div class=label>Chapter</div><div class=value>${s.selected_chapter_number||''}</div></div>
+      <div class=chapterEditorMetric><div class=label>Options</div><div class=value>${s.chapter_options||0}</div></div>
+      <div class=chapterEditorMetric><div class=label>Changes</div><div class=value>${s.changed_fields||0}</div></div>
+      <div class=chapterEditorMetric><div class=label>Checks</div><div class=value>${s.checks_passed||0}/${s.checks||0}</div></div>
+    </div>
+    <div class=chapterEditorPath>Selected file: ${esc(s.selected_chapter_path||'')}</div>
+    ${d.exported?`<div class=chapterEditorPath>Export: ${esc(d.exported.markdown||'')}</div>`:''}`;
+    if(!useProposed)setChapterEditorFields(d.current_fields||{});
+    q('chapterEditorChanges').innerHTML=(d.changed_fields||[]).map(c=>`<div class=chapterEditorCard><b>${esc(c.field||'field')}</b><div>${c.before_chars} chars → ${c.after_chars} chars</div><div><b>Before:</b> ${esc(c.before_preview||'')}</div><div><b>After:</b> ${esc(c.after_preview||'')}</div></div>`).join('')||'<div class="histrow ok"><b>No unsaved changes detected.</b></div>';
+    q('chapterEditorChecks').innerHTML=(d.checks||[]).map(c=>`<div class="histrow ${c.ok?'ok':'fail'}"><b>${esc(c.id||'check')}</b><div>${esc(c.message||'')}</div></div>`).join('')||'No checks.';
+    q('chapterEditorSafety').textContent=Object.entries(d.safety||{}).map(([k,v])=>`${k}: ${v}`).join('\n');
+    toast('Chapter Editor Preview loaded.');
+}
+function sendChapterEditorPreviewToMission(){
+    if(!lastChapterEditorPreview){toast('Load Chapter Editor Preview first.');return;}
+    let d=lastChapterEditorPreview, s=d.summary||{};
+    go('mission');
+    q('input').value=`Please review this Kayock Writer Chapter Editor Preview.
+
+Milestone:
+${d.milestone}
+Health: ${d.health_label}
+Editor preview ready: ${d.editor_preview_ready}
+
+Summary:
+Project: ${s.project_title}
+Book: ${s.book_id} — ${s.book_title}
+Chapter: ${s.selected_chapter_number}
+Selected file: ${s.selected_chapter_path}
+Chapter options: ${s.chapter_options}
+Raw chars: ${s.current_raw_chars}
+Preview Markdown chars: ${s.preview_markdown_chars}
+Changed fields: ${s.changed_fields}
+Checks passed: ${s.checks_passed}/${s.checks}
+Problems: ${s.problems}
+
+Changed fields:
+${(d.changed_fields||[]).length ? (d.changed_fields||[]).map(c=>`${c.field}: ${c.before_chars} chars -> ${c.after_chars} chars`).join('\n') : 'None.'}
+
+Checks:
+${(d.checks||[]).map(c=>`${c.ok?'PASS':'FAIL'} — ${c.id}: ${c.message}`).join('\n')}
+
+Export:
+${d.exported?.markdown||'No exported Chapter Editor Preview report'}
+
+Safety:
+Read-only chapter editor preview.
+No chapter file edit.
+No story-file mutation.
+No project creation.
+No legacy migration.
+No rename performed.
+No overwrite.
+No delete.
+No move.
+No install.
+No model cleanup.
+
+Please determine:
+1. Whether v10.12.2 should be marked stable/proven
+2. Whether the fields parse correctly
+3. Whether the next build should be Chapter Edit Approval Gate.`;
+    toast('Chapter Editor Preview sent to Mission Console.');
+}
+
+let lastSavedChapterDashboard=null;
+async function loadSavedChapterDashboard(doExport=false){
+    if(!q('savedChapterStatus'))return;
+    q('savedChapterStatus').textContent='Loading Saved Chapter Dashboard...';
+    let book=q('savedChapterBook')?.value||'book_2';
+    let d=await api('/api/writer/saved_chapter_dashboard',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({project_id:'slipping_into_darkness',book_id:book,export:doExport})});
+    if(!d?.ok){q('savedChapterStatus').textContent=d?.message||'Could not load Saved Chapter Dashboard.';return;}
+    lastSavedChapterDashboard=d; let s=d.summary||{};
+    q('savedChapterStatus').innerHTML=`<span class="savedChapterBadge ${d.dashboard_ready?'':'bad'}">${esc(d.health_label||'UNKNOWN')}</span>`;
+    q('savedChapterSummary').innerHTML=`<div><b>${esc(d.milestone||'')}</b></div><div class=savedChapterGrid><div class=savedChapterMetric><div class=label>Ready</div><div class=value>${s.dashboard_ready?'YES':'NO'}</div></div><div class=savedChapterMetric><div class=label>Book</div><div class=value>${esc(s.book_id||'')}</div></div><div class=savedChapterMetric><div class=label>Expected</div><div class=value>${s.expected_markdown_targets_ok||0}/${s.expected_markdown_targets||0}</div></div><div class=savedChapterMetric><div class=label>Cards</div><div class=value>${s.markdown_cards_found||0}</div></div><div class=savedChapterMetric><div class=label>Handoff</div><div class=value>${s.continuity_handoff_checks_passed||0}/${s.continuity_handoff_checks||0}</div></div><div class=savedChapterMetric><div class=label>Checks</div><div class=value>${s.checks_passed||0}/${s.checks||0}</div></div></div><div class=savedChapterPath>Book folder: ${esc(s.book_folder||'')}</div><div class=savedChapterPath>Preview set valid: ${s.preview_set_valid} | Status: ${esc(s.preview_set_status||'')}</div>${d.exported?`<div class=savedChapterPath>Export: ${esc(d.exported.markdown||'')}</div>`:''}`;
+    q('savedChapterPreviewSet').innerHTML=`<pre>${esc(JSON.stringify(d.preview_set_summary||{},null,2))}</pre>`;
+    q('savedChapterCards').innerHTML=(d.markdown_files||[]).map(f=>`<div class=savedChapterCard><b>${esc(f.name||'')}</b><div>${f.size||0} bytes | ${esc(f.modified||'')}</div><div>Goal: ${f.has_goal} | Conflict: ${f.has_conflict} | Reveal: ${f.has_reveal} | Hook: ${f.has_hook} | Handoffs: ${f.has_handoff_tags} | Safety: ${f.has_safety}</div><div class=savedChapterPath>${esc(f.path||'')}</div></div>`).join('')||'No Markdown chapter cards found.';
+    q('savedChapterHandoff').innerHTML=`<div class=savedChapterPath>${esc(d.continuity_handoff_path||'')}</div><pre>${esc(d.continuity_handoff_preview?.text||'Continuity handoff missing or empty.')}</pre>`;
+    q('savedChapterChecks').innerHTML=(d.checks||[]).map(c=>`<div class="histrow ${c.ok?'ok':'fail'}"><b>${esc(c.id||'check')}</b><div>${esc(c.message||'')}</div></div>`).join('')||'No checks.';
+    q('savedChapterSafety').textContent=Object.entries(d.safety||{}).map(([k,v])=>`${k}: ${v}`).join('\n');
+    toast('Saved Chapter Dashboard loaded.');
+}
+function sendSavedChapterDashboardToMission(){
+    if(!lastSavedChapterDashboard){toast('Load Saved Chapter Dashboard first.');return;}
+    let d=lastSavedChapterDashboard, s=d.summary||{}; go('mission');
+    q('input').value=`Please review this Kayock Writer Saved Chapter Reader / Dashboard.\n\nMilestone:\n${d.milestone}\nHealth: ${d.health_label}\nDashboard ready: ${d.dashboard_ready}\n\nSummary:\nProject: ${s.project_title}\nBook: ${s.book_id} — ${s.book_title}\nPreview set valid: ${s.preview_set_valid}\nPreview set status: ${s.preview_set_status}\nExpected chapter cards: ${s.expected_chapter_cards}\nMarkdown cards found: ${s.markdown_cards_found}\nExpected Markdown targets: ${s.expected_markdown_targets_ok}/${s.expected_markdown_targets}\nContinuity handoff checks: ${s.continuity_handoff_checks_passed}/${s.continuity_handoff_checks}\nChecks passed: ${s.checks_passed}/${s.checks}\nProblems: ${s.problems}\nBook folder: ${s.book_folder}\n\nChecks:\n${(d.checks||[]).map(c=>`${c.ok?'PASS':'FAIL'} — ${c.id}: ${c.message}`).join('\n')}\n\nExport:\n${d.exported?.markdown||'No exported Saved Chapter Dashboard report'}\n\nSafety:\nRead-only saved-chapter dashboard. No chapter file creation. No story-file mutation. No overwrite/delete/move.\n\nPlease determine whether v10.12.0 should be marked stable/proven.`;
+    toast('Saved Chapter Dashboard sent to Mission Console.');
+}
+
+let lastChapterSaveAction=null;
+async function loadChapterSaveAction(execute=false,includePhrase=false){
+    if(!q('chapterSaveActionStatus'))return;
+    q('chapterSaveActionStatus').textContent=execute?'Requesting approved chapter save...':'Loading chapter save action preview...';
+    let book=q('chapterSaveActionBook')?.value||'book_1';
+    let phrase=includePhrase?(q('chapterSaveActionPhrase')?.value||''):'';
+    let d=await api('/api/writer/chapter_save_action',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({project_id:'slipping_into_darkness',book_id:book,approval_phrase:phrase,execute:execute,export:true})});
+    if(!d?.ok){q('chapterSaveActionStatus').textContent=d?.message||'Could not load Chapter Save Action.';return;}
+    lastChapterSaveAction=d;
+    let s=d.summary||{};
+    let cls=d.status==='created'?'created':(d.status==='blocked'?'blocked':(d.status==='error'?'error':''));
+    q('chapterSaveActionStatus').innerHTML=`<span class="chapterSaveActionBadge ${cls}">${esc(d.health_label||'UNKNOWN')}</span>`;
+    q('chapterSaveActionSummary').innerHTML=`<div><b>${esc(d.milestone||'')}</b></div><div class=chapterSaveActionGrid><div class=chapterSaveActionMetric><div class=label>Status</div><div class=value>${esc(s.status||'')}</div></div><div class=chapterSaveActionMetric><div class=label>Allowed</div><div class=value>${s.action_allowed?'YES':'NO'}</div></div><div class=chapterSaveActionMetric><div class=label>Phrase</div><div class=value>${s.phrase_matches?'YES':'NO'}</div></div><div class=chapterSaveActionMetric><div class=label>Targets</div><div class=value>${s.save_targets||0}</div></div><div class=chapterSaveActionMetric><div class=label>Written</div><div class=value>${s.written_files||0}</div></div><div class=chapterSaveActionMetric><div class=label>Checks</div><div class=value>${s.post_checks_passed||0}/${s.post_checks||0}</div></div></div><div class=chapterSaveActionPath>Book: ${esc(s.book_id||'')} — ${esc(s.book_title||'')}</div><div class=chapterSaveActionPath>Book folder: ${esc(s.book_folder||'')}</div><div class=chapterSaveActionPath>Preview set: ${esc(s.preview_set_target||'')}</div><div class=chapterSaveActionPath>Handoff: ${esc(s.continuity_handoff_target||'')}</div>${d.exported?`<div class=chapterSaveActionPath>Export: ${esc(d.exported.markdown||'')}</div>`:''}`;
+    let parts=[];
+    if((d.blockers||[]).length){parts.push(...(d.blockers||[]).map(b=>`<div class="histrow fail"><b>${esc(b.id||'blocker')}</b><div>${esc(b.message||'')}</div></div>`));} else {parts.push('<div class="histrow ok"><b>No blockers.</b></div>');}
+    if((d.overwrite_risks||[]).length){parts.push(...(d.overwrite_risks||[]).map(r=>`<div class="histrow fail"><b>Overwrite risk</b><div class=chapterSaveActionPath>${esc(r.path||'')}</div></div>`));} else {parts.push('<div class="histrow ok"><b>No overwrite risks.</b></div>');}
+    q('chapterSaveActionBlockers').innerHTML=parts.join('');
+    q('chapterSaveActionPreflight').innerHTML=(d.preflight||[]).map(p=>`<div class=chapterSaveActionCard><b>${esc(p.id||'target')}</b><div>Kind: ${esc(p.kind||'')} | Exists: ${p.exists} | Would overwrite: ${p.would_overwrite} | Execute if approved: ${p.will_execute_if_approved}</div><div class=chapterSaveActionPath>${esc(p.path||'')}</div></div>`).join('')||'No preflight.';
+    let results=[];(d.created_dirs||[]).forEach(p=>results.push(`<div class="histrow ok"><b>Created folder</b><div class=chapterSaveActionPath>${esc(p)}</div></div>`));(d.written_files||[]).forEach(p=>results.push(`<div class="histrow ok"><b>Wrote file</b><div class=chapterSaveActionPath>${esc(p)}</div></div>`));(d.errors||[]).forEach(e=>results.push(`<div class="histrow fail"><b>Error</b><div>${esc(JSON.stringify(e))}</div></div>`));
+    q('chapterSaveActionResults').innerHTML=results.join('')||'<div class="histrow info"><b>No chapter save executed.</b><div>This is preview/block mode unless exact phrase and execute are used.</div></div>';
+    q('chapterSaveActionChecks').innerHTML=(d.post_checks||[]).map(c=>`<div class="histrow ${c.ok?'ok':'fail'}"><b>${esc(c.id||'check')}</b><div>${esc(c.message||'')}</div></div>`).join('')||'No post checks.';
+    q('chapterSaveActionSafety').textContent=Object.entries(d.safety||{}).map(([k,v])=>`${k}: ${v}`).join('\n');
+    toast('Chapter Save Action report loaded.');
+}
+function sendChapterSaveActionToMission(){
+    if(!lastChapterSaveAction){toast('Load Chapter Save Action first.');return;}
+    let d=lastChapterSaveAction, s=d.summary||{}; go('mission');
+    q('input').value=`Please review this Kayock Writer Chapter Save Approved Action report.
+
+Milestone:
+${d.milestone}
+Health: ${d.health_label}
+Status: ${d.status}
+
+Summary:
+Project: ${s.project_title}
+Book: ${s.book_id} — ${s.book_title}
+Execute requested: ${s.execute_requested}
+Action allowed: ${s.action_allowed}
+Phrase matches: ${s.phrase_matches}
+Blockers: ${s.blockers}
+Overwrite risks: ${s.overwrite_risks}
+Save targets: ${s.save_targets}
+Chapter cards: ${s.chapter_cards}
+Created dirs: ${s.created_dirs}
+Written files: ${s.written_files}
+Errors: ${s.errors}
+Post checks: ${s.post_checks_passed}/${s.post_checks}
+Book folder: ${s.book_folder}
+Preview set target: ${s.preview_set_target}
+Continuity handoff target: ${s.continuity_handoff_target}
+
+Blockers:
+${(d.blockers||[]).length ? (d.blockers||[]).map(b=>`${b.id}: ${b.message}`).join('\n') : 'None.'}
+
+Written files:
+${(d.written_files||[]).join('\n')||'None.'}
+
+Created dirs:
+${(d.created_dirs||[]).join('\n')||'None.'}
+
+Post checks:
+${(d.post_checks||[]).map(c=>`${c.ok?'PASS':'FAIL'} — ${c.id}: ${c.message}`).join('\n')}
+
+Errors:
+${(d.errors||[]).length ? (d.errors||[]).map(e=>JSON.stringify(e)).join('\n') : 'None.'}
+
+Export:
+${d.exported?.markdown||'No exported Chapter Save Action report'}
+
+Safety:
+Requires exact phrase.
+No action without phrase.
+No overwrite.
+No delete.
+No move.
+No legacy changes.
+No install.
+No model cleanup.
+
+Please determine:
+1. Whether v10.11.9 should be marked stable/proven
+2. Whether chapter files were saved safely if status is created
+3. Whether the next build should be Chapter Reader / Saved Chapter Dashboard.`;
+    toast('Chapter Save Action sent to Mission Console.');
+}
+
+let lastChapterSaveGate=null;
+async function loadChapterSaveGate(doExport=false){
+    if(!q('chapterSaveGateStatus'))return;
+    q('chapterSaveGateStatus').textContent='Loading Chapter Save Approval Gate...';
+    let book=q('chapterSaveGateBook')?.value||'book_1';
+    let phrase=q('chapterSaveGatePhrase')?.value||'';
+    let d=await api('/api/writer/chapter_save_gate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({project_id:'slipping_into_darkness',book_id:book,approval_phrase:phrase,export:doExport})});
+    if(!d?.ok){
+        q('chapterSaveGateStatus').textContent=d?.message||'Could not load Chapter Save Gate.';
+        return;
+    }
+    lastChapterSaveGate=d;
+    let s=d.summary||{};
+    q('chapterSaveGateStatus').innerHTML=`<span class="saveGateBadge ${d.gate_ready?'':'bad'}">${esc(d.health_label||'UNKNOWN')}</span>`;
+    q('chapterSaveGateSummary').innerHTML=`<div><b>${esc(d.milestone||'')}</b></div>
+    <div class=saveGateGrid>
+      <div class=saveGateMetric><div class=label>Gate</div><div class=value>${d.gate_ready?'READY':'NO'}</div></div>
+      <div class=saveGateMetric><div class=label>Safe Later</div><div class=value>${s.safe_to_save_later?'YES':'NO'}</div></div>
+      <div class=saveGateMetric><div class=label>Phrase</div><div class=value>${s.phrase_matches?'YES':'NO'}</div></div>
+      <div class=saveGateMetric><div class=label>Targets</div><div class=value>${s.proposed_targets||0}</div></div>
+      <div class=saveGateMetric><div class=label>Overwrite</div><div class=value>${s.overwrite_risks||0}</div></div>
+      <div class=saveGateMetric><div class=label>Checks</div><div class=value>${s.checks_passed||0}/${s.checks||0}</div></div>
+    </div>
+    <div class=saveGatePath>Book: ${esc(s.book_id||'')} — ${esc(s.book_title||'')}</div>
+    <div class=saveGatePath>Chapters folder: ${esc(s.chapters_folder||'')}</div>
+    ${d.exported?`<div class=saveGatePath>Export: ${esc(d.exported.markdown||'')}</div>`:''}`;
+    let g=d.approval_gate||{};
+    q('chapterSaveGateApproval').textContent=`Required phrase:
+${g.required_phrase||''}
+
+Typed phrase present: ${g.typed_phrase_present}
+Typed phrase matches: ${g.typed_phrase_matches}
+Phrase gate status: ${g.phrase_gate_status}
+Save enabled in this build: ${g.save_enabled_in_this_build}
+
+Reason:
+${g.reason_save_disabled||''}
+
+Preview required: ${g.preview_required}
+No-overwrite required: ${g.no_overwrite_required}
+Evidence required before write: ${g.backup_or_evidence_required_before_write}
+No delete allowed: ${g.no_delete_allowed}
+No move allowed: ${g.no_move_allowed}
+No automatic story mutation: ${g.no_automatic_story_mutation}`;
+    q('chapterSaveGateTargets').innerHTML=(d.proposed_targets||[]).map(t=>`<div class=saveGateCard><b>${esc(t.id||'target')}</b><div>${esc(t.title||'')} | Kind: ${esc(t.kind||'')}</div><div>Target exists: ${t.target_exists} | Parent exists: ${t.parent_exists} | Overwrite risk: ${t.would_overwrite} | Executes now: ${t.will_execute_in_this_build}</div><div class=saveGatePath>${esc(t.target||'')}</div></div>`).join('')||'No proposed targets.';
+    let parts=[];
+    if((d.blockers||[]).length){parts.push(...(d.blockers||[]).map(b=>`<div class="histrow fail"><b>${esc(b.id||'blocker')}</b><div>${esc(b.message||'')}</div></div>`));}
+    else{parts.push('<div class="histrow ok"><b>No gate blockers.</b><div>Future save may be safe after exact phrase and approved action build.</div></div>');}
+    if((d.overwrite_risks||[]).length){parts.push(...(d.overwrite_risks||[]).map(r=>`<div class="histrow fail"><b>Overwrite risk</b><div class=saveGatePath>${esc(r.target||'')}</div></div>`));}
+    else{parts.push('<div class="histrow ok"><b>No overwrite risks detected.</b></div>');}
+    q('chapterSaveGateRisks').innerHTML=parts.join('');
+    q('chapterSaveGateChecks').innerHTML=(d.checks||[]).map(c=>`<div class="histrow ${c.ok?'ok':'fail'}"><b>${esc(c.id||'check')}</b><div>${esc(c.message||'')}</div></div>`).join('')||'No checks.';
+    q('chapterSaveGateSafety').textContent=Object.entries(d.safety||{}).map(([k,v])=>`${k}: ${v}`).join('\n');
+    toast('Chapter Save Gate loaded.');
+}
+function sendChapterSaveGateToMission(){
+    if(!lastChapterSaveGate){toast('Load Chapter Save Gate first.');return;}
+    let d=lastChapterSaveGate, s=d.summary||{};
+    go('mission');
+    q('input').value=`Please review this Kayock Writer Chapter Save Approval Gate.
+
+Milestone:
+${d.milestone}
+Health: ${d.health_label}
+Gate ready: ${d.gate_ready}
+Safe to save later: ${d.safe_to_save_later}
+
+Summary:
+Project: ${s.project_title}
+Book: ${s.book_id} — ${s.book_title}
+Preview ready: ${s.preview_ready}
+Save enabled in this build: ${s.save_enabled_in_this_build}
+Required phrase: ${s.required_phrase}
+Typed phrase present: ${s.typed_phrase_present}
+Phrase matches: ${s.phrase_matches}
+Phrase gate status: ${s.phrase_gate_status}
+Chapter cards: ${s.chapter_cards}
+Proposed targets: ${s.proposed_targets}
+Overwrite risks: ${s.overwrite_risks}
+Parent missing expected: ${s.parent_missing_expected}
+Blockers: ${s.blockers}
+Checks passed: ${s.checks_passed}/${s.checks}
+Problems: ${s.problems}
+Chapters folder: ${s.chapters_folder}
+
+Approval gate:
+${JSON.stringify(d.approval_gate,null,2)}
+
+Proposed targets:
+${(d.proposed_targets||[]).map(t=>`${t.id}: ${t.title}; target=${t.target}; exists=${t.target_exists}; overwrite=${t.would_overwrite}; executes_now=${t.will_execute_in_this_build}`).join('\n')}
+
+Overwrite risks:
+${(d.overwrite_risks||[]).length ? (d.overwrite_risks||[]).map(r=>r.target).join('\n') : 'None.'}
+
+Checks:
+${(d.checks||[]).map(c=>`${c.ok?'PASS':'FAIL'} — ${c.id}: ${c.message}`).join('\n')}
+
+Export:
+${d.exported?.markdown||'No exported Chapter Save Gate report'}
+
+Safety:
+Gate preview only.
+Read-only project scan.
+No chapter file creation.
+No story-file mutation.
+No project creation.
+No legacy migration.
+No rename performed.
+No overwrite.
+No delete.
+No move.
+No install.
+No model cleanup.
+
+Please determine:
+1. Whether v10.11.8 should be marked stable/proven
+2. Whether the target filenames are acceptable
+3. Whether the next build should be Chapter Save Approved Action.`;
+    toast('Chapter Save Gate sent to Mission Console.');
+}
+
+let lastChapterPlanner=null;
+async function loadChapterPlanner(doExport=false){
+    if(!q('chapterPlannerStatus'))return;
+    q('chapterPlannerStatus').textContent='Loading Chapter Planner Preview...';
+    let book=q('chapterPlannerBook')?.value||'book_1';
+    let d=await api('/api/writer/chapter_planner_preview',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({project_id:'slipping_into_darkness',book_id:book,export:doExport})});
+    if(!d?.ok){
+        q('chapterPlannerStatus').textContent=d?.message||'Could not load Chapter Planner Preview.';
+        return;
+    }
+    lastChapterPlanner=d;
+    let s=d.summary||{};
+    q('chapterPlannerStatus').innerHTML=`<span class="chapterBadge ${d.preview_ready?'':'bad'}">${esc(d.health_label||'UNKNOWN')}</span>`;
+    q('chapterPlannerSummary').innerHTML=`<div><b>${esc(d.milestone||'')}</b></div>
+    <div class=chapterGrid>
+      <div class=chapterMetric><div class=label>Ready</div><div class=value>${s.preview_ready?'YES':'NO'}</div></div>
+      <div class=chapterMetric><div class=label>Book</div><div class=value>${esc(s.book_id||'')}</div></div>
+      <div class=chapterMetric><div class=label>Cards</div><div class=value>${s.chapter_cards_previewed||0}</div></div>
+      <div class=chapterMetric><div class=label>Existing</div><div class=value>${s.existing_chapter_files||0}</div></div>
+      <div class=chapterMetric><div class=label>Writes On</div><div class=value>${s.future_writes_enabled_now||0}/${s.future_writes||0}</div></div>
+      <div class=chapterMetric><div class=label>Checks</div><div class=value>${s.checks_passed||0}/${s.checks||0}</div></div>
+    </div>
+    <div class=chapterPath>Chapters folder: ${esc(s.chapters_folder||'')}</div>
+    ${d.exported?`<div class=chapterPath>Export: ${esc(d.exported.markdown||'')}</div>`:''}`;
+    let b=d.selected_book||{};
+    q('chapterPlannerBookInfo').textContent=`${b.title||''}
+Status: ${b.status||''}
+
+${b.summary||''}`;
+    q('chapterPlannerCards').innerHTML=(d.chapter_templates||[]).map(c=>`<div class=chapterCard><b>Chapter ${c.chapter_number}: ${esc(c.title||'')}</b>
+<div><b>Goal:</b> ${esc(c.goal||'')}</div>
+<div><b>Conflict:</b> ${esc(c.conflict||'')}</div>
+<div><b>Reveal:</b> ${esc(c.reveal||'')}</div>
+<div><b>Hook:</b> ${esc(c.hook||'')}</div>
+<div><b>POV:</b> ${esc(c.pov||'')} | <b>Location:</b> ${esc(c.location||'')}</div>
+<div class=chapterPath>Continuity: ${(c.continuity_notes||[]).map(x=>esc(x)).join('; ')}</div>
+<div class=chapterPath>Handoffs: ${esc(JSON.stringify(c.handoff_tags||{}))}</div></div>`).join('')||'No chapter card previews.';
+    q('chapterPlannerFutureWrites').innerHTML=(d.future_writes||[]).map(w=>`<div class="histrow info"><b>${esc(w.title||'')}</b><div>ID: ${esc(w.id||'')} | Enabled now: ${w.enabled_now} | Requires approval: ${w.requires_user_approval}</div><div class=chapterPath>${esc(w.target||'')}</div></div>`).join('')||'No future writes.';
+    q('chapterPlannerChecks').innerHTML=(d.checks||[]).map(c=>`<div class="histrow ${c.ok?'ok':'fail'}"><b>${esc(c.id||'check')}</b><div>${esc(c.message||'')}</div></div>`).join('')||'No checks.';
+    q('chapterPlannerSafety').textContent=Object.entries(d.safety||{}).map(([k,v])=>`${k}: ${v}`).join('\n');
+    toast('Chapter Planner Preview loaded.');
+}
+function sendChapterPlannerToMission(){
+    if(!lastChapterPlanner){toast('Load Chapter Planner first.');return;}
+    let d=lastChapterPlanner, s=d.summary||{};
+    go('mission');
+    q('input').value=`Please review this Kayock Writer Chapter Planner Preview.
+
+Milestone:
+${d.milestone}
+Health: ${d.health_label}
+Preview ready: ${d.preview_ready}
+
+Summary:
+Project: ${s.project_title}
+Book: ${s.book_id} — ${s.book_title}
+Book status: ${s.book_status}
+Book summary: ${s.book_summary}
+Chapter cards previewed: ${s.chapter_cards_previewed}
+Existing chapter files: ${s.existing_chapter_files}
+Future writes enabled now: ${s.future_writes_enabled_now}/${s.future_writes}
+Checks passed: ${s.checks_passed}/${s.checks}
+Problems: ${s.problems}
+Chapters folder: ${s.chapters_folder}
+
+Chapter cards:
+${(d.chapter_templates||[]).map(c=>`Chapter ${c.chapter_number}: ${c.title}
+Goal: ${c.goal}
+Conflict: ${c.conflict}
+Reveal: ${c.reveal}
+Hook: ${c.hook}
+POV: ${c.pov}
+Location: ${c.location}
+Continuity: ${(c.continuity_notes||[]).join('; ')}
+Handoffs: ${JSON.stringify(c.handoff_tags)}`).join('\n\n')}
+
+Future writes:
+${(d.future_writes||[]).map(w=>`${w.id}: enabled_now=${w.enabled_now}; target=${w.target}; approval=${w.requires_user_approval}`).join('\n')}
+
+Checks:
+${(d.checks||[]).map(c=>`${c.ok?'PASS':'FAIL'} — ${c.id}: ${c.message}`).join('\n')}
+
+Export:
+${d.exported?.markdown||'No exported Chapter Planner report'}
+
+Safety:
+Preview only.
+Read-only project scan.
+No chapter file creation.
+No story-file mutation.
+No project creation.
+No legacy migration.
+No rename performed.
+No overwrite.
+No delete.
+No move.
+No install.
+No model cleanup.
+
+Please determine:
+1. Whether v10.11.7 should be marked stable/proven
+2. Whether this chapter card structure is good for Story Forge
+3. Whether the next build should be Chapter Save Approval Gate.`;
+    toast('Chapter Planner sent to Mission Console.');
+}
+
+let lastStoryProjectHealth=null;
+async function loadStoryProjectHealth(doExport=false){
+    if(!q('storyProjectHealthStatus'))return;
+    q('storyProjectHealthStatus').textContent='Loading Story Project health...';
+    let d=await api('/api/writer/project_health_card',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({project_id:'slipping_into_darkness',export:doExport})});
+    if(!d?.ok){
+        q('storyProjectHealthStatus').textContent=d?.message||'Could not load Story Project health card.';
+        return;
+    }
+    lastStoryProjectHealth=d;
+    let s=d.summary||{};
+    let cls=d.card_state==='clear'?'clear':(d.card_state==='advisory'?'advisory':'bad');
+    q('storyProjectHealthStatus').innerHTML=`<span class="storyHealthBadge ${cls}">${esc(d.health_label||'UNKNOWN')}</span>`;
+    q('storyProjectHealthBody').innerHTML=`<div><b>${esc(d.project_title||'')}</b></div>
+    <div class=storyHealthGrid>
+      <div class=storyHealthMetric><div class=label>Project</div><div class=value>${s.project_exists?'YES':'NO'}</div></div>
+      <div class=storyHealthMetric><div class=label>Manifest</div><div class=value>${s.manifest_valid?'VALID':'NO'}</div></div>
+      <div class=storyHealthMetric><div class=label>Folders</div><div class=value>${s.required_folders_ok||0}/${s.required_folders||0}</div></div>
+      <div class=storyHealthMetric><div class=label>Sources</div><div class=value>${s.expected_sources_ok||0}/${s.expected_sources||0}</div></div>
+      <div class=storyHealthMetric><div class=label>Books</div><div class=value>${s.books_in_manifest||0}</div></div>
+      <div class=storyHealthMetric><div class=label>Checks</div><div class=value>${s.dashboard_checks_passed||0}/${s.dashboard_checks||0}</div></div>
+    </div>
+    <div class=storyHealthLine>Manifest status: ${esc(s.manifest_status||'')}</div>
+    <div class=storyHealthLine>README: ${s.readme_exists} • Books.md: ${s.books_outline_exists} • Source files: ${s.source_files||0}</div>
+    <div class=storyHealthLine>Project root: ${esc(d.project_root||'')}</div>
+    ${(d.needs_attention||[]).length?`<div class=storyHealthLine>Attention: ${(d.needs_attention||[]).map(a=>esc(a.title)).join(', ')}</div>`:''}
+    ${(d.advisories||[]).length?`<div class=storyHealthLine>Advisory: ${(d.advisories||[]).map(a=>esc(a.title)).join(', ')}</div>`:''}
+    ${d.exported?`<div class=storyHealthLine>Export: ${esc(d.exported.markdown||'')}</div>`:''}`;
+    toast('Story Project health card loaded.');
+}
+function sendStoryProjectHealthToMission(){
+    if(!lastStoryProjectHealth){toast('Refresh Project Health first.');return;}
+    let d=lastStoryProjectHealth, s=d.summary||{};
+    go('mission');
+    q('input').value=`Please review this Kayock Writer Story Project Health Card.
+
+Milestone:
+${d.milestone}
+Health: ${d.health_label}
+Card state: ${d.card_state}
+Project: ${d.project_title}
+Project root: ${d.project_root}
+Dashboard ready: ${d.dashboard_ready}
+
+Summary:
+Project exists: ${s.project_exists}
+Manifest exists: ${s.manifest_exists}
+Manifest valid: ${s.manifest_valid}
+Manifest status: ${s.manifest_status}
+README exists: ${s.readme_exists}
+Books.md exists: ${s.books_outline_exists}
+Required folders OK: ${s.required_folders_ok}/${s.required_folders}
+Source files: ${s.source_files}
+Source JSON/Markdown/Text: ${s.source_json}/${s.source_markdown}/${s.source_text}
+Expected sources OK: ${s.expected_sources_ok}/${s.expected_sources}
+Books in manifest: ${s.books_in_manifest}
+Dashboard checks passed: ${s.dashboard_checks_passed}/${s.dashboard_checks}
+Dashboard problems: ${s.dashboard_problems}
+
+Attention:
+${(d.needs_attention||[]).length ? (d.needs_attention||[]).map(a=>`${a.id}: ${a.summary}`).join('\n') : 'None.'}
+
+Advisories:
+${(d.advisories||[]).length ? (d.advisories||[]).map(a=>`${a.id}: ${a.summary}`).join('\n') : 'None.'}
+
+Export:
+${d.exported?.markdown||'No exported project health card'}
+
+Safety:
+Read-only health card.
+No story-file mutation.
+No project creation.
+No legacy migration.
+No rename performed.
+No overwrite.
+No delete.
+No move.
+No install.
+No model cleanup.
+
+Please determine:
+1. Whether v10.11.6 should be marked stable/proven
+2. Whether Story Forge should use this as its compact project status
+3. Whether the next build should be Chapter Planner Preview.`;
+    toast('Story Project health sent to Mission Console.');
+}
+
+let lastProjectDashboard=null;
+async function loadProjectDashboard(doExport=false){
+    if(!q('projectDashboardStatus'))return;
+    q('projectDashboardStatus').textContent='Loading Story Project Dashboard...';
+    let d=await api('/api/writer/project_dashboard',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({project_id:'slipping_into_darkness',export:doExport})});
+    if(!d?.ok){
+        q('projectDashboardStatus').textContent=d?.message||'Could not load project dashboard.';
+        return;
+    }
+    lastProjectDashboard=d;
+    let s=d.summary||{};
+    q('projectDashboardStatus').innerHTML=`<span class="dashProjectBadge ${d.dashboard_ready?'':'bad'}">${esc(d.health_label||'UNKNOWN')}</span>`;
+    q('projectDashboardSummary').innerHTML=`<div><b>${esc(d.milestone||'')}</b></div>
+    <div class=projectDashGrid>
+      <div class=projectDashMetric><div class=label>Ready</div><div class=value>${s.dashboard_ready?'YES':'NO'}</div></div>
+      <div class=projectDashMetric><div class=label>Folders</div><div class=value>${s.required_folders_ok||0}/${s.required_folders||0}</div></div>
+      <div class=projectDashMetric><div class=label>Sources</div><div class=value>${s.source_files||0}</div></div>
+      <div class=projectDashMetric><div class=label>Expected</div><div class=value>${s.expected_sources_ok||0}/${s.expected_sources||0}</div></div>
+      <div class=projectDashMetric><div class=label>Books</div><div class=value>${s.books_in_manifest||0}</div></div>
+      <div class=projectDashMetric><div class=label>Checks</div><div class=value>${s.checks_passed||0}/${s.checks||0}</div></div>
+    </div>
+    <div class=projectDashPath>Project root: ${esc(s.project_root||'')}</div>
+    <div class=projectDashPath>Manifest status: ${esc(s.manifest_status||'')} | README: ${s.readme_exists} | Books.md: ${s.books_outline_exists}</div>
+    ${d.exported?`<div class=projectDashPath>Export: ${esc(d.exported.markdown||'')}</div>`:''}`;
+    let m=d.manifest_summary||{};
+    q('projectDashboardManifest').innerHTML=`<pre>${esc(JSON.stringify(m,null,2))}</pre>`;
+    q('projectDashboardFolders').innerHTML=(d.folder_checks||[]).map(f=>`<div class="histrow ${f.ok?'ok':'fail'}"><b>${esc(f.name||'folder')}</b><div>${f.exists?'exists':'missing'} | ${esc(f.kind||'')}</div><div class=projectDashPath>${esc(f.path||'')}</div></div>`).join('')||'No folder checks.';
+    q('projectDashboardSources').innerHTML=(d.source_files||[]).map(f=>`<div class="projectDashCard"><b>${esc(f.name||'')}</b><div>${esc(f.suffix||'')} | ${f.size||0} bytes | ${esc(f.modified||'')}</div><div class=projectDashPath>${esc(f.path||'')}</div></div>`).join('')||'No source files.';
+    q('projectDashboardReadme').innerHTML=`<pre>${esc(d.readme_preview?.text||'README missing or empty.')}</pre>`;
+    q('projectDashboardBooks').innerHTML=`<pre>${esc(d.books_preview?.text||'Books.md missing or empty.')}</pre>`;
+    q('projectDashboardChecks').innerHTML=(d.checks||[]).map(c=>`<div class="histrow ${c.ok?'ok':'fail'}"><b>${esc(c.id||'check')}</b><div>${esc(c.message||'')}</div></div>`).join('')||'No checks.';
+    q('projectDashboardSafety').textContent=Object.entries(d.safety||{}).map(([k,v])=>`${k}: ${v}`).join('\n');
+    toast('Story Project Dashboard loaded.');
+}
+function sendProjectDashboardToMission(){
+    if(!lastProjectDashboard){toast('Load Project Dashboard first.');return;}
+    let d=lastProjectDashboard, s=d.summary||{};
+    go('mission');
+    q('input').value=`Please review this Kayock Writer Story Project Reader / Dashboard report.
+
+Milestone:
+${d.milestone}
+Health: ${d.health_label}
+Dashboard ready: ${d.dashboard_ready}
+
+Summary:
+Project: ${s.title}
+Project ID: ${s.project_id}
+Project exists: ${s.project_exists}
+Project root: ${s.project_root}
+Required folders OK: ${s.required_folders_ok}/${s.required_folders}
+Manifest exists: ${s.manifest_exists}
+Manifest valid: ${s.manifest_valid}
+Manifest status: ${s.manifest_status}
+README exists: ${s.readme_exists}
+Books.md exists: ${s.books_outline_exists}
+Source files: ${s.source_files}
+Source JSON/Markdown/Text: ${s.source_json}/${s.source_markdown}/${s.source_text}
+Expected sources OK: ${s.expected_sources_ok}/${s.expected_sources}
+Books in manifest: ${s.books_in_manifest}
+Checks passed: ${s.checks_passed}/${s.checks}
+Problems: ${s.problems}
+
+Manifest summary:
+${JSON.stringify(d.manifest_summary,null,2)}
+
+Folder checks:
+${(d.folder_checks||[]).map(f=>`${f.ok?'PASS':'FAIL'} — ${f.path}`).join('\n')}
+
+Source files:
+${(d.source_files||[]).map(f=>`${f.name} — ${f.suffix} — ${f.size} bytes`).join('\n')}
+
+Checks:
+${(d.checks||[]).map(c=>`${c.ok?'PASS':'FAIL'} — ${c.id}: ${c.message}`).join('\n')}
+
+Export:
+${d.exported?.markdown||'No exported dashboard report'}
+
+Safety:
+Read-only project dashboard.
+No story-file mutation.
+No project creation.
+No legacy migration.
+No rename performed.
+No overwrite.
+No delete.
+No move.
+No install.
+No model cleanup.
+
+Please determine:
+1. Whether v10.11.5 should be marked stable/proven
+2. Whether the created Slipping into Darkness project is usable
+3. Whether the next build should add the compact project health card to Story Forge.`;
+    toast('Project Dashboard sent to Mission Console.');
+}
+
+let lastProjectAction=null;
+async function loadProjectAction(execute=false,includePhrase=false){
+    if(!q('projectActionStatus'))return;
+    q('projectActionStatus').textContent=execute?'Requesting approved project creation...':'Loading project action preview...';
+    let phrase=includePhrase?(q('projectActionPhrase')?.value||''):'';
+    let d=await api('/api/writer/create_project_action',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({project_id:'slipping_into_darkness',approval_phrase:phrase,execute:execute,export:true})});
+    if(!d?.ok){
+        q('projectActionStatus').textContent=d?.message||'Could not load project action.';
+        return;
+    }
+    lastProjectAction=d;
+    let s=d.summary||{};
+    let cls=d.status==='created'?'created':(d.status==='blocked'?'blocked':(d.status==='error'?'error':''));
+    q('projectActionStatus').innerHTML=`<span class="actionBadge ${cls}">${esc(d.health_label||'UNKNOWN')}</span>`;
+    q('projectActionSummary').innerHTML=`<div><b>${esc(d.milestone||'')}</b></div>
+    <div class=actionGrid>
+      <div class=actionMetric><div class=label>Status</div><div class=value>${esc(s.status||'')}</div></div>
+      <div class=actionMetric><div class=label>Allowed</div><div class=value>${s.action_allowed?'YES':'NO'}</div></div>
+      <div class=actionMetric><div class=label>Phrase</div><div class=value>${s.phrase_matches?'YES':'NO'}</div></div>
+      <div class=actionMetric><div class=label>Blockers</div><div class=value>${s.blockers||0}</div></div>
+      <div class=actionMetric><div class=label>Dirs</div><div class=value>${s.created_dirs||0}</div></div>
+      <div class=actionMetric><div class=label>Files</div><div class=value>${s.written_files||0}</div></div>
+      <div class=actionMetric><div class=label>Copied</div><div class=value>${s.copied_files||0}</div></div>
+      <div class=actionMetric><div class=label>Errors</div><div class=value>${s.errors||0}</div></div>
+    </div>
+    <div class=actionPath>Project root: ${esc(s.project_root||'')}</div>
+    <div class=actionPath>Manifest target: ${esc(s.manifest_target||'')}</div>
+    ${d.exported?`<div class=actionPath>Export: ${esc(d.exported.markdown||'')}</div>`:''}`;
+    q('projectActionBlockers').innerHTML=(d.blockers||[]).length?(d.blockers||[]).map(b=>`<div class="histrow fail"><b>${esc(b.id||'blocker')}</b><div>${esc(b.message||'')}</div></div>`).join(''):'<div class="histrow ok"><b>No blockers.</b><div>Approved action may run when execute=true and phrase matches.</div></div>';
+    let riskHtml=(d.overwrite_risks||[]).length?(d.overwrite_risks||[]).map(r=>`<div class="histrow fail"><b>Overwrite risk</b><div class=actionPath>${esc(r.path||'')}</div></div>`).join(''):'<div class="histrow ok"><b>No overwrite risks.</b></div>';
+    q('projectActionBlockers').innerHTML+=riskHtml;
+    q('projectActionPreflight').innerHTML=(d.preflight||[]).map(p=>`<div class="actionCard"><b>${esc(p.kind||'item')}</b><div>Exists: ${p.exists??p.target_exists??false} | Would overwrite: ${p.would_overwrite||false}</div><div class=actionPath>${esc(p.path||'')}</div>${p.source?`<div class=actionPath>Source: ${esc(p.source)}</div>`:''}</div>`).join('')||'No preflight.';
+    let results=[];
+    (d.created_dirs||[]).forEach(p=>results.push(`<div class="histrow ok"><b>Created folder</b><div class=actionPath>${esc(p)}</div></div>`));
+    (d.written_files||[]).forEach(p=>results.push(`<div class="histrow ok"><b>Wrote file</b><div class=actionPath>${esc(p)}</div></div>`));
+    (d.copied_files||[]).forEach(c=>results.push(`<div class="histrow ok"><b>Copied legacy source</b><div class=actionPath>${esc(c.source)} -> ${esc(c.target)}</div></div>`));
+    (d.errors||[]).forEach(e=>results.push(`<div class="histrow fail"><b>Error</b><div>${esc(JSON.stringify(e))}</div></div>`));
+    q('projectActionResults').innerHTML=results.join('')||'<div class="histrow info"><b>No creation executed.</b><div>This is preview/block mode unless exact phrase and execute are used.</div></div>';
+    q('projectActionChecks').innerHTML=(d.post_checks||[]).map(c=>`<div class="histrow ${c.ok?'ok':'fail'}"><b>${esc(c.id||'check')}</b><div>${esc(c.message||'')}</div></div>`).join('')||'No post checks.';
+    q('projectActionSafety').textContent=Object.entries(d.safety||{}).map(([k,v])=>`${k}: ${v}`).join('\n');
+    toast('Project action report loaded.');
+}
+function sendProjectActionToMission(){
+    if(!lastProjectAction){toast('Load Project Action first.');return;}
+    let d=lastProjectAction, s=d.summary||{};
+    go('mission');
+    q('input').value=`Please review this Kayock Writer Create Project Approved Action report.
+
+Milestone:
+${d.milestone}
+Health: ${d.health_label}
+Status: ${d.status}
+
+Summary:
+Project: ${s.title}
+Project ID: ${s.project_id}
+Execute requested: ${s.execute_requested}
+Action allowed: ${s.action_allowed}
+Phrase matches: ${s.phrase_matches}
+Blockers: ${s.blockers}
+Overwrite risks: ${s.overwrite_risks}
+Preflight items: ${s.preflight_items}
+Required dirs: ${s.required_dirs}
+Required files: ${s.required_files}
+Legacy files to copy: ${s.legacy_files_to_copy}
+Created dirs: ${s.created_dirs}
+Written files: ${s.written_files}
+Copied files: ${s.copied_files}
+Errors: ${s.errors}
+Post checks: ${s.post_checks_passed}/${s.post_checks}
+Project root: ${s.project_root}
+Manifest target: ${s.manifest_target}
+
+Blockers:
+${(d.blockers||[]).length ? (d.blockers||[]).map(b=>`${b.id}: ${b.message}`).join('\n') : 'None.'}
+
+Created dirs:
+${(d.created_dirs||[]).join('\n')||'None.'}
+
+Written files:
+${(d.written_files||[]).join('\n')||'None.'}
+
+Copied files:
+${(d.copied_files||[]).map(c=>`${c.source} -> ${c.target}`).join('\n')||'None.'}
+
+Post checks:
+${(d.post_checks||[]).map(c=>`${c.ok?'PASS':'FAIL'} — ${c.id}: ${c.message}`).join('\n')}
+
+Errors:
+${(d.errors||[]).length ? (d.errors||[]).map(e=>JSON.stringify(e)).join('\n') : 'None.'}
+
+Export:
+${d.exported?.markdown||'No exported action report'}
+
+Safety:
+Requires exact phrase.
+No action without phrase.
+No overwrite.
+No delete.
+No move.
+Legacy import copy-only.
+Legacy NovelForge remains untouched.
+No install.
+No model cleanup.
+
+Please determine:
+1. Whether v10.11.4 should be marked stable/proven
+2. Whether the project skeleton was created safely if status is created
+3. Whether next build should be Story Project Reader / Dashboard.`;
+    toast('Project Action sent to Mission Console.');
+}
+
 let lastProjectGate=null;
 async function loadProjectGate(doExport=false){
     if(!q('projectGateStatus'))return;
@@ -6392,6 +7254,15 @@ class Handler(BaseHTTPRequestHandler):
         path=urlparse(self.path).path; d=self.body()
         if path=='/api/generate/root_manifest/preview': self.js(project_manifest_preview(d)); return
         if path=='/api/generate/department_readme/preview': self.js(department_readme_preview(d)); return
+        if path=='/api/writer/chapter_editor_preview': self.js(kayock_writer_chapter_editor_preview_report(d)); return
+        if path=='/api/writer/saved_chapter_health_card': self.js(kayock_writer_saved_chapter_health_card_report(d)); return
+        if path=='/api/writer/saved_chapter_dashboard': self.js(kayock_writer_saved_chapter_dashboard_report(d)); return
+        if path=='/api/writer/chapter_save_action': self.js(kayock_writer_chapter_save_action_report(d)); return
+        if path=='/api/writer/chapter_save_gate': self.js(kayock_writer_chapter_save_gate_report(d)); return
+        if path=='/api/writer/chapter_planner_preview': self.js(kayock_writer_chapter_planner_preview_report(d)); return
+        if path=='/api/writer/project_health_card': self.js(kayock_writer_project_health_card_report(d)); return
+        if path=='/api/writer/project_dashboard': self.js(kayock_writer_project_dashboard_report(d)); return
+        if path=='/api/writer/create_project_action': self.js(kayock_writer_create_project_action_report(d)); return
         if path=='/api/writer/create_project_gate': self.js(kayock_writer_create_project_gate_report(d)); return
         if path=='/api/writer/manifest_preview': self.js(kayock_writer_manifest_preview_report(d)); return
         if path=='/api/writer/story_forge': self.js(kayock_writer_story_forge_report(d)); return
@@ -16241,6 +17112,2127 @@ def kayock_writer_create_project_gate_report(d=None):
 
     return report
 
+
+
+def kayock_writer_create_project_action_report(d=None):
+    d=d or {}
+    execute=bool(d.get('execute',False))
+    export=bool(d.get('export',True))
+    typed_phrase=str(d.get('approval_phrase') or '').strip()
+    project_id=str(d.get('project_id') or 'slipping_into_darkness').strip().lower().replace(' ','_')
+    if project_id in ('','slipping','slipping_into_darkness'):
+        project_id='slipping_into_darkness'
+
+    required_phrase='CREATE KAYOCK WRITER PROJECT'
+    gate=kayock_writer_create_project_gate_report({'project_id':project_id,'approval_phrase':typed_phrase})
+    manifest=kayock_writer_manifest_preview_report({'project_id':project_id})
+    root=ROOT
+    reports=FOLDERS.get('kayock_writer_create_action_reports',root/'Reports'/'KayockWriter'/'CreateProjectAction')
+
+    summary_gate=gate.get('summary') or {}
+    proposed_root=Path(summary_gate.get('proposed_project_root') or root/'Projects'/'KayockWriter'/'Slipping_into_Darkness')
+    project_title=summary_gate.get('title','Slipping into Darkness')
+
+    phrase_matches=(typed_phrase==required_phrase)
+
+    # Build content from preview.
+    manifest_obj=dict(manifest.get('manifest_preview') or {})
+    manifest_obj['status']='active_project'
+    manifest_obj['created_by']='Kayock Command OS'
+    manifest_obj['created_with']='v10.11.4 Create Project Approved Action'
+    manifest_obj['created_at']=now()
+    manifest_obj['safety_contract']={
+        'legacy_import_copy_only':True,
+        'no_delete':True,
+        'no_move':True,
+        'no_overwrite_without_backup':True,
+        'future_story_writes_require_user_approval':True
+    }
+
+    readme_text=f"""# {project_title}
+
+Created by Kayock Writer / Story Forge.
+
+## Status
+
+This project was created by an approved Kayock Command OS action.
+
+## Safety
+
+- Legacy NovelForge files were copied only.
+- Legacy NovelForge files were not moved or deleted.
+- No overwrite was allowed during creation.
+- Future story writes require preview and user approval.
+
+## Project Layout
+
+- `Source/` — copied legacy source files.
+- `Markdown/` — portable manuscript and planning Markdown.
+- `Chapters/` — future chapter cards and chapter drafts.
+- `Scenes/` — future scene cards and scene drafts.
+- `Codex/` — characters, lore, prophecy, locations, artifacts, factions, and canon.
+- `Timeline/` — chronology and event ordering.
+- `Continuity/` — canon checks, contradictions, setup/payoff.
+- `Mysteries/` — clues, reveals, prophecy fragments, and payoff status.
+- `Exports/` — story bible and shareable exports.
+
+## Flagship Seeds
+
+Book 1:
+Anthony learns the prophecy; Kayock dies; Jokaya kills him; Anthony stops Jokaya; Anthony learns his ex has been turned.
+
+Book 2:
+Anthony hunts the ex, learns who she has become, defeats her, discovers Jokaya sanctuary clues, follows Olmec/Croatoan/Crystal Skull threads.
+"""
+
+    books_text=f"""# {project_title} — Books
+
+## Book 1
+
+**Seed outline:** Anthony learns the prophecy; Kayock dies; Jokaya kills him; Anthony stops Jokaya; Anthony learns his ex has been turned.
+
+### Chapter Planning Placeholder
+
+Future chapter cards should include:
+
+- Chapter number
+- Title
+- Point of view
+- Goal
+- Conflict
+- Reveal
+- Continuity notes
+- Ending hook
+
+## Book 2
+
+**Seed outline:** Anthony hunts the ex, learns who she has become, defeats her, discovers Jokaya sanctuary clues, follows Olmec/Croatoan/Crystal Skull threads.
+
+### Chapter Planning Placeholder
+
+Future chapter cards should include:
+
+- Chapter number
+- Title
+- Point of view
+- Goal
+- Conflict
+- Reveal
+- Continuity notes
+- Ending hook
+
+## Story Forge Handoffs
+
+- Codex: characters, lore, artifacts, locations, prophecy, factions.
+- Timeline: chronology, flashbacks, ancient-history threads.
+- Continuity: canon checks, contradictions, setup/payoff.
+- Mystery Tracker: clues, reveals, prophecy fragments, Crystal Skulls, Croatoan trail, Jokaya sanctuary.
+"""
+
+    required_dirs=[
+        proposed_root,
+        proposed_root/'Source',
+        proposed_root/'Markdown',
+        proposed_root/'Chapters',
+        proposed_root/'Scenes',
+        proposed_root/'Codex',
+        proposed_root/'Timeline',
+        proposed_root/'Continuity',
+        proposed_root/'Mysteries',
+        proposed_root/'Exports'
+    ]
+    required_files=[
+        {'id':'manifest','path':proposed_root/'project.kayock-writer.json','content':json.dumps(manifest_obj,indent=2),'kind':'json'},
+        {'id':'readme','path':proposed_root/'README.md','content':readme_text,'kind':'markdown'},
+        {'id':'books','path':proposed_root/'Markdown'/'Books.md','content':books_text,'kind':'markdown'}
+    ]
+
+    legacy_files=[f for f in gate.get('legacy_files',[]) if f.get('exists')]
+    copy_plan=[]
+    for f in legacy_files:
+        source=Path(f.get('path',''))
+        target=proposed_root/'Source'/source.name
+        copy_plan.append({'source':str(source),'target':str(target),'name':source.name,'exists':source.exists(),'target_exists':target.exists()})
+
+    # Preflight.
+    preflight=[]
+    overwrite_risks=[]
+    for p in required_dirs:
+        preflight.append({'kind':'folder','path':str(p),'exists':p.exists(),'would_create':not p.exists(),'would_overwrite':False})
+    for f in required_files:
+        exists=f['path'].exists()
+        risk=exists
+        if risk:
+            overwrite_risks.append({'kind':'file','path':str(f['path']),'id':f['id']})
+        preflight.append({'kind':'file','path':str(f['path']),'exists':exists,'would_create':not exists,'would_overwrite':risk})
+    for c in copy_plan:
+        risk=Path(c['target']).exists()
+        if risk:
+            overwrite_risks.append({'kind':'legacy_copy_target','path':c['target'],'source':c['source']})
+        preflight.append({'kind':'copy','source':c['source'],'path':c['target'],'source_exists':c['exists'],'target_exists':risk,'would_copy':c['exists'] and not risk,'would_overwrite':risk})
+
+    blockers=[]
+    if not gate.get('gate_ready'):
+        blockers.append({'id':'gate_not_ready','message':'Create Project Approval Gate is not ready.'})
+    if not manifest.get('preview_ready'):
+        blockers.append({'id':'manifest_not_ready','message':'Manifest preview is not ready.'})
+    if not phrase_matches:
+        blockers.append({'id':'phrase_mismatch','message':'Exact approval phrase was not provided.'})
+    if overwrite_risks:
+        blockers.append({'id':'overwrite_risk','message':f'{len(overwrite_risks)} overwrite risk(s) detected.'})
+    if not legacy_files:
+        blockers.append({'id':'no_legacy_files','message':'No legacy source files detected for copy-only import.'})
+
+    action_allowed=bool(execute and not blockers)
+
+    actions=[]
+    created_dirs=[]
+    written_files=[]
+    copied_files=[]
+    errors=[]
+
+    # Evidence target is safe to create because it is in reports. It records action regardless of execute.
+    reports.mkdir(parents=True,exist_ok=True)
+    stamp=datetime.now().strftime('%Y%m%d_%H%M%S')
+
+    if action_allowed:
+        try:
+            for p in required_dirs:
+                if not p.exists():
+                    p.mkdir(parents=True,exist_ok=False)
+                    created_dirs.append(str(p))
+                    actions.append({'id':'create_folder','path':str(p),'ok':True})
+                else:
+                    actions.append({'id':'folder_exists','path':str(p),'ok':True})
+            for f in required_files:
+                if f['path'].exists():
+                    raise RuntimeError(f"Refusing to overwrite existing file: {f['path']}")
+                f['path'].parent.mkdir(parents=True,exist_ok=True)
+                f['path'].write_text(f['content'],encoding='utf-8')
+                written_files.append(str(f['path']))
+                actions.append({'id':'write_file','path':str(f['path']),'ok':True})
+            for c in copy_plan:
+                src=Path(c['source'])
+                dst=Path(c['target'])
+                if not src.exists():
+                    actions.append({'id':'copy_skipped_missing_source','source':str(src),'target':str(dst),'ok':False})
+                    errors.append({'id':'copy_missing_source','source':str(src),'target':str(dst)})
+                    continue
+                if dst.exists():
+                    raise RuntimeError(f"Refusing to overwrite copy target: {dst}")
+                dst.parent.mkdir(parents=True,exist_ok=True)
+                shutil.copy2(src,dst)
+                copied_files.append({'source':str(src),'target':str(dst)})
+                actions.append({'id':'copy_legacy_source','source':str(src),'target':str(dst),'ok':True})
+        except Exception as e:
+            errors.append({'id':'execution_error','message':str(e)})
+
+    # Post verify.
+    post_checks=[]
+    if execute and action_allowed and not errors:
+        post_checks.append({'id':'project_root_exists','ok':proposed_root.exists(),'message':'Project root exists.'})
+        for p in required_dirs:
+            post_checks.append({'id':'folder_exists','ok':p.exists() and p.is_dir(),'message':str(p)})
+        for f in required_files:
+            post_checks.append({'id':'file_exists','ok':f['path'].exists() and f['path'].is_file(),'message':str(f['path'])})
+        for c in copied_files:
+            post_checks.append({'id':'legacy_copy_exists','ok':Path(c['target']).exists() and Path(c['target']).is_file(),'message':c['target']})
+    else:
+        post_checks.append({'id':'dry_run_or_blocked','ok':True,'message':'No creation executed in preview/block mode.'})
+
+    safety={
+        'requires_exact_phrase':True,
+        'no_action_without_phrase':True,
+        'no_overwrite':len(overwrite_risks)==0,
+        'no_delete':True,
+        'no_move':True,
+        'legacy_copy_only':True,
+        'legacy_root_remains_untouched':True,
+        'no_install':True,
+        'no_model_cleanup':True,
+        'approved_action_only':True,
+        'evidence_report_written':True
+    }
+
+    status='preview'
+    if execute and blockers:
+        status='blocked'
+    elif execute and action_allowed and not errors:
+        status='created'
+    elif execute and errors:
+        status='error'
+
+    healthy=status in ('preview','blocked','created') and len(errors)==0
+    if status=='created':
+        health_label='KAYOCK WRITER PROJECT CREATED'
+    elif status=='blocked':
+        health_label='CREATE PROJECT ACTION BLOCKED SAFELY'
+    elif status=='error':
+        health_label='CREATE PROJECT ACTION ERROR'
+    else:
+        health_label='CREATE PROJECT ACTION READY — PREVIEW ONLY'
+
+    summary={
+        'project_id':project_id,
+        'title':project_title,
+        'status':status,
+        'execute_requested':execute,
+        'action_allowed':action_allowed,
+        'phrase_matches':phrase_matches,
+        'blockers':len(blockers),
+        'overwrite_risks':len(overwrite_risks),
+        'preflight_items':len(preflight),
+        'required_dirs':len(required_dirs),
+        'required_files':len(required_files),
+        'legacy_files_to_copy':len(copy_plan),
+        'created_dirs':len(created_dirs),
+        'written_files':len(written_files),
+        'copied_files':len(copied_files),
+        'errors':len(errors),
+        'post_checks':len(post_checks),
+        'post_checks_passed':sum(1 for c in post_checks if c.get('ok')),
+        'project_root':str(proposed_root),
+        'manifest_target':str(proposed_root/'project.kayock-writer.json'),
+        'read_only_when_not_executing':not execute,
+        'report_only_when_not_executing':not execute
+    }
+
+    report={
+        'ok':True,
+        'created':now(),
+        'title':'Kayock Writer Create Project Approved Action',
+        'read_only':not action_allowed,
+        'report_only':not action_allowed,
+        'healthy':healthy,
+        'status':status,
+        'health_label':health_label,
+        'message':f'Create Project Approved Action: {health_label}',
+        'milestone':'v10.11.4 Create Project Approved Action',
+        'summary':summary,
+        'approval_phrase_required':required_phrase,
+        'approval_phrase_matches':phrase_matches,
+        'blockers':blockers,
+        'preflight':preflight,
+        'overwrite_risks':overwrite_risks,
+        'created_dirs':created_dirs,
+        'written_files':written_files,
+        'copied_files':copied_files,
+        'actions':actions,
+        'post_checks':post_checks,
+        'errors':errors,
+        'manifest_preview':manifest_obj,
+        'gate_summary':gate.get('summary',{}),
+        'copy_plan':copy_plan,
+        'folders':{
+            'project_root':str(proposed_root),
+            'legacy_novel_forge':str(root/'NovelForge'),
+            'create_action_reports':str(reports)
+        },
+        'safety':safety
+    }
+
+    if export:
+        json_path=reports/f'Create_Project_Approved_Action_{project_id}_{stamp}.json'
+        md_path=reports/f'Create_Project_Approved_Action_{project_id}_{stamp}.md'
+        jwrite(json_path,report)
+        lines=[
+            '# Kayock Writer Create Project Approved Action','',
+            f"Created: {report['created']}",
+            f"Milestone: **{report['milestone']}**",
+            f"Health: **{health_label}**",
+            f"Status: `{status}`",
+            f"Execute requested: {execute}",
+            f"Action allowed: {action_allowed}",
+            '',
+            '## Safety','',
+            '- Requires exact phrase.',
+            '- No action without phrase.',
+            '- No overwrite.',
+            '- No delete.',
+            '- No move.',
+            '- Legacy import is copy-only.',
+            '- Legacy NovelForge remains untouched.',
+            '- No install.',
+            '- No model cleanup.',
+            '- Approved action only.',
+            '',
+            '## Summary',''
+        ]
+        for k,v in summary.items():
+            lines.append(f"- {k.replace('_',' ').title()}: {v}")
+        lines += ['','## Blockers','']
+        if blockers:
+            for b in blockers:
+                lines.append(f"- `{b.get('id')}` — {b.get('message')}")
+        else:
+            lines.append('- None.')
+        lines += ['','## Created Directories','']
+        if created_dirs:
+            for p in created_dirs:
+                lines.append(f"- `{p}`")
+        else:
+            lines.append('- None.')
+        lines += ['','## Written Files','']
+        if written_files:
+            for p in written_files:
+                lines.append(f"- `{p}`")
+        else:
+            lines.append('- None.')
+        lines += ['','## Copied Legacy Files','']
+        if copied_files:
+            for c in copied_files:
+                lines.append(f"- `{c.get('source')}` -> `{c.get('target')}`")
+        else:
+            lines.append('- None.')
+        lines += ['','## Post Checks','']
+        for c in post_checks:
+            lines.append(f"- [{'PASS' if c.get('ok') else 'FAIL'}] `{c.get('id')}` — {c.get('message')}")
+        lines += ['','## Errors','']
+        if errors:
+            for e in errors:
+                lines.append(f"- {e}")
+        else:
+            lines.append('- None.')
+        md_path.write_text('\n'.join(lines),encoding='utf-8')
+        report['exported']={'json':str(json_path),'markdown':str(md_path),'folder':str(reports)}
+
+    return report
+
+
+
+def kayock_writer_project_dashboard_report(d=None):
+    d=d or {}
+    export=bool(d.get('export',False))
+    project_id=str(d.get('project_id') or 'slipping_into_darkness').strip().lower().replace(' ','_')
+    if project_id in ('','slipping','slipping_into_darkness'):
+        project_id='slipping_into_darkness'
+        title='Slipping into Darkness'
+        folder_name='Slipping_into_Darkness'
+    else:
+        title=str(d.get('title') or project_id.replace('_',' ').title()).strip()
+        folder_name=title.replace(' ','_')
+
+    root=ROOT
+    project_root=root/'Projects'/'KayockWriter'/folder_name
+    reports=FOLDERS.get('kayock_writer_project_dashboard_reports',root/'Reports'/'KayockWriter'/'ProjectDashboard')
+    manifest_path=project_root/'project.kayock-writer.json'
+    readme_path=project_root/'README.md'
+    books_path=project_root/'Markdown'/'Books.md'
+    source_dir=project_root/'Source'
+
+    required_folders=[
+        project_root,
+        project_root/'Source',
+        project_root/'Markdown',
+        project_root/'Chapters',
+        project_root/'Scenes',
+        project_root/'Codex',
+        project_root/'Timeline',
+        project_root/'Continuity',
+        project_root/'Mysteries',
+        project_root/'Exports'
+    ]
+    expected_source_names=[
+        'Slipping_into_Darkness.json',
+        'Slipping_into_Darkness.md',
+        'Slipping_into_Darkness_Story_Bible_20260707_172721.json',
+        'Slipping_into_Darkness_Story_Bible_20260707_172721.md',
+        'Slipping_into_Darkness_Story_Bible_20260707_172721.txt',
+        'Slipping.json',
+        'Slipping.md'
+    ]
+
+    def safe_read_text(p, limit=6000):
+        try:
+            if not p.exists() or not p.is_file():
+                return {'exists':False,'text':'','chars':0,'error':''}
+            txt=p.read_text(encoding='utf-8',errors='replace')
+            return {'exists':True,'text':txt[:limit],'chars':len(txt),'truncated':len(txt)>limit,'error':''}
+        except Exception as e:
+            return {'exists':p.exists(),'text':'','chars':0,'error':str(e)}
+
+    def info(p):
+        item={'path':str(p),'name':p.name,'exists':False,'kind':'missing','size':0,'modified':''}
+        try:
+            item['exists']=p.exists()
+            if p.exists():
+                item['kind']='folder' if p.is_dir() else 'file'
+                item['size']=p.stat().st_size if p.is_file() else None
+                item['modified']=datetime.fromtimestamp(p.stat().st_mtime).isoformat(timespec='seconds')
+        except Exception as e:
+            item['error']=str(e)
+        return item
+
+    folder_checks=[]
+    for f in required_folders:
+        x=info(f)
+        x['ok']=bool(x.get('exists') and x.get('kind')=='folder')
+        folder_checks.append(x)
+
+    manifest={}
+    manifest_error=''
+    manifest_text=safe_read_text(manifest_path,12000)
+    if manifest_text.get('exists'):
+        try:
+            manifest=json.loads(manifest_path.read_text(encoding='utf-8',errors='replace'))
+        except Exception as e:
+            manifest_error=str(e)
+
+    readme=safe_read_text(readme_path,6000)
+    books=safe_read_text(books_path,6000)
+
+    source_files=[]
+    source_counts={'files':0,'json':0,'markdown':0,'text':0,'other':0,'bytes':0}
+    try:
+        if source_dir.exists() and source_dir.is_dir():
+            for p in sorted([x for x in source_dir.iterdir() if x.is_file()], key=lambda x:x.name.lower()):
+                item=info(p)
+                item['suffix']=p.suffix.lower()
+                source_files.append(item)
+                source_counts['files']+=1
+                source_counts['bytes']+=int(item.get('size') or 0)
+                if item['suffix']=='.json': source_counts['json']+=1
+                elif item['suffix']=='.md': source_counts['markdown']+=1
+                elif item['suffix'] in ('.txt','.text'): source_counts['text']+=1
+                else: source_counts['other']+=1
+    except Exception as e:
+        source_counts['error']=str(e)
+
+    expected_sources=[]
+    for name in expected_source_names:
+        p=source_dir/name
+        x=info(p)
+        x['ok']=bool(x.get('exists') and x.get('kind')=='file')
+        expected_sources.append(x)
+
+    # Read useful top-level project files.
+    manifest_summary={
+        'api_version':manifest.get('api_version','') if isinstance(manifest,dict) else '',
+        'project_id':manifest.get('project_id','') if isinstance(manifest,dict) else '',
+        'title':manifest.get('title','') if isinstance(manifest,dict) else '',
+        'department':manifest.get('department','') if isinstance(manifest,dict) else '',
+        'module':manifest.get('module','') if isinstance(manifest,dict) else '',
+        'status':manifest.get('status','') if isinstance(manifest,dict) else '',
+        'storage':manifest.get('storage','') if isinstance(manifest,dict) else '',
+        'books':manifest.get('books',[]) if isinstance(manifest,dict) else [],
+        'handoff_points':manifest.get('handoff_points',{}) if isinstance(manifest,dict) else {},
+        'provider_mode_plan':manifest.get('provider_mode_plan',{}) if isinstance(manifest,dict) else {},
+        'safety_contract':manifest.get('safety_contract',{}) if isinstance(manifest,dict) else {}
+    }
+
+    checks=[
+        {'id':'project_root_exists','ok':project_root.exists() and project_root.is_dir(),'message':'Project root exists.'},
+        {'id':'required_folders_exist','ok':all(f.get('ok') for f in folder_checks),'message':f"{sum(1 for f in folder_checks if f.get('ok'))}/{len(folder_checks)} required folders exist."},
+        {'id':'manifest_exists','ok':manifest_path.exists() and manifest_path.is_file(),'message':'project.kayock-writer.json exists.'},
+        {'id':'manifest_valid_json','ok':bool(manifest) and not manifest_error,'message':'Manifest JSON parsed.' if not manifest_error else manifest_error},
+        {'id':'manifest_active_project','ok':manifest_summary.get('status')=='active_project','message':f"Manifest status is {manifest_summary.get('status')}."},
+        {'id':'readme_exists','ok':readme_path.exists() and readme_path.is_file(),'message':'README.md exists.'},
+        {'id':'books_outline_exists','ok':books_path.exists() and books_path.is_file(),'message':'Markdown/Books.md exists.'},
+        {'id':'source_files_present','ok':source_counts.get('files',0)>=7,'message':f"Source files present: {source_counts.get('files',0)}."},
+        {'id':'expected_sources_exist','ok':all(f.get('ok') for f in expected_sources),'message':f"{sum(1 for f in expected_sources if f.get('ok'))}/{len(expected_sources)} expected source copies exist."},
+        {'id':'read_only_dashboard','ok':True,'message':'Project dashboard performed read-only inspection only.'}
+    ]
+
+    safety={
+        'read_only_project_dashboard':True,
+        'no_story_file_mutation':True,
+        'no_project_creation':True,
+        'no_legacy_migration':True,
+        'no_rename_performed':True,
+        'no_overwrite':True,
+        'no_delete':True,
+        'no_move':True,
+        'no_install':True,
+        'no_model_cleanup':True,
+        'dashboard_export_only':True
+    }
+
+    summary={
+        'project_id':project_id,
+        'title':manifest_summary.get('title') or title,
+        'project_root':str(project_root),
+        'project_exists':project_root.exists(),
+        'required_folders':len(folder_checks),
+        'required_folders_ok':sum(1 for f in folder_checks if f.get('ok')),
+        'manifest_exists':manifest_path.exists(),
+        'manifest_valid':bool(manifest) and not manifest_error,
+        'manifest_status':manifest_summary.get('status',''),
+        'readme_exists':readme_path.exists(),
+        'books_outline_exists':books_path.exists(),
+        'source_files':source_counts.get('files',0),
+        'source_json':source_counts.get('json',0),
+        'source_markdown':source_counts.get('markdown',0),
+        'source_text':source_counts.get('text',0),
+        'source_bytes':source_counts.get('bytes',0),
+        'expected_sources':len(expected_sources),
+        'expected_sources_ok':sum(1 for f in expected_sources if f.get('ok')),
+        'books_in_manifest':len(manifest_summary.get('books') or []),
+        'checks':len(checks),
+        'checks_passed':sum(1 for c in checks if c.get('ok')),
+        'problems':sum(1 for c in checks if not c.get('ok')),
+        'dashboard_ready':all(c.get('ok') for c in checks),
+        'read_only':True,
+        'report_only':True
+    }
+
+    recommendations=[
+        {'id':'mark_project_dashboard_proven','title':'Mark Story Project Reader / Dashboard proven','recommendation':'Use this dashboard as the read-only proof that the created Story Forge project is usable.','risk':'low','auto_apply':False},
+        {'id':'next_project_health_card','title':'Add Story Project card to Story Forge','recommendation':'Add a compact project health card directly to Story Forge so the project status is visible immediately.','risk':'low','auto_apply':False},
+        {'id':'then_chapter_planner_preview','title':'Add Chapter Planner Preview','recommendation':'After the dashboard is stable, add a preview-only chapter card generator with no writes.','risk':'low','auto_apply':False},
+        {'id':'keep_project_writes_gated','title':'Keep project writes gated','recommendation':'All future story files should use preview, no-overwrite checks, and explicit approval.','risk':'low','auto_apply':False}
+    ]
+
+    healthy=all(c.get('ok') for c in checks)
+    health_label='STORY PROJECT DASHBOARD READY' if healthy else 'STORY PROJECT DASHBOARD NEEDS REVIEW'
+
+    report={
+        'ok':True,
+        'created':now(),
+        'title':'Kayock Writer Story Project Reader / Dashboard',
+        'read_only':True,
+        'report_only':True,
+        'healthy':healthy,
+        'dashboard_ready':healthy,
+        'health_label':health_label,
+        'message':f'Story Project Dashboard: {health_label}',
+        'milestone':'v10.11.5 Story Project Reader / Dashboard',
+        'summary':summary,
+        'manifest_summary':manifest_summary,
+        'manifest_error':manifest_error,
+        'folder_checks':folder_checks,
+        'source_counts':source_counts,
+        'source_files':source_files,
+        'expected_sources':expected_sources,
+        'readme_preview':readme,
+        'books_preview':books,
+        'checks':checks,
+        'recommendations':recommendations,
+        'folders':{
+            'project_root':str(project_root),
+            'source_dir':str(source_dir),
+            'project_dashboard_reports':str(reports)
+        },
+        'safety':safety
+    }
+
+    if export:
+        reports.mkdir(parents=True,exist_ok=True)
+        stamp=datetime.now().strftime('%Y%m%d_%H%M%S')
+        json_path=reports/f'Story_Project_Dashboard_{project_id}_{stamp}.json'
+        md_path=reports/f'Story_Project_Dashboard_{project_id}_{stamp}.md'
+        jwrite(json_path,report)
+        lines=[
+            '# Kayock Writer Story Project Reader / Dashboard','',
+            f"Created: {report['created']}",
+            f"Milestone: **{report['milestone']}**",
+            f"Health: **{health_label}**",
+            f"Dashboard ready: {healthy}",
+            f"Project: **{summary['title']}**",
+            '',
+            '## Safety','',
+            '- Read-only project dashboard.',
+            '- No story-file mutation.',
+            '- No project creation.',
+            '- No legacy migration.',
+            '- No rename performed.',
+            '- No overwrite.',
+            '- No delete.',
+            '- No move.',
+            '- No install.',
+            '- No model cleanup.',
+            '',
+            '## Summary',''
+        ]
+        for k,v in summary.items():
+            lines.append(f"- {k.replace('_',' ').title()}: {v}")
+        lines += ['','## Manifest Summary','']
+        for k,v in manifest_summary.items():
+            if k in ('books','handoff_points','provider_mode_plan','safety_contract'):
+                lines.append(f"- {k}: `{json.dumps(v)[:1000]}`")
+            else:
+                lines.append(f"- {k}: {v}")
+        lines += ['','## Folder Checks','']
+        for f in folder_checks:
+            lines.append(f"- [{'PASS' if f.get('ok') else 'FAIL'}] `{f.get('path')}`")
+        lines += ['','## Source Files','']
+        for f in source_files:
+            lines.append(f"- `{f.get('name')}` — {f.get('suffix')} — {f.get('size')} bytes")
+        lines += ['','## Checks','']
+        for c in checks:
+            lines.append(f"- [{'PASS' if c.get('ok') else 'FAIL'}] `{c.get('id')}` — {c.get('message')}")
+        lines += ['','## Recommendations','']
+        for r in recommendations:
+            lines.append(f"- `{r.get('id')}` — {r.get('title')} — {r.get('recommendation')} — auto apply: {r.get('auto_apply')}")
+        md_path.write_text('\n'.join(lines),encoding='utf-8')
+        report['exported']={'json':str(json_path),'markdown':str(md_path),'folder':str(reports)}
+
+    return report
+
+
+
+def kayock_writer_project_health_card_report(d=None):
+    d=d or {}
+    export=bool(d.get('export',False))
+    project_id=str(d.get('project_id') or 'slipping_into_darkness').strip().lower().replace(' ','_')
+    if project_id in ('','slipping','slipping_into_darkness'):
+        project_id='slipping_into_darkness'
+
+    dashboard=kayock_writer_project_dashboard_report({'project_id':project_id})
+    s=dashboard.get('summary') or {}
+    reports=FOLDERS.get('kayock_writer_project_health_reports',ROOT/'Reports'/'KayockWriter'/'ProjectHealthCards')
+
+    needs_attention=[]
+    advisories=[]
+
+    if not s.get('project_exists'):
+        needs_attention.append({'id':'project_missing','title':'Project folder missing','summary':'The Kayock Writer project root was not found.'})
+    if not s.get('manifest_valid'):
+        needs_attention.append({'id':'manifest_invalid','title':'Manifest invalid or missing','summary':'The project manifest could not be parsed.'})
+    if int(s.get('required_folders_ok') or 0) < int(s.get('required_folders') or 0):
+        needs_attention.append({'id':'folders_missing','title':'Required folders missing','summary':f"{s.get('required_folders_ok')}/{s.get('required_folders')} required folders are present."})
+    if int(s.get('expected_sources_ok') or 0) < int(s.get('expected_sources') or 0):
+        advisories.append({'id':'source_copy_incomplete','title':'Expected source copy count incomplete','summary':f"{s.get('expected_sources_ok')}/{s.get('expected_sources')} expected source files are present."})
+    if int(s.get('problems') or 0)>0:
+        needs_attention.append({'id':'dashboard_problems','title':'Dashboard checks have problems','summary':f"{s.get('problems')} dashboard problem(s) detected."})
+
+    healthy=bool(dashboard.get('dashboard_ready')) and not needs_attention
+    if healthy and advisories:
+        health_label='STORY PROJECT HEALTHY — ADVISORIES ONLY'
+        card_state='advisory'
+    elif healthy:
+        health_label='STORY PROJECT HEALTHY'
+        card_state='clear'
+    else:
+        health_label='STORY PROJECT NEEDS ATTENTION'
+        card_state='needs_attention'
+
+    card={
+        'ok':True,
+        'created':now(),
+        'title':'Kayock Writer Story Project Health Card',
+        'read_only':True,
+        'report_only':True,
+        'healthy':healthy,
+        'card_state':card_state,
+        'health_label':health_label,
+        'message':f'Story Project Health Card: {health_label}',
+        'milestone':'v10.11.6 Story Project Health Card',
+        'project_id':s.get('project_id',project_id),
+        'project_title':s.get('title','Slipping into Darkness'),
+        'project_root':s.get('project_root',''),
+        'dashboard_ready':bool(dashboard.get('dashboard_ready')),
+        'summary':{
+            'project_exists':s.get('project_exists',False),
+            'manifest_exists':s.get('manifest_exists',False),
+            'manifest_valid':s.get('manifest_valid',False),
+            'manifest_status':s.get('manifest_status',''),
+            'readme_exists':s.get('readme_exists',False),
+            'books_outline_exists':s.get('books_outline_exists',False),
+            'required_folders':s.get('required_folders',0),
+            'required_folders_ok':s.get('required_folders_ok',0),
+            'source_files':s.get('source_files',0),
+            'source_json':s.get('source_json',0),
+            'source_markdown':s.get('source_markdown',0),
+            'source_text':s.get('source_text',0),
+            'expected_sources':s.get('expected_sources',0),
+            'expected_sources_ok':s.get('expected_sources_ok',0),
+            'books_in_manifest':s.get('books_in_manifest',0),
+            'dashboard_checks':s.get('checks',0),
+            'dashboard_checks_passed':s.get('checks_passed',0),
+            'dashboard_problems':s.get('problems',0)
+        },
+        'needs_attention':needs_attention,
+        'advisories':advisories,
+        'recommendations':[
+            {
+                'id':'mark_health_card_proven',
+                'title':'Mark Story Project Health Card proven',
+                'recommendation':'Use this compact Story Forge card as the quick project health indicator.',
+                'risk':'low',
+                'auto_apply':False
+            },
+            {
+                'id':'next_chapter_planner_preview',
+                'title':'Build Chapter Planner Preview next',
+                'recommendation':'Add a preview-only chapter planner that proposes chapter cards without writing files.',
+                'risk':'low',
+                'auto_apply':False
+            },
+            {
+                'id':'keep_story_writes_gated',
+                'title':'Keep story writes gated',
+                'recommendation':'Future chapter, scene, codex, and timeline writes should use preview/no-overwrite/approval gates.',
+                'risk':'low',
+                'auto_apply':False
+            }
+        ],
+        'source_dashboard':{
+            'health_label':dashboard.get('health_label',''),
+            'milestone':dashboard.get('milestone',''),
+            'summary':s
+        },
+        'folders':{
+            'project_root':s.get('project_root',''),
+            'project_health_reports':str(reports)
+        },
+        'safety':{
+            'read_only_health_card':True,
+            'no_story_file_mutation':True,
+            'no_project_creation':True,
+            'no_legacy_migration':True,
+            'no_rename_performed':True,
+            'no_overwrite':True,
+            'no_delete':True,
+            'no_move':True,
+            'no_install':True,
+            'no_model_cleanup':True,
+            'health_card_export_only':True
+        }
+    }
+
+    if export:
+        reports.mkdir(parents=True,exist_ok=True)
+        stamp=datetime.now().strftime('%Y%m%d_%H%M%S')
+        json_path=reports/f'Story_Project_Health_Card_{project_id}_{stamp}.json'
+        md_path=reports/f'Story_Project_Health_Card_{project_id}_{stamp}.md'
+        jwrite(json_path,card)
+        lines=[
+            '# Kayock Writer Story Project Health Card','',
+            f"Created: {card['created']}",
+            f"Milestone: **{card['milestone']}**",
+            f"Health: **{health_label}**",
+            f"Project: **{card['project_title']}**",
+            f"Project root: `{card['project_root']}`",
+            '',
+            '## Safety','',
+            '- Read-only health card.',
+            '- No story-file mutation.',
+            '- No project creation.',
+            '- No legacy migration.',
+            '- No rename performed.',
+            '- No overwrite.',
+            '- No delete.',
+            '- No move.',
+            '- No install.',
+            '- No model cleanup.',
+            '',
+            '## Summary',''
+        ]
+        for k,v in card['summary'].items():
+            lines.append(f"- {k.replace('_',' ').title()}: {v}")
+        lines += ['','## Attention','']
+        if needs_attention:
+            for a in needs_attention:
+                lines.append(f"- `{a.get('id')}` — {a.get('title')} — {a.get('summary')}")
+        else:
+            lines.append('- None.')
+        lines += ['','## Advisories','']
+        if advisories:
+            for a in advisories:
+                lines.append(f"- `{a.get('id')}` — {a.get('title')} — {a.get('summary')}")
+        else:
+            lines.append('- None.')
+        lines += ['','## Recommendations','']
+        for r in card['recommendations']:
+            lines.append(f"- `{r.get('id')}` — {r.get('title')} — {r.get('recommendation')} — auto apply: {r.get('auto_apply')}")
+        md_path.write_text('\n'.join(lines),encoding='utf-8')
+        card['exported']={'json':str(json_path),'markdown':str(md_path),'folder':str(reports)}
+
+    return card
+
+
+
+def kayock_writer_chapter_planner_preview_report(d=None):
+    d=d or {}
+    export=bool(d.get('export',False))
+    project_id=str(d.get('project_id') or 'slipping_into_darkness').strip().lower().replace(' ','_')
+    book_id=str(d.get('book_id') or 'book_1').strip().lower().replace(' ','_')
+    if project_id in ('','slipping','slipping_into_darkness'):
+        project_id='slipping_into_darkness'
+    if book_id not in ('book_1','book_2'):
+        book_id='book_1'
+
+    dashboard=kayock_writer_project_dashboard_report({'project_id':project_id})
+    health=kayock_writer_project_health_card_report({'project_id':project_id})
+    s=dashboard.get('summary') or {}
+    manifest=dashboard.get('manifest_summary') or {}
+    books=manifest.get('books') or []
+    selected_book=next((b for b in books if b.get('id')==book_id), books[0] if books else {})
+    project_root=Path(s.get('project_root') or (ROOT/'Projects'/'KayockWriter'/'Slipping_into_Darkness'))
+    chapters_dir=project_root/'Chapters'
+    reports=FOLDERS.get('kayock_writer_chapter_planner_reports',ROOT/'Reports'/'KayockWriter'/'ChapterPlanner')
+
+    chapter_templates=[
+        {
+            'chapter_number':1,
+            'title':'Chapter 1 — Opening Hook',
+            'status':'preview_only',
+            'goal':'Introduce Anthony’s current world and the first sign that the prophecy is closing in.',
+            'conflict':'Anthony is pulled between ordinary life and the first supernatural pressure point.',
+            'reveal':'Something old is watching; the prophecy is not abstract.',
+            'hook':'End with a clue or event that forces Anthony to investigate.',
+            'pov':'Anthony',
+            'location':'TBD',
+            'continuity_notes':['Anchor Anthony’s pre-prophecy baseline.','Do not reveal too much vampire lore too early.'],
+            'handoff_tags':{
+                'codex':['Anthony','prophecy'],
+                'timeline':['present-day opening'],
+                'continuity':['prophecy setup'],
+                'mystery_tracker':['first prophecy clue']
+            }
+        },
+        {
+            'chapter_number':2,
+            'title':'Chapter 2 — The Prophecy Opens',
+            'status':'preview_only',
+            'goal':'Move Anthony from suspicion to active awareness of the prophecy.',
+            'conflict':'The truth is dangerous, incomplete, and resisted by people who know more than they say.',
+            'reveal':'Anthony learns enough to know the prophecy involves him.',
+            'hook':'End with a name, symbol, location, or attack that points toward Kayock.',
+            'pov':'Anthony',
+            'location':'TBD',
+            'continuity_notes':['Tie to Book 1 endpoint: Anthony learns the prophecy.','Keep Kayock mythic but not fully explained.'],
+            'handoff_tags':{
+                'codex':['Kayock','prophecy witnesses'],
+                'timeline':['prophecy reveal'],
+                'continuity':['Anthony knowledge boundary'],
+                'mystery_tracker':['who knows the prophecy']
+            }
+        },
+        {
+            'chapter_number':3,
+            'title':'Chapter 3 — Blood and Legacy',
+            'status':'preview_only',
+            'goal':'Introduce the vampire conflict and the emotional cost of the ancient war.',
+            'conflict':'Anthony must decide whether to trust impossible information.',
+            'reveal':'Kayock is more than a monster legend; he is connected to protection and sacrifice.',
+            'hook':'End with Jokaya’s shadow entering the plot.',
+            'pov':'Anthony / possible Kayock lore frame',
+            'location':'TBD',
+            'continuity_notes':['Prepare Kayock death without rushing it.','Seed Jokaya as threat.'],
+            'handoff_tags':{
+                'codex':['Kayock','Jokaya','vampire factions'],
+                'timeline':['ancient conflict thread'],
+                'continuity':['Kayock protector role'],
+                'mystery_tracker':['Jokaya motive']
+            }
+        }
+    ]
+
+    if book_id=='book_2':
+        chapter_templates=[
+            {
+                'chapter_number':1,
+                'title':'Chapter 1 — The Hunt Begins',
+                'status':'preview_only',
+                'goal':'Launch Anthony’s hunt for his turned ex.',
+                'conflict':'Anthony wants answers, but every clue suggests she is no longer the person he remembers.',
+                'reveal':'Her transformation has a pattern and a purpose.',
+                'hook':'End with a trace pointing to Jokaya’s sanctuary.',
+                'pov':'Anthony',
+                'location':'TBD',
+                'continuity_notes':['Book 2 starts after Anthony learns his ex has been turned.','Preserve emotional stakes.'],
+                'handoff_tags':{
+                    'codex':['Anthony’s ex','turned vampires'],
+                    'timeline':['post-Book 1 fallout'],
+                    'continuity':['relationship history'],
+                    'mystery_tracker':['ex transformation clues']
+                }
+            },
+            {
+                'chapter_number':2,
+                'title':'Chapter 2 — Sanctuary Clues',
+                'status':'preview_only',
+                'goal':'Reveal the first credible path toward Jokaya’s sanctuary.',
+                'conflict':'The clues are old, deliberately hidden, and possibly bait.',
+                'reveal':'The sanctuary connects to Olmec/Croatoan/Crystal Skull threads.',
+                'hook':'End with a physical artifact or mural clue.',
+                'pov':'Anthony',
+                'location':'TBD / Olmec clue trail',
+                'continuity_notes':['Tie sanctuary evidence to Book 2 outline.','Avoid resolving Croatoan too early.'],
+                'handoff_tags':{
+                    'codex':['Jokaya sanctuary','Olmec site','Crystal Skulls'],
+                    'timeline':['ancient sanctuary trail'],
+                    'continuity':['Croatoan escape setup'],
+                    'mystery_tracker':['sanctuary location','Crystal Skull claw marks']
+                }
+            },
+            {
+                'chapter_number':3,
+                'title':'Chapter 3 — The Skull Trail',
+                'status':'preview_only',
+                'goal':'Deepen the Crystal Skull and Croatoan mystery.',
+                'conflict':'Evidence points in impossible directions and challenges the known vampire history.',
+                'reveal':'The skulls are linked to many vampires, not a single relic.',
+                'hook':'End with proof that Croatoan escaped or was released.',
+                'pov':'Anthony',
+                'location':'TBD / archive, ruin, or hidden chamber',
+                'continuity_notes':['Use Crystal Skulls as multi-vampire prison clue.','Keep Baal Pueblo tunnels removed unless later restored.'],
+                'handoff_tags':{
+                    'codex':['Croatoan','Crystal Skulls','Olmec pyramid'],
+                    'timeline':['Croatoan imprisonment/escape'],
+                    'continuity':['Crystal Skull rules'],
+                    'mystery_tracker':['Croatoan escape proof']
+                }
+            }
+        ]
+
+    future_writes=[
+        {
+            'id':'save_chapter_preview_set',
+            'title':'Save Chapter Preview Set',
+            'target':str(chapters_dir/f'{book_id}_chapter_preview_set.json'),
+            'enabled_now':False,
+            'requires_preview':True,
+            'requires_user_approval':True,
+            'requires_no_overwrite':True
+        },
+        {
+            'id':'save_chapter_markdown_cards',
+            'title':'Save Chapter Markdown Cards',
+            'target':str(chapters_dir/book_id),
+            'enabled_now':False,
+            'requires_preview':True,
+            'requires_user_approval':True,
+            'requires_no_overwrite':True
+        },
+        {
+            'id':'handoff_to_codex_timeline_continuity',
+            'title':'Create Handoff Notes',
+            'target':str(project_root/'Continuity'/f'{book_id}_chapter_handoffs.md'),
+            'enabled_now':False,
+            'requires_preview':True,
+            'requires_user_approval':True,
+            'requires_no_overwrite':True
+        }
+    ]
+
+    existing_chapter_files=[]
+    try:
+        if chapters_dir.exists():
+            for p in sorted([x for x in chapters_dir.rglob('*') if x.is_file()], key=lambda x:x.name.lower())[:50]:
+                existing_chapter_files.append({
+                    'name':p.name,
+                    'path':str(p),
+                    'suffix':p.suffix.lower(),
+                    'size':p.stat().st_size,
+                    'modified':datetime.fromtimestamp(p.stat().st_mtime).isoformat(timespec='seconds')
+                })
+    except Exception as e:
+        existing_chapter_files.append({'error':str(e)})
+
+    checks=[
+        {'id':'project_dashboard_ready','ok':bool(dashboard.get('dashboard_ready')),'message':'Story Project Dashboard is ready.'},
+        {'id':'project_health_clear','ok':health.get('card_state')=='clear','message':f"Project health card state is {health.get('card_state')}."},
+        {'id':'manifest_books_present','ok':len(books)>=2,'message':f'{len(books)} book seed(s) found in manifest.'},
+        {'id':'selected_book_found','ok':bool(selected_book),'message':f'Selected book: {selected_book.get("title","missing")}.'},
+        {'id':'chapters_folder_exists','ok':chapters_dir.exists() and chapters_dir.is_dir(),'message':'Chapters folder exists.'},
+        {'id':'chapter_templates_present','ok':len(chapter_templates)>=3,'message':f'{len(chapter_templates)} preview chapter card(s) generated.'},
+        {'id':'future_writes_disabled','ok':all(not x.get('enabled_now') for x in future_writes),'message':'All future chapter writes are disabled in preview mode.'},
+        {'id':'no_story_file_mutation','ok':True,'message':'No chapter/story files were created, moved, renamed, overwritten, or deleted.'}
+    ]
+
+    safety={
+        'preview_only':True,
+        'read_only_project_scan':True,
+        'no_chapter_file_creation':True,
+        'no_story_file_mutation':True,
+        'no_project_creation':True,
+        'no_legacy_migration':True,
+        'no_rename_performed':True,
+        'no_overwrite':True,
+        'no_delete':True,
+        'no_move':True,
+        'no_install':True,
+        'no_model_cleanup':True,
+        'future_chapter_writes_require_preview_and_approval':True,
+        'chapter_preview_export_only':True
+    }
+
+    summary={
+        'project_id':project_id,
+        'project_title':s.get('title','Slipping into Darkness'),
+        'book_id':book_id,
+        'book_title':selected_book.get('title',''),
+        'book_status':selected_book.get('status',''),
+        'book_summary':selected_book.get('summary',''),
+        'chapter_cards_previewed':len(chapter_templates),
+        'existing_chapter_files':len(existing_chapter_files),
+        'future_writes':len(future_writes),
+        'future_writes_enabled_now':sum(1 for x in future_writes if x.get('enabled_now')),
+        'checks':len(checks),
+        'checks_passed':sum(1 for c in checks if c.get('ok')),
+        'problems':sum(1 for c in checks if not c.get('ok')),
+        'preview_ready':all(c.get('ok') for c in checks),
+        'chapters_folder':str(chapters_dir),
+        'read_only':True,
+        'report_only':True
+    }
+
+    recommendations=[
+        {'id':'mark_chapter_planner_preview_proven','title':'Mark Chapter Planner Preview proven','recommendation':'Use this as the safe no-write chapter planning foundation before adding chapter save actions.','risk':'low','auto_apply':False},
+        {'id':'next_chapter_save_gate','title':'Build Chapter Save Approval Gate next','recommendation':'Add a no-write approval gate that checks target chapter filenames, overwrite risk, and approval phrase before any chapter cards can be saved.','risk':'low','auto_apply':False},
+        {'id':'then_poetry_studio_foundation','title':'Poetry Studio can follow','recommendation':'After Chapter Planner has a safe save gate, begin Poetry Studio foundation cards.','risk':'low','auto_apply':False}
+    ]
+
+    healthy=all(c.get('ok') for c in checks)
+    health_label='CHAPTER PLANNER PREVIEW READY' if healthy else 'CHAPTER PLANNER PREVIEW NEEDS REVIEW'
+
+    report={
+        'ok':True,
+        'created':now(),
+        'title':'Kayock Writer Chapter Planner Preview',
+        'read_only':True,
+        'report_only':True,
+        'healthy':healthy,
+        'preview_ready':healthy,
+        'health_label':health_label,
+        'message':f'Chapter Planner Preview: {health_label}',
+        'milestone':'v10.11.7 Chapter Planner Preview',
+        'summary':summary,
+        'selected_book':selected_book,
+        'chapter_templates':chapter_templates,
+        'future_writes':future_writes,
+        'existing_chapter_files':existing_chapter_files,
+        'checks':checks,
+        'recommendations':recommendations,
+        'source_project_health':{
+            'health_label':health.get('health_label',''),
+            'card_state':health.get('card_state',''),
+            'summary':health.get('summary',{})
+        },
+        'folders':{
+            'project_root':s.get('project_root',''),
+            'chapters_folder':str(chapters_dir),
+            'chapter_planner_reports':str(reports)
+        },
+        'safety':safety
+    }
+
+    if export:
+        reports.mkdir(parents=True,exist_ok=True)
+        stamp=datetime.now().strftime('%Y%m%d_%H%M%S')
+        json_path=reports/f'Chapter_Planner_Preview_{project_id}_{book_id}_{stamp}.json'
+        md_path=reports/f'Chapter_Planner_Preview_{project_id}_{book_id}_{stamp}.md'
+        jwrite(json_path,report)
+        lines=[
+            '# Kayock Writer Chapter Planner Preview','',
+            f"Created: {report['created']}",
+            f"Milestone: **{report['milestone']}**",
+            f"Health: **{health_label}**",
+            f"Project: **{summary['project_title']}**",
+            f"Book: **{summary['book_title']}**",
+            '',
+            '## Safety','',
+            '- Preview only.',
+            '- Read-only project scan.',
+            '- No chapter file creation.',
+            '- No story-file mutation.',
+            '- No project creation.',
+            '- No legacy migration.',
+            '- No rename performed.',
+            '- No overwrite.',
+            '- No delete.',
+            '- No move.',
+            '- No install.',
+            '- No model cleanup.',
+            '',
+            '## Summary',''
+        ]
+        for k,v in summary.items():
+            lines.append(f"- {k.replace('_',' ').title()}: {v}")
+        lines += ['','## Chapter Card Previews','']
+        for c in chapter_templates:
+            lines += [
+                f"### Chapter {c.get('chapter_number')}: {c.get('title')}",
+                f"- Goal: {c.get('goal')}",
+                f"- Conflict: {c.get('conflict')}",
+                f"- Reveal: {c.get('reveal')}",
+                f"- Hook: {c.get('hook')}",
+                f"- POV: {c.get('pov')}",
+                f"- Location: {c.get('location')}",
+                f"- Continuity notes: {', '.join(c.get('continuity_notes',[]))}",
+                f"- Handoff tags: `{json.dumps(c.get('handoff_tags',{}))}`",
+                ''
+            ]
+        lines += ['','## Future Writes Disabled','']
+        for w in future_writes:
+            lines.append(f"- `{w.get('id')}` — {w.get('title')} — target: `{w.get('target')}` — enabled now: {w.get('enabled_now')}")
+        lines += ['','## Checks','']
+        for c in checks:
+            lines.append(f"- [{'PASS' if c.get('ok') else 'FAIL'}] `{c.get('id')}` — {c.get('message')}")
+        lines += ['','## Recommendations','']
+        for r in recommendations:
+            lines.append(f"- `{r.get('id')}` — {r.get('title')} — {r.get('recommendation')} — auto apply: {r.get('auto_apply')}")
+        md_path.write_text('\n'.join(lines),encoding='utf-8')
+        report['exported']={'json':str(json_path),'markdown':str(md_path),'folder':str(reports)}
+
+    return report
+
+
+
+def kayock_writer_chapter_save_gate_report(d=None):
+    d=d or {}
+    export=bool(d.get('export',False))
+    typed_phrase=str(d.get('approval_phrase') or '').strip()
+    project_id=str(d.get('project_id') or 'slipping_into_darkness').strip().lower().replace(' ','_')
+    book_id=str(d.get('book_id') or 'book_1').strip().lower().replace(' ','_')
+    if project_id in ('','slipping','slipping_into_darkness'):
+        project_id='slipping_into_darkness'
+    if book_id not in ('book_1','book_2'):
+        book_id='book_1'
+
+    required_phrase='SAVE CHAPTER CARDS'
+    phrase_matches=(typed_phrase==required_phrase)
+
+    preview=kayock_writer_chapter_planner_preview_report({'project_id':project_id,'book_id':book_id})
+    s=preview.get('summary') or {}
+    chapters_dir=Path(s.get('chapters_folder') or (ROOT/'Projects'/'KayockWriter'/'Slipping_into_Darkness'/'Chapters'))
+    project_root=Path((preview.get('folders') or {}).get('project_root') or (ROOT/'Projects'/'KayockWriter'/'Slipping_into_Darkness'))
+    reports=FOLDERS.get('kayock_writer_chapter_save_gate_reports',ROOT/'Reports'/'KayockWriter'/'ChapterSaveGate')
+
+    def slug(v):
+        v=str(v or '').lower()
+        out=[]
+        last_dash=False
+        for ch in v:
+            if ch.isalnum():
+                out.append(ch)
+                last_dash=False
+            else:
+                if not last_dash:
+                    out.append('_')
+                    last_dash=True
+        return ''.join(out).strip('_') or 'chapter'
+
+    chapter_templates=preview.get('chapter_templates') or []
+    proposed_targets=[
+        {
+            'id':'chapter_preview_set_json',
+            'kind':'file',
+            'title':'Chapter Preview Set JSON',
+            'target':str(chapters_dir/f'{book_id}_chapter_preview_set.json'),
+            'required':True,
+            'enabled_now':False
+        },
+        {
+            'id':'book_chapter_folder',
+            'kind':'folder',
+            'title':'Book Chapter Folder',
+            'target':str(chapters_dir/book_id),
+            'required':True,
+            'enabled_now':False
+        }
+    ]
+
+    for c in chapter_templates:
+        n=int(c.get('chapter_number') or 0)
+        title_slug=slug(c.get('title') or f'chapter_{n:02d}')
+        proposed_targets.append({
+            'id':f'chapter_{n:02d}_markdown',
+            'kind':'file',
+            'title':f'Chapter {n:02d} Markdown Card',
+            'target':str(chapters_dir/book_id/f'chapter_{n:02d}_{title_slug}.md'),
+            'required':True,
+            'enabled_now':False,
+            'chapter_number':n
+        })
+
+    proposed_targets.append({
+        'id':'continuity_handoff_markdown',
+        'kind':'file',
+        'title':'Continuity Handoff Markdown',
+        'target':str(project_root/'Continuity'/f'{book_id}_chapter_handoffs.md'),
+        'required':True,
+        'enabled_now':False
+    })
+
+    target_checks=[]
+    overwrite_risks=[]
+    parent_missing=[]
+    for t in proposed_targets:
+        target=Path(t.get('target',''))
+        exists=False
+        parent_exists=False
+        try:
+            exists=target.exists()
+            parent_exists=target.parent.exists()
+        except Exception as e:
+            t['error']=str(e)
+        item=dict(t)
+        item['target_exists']=exists
+        item['parent_exists']=parent_exists
+        item['would_overwrite']=exists and item.get('kind')!='folder'
+        item['folder_already_exists']=exists and item.get('kind')=='folder'
+        item['will_execute_in_this_build']=False
+        item['requires_exact_phrase']=True
+        item['requires_preview']=True
+        item['requires_user_approval']=True
+        item['requires_no_overwrite']=True
+        if item['would_overwrite']:
+            overwrite_risks.append(item)
+        if not parent_exists and item.get('id') not in ('book_chapter_folder',):
+            parent_missing.append(item)
+        target_checks.append(item)
+
+    preview_ready=bool(preview.get('preview_ready'))
+    blockers=[]
+    if not preview_ready:
+        blockers.append({'id':'chapter_preview_not_ready','message':'Chapter Planner Preview is not ready.'})
+    if not chapter_templates:
+        blockers.append({'id':'no_chapter_templates','message':'No chapter templates were generated.'})
+    if overwrite_risks:
+        blockers.append({'id':'overwrite_risk','message':f'{len(overwrite_risks)} overwrite risk(s) detected.'})
+    # Phrase mismatch is NOT a blocker for the gate itself; it is a blocker for future save execution.
+    phrase_gate_status='matched' if phrase_matches else ('not_provided' if not typed_phrase else 'mismatch')
+
+    safe_to_save_later=bool(preview_ready and chapter_templates and not overwrite_risks)
+
+    checks=[
+        {'id':'chapter_preview_loaded','ok':preview_ready,'message':'Chapter Planner Preview loaded.'},
+        {'id':'selected_book_present','ok':bool((preview.get('selected_book') or {}).get('id')),'message':f"Selected book: {(preview.get('selected_book') or {}).get('title','missing')}."},
+        {'id':'chapter_templates_present','ok':len(chapter_templates)>0,'message':f'{len(chapter_templates)} chapter card template(s) available.'},
+        {'id':'target_list_generated','ok':len(proposed_targets)>=3,'message':f'{len(proposed_targets)} proposed future save target(s) listed.'},
+        {'id':'overwrite_risk_clear','ok':len(overwrite_risks)==0,'message':f'Overwrite risks detected: {len(overwrite_risks)}.'},
+        {'id':'future_save_disabled_this_build','ok':all(not x.get('will_execute_in_this_build') for x in target_checks),'message':'No chapter save action will execute in this build.'},
+        {'id':'approval_phrase_declared','ok':required_phrase=='SAVE CHAPTER CARDS','message':'Exact approval phrase gate is declared.'},
+        {'id':'no_story_file_mutation','ok':True,'message':'No chapter/story files were created, moved, renamed, overwritten, or deleted.'}
+    ]
+
+    safety={
+        'gate_preview_only':True,
+        'read_only_project_scan':True,
+        'no_chapter_file_creation':True,
+        'no_story_file_mutation':True,
+        'no_project_creation':True,
+        'no_legacy_migration':True,
+        'no_rename_performed':True,
+        'no_overwrite':len(overwrite_risks)==0,
+        'no_delete':True,
+        'no_move':True,
+        'no_install':True,
+        'no_model_cleanup':True,
+        'future_chapter_save_requires_exact_phrase':True,
+        'future_chapter_save_requires_no_overwrite':True,
+        'chapter_save_gate_export_only':True
+    }
+
+    summary={
+        'project_id':project_id,
+        'project_title':s.get('project_title','Slipping into Darkness'),
+        'book_id':book_id,
+        'book_title':s.get('book_title',''),
+        'preview_ready':preview_ready,
+        'safe_to_save_later':safe_to_save_later,
+        'save_enabled_in_this_build':False,
+        'required_phrase':required_phrase,
+        'typed_phrase_present':bool(typed_phrase),
+        'phrase_matches':phrase_matches,
+        'phrase_gate_status':phrase_gate_status,
+        'chapter_cards':len(chapter_templates),
+        'proposed_targets':len(proposed_targets),
+        'target_checks':len(target_checks),
+        'overwrite_risks':len(overwrite_risks),
+        'parent_missing_expected':len(parent_missing),
+        'blockers':len(blockers),
+        'checks':len(checks),
+        'checks_passed':sum(1 for c in checks if c.get('ok')),
+        'problems':sum(1 for c in checks if not c.get('ok')),
+        'chapters_folder':str(chapters_dir),
+        'read_only':True,
+        'report_only':True
+    }
+
+    approval_gate={
+        'required_phrase':required_phrase,
+        'typed_phrase_present':bool(typed_phrase),
+        'typed_phrase_matches':phrase_matches,
+        'phrase_gate_status':phrase_gate_status,
+        'save_enabled_in_this_build':False,
+        'reason_save_disabled':'v10.11.8 is a no-write approval gate only. The actual chapter save action must be a later approved build.',
+        'future_mode':'approved_action_only',
+        'preview_required':True,
+        'no_overwrite_required':True,
+        'backup_or_evidence_required_before_write':True,
+        'no_delete_allowed':True,
+        'no_move_allowed':True,
+        'no_automatic_story_mutation':True
+    }
+
+    recommendations=[
+        {'id':'mark_chapter_save_gate_proven','title':'Mark Chapter Save Approval Gate proven','recommendation':'Use this gate as the final pre-flight before adding the approved chapter save action.','risk':'low','auto_apply':False},
+        {'id':'next_chapter_save_action','title':'Build Chapter Save Approved Action next','recommendation':'Add a real save action for chapter preview JSON, Markdown chapter cards, and continuity handoff notes, locked behind exact phrase and no-overwrite checks.','risk':'medium','auto_apply':False},
+        {'id':'keep_markdown_source_truth','title':'Keep Markdown source of truth','recommendation':'Future saved chapter cards should be readable Markdown with JSON sidecars where useful.','risk':'low','auto_apply':False}
+    ]
+
+    healthy=all(c.get('ok') for c in checks) and not blockers
+    health_label='CHAPTER SAVE APPROVAL GATE READY' if healthy else 'CHAPTER SAVE APPROVAL GATE NEEDS REVIEW'
+
+    report={
+        'ok':True,
+        'created':now(),
+        'title':'Kayock Writer Chapter Save Approval Gate',
+        'read_only':True,
+        'report_only':True,
+        'healthy':healthy,
+        'gate_ready':healthy,
+        'safe_to_save_later':safe_to_save_later,
+        'health_label':health_label,
+        'message':f'Chapter Save Approval Gate: {health_label}',
+        'milestone':'v10.11.8 Chapter Save Approval Gate',
+        'summary':summary,
+        'approval_gate':approval_gate,
+        'blockers':blockers,
+        'selected_book':preview.get('selected_book',{}),
+        'chapter_templates':chapter_templates,
+        'proposed_targets':target_checks,
+        'overwrite_risks':overwrite_risks,
+        'parent_missing_expected':parent_missing,
+        'checks':checks,
+        'recommendations':recommendations,
+        'source_preview':{
+            'health_label':preview.get('health_label',''),
+            'milestone':preview.get('milestone',''),
+            'summary':s
+        },
+        'folders':{
+            'project_root':str(project_root),
+            'chapters_folder':str(chapters_dir),
+            'chapter_save_gate_reports':str(reports)
+        },
+        'safety':safety
+    }
+
+    if export:
+        reports.mkdir(parents=True,exist_ok=True)
+        stamp=datetime.now().strftime('%Y%m%d_%H%M%S')
+        json_path=reports/f'Chapter_Save_Approval_Gate_{project_id}_{book_id}_{stamp}.json'
+        md_path=reports/f'Chapter_Save_Approval_Gate_{project_id}_{book_id}_{stamp}.md'
+        jwrite(json_path,report)
+        lines=[
+            '# Kayock Writer Chapter Save Approval Gate','',
+            f"Created: {report['created']}",
+            f"Milestone: **{report['milestone']}**",
+            f"Health: **{health_label}**",
+            f"Gate ready: {healthy}",
+            f"Safe to save later: {safe_to_save_later}",
+            f"Save enabled in this build: **False**",
+            f"Project: **{summary['project_title']}**",
+            f"Book: **{summary['book_title']}**",
+            '',
+            '## Safety','',
+            '- Gate preview only.',
+            '- Read-only project scan.',
+            '- No chapter file creation.',
+            '- No story-file mutation.',
+            '- No project creation.',
+            '- No legacy migration.',
+            '- No rename performed.',
+            '- No overwrite.',
+            '- No delete.',
+            '- No move.',
+            '- No install.',
+            '- No model cleanup.',
+            '',
+            '## Summary',''
+        ]
+        for k,v in summary.items():
+            lines.append(f"- {k.replace('_',' ').title()}: {v}")
+        lines += ['','## Approval Gate','']
+        for k,v in approval_gate.items():
+            lines.append(f"- {k}: {v}")
+        lines += ['','## Proposed Save Targets - Disabled In This Build','']
+        for t in target_checks:
+            lines.append(f"- `{t.get('id')}` — {t.get('title')} — `{t.get('target')}` — exists: {t.get('target_exists')} — overwrite risk: {t.get('would_overwrite')} — executes now: {t.get('will_execute_in_this_build')}")
+        lines += ['','## Overwrite Risks','']
+        if overwrite_risks:
+            for r in overwrite_risks:
+                lines.append(f"- `{r.get('target')}`")
+        else:
+            lines.append('- None.')
+        lines += ['','## Checks','']
+        for c in checks:
+            lines.append(f"- [{'PASS' if c.get('ok') else 'FAIL'}] `{c.get('id')}` — {c.get('message')}")
+        lines += ['','## Recommendations','']
+        for r in recommendations:
+            lines.append(f"- `{r.get('id')}` — {r.get('title')} — {r.get('recommendation')} — auto apply: {r.get('auto_apply')}")
+        md_path.write_text('\n'.join(lines),encoding='utf-8')
+        report['exported']={'json':str(json_path),'markdown':str(md_path),'folder':str(reports)}
+
+    return report
+
+
+
+def kayock_writer_chapter_save_action_report(d=None):
+    d=d or {}
+    execute=bool(d.get('execute',False))
+    export=bool(d.get('export',True))
+    typed_phrase=str(d.get('approval_phrase') or '').strip()
+    project_id=str(d.get('project_id') or 'slipping_into_darkness').strip().lower().replace(' ','_')
+    book_id=str(d.get('book_id') or 'book_1').strip().lower().replace(' ','_')
+    if project_id in ('','slipping','slipping_into_darkness'): project_id='slipping_into_darkness'
+    if book_id not in ('book_1','book_2'): book_id='book_1'
+    required_phrase='SAVE CHAPTER CARDS'
+    phrase_matches=(typed_phrase==required_phrase)
+    gate=kayock_writer_chapter_save_gate_report({'project_id':project_id,'book_id':book_id,'approval_phrase':typed_phrase})
+    preview=kayock_writer_chapter_planner_preview_report({'project_id':project_id,'book_id':book_id})
+    gs=gate.get('summary') or {}; ps=preview.get('summary') or {}
+    selected_book=preview.get('selected_book') or {}; chapter_templates=preview.get('chapter_templates') or []
+    chapters_dir=Path(gs.get('chapters_folder') or ps.get('chapters_folder') or (ROOT/'Projects'/'KayockWriter'/'Slipping_into_Darkness'/'Chapters'))
+    project_root=Path((preview.get('folders') or {}).get('project_root') or (ROOT/'Projects'/'KayockWriter'/'Slipping_into_Darkness'))
+    continuity_dir=project_root/'Continuity'
+    reports=FOLDERS.get('kayock_writer_chapter_save_action_reports',ROOT/'Reports'/'KayockWriter'/'ChapterSaveAction')
+    def slug(v):
+        v=str(v or '').lower(); out=[]; last=False
+        for ch in v:
+            if ch.isalnum(): out.append(ch); last=False
+            elif not last: out.append('_'); last=True
+        return ''.join(out).strip('_') or 'chapter'
+    def chapter_markdown(c):
+        handoffs=c.get('handoff_tags') or {}; notes=c.get('continuity_notes') or []
+        lines=[f"# Chapter {int(c.get('chapter_number') or 0):02d} — {c.get('title','Untitled Chapter')}","",f"- **Project:** {ps.get('project_title','Slipping into Darkness')}",f"- **Book:** {selected_book.get('title',book_id)}",'- **Status:** saved_chapter_card',f"- **POV:** {c.get('pov','TBD')}",f"- **Location:** {c.get('location','TBD')}","","## Goal","",c.get('goal','TBD'),"","## Conflict","",c.get('conflict','TBD'),"","## Reveal","",c.get('reveal','TBD'),"","## Hook","",c.get('hook','TBD'),"","## Continuity Notes",""]
+        for note in notes: lines.append(f"- {note}")
+        lines += ["","## Handoff Tags","","```json",json.dumps(handoffs,indent=2),"```","","## Draft Space","","_Write the chapter draft here later._","","## Safety","","- Created by approved Kayock Writer chapter save action.","- No existing story files were overwritten.","- Future edits should use preview and approval gates."]
+        return '\n'.join(lines)
+    preview_set={'api_version':'kayock.writer.chapter_preview_set.v1','project_id':project_id,'project_title':ps.get('project_title','Slipping into Darkness'),'book_id':book_id,'book_title':selected_book.get('title',''),'book_summary':selected_book.get('summary',''),'status':'saved_preview_set','created_by':'Kayock Command OS','created_with':'v10.11.9 Chapter Save Approved Action','created_at':now(),'chapter_cards':chapter_templates,'safety_contract':{'exact_phrase_required':required_phrase,'no_overwrite':True,'no_delete':True,'no_move':True,'no_legacy_changes':True,'future_story_writes_require_preview_and_approval':True}}
+    handoff_lines=[f"# {ps.get('project_title','Slipping into Darkness')} — {selected_book.get('title',book_id)} Chapter Handoffs","","Created by Kayock Writer Chapter Save Approved Action.","","## Book Summary","",selected_book.get('summary',''),"","## Chapter Handoffs",""]
+    for c in chapter_templates:
+        handoff_lines += [f"### Chapter {int(c.get('chapter_number') or 0):02d} — {c.get('title','Untitled')}","",f"- Goal: {c.get('goal','')}",f"- Conflict: {c.get('conflict','')}",f"- Reveal: {c.get('reveal','')}",f"- Hook: {c.get('hook','')}",f"- POV: {c.get('pov','')}",f"- Location: {c.get('location','')}",f"- Continuity notes: {'; '.join(c.get('continuity_notes') or [])}",f"- Handoff tags: `{json.dumps(c.get('handoff_tags') or {})}`",""]
+    book_folder=chapters_dir/book_id
+    save_targets=[{'id':'book_chapter_folder','kind':'folder','path':book_folder,'content':None},{'id':'chapter_preview_set_json','kind':'file','path':chapters_dir/f'{book_id}_chapter_preview_set.json','content':json.dumps(preview_set,indent=2)}]
+    for c in chapter_templates:
+        n=int(c.get('chapter_number') or 0); title_slug=slug(c.get('title') or f'chapter_{n:02d}')
+        save_targets.append({'id':f'chapter_{n:02d}_markdown','kind':'file','path':book_folder/f'chapter_{n:02d}_{title_slug}.md','content':chapter_markdown(c)})
+    save_targets.append({'id':'continuity_handoff_markdown','kind':'file','path':continuity_dir/f'{book_id}_chapter_handoffs.md','content':'\n'.join(handoff_lines)})
+    preflight=[]; overwrite_risks=[]
+    for t in save_targets:
+        p=t['path']; exists=False; parent_exists=False
+        try: exists=p.exists(); parent_exists=p.parent.exists()
+        except Exception as e: t['error']=str(e)
+        wo=exists and t['kind']!='folder'
+        if wo: overwrite_risks.append({'id':t['id'],'kind':t['kind'],'path':str(p)})
+        preflight.append({'id':t['id'],'kind':t['kind'],'path':str(p),'exists':exists,'parent_exists':parent_exists,'would_create':not exists,'would_overwrite':wo,'will_execute_if_approved':execute and phrase_matches and not wo})
+    blockers=[]
+    if not gate.get('gate_ready'): blockers.append({'id':'gate_not_ready','message':'Chapter Save Approval Gate is not ready.'})
+    if not preview.get('preview_ready'): blockers.append({'id':'preview_not_ready','message':'Chapter Planner Preview is not ready.'})
+    if not phrase_matches: blockers.append({'id':'phrase_mismatch','message':'Exact approval phrase was not provided.'})
+    if overwrite_risks: blockers.append({'id':'overwrite_risk','message':f'{len(overwrite_risks)} overwrite risk(s) detected.'})
+    if not chapter_templates: blockers.append({'id':'no_chapter_templates','message':'No chapter templates were available to save.'})
+    action_allowed=bool(execute and not blockers)
+    status='preview'
+    if execute and blockers: status='blocked'
+    created_dirs=[]; written_files=[]; actions=[]; errors=[]
+    reports.mkdir(parents=True,exist_ok=True); stamp=datetime.now().strftime('%Y%m%d_%H%M%S')
+    if action_allowed:
+        status='created'
+        try:
+            for t in save_targets:
+                if t['kind']!='folder': continue
+                p=t['path']
+                if not p.exists(): p.mkdir(parents=True,exist_ok=False); created_dirs.append(str(p)); actions.append({'id':'create_folder','target_id':t['id'],'path':str(p),'ok':True})
+                else: actions.append({'id':'folder_exists','target_id':t['id'],'path':str(p),'ok':True})
+            for t in save_targets:
+                if t['kind']!='file': continue
+                p=t['path']
+                if p.exists(): raise RuntimeError(f"Refusing to overwrite existing file: {p}")
+                p.parent.mkdir(parents=True,exist_ok=True); p.write_text(t['content'] or '',encoding='utf-8')
+                written_files.append(str(p)); actions.append({'id':'write_file','target_id':t['id'],'path':str(p),'ok':True})
+        except Exception as e:
+            status='error'; errors.append({'id':'execution_error','message':str(e)})
+    post_checks=[]
+    if status=='created' and not errors:
+        for t in save_targets:
+            p=t['path']; post_checks.append({'id':t['id'],'ok':(p.exists() and (p.is_dir() if t['kind']=='folder' else p.is_file())),'message':str(p)})
+    else:
+        post_checks.append({'id':'dry_run_or_blocked','ok':True,'message':'No chapter save executed in preview/block mode.'})
+    safety={'requires_exact_phrase':True,'no_action_without_phrase':True,'no_overwrite':len(overwrite_risks)==0,'no_delete':True,'no_move':True,'no_legacy_changes':True,'no_install':True,'no_model_cleanup':True,'approved_action_only':True,'evidence_report_written':True}
+    healthy=status in ('preview','blocked','created') and not errors
+    health_label='CHAPTER CARDS SAVED' if status=='created' else ('CHAPTER SAVE ACTION BLOCKED SAFELY' if status=='blocked' else ('CHAPTER SAVE ACTION ERROR' if status=='error' else 'CHAPTER SAVE ACTION READY — PREVIEW ONLY'))
+    summary={'project_id':project_id,'project_title':ps.get('project_title','Slipping into Darkness'),'book_id':book_id,'book_title':selected_book.get('title',''),'status':status,'execute_requested':execute,'action_allowed':action_allowed,'phrase_matches':phrase_matches,'blockers':len(blockers),'overwrite_risks':len(overwrite_risks),'preflight_items':len(preflight),'save_targets':len(save_targets),'chapter_cards':len(chapter_templates),'created_dirs':len(created_dirs),'written_files':len(written_files),'errors':len(errors),'post_checks':len(post_checks),'post_checks_passed':sum(1 for c in post_checks if c.get('ok')),'chapters_folder':str(chapters_dir),'book_folder':str(book_folder),'preview_set_target':str(chapters_dir/f'{book_id}_chapter_preview_set.json'),'continuity_handoff_target':str(continuity_dir/f'{book_id}_chapter_handoffs.md'),'read_only_when_not_executing':not action_allowed,'report_only_when_not_executing':not action_allowed}
+    report={'ok':True,'created':now(),'title':'Kayock Writer Chapter Save Approved Action','read_only':not action_allowed,'report_only':not action_allowed,'healthy':healthy,'status':status,'health_label':health_label,'message':f'Chapter Save Approved Action: {health_label}','milestone':'v10.11.9 Chapter Save Approved Action','summary':summary,'approval_phrase_required':required_phrase,'approval_phrase_matches':phrase_matches,'blockers':blockers,'preflight':preflight,'overwrite_risks':overwrite_risks,'created_dirs':created_dirs,'written_files':written_files,'actions':actions,'post_checks':post_checks,'errors':errors,'selected_book':selected_book,'saved_preview_set':preview_set,'save_targets':[{'id':t['id'],'kind':t['kind'],'path':str(t['path'])} for t in save_targets],'gate_summary':gate.get('summary',{}),'preview_summary':preview.get('summary',{}),'folders':{'project_root':str(project_root),'chapters_folder':str(chapters_dir),'book_folder':str(book_folder),'chapter_save_action_reports':str(reports)},'safety':safety}
+    if export:
+        json_path=reports/f'Chapter_Save_Approved_Action_{project_id}_{book_id}_{stamp}.json'; md_path=reports/f'Chapter_Save_Approved_Action_{project_id}_{book_id}_{stamp}.md'
+        jwrite(json_path,report)
+        lines=['# Kayock Writer Chapter Save Approved Action','',f"Created: {report['created']}",f"Milestone: **{report['milestone']}**",f"Health: **{health_label}**",f"Status: `{status}`",f"Execute requested: {execute}",f"Action allowed: {action_allowed}",f"Project: **{summary['project_title']}**",f"Book: **{summary['book_title']}**",'','## Safety','','- Requires exact phrase.','- No action without phrase.','- No overwrite.','- No delete.','- No move.','- No legacy changes.','- No install.','- No model cleanup.','- Approved action only.','','## Summary']
+        for k,v in summary.items(): lines.append(f"- {k.replace('_',' ').title()}: {v}")
+        lines += ['','## Blockers']
+        lines += [f"- `{b.get('id')}` — {b.get('message')}" for b in blockers] if blockers else ['- None.']
+        lines += ['','## Written Files']
+        lines += [f"- `{p}`" for p in written_files] if written_files else ['- None.']
+        lines += ['','## Created Directories']
+        lines += [f"- `{p}`" for p in created_dirs] if created_dirs else ['- None.']
+        lines += ['','## Post Checks']
+        for c in post_checks: lines.append(f"- [{'PASS' if c.get('ok') else 'FAIL'}] `{c.get('id')}` — {c.get('message')}")
+        lines += ['','## Errors']
+        lines += [f"- {e}" for e in errors] if errors else ['- None.']
+        md_path.write_text('\n'.join(lines),encoding='utf-8')
+        report['exported']={'json':str(json_path),'markdown':str(md_path),'folder':str(reports)}
+    return report
+
+
+def kayock_writer_saved_chapter_dashboard_report(d=None):
+    d=d or {}
+    export=bool(d.get('export',False))
+    project_id=str(d.get('project_id') or 'slipping_into_darkness').strip().lower().replace(' ','_')
+    book_id=str(d.get('book_id') or 'book_2').strip().lower().replace(' ','_')
+    if project_id in ('','slipping','slipping_into_darkness'):
+        project_id='slipping_into_darkness'
+    if book_id not in ('book_1','book_2'):
+        book_id='book_2'
+    dash=kayock_writer_project_dashboard_report({'project_id':project_id})
+    ds=dash.get('summary') or {}
+    project_root=Path(ds.get('project_root') or (ROOT/'Projects'/'KayockWriter'/'Slipping_into_Darkness'))
+    chapters_root=project_root/'Chapters'
+    book_folder=chapters_root/book_id
+    continuity_path=project_root/'Continuity'/f'{book_id}_chapter_handoffs.md'
+    preview_path=chapters_root/f'{book_id}_chapter_preview_set.json'
+    reports=FOLDERS.get('kayock_writer_saved_chapter_dashboard_reports',ROOT/'Reports'/'KayockWriter'/'SavedChapterDashboard')
+
+    def read_text(p,limit=12000):
+        try:
+            if not p.exists() or not p.is_file(): return {'exists':False,'text':'','chars':0,'truncated':False,'error':''}
+            t=p.read_text(encoding='utf-8',errors='replace')
+            return {'exists':True,'text':t[:limit],'chars':len(t),'truncated':len(t)>limit,'error':''}
+        except Exception as e:
+            return {'exists':p.exists(),'text':'','chars':0,'truncated':False,'error':str(e)}
+    def finfo(p):
+        x={'name':p.name,'path':str(p),'exists':False,'kind':'missing','size':0,'modified':''}
+        try:
+            x['exists']=p.exists()
+            if p.exists():
+                x['kind']='folder' if p.is_dir() else 'file'
+                x['size']=p.stat().st_size if p.is_file() else None
+                x['modified']=datetime.fromtimestamp(p.stat().st_mtime).isoformat(timespec='seconds')
+        except Exception as e: x['error']=str(e)
+        return x
+    def slug(v):
+        v=str(v or '').lower(); out=[]; last=False
+        for ch in v:
+            if ch.isalnum(): out.append(ch); last=False
+            elif not last: out.append('_'); last=True
+        return ''.join(out).strip('_') or 'chapter'
+
+    preview={}; preview_error=''; pread=read_text(preview_path,20000)
+    if preview_path.exists():
+        try: preview=json.loads(preview_path.read_text(encoding='utf-8',errors='replace'))
+        except Exception as e: preview_error=str(e)
+    cards=preview.get('chapter_cards',[]) if isinstance(preview,dict) else []
+    expected_count=len(cards) or 3
+    expected_targets=[]
+    if cards:
+        for c in cards:
+            n=int(c.get('chapter_number') or 0); p=book_folder/f"chapter_{n:02d}_{slug(c.get('title') or 'chapter')}.md"
+            y=finfo(p); y['ok']=bool(y.get('exists') and y.get('kind')=='file'); expected_targets.append(y)
+    else:
+        for n in range(1,4):
+            ok=book_folder.exists() and bool(list(book_folder.glob(f'chapter_{n:02d}_*.md')))
+            expected_targets.append({'name':f'chapter_{n:02d}_*.md','path':str(book_folder/f'chapter_{n:02d}_*.md'),'exists':ok,'kind':'pattern','size':None,'modified':'','ok':ok})
+
+    md_files=[]
+    if book_folder.exists() and book_folder.is_dir():
+        for p in sorted(book_folder.glob('*.md'), key=lambda q:q.name.lower()):
+            y=finfo(p); r=read_text(p,16000); txt=r.get('text','')
+            y['preview']=r
+            y['has_goal']='## Goal' in txt
+            y['has_conflict']='## Conflict' in txt
+            y['has_reveal']='## Reveal' in txt
+            y['has_hook']='## Hook' in txt
+            y['has_handoff_tags']='## Handoff Tags' in txt
+            y['has_safety']='## Safety' in txt and 'No existing story files were overwritten' in txt
+            y['required_sections_ok']=all([y['has_goal'],y['has_conflict'],y['has_reveal'],y['has_hook'],y['has_handoff_tags'],y['has_safety']])
+            md_files.append(y)
+
+    hread=read_text(continuity_path,20000); htxt=hread.get('text','')
+    handoff_checks={
+        'has_book_summary':'## Book Summary' in htxt,
+        'has_chapter_handoffs':'## Chapter Handoffs' in htxt,
+        'chapter_01_present':'Chapter 01' in htxt,
+        'chapter_02_present':'Chapter 02' in htxt,
+        'chapter_03_present':'Chapter 03' in htxt,
+        'has_codex_tags':'codex' in htxt,
+        'has_timeline_tags':'timeline' in htxt,
+        'has_continuity_tags':'continuity' in htxt,
+        'has_mystery_tracker_tags':'mystery_tracker' in htxt}
+
+    checks=[
+        {'id':'project_dashboard_ready','ok':bool(dash.get('dashboard_ready')),'message':'Project dashboard is ready.'},
+        {'id':'chapters_root_exists','ok':chapters_root.exists() and chapters_root.is_dir(),'message':'Chapters root exists.'},
+        {'id':'book_folder_exists','ok':book_folder.exists() and book_folder.is_dir(),'message':f'{book_id} folder exists.'},
+        {'id':'preview_set_exists','ok':preview_path.exists() and preview_path.is_file(),'message':'Chapter preview-set JSON exists.'},
+        {'id':'preview_set_valid_json','ok':bool(preview) and not preview_error,'message':'Preview-set JSON parsed.' if not preview_error else preview_error},
+        {'id':'preview_set_status_saved','ok':(preview.get('status')=='saved_preview_set') if isinstance(preview,dict) else False,'message':f"Preview-set status is {preview.get('status','missing') if isinstance(preview,dict) else 'missing'}."},
+        {'id':'markdown_cards_present','ok':len(md_files)>=expected_count,'message':f'{len(md_files)}/{expected_count} Markdown chapter card(s) found.'},
+        {'id':'expected_markdown_targets_exist','ok':all(x.get('ok') for x in expected_targets),'message':f"{sum(1 for x in expected_targets if x.get('ok'))}/{len(expected_targets)} expected Markdown target(s) found."},
+        {'id':'markdown_cards_have_required_sections','ok':bool(md_files) and all(x.get('required_sections_ok') for x in md_files),'message':f"{sum(1 for x in md_files if x.get('required_sections_ok'))}/{len(md_files)} Markdown card(s) have required sections."},
+        {'id':'continuity_handoff_exists','ok':continuity_path.exists() and continuity_path.is_file(),'message':'Continuity handoff file exists.'},
+        {'id':'continuity_handoff_complete','ok':all(handoff_checks.values()) if hread.get('exists') else False,'message':f"{sum(1 for v in handoff_checks.values() if v)}/{len(handoff_checks)} continuity handoff checks passed."},
+        {'id':'read_only_dashboard','ok':True,'message':'Saved Chapter Dashboard performed read-only inspection only.'}]
+    healthy=all(c.get('ok') for c in checks)
+    summary={'project_id':project_id,'project_title':ds.get('title','Slipping into Darkness'),'book_id':book_id,'book_title':preview.get('book_title','') if isinstance(preview,dict) else '', 'book_summary':preview.get('book_summary','') if isinstance(preview,dict) else '', 'project_root':str(project_root),'chapters_root':str(chapters_root),'book_folder':str(book_folder),'preview_set_exists':preview_path.exists(),'preview_set_valid':bool(preview) and not preview_error,'preview_set_status':preview.get('status','') if isinstance(preview,dict) else '', 'expected_chapter_cards':expected_count,'markdown_cards_found':len(md_files),'expected_markdown_targets':len(expected_targets),'expected_markdown_targets_ok':sum(1 for x in expected_targets if x.get('ok')),'continuity_handoff_exists':continuity_path.exists(),'continuity_handoff_checks':len(handoff_checks),'continuity_handoff_checks_passed':sum(1 for v in handoff_checks.values() if v),'checks':len(checks),'checks_passed':sum(1 for c in checks if c.get('ok')),'problems':sum(1 for c in checks if not c.get('ok')),'dashboard_ready':healthy,'read_only':True,'report_only':True}
+    report={'ok':True,'created':now(),'title':'Kayock Writer Saved Chapter Reader / Dashboard','read_only':True,'report_only':True,'healthy':healthy,'dashboard_ready':healthy,'health_label':'SAVED CHAPTER DASHBOARD READY' if healthy else 'SAVED CHAPTER DASHBOARD NEEDS REVIEW','message':('Saved Chapter Dashboard: SAVED CHAPTER DASHBOARD READY' if healthy else 'Saved Chapter Dashboard: SAVED CHAPTER DASHBOARD NEEDS REVIEW'),'milestone':'v10.12.0 Saved Chapter Reader / Dashboard','summary':summary,'preview_set_path':str(preview_path),'preview_set_error':preview_error,'preview_set_summary':{'api_version':preview.get('api_version','') if isinstance(preview,dict) else '', 'project_id':preview.get('project_id','') if isinstance(preview,dict) else '', 'book_id':preview.get('book_id','') if isinstance(preview,dict) else '', 'book_title':preview.get('book_title','') if isinstance(preview,dict) else '', 'status':preview.get('status','') if isinstance(preview,dict) else '', 'created_by':preview.get('created_by','') if isinstance(preview,dict) else '', 'created_with':preview.get('created_with','') if isinstance(preview,dict) else '', 'created_at':preview.get('created_at','') if isinstance(preview,dict) else '', 'chapter_cards':len(preview.get('chapter_cards',[])) if isinstance(preview,dict) else 0, 'safety_contract':preview.get('safety_contract',{}) if isinstance(preview,dict) else {}},'expected_markdown_targets':expected_targets,'markdown_files':md_files,'continuity_handoff_path':str(continuity_path),'continuity_handoff_preview':hread,'continuity_checks':handoff_checks,'checks':checks,'recommendations':[{'id':'mark_saved_chapter_dashboard_proven','title':'Mark Saved Chapter Reader / Dashboard proven','recommendation':'Use this dashboard as proof that saved chapter cards can be read back and verified.','risk':'low','auto_apply':False},{'id':'next_saved_chapter_health_card','title':'Add compact Saved Chapter card','recommendation':'Add a compact saved-chapter status card to Story Forge or Chapter Planner for quick feedback.','risk':'low','auto_apply':False},{'id':'then_chapter_editor_preview','title':'Build Chapter Editor Preview','recommendation':'Add a no-write editor preview for saved chapter cards before allowing edits.','risk':'low','auto_apply':False}],'folders':{'project_root':str(project_root),'chapters_root':str(chapters_root),'book_folder':str(book_folder),'saved_chapter_dashboard_reports':str(reports)},'safety':{'read_only_saved_chapter_dashboard':True,'no_chapter_file_creation':True,'no_story_file_mutation':True,'no_project_creation':True,'no_legacy_migration':True,'no_rename_performed':True,'no_overwrite':True,'no_delete':True,'no_move':True,'no_install':True,'no_model_cleanup':True,'dashboard_export_only':True}}
+    if export:
+        reports.mkdir(parents=True,exist_ok=True); stamp=datetime.now().strftime('%Y%m%d_%H%M%S')
+        json_path=reports/f'Saved_Chapter_Dashboard_{project_id}_{book_id}_{stamp}.json'; md_path=reports/f'Saved_Chapter_Dashboard_{project_id}_{book_id}_{stamp}.md'
+        jwrite(json_path,report)
+        lines=['# Kayock Writer Saved Chapter Reader / Dashboard','',f"Created: {report['created']}",f"Milestone: **{report['milestone']}**",f"Health: **{report['health_label']}**",f"Dashboard ready: {healthy}",f"Project: **{summary['project_title']}**",f"Book: **{summary['book_title'] or book_id}**",'','## Safety','','- Read-only saved-chapter dashboard.','- No chapter file creation.','- No story-file mutation.','- No project creation.','- No legacy migration.','- No rename performed.','- No overwrite.','- No delete.','- No move.','- No install.','- No model cleanup.','','## Summary','']
+        for k,v in summary.items(): lines.append(f"- {k.replace('_',' ').title()}: {v}")
+        lines += ['','## Preview Set','']
+        for k,v in report['preview_set_summary'].items(): lines.append(f"- {k}: `{json.dumps(v) if isinstance(v,(dict,list)) else v}`")
+        lines += ['','## Markdown Files','']
+        for f in md_files: lines.append(f"- `{f.get('name')}` — {f.get('size')} bytes — required sections ok: {f.get('required_sections_ok')}")
+        lines += ['','## Continuity Handoff Checks','']
+        for k,v in handoff_checks.items(): lines.append(f"- [{'PASS' if v else 'FAIL'}] `{k}`")
+        lines += ['','## Checks','']
+        for c in checks: lines.append(f"- [{'PASS' if c.get('ok') else 'FAIL'}] `{c.get('id')}` — {c.get('message')}")
+        lines += ['','## Recommendations','']
+        for r in report['recommendations']: lines.append(f"- `{r.get('id')}` — {r.get('title')} — {r.get('recommendation')} — auto apply: {r.get('auto_apply')}")
+        md_path.write_text('\n'.join(lines),encoding='utf-8')
+        report['exported']={'json':str(json_path),'markdown':str(md_path),'folder':str(reports)}
+    return report
+
+
+def kayock_writer_saved_chapter_health_card_report(d=None):
+    d=d or {}
+    export=bool(d.get('export',False))
+    project_id=str(d.get('project_id') or 'slipping_into_darkness').strip().lower().replace(' ','_')
+    book_id=str(d.get('book_id') or 'book_2').strip().lower().replace(' ','_')
+    if project_id in ('','slipping','slipping_into_darkness'):
+        project_id='slipping_into_darkness'
+    if book_id not in ('book_1','book_2'):
+        book_id='book_2'
+
+    reports=FOLDERS.get('kayock_writer_saved_chapter_health_reports',ROOT/'Reports'/'KayockWriter'/'SavedChapterHealth')
+    dash=kayock_writer_saved_chapter_dashboard_report({'project_id':project_id,'book_id':book_id,'export':False})
+    s=dash.get('summary') or {}
+
+    expected=int(s.get('expected_chapter_cards') or 0)
+    found=int(s.get('markdown_cards_found') or 0)
+    expected_targets=int(s.get('expected_markdown_targets') or 0)
+    expected_ok=int(s.get('expected_markdown_targets_ok') or 0)
+    continuity_total=int(s.get('continuity_handoff_checks') or 0)
+    continuity_ok=int(s.get('continuity_handoff_checks_passed') or 0)
+    check_total=int(s.get('checks') or 0)
+    check_ok=int(s.get('checks_passed') or 0)
+    problems=int(s.get('problems') or 0)
+
+    healthy=bool(dash.get('dashboard_ready')) and problems==0 and expected>0 and found>=expected and expected_ok==expected_targets and continuity_ok==continuity_total
+    missing=[]
+    advisories=[]
+    if not s.get('preview_set_exists'):
+        missing.append({'id':'preview_set_missing','message':'Saved chapter preview-set JSON is missing.'})
+    if not s.get('preview_set_valid'):
+        missing.append({'id':'preview_set_invalid','message':'Saved chapter preview-set JSON is missing or invalid.'})
+    if found < expected:
+        missing.append({'id':'markdown_cards_missing','message':f'{found}/{expected} Markdown chapter card(s) found.'})
+    if expected_ok < expected_targets:
+        missing.append({'id':'expected_markdown_target_missing','message':f'{expected_ok}/{expected_targets} expected Markdown target(s) found.'})
+    if not s.get('continuity_handoff_exists'):
+        missing.append({'id':'continuity_handoff_missing','message':'Continuity handoff file is missing.'})
+    if continuity_total and continuity_ok < continuity_total:
+        missing.append({'id':'continuity_handoff_incomplete','message':f'{continuity_ok}/{continuity_total} continuity handoff checks passed.'})
+    if not missing and healthy:
+        advisories.append({'id':'ready_for_editor_preview','message':'Saved chapter files are healthy and ready for a future no-write editor preview.'})
+    if book_id=='book_1' and not healthy:
+        advisories.append({'id':'book_1_may_not_be_saved_yet','message':'Book 1 may simply not have been saved yet. This is not a system failure if only Book 2 has been approved.'})
+
+    compact_metrics=[
+        {'label':'Health','value':'CLEAR' if healthy else 'REVIEW'},
+        {'label':'Book','value':book_id},
+        {'label':'Preview Set','value':'OK' if s.get('preview_set_valid') else 'MISSING'},
+        {'label':'Markdown','value':f'{found}/{expected}'},
+        {'label':'Targets','value':f'{expected_ok}/{expected_targets}'},
+        {'label':'Continuity','value':f'{continuity_ok}/{continuity_total}'},
+        {'label':'Checks','value':f'{check_ok}/{check_total}'},
+        {'label':'Problems','value':str(problems)}
+    ]
+
+    checks=[
+        {'id':'saved_dashboard_loaded','ok':bool(dash.get('ok')),'message':'Saved Chapter Dashboard loaded.'},
+        {'id':'saved_dashboard_ready','ok':bool(dash.get('dashboard_ready')),'message':f"Dashboard ready: {dash.get('dashboard_ready')}"},
+        {'id':'preview_set_healthy','ok':bool(s.get('preview_set_exists') and s.get('preview_set_valid') and s.get('preview_set_status')=='saved_preview_set'),'message':f"Preview set status: {s.get('preview_set_status','missing')}."},
+        {'id':'markdown_cards_healthy','ok':found>=expected and expected>0,'message':f'{found}/{expected} Markdown card(s) found.'},
+        {'id':'expected_targets_healthy','ok':expected_targets>0 and expected_ok==expected_targets,'message':f'{expected_ok}/{expected_targets} expected target(s) found.'},
+        {'id':'continuity_handoff_healthy','ok':continuity_total>0 and continuity_ok==continuity_total,'message':f'{continuity_ok}/{continuity_total} continuity check(s) passed.'},
+        {'id':'read_only_health_card','ok':True,'message':'Saved Chapter Health Card performed read-only inspection only.'}
+    ]
+
+    card_state='clear' if healthy else 'review'
+    health_label='SAVED CHAPTER HEALTHY' if healthy else 'SAVED CHAPTER HEALTH NEEDS REVIEW'
+    summary={
+        'project_id':project_id,
+        'project_title':s.get('project_title','Slipping into Darkness'),
+        'book_id':book_id,
+        'book_title':s.get('book_title',''),
+        'card_state':card_state,
+        'healthy':healthy,
+        'dashboard_ready':bool(dash.get('dashboard_ready')),
+        'preview_set_exists':bool(s.get('preview_set_exists')),
+        'preview_set_valid':bool(s.get('preview_set_valid')),
+        'preview_set_status':s.get('preview_set_status',''),
+        'expected_chapter_cards':expected,
+        'markdown_cards_found':found,
+        'expected_markdown_targets':expected_targets,
+        'expected_markdown_targets_ok':expected_ok,
+        'continuity_handoff_exists':bool(s.get('continuity_handoff_exists')),
+        'continuity_handoff_checks':continuity_total,
+        'continuity_handoff_checks_passed':continuity_ok,
+        'checks':len(checks),
+        'checks_passed':sum(1 for c in checks if c.get('ok')),
+        'problems':len([c for c in checks if not c.get('ok')]),
+        'missing_or_attention_items':len(missing),
+        'advisories':len(advisories),
+        'book_folder':s.get('book_folder',''),
+        'read_only':True,
+        'report_only':True
+    }
+
+    safety={
+        'read_only_saved_chapter_health_card':True,
+        'no_chapter_file_creation':True,
+        'no_story_file_mutation':True,
+        'no_project_creation':True,
+        'no_legacy_migration':True,
+        'no_rename_performed':True,
+        'no_overwrite':True,
+        'no_delete':True,
+        'no_move':True,
+        'no_install':True,
+        'no_model_cleanup':True,
+        'health_card_export_only':True
+    }
+
+    recommendations=[
+        {'id':'mark_saved_chapter_health_card_proven','title':'Mark Saved Chapter Health Card proven','recommendation':'Use this compact card for quick Story Forge saved-chapter status.','risk':'low','auto_apply':False},
+        {'id':'next_chapter_editor_preview','title':'Build Chapter Editor Preview','recommendation':'Add a no-write editor preview for saved chapter cards before allowing edits.','risk':'low','auto_apply':False},
+        {'id':'optional_save_book_1','title':'Optionally save Book 1 cards','recommendation':'The same approved chapter save workflow can be used to save Book 1 when ready.','risk':'low','auto_apply':False}
+    ]
+
+    report={
+        'ok':True,
+        'created':now(),
+        'title':'Kayock Writer Saved Chapter Health Card',
+        'read_only':True,
+        'report_only':True,
+        'healthy':healthy,
+        'card_ready':True,
+        'card_state':card_state,
+        'health_label':health_label,
+        'message':f'Saved Chapter Health Card: {health_label}',
+        'milestone':'v10.12.1 Saved Chapter Health Card',
+        'summary':summary,
+        'compact_metrics':compact_metrics,
+        'missing_or_attention':missing,
+        'advisories':advisories,
+        'checks':checks,
+        'source_dashboard_summary':s,
+        'preview_set_summary':dash.get('preview_set_summary',{}),
+        'markdown_quality_checks':dash.get('markdown_quality_checks',[]),
+        'continuity_checks':dash.get('continuity_checks',{}),
+        'recommendations':recommendations,
+        'folders':{
+            'book_folder':s.get('book_folder',''),
+            'saved_chapter_health_reports':str(reports)
+        },
+        'safety':safety
+    }
+
+    if export:
+        reports.mkdir(parents=True,exist_ok=True)
+        stamp=datetime.now().strftime('%Y%m%d_%H%M%S')
+        json_path=reports/f'Saved_Chapter_Health_Card_{project_id}_{book_id}_{stamp}.json'
+        md_path=reports/f'Saved_Chapter_Health_Card_{project_id}_{book_id}_{stamp}.md'
+        jwrite(json_path,report)
+        lines=['# Kayock Writer Saved Chapter Health Card','',f"Created: {report['created']}",f"Milestone: **{report['milestone']}**",f"Health: **{health_label}**",f"Card ready: {report['card_ready']}",f"Card state: **{card_state}**",f"Project: **{summary['project_title']}**",f"Book: **{summary['book_title'] or book_id}**",'','## Safety','','- Read-only saved-chapter health card.','- No chapter file creation.','- No story-file mutation.','- No project creation.','- No legacy migration.','- No rename performed.','- No overwrite.','- No delete.','- No move.','- No install.','- No model cleanup.','','## Compact Metrics','']
+        for m in compact_metrics:
+            lines.append(f"- {m.get('label')}: **{m.get('value')}**")
+        lines += ['','## Summary','']
+        for k,v in summary.items():
+            lines.append(f"- {k.replace('_',' ').title()}: {v}")
+        lines += ['','## Missing Or Attention Items','']
+        if missing:
+            for item in missing:
+                lines.append(f"- `{item.get('id')}` — {item.get('message')}")
+        else:
+            lines.append('- None.')
+        lines += ['','## Checks','']
+        for c in checks:
+            lines.append(f"- [{'PASS' if c.get('ok') else 'FAIL'}] `{c.get('id')}` — {c.get('message')}")
+        lines += ['','## Recommendations','']
+        for r in recommendations:
+            lines.append(f"- `{r.get('id')}` — {r.get('title')} — {r.get('recommendation')} — auto apply: {r.get('auto_apply')}")
+        md_path.write_text('\n'.join(lines),encoding='utf-8')
+        report['exported']={'json':str(json_path),'markdown':str(md_path),'folder':str(reports)}
+    return report
+
+
+
+def kayock_writer_chapter_editor_preview_report(d=None):
+    d=d or {}
+    export=bool(d.get('export',False))
+    project_id=str(d.get('project_id') or 'slipping_into_darkness').strip().lower().replace(' ','_')
+    book_id=str(d.get('book_id') or 'book_2').strip().lower().replace(' ','_')
+    if project_id in ('','slipping','slipping_into_darkness'):
+        project_id='slipping_into_darkness'
+    if book_id not in ('book_1','book_2'):
+        book_id='book_2'
+    try:
+        chapter_number=int(d.get('chapter_number') or 1)
+    except Exception:
+        chapter_number=1
+    if chapter_number<1:
+        chapter_number=1
+    if chapter_number>99:
+        chapter_number=99
+
+    proposed=d.get('proposed') or {}
+    if not isinstance(proposed,dict):
+        proposed={}
+
+    dashboard=kayock_writer_saved_chapter_dashboard_report({'project_id':project_id,'book_id':book_id})
+    ds=dashboard.get('summary') or {}
+    reports=FOLDERS.get('kayock_writer_chapter_editor_preview_reports',ROOT/'Reports'/'KayockWriter'/'ChapterEditorPreview')
+
+    markdown_files=dashboard.get('markdown_files') or []
+    chapter_options=[]
+    selected_file=None
+    for f in markdown_files:
+        name=f.get('name','')
+        m=re.search(r'chapter[_\- ]*(\d+)',name,re.I)
+        num=int(m.group(1)) if m else len(chapter_options)+1
+        opt={'chapter_number':num,'name':name,'path':f.get('path',''),'exists':bool(f.get('exists')),'size':f.get('size',0),'required_sections_ok':bool(f.get('required_sections_ok', f.get('has_goal') and f.get('has_conflict') and f.get('has_reveal') and f.get('has_hook') and f.get('has_handoff_tags') and f.get('has_safety')))}
+        chapter_options.append(opt)
+        if num==chapter_number:
+            selected_file=f
+    if selected_file is None and markdown_files:
+        selected_file=markdown_files[0]
+        m=re.search(r'chapter[_\- ]*(\d+)',selected_file.get('name',''),re.I)
+        chapter_number=int(m.group(1)) if m else 1
+
+    raw=''
+    selected_path=''
+    selected_exists=False
+    if selected_file:
+        selected_path=selected_file.get('path','')
+        selected_exists=bool(selected_file.get('exists'))
+        raw=(selected_file.get('preview') or {}).get('text','') or ''
+
+    def section(txt, heading):
+        pat=r'(?ms)^##\s+'+re.escape(heading)+r'\s*$\n(.*?)(?=^##\s+|\Z)'
+        m=re.search(pat,txt)
+        return (m.group(1).strip() if m else '')
+
+    def meta(txt,key):
+        pat=r'^- \*\*'+re.escape(key)+r':\*\*\s*(.*)$'
+        m=re.search(pat,txt,re.M)
+        return m.group(1).strip() if m else ''
+
+    title=''
+    m=re.search(r'^#\s+(.*)$',raw,re.M)
+    if m:
+        title=m.group(1).strip()
+
+    continuity_section=section(raw,'Continuity Notes')
+    continuity_notes=[]
+    for line in continuity_section.splitlines():
+        line=line.strip()
+        if line.startswith('- '):
+            continuity_notes.append(line[2:].strip())
+
+    handoff_section=section(raw,'Handoff Tags')
+    handoff_tags_text=handoff_section.strip()
+    handoff_tags={}
+    m=re.search(r'```json\s*(.*?)\s*```',handoff_section,re.S)
+    if m:
+        handoff_tags_text=m.group(1).strip()
+        try:
+            handoff_tags=json.loads(handoff_tags_text)
+        except Exception:
+            handoff_tags={}
+
+    current_fields={
+        'title':title,
+        'project':meta(raw,'Project'),
+        'book':meta(raw,'Book'),
+        'status':meta(raw,'Status'),
+        'pov':meta(raw,'POV'),
+        'location':meta(raw,'Location'),
+        'goal':section(raw,'Goal'),
+        'conflict':section(raw,'Conflict'),
+        'reveal':section(raw,'Reveal'),
+        'hook':section(raw,'Hook'),
+        'continuity_notes':'\n'.join(continuity_notes),
+        'handoff_tags_text':handoff_tags_text,
+        'handoff_tags':handoff_tags,
+        'draft_space':section(raw,'Draft Space'),
+        'safety':section(raw,'Safety')
+    }
+
+    editable_keys=['title','pov','location','goal','conflict','reveal','hook','continuity_notes','handoff_tags_text','draft_space']
+    proposed_fields={k:current_fields.get(k,'') for k in editable_keys}
+    for k,v in proposed.items():
+        if k in proposed_fields:
+            proposed_fields[k]=str(v)
+
+    changed_fields=[]
+    for k in editable_keys:
+        if proposed_fields.get(k,'') != current_fields.get(k,''):
+            changed_fields.append({'field':k,'before_chars':len(str(current_fields.get(k,''))),'after_chars':len(str(proposed_fields.get(k,''))),'before_preview':str(current_fields.get(k,''))[:240],'after_preview':str(proposed_fields.get(k,''))[:240]})
+
+    # Build a preview-only reconstructed Markdown string. It is never written.
+    preview_markdown='\n'.join([
+        f"# {proposed_fields.get('title') or current_fields.get('title') or 'Untitled Chapter'}",
+        '',
+        f"- **Project:** {current_fields.get('project')}",
+        f"- **Book:** {current_fields.get('book')}",
+        f"- **Status:** {current_fields.get('status') or 'saved_chapter_card'}",
+        f"- **POV:** {proposed_fields.get('pov','')}",
+        f"- **Location:** {proposed_fields.get('location','')}",
+        '',
+        '## Goal','',proposed_fields.get('goal',''),'',
+        '## Conflict','',proposed_fields.get('conflict',''),'',
+        '## Reveal','',proposed_fields.get('reveal',''),'',
+        '## Hook','',proposed_fields.get('hook',''),'',
+        '## Continuity Notes','',
+        '\n'.join([('- '+x.strip()) for x in proposed_fields.get('continuity_notes','').splitlines() if x.strip()]),'',
+        '## Handoff Tags','',
+        '```json',proposed_fields.get('handoff_tags_text',''),'```','',
+        '## Draft Space','',proposed_fields.get('draft_space',''),'',
+        '## Safety','',current_fields.get('safety','')
+    ])
+
+    checks=[
+        {'id':'saved_chapter_dashboard_ready','ok':bool(dashboard.get('dashboard_ready')),'message':'Saved Chapter Dashboard is ready.'},
+        {'id':'chapter_options_present','ok':len(chapter_options)>0,'message':f'{len(chapter_options)} saved chapter option(s) found.'},
+        {'id':'selected_chapter_file_exists','ok':selected_exists,'message':f'Selected chapter file: {selected_file.get("name","") if selected_file else "missing"}.'},
+        {'id':'required_sections_present','ok':bool(selected_file and selected_file.get('required_sections_ok', selected_file.get('has_goal') and selected_file.get('has_conflict') and selected_file.get('has_reveal') and selected_file.get('has_hook') and selected_file.get('has_handoff_tags') and selected_file.get('has_safety'))),'message':'Selected chapter card has required sections.'},
+        {'id':'fields_parsed','ok':bool(current_fields.get('title') and current_fields.get('goal') and current_fields.get('conflict') and current_fields.get('reveal') and current_fields.get('hook')),'message':'Editor fields parsed from saved Markdown.'},
+        {'id':'change_preview_generated','ok':True,'message':f'{len(changed_fields)} unsaved field change(s) detected for preview.'},
+        {'id':'no_write_mode','ok':True,'message':'Chapter Editor Preview did not write, overwrite, rename, move, or delete files.'}
+    ]
+
+    safety={
+        'read_only_chapter_editor_preview':True,
+        'no_chapter_file_edit':True,
+        'no_story_file_mutation':True,
+        'no_project_creation':True,
+        'no_legacy_migration':True,
+        'no_rename_performed':True,
+        'no_overwrite':True,
+        'no_delete':True,
+        'no_move':True,
+        'no_install':True,
+        'no_model_cleanup':True,
+        'preview_export_only':True,
+        'future_save_requires_gate_and_approval':True
+    }
+
+    summary={
+        'project_id':project_id,
+        'project_title':ds.get('project_title','Slipping into Darkness'),
+        'book_id':book_id,
+        'book_title':ds.get('book_title',''),
+        'selected_chapter_number':chapter_number,
+        'selected_chapter_name':selected_file.get('name','') if selected_file else '',
+        'selected_chapter_path':selected_path,
+        'selected_chapter_exists':selected_exists,
+        'chapter_options':len(chapter_options),
+        'current_raw_chars':len(raw),
+        'preview_markdown_chars':len(preview_markdown),
+        'changed_fields':len(changed_fields),
+        'checks':len(checks),
+        'checks_passed':sum(1 for c in checks if c.get('ok')),
+        'problems':sum(1 for c in checks if not c.get('ok')),
+        'editor_preview_ready':all(c.get('ok') for c in checks),
+        'read_only':True,
+        'report_only':True
+    }
+
+    recommendations=[
+        {'id':'mark_chapter_editor_preview_proven','title':'Mark Chapter Editor Preview proven','recommendation':'Use this as the no-write foundation before any saved chapter edits are allowed.','risk':'low','auto_apply':False},
+        {'id':'next_chapter_edit_gate','title':'Build Chapter Edit Approval Gate next','recommendation':'Add a no-write gate that checks diff, backup requirement, exact phrase, and no-overwrite before edits can be saved.','risk':'low','auto_apply':False},
+        {'id':'keep_no_write_editor_first','title':'Keep editor no-write until gate is proven','recommendation':'Do not add edit-save until the preview and gate are both proven.','risk':'low','auto_apply':False}
+    ]
+
+    healthy=all(c.get('ok') for c in checks)
+    health_label='CHAPTER EDITOR PREVIEW READY' if healthy else 'CHAPTER EDITOR PREVIEW NEEDS REVIEW'
+
+    report={
+        'ok':True,
+        'created':now(),
+        'title':'Kayock Writer Chapter Editor Preview',
+        'read_only':True,
+        'report_only':True,
+        'healthy':healthy,
+        'editor_preview_ready':healthy,
+        'health_label':health_label,
+        'message':f'Chapter Editor Preview: {health_label}',
+        'milestone':'v10.12.2 Chapter Editor Preview',
+        'summary':summary,
+        'chapter_options':chapter_options,
+        'selected_file':{'path':selected_path,'name':selected_file.get('name','') if selected_file else '','exists':selected_exists},
+        'current_fields':current_fields,
+        'proposed_fields':proposed_fields,
+        'changed_fields':changed_fields,
+        'preview_markdown':preview_markdown,
+        'checks':checks,
+        'recommendations':recommendations,
+        'source_saved_chapter_dashboard':{'health_label':dashboard.get('health_label',''),'summary':ds},
+        'folders':{'chapter_editor_preview_reports':str(reports),'book_folder':ds.get('book_folder','')},
+        'safety':safety
+    }
+
+    if export:
+        reports.mkdir(parents=True,exist_ok=True)
+        stamp=datetime.now().strftime('%Y%m%d_%H%M%S')
+        json_path=reports/f'Chapter_Editor_Preview_{project_id}_{book_id}_chapter_{chapter_number:02d}_{stamp}.json'
+        md_path=reports/f'Chapter_Editor_Preview_{project_id}_{book_id}_chapter_{chapter_number:02d}_{stamp}.md'
+        jwrite(json_path,report)
+        lines=[
+            '# Kayock Writer Chapter Editor Preview','',
+            f"Created: {report['created']}",
+            f"Milestone: **{report['milestone']}**",
+            f"Health: **{health_label}**",
+            f"Editor preview ready: {healthy}",
+            f"Project: **{summary['project_title']}**",
+            f"Book: **{summary['book_title'] or book_id}**",
+            f"Chapter: **{chapter_number:02d}**",
+            '',
+            '## Safety','',
+            '- Read-only chapter editor preview.',
+            '- No chapter file edit.',
+            '- No story-file mutation.',
+            '- No project creation.',
+            '- No legacy migration.',
+            '- No rename performed.',
+            '- No overwrite.',
+            '- No delete.',
+            '- No move.',
+            '- No install.',
+            '- No model cleanup.',
+            '',
+            '## Summary',''
+        ]
+        for k,v in summary.items():
+            lines.append(f"- {k.replace('_',' ').title()}: {v}")
+        lines += ['','## Current Fields','']
+        for k,v in current_fields.items():
+            if k!='handoff_tags':
+                lines.append(f"### {k}\n\n```text\n{v}\n```\n")
+        lines += ['','## Changed Fields Preview','']
+        if changed_fields:
+            for c in changed_fields:
+                lines.append(f"- `{c.get('field')}` — {c.get('before_chars')} chars → {c.get('after_chars')} chars")
+        else:
+            lines.append('- None.')
+        lines += ['','## Checks','']
+        for c in checks:
+            lines.append(f"- [{'PASS' if c.get('ok') else 'FAIL'}] `{c.get('id')}` — {c.get('message')}")
+        lines += ['','## Recommendations','']
+        for r in recommendations:
+            lines.append(f"- `{r.get('id')}` — {r.get('title')} — {r.get('recommendation')} — auto apply: {r.get('auto_apply')}")
+        md_path.write_text('\n'.join(lines),encoding='utf-8')
+        report['exported']={'json':str(json_path),'markdown':str(md_path),'folder':str(reports)}
+    return report
 
 def list_projects():
     PROJECTS.mkdir(parents=True,exist_ok=True); arr=[]

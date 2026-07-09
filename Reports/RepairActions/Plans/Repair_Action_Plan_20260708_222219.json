@@ -1,0 +1,114 @@
+{
+  "ok": true,
+  "created": "2026-07-08T22:22:19",
+  "title": "Kayock Repair Bay Action Plan",
+  "read_only": true,
+  "report_only": true,
+  "summary": {
+    "actions": 5,
+    "available": 3,
+    "low_risk": 5,
+    "blocked": 2
+  },
+  "actions": [
+    {
+      "id": "create_missing_standard_folders",
+      "title": "Create Missing Standard Folders",
+      "description": "Creates safe standard Kayock folders that are missing. It does not delete, move, or overwrite files.",
+      "risk": "low",
+      "available": false,
+      "reason": "No standard folders are missing.",
+      "writes": [],
+      "requires_confirmation": true,
+      "safety": [
+        "Preview first",
+        "User confirmation required",
+        "Repair log created",
+        "No package installs",
+        "No model deletion"
+      ]
+    },
+    {
+      "id": "refresh_root_manifest",
+      "title": "Refresh Root Project Manifest",
+      "description": "Regenerates Z:\\FOXAI\\manifest.json from current module and scan state. Existing manifest is backed up before overwrite.",
+      "risk": "low",
+      "available": true,
+      "reason": "Available. Existing file will be backed up first.",
+      "writes": [
+        "Z:\\FOXAI\\manifest.json"
+      ],
+      "requires_confirmation": true,
+      "safety": [
+        "Preview first",
+        "User confirmation required",
+        "Repair log created",
+        "No package installs",
+        "No model deletion"
+      ]
+    },
+    {
+      "id": "refresh_engineering_readme",
+      "title": "Refresh Engineering README",
+      "description": "Regenerates the Engineering README from the Engineering manifest. Existing README is backed up before overwrite.",
+      "risk": "low",
+      "available": true,
+      "reason": "Available. Existing README will be backed up first.",
+      "writes": [
+        "Z:\\FOXAI\\Departments\\Engineering\\README.md"
+      ],
+      "requires_confirmation": true,
+      "safety": [
+        "Preview first",
+        "User confirmation required",
+        "Repair log created",
+        "No package installs",
+        "No model deletion"
+      ]
+    },
+    {
+      "id": "generate_optional_dependency_plan",
+      "title": "Generate Optional Dependency Plan",
+      "description": "Writes a report-only plan for optional Repair Bay tools. It does not install packages.",
+      "risk": "low",
+      "available": true,
+      "reason": "Available. No installs will run.",
+      "writes": [
+        "Z:\\FOXAI\\Reports\\RepairActions\\Optional_Dependency_Install_Plan.md"
+      ],
+      "requires_confirmation": true,
+      "safety": [
+        "Preview first",
+        "User confirmation required",
+        "Repair log created",
+        "No package installs",
+        "No model deletion"
+      ]
+    },
+    {
+      "id": "move_suspicious_root_launchers",
+      "title": "Move Suspicious Root Launchers",
+      "description": "Moves suspicious root BAT/CMD files into LegacyLaunchers with safer names. No deletion.",
+      "risk": "low",
+      "available": false,
+      "reason": "No suspicious root launcher filenames found.",
+      "writes": [],
+      "requires_confirmation": true,
+      "safety": [
+        "Preview first",
+        "User confirmation required",
+        "Repair log created",
+        "No package installs",
+        "No model deletion"
+      ]
+    }
+  ],
+  "rules": [
+    "No action runs without explicit user confirmation.",
+    "Actions are applied one at a time.",
+    "Backups are created before overwriting generated files.",
+    "Every action writes a repair log.",
+    "No model deletion.",
+    "No dependency installation."
+  ]
+}

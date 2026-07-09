@@ -1,0 +1,582 @@
+{
+  "ok": true,
+  "bridge": "FOXAI OPS Bridge",
+  "version": "CM v5.0",
+  "request": "Professor Ada, explain what MissionBus does.",
+  "mode": "safe",
+  "elapsed_ms": 26801,
+  "report": {
+    "ok": true,
+    "system": "FOXAI Fleet Command",
+    "version": "CM v4.0",
+    "request": "Professor Ada, explain what MissionBus does.",
+    "plan": {
+      "ok": true,
+      "schema": 2,
+      "planner": "Mission Planner v3.1",
+      "request": "Professor Ada, explain what MissionBus does.",
+      "intent": {
+        "objective": "Understand or investigate code",
+        "mission_type": "Engineering Investigation",
+        "department": "Engineering",
+        "lead_professor": "Professor Ada",
+        "required_capabilities": [
+          "code_search",
+          "repo_search",
+          "mission_history"
+        ],
+        "confidence": 0.73,
+        "matched": {
+          "strong": [
+            "missionbus"
+          ],
+          "weak": []
+        },
+        "needs_clarification": false,
+        "alternatives": [
+          {
+            "objective": "Research or explain knowledge",
+            "mission_type": "Knowledge Research",
+            "department": "Iron Library",
+            "lead_professor": "Professor Sagan",
+            "required_capabilities": [
+              "documents",
+              "reference",
+              "mission_history"
+            ],
+            "confidence": 0.55,
+            "matched": {
+              "strong": [],
+              "weak": [
+                "explain"
+              ]
+            }
+          }
+        ]
+      },
+      "objective": "Understand or investigate code",
+      "mission_type": "Engineering Investigation",
+      "department": "Engineering",
+      "professor": "Professor Ada",
+      "fleet_state": {
+        "updated": "2026-07-06T12:07:02",
+        "total": 6,
+        "states": {
+          "Operational": 6
+        }
+      },
+      "steps": [
+        {
+          "step": 1,
+          "type": "capability",
+          "capability": "code_search",
+          "intent": "Use capability for Engineering Investigation.",
+          "confidence": 0.73,
+          "status": "planned",
+          "chosen_shuttle": {
+            "key": "ripgrep",
+            "callsign": "USS Search Shuttle",
+            "department": "Engineering",
+            "service_state": "Operational",
+            "path": "Z:\\Hanger Bay\\Development\\VSCode\\4fe60c8b1c\\resources\\app\\extensions\\copilot\\node_modules\\@github\\copilot\\sdk\\ripgrep\\bin\\win32-x64\\rg.exe"
+          },
+          "alternatives": []
+        },
+        {
+          "step": 2,
+          "type": "capability",
+          "capability": "repo_search",
+          "intent": "Use capability for Engineering Investigation.",
+          "confidence": 0.73,
+          "status": "planned",
+          "chosen_shuttle": {
+            "key": "ripgrep",
+            "callsign": "USS Search Shuttle",
+            "department": "Engineering",
+            "service_state": "Operational",
+            "path": "Z:\\Hanger Bay\\Development\\VSCode\\4fe60c8b1c\\resources\\app\\extensions\\copilot\\node_modules\\@github\\copilot\\sdk\\ripgrep\\bin\\win32-x64\\rg.exe"
+          },
+          "alternatives": []
+        },
+        {
+          "step": 3,
+          "type": "capability",
+          "capability": "mission_history",
+          "intent": "Use capability for Engineering Investigation.",
+          "confidence": 0.73,
+          "status": "planned",
+          "chosen_shuttle": {
+            "key": "database",
+            "callsign": "USS Database Shuttle",
+            "department": "Engineering",
+            "service_state": "Operational",
+            "path": "Z:\\Hanger Bay\\sqlite-tools-win-x64-3530300\\sqlite3.exe"
+          },
+          "alternatives": []
+        }
+      ],
+      "execution_mode": "plan_only",
+      "safety": "No tools launched by Mission Planner v3.1."
+    },
+    "gap_report": {
+      "ok": true,
+      "source_of_truth": "FleetRegistry.refresh()",
+      "request": "Professor Ada, explain what MissionBus does.",
+      "mission_type": "Engineering Investigation",
+      "department": "Engineering",
+      "professor": "Professor Ada",
+      "total_required": 3,
+      "available_count": 3,
+      "missing_count": 0,
+      "gaps": [
+        {
+          "capability": "code_search",
+          "available": true,
+          "priority": "satisfied",
+          "assigned_shuttle": "USS Search Shuttle",
+          "assigned_key": "ripgrep",
+          "recommended_shuttle": null,
+          "department": "Engineering",
+          "reason": "Capability is available in the Fleet Registry.",
+          "install_candidate": null
+        },
+        {
+          "capability": "repo_search",
+          "available": true,
+          "priority": "satisfied",
+          "assigned_shuttle": "USS Search Shuttle",
+          "assigned_key": "ripgrep",
+          "recommended_shuttle": null,
+          "department": "Engineering",
+          "reason": "Capability is available in the Fleet Registry.",
+          "install_candidate": null
+        },
+        {
+          "capability": "mission_history",
+          "available": true,
+          "priority": "satisfied",
+          "assigned_shuttle": "USS Database Shuttle",
+          "assigned_key": "database",
+          "recommended_shuttle": null,
+          "department": "Engineering",
+          "reason": "Capability is available in the Fleet Registry.",
+          "install_candidate": null
+        }
+      ]
+    },
+    "fleet": {
+      "total": 6,
+      "states": {
+        "Operational": 6
+      },
+      "kinds": {
+        "service": 1,
+        "application": 5
+      },
+      "updated": "2026-07-06T12:07:12"
+    },
+    "decision": {
+      "decision": "execute_safe",
+      "reason": "Mission is eligible for safe-mode execution.",
+      "assignments": [
+        {
+          "capability": "code_search",
+          "available": true,
+          "assigned_key": "ripgrep",
+          "assigned_shuttle": "USS Search Shuttle",
+          "department": "Engineering",
+          "status": "assigned"
+        },
+        {
+          "capability": "repo_search",
+          "available": true,
+          "assigned_key": "ripgrep",
+          "assigned_shuttle": "USS Search Shuttle",
+          "department": "Engineering",
+          "status": "assigned"
+        },
+        {
+          "capability": "mission_history",
+          "available": true,
+          "assigned_key": "database",
+          "assigned_shuttle": "USS Database Shuttle",
+          "department": "Engineering",
+          "status": "assigned"
+        }
+      ]
+    },
+    "execution": {
+      "ok": true,
+      "mission_id": 17,
+      "status": "complete",
+      "plan": {
+        "ok": true,
+        "schema": 2,
+        "planner": "Mission Planner v3.1",
+        "request": "Professor Ada, explain what MissionBus does.",
+        "intent": {
+          "objective": "Understand or investigate code",
+          "mission_type": "Engineering Investigation",
+          "department": "Engineering",
+          "lead_professor": "Professor Ada",
+          "required_capabilities": [
+            "code_search",
+            "repo_search",
+            "mission_history"
+          ],
+          "confidence": 0.73,
+          "matched": {
+            "strong": [
+              "missionbus"
+            ],
+            "weak": []
+          },
+          "needs_clarification": false,
+          "alternatives": [
+            {
+              "objective": "Research or explain knowledge",
+              "mission_type": "Knowledge Research",
+              "department": "Iron Library",
+              "lead_professor": "Professor Sagan",
+              "required_capabilities": [
+                "documents",
+                "reference",
+                "mission_history"
+              ],
+              "confidence": 0.55,
+              "matched": {
+                "strong": [],
+                "weak": [
+                  "explain"
+                ]
+              }
+            }
+          ]
+        },
+        "objective": "Understand or investigate code",
+        "mission_type": "Engineering Investigation",
+        "department": "Engineering",
+        "professor": "Professor Ada",
+        "fleet_state": {
+          "updated": "2026-07-06T12:07:18",
+          "total": 6,
+          "states": {
+            "Operational": 6
+          }
+        },
+        "steps": [
+          {
+            "step": 1,
+            "type": "capability",
+            "capability": "code_search",
+            "intent": "Use capability for Engineering Investigation.",
+            "confidence": 0.73,
+            "status": "planned",
+            "chosen_shuttle": {
+              "key": "ripgrep",
+              "callsign": "USS Search Shuttle",
+              "department": "Engineering",
+              "service_state": "Operational",
+              "path": "Z:\\Hanger Bay\\Development\\VSCode\\4fe60c8b1c\\resources\\app\\extensions\\copilot\\node_modules\\@github\\copilot\\sdk\\ripgrep\\bin\\win32-x64\\rg.exe"
+            },
+            "alternatives": []
+          },
+          {
+            "step": 2,
+            "type": "capability",
+            "capability": "repo_search",
+            "intent": "Use capability for Engineering Investigation.",
+            "confidence": 0.73,
+            "status": "planned",
+            "chosen_shuttle": {
+              "key": "ripgrep",
+              "callsign": "USS Search Shuttle",
+              "department": "Engineering",
+              "service_state": "Operational",
+              "path": "Z:\\Hanger Bay\\Development\\VSCode\\4fe60c8b1c\\resources\\app\\extensions\\copilot\\node_modules\\@github\\copilot\\sdk\\ripgrep\\bin\\win32-x64\\rg.exe"
+            },
+            "alternatives": []
+          },
+          {
+            "step": 3,
+            "type": "capability",
+            "capability": "mission_history",
+            "intent": "Use capability for Engineering Investigation.",
+            "confidence": 0.73,
+            "status": "planned",
+            "chosen_shuttle": {
+              "key": "database",
+              "callsign": "USS Database Shuttle",
+              "department": "Engineering",
+              "service_state": "Operational",
+              "path": "Z:\\Hanger Bay\\sqlite-tools-win-x64-3530300\\sqlite3.exe"
+            },
+            "alternatives": []
+          }
+        ],
+        "execution_mode": "plan_only",
+        "safety": "No tools launched by Mission Planner v3.1."
+      },
+      "gap_report": {
+        "ok": true,
+        "source_of_truth": "FleetRegistry.refresh()",
+        "request": "Professor Ada, explain what MissionBus does.",
+        "mission_type": "Engineering Investigation",
+        "department": "Engineering",
+        "professor": "Professor Ada",
+        "total_required": 3,
+        "available_count": 3,
+        "missing_count": 0,
+        "gaps": [
+          {
+            "capability": "code_search",
+            "available": true,
+            "priority": "satisfied",
+            "assigned_shuttle": "USS Search Shuttle",
+            "assigned_key": "ripgrep",
+            "recommended_shuttle": null,
+            "department": "Engineering",
+            "reason": "Capability is available in the Fleet Registry.",
+            "install_candidate": null
+          },
+          {
+            "capability": "repo_search",
+            "available": true,
+            "priority": "satisfied",
+            "assigned_shuttle": "USS Search Shuttle",
+            "assigned_key": "ripgrep",
+            "recommended_shuttle": null,
+            "department": "Engineering",
+            "reason": "Capability is available in the Fleet Registry.",
+            "install_candidate": null
+          },
+          {
+            "capability": "mission_history",
+            "available": true,
+            "priority": "satisfied",
+            "assigned_shuttle": "USS Database Shuttle",
+            "assigned_key": "database",
+            "recommended_shuttle": null,
+            "department": "Engineering",
+            "reason": "Capability is available in the Fleet Registry.",
+            "install_candidate": null
+          }
+        ]
+      },
+      "results": [
+        {
+          "capability": "code_search",
+          "shuttle": "ripgrep",
+          "status": "planned_only",
+          "message": "Capability not executed in safe mode."
+        },
+        {
+          "capability": "repo_search",
+          "shuttle": "ripgrep",
+          "status": "planned_only",
+          "message": "Capability not executed in safe mode."
+        },
+        {
+          "capability": "mission_history",
+          "shuttle": "database",
+          "status": "already_logged",
+          "message": "Mission history is represented by Vault logging."
+        }
+      ],
+      "elapsed_ms": 10794
+    },
+    "elapsed_ms": 26795,
+    "bridge_officers": {
+      "ok": true,
+      "mission": {
+        "ok": true,
+        "schema": 2,
+        "planner": "Mission Planner v3.1",
+        "request": "Professor Ada, explain what MissionBus does.",
+        "intent": {
+          "objective": "Understand or investigate code",
+          "mission_type": "Engineering Investigation",
+          "department": "Engineering",
+          "lead_professor": "Professor Ada",
+          "required_capabilities": [
+            "code_search",
+            "repo_search",
+            "mission_history"
+          ],
+          "confidence": 0.73,
+          "matched": {
+            "strong": [
+              "missionbus"
+            ],
+            "weak": []
+          },
+          "needs_clarification": false,
+          "alternatives": [
+            {
+              "objective": "Research or explain knowledge",
+              "mission_type": "Knowledge Research",
+              "department": "Iron Library",
+              "lead_professor": "Professor Sagan",
+              "required_capabilities": [
+                "documents",
+                "reference",
+                "mission_history"
+              ],
+              "confidence": 0.55,
+              "matched": {
+                "strong": [],
+                "weak": [
+                  "explain"
+                ]
+              }
+            }
+          ]
+        },
+        "objective": "Understand or investigate code",
+        "mission_type": "Engineering Investigation",
+        "department": "Engineering",
+        "professor": "Professor Ada",
+        "fleet_state": {
+          "updated": "2026-07-06T12:07:02",
+          "total": 6,
+          "states": {
+            "Operational": 6
+          }
+        },
+        "steps": [
+          {
+            "step": 1,
+            "type": "capability",
+            "capability": "code_search",
+            "intent": "Use capability for Engineering Investigation.",
+            "confidence": 0.73,
+            "status": "planned",
+            "chosen_shuttle": {
+              "key": "ripgrep",
+              "callsign": "USS Search Shuttle",
+              "department": "Engineering",
+              "service_state": "Operational",
+              "path": "Z:\\Hanger Bay\\Development\\VSCode\\4fe60c8b1c\\resources\\app\\extensions\\copilot\\node_modules\\@github\\copilot\\sdk\\ripgrep\\bin\\win32-x64\\rg.exe"
+            },
+            "alternatives": []
+          },
+          {
+            "step": 2,
+            "type": "capability",
+            "capability": "repo_search",
+            "intent": "Use capability for Engineering Investigation.",
+            "confidence": 0.73,
+            "status": "planned",
+            "chosen_shuttle": {
+              "key": "ripgrep",
+              "callsign": "USS Search Shuttle",
+              "department": "Engineering",
+              "service_state": "Operational",
+              "path": "Z:\\Hanger Bay\\Development\\VSCode\\4fe60c8b1c\\resources\\app\\extensions\\copilot\\node_modules\\@github\\copilot\\sdk\\ripgrep\\bin\\win32-x64\\rg.exe"
+            },
+            "alternatives": []
+          },
+          {
+            "step": 3,
+            "type": "capability",
+            "capability": "mission_history",
+            "intent": "Use capability for Engineering Investigation.",
+            "confidence": 0.73,
+            "status": "planned",
+            "chosen_shuttle": {
+              "key": "database",
+              "callsign": "USS Database Shuttle",
+              "department": "Engineering",
+              "service_state": "Operational",
+              "path": "Z:\\Hanger Bay\\sqlite-tools-win-x64-3530300\\sqlite3.exe"
+            },
+            "alternatives": []
+          }
+        ],
+        "execution_mode": "plan_only",
+        "safety": "No tools launched by Mission Planner v3.1."
+      },
+      "frameworks": {
+        "crewai": {
+          "installed": false,
+          "label": "CrewAI",
+          "use": "Optional officer/crew agent implementation.",
+          "status": "missing"
+        },
+        "autogen": {
+          "installed": false,
+          "label": "AutoGen",
+          "use": "Optional multi-agent discussion and review loops.",
+          "status": "missing"
+        },
+        "langgraph": {
+          "installed": false,
+          "label": "LangGraph",
+          "use": "Optional stateful mission workflow graph.",
+          "status": "missing"
+        },
+        "llama_index": {
+          "installed": false,
+          "label": "LlamaIndex",
+          "use": "Optional knowledge index, Novel Forge Codex, Academy retrieval.",
+          "status": "missing"
+        }
+      },
+      "officers": [
+        {
+          "officer": "Executive Officer",
+          "callsign": "XO",
+          "department": "Fleet Command",
+          "mission_type": "Engineering Investigation",
+          "assigned": true,
+          "frameworks_available": [],
+          "mode": "foxai_native",
+          "note": "Officer assignment is native FOXAI; external frameworks are optional accelerators."
+        },
+        {
+          "officer": "Operations Officer",
+          "callsign": "Ops",
+          "department": "Fleet Command",
+          "mission_type": "Engineering Investigation",
+          "assigned": true,
+          "frameworks_available": [],
+          "mode": "foxai_native",
+          "note": "Officer assignment is native FOXAI; external frameworks are optional accelerators."
+        },
+        {
+          "officer": "Science Officer",
+          "callsign": "Science",
+          "department": "Academy",
+          "mission_type": "Engineering Investigation",
+          "assigned": true,
+          "frameworks_available": [],
+          "mode": "foxai_native",
+          "note": "Officer assignment is native FOXAI; external frameworks are optional accelerators."
+        },
+        {
+          "officer": "Engineering Officer",
+          "callsign": "Engineering",
+          "department": "Engineering",
+          "mission_type": "Engineering Investigation",
+          "assigned": true,
+          "frameworks_available": [],
+          "mode": "foxai_native",
+          "note": "Officer assignment is native FOXAI; external frameworks are optional accelerators."
+        },
+        {
+          "officer": "Communications Officer",
+          "callsign": "Comms",
+          "department": "Artificial Minds",
+          "mission_type": "Engineering Investigation",
+          "assigned": true,
+          "frameworks_available": [],
+          "mode": "foxai_native",
+          "note": "Officer assignment is native FOXAI; external frameworks are optional accelerators."
+        }
+      ],
+      "total_officers": 5
+    }
+  },
+  "text": "FOXAI Fleet Command Report\n==========================\n\nVersion: CM v4.0\nOK: True\nElapsed: 26795 ms\n\nMission Order:\n- Request: Professor Ada, explain what MissionBus does.\n- Mission Type: Engineering Investigation\n- Department: Engineering\n- Professor: Professor Ada\n\nFleet Snapshot:\n- Total: 6\n- States: {'Operational': 6}\n- Kinds: {'service': 1, 'application': 5}\n\nCommand Decision:\n- Decision: execute_safe\n- Reason: Mission is eligible for safe-mode execution.\n\nAssignments:\n- code_search [OK] -> USS Search Shuttle\n- repo_search [OK] -> USS Search Shuttle\n- mission_history [OK] -> USS Database Shuttle\n\nExecution:\n- Mission ID: 17\n- Status: complete\n- OK: True\n  1. code_search via ripgrep [planned_only]\n     Message: Capability not executed in safe mode.\n  2. repo_search via ripgrep [planned_only]\n     Message: Capability not executed in safe mode.\n  3. mission_history via database [already_logged]\n     Message: Mission history is represented by Vault logging.\n\nFOXAI Bridge Officer Assignment\n===============================\n\nMission Type: Engineering Investigation\nDepartment: Engineering\nProfessor: Professor Ada\n\nFrameworks:\n- CrewAI: missing — Optional officer/crew agent implementation.\n- AutoGen: missing — Optional multi-agent discussion and review loops.\n- LangGraph: missing — Optional stateful mission workflow graph.\n- LlamaIndex: missing — Optional knowledge index, Novel Forge Codex, Academy retrieval.\n\nAssigned Officers:\n- XO / Executive Officer [Fleet Command]\n  Mode: foxai_native\n- Ops / Operations Officer [Fleet Command]\n  Mode: foxai_native\n- Science / Science Officer [Academy]\n  Mode: foxai_native\n- Engineering / Engineering Officer [Engineering]\n  Mode: foxai_native\n- Comms / Communications Officer [Artificial Minds]\n  Mode: foxai_native",
+  "error": ""
+}

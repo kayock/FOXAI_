@@ -1,0 +1,287 @@
+{
+  "ok": true,
+  "created": "2026-07-08T14:35:13",
+  "title": "Kayock Repair Action Detail Viewer",
+  "read_only": true,
+  "report_only": true,
+  "status": "verified",
+  "action_id": "single_file_rollback",
+  "action_created": "2026-07-08T10:38:01",
+  "action_ok": true,
+  "dry_run": false,
+  "user_approved_action": true,
+  "verified_state": "passed",
+  "message": "Single-file rollback completed and verified.",
+  "log": {
+    "json": "Z:\\FOXAI\\Reports\\RepairActions\\Repair_Action_single_file_rollback_20260708_103801.json",
+    "markdown": "Z:\\FOXAI\\Reports\\RepairActions\\Repair_Action_single_file_rollback_20260708_103801.md",
+    "json_exists": true,
+    "markdown_exists": true,
+    "size": 6267
+  },
+  "target": {
+    "path": "Z:\\FOXAI\\Departments\\Engineering\\README.md",
+    "exists": true,
+    "is_file": true,
+    "inside_root": true,
+    "size": 1828,
+    "modified": "2026-07-07T23:59:16",
+    "sha256": "8b2dc31e222346459024d5f16534158e0d516ed27af2b884d3c153b78af0dd5a",
+    "error": ""
+  },
+  "backup": {
+    "path": "Z:\\FOXAI\\Backups\\RollbackLiveTargets\\PRE_ROLLBACK_README_20260708_103801.md",
+    "exists": true,
+    "is_file": true,
+    "inside_root": true,
+    "size": 1828,
+    "modified": "2026-07-07T22:52:50",
+    "sha256": "b2bd4cd4b14c7f0de9816c64252d3cd4e7db1429e4aacd531a740803ee33e2f4",
+    "error": ""
+  },
+  "verification": {
+    "recorded": true,
+    "ok": true,
+    "state": "passed",
+    "checked": 10,
+    "passed": 10,
+    "failed": 0,
+    "message": "Single-file rollback verification passed: 10/10 check(s) passed.",
+    "checks": [
+      {
+        "id": "confirmation_phrase_exact",
+        "ok": true,
+        "message": "Exact rollback confirmation phrase matched.",
+        "path": ""
+      },
+      {
+        "id": "rollback_preview_had_no_hard_blocks",
+        "ok": true,
+        "message": "Rollback preview had no hard blocks except intentional rollback lock.",
+        "path": ""
+      },
+      {
+        "id": "target_hash_before_matched_preview",
+        "ok": true,
+        "message": "Target hash before rollback matched rollback preview.",
+        "path": "Z:\\FOXAI\\Departments\\Engineering\\README.md"
+      },
+      {
+        "id": "pre_rollback_current_target_backup_created",
+        "ok": true,
+        "message": "Current target backup before rollback exists.",
+        "path": "Z:\\FOXAI\\Backups\\RollbackLiveTargets\\PRE_ROLLBACK_README_20260708_103801.md"
+      },
+      {
+        "id": "pre_rollback_backup_hash_matches_current_target",
+        "ok": true,
+        "message": "Pre-rollback backup hash matches current target before rollback.",
+        "path": "Z:\\FOXAI\\Backups\\RollbackLiveTargets\\PRE_ROLLBACK_README_20260708_103801.md"
+      },
+      {
+        "id": "rollback_source_backup_hash_matches_recorded_old_target",
+        "ok": true,
+        "message": "Rollback source hash matches recorded old target hash.",
+        "path": "Z:\\FOXAI\\Backups\\RestoreLiveTargets\\PRE_RESTORE_README_20260708_094618.md"
+      },
+      {
+        "id": "rollback_source_backup_hash_matches_recorded_live_backup",
+        "ok": true,
+        "message": "Rollback source hash matches recorded live backup hash.",
+        "path": "Z:\\FOXAI\\Backups\\RestoreLiveTargets\\PRE_RESTORE_README_20260708_094618.md"
+      },
+      {
+        "id": "target_hash_after_matches_rollback_source",
+        "ok": true,
+        "message": "Target hash after rollback matches pre-restore backup.",
+        "path": "Z:\\FOXAI\\Departments\\Engineering\\README.md"
+      },
+      {
+        "id": "target_size_after_matches_rollback_source",
+        "ok": true,
+        "message": "Target size after rollback matches pre-restore backup.",
+        "path": "Z:\\FOXAI\\Departments\\Engineering\\README.md"
+      },
+      {
+        "id": "no_delete_no_install_no_model_cleanup",
+        "ok": true,
+        "message": "Rollback action performed only single-file copy with no delete/install/model cleanup.",
+        "path": ""
+      }
+    ],
+    "failed_checks": []
+  },
+  "detail_checks": [
+    {
+      "id": "action_log_json_exists",
+      "ok": true,
+      "message": "RepairActions JSON log exists.",
+      "path": "Z:\\FOXAI\\Reports\\RepairActions\\Repair_Action_single_file_rollback_20260708_103801.json"
+    },
+    {
+      "id": "action_log_json_parsed",
+      "ok": true,
+      "message": "RepairActions JSON log parsed successfully.",
+      "path": "Z:\\FOXAI\\Reports\\RepairActions\\Repair_Action_single_file_rollback_20260708_103801.json"
+    },
+    {
+      "id": "action_log_markdown_exists",
+      "ok": true,
+      "message": "RepairActions Markdown log exists.",
+      "path": "Z:\\FOXAI\\Reports\\RepairActions\\Repair_Action_single_file_rollback_20260708_103801.md"
+    },
+    {
+      "id": "action_reported_ok",
+      "ok": true,
+      "message": "Action reported OK.",
+      "path": ""
+    },
+    {
+      "id": "user_approved_action",
+      "ok": true,
+      "message": "Action was user-approved.",
+      "path": ""
+    },
+    {
+      "id": "verification_passed_or_legacy",
+      "ok": true,
+      "message": "Verification passed or this is an older successful legacy log.",
+      "path": ""
+    },
+    {
+      "id": "target_inside_root_or_empty",
+      "ok": true,
+      "message": "Target path is empty or inside FOXAI root.",
+      "path": "Z:\\FOXAI\\Departments\\Engineering\\README.md"
+    },
+    {
+      "id": "backup_inside_root_or_empty",
+      "ok": true,
+      "message": "Backup path is empty or inside FOXAI root.",
+      "path": "Z:\\FOXAI\\Backups\\RollbackLiveTargets\\PRE_ROLLBACK_README_20260708_103801.md"
+    },
+    {
+      "id": "no_detail_side_effects",
+      "ok": true,
+      "message": "Detail viewer performed read-only inspection only.",
+      "path": ""
+    }
+  ],
+  "detail_ok": true,
+  "related_paths": [
+    {
+      "key": "rollback_report",
+      "path": "Z:\\FOXAI\\Reports\\Backups\\RollbackActions\\Single_File_Rollback_README_20260708_103801.md",
+      "exists": true,
+      "kind": "file"
+    },
+    {
+      "key": "rollback_source_backup",
+      "path": "Z:\\FOXAI\\Backups\\RestoreLiveTargets\\PRE_RESTORE_README_20260708_094618.md",
+      "exists": true,
+      "kind": "file"
+    },
+    {
+      "key": "backup",
+      "path": "Z:\\FOXAI\\Backups\\RollbackLiveTargets\\PRE_ROLLBACK_README_20260708_103801.md",
+      "exists": true,
+      "kind": "file"
+    },
+    {
+      "key": "target",
+      "path": "Z:\\FOXAI\\Departments\\Engineering\\README.md",
+      "exists": true,
+      "kind": "file"
+    }
+  ],
+  "raw_result": {
+    "ok": true,
+    "message": "Single-file rollback completed and verified.",
+    "target": "Z:\\FOXAI\\Departments\\Engineering\\README.md",
+    "backup": "Z:\\FOXAI\\Backups\\RollbackLiveTargets\\PRE_ROLLBACK_README_20260708_103801.md",
+    "action_id": "single_file_rollback",
+    "rollback_source_backup": "Z:\\FOXAI\\Backups\\RestoreLiveTargets\\PRE_RESTORE_README_20260708_094618.md",
+    "rollback_report": "Z:\\FOXAI\\Reports\\Backups\\RollbackActions\\Single_File_Rollback_README_20260708_103801.md",
+    "verification": {
+      "ok": true,
+      "checked": 10,
+      "passed": 10,
+      "failed": 0,
+      "message": "Single-file rollback verification passed: 10/10 check(s) passed.",
+      "checks": [
+        {
+          "id": "confirmation_phrase_exact",
+          "ok": true,
+          "message": "Exact rollback confirmation phrase matched.",
+          "path": ""
+        },
+        {
+          "id": "rollback_preview_had_no_hard_blocks",
+          "ok": true,
+          "message": "Rollback preview had no hard blocks except intentional rollback lock.",
+          "path": ""
+        },
+        {
+          "id": "target_hash_before_matched_preview",
+          "ok": true,
+          "message": "Target hash before rollback matched rollback preview.",
+          "path": "Z:\\FOXAI\\Departments\\Engineering\\README.md"
+        },
+        {
+          "id": "pre_rollback_current_target_backup_created",
+          "ok": true,
+          "message": "Current target backup before rollback exists.",
+          "path": "Z:\\FOXAI\\Backups\\RollbackLiveTargets\\PRE_ROLLBACK_README_20260708_103801.md"
+        },
+        {
+          "id": "pre_rollback_backup_hash_matches_current_target",
+          "ok": true,
+          "message": "Pre-rollback backup hash matches current target before rollback.",
+          "path": "Z:\\FOXAI\\Backups\\RollbackLiveTargets\\PRE_ROLLBACK_README_20260708_103801.md"
+        },
+        {
+          "id": "rollback_source_backup_hash_matches_recorded_old_target",
+          "ok": true,
+          "message": "Rollback source hash matches recorded old target hash.",
+          "path": "Z:\\FOXAI\\Backups\\RestoreLiveTargets\\PRE_RESTORE_README_20260708_094618.md"
+        },
+        {
+          "id": "rollback_source_backup_hash_matches_recorded_live_backup",
+          "ok": true,
+          "message": "Rollback source hash matches recorded live backup hash.",
+          "path": "Z:\\FOXAI\\Backups\\RestoreLiveTargets\\PRE_RESTORE_README_20260708_094618.md"
+        },
+        {
+          "id": "target_hash_after_matches_rollback_source",
+          "ok": true,
+          "message": "Target hash after rollback matches pre-restore backup.",
+          "path": "Z:\\FOXAI\\Departments\\Engineering\\README.md"
+        },
+        {
+          "id": "target_size_after_matches_rollback_source",
+          "ok": true,
+          "message": "Target size after rollback matches pre-restore backup.",
+          "path": "Z:\\FOXAI\\Departments\\Engineering\\README.md"
+        },
+        {
+          "id": "no_delete_no_install_no_model_cleanup",
+          "ok": true,
+          "message": "Rollback action performed only single-file copy with no delete/install/model cleanup.",
+          "path": ""
+        }
+      ]
+    }
+  },
+  "safety": {
+    "read_only_detail_viewer": true,
+    "no_repair_action": true,
+    "no_restore": true,
+    "no_rollback": true,
+    "no_overwrite": true,
+    "no_copy_back": true,
+    "no_delete": true,
+    "no_install": true,
+    "no_model_cleanup": true,
+    "detail_export_only": true
+  }
+}

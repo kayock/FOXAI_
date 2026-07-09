@@ -1,21 +1,55 @@
-FOXAI v0.4 Workstation Alpha
+Kayock Command OS v10.11.3 - Create Project Approval Gate
 
-Includes:
-- Cyberpunk splash screen with FoxAI logo
-- Mission Console chat workspace
-- Dashboard workspace
-- Iron Library text/code search workspace
-- Red Canvas prompt-design workspace
-- Mission Archive auto-save
-- One-click Start FoxAI.bat
+Install:
+1. Backup:
+   Z:\FOXAI\core\foxai_web.py
 
-Not included:
-- Your large Engine folder
-- Your large GGUF Models folder
+2. Copy:
+   core\foxai_web.py
+   over:
+   Z:\FOXAI\core\foxai_web.py
 
-To use:
-1. Extract this folder.
-2. Copy your existing Engine folder into this folder.
-3. Copy your existing Models folder into this folder.
-4. Run Install Requirements.bat once.
-5. Double-click Start FoxAI.bat.
+3. Run:
+   START_FOXAI_WEB_PORTABLE.bat
+
+What changed:
+- Keeps v10.11.2 Story Project Manifest Preview.
+- Adds Create Project Approval Gate page.
+- Adds endpoint:
+  POST /api/writer/create_project_gate
+
+Approval Gate shows:
+- Proposed project root
+- Proposed manifest target
+- Exact approval phrase
+- Whether typed phrase matches
+- Creation disabled in this build
+- Proposed future writes
+- Target existence checks
+- Overwrite risk checks
+- Parent folder expectations
+- Legacy source files for future copy-only import
+- Copy-only legacy import policy
+- Checks
+- Safety contract
+- Export gate report
+- Send gate report to Mission
+
+Exports:
+Z:\FOXAI\Reports\KayockWriter\CreateProjectGate\
+
+Expected current result:
+CREATE PROJECT APPROVAL GATE READY
+
+Safety:
+Gate preview only.
+Read-only legacy scan.
+No project creation.
+No story-file mutation.
+No legacy migration.
+No rename performed.
+No overwrite.
+No delete.
+No install.
+No model cleanup.
+Only optional gate export.

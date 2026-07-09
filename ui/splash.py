@@ -3,8 +3,13 @@ from pathlib import Path
 import customtkinter as ctk
 from PIL import Image
 
+try:
+    from .foxai_theme import configure_ctk_identity, apply_foxai_theme, color
+except Exception:
+    from ui.foxai_theme import configure_ctk_identity, apply_foxai_theme, color
+
 ctk.set_appearance_mode("dark")
-ctk.set_default_color_theme("green")
+configure_ctk_identity()
 
 def show_splash():
     splash = ctk.CTk()
@@ -20,6 +25,7 @@ def show_splash():
 
     frame = ctk.CTkFrame(splash)
     frame.pack(fill="both", expand=True, padx=18, pady=18)
+    apply_foxai_theme(splash)
 
     if logo_path.exists():
         logo = ctk.CTkImage(light_image=Image.open(logo_path), dark_image=Image.open(logo_path), size=(175, 175))
@@ -27,8 +33,8 @@ def show_splash():
         logo_label.image = logo
         logo_label.pack(pady=(15, 5))
 
-    ctk.CTkLabel(frame, text="FOXAI BIOS", font=("Consolas", 34, "bold")).pack(pady=(5, 0))
-    ctk.CTkLabel(frame, text="Cyber Operations Console // Local Runtime", font=("Consolas", 14)).pack(pady=(0, 15))
+    ctk.CTkLabel(frame, text="FOXAI COMMAND OS", font=("Consolas", 32, "bold"), text_color=color("purple_soft")).pack(pady=(5, 0))
+    ctk.CTkLabel(frame, text="Ultimate Edifier Platform // Local Runtime", font=("Consolas", 14), text_color=color("muted")).pack(pady=(0, 15))
 
     terminal = ctk.CTkTextbox(frame, width=520, height=240, font=("Consolas", 13))
     terminal.pack(padx=15, pady=10)
@@ -48,8 +54,8 @@ def show_splash():
         "Iron Library...........ONLINE",
         "Security Mode..........LOCAL ONLY",
         "Network................OFFLINE",
-        "Cyber Console..........READY",
-        "Launching Agent Fox..."
+        "Command Bridge.........READY",
+        "Launching FOXAI Bridge..."
     ]
     for i, step in enumerate(steps, start=1):
         terminal.configure(state="normal")

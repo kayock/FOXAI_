@@ -1,0 +1,540 @@
+{
+  "ok": true,
+  "created": "2026-07-07T21:11:49",
+  "title": "Kayock Build Verification Lite Report",
+  "read_only": true,
+  "report_only": true,
+  "root": "Z:\\FOXAI",
+  "summary": {
+    "checks": 7,
+    "passed": 7,
+    "problems": 0,
+    "python_files": 61
+  },
+  "checks": [
+    {
+      "name": "Root manifest JSON",
+      "ok": true,
+      "message": "Root manifest valid; missing required keys: none",
+      "severity": "manifest",
+      "details": {
+        "path": "Z:\\FOXAI\\manifest.json",
+        "keys": [
+          "api_version",
+          "id",
+          "name",
+          "version",
+          "engine",
+          "runtime",
+          "description",
+          "root",
+          "created_or_updated",
+          "principles",
+          "module_summary",
+          "departments",
+          "scan_summary"
+        ],
+        "missing": []
+      }
+    },
+    {
+      "name": "Extension manifest validation",
+      "ok": true,
+      "message": "2 manifest(s) checked; 0 problem(s).",
+      "severity": "manifest",
+      "details": {
+        "validation": {
+          "ok": true,
+          "checked": 2,
+          "valid": 2,
+          "problems": [],
+          "message": "Checked 2 extension manifest(s); 0 problem(s)."
+        },
+        "summary": {
+          "count": 2,
+          "enabled": 2,
+          "valid": 2
+        }
+      }
+    },
+    {
+      "name": "Project docs status",
+      "ok": true,
+      "message": "2 present, 2 valid, 0 problem(s).",
+      "severity": "docs",
+      "details": {
+        "ok": true,
+        "created": "2026-07-07T21:11:49",
+        "summary": {
+          "docs": 2,
+          "present": 2,
+          "valid": 2,
+          "problems": 0,
+          "backup_count": 1
+        },
+        "docs": [
+          {
+            "label": "Root Project Manifest",
+            "kind": "root_manifest",
+            "path": "Z:\\FOXAI\\manifest.json",
+            "relative": "manifest.json",
+            "exists": true,
+            "size": 1595,
+            "modified": "2026-07-07T20:48:36",
+            "valid": true,
+            "message": "Valid JSON with 13 top-level keys"
+          },
+          {
+            "label": "Engineering README",
+            "kind": "department_readme",
+            "path": "Z:\\FOXAI\\Departments\\Engineering\\README.md",
+            "relative": "Departments/Engineering/README.md",
+            "exists": true,
+            "size": 1858,
+            "modified": "2026-07-07T20:48:44",
+            "valid": true,
+            "message": "Readable Markdown/Text"
+          }
+        ],
+        "problems": [],
+        "backup_folder": "Z:\\FOXAI\\Backups\\GeneratedFiles"
+      }
+    },
+    {
+      "name": "Expected project paths",
+      "ok": true,
+      "message": "7/7 expected paths found.",
+      "severity": "paths",
+      "details": {
+        "missing": [],
+        "expected": [
+          "Z:\\FOXAI\\core\\foxai_web.py",
+          "Z:\\FOXAI\\Departments",
+          "Z:\\FOXAI\\Departments\\Engineering",
+          "Z:\\FOXAI\\Departments\\Engineering\\manifest.json",
+          "Z:\\FOXAI\\Departments\\Engineering\\health.py",
+          "Z:\\FOXAI\\Departments\\Engineering\\officer.py",
+          "Z:\\FOXAI\\Departments\\Engineering\\services.py"
+        ]
+      }
+    },
+    {
+      "name": "Departments folder scan",
+      "ok": true,
+      "message": "Departments scan: 5 file(s), 0 error(s).",
+      "severity": "scan",
+      "details": {
+        "counts": {
+          "folders": 1,
+          "files": 5,
+          "manifests": 1,
+          "python": 3,
+          "json": 0,
+          "markdown": 1,
+          "text": 1,
+          "code": 3,
+          "documents": 0,
+          "images": 0,
+          "audio": 0,
+          "video": 0,
+          "other": 0,
+          "large_skipped": 0,
+          "errors": 0
+        },
+        "manifests": [
+          {
+            "path": "Z:\\FOXAI\\Departments\\Engineering\\manifest.json",
+            "relative": "Departments/Engineering/manifest.json",
+            "size": 1868
+          }
+        ]
+      }
+    },
+    {
+      "name": "Python compile check",
+      "ok": true,
+      "message": "61/61 Python file(s) compiled.",
+      "severity": "python",
+      "details": {
+        "files": [
+          {
+            "path": "Z:\\FOXAI\\Departments\\Engineering\\health.py",
+            "relative": "Departments/Engineering/health.py",
+            "ok": true,
+            "message": "compiled"
+          },
+          {
+            "path": "Z:\\FOXAI\\Departments\\Engineering\\officer.py",
+            "relative": "Departments/Engineering/officer.py",
+            "ok": true,
+            "message": "compiled"
+          },
+          {
+            "path": "Z:\\FOXAI\\Departments\\Engineering\\services.py",
+            "relative": "Departments/Engineering/services.py",
+            "ok": true,
+            "message": "compiled"
+          },
+          {
+            "path": "Z:\\FOXAI\\core\\server.py",
+            "relative": "core/server.py",
+            "ok": true,
+            "message": "compiled"
+          },
+          {
+            "path": "Z:\\FOXAI\\core\\agents.py",
+            "relative": "core/agents.py",
+            "ok": true,
+            "message": "compiled"
+          },
+          {
+            "path": "Z:\\FOXAI\\core\\models.py",
+            "relative": "core/models.py",
+            "ok": true,
+            "message": "compiled"
+          },
+          {
+            "path": "Z:\\FOXAI\\core\\paths.py",
+            "relative": "core/paths.py",
+            "ok": true,
+            "message": "compiled"
+          },
+          {
+            "path": "Z:\\FOXAI\\core\\__init__.py",
+            "relative": "core/__init__.py",
+            "ok": true,
+            "message": "compiled"
+          },
+          {
+            "path": "Z:\\FOXAI\\core\\memory.py",
+            "relative": "core/memory.py",
+            "ok": true,
+            "message": "compiled"
+          },
+          {
+            "path": "Z:\\FOXAI\\core\\library.py",
+            "relative": "core/library.py",
+            "ok": true,
+            "message": "compiled"
+          },
+          {
+            "path": "Z:\\FOXAI\\core\\red_canvas.py",
+            "relative": "core/red_canvas.py",
+            "ok": true,
+            "message": "compiled"
+          },
+          {
+            "path": "Z:\\FOXAI\\core\\comfy_bridge.py",
+            "relative": "core/comfy_bridge.py",
+            "ok": true,
+            "message": "compiled"
+          },
+          {
+            "path": "Z:\\FOXAI\\core\\promptsmith.py",
+            "relative": "core/promptsmith.py",
+            "ok": true,
+            "message": "compiled"
+          },
+          {
+            "path": "Z:\\FOXAI\\core\\image_models.py",
+            "relative": "core/image_models.py",
+            "ok": true,
+            "message": "compiled"
+          },
+          {
+            "path": "Z:\\FOXAI\\core\\director.py",
+            "relative": "core/director.py",
+            "ok": true,
+            "message": "compiled"
+          },
+          {
+            "path": "Z:\\FOXAI\\core\\chat_agent.py",
+            "relative": "core/chat_agent.py",
+            "ok": true,
+            "message": "compiled"
+          },
+          {
+            "path": "Z:\\FOXAI\\core\\red_canvas_agent.py",
+            "relative": "core/red_canvas_agent.py",
+            "ok": true,
+            "message": "compiled"
+          },
+          {
+            "path": "Z:\\FOXAI\\core\\library_agent.py",
+            "relative": "core/library_agent.py",
+            "ok": true,
+            "message": "compiled"
+          },
+          {
+            "path": "Z:\\FOXAI\\core\\brainstem.py",
+            "relative": "core/brainstem.py",
+            "ok": true,
+            "message": "compiled"
+          },
+          {
+            "path": "Z:\\FOXAI\\core\\diagnostics.py",
+            "relative": "core/diagnostics.py",
+            "ok": true,
+            "message": "compiled"
+          },
+          {
+            "path": "Z:\\FOXAI\\core\\engineer_agent.py",
+            "relative": "core/engineer_agent.py",
+            "ok": true,
+            "message": "compiled"
+          },
+          {
+            "path": "Z:\\FOXAI\\core\\project_index.py",
+            "relative": "core/project_index.py",
+            "ok": true,
+            "message": "compiled"
+          },
+          {
+            "path": "Z:\\FOXAI\\core\\dependency_graph.py",
+            "relative": "core/dependency_graph.py",
+            "ok": true,
+            "message": "compiled"
+          },
+          {
+            "path": "Z:\\FOXAI\\core\\runtime_graph.py",
+            "relative": "core/runtime_graph.py",
+            "ok": true,
+            "message": "compiled"
+          },
+          {
+            "path": "Z:\\FOXAI\\core\\mission_flow.py",
+            "relative": "core/mission_flow.py",
+            "ok": true,
+            "message": "compiled"
+          },
+          {
+            "path": "Z:\\FOXAI\\core\\technical_debt.py",
+            "relative": "core/technical_debt.py",
+            "ok": true,
+            "message": "compiled"
+          },
+          {
+            "path": "Z:\\FOXAI\\core\\confidence_engine.py",
+            "relative": "core/confidence_engine.py",
+            "ok": true,
+            "message": "compiled"
+          },
+          {
+            "path": "Z:\\FOXAI\\core\\decision_layer.py",
+            "relative": "core/decision_layer.py",
+            "ok": true,
+            "message": "compiled"
+          },
+          {
+            "path": "Z:\\FOXAI\\core\\department_registry.py",
+            "relative": "core/department_registry.py",
+            "ok": true,
+            "message": "compiled"
+          },
+          {
+            "path": "Z:\\FOXAI\\core\\execution_planner.py",
+            "relative": "core/execution_planner.py",
+            "ok": true,
+            "message": "compiled"
+          },
+          {
+            "path": "Z:\\FOXAI\\core\\capability_graph.py",
+            "relative": "core/capability_graph.py",
+            "ok": true,
+            "message": "compiled"
+          },
+          {
+            "path": "Z:\\FOXAI\\core\\forge_master.py",
+            "relative": "core/forge_master.py",
+            "ok": true,
+            "message": "compiled"
+          },
+          {
+            "path": "Z:\\FOXAI\\core\\mission_templates.py",
+            "relative": "core/mission_templates.py",
+            "ok": true,
+            "message": "compiled"
+          },
+          {
+            "path": "Z:\\FOXAI\\core\\project_charter.py",
+            "relative": "core/project_charter.py",
+            "ok": true,
+            "message": "compiled"
+          },
+          {
+            "path": "Z:\\FOXAI\\core\\workshop_config.py",
+            "relative": "core/workshop_config.py",
+            "ok": true,
+            "message": "compiled"
+          },
+          {
+            "path": "Z:\\FOXAI\\core\\chat_resilience.py",
+            "relative": "core/chat_resilience.py",
+            "ok": true,
+            "message": "compiled"
+          },
+          {
+            "path": "Z:\\FOXAI\\core\\project_memory.py",
+            "relative": "core/project_memory.py",
+            "ok": true,
+            "message": "compiled"
+          },
+          {
+            "path": "Z:\\FOXAI\\core\\forge_journal.py",
+            "relative": "core/forge_journal.py",
+            "ok": true,
+            "message": "compiled"
+          },
+          {
+            "path": "Z:\\FOXAI\\core\\engineer_intent.py",
+            "relative": "core/engineer_intent.py",
+            "ok": true,
+            "message": "compiled"
+          },
+          {
+            "path": "Z:\\FOXAI\\core\\smart_search.py",
+            "relative": "core/smart_search.py",
+            "ok": true,
+            "message": "compiled"
+          },
+          {
+            "path": "Z:\\FOXAI\\core\\workshop_bus.py",
+            "relative": "core/workshop_bus.py",
+            "ok": true,
+            "message": "compiled"
+          },
+          {
+            "path": "Z:\\FOXAI\\core\\kernel.py",
+            "relative": "core/kernel.py",
+            "ok": true,
+            "message": "compiled"
+          },
+          {
+            "path": "Z:\\FOXAI\\core\\boot_manager.py",
+            "relative": "core/boot_manager.py",
+            "ok": true,
+            "message": "compiled"
+          },
+          {
+            "path": "Z:\\FOXAI\\core\\service_registry.py",
+            "relative": "core/service_registry.py",
+            "ok": true,
+            "message": "compiled"
+          },
+          {
+            "path": "Z:\\FOXAI\\core\\kernel_service.py",
+            "relative": "core/kernel_service.py",
+            "ok": true,
+            "message": "compiled"
+          },
+          {
+            "path": "Z:\\FOXAI\\core\\investigation_engine.py",
+            "relative": "core/investigation_engine.py",
+            "ok": true,
+            "message": "compiled"
+          },
+          {
+            "path": "Z:\\FOXAI\\core\\evidence_ranker.py",
+            "relative": "core/evidence_ranker.py",
+            "ok": true,
+            "message": "compiled"
+          },
+          {
+            "path": "Z:\\FOXAI\\core\\recommendation_engine.py",
+            "relative": "core/recommendation_engine.py",
+            "ok": true,
+            "message": "compiled"
+          },
+          {
+            "path": "Z:\\FOXAI\\core\\heuristics.py",
+            "relative": "core/heuristics.py",
+            "ok": true,
+            "message": "compiled"
+          },
+          {
+            "path": "Z:\\FOXAI\\core\\engineering_assessment.py",
+            "relative": "core/engineering_assessment.py",
+            "ok": true,
+            "message": "compiled"
+          },
+          {
+            "path": "Z:\\FOXAI\\core\\foxai_web_1.py",
+            "relative": "core/foxai_web_1.py",
+            "ok": true,
+            "message": "compiled"
+          },
+          {
+            "path": "Z:\\FOXAI\\core\\foxai_web_backup_before_capability_api_20260705_173407.py",
+            "relative": "core/foxai_web_backup_before_capability_api_20260705_173407.py",
+            "ok": true,
+            "message": "compiled"
+          },
+          {
+            "path": "Z:\\FOXAI\\core\\foxai_web_broken_before_rollback.py",
+            "relative": "core/foxai_web_broken_before_rollback.py",
+            "ok": true,
+            "message": "compiled"
+          },
+          {
+            "path": "Z:\\FOXAI\\core\\foxai_web_2.py",
+            "relative": "core/foxai_web_2.py",
+            "ok": true,
+            "message": "compiled"
+          },
+          {
+            "path": "Z:\\FOXAI\\core\\foxai_web.py",
+            "relative": "core/foxai_web.py",
+            "ok": true,
+            "message": "compiled"
+          },
+          {
+            "path": "Z:\\FOXAI\\core\\evidence_drivers\\base.py",
+            "relative": "core/evidence_drivers/base.py",
+            "ok": true,
+            "message": "compiled"
+          },
+          {
+            "path": "Z:\\FOXAI\\core\\evidence_drivers\\context_menu_driver.py",
+            "relative": "core/evidence_drivers/context_menu_driver.py",
+            "ok": true,
+            "message": "compiled"
+          },
+          {
+            "path": "Z:\\FOXAI\\core\\evidence_drivers\\spellcheck_driver.py",
+            "relative": "core/evidence_drivers/spellcheck_driver.py",
+            "ok": true,
+            "message": "compiled"
+          },
+          {
+            "path": "Z:\\FOXAI\\core\\evidence_drivers\\timeout_driver.py",
+            "relative": "core/evidence_drivers/timeout_driver.py",
+            "ok": true,
+            "message": "compiled"
+          },
+          {
+            "path": "Z:\\FOXAI\\core\\evidence_drivers\\__init__.py",
+            "relative": "core/evidence_drivers/__init__.py",
+            "ok": true,
+            "message": "compiled"
+          },
+          {
+            "path": "Z:\\FOXAI\\core\\heuristics\\context_menu_heuristic.py",
+            "relative": "core/heuristics/context_menu_heuristic.py",
+            "ok": true,
+            "message": "compiled"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Engineering health check presence",
+      "ok": true,
+      "message": "Engineering health.py found.",
+      "severity": "health",
+      "details": {
+        "path": "Z:\\FOXAI\\Departments\\Engineering\\health.py"
+      }
+    }
+  ],
+  "problems": []
+}

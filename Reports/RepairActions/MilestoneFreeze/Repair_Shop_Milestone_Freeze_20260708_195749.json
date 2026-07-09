@@ -1,0 +1,578 @@
+{
+  "ok": true,
+  "created": "2026-07-08T19:57:49",
+  "title": "Kayock Repair Shop Milestone Freeze",
+  "read_only": true,
+  "report_only": true,
+  "healthy": true,
+  "freeze_ready": true,
+  "health_label": "REPAIR SHOP FOUNDATION FROZEN \u2014 COMPLETE / PROVEN",
+  "message": "Repair Shop Milestone Freeze: REPAIR SHOP FOUNDATION FROZEN \u2014 COMPLETE / PROVEN",
+  "milestone": "v10.9.x Repair Shop Foundation",
+  "version_range": "v10.9.0 through v10.9.6",
+  "summary": {
+    "modules": 7,
+    "modules_complete_proven": 7,
+    "modules_need_review": 0,
+    "repair_shop_health": "REPAIR SHOP HEALTHY",
+    "session_health": "SESSION HEALTHY \u2014 CHIEF ENGINEERING CLEAR",
+    "ticket_queue_health": "REPAIR TICKET QUEUE HEALTHY",
+    "verified_action_health": "REPAIR SHOP HEALTHY",
+    "recovery_health": "HEALTHY \u2014 ROLLED BACK",
+    "recovery_chain": "rolled_back",
+    "repair_logs": 10,
+    "repair_failed": 0,
+    "verification_failed": 0,
+    "open_tickets": 0,
+    "critical": 0,
+    "high": 0,
+    "medium": 0,
+    "active_tickets": 4,
+    "available_action_tickets": 2,
+    "informational_tickets": 2,
+    "healthy_tickets": 6,
+    "generated_backups": 7,
+    "verified_backups": 3,
+    "backup_errors": 0,
+    "latest_action": "single_file_rollback",
+    "latest_action_created": "2026-07-08T10:38:01",
+    "latest_recovery_event": "Rollback_Audit_20260708_105608"
+  },
+  "milestone_modules": [
+    {
+      "version": "v10.9.0",
+      "name": "Repair Shop Operations Dashboard",
+      "status": "complete_proven",
+      "proof": "Repair Shop health, RepairActions history, safe actions, generated backups, and Recovery Foundation status are summarized.",
+      "endpoint": "/api/repair/ops_dashboard",
+      "page": "repairops",
+      "read_only": true
+    },
+    {
+      "version": "v10.9.1",
+      "name": "Repair Action Detail Viewer",
+      "status": "complete_proven",
+      "proof": "A selected RepairActions log can be inspected with verification checks, target, backup, related paths, and safety state.",
+      "endpoint": "/api/repair/action_detail",
+      "page": "repairdetail",
+      "read_only": true
+    },
+    {
+      "version": "v10.9.2",
+      "name": "Verified Action Dashboard Card",
+      "status": "complete_proven",
+      "proof": "Command Bridge can surface the latest verified RepairActions state without running repairs.",
+      "endpoint": "/api/repair/verified_dashboard",
+      "page": "dash",
+      "read_only": true
+    },
+    {
+      "version": "v10.9.3",
+      "name": "Repair Ticket Queue",
+      "status": "complete_proven",
+      "proof": "Repair issues and advisories are triaged into healthy, informational, and available-action tickets.",
+      "endpoint": "/api/repair/ticket_queue",
+      "page": "repairtickets",
+      "read_only": true
+    },
+    {
+      "version": "v10.9.4",
+      "name": "Repair Ticket Detail Viewer",
+      "status": "complete_proven",
+      "proof": "A selected ticket can be inspected with evidence, suggested action, matching safe action, and confirmation requirements.",
+      "endpoint": "/api/repair/ticket_detail",
+      "page": "repairticketdetail",
+      "read_only": true
+    },
+    {
+      "version": "v10.9.5",
+      "name": "Ticket-to-Approved-Action Bridge",
+      "status": "complete_proven",
+      "proof": "A ticket can be bridged to a safe action context while preserving manual approval and no-auto-apply rules.",
+      "endpoint": "/api/repair/ticket_action_bridge",
+      "page": "ticketbridge",
+      "read_only": true
+    },
+    {
+      "version": "v10.9.6",
+      "name": "Repair Shop Session Report",
+      "status": "complete_proven",
+      "proof": "Chief Engineering session report summarizes Repair Shop health, tickets, backups, Recovery Foundation, and recommended next steps.",
+      "endpoint": "/api/repair/session_report",
+      "page": "repairsession",
+      "read_only": true
+    }
+  ],
+  "recommendations": [
+    {
+      "id": "freeze_repair_shop_foundation",
+      "title": "Freeze v10.9.x Repair Shop Foundation",
+      "recommendation": "Treat v10.9.0 through v10.9.6 as the proven Repair Shop foundation.",
+      "status": "recommended",
+      "risk": "low"
+    },
+    {
+      "id": "do_not_auto_install_optional_tools",
+      "title": "Keep optional tool installation manual",
+      "recommendation": "Optional Repair Bay tools can remain advisory. Continue using the optional dependency plan rather than automatic install.",
+      "status": "recommended",
+      "risk": "low"
+    },
+    {
+      "id": "leave_legacy_logs_historical",
+      "title": "Leave legacy logs as historical",
+      "recommendation": "Older successful logs without verification can remain historical unless a future migration tool is intentionally built.",
+      "status": "recommended",
+      "risk": "low"
+    },
+    {
+      "id": "next_milestone",
+      "title": "Move to next milestone",
+      "recommendation": "Start v10.10.x as a new foundation area rather than adding more complexity to Repair Shop.",
+      "status": "recommended",
+      "risk": "low"
+    }
+  ],
+  "problems": [],
+  "safety_contract": {
+    "scan_first": true,
+    "report_second": true,
+    "ask_before_action": true,
+    "read_only_freeze_report": true,
+    "no_repair_action": true,
+    "no_restore": true,
+    "no_rollback": true,
+    "no_overwrite": true,
+    "no_copy_back": true,
+    "no_delete": true,
+    "no_install": true,
+    "no_model_cleanup": true,
+    "freeze_export_only": true
+  },
+  "source_reports": {
+    "session_summary": {
+      "repair_shop_health": "REPAIR SHOP HEALTHY",
+      "ticket_queue_health": "REPAIR TICKET QUEUE HEALTHY",
+      "verified_action_health": "REPAIR SHOP HEALTHY",
+      "recovery_health": "HEALTHY \u2014 ROLLED BACK",
+      "recovery_chain": "rolled_back",
+      "repair_logs": 10,
+      "repair_ok": 10,
+      "repair_failed": 0,
+      "verification_passed": 6,
+      "verification_failed": 0,
+      "legacy_logs_without_verification": 4,
+      "tickets": 10,
+      "active_tickets": 4,
+      "open_tickets": 0,
+      "available_action_tickets": 2,
+      "informational_tickets": 2,
+      "healthy_tickets": 6,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 2,
+      "info": 2,
+      "generated_backups": 7,
+      "verified_backups": 3,
+      "unassociated_backups": 1,
+      "backup_errors": 0,
+      "latest_action": "single_file_rollback",
+      "latest_action_created": "2026-07-08T10:38:01",
+      "latest_backup": "manifest_20260708_000110.json",
+      "latest_recovery_event": "Rollback_Audit_20260708_105608",
+      "latest_recovery_created": "2026-07-08T10:56:08"
+    },
+    "repair_shop_summary": {
+      "repair_logs": 10,
+      "repair_ok": 10,
+      "repair_failed": 0,
+      "user_approved": 10,
+      "dry_runs": 0,
+      "action_types": 6,
+      "verification_passed": 6,
+      "verification_failed": 0,
+      "legacy_logs_without_verification": 4,
+      "history_errors": 0,
+      "available_actions": 3,
+      "blocked_actions": 2,
+      "low_risk_actions": 5,
+      "generated_backups": 7,
+      "associated_backups": 6,
+      "verified_backups": 3,
+      "unassociated_backups": 1,
+      "backup_errors": 0,
+      "recovery_health": "HEALTHY \u2014 ROLLED BACK",
+      "recovery_chain": "rolled_back",
+      "recovery_attention": 0,
+      "recovery_errors": 0,
+      "latest_action": "single_file_rollback",
+      "latest_action_created": "2026-07-08T10:38:01",
+      "latest_backup": "manifest_20260708_000110.json",
+      "latest_recovery_event": "Rollback_Audit_20260708_105608",
+      "latest_recovery_created": "2026-07-08T10:56:08"
+    },
+    "ticket_queue_summary": {
+      "tickets": 10,
+      "active_tickets": 4,
+      "open_tickets": 0,
+      "available_action_tickets": 2,
+      "informational_tickets": 2,
+      "healthy_tickets": 6,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 2,
+      "info": 2,
+      "healthy": 6,
+      "errors": 0,
+      "repair_shop_health": "REPAIR SHOP HEALTHY",
+      "recovery_health": "HEALTHY \u2014 ROLLED BACK",
+      "latest_repair_action": "single_file_rollback",
+      "latest_recovery_event": "Rollback_Audit_20260708_105608"
+    },
+    "recovery_summary": {
+      "events": 14,
+      "targets": 2,
+      "restore_actions": 1,
+      "rollback_actions": 1,
+      "backup_events": 5,
+      "evidence_reports": 7,
+      "intact_events": 6,
+      "attention_events": 0,
+      "superseded_events": 1,
+      "errors": 0,
+      "latest_event": "Rollback_Audit_20260708_105608",
+      "latest_created": "2026-07-08T10:56:08",
+      "restore_audit_ok": true,
+      "rollback_audit_ok": true
+    },
+    "backup_summary": {
+      "backups": 7,
+      "bytes": 11384,
+      "associated": 6,
+      "unassociated": 1,
+      "verified": 3,
+      "types": 3,
+      "actions": 5,
+      "scan_errors": 0,
+      "log_errors": 0,
+      "latest_backup": "manifest_20260708_000110.json",
+      "latest_file_modified_time": "2026-07-07T22:54:30",
+      "latest_backup_filename_time": "2026-07-08T00:01:10",
+      "latest_action_created": "2026-07-08T00:01:10",
+      "latest_modified": "2026-07-07T22:54:30",
+      "timestamp_note": "File modified time may reflect original file metadata preserved during backup; action-created time or filename timestamp is the better backup creation clue."
+    },
+    "latest_verified_action": {
+      "action_id": "single_file_rollback",
+      "created": "2026-07-08T10:38:01",
+      "ok": true,
+      "verified_state": "passed",
+      "message": "Single-file rollback completed and verified.",
+      "target": "Z:\\FOXAI\\Departments\\Engineering\\README.md",
+      "backup": "Z:\\FOXAI\\Backups\\RollbackLiveTargets\\PRE_ROLLBACK_README_20260708_103801.md",
+      "log_json": "Z:\\FOXAI\\Reports\\RepairActions\\Repair_Action_single_file_rollback_20260708_103801.json",
+      "log_markdown": "Z:\\FOXAI\\Reports\\RepairActions\\Repair_Action_single_file_rollback_20260708_103801.md"
+    },
+    "active_tickets": [
+      {
+        "id": "optional_repair_tools_missing",
+        "title": "Optional Repair Bay tools are not fully installed",
+        "source": "Env Verify",
+        "severity": "low",
+        "status": "available_action",
+        "summary": "8 optional Repair Bay tool(s) appear missing. This is not a blocker.",
+        "evidence": [
+          "Optional tools available: 0/8",
+          "Optional tools are advisory only."
+        ],
+        "suggested_action": "Generate the optional dependency plan; do not auto-install packages.",
+        "safe_action_id": "generate_optional_dependency_plan",
+        "risk": "low",
+        "details": {
+          "summary": {
+            "checks": 10,
+            "passed": 9,
+            "problems": 0,
+            "optional_missing": 1,
+            "optional_tools_available": 0,
+            "optional_tools_total": 8,
+            "gguf_models": 12
+          }
+        },
+        "read_only": true
+      },
+      {
+        "id": "safe_actions_available",
+        "title": "Safe Repair Shop actions are available",
+        "source": "Repair Shop",
+        "severity": "low",
+        "status": "available_action",
+        "summary": "3 safe action(s) are currently available.",
+        "evidence": [
+          "Blocked actions: 2",
+          "All listed actions still require explicit approval."
+        ],
+        "suggested_action": "Use Repair Actions page only when you intentionally want to run one.",
+        "safe_action_id": "",
+        "risk": "low",
+        "details": {
+          "safe_actions": [
+            {
+              "id": "create_missing_standard_folders",
+              "title": "Create Missing Standard Folders",
+              "description": "Creates safe standard Kayock folders that are missing. It does not delete, move, or overwrite files.",
+              "risk": "low",
+              "available": false,
+              "reason": "No standard folders are missing.",
+              "writes": [],
+              "requires_confirmation": true,
+              "safety": [
+                "Preview first",
+                "User confirmation required",
+                "Repair log created",
+                "No package installs",
+                "No model deletion"
+              ]
+            },
+            {
+              "id": "refresh_root_manifest",
+              "title": "Refresh Root Project Manifest",
+              "description": "Regenerates Z:\\FOXAI\\manifest.json from current module and scan state. Existing manifest is backed up before overwrite.",
+              "risk": "low",
+              "available": true,
+              "reason": "Available. Existing file will be backed up first.",
+              "writes": [
+                "Z:\\FOXAI\\manifest.json"
+              ],
+              "requires_confirmation": true,
+              "safety": [
+                "Preview first",
+                "User confirmation required",
+                "Repair log created",
+                "No package installs",
+                "No model deletion"
+              ]
+            },
+            {
+              "id": "refresh_engineering_readme",
+              "title": "Refresh Engineering README",
+              "description": "Regenerates the Engineering README from the Engineering manifest. Existing README is backed up before overwrite.",
+              "risk": "low",
+              "available": true,
+              "reason": "Available. Existing README will be backed up first.",
+              "writes": [
+                "Z:\\FOXAI\\Departments\\Engineering\\README.md"
+              ],
+              "requires_confirmation": true,
+              "safety": [
+                "Preview first",
+                "User confirmation required",
+                "Repair log created",
+                "No package installs",
+                "No model deletion"
+              ]
+            },
+            {
+              "id": "generate_optional_dependency_plan",
+              "title": "Generate Optional Dependency Plan",
+              "description": "Writes a report-only plan for optional Repair Bay tools. It does not install packages.",
+              "risk": "low",
+              "available": true,
+              "reason": "Available. No installs will run.",
+              "writes": [
+                "Z:\\FOXAI\\Reports\\RepairActions\\Optional_Dependency_Install_Plan.md"
+              ],
+              "requires_confirmation": true,
+              "safety": [
+                "Preview first",
+                "User confirmation required",
+                "Repair log created",
+                "No package installs",
+                "No model deletion"
+              ]
+            },
+            {
+              "id": "move_suspicious_root_launchers",
+              "title": "Move Suspicious Root Launchers",
+              "description": "Moves suspicious root BAT/CMD files into LegacyLaunchers with safer names. No deletion.",
+              "risk": "low",
+              "available": false,
+              "reason": "No suspicious root launcher filenames found.",
+              "writes": [],
+              "requires_confirmation": true,
+              "safety": [
+                "Preview first",
+                "User confirmation required",
+                "Repair log created",
+                "No package installs",
+                "No model deletion"
+              ]
+            }
+          ]
+        },
+        "read_only": true
+      },
+      {
+        "id": "unassociated_backups",
+        "title": "Unassociated backup files exist",
+        "source": "Backup Vault",
+        "severity": "info",
+        "status": "informational",
+        "summary": "1 backup file(s) are not linked to a verified action log.",
+        "evidence": [
+          "Backups: 7",
+          "Verified backups: 3"
+        ],
+        "suggested_action": "Leave as historical unless later cleanup/migration is built.",
+        "safe_action_id": "",
+        "risk": "low",
+        "details": {
+          "summary": {
+            "backups": 7,
+            "bytes": 11384,
+            "associated": 6,
+            "unassociated": 1,
+            "verified": 3,
+            "types": 3,
+            "actions": 5,
+            "scan_errors": 0,
+            "log_errors": 0,
+            "latest_backup": "manifest_20260708_000110.json",
+            "latest_file_modified_time": "2026-07-07T22:54:30",
+            "latest_backup_filename_time": "2026-07-08T00:01:10",
+            "latest_action_created": "2026-07-08T00:01:10",
+            "latest_modified": "2026-07-07T22:54:30",
+            "timestamp_note": "File modified time may reflect original file metadata preserved during backup; action-created time or filename timestamp is the better backup creation clue."
+          }
+        },
+        "read_only": true
+      },
+      {
+        "id": "legacy_repair_logs",
+        "title": "Legacy RepairActions logs without verification",
+        "source": "Repair History",
+        "severity": "info",
+        "status": "informational",
+        "summary": "4 older successful log(s) predate verified-action logging.",
+        "evidence": [
+          "Repair logs: 10",
+          "These are historical, not failures."
+        ],
+        "suggested_action": "Leave as historical unless a later migration tool is built.",
+        "safe_action_id": "",
+        "risk": "low",
+        "details": {
+          "summary": {
+            "repair_logs": 10,
+            "repair_ok": 10,
+            "repair_failed": 0,
+            "user_approved": 10,
+            "dry_runs": 0,
+            "action_types": 6,
+            "verification_passed": 6,
+            "verification_failed": 0,
+            "legacy_logs_without_verification": 4,
+            "history_errors": 0,
+            "available_actions": 3,
+            "blocked_actions": 2,
+            "low_risk_actions": 5,
+            "generated_backups": 7,
+            "associated_backups": 6,
+            "verified_backups": 3,
+            "unassociated_backups": 1,
+            "backup_errors": 0,
+            "recovery_health": "HEALTHY \u2014 ROLLED BACK",
+            "recovery_chain": "rolled_back",
+            "recovery_attention": 0,
+            "recovery_errors": 0,
+            "latest_action": "single_file_rollback",
+            "latest_action_created": "2026-07-08T10:38:01",
+            "latest_backup": "manifest_20260708_000110.json",
+            "latest_recovery_event": "Rollback_Audit_20260708_105608",
+            "latest_recovery_created": "2026-07-08T10:56:08"
+          }
+        },
+        "read_only": true
+      }
+    ],
+    "safe_to_ignore": [
+      {
+        "ticket_id": "unassociated_backups",
+        "title": "Unassociated backup files exist",
+        "reason": "1 backup file(s) are not linked to a verified action log.",
+        "suggested_action": "Leave as historical unless later cleanup/migration is built."
+      },
+      {
+        "ticket_id": "legacy_repair_logs",
+        "title": "Legacy RepairActions logs without verification",
+        "reason": "4 older successful log(s) predate verified-action logging.",
+        "suggested_action": "Leave as historical unless a later migration tool is built."
+      },
+      {
+        "ticket_id": "build_verify_clear",
+        "title": "Build verification clear",
+        "reason": "Build verification currently reports no problems.",
+        "suggested_action": "No action needed."
+      },
+      {
+        "ticket_id": "env_required_clear",
+        "title": "Required environment checks clear",
+        "reason": "Required environment checks currently report no problems.",
+        "suggested_action": "No action needed."
+      },
+      {
+        "ticket_id": "model_duplicates_clear",
+        "title": "No true model duplicates detected",
+        "reason": "Model Check currently reports no true duplicate GGUF model files.",
+        "suggested_action": "No action needed."
+      },
+      {
+        "ticket_id": "portable_ready_clear",
+        "title": "Portable readiness clear",
+        "reason": "Portable readiness currently reports no blockers or warnings.",
+        "suggested_action": "No action needed."
+      },
+      {
+        "ticket_id": "recovery_clear",
+        "title": "Recovery Foundation healthy",
+        "reason": "Recovery Foundation reports HEALTHY \u2014 ROLLED BACK.",
+        "suggested_action": "No action needed."
+      },
+      {
+        "ticket_id": "latest_scan_clear",
+        "title": "Latest Scan Bridge report has no parsed problems",
+        "reason": "Latest scan report did not expose parsed problems in its summary.",
+        "suggested_action": "No action needed."
+      }
+    ],
+    "recommended_next": [
+      {
+        "ticket_id": "optional_repair_tools_missing",
+        "title": "Optional Repair Bay tools are not fully installed",
+        "severity": "low",
+        "safe_action_id": "generate_optional_dependency_plan",
+        "recommendation": "Generate the optional dependency plan; do not auto-install packages.",
+        "manual_approval_required": true,
+        "auto_apply": false
+      },
+      {
+        "ticket_id": "safe_actions_available",
+        "title": "Safe Repair Shop actions are available",
+        "severity": "low",
+        "safe_action_id": "",
+        "recommendation": "Use Repair Actions page only when you intentionally want to run one.",
+        "manual_approval_required": true,
+        "auto_apply": false
+      }
+    ]
+  },
+  "folders": {
+    "milestone_freeze": "Z:\\FOXAI\\Reports\\RepairActions\\MilestoneFreeze",
+    "session_reports": "Z:\\FOXAI\\Reports\\RepairActions\\SessionReports",
+    "repair_reports": "Z:\\FOXAI\\Reports\\RepairActions",
+    "ticket_reports": "Z:\\FOXAI\\Reports\\RepairActions\\Tickets",
+    "recovery_timeline": "Z:\\FOXAI\\Reports\\Backups\\RecoveryTimeline"
+  }
+}

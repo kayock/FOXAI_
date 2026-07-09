@@ -1,0 +1,536 @@
+{
+  "ok": true,
+  "bridge": "FOXAI OPS Bridge",
+  "version": "CM v5.0",
+  "request": "Tell me a joke about a toaster joining Starfleet.",
+  "mode": "safe",
+  "elapsed_ms": 25852,
+  "report": {
+    "ok": true,
+    "system": "FOXAI Fleet Command",
+    "version": "CM v4.0",
+    "request": "Tell me a joke about a toaster joining Starfleet.",
+    "plan": {
+      "ok": true,
+      "schema": 2,
+      "planner": "Mission Planner v3.1",
+      "request": "Tell me a joke about a toaster joining Starfleet.",
+      "intent": {
+        "objective": "Conversation, humor, brainstorming, or teaching",
+        "mission_type": "General Conversation",
+        "department": "Academy",
+        "lead_professor": "Professor Kayock",
+        "required_capabilities": [
+          "general_reasoning",
+          "mission_history"
+        ],
+        "confidence": 0.83,
+        "matched": {
+          "strong": [
+            "joke"
+          ],
+          "weak": [
+            "tell me"
+          ]
+        },
+        "needs_clarification": false,
+        "alternatives": [
+          {
+            "objective": "Understand code structure",
+            "mission_type": "Engineering Structure Analysis",
+            "department": "Engineering",
+            "lead_professor": "Professor Ada",
+            "required_capabilities": [
+              "code_search",
+              "ast_parse",
+              "symbol_analysis",
+              "mission_history"
+            ],
+            "confidence": 0.73,
+            "matched": {
+              "strong": [
+                "ast"
+              ],
+              "weak": []
+            }
+          }
+        ]
+      },
+      "objective": "Conversation, humor, brainstorming, or teaching",
+      "mission_type": "General Conversation",
+      "department": "Academy",
+      "professor": "Professor Kayock",
+      "fleet_state": {
+        "updated": "2026-07-06T12:06:36",
+        "total": 6,
+        "states": {
+          "Operational": 6
+        }
+      },
+      "steps": [
+        {
+          "step": 1,
+          "type": "capability",
+          "capability": "general_reasoning",
+          "intent": "Use capability for General Conversation.",
+          "confidence": 0.83,
+          "status": "planned",
+          "chosen_shuttle": {
+            "key": "conversation",
+            "callsign": "USS Conversation Shuttle",
+            "department": "Academy",
+            "service_state": "Operational",
+            "path": "internal://conversation_shuttle"
+          },
+          "alternatives": []
+        },
+        {
+          "step": 2,
+          "type": "capability",
+          "capability": "mission_history",
+          "intent": "Use capability for General Conversation.",
+          "confidence": 0.83,
+          "status": "planned",
+          "chosen_shuttle": {
+            "key": "database",
+            "callsign": "USS Database Shuttle",
+            "department": "Engineering",
+            "service_state": "Operational",
+            "path": "Z:\\Hanger Bay\\sqlite-tools-win-x64-3530300\\sqlite3.exe"
+          },
+          "alternatives": []
+        }
+      ],
+      "execution_mode": "plan_only",
+      "safety": "No tools launched by Mission Planner v3.1."
+    },
+    "gap_report": {
+      "ok": true,
+      "source_of_truth": "FleetRegistry.refresh()",
+      "request": "Tell me a joke about a toaster joining Starfleet.",
+      "mission_type": "General Conversation",
+      "department": "Academy",
+      "professor": "Professor Kayock",
+      "total_required": 2,
+      "available_count": 2,
+      "missing_count": 0,
+      "gaps": [
+        {
+          "capability": "general_reasoning",
+          "available": true,
+          "priority": "satisfied",
+          "assigned_shuttle": "USS Conversation Shuttle",
+          "assigned_key": "conversation",
+          "recommended_shuttle": null,
+          "department": "Academy",
+          "reason": "Capability is available in the Fleet Registry.",
+          "install_candidate": null
+        },
+        {
+          "capability": "mission_history",
+          "available": true,
+          "priority": "satisfied",
+          "assigned_shuttle": "USS Database Shuttle",
+          "assigned_key": "database",
+          "recommended_shuttle": null,
+          "department": "Engineering",
+          "reason": "Capability is available in the Fleet Registry.",
+          "install_candidate": null
+        }
+      ]
+    },
+    "fleet": {
+      "total": 6,
+      "states": {
+        "Operational": 6
+      },
+      "kinds": {
+        "service": 1,
+        "application": 5
+      },
+      "updated": "2026-07-06T12:06:46"
+    },
+    "decision": {
+      "decision": "execute_safe",
+      "reason": "Mission is eligible for safe-mode execution.",
+      "assignments": [
+        {
+          "capability": "general_reasoning",
+          "available": true,
+          "assigned_key": "conversation",
+          "assigned_shuttle": "USS Conversation Shuttle",
+          "department": "Academy",
+          "status": "assigned"
+        },
+        {
+          "capability": "mission_history",
+          "available": true,
+          "assigned_key": "database",
+          "assigned_shuttle": "USS Database Shuttle",
+          "department": "Engineering",
+          "status": "assigned"
+        }
+      ]
+    },
+    "execution": {
+      "ok": true,
+      "mission_id": 16,
+      "status": "complete",
+      "plan": {
+        "ok": true,
+        "schema": 2,
+        "planner": "Mission Planner v3.1",
+        "request": "Tell me a joke about a toaster joining Starfleet.",
+        "intent": {
+          "objective": "Conversation, humor, brainstorming, or teaching",
+          "mission_type": "General Conversation",
+          "department": "Academy",
+          "lead_professor": "Professor Kayock",
+          "required_capabilities": [
+            "general_reasoning",
+            "mission_history"
+          ],
+          "confidence": 0.83,
+          "matched": {
+            "strong": [
+              "joke"
+            ],
+            "weak": [
+              "tell me"
+            ]
+          },
+          "needs_clarification": false,
+          "alternatives": [
+            {
+              "objective": "Understand code structure",
+              "mission_type": "Engineering Structure Analysis",
+              "department": "Engineering",
+              "lead_professor": "Professor Ada",
+              "required_capabilities": [
+                "code_search",
+                "ast_parse",
+                "symbol_analysis",
+                "mission_history"
+              ],
+              "confidence": 0.73,
+              "matched": {
+                "strong": [
+                  "ast"
+                ],
+                "weak": []
+              }
+            }
+          ]
+        },
+        "objective": "Conversation, humor, brainstorming, or teaching",
+        "mission_type": "General Conversation",
+        "department": "Academy",
+        "professor": "Professor Kayock",
+        "fleet_state": {
+          "updated": "2026-07-06T12:06:51",
+          "total": 6,
+          "states": {
+            "Operational": 6
+          }
+        },
+        "steps": [
+          {
+            "step": 1,
+            "type": "capability",
+            "capability": "general_reasoning",
+            "intent": "Use capability for General Conversation.",
+            "confidence": 0.83,
+            "status": "planned",
+            "chosen_shuttle": {
+              "key": "conversation",
+              "callsign": "USS Conversation Shuttle",
+              "department": "Academy",
+              "service_state": "Operational",
+              "path": "internal://conversation_shuttle"
+            },
+            "alternatives": []
+          },
+          {
+            "step": 2,
+            "type": "capability",
+            "capability": "mission_history",
+            "intent": "Use capability for General Conversation.",
+            "confidence": 0.83,
+            "status": "planned",
+            "chosen_shuttle": {
+              "key": "database",
+              "callsign": "USS Database Shuttle",
+              "department": "Engineering",
+              "service_state": "Operational",
+              "path": "Z:\\Hanger Bay\\sqlite-tools-win-x64-3530300\\sqlite3.exe"
+            },
+            "alternatives": []
+          }
+        ],
+        "execution_mode": "plan_only",
+        "safety": "No tools launched by Mission Planner v3.1."
+      },
+      "gap_report": {
+        "ok": true,
+        "source_of_truth": "FleetRegistry.refresh()",
+        "request": "Tell me a joke about a toaster joining Starfleet.",
+        "mission_type": "General Conversation",
+        "department": "Academy",
+        "professor": "Professor Kayock",
+        "total_required": 2,
+        "available_count": 2,
+        "missing_count": 0,
+        "gaps": [
+          {
+            "capability": "general_reasoning",
+            "available": true,
+            "priority": "satisfied",
+            "assigned_shuttle": "USS Conversation Shuttle",
+            "assigned_key": "conversation",
+            "recommended_shuttle": null,
+            "department": "Academy",
+            "reason": "Capability is available in the Fleet Registry.",
+            "install_candidate": null
+          },
+          {
+            "capability": "mission_history",
+            "available": true,
+            "priority": "satisfied",
+            "assigned_shuttle": "USS Database Shuttle",
+            "assigned_key": "database",
+            "recommended_shuttle": null,
+            "department": "Engineering",
+            "reason": "Capability is available in the Fleet Registry.",
+            "install_candidate": null
+          }
+        ]
+      },
+      "results": [
+        {
+          "capability": "general_reasoning",
+          "shuttle": "conversation",
+          "status": "executed",
+          "result": {
+            "key": "conversation",
+            "ok": true,
+            "mission_id": 16,
+            "answer": "Professor Kayock: A toaster joined Starfleet because it wanted to boldly go where no bread had gone before. It was assigned to the Enterprise's crumb drive.",
+            "provider": "mock",
+            "model": "mock-brain-v1",
+            "elapsed_ms": 0,
+            "tokens_prompt": 9,
+            "tokens_completion": 26,
+            "error": "",
+            "invoke_candidates": [
+              {
+                "ok": false,
+                "status": null,
+                "message": "Conversation / Brain Router does not support invoke action yet.",
+                "provider": null,
+                "model": null
+              },
+              {
+                "ok": false,
+                "status": null,
+                "message": "Conversation / Brain Router invoke action not implemented yet.",
+                "provider": null,
+                "model": null
+              },
+              {
+                "ok": false,
+                "status": null,
+                "message": "Conversation / Brain Router does not support invoke action yet.",
+                "provider": null,
+                "model": null
+              },
+              {
+                "ok": true,
+                "status": null,
+                "message": null,
+                "provider": "mock",
+                "model": "mock-brain-v1"
+              }
+            ],
+            "selected_by": "extension_invoke_arbiter"
+          }
+        },
+        {
+          "capability": "mission_history",
+          "shuttle": "database",
+          "status": "already_logged",
+          "message": "Mission history is represented by Vault logging."
+        }
+      ],
+      "elapsed_ms": 10549
+    },
+    "elapsed_ms": 25846,
+    "bridge_officers": {
+      "ok": true,
+      "mission": {
+        "ok": true,
+        "schema": 2,
+        "planner": "Mission Planner v3.1",
+        "request": "Tell me a joke about a toaster joining Starfleet.",
+        "intent": {
+          "objective": "Conversation, humor, brainstorming, or teaching",
+          "mission_type": "General Conversation",
+          "department": "Academy",
+          "lead_professor": "Professor Kayock",
+          "required_capabilities": [
+            "general_reasoning",
+            "mission_history"
+          ],
+          "confidence": 0.83,
+          "matched": {
+            "strong": [
+              "joke"
+            ],
+            "weak": [
+              "tell me"
+            ]
+          },
+          "needs_clarification": false,
+          "alternatives": [
+            {
+              "objective": "Understand code structure",
+              "mission_type": "Engineering Structure Analysis",
+              "department": "Engineering",
+              "lead_professor": "Professor Ada",
+              "required_capabilities": [
+                "code_search",
+                "ast_parse",
+                "symbol_analysis",
+                "mission_history"
+              ],
+              "confidence": 0.73,
+              "matched": {
+                "strong": [
+                  "ast"
+                ],
+                "weak": []
+              }
+            }
+          ]
+        },
+        "objective": "Conversation, humor, brainstorming, or teaching",
+        "mission_type": "General Conversation",
+        "department": "Academy",
+        "professor": "Professor Kayock",
+        "fleet_state": {
+          "updated": "2026-07-06T12:06:36",
+          "total": 6,
+          "states": {
+            "Operational": 6
+          }
+        },
+        "steps": [
+          {
+            "step": 1,
+            "type": "capability",
+            "capability": "general_reasoning",
+            "intent": "Use capability for General Conversation.",
+            "confidence": 0.83,
+            "status": "planned",
+            "chosen_shuttle": {
+              "key": "conversation",
+              "callsign": "USS Conversation Shuttle",
+              "department": "Academy",
+              "service_state": "Operational",
+              "path": "internal://conversation_shuttle"
+            },
+            "alternatives": []
+          },
+          {
+            "step": 2,
+            "type": "capability",
+            "capability": "mission_history",
+            "intent": "Use capability for General Conversation.",
+            "confidence": 0.83,
+            "status": "planned",
+            "chosen_shuttle": {
+              "key": "database",
+              "callsign": "USS Database Shuttle",
+              "department": "Engineering",
+              "service_state": "Operational",
+              "path": "Z:\\Hanger Bay\\sqlite-tools-win-x64-3530300\\sqlite3.exe"
+            },
+            "alternatives": []
+          }
+        ],
+        "execution_mode": "plan_only",
+        "safety": "No tools launched by Mission Planner v3.1."
+      },
+      "frameworks": {
+        "crewai": {
+          "installed": false,
+          "label": "CrewAI",
+          "use": "Optional officer/crew agent implementation.",
+          "status": "missing"
+        },
+        "autogen": {
+          "installed": false,
+          "label": "AutoGen",
+          "use": "Optional multi-agent discussion and review loops.",
+          "status": "missing"
+        },
+        "langgraph": {
+          "installed": false,
+          "label": "LangGraph",
+          "use": "Optional stateful mission workflow graph.",
+          "status": "missing"
+        },
+        "llama_index": {
+          "installed": false,
+          "label": "LlamaIndex",
+          "use": "Optional knowledge index, Novel Forge Codex, Academy retrieval.",
+          "status": "missing"
+        }
+      },
+      "officers": [
+        {
+          "officer": "Executive Officer",
+          "callsign": "XO",
+          "department": "Fleet Command",
+          "mission_type": "General Conversation",
+          "assigned": true,
+          "frameworks_available": [],
+          "mode": "foxai_native",
+          "note": "Officer assignment is native FOXAI; external frameworks are optional accelerators."
+        },
+        {
+          "officer": "Operations Officer",
+          "callsign": "Ops",
+          "department": "Fleet Command",
+          "mission_type": "General Conversation",
+          "assigned": true,
+          "frameworks_available": [],
+          "mode": "foxai_native",
+          "note": "Officer assignment is native FOXAI; external frameworks are optional accelerators."
+        },
+        {
+          "officer": "Communications Officer",
+          "callsign": "Comms",
+          "department": "Artificial Minds",
+          "mission_type": "General Conversation",
+          "assigned": true,
+          "frameworks_available": [],
+          "mode": "foxai_native",
+          "note": "Officer assignment is native FOXAI; external frameworks are optional accelerators."
+        },
+        {
+          "officer": "Science Officer",
+          "callsign": "Science",
+          "department": "Academy",
+          "mission_type": "General Conversation",
+          "assigned": true,
+          "frameworks_available": [],
+          "mode": "foxai_native",
+          "note": "Officer assignment is native FOXAI; external frameworks are optional accelerators."
+        }
+      ],
+      "total_officers": 4
+    }
+  },
+  "text": "FOXAI Fleet Command Report\n==========================\n\nVersion: CM v4.0\nOK: True\nElapsed: 25846 ms\n\nMission Order:\n- Request: Tell me a joke about a toaster joining Starfleet.\n- Mission Type: General Conversation\n- Department: Academy\n- Professor: Professor Kayock\n\nFleet Snapshot:\n- Total: 6\n- States: {'Operational': 6}\n- Kinds: {'service': 1, 'application': 5}\n\nCommand Decision:\n- Decision: execute_safe\n- Reason: Mission is eligible for safe-mode execution.\n\nAssignments:\n- general_reasoning [OK] -> USS Conversation Shuttle\n- mission_history [OK] -> USS Database Shuttle\n\nExecution:\n- Mission ID: 16\n- Status: complete\n- OK: True\n  1. general_reasoning via conversation [executed]\n     Answer: Professor Kayock: A toaster joined Starfleet because it wanted to boldly go where no bread had gone before. It was assigned to the Enterprise's crumb drive.\n  2. mission_history via database [already_logged]\n     Message: Mission history is represented by Vault logging.\n\nFOXAI Bridge Officer Assignment\n===============================\n\nMission Type: General Conversation\nDepartment: Academy\nProfessor: Professor Kayock\n\nFrameworks:\n- CrewAI: missing — Optional officer/crew agent implementation.\n- AutoGen: missing — Optional multi-agent discussion and review loops.\n- LangGraph: missing — Optional stateful mission workflow graph.\n- LlamaIndex: missing — Optional knowledge index, Novel Forge Codex, Academy retrieval.\n\nAssigned Officers:\n- XO / Executive Officer [Fleet Command]\n  Mode: foxai_native\n- Ops / Operations Officer [Fleet Command]\n  Mode: foxai_native\n- Comms / Communications Officer [Artificial Minds]\n  Mode: foxai_native\n- Science / Science Officer [Academy]\n  Mode: foxai_native",
+  "error": ""
+}

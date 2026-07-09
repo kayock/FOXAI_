@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>FOXAI Command Bridge</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="foxai-command-bridge.css">
+</head>
+<body>
+  <main class="bridge-shell">
+    <header class="bridge-topbar">
+      <div class="brand-block">
+        <div class="brand-title">FOXAI Command OS</div>
+        <div class="brand-subtitle">Ultimate Edifier Platform · Operation Bridge Alive</div>
+      </div>
+      <div id="kernel-badge" class="kernel-badge">INITIALIZING</div>
+    </header>
+
+    <section class="panel glow">
+      <h2 class="panel-title">Command Summary</h2>
+      <div class="hero-grid">
+        <div class="metric">
+          <div class="metric-label">Departments</div>
+          <div id="metric-departments" class="metric-value">—</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">Online</div>
+          <div id="metric-online" class="metric-value">—</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">Runtime Packages</div>
+          <div id="metric-packages" class="metric-value">—</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">Log Entries</div>
+          <div id="metric-log" class="metric-value">—</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="bridge-layout" style="margin-top:16px;">
+      <div>
+        <section class="panel">
+          <h2 class="panel-title">Departments</h2>
+          <div id="department-grid" class="department-grid"></div>
+        </section>
+
+        <section class="panel" style="margin-top:16px;">
+          <h2 class="panel-title">Mission Console</h2>
+          <div class="mission-text">
+            <strong>Latest Mission:</strong>
+            <div id="latest-mission" style="margin-top:6px;">Awaiting mission feed...</div>
+            <br>
+            <strong>Latest Event:</strong>
+            <div id="latest-event" style="margin-top:6px;">Awaiting event feed...</div>
+          </div>
+          <div class="action-row">
+            <button class="bridge-button" onclick="alert('Next milestone: connect this to BUILD_FOXAI.py through the local Bridge API.')">Build FOXAI</button>
+            <button class="bridge-button" onclick="refreshBridge()">Refresh Bridge</button>
+          </div>
+        </section>
+      </div>
+
+      <div>
+        <section class="panel">
+          <h2 class="panel-title">Captain's Log</h2>
+          <div id="captains-log" class="log-list"></div>
+        </section>
+
+        <section class="panel" style="margin-top:16px;">
+          <h2 class="panel-title">Fleet</h2>
+          <div id="fleet-list" class="fleet-list"></div>
+        </section>
+      </div>
+    </div>
+
+    <div class="footer-note">
+      Bridge feed generated: <span id="generated-at">—</span>
+    </div>
+  </main>
+
+  <script src="foxai-command-bridge.js"></script>
+</body>
+</html>

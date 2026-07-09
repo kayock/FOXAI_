@@ -1,0 +1,156 @@
+/* FOXAI Project Orion v7.2 Bridge Status Panel */
+
+:root {
+  --fox-bg: #080910;
+  --fox-panel: #11131d;
+  --fox-panel-2: #171a26;
+  --fox-text: #f1f1f4;
+  --fox-muted: #a8adbd;
+  --fox-purple: #8f5cff;
+  --fox-cyan: #23d7ff;
+  --fox-green: #39ff88;
+  --fox-orange: #ff9f43;
+  --fox-red: #ff4d6d;
+  --fox-border: rgba(143, 92, 255, 0.45);
+}
+
+.foxai-bridge-status {
+  background:
+    radial-gradient(circle at top left, rgba(143, 92, 255, 0.18), transparent 38%),
+    linear-gradient(135deg, var(--fox-bg), #0d0f18 60%, #080910);
+  color: var(--fox-text);
+  border: 1px solid var(--fox-border);
+  border-radius: 18px;
+  padding: 18px;
+  font-family: "Segoe UI", system-ui, sans-serif;
+  box-shadow: 0 0 32px rgba(143, 92, 255, 0.18);
+  max-width: 1180px;
+}
+
+.foxai-bridge-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  align-items: center;
+  border-bottom: 1px solid rgba(143, 92, 255, 0.28);
+  padding-bottom: 14px;
+  margin-bottom: 16px;
+}
+
+.foxai-title {
+  font-size: 22px;
+  letter-spacing: 0.06em;
+  font-weight: 700;
+}
+
+.foxai-subtitle {
+  color: var(--fox-muted);
+  font-size: 13px;
+  margin-top: 3px;
+}
+
+.foxai-kernel-pill {
+  border: 1px solid rgba(57, 255, 136, 0.5);
+  color: var(--fox-green);
+  background: rgba(57, 255, 136, 0.08);
+  padding: 8px 12px;
+  border-radius: 999px;
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.foxai-grid {
+  display: grid;
+  grid-template-columns: 1.25fr 1fr 1fr;
+  gap: 14px;
+}
+
+.foxai-card {
+  background: linear-gradient(180deg, var(--fox-panel), var(--fox-panel-2));
+  border: 1px solid rgba(255,255,255,0.09);
+  border-radius: 14px;
+  padding: 14px;
+  min-height: 124px;
+}
+
+.foxai-card h3 {
+  margin: 0 0 10px 0;
+  color: var(--fox-cyan);
+  font-size: 15px;
+  letter-spacing: 0.04em;
+}
+
+.foxai-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 7px 0;
+  color: var(--fox-muted);
+  font-size: 13px;
+}
+
+.foxai-row strong {
+  color: var(--fox-text);
+  font-weight: 600;
+}
+
+.foxai-status-active {
+  color: var(--fox-green);
+}
+
+.foxai-status-standby {
+  color: var(--fox-orange);
+}
+
+.foxai-status-error {
+  color: var(--fox-red);
+}
+
+.foxai-tool-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px 12px;
+  font-size: 13px;
+}
+
+.foxai-tool {
+  color: var(--fox-muted);
+}
+
+.foxai-tool.ready::before {
+  content: "✓ ";
+  color: var(--fox-green);
+}
+
+.foxai-tool.missing::before {
+  content: "✕ ";
+  color: var(--fox-red);
+}
+
+.foxai-log {
+  font-family: "Cascadia Mono", Consolas, monospace;
+  color: #d9dbff;
+  font-size: 12px;
+  line-height: 1.45;
+  white-space: pre-wrap;
+  max-height: 150px;
+  overflow: auto;
+}
+
+.foxai-bridge-footer {
+  margin-top: 12px;
+  color: var(--fox-muted);
+  font-size: 12px;
+  text-align: right;
+}
+
+@media (max-width: 900px) {
+  .foxai-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .foxai-bridge-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

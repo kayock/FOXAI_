@@ -1,0 +1,137 @@
+{
+  "ok": true,
+  "created": "2026-07-07T18:25:55",
+  "title": "Kayock Extension Report",
+  "summary": {
+    "count": 2,
+    "enabled": 2,
+    "valid": 1,
+    "problems": 1
+  },
+  "state_file": "Z:\\FOXAI\\Config\\extension_state.json",
+  "items": [
+    {
+      "key": "extension-manager",
+      "name": "Extension Manager",
+      "version": "0.1-shell",
+      "description": "Built-in Kayock module manager shell.",
+      "kind": "system",
+      "officer": "Kayock Command OS",
+      "enabled": true,
+      "status": "VALID",
+      "missing": [],
+      "manifest": "built-in",
+      "folder": "Z:\\FOXAI\\Extensions",
+      "raw": {}
+    },
+    {
+      "key": "engineering",
+      "name": "Engineering Department",
+      "version": "0.0.0",
+      "description": "",
+      "kind": "department",
+      "officer": {
+        "name": "Chief Engineer Ada",
+        "callsign": "Ada",
+        "role": "Chief Engineer"
+      },
+      "enabled": true,
+      "status": "CHECK",
+      "missing": [
+        "version"
+      ],
+      "manifest": "Z:\\FOXAI\\Departments\\Engineering\\manifest.json",
+      "folder": "Z:\\FOXAI\\Departments\\Engineering",
+      "raw": {
+        "api_version": "foxai.department.v1",
+        "id": "engineering",
+        "name": "Engineering Department",
+        "officer": {
+          "name": "Chief Engineer Ada",
+          "callsign": "Ada",
+          "role": "Chief Engineer"
+        },
+        "startup_priority": 30,
+        "depends_on": [
+          "foxkernel",
+          "missionbus",
+          "vault"
+        ],
+        "provides": [
+          "engineering.health",
+          "code.format",
+          "code.lint",
+          "code.typecheck",
+          "architecture.inspect",
+          "security.audit",
+          "sbom.generate"
+        ],
+        "services": [
+          "Repair Bay",
+          "Diagnostics",
+          "Build Verification",
+          "Code Review",
+          "Architecture Inspection",
+          "Security Inspection"
+        ],
+        "tools": [
+          {
+            "id": "ruff",
+            "import": "ruff",
+            "purpose": "Fast linting and formatting checks"
+          },
+          {
+            "id": "black",
+            "import": "black",
+            "purpose": "Python formatting"
+          },
+          {
+            "id": "mypy",
+            "import": "mypy",
+            "purpose": "Static type checking"
+          },
+          {
+            "id": "pydeps",
+            "import": "pydeps",
+            "purpose": "Import graph visualization"
+          },
+          {
+            "id": "import-linter",
+            "import": "importlinter",
+            "purpose": "Architecture boundary enforcement"
+          },
+          {
+            "id": "grimp",
+            "import": "grimp",
+            "purpose": "Import graph analysis"
+          },
+          {
+            "id": "pip-audit",
+            "import": "pip_audit",
+            "purpose": "Dependency vulnerability scanning"
+          },
+          {
+            "id": "cyclonedx-bom",
+            "import": "cyclonedx_py",
+            "purpose": "SBOM generation"
+          }
+        ],
+        "health_check": "Departments.Engineering.health:health",
+        "ui": {
+          "panel": "engineering",
+          "accent": "orange"
+        }
+      }
+    }
+  ],
+  "problems": [
+    {
+      "key": "engineering",
+      "name": "Engineering Department",
+      "missing": [
+        "version"
+      ],
+      "manifest": "Z:\\FOXAI\\Departments\\Engineering\\manifest.json"
+    }
+  ]
+}

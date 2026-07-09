@@ -1,0 +1,311 @@
+/* FOXAI Orion v9.0 — The Bridge Awakens */
+
+:root {
+  --fox-bg: #070811;
+  --fox-bg2: #0d0f1a;
+  --fox-panel: rgba(18, 20, 32, 0.92);
+  --fox-panel2: rgba(24, 27, 42, 0.95);
+  --fox-text: #f4f1ff;
+  --fox-muted: #aeb2c8;
+  --fox-purple: #8f5cff;
+  --fox-purple2: #b18cff;
+  --fox-green: #42ff9e;
+  --fox-orange: #ff9f43;
+  --fox-blue: #3ba7ff;
+  --fox-cyan: #23d7ff;
+  --fox-magenta: #ff5ccf;
+  --fox-gold: #ffd166;
+  --fox-red: #ff4d6d;
+  --fox-border: rgba(143, 92, 255, 0.38);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--fox-text);
+  font-family: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  background:
+    radial-gradient(circle at 18% 8%, rgba(143, 92, 255, 0.25), transparent 34%),
+    radial-gradient(circle at 90% 12%, rgba(35, 215, 255, 0.10), transparent 28%),
+    linear-gradient(135deg, #04050b, var(--fox-bg2) 56%, #05060b);
+}
+
+.bridge-shell {
+  width: min(1440px, calc(100vw - 32px));
+  margin: 0 auto;
+  padding: 22px 0 32px;
+}
+
+.bridge-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 18px;
+}
+
+.brand-block {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.brand-title {
+  font-size: clamp(26px, 3vw, 42px);
+  letter-spacing: 0.08em;
+  font-weight: 800;
+  text-transform: uppercase;
+  text-shadow: 0 0 24px rgba(143, 92, 255, 0.32);
+}
+
+.brand-subtitle {
+  color: var(--fox-muted);
+  font-size: 14px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.kernel-badge {
+  border: 1px solid rgba(66, 255, 158, 0.5);
+  background: rgba(66, 255, 158, 0.08);
+  color: var(--fox-green);
+  padding: 10px 14px;
+  border-radius: 999px;
+  font-weight: 700;
+  box-shadow: 0 0 24px rgba(66, 255, 158, 0.12);
+  white-space: nowrap;
+}
+
+.bridge-layout {
+  display: grid;
+  grid-template-columns: 1.35fr 0.85fr;
+  gap: 16px;
+}
+
+.panel {
+  background: linear-gradient(180deg, var(--fox-panel), var(--fox-panel2));
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 18px;
+  padding: 16px;
+  box-shadow: 0 0 30px rgba(0,0,0,0.22);
+}
+
+.panel.glow {
+  border-color: var(--fox-border);
+  box-shadow: 0 0 38px rgba(143, 92, 255, 0.16);
+}
+
+.panel-title {
+  margin: 0 0 12px;
+  color: var(--fox-purple2);
+  font-size: 15px;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0,1fr));
+  gap: 12px;
+}
+
+.metric {
+  background: rgba(255,255,255,0.035);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 14px;
+  padding: 13px;
+}
+
+.metric-label {
+  color: var(--fox-muted);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.metric-value {
+  margin-top: 7px;
+  font-size: 24px;
+  font-weight: 800;
+}
+
+.department-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0,1fr));
+  gap: 12px;
+}
+
+.dept-card {
+  position: relative;
+  overflow: hidden;
+  background: rgba(255,255,255,0.035);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 16px;
+  padding: 14px;
+  min-height: 146px;
+}
+
+.dept-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 4px;
+  background: var(--fox-purple);
+}
+
+.dept-card[data-accent="orange"]::before { background: var(--fox-orange); }
+.dept-card[data-accent="blue"]::before { background: var(--fox-blue); }
+.dept-card[data-accent="cyan"]::before { background: var(--fox-cyan); }
+.dept-card[data-accent="magenta"]::before { background: var(--fox-magenta); }
+.dept-card[data-accent="gold"]::before { background: var(--fox-gold); }
+.dept-card[data-accent="red"]::before { background: var(--fox-red); }
+
+.dept-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.dept-title {
+  font-size: 17px;
+  font-weight: 800;
+}
+
+.dept-officer {
+  margin-top: 3px;
+  color: var(--fox-muted);
+  font-size: 13px;
+}
+
+.status-pill {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  border-radius: 999px;
+  padding: 5px 9px;
+  background: rgba(255, 209, 102, 0.11);
+  color: var(--fox-gold);
+  white-space: nowrap;
+}
+
+.status-pill.ok {
+  background: rgba(66, 255, 158, 0.10);
+  color: var(--fox-green);
+}
+
+.dept-details {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 16px;
+  color: var(--fox-muted);
+  font-size: 13px;
+}
+
+.detail-value {
+  color: var(--fox-text);
+  font-weight: 700;
+}
+
+.log-list, .fleet-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.log-entry {
+  padding: 10px 11px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.035);
+  border: 1px solid rgba(255,255,255,0.06);
+  font-family: "Cascadia Mono", Consolas, monospace;
+  font-size: 12px;
+  line-height: 1.38;
+}
+
+.log-time {
+  color: var(--fox-muted);
+}
+
+.log-source {
+  color: var(--fox-cyan);
+  font-weight: 700;
+}
+
+.fleet-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 9px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+
+.fleet-item:last-child {
+  border-bottom: 0;
+}
+
+.fleet-name {
+  font-weight: 700;
+}
+
+.fleet-meta {
+  color: var(--fox-muted);
+  font-size: 12px;
+}
+
+.mission-text {
+  color: var(--fox-muted);
+  line-height: 1.45;
+}
+
+.action-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.bridge-button {
+  border: 1px solid rgba(143, 92, 255, 0.48);
+  background: rgba(143, 92, 255, 0.12);
+  color: var(--fox-text);
+  padding: 10px 13px;
+  border-radius: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.bridge-button:hover {
+  background: rgba(143, 92, 255, 0.20);
+}
+
+.footer-note {
+  color: var(--fox-muted);
+  margin-top: 12px;
+  font-size: 12px;
+  text-align: right;
+}
+
+@media (max-width: 980px) {
+  .bridge-layout {
+    grid-template-columns: 1fr;
+  }
+  .hero-grid {
+    grid-template-columns: repeat(2, minmax(0,1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .department-grid, .hero-grid {
+    grid-template-columns: 1fr;
+  }
+  .bridge-topbar {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}

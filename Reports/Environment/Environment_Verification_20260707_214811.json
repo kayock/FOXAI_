@@ -1,0 +1,513 @@
+{
+  "ok": true,
+  "created": "2026-07-07T21:48:11",
+  "title": "Kayock Environment + Dependency Verification Report",
+  "read_only": true,
+  "report_only": true,
+  "root": "Z:\\FOXAI",
+  "summary": {
+    "checks": 10,
+    "passed": 9,
+    "problems": 0,
+    "optional_missing": 1,
+    "optional_tools_available": 0,
+    "optional_tools_total": 8,
+    "gguf_models": 12
+  },
+  "checks": [
+    {
+      "name": "Python runtime",
+      "ok": true,
+      "message": "Python 3.14.6 running at Z:\\FOXAI\\env\\python\\python.exe",
+      "severity": "runtime",
+      "optional": false,
+      "details": {
+        "version": "3.14.6",
+        "executable": "Z:\\FOXAI\\env\\python\\python.exe",
+        "platform": "Windows-11-10.0.26200-SP0",
+        "machine": "AMD64"
+      }
+    },
+    {
+      "name": "Portable Python path",
+      "ok": true,
+      "message": "Portable Python found.",
+      "severity": "runtime",
+      "optional": true,
+      "details": {
+        "current_executable": "Z:\\FOXAI\\env\\python\\python.exe",
+        "candidates": [
+          "Z:\\FOXAI\\env\\python\\python.exe",
+          "Z:\\FOXAI\\env\\python\\python",
+          "Z:\\FOXAI\\python\\python.exe",
+          "Z:\\FOXAI\\runtime\\python\\python.exe"
+        ],
+        "found": [
+          "Z:\\FOXAI\\env\\python\\python.exe"
+        ]
+      }
+    },
+    {
+      "name": "Required Python imports",
+      "ok": true,
+      "message": "11/11 required import(s) available.",
+      "severity": "imports",
+      "optional": false,
+      "details": {
+        "imports": [
+          {
+            "module": "json",
+            "ok": true
+          },
+          {
+            "module": "os",
+            "ok": true
+          },
+          {
+            "module": "sys",
+            "ok": true
+          },
+          {
+            "module": "pathlib",
+            "ok": true
+          },
+          {
+            "module": "http.server",
+            "ok": true
+          },
+          {
+            "module": "urllib.parse",
+            "ok": true
+          },
+          {
+            "module": "datetime",
+            "ok": true
+          },
+          {
+            "module": "subprocess",
+            "ok": true
+          },
+          {
+            "module": "py_compile",
+            "ok": true
+          },
+          {
+            "module": "shutil",
+            "ok": true
+          },
+          {
+            "module": "importlib.util",
+            "ok": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "Optional Repair Bay imports",
+      "ok": true,
+      "message": "0/8 optional Repair Bay tool import(s) available. Missing optional tools are not failures yet.",
+      "severity": "imports",
+      "optional": true,
+      "details": {
+        "tools": [
+          {
+            "tool": "ruff",
+            "module": "ruff",
+            "purpose": "Fast linting and formatting checks",
+            "available": false
+          },
+          {
+            "tool": "black",
+            "module": "black",
+            "purpose": "Python formatting",
+            "available": false
+          },
+          {
+            "tool": "mypy",
+            "module": "mypy",
+            "purpose": "Static type checking",
+            "available": false
+          },
+          {
+            "tool": "pydeps",
+            "module": "pydeps",
+            "purpose": "Import graph visualization",
+            "available": false
+          },
+          {
+            "tool": "import-linter",
+            "module": "importlinter",
+            "purpose": "Architecture boundary enforcement",
+            "available": false
+          },
+          {
+            "tool": "grimp",
+            "module": "grimp",
+            "purpose": "Import graph analysis",
+            "available": false
+          },
+          {
+            "tool": "pip-audit",
+            "module": "pip_audit",
+            "purpose": "Dependency vulnerability scanning",
+            "available": false
+          },
+          {
+            "tool": "cyclonedx-bom",
+            "module": "cyclonedx_py",
+            "purpose": "SBOM generation",
+            "available": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "Node / npm presence",
+      "ok": false,
+      "message": "Node/npm not detected; only needed for Electron/browser packaging workflows.",
+      "severity": "node",
+      "optional": true,
+      "details": {
+        "node": "",
+        "npm": ""
+      }
+    },
+    {
+      "name": "Key launcher/build BAT files",
+      "ok": true,
+      "message": "21 key BAT/CMD launcher or build file(s) found.",
+      "severity": "paths",
+      "optional": true,
+      "details": {
+        "files": [
+          "Z:\\FOXAI\\BUILD_BRIDGE_FEED.bat",
+          "Z:\\FOXAI\\BUILD_FOXAI.bat",
+          "Z:\\FOXAI\\Install FOXAI Requirements.bat",
+          "Z:\\FOXAI\\Launch FOXAI Workshop.bat",
+          "Z:\\FOXAI\\PATCH_FOXAI_V10.bat",
+          "Z:\\FOXAI\\PATCH_FOXAI_V9_2.bat",
+          "Z:\\FOXAI\\PATCH_NO_LAUNCH_LIFECYCLE_GUARD.bat",
+          "Z:\\FOXAI\\RUN_IMPORT_PATH_DIAGNOSTIC.bat",
+          "Z:\\FOXAI\\Start ComfyUI CPU.bat",
+          "Z:\\FOXAI\\start FoxAI 3 Alpha.bat",
+          "Z:\\FOXAI\\Start FoxAI Desktop.bat",
+          "Z:\\FOXAI\\Start FoxAI v1.1.bat",
+          "Z:\\FOXAI\\Start FoxAI.bat",
+          "Z:\\FOXAI\\START_BRIDGE.bat",
+          "Z:\\FOXAI\\START_FOXAI_CLEAN.bat",
+          "Z:\\FOXAI\\START_FOXAI_WEB.bat",
+          "Z:\\FOXAI\\START_FOXAI_WEB_PORTABLE.bat",
+          "Z:\\FOXAI\\STOP_FOXAI_CHAT_ENGINE.bat",
+          "Z:\\FOXAI\\STOP_FOXAI_CHAT_ENGINE_PORT_8080.bat",
+          "Z:\\FOXAI\\TEST_NO_LAUNCH_LIFECYCLE_GUARD.bat",
+          "Z:\\FOXAI\\TEST_RUNTIME_DETECTION.bat"
+        ],
+        "all_root_bats": [
+          "Z:\\FOXAI\\@echo off.bat",
+          "Z:\\FOXAI\\APPLY_PURPLE_DESKTOP.bat",
+          "Z:\\FOXAI\\BRIDGE_COMMAND.bat",
+          "Z:\\FOXAI\\BUILD_BRIDGE_FEED.bat",
+          "Z:\\FOXAI\\BUILD_FOXAI.bat",
+          "Z:\\FOXAI\\CAPTAINS_LOG_VIEW.bat",
+          "Z:\\FOXAI\\COMMISSION_ENGINEERING.bat",
+          "Z:\\FOXAI\\DEPENDENCY_ARBITER.bat",
+          "Z:\\FOXAI\\ENGINEERING_REPORT.bat",
+          "Z:\\FOXAI\\ENGINEERING_STATUS.bat",
+          "Z:\\FOXAI\\EVENT_BUS_DEMO.bat",
+          "Z:\\FOXAI\\EXECUTE_MISSION.bat",
+          "Z:\\FOXAI\\FLEET_COMMAND.bat",
+          "Z:\\FOXAI\\FOXKERNEL_COMMAND.bat",
+          "Z:\\FOXAI\\FOXKERNEL_STATUS.bat",
+          "Z:\\FOXAI\\GENERATE_HANGAR_BAY_ADAPTERS.bat",
+          "Z:\\FOXAI\\HANGAR_BAY_INVENTORY.bat",
+          "Z:\\FOXAI\\Install ComfyUI Requirements.bat",
+          "Z:\\FOXAI\\Install FOXAI Requirements.bat",
+          "Z:\\FOXAI\\Install Requirements.bat",
+          "Z:\\FOXAI\\INSTALL_ARCHITECTURE_PACK.bat",
+          "Z:\\FOXAI\\INSTALL_BRIDGE_FEED_UI.bat",
+          "Z:\\FOXAI\\INSTALL_BRIDGE_LIVE_LOG.bat",
+          "Z:\\FOXAI\\INSTALL_BRIDGE_STATUS_PANEL.bat",
+          "Z:\\FOXAI\\INSTALL_CONVERSATION_SHUTTLE.bat",
+          "Z:\\FOXAI\\INSTALL_DATABASE_SHUTTLE.bat",
+          "Z:\\FOXAI\\INSTALL_MISSION_BUS.bat",
+          "Z:\\FOXAI\\INSTALL_PORTABLE_PYTHON_3146.bat",
+          "Z:\\FOXAI\\INSTALL_UI_FOUNDATION.bat",
+          "Z:\\FOXAI\\INSTALL_UPDATE.bat",
+          "Z:\\FOXAI\\Launch FOXAI Workshop.bat",
+          "Z:\\FOXAI\\MISSION_CONTROL_REPORT.bat",
+          "Z:\\FOXAI\\OPS_BRIDGE.bat",
+          "Z:\\FOXAI\\OPS_BRIDGE_JSON.bat",
+          "Z:\\FOXAI\\OPS_BRIDGE_STATUS.bat",
+          "Z:\\FOXAI\\PATCH_ACADEMY_REGISTRAR.bat",
+          "Z:\\FOXAI\\PATCH_ACTUAL_CORE_TO_BUS.bat",
+          "Z:\\FOXAI\\PATCH_CAPABILITY_MANAGER_V2.bat",
+          "Z:\\FOXAI\\PATCH_CONVERSATION_INVOKE_ARBITER.bat",
+          "Z:\\FOXAI\\PATCH_CONVERSATION_MANIFEST_SERVICE_KIND.bat",
+          "Z:\\FOXAI\\PATCH_EXTENSION_HEALTH_ARBITER.bat",
+          "Z:\\FOXAI\\PATCH_FOXAI_V10.bat",
+          "Z:\\FOXAI\\PATCH_FOXAI_V9_2.bat",
+          "Z:\\FOXAI\\PATCH_GROUNDED_MEMORY_V10_1.bat",
+          "Z:\\FOXAI\\PATCH_MEMORY_GUARDRAILS_V10_2.bat",
+          "Z:\\FOXAI\\PATCH_NO_LAUNCH_LIFECYCLE_GUARD.bat",
+          "Z:\\FOXAI\\PATCH_PHASE3_1_BUS_ARCHIVE.bat",
+          "Z:\\FOXAI\\PATCH_REMEMBERED_ONLY_ROUTE_V10_3.bat",
+          "Z:\\FOXAI\\PATCH_SAFE_FLEET_OPERATIONS.bat",
+          "Z:\\FOXAI\\PATCH_SERVICE_CONTRACTS.bat",
+          "Z:\\FOXAI\\PATCH_WEB_CAPABILITY_DEPARTMENT_API.bat",
+          "Z:\\FOXAI\\PATCH_WEB_TO_MISSION_BUS.bat",
+          "Z:\\FOXAI\\PLUGIN_DIAGNOSTICS.bat",
+          "Z:\\FOXAI\\PREVIEW_UPDATE.bat",
+          "Z:\\FOXAI\\RESTORE_ACADEMY_REGISTRAR.bat",
+          "Z:\\FOXAI\\RESTORE_CONVERSATION_INVOKE_ARBITER.bat",
+          "Z:\\FOXAI\\RESTORE_EXTENSION_HEALTH_ARBITER.bat",
+          "Z:\\FOXAI\\RESTORE_IMPORT_PATH_DIAGNOSTIC.bat",
+          "Z:\\FOXAI\\RESTORE_SERVICE_CONTRACTS.bat",
+          "Z:\\FOXAI\\ROLLBACK_WEB_CAPABILITY_API_PATCH.bat",
+          "Z:\\FOXAI\\RUN_IMPORT_PATH_DIAGNOSTIC.bat",
+          "Z:\\FOXAI\\Start ComfyUI CPU.bat",
+          "Z:\\FOXAI\\start FoxAI 3 Alpha.bat",
+          "Z:\\FOXAI\\Start FoxAI Desktop.bat",
+          "Z:\\FOXAI\\Start FoxAI v1.1.bat",
+          "Z:\\FOXAI\\Start FoxAI.bat",
+          "Z:\\FOXAI\\START_BRIDGE.bat",
+          "Z:\\FOXAI\\START_FOXAI_CLEAN.bat",
+          "Z:\\FOXAI\\START_FOXAI_WEB.bat",
+          "Z:\\FOXAI\\START_FOXAI_WEB_PORTABLE.bat",
+          "Z:\\FOXAI\\STEVEDORE_INSPECTOR.bat",
+          "Z:\\FOXAI\\STOP_FOXAI_CHAT_ENGINE.bat",
+          "Z:\\FOXAI\\STOP_FOXAI_CHAT_ENGINE_PORT_8080.bat",
+          "Z:\\FOXAI\\TEST_ACADEMY_UNIFICATION.bat",
+          "Z:\\FOXAI\\TEST_BRIDGE_OFFICERS.bat",
+          "Z:\\FOXAI\\TEST_CAPABILITY_BUS.bat",
+          "Z:\\FOXAI\\TEST_CAPABILITY_GAP_ANALYZER.bat",
+          "Z:\\FOXAI\\TEST_CAPABILITY_MANAGER.bat",
+          "Z:\\FOXAI\\TEST_CONVERSATION_SHUTTLE.bat",
+          "Z:\\FOXAI\\TEST_CORE_V10.bat",
+          "Z:\\FOXAI\\TEST_EXTENSION_MANAGER.bat",
+          "Z:\\FOXAI\\TEST_EXTENSION_MANAGER_V2.bat",
+          "Z:\\FOXAI\\TEST_EXTENSION_MANIFESTS.bat",
+          "Z:\\FOXAI\\TEST_FLEET_COMMAND.bat",
+          "Z:\\FOXAI\\TEST_FLEET_REGISTRY.bat",
+          "Z:\\FOXAI\\TEST_FLEET_SYNC_CONVERSATION.bat",
+          "Z:\\FOXAI\\TEST_FOXKERNEL.bat",
+          "Z:\\FOXAI\\TEST_INTENT_ENGINE.bat",
+          "Z:\\FOXAI\\TEST_MEMORY_GUARDRAILS.bat",
+          "Z:\\FOXAI\\TEST_MISSION_BUS.bat",
+          "Z:\\FOXAI\\TEST_MISSION_EXECUTOR.bat",
+          "Z:\\FOXAI\\TEST_MISSION_PLANNER.bat",
+          "Z:\\FOXAI\\TEST_NO_LAUNCH_LIFECYCLE_GUARD.bat",
+          "Z:\\FOXAI\\TEST_OPS_BRIDGE.bat",
+          "Z:\\FOXAI\\TEST_RUNTIME_DETECTION.bat",
+          "Z:\\FOXAI\\TEST_SERVICE_SHUTTLE_ARCHITECTURE.bat",
+          "Z:\\FOXAI\\TEST_SHUTTLE_POD_COMMISSIONING.bat",
+          "Z:\\FOXAI\\TEST_VAULT_DATABASE_SHUTTLE.bat",
+          "Z:\\FOXAI\\VERIFY_PORTABLE_PYTHON.bat"
+        ]
+      }
+    },
+    {
+      "name": "Key folders",
+      "ok": true,
+      "message": "12/13 tracked folder(s) exist; 0 required missing.",
+      "severity": "paths",
+      "optional": false,
+      "details": {
+        "folders": [
+          {
+            "name": "core",
+            "path": "Z:\\FOXAI\\core",
+            "exists": true,
+            "required": true
+          },
+          {
+            "name": "Departments",
+            "path": "Z:\\FOXAI\\Departments",
+            "exists": true,
+            "required": true
+          },
+          {
+            "name": "Reports",
+            "path": "Z:\\FOXAI\\Reports",
+            "exists": true,
+            "required": true
+          },
+          {
+            "name": "Config",
+            "path": "Z:\\FOXAI\\Config",
+            "exists": true,
+            "required": true
+          },
+          {
+            "name": "NovelForge",
+            "path": "Z:\\FOXAI\\NovelForge",
+            "exists": true,
+            "required": false
+          },
+          {
+            "name": "Prompts",
+            "path": "Z:\\FOXAI\\Prompts",
+            "exists": true,
+            "required": false
+          },
+          {
+            "name": "Extensions",
+            "path": "Z:\\FOXAI\\Extensions",
+            "exists": true,
+            "required": false
+          },
+          {
+            "name": "Modules",
+            "path": "Z:\\FOXAI\\Modules",
+            "exists": true,
+            "required": false
+          },
+          {
+            "name": "Models",
+            "path": "Z:\\FOXAI\\Models",
+            "exists": true,
+            "required": false
+          },
+          {
+            "name": "models",
+            "path": "Z:\\FOXAI\\models",
+            "exists": true,
+            "required": false
+          },
+          {
+            "name": "ComfyUI",
+            "path": "Z:\\FOXAI\\ComfyUI",
+            "exists": true,
+            "required": false
+          },
+          {
+            "name": "Library",
+            "path": "Z:\\FOXAI\\Library",
+            "exists": true,
+            "required": false
+          },
+          {
+            "name": "IronLibrary",
+            "path": "Z:\\FOXAI\\IronLibrary",
+            "exists": false,
+            "required": false
+          }
+        ],
+        "missing_required": []
+      }
+    },
+    {
+      "name": "Model folder / GGUF inventory",
+      "ok": true,
+      "message": "12 GGUF model file(s) found in tracked model folders.",
+      "severity": "models",
+      "optional": true,
+      "details": {
+        "model_dirs": [
+          "Z:\\FOXAI\\Models",
+          "Z:\\FOXAI\\models",
+          "Z:\\FOXAI\\AI\\models",
+          "Z:\\FOXAI\\models_local"
+        ],
+        "models": [
+          {
+            "path": "Z:\\FOXAI\\Models\\Chat\\Qwen3VL-8B-Instruct-Q8_0.gguf",
+            "size": 8709519456
+          },
+          {
+            "path": "Z:\\FOXAI\\Models\\Chat\\Qwen3VL-8B-Instruct-Q4_K_M.gguf",
+            "size": 5027784800
+          },
+          {
+            "path": "Z:\\FOXAI\\Models\\Chat\\DeepSeek-R1-Distill-Qwen-14B-Q4_K_M.gguf",
+            "size": 8988110240
+          },
+          {
+            "path": "Z:\\FOXAI\\Models\\Chat\\DeepSeek-R1-Distill-Qwen-32B-Q4_K_M.gguf",
+            "size": 19851335840
+          },
+          {
+            "path": "Z:\\FOXAI\\Models\\Chat\\Qwen3-Coder-30B-A3B-Instruct-Q4_K_M.gguf",
+            "size": 18556689568
+          },
+          {
+            "path": "Z:\\FOXAI\\Models\\Vision\\Qwen_Qwen3-VL-30B-A3B-Instruct-Q5_K_M.gguf",
+            "size": 21744456928
+          },
+          {
+            "path": "Z:\\FOXAI\\models\\Chat\\Qwen3VL-8B-Instruct-Q8_0.gguf",
+            "size": 8709519456
+          },
+          {
+            "path": "Z:\\FOXAI\\models\\Chat\\Qwen3VL-8B-Instruct-Q4_K_M.gguf",
+            "size": 5027784800
+          },
+          {
+            "path": "Z:\\FOXAI\\models\\Chat\\DeepSeek-R1-Distill-Qwen-14B-Q4_K_M.gguf",
+            "size": 8988110240
+          },
+          {
+            "path": "Z:\\FOXAI\\models\\Chat\\DeepSeek-R1-Distill-Qwen-32B-Q4_K_M.gguf",
+            "size": 19851335840
+          },
+          {
+            "path": "Z:\\FOXAI\\models\\Chat\\Qwen3-Coder-30B-A3B-Instruct-Q4_K_M.gguf",
+            "size": 18556689568
+          },
+          {
+            "path": "Z:\\FOXAI\\models\\Vision\\Qwen_Qwen3-VL-30B-A3B-Instruct-Q5_K_M.gguf",
+            "size": 21744456928
+          }
+        ]
+      }
+    },
+    {
+      "name": "Report export folders",
+      "ok": true,
+      "message": "5/5 report folder(s) exist.",
+      "severity": "reports",
+      "optional": true,
+      "details": {
+        "folders": [
+          {
+            "key": "reports",
+            "path": "Z:\\FOXAI\\Reports",
+            "exists": true
+          },
+          {
+            "key": "scan_reports",
+            "path": "Z:\\FOXAI\\Reports\\Scans",
+            "exists": true
+          },
+          {
+            "key": "build_reports",
+            "path": "Z:\\FOXAI\\Reports\\BuildVerification",
+            "exists": true
+          },
+          {
+            "key": "env_reports",
+            "path": "Z:\\FOXAI\\Reports\\Environment",
+            "exists": true
+          },
+          {
+            "key": "novel_exports",
+            "path": "Z:\\FOXAI\\NovelForge\\Exports",
+            "exists": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "Previous build verification reports",
+      "ok": true,
+      "message": "1 previous build verification Markdown report(s) found.",
+      "severity": "reports",
+      "optional": true,
+      "details": {
+        "reports": [
+          "Z:\\FOXAI\\Reports\\BuildVerification\\Build_Verification_20260707_211149.md"
+        ]
+      }
+    }
+  ],
+  "problems": []
+}

@@ -1,0 +1,52 @@
+<!-- FOXAI Project Orion v7.4 Bridge Status Panel -->
+<link rel="stylesheet" href="BridgeUI/foxai-bridge-status.css">
+
+<section class="foxai-bridge-status">
+  <div class="foxai-bridge-header">
+    <div>
+      <div class="foxai-title">FOXAI Command OS — Bridge Status</div>
+      <div class="foxai-subtitle">Live dashboard panel fed by OpsBridge/outbox JSON reports</div>
+    </div>
+    <div id="foxai-kernel-status" class="foxai-kernel-pill">INITIALIZING</div>
+  </div>
+
+  <div class="foxai-grid">
+    <div class="foxai-card">
+      <h3>Engineering Department</h3>
+      <div class="foxai-row"><span>Status</span><strong id="foxai-engineering-status">—</strong></div>
+      <div class="foxai-row"><span>Officer</span><strong id="foxai-engineering-officer">Chief Engineer Ada</strong></div>
+      <div class="foxai-tool-list" id="foxai-engineering-tools"></div>
+    </div>
+
+    <div class="foxai-card">
+      <h3>Science Department</h3>
+      <div class="foxai-row"><span>Status</span><strong id="foxai-science-status">PLANNED</strong></div>
+      <div class="foxai-row"><span>Officer</span><strong id="foxai-science-officer">Professor Carl Sagan</strong></div>
+      <div class="foxai-row"><span>Next</span><strong>Commissioning</strong></div>
+    </div>
+
+    <div class="foxai-card">
+      <h3>System Snapshot</h3>
+      <div class="foxai-row"><span>Fleet Count</span><strong id="foxai-fleet-count">—</strong></div>
+      <div class="foxai-row"><span>Runtime Packages</span><strong id="foxai-runtime-packages">—</strong></div>
+      <div class="foxai-row"><span>Latest Mission</span><strong id="foxai-latest-mission-status">—</strong></div>
+      <div class="foxai-row"><span>Request</span><strong id="foxai-latest-mission">—</strong></div>
+    </div>
+  </div>
+
+  <div class="foxai-card" style="margin-top:14px;">
+    <h3>Latest Event</h3>
+    <div id="foxai-latest-event" class="foxai-log">Awaiting latest event...</div>
+  </div>
+
+  <div class="foxai-card" style="margin-top:14px;">
+    <h3>Captain's Log</h3>
+    <div id="foxai-captains-log" class="foxai-log">Awaiting bridge telemetry...</div>
+  </div>
+
+  <div class="foxai-bridge-footer">
+    Last refresh: <span id="foxai-last-refresh">—</span>
+  </div>
+</section>
+
+<script src="BridgeUI/foxai-bridge-status.js"></script>

@@ -1,0 +1,174 @@
+{
+  "ok": true,
+  "created": "2026-07-08T18:50:50",
+  "title": "Kayock Ticket-to-Approved-Action Bridge",
+  "read_only": true,
+  "report_only": true,
+  "bridge_status": "ready_for_manual_approval",
+  "bridge_label": "READY \u2014 MANUAL APPROVAL REQUIRED",
+  "message": "Matching safe action is available, but the user must still open Repair Actions and explicitly approve it.",
+  "ticket_id": "optional_repair_tools_missing",
+  "ticket_title": "Optional Repair Bay tools are not fully installed",
+  "ticket_source": "Env Verify",
+  "ticket_severity": "low",
+  "ticket_status": "available_action",
+  "ticket_summary": "8 optional Repair Bay tool(s) appear missing. This is not a blocker.",
+  "evidence": [
+    "Optional tools available: 0/8",
+    "Optional tools are advisory only."
+  ],
+  "suggested_action": "Generate the optional dependency plan; do not auto-install packages.",
+  "safe_action_id": "generate_optional_dependency_plan",
+  "matching_safe_action": {
+    "id": "generate_optional_dependency_plan",
+    "title": "Generate Optional Dependency Plan",
+    "description": "Writes a report-only plan for optional Repair Bay tools. It does not install packages.",
+    "risk": "low",
+    "available": true,
+    "reason": "Available. No installs will run.",
+    "writes": [
+      "Z:\\FOXAI\\Reports\\RepairActions\\Optional_Dependency_Install_Plan.md"
+    ],
+    "requires_confirmation": true,
+    "safety": [
+      "Preview first",
+      "User confirmation required",
+      "Repair log created",
+      "No package installs",
+      "No model deletion"
+    ]
+  },
+  "safe_action_available": true,
+  "safe_action_requires_confirmation": true,
+  "manual_next_steps": [
+    "Open Repair Actions.",
+    "Build Repair Action Plan.",
+    "Review action ID: generate_optional_dependency_plan.",
+    "Only click Apply This Action if you intentionally approve it.",
+    "Browser confirmation and backend confirmation are still required."
+  ],
+  "action_plan_summary": {
+    "actions": 5,
+    "available": 3,
+    "low_risk": 5,
+    "blocked": 2
+  },
+  "detail_checks": [
+    {
+      "id": "ticket_detail_loaded",
+      "ok": true,
+      "message": "Ticket detail loaded.",
+      "path": "optional_repair_tools_missing"
+    },
+    {
+      "id": "repair_action_plan_loaded",
+      "ok": true,
+      "message": "Repair Actions plan loaded.",
+      "path": ""
+    },
+    {
+      "id": "bridge_is_read_only",
+      "ok": true,
+      "message": "Bridge generated context only and ran no repair action.",
+      "path": ""
+    },
+    {
+      "id": "safe_action_resolved_when_declared",
+      "ok": true,
+      "message": "Declared safe action was resolved from current Repair Actions plan, if one was declared.",
+      "path": "generate_optional_dependency_plan"
+    },
+    {
+      "id": "manual_confirmation_required_when_action_exists",
+      "ok": true,
+      "message": "Matching safe action still requires explicit confirmation.",
+      "path": "generate_optional_dependency_plan"
+    },
+    {
+      "id": "no_auto_apply",
+      "ok": true,
+      "message": "Bridge did not call /api/repair/actions/apply and did not write target files.",
+      "path": ""
+    },
+    {
+      "id": "no_install_no_delete_no_model_cleanup",
+      "ok": true,
+      "message": "Bridge performed no install, delete, or model cleanup.",
+      "path": ""
+    }
+  ],
+  "detail_ok": true,
+  "related_paths": [
+    {
+      "key": "source_folder",
+      "path": "Z:\\FOXAI\\Reports\\Environment",
+      "exists": true,
+      "kind": "folder",
+      "size": null,
+      "modified": null
+    },
+    {
+      "key": "repair_reports",
+      "path": "Z:\\FOXAI\\Reports\\RepairActions",
+      "exists": true,
+      "kind": "folder",
+      "size": null,
+      "modified": null
+    },
+    {
+      "key": "optional_dependency_plan",
+      "path": "Z:\\FOXAI\\Reports\\RepairActions\\Optional_Dependency_Install_Plan.md",
+      "exists": true,
+      "kind": "file",
+      "size": 1085,
+      "modified": "2026-07-07T23:54:40"
+    },
+    {
+      "key": "repair_actions_page",
+      "path": "internal:repairactions",
+      "exists": false,
+      "kind": "internal"
+    },
+    {
+      "key": "ticket_detail_page",
+      "path": "internal:repairticketdetail",
+      "exists": false,
+      "kind": "internal"
+    },
+    {
+      "key": "ticket_queue_page",
+      "path": "internal:repairtickets",
+      "exists": false,
+      "kind": "internal"
+    },
+    {
+      "key": "repair_reports",
+      "path": "Z:\\FOXAI\\Reports\\RepairActions",
+      "exists": true,
+      "kind": "folder"
+    },
+    {
+      "key": "ticket_bridge_reports",
+      "path": "Z:\\FOXAI\\Reports\\RepairActions\\TicketBridges",
+      "exists": false,
+      "kind": "path"
+    }
+  ],
+  "ticket_detail_summary": {
+    "detail_ok": true,
+    "safe_action_available": true,
+    "safe_action_requires_confirmation": true
+  },
+  "safety": {
+    "read_only_bridge": true,
+    "no_repair_action": true,
+    "no_restore": true,
+    "no_rollback": true,
+    "no_overwrite": true,
+    "no_copy_back": true,
+    "no_delete": true,
+    "no_install": true,
+    "no_model_cleanup": true,
+    "bridge_export_only": true
+  }
+}

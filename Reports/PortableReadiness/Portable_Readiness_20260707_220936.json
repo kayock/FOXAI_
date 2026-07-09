@@ -1,0 +1,466 @@
+{
+  "ok": true,
+  "created": "2026-07-07T22:09:36",
+  "title": "Kayock Runtime Lock + Portable Readiness Report",
+  "read_only": true,
+  "report_only": true,
+  "root": "Z:\\FOXAI",
+  "summary": {
+    "score": 100,
+    "readiness": "USB-ready for current web bridge workflows",
+    "checks": 10,
+    "passed": 10,
+    "blockers": 0,
+    "warnings": 0,
+    "runtime_locked": true,
+    "current_python": "Z:\\FOXAI\\env\\python\\python.exe",
+    "expected_python": "Z:\\FOXAI\\env\\python\\python.exe",
+    "gguf_files": 12,
+    "unique_gguf_models": 6,
+    "duplicate_gguf_copies": 6,
+    "optional_tools_available": 0,
+    "optional_tools_total": 8
+  },
+  "blockers": [],
+  "warnings": [],
+  "checks": [
+    {
+      "name": "Runtime Lock",
+      "ok": true,
+      "message": "Runtime locked to portable Python: Z:\\FOXAI\\env\\python\\python.exe",
+      "weight": 25,
+      "blocker": true,
+      "warning": false,
+      "details": {
+        "expected": "Z:\\FOXAI\\env\\python\\python.exe",
+        "current": "Z:\\FOXAI\\env\\python\\python.exe",
+        "expected_exists": true
+      }
+    },
+    {
+      "name": "Portable Web Launcher",
+      "ok": true,
+      "message": "START_FOXAI_WEB_PORTABLE.bat found.",
+      "weight": 10,
+      "blocker": true,
+      "warning": false,
+      "details": {
+        "path": "Z:\\FOXAI\\START_FOXAI_WEB_PORTABLE.bat"
+      }
+    },
+    {
+      "name": "FOXAI Root Path",
+      "ok": true,
+      "message": "FOXAI root is Z:\\FOXAI",
+      "weight": 8,
+      "blocker": false,
+      "warning": true,
+      "details": {
+        "root": "Z:\\FOXAI",
+        "drive": "Z:"
+      }
+    },
+    {
+      "name": "Required Folders",
+      "ok": true,
+      "message": "4/4 required folders present.",
+      "weight": 12,
+      "blocker": true,
+      "warning": false,
+      "details": {
+        "missing": [],
+        "required": [
+          "Z:\\FOXAI\\core",
+          "Z:\\FOXAI\\Config",
+          "Z:\\FOXAI\\Reports",
+          "Z:\\FOXAI\\Departments"
+        ]
+      }
+    },
+    {
+      "name": "Required Python Imports",
+      "ok": true,
+      "message": "11/11 required import(s) available.",
+      "weight": 12,
+      "blocker": true,
+      "warning": false,
+      "details": {
+        "imports": [
+          {
+            "module": "json",
+            "ok": true
+          },
+          {
+            "module": "os",
+            "ok": true
+          },
+          {
+            "module": "sys",
+            "ok": true
+          },
+          {
+            "module": "pathlib",
+            "ok": true
+          },
+          {
+            "module": "http.server",
+            "ok": true
+          },
+          {
+            "module": "urllib.parse",
+            "ok": true
+          },
+          {
+            "module": "datetime",
+            "ok": true
+          },
+          {
+            "module": "subprocess",
+            "ok": true
+          },
+          {
+            "module": "py_compile",
+            "ok": true
+          },
+          {
+            "module": "shutil",
+            "ok": true
+          },
+          {
+            "module": "importlib.util",
+            "ok": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "Report Folders",
+      "ok": true,
+      "message": "5/5 report folder(s) present.",
+      "weight": 8,
+      "blocker": false,
+      "warning": true,
+      "details": {
+        "folders": [
+          {
+            "path": "Z:\\FOXAI\\Reports",
+            "exists": true
+          },
+          {
+            "path": "Z:\\FOXAI\\Reports\\Scans",
+            "exists": true
+          },
+          {
+            "path": "Z:\\FOXAI\\Reports\\BuildVerification",
+            "exists": true
+          },
+          {
+            "path": "Z:\\FOXAI\\Reports\\Environment",
+            "exists": true
+          },
+          {
+            "path": "Z:\\FOXAI\\Reports\\PortableReadiness",
+            "exists": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "GGUF Model Inventory",
+      "ok": true,
+      "message": "12 GGUF file(s), 6 unique model(s), 6 duplicate copy/copies detected.",
+      "weight": 8,
+      "blocker": false,
+      "warning": true,
+      "details": {
+        "model_dirs": [
+          "Z:\\FOXAI\\Models",
+          "Z:\\FOXAI\\models",
+          "Z:\\FOXAI\\AI\\models",
+          "Z:\\FOXAI\\models_local"
+        ],
+        "total_files": 12,
+        "unique_models": 6,
+        "duplicate_copies": 6,
+        "duplicates": [
+          {
+            "name": "qwen3vl-8b-instruct-q8_0.gguf",
+            "size": 8709519456,
+            "copies": [
+              {
+                "path": "Z:\\FOXAI\\Models\\Chat\\Qwen3VL-8B-Instruct-Q8_0.gguf",
+                "relative": "Models/Chat/Qwen3VL-8B-Instruct-Q8_0.gguf",
+                "name": "Qwen3VL-8B-Instruct-Q8_0.gguf",
+                "size": 8709519456
+              },
+              {
+                "path": "Z:\\FOXAI\\models\\Chat\\Qwen3VL-8B-Instruct-Q8_0.gguf",
+                "relative": "Models/Chat/Qwen3VL-8B-Instruct-Q8_0.gguf",
+                "name": "Qwen3VL-8B-Instruct-Q8_0.gguf",
+                "size": 8709519456
+              }
+            ]
+          },
+          {
+            "name": "qwen3vl-8b-instruct-q4_k_m.gguf",
+            "size": 5027784800,
+            "copies": [
+              {
+                "path": "Z:\\FOXAI\\Models\\Chat\\Qwen3VL-8B-Instruct-Q4_K_M.gguf",
+                "relative": "Models/Chat/Qwen3VL-8B-Instruct-Q4_K_M.gguf",
+                "name": "Qwen3VL-8B-Instruct-Q4_K_M.gguf",
+                "size": 5027784800
+              },
+              {
+                "path": "Z:\\FOXAI\\models\\Chat\\Qwen3VL-8B-Instruct-Q4_K_M.gguf",
+                "relative": "Models/Chat/Qwen3VL-8B-Instruct-Q4_K_M.gguf",
+                "name": "Qwen3VL-8B-Instruct-Q4_K_M.gguf",
+                "size": 5027784800
+              }
+            ]
+          },
+          {
+            "name": "deepseek-r1-distill-qwen-14b-q4_k_m.gguf",
+            "size": 8988110240,
+            "copies": [
+              {
+                "path": "Z:\\FOXAI\\Models\\Chat\\DeepSeek-R1-Distill-Qwen-14B-Q4_K_M.gguf",
+                "relative": "Models/Chat/DeepSeek-R1-Distill-Qwen-14B-Q4_K_M.gguf",
+                "name": "DeepSeek-R1-Distill-Qwen-14B-Q4_K_M.gguf",
+                "size": 8988110240
+              },
+              {
+                "path": "Z:\\FOXAI\\models\\Chat\\DeepSeek-R1-Distill-Qwen-14B-Q4_K_M.gguf",
+                "relative": "Models/Chat/DeepSeek-R1-Distill-Qwen-14B-Q4_K_M.gguf",
+                "name": "DeepSeek-R1-Distill-Qwen-14B-Q4_K_M.gguf",
+                "size": 8988110240
+              }
+            ]
+          },
+          {
+            "name": "deepseek-r1-distill-qwen-32b-q4_k_m.gguf",
+            "size": 19851335840,
+            "copies": [
+              {
+                "path": "Z:\\FOXAI\\Models\\Chat\\DeepSeek-R1-Distill-Qwen-32B-Q4_K_M.gguf",
+                "relative": "Models/Chat/DeepSeek-R1-Distill-Qwen-32B-Q4_K_M.gguf",
+                "name": "DeepSeek-R1-Distill-Qwen-32B-Q4_K_M.gguf",
+                "size": 19851335840
+              },
+              {
+                "path": "Z:\\FOXAI\\models\\Chat\\DeepSeek-R1-Distill-Qwen-32B-Q4_K_M.gguf",
+                "relative": "Models/Chat/DeepSeek-R1-Distill-Qwen-32B-Q4_K_M.gguf",
+                "name": "DeepSeek-R1-Distill-Qwen-32B-Q4_K_M.gguf",
+                "size": 19851335840
+              }
+            ]
+          },
+          {
+            "name": "qwen3-coder-30b-a3b-instruct-q4_k_m.gguf",
+            "size": 18556689568,
+            "copies": [
+              {
+                "path": "Z:\\FOXAI\\Models\\Chat\\Qwen3-Coder-30B-A3B-Instruct-Q4_K_M.gguf",
+                "relative": "Models/Chat/Qwen3-Coder-30B-A3B-Instruct-Q4_K_M.gguf",
+                "name": "Qwen3-Coder-30B-A3B-Instruct-Q4_K_M.gguf",
+                "size": 18556689568
+              },
+              {
+                "path": "Z:\\FOXAI\\models\\Chat\\Qwen3-Coder-30B-A3B-Instruct-Q4_K_M.gguf",
+                "relative": "Models/Chat/Qwen3-Coder-30B-A3B-Instruct-Q4_K_M.gguf",
+                "name": "Qwen3-Coder-30B-A3B-Instruct-Q4_K_M.gguf",
+                "size": 18556689568
+              }
+            ]
+          },
+          {
+            "name": "qwen_qwen3-vl-30b-a3b-instruct-q5_k_m.gguf",
+            "size": 21744456928,
+            "copies": [
+              {
+                "path": "Z:\\FOXAI\\Models\\Vision\\Qwen_Qwen3-VL-30B-A3B-Instruct-Q5_K_M.gguf",
+                "relative": "Models/Vision/Qwen_Qwen3-VL-30B-A3B-Instruct-Q5_K_M.gguf",
+                "name": "Qwen_Qwen3-VL-30B-A3B-Instruct-Q5_K_M.gguf",
+                "size": 21744456928
+              },
+              {
+                "path": "Z:\\FOXAI\\models\\Vision\\Qwen_Qwen3-VL-30B-A3B-Instruct-Q5_K_M.gguf",
+                "relative": "Models/Vision/Qwen_Qwen3-VL-30B-A3B-Instruct-Q5_K_M.gguf",
+                "name": "Qwen_Qwen3-VL-30B-A3B-Instruct-Q5_K_M.gguf",
+                "size": 21744456928
+              }
+            ]
+          }
+        ],
+        "models": [
+          {
+            "path": "Z:\\FOXAI\\Models\\Chat\\Qwen3VL-8B-Instruct-Q8_0.gguf",
+            "relative": "Models/Chat/Qwen3VL-8B-Instruct-Q8_0.gguf",
+            "name": "Qwen3VL-8B-Instruct-Q8_0.gguf",
+            "size": 8709519456
+          },
+          {
+            "path": "Z:\\FOXAI\\Models\\Chat\\Qwen3VL-8B-Instruct-Q4_K_M.gguf",
+            "relative": "Models/Chat/Qwen3VL-8B-Instruct-Q4_K_M.gguf",
+            "name": "Qwen3VL-8B-Instruct-Q4_K_M.gguf",
+            "size": 5027784800
+          },
+          {
+            "path": "Z:\\FOXAI\\Models\\Chat\\DeepSeek-R1-Distill-Qwen-14B-Q4_K_M.gguf",
+            "relative": "Models/Chat/DeepSeek-R1-Distill-Qwen-14B-Q4_K_M.gguf",
+            "name": "DeepSeek-R1-Distill-Qwen-14B-Q4_K_M.gguf",
+            "size": 8988110240
+          },
+          {
+            "path": "Z:\\FOXAI\\Models\\Chat\\DeepSeek-R1-Distill-Qwen-32B-Q4_K_M.gguf",
+            "relative": "Models/Chat/DeepSeek-R1-Distill-Qwen-32B-Q4_K_M.gguf",
+            "name": "DeepSeek-R1-Distill-Qwen-32B-Q4_K_M.gguf",
+            "size": 19851335840
+          },
+          {
+            "path": "Z:\\FOXAI\\Models\\Chat\\Qwen3-Coder-30B-A3B-Instruct-Q4_K_M.gguf",
+            "relative": "Models/Chat/Qwen3-Coder-30B-A3B-Instruct-Q4_K_M.gguf",
+            "name": "Qwen3-Coder-30B-A3B-Instruct-Q4_K_M.gguf",
+            "size": 18556689568
+          },
+          {
+            "path": "Z:\\FOXAI\\Models\\Vision\\Qwen_Qwen3-VL-30B-A3B-Instruct-Q5_K_M.gguf",
+            "relative": "Models/Vision/Qwen_Qwen3-VL-30B-A3B-Instruct-Q5_K_M.gguf",
+            "name": "Qwen_Qwen3-VL-30B-A3B-Instruct-Q5_K_M.gguf",
+            "size": 21744456928
+          },
+          {
+            "path": "Z:\\FOXAI\\models\\Chat\\Qwen3VL-8B-Instruct-Q8_0.gguf",
+            "relative": "Models/Chat/Qwen3VL-8B-Instruct-Q8_0.gguf",
+            "name": "Qwen3VL-8B-Instruct-Q8_0.gguf",
+            "size": 8709519456
+          },
+          {
+            "path": "Z:\\FOXAI\\models\\Chat\\Qwen3VL-8B-Instruct-Q4_K_M.gguf",
+            "relative": "Models/Chat/Qwen3VL-8B-Instruct-Q4_K_M.gguf",
+            "name": "Qwen3VL-8B-Instruct-Q4_K_M.gguf",
+            "size": 5027784800
+          },
+          {
+            "path": "Z:\\FOXAI\\models\\Chat\\DeepSeek-R1-Distill-Qwen-14B-Q4_K_M.gguf",
+            "relative": "Models/Chat/DeepSeek-R1-Distill-Qwen-14B-Q4_K_M.gguf",
+            "name": "DeepSeek-R1-Distill-Qwen-14B-Q4_K_M.gguf",
+            "size": 8988110240
+          },
+          {
+            "path": "Z:\\FOXAI\\models\\Chat\\DeepSeek-R1-Distill-Qwen-32B-Q4_K_M.gguf",
+            "relative": "Models/Chat/DeepSeek-R1-Distill-Qwen-32B-Q4_K_M.gguf",
+            "name": "DeepSeek-R1-Distill-Qwen-32B-Q4_K_M.gguf",
+            "size": 19851335840
+          },
+          {
+            "path": "Z:\\FOXAI\\models\\Chat\\Qwen3-Coder-30B-A3B-Instruct-Q4_K_M.gguf",
+            "relative": "Models/Chat/Qwen3-Coder-30B-A3B-Instruct-Q4_K_M.gguf",
+            "name": "Qwen3-Coder-30B-A3B-Instruct-Q4_K_M.gguf",
+            "size": 18556689568
+          },
+          {
+            "path": "Z:\\FOXAI\\models\\Vision\\Qwen_Qwen3-VL-30B-A3B-Instruct-Q5_K_M.gguf",
+            "relative": "Models/Vision/Qwen_Qwen3-VL-30B-A3B-Instruct-Q5_K_M.gguf",
+            "name": "Qwen_Qwen3-VL-30B-A3B-Instruct-Q5_K_M.gguf",
+            "size": 21744456928
+          }
+        ]
+      }
+    },
+    {
+      "name": "Optional Repair Bay Tools",
+      "ok": true,
+      "message": "0/8 optional Repair Bay tool(s) available. Missing tools do not block portability.",
+      "weight": 4,
+      "blocker": false,
+      "warning": false,
+      "details": {
+        "tools": [
+          {
+            "tool": "ruff",
+            "module": "ruff",
+            "reason": "Fast lint/format checks for Repair Bay",
+            "available": false
+          },
+          {
+            "tool": "black",
+            "module": "black",
+            "reason": "Python formatting",
+            "available": false
+          },
+          {
+            "tool": "mypy",
+            "module": "mypy",
+            "reason": "Static type checking",
+            "available": false
+          },
+          {
+            "tool": "pydeps",
+            "module": "pydeps",
+            "reason": "Import graph visualization",
+            "available": false
+          },
+          {
+            "tool": "import-linter",
+            "module": "importlinter",
+            "reason": "Architecture boundary enforcement",
+            "available": false
+          },
+          {
+            "tool": "grimp",
+            "module": "grimp",
+            "reason": "Import graph analysis",
+            "available": false
+          },
+          {
+            "tool": "pip-audit",
+            "module": "pip_audit",
+            "reason": "Dependency vulnerability scanning",
+            "available": false
+          },
+          {
+            "tool": "cyclonedx-bom",
+            "module": "cyclonedx_py",
+            "reason": "SBOM generation",
+            "available": false
+          }
+        ],
+        "install_later_order": [
+          "ruff",
+          "black",
+          "mypy",
+          "pip-audit",
+          "cyclonedx-bom",
+          "pydeps",
+          "grimp",
+          "import-linter"
+        ]
+      }
+    },
+    {
+      "name": "Node/npm for Packaging",
+      "ok": true,
+      "message": "Node/npm available for Electron packaging.",
+      "weight": 3,
+      "blocker": false,
+      "warning": true,
+      "details": {
+        "node": "C:\\Program Files\\nodejs\\node.EXE",
+        "npm": "C:\\Program Files\\nodejs\\npm.CMD"
+      }
+    },
+    {
+      "name": "Root Launcher Clarity",
+      "ok": true,
+      "message": "98 BAT/CMD file(s) in root; 0 suspicious filename(s).",
+      "weight": 2,
+      "blocker": false,
+      "warning": true,
+      "details": {
+        "total_root_bat_cmd": 98,
+        "suspicious": []
+      }
+    }
+  ]
+}

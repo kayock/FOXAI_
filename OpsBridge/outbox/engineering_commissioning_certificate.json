@@ -1,0 +1,168 @@
+{
+  "ok": true,
+  "certificate": "FOXAI Department Commissioning Certificate",
+  "department": "Engineering Department",
+  "officer": "Chief Engineer Ada",
+  "commission_date": "2026-07-06T19:43:20",
+  "status": "ACTIVE",
+  "registry_status": {
+    "ok": true,
+    "department_count": 1,
+    "departments": [
+      {
+        "id": "engineering",
+        "name": "Engineering Department",
+        "officer": {
+          "name": "Chief Engineer Ada",
+          "callsign": "Ada",
+          "role": "Chief Engineer"
+        },
+        "validation": {
+          "ok": true,
+          "id": "engineering",
+          "missing": []
+        },
+        "health": {
+          "ok": true,
+          "department": "engineering",
+          "name": "Engineering Department",
+          "officer": "Chief Engineer Ada",
+          "hanger_bay": "Z:\\Hanger Bay",
+          "tools": {
+            "ruff": {
+              "ok": true,
+              "import_name": "ruff",
+              "status": "ready"
+            },
+            "black": {
+              "ok": true,
+              "import_name": "black",
+              "status": "ready"
+            },
+            "mypy": {
+              "ok": true,
+              "import_name": "mypy",
+              "status": "ready"
+            },
+            "pydeps": {
+              "ok": true,
+              "import_name": "pydeps",
+              "status": "ready"
+            },
+            "import-linter": {
+              "ok": true,
+              "import_name": "importlinter",
+              "status": "ready"
+            },
+            "grimp": {
+              "ok": true,
+              "import_name": "grimp",
+              "status": "ready"
+            },
+            "pip-audit": {
+              "ok": true,
+              "import_name": "pip_audit",
+              "status": "ready"
+            },
+            "cyclonedx-bom": {
+              "ok": true,
+              "import_name": "cyclonedx_py",
+              "status": "ready"
+            }
+          },
+          "services": [
+            "Repair Bay",
+            "Diagnostics",
+            "Build Verification",
+            "Code Review",
+            "Architecture Inspection",
+            "Security Inspection"
+          ],
+          "status": "commissioned"
+        },
+        "manifest": {
+          "api_version": "foxai.department.v1",
+          "id": "engineering",
+          "name": "Engineering Department",
+          "officer": {
+            "name": "Chief Engineer Ada",
+            "callsign": "Ada",
+            "role": "Chief Engineer"
+          },
+          "startup_priority": 30,
+          "depends_on": [
+            "foxkernel",
+            "missionbus",
+            "vault"
+          ],
+          "provides": [
+            "engineering.health",
+            "code.format",
+            "code.lint",
+            "code.typecheck",
+            "architecture.inspect",
+            "security.audit",
+            "sbom.generate"
+          ],
+          "services": [
+            "Repair Bay",
+            "Diagnostics",
+            "Build Verification",
+            "Code Review",
+            "Architecture Inspection",
+            "Security Inspection"
+          ],
+          "tools": [
+            {
+              "id": "ruff",
+              "import": "ruff",
+              "purpose": "Fast linting and formatting checks"
+            },
+            {
+              "id": "black",
+              "import": "black",
+              "purpose": "Python formatting"
+            },
+            {
+              "id": "mypy",
+              "import": "mypy",
+              "purpose": "Static type checking"
+            },
+            {
+              "id": "pydeps",
+              "import": "pydeps",
+              "purpose": "Import graph visualization"
+            },
+            {
+              "id": "import-linter",
+              "import": "importlinter",
+              "purpose": "Architecture boundary enforcement"
+            },
+            {
+              "id": "grimp",
+              "import": "grimp",
+              "purpose": "Import graph analysis"
+            },
+            {
+              "id": "pip-audit",
+              "import": "pip_audit",
+              "purpose": "Dependency vulnerability scanning"
+            },
+            {
+              "id": "cyclonedx-bom",
+              "import": "cyclonedx_py",
+              "purpose": "SBOM generation"
+            }
+          ],
+          "health_check": "Departments.Engineering.health:health",
+          "ui": {
+            "panel": "engineering",
+            "accent": "orange"
+          },
+          "_manifest_path": "Z:\\FOXAI\\Departments\\Engineering\\manifest.json",
+          "_department_path": "Z:\\FOXAI\\Departments\\Engineering"
+        }
+      }
+    ]
+  }
+}

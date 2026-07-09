@@ -1,0 +1,670 @@
+{
+  "ok": true,
+  "created": "2026-07-08T20:14:16",
+  "title": "Kayock Command Center Foundation",
+  "read_only": true,
+  "report_only": true,
+  "healthy": true,
+  "command_ready": true,
+  "fully_clear": false,
+  "health_label": "COMMAND CENTER READY \u2014 ADVISORIES ONLY",
+  "message": "Command Center Foundation: COMMAND CENTER READY \u2014 ADVISORIES ONLY",
+  "milestone": "v10.10.0 Command Center Foundation",
+  "summary": {
+    "foundations": 9,
+    "clear": 8,
+    "advisory": 1,
+    "needs_attention": 0,
+    "score": 97,
+    "command_ready": true,
+    "fully_clear": false,
+    "repair_shop_foundation": "REPAIR SHOP FOUNDATION FROZEN \u2014 COMPLETE / PROVEN",
+    "recovery_foundation": "HEALTHY \u2014 ROLLED BACK",
+    "build_verify_problems": 0,
+    "env_required_problems": 0,
+    "env_optional_missing": 1,
+    "portable_score": 100,
+    "portable_blockers": 0,
+    "portable_warnings": 0,
+    "true_model_duplicate_groups": 0,
+    "scan_bridge_status": "clear",
+    "project_docs_problems": 0,
+    "extension_problems": 0,
+    "latest_repair_action": "single_file_rollback",
+    "latest_recovery_event": "Rollback_Audit_20260708_105608"
+  },
+  "foundations": [
+    {
+      "id": "repair_shop_foundation",
+      "title": "Repair Shop Foundation",
+      "status": "clear",
+      "health": "REPAIR SHOP FOUNDATION FROZEN \u2014 COMPLETE / PROVEN",
+      "summary": "7/7 Repair Shop modules proven; repair failures 0; verification failures 0.",
+      "source": "v10.9.x Milestone Freeze",
+      "page": "repairfreeze",
+      "endpoint": "/api/repair/milestone_freeze",
+      "metrics": {
+        "modules": 7,
+        "modules_complete_proven": 7,
+        "modules_need_review": 0,
+        "repair_shop_health": "REPAIR SHOP HEALTHY",
+        "session_health": "SESSION HEALTHY \u2014 CHIEF ENGINEERING CLEAR",
+        "ticket_queue_health": "REPAIR TICKET QUEUE HEALTHY",
+        "verified_action_health": "REPAIR SHOP HEALTHY",
+        "recovery_health": "HEALTHY \u2014 ROLLED BACK",
+        "recovery_chain": "rolled_back",
+        "repair_logs": 10,
+        "repair_failed": 0,
+        "verification_failed": 0,
+        "open_tickets": 0,
+        "critical": 0,
+        "high": 0,
+        "medium": 0,
+        "active_tickets": 4,
+        "available_action_tickets": 2,
+        "informational_tickets": 2,
+        "healthy_tickets": 6,
+        "generated_backups": 7,
+        "verified_backups": 3,
+        "backup_errors": 0,
+        "latest_action": "single_file_rollback",
+        "latest_action_created": "2026-07-08T10:38:01",
+        "latest_recovery_event": "Rollback_Audit_20260708_105608"
+      },
+      "recommended_action": "No action needed."
+    },
+    {
+      "id": "recovery_foundation",
+      "title": "Recovery Foundation",
+      "status": "clear",
+      "health": "HEALTHY \u2014 ROLLED BACK",
+      "summary": "Recovery chain rolled_back; restore actions 1; rollback actions 1; events 14.",
+      "source": "Recovery Dashboard",
+      "page": "recoverytimeline",
+      "endpoint": "/api/backups/recovery_dashboard",
+      "metrics": {
+        "events": 14,
+        "targets": 2,
+        "restore_actions": 1,
+        "rollback_actions": 1,
+        "backup_events": 5,
+        "evidence_reports": 7,
+        "intact_events": 6,
+        "attention_events": 0,
+        "superseded_events": 1,
+        "errors": 0,
+        "latest_event": "Rollback_Audit_20260708_105608",
+        "latest_created": "2026-07-08T10:56:08",
+        "restore_audit_ok": true,
+        "rollback_audit_ok": true
+      },
+      "recommended_action": "No action needed."
+    },
+    {
+      "id": "build_verify",
+      "title": "Build Verify",
+      "status": "clear",
+      "health": "BUILD VERIFY CLEAR",
+      "summary": "7/7 checks passed; Python files checked 61.",
+      "source": "Build Verify",
+      "page": "buildverify",
+      "endpoint": "/api/build/verify",
+      "metrics": {
+        "checks": 7,
+        "passed": 7,
+        "problems": 0,
+        "python_files": 61
+      },
+      "recommended_action": "No action needed."
+    },
+    {
+      "id": "env_verify",
+      "title": "Environment Verify",
+      "status": "advisory",
+      "health": "ENV REQUIRED CLEAR",
+      "summary": "9/10 checks passed; required problems 0; optional tools available 0/8.",
+      "source": "Env Verify",
+      "page": "envverify",
+      "endpoint": "/api/env/verify",
+      "metrics": {
+        "checks": 10,
+        "passed": 9,
+        "problems": 0,
+        "optional_missing": 1,
+        "optional_tools_available": 0,
+        "optional_tools_total": 8,
+        "gguf_models": 12
+      },
+      "recommended_action": "Optional tools can remain advisory; use the dependency plan only when intentionally approved."
+    },
+    {
+      "id": "portable_ready",
+      "title": "Portable Ready",
+      "status": "clear",
+      "health": "USB-ready for current web bridge workflows",
+      "summary": "Score 100; blockers 0; warnings 0; runtime locked True.",
+      "source": "Portable Ready",
+      "page": "portable",
+      "endpoint": "/api/portable/readiness",
+      "metrics": {
+        "score": 100,
+        "readiness": "USB-ready for current web bridge workflows",
+        "checks": 10,
+        "passed": 10,
+        "blockers": 0,
+        "warnings": 0,
+        "runtime_locked": true,
+        "current_python": "Z:\\FOXAI\\env\\python\\python.exe",
+        "expected_python": "Z:\\FOXAI\\env\\python\\python.exe",
+        "gguf_files": 12,
+        "unique_gguf_models": 6,
+        "duplicate_gguf_copies": 6,
+        "optional_tools_available": 0,
+        "optional_tools_total": 8
+      },
+      "recommended_action": "No action needed."
+    },
+    {
+      "id": "model_check",
+      "title": "Model Check",
+      "status": "clear",
+      "health": "MODEL CHECK CLEAR",
+      "summary": "Physical model files 6; unique model keys 6; true duplicate groups 0.",
+      "source": "Model Check",
+      "page": "modelcheck",
+      "endpoint": "/api/models/duplicates",
+      "metrics": {
+        "tracked_model_dirs": 4,
+        "existing_model_dirs": 2,
+        "scanned_canonical_dirs": 1,
+        "skipped_alias_dirs": 1,
+        "raw_scan_models": 6,
+        "physical_model_files": 6,
+        "unique_model_keys": 6,
+        "physical_alias_duplicate_copies": 0,
+        "true_duplicate_groups": 0,
+        "true_duplicate_copies": 0,
+        "estimated_true_duplicate_bytes": 0,
+        "estimated_true_duplicate_bytes_human": "0.00 B",
+        "scan_errors": 0
+      },
+      "recommended_action": "No action needed. Do not delete models automatically."
+    },
+    {
+      "id": "scan_bridge",
+      "title": "Scan Bridge",
+      "status": "clear",
+      "health": "SCAN BRIDGE CLEAR",
+      "summary": "Latest Scan Bridge report is clear.",
+      "source": "Scan Bridge reports",
+      "page": "scanbridge",
+      "endpoint": "/api/scan/folder",
+      "metrics": {
+        "folders": 1,
+        "files": 4,
+        "manifests": 1,
+        "python": 3,
+        "json": 0,
+        "markdown": 0,
+        "text": 0,
+        "code": 3,
+        "documents": 0,
+        "images": 0,
+        "audio": 0,
+        "video": 0,
+        "other": 0,
+        "large_skipped": 0,
+        "errors": 0
+      },
+      "recommended_action": "No action needed."
+    },
+    {
+      "id": "project_docs",
+      "title": "Project Docs",
+      "status": "clear",
+      "health": "PROJECT DOCS CLEAR",
+      "summary": "Present 2; problems 0.",
+      "source": "Project Docs Status",
+      "page": "projectgen",
+      "endpoint": "/api/project_docs/status",
+      "metrics": {
+        "docs": 2,
+        "present": 2,
+        "valid": 2,
+        "problems": 0,
+        "backup_count": 7
+      },
+      "recommended_action": "No action needed."
+    },
+    {
+      "id": "extension_manager",
+      "title": "Extension Manager",
+      "status": "clear",
+      "health": "EXTENSIONS CLEAR",
+      "summary": "Extensions 2; enabled 2; valid 2; problems 0.",
+      "source": "Extension Manager",
+      "page": "extensions",
+      "endpoint": "/api/extensions/list",
+      "metrics": {
+        "count": 2,
+        "enabled": 2,
+        "valid": 2,
+        "problems": 0
+      },
+      "recommended_action": "No action needed."
+    }
+  ],
+  "attention": [],
+  "advisories": [
+    {
+      "id": "env_verify",
+      "title": "Environment Verify",
+      "summary": "9/10 checks passed; required problems 0; optional tools available 0/8.",
+      "recommended_action": "Optional tools can remain advisory; use the dependency plan only when intentionally approved."
+    }
+  ],
+  "recommendations": [
+    {
+      "id": "proceed_with_work",
+      "title": "Command Center is ready for work",
+      "recommendation": "Proceed with normal Kayock Command OS work. Treat advisories as optional maintenance.",
+      "risk": "low",
+      "auto_apply": false
+    },
+    {
+      "id": "env_verify",
+      "title": "Advisory: Environment Verify",
+      "recommendation": "Optional tools can remain advisory; use the dependency plan only when intentionally approved.",
+      "risk": "low",
+      "auto_apply": false
+    }
+  ],
+  "safe_to_ignore": [
+    {
+      "ticket_id": "unassociated_backups",
+      "title": "Unassociated backup files exist",
+      "reason": "1 backup file(s) are not linked to a verified action log.",
+      "suggested_action": "Leave as historical unless later cleanup/migration is built."
+    },
+    {
+      "ticket_id": "legacy_repair_logs",
+      "title": "Legacy RepairActions logs without verification",
+      "reason": "4 older successful log(s) predate verified-action logging.",
+      "suggested_action": "Leave as historical unless a later migration tool is built."
+    },
+    {
+      "ticket_id": "build_verify_clear",
+      "title": "Build verification clear",
+      "reason": "Build verification currently reports no problems.",
+      "suggested_action": "No action needed."
+    },
+    {
+      "ticket_id": "env_required_clear",
+      "title": "Required environment checks clear",
+      "reason": "Required environment checks currently report no problems.",
+      "suggested_action": "No action needed."
+    },
+    {
+      "ticket_id": "model_duplicates_clear",
+      "title": "No true model duplicates detected",
+      "reason": "Model Check currently reports no true duplicate GGUF model files.",
+      "suggested_action": "No action needed."
+    },
+    {
+      "ticket_id": "portable_ready_clear",
+      "title": "Portable readiness clear",
+      "reason": "Portable readiness currently reports no blockers or warnings.",
+      "suggested_action": "No action needed."
+    },
+    {
+      "ticket_id": "recovery_clear",
+      "title": "Recovery Foundation healthy",
+      "reason": "Recovery Foundation reports HEALTHY \u2014 ROLLED BACK.",
+      "suggested_action": "No action needed."
+    },
+    {
+      "ticket_id": "latest_scan_clear",
+      "title": "Latest Scan Bridge report has no parsed problems",
+      "reason": "Latest scan report did not expose parsed problems in its summary.",
+      "suggested_action": "No action needed."
+    },
+    {
+      "ticket_id": "env_verify",
+      "title": "Environment Verify",
+      "reason": "9/10 checks passed; required problems 0; optional tools available 0/8.",
+      "suggested_action": "Optional tools can remain advisory; use the dependency plan only when intentionally approved."
+    }
+  ],
+  "latest_scan_reports": [
+    {
+      "path": "Z:\\FOXAI\\Reports\\Scans\\Folder_Scan_Departments_20260707_201456.json",
+      "name": "Folder_Scan_Departments_20260707_201456.json",
+      "modified": "2026-07-07T20:14:58",
+      "ok": true,
+      "summary": {
+        "folders": 1,
+        "files": 4,
+        "manifests": 1,
+        "python": 3,
+        "json": 0,
+        "markdown": 0,
+        "text": 0,
+        "code": 3,
+        "documents": 0,
+        "images": 0,
+        "audio": 0,
+        "video": 0,
+        "other": 0,
+        "large_skipped": 0,
+        "errors": 0
+      }
+    },
+    {
+      "path": "Z:\\FOXAI\\Reports\\Scans\\Folder_Scan_Departments_20260707_195853.json",
+      "name": "Folder_Scan_Departments_20260707_195853.json",
+      "modified": "2026-07-07T19:58:54",
+      "ok": true,
+      "summary": {
+        "folders": 1,
+        "files": 4,
+        "manifests": 1,
+        "python": 3,
+        "json": 0,
+        "markdown": 0,
+        "text": 0,
+        "code": 3,
+        "documents": 0,
+        "images": 0,
+        "audio": 0,
+        "video": 0,
+        "other": 0,
+        "large_skipped": 0,
+        "errors": 0
+      }
+    }
+  ],
+  "source_reports": {
+    "repair_freeze_summary": {
+      "modules": 7,
+      "modules_complete_proven": 7,
+      "modules_need_review": 0,
+      "repair_shop_health": "REPAIR SHOP HEALTHY",
+      "session_health": "SESSION HEALTHY \u2014 CHIEF ENGINEERING CLEAR",
+      "ticket_queue_health": "REPAIR TICKET QUEUE HEALTHY",
+      "verified_action_health": "REPAIR SHOP HEALTHY",
+      "recovery_health": "HEALTHY \u2014 ROLLED BACK",
+      "recovery_chain": "rolled_back",
+      "repair_logs": 10,
+      "repair_failed": 0,
+      "verification_failed": 0,
+      "open_tickets": 0,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "active_tickets": 4,
+      "available_action_tickets": 2,
+      "informational_tickets": 2,
+      "healthy_tickets": 6,
+      "generated_backups": 7,
+      "verified_backups": 3,
+      "backup_errors": 0,
+      "latest_action": "single_file_rollback",
+      "latest_action_created": "2026-07-08T10:38:01",
+      "latest_recovery_event": "Rollback_Audit_20260708_105608"
+    },
+    "repair_session_summary": {
+      "repair_shop_health": "REPAIR SHOP HEALTHY",
+      "ticket_queue_health": "REPAIR TICKET QUEUE HEALTHY",
+      "verified_action_health": "REPAIR SHOP HEALTHY",
+      "recovery_health": "HEALTHY \u2014 ROLLED BACK",
+      "recovery_chain": "rolled_back",
+      "repair_logs": 10,
+      "repair_ok": 10,
+      "repair_failed": 0,
+      "verification_passed": 6,
+      "verification_failed": 0,
+      "legacy_logs_without_verification": 4,
+      "tickets": 10,
+      "active_tickets": 4,
+      "open_tickets": 0,
+      "available_action_tickets": 2,
+      "informational_tickets": 2,
+      "healthy_tickets": 6,
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 2,
+      "info": 2,
+      "generated_backups": 7,
+      "verified_backups": 3,
+      "unassociated_backups": 1,
+      "backup_errors": 0,
+      "latest_action": "single_file_rollback",
+      "latest_action_created": "2026-07-08T10:38:01",
+      "latest_backup": "manifest_20260708_000110.json",
+      "latest_recovery_event": "Rollback_Audit_20260708_105608",
+      "latest_recovery_created": "2026-07-08T10:56:08"
+    },
+    "recovery_summary": {
+      "events": 14,
+      "targets": 2,
+      "restore_actions": 1,
+      "rollback_actions": 1,
+      "backup_events": 5,
+      "evidence_reports": 7,
+      "intact_events": 6,
+      "attention_events": 0,
+      "superseded_events": 1,
+      "errors": 0,
+      "latest_event": "Rollback_Audit_20260708_105608",
+      "latest_created": "2026-07-08T10:56:08",
+      "restore_audit_ok": true,
+      "rollback_audit_ok": true
+    },
+    "build_summary": {
+      "checks": 7,
+      "passed": 7,
+      "problems": 0,
+      "python_files": 61
+    },
+    "env_summary": {
+      "checks": 10,
+      "passed": 9,
+      "problems": 0,
+      "optional_missing": 1,
+      "optional_tools_available": 0,
+      "optional_tools_total": 8,
+      "gguf_models": 12
+    },
+    "portable_summary": {
+      "score": 100,
+      "readiness": "USB-ready for current web bridge workflows",
+      "checks": 10,
+      "passed": 10,
+      "blockers": 0,
+      "warnings": 0,
+      "runtime_locked": true,
+      "current_python": "Z:\\FOXAI\\env\\python\\python.exe",
+      "expected_python": "Z:\\FOXAI\\env\\python\\python.exe",
+      "gguf_files": 12,
+      "unique_gguf_models": 6,
+      "duplicate_gguf_copies": 6,
+      "optional_tools_available": 0,
+      "optional_tools_total": 8
+    },
+    "model_summary": {
+      "tracked_model_dirs": 4,
+      "existing_model_dirs": 2,
+      "scanned_canonical_dirs": 1,
+      "skipped_alias_dirs": 1,
+      "raw_scan_models": 6,
+      "physical_model_files": 6,
+      "unique_model_keys": 6,
+      "physical_alias_duplicate_copies": 0,
+      "true_duplicate_groups": 0,
+      "true_duplicate_copies": 0,
+      "estimated_true_duplicate_bytes": 0,
+      "estimated_true_duplicate_bytes_human": "0.00 B",
+      "scan_errors": 0
+    },
+    "project_docs_summary": {
+      "docs": 2,
+      "present": 2,
+      "valid": 2,
+      "problems": 0,
+      "backup_count": 7
+    },
+    "extension_summary": {
+      "ok": true,
+      "count": 2,
+      "valid": 2,
+      "enabled": 2,
+      "state_file": "Z:\\FOXAI\\Config\\extension_state.json",
+      "items": [
+        {
+          "key": "extension-manager",
+          "name": "Extension Manager",
+          "version": "0.1-shell",
+          "description": "Built-in Kayock module manager shell.",
+          "kind": "system",
+          "officer": "Kayock Command OS",
+          "enabled": true,
+          "status": "VALID",
+          "missing": [],
+          "manifest": "built-in",
+          "folder": "Z:\\FOXAI\\Extensions",
+          "raw": {}
+        },
+        {
+          "key": "engineering",
+          "name": "Engineering Department",
+          "version": "0.1.0",
+          "description": "Engineering Department module for Kayock Command OS.",
+          "kind": "department",
+          "officer": {
+            "name": "Chief Engineer Ada",
+            "callsign": "Ada",
+            "role": "Chief Engineer"
+          },
+          "enabled": true,
+          "status": "VALID",
+          "missing": [],
+          "manifest": "Z:\\FOXAI\\Departments\\Engineering\\manifest.json",
+          "folder": "Z:\\FOXAI\\Departments\\Engineering",
+          "raw": {
+            "api_version": "foxai.department.v1",
+            "id": "engineering",
+            "name": "Engineering Department",
+            "officer": {
+              "name": "Chief Engineer Ada",
+              "callsign": "Ada",
+              "role": "Chief Engineer"
+            },
+            "startup_priority": 30,
+            "depends_on": [
+              "foxkernel",
+              "missionbus",
+              "vault"
+            ],
+            "provides": [
+              "engineering.health",
+              "code.format",
+              "code.lint",
+              "code.typecheck",
+              "architecture.inspect",
+              "security.audit",
+              "sbom.generate"
+            ],
+            "services": [
+              "Repair Bay",
+              "Diagnostics",
+              "Build Verification",
+              "Code Review",
+              "Architecture Inspection",
+              "Security Inspection"
+            ],
+            "tools": [
+              {
+                "id": "ruff",
+                "import": "ruff",
+                "purpose": "Fast linting and formatting checks"
+              },
+              {
+                "id": "black",
+                "import": "black",
+                "purpose": "Python formatting"
+              },
+              {
+                "id": "mypy",
+                "import": "mypy",
+                "purpose": "Static type checking"
+              },
+              {
+                "id": "pydeps",
+                "import": "pydeps",
+                "purpose": "Import graph visualization"
+              },
+              {
+                "id": "import-linter",
+                "import": "importlinter",
+                "purpose": "Architecture boundary enforcement"
+              },
+              {
+                "id": "grimp",
+                "import": "grimp",
+                "purpose": "Import graph analysis"
+              },
+              {
+                "id": "pip-audit",
+                "import": "pip_audit",
+                "purpose": "Dependency vulnerability scanning"
+              },
+              {
+                "id": "cyclonedx-bom",
+                "import": "cyclonedx_py",
+                "purpose": "SBOM generation"
+              }
+            ],
+            "health_check": "Departments.Engineering.health:health",
+            "ui": {
+              "panel": "engineering",
+              "accent": "orange"
+            },
+            "version": "0.1.0",
+            "type": "department",
+            "description": "Engineering Department module for Kayock Command OS.",
+            "enabled": true
+          }
+        }
+      ]
+    },
+    "extension_validation": {
+      "ok": true,
+      "checked": 2,
+      "valid": 2,
+      "problems": [],
+      "message": "Checked 2 extension manifest(s); 0 problem(s)."
+    }
+  },
+  "folders": {
+    "command_center_reports": "Z:\\FOXAI\\Reports\\CommandCenter",
+    "repair_milestone_freeze": "Z:\\FOXAI\\Reports\\RepairActions\\MilestoneFreeze",
+    "recovery_timeline": "Z:\\FOXAI\\Reports\\Backups\\RecoveryTimeline",
+    "scan_reports": "Z:\\FOXAI\\Reports\\Scans"
+  },
+  "safety_contract": {
+    "scan_first": true,
+    "report_second": true,
+    "ask_before_action": true,
+    "read_only_command_center": true,
+    "no_repair_action": true,
+    "no_restore": true,
+    "no_rollback": true,
+    "no_overwrite": true,
+    "no_copy_back": true,
+    "no_delete": true,
+    "no_install": true,
+    "no_model_cleanup": true,
+    "command_center_export_only": true
+  }
+}

@@ -1,13 +1,12 @@
 @echo off
-setlocal
-title FOXAI Command Bridge
+title KayocktheOS Bridge
+color 0A
+cd /d "%~dp0Bridge"
 
-cd /d "%~dp0"
+if not exist node_modules (
+  echo Installing Bridge dependencies...
+  npm install
+)
 
-echo ==========================================
-echo FOXAI Command Bridge - Orion v9.0
-echo ==========================================
-echo.
-echo Opening BridgeUI\foxai-command-bridge.html
-echo.
-start "" "%~dp0BridgeUI\foxai-command-bridge.html"
+npm start
+pause

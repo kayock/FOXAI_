@@ -1,0 +1,111 @@
+project:
+  name: KayocktheOS
+  version: 1.4.0
+  codename: Local Runtime Connector
+  build: development
+  usb_mode: true
+
+operator:
+  profile_path: System/Config/operator.yaml
+  documentation_term: Operator
+
+core:
+  launcher: System/Launchers/launch.py
+  api_server: System/API/core_api.py
+  api_url: http://127.0.0.1:8844
+  logs: System/Logs
+  registry: System/Registry/modules
+  config: System/Config
+
+shell:
+  name: Kayock Browser
+  role: Primary Operator-facing shell
+  dashboard: Shell/Bridge_Dashboard/index.html
+  dashboard_mode: live_api
+  search_paths:
+    - Shell/Kayock_Browser
+    - Interface/Kayock_Browser
+  executable_patterns:
+    - Kayock-Browser*.exe
+    - KayockBrowser*.exe
+    - "*Browser*.exe"
+
+features:
+  local_core_api: enabled
+  live_dashboard: enabled
+  shell: enabled
+  academy: planned
+  iron_library: planned
+  repair_bay: planned
+  creative_studio: planned
+  ai_engines: planned
+  foundry: enabled
+  forge: enabled
+
+  project_unification: enabled
+
+  living_system_scanner: enabled
+
+  dynamic_module_registry: enabled
+
+  ai_asset_scanner: enabled
+
+  service_bus: enabled
+
+  foundry_release_checker: enabled
+
+  release_packager: enabled
+
+  portable_release_candidate: enabled
+
+  academy_seed: enabled
+
+  foxai_discovery: enabled
+
+  ai_gateway_stub: enabled
+
+  local_runtime_connector: enabled
+
+  feature_001_local_chat: enabled
+
+  feature_001b_runtime_launcher: enabled
+
+  feature_002_bridge_app: enabled
+
+  feature_002b_living_bridge_polish: enabled
+
+  feature_002c_professor_studies: enabled
+
+  feature_002d_observatory_room: enabled
+
+  feature_002e_foundry_room: enabled
+
+  feature_002f_library_room: enabled
+
+  feature_002g_creative_studio_room_v2: enabled
+
+  feature_002h_repair_bay_room: enabled
+
+  feature_002i_bridge_stabilizer: enabled
+
+  feature_002j_operator_settings_room: enabled
+
+  feature_002k_bridge_launcher_polish: enabled
+
+  feature_003_first_contact: enabled
+
+  feature_003b_first_contact_v2: enabled
+
+  feature_003c_first_contact_bridge_panel: enabled
+
+  feature_003d_first_contact_diagnostics: enabled
+
+  feature_003e_first_contact_runtime_fixer: enabled
+
+  feature_003f_first_contact_stable_context: enabled
+
+  feature_004_kobold_engine_adapter: enabled
+
+  feature_004b_kobold_engine_check_panel: enabled
+
+  feature_004c_kobold_core_repair: enabled

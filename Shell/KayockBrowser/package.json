@@ -1,0 +1,69 @@
+{
+  "name": "kayock-the-hunter-browser",
+  "version": "2.5.1-rc.1",
+  "description": "Kayock Browser 2.5.1 Release Candidate: hardened browser foundation with packaging and startup fixes.",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "start:dev": "set KAYOCK_DEVTOOLS=1&& electron .",
+    "dist": "electron-builder",
+    "dist:win": "electron-builder --win nsis portable",
+    "pack": "electron-builder --dir"
+  },
+  "devDependencies": {
+    "electron": "^31.7.7",
+    "electron-builder": "^26.15.3"
+  },
+  "author": "Eric Fox / Kayock Project",
+  "license": "UNLICENSED",
+  "build": {
+    "appId": "com.kayock.hunterbrowser",
+    "productName": "Kayock Browser",
+    "asar": true,
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "renderer.js",
+      "index.html",
+      "style.css",
+      "assets/**/*",
+      "README.md",
+      "CHANGELOG.md",
+      "KNOWN_ISSUES.md",
+      "TESTER_CHECKLIST.md",
+      "SECURITY.md",
+      "RELEASE_CHECKLIST.md"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "portable",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "assets/kayock.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Kayock Browser"
+    },
+    "portable": {
+      "artifactName": "Kayock-Browser-${version}-Portable.exe"
+    },
+    "artifactName": "Kayock-Browser-${version}-${os}-${arch}.${ext}"
+  }
+}

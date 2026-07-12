@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta
+    http-equiv="Content-Security-Policy"
+    content="default-src 'self'; connect-src 'self' http://127.0.0.1:8844; img-src 'self' data: file:; style-src 'self' 'unsafe-inline'; script-src 'self';"
+  />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>KayocktheOS Bridge</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="bootScreen" class="bootScreen">
+    <div class="bootCard">
+      <div class="sigil large">K</div>
+      <h1>Opening the Workshop...</h1>
+      <p id="bootLine">Preparing the Bridge.</p>
+      <div class="bootBar"><span id="bootProgress"></span></div>
+    </div>
+  </div>
+
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="sigil">K</div>
+        <div>
+          <h1>KayocktheOS</h1>
+          <p>Living Knowledge Workshop</p>
+        </div>
+      </div>
+
+      <nav>
+        <button class="nav active" data-room="home">🏠 Home</button>
+        <button class="nav" data-room="academy">🎓 Academy</button>
+        <button class="nav" data-room="workshop">🔧 Workshop</button>
+        <button class="nav" data-room="library">📚 Library</button>
+        <button class="nav" data-room="observatory">🔍 Observatory</button>
+        <button class="nav" data-room="foundry">🏛 Foundry</button>
+      </nav>
+
+      <div class="sidebarStatus">
+        <div><span id="apiDot" class="dot wait"></span> Core API</div>
+        <div><span id="runtimeDot" class="dot wait"></span> Runtime</div>
+        <div><span id="foxaiDot" class="dot wait"></span> FOXAI</div>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Bridge OS</p>
+          <h2 id="roomTitle">Home</h2>
+        </div>
+        <div class="topRight">
+          <button id="bellBtn" class="bell">🔔 <span id="bellCount">0</span></button>
+          <div class="operator">
+            <span id="operatorName">Operator</span>
+            <small id="versionLabel">Loading...</small>
+          </div>
+        </div>
+      </header>
+
+      <div id="bellPanel" class="bellPanel hidden">
+        <h4>Workshop Bell</h4>
+        <div id="notificationList" class="smallList"></div>
+      </div>
+
+      <section id="home" class="room active">
+        <div class="hero">
+          <div>
+            <p class="eyebrow">Welcome back</p>
+            <h3 id="heroGreeting">Opening the Workshop...</h3>
+            <p id="academyGreeting">The Academy is open. Today's lesson awaits.</p>
+          </div>
+          <div id="overallStatus" class="statusPill wait">Checking</div>
+        </div>
+
+        <div class="missionCard">
+          <div>
+            <p class="eyebrow">Today's Mission</p>
+            <h4 id="missionTitle">Continue building the Bridge</h4>
+            <p id="missionDetail">Bring the rooms to life with live capability cards and professor studies.</p>
+          </div>
+          <button class="primaryBtn" data-room-jump="academy">Visit Academy</button>
+        </div>
+
+        <div class="grid three">
+          <article class="card">
+            <h4>System Health</h4>
+            <div id="healthList" class="list smallList"></div>
+          </article>
+          <article class="card">
+            <h4>FOXAI Capabilities</h4>
+            <div id="homeCapabilityMini" class="capMini"></div>
+          </article>
+          <article class="card">
+            <h4>Local Chat</h4>
+            <div id="chatSummary" class="smallList"></div>
+          </article>
+        </div>
+
+        <article class="card chatCard">
+          <h4>Ask the Academy</h4>
+          <div id="chatLog" class="chatLog">
+            <div class="message system">Local chat is ready when the model runtime is online.</div>
+          </div>
+          <form id="chatForm" class="chatForm">
+            <input id="chatInput" placeholder="Ask the Academy..." />
+            <button type="submit">Ask</button>
+          </form>
+        </article>
+      </section>
+
+      <section id="academy" class="room">
+        <div id="academyHall" class="academyView active">
+          <article class="card wide">
+            <div class="sectionHeader">
+              <div>
+                <p class="eyebrow">Academy</p>
+                <h4>Hall of Professors</h4>
+              </div>
+              <span id="professorCount" class="badge">-- professors</span>
+            </div>
+            <p class="roomIntro">Choose a professor to enter their study. Each professor represents a stable area of expertise; the underlying model team can evolve over time.</p>
+            <div id="professorGrid" class="professorGrid"></div>
+          </article>
+        </div>
+
+        <div id="professorStudy" class="academyView">
+          <article class="card wide studyHero">
+            <button id="backToHall" class="ghostBtn">← Hall of Professors</button>
+            <div class="studyTop">
+              <div class="professorSeal" id="studySeal">K</div>
+              <div>
+                <p class="eyebrow" id="studyCollege">College</p>
+                <h3 id="studyProfessor">Professor</h3>
+                <p id="studyMotto">Motto</p>
+              </div>
+              <span id="studyAvailability" class="statusPill wait">Checking</span>
+            </div>
+          </article>
+
+          <div class="grid two">
+            <article class="card">
+              <h4>Mission</h4>
+              <p id="studyMission">Loading...</p>
+              <h4>Domains</h4>
+              <div id="studyDomains" class="tagList"></div>
+            </article>
+
+            <article class="card">
+              <h4>Current AI Team</h4>
+              <div id="studyModelTeam" class="smallList"></div>
+            </article>
+          </div>
+
+          <article class="card chatCard">
+            <h4 id="studyAskTitle">Ask Professor</h4>
+            <div id="studyQuestions" class="questionGrid"></div>
+            <form id="studyChatForm" class="chatForm">
+              <input id="studyChatInput" placeholder="Ask this professor..." />
+              <button type="submit">Ask</button>
+            </form>
+          </article>
+        </div>
+      </section>
+
+      <section id="workshop" class="room">
+        <div class="grid two">
+          <article class="card wide">
+            <div class="sectionHeader">
+              <div>
+                <p class="eyebrow">Discovered, never hardcoded</p>
+                <h4>Capability Cards</h4>
+              </div>
+              <span id="capabilityCount" class="badge">-- available</span>
+            </div>
+            <div id="capabilityCards" class="capabilityCards"></div>
+          </article>
+        </div>
+      </section>
+
+      <section id="library" class="room">
+        <article class="card">
+          <h4>Iron Library</h4>
+          <p>Books, manuals, comics, notes, and documents will be indexed here.</p>
+          <div id="librarySummary" class="smallList"></div>
+        </article>
+      </section>
+
+      <section id="observatory" class="room">
+        <div class="grid two">
+          <article class="card">
+            <h4>Host Computer</h4>
+            <div id="systemSummary" class="smallList"></div>
+          </article>
+          <article class="card">
+            <h4>Events</h4>
+            <div id="eventList" class="smallList"></div>
+          </article>
+        </div>
+      </section>
+
+      <section id="foundry" class="room">
+        <div class="grid two">
+          <article class="card">
+            <h4>Release Readiness</h4>
+            <div id="releaseSummary" class="smallList"></div>
+          </article>
+          <article class="card">
+            <h4>Workshop Wall</h4>
+            <div id="workshopWall" class="smallList"></div>
+          </article>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="renderer.js"></script>
+</body>
+</html>

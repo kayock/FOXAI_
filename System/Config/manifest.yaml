@@ -1,0 +1,35 @@
+project:
+  name: KayocktheOS
+  version: 0.0.1
+  build: development
+  usb_mode: true
+
+startup:
+  greeting: "Welcome back, Commander. The Academy is open. Today's lesson awaits."
+
+paths:
+  foxai_model_path: "..\\FOXAI_USB\\AI\\Models"
+  kayocktheos_model_path: ".\\AI\\Models"
+  logs: ".\\System\\Logs"
+  temp: ".\\System\\Temp"
+
+modules:
+  academy: enabled
+  repair_bay: planned
+  knowledge_library: enabled
+  creative_studio: planned
+  kayock_browser: planned
+  local_ai: planned
+
+ai:
+  primary_engine: Llamafile
+  fallback_engine: none
+  chat_model: ""
+  vision_model: ""
+  code_model: ""
+  embeddings_model: ""
+
+safety:
+  diagnostics_default: read_only
+  repair_requires_permission: true
+  host_machine_changes: minimal

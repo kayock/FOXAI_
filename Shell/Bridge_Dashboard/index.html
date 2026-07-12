@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>KayocktheOS Bridge</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="assets/bridge.css">
+</head>
+<body>
+  <main class="bridge">
+    <section class="hero">
+      <div>
+        <p class="eyebrow" id="version">KayocktheOS</p>
+        <h1>Bridge Dashboard</h1>
+        <p class="greeting" id="greeting">Welcome back, Operator.</p>
+        <p class="quote" id="quote">“Wonder is a tool. Build with it.”</p>
+      </div>
+      <div class="status-ready" id="api-status">CHECKING CORE API</div>
+    </section>
+
+    <section class="summary">
+      <div class="summary-card"><span id="enabled-count">--</span><small>Enabled modules</small></div>
+      <div class="summary-card"><span id="planned-count">--</span><small>Planned modules</small></div>
+      <div class="summary-card"><span id="health-count">--</span><small>Health checks OK</small></div>
+      <div class="summary-card"><span id="shell-state">--</span><small>Shell state</small></div>
+    </section>
+
+    <section class="grid">
+      <article class="card">
+        <h2>System Health</h2>
+        <ul id="health-list"><li><span class="wait"></span> Waiting for Core API...</li></ul>
+      </article>
+
+      <article class="card">
+        <h2>Departments</h2>
+        <ul id="module-list"><li><span class="wait"></span> Waiting for module registry...</li></ul>
+      </article>
+
+      <article class="card wide">
+        <h2>Recent Core Log</h2>
+        <pre id="logs">Waiting for log data...</pre>
+        <p class="small" id="updated"></p>
+      </article>
+    </section>
+  </main>
+  <script src="assets/bridge.js"></script>
+</body>
+</html>

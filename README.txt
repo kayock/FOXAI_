@@ -1,4 +1,4 @@
-Kayock Command OS v10.12.2 - Chapter Editor Preview
+Kayock Command OS v10.14.9 - Chapter Prose Continue Refresh / Compare
 
 Install:
 1. Backup:
@@ -12,42 +12,39 @@ Install:
 3. Run:
    START_FOXAI_WEB_PORTABLE.bat
 
-What changed:
-- Keeps v10.12.1 Saved Chapter Health Card.
-- Adds Chapter Editor Preview page.
-- Adds endpoint:
-  POST /api/writer/chapter_editor_preview
+What this adds:
+- New page: Prose Continue Verify.
+- New endpoint: /api/writer/chapter_prose_continue_refresh_compare.
+- Read-only verification that v005 exists after v10.14.8.
+- Verifies v005 draft, metadata, and evidence files.
+- Verifies v005 hash and word count.
+- Confirms v005 continues from v004.
+- Confirms v005 previous_draft_hash matches the v004 hash.
+- Compares v004 → v005 with added/removed lines and unified diff.
+- Confirms the Private Human Screen was not used, received, stored, echoed, or included.
 
-Chapter Editor Preview reads:
-- selected saved Markdown chapter card
-- title and metadata
-- goal / conflict / reveal / hook
-- continuity notes
-- handoff tags JSON
-- draft space
-- safety notes
+Test:
+Prose Continue Verify
+→ Book 2
+→ Chapter 2
+→ From: 4
+→ To: 5
+→ Load Continue Verify
+→ Export Continue Verify
 
-Editor preview modes:
-- Load Editor Preview: reads saved Markdown into fields.
-- Preview Unsaved Changes: compares typed field changes against current file content.
-- Export Editor Preview: writes report only.
-
-Exports:
-Z:\FOXAI\Reports\KayockWriter\ChapterEditorPreview\
-
-Expected current result for Book 2:
-CHAPTER EDITOR PREVIEW READY
+Expected:
+CHAPTER PROSE CONTINUE REFRESH COMPARE READY
+Checks passed: 25/25
+Problems: 0
 
 Safety:
-Read-only chapter editor preview.
-No chapter file edit.
+Read-only verification.
+No draft save.
+No chapter-file edit.
 No story-file mutation.
-No project creation.
-No legacy migration.
-No rename performed.
 No overwrite.
 No delete.
 No move.
 No install.
 No model cleanup.
-Only optional preview export.
+Private Human Screen text is not sent to this endpoint by the UI.

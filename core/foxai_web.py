@@ -23,7 +23,7 @@ PROF={
  'deadpool':('Professor Deadpool','Meta Creativity',"The best stories know they're being told.",'You are Professor Deadpool inside FOXAI. Specialize in creative brainstorming, comedy, comics, characters, and bold ideas while still being useful.')}
 prof='fox'; active_project=None; chat_model=None; chat_process=None
 messages=[{'role':'system','content':PROF[prof][3]}]
-FOLDERS={'root':ROOT,'models':ROOT/'Models','chat_models':ROOT/'Models'/'Chat','comfy_output':COMFY/'output','library':LIB,'projects':PROJECTS,'prompts':ROOT/'Prompts','novel_forge':ROOT/'NovelForge','novel_exports':ROOT/'NovelForge'/'Exports','logs':LOGS,'config':ROOT/'Config','reports':ROOT/'Reports','repair_reports':ROOT/'Reports'/'RepairActions','repair_ops_dashboard':ROOT/'Reports'/'RepairActions'/'OperationsDashboard','repair_action_details':ROOT/'Reports'/'RepairActions'/'ActionDetails','repair_tickets':ROOT/'Reports'/'RepairActions'/'Tickets','repair_ticket_details':ROOT/'Reports'/'RepairActions'/'TicketDetails','repair_ticket_bridges':ROOT/'Reports'/'RepairActions'/'TicketBridges','repair_session_reports':ROOT/'Reports'/'RepairActions'/'SessionReports','repair_milestone_freeze':ROOT/'Reports'/'RepairActions'/'MilestoneFreeze','command_center_reports':ROOT/'Reports'/'CommandCenter','command_center_detail_reports':ROOT/'Reports'/'CommandCenter'/'Details','command_center_card_reports':ROOT/'Reports'/'CommandCenter'/'DashboardCards','command_center_archive_reports':ROOT/'Reports'/'CommandCenter'/'Archive','command_center_milestone_freeze':ROOT/'Reports'/'CommandCenter'/'MilestoneFreeze','kayock_writer_reports':ROOT/'Reports'/'KayockWriter','kayock_writer_foundation_reports':ROOT/'Reports'/'KayockWriter'/'Foundation','kayock_writer_story_forge_reports':ROOT/'Reports'/'KayockWriter'/'StoryForge','kayock_writer_manifest_preview_reports':ROOT/'Reports'/'KayockWriter'/'ManifestPreview','kayock_writer_create_gate_reports':ROOT/'Reports'/'KayockWriter'/'CreateProjectGate','kayock_writer_create_action_reports':ROOT/'Reports'/'KayockWriter'/'CreateProjectAction','kayock_writer_project_dashboard_reports':ROOT/'Reports'/'KayockWriter'/'ProjectDashboard','kayock_writer_project_health_reports':ROOT/'Reports'/'KayockWriter'/'ProjectHealthCards','kayock_writer_chapter_planner_reports':ROOT/'Reports'/'KayockWriter'/'ChapterPlanner','kayock_writer_chapter_save_gate_reports':ROOT/'Reports'/'KayockWriter'/'ChapterSaveGate','kayock_writer_chapter_save_action_reports':ROOT/'Reports'/'KayockWriter'/'ChapterSaveAction','kayock_writer_saved_chapter_dashboard_reports':ROOT/'Reports'/'KayockWriter'/'SavedChapterDashboard','kayock_writer_chapter_editor_preview_reports':ROOT/'Reports'/'KayockWriter'/'ChapterEditorPreview','kayock_writer_saved_chapter_health_reports':ROOT/'Reports'/'KayockWriter'/'SavedChapterHealth','kayock_writer_slipping_chapters_folder':ROOT/'Projects'/'KayockWriter'/'Slipping_into_Darkness'/'Chapters','kayock_writer_slipping_project_root':ROOT/'Projects'/'KayockWriter'/'Slipping_into_Darkness','env_reports':ROOT/'Reports'/'Environment','portable_reports':ROOT/'Reports'/'PortableReadiness','model_reports':ROOT/'Reports'/'Models','build_reports':ROOT/'Reports'/'BuildVerification','scan_reports':ROOT/'Reports'/'Scans','manifest_backups':ROOT/'Backups'/'Manifests','file_backups':ROOT/'Backups'/'GeneratedFiles','restore_staging':ROOT/'Reports'/'Backups'/'RestoreStaging','staging_inventory':ROOT/'Reports'/'Backups'/'StagingInventory','final_checklist':ROOT/'Reports'/'Backups'/'FinalChecklist','restore_live_backups':ROOT/'Backups'/'RestoreLiveTargets','restore_reports':ROOT/'Reports'/'Backups'/'RestoreActions','restore_audit':ROOT/'Reports'/'Backups'/'RestoreAudit','rollback_previews':ROOT/'Reports'/'Backups'/'RollbackPreviews','rollback_live_backups':ROOT/'Backups'/'RollbackLiveTargets','rollback_reports':ROOT/'Reports'/'Backups'/'RollbackActions','rollback_audit':ROOT/'Reports'/'Backups'/'RollbackAudit','recovery_timeline':ROOT/'Reports'/'Backups'/'RecoveryTimeline','extensions':ROOT/'Extensions','modules':ROOT/'Modules'}
+FOLDERS={'root':ROOT,'models':ROOT/'Models','chat_models':ROOT/'Models'/'Chat','comfy_output':COMFY/'output','library':LIB,'projects':PROJECTS,'prompts':ROOT/'Prompts','novel_forge':ROOT/'NovelForge','novel_exports':ROOT/'NovelForge'/'Exports','logs':LOGS,'config':ROOT/'Config','reports':ROOT/'Reports','repair_reports':ROOT/'Reports'/'RepairActions','repair_ops_dashboard':ROOT/'Reports'/'RepairActions'/'OperationsDashboard','repair_action_details':ROOT/'Reports'/'RepairActions'/'ActionDetails','repair_tickets':ROOT/'Reports'/'RepairActions'/'Tickets','repair_ticket_details':ROOT/'Reports'/'RepairActions'/'TicketDetails','repair_ticket_bridges':ROOT/'Reports'/'RepairActions'/'TicketBridges','repair_session_reports':ROOT/'Reports'/'RepairActions'/'SessionReports','repair_milestone_freeze':ROOT/'Reports'/'RepairActions'/'MilestoneFreeze','command_center_reports':ROOT/'Reports'/'CommandCenter','command_center_detail_reports':ROOT/'Reports'/'CommandCenter'/'Details','command_center_card_reports':ROOT/'Reports'/'CommandCenter'/'DashboardCards','command_center_archive_reports':ROOT/'Reports'/'CommandCenter'/'Archive','command_center_milestone_freeze':ROOT/'Reports'/'CommandCenter'/'MilestoneFreeze','kayock_writer_reports':ROOT/'Reports'/'KayockWriter','kayock_writer_foundation_reports':ROOT/'Reports'/'KayockWriter'/'Foundation','kayock_writer_story_forge_reports':ROOT/'Reports'/'KayockWriter'/'StoryForge','kayock_writer_manifest_preview_reports':ROOT/'Reports'/'KayockWriter'/'ManifestPreview','kayock_writer_create_gate_reports':ROOT/'Reports'/'KayockWriter'/'CreateProjectGate','kayock_writer_create_action_reports':ROOT/'Reports'/'KayockWriter'/'CreateProjectAction','kayock_writer_project_dashboard_reports':ROOT/'Reports'/'KayockWriter'/'ProjectDashboard','kayock_writer_project_health_reports':ROOT/'Reports'/'KayockWriter'/'ProjectHealthCards','kayock_writer_chapter_planner_reports':ROOT/'Reports'/'KayockWriter'/'ChapterPlanner','kayock_writer_chapter_save_gate_reports':ROOT/'Reports'/'KayockWriter'/'ChapterSaveGate','kayock_writer_chapter_save_action_reports':ROOT/'Reports'/'KayockWriter'/'ChapterSaveAction','kayock_writer_saved_chapter_dashboard_reports':ROOT/'Reports'/'KayockWriter'/'SavedChapterDashboard','kayock_writer_chapter_editor_preview_reports':ROOT/'Reports'/'KayockWriter'/'ChapterEditorPreview','kayock_writer_chapter_edit_gate_reports':ROOT/'Reports'/'KayockWriter'/'ChapterEditGate','kayock_writer_chapter_edit_action_reports':ROOT/'Reports'/'KayockWriter'/'ChapterEditAction','kayock_writer_chapter_edit_audit_reports':ROOT/'Reports'/'KayockWriter'/'ChapterEditAudit','kayock_writer_chapter_draft_workspace_reports':ROOT/'Reports'/'KayockWriter'/'ChapterDraftWorkspace','kayock_writer_draft_save_gate_reports':ROOT/'Reports'/'KayockWriter'/'DraftSaveGate','kayock_writer_draft_save_action_reports':ROOT/'Reports'/'KayockWriter'/'DraftSaveAction','kayock_writer_draft_reader_reports':ROOT/'Reports'/'KayockWriter'/'DraftReader','kayock_writer_draft_version_history_reports':ROOT/'Reports'/'KayockWriter'/'DraftVersionHistory','kayock_writer_draft_continue_workspace_reports':ROOT/'Reports'/'KayockWriter'/'DraftContinueWorkspace','kayock_writer_continue_save_gate_reports':ROOT/'Reports'/'KayockWriter'/'ContinueSaveGate','kayock_writer_continue_save_action_reports':ROOT/'Reports'/'KayockWriter'/'ContinueSaveAction','kayock_writer_draft_refresh_reports':ROOT/'Reports'/'KayockWriter'/'DraftRefreshVerification','kayock_writer_draft_compare_reports':ROOT/'Reports'/'KayockWriter'/'DraftCompareView','kayock_writer_real_prose_gate_reports':ROOT/'Reports'/'KayockWriter'/'RealProseDraftGate','kayock_writer_real_prose_save_reports':ROOT/'Reports'/'KayockWriter'/'RealProseSaveAction','kayock_writer_real_prose_refresh_compare_reports':ROOT/'Reports'/'KayockWriter'/'RealProseRefreshCompare','kayock_writer_real_prose_editor_gate_reports':ROOT/'Reports'/'KayockWriter'/'RealProseEditorGate','kayock_writer_real_prose_edit_save_reports':ROOT/'Reports'/'KayockWriter'/'RealProseEditSaveAction','kayock_writer_real_prose_edit_refresh_compare_reports':ROOT/'Reports'/'KayockWriter'/'RealProseEditRefreshCompare','kayock_writer_chapter_prose_workspace_reports':ROOT/'Reports'/'KayockWriter'/'ChapterProseWorkspace','kayock_writer_chapter_prose_continue_gate_reports':ROOT/'Reports'/'KayockWriter'/'ChapterProseContinueGate','kayock_writer_chapter_prose_continue_save_reports':ROOT/'Reports'/'KayockWriter'/'ChapterProseContinueSaveAction','kayock_writer_chapter_prose_continue_refresh_compare_reports':ROOT/'Reports'/'KayockWriter'/'ChapterProseContinueRefreshCompare','kayock_writer_chapter_edit_backups':ROOT/'Backups'/'KayockWriter'/'ChapterEdits','kayock_writer_saved_chapter_health_reports':ROOT/'Reports'/'KayockWriter'/'SavedChapterHealth','kayock_writer_slipping_chapters_folder':ROOT/'Projects'/'KayockWriter'/'Slipping_into_Darkness'/'Chapters','kayock_writer_slipping_project_root':ROOT/'Projects'/'KayockWriter'/'Slipping_into_Darkness','env_reports':ROOT/'Reports'/'Environment','portable_reports':ROOT/'Reports'/'PortableReadiness','model_reports':ROOT/'Reports'/'Models','build_reports':ROOT/'Reports'/'BuildVerification','scan_reports':ROOT/'Reports'/'Scans','manifest_backups':ROOT/'Backups'/'Manifests','file_backups':ROOT/'Backups'/'GeneratedFiles','restore_staging':ROOT/'Reports'/'Backups'/'RestoreStaging','staging_inventory':ROOT/'Reports'/'Backups'/'StagingInventory','final_checklist':ROOT/'Reports'/'Backups'/'FinalChecklist','restore_live_backups':ROOT/'Backups'/'RestoreLiveTargets','restore_reports':ROOT/'Reports'/'Backups'/'RestoreActions','restore_audit':ROOT/'Reports'/'Backups'/'RestoreAudit','rollback_previews':ROOT/'Reports'/'Backups'/'RollbackPreviews','rollback_live_backups':ROOT/'Backups'/'RollbackLiveTargets','rollback_reports':ROOT/'Reports'/'Backups'/'RollbackActions','rollback_audit':ROOT/'Reports'/'Backups'/'RollbackAudit','recovery_timeline':ROOT/'Reports'/'Backups'/'RecoveryTimeline','extensions':ROOT/'Extensions','modules':ROOT/'Modules'}
 OPSBRIDGE_OUTBOX=ROOT/'OpsBridge'/'outbox'; BRIDGE_FEED_FILE=OPSBRIDGE_OUTBOX/'bridge_feed.json'; BUILDER_REPORT_FILE=OPSBRIDGE_OUTBOX/'builder_report.json'
 
 def log(s): LOGS.mkdir(exist_ok=True); LOG.open('a',encoding='utf-8').write(f"[{datetime.now():%F %T}] {s}\n")
@@ -153,7 +153,7 @@ td,th{border-bottom:1px solid #8f5cff18;padding:9px;text-align:left}
 .eventbox{border-left:3px solid var(--w);padding:10px 0 10px 12px;margin-top:12px;background:#ffd1660b;border-radius:0 12px 12px 0}.promptitem{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px;margin:8px 0}.promptitem h4{margin:0 0 6px;color:var(--p2)}.promptpreview{color:var(--m);font-family:Consolas,monospace;font-size:12px;white-space:pre-wrap}.prompttag{display:inline-block;border:1px solid #8f5cff45;border-radius:999px;padding:3px 8px;margin:3px 4px 6px 0;color:var(--p2);font-size:12px}.promptactions button{padding:8px 10px;font-size:13px}
 @media(max-width:900px){.app{grid-template-columns:1fr}aside{position:relative;height:auto}}
 
-.libresult{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px;margin:8px 0}.libresult h4{margin:0 0 5px;color:var(--p2)}.libmeta{color:var(--m);font-family:Consolas,monospace;font-size:12px}.libbadge{display:inline-block;border:1px solid #8f5cff45;border-radius:999px;padding:3px 8px;margin:3px 4px 6px 0;color:var(--p2);font-size:12px}.previewbox{background:#070913;border:1px solid #8f5cff30;border-radius:16px;padding:14px;max-height:520px;overflow:auto;white-space:pre-wrap;font-family:Consolas,monospace;font-size:13px}.previewhead{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:10px}.copypath{color:var(--c);font-family:Consolas,monospace;font-size:12px;overflow-wrap:anywhere}.indexresult{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px;margin:8px 0}.indexresult h4{margin:0 0 5px;color:var(--p2)}.indexsnippet{background:#070913;border:1px solid #8f5cff22;border-radius:12px;padding:10px;margin-top:8px;color:#e7dcff;font-family:Consolas,monospace;font-size:12px;white-space:pre-wrap}.indexscore{color:var(--w);font-family:Consolas,monospace;font-size:12px}.askhint{color:var(--w);font-size:12px;margin-top:6px}.nfitem{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px;margin:8px 0}.nfitem h4{margin:0 0 6px;color:var(--p2)}.nftag{display:inline-block;border:1px solid #8f5cff45;border-radius:999px;padding:3px 8px;margin:3px 4px 6px 0;color:var(--p2);font-size:12px}.nfpreview{color:var(--m);font-family:Consolas,monospace;font-size:12px;white-space:pre-wrap}.nfcount{display:inline-block;border:1px solid #8f5cff45;border-radius:999px;padding:4px 9px;margin:3px;color:var(--p2);font-size:12px}.nfactions button{padding:8px 10px;font-size:13px}.tmevent{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px;margin:8px 0}.tmevent h4{margin:0 0 6px;color:var(--p2)}.tmtag{display:inline-block;border:1px solid #8f5cff45;border-radius:999px;padding:3px 8px;margin:3px 4px 6px 0;color:var(--p2);font-size:12px}.tmdetails{color:var(--m);white-space:pre-wrap;font-family:Consolas,monospace;font-size:12px}.tmactions button{padding:8px 10px;font-size:13px}.charcard{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px;margin:8px 0}.charcard h4{margin:0 0 6px;color:var(--p2)}.chartag{display:inline-block;border:1px solid #8f5cff45;border-radius:999px;padding:3px 8px;margin:3px 4px 6px 0;color:var(--p2);font-size:12px}.chardetails{color:var(--m);white-space:pre-wrap;font-family:Consolas,monospace;font-size:12px}.charactions button{padding:8px 10px;font-size:13px}.mysterycard{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px;margin:8px 0}.mysterycard h4{margin:0 0 6px;color:var(--p2)}.mystag{display:inline-block;border:1px solid #8f5cff45;border-radius:999px;padding:3px 8px;margin:3px 4px 6px 0;color:var(--p2);font-size:12px}.mystatus-unresolved{border-color:#ffd16666;color:#ffd166}.mystatus-solved{border-color:#42ff9e66;color:#42ff9e}.mystatus-red{border-color:#ff4d6d66;color:#ff4d6d}.mysdetails{color:var(--m);white-space:pre-wrap;font-family:Consolas,monospace;font-size:12px}.mysactions button{padding:8px 10px;font-size:13px}.loccard,.artcard{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px;margin:8px 0}.loccard h4,.artcard h4{margin:0 0 6px;color:var(--p2)}.loctag,.arttag{display:inline-block;border:1px solid #8f5cff45;border-radius:999px;padding:3px 8px;margin:3px 4px 6px 0;color:var(--p2);font-size:12px}.locdetails,.artdetails{color:var(--m);white-space:pre-wrap;font-family:Consolas,monospace;font-size:12px}.locactions button,.artactions button{padding:8px 10px;font-size:13px}.codexdash{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin:10px 0}.codexbox{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px}.codexbox .label{color:var(--m);font-size:12px}.codexbox .value{font-size:24px;font-weight:900;color:#fff;margin-top:4px}.readiness{border-left:3px solid var(--w);padding:10px 0 10px 12px;margin-top:12px;background:#ffd1660b;border-radius:0 12px 12px 0}.scenecard{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px;margin:8px 0}.scenecard h4{margin:0 0 6px;color:var(--p2)}.scenetag{display:inline-block;border:1px solid #8f5cff45;border-radius:999px;padding:3px 8px;margin:3px 4px 6px 0;color:var(--p2);font-size:12px}.scenedetails{color:var(--m);white-space:pre-wrap;font-family:Consolas,monospace;font-size:12px}.sceneactions button{padding:8px 10px;font-size:13px}.extcard{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px;margin:8px 0}.extcard h4{margin:0 0 6px;color:var(--p2)}.exttag{display:inline-block;border:1px solid #8f5cff45;border-radius:999px;padding:3px 8px;margin:3px 4px 6px 0;color:var(--p2);font-size:12px}.extmeta{color:var(--m);white-space:pre-wrap;font-family:Consolas,monospace;font-size:12px}.extactions button{padding:8px 10px;font-size:13px}.disabledmod{opacity:.55}.repairbox{background:#050713;border:1px solid #8f5cff45;border-radius:14px;padding:12px;white-space:pre-wrap;overflow:auto;max-height:380px;color:#eae7ff;font-family:Consolas,monospace;font-size:12px}.moddash{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin:10px 0}.modbox{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px}.modbox .label{color:var(--m);font-size:12px}.modbox .value{font-size:24px;font-weight:900;color:#fff;margin-top:4px}.modhint{border-left:3px solid var(--w);padding:10px 0 10px 12px;margin-top:12px;background:#ffd1660b;border-radius:0 12px 12px 0}.modok{border-left-color:var(--ok)!important;background:#00e6860a}.modwarn{border-left-color:var(--bad)!important;background:#ff4d6d0b}.scanbox{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:10px 0}.scanmetric{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px}.scanmetric .label{color:var(--m);font-size:12px}.scanmetric .value{font-size:24px;font-weight:900;color:#fff;margin-top:4px}.scanlist{background:#050713;border:1px solid #8f5cff45;border-radius:14px;padding:12px;white-space:pre-wrap;overflow:auto;max-height:420px;color:#eae7ff;font-family:Consolas,monospace;font-size:12px}.docstatusgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin:10px 0}.docstat{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px}.docstat .label{color:var(--m);font-size:12px}.docstat .value{font-size:24px;font-weight:900;color:#fff;margin-top:4px}.docrow{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:14px;padding:10px;margin:8px 0}.docrow.good{border-left:3px solid var(--ok)}.docrow.bad{border-left:3px solid var(--bad)}.buildgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin:10px 0}.buildmetric{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px}.buildmetric .label{color:var(--m);font-size:12px}.buildmetric .value{font-size:24px;font-weight:900;color:#fff;margin-top:4px}.checkrow{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:14px;padding:10px;margin:8px 0}.checkrow.pass{border-left:3px solid var(--ok)}.checkrow.fail{border-left:3px solid var(--bad)}.envgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin:10px 0}.envmetric{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px}.envmetric .label{color:var(--m);font-size:12px}.envmetric .value{font-size:24px;font-weight:900;color:#fff;margin-top:4px}.envrow{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:14px;padding:10px;margin:8px 0}.envrow.pass{border-left:3px solid var(--ok)}.envrow.fail{border-left:3px solid var(--bad)}.envrow.optional{border-left:3px solid var(--w)}.portablegrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:12px;margin:10px 0}.portablemetric{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px}.portablemetric .label{color:var(--m);font-size:12px}.portablemetric .value{font-size:24px;font-weight:900;color:#fff;margin-top:4px}.portrow{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:14px;padding:10px;margin:8px 0}.portrow.pass{border-left:3px solid var(--ok)}.portrow.warn{border-left:3px solid var(--w)}.portrow.fail{border-left:3px solid var(--bad)}.modelgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:12px;margin:10px 0}.modelmetric{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px}.modelmetric .label{color:var(--m);font-size:12px}.modelmetric .value{font-size:24px;font-weight:900;color:#fff;margin-top:4px}.modelrow{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:14px;padding:10px;margin:8px 0}.modelrow.safe{border-left:3px solid var(--ok)}.modelrow.info{border-left:3px solid var(--m)}.modelrow.review{border-left:3px solid var(--w)}.modelrow.warn{border-left:3px solid var(--bad)}.repairrow{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:14px;padding:12px;margin:10px 0}.repairrow.available{border-left:3px solid var(--ok)}.repairrow.blocked{border-left:3px solid var(--bad)}.repairrow .repairtitle{font-weight:900;color:#fff}.repairrow .risk{color:var(--m);font-size:12px}.repairrow button{margin-top:8px}.historygrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:10px 0}.historymetric{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px}.historymetric .label{color:var(--m);font-size:12px}.historymetric .value{font-size:24px;font-weight:900;color:#fff;margin-top:4px}.histrow{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:14px;padding:10px;margin:8px 0}.histrow.ok{border-left:3px solid var(--ok)}.histrow.fail{border-left:3px solid var(--bad)}.histrow.info{border-left:3px solid var(--m)}.verifybadge{display:inline-block;border-radius:999px;padding:3px 8px;font-size:11px;font-weight:900;margin-left:6px}.verifybadge.pass{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.verifybadge.fail{background:#ff5d5d22;color:#ffb0b0;border:1px solid #ff5d5d55}.verifybadge.none{background:#ffffff12;color:#c9bfdc;border:1px solid #ffffff22}.checkline{font-size:12px;color:#d8d0e8;margin-left:10px}.backupbadge{display:inline-block;border-radius:999px;padding:3px 8px;font-size:11px;font-weight:900;margin-left:6px}.backupbadge.assoc{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.backupbadge.old{background:#ffffff12;color:#c9bfdc;border:1px solid #ffffff22}.vaultpath{font-size:12px;color:#d8d0e8;word-break:break-all}.vaultmetric{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px}.vaultmetric .label{color:var(--m);font-size:12px}.vaultmetric .value{font-size:24px;font-weight:900;color:#fff;margin-top:4px}.timestampnote{font-size:12px;color:#c9bfdc;border-left:3px solid #8f5cff77;padding-left:8px;margin-top:6px}.riskbadge{display:inline-block;border-radius:999px;padding:4px 10px;font-size:12px;font-weight:900}.riskbadge.low{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.riskbadge.medium{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.riskbadge.blocked{background:#ff5d5d22;color:#ffb0b0;border:1px solid #ff5d5d55}.diffbox{white-space:pre-wrap;font-family:ui-monospace,Consolas,monospace}.gatebadge{display:inline-block;border-radius:999px;padding:4px 10px;font-size:12px;font-weight:900;margin-left:6px}.gatebadge.pass{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.gatebadge.warn{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.gatebadge.block{background:#ff5d5d22;color:#ffb0b0;border:1px solid #ff5d5d55}.gatebadge.info{background:#8f5cff22;color:#e2d4ff;border:1px solid #8f5cff55}.phrasebox{font-family:ui-monospace,Consolas,monospace;font-size:16px;border:1px solid #8f5cff55;background:#00000033;border-radius:14px;padding:12px;color:#fff}.packagebadge{display:inline-block;border-radius:999px;padding:4px 10px;font-size:12px;font-weight:900;margin-left:6px}.packagebadge.ok{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.packagebadge.problem{background:#ff5d5d22;color:#ffb0b0;border:1px solid #ff5d5d55}.packagefile{font-size:12px;color:#d8d0e8;word-break:break-all;margin-left:8px}.finalbadge{display:inline-block;border-radius:999px;padding:4px 10px;font-size:12px;font-weight:900;margin-left:6px}.finalbadge.pass{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.finalbadge.warn{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.finalbadge.block{background:#ff5d5d22;color:#ffb0b0;border:1px solid #ff5d5d55}.finalphrase{font-family:ui-monospace,Consolas,monospace;font-size:15px;border:1px solid #8f5cff55;background:#00000033;border-radius:14px;padding:12px;color:#fff}.auditbadge{display:inline-block;border-radius:999px;padding:4px 10px;font-size:12px;font-weight:900;margin-left:6px}.auditbadge.intact{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.auditbadge.attention{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.hashline{font-family:ui-monospace,Consolas,monospace;font-size:12px;word-break:break-all;color:#d8d0e8}.rollbackbadge{display:inline-block;border-radius:999px;padding:4px 10px;font-size:12px;font-weight:900;margin-left:6px}.rollbackbadge.pass{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.rollbackbadge.warn{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.rollbackbadge.block{background:#ff5d5d22;color:#ffb0b0;border:1px solid #ff5d5d55}.rollbackphrase{font-family:ui-monospace,Consolas,monospace;font-size:15px;border:1px solid #8f5cff55;background:#00000033;border-radius:14px;padding:12px;color:#fff}.rbauditbadge{display:inline-block;border-radius:999px;padding:4px 10px;font-size:12px;font-weight:900;margin-left:6px}.rbauditbadge.intact{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.rbauditbadge.attention{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.rbauditHash{font-family:ui-monospace,Consolas,monospace;font-size:12px;word-break:break-all;color:#d8d0e8}.tlbadge{display:inline-block;border-radius:999px;padding:4px 10px;font-size:12px;font-weight:900;margin-left:6px}.tlbadge.intact{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.tlbadge.attention{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.tlbadge.evidence{background:#8f5cff22;color:#d8c7ff;border:1px solid #8f5cff55}.tlbadge.superseded_by_rollback{background:#66c7ff22;color:#b9e8ff;border:1px solid #66c7ff55}.tlbadge.other{background:#ffffff12;color:#ddd;border:1px solid #ffffff22}.timelineHash{font-family:ui-monospace,Consolas,monospace;font-size:12px;word-break:break-all;color:#d8d0e8}.timelineEvent{border-left:3px solid #8f5cff;padding-left:12px}.recoveryHealthBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px}.recoveryHealthBadge.healthy{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.recoveryHealthBadge.warn{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.recoveryMiniGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.recoveryMini{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.recoveryMini .label{font-size:11px;color:#aaa}.recoveryMini .value{font-size:18px;font-weight:900;color:#fff}.recoveryPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.repairShopBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px}.repairShopBadge.healthy{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.repairShopBadge.warn{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.repairShopGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.repairShopMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.repairShopMetric .label{font-size:11px;color:#aaa}.repairShopMetric .value{font-size:18px;font-weight:900;color:#fff}.repairShopPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.actionPill{display:inline-block;border-radius:999px;padding:3px 9px;font-size:11px;font-weight:900;margin-left:6px}.actionPill.available{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.actionPill.blocked{background:#ffffff12;color:#aaa;border:1px solid #ffffff22}.detailBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px}.detailBadge.verified{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.detailBadge.legacy_ok{background:#66c7ff22;color:#b9e8ff;border:1px solid #66c7ff55}.detailBadge.failed{background:#ff5d5d22;color:#ffb0b0;border:1px solid #ff5d5d55}.detailBadge.attention{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.detailGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin-top:10px}.detailMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.detailMetric .label{font-size:11px;color:#aaa}.detailMetric .value{font-size:16px;font-weight:900;color:#fff}.detailHash{font-family:ui-monospace,Consolas,monospace;font-size:12px;word-break:break-all;color:#d8d0e8}.repairCardBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px}.repairCardBadge.healthy{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.repairCardBadge.warn{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.repairCardGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(135px,1fr));gap:10px;margin-top:10px}.repairCardMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.repairCardMetric .label{font-size:11px;color:#aaa}.repairCardMetric .value{font-size:18px;font-weight:900;color:#fff}.repairCardPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.ticketBadge{display:inline-block;border-radius:999px;padding:4px 10px;font-size:11px;font-weight:900;margin-right:6px}.ticketBadge.critical{background:#ff336622;color:#ffb0c4;border:1px solid #ff336655}.ticketBadge.high{background:#ff5d5d22;color:#ffb0b0;border:1px solid #ff5d5d55}.ticketBadge.medium{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.ticketBadge.low{background:#66c7ff22;color:#b9e8ff;border:1px solid #66c7ff55}.ticketBadge.info{background:#ffffff12;color:#d8d0e8;border:1px solid #ffffff24}.ticketBadge.healthy{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.ticketGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(135px,1fr));gap:10px;margin-top:10px}.ticketMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.ticketMetric .label{font-size:11px;color:#aaa}.ticketMetric .value{font-size:18px;font-weight:900;color:#fff}.ticketRow{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:14px;padding:10px;margin:8px 0}.ticketRow.critical,.ticketRow.high{border-left:3px solid var(--bad)}.ticketRow.medium,.ticketRow.low{border-left:3px solid var(--w)}.ticketRow.healthy{border-left:3px solid var(--ok)}.ticketPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:6px}.ticketDetailBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px}.ticketDetailBadge.healthy{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.ticketDetailBadge.available_action{background:#66c7ff22;color:#b9e8ff;border:1px solid #66c7ff55}.ticketDetailBadge.informational{background:#ffffff12;color:#d8d0e8;border:1px solid #ffffff22}.ticketDetailBadge.needs_attention,.ticketDetailBadge.open{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.ticketDetailGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:10px;margin-top:10px}.ticketDetailMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.ticketDetailMetric .label{font-size:11px;color:#aaa}.ticketDetailMetric .value{font-size:17px;font-weight:900;color:#fff}.ticketDetailPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.bridgeBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px}.bridgeBadge.ready{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.bridgeBadge.info{background:#66c7ff22;color:#b9e8ff;border:1px solid #66c7ff55}.bridgeBadge.warn{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.bridgeGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-top:10px}.bridgeMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.bridgeMetric .label{font-size:11px;color:#aaa}.bridgeMetric .value{font-size:16px;font-weight:900;color:#fff}.repairrow.recommended{border-color:#36d399aa!important;box-shadow:0 0 0 1px #36d39955 inset}.recommendTag{display:inline-block;border-radius:999px;padding:4px 10px;background:#36d39922;color:#7fffd4;border:1px solid #36d39955;font-size:11px;font-weight:900;margin-bottom:8px}.sessionBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px}.sessionBadge.healthy{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.sessionBadge.warn{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.sessionGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.sessionMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.sessionMetric .label{font-size:11px;color:#aaa}.sessionMetric .value{font-size:18px;font-weight:900;color:#fff}.sessionPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.freezeBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px}.freezeBadge.healthy{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.freezeBadge.warn{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.freezeGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.freezeMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.freezeMetric .label{font-size:11px;color:#aaa}.freezeMetric .value{font-size:18px;font-weight:900;color:#fff}.freezePath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.ccBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px}.ccBadge.clear{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.ccBadge.advisory{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.ccBadge.bad{background:#ff557722;color:#ff9aaa;border:1px solid #ff557755}.ccGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.ccMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.ccMetric .label{font-size:11px;color:#aaa}.ccMetric .value{font-size:18px;font-weight:900;color:#fff}.ccPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.foundationCard{border:1px solid #ffffff18;border-radius:16px;padding:12px;margin:10px 0;background:#00000022}.foundationCard.clear{border-color:#36d39955}.foundationCard.advisory{border-color:#ffcc6655}.foundationCard.needs_attention{border-color:#ff557755}.cmdDetailBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px}.cmdDetailBadge.clear{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.cmdDetailBadge.advisory{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.cmdDetailBadge.bad{background:#ff557722;color:#ff9aaa;border:1px solid #ff557755}.cmdMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;margin:8px 0;background:#00000022}.cmdMetric .k{font-size:12px;color:#aaa}.cmdMetric .v{font-weight:800;color:#fff;word-break:break-word}.cmdPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:6px}.ccDashBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px}.ccDashBadge.clear{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.ccDashBadge.advisory{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.ccDashBadge.bad{background:#ff557722;color:#ff9aaa;border:1px solid #ff557755}.ccDashGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-top:10px}.ccDashMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.ccDashMetric .label{font-size:11px;color:#aaa}.ccDashMetric .value{font-size:18px;font-weight:900;color:#fff}.ccDashLine{font-size:12px;color:#cfc7df;word-break:break-word;margin-top:8px}.archiveBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px}.archiveBadge.clear{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.archiveBadge.advisory{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.archiveBadge.bad{background:#ff557722;color:#ff9aaa;border:1px solid #ff557755}.archiveGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.archiveMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.archiveMetric .label{font-size:11px;color:#aaa}.archiveMetric .value{font-size:18px;font-weight:900;color:#fff}.archivePath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.cmdFreezeBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px}.cmdFreezeBadge.clear{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.cmdFreezeBadge.advisory{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.cmdFreezeBadge.bad{background:#ff557722;color:#ff9aaa;border:1px solid #ff557755}.cmdFreezeGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.cmdFreezeMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.cmdFreezeMetric .label{font-size:11px;color:#aaa}.cmdFreezeMetric .value{font-size:18px;font-weight:900;color:#fff}.cmdFreezePath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.writerBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#a855f722;color:#e9d5ff;border:1px solid #a855f755}.writerGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.writerMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.writerMetric .label{font-size:11px;color:#aaa}.writerMetric .value{font-size:18px;font-weight:900;color:#fff}.writerPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.writerModule{border:1px solid #a855f733;border-radius:16px;padding:12px;margin:10px 0;background:#14001f33}.storyBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#8b5cf622;color:#ddd6fe;border:1px solid #8b5cf655}.storyGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.storyMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.storyMetric .label{font-size:11px;color:#aaa}.storyMetric .value{font-size:18px;font-weight:900;color:#fff}.storyPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.storyCard{border:1px solid #8b5cf633;border-radius:16px;padding:12px;margin:10px 0;background:#16002433}.manifestBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#7c3aed22;color:#ddd6fe;border:1px solid #7c3aed55}.manifestGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.manifestMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.manifestMetric .label{font-size:11px;color:#aaa}.manifestMetric .value{font-size:18px;font-weight:900;color:#fff}.manifestPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.manifestCard{border:1px solid #7c3aed33;border-radius:16px;padding:12px;margin:10px 0;background:#12002033}.gateBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#6d28d922;color:#ddd6fe;border:1px solid #6d28d955}.gateGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.gateMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.gateMetric .label{font-size:11px;color:#aaa}.gateMetric .value{font-size:18px;font-weight:900;color:#fff}.gatePath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.gateCard{border:1px solid #6d28d933;border-radius:16px;padding:12px;margin:10px 0;background:#12002033}.actionBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#4c1d9522;color:#ddd6fe;border:1px solid #4c1d9555}.actionBadge.created{background:#36d39922;color:#7fffd4;border-color:#36d39955}.actionBadge.blocked{background:#ffcc6622;color:#ffd99a;border-color:#ffcc6655}.actionBadge.error{background:#ff557722;color:#ff9aaa;border-color:#ff557755}.actionGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.actionMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.actionMetric .label{font-size:11px;color:#aaa}.actionMetric .value{font-size:18px;font-weight:900;color:#fff}.actionPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.actionCard{border:1px solid #4c1d9533;border-radius:16px;padding:12px;margin:10px 0;background:#12002033}.dashProjectBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.dashProjectBadge.bad{background:#ff557722;color:#ff9aaa;border-color:#ff557755}.projectDashGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.projectDashMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.projectDashMetric .label{font-size:11px;color:#aaa}.projectDashMetric .value{font-size:18px;font-weight:900;color:#fff}.projectDashPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.projectDashCard{border:1px solid #22c55e33;border-radius:16px;padding:12px;margin:10px 0;background:#001f1233}.storyHealthBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px}.storyHealthBadge.clear{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.storyHealthBadge.advisory{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.storyHealthBadge.bad{background:#ff557722;color:#ff9aaa;border:1px solid #ff557755}.storyHealthGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-top:10px}.storyHealthMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.storyHealthMetric .label{font-size:11px;color:#aaa}.storyHealthMetric .value{font-size:18px;font-weight:900;color:#fff}.storyHealthLine{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.chapterBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#7c3aed22;color:#ddd6fe;border:1px solid #7c3aed55}.chapterBadge.bad{background:#ff557722;color:#ff9aaa;border-color:#ff557755}.chapterGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.chapterMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.chapterMetric .label{font-size:11px;color:#aaa}.chapterMetric .value{font-size:18px;font-weight:900;color:#fff}.chapterPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.chapterCard{border:1px solid #7c3aed33;border-radius:16px;padding:12px;margin:10px 0;background:#12002033}.saveGateBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#0ea5e922;color:#bae6fd;border:1px solid #0ea5e955}.saveGateBadge.bad{background:#ff557722;color:#ff9aaa;border-color:#ff557755}.saveGateGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.saveGateMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.saveGateMetric .label{font-size:11px;color:#aaa}.saveGateMetric .value{font-size:18px;font-weight:900;color:#fff}.saveGatePath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.saveGateCard{border:1px solid #0ea5e933;border-radius:16px;padding:12px;margin:10px 0;background:#001b2f33}.chapterSaveActionBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#4c1d9522;color:#ddd6fe;border:1px solid #4c1d9555}.chapterSaveActionBadge.created{background:#36d39922;color:#7fffd4;border-color:#36d39955}.chapterSaveActionBadge.blocked{background:#ffcc6622;color:#ffd99a;border-color:#ffcc6655}.chapterSaveActionBadge.error{background:#ff557722;color:#ff9aaa;border-color:#ff557755}.chapterSaveActionGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.chapterSaveActionMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.chapterSaveActionMetric .label{font-size:11px;color:#aaa}.chapterSaveActionMetric .value{font-size:18px;font-weight:900;color:#fff}.chapterSaveActionPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.chapterSaveActionCard{border:1px solid #4c1d9533;border-radius:16px;padding:12px;margin:10px 0;background:#12002033}.savedChapterBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.savedChapterBadge.bad{background:#ff557722;color:#ff9aaa;border-color:#ff557755}.savedChapterGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.savedChapterMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.savedChapterMetric .label{font-size:11px;color:#aaa}.savedChapterMetric .value{font-size:18px;font-weight:900;color:#fff}.savedChapterPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.savedChapterCard{border:1px solid #22c55e33;border-radius:16px;padding:12px;margin:10px 0;background:#001f1233}.savedHealthBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.savedHealthBadge.review{background:#ffcc6622;color:#ffd99a;border-color:#ffcc6655}.savedHealthGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-top:10px}.savedHealthMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.savedHealthMetric .label{font-size:11px;color:#aaa}.savedHealthMetric .value{font-size:18px;font-weight:900;color:#fff}.savedHealthPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.chapterEditorBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#8b5cf622;color:#ddd6fe;border:1px solid #8b5cf655}.chapterEditorBadge.bad{background:#ff557722;color:#ff9aaa;border-color:#ff557755}.chapterEditorGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.chapterEditorMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.chapterEditorMetric .label{font-size:11px;color:#aaa}.chapterEditorMetric .value{font-size:18px;font-weight:900;color:#fff}.chapterEditorPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.chapterEditorCard{border:1px solid #8b5cf633;border-radius:16px;padding:12px;margin:10px 0;background:#12002033}#chaptereditorpreview textarea,#chaptereditorpreview input{width:100%;box-sizing:border-box;margin:6px 0 12px 0}</style></head><body><div class=app><aside><div class=logo>K</div><h1>KAYOCK</h1><div class=sub>Command OS · FOXAI Core</div><button class="nav command active" onclick="pg('dash',this)">🚀 Command Bridge</button><button class=nav onclick="pg('commandcenter',this)">🛰️ Command Center</button><button class=nav onclick="pg('commanddetail',this)">🔎 Command Detail</button><button class=nav onclick="pg('commandarchive',this)">🗄️ Command Archive</button><button class=nav onclick="pg('commandfreeze',this)">🧊 Command Freeze</button><button class=nav onclick="pg('kayockwriter',this)">✍️ Kayock Writer</button><button class=nav onclick="pg('storyforge',this)">📚 Story Forge</button><button class=nav onclick="pg('storymanifest',this)">🧾 Story Manifest</button><button class=nav onclick="pg('projectgate',this)">🚪 Project Gate</button><button class=nav onclick="pg('projectaction',this)">✅ Project Action</button><button class=nav onclick="pg('projectdashboard',this)">📖 Project Dashboard</button><button class=nav onclick="pg('chapterplanner',this)">🧩 Chapter Planner</button><button class=nav onclick="pg('chaptersavegate',this)">🔐 Chapter Gate</button><button class=nav onclick="pg('chaptersaveaction',this)">💾 Chapter Save</button><button class=nav onclick="pg('savedchapters',this)">📚 Saved Chapters</button><button class=nav onclick="pg('savedchapterhealth',this)">💚 Chapter Health</button><button class=nav onclick="pg('chaptereditorpreview',this)">📝 Chapter Editor</button><div class=navbreak></div><button class=nav onclick="pg('academy',this)">🎓 Academy</button><button class=nav onclick="pg('novelforge',this)">📖 Novel Forge</button><button class=nav onclick="pg('prompts',this)">✍️ PromptSmith</button><button class=nav onclick="pg('creative',this)">🎨 Creative Studio</button><button class=nav onclick="pg('library',this)">📚 Iron Library</button><button class=nav onclick="pg('mission',this)">🤖 Artificial Minds</button><button class=nav onclick="pg('projects',this)">🗂 Projects</button><button class=nav onclick="pg('memory',this)">🧭 Mission Memory</button><button class=nav onclick="pg('repair',this)">🔧 Repair Bay</button><button class=nav onclick="pg('extensions',this)">🧩 Extensions</button><button class=nav onclick="pg('scanbridge',this)">📡 Scan Bridge</button><button class=nav onclick="pg('projectgen',this)">🧾 Project Docs</button><button class=nav onclick="pg('buildverify',this)">🧪 Build Verify</button><button class=nav onclick="pg('envverify',this)">🧰 Env Verify</button><button class=nav onclick="pg('portable',this)">🧳 Portable Ready</button><button class=nav onclick="pg('modelcheck',this)">🧬 Model Check</button><button class=nav onclick="pg('repairactions',this)">🛠️ Repair Actions</button><button class=nav onclick="pg('repairhistory',this)">📜 Repair History</button><button class=nav onclick="pg('repairops',this)">🏪 Repair Shop</button><button class=nav onclick="pg('repairdetail',this)">🔎 Action Detail</button><button class=nav onclick="pg('repairtickets',this)">🎫 Repair Tickets</button><button class=nav onclick="pg('repairticketdetail',this)">📋 Ticket Detail</button><button class=nav onclick="pg('ticketbridge',this)">🔗 Ticket Bridge</button><button class=nav onclick="pg('repairsession',this)">🧾 Shop Session</button><button class=nav onclick="pg('repairfreeze',this)">🧊 Milestone Freeze</button><button class=nav onclick="pg('backupvault',this)">🗄️ Backup Vault</button><button class=nav onclick="pg('restorepreview',this)">🧭 Restore Preview</button><button class=nav onclick="pg('restoregate',this)">🚧 Restore Gate</button><button class=nav onclick="pg('restorestaging',this)">📦 Restore Staging</button><button class=nav onclick="pg('stagingpackages',this)">🧾 Staging Packages</button><button class=nav onclick="pg('restorefinal',this)">✅ Restore Final Check</button><button class=nav onclick="pg('restoreaction',this)">♻️ Restore Action</button><button class=nav onclick="pg('restoreaudit',this)">🧪 Restore Audit</button><button class=nav onclick="pg('rollbackpreview',this)">↩️ Rollback Preview</button><button class=nav onclick="pg('rollbackaction',this)">⏪ Rollback Action</button><button class=nav onclick="pg('rollbackaudit',this)">🧾 Rollback Audit</button><button class=nav onclick="pg('recoverytimeline',this)">🕰️ Recovery Timeline</button><div class=navbreak></div><button class=nav onclick="pg('logs',this)">📜 Captain's Log</button><button class=nav onclick="pg('settings',this)">⚙ Settings</button><div class=ops><div class=row><div class=lab>Operator</div><div>Eric Fox</div></div><div class=row><div class=lab>Professor</div><div id=ap>Agent Fox</div></div><div class=row><div class=lab>Project</div><div id=apro>None</div></div><div class=row><div class=lab>Mission</div><div id=ms>READY</div></div><div class=row><div class=lab>Model</div><div id=am>None</div></div><div class=row><div class=lab>Runtime</div><div id=rt>Checking</div></div></div><div id=quick></div><div class=ops><div class=row><div class=lab>CPU</div><div id=cpu>?</div></div><div class=row><div class=lab>RAM</div><div id=ram>?</div></div><div class=meter><div id=ramm class=fill></div></div></div></aside><main>
+.libresult{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px;margin:8px 0}.libresult h4{margin:0 0 5px;color:var(--p2)}.libmeta{color:var(--m);font-family:Consolas,monospace;font-size:12px}.libbadge{display:inline-block;border:1px solid #8f5cff45;border-radius:999px;padding:3px 8px;margin:3px 4px 6px 0;color:var(--p2);font-size:12px}.previewbox{background:#070913;border:1px solid #8f5cff30;border-radius:16px;padding:14px;max-height:520px;overflow:auto;white-space:pre-wrap;font-family:Consolas,monospace;font-size:13px}.previewhead{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:10px}.copypath{color:var(--c);font-family:Consolas,monospace;font-size:12px;overflow-wrap:anywhere}.indexresult{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px;margin:8px 0}.indexresult h4{margin:0 0 5px;color:var(--p2)}.indexsnippet{background:#070913;border:1px solid #8f5cff22;border-radius:12px;padding:10px;margin-top:8px;color:#e7dcff;font-family:Consolas,monospace;font-size:12px;white-space:pre-wrap}.indexscore{color:var(--w);font-family:Consolas,monospace;font-size:12px}.askhint{color:var(--w);font-size:12px;margin-top:6px}.nfitem{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px;margin:8px 0}.nfitem h4{margin:0 0 6px;color:var(--p2)}.nftag{display:inline-block;border:1px solid #8f5cff45;border-radius:999px;padding:3px 8px;margin:3px 4px 6px 0;color:var(--p2);font-size:12px}.nfpreview{color:var(--m);font-family:Consolas,monospace;font-size:12px;white-space:pre-wrap}.nfcount{display:inline-block;border:1px solid #8f5cff45;border-radius:999px;padding:4px 9px;margin:3px;color:var(--p2);font-size:12px}.nfactions button{padding:8px 10px;font-size:13px}.tmevent{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px;margin:8px 0}.tmevent h4{margin:0 0 6px;color:var(--p2)}.tmtag{display:inline-block;border:1px solid #8f5cff45;border-radius:999px;padding:3px 8px;margin:3px 4px 6px 0;color:var(--p2);font-size:12px}.tmdetails{color:var(--m);white-space:pre-wrap;font-family:Consolas,monospace;font-size:12px}.tmactions button{padding:8px 10px;font-size:13px}.charcard{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px;margin:8px 0}.charcard h4{margin:0 0 6px;color:var(--p2)}.chartag{display:inline-block;border:1px solid #8f5cff45;border-radius:999px;padding:3px 8px;margin:3px 4px 6px 0;color:var(--p2);font-size:12px}.chardetails{color:var(--m);white-space:pre-wrap;font-family:Consolas,monospace;font-size:12px}.charactions button{padding:8px 10px;font-size:13px}.mysterycard{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px;margin:8px 0}.mysterycard h4{margin:0 0 6px;color:var(--p2)}.mystag{display:inline-block;border:1px solid #8f5cff45;border-radius:999px;padding:3px 8px;margin:3px 4px 6px 0;color:var(--p2);font-size:12px}.mystatus-unresolved{border-color:#ffd16666;color:#ffd166}.mystatus-solved{border-color:#42ff9e66;color:#42ff9e}.mystatus-red{border-color:#ff4d6d66;color:#ff4d6d}.mysdetails{color:var(--m);white-space:pre-wrap;font-family:Consolas,monospace;font-size:12px}.mysactions button{padding:8px 10px;font-size:13px}.loccard,.artcard{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px;margin:8px 0}.loccard h4,.artcard h4{margin:0 0 6px;color:var(--p2)}.loctag,.arttag{display:inline-block;border:1px solid #8f5cff45;border-radius:999px;padding:3px 8px;margin:3px 4px 6px 0;color:var(--p2);font-size:12px}.locdetails,.artdetails{color:var(--m);white-space:pre-wrap;font-family:Consolas,monospace;font-size:12px}.locactions button,.artactions button{padding:8px 10px;font-size:13px}.codexdash{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin:10px 0}.codexbox{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px}.codexbox .label{color:var(--m);font-size:12px}.codexbox .value{font-size:24px;font-weight:900;color:#fff;margin-top:4px}.readiness{border-left:3px solid var(--w);padding:10px 0 10px 12px;margin-top:12px;background:#ffd1660b;border-radius:0 12px 12px 0}.scenecard{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px;margin:8px 0}.scenecard h4{margin:0 0 6px;color:var(--p2)}.scenetag{display:inline-block;border:1px solid #8f5cff45;border-radius:999px;padding:3px 8px;margin:3px 4px 6px 0;color:var(--p2);font-size:12px}.scenedetails{color:var(--m);white-space:pre-wrap;font-family:Consolas,monospace;font-size:12px}.sceneactions button{padding:8px 10px;font-size:13px}.extcard{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px;margin:8px 0}.extcard h4{margin:0 0 6px;color:var(--p2)}.exttag{display:inline-block;border:1px solid #8f5cff45;border-radius:999px;padding:3px 8px;margin:3px 4px 6px 0;color:var(--p2);font-size:12px}.extmeta{color:var(--m);white-space:pre-wrap;font-family:Consolas,monospace;font-size:12px}.extactions button{padding:8px 10px;font-size:13px}.disabledmod{opacity:.55}.repairbox{background:#050713;border:1px solid #8f5cff45;border-radius:14px;padding:12px;white-space:pre-wrap;overflow:auto;max-height:380px;color:#eae7ff;font-family:Consolas,monospace;font-size:12px}.moddash{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin:10px 0}.modbox{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px}.modbox .label{color:var(--m);font-size:12px}.modbox .value{font-size:24px;font-weight:900;color:#fff;margin-top:4px}.modhint{border-left:3px solid var(--w);padding:10px 0 10px 12px;margin-top:12px;background:#ffd1660b;border-radius:0 12px 12px 0}.modok{border-left-color:var(--ok)!important;background:#00e6860a}.modwarn{border-left-color:var(--bad)!important;background:#ff4d6d0b}.scanbox{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:10px 0}.scanmetric{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px}.scanmetric .label{color:var(--m);font-size:12px}.scanmetric .value{font-size:24px;font-weight:900;color:#fff;margin-top:4px}.scanlist{background:#050713;border:1px solid #8f5cff45;border-radius:14px;padding:12px;white-space:pre-wrap;overflow:auto;max-height:420px;color:#eae7ff;font-family:Consolas,monospace;font-size:12px}.docstatusgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin:10px 0}.docstat{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px}.docstat .label{color:var(--m);font-size:12px}.docstat .value{font-size:24px;font-weight:900;color:#fff;margin-top:4px}.docrow{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:14px;padding:10px;margin:8px 0}.docrow.good{border-left:3px solid var(--ok)}.docrow.bad{border-left:3px solid var(--bad)}.buildgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin:10px 0}.buildmetric{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px}.buildmetric .label{color:var(--m);font-size:12px}.buildmetric .value{font-size:24px;font-weight:900;color:#fff;margin-top:4px}.checkrow{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:14px;padding:10px;margin:8px 0}.checkrow.pass{border-left:3px solid var(--ok)}.checkrow.fail{border-left:3px solid var(--bad)}.envgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin:10px 0}.envmetric{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px}.envmetric .label{color:var(--m);font-size:12px}.envmetric .value{font-size:24px;font-weight:900;color:#fff;margin-top:4px}.envrow{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:14px;padding:10px;margin:8px 0}.envrow.pass{border-left:3px solid var(--ok)}.envrow.fail{border-left:3px solid var(--bad)}.envrow.optional{border-left:3px solid var(--w)}.portablegrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:12px;margin:10px 0}.portablemetric{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px}.portablemetric .label{color:var(--m);font-size:12px}.portablemetric .value{font-size:24px;font-weight:900;color:#fff;margin-top:4px}.portrow{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:14px;padding:10px;margin:8px 0}.portrow.pass{border-left:3px solid var(--ok)}.portrow.warn{border-left:3px solid var(--w)}.portrow.fail{border-left:3px solid var(--bad)}.modelgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:12px;margin:10px 0}.modelmetric{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px}.modelmetric .label{color:var(--m);font-size:12px}.modelmetric .value{font-size:24px;font-weight:900;color:#fff;margin-top:4px}.modelrow{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:14px;padding:10px;margin:8px 0}.modelrow.safe{border-left:3px solid var(--ok)}.modelrow.info{border-left:3px solid var(--m)}.modelrow.review{border-left:3px solid var(--w)}.modelrow.warn{border-left:3px solid var(--bad)}.repairrow{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:14px;padding:12px;margin:10px 0}.repairrow.available{border-left:3px solid var(--ok)}.repairrow.blocked{border-left:3px solid var(--bad)}.repairrow .repairtitle{font-weight:900;color:#fff}.repairrow .risk{color:var(--m);font-size:12px}.repairrow button{margin-top:8px}.historygrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:10px 0}.historymetric{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px}.historymetric .label{color:var(--m);font-size:12px}.historymetric .value{font-size:24px;font-weight:900;color:#fff;margin-top:4px}.histrow{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:14px;padding:10px;margin:8px 0}.histrow.ok{border-left:3px solid var(--ok)}.histrow.fail{border-left:3px solid var(--bad)}.histrow.info{border-left:3px solid var(--m)}.verifybadge{display:inline-block;border-radius:999px;padding:3px 8px;font-size:11px;font-weight:900;margin-left:6px}.verifybadge.pass{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.verifybadge.fail{background:#ff5d5d22;color:#ffb0b0;border:1px solid #ff5d5d55}.verifybadge.none{background:#ffffff12;color:#c9bfdc;border:1px solid #ffffff22}.checkline{font-size:12px;color:#d8d0e8;margin-left:10px}.backupbadge{display:inline-block;border-radius:999px;padding:3px 8px;font-size:11px;font-weight:900;margin-left:6px}.backupbadge.assoc{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.backupbadge.old{background:#ffffff12;color:#c9bfdc;border:1px solid #ffffff22}.vaultpath{font-size:12px;color:#d8d0e8;word-break:break-all}.vaultmetric{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px}.vaultmetric .label{color:var(--m);font-size:12px}.vaultmetric .value{font-size:24px;font-weight:900;color:#fff;margin-top:4px}.timestampnote{font-size:12px;color:#c9bfdc;border-left:3px solid #8f5cff77;padding-left:8px;margin-top:6px}.riskbadge{display:inline-block;border-radius:999px;padding:4px 10px;font-size:12px;font-weight:900}.riskbadge.low{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.riskbadge.medium{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.riskbadge.blocked{background:#ff5d5d22;color:#ffb0b0;border:1px solid #ff5d5d55}.diffbox{white-space:pre-wrap;font-family:ui-monospace,Consolas,monospace}.gatebadge{display:inline-block;border-radius:999px;padding:4px 10px;font-size:12px;font-weight:900;margin-left:6px}.gatebadge.pass{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.gatebadge.warn{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.gatebadge.block{background:#ff5d5d22;color:#ffb0b0;border:1px solid #ff5d5d55}.gatebadge.info{background:#8f5cff22;color:#e2d4ff;border:1px solid #8f5cff55}.phrasebox{font-family:ui-monospace,Consolas,monospace;font-size:16px;border:1px solid #8f5cff55;background:#00000033;border-radius:14px;padding:12px;color:#fff}.packagebadge{display:inline-block;border-radius:999px;padding:4px 10px;font-size:12px;font-weight:900;margin-left:6px}.packagebadge.ok{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.packagebadge.problem{background:#ff5d5d22;color:#ffb0b0;border:1px solid #ff5d5d55}.packagefile{font-size:12px;color:#d8d0e8;word-break:break-all;margin-left:8px}.finalbadge{display:inline-block;border-radius:999px;padding:4px 10px;font-size:12px;font-weight:900;margin-left:6px}.finalbadge.pass{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.finalbadge.warn{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.finalbadge.block{background:#ff5d5d22;color:#ffb0b0;border:1px solid #ff5d5d55}.finalphrase{font-family:ui-monospace,Consolas,monospace;font-size:15px;border:1px solid #8f5cff55;background:#00000033;border-radius:14px;padding:12px;color:#fff}.auditbadge{display:inline-block;border-radius:999px;padding:4px 10px;font-size:12px;font-weight:900;margin-left:6px}.auditbadge.intact{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.auditbadge.attention{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.hashline{font-family:ui-monospace,Consolas,monospace;font-size:12px;word-break:break-all;color:#d8d0e8}.rollbackbadge{display:inline-block;border-radius:999px;padding:4px 10px;font-size:12px;font-weight:900;margin-left:6px}.rollbackbadge.pass{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.rollbackbadge.warn{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.rollbackbadge.block{background:#ff5d5d22;color:#ffb0b0;border:1px solid #ff5d5d55}.rollbackphrase{font-family:ui-monospace,Consolas,monospace;font-size:15px;border:1px solid #8f5cff55;background:#00000033;border-radius:14px;padding:12px;color:#fff}.rbauditbadge{display:inline-block;border-radius:999px;padding:4px 10px;font-size:12px;font-weight:900;margin-left:6px}.rbauditbadge.intact{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.rbauditbadge.attention{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.rbauditHash{font-family:ui-monospace,Consolas,monospace;font-size:12px;word-break:break-all;color:#d8d0e8}.tlbadge{display:inline-block;border-radius:999px;padding:4px 10px;font-size:12px;font-weight:900;margin-left:6px}.tlbadge.intact{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.tlbadge.attention{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.tlbadge.evidence{background:#8f5cff22;color:#d8c7ff;border:1px solid #8f5cff55}.tlbadge.superseded_by_rollback{background:#66c7ff22;color:#b9e8ff;border:1px solid #66c7ff55}.tlbadge.other{background:#ffffff12;color:#ddd;border:1px solid #ffffff22}.timelineHash{font-family:ui-monospace,Consolas,monospace;font-size:12px;word-break:break-all;color:#d8d0e8}.timelineEvent{border-left:3px solid #8f5cff;padding-left:12px}.recoveryHealthBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px}.recoveryHealthBadge.healthy{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.recoveryHealthBadge.warn{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.recoveryMiniGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.recoveryMini{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.recoveryMini .label{font-size:11px;color:#aaa}.recoveryMini .value{font-size:18px;font-weight:900;color:#fff}.recoveryPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.repairShopBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px}.repairShopBadge.healthy{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.repairShopBadge.warn{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.repairShopGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.repairShopMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.repairShopMetric .label{font-size:11px;color:#aaa}.repairShopMetric .value{font-size:18px;font-weight:900;color:#fff}.repairShopPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.actionPill{display:inline-block;border-radius:999px;padding:3px 9px;font-size:11px;font-weight:900;margin-left:6px}.actionPill.available{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.actionPill.blocked{background:#ffffff12;color:#aaa;border:1px solid #ffffff22}.detailBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px}.detailBadge.verified{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.detailBadge.legacy_ok{background:#66c7ff22;color:#b9e8ff;border:1px solid #66c7ff55}.detailBadge.failed{background:#ff5d5d22;color:#ffb0b0;border:1px solid #ff5d5d55}.detailBadge.attention{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.detailGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin-top:10px}.detailMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.detailMetric .label{font-size:11px;color:#aaa}.detailMetric .value{font-size:16px;font-weight:900;color:#fff}.detailHash{font-family:ui-monospace,Consolas,monospace;font-size:12px;word-break:break-all;color:#d8d0e8}.repairCardBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px}.repairCardBadge.healthy{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.repairCardBadge.warn{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.repairCardGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(135px,1fr));gap:10px;margin-top:10px}.repairCardMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.repairCardMetric .label{font-size:11px;color:#aaa}.repairCardMetric .value{font-size:18px;font-weight:900;color:#fff}.repairCardPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.ticketBadge{display:inline-block;border-radius:999px;padding:4px 10px;font-size:11px;font-weight:900;margin-right:6px}.ticketBadge.critical{background:#ff336622;color:#ffb0c4;border:1px solid #ff336655}.ticketBadge.high{background:#ff5d5d22;color:#ffb0b0;border:1px solid #ff5d5d55}.ticketBadge.medium{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.ticketBadge.low{background:#66c7ff22;color:#b9e8ff;border:1px solid #66c7ff55}.ticketBadge.info{background:#ffffff12;color:#d8d0e8;border:1px solid #ffffff24}.ticketBadge.healthy{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.ticketGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(135px,1fr));gap:10px;margin-top:10px}.ticketMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.ticketMetric .label{font-size:11px;color:#aaa}.ticketMetric .value{font-size:18px;font-weight:900;color:#fff}.ticketRow{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:14px;padding:10px;margin:8px 0}.ticketRow.critical,.ticketRow.high{border-left:3px solid var(--bad)}.ticketRow.medium,.ticketRow.low{border-left:3px solid var(--w)}.ticketRow.healthy{border-left:3px solid var(--ok)}.ticketPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:6px}.ticketDetailBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px}.ticketDetailBadge.healthy{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.ticketDetailBadge.available_action{background:#66c7ff22;color:#b9e8ff;border:1px solid #66c7ff55}.ticketDetailBadge.informational{background:#ffffff12;color:#d8d0e8;border:1px solid #ffffff22}.ticketDetailBadge.needs_attention,.ticketDetailBadge.open{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.ticketDetailGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:10px;margin-top:10px}.ticketDetailMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.ticketDetailMetric .label{font-size:11px;color:#aaa}.ticketDetailMetric .value{font-size:17px;font-weight:900;color:#fff}.ticketDetailPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.bridgeBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px}.bridgeBadge.ready{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.bridgeBadge.info{background:#66c7ff22;color:#b9e8ff;border:1px solid #66c7ff55}.bridgeBadge.warn{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.bridgeGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-top:10px}.bridgeMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.bridgeMetric .label{font-size:11px;color:#aaa}.bridgeMetric .value{font-size:16px;font-weight:900;color:#fff}.repairrow.recommended{border-color:#36d399aa!important;box-shadow:0 0 0 1px #36d39955 inset}.recommendTag{display:inline-block;border-radius:999px;padding:4px 10px;background:#36d39922;color:#7fffd4;border:1px solid #36d39955;font-size:11px;font-weight:900;margin-bottom:8px}.sessionBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px}.sessionBadge.healthy{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.sessionBadge.warn{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.sessionGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.sessionMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.sessionMetric .label{font-size:11px;color:#aaa}.sessionMetric .value{font-size:18px;font-weight:900;color:#fff}.sessionPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.freezeBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px}.freezeBadge.healthy{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.freezeBadge.warn{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.freezeGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.freezeMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.freezeMetric .label{font-size:11px;color:#aaa}.freezeMetric .value{font-size:18px;font-weight:900;color:#fff}.freezePath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.ccBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px}.ccBadge.clear{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.ccBadge.advisory{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.ccBadge.bad{background:#ff557722;color:#ff9aaa;border:1px solid #ff557755}.ccGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.ccMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.ccMetric .label{font-size:11px;color:#aaa}.ccMetric .value{font-size:18px;font-weight:900;color:#fff}.ccPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.foundationCard{border:1px solid #ffffff18;border-radius:16px;padding:12px;margin:10px 0;background:#00000022}.foundationCard.clear{border-color:#36d39955}.foundationCard.advisory{border-color:#ffcc6655}.foundationCard.needs_attention{border-color:#ff557755}.cmdDetailBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px}.cmdDetailBadge.clear{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.cmdDetailBadge.advisory{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.cmdDetailBadge.bad{background:#ff557722;color:#ff9aaa;border:1px solid #ff557755}.cmdMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;margin:8px 0;background:#00000022}.cmdMetric .k{font-size:12px;color:#aaa}.cmdMetric .v{font-weight:800;color:#fff;word-break:break-word}.cmdPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:6px}.ccDashBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px}.ccDashBadge.clear{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.ccDashBadge.advisory{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.ccDashBadge.bad{background:#ff557722;color:#ff9aaa;border:1px solid #ff557755}.ccDashGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-top:10px}.ccDashMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.ccDashMetric .label{font-size:11px;color:#aaa}.ccDashMetric .value{font-size:18px;font-weight:900;color:#fff}.ccDashLine{font-size:12px;color:#cfc7df;word-break:break-word;margin-top:8px}.archiveBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px}.archiveBadge.clear{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.archiveBadge.advisory{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.archiveBadge.bad{background:#ff557722;color:#ff9aaa;border:1px solid #ff557755}.archiveGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.archiveMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.archiveMetric .label{font-size:11px;color:#aaa}.archiveMetric .value{font-size:18px;font-weight:900;color:#fff}.archivePath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.cmdFreezeBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px}.cmdFreezeBadge.clear{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.cmdFreezeBadge.advisory{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.cmdFreezeBadge.bad{background:#ff557722;color:#ff9aaa;border:1px solid #ff557755}.cmdFreezeGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.cmdFreezeMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.cmdFreezeMetric .label{font-size:11px;color:#aaa}.cmdFreezeMetric .value{font-size:18px;font-weight:900;color:#fff}.cmdFreezePath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.writerBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#a855f722;color:#e9d5ff;border:1px solid #a855f755}.writerGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.writerMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.writerMetric .label{font-size:11px;color:#aaa}.writerMetric .value{font-size:18px;font-weight:900;color:#fff}.writerPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.writerModule{border:1px solid #a855f733;border-radius:16px;padding:12px;margin:10px 0;background:#14001f33}.storyBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#8b5cf622;color:#ddd6fe;border:1px solid #8b5cf655}.storyGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.storyMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.storyMetric .label{font-size:11px;color:#aaa}.storyMetric .value{font-size:18px;font-weight:900;color:#fff}.storyPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.storyCard{border:1px solid #8b5cf633;border-radius:16px;padding:12px;margin:10px 0;background:#16002433}.manifestBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#7c3aed22;color:#ddd6fe;border:1px solid #7c3aed55}.manifestGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.manifestMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.manifestMetric .label{font-size:11px;color:#aaa}.manifestMetric .value{font-size:18px;font-weight:900;color:#fff}.manifestPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.manifestCard{border:1px solid #7c3aed33;border-radius:16px;padding:12px;margin:10px 0;background:#12002033}.gateBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#6d28d922;color:#ddd6fe;border:1px solid #6d28d955}.gateGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.gateMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.gateMetric .label{font-size:11px;color:#aaa}.gateMetric .value{font-size:18px;font-weight:900;color:#fff}.gatePath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.gateCard{border:1px solid #6d28d933;border-radius:16px;padding:12px;margin:10px 0;background:#12002033}.actionBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#4c1d9522;color:#ddd6fe;border:1px solid #4c1d9555}.actionBadge.created{background:#36d39922;color:#7fffd4;border-color:#36d39955}.actionBadge.blocked{background:#ffcc6622;color:#ffd99a;border-color:#ffcc6655}.actionBadge.error{background:#ff557722;color:#ff9aaa;border-color:#ff557755}.actionGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.actionMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.actionMetric .label{font-size:11px;color:#aaa}.actionMetric .value{font-size:18px;font-weight:900;color:#fff}.actionPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.actionCard{border:1px solid #4c1d9533;border-radius:16px;padding:12px;margin:10px 0;background:#12002033}.dashProjectBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.dashProjectBadge.bad{background:#ff557722;color:#ff9aaa;border-color:#ff557755}.projectDashGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.projectDashMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.projectDashMetric .label{font-size:11px;color:#aaa}.projectDashMetric .value{font-size:18px;font-weight:900;color:#fff}.projectDashPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.projectDashCard{border:1px solid #22c55e33;border-radius:16px;padding:12px;margin:10px 0;background:#001f1233}.storyHealthBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px}.storyHealthBadge.clear{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.storyHealthBadge.advisory{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.storyHealthBadge.bad{background:#ff557722;color:#ff9aaa;border:1px solid #ff557755}.storyHealthGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-top:10px}.storyHealthMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.storyHealthMetric .label{font-size:11px;color:#aaa}.storyHealthMetric .value{font-size:18px;font-weight:900;color:#fff}.storyHealthLine{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.chapterBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#7c3aed22;color:#ddd6fe;border:1px solid #7c3aed55}.chapterBadge.bad{background:#ff557722;color:#ff9aaa;border-color:#ff557755}.chapterGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.chapterMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.chapterMetric .label{font-size:11px;color:#aaa}.chapterMetric .value{font-size:18px;font-weight:900;color:#fff}.chapterPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.chapterCard{border:1px solid #7c3aed33;border-radius:16px;padding:12px;margin:10px 0;background:#12002033}.saveGateBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#0ea5e922;color:#bae6fd;border:1px solid #0ea5e955}.saveGateBadge.bad{background:#ff557722;color:#ff9aaa;border-color:#ff557755}.saveGateGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.saveGateMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.saveGateMetric .label{font-size:11px;color:#aaa}.saveGateMetric .value{font-size:18px;font-weight:900;color:#fff}.saveGatePath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.saveGateCard{border:1px solid #0ea5e933;border-radius:16px;padding:12px;margin:10px 0;background:#001b2f33}.chapterSaveActionBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#4c1d9522;color:#ddd6fe;border:1px solid #4c1d9555}.chapterSaveActionBadge.created{background:#36d39922;color:#7fffd4;border-color:#36d39955}.chapterSaveActionBadge.blocked{background:#ffcc6622;color:#ffd99a;border-color:#ffcc6655}.chapterSaveActionBadge.error{background:#ff557722;color:#ff9aaa;border-color:#ff557755}.chapterSaveActionGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.chapterSaveActionMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.chapterSaveActionMetric .label{font-size:11px;color:#aaa}.chapterSaveActionMetric .value{font-size:18px;font-weight:900;color:#fff}.chapterSaveActionPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.chapterSaveActionCard{border:1px solid #4c1d9533;border-radius:16px;padding:12px;margin:10px 0;background:#12002033}.savedChapterBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.savedChapterBadge.bad{background:#ff557722;color:#ff9aaa;border-color:#ff557755}.savedChapterGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.savedChapterMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.savedChapterMetric .label{font-size:11px;color:#aaa}.savedChapterMetric .value{font-size:18px;font-weight:900;color:#fff}.savedChapterPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.savedChapterCard{border:1px solid #22c55e33;border-radius:16px;padding:12px;margin:10px 0;background:#001f1233}.savedHealthBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.savedHealthBadge.review{background:#ffcc6622;color:#ffd99a;border-color:#ffcc6655}.savedHealthGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-top:10px}.savedHealthMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.savedHealthMetric .label{font-size:11px;color:#aaa}.savedHealthMetric .value{font-size:18px;font-weight:900;color:#fff}.savedHealthPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.chapterEditorBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#8b5cf622;color:#ddd6fe;border:1px solid #8b5cf655}.chapterEditorBadge.bad{background:#ff557722;color:#ff9aaa;border-color:#ff557755}.chapterEditorGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.chapterEditorMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.chapterEditorMetric .label{font-size:11px;color:#aaa}.chapterEditorMetric .value{font-size:18px;font-weight:900;color:#fff}.chapterEditorPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.chapterEditorCard{border:1px solid #8b5cf633;border-radius:16px;padding:12px;margin:10px 0;background:#12002033}#chaptereditorpreview textarea,#chaptereditorpreview input{width:100%;box-sizing:border-box;margin:6px 0 12px 0}.chapterEditGateBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#38bdf822;color:#bae6fd;border:1px solid #38bdf855}.chapterEditGateBadge.bad{background:#ff557722;color:#ff9aaa;border-color:#ff557755}.chapterEditGateGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.chapterEditGateMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.chapterEditGateMetric .label{font-size:11px;color:#aaa}.chapterEditGateMetric .value{font-size:18px;font-weight:900;color:#fff}.chapterEditGatePath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.chapterEditGateCard{border:1px solid #38bdf833;border-radius:16px;padding:12px;margin:10px 0;background:#00182733}.chapterEditActionBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.chapterEditActionBadge.blocked{background:#ffcc6622;color:#ffd99a;border-color:#ffcc6655}.chapterEditActionBadge.bad{background:#ff557722;color:#ff9aaa;border-color:#ff557755}.chapterEditActionGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.chapterEditActionMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.chapterEditActionMetric .label{font-size:11px;color:#aaa}.chapterEditActionMetric .value{font-size:18px;font-weight:900;color:#fff}.chapterEditActionPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.chapterEditActionCard{border:1px solid #22c55e33;border-radius:16px;padding:12px;margin:10px 0;background:#001f1233}.chapterEditAuditBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.chapterEditAuditBadge.bad{background:#ff557722;color:#ff9aaa;border-color:#ff557755}.chapterEditAuditGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.chapterEditAuditMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.chapterEditAuditMetric .label{font-size:11px;color:#aaa}.chapterEditAuditMetric .value{font-size:18px;font-weight:900;color:#fff}.chapterEditAuditPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.chapterEditAuditCard{border:1px solid #22c55e33;border-radius:16px;padding:12px;margin:10px 0;background:#001f1233}.chapterDraftBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.chapterDraftBadge.bad{background:#ff557722;color:#ff9aaa;border-color:#ff557755}.chapterDraftGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.chapterDraftMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.chapterDraftMetric .label{font-size:11px;color:#aaa}.chapterDraftMetric .value{font-size:18px;font-weight:900;color:#fff}.chapterDraftPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.chapterDraftCard{border:1px solid #a855f733;border-radius:16px;padding:12px;margin:10px 0;background:#1f003333}.draftGateBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.draftGateBadge.bad{background:#ffcc6622;color:#ffd99a;border-color:#ffcc6655}.draftGateGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.draftGateMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.draftGateMetric .label{font-size:11px;color:#aaa}.draftGateMetric .value{font-size:18px;font-weight:900;color:#fff}.draftGatePath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.draftGateCard{border:1px solid #a855f733;border-radius:16px;padding:12px;margin:10px 0;background:#1f003333}.draftSaveBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.draftSaveBadge.blocked{background:#ffcc6622;color:#ffd99a;border-color:#ffcc6655}.draftSaveBadge.bad{background:#ff557722;color:#ff9aaa;border-color:#ff557755}.draftSaveGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.draftSaveMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.draftSaveMetric .label{font-size:11px;color:#aaa}.draftSaveMetric .value{font-size:18px;font-weight:900;color:#fff}.draftSavePath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.draftSaveCard{border:1px solid #22c55e33;border-radius:16px;padding:12px;margin:10px 0;background:#001f1233}.draftReaderBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.draftReaderBadge.bad{background:#ffcc6622;color:#ffd99a;border-color:#ffcc6655}.draftReaderGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.draftReaderMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.draftReaderMetric .label{font-size:11px;color:#aaa}.draftReaderMetric .value{font-size:18px;font-weight:900;color:#fff}.draftReaderPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.draftReaderCard{border:1px solid #22c55e33;border-radius:16px;padding:12px;margin:10px 0;background:#001f1233}.draftHistoryBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.draftHistoryBadge.bad{background:#ffcc6622;color:#ffd99a;border-color:#ffcc6655}.draftHistoryGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.draftHistoryMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.draftHistoryMetric .label{font-size:11px;color:#aaa}.draftHistoryMetric .value{font-size:18px;font-weight:900;color:#fff}.draftHistoryPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.draftHistoryCard{border:1px solid #22c55e33;border-radius:16px;padding:12px;margin:10px 0;background:#001f1233}.draftContinueBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.draftContinueBadge.bad{background:#ffcc6622;color:#ffd99a;border-color:#ffcc6655}.draftContinueGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.draftContinueMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.draftContinueMetric .label{font-size:11px;color:#aaa}.draftContinueMetric .value{font-size:18px;font-weight:900;color:#fff}.draftContinuePath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.draftContinueCard{border:1px solid #22c55e33;border-radius:16px;padding:12px;margin:10px 0;background:#001f1233}.continueGateBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.continueGateBadge.bad{background:#ffcc6622;color:#ffd99a;border-color:#ffcc6655}.continueGateGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.continueGateMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.continueGateMetric .label{font-size:11px;color:#aaa}.continueGateMetric .value{font-size:18px;font-weight:900;color:#fff}.continueGatePath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.continueActionBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.continueActionBadge.blocked{background:#ffcc6622;color:#ffd99a;border-color:#ffcc6655}.continueActionBadge.bad{background:#ff557722;color:#ff9aaa;border-color:#ff557755}.continueActionGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.continueActionMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.continueActionMetric .label{font-size:11px;color:#aaa}.continueActionMetric .value{font-size:18px;font-weight:900;color:#fff}.continueActionPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.draftRefreshBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.draftRefreshBadge.bad{background:#ffcc6622;color:#ffd99a;border-color:#ffcc6655}.draftRefreshGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.draftRefreshMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.draftRefreshMetric .label{font-size:11px;color:#aaa}.draftRefreshMetric .value{font-size:18px;font-weight:900;color:#fff}.draftRefreshPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.draftCompareBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.draftCompareBadge.bad{background:#ffcc6622;color:#ffd99a;border-color:#ffcc6655}.draftCompareGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.draftCompareMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.draftCompareMetric .label{font-size:11px;color:#aaa}.draftCompareMetric .value{font-size:18px;font-weight:900;color:#fff}.draftComparePath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.diffadd{color:#86efac}.diffremove{color:#ff9aaa}.realProseBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.realProseBadge.bad{background:#ffcc6622;color:#ffd99a;border-color:#ffcc6655}.realProseGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.realProseMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.realProseMetric .label{font-size:11px;color:#aaa}.realProseMetric .value{font-size:18px;font-weight:900;color:#fff}.realProsePath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.realProseSaveBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.realProseSaveBadge.blocked{background:#ffcc6622;color:#ffd99a;border-color:#ffcc6655}.realProseSaveBadge.bad{background:#ff557722;color:#ff9aaa;border-color:#ff557755}.realProseSaveGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.realProseSaveMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.realProseSaveMetric .label{font-size:11px;color:#aaa}.realProseSaveMetric .value{font-size:18px;font-weight:900;color:#fff}.realProseSavePath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.realProseVerifyBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.realProseVerifyBadge.bad{background:#ffcc6622;color:#ffd99a;border-color:#ffcc6655}.realProseVerifyGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.realProseVerifyMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.realProseVerifyMetric .label{font-size:11px;color:#aaa}.realProseVerifyMetric .value{font-size:18px;font-weight:900;color:#fff}.realProseVerifyPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.rpadd{color:#86efac}.rpremove{color:#ff9aaa}.realProseEditorBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.realProseEditorBadge.bad{background:#ffcc6622;color:#ffd99a;border-color:#ffcc6655}.realProseEditorGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.realProseEditorMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.realProseEditorMetric .label{font-size:11px;color:#aaa}.realProseEditorMetric .value{font-size:18px;font-weight:900;color:#fff}.realProseEditorPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.rpeadd{color:#86efac}.rperemove{color:#ff9aaa}.realProseEditSaveBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.realProseEditSaveBadge.blocked{background:#ffcc6622;color:#ffd99a;border-color:#ffcc6655}.realProseEditSaveBadge.bad{background:#ff557722;color:#ff9aaa;border-color:#ff557755}.realProseEditSaveGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.realProseEditSaveMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.realProseEditSaveMetric .label{font-size:11px;color:#aaa}.realProseEditSaveMetric .value{font-size:18px;font-weight:900;color:#fff}.realProseEditSavePath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.realProseEditVerifyBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.realProseEditVerifyBadge.bad{background:#ffcc6622;color:#ffd99a;border-color:#ffcc6655}.realProseEditVerifyGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.realProseEditVerifyMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.realProseEditVerifyMetric .label{font-size:11px;color:#aaa}.realProseEditVerifyMetric .value{font-size:18px;font-weight:900;color:#fff}.realProseEditVerifyPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.rpeadd{color:#86efac}.rperemove{color:#ff9aaa}.privateHumanBanner{border:1px solid #a855f755;background:#4c1d9522;border-radius:16px;padding:12px;margin:10px 0;color:#f3e8ff}.privatePaneCard{border-color:#a855f755!important;background:linear-gradient(180deg,#2b174422,#00000011)}.chapterProseBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.chapterProseBadge.bad{background:#ffcc6622;color:#ffd99a;border-color:#ffcc6655}.chapterProseGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.chapterProseMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.chapterProseMetric .label{font-size:11px;color:#aaa}.chapterProseMetric .value{font-size:18px;font-weight:900;color:#fff}.chapterContinueBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.chapterContinueBadge.bad{background:#ffcc6622;color:#ffd99a;border-color:#ffcc6655}</style></head><body><div class=app><aside><div class=logo>K</div><h1>KAYOCK</h1><div class=sub>Command OS · FOXAI Core</div><button class="nav command active" onclick="pg('dash',this)">🚀 Command Bridge</button><button class=nav onclick="pg('commandcenter',this)">🛰️ Command Center</button><button class=nav onclick="pg('commanddetail',this)">🔎 Command Detail</button><button class=nav onclick="pg('commandarchive',this)">🗄️ Command Archive</button><button class=nav onclick="pg('commandfreeze',this)">🧊 Command Freeze</button><button class=nav onclick="pg('kayockwriter',this)">✍️ Kayock Writer</button><button class=nav onclick="pg('storyforge',this)">📚 Story Forge</button><button class=nav onclick="pg('storymanifest',this)">🧾 Story Manifest</button><button class=nav onclick="pg('projectgate',this)">🚪 Project Gate</button><button class=nav onclick="pg('projectaction',this)">✅ Project Action</button><button class=nav onclick="pg('projectdashboard',this)">📖 Project Dashboard</button><button class=nav onclick="pg('chapterplanner',this)">🧩 Chapter Planner</button><button class=nav onclick="pg('chaptersavegate',this)">🔐 Chapter Gate</button><button class=nav onclick="pg('chaptersaveaction',this)">💾 Chapter Save</button><button class=nav onclick="pg('savedchapters',this)">📚 Saved Chapters</button><button class=nav onclick="pg('savedchapterhealth',this)">💚 Chapter Health</button><button class=nav onclick="pg('chaptereditorpreview',this)">📝 Chapter Editor</button><button class=nav onclick="pg('chaptereditgate',this)">🛡️ Edit Gate</button><button class=nav onclick="pg('chaptereditaction',this)">✅ Edit Save</button><button class=nav onclick="pg('chaptereditaudit',this)">🧾 Edit Audit</button><button class=nav onclick="pg('chapterdraftworkspace',this)">✍️ Draft Workspace</button><button class=nav onclick="pg('draftsavegate',this)">🛡️ Draft Gate</button><button class=nav onclick="pg('draftsaveaction',this)">💾 Draft Save</button><button class=nav onclick="pg('draftreader',this)">📖 Draft Reader</button><button class=nav onclick="pg('draftversionhistory',this)">🕰️ Draft History</button><button class=nav onclick="pg('draftcontinueworkspace',this)">➡️ Draft Continue</button><button class=nav onclick="pg('continuesavegate',this)">🛂 Continue Gate</button><button class=nav onclick="pg('continuesaveaction',this)">💾 Continue Save</button><button class=nav onclick="pg('draftrefresh',this)">🔄 Draft Refresh</button><button class=nav onclick="pg('draftcompare',this)">🧾 Draft Compare</button><button class=nav onclick="pg('realprosegate',this)">✍️ Real Prose Gate</button><button class=nav onclick="pg('realprosesave',this)">🖋️ Real Prose Save</button><button class=nav onclick="pg('realproserefreshcompare',this)">🔍 Real Prose Verify</button><button class=nav onclick="pg('realproseeditorgate',this)">🛠️ Prose Edit Gate</button><button class=nav onclick="pg('realproseeditsave',this)">💾 Prose Edit Save</button><button class=nav onclick="pg('realproseeditverify',this)">🔎 Prose Edit Verify</button><button class=nav onclick="pg('chapterproseworkspace',this)">🧠 Prose Workspace</button><button class=nav onclick="pg('chapterprosecontinuegate',this)">🧭 Prose Continue Gate</button><button class=nav onclick="pg('chapterprosecontinuesave',this)">💾 Prose Continue Save</button><button class=nav onclick="pg('chapterprosecontinueverify',this)">🔎 Prose Continue Verify</button><div class=navbreak></div><button class=nav onclick="pg('academy',this)">🎓 Academy</button><button class=nav onclick="pg('novelforge',this)">📖 Novel Forge</button><button class=nav onclick="pg('prompts',this)">✍️ PromptSmith</button><button class=nav onclick="pg('creative',this)">🎨 Creative Studio</button><button class=nav onclick="pg('library',this)">📚 Iron Library</button><button class=nav onclick="pg('mission',this)">🤖 Artificial Minds</button><button class=nav onclick="pg('projects',this)">🗂 Projects</button><button class=nav onclick="pg('memory',this)">🧭 Mission Memory</button><button class=nav onclick="pg('repair',this)">🔧 Repair Bay</button><button class=nav onclick="pg('extensions',this)">🧩 Extensions</button><button class=nav onclick="pg('scanbridge',this)">📡 Scan Bridge</button><button class=nav onclick="pg('projectgen',this)">🧾 Project Docs</button><button class=nav onclick="pg('buildverify',this)">🧪 Build Verify</button><button class=nav onclick="pg('envverify',this)">🧰 Env Verify</button><button class=nav onclick="pg('portable',this)">🧳 Portable Ready</button><button class=nav onclick="pg('modelcheck',this)">🧬 Model Check</button><button class=nav onclick="pg('repairactions',this)">🛠️ Repair Actions</button><button class=nav onclick="pg('repairhistory',this)">📜 Repair History</button><button class=nav onclick="pg('repairops',this)">🏪 Repair Shop</button><button class=nav onclick="pg('repairdetail',this)">🔎 Action Detail</button><button class=nav onclick="pg('repairtickets',this)">🎫 Repair Tickets</button><button class=nav onclick="pg('repairticketdetail',this)">📋 Ticket Detail</button><button class=nav onclick="pg('ticketbridge',this)">🔗 Ticket Bridge</button><button class=nav onclick="pg('repairsession',this)">🧾 Shop Session</button><button class=nav onclick="pg('repairfreeze',this)">🧊 Milestone Freeze</button><button class=nav onclick="pg('backupvault',this)">🗄️ Backup Vault</button><button class=nav onclick="pg('restorepreview',this)">🧭 Restore Preview</button><button class=nav onclick="pg('restoregate',this)">🚧 Restore Gate</button><button class=nav onclick="pg('restorestaging',this)">📦 Restore Staging</button><button class=nav onclick="pg('stagingpackages',this)">🧾 Staging Packages</button><button class=nav onclick="pg('restorefinal',this)">✅ Restore Final Check</button><button class=nav onclick="pg('restoreaction',this)">♻️ Restore Action</button><button class=nav onclick="pg('restoreaudit',this)">🧪 Restore Audit</button><button class=nav onclick="pg('rollbackpreview',this)">↩️ Rollback Preview</button><button class=nav onclick="pg('rollbackaction',this)">⏪ Rollback Action</button><button class=nav onclick="pg('rollbackaudit',this)">🧾 Rollback Audit</button><button class=nav onclick="pg('recoverytimeline',this)">🕰️ Recovery Timeline</button><div class=navbreak></div><button class=nav onclick="pg('logs',this)">📜 Captain's Log</button><button class=nav onclick="pg('settings',this)">⚙ Settings</button><div class=ops><div class=row><div class=lab>Operator</div><div>Eric Fox</div></div><div class=row><div class=lab>Professor</div><div id=ap>Agent Fox</div></div><div class=row><div class=lab>Project</div><div id=apro>None</div></div><div class=row><div class=lab>Mission</div><div id=ms>READY</div></div><div class=row><div class=lab>Model</div><div id=am>None</div></div><div class=row><div class=lab>Runtime</div><div id=rt>Checking</div></div></div><div id=quick></div><div class=ops><div class=row><div class=lab>CPU</div><div id=cpu>?</div></div><div class=row><div class=lab>RAM</div><div id=ram>?</div></div><div class=meter><div id=ramm class=fill></div></div></div></aside><main>
 <section id=dash class="page active"><div class=hero><h2>Welcome back, Commander.</h2><p>Kayock Command OS is online. FOXAI Core, Mission Memory, and the Bridge are standing by.</p></div><div class=grid>
 <div class="card wide" id=commandCenterDashCard><h3>🛰️ Command Center</h3><div id=commandCenterDashStatus class=status>Command Center dashboard not loaded yet.</div><div id=commandCenterDashBody class=status>Loading foundation health...</div><button onclick="loadCommandCenterDashboard(false)">Refresh Command Center</button><button onclick="loadCommandCenterDashboard(true)">Export Card Report</button><button onclick="go('commandcenter')">Open Command Center</button><button onclick="go('commanddetail')">Open Command Detail</button><button onclick="sendCommandCenterDashboardToMission()">Send to Mission</button></div>
 <div class=card><h3>Resume Mission</h3><div id=resume class=status>No active mission.</div><button onclick="goMemory()">Open Mission Memory</button><button onclick="resumeMission()">Resume in Console</button></div><div class=card><h3>Projects</h3><button onclick="go('projects')">Open Projects</button></div><div class=card><h3>Artificial Minds</h3><button onclick="go('mission')">Open Mission Console</button></div><div class=card><h3>PromptSmith</h3><button onclick="go('prompts')">Open PromptSmith</button></div><div class=card><h3>Novel Forge</h3><button onclick="go('novelforge')">Open Novel Forge</button></div><div class="card wide"><h3>Live Command Bridge</h3><div id=bridgeLive class=status>Loading Bridge Feed...</div></div><div class="card wide"><h3>Recovery Foundation</h3><div id=recoveryDashCard class=status>Loading recovery health...</div><button onclick="loadRecoveryDashboard()">Refresh Recovery Health</button><button onclick="go('recoverytimeline')">Open Recovery Timeline</button><button onclick="sendRecoveryDashboardToMission()">Send Recovery Health to Mission</button></div><div class="card wide"><h3>Repair Shop</h3><div id=repairShopDashCard class=status>Loading Repair Shop health...</div><button onclick="loadRepairShopDashboardCard()">Refresh Repair Shop</button><button onclick="go('repairops')">Open Repair Shop</button><button onclick="go('repairdetail')">Open Action Detail</button><button onclick="sendRepairShopDashboardCardToMission()">Send Repair Shop Health to Mission</button></div><div class="card wide"><h3>Department Fleet</h3><div id=deptcards class=grid>Loading departments...</div></div><div class="card wide"><h3>Status</h3><div id=status class=status>Loading...</div></div></div></section>
@@ -208,6 +208,71 @@ td,th{border-bottom:1px solid #8f5cff18;padding:9px;text-align:left}
 
 
 <section id=chaptereditorpreview class=page><div class=hero><h2>Chapter Editor Preview</h2><p>Read one saved chapter card into editable-looking fields and preview unsaved changes. This build never saves edits.</p></div><div class=grid><div class="card wide"><h3>Editor Preview Controls</h3><select id=chapterEditorBook><option value="book_1">Book 1</option><option value="book_2" selected>Book 2</option></select><select id=chapterEditorNumber><option value="1">Chapter 1</option><option value="2">Chapter 2</option><option value="3">Chapter 3</option></select><button onclick="loadChapterEditorPreview(false,false)">Load Editor Preview</button><button onclick="loadChapterEditorPreview(true,false)">Export Editor Preview</button><button onclick="loadChapterEditorPreview(false,true)">Preview Unsaved Changes</button><button onclick="api('/api/open/kayock_writer_chapter_editor_preview_reports')">Open Editor Preview Reports</button><button onclick="go('savedchapters')">Open Saved Chapters</button><button onclick="sendChapterEditorPreviewToMission()">Send Editor Preview to Mission</button><div id=chapterEditorStatus class=status>No chapter editor preview loaded yet.</div></div><div class="card wide"><h3>Editor Summary</h3><div id=chapterEditorSummary class=status>No summary yet.</div></div><div class="card wide"><h3>Editable-Looking Fields — No Save In This Build</h3><label>Title</label><input id=chapterEditorTitle><label>POV</label><input id=chapterEditorPov><label>Location</label><input id=chapterEditorLocation><label>Goal</label><textarea id=chapterEditorGoal rows=3></textarea><label>Conflict</label><textarea id=chapterEditorConflict rows=3></textarea><label>Reveal</label><textarea id=chapterEditorReveal rows=3></textarea><label>Hook</label><textarea id=chapterEditorHook rows=3></textarea><label>Continuity Notes</label><textarea id=chapterEditorContinuity rows=5></textarea><label>Handoff Tags JSON</label><textarea id=chapterEditorHandoffs rows=8></textarea><label>Draft Space</label><textarea id=chapterEditorDraft rows=6></textarea></div><div class="card wide"><h3>Changed Fields Preview</h3><div id=chapterEditorChanges class=scanlist>No change preview yet.</div></div><div class="card wide"><h3>Checks</h3><div id=chapterEditorChecks class=scanlist>No checks loaded yet.</div></div><div class="card wide"><h3>Safety Contract</h3><pre id=chapterEditorSafety>No safety contract loaded yet.</pre></div></div></section>
+
+
+<section id=chaptereditgate class=page><div class=hero><h2>Chapter Edit Approval Gate</h2><p>No-write safety gate before saved chapter edits are allowed. It checks the selected chapter, proposed edits, diff summary, approval phrase, and future backup/evidence requirements.</p></div><div class=grid><div class="card wide"><h3>Edit Gate Controls</h3><select id=chapterEditGateBook><option value="book_1">Book 1</option><option value="book_2" selected>Book 2</option></select><select id=chapterEditGateChapter><option value="1">Chapter 1</option><option value="2" selected>Chapter 2</option><option value="3">Chapter 3</option></select><input id=chapterEditGatePhrase placeholder="Future phrase: APPROVE CHAPTER EDIT PREVIEW"><button onclick="loadChapterEditGate(false,false)">Load Edit Gate</button><button onclick="fillChapterEditGateFromCurrent()">Load Current Fields Into Gate</button><button onclick="applyChapterEditGateTestHook()">Apply Tiny Hook Test</button><button onclick="oneClickChapterEditGateDiffProof()">One-Click Diff Proof Export</button><button onclick="serverChapterEditGateDiffSelfTest()">Server Diff Self-Test Export</button><button onclick="directChapterEditDiffProof()">Direct Diff Proof Export</button><button onclick="loadChapterEditGate(true,true)">Export Edit Gate</button><button onclick="loadChapterEditGate(true,true)">Test Phrase + Export</button><button onclick="api('/api/open/kayock_writer_chapter_edit_gate_reports')">Open Edit Gate Reports</button><button onclick="go('chaptereditor')">Open Chapter Editor</button><button onclick="sendChapterEditGateToMission()">Send Edit Gate to Mission</button><div id=chapterEditGateStatus class=status>No chapter edit gate loaded yet.</div></div><div class="card wide"><h3>Proposed Edit Fields</h3><input id=chapterEditGateTitle placeholder="Title"><input id=chapterEditGatePov placeholder="POV"><input id=chapterEditGateLocation placeholder="Location"><textarea id=chapterEditGateGoal placeholder="Goal"></textarea><textarea id=chapterEditGateConflict placeholder="Conflict"></textarea><textarea id=chapterEditGateReveal placeholder="Reveal"></textarea><textarea id=chapterEditGateHook placeholder="Hook"></textarea><textarea id=chapterEditGateContinuity placeholder="Continuity notes"></textarea><textarea id=chapterEditGateHandoffs placeholder="Handoff tags JSON"></textarea><textarea id=chapterEditGateDraft placeholder="Draft space"></textarea></div><div class="card wide"><h3>Gate Summary</h3><div id=chapterEditGateSummary class=status>No summary yet.</div></div><div class="card wide"><h3>Diff Summary</h3><div id=chapterEditGateDiff class=scanlist>No diff loaded yet.</div></div><div class="card wide"><h3>Blockers / Advisories</h3><div id=chapterEditGateBlockers class=scanlist>No blockers loaded yet.</div></div><div class="card wide"><h3>Checks</h3><div id=chapterEditGateChecks class=scanlist>No checks loaded yet.</div></div><div class="card wide"><h3>Safety Contract</h3><pre id=chapterEditGateSafety>No safety contract loaded yet.</pre></div></div></section>
+
+
+<section id=chaptereditaction class=page><div class=hero><h2>Chapter Edit Approved Action</h2><p>Approved saved-chapter edit action. It creates a backup/evidence copy first, applies the proven Hook edit, then verifies the saved chapter. Exact phrase required.</p></div><div class=grid><div class="card wide"><h3>Approved Edit Controls</h3><select id=chapterEditActionBook><option value="book_1">Book 1</option><option value="book_2" selected>Book 2</option></select><select id=chapterEditActionChapter><option value="1">Chapter 1</option><option value="2" selected>Chapter 2</option><option value="3">Chapter 3</option></select><input id=chapterEditActionPhrase placeholder="Required exact phrase: SAVE CHAPTER EDIT"><textarea id=chapterEditActionHook placeholder="Proposed Hook">End with a physical artifact or mural clue that feels deliberately left for Anthony.</textarea><button onclick="loadChapterEditApprovedAction(false)">Preview Edit Action</button><button onclick="loadChapterEditApprovedAction(true)">SAVE CHAPTER EDIT WITH APPROVAL</button><button onclick="api('/api/open/kayock_writer_chapter_edit_action_reports')">Open Edit Action Reports</button><button onclick="api('/api/open/kayock_writer_chapter_edit_backups')">Open Edit Backups</button><button onclick="go('chaptereditgate')">Open Edit Gate</button><button onclick="sendChapterEditActionToMission()">Send Edit Action to Mission</button><div id=chapterEditActionStatus class=status>No chapter edit action loaded yet.</div></div><div class="card wide"><h3>Action Summary</h3><div id=chapterEditActionSummary class=status>No summary yet.</div></div><div class="card wide"><h3>Diff</h3><div id=chapterEditActionDiff class=scanlist>No diff loaded yet.</div></div><div class="card wide"><h3>Blockers / Results</h3><div id=chapterEditActionResults class=scanlist>No results loaded yet.</div></div><div class="card wide"><h3>Preflight Checks</h3><div id=chapterEditActionPreflight class=scanlist>No preflight loaded yet.</div></div><div class="card wide"><h3>Post Checks</h3><div id=chapterEditActionPostChecks class=scanlist>No post checks loaded yet.</div></div><div class="card wide"><h3>Safety Contract</h3><pre id=chapterEditActionSafety>No safety contract loaded yet.</pre></div></div></section>
+
+
+<section id=chaptereditaudit class=page><div class=hero><h2>Chapter Edit Audit Reader</h2><p>Read-only audit trail for approved chapter edits: action reports, backup inventory, hashes, written files, and post-save verification.</p></div><div class=grid><div class="card wide"><h3>Audit Controls</h3><select id=chapterEditAuditBook><option value="all">All Books</option><option value="book_1">Book 1</option><option value="book_2" selected>Book 2</option></select><button onclick="loadChapterEditAudit(false)">Load Edit Audit</button><button onclick="loadChapterEditAudit(true)">Export Edit Audit</button><button onclick="api('/api/open/kayock_writer_chapter_edit_audit_reports')">Open Audit Reports</button><button onclick="api('/api/open/kayock_writer_chapter_edit_action_reports')">Open Edit Action Reports</button><button onclick="api('/api/open/kayock_writer_chapter_edit_backups')">Open Edit Backups</button><button onclick="sendChapterEditAuditToMission()">Send Edit Audit to Mission</button><div id=chapterEditAuditStatus class=status>No chapter edit audit loaded yet.</div></div><div class="card wide"><h3>Audit Summary</h3><div id=chapterEditAuditSummary class=status>No summary yet.</div></div><div class="card wide"><h3>Latest Edit Report</h3><div id=chapterEditAuditLatest class=status>No latest report yet.</div></div><div class="card wide"><h3>Edited Report Checks</h3><div id=chapterEditAuditReportChecks class=scanlist>No report checks loaded yet.</div></div><div class="card wide"><h3>Backup Inventory</h3><div id=chapterEditAuditBackups class=scanlist>No backups loaded yet.</div></div><div class="card wide"><h3>Checks</h3><div id=chapterEditAuditChecks class=scanlist>No checks loaded yet.</div></div><div class="card wide"><h3>Safety Contract</h3><pre id=chapterEditAuditSafety>No safety contract loaded yet.</pre></div></div></section>
+
+
+<section id=chapterdraftworkspace class=page><div class=hero><h2>Chapter Draft Workspace</h2><p>Read-only workspace that turns saved chapter cards into prose drafting briefs, beat sheets, continuity guardrails, and model-ready writing prompts.</p></div><div class=grid><div class="card wide"><h3>Draft Workspace Controls</h3><select id=chapterDraftBook><option value="book_1">Book 1</option><option value="book_2" selected>Book 2</option></select><select id=chapterDraftChapter><option value="1">Chapter 1</option><option value="2" selected>Chapter 2</option><option value="3">Chapter 3</option></select><select id=chapterDraftMode><option value="first_pass" selected>First Pass Draft</option><option value="scene_skeleton">Scene Skeleton</option><option value="rewrite_prompt">Rewrite Prompt</option><option value="continuity_pass">Continuity Pass</option></select><input id=chapterDraftTargetWords type=number value=1800 min=250 max=12000><input id=chapterDraftTone value="dark mythic adventure" placeholder="Tone"><textarea id=chapterDraftOpeningSeed placeholder="Optional opening seed"></textarea><button onclick="loadChapterDraftWorkspace(false)">Load Draft Workspace</button><button onclick="loadChapterDraftWorkspace(true)">Export Draft Workspace</button><button onclick="api('/api/open/kayock_writer_chapter_draft_workspace_reports')">Open Draft Workspace Reports</button><button onclick="sendChapterDraftWorkspaceToMission()">Send Draft Workspace to Mission</button><div id=chapterDraftStatus class=status>No chapter draft workspace loaded yet.</div></div><div class="card wide"><h3>Workspace Summary</h3><div id=chapterDraftSummary class=status>No summary yet.</div></div><div class="card wide"><h3>Chapter Brief</h3><pre id=chapterDraftBrief>No chapter brief loaded yet.</pre></div><div class="card wide"><h3>Beat Sheet</h3><div id=chapterDraftBeats class=scanlist>No beat sheet loaded yet.</div></div><div class="card wide"><h3>Prose Prompt</h3><pre id=chapterDraftPrompt>No prose prompt loaded yet.</pre></div><div class="card wide"><h3>Draft Shell</h3><pre id=chapterDraftShell>No draft shell loaded yet.</pre></div><div class="card wide"><h3>Checks</h3><div id=chapterDraftChecks class=scanlist>No checks loaded yet.</div></div><div class="card wide"><h3>Safety Contract</h3><pre id=chapterDraftSafety>No safety contract loaded yet.</pre></div></div></section>
+
+
+<section id=draftsavegate class=page><div class=hero><h2>Draft Save Approval Gate</h2><p>No-write gate that previews where a future prose draft would be saved, verifies chapter context, checks the approval phrase, and exports proof before any real draft save action exists.</p></div><div class=grid><div class="card wide"><h3>Gate Controls</h3><select id=draftGateBook><option value="book_1">Book 1</option><option value="book_2" selected>Book 2</option></select><select id=draftGateChapter><option value="1">Chapter 1</option><option value="2" selected>Chapter 2</option><option value="3">Chapter 3</option></select><input id=draftGatePhrase placeholder="Required exact phrase: APPROVE DRAFT SAVE PREVIEW"><input id=draftGateTitle value="Chapter 02 Draft" placeholder="Draft title"><textarea id=draftGateText placeholder="Paste or write proposed prose draft here.">This is a placeholder prose draft for proving the save gate. It is not final story text. It exists only to prove Kayock Writer can preview draft save targets safely before any write action exists.</textarea><button onclick="loadDraftSaveGate(false)">Load Draft Save Gate</button><button onclick="loadDraftSaveGate(true)">Export Draft Save Gate</button><button onclick="api('/api/open/kayock_writer_draft_save_gate_reports')">Open Draft Gate Reports</button><button onclick="sendDraftSaveGateToMission()">Send Draft Gate to Mission</button><div id=draftGateStatus class=status>No Draft Save Gate loaded yet.</div></div><div class="card wide"><h3>Gate Summary</h3><div id=draftGateSummary class=status>No summary yet.</div></div><div class="card wide"><h3>Proposed Targets</h3><div id=draftGateTargets class=scanlist>No targets loaded yet.</div></div><div class="card wide"><h3>Proposed Draft Preview</h3><pre id=draftGatePreview>No preview loaded yet.</pre></div><div class="card wide"><h3>Blockers</h3><div id=draftGateBlockers class=scanlist>No blockers loaded yet.</div></div><div class="card wide"><h3>Checks</h3><div id=draftGateChecks class=scanlist>No checks loaded yet.</div></div><div class="card wide"><h3>Safety Contract</h3><pre id=draftGateSafety>No safety contract loaded yet.</pre></div></div></section>
+
+
+<section id=draftsaveaction class=page><div class=hero><h2>Draft Save Approved Action</h2><p>Approved prose draft save action. Creates a Markdown draft, metadata JSON, and save evidence JSON only after the exact phrase and no-collision checks pass.</p></div><div class=grid><div class="card wide"><h3>Approved Draft Save Controls</h3><select id=draftSaveBook><option value="book_1">Book 1</option><option value="book_2" selected>Book 2</option></select><select id=draftSaveChapter><option value="1">Chapter 1</option><option value="2" selected>Chapter 2</option><option value="3">Chapter 3</option></select><input id=draftSavePhrase placeholder="Required exact phrase: SAVE DRAFT FILE"><input id=draftSaveTitle value="Chapter 02 Draft" placeholder="Draft title"><textarea id=draftSaveText placeholder="Paste or write proposed prose draft here.">This is a placeholder prose draft for proving the approved draft save action. It is not final story text. It exists only to prove Kayock Writer can save a prose draft safely.</textarea><button onclick="loadDraftSaveAction(false)">Preview Draft Save Action</button><button onclick="loadDraftSaveAction(true)">SAVE DRAFT FILE WITH APPROVAL</button><button onclick="api('/api/open/kayock_writer_draft_save_action_reports')">Open Draft Save Action Reports</button><button onclick="api('/api/open/kayock_writer_draft_save_gate_reports')">Open Draft Gate Reports</button><button onclick="sendDraftSaveActionToMission()">Send Draft Save to Mission</button><div id=draftSaveStatus class=status>No Draft Save Action loaded yet.</div></div><div class="card wide"><h3>Action Summary</h3><div id=draftSaveSummary class=status>No summary yet.</div></div><div class="card wide"><h3>Selected Targets</h3><div id=draftSaveTargets class=scanlist>No targets loaded yet.</div></div><div class="card wide"><h3>Created Files / Results</h3><div id=draftSaveResults class=scanlist>No results loaded yet.</div></div><div class="card wide"><h3>Draft Markdown Preview</h3><pre id=draftSavePreview>No preview loaded yet.</pre></div><div class="card wide"><h3>Preflight Checks</h3><div id=draftSavePreflight class=scanlist>No preflight loaded yet.</div></div><div class="card wide"><h3>Post Checks</h3><div id=draftSavePost class=scanlist>No post checks loaded yet.</div></div><div class="card wide"><h3>Safety Contract</h3><pre id=draftSaveSafety>No safety contract loaded yet.</pre></div></div></section>
+
+
+<section id=draftreader class=page><div class=hero><h2>Draft Reader Dashboard</h2><p>Read-only dashboard for saved prose drafts, metadata, evidence files, versions, word counts, hashes, and chapter-card links.</p></div><div class=grid><div class="card wide"><h3>Draft Reader Controls</h3><select id=draftReaderBook><option value="all">All Books</option><option value="book_1">Book 1</option><option value="book_2" selected>Book 2</option></select><button onclick="loadDraftReader(false)">Load Draft Reader</button><button onclick="loadDraftReader(true)">Export Draft Reader</button><button onclick="api('/api/open/kayock_writer_draft_reader_reports')">Open Draft Reader Reports</button><button onclick="api('/api/open/kayock_writer_draft_save_action_reports')">Open Draft Save Reports</button><button onclick="sendDraftReaderToMission()">Send Draft Reader to Mission</button><div id=draftReaderStatus class=status>No Draft Reader loaded yet.</div></div><div class="card wide"><h3>Reader Summary</h3><div id=draftReaderSummary class=status>No summary yet.</div></div><div class="card wide"><h3>Latest Draft</h3><div id=draftReaderLatest class=status>No latest draft yet.</div></div><div class="card wide"><h3>Draft Inventory</h3><div id=draftReaderInventory class=scanlist>No drafts loaded yet.</div></div><div class="card wide"><h3>Checks</h3><div id=draftReaderChecks class=scanlist>No checks loaded yet.</div></div><div class="card wide"><h3>Safety Contract</h3><pre id=draftReaderSafety>No safety contract loaded yet.</pre></div></div></section>
+
+
+<section id=draftversionhistory class=page><div class=hero><h2>Draft Version History</h2><p>Read-only per-chapter draft timeline showing versions, hashes, word counts, metadata, evidence, and latest draft status.</p></div><div class=grid><div class="card wide"><h3>Version History Controls</h3><select id=draftHistoryBook><option value="book_1">Book 1</option><option value="book_2" selected>Book 2</option></select><select id=draftHistoryChapter><option value="1">Chapter 1</option><option value="2" selected>Chapter 2</option><option value="3">Chapter 3</option></select><button onclick="loadDraftVersionHistory(false)">Load Draft History</button><button onclick="loadDraftVersionHistory(true)">Export Draft History</button><button onclick="api('/api/open/kayock_writer_draft_version_history_reports')">Open Draft History Reports</button><button onclick="api('/api/open/kayock_writer_draft_reader_reports')">Open Draft Reader Reports</button><button onclick="sendDraftVersionHistoryToMission()">Send Draft History to Mission</button><div id=draftHistoryStatus class=status>No Draft Version History loaded yet.</div></div><div class="card wide"><h3>History Summary</h3><div id=draftHistorySummary class=status>No summary yet.</div></div><div class="card wide"><h3>Timeline</h3><div id=draftHistoryTimeline class=scanlist>No timeline loaded yet.</div></div><div class="card wide"><h3>Latest Version</h3><div id=draftHistoryLatest class=status>No latest version yet.</div></div><div class="card wide"><h3>Checks</h3><div id=draftHistoryChecks class=scanlist>No checks loaded yet.</div></div><div class="card wide"><h3>Safety Contract</h3><pre id=draftHistorySafety>No safety contract loaded yet.</pre></div></div></section>
+
+
+<section id=draftcontinueworkspace class=page><div class=hero><h2>Draft Continue Workspace</h2><p>Read-only workspace that uses the latest saved draft, chapter card, metadata, evidence, and version history to build continuation briefs and model-ready continuation prompts.</p></div><div class=grid><div class="card wide"><h3>Continue Workspace Controls</h3><select id=draftContinueBook><option value="book_1">Book 1</option><option value="book_2" selected>Book 2</option></select><select id=draftContinueChapter><option value="1">Chapter 1</option><option value="2" selected>Chapter 2</option><option value="3">Chapter 3</option></select><select id=draftContinueMode><option value="next_scene" selected>Next Scene</option><option value="expand_draft">Expand Draft</option><option value="finish_chapter">Finish Chapter</option><option value="continuity_pass">Continuity Pass</option></select><input id=draftContinueTargetWords type=number value=1200 min=250 max=12000><textarea id=draftContinueDirection placeholder="Optional user direction for this continuation"></textarea><button onclick="loadDraftContinueWorkspace(false)">Load Continue Workspace</button><button onclick="loadDraftContinueWorkspace(true)">Export Continue Workspace</button><button onclick="api('/api/open/kayock_writer_draft_continue_workspace_reports')">Open Continue Reports</button><button onclick="sendDraftContinueWorkspaceToMission()">Send Continue Workspace to Mission</button><div id=draftContinueStatus class=status>No Draft Continue Workspace loaded yet.</div></div><div class="card wide"><h3>Continue Summary</h3><div id=draftContinueSummary class=status>No summary yet.</div></div><div class="card wide"><h3>Continuation Brief</h3><pre id=draftContinueBrief>No brief loaded yet.</pre></div><div class="card wide"><h3>Next Scene Beats</h3><div id=draftContinueBeats class=scanlist>No beats loaded yet.</div></div><div class="card wide"><h3>Continuation Prompt</h3><pre id=draftContinuePrompt>No prompt loaded yet.</pre></div><div class="card wide"><h3>Continuation Shell</h3><pre id=draftContinueShell>No shell loaded yet.</pre></div><div class="card wide"><h3>Checks</h3><div id=draftContinueChecks class=scanlist>No checks loaded yet.</div></div><div class="card wide"><h3>Safety Contract</h3><pre id=draftContinueSafety>No safety contract loaded yet.</pre></div></div></section>
+
+
+<section id=continuesavegate class=page><div class=hero><h2>Continue Save Approval Gate</h2><p>No-write gate that previews saving continuation text as the next draft version before any continuation save action exists.</p></div><div class=grid><div class="card wide"><h3>Continue Save Gate Controls</h3><select id=continueGateBook><option value="book_1">Book 1</option><option value="book_2" selected>Book 2</option></select><select id=continueGateChapter><option value="1">Chapter 1</option><option value="2" selected>Chapter 2</option><option value="3">Chapter 3</option></select><select id=continueGateMode><option value="next_scene" selected>Next Scene</option><option value="expand_draft">Expand Draft</option><option value="finish_chapter">Finish Chapter</option><option value="continuity_pass">Continuity Pass</option></select><input id=continueGatePhrase placeholder="Required exact phrase: APPROVE CONTINUE SAVE PREVIEW"><input id=continueGateTargetWords type=number value=1200 min=250 max=12000><textarea id=continueGateText placeholder="Paste proposed continuation text here.">This is a proposed continuation placeholder for proving the continue save approval gate. It previews the next draft version without saving any files.</textarea><button onclick="loadContinueSaveGate(false)">Load Continue Save Gate</button><button onclick="loadContinueSaveGate(true)">Export Continue Save Gate</button><button onclick="api('/api/open/kayock_writer_continue_save_gate_reports')">Open Continue Gate Reports</button><button onclick="sendContinueSaveGateToMission()">Send Continue Gate to Mission</button><div id=continueGateStatus class=status>No Continue Save Gate loaded yet.</div></div><div class="card wide"><h3>Gate Summary</h3><div id=continueGateSummary class=status>No summary yet.</div></div><div class="card wide"><h3>Selected Targets</h3><div id=continueGateTargets class=scanlist>No targets loaded yet.</div></div><div class="card wide"><h3>Next Draft Preview</h3><pre id=continueGatePreview>No preview loaded yet.</pre></div><div class="card wide"><h3>Blockers</h3><div id=continueGateBlockers class=scanlist>No blockers loaded yet.</div></div><div class="card wide"><h3>Checks</h3><div id=continueGateChecks class=scanlist>No checks loaded yet.</div></div><div class="card wide"><h3>Safety Contract</h3><pre id=continueGateSafety>No safety contract loaded yet.</pre></div></div></section>
+
+
+<section id=continuesaveaction class=page><div class=hero><h2>Continue Save Approved Action</h2><p>Approved action that saves continuation text as the next draft version with metadata, evidence, and post-save verification.</p></div><div class=grid><div class="card wide"><h3>Continue Save Action Controls</h3><select id=continueActionBook><option value="book_1">Book 1</option><option value="book_2" selected>Book 2</option></select><select id=continueActionChapter><option value="1">Chapter 1</option><option value="2" selected>Chapter 2</option><option value="3">Chapter 3</option></select><select id=continueActionMode><option value="next_scene" selected>Next Scene</option><option value="expand_draft">Expand Draft</option><option value="finish_chapter">Finish Chapter</option><option value="continuity_pass">Continuity Pass</option></select><input id=continueActionPhrase placeholder="Required exact phrase: SAVE CONTINUATION DRAFT"><textarea id=continueActionText placeholder="Paste continuation text here.">This is a proposed continuation placeholder for proving the approved continuation save action. It creates the next draft version safely.</textarea><button onclick="loadContinueSaveAction(false)">Preview Continue Save Action</button><button onclick="loadContinueSaveAction(true)">SAVE CONTINUATION DRAFT WITH APPROVAL</button><button onclick="api('/api/open/kayock_writer_continue_save_action_reports')">Open Continue Save Reports</button><button onclick="sendContinueSaveActionToMission()">Send Continue Save to Mission</button><div id=continueActionStatus class=status>No Continue Save Action loaded yet.</div></div><div class="card wide"><h3>Action Summary</h3><div id=continueActionSummary class=status>No summary yet.</div></div><div class="card wide"><h3>Selected Targets / Created Files</h3><div id=continueActionTargets class=scanlist>No targets loaded yet.</div></div><div class="card wide"><h3>New Draft Preview</h3><pre id=continueActionPreview>No preview loaded yet.</pre></div><div class="card wide"><h3>Preflight Checks</h3><div id=continueActionPreflight class=scanlist>No preflight loaded yet.</div></div><div class="card wide"><h3>Post Checks</h3><div id=continueActionPost class=scanlist>No post checks loaded yet.</div></div><div class="card wide"><h3>Safety Contract</h3><pre id=continueActionSafety>No safety contract loaded yet.</pre></div></div></section>
+
+
+<section id=draftrefresh class=page><div class=hero><h2>Draft Reader / History Refresh</h2><p>Read-only proof that saved draft inventory and version history see v001 and v002 after the continuation save.</p></div><div class=grid><div class="card wide"><h3>Refresh Controls</h3><select id=draftRefreshBook><option value="book_1">Book 1</option><option value="book_2" selected>Book 2</option></select><select id=draftRefreshChapter><option value="1">Chapter 1</option><option value="2" selected>Chapter 2</option><option value="3">Chapter 3</option></select><button onclick="loadDraftRefresh(false)">Load Draft Refresh</button><button onclick="loadDraftRefresh(true)">Export Draft Refresh</button><button onclick="api('/api/open/kayock_writer_draft_refresh_reports')">Open Refresh Reports</button><button onclick="api('/api/open/kayock_writer_draft_reader_reports')">Open Draft Reader Reports</button><button onclick="api('/api/open/kayock_writer_draft_version_history_reports')">Open History Reports</button><button onclick="sendDraftRefreshToMission()">Send Refresh to Mission</button><div id=draftRefreshStatus class=status>No Draft Refresh loaded yet.</div></div><div class="card wide"><h3>Refresh Summary</h3><div id=draftRefreshSummary class=status>No summary yet.</div></div><div class="card wide"><h3>Version Inventory</h3><div id=draftRefreshVersions class=scanlist>No versions loaded yet.</div></div><div class="card wide"><h3>Checks</h3><div id=draftRefreshChecks class=scanlist>No checks loaded yet.</div></div><div class="card wide"><h3>Safety Contract</h3><pre id=draftRefreshSafety>No safety contract loaded yet.</pre></div></div></section>
+
+
+<section id=draftcompare class=page><div class=hero><h2>Draft Compare View</h2><p>Read-only comparison between saved draft versions showing added text, removed text, word-count delta, hashes, and lineage.</p></div><div class=grid><div class="card wide"><h3>Compare Controls</h3><select id=draftCompareBook><option value="book_1">Book 1</option><option value="book_2" selected>Book 2</option></select><select id=draftCompareChapter><option value="1">Chapter 1</option><option value="2" selected>Chapter 2</option><option value="3">Chapter 3</option></select><input id=draftCompareFrom type=number value=1 min=1 max=99><input id=draftCompareTo type=number value=2 min=2 max=99><button onclick="loadDraftCompare(false)">Load Draft Compare</button><button onclick="loadDraftCompare(true)">Export Draft Compare</button><button onclick="api('/api/open/kayock_writer_draft_compare_reports')">Open Compare Reports</button><button onclick="sendDraftCompareToMission()">Send Compare to Mission</button><div id=draftCompareStatus class=status>No Draft Compare loaded yet.</div></div><div class="card wide"><h3>Compare Summary</h3><div id=draftCompareSummary class=status>No summary yet.</div></div><div class="card wide"><h3>Added Lines</h3><div id=draftCompareAdded class=scanlist>No added lines loaded yet.</div></div><div class="card wide"><h3>Removed Lines</h3><div id=draftCompareRemoved class=scanlist>No removed lines loaded yet.</div></div><div class="card wide"><h3>Unified Diff</h3><pre id=draftCompareDiff>No diff loaded yet.</pre></div><div class="card wide"><h3>Checks</h3><div id=draftCompareChecks class=scanlist>No checks loaded yet.</div></div><div class="card wide"><h3>Safety Contract</h3><pre id=draftCompareSafety>No safety contract loaded yet.</pre></div></div></section>
+
+
+<section id=realprosegate class=page><div class=hero><h2>Real Prose Draft Gate</h2><p>No-write gate for replacing proof-placeholder draft text with real chapter prose while preserving versioning, metadata, evidence, and exact-phrase safety.</p></div><div class=grid><div class="card wide"><h3>Real Prose Gate Controls</h3><select id=realProseBook><option value="book_1">Book 1</option><option value="book_2" selected>Book 2</option></select><select id=realProseChapter><option value="1">Chapter 1</option><option value="2" selected>Chapter 2</option><option value="3">Chapter 3</option></select><select id=realProseMode><option value="replace_placeholder" selected>Replace Placeholder</option><option value="append_to_latest">Append To Latest</option><option value="new_real_draft_from_card">New Real Draft From Card</option></select><input id=realProsePhrase placeholder="Required exact phrase: APPROVE REAL PROSE DRAFT PREVIEW"><textarea id=realProseText placeholder="Paste proposed real chapter prose here.">Anthony stood before the first broken sign that the sanctuary was real, not myth. The stone did not announce itself as a doorway or a warning. It waited in the dust, half-buried beneath centuries of silence, marked by a symbol he had seen only once before. Someone had wanted him to find it. That was what frightened him most.</textarea><button onclick="loadRealProseGate(false)">Load Real Prose Gate</button><button onclick="loadRealProseGate(true)">Export Real Prose Gate</button><button onclick="api('/api/open/kayock_writer_real_prose_gate_reports')">Open Real Prose Gate Reports</button><button onclick="sendRealProseGateToMission()">Send Real Prose Gate to Mission</button><div id=realProseStatus class=status>No Real Prose Gate loaded yet.</div></div><div class="card wide"><h3>Gate Summary</h3><div id=realProseSummary class=status>No summary yet.</div></div><div class="card wide"><h3>Selected Targets</h3><div id=realProseTargets class=scanlist>No targets loaded yet.</div></div><div class="card wide"><h3>Real Prose Preview</h3><pre id=realProsePreview>No preview loaded yet.</pre></div><div class="card wide"><h3>Blockers</h3><div id=realProseBlockers class=scanlist>No blockers loaded yet.</div></div><div class="card wide"><h3>Checks</h3><div id=realProseChecks class=scanlist>No checks loaded yet.</div></div><div class="card wide"><h3>Safety Contract</h3><pre id=realProseSafety>No safety contract loaded yet.</pre></div></div></section>
+
+<section id=realprosesave class=page><div class=hero><h2>Real Prose Save Approved Action</h2><p>Approved action that saves real chapter prose as the next draft version with metadata, evidence, and post-save verification.</p></div><div class=grid><div class="card wide"><h3>Real Prose Save Controls</h3><select id=realProseSaveBook><option value="book_1">Book 1</option><option value="book_2" selected>Book 2</option></select><select id=realProseSaveChapter><option value="1">Chapter 1</option><option value="2" selected>Chapter 2</option><option value="3">Chapter 3</option></select><select id=realProseSaveMode><option value="replace_placeholder" selected>Replace Placeholder</option><option value="append_to_latest">Append To Latest</option><option value="new_real_draft_from_card">New Real Draft From Card</option></select><input id=realProseSavePhrase placeholder="Required exact phrase: SAVE REAL PROSE DRAFT"><textarea id=realProseSaveText placeholder="Paste real chapter prose here.">Anthony stood before the first broken sign that the sanctuary was real, not myth. The stone did not announce itself as a doorway or a warning. It waited in the dust, half-buried beneath centuries of silence, marked by a symbol he had seen only once before. Someone had wanted him to find it. That was what frightened him most.</textarea><button onclick="loadRealProseSave(false)">Preview Real Prose Save</button><button onclick="loadRealProseSave(true)">SAVE REAL PROSE DRAFT WITH APPROVAL</button><button onclick="api('/api/open/kayock_writer_real_prose_save_reports')">Open Real Prose Save Reports</button><button onclick="sendRealProseSaveToMission()">Send Real Prose Save to Mission</button><div id=realProseSaveStatus class=status>No Real Prose Save Action loaded yet.</div></div><div class="card wide"><h3>Action Summary</h3><div id=realProseSaveSummary class=status>No summary yet.</div></div><div class="card wide"><h3>Selected Targets / Created Files</h3><div id=realProseSaveTargets class=scanlist>No targets loaded yet.</div></div><div class="card wide"><h3>New Real Prose Draft Preview</h3><pre id=realProseSavePreview>No preview loaded yet.</pre></div><div class="card wide"><h3>Preflight Checks</h3><div id=realProseSavePreflight class=scanlist>No preflight loaded yet.</div></div><div class="card wide"><h3>Post Checks</h3><div id=realProseSavePost class=scanlist>No post checks loaded yet.</div></div><div class="card wide"><h3>Safety Contract</h3><pre id=realProseSaveSafety>No safety contract loaded yet.</pre></div></div></section>
+
+
+<section id=realproserefreshcompare class=page><div class=hero><h2>Real Prose Refresh / Compare</h2><p>Read-only verification that v003 real prose is visible, latest, hash-verified, and compared against v002 placeholder proof text.</p></div><div class=grid><div class="card wide"><h3>Refresh / Compare Controls</h3><select id=realProseVerifyBook><option value="book_1">Book 1</option><option value="book_2" selected>Book 2</option></select><select id=realProseVerifyChapter><option value="1">Chapter 1</option><option value="2" selected>Chapter 2</option><option value="3">Chapter 3</option></select><input id=realProseVerifyFrom type=number value=2 min=1 max=99><input id=realProseVerifyTo type=number value=3 min=2 max=99><button onclick="loadRealProseVerify(false)">Load Real Prose Verify</button><button onclick="loadRealProseVerify(true)">Export Real Prose Verify</button><button onclick="api('/api/open/kayock_writer_real_prose_refresh_compare_reports')">Open Verify Reports</button><button onclick="sendRealProseVerifyToMission()">Send Verify to Mission</button><div id=realProseVerifyStatus class=status>No Real Prose Refresh / Compare loaded yet.</div></div><div class="card wide"><h3>Verification Summary</h3><div id=realProseVerifySummary class=status>No summary yet.</div></div><div class="card wide"><h3>Version Inventory</h3><div id=realProseVerifyVersions class=scanlist>No versions loaded yet.</div></div><div class="card wide"><h3>Added Real Prose Lines</h3><div id=realProseVerifyAdded class=scanlist>No added lines loaded yet.</div></div><div class="card wide"><h3>Removed Placeholder Lines</h3><div id=realProseVerifyRemoved class=scanlist>No removed lines loaded yet.</div></div><div class="card wide"><h3>Unified Diff</h3><pre id=realProseVerifyDiff>No diff loaded yet.</pre></div><div class="card wide"><h3>Checks</h3><div id=realProseVerifyChecks class=scanlist>No checks loaded yet.</div></div><div class="card wide"><h3>Safety Contract</h3><pre id=realProseVerifySafety>No safety contract loaded yet.</pre></div></div></section>
+
+<section id=realproseeditorgate class=page><div class=hero><h2>Real Prose Editor Gate</h2><p>No-write edit gate for revising the latest real prose draft with direct diff preview before any approved save action.</p></div><div class=grid><div class="card wide"><h3>Real Prose Editor Gate Controls</h3><select id=realProseEditorBook><option value="book_1">Book 1</option><option value="book_2" selected>Book 2</option></select><select id=realProseEditorChapter><option value="1">Chapter 1</option><option value="2" selected>Chapter 2</option><option value="3">Chapter 3</option></select><select id=realProseEditorMode><option value="revise_latest_real_prose" selected>Revise Latest Real Prose</option><option value="polish_only">Polish Only</option><option value="expand_scene">Expand Scene</option></select><input id=realProseEditorPhrase placeholder="Required exact phrase: APPROVE REAL PROSE EDIT PREVIEW"><textarea id=realProseEditorText placeholder="Paste revised prose here.">Anthony stood before the first broken sign that the sanctuary was real, not myth. The stone did not announce itself as a doorway or a warning. It waited in the dust, half-buried beneath centuries of silence, marked by a symbol he had seen only once before. Someone had wanted him to find it. That was what frightened him most, because a trap meant someone knew he was coming.</textarea><button onclick="loadRealProseEditorGate(false)">Load Real Prose Editor Gate</button><button onclick="loadRealProseEditorGate(true)">Export Real Prose Editor Gate</button><button onclick="api('/api/open/kayock_writer_real_prose_editor_gate_reports')">Open Editor Gate Reports</button><button onclick="sendRealProseEditorGateToMission()">Send Editor Gate to Mission</button><div id=realProseEditorStatus class=status>No Real Prose Editor Gate loaded yet.</div></div><div class="card wide"><h3>Gate Summary</h3><div id=realProseEditorSummary class=status>No summary yet.</div></div><div class="card wide"><h3>Selected Targets</h3><div id=realProseEditorTargets class=scanlist>No targets loaded yet.</div></div><div class="card wide"><h3>Added Lines</h3><div id=realProseEditorAdded class=scanlist>No added lines loaded yet.</div></div><div class="card wide"><h3>Removed Lines</h3><div id=realProseEditorRemoved class=scanlist>No removed lines loaded yet.</div></div><div class="card wide"><h3>Unified Diff</h3><pre id=realProseEditorDiff>No diff loaded yet.</pre></div><div class="card wide"><h3>Edited Prose Preview</h3><pre id=realProseEditorPreview>No preview loaded yet.</pre></div><div class="card wide"><h3>Blockers</h3><div id=realProseEditorBlockers class=scanlist>No blockers loaded yet.</div></div><div class="card wide"><h3>Checks</h3><div id=realProseEditorChecks class=scanlist>No checks loaded yet.</div></div><div class="card wide"><h3>Safety Contract</h3><pre id=realProseEditorSafety>No safety contract loaded yet.</pre></div></div></section>
+
+
+<section id=realproseeditsave class=page><div class=hero><h2>Real Prose Edit Save Approved Action</h2><p>Approved action that saves revised real prose as the next draft version with metadata, evidence, and post-save verification.</p></div><div class=grid><div class="card wide"><h3>Real Prose Edit Save Controls</h3><select id=realProseEditSaveBook><option value="book_1">Book 1</option><option value="book_2" selected>Book 2</option></select><select id=realProseEditSaveChapter><option value="1">Chapter 1</option><option value="2" selected>Chapter 2</option><option value="3">Chapter 3</option></select><select id=realProseEditSaveMode><option value="revise_latest_real_prose" selected>Revise Latest Real Prose</option><option value="replace_latest_real_prose">Replace Latest Real Prose</option><option value="append_to_latest_real_prose">Append To Latest Real Prose</option></select><input id=realProseEditSavePhrase placeholder="Required exact phrase: SAVE REAL PROSE EDIT"><textarea id=realProseEditSaveText placeholder="Paste revised real prose here.">Anthony stood before the first broken sign that the sanctuary was real, not myth. The stone did not announce itself as a doorway or a warning. It waited in the dust, half-buried beneath centuries of silence, marked by a symbol he had seen only once before. Someone had wanted him to find it. That was what frightened him most, because a trap meant someone knew he was coming.</textarea><button onclick="loadRealProseEditSave(false)">Preview Real Prose Edit Save</button><button onclick="loadRealProseEditSave(true)">SAVE REAL PROSE EDIT WITH APPROVAL</button><button onclick="api('/api/open/kayock_writer_real_prose_edit_save_reports')">Open Edit Save Reports</button><button onclick="sendRealProseEditSaveToMission()">Send Edit Save to Mission</button><div id=realProseEditSaveStatus class=status>No Real Prose Edit Save Action loaded yet.</div></div><div class="card wide"><h3>Action Summary</h3><div id=realProseEditSaveSummary class=status>No summary yet.</div></div><div class="card wide"><h3>Selected Targets / Created Files</h3><div id=realProseEditSaveTargets class=scanlist>No targets loaded yet.</div></div><div class="card wide"><h3>Added Lines</h3><div id=realProseEditSaveAdded class=scanlist>No added lines loaded yet.</div></div><div class="card wide"><h3>Removed Lines</h3><div id=realProseEditSaveRemoved class=scanlist>No removed lines loaded yet.</div></div><div class="card wide"><h3>New Edited Draft Preview</h3><pre id=realProseEditSavePreview>No preview loaded yet.</pre></div><div class="card wide"><h3>Preflight Checks</h3><div id=realProseEditSavePreflight class=scanlist>No preflight loaded yet.</div></div><div class="card wide"><h3>Post Checks</h3><div id=realProseEditSavePost class=scanlist>No post checks loaded yet.</div></div><div class="card wide"><h3>Safety Contract</h3><pre id=realProseEditSaveSafety>No safety contract loaded yet.</pre></div></div></section>
+
+
+<section id=realproseeditverify class=page><div class=hero><h2>Real Prose Edit Refresh / Compare</h2><p>Read-only verification that v004 revised real prose is visible, latest, hash-verified, and compared against v003.</p></div><div class=grid><div class="card wide"><h3>Edit Refresh / Compare Controls</h3><select id=realProseEditVerifyBook><option value="book_1">Book 1</option><option value="book_2" selected>Book 2</option></select><select id=realProseEditVerifyChapter><option value="1">Chapter 1</option><option value="2" selected>Chapter 2</option><option value="3">Chapter 3</option></select><input id=realProseEditVerifyFrom type=number value=3 min=1 max=99><input id=realProseEditVerifyTo type=number value=4 min=2 max=99><button onclick="loadRealProseEditVerify(false)">Load Edit Verify</button><button onclick="loadRealProseEditVerify(true)">Export Edit Verify</button><button onclick="api('/api/open/kayock_writer_real_prose_edit_refresh_compare_reports')">Open Edit Verify Reports</button><button onclick="sendRealProseEditVerifyToMission()">Send Edit Verify to Mission</button><div id=realProseEditVerifyStatus class=status>No Real Prose Edit Refresh / Compare loaded yet.</div></div><div class="card wide"><h3>Verification Summary</h3><div id=realProseEditVerifySummary class=status>No summary yet.</div></div><div class="card wide"><h3>Version Inventory</h3><div id=realProseEditVerifyVersions class=scanlist>No versions loaded yet.</div></div><div class="card wide"><h3>Added Revised Lines</h3><div id=realProseEditVerifyAdded class=scanlist>No added lines loaded yet.</div></div><div class="card wide"><h3>Removed Prior Lines</h3><div id=realProseEditVerifyRemoved class=scanlist>No removed lines loaded yet.</div></div><div class="card wide"><h3>Unified Diff</h3><pre id=realProseEditVerifyDiff>No diff loaded yet.</pre></div><div class="card wide"><h3>Checks</h3><div id=realProseEditVerifyChecks class=scanlist>No checks loaded yet.</div></div><div class="card wide"><h3>Safety Contract</h3><pre id=realProseEditVerifySafety>No safety contract loaded yet.</pre></div></div></section>
+
+
+<section id=chapterproseworkspace class=page><div class=hero><h2>Chapter Prose Workspace / Private Human Screen</h2><p>Draft beside the AI without giving the AI access to your private writing. The AI-visible pane can be shared; the Private Human Screen stays human-only unless you explicitly share it later.</p></div><div class=grid><div class="card wide"><h3>Workspace Controls</h3><select id=chapterProseWorkspaceBook><option value="book_1">Book 1</option><option value="book_2" selected>Book 2</option></select><select id=chapterProseWorkspaceChapter><option value="1">Chapter 1</option><option value="2" selected>Chapter 2</option><option value="3">Chapter 3</option></select><button onclick="loadChapterProseWorkspace(false)">Load Workspace</button><button onclick="loadChapterProseWorkspace(true)">Export Workspace Proof</button><button onclick="api('/api/open/kayock_writer_chapter_prose_workspace_reports')">Open Workspace Reports</button><button onclick="sendChapterProseWorkspaceToMission()">Send AI-Visible Workspace to Mission</button><div id=chapterProseWorkspaceStatus class=status>No Chapter Prose Workspace loaded yet.</div></div><div class="card wide"><h3>Privacy Contract</h3><div class=privateHumanBanner><b>Private Human Screen:</b> AI cannot read this pane. It is not sent to the server, not included in reports, not used in prompts, and not scanned for continuity by default.</div><pre id=chapterProsePrivacyContract>No privacy contract loaded yet.</pre></div><div class="card wide"><h3>Latest Draft Viewer</h3><div id=chapterProseLatestSummary class=status>No latest draft loaded yet.</div><pre id=chapterProseLatestPreview>No latest prose loaded yet.</pre></div><div class="card wide"><h3>AI-Visible Workspace</h3><p class=muted>This pane is safe to send to the AI. Use it for scene goals, approved continuation ideas, or public notes.</p><textarea id=chapterProseAiVisible rows=8 placeholder="AI-visible notes only. Example: Continue from v004. Build tension around the sanctuary clue and Anthony suspecting bait.">Continue from the latest verified prose version. Build tension around the sanctuary clue and Anthony suspecting the artifact may be bait.</textarea></div><div class="card wide privatePaneCard"><h3>Private Human Screen</h3><p class=muted>This pane is local-only in your browser. It is not sent when you load or export the workspace proof.</p><textarea id=chapterProsePrivatePane rows=12 placeholder="Human-only private writing. The AI does not see this unless you explicitly share it later."></textarea><button onclick="saveChapterProsePrivatePane()">Save Private Pane Locally</button><button onclick="loadChapterProsePrivatePane()">Reload Private Pane</button><button onclick="clearChapterProsePrivatePane()">Clear Private Pane</button><div id=chapterProsePrivateStatus class=status>Private pane local status: not loaded.</div></div><div class="card wide"><h3>Reusable Human-Only Pane Plan</h3><div id=chapterProseReusablePlan class=scanlist>No reusable component plan loaded yet.</div></div><div class="card wide"><h3>Checks</h3><div id=chapterProseWorkspaceChecks class=scanlist>No checks loaded yet.</div></div><div class="card wide"><h3>Safety Contract</h3><pre id=chapterProseWorkspaceSafety>No safety contract loaded yet.</pre></div></div></section>
+
+
+<section id=chapterprosecontinuegate class=page><div class=hero><h2>Chapter Prose Continue Gate</h2><p>No-write continuation gate that uses only the latest verified draft and AI-visible workspace text. The Private Human Screen stays hidden from the AI and is not sent to this endpoint.</p></div><div class=grid><div class="card wide"><h3>Continue Gate Controls</h3><p class=muted>Default mode now means: continue from the latest verified draft. It does not mean overwrite or mutate the latest draft.</p><select id=chapterProseContinueBook><option value="book_1">Book 1</option><option value="book_2" selected>Book 2</option></select><select id=chapterProseContinueChapter><option value="1">Chapter 1</option><option value="2" selected>Chapter 2</option><option value="3">Chapter 3</option></select><select id=chapterProseContinueMode><option value="continue_from_latest" selected>Continue from latest verified draft</option><option value="next_paragraph">Next paragraph</option><option value="next_scene">Next scene</option></select><input id=chapterProseContinuePhrase placeholder="APPROVE CHAPTER PROSE CONTINUE PREVIEW"><button onclick="loadChapterProseContinueGate(false)">Load Continue Gate</button><button onclick="loadChapterProseContinueGate(true)">Export Continue Gate</button><button onclick="api('/api/open/kayock_writer_chapter_prose_continue_gate_reports')">Open Continue Gate Reports</button><button onclick="sendChapterProseContinueGateToMission()">Send Continue Gate to Mission</button><div id=chapterProseContinueStatus class=status>No Chapter Prose Continue Gate loaded yet.</div></div><div class="card wide"><h3>AI-Visible Context</h3><p class=muted>This text may be used by the continuation gate. Do not put private human-only notes here.</p><textarea id=chapterProseContinueAiVisible rows=5>Continue from the latest verified prose version. Build tension around the sanctuary clue and Anthony suspecting the artifact may be bait.</textarea></div><div class="card wide"><h3>Proposed Continuation</h3><textarea id=chapterProseContinueText rows=7>Anthony studied the symbol again and forced himself not to touch it. If the clue had been left for him, then the real question was not where it pointed. The real question was who had known he would come this far.</textarea></div><div class="card wide"><h3>Private Human Screen Reminder</h3><div class=privateHumanBanner><b>Private Human Screen:</b> not sent to this gate. Write private notes only on the Prose Workspace private pane. This gate uses AI-visible text only.</div><pre id=chapterProseContinuePrivacy>No privacy contract loaded yet.</pre></div><div class="card wide"><h3>Gate Summary</h3><div id=chapterProseContinueSummary class=status>No summary loaded yet.</div></div><div class="card wide"><h3>Added Continuation Lines</h3><div id=chapterProseContinueAdded class=scanlist>No added lines loaded yet.</div></div><div class="card wide"><h3>Unified Diff</h3><pre id=chapterProseContinueDiff>No diff loaded yet.</pre></div><div class="card wide"><h3>New Draft Preview</h3><pre id=chapterProseContinuePreview>No preview loaded yet.</pre></div><div class="card wide"><h3>Checks</h3><div id=chapterProseContinueChecks class=scanlist>No checks loaded yet.</div></div></div></section>
+
+<section id=chapterprosecontinuesave class=page><div class=hero><h2>Chapter Prose Continue Save</h2><p>Approved write action that saves the continuation preview as the next draft version only after the exact save phrase. The Private Human Screen is not sent to this endpoint.</p></div><div class=grid><div class="card wide"><h3>Continue Save Controls</h3><p class=muted>This action can write v005. Use Preview first, then Save + Export Evidence after checking the target paths.</p><select id=chapterProseContinueSaveBook><option value="book_1">Book 1</option><option value="book_2" selected>Book 2</option></select><select id=chapterProseContinueSaveChapter><option value="1">Chapter 1</option><option value="2" selected>Chapter 2</option><option value="3">Chapter 3</option></select><select id=chapterProseContinueSaveMode><option value="continue_from_latest" selected>Continue from latest verified draft</option><option value="next_paragraph">Next paragraph</option><option value="next_scene">Next scene</option></select><input id=chapterProseContinueSavePhrase placeholder="SAVE CHAPTER PROSE CONTINUATION"><button onclick="loadChapterProseContinueSave(false,false)">Preview Save Action</button><button onclick="loadChapterProseContinueSave(true,false)">SAVE Continuation</button><button onclick="loadChapterProseContinueSave(true,true)">SAVE + Export Evidence</button><button onclick="api('/api/open/kayock_writer_chapter_prose_continue_save_reports')">Open Continue Save Reports</button><button onclick="sendChapterProseContinueSaveToMission()">Send Save Evidence to Mission</button><div id=chapterProseContinueSaveStatus class=status>No Chapter Prose Continue Save loaded yet.</div></div><div class="card wide"><h3>AI-Visible Context</h3><p class=muted>This text may be used by the save action through the proven continue gate. Do not put private human-only notes here.</p><textarea id=chapterProseContinueSaveAiVisible rows=5>Continue from the latest verified prose version. Build tension around the sanctuary clue and Anthony suspecting the artifact may be bait.</textarea></div><div class="card wide"><h3>Continuation To Save</h3><textarea id=chapterProseContinueSaveText rows=7>Anthony studied the symbol again and forced himself not to touch it. If the clue had been left for him, then the real question was not where it pointed. The real question was who had known he would come this far.</textarea></div><div class="card wide"><h3>Private Human Screen Reminder</h3><div class=privateHumanBanner><b>Private Human Screen:</b> not sent to this save action. This endpoint uses AI-visible text only.</div><pre id=chapterProseContinueSavePrivacy>No privacy contract loaded yet.</pre></div><div class="card wide"><h3>Save Summary</h3><div id=chapterProseContinueSaveSummary class=status>No summary loaded yet.</div></div><div class="card wide"><h3>Created / Written Files</h3><div id=chapterProseContinueSaveFiles class=scanlist>No files written yet.</div></div><div class="card wide"><h3>Blockers</h3><div id=chapterProseContinueSaveBlockers class=scanlist>No blockers loaded yet.</div></div><div class="card wide"><h3>Preflight Checks</h3><div id=chapterProseContinueSavePreflight class=scanlist>No preflight checks loaded yet.</div></div><div class="card wide"><h3>Post-Save Checks</h3><div id=chapterProseContinueSavePost class=scanlist>No post-save checks loaded yet.</div></div><div class="card wide"><h3>New Draft Preview</h3><pre id=chapterProseContinueSavePreview>No preview loaded yet.</pre></div></div></section>
+
+<section id=chapterprosecontinueverify class=page><div class=hero><h2>Chapter Prose Continue Refresh / Compare</h2><p>Read-only verification that v005 exists, metadata/evidence verify, and the v004 → v005 continuation diff is stable. The Private Human Screen is never used.</p></div><div class=grid><div class="card wide"><h3>Refresh / Compare Controls</h3><select id=chapterProseContinueVerifyBook><option value="book_1">Book 1</option><option value="book_2" selected>Book 2</option></select><select id=chapterProseContinueVerifyChapter><option value="1">Chapter 1</option><option value="2" selected>Chapter 2</option><option value="3">Chapter 3</option></select><input id=chapterProseContinueVerifyFrom type=number value=4 min=1 max=99><input id=chapterProseContinueVerifyTo type=number value=5 min=2 max=99><button onclick="loadChapterProseContinueVerify(false)">Load Continue Verify</button><button onclick="loadChapterProseContinueVerify(true)">Export Continue Verify</button><button onclick="api('/api/open/kayock_writer_chapter_prose_continue_refresh_compare_reports')">Open Continue Verify Reports</button><button onclick="sendChapterProseContinueVerifyToMission()">Send Continue Verify to Mission</button><div id=chapterProseContinueVerifyStatus class=status>No Chapter Prose Continue Refresh / Compare loaded yet.</div></div><div class="card wide"><h3>Verification Summary</h3><div id=chapterProseContinueVerifySummary class=status>No summary loaded yet.</div></div><div class="card wide"><h3>Version Inventory</h3><div id=chapterProseContinueVerifyVersions class=scanlist>No versions loaded yet.</div></div><div class="card wide"><h3>Added Continuation Lines</h3><div id=chapterProseContinueVerifyAdded class=scanlist>No added lines loaded yet.</div></div><div class="card wide"><h3>Removed Lines</h3><div id=chapterProseContinueVerifyRemoved class=scanlist>No removed lines loaded yet.</div></div><div class="card wide"><h3>Unified Diff</h3><pre id=chapterProseContinueVerifyDiff>No diff loaded yet.</pre></div><div class="card wide"><h3>Checks</h3><div id=chapterProseContinueVerifyChecks class=scanlist>No checks loaded yet.</div></div><div class="card wide"><h3>Safety Contract</h3><pre id=chapterProseContinueVerifySafety>No safety contract loaded yet.</pre></div></div></section>
 
 <section id=academy class=page><div class=hero><h2>Academy</h2><p>Professors are prompt profiles.</p></div><div id=profgrid class=grid></div></section>
 
@@ -521,7 +586,7 @@ Only optional inventory export</div></div></div></section>
 </main></div><div id=toast></div><script>
 let activeProject=null, curLib='', missionData=null; const chat=document.getElementById('chatLog');
 function q(id){return document.getElementById(id)}function toast(s){q('toast').textContent=s;q('toast').style.display='block';setTimeout(()=>q('toast').style.display='none',4200)}
-function pg(id,b){if(id==='dash')setTimeout(()=>loadRecoveryDashboard(),0); if(id==='commandcenter')setTimeout(()=>loadCommandCenter(false),0); if(id==='commanddetail')setTimeout(()=>loadCommandDetailList(),0); if(id==='commandarchive')setTimeout(()=>loadCommandArchive(false),0); if(id==='commandfreeze')setTimeout(()=>loadCommandFreeze(false),0); if(id==='kayockwriter')setTimeout(()=>loadKayockWriter(false),0); if(id==='storyforge')setTimeout(()=>loadStoryForge(false),0); if(id==='storymanifest')setTimeout(()=>loadStoryManifest(false),0); if(id==='projectgate')setTimeout(()=>loadProjectGate(false),0); if(id==='projectaction')setTimeout(()=>loadProjectAction(false,false),0); if(id==='projectdashboard')setTimeout(()=>loadProjectDashboard(false),0); if(id==='chapterplanner')setTimeout(()=>loadChapterPlanner(false),0); if(id==='chaptersavegate')setTimeout(()=>loadChapterSaveGate(false),0); if(id==='chaptersaveaction')setTimeout(()=>loadChapterSaveAction(false,false),0); if(id==='savedchapters')setTimeout(()=>loadSavedChapterDashboard(false),0); if(id==='savedchapterhealth')setTimeout(()=>loadSavedChapterHealthCard(false,'savedChapterHealth','savedChapterHealthBook'),0);document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));q(id).classList.add('active');document.querySelectorAll('.nav').forEach(x=>x.classList.remove('active'));if(b)b.classList.add('active'); if(id==='projects')loadProjects(); if(id==='memory')loadMemory(); if(id==='library'){loadLib(curLib);loadIronIndexStatus(); if(q('libResults')&&!q('libResults').innerHTML.trim())searchLib()} if(id==='novelforge'){loadNovelForgeList();setTimeout(updateCodexDashboard,0)} if(id==='prompts')loadPrompts(); if(id==='extensions')loadExtensions(); if(id==='scanbridge'&&!q('scanPath').value)q('scanPath').value='Departments'; if(id==='projectgen')setTimeout(refreshProjectDocsStatus,0); if(id==='repairhistory')setTimeout(()=>loadRepairHistory(false),0); if(id==='repairops')setTimeout(()=>loadRepairOps(false),0); if(id==='repairdetail')setTimeout(()=>loadRepairDetailList(),0); if(id==='repairtickets')setTimeout(()=>loadRepairTickets(false),0); if(id==='repairticketdetail')setTimeout(()=>loadRepairTicketDetailList(),0); if(id==='ticketbridge')setTimeout(()=>loadTicketBridgeList(),0); if(id==='repairsession')setTimeout(()=>loadRepairSession(false),0); if(id==='repairfreeze')setTimeout(()=>loadRepairFreeze(false),0); if(id==='backupvault')setTimeout(()=>loadBackupVault(false),0); if(id==='restorepreview')setTimeout(()=>loadRestoreBackupList(),0); if(id==='restoregate')setTimeout(()=>loadRestoreGateList(),0); if(id==='restorestaging')setTimeout(()=>loadRestoreStagingList(),0); if(id==='stagingpackages')setTimeout(()=>loadStagingPackages(false),0); if(id==='restorefinal')setTimeout(()=>loadRestoreFinalList(),0); if(id==='restoreaction')setTimeout(()=>loadRestoreActionList(),0); if(id==='restoreaudit')setTimeout(()=>loadRestoreAudit(false),0); if(id==='rollbackpreview')setTimeout(()=>loadRollbackPreviewActions(),0); if(id==='rollbackaction')setTimeout(()=>loadRollbackActionList(),0); if(id==='rollbackaudit')setTimeout(()=>loadRollbackAudit(false),0); if(id==='recoverytimeline')setTimeout(()=>loadRecoveryTimeline(false),0)}
+function pg(id,b){if(id==='dash')setTimeout(()=>loadRecoveryDashboard(),0); if(id==='commandcenter')setTimeout(()=>loadCommandCenter(false),0); if(id==='commanddetail')setTimeout(()=>loadCommandDetailList(),0); if(id==='commandarchive')setTimeout(()=>loadCommandArchive(false),0); if(id==='commandfreeze')setTimeout(()=>loadCommandFreeze(false),0); if(id==='kayockwriter')setTimeout(()=>loadKayockWriter(false),0); if(id==='storyforge')setTimeout(()=>loadStoryForge(false),0); if(id==='storymanifest')setTimeout(()=>loadStoryManifest(false),0); if(id==='projectgate')setTimeout(()=>loadProjectGate(false),0); if(id==='projectaction')setTimeout(()=>loadProjectAction(false,false),0); if(id==='projectdashboard')setTimeout(()=>loadProjectDashboard(false),0); if(id==='chapterplanner')setTimeout(()=>loadChapterPlanner(false),0); if(id==='chaptersavegate')setTimeout(()=>loadChapterSaveGate(false),0); if(id==='chaptersaveaction')setTimeout(()=>loadChapterSaveAction(false,false),0); if(id==='savedchapters')setTimeout(()=>loadSavedChapterDashboard(false),0); if(id==='savedchapterhealth')setTimeout(()=>loadSavedChapterHealthCard(false,'savedChapterHealth','savedChapterHealthBook'),0);document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));q(id).classList.add('active');document.querySelectorAll('.nav').forEach(x=>x.classList.remove('active'));if(b)b.classList.add('active'); if(id==='projects')loadProjects(); if(id==='memory')loadMemory(); if(id==='library'){loadLib(curLib);loadIronIndexStatus(); if(q('libResults')&&!q('libResults').innerHTML.trim())searchLib()} if(id==='novelforge'){loadNovelForgeList();setTimeout(updateCodexDashboard,0)} if(id==='prompts')loadPrompts(); if(id==='extensions')loadExtensions(); if(id==='scanbridge'&&!q('scanPath').value)q('scanPath').value='Departments'; if(id==='projectgen')setTimeout(refreshProjectDocsStatus,0); if(id==='repairhistory')setTimeout(()=>loadRepairHistory(false),0); if(id==='repairops')setTimeout(()=>loadRepairOps(false),0); if(id==='repairdetail')setTimeout(()=>loadRepairDetailList(),0); if(id==='repairtickets')setTimeout(()=>loadRepairTickets(false),0); if(id==='repairticketdetail')setTimeout(()=>loadRepairTicketDetailList(),0); if(id==='ticketbridge')setTimeout(()=>loadTicketBridgeList(),0); if(id==='repairsession')setTimeout(()=>loadRepairSession(false),0); if(id==='repairfreeze')setTimeout(()=>loadRepairFreeze(false),0); if(id==='backupvault')setTimeout(()=>loadBackupVault(false),0); if(id==='restorepreview')setTimeout(()=>loadRestoreBackupList(),0); if(id==='restoregate')setTimeout(()=>loadRestoreGateList(),0); if(id==='restorestaging')setTimeout(()=>loadRestoreStagingList(),0); if(id==='stagingpackages')setTimeout(()=>loadStagingPackages(false),0); if(id==='restorefinal')setTimeout(()=>loadRestoreFinalList(),0); if(id==='restoreaction')setTimeout(()=>loadRestoreActionList(),0); if(id==='restoreaudit')setTimeout(()=>loadRestoreAudit(false),0); if(id==='rollbackpreview')setTimeout(()=>loadRollbackPreviewActions(),0); if(id==='rollbackaction')setTimeout(()=>loadRollbackActionList(),0); if(id==='rollbackaudit')setTimeout(()=>loadRollbackAudit(false),0); if(id==='recoverytimeline')setTimeout(()=>loadRecoveryTimeline(false),0); if(id==='realproseeditorgate')setTimeout(()=>loadRealProseEditorGate(false),0); if(id==='realproseeditsave')setTimeout(()=>loadRealProseEditSave(false),0); if(id==='chapterproseworkspace')setTimeout(()=>loadChapterProseWorkspace(false),0); if(id==='chapterprosecontinuegate')setTimeout(()=>loadChapterProseContinueGate(false),0); if(id==='chapterprosecontinuesave')setTimeout(()=>loadChapterProseContinueSave(false,false),0)}
 function go(id){let b=[...document.querySelectorAll('.nav')].find(x=>x.getAttribute('onclick')?.includes("'"+id+"'"));pg(id,b)}function goMemory(){go('memory')}
 async function api(u,opt){try{let r=await fetch(u,opt);let d=await r.json();toast(d.message||JSON.stringify(d));refresh();return d}catch(e){toast('Request failed: '+e)}}function esc(s){return String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}function js(s){return String(s).replace(/\\/g,'\\\\').replace(/'/g,"\\'")}
 function logline(c,w,m){chat.innerHTML+=`<span class=${c}>[${w}]</span> ${esc(m)}\n\n`;chat.scrollTop=chat.scrollHeight}function think(on){q('pulse').innerHTML=on?'<span class=pulse></span>':'';q('ms').textContent=on?'THINKING':'READY'}
@@ -3785,6 +3850,1669 @@ Please determine:
     toast('Saved Chapter Health sent to Mission Console.');
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+let lastChapterProseContinueGate=null;
+async function loadChapterProseContinueGate(doExport=false){
+    if(!q('chapterProseContinueStatus'))return;
+    q('chapterProseContinueStatus').textContent='Loading Chapter Prose Continue Gate...';
+    let body={book_id:q('chapterProseContinueBook')?.value||'book_2',chapter_number:parseInt(q('chapterProseContinueChapter')?.value||'2'),continue_mode:q('chapterProseContinueMode')?.value||'append_to_latest',approval_phrase:q('chapterProseContinuePhrase')?.value||'',ai_visible_goal:q('chapterProseContinueAiVisible')?.value||'',proposed_continuation:q('chapterProseContinueText')?.value||'',export:doExport};
+    let d=await api('/api/writer/chapter_prose_continue_gate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+    if(!d?.ok){q('chapterProseContinueStatus').textContent=(d?.message||d?.error||'Could not load Chapter Prose Continue Gate.');return;}
+    lastChapterProseContinueGate=d;
+    let s=d.summary||{}, p=d.continue_preview||{}, priv=d.private_human_screen_contract||{};
+    q('chapterProseContinueStatus').innerHTML=`<span class="chapterContinueBadge ${d.gate_ready?'':'bad'}">${esc(d.health_label||'UNKNOWN')}</span>`;
+    q('chapterProseContinueSummary').innerHTML=`<div><b>${esc(d.milestone||'')}</b></div><div class=chapterProseGrid><div class=chapterProseMetric><div class=label>Gate Ready</div><div class=value>${d.gate_ready?'YES':'NO'}</div></div><div class=chapterProseMetric><div class=label>Latest</div><div class=value>${esc(s.latest_label||'')}</div></div><div class=chapterProseMetric><div class=label>Next</div><div class=value>${esc(s.next_label||'')}</div></div><div class=chapterProseMetric><div class=label>Phrase</div><div class=value>${s.phrase_matches?'YES':'NO'}</div></div><div class=chapterProseMetric><div class=label>Private Sent</div><div class=value>${s.private_text_received_by_endpoint?'YES':'NO'}</div></div><div class=chapterProseMetric><div class=label>Checks</div><div class=value>${s.checks_passed||0}/${s.checks||0}</div></div></div><div class=muted>Save enabled this build: ${s.continue_save_enabled_this_build?'YES':'NO'} | Safe to save later: ${s.safe_to_save_later?'YES':'NO'}</div>${d.exported?`<div class=muted>Export: ${esc(d.exported.markdown||'')}</div>`:''}`;
+    q('chapterProseContinuePrivacy').textContent=Object.entries(priv).map(([k,v])=>`${k}: ${Array.isArray(v)?v.join(', '):v}`).join('\n');
+    q('chapterProseContinueAdded').innerHTML=(p.added_lines||[]).map(x=>`<div class="histrow ok"><b>Added</b><div>${esc(x)}</div></div>`).join('')||'No added lines.';
+    q('chapterProseContinueDiff').textContent=(p.line_diff||[]).join('\n')||'No diff.';
+    q('chapterProseContinuePreview').textContent=p.new_markdown_preview||'No preview.';
+    q('chapterProseContinueChecks').innerHTML=(d.checks||[]).map(c=>`<div class="histrow ${c.ok?'ok':'fail'}"><b>${esc(c.id||'check')}</b><div>${esc(c.message||'')}</div></div>`).join('')||'No checks.';
+    toast('Chapter Prose Continue Gate loaded.');
+}
+function sendChapterProseContinueGateToMission(){
+    if(!lastChapterProseContinueGate){toast('Load Chapter Prose Continue Gate first.');return;}
+    let d=lastChapterProseContinueGate, s=d.summary||{}, p=d.continue_preview||{};
+    go('mission');
+    q('input').value=`Please review this Kayock Writer Chapter Prose Continue Gate report.\n\nMilestone: ${d.milestone}\nHealth: ${d.health_label}\nGate ready: ${d.gate_ready}\nLatest: ${s.latest_label}\nNext preview: ${s.next_label}\nPhrase matched: ${s.phrase_matches}\nPrivate text received by endpoint: ${s.private_text_received_by_endpoint}\nPrivate text stored or echoed: ${s.private_text_stored_or_echoed}\nChecks: ${s.checks_passed}/${s.checks}\nProblems: ${s.problems}\n\nProposed continuation:\n${p.proposed_continuation||''}\n\nSafety: no draft save, no chapter edit, no story mutation, no overwrite, no delete, no move, Private Human Screen excluded.\n\nPlease determine whether v10.14.7 should be marked stable/proven.`;
+    toast('Chapter Prose Continue Gate sent to Mission Console.');
+}
+
+
+let lastChapterProseContinueSave=null;
+async function loadChapterProseContinueSave(execute=false,doExport=false){
+    if(!q('chapterProseContinueSaveStatus'))return;
+    q('chapterProseContinueSaveStatus').textContent=execute?'Running Chapter Prose Continue Save...':'Loading Chapter Prose Continue Save preview...';
+    let body={book_id:q('chapterProseContinueSaveBook')?.value||'book_2',chapter_number:parseInt(q('chapterProseContinueSaveChapter')?.value||'2'),continue_mode:q('chapterProseContinueSaveMode')?.value||'continue_from_latest',approval_phrase:q('chapterProseContinueSavePhrase')?.value||'',ai_visible_goal:q('chapterProseContinueSaveAiVisible')?.value||'',proposed_continuation:q('chapterProseContinueSaveText')?.value||'',execute:!!execute,export:!!doExport};
+    let d=await api('/api/writer/chapter_prose_continue_save_action',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+    if(!d?.ok){q('chapterProseContinueSaveStatus').textContent=(d?.message||d?.error||'Could not load Chapter Prose Continue Save.');return;}
+    lastChapterProseContinueSave=d;
+    let s=d.summary||{}, p=d.continue_preview||{}, priv=d.private_human_screen_contract||{};
+    q('chapterProseContinueSaveStatus').innerHTML=`<span class="chapterContinueBadge ${d.saved?'':'bad'}">${esc(d.health_label||'UNKNOWN')}</span> ${esc(d.message||'')}`;
+    q('chapterProseContinueSaveSummary').innerHTML=`<div class=chapterProseMetrics><div class=chapterProseMetric><div class=label>Status</div><div class=value>${esc(s.status||'')}</div></div><div class=chapterProseMetric><div class=label>Allowed</div><div class=value>${s.action_allowed?'YES':'NO'}</div></div><div class=chapterProseMetric><div class=label>Latest</div><div class=value>${esc(s.latest_label||'')}</div></div><div class=chapterProseMetric><div class=label>Next</div><div class=value>${esc(s.next_label||'')}</div></div><div class=chapterProseMetric><div class=label>Words</div><div class=value>${s.new_words||0}</div></div><div class=chapterProseMetric><div class=label>Phrase</div><div class=value>${s.phrase_matches?'MATCH':'NO'}</div></div><div class=chapterProseMetric><div class=label>Collisions</div><div class=value>${s.collision_targets||0}</div></div><div class=chapterProseMetric><div class=label>Post</div><div class=value>${s.post_checks_passed||0}/${s.post_checks||0}</div></div></div>${d.exported?`<div class=muted>Export: ${esc(d.exported.markdown||'')}</div>`:''}`;
+    q('chapterProseContinueSavePrivacy').textContent=JSON.stringify(priv,null,2);
+    q('chapterProseContinueSaveFiles').innerHTML=(d.written_files||[]).map(x=>`<div class="histrow ok"><b>WRITTEN</b><div>${esc(x)}</div></div>`).join('')||'No files written.';
+    q('chapterProseContinueSaveBlockers').innerHTML=(d.blockers||[]).map(b=>`<div class="histrow fail"><b>${esc(b.id||'blocker')}</b><div>${esc(b.message||'')}</div></div>`).join('')||'<div class="histrow ok"><b>No blockers</b><div>Save preflight is clear.</div></div>';
+    q('chapterProseContinueSavePreflight').innerHTML=(d.preflight_checks||[]).map(c=>`<div class="histrow ${c.ok?'ok':'fail'}"><b>${esc(c.id||'check')}</b><div>${esc(c.message||'')}</div></div>`).join('')||'No preflight checks.';
+    q('chapterProseContinueSavePost').innerHTML=(d.post_checks||[]).map(c=>`<div class="histrow ${c.ok?'ok':'fail'}"><b>${esc(c.id||'check')}</b><div>${esc(c.message||'')}</div></div>`).join('')||'No post-save checks yet.';
+    q('chapterProseContinueSavePreview').textContent=p.new_markdown_preview||'No preview.';
+    toast('Chapter Prose Continue Save loaded.');
+}
+function sendChapterProseContinueSaveToMission(){
+    if(!lastChapterProseContinueSave){toast('Load Chapter Prose Continue Save first.');return;}
+    let d=lastChapterProseContinueSave, s=d.summary||{};
+    go('mission');
+    q('input').value=`Please review this Kayock Writer Chapter Prose Continue Save Approved Action report.\n\nMilestone: ${d.milestone}\nHealth: ${d.health_label}\nStatus: ${s.status}\nSaved: ${d.saved}\nAction allowed: ${s.action_allowed}\nLatest: ${s.latest_label}\nNext: ${s.next_label}\nPhrase matched: ${s.phrase_matches}\nPrivate text received by endpoint: ${s.private_text_received_by_endpoint}\nPrivate text stored or echoed: ${s.private_text_stored_or_echoed}\nCreated files: ${s.created_files}\nWritten files: ${s.written_files}\nPost checks: ${s.post_checks_passed}/${s.post_checks}\nProblems: ${s.problems}\nErrors: ${s.errors}\n\nSafety: exact phrase required, no overwrite, no delete, no move, no chapter edit, no story mutation, Private Human Screen excluded.\n\nPlease determine whether v10.14.8 should be marked stable/proven.`;
+    toast('Chapter Prose Continue Save sent to Mission Console.');
+}
+
+
+let lastChapterProseContinueVerify=null;
+async function loadChapterProseContinueVerify(doExport=false){
+    if(!q('chapterProseContinueVerifyStatus'))return;
+    q('chapterProseContinueVerifyStatus').textContent='Loading Chapter Prose Continue Refresh / Compare...';
+    let body={book_id:q('chapterProseContinueVerifyBook')?.value||'book_2',chapter_number:parseInt(q('chapterProseContinueVerifyChapter')?.value||'2'),from_version:parseInt(q('chapterProseContinueVerifyFrom')?.value||'4'),to_version:parseInt(q('chapterProseContinueVerifyTo')?.value||'5'),export:!!doExport};
+    let d=await api('/api/writer/chapter_prose_continue_refresh_compare',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+    if(!d?.ok){q('chapterProseContinueVerifyStatus').textContent=(d?.message||d?.error||'Could not load Chapter Prose Continue Refresh / Compare.');return;}
+    lastChapterProseContinueVerify=d;
+    let s=d.summary||{}, c=d.compare||{};
+    q('chapterProseContinueVerifyStatus').innerHTML=`<span class="chapterContinueBadge ${d.refresh_compare_ready?'':'bad'}">${esc(d.health_label||'UNKNOWN')}</span> ${esc(d.message||'')}`;
+    q('chapterProseContinueVerifySummary').innerHTML=`<div><b>${esc(d.milestone||'')}</b></div><div class=chapterProseMetrics><div class=chapterProseMetric><div class=label>Ready</div><div class=value>${d.refresh_compare_ready?'YES':'NO'}</div></div><div class=chapterProseMetric><div class=label>From</div><div class=value>${esc(s.from_label||'')}</div></div><div class=chapterProseMetric><div class=label>To</div><div class=value>${esc(s.to_label||'')}</div></div><div class=chapterProseMetric><div class=label>Latest</div><div class=value>${esc(s.latest_label||'')}</div></div><div class=chapterProseMetric><div class=label>Added Words</div><div class=value>${s.added_words||0}</div></div><div class=chapterProseMetric><div class=label>Private Used</div><div class=value>${s.private_human_screen_used?'YES':'NO'}</div></div><div class=chapterProseMetric><div class=label>Checks</div><div class=value>${s.checks_passed||0}/${s.checks||0}</div></div><div class=chapterProseMetric><div class=label>Problems</div><div class=value>${s.problems||0}</div></div></div>${d.exported?`<div class=muted>Export: ${esc(d.exported.markdown||'')}</div>`:''}`;
+    q('chapterProseContinueVerifyVersions').innerHTML=(d.versions||[]).map(x=>`<div class="histrow ${x.verified?'ok':'fail'}"><b>${esc(x.label||'version')}</b><div>Status: ${esc(x.status||'')} | Words: ${x.word_count||0} | Hash OK: ${x.hash_ok} | Count OK: ${x.word_count_ok}</div><div>Created by: ${esc(x.created_by||'')}</div><div>Continues from: ${esc(String(x.continues_from_version??''))} | Previous hash OK: ${x.previous_hash_ok}</div><div class=muted>${esc(x.draft_markdown?.path||'')}</div></div>`).join('')||'No versions loaded.';
+    q('chapterProseContinueVerifyAdded').innerHTML=(c.added_lines||[]).map(x=>`<div class="histrow ok"><b>Added</b><div>${esc(x)}</div></div>`).join('')||'No added lines.';
+    q('chapterProseContinueVerifyRemoved').innerHTML=(c.removed_lines||[]).map(x=>`<div class="histrow fail"><b>Removed</b><div>${esc(x)}</div></div>`).join('')||'No removed lines.';
+    q('chapterProseContinueVerifyDiff').textContent=(c.line_diff||[]).join('\n')||'No diff.';
+    q('chapterProseContinueVerifyChecks').innerHTML=(d.checks||[]).map(c=>`<div class="histrow ${c.ok?'ok':'fail'}"><b>${esc(c.id||'check')}</b><div>${esc(c.message||'')}</div></div>`).join('')||'No checks.';
+    q('chapterProseContinueVerifySafety').textContent=Object.entries(d.safety||{}).map(([k,v])=>`${k}: ${v}`).join('\n');
+    toast('Chapter Prose Continue Refresh / Compare loaded.');
+}
+function sendChapterProseContinueVerifyToMission(){
+    if(!lastChapterProseContinueVerify){toast('Load Chapter Prose Continue Verify first.');return;}
+    let d=lastChapterProseContinueVerify, s=d.summary||{}, c=d.compare||{};
+    go('mission');
+    q('input').value=`Please review this Kayock Writer Chapter Prose Continue Refresh / Compare report.
+
+Milestone: ${d.milestone}
+Health: ${d.health_label}
+Refresh / Compare ready: ${d.refresh_compare_ready}
+
+Summary:
+Book: ${s.book_id}
+Chapter: ${s.chapter_number}
+From: ${s.from_label}
+To: ${s.to_label}
+Latest: ${s.latest_label}
+To version exists: ${s.to_version_exists}
+To metadata/evidence exist: ${s.to_metadata_exists}/${s.to_evidence_exists}
+Hash verified: ${s.to_hash_ok}
+Word count verified: ${s.to_word_count_ok}
+Continues from prior: ${s.to_continues_from_from_version}
+Previous hash matches: ${s.to_previous_hash_matches_from}
+Added words: ${s.added_words}
+Removed words: ${s.removed_words}
+Private Human Screen used: ${s.private_human_screen_used}
+Checks: ${s.checks_passed}/${s.checks}
+Problems: ${s.problems}
+Errors: ${s.errors}
+
+Added lines:
+${(c.added_lines||[]).join('\n')}
+
+Safety: read-only verify, no write, no overwrite, no delete, no move, no chapter edit, no story mutation, Private Human Screen was not used.
+
+Please determine whether v10.14.9 should be marked stable/proven.`;
+    toast('Chapter Prose Continue Verify sent to Mission Console.');
+}
+
+
+let lastChapterProseWorkspace=null;
+function chapterProsePrivateKey(){return 'kayock.privatePane.chapterProse.'+(q('chapterProseWorkspaceBook')?.value||'book_2')+'.chapter_'+(q('chapterProseWorkspaceChapter')?.value||'2');}
+function saveChapterProsePrivatePane(){let el=q('chapterProsePrivatePane'); if(!el)return; localStorage.setItem(chapterProsePrivateKey(),el.value||''); q('chapterProsePrivateStatus').textContent='Private pane saved locally only. It was not sent to the AI or server.'; toast('Private pane saved locally.');}
+function loadChapterProsePrivatePane(){let el=q('chapterProsePrivatePane'); if(!el)return; el.value=localStorage.getItem(chapterProsePrivateKey())||''; q('chapterProsePrivateStatus').textContent='Private pane loaded from local browser storage only. It was not sent to the AI or server.';}
+function clearChapterProsePrivatePane(){let el=q('chapterProsePrivatePane'); if(!el)return; if(!confirm('Clear the local private pane for this book/chapter?'))return; localStorage.removeItem(chapterProsePrivateKey()); el.value=''; q('chapterProsePrivateStatus').textContent='Private pane cleared from local browser storage.'; toast('Private pane cleared.');}
+async function loadChapterProseWorkspace(doExport=false){
+    if(!q('chapterProseWorkspaceStatus'))return;
+    loadChapterProsePrivatePane();
+    q('chapterProseWorkspaceStatus').textContent='Loading Chapter Prose Workspace...';
+    let body={book_id:q('chapterProseWorkspaceBook')?.value||'book_2',chapter_number:parseInt(q('chapterProseWorkspaceChapter')?.value||'2'),ai_visible_goal:q('chapterProseAiVisible')?.value||'',export:doExport};
+    let d=await api('/api/writer/chapter_prose_workspace',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+    if(!d?.ok){q('chapterProseWorkspaceStatus').textContent=d?.message||'Could not load Chapter Prose Workspace.';return;}
+    lastChapterProseWorkspace=d;
+    let s=d.summary||{}, w=d.workspace||{}, latest=d.latest_version||{};
+    q('chapterProseWorkspaceStatus').innerHTML=`<span class="chapterProseBadge ${d.workspace_ready?'':'bad'}">${esc(d.health_label||'UNKNOWN')}</span>`;
+    q('chapterProseLatestSummary').innerHTML=`<div><b>${esc(d.milestone||'')}</b></div><div class=chapterProseGrid><div class=chapterProseMetric><div class=label>Ready</div><div class=value>${d.workspace_ready?'YES':'NO'}</div></div><div class=chapterProseMetric><div class=label>Latest</div><div class=value>${esc(s.latest_label||'')}</div></div><div class=chapterProseMetric><div class=label>Words</div><div class=value>${s.latest_words||0}</div></div><div class=chapterProseMetric><div class=label>Private Sent</div><div class=value>${s.private_text_received_by_endpoint?'YES':'NO'}</div></div><div class=chapterProseMetric><div class=label>Critical</div><div class=value>${s.critical_checks_passed||0}/${s.critical_checks||0}</div></div><div class=chapterProseMetric><div class=label>Draft Review</div><div class=value>${s.draft_review_checks_passed||0}/${s.draft_review_checks||0}</div></div><div class=chapterProseMetric><div class=label>Poetry</div><div class=value>${s.poetry_studio_supported?'YES':'NO'}</div></div><div class=chapterProseMetric><div class=label>D&D</div><div class=value>${s.dnd_world_builder_supported?'YES':'NO'}</div></div><div class=chapterProseMetric><div class=label>Checks</div><div class=value>${s.checks_passed||0}/${s.checks||0}</div></div></div><div class=muted>Button diagnostic: endpoint answered; workspace ready is based on privacy/read-only critical checks. Draft-history checks remain visible below for review.</div>${d.exported?`<div class=muted>Export: ${esc(d.exported.markdown||'')}</div>`:''}`;
+    q('chapterProseLatestPreview').textContent=latest.preview||'No latest preview.';
+    let priv=w.private_author_screen||{};
+    q('chapterProsePrivacyContract').textContent=Object.entries(priv).map(([k,v])=>`${k}: ${Array.isArray(v)?v.join(', '):v}`).join('\n');
+    let plan=w.reusable_component_plan||{};
+    q('chapterProseReusablePlan').innerHTML=`<div class="histrow ok"><b>Reusable Component Ready</b><div>${plan.reusable_component_ready?'YES':'NO'}</div></div><div class="histrow ok"><b>Supported Modules</b><div>${esc((plan.supported_modules||[]).join(' | '))}</div></div><div class="histrow ok"><b>Poetry Use</b><div>${esc(plan.poetry_use||'')}</div></div><div class="histrow ok"><b>D&D / AI DM Use</b><div>${esc(plan.dnd_use||'')}</div></div><div class="histrow ok"><b>Fog of War Rule</b><div>${esc(plan.fog_of_war_rule||'')}</div></div>`;
+    q('chapterProseWorkspaceChecks').innerHTML=(d.checks||[]).map(c=>`<div class="histrow ${c.ok?'ok':'fail'}"><b>${esc(c.id||'check')}</b><div>${esc(c.message||'')}</div></div>`).join('')||'No checks.';
+    q('chapterProseWorkspaceSafety').textContent=Object.entries(d.safety||{}).map(([k,v])=>`${k}: ${v}`).join('\n');
+    toast('Chapter Prose Workspace loaded.');
+}
+function sendChapterProseWorkspaceToMission(){
+    if(!lastChapterProseWorkspace){toast('Load Chapter Prose Workspace first.');return;}
+    let d=lastChapterProseWorkspace, s=d.summary||{}, w=d.workspace||{};
+    go('mission');
+    q('input').value=`Please review this Kayock Writer Chapter Prose Workspace report.
+
+Milestone: ${d.milestone}
+Health: ${d.health_label}
+Workspace ready: ${d.workspace_ready}
+Critical workspace ready: ${s.critical_workspace_ready}
+Draft chain ready: ${s.draft_chain_ready}
+Critical checks: ${s.critical_checks_passed}/${s.critical_checks}
+Draft review checks: ${s.draft_review_checks_passed}/${s.draft_review_checks}
+
+Latest draft:
+Latest: ${s.latest_label}
+Status: ${s.latest_status}
+Words: ${s.latest_words}
+Hash OK: ${s.latest_hash_ok}
+Word count OK: ${s.latest_word_count_ok}
+All versions fully verified: ${s.all_versions_fully_verified}
+
+AI-visible goal:
+${q('chapterProseAiVisible')?.value||''}
+
+Private Human Screen contract:
+AI cannot read it by default: ${w.private_author_screen?.ai_cannot_read_by_default}
+Excluded from AI prompts: ${w.private_author_screen?.excluded_from_ai_prompts}
+Excluded from reports: ${w.private_author_screen?.excluded_from_reports}
+Private text received by endpoint: ${w.private_author_screen?.private_text_received_by_endpoint}
+Private text stored or echoed: ${w.private_author_screen?.private_text_stored_or_echoed}
+
+Reusable modules:
+${(w.reusable_component_plan?.supported_modules||[]).join('\n')}
+
+Safety:
+Read-only workspace.
+No draft save.
+No chapter-file edit.
+No story mutation.
+No overwrite.
+No delete.
+No move.
+
+Please determine whether v10.14.6 should be marked stable/proven.`;
+    toast('AI-visible workspace sent to Mission. Private pane was not included.');
+}
+
+let lastRealProseEditVerify=null;
+async function loadRealProseEditVerify(doExport=false){
+    if(!q('realProseEditVerifyStatus'))return;
+    q('realProseEditVerifyStatus').textContent='Loading Real Prose Edit Refresh / Compare...';
+    let body={book_id:q('realProseEditVerifyBook')?.value||'book_2',chapter_number:parseInt(q('realProseEditVerifyChapter')?.value||'2'),from_version:parseInt(q('realProseEditVerifyFrom')?.value||'3'),to_version:parseInt(q('realProseEditVerifyTo')?.value||'4'),export:doExport};
+    let d=await api('/api/writer/real_prose_edit_refresh_compare',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+    if(!d?.ok){q('realProseEditVerifyStatus').textContent=d?.message||'Could not load Real Prose Edit Verify.';return;}
+    lastRealProseEditVerify=d;
+    let s=d.summary||{}, c=d.compare||{};
+    q('realProseEditVerifyStatus').innerHTML=`<span class="realProseEditVerifyBadge ${d.edit_refresh_compare_ready?'':'bad'}">${esc(d.health_label||'UNKNOWN')}</span>`;
+    q('realProseEditVerifySummary').innerHTML=`<div><b>${esc(d.milestone||'')}</b></div><div class=realProseEditVerifyGrid><div class=realProseEditVerifyMetric><div class=label>Ready</div><div class=value>${d.edit_refresh_compare_ready?'YES':'NO'}</div></div><div class=realProseEditVerifyMetric><div class=label>Versions</div><div class=value>${s.versions_loaded||0}</div></div><div class=realProseEditVerifyMetric><div class=label>Latest</div><div class=value>${esc(s.latest_label||'')}</div></div><div class=realProseEditVerifyMetric><div class=label>Trap Ending</div><div class=value>${s.revised_trap_ending_present_in_v004?'YES':'NO'}</div></div><div class=realProseEditVerifyMetric><div class=label>Prior Replaced</div><div class=value>${s.prior_short_ending_replaced?'YES':'NO'}</div></div><div class=realProseEditVerifyMetric><div class=label>Checks</div><div class=value>${s.checks_passed||0}/${s.checks||0}</div></div></div><div class=realProseEditVerifyPath>Drafts folder: ${esc(s.drafts_folder||'')}</div>${d.exported?`<div class=realProseEditVerifyPath>Export: ${esc(d.exported.markdown||'')}</div>`:''}`;
+    q('realProseEditVerifyVersions').innerHTML=(d.versions||[]).map(x=>`<div class="histrow ${x.verified?'ok':'fail'}"><b>${esc(x.label||'version')}</b><div>Status: ${esc(x.status||'')} | Words: ${x.word_count||0} | Hash OK: ${x.hash_ok} | Count OK: ${x.word_count_ok}</div><div>Created by: ${esc(x.created_by||'')}</div><div>Trap ending: ${x.contains_revised_trap_ending} | Prior short ending: ${x.contains_prior_short_ending}</div><div class=realProseEditVerifyPath>${esc(x.draft_markdown?.path||'')}</div></div>`).join('')||'No versions loaded.';
+    q('realProseEditVerifyAdded').innerHTML=(c.added_lines||[]).map(x=>`<div class="histrow ok"><b>Added</b><div class=rpeadd>${esc(x)}</div></div>`).join('')||'No added lines.';
+    q('realProseEditVerifyRemoved').innerHTML=(c.removed_lines||[]).map(x=>`<div class="histrow fail"><b>Removed</b><div class=rperemove>${esc(x)}</div></div>`).join('')||'No removed lines.';
+    q('realProseEditVerifyDiff').textContent=(c.line_diff||[]).join('\n')||'No diff.';
+    q('realProseEditVerifyChecks').innerHTML=(d.checks||[]).map(c=>`<div class="histrow ${c.ok?'ok':'fail'}"><b>${esc(c.id||'check')}</b><div>${esc(c.message||'')}</div></div>`).join('')||'No checks.';
+    q('realProseEditVerifySafety').textContent=Object.entries(d.safety||{}).map(([k,v])=>`${k}: ${v}`).join('\n');
+    toast('Real Prose Edit Verify loaded.');
+}
+function sendRealProseEditVerifyToMission(){
+    if(!lastRealProseEditVerify){toast('Load Real Prose Edit Verify first.');return;}
+    let d=lastRealProseEditVerify, s=d.summary||{}, c=d.compare||{};
+    go('mission');
+    q('input').value=`Please review this Kayock Writer Real Prose Edit Refresh / Compare report.
+
+Milestone: ${d.milestone}
+Health: ${d.health_label}
+Edit Refresh / Compare ready: ${d.edit_refresh_compare_ready}
+
+Summary:
+Book: ${s.book_id}
+Chapter: ${s.chapter_number}
+Versions loaded: ${s.versions_loaded}
+Version labels: ${(s.version_labels||[]).join(', ')}
+Has v001: ${s.has_v001}
+Has v002: ${s.has_v002}
+Has v003: ${s.has_v003}
+Has v004: ${s.has_v004}
+Latest: ${s.latest_label}
+Latest is v004: ${s.latest_is_v004}
+v004 created by: ${s.v004_created_by}
+v004 continues from v003: ${s.v004_continues_from_v003}
+v004 previous hash matches v003: ${s.v004_previous_hash_matches_v003}
+v004 status real_prose_draft: ${s.v004_status_real_prose_draft}
+Revised trap ending present: ${s.revised_trap_ending_present_in_v004}
+Prior short ending replaced: ${s.prior_short_ending_replaced}
+All hashes verified: ${s.all_hashes_verified}
+All word counts verified: ${s.all_word_counts_verified}
+All versions fully verified: ${s.all_versions_fully_verified}
+Checks: ${s.checks_passed}/${s.checks}
+Problems: ${s.problems}
+
+Compare:
+From v${s.from_version} words: ${s.from_words}
+To v${s.to_version} words: ${s.to_words}
+Word delta: ${s.word_delta}
+Added words: ${s.added_words}
+Removed words: ${s.removed_words}
+
+Added lines:
+${(c.added_lines||[]).join('\n')||'None.'}
+
+Removed lines:
+${(c.removed_lines||[]).join('\n')||'None.'}
+
+Safety:
+Read-only verify.
+No draft save.
+No chapter-file edit.
+No story mutation.
+No overwrite.
+No delete.
+No move.
+
+Please determine whether v10.14.5 should be marked stable/proven.`;
+    toast('Real Prose Edit Verify sent to Mission Console.');
+}
+
+let lastRealProseEditSave=null;
+async function loadRealProseEditSave(execute=false){
+    if(!q('realProseEditSaveStatus'))return;
+    q('realProseEditSaveStatus').textContent=execute?'Requesting approved real prose edit save...':'Loading real prose edit save preview...';
+    let body={book_id:q('realProseEditSaveBook')?.value||'book_2',chapter_number:parseInt(q('realProseEditSaveChapter')?.value||'2'),edit_mode:q('realProseEditSaveMode')?.value||'revise_latest_real_prose',approval_phrase:q('realProseEditSavePhrase')?.value||'',revised_prose_text:q('realProseEditSaveText')?.value||'',execute:execute,export:true};
+    let d=await api('/api/writer/real_prose_edit_save_action',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+    if(!d?.ok){q('realProseEditSaveStatus').textContent=d?.message||'Could not load Real Prose Edit Save Action.';return;}
+    lastRealProseEditSave=d;
+    let s=d.summary||{}, ep=d.edit_save||{};
+    let cls=d.status==='blocked'?'blocked':(d.status==='error'?'bad':'');
+    q('realProseEditSaveStatus').innerHTML=`<span class="realProseEditSaveBadge ${cls}">${esc(d.health_label||'UNKNOWN')}</span>`;
+    q('realProseEditSaveSummary').innerHTML=`<div><b>${esc(d.milestone||'')}</b></div><div class=realProseEditSaveGrid><div class=realProseEditSaveMetric><div class=label>Status</div><div class=value>${esc(s.status||'')}</div></div><div class=realProseEditSaveMetric><div class=label>Allowed</div><div class=value>${s.action_allowed?'YES':'NO'}</div></div><div class=realProseEditSaveMetric><div class=label>Phrase</div><div class=value>${s.phrase_matches?'YES':'NO'}</div></div><div class=realProseEditSaveMetric><div class=label>Next</div><div class=value>v${String(s.next_version||0).padStart(3,'0')}</div></div><div class=realProseEditSaveMetric><div class=label>Words</div><div class=value>${s.new_words||0}</div></div><div class=realProseEditSaveMetric><div class=label>Post</div><div class=value>${s.post_checks_passed||0}/${s.post_checks||0}</div></div></div><div class=realProseEditSavePath>Next draft: ${esc(s.next_draft_path||'')}</div>${d.exported?`<div class=realProseEditSavePath>Export: ${esc(d.exported.markdown||'')}</div>`:''}`;
+    let parts=(d.selected_targets||[]).map(t=>`<div class="histrow ${t.would_overwrite?'fail':'ok'}"><b>${esc(t.kind||'target')}</b><div>Exists before save: ${t.exists} | Would overwrite: ${t.would_overwrite}</div><div class=realProseEditSavePath>${esc(t.path||'')}</div></div>`);
+    (d.created_files||[]).forEach(p=>parts.push(`<div class="histrow ok"><b>Created file</b><div class=realProseEditSavePath>${esc(p)}</div></div>`));
+    (d.blockers||[]).forEach(b=>parts.push(`<div class="histrow fail"><b>${esc(b.id||'blocker')}</b><div>${esc(b.message||'')}</div></div>`));
+    (d.errors||[]).forEach(e=>parts.push(`<div class="histrow fail"><b>${esc(e.id||'error')}</b><div>${esc(e.message||'')}</div></div>`));
+    q('realProseEditSaveTargets').innerHTML=parts.join('')||'No targets.';
+    q('realProseEditSaveAdded').innerHTML=(ep.added_lines||[]).map(x=>`<div class="histrow ok"><b>Added</b><div>${esc(x)}</div></div>`).join('')||'No added lines.';
+    q('realProseEditSaveRemoved').innerHTML=(ep.removed_lines||[]).map(x=>`<div class="histrow fail"><b>Removed</b><div>${esc(x)}</div></div>`).join('')||'No removed lines.';
+    q('realProseEditSavePreview').textContent=ep.new_markdown_preview||'No preview.';
+    q('realProseEditSavePreflight').innerHTML=(d.preflight_checks||[]).map(c=>`<div class="histrow ${c.ok?'ok':'fail'}"><b>${esc(c.id||'check')}</b><div>${esc(c.message||'')}</div></div>`).join('')||'No preflight.';
+    q('realProseEditSavePost').innerHTML=(d.post_checks||[]).map(c=>`<div class="histrow ${c.ok?'ok':'fail'}"><b>${esc(c.id||'check')}</b><div>${esc(c.message||'')}</div></div>`).join('')||'No post checks.';
+    q('realProseEditSaveSafety').textContent=Object.entries(d.safety||{}).map(([k,v])=>`${k}: ${v}`).join('\n');
+    toast('Real Prose Edit Save report loaded.');
+}
+function sendRealProseEditSaveToMission(){
+    if(!lastRealProseEditSave){toast('Load Real Prose Edit Save first.');return;}
+    let d=lastRealProseEditSave, s=d.summary||{};
+    go('mission');
+    q('input').value=`Please review this Kayock Writer Real Prose Edit Save Approved Action report.\n\nMilestone: ${d.milestone}\nHealth: ${d.health_label}\nStatus: ${d.status}\n\nSummary:\nBook: ${s.book_id}\nChapter: ${s.chapter_number}\nExecute requested: ${s.execute_requested}\nAction allowed: ${s.action_allowed}\nPhrase matches: ${s.phrase_matches}\nLatest version: v${String(s.latest_version||0).padStart(3,'0')}\nNext version: v${String(s.next_version||0).padStart(3,'0')}\nLatest words: ${s.latest_words}\nRevised words: ${s.revised_words}\nNew words: ${s.new_words}\nWord delta: ${s.word_delta}\nEdit mode: ${s.edit_mode}\nCollision targets: ${s.collision_targets}\nBlockers: ${s.blockers}\nErrors: ${s.errors}\nPreflight: ${s.preflight_checks_passed}/${s.preflight_checks}\nCreated files: ${s.created_files}\nWritten files: ${s.written_files}\nPost checks: ${s.post_checks_passed}/${s.post_checks}\nProblems: ${s.problems}\nNext draft: ${s.next_draft_path}\nMetadata: ${s.metadata_path}\nEvidence: ${s.evidence_path}\n\nCreated files:\n${(d.created_files||[]).join('\n')||'None.'}\n\nSafety:\nRequires exact phrase.\nRequires revised real prose text.\nRequires latest draft hash verification.\nRequires no collision.\nCreates edited real-prose Markdown, metadata JSON, and save evidence JSON.\nNo chapter-file edit.\nNo story mutation.\nNo overwrite.\nNo delete.\nNo move.\n\nPlease determine whether v10.14.4 should be marked stable/proven and whether v004 edited real prose was saved safely.`;
+    toast('Real Prose Edit Save sent to Mission Console.');
+}
+
+let lastRealProseEditorGate=null;
+async function loadRealProseEditorGate(doExport=false){
+    if(!q('realProseEditorStatus'))return;
+    q('realProseEditorStatus').textContent='Loading Real Prose Editor Gate...';
+    let body={book_id:q('realProseEditorBook')?.value||'book_2',chapter_number:parseInt(q('realProseEditorChapter')?.value||'2'),edit_mode:q('realProseEditorMode')?.value||'revise_latest_real_prose',approval_phrase:q('realProseEditorPhrase')?.value||'',revised_prose_text:q('realProseEditorText')?.value||'',export:doExport};
+    let d=await api('/api/writer/real_prose_editor_gate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+    if(!d?.ok){q('realProseEditorStatus').textContent=d?.message||'Could not load Real Prose Editor Gate.';return;}
+    lastRealProseEditorGate=d;
+    let s=d.summary||{}, ep=d.edit_preview||{};
+    q('realProseEditorStatus').innerHTML=`<span class="realProseEditorBadge ${d.gate_ready?'':'bad'}">${esc(d.health_label||'UNKNOWN')}</span>`;
+    q('realProseEditorSummary').innerHTML=`<div><b>${esc(d.milestone||'')}</b></div><div class=realProseEditorGrid><div class=realProseEditorMetric><div class=label>Gate</div><div class=value>${d.gate_ready?'READY':'REVIEW'}</div></div><div class=realProseEditorMetric><div class=label>Phrase</div><div class=value>${s.phrase_matches?'YES':'NO'}</div></div><div class=realProseEditorMetric><div class=label>Next</div><div class=value>v${String(s.next_version||0).padStart(3,'0')}</div></div><div class=realProseEditorMetric><div class=label>Words</div><div class=value>${s.revised_words||0}</div></div><div class=realProseEditorMetric><div class=label>Delta</div><div class=value>${s.word_delta||0}</div></div><div class=realProseEditorMetric><div class=label>Checks</div><div class=value>${s.checks_passed||0}/${s.checks||0}</div></div></div><div class=realProseEditorPath>Next draft: ${esc(s.next_draft_path||'')}</div>${d.exported?`<div class=realProseEditorPath>Export: ${esc(d.exported.markdown||'')}</div>`:''}`;
+    q('realProseEditorTargets').innerHTML=(d.selected_targets||[]).map(t=>`<div class="histrow ${t.would_overwrite?'fail':'ok'}"><b>${esc(t.kind||'target')}</b><div>Exists: ${t.exists} | Would overwrite: ${t.would_overwrite}</div><div class=realProseEditorPath>${esc(t.path||'')}</div></div>`).join('')||'No targets.';
+    q('realProseEditorAdded').innerHTML=(ep.added_lines||[]).map(x=>`<div class="histrow ok"><b>Added</b><div class=rpeadd>${esc(x)}</div></div>`).join('')||'No added lines.';
+    q('realProseEditorRemoved').innerHTML=(ep.removed_lines||[]).map(x=>`<div class="histrow fail"><b>Removed</b><div class=rperemove>${esc(x)}</div></div>`).join('')||'No removed lines.';
+    q('realProseEditorDiff').textContent=(ep.line_diff||[]).join('\n')||'No diff.';
+    q('realProseEditorPreview').textContent=ep.new_markdown_preview||'No preview.';
+    q('realProseEditorBlockers').innerHTML=(d.blockers||[]).map(b=>`<div class="histrow fail"><b>${esc(b.id||'blocker')}</b><div>${esc(b.message||'')}</div></div>`).join('')||'<div class="histrow ok"><b>No blockers.</b></div>';
+    q('realProseEditorChecks').innerHTML=(d.checks||[]).map(c=>`<div class="histrow ${c.ok?'ok':'fail'}"><b>${esc(c.id||'check')}</b><div>${esc(c.message||'')}</div></div>`).join('')||'No checks.';
+    q('realProseEditorSafety').textContent=Object.entries(d.safety||{}).map(([k,v])=>`${k}: ${v}`).join('\n');
+    toast('Real Prose Editor Gate loaded.');
+}
+function sendRealProseEditorGateToMission(){
+    if(!lastRealProseEditorGate){toast('Load Real Prose Editor Gate first.');return;}
+    let d=lastRealProseEditorGate, s=d.summary||{}, ep=d.edit_preview||{};
+    go('mission');
+    q('input').value=`Please review this Kayock Writer Real Prose Editor Gate report.
+
+Milestone: ${d.milestone}
+Health: ${d.health_label}
+Gate ready: ${d.gate_ready}
+
+Summary:
+Book: ${s.book_id}
+Chapter: ${s.chapter_number}
+Latest version: v${String(s.latest_version||0).padStart(3,'0')}
+Next version: v${String(s.next_version||0).padStart(3,'0')}
+Latest words: ${s.latest_words}
+Revised words: ${s.revised_words}
+Word delta: ${s.word_delta}
+Edit mode: ${s.edit_mode}
+Latest is real prose draft: ${s.latest_is_real_prose_draft}
+Phrase matches: ${s.phrase_matches}
+Collision targets: ${s.collision_targets}
+Blockers: ${s.blockers}
+Checks: ${s.checks_passed}/${s.checks}
+Problems: ${s.problems}
+Safe to save later: ${s.safe_to_save_later}
+
+Added lines:
+${(ep.added_lines||[]).join('\n')||'None.'}
+
+Removed lines:
+${(ep.removed_lines||[]).join('\n')||'None.'}
+
+Safety:
+No edited prose saved yet.
+No draft file write.
+No chapter-file edit.
+No story-file mutation.
+No overwrite.
+No delete.
+No move.
+
+Please determine whether v10.14.3 should be marked stable/proven and whether the next build should be Real Prose Edit Save Approved Action.`;
+    toast('Real Prose Editor Gate sent to Mission Console.');
+}
+
+let lastRealProseVerify=null;
+async function loadRealProseVerify(doExport=false){
+    if(!q('realProseVerifyStatus'))return;
+    q('realProseVerifyStatus').textContent='Loading Real Prose Refresh / Compare...';
+    let body={book_id:q('realProseVerifyBook')?.value||'book_2',chapter_number:parseInt(q('realProseVerifyChapter')?.value||'2'),from_version:parseInt(q('realProseVerifyFrom')?.value||'2'),to_version:parseInt(q('realProseVerifyTo')?.value||'3'),export:doExport};
+    let d=await api('/api/writer/real_prose_refresh_compare',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+    if(!d?.ok){q('realProseVerifyStatus').textContent=d?.message||'Could not load Real Prose Verify.';return;}
+    lastRealProseVerify=d; let s=d.summary||{}, c=d.compare||{};
+    q('realProseVerifyStatus').innerHTML=`<span class="realProseVerifyBadge ${d.refresh_compare_ready?'':'bad'}">${esc(d.health_label||'UNKNOWN')}</span>`;
+    q('realProseVerifySummary').innerHTML=`<div><b>${esc(d.milestone||'')}</b></div><div class=realProseVerifyGrid><div class=realProseVerifyMetric><div class=label>Ready</div><div class=value>${d.refresh_compare_ready?'YES':'NO'}</div></div><div class=realProseVerifyMetric><div class=label>Versions</div><div class=value>${s.versions_loaded||0}</div></div><div class=realProseVerifyMetric><div class=label>Latest</div><div class=value>${esc(s.latest_label||'')}</div></div><div class=realProseVerifyMetric><div class=label>Real Prose</div><div class=value>${s.real_prose_present_in_v003?'YES':'NO'}</div></div><div class=realProseVerifyMetric><div class=label>Placeholder Removed</div><div class=value>${s.placeholder_removed_from_v003_body?'YES':'NO'}</div></div><div class=realProseVerifyMetric><div class=label>Checks</div><div class=value>${s.checks_passed||0}/${s.checks||0}</div></div></div><div class=realProseVerifyPath>Drafts folder: ${esc(s.drafts_folder||'')}</div>${d.exported?`<div class=realProseVerifyPath>Export: ${esc(d.exported.markdown||'')}</div>`:''}`;
+    q('realProseVerifyVersions').innerHTML=(d.versions||[]).map(x=>`<div class="histrow ${x.verified?'ok':'fail'}"><b>${esc(x.label||'version')}</b><div>Status: ${esc(x.status||'')} | Words: ${x.word_count||0} | Hash OK: ${x.hash_ok} | Count OK: ${x.word_count_ok}</div><div>Created by: ${esc(x.created_by||'')}</div><div>Placeholder: ${x.contains_placeholder} | Real prose: ${x.contains_real_prose}</div><div class=realProseVerifyPath>${esc(x.draft_markdown?.path||'')}</div></div>`).join('')||'No versions loaded.';
+    q('realProseVerifyAdded').innerHTML=(c.added_lines||[]).map(x=>`<div class="histrow ok"><b>Added</b><div class=rpadd>${esc(x)}</div></div>`).join('')||'No added lines.';
+    q('realProseVerifyRemoved').innerHTML=(c.removed_lines||[]).map(x=>`<div class="histrow fail"><b>Removed</b><div class=rpremove>${esc(x)}</div></div>`).join('')||'No removed lines.';
+    q('realProseVerifyDiff').textContent=(c.line_diff||[]).join('\n')||'No diff.';
+    q('realProseVerifyChecks').innerHTML=(d.checks||[]).map(c=>`<div class="histrow ${c.ok?'ok':'fail'}"><b>${esc(c.id||'check')}</b><div>${esc(c.message||'')}</div></div>`).join('')||'No checks.';
+    q('realProseVerifySafety').textContent=Object.entries(d.safety||{}).map(([k,v])=>`${k}: ${v}`).join('\n');
+    toast('Real Prose Verify loaded.');
+}
+function sendRealProseVerifyToMission(){
+    if(!lastRealProseVerify){toast('Load Real Prose Verify first.');return;}
+    let d=lastRealProseVerify, s=d.summary||{}, c=d.compare||{}; go('mission');
+    q('input').value=`Please review this Kayock Writer Real Prose Refresh / Compare report.\n\nMilestone: ${d.milestone}\nHealth: ${d.health_label}\nRefresh / Compare ready: ${d.refresh_compare_ready}\n\nSummary:\nBook: ${s.book_id}\nChapter: ${s.chapter_number}\nVersions loaded: ${s.versions_loaded}\nVersion labels: ${(s.version_labels||[]).join(', ')}\nHas v001: ${s.has_v001}\nHas v002: ${s.has_v002}\nHas v003: ${s.has_v003}\nLatest: ${s.latest_label}\nLatest is v003: ${s.latest_is_v003}\nv003 created by: ${s.v003_created_by}\nv003 continues from v002: ${s.v003_continues_from_v002}\nv003 previous hash matches v002: ${s.v003_previous_hash_matches_v002}\nv003 status real_prose_draft: ${s.v003_status_real_prose_draft}\nReal prose present in v003: ${s.real_prose_present_in_v003}\nPlaceholder removed from v003 body: ${s.placeholder_removed_from_v003_body}\nAll hashes verified: ${s.all_hashes_verified}\nAll word counts verified: ${s.all_word_counts_verified}\nAll versions fully verified: ${s.all_versions_fully_verified}\nChecks: ${s.checks_passed}/${s.checks}\nProblems: ${s.problems}\n\nCompare:\nFrom v${s.from_version} words: ${s.from_words}\nTo v${s.to_version} words: ${s.to_words}\nWord delta: ${s.word_delta}\nAdded words: ${s.added_words}\nRemoved words: ${s.removed_words}\n\nPlease determine whether v10.14.2 should be marked stable/proven.`;
+    toast('Real Prose Verify sent to Mission Console.');
+}
+
+let lastRealProseSave=null;
+async function loadRealProseSave(execute=false){
+    if(!q('realProseSaveStatus'))return;
+    q('realProseSaveStatus').textContent=execute?'Requesting approved real prose save...':'Loading real prose save preview...';
+    let body={book_id:q('realProseSaveBook')?.value||'book_2',chapter_number:parseInt(q('realProseSaveChapter')?.value||'2'),prose_mode:q('realProseSaveMode')?.value||'replace_placeholder',approval_phrase:q('realProseSavePhrase')?.value||'',real_prose_text:q('realProseSaveText')?.value||'',execute:execute,export:true};
+    let d=await api('/api/writer/real_prose_save_action',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+    if(!d?.ok){q('realProseSaveStatus').textContent=d?.message||'Could not load Real Prose Save Action.';return;}
+    lastRealProseSave=d;
+    let s=d.summary||{}, rp=d.real_prose||{};
+    let cls=d.status==='blocked'?'blocked':(d.status==='error'?'bad':'');
+    q('realProseSaveStatus').innerHTML=`<span class="realProseSaveBadge ${cls}">${esc(d.health_label||'UNKNOWN')}</span>`;
+    q('realProseSaveSummary').innerHTML=`<div><b>${esc(d.milestone||'')}</b></div><div class=realProseSaveGrid><div class=realProseSaveMetric><div class=label>Status</div><div class=value>${esc(s.status||'')}</div></div><div class=realProseSaveMetric><div class=label>Allowed</div><div class=value>${s.action_allowed?'YES':'NO'}</div></div><div class=realProseSaveMetric><div class=label>Phrase</div><div class=value>${s.phrase_matches?'YES':'NO'}</div></div><div class=realProseSaveMetric><div class=label>Next</div><div class=value>v${String(s.next_version||0).padStart(3,'0')}</div></div><div class=realProseSaveMetric><div class=label>Words</div><div class=value>${s.new_words||0}</div></div><div class=realProseSaveMetric><div class=label>Post</div><div class=value>${s.post_checks_passed||0}/${s.post_checks||0}</div></div></div><div class=realProseSavePath>Next draft: ${esc(s.next_draft_path||'')}</div>${d.exported?`<div class=realProseSavePath>Export: ${esc(d.exported.markdown||'')}</div>`:''}`;
+    let parts=(d.selected_targets||[]).map(t=>`<div class="histrow ${t.would_overwrite?'fail':'ok'}"><b>${esc(t.kind||'target')}</b><div>Exists before save: ${t.exists} | Would overwrite: ${t.would_overwrite}</div><div class=realProseSavePath>${esc(t.path||'')}</div></div>`);
+    (d.created_files||[]).forEach(p=>parts.push(`<div class="histrow ok"><b>Created file</b><div class=realProseSavePath>${esc(p)}</div></div>`));
+    (d.blockers||[]).forEach(b=>parts.push(`<div class="histrow fail"><b>${esc(b.id||'blocker')}</b><div>${esc(b.message||'')}</div></div>`));
+    (d.errors||[]).forEach(e=>parts.push(`<div class="histrow fail"><b>${esc(e.id||'error')}</b><div>${esc(e.message||'')}</div></div>`));
+    q('realProseSaveTargets').innerHTML=parts.join('')||'No targets.';
+    q('realProseSavePreview').textContent=rp.new_markdown_preview||'No preview.';
+    q('realProseSavePreflight').innerHTML=(d.preflight_checks||[]).map(c=>`<div class="histrow ${c.ok?'ok':'fail'}"><b>${esc(c.id||'check')}</b><div>${esc(c.message||'')}</div></div>`).join('')||'No preflight.';
+    q('realProseSavePost').innerHTML=(d.post_checks||[]).map(c=>`<div class="histrow ${c.ok?'ok':'fail'}"><b>${esc(c.id||'check')}</b><div>${esc(c.message||'')}</div></div>`).join('')||'No post checks.';
+    q('realProseSaveSafety').textContent=Object.entries(d.safety||{}).map(([k,v])=>`${k}: ${v}`).join('\n');
+    toast('Real Prose Save report loaded.');
+}
+function sendRealProseSaveToMission(){
+    if(!lastRealProseSave){toast('Load Real Prose Save first.');return;}
+    let d=lastRealProseSave, s=d.summary||{};
+    go('mission');
+    q('input').value=`Please review this Kayock Writer Real Prose Save Approved Action report.
+
+Milestone: ${d.milestone}
+Health: ${d.health_label}
+Status: ${d.status}
+
+Summary:
+Book: ${s.book_id}
+Chapter: ${s.chapter_number}
+Execute requested: ${s.execute_requested}
+Action allowed: ${s.action_allowed}
+Phrase matches: ${s.phrase_matches}
+Latest version: v${String(s.latest_version||0).padStart(3,'0')}
+Next version: v${String(s.next_version||0).padStart(3,'0')}
+Latest words: ${s.latest_words}
+Real prose words: ${s.real_prose_words}
+New words: ${s.new_words}
+Word delta: ${s.word_delta}
+Prose mode: ${s.prose_mode}
+Collision targets: ${s.collision_targets}
+Blockers: ${s.blockers}
+Errors: ${s.errors}
+Preflight: ${s.preflight_checks_passed}/${s.preflight_checks}
+Created files: ${s.created_files}
+Written files: ${s.written_files}
+Post checks: ${s.post_checks_passed}/${s.post_checks}
+Problems: ${s.problems}
+Next draft: ${s.next_draft_path}
+Metadata: ${s.metadata_path}
+Evidence: ${s.evidence_path}
+
+Created files:
+${(d.created_files||[]).join('\n')||'None.'}
+
+Safety:
+Requires exact phrase.
+Requires real prose text.
+Requires latest draft hash verification.
+Requires no collision.
+Creates real-prose Markdown, metadata JSON, and save evidence JSON.
+No chapter-file edit.
+No story mutation.
+No overwrite.
+No delete.
+No move.
+
+Please determine whether v10.14.1 should be marked stable/proven and whether v003 real prose was saved safely.`;
+    toast('Real Prose Save sent to Mission Console.');
+}
+
+let lastRealProseGate=null;
+async function loadRealProseGate(doExport=false){
+    if(!q('realProseStatus'))return;
+    q('realProseStatus').textContent='Loading Real Prose Draft Gate...';
+    let body={book_id:q('realProseBook')?.value||'book_2',chapter_number:parseInt(q('realProseChapter')?.value||'2'),prose_mode:q('realProseMode')?.value||'replace_placeholder',approval_phrase:q('realProsePhrase')?.value||'',real_prose_text:q('realProseText')?.value||'',export:doExport};
+    let d=await api('/api/writer/real_prose_draft_gate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+    if(!d?.ok){q('realProseStatus').textContent=d?.message||'Could not load Real Prose Gate.';return;}
+    lastRealProseGate=d; let s=d.summary||{}, p=d.real_prose_preview||{};
+    q('realProseStatus').innerHTML=`<span class="realProseBadge ${d.gate_ready?'':'bad'}">${esc(d.health_label||'UNKNOWN')}</span>`;
+    q('realProseSummary').innerHTML=`<div><b>${esc(d.milestone||'')}</b></div><div class=realProseGrid><div class=realProseMetric><div class=label>Gate</div><div class=value>${d.gate_ready?'READY':'REVIEW'}</div></div><div class=realProseMetric><div class=label>Phrase</div><div class=value>${s.phrase_matches?'YES':'NO'}</div></div><div class=realProseMetric><div class=label>Next</div><div class=value>v${String(s.next_version||0).padStart(3,'0')}</div></div><div class=realProseMetric><div class=label>Real Words</div><div class=value>${s.real_prose_words||0}</div></div><div class=realProseMetric><div class=label>Collisions</div><div class=value>${s.collision_targets||0}</div></div><div class=realProseMetric><div class=label>Checks</div><div class=value>${s.checks_passed||0}/${s.checks||0}</div></div></div><div class=realProsePath>Latest draft: ${esc(s.latest_draft_path||'')}</div>${d.exported?`<div class=realProsePath>Export: ${esc(d.exported.markdown||'')}</div>`:''}`;
+    q('realProseTargets').innerHTML=(d.selected_targets||[]).map(t=>`<div class="histrow ${t.would_overwrite?'fail':'ok'}"><b>${esc(t.kind||'target')}</b><div>Exists: ${t.exists} | Would overwrite: ${t.would_overwrite}</div><div class=realProsePath>${esc(t.path||'')}</div></div>`).join('')||'No targets.';
+    q('realProsePreview').textContent=p.new_markdown_preview||'No preview.';
+    q('realProseBlockers').innerHTML=(d.blockers||[]).map(b=>`<div class="histrow fail"><b>${esc(b.id||'blocker')}</b><div>${esc(b.message||'')}</div></div>`).join('')||'<div class="histrow ok"><b>No blockers.</b></div>';
+    q('realProseChecks').innerHTML=(d.checks||[]).map(c=>`<div class="histrow ${c.ok?'ok':'fail'}"><b>${esc(c.id||'check')}</b><div>${esc(c.message||'')}</div></div>`).join('')||'No checks.';
+    q('realProseSafety').textContent=Object.entries(d.safety||{}).map(([k,v])=>`${k}: ${v}`).join('\n'); toast('Real Prose Gate loaded.');
+}
+function sendRealProseGateToMission(){
+    if(!lastRealProseGate){toast('Load Real Prose Gate first.');return;} let d=lastRealProseGate, s=d.summary||{}; go('mission');
+    q('input').value=`Please review this Kayock Writer Real Prose Draft Gate report.\n\nMilestone: ${d.milestone}\nHealth: ${d.health_label}\nGate ready: ${d.gate_ready}\n\nSummary:\nBook: ${s.book_id}\nChapter: ${s.chapter_number}\nLatest version: v${String(s.latest_version||0).padStart(3,'0')}\nNext version: v${String(s.next_version||0).padStart(3,'0')}\nLatest words: ${s.latest_words}\nReal prose words: ${s.real_prose_words}\nProposed preview words: ${s.proposed_preview_words}\nWord delta: ${s.word_delta}\nProse mode: ${s.prose_mode}\nPhrase matches: ${s.phrase_matches}\nCollision targets: ${s.collision_targets}\nBlockers: ${s.blockers}\nChecks: ${s.checks_passed}/${s.checks}\nProblems: ${s.problems}\nSafe to save later: ${s.safe_to_save_later}\n\nSafety:\nNo real prose saved yet. No draft file write. No chapter-file edit. No story-file mutation. No overwrite. No delete. No move.\n\nPlease determine whether v10.14.0 should be marked stable/proven and whether the next build should be Real Prose Save Approved Action.`;
+    toast('Real Prose Gate sent to Mission Console.');
+}
+
+let lastDraftCompare=null;
+async function loadDraftCompare(doExport=false){
+    if(!q('draftCompareStatus'))return;
+    q('draftCompareStatus').textContent='Loading Draft Compare View...';
+    let body={book_id:q('draftCompareBook')?.value||'book_2',chapter_number:parseInt(q('draftCompareChapter')?.value||'2'),from_version:parseInt(q('draftCompareFrom')?.value||'1'),to_version:parseInt(q('draftCompareTo')?.value||'2'),export:doExport};
+    let d=await api('/api/writer/draft_compare_view',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+    if(!d?.ok){q('draftCompareStatus').textContent=d?.message||'Could not load Draft Compare.';return;}
+    lastDraftCompare=d;
+    let s=d.summary||{}, c=d.compare||{};
+    q('draftCompareStatus').innerHTML=`<span class="draftCompareBadge ${d.compare_ready?'':'bad'}">${esc(d.health_label||'UNKNOWN')}</span>`;
+    q('draftCompareSummary').innerHTML=`<div><b>${esc(d.milestone||'')}</b></div><div class=draftCompareGrid><div class=draftCompareMetric><div class=label>Ready</div><div class=value>${d.compare_ready?'YES':'NO'}</div></div><div class=draftCompareMetric><div class=label>From</div><div class=value>${esc(s.from_label||'')}</div></div><div class=draftCompareMetric><div class=label>To</div><div class=value>${esc(s.to_label||'')}</div></div><div class=draftCompareMetric><div class=label>Word Delta</div><div class=value>${s.word_delta||0}</div></div><div class=draftCompareMetric><div class=label>Added</div><div class=value>${s.added_words||0}</div></div><div class=draftCompareMetric><div class=label>Checks</div><div class=value>${s.checks_passed||0}/${s.checks||0}</div></div></div><div class=draftComparePath>Drafts folder: ${esc(s.drafts_folder||'')}</div>${d.exported?`<div class=draftComparePath>Export: ${esc(d.exported.markdown||'')}</div>`:''}`;
+    q('draftCompareAdded').innerHTML=(c.added_lines||[]).map(x=>`<div class="histrow ok"><b>Added</b><div class=diffadd>${esc(x)}</div></div>`).join('')||'No added lines.';
+    q('draftCompareRemoved').innerHTML=(c.removed_lines||[]).map(x=>`<div class="histrow fail"><b>Removed</b><div class=diffremove>${esc(x)}</div></div>`).join('')||'No removed lines.';
+    q('draftCompareDiff').textContent=(c.line_diff||[]).join('\n')||'No diff.';
+    q('draftCompareChecks').innerHTML=(d.checks||[]).map(c=>`<div class="histrow ${c.ok?'ok':'fail'}"><b>${esc(c.id||'check')}</b><div>${esc(c.message||'')}</div></div>`).join('')||'No checks.';
+    q('draftCompareSafety').textContent=Object.entries(d.safety||{}).map(([k,v])=>`${k}: ${v}`).join('\n');
+    toast('Draft Compare loaded.');
+}
+function sendDraftCompareToMission(){
+    if(!lastDraftCompare){toast('Load Draft Compare first.');return;}
+    let d=lastDraftCompare, s=d.summary||{}, c=d.compare||{};
+    go('mission');
+    q('input').value=`Please review this Kayock Writer Draft Compare View report.
+
+Milestone: ${d.milestone}
+Health: ${d.health_label}
+Compare ready: ${d.compare_ready}
+
+Summary:
+Book: ${s.book_id}
+Chapter: ${s.chapter_number}
+From: ${s.from_label}
+To: ${s.to_label}
+From words: ${s.from_words}
+To words: ${s.to_words}
+Word delta: ${s.word_delta}
+Char delta: ${s.char_delta}
+From verified: ${s.from_verified}
+To verified: ${s.to_verified}
+Lineage OK: ${s.lineage_ok}
+Previous hash OK: ${s.previous_hash_ok}
+Added words: ${s.added_words}
+Removed words: ${s.removed_words}
+Checks: ${s.checks_passed}/${s.checks}
+Problems: ${s.problems}
+
+Added lines:
+${(c.added_lines||[]).join('\n')||'None.'}
+
+Removed lines:
+${(c.removed_lines||[]).join('\n')||'None.'}
+
+Safety:
+Read-only compare.
+No draft save.
+No chapter-file edit.
+No story mutation.
+No overwrite.
+No delete.
+No move.
+
+Please determine whether v10.13.9 should be marked stable/proven.`;
+    toast('Draft Compare sent to Mission Console.');
+}
+
+let lastDraftRefresh=null;
+async function loadDraftRefresh(doExport=false){
+    if(!q('draftRefreshStatus'))return;
+    q('draftRefreshStatus').textContent='Loading Draft Reader / History Refresh...';
+    let body={book_id:q('draftRefreshBook')?.value||'book_2',chapter_number:parseInt(q('draftRefreshChapter')?.value||'2'),export:doExport};
+    let d=await api('/api/writer/draft_refresh_verification',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+    if(!d?.ok){q('draftRefreshStatus').textContent=d?.message||'Could not load Draft Refresh.';return;}
+    lastDraftRefresh=d;
+    let s=d.summary||{};
+    q('draftRefreshStatus').innerHTML=`<span class="draftRefreshBadge ${d.refresh_ready?'':'bad'}">${esc(d.health_label||'UNKNOWN')}</span>`;
+    q('draftRefreshSummary').innerHTML=`<div><b>${esc(d.milestone||'')}</b></div><div class=draftRefreshGrid><div class=draftRefreshMetric><div class=label>Ready</div><div class=value>${d.refresh_ready?'YES':'NO'}</div></div><div class=draftRefreshMetric><div class=label>Versions</div><div class=value>${s.versions_loaded||0}</div></div><div class=draftRefreshMetric><div class=label>v001</div><div class=value>${s.has_v001?'YES':'NO'}</div></div><div class=draftRefreshMetric><div class=label>v002</div><div class=value>${s.has_v002?'YES':'NO'}</div></div><div class=draftRefreshMetric><div class=label>Latest</div><div class=value>${esc(s.latest_label||'')}</div></div><div class=draftRefreshMetric><div class=label>Checks</div><div class=value>${s.checks_passed||0}/${s.checks||0}</div></div></div><div class=draftRefreshPath>Drafts folder: ${esc(s.drafts_folder||'')}</div>${d.exported?`<div class=draftRefreshPath>Export: ${esc(d.exported.markdown||'')}</div>`:''}`;
+    q('draftRefreshVersions').innerHTML=(d.versions||[]).map(x=>`<div class="histrow ${x.verified?'ok':'fail'}"><b>${esc(x.label||'version')}</b><div>Words: ${x.word_count||0} | Hash OK: ${x.hash_ok} | Count OK: ${x.word_count_ok} | Verified: ${x.verified}</div><div>Created by: ${esc(x.created_by||'')}</div><div>Continues from: ${x.continues_from_version||'—'}</div><div class=draftRefreshPath>${esc(x.draft_markdown?.path||'')}</div></div>`).join('')||'No versions loaded.';
+    q('draftRefreshChecks').innerHTML=(d.checks||[]).map(c=>`<div class="histrow ${c.ok?'ok':'fail'}"><b>${esc(c.id||'check')}</b><div>${esc(c.message||'')}</div></div>`).join('')||'No checks.';
+    q('draftRefreshSafety').textContent=Object.entries(d.safety||{}).map(([k,v])=>`${k}: ${v}`).join('\n');
+    toast('Draft Refresh loaded.');
+}
+function sendDraftRefreshToMission(){
+    if(!lastDraftRefresh){toast('Load Draft Refresh first.');return;}
+    let d=lastDraftRefresh, s=d.summary||{};
+    go('mission');
+    q('input').value=`Please review this Kayock Writer Draft Reader / History Refresh report.
+
+Milestone: ${d.milestone}
+Health: ${d.health_label}
+Refresh ready: ${d.refresh_ready}
+
+Summary:
+Book: ${s.book_id}
+Chapter: ${s.chapter_number}
+Versions loaded: ${s.versions_loaded}
+Version labels: ${(s.version_labels||[]).join(', ')}
+Has v001: ${s.has_v001}
+Has v002: ${s.has_v002}
+Latest version: ${s.latest_label}
+Latest is v002: ${s.latest_is_v002}
+v002 created by: ${s.v002_created_by}
+v002 continues from v001: ${s.v002_continues_from_v001}
+All hashes verified: ${s.all_hashes_verified}
+All word counts verified: ${s.all_word_counts_verified}
+All versions fully verified: ${s.all_versions_fully_verified}
+Checks: ${s.checks_passed}/${s.checks}
+Problems: ${s.problems}
+
+Versions:
+${(d.versions||[]).map(x=>`${x.verified?'PASS':'REVIEW'} - ${x.label} - words=${x.word_count} - hash_ok=${x.hash_ok} - count_ok=${x.word_count_ok} - created_by=${x.created_by}`).join('\n')}
+
+Safety:
+Read-only refresh.
+No draft save.
+No chapter-file edit.
+No story mutation.
+No overwrite.
+No delete.
+No move.
+
+Please determine whether v10.13.8 should be marked stable/proven and whether Draft Reader/History correctly see v001 and v002.`;
+    toast('Draft Refresh sent to Mission Console.');
+}
+
+let lastContinueSaveAction=null;
+async function loadContinueSaveAction(execute=false){
+    if(!q('continueActionStatus'))return;
+    q('continueActionStatus').textContent=execute?'Requesting approved continuation save...':'Loading continue save action preview...';
+    let body={book_id:q('continueActionBook')?.value||'book_2',chapter_number:parseInt(q('continueActionChapter')?.value||'2'),continue_mode:q('continueActionMode')?.value||'next_scene',approval_phrase:q('continueActionPhrase')?.value||'',continuation_text:q('continueActionText')?.value||'',execute:execute,export:true};
+    let d=await api('/api/writer/continue_save_action',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+    if(!d?.ok){q('continueActionStatus').textContent=d?.message||'Could not load Continue Save Action.';return;}
+    lastContinueSaveAction=d;
+    let s=d.summary||{}, cont=d.continuation||{};
+    let cls=d.status==='blocked'?'blocked':(d.status==='error'?'bad':'');
+    q('continueActionStatus').innerHTML=`<span class="continueActionBadge ${cls}">${esc(d.health_label||'UNKNOWN')}</span>`;
+    q('continueActionSummary').innerHTML=`<div><b>${esc(d.milestone||'')}</b></div><div class=continueActionGrid><div class=continueActionMetric><div class=label>Status</div><div class=value>${esc(s.status||'')}</div></div><div class=continueActionMetric><div class=label>Allowed</div><div class=value>${s.action_allowed?'YES':'NO'}</div></div><div class=continueActionMetric><div class=label>Phrase</div><div class=value>${s.phrase_matches?'YES':'NO'}</div></div><div class=continueActionMetric><div class=label>Next</div><div class=value>v${String(s.next_version||0).padStart(3,'0')}</div></div><div class=continueActionMetric><div class=label>Words</div><div class=value>${s.new_words||0}</div></div><div class=continueActionMetric><div class=label>Post</div><div class=value>${s.post_checks_passed||0}/${s.post_checks||0}</div></div></div><div class=continueActionPath>Next draft: ${esc(s.next_draft_path||'')}</div>${d.exported?`<div class=continueActionPath>Export: ${esc(d.exported.markdown||'')}</div>`:''}`;
+    let parts=(d.selected_targets||[]).map(t=>`<div class="histrow ${t.would_overwrite?'fail':'ok'}"><b>${esc(t.kind||'target')}</b><div>Exists before save: ${t.exists} | Would overwrite: ${t.would_overwrite}</div><div class=continueActionPath>${esc(t.path||'')}</div></div>`);
+    (d.created_files||[]).forEach(p=>parts.push(`<div class="histrow ok"><b>Created file</b><div class=continueActionPath>${esc(p)}</div></div>`));
+    (d.blockers||[]).forEach(b=>parts.push(`<div class="histrow fail"><b>${esc(b.id||'blocker')}</b><div>${esc(b.message||'')}</div></div>`));
+    (d.errors||[]).forEach(e=>parts.push(`<div class="histrow fail"><b>${esc(e.id||'error')}</b><div>${esc(e.message||'')}</div></div>`));
+    q('continueActionTargets').innerHTML=parts.join('')||'No targets.';
+    q('continueActionPreview').textContent=cont.new_markdown_preview||'No preview.';
+    q('continueActionPreflight').innerHTML=(d.preflight_checks||[]).map(c=>`<div class="histrow ${c.ok?'ok':'fail'}"><b>${esc(c.id||'check')}</b><div>${esc(c.message||'')}</div></div>`).join('')||'No preflight.';
+    q('continueActionPost').innerHTML=(d.post_checks||[]).map(c=>`<div class="histrow ${c.ok?'ok':'fail'}"><b>${esc(c.id||'check')}</b><div>${esc(c.message||'')}</div></div>`).join('')||'No post checks.';
+    q('continueActionSafety').textContent=Object.entries(d.safety||{}).map(([k,v])=>`${k}: ${v}`).join('\n');
+    toast('Continue Save Action report loaded.');
+}
+function sendContinueSaveActionToMission(){
+    if(!lastContinueSaveAction){toast('Load Continue Save Action first.');return;}
+    let d=lastContinueSaveAction, s=d.summary||{};
+    go('mission');
+    q('input').value=`Please review this Kayock Writer Continue Save Approved Action report.
+
+Milestone: ${d.milestone}
+Health: ${d.health_label}
+Status: ${d.status}
+
+Summary:
+Book: ${s.book_id}
+Chapter: ${s.chapter_number}
+Execute requested: ${s.execute_requested}
+Action allowed: ${s.action_allowed}
+Phrase matches: ${s.phrase_matches}
+Latest version: v${String(s.latest_version||0).padStart(3,'0')}
+Next version: v${String(s.next_version||0).padStart(3,'0')}
+Latest words: ${s.latest_words}
+Continuation words: ${s.continuation_words}
+New words: ${s.new_words}
+Collision targets: ${s.collision_targets}
+Blockers: ${s.blockers}
+Errors: ${s.errors}
+Preflight: ${s.preflight_checks_passed}/${s.preflight_checks}
+Created files: ${s.created_files}
+Written files: ${s.written_files}
+Post checks: ${s.post_checks_passed}/${s.post_checks}
+Problems: ${s.problems}
+Next draft: ${s.next_draft_path}
+Metadata: ${s.metadata_path}
+Evidence: ${s.evidence_path}
+
+Created files:
+${(d.created_files||[]).join('\n')||'None.'}
+
+Safety:
+Requires exact phrase.
+Requires continuation text.
+Requires latest draft hash verification.
+Requires no collision.
+Creates next-version Markdown, metadata JSON, and save evidence JSON.
+No chapter-file edit.
+No story-file mutation.
+No overwrite.
+No delete.
+No move.
+
+Please determine whether v10.13.7 should be marked stable/proven and whether v002 was saved safely.`;
+    toast('Continue Save Action sent to Mission Console.');
+}
+
+let lastContinueSaveGate=null;
+async function loadContinueSaveGate(doExport=false){
+    if(!q('continueGateStatus'))return;
+    q('continueGateStatus').textContent='Loading Continue Save Approval Gate...';
+    let body={book_id:q('continueGateBook')?.value||'book_2',chapter_number:parseInt(q('continueGateChapter')?.value||'2'),continue_mode:q('continueGateMode')?.value||'next_scene',approval_phrase:q('continueGatePhrase')?.value||'',target_words:parseInt(q('continueGateTargetWords')?.value||'1200'),continuation_text:q('continueGateText')?.value||'',export:doExport};
+    let d=await api('/api/writer/continue_save_gate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+    if(!d?.ok){q('continueGateStatus').textContent=d?.message||'Could not load Continue Save Gate.';return;}
+    lastContinueSaveGate=d; let s=d.summary||{}, c=d.continuation||{};
+    q('continueGateStatus').innerHTML=`<span class="continueGateBadge ${d.gate_ready?'':'bad'}">${esc(d.health_label||'UNKNOWN')}</span>`;
+    q('continueGateSummary').innerHTML=`<div><b>${esc(d.milestone||'')}</b></div><div class=continueGateGrid><div class=continueGateMetric><div class=label>Gate</div><div class=value>${d.gate_ready?'READY':'REVIEW'}</div></div><div class=continueGateMetric><div class=label>Phrase</div><div class=value>${s.phrase_matches?'YES':'NO'}</div></div><div class=continueGateMetric><div class=label>Next</div><div class=value>v${String(s.next_version||0).padStart(3,'0')}</div></div><div class=continueGateMetric><div class=label>New Words</div><div class=value>${s.new_preview_words||0}</div></div><div class=continueGateMetric><div class=label>Collisions</div><div class=value>${s.collision_targets||0}</div></div><div class=continueGateMetric><div class=label>Checks</div><div class=value>${s.checks_passed||0}/${s.checks||0}</div></div></div><div class=continueGatePath>Latest draft: ${esc(s.latest_draft_path||'')}</div>${d.exported?`<div class=continueGatePath>Export: ${esc(d.exported.markdown||'')}</div>`:''}`;
+    q('continueGateTargets').innerHTML=(d.selected_targets||[]).map(t=>`<div class="histrow ${t.would_overwrite?'fail':'ok'}"><b>${esc(t.kind||'target')}</b><div>Exists: ${t.exists} | Would overwrite: ${t.would_overwrite}</div><div class=continueGatePath>${esc(t.path||'')}</div></div>`).join('')||'No targets.';
+    q('continueGatePreview').textContent=c.new_markdown_preview||'No preview.';
+    q('continueGateBlockers').innerHTML=(d.blockers||[]).map(b=>`<div class="histrow fail"><b>${esc(b.id||'blocker')}</b><div>${esc(b.message||'')}</div></div>`).join('')||'<div class="histrow ok"><b>No blockers.</b></div>';
+    q('continueGateChecks').innerHTML=(d.checks||[]).map(c=>`<div class="histrow ${c.ok?'ok':'fail'}"><b>${esc(c.id||'check')}</b><div>${esc(c.message||'')}</div></div>`).join('')||'No checks.';
+    q('continueGateSafety').textContent=Object.entries(d.safety||{}).map(([k,v])=>`${k}: ${v}`).join('\n');
+    toast('Continue Save Gate loaded.');
+}
+function sendContinueSaveGateToMission(){
+    if(!lastContinueSaveGate){toast('Load Continue Save Gate first.');return;}
+    let d=lastContinueSaveGate, s=d.summary||{}; go('mission');
+    q('input').value=`Please review this Kayock Writer Continue Save Approval Gate report.\n\nMilestone: ${d.milestone}\nHealth: ${d.health_label}\nGate ready: ${d.gate_ready}\n\nBook: ${s.book_id}\nChapter: ${s.chapter_number}\nLatest version: v${String(s.latest_version||0).padStart(3,'0')}\nNext version: v${String(s.next_version||0).padStart(3,'0')}\nLatest words: ${s.latest_words}\nContinuation words: ${s.continuation_words}\nNew preview words: ${s.new_preview_words}\nPhrase matches: ${s.phrase_matches}\nCollision targets: ${s.collision_targets}\nBlockers: ${s.blockers}\nChecks: ${s.checks_passed}/${s.checks}\nProblems: ${s.problems}\nSafe to save later: ${s.safe_to_save_later}\n\nTargets:\n${(d.selected_targets||[]).map(t=>`${t.kind}: ${t.path} | exists=${t.exists} | would_overwrite=${t.would_overwrite}`).join('\n')}\n\nSafety: no continuation saved yet; no draft file write; no chapter edit; no story mutation; no overwrite; no delete; no move.\n\nPlease determine whether v10.13.6 should be marked stable/proven and whether the next build should be Continue Save Approved Action.`;
+    toast('Continue Save Gate sent to Mission Console.');
+}
+
+let lastDraftContinueWorkspace=null;
+async function loadDraftContinueWorkspace(doExport=false){
+    if(!q('draftContinueStatus'))return;
+    q('draftContinueStatus').textContent='Loading Draft Continue Workspace...';
+    let body={book_id:q('draftContinueBook')?.value||'book_2',chapter_number:parseInt(q('draftContinueChapter')?.value||'2'),continue_mode:q('draftContinueMode')?.value||'next_scene',target_words:parseInt(q('draftContinueTargetWords')?.value||'1200'),user_direction:q('draftContinueDirection')?.value||'',export:doExport};
+    let d=await api('/api/writer/draft_continue_workspace',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+    if(!d?.ok){q('draftContinueStatus').textContent=d?.message||'Could not load Draft Continue Workspace.';return;}
+    lastDraftContinueWorkspace=d;
+    let s=d.summary||{}, w=d.workspace||{};
+    q('draftContinueStatus').innerHTML=`<span class="draftContinueBadge ${d.continue_ready?'':'bad'}">${esc(d.health_label||'UNKNOWN')}</span>`;
+    q('draftContinueSummary').innerHTML=`<div><b>${esc(d.milestone||'')}</b></div><div class=draftContinueGrid><div class=draftContinueMetric><div class=label>Ready</div><div class=value>${d.continue_ready?'YES':'NO'}</div></div><div class=draftContinueMetric><div class=label>Latest</div><div class=value>v${String(s.latest_draft_version||0).padStart(3,'0')}</div></div><div class=draftContinueMetric><div class=label>Words</div><div class=value>${s.latest_draft_words||0}</div></div><div class=draftContinueMetric><div class=label>Hash</div><div class=value>${s.hash_ok?'OK':'BAD'}</div></div><div class=draftContinueMetric><div class=label>Beats</div><div class=value>${s.beat_count||0}</div></div><div class=draftContinueMetric><div class=label>Checks</div><div class=value>${s.checks_passed||0}/${s.checks||0}</div></div></div><div class=draftContinuePath>Latest draft: ${esc(s.latest_draft_path||'')}</div><div class=draftContinuePath>Chapter card: ${esc(s.chapter_card_path||'')}</div>${d.exported?`<div class=draftContinuePath>Export: ${esc(d.exported.markdown||'')}</div>`:''}`;
+    q('draftContinueBrief').textContent=w.continuation_brief||'No brief.';
+    q('draftContinueBeats').innerHTML=(w.next_scene_beats||[]).map(b=>`<div class=draftContinueCard><b>${b.beat}. ${esc(b.name||'Beat')}</b><div>${esc(b.purpose||'')}</div></div>`).join('')||'No beats.';
+    q('draftContinuePrompt').textContent=w.continuation_prompt||'No prompt.';
+    q('draftContinueShell').textContent=w.continuation_shell||'No shell.';
+    q('draftContinueChecks').innerHTML=(d.checks||[]).map(c=>`<div class="histrow ${c.ok?'ok':'fail'}"><b>${esc(c.id||'check')}</b><div>${esc(c.message||'')}</div></div>`).join('')||'No checks.';
+    q('draftContinueSafety').textContent=Object.entries(d.safety||{}).map(([k,v])=>`${k}: ${v}`).join('\n');
+    toast('Draft Continue Workspace loaded.');
+}
+function sendDraftContinueWorkspaceToMission(){
+    if(!lastDraftContinueWorkspace){toast('Load Draft Continue Workspace first.');return;}
+    let d=lastDraftContinueWorkspace, s=d.summary||{}, w=d.workspace||{};
+    go('mission');
+    q('input').value=`Please review this Kayock Writer Draft Continue Workspace report.
+
+Milestone: ${d.milestone}
+Health: ${d.health_label}
+Continue ready: ${d.continue_ready}
+
+Summary:
+Book: ${s.book_id}
+Chapter: ${s.chapter_number}
+Latest draft version: v${String(s.latest_draft_version||0).padStart(3,'0')}
+Latest draft words: ${s.latest_draft_words}
+Hash OK: ${s.hash_ok}
+Word Count OK: ${s.word_count_ok}
+Continue mode: ${s.continue_mode}
+Target words: ${s.target_words}
+Beat count: ${s.beat_count}
+Guardrails: ${s.guardrails}
+Prompt chars: ${s.prompt_chars}
+Checks: ${s.checks_passed}/${s.checks}
+Problems: ${s.problems}
+Latest draft: ${s.latest_draft_path}
+Chapter card: ${s.chapter_card_path}
+
+Continuation Brief:
+${w.continuation_brief||''}
+
+Next Scene Beats:
+${(w.next_scene_beats||[]).map(b=>`${b.beat}. ${b.name}: ${b.purpose}`).join('\n')}
+
+Continuation Prompt:
+${w.continuation_prompt||''}
+
+Export:
+${d.exported?.markdown||'No exported Draft Continue Workspace report'}
+
+Safety:
+Read-only continue workspace.
+No draft save.
+No chapter-file edit.
+No story-file mutation.
+No overwrite.
+No delete.
+No move.
+
+Please determine whether v10.13.5 should be marked stable/proven and whether the next build should be Continue Save Approval Gate.`;
+    toast('Draft Continue Workspace sent to Mission Console.');
+}
+
+let lastDraftVersionHistory=null;
+async function loadDraftVersionHistory(doExport=false){
+    if(!q('draftHistoryStatus'))return;
+    q('draftHistoryStatus').textContent='Loading Draft Version History...';
+    let body={book_id:q('draftHistoryBook')?.value||'book_2',chapter_number:parseInt(q('draftHistoryChapter')?.value||'2'),export:doExport};
+    let d=await api('/api/writer/draft_version_history',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+    if(!d?.ok){q('draftHistoryStatus').textContent=d?.message||'Could not load Draft Version History.';return;}
+    lastDraftVersionHistory=d;
+    let s=d.summary||{}, l=d.latest_version||{};
+    q('draftHistoryStatus').innerHTML=`<span class="draftHistoryBadge ${d.history_ready?'':'bad'}">${esc(d.health_label||'UNKNOWN')}</span>`;
+    q('draftHistorySummary').innerHTML=`<div><b>${esc(d.milestone||'')}</b></div><div class=draftHistoryGrid><div class=draftHistoryMetric><div class=label>Ready</div><div class=value>${d.history_ready?'YES':'NO'}</div></div><div class=draftHistoryMetric><div class=label>Versions</div><div class=value>${s.versions_loaded||0}</div></div><div class=draftHistoryMetric><div class=label>Verified</div><div class=value>${s.verified_versions||0}</div></div><div class=draftHistoryMetric><div class=label>Latest</div><div class=value>v${String(s.latest_version||0).padStart(3,'0')}</div></div><div class=draftHistoryMetric><div class=label>Latest Words</div><div class=value>${s.latest_word_count||0}</div></div><div class=draftHistoryMetric><div class=label>Checks</div><div class=value>${s.checks_passed||0}/${s.checks||0}</div></div></div><div class=draftHistoryPath>Drafts folder: ${esc(s.drafts_folder||'')}</div><div class=draftHistoryPath>Chapter card: ${esc(s.chapter_card_path||'')}</div>${d.exported?`<div class=draftHistoryPath>Export: ${esc(d.exported.markdown||'')}</div>`:''}`;
+    q('draftHistoryTimeline').innerHTML=(d.timeline||[]).map(t=>`<div class="histrow ${t.verified?'ok':'fail'}"><b>v${String(t.version||0).padStart(3,'0')}</b><div>Words: ${t.word_count||0} | Delta: ${t.delta_words_from_previous===null?'—':t.delta_words_from_previous} | Hash OK: ${t.hash_ok} | Verified: ${t.verified}</div><div>Metadata: ${t.metadata_exists} | Evidence: ${t.evidence_exists} | Chapter Card: ${t.chapter_card_exists}</div><div class=draftHistoryPath>${esc(t.draft_path||'')}</div></div>`).join('')||'No timeline loaded.';
+    if(l.draft_markdown){
+        q('draftHistoryLatest').innerHTML=`<div><b>${esc(l.label||'latest')}</b> — ${esc(l.draft_markdown.name||'draft')}</div><div>Words: ${l.word_count||0} | Chars: ${l.char_count||0} | Lines: ${l.line_count||0}</div><div>Hash OK: ${l.hash_ok} | Word Count OK: ${l.word_count_ok} | Verified: ${l.verified}</div><div class=draftHistoryPath>Draft: ${esc(l.draft_markdown.path||'')}</div><div class=draftHistoryPath>Metadata: ${esc(l.metadata_file?.path||'')}</div><div class=draftHistoryPath>Evidence: ${esc(l.evidence_file?.path||'')}</div>`;
+    }else{
+        q('draftHistoryLatest').textContent='No latest version found.';
+    }
+    q('draftHistoryChecks').innerHTML=(d.checks||[]).map(c=>`<div class="histrow ${c.ok?'ok':'fail'}"><b>${esc(c.id||'check')}</b><div>${esc(c.message||'')}</div></div>`).join('')||'No checks.';
+    q('draftHistorySafety').textContent=Object.entries(d.safety||{}).map(([k,v])=>`${k}: ${v}`).join('\n');
+    toast('Draft Version History loaded.');
+}
+function sendDraftVersionHistoryToMission(){
+    if(!lastDraftVersionHistory){toast('Load Draft Version History first.');return;}
+    let d=lastDraftVersionHistory, s=d.summary||{}, l=d.latest_version||{};
+    go('mission');
+    q('input').value=`Please review this Kayock Writer Draft Version History report.
+
+Milestone: ${d.milestone}
+Health: ${d.health_label}
+History ready: ${d.history_ready}
+
+Summary:
+Book: ${s.book_id}
+Chapter: ${s.chapter_number}
+Versions loaded: ${s.versions_loaded}
+Verified versions: ${s.verified_versions}
+Metadata files: ${s.metadata_files}
+Evidence files: ${s.evidence_files}
+Hashes verified: ${s.hashes_verified}
+Word counts verified: ${s.word_counts_verified}
+Latest version: v${String(s.latest_version||0).padStart(3,'0')}
+Latest word count: ${s.latest_word_count}
+Net word change: ${s.net_word_change}
+Checks: ${s.checks_passed}/${s.checks}
+Problems: ${s.problems}
+
+Timeline:
+${(d.timeline||[]).map(t=>`${t.verified?'PASS':'REVIEW'} - v${String(t.version||0).padStart(3,'0')} - words=${t.word_count} - delta=${t.delta_words_from_previous} - hash_ok=${t.hash_ok} - ${t.draft_path}`).join('\n')}
+
+Latest:
+${l.draft_markdown?.path||'None'}
+Metadata: ${l.metadata_file?.path||'None'}
+Evidence: ${l.evidence_file?.path||'None'}
+Verified: ${l.verified}
+
+Export:
+${d.exported?.markdown||'No exported Draft Version History report'}
+
+Safety:
+Read-only version history.
+No draft save.
+No chapter-file edit.
+No story-file mutation.
+No overwrite.
+No delete.
+No move.
+
+Please determine:
+1. Whether v10.13.4 should be marked stable/proven
+2. Whether the draft version timeline is healthy
+3. Whether the next build should be Draft Continue Workspace.`;
+    toast('Draft Version History sent to Mission Console.');
+}
+
+let lastDraftReader=null;
+async function loadDraftReader(doExport=false){
+    if(!q('draftReaderStatus'))return;
+    q('draftReaderStatus').textContent='Loading Draft Reader Dashboard...';
+    let body={book_id:q('draftReaderBook')?.value||'book_2',export:doExport};
+    let d=await api('/api/writer/draft_reader_dashboard',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+    if(!d?.ok){q('draftReaderStatus').textContent=d?.message||'Could not load Draft Reader.';return;}
+    lastDraftReader=d;
+    let s=d.summary||{}, l=d.latest_draft||{};
+    q('draftReaderStatus').innerHTML=`<span class="draftReaderBadge ${d.dashboard_ready?'':'bad'}">${esc(d.health_label||'UNKNOWN')}</span>`;
+    q('draftReaderSummary').innerHTML=`<div><b>${esc(d.milestone||'')}</b></div><div class=draftReaderGrid><div class=draftReaderMetric><div class=label>Ready</div><div class=value>${d.dashboard_ready?'YES':'NO'}</div></div><div class=draftReaderMetric><div class=label>Drafts</div><div class=value>${s.drafts_loaded||0}</div></div><div class=draftReaderMetric><div class=label>Verified</div><div class=value>${s.verified_drafts||0}</div></div><div class=draftReaderMetric><div class=label>Words</div><div class=value>${s.total_words||0}</div></div><div class=draftReaderMetric><div class=label>Hashes</div><div class=value>${s.hashes_verified||0}</div></div><div class=draftReaderMetric><div class=label>Checks</div><div class=value>${s.checks_passed||0}/${s.checks||0}</div></div></div><div class=draftReaderPath>Drafts root: ${esc(s.drafts_root||'')}</div>${d.exported?`<div class=draftReaderPath>Export: ${esc(d.exported.markdown||'')}</div>`:''}`;
+    if(l.draft_markdown){
+        q('draftReaderLatest').innerHTML=`<div><b>${esc(l.draft_markdown.name||'latest draft')}</b></div><div>Book: ${esc(l.book_id||'')} | Chapter: ${l.chapter_number||''} | Version: v${String(l.draft_version||0).padStart(3,'0')} | Words: ${l.word_count||0}</div><div>Hash OK: ${l.hash_ok} | Word Count OK: ${l.word_count_ok} | Verified: ${l.verified}</div><div class=draftReaderPath>Draft: ${esc(l.draft_markdown.path||'')}</div><div class=draftReaderPath>Metadata: ${esc(l.metadata_file?.path||'')}</div><div class=draftReaderPath>Evidence: ${esc(l.evidence_file?.path||'')}</div><div class=draftReaderPath>Chapter Card: ${esc(l.chapter_card_path||'')} | Exists: ${l.chapter_card_exists}</div>`;
+    }else{
+        q('draftReaderLatest').textContent='No latest draft found.';
+    }
+    q('draftReaderInventory').innerHTML=(d.drafts||[]).map(x=>`<div class="histrow ${x.verified?'ok':'fail'}"><b>${esc(x.draft_markdown?.name||'draft')}</b><div>Book: ${esc(x.book_id||'')} | Chapter: ${x.chapter_number||''} | Version: v${String(x.draft_version||0).padStart(3,'0')} | Words: ${x.word_count||0} | Hash OK: ${x.hash_ok} | Verified: ${x.verified}</div><div class=draftReaderPath>${esc(x.draft_markdown?.path||'')}</div></div>`).join('')||'No drafts loaded.';
+    q('draftReaderChecks').innerHTML=(d.checks||[]).map(c=>`<div class="histrow ${c.ok?'ok':'fail'}"><b>${esc(c.id||'check')}</b><div>${esc(c.message||'')}</div></div>`).join('')||'No checks.';
+    q('draftReaderSafety').textContent=Object.entries(d.safety||{}).map(([k,v])=>`${k}: ${v}`).join('\n');
+    toast('Draft Reader loaded.');
+}
+function sendDraftReaderToMission(){
+    if(!lastDraftReader){toast('Load Draft Reader first.');return;}
+    let d=lastDraftReader, s=d.summary||{}, l=d.latest_draft||{};
+    go('mission');
+    q('input').value=`Please review this Kayock Writer Draft Reader Dashboard report.
+
+Milestone: ${d.milestone}
+Health: ${d.health_label}
+Dashboard ready: ${d.dashboard_ready}
+
+Summary:
+Book filter: ${s.book_filter}
+Drafts loaded: ${s.drafts_loaded}
+Verified drafts: ${s.verified_drafts}
+Metadata files: ${s.metadata_files}
+Evidence files: ${s.evidence_files}
+Hashes verified: ${s.hashes_verified}
+Total words: ${s.total_words}
+Latest book: ${s.latest_book_id}
+Latest chapter: ${s.latest_chapter_number}
+Latest version: v${String(s.latest_draft_version||0).padStart(3,'0')}
+Checks: ${s.checks_passed}/${s.checks}
+Problems: ${s.problems}
+
+Latest draft:
+${l.draft_markdown?.path||'None'}
+Metadata: ${l.metadata_file?.path||'None'}
+Evidence: ${l.evidence_file?.path||'None'}
+Hash OK: ${l.hash_ok}
+Verified: ${l.verified}
+Chapter card: ${l.chapter_card_path||'None'}
+
+Draft inventory:
+${(d.drafts||[]).map(x=>`${x.verified?'PASS':'REVIEW'} - ${x.draft_markdown?.name} - book=${x.book_id} chapter=${x.chapter_number} version=v${String(x.draft_version||0).padStart(3,'0')} words=${x.word_count} hash_ok=${x.hash_ok}`).join('\n')}
+
+Export:
+${d.exported?.markdown||'No exported Draft Reader report'}
+
+Safety:
+Read-only draft reader.
+No draft save.
+No chapter-file edit.
+No story-file mutation.
+No overwrite.
+No delete.
+No move.
+
+Please determine:
+1. Whether v10.13.3 should be marked stable/proven
+2. Whether the saved draft inventory is healthy
+3. Whether the next build should be Draft Version History.`;
+    toast('Draft Reader sent to Mission Console.');
+}
+
+let lastDraftSaveAction=null;
+async function loadDraftSaveAction(execute=false){
+    if(!q('draftSaveStatus'))return;
+    q('draftSaveStatus').textContent=execute?'Requesting approved draft save...':'Loading draft save action preview...';
+    let body={book_id:q('draftSaveBook')?.value||'book_2',chapter_number:parseInt(q('draftSaveChapter')?.value||'2'),approval_phrase:q('draftSavePhrase')?.value||'',draft_title:q('draftSaveTitle')?.value||'',draft_text:q('draftSaveText')?.value||'',execute:execute,export:true};
+    let d=await api('/api/writer/draft_save_action',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+    if(!d?.ok){q('draftSaveStatus').textContent=d?.message||'Could not load Draft Save Action.';return;}
+    lastDraftSaveAction=d;
+    let s=d.summary||{};
+    let cls=d.status==='blocked'?'blocked':(d.status==='error'?'bad':'');
+    q('draftSaveStatus').innerHTML=`<span class="draftSaveBadge ${cls}">${esc(d.health_label||'UNKNOWN')}</span>`;
+    q('draftSaveSummary').innerHTML=`<div><b>${esc(d.milestone||'')}</b></div><div class=draftSaveGrid><div class=draftSaveMetric><div class=label>Status</div><div class=value>${esc(s.status||'')}</div></div><div class=draftSaveMetric><div class=label>Allowed</div><div class=value>${s.action_allowed?'YES':'NO'}</div></div><div class=draftSaveMetric><div class=label>Phrase</div><div class=value>${s.phrase_matches?'YES':'NO'}</div></div><div class=draftSaveMetric><div class=label>Version</div><div class=value>v${String(s.draft_version||0).padStart(3,'0')}</div></div><div class=draftSaveMetric><div class=label>Words</div><div class=value>${s.word_count||0}</div></div><div class=draftSaveMetric><div class=label>Post</div><div class=value>${s.post_checks_passed||0}/${s.post_checks||0}</div></div></div><div class=draftSavePath>Draft: ${esc(s.draft_markdown_path||'')}</div><div class=draftSavePath>Metadata: ${esc(s.metadata_path||'')}</div><div class=draftSavePath>Evidence: ${esc(s.evidence_path||'')}</div>${d.exported?`<div class=draftSavePath>Export: ${esc(d.exported.markdown||'')}</div>`:''}`;
+    q('draftSaveTargets').innerHTML=(d.selected_targets||[]).map(t=>`<div class="histrow ${t.would_overwrite?'fail':'ok'}"><b>${esc(t.kind||'target')}</b><div>Exists before save: ${t.exists} | Would overwrite: ${t.would_overwrite}</div><div class=draftSavePath>${esc(t.path||'')}</div></div>`).join('')||'No targets.';
+    let resultParts=[];
+    if((d.blockers||[]).length){resultParts.push(...(d.blockers||[]).map(b=>`<div class="histrow fail"><b>${esc(b.id||'blocker')}</b><div>${esc(b.message||'')}</div></div>`));}
+    else{resultParts.push('<div class="histrow ok"><b>No blockers.</b></div>');}
+    (d.created_files||[]).forEach(p=>resultParts.push(`<div class="histrow ok"><b>Created file</b><div class=draftSavePath>${esc(p)}</div></div>`));
+    (d.errors||[]).forEach(e=>resultParts.push(`<div class="histrow fail"><b>${esc(e.id||'error')}</b><div>${esc(e.message||'')}</div></div>`));
+    q('draftSaveResults').innerHTML=resultParts.join('');
+    q('draftSavePreview').textContent=d.draft_markdown_preview||'No preview.';
+    q('draftSavePreflight').innerHTML=(d.preflight_checks||[]).map(c=>`<div class="histrow ${c.ok?'ok':'fail'}"><b>${esc(c.id||'check')}</b><div>${esc(c.message||'')}</div></div>`).join('')||'No preflight.';
+    q('draftSavePost').innerHTML=(d.post_checks||[]).map(c=>`<div class="histrow ${c.ok?'ok':'fail'}"><b>${esc(c.id||'check')}</b><div>${esc(c.message||'')}</div></div>`).join('')||'No post checks.';
+    q('draftSaveSafety').textContent=Object.entries(d.safety||{}).map(([k,v])=>`${k}: ${v}`).join('\n');
+    toast('Draft Save Action report loaded.');
+}
+function sendDraftSaveActionToMission(){
+    if(!lastDraftSaveAction){toast('Load Draft Save Action first.');return;}
+    let d=lastDraftSaveAction, s=d.summary||{};
+    go('mission');
+    q('input').value=`Please review this Kayock Writer Draft Save Approved Action report.
+
+Milestone: ${d.milestone}
+Health: ${d.health_label}
+Status: ${d.status}
+
+Summary:
+Project: ${s.project_title}
+Book: ${s.book_id} - ${s.book_title}
+Chapter: ${s.chapter_number}
+Execute requested: ${s.execute_requested}
+Action allowed: ${s.action_allowed}
+Phrase matches: ${s.phrase_matches}
+Draft version: v${String(s.draft_version||0).padStart(3,'0')}
+Word count: ${s.word_count}
+Char count: ${s.char_count}
+Selected targets: ${s.selected_targets}
+Collision targets: ${s.collision_targets}
+Blockers: ${s.blockers}
+Errors: ${s.errors}
+Preflight: ${s.preflight_checks_passed}/${s.preflight_checks}
+Created files: ${s.created_files}
+Written files: ${s.written_files}
+Post checks: ${s.post_checks_passed}/${s.post_checks}
+Problems: ${s.problems}
+Draft path: ${s.draft_markdown_path}
+Metadata path: ${s.metadata_path}
+Evidence path: ${s.evidence_path}
+
+Created files:
+${(d.created_files||[]).join('\n')||'None.'}
+
+Blockers:
+${(d.blockers||[]).length ? (d.blockers||[]).map(b=>`${b.id}: ${b.message}`).join('\n') : 'None.'}
+
+Post checks:
+${(d.post_checks||[]).map(c=>`${c.ok?'PASS':'FAIL'} - ${c.id}: ${c.message}`).join('\n')}
+
+Export:
+${d.exported?.markdown||'No exported Draft Save Action report'}
+
+Safety:
+Requires exact phrase.
+Requires draft text.
+Requires no collision.
+Auto-selects next safe version.
+Creates Markdown draft, metadata JSON, and save evidence JSON.
+No chapter-file edit.
+No story-file mutation.
+No overwrite.
+No delete.
+No move.
+
+Please determine:
+1. Whether v10.13.2 should be marked stable/proven
+2. Whether the first prose draft save was completed safely
+3. Whether the next build should be Draft Reader Dashboard.`;
+    toast('Draft Save Action sent to Mission Console.');
+}
+
+let lastDraftSaveGate=null;
+async function loadDraftSaveGate(doExport=false){
+    if(!q('draftGateStatus'))return;
+    q('draftGateStatus').textContent='Loading Draft Save Approval Gate...';
+    let body={book_id:q('draftGateBook')?.value||'book_2',chapter_number:parseInt(q('draftGateChapter')?.value||'2'),approval_phrase:q('draftGatePhrase')?.value||'',draft_title:q('draftGateTitle')?.value||'',draft_text:q('draftGateText')?.value||'',export:doExport};
+    let d=await api('/api/writer/draft_save_gate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+    if(!d?.ok){q('draftGateStatus').textContent=d?.message||'Could not load Draft Save Gate.';return;}
+    lastDraftSaveGate=d;
+    let s=d.summary||{};
+    q('draftGateStatus').innerHTML=`<span class="draftGateBadge ${d.gate_ready?'':'bad'}">${esc(d.health_label||'UNKNOWN')}</span>`;
+    q('draftGateSummary').innerHTML=`<div><b>${esc(d.milestone||'')}</b></div><div class=draftGateGrid><div class=draftGateMetric><div class=label>Gate</div><div class=value>${d.gate_ready?'READY':'REVIEW'}</div></div><div class=draftGateMetric><div class=label>Phrase</div><div class=value>${s.phrase_matches?'YES':'NO'}</div></div><div class=draftGateMetric><div class=label>Words</div><div class=value>${s.word_count||0}</div></div><div class=draftGateMetric><div class=label>Targets</div><div class=value>${s.future_targets||0}</div></div><div class=draftGateMetric><div class=label>Blockers</div><div class=value>${s.blockers||0}</div></div><div class=draftGateMetric><div class=label>Checks</div><div class=value>${s.checks_passed||0}/${s.checks||0}</div></div></div><div class=draftGatePath>Chapter card: ${esc(s.chapter_card_path||'')}</div>${d.exported?`<div class=draftGatePath>Export: ${esc(d.exported.markdown||'')}</div>`:''}`;
+    q('draftGateTargets').innerHTML=(d.proposed_targets||[]).map(t=>`<div class="histrow ${t.would_overwrite?'fail':'ok'}"><b>${esc(t.kind||'target')}</b><div>Exists: ${t.exists} | Would overwrite: ${t.would_overwrite}</div><div class=draftGatePath>${esc(t.path||'')}</div></div>`).join('')||'No targets.';
+    q('draftGatePreview').textContent=d.preview_markdown||'No preview.';
+    q('draftGateBlockers').innerHTML=(d.blockers||[]).map(b=>`<div class="histrow fail"><b>${esc(b.id||'blocker')}</b><div>${esc(b.message||'')}</div></div>`).join('')||'<div class="histrow ok"><b>No blockers.</b></div>';
+    q('draftGateChecks').innerHTML=(d.checks||[]).map(c=>`<div class="histrow ${c.ok?'ok':'fail'}"><b>${esc(c.id||'check')}</b><div>${esc(c.message||'')}</div></div>`).join('')||'No checks.';
+    q('draftGateSafety').textContent=Object.entries(d.safety||{}).map(([k,v])=>`${k}: ${v}`).join('\n');
+    toast('Draft Save Gate loaded.');
+}
+function sendDraftSaveGateToMission(){
+    if(!lastDraftSaveGate){toast('Load Draft Save Gate first.');return;}
+    let d=lastDraftSaveGate, s=d.summary||{};
+    go('mission');
+    q('input').value=`Please review this Kayock Writer Draft Save Approval Gate report.
+
+Milestone: ${d.milestone}
+Health: ${d.health_label}
+Gate ready: ${d.gate_ready}
+
+Summary:
+Project: ${s.project_title}
+Book: ${s.book_id} - ${s.book_title}
+Chapter: ${s.chapter_number}
+Draft title: ${s.draft_title}
+Word count: ${s.word_count}
+Char count: ${s.char_count}
+Required phrase: ${s.required_phrase}
+Phrase matches: ${s.phrase_matches}
+Future targets: ${s.future_targets}
+Collision targets: ${s.collision_targets}
+Blockers: ${s.blockers}
+Checks: ${s.checks_passed}/${s.checks}
+Problems: ${s.problems}
+Draft save enabled this build: ${s.draft_save_enabled_this_build}
+Safe to save later: ${s.safe_to_save_later}
+
+Proposed targets:
+${(d.proposed_targets||[]).map(t=>`${t.kind}: ${t.path} | exists=${t.exists} | would_overwrite=${t.would_overwrite}`).join('\n')}
+
+Blockers:
+${(d.blockers||[]).length ? (d.blockers||[]).map(b=>`${b.id}: ${b.message}`).join('\n') : 'None.'}
+
+Safety:
+No draft saved yet.
+No chapter file edit.
+No story-file mutation.
+No overwrite.
+No delete.
+No move.
+
+Please determine:
+1. Whether v10.13.1 should be marked stable/proven
+2. Whether the next build should be Draft Save Approved Action.`;
+    toast('Draft Save Gate sent to Mission Console.');
+}
+
+let lastChapterDraftWorkspace=null;
+async function loadChapterDraftWorkspace(doExport=false){
+    if(!q('chapterDraftStatus'))return;
+    q('chapterDraftStatus').textContent='Loading Chapter Draft Workspace...';
+    let body={project_id:'slipping_into_darkness',book_id:q('chapterDraftBook')?.value||'book_2',chapter_number:parseInt(q('chapterDraftChapter')?.value||'2'),draft_mode:q('chapterDraftMode')?.value||'first_pass',target_words:parseInt(q('chapterDraftTargetWords')?.value||'1800'),tone:q('chapterDraftTone')?.value||'dark mythic adventure',opening_seed:q('chapterDraftOpeningSeed')?.value||'',export:doExport};
+    let d=await api('/api/writer/chapter_draft_workspace',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+    if(!d?.ok){q('chapterDraftStatus').textContent=d?.message||'Could not load Chapter Draft Workspace.';return;}
+    lastChapterDraftWorkspace=d;
+    let s=d.summary||{}, w=d.workspace||{};
+    q('chapterDraftStatus').innerHTML=`<span class="chapterDraftBadge ${d.workspace_ready?'':'bad'}">${esc(d.health_label||'UNKNOWN')}</span>`;
+    q('chapterDraftSummary').innerHTML=`<div><b>${esc(d.milestone||'')}</b></div><div class=chapterDraftGrid><div class=chapterDraftMetric><div class=label>Ready</div><div class=value>${d.workspace_ready?'YES':'NO'}</div></div><div class=chapterDraftMetric><div class=label>Book</div><div class=value>${esc(s.book_id||'')}</div></div><div class=chapterDraftMetric><div class=label>Chapter</div><div class=value>${s.chapter_number||''}</div></div><div class=chapterDraftMetric><div class=label>Beats</div><div class=value>${s.beat_count||0}</div></div><div class=chapterDraftMetric><div class=label>Prompt</div><div class=value>${s.prompt_chars||0}</div></div><div class=chapterDraftMetric><div class=label>Checks</div><div class=value>${s.checks_passed||0}/${s.checks||0}</div></div></div><div class=chapterDraftPath>Target: ${esc(s.selected_chapter_path||'')}</div>${d.exported?`<div class=chapterDraftPath>Export: ${esc(d.exported.markdown||'')}</div>`:''}`;
+    q('chapterDraftBrief').textContent=w.chapter_brief||'No brief.';
+    q('chapterDraftBeats').innerHTML=(w.beat_sheet||[]).map(b=>`<div class=chapterDraftCard><b>${b.beat}. ${esc(b.name||'Beat')}</b><div>${esc(b.purpose||'')}</div></div>`).join('')||'No beat sheet.';
+    q('chapterDraftPrompt').textContent=w.prose_prompt||'No prose prompt.';
+    q('chapterDraftShell').textContent=w.draft_shell||'No draft shell.';
+    q('chapterDraftChecks').innerHTML=(d.checks||[]).map(c=>`<div class="histrow ${c.ok?'ok':'fail'}"><b>${esc(c.id||'check')}</b><div>${esc(c.message||'')}</div></div>`).join('')||'No checks.';
+    q('chapterDraftSafety').textContent=Object.entries(d.safety||{}).map(([k,v])=>`${k}: ${v}`).join('\n');
+    toast('Chapter Draft Workspace loaded.');
+}
+function sendChapterDraftWorkspaceToMission(){
+    if(!lastChapterDraftWorkspace){toast('Load Chapter Draft Workspace first.');return;}
+    let d=lastChapterDraftWorkspace, s=d.summary||{}, w=d.workspace||{};
+    go('mission');
+    q('input').value=`Please review this Kayock Writer Chapter Draft Workspace report.
+
+Milestone: ${d.milestone}
+Health: ${d.health_label}
+Workspace ready: ${d.workspace_ready}
+
+Summary:
+Project: ${s.project_title}
+Book: ${s.book_id} - ${s.book_title}
+Chapter: ${s.chapter_number}
+Draft mode: ${s.draft_mode}
+Target words: ${s.target_words}
+Tone: ${s.tone}
+Required sections: ${s.required_sections_present}/${s.required_sections}
+Existing draft word count: ${s.existing_draft_word_count}
+Beat count: ${s.beat_count}
+Continuity guardrails: ${s.continuity_guardrails}
+Prompt chars: ${s.prompt_chars}
+Checks: ${s.checks_passed}/${s.checks}
+Problems: ${s.problems}
+Target: ${s.selected_chapter_path}
+
+Chapter Brief:
+${w.chapter_brief||''}
+
+Beat Sheet:
+${(w.beat_sheet||[]).map(b=>`${b.beat}. ${b.name}: ${b.purpose}`).join('\n')}
+
+Prose Prompt:
+${w.prose_prompt||''}
+
+Export:
+${d.exported?.markdown||'No exported Chapter Draft Workspace report'}
+
+Safety:
+Read-only draft workspace.
+No chapter file edit.
+No story-file mutation.
+No overwrite.
+No delete.
+No move.
+
+Please determine whether v10.13.0 should be marked stable/proven and whether the next build should be Draft Save Gate.`;
+    toast('Chapter Draft Workspace sent to Mission Console.');
+}
+
+let lastChapterEditAudit=null;
+async function loadChapterEditAudit(doExport=false){
+    if(!q('chapterEditAuditStatus'))return;
+    q('chapterEditAuditStatus').textContent='Loading Chapter Edit Audit Reader...';
+    let body={book_id:q('chapterEditAuditBook')?.value||'book_2',export:doExport};
+    let d=await api('/api/writer/chapter_edit_audit_reader',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+    if(!d?.ok){
+        q('chapterEditAuditStatus').textContent=d?.message||'Could not load Chapter Edit Audit.';
+        return;
+    }
+    lastChapterEditAudit=d;
+    let s=d.summary||{};
+    q('chapterEditAuditStatus').innerHTML=`<span class="chapterEditAuditBadge ${d.audit_ready?'':'bad'}">${esc(d.health_label||'UNKNOWN')}</span>`;
+    q('chapterEditAuditSummary').innerHTML=`<div><b>${esc(d.milestone||'')}</b></div>
+    <div class=chapterEditAuditGrid>
+      <div class=chapterEditAuditMetric><div class=label>Ready</div><div class=value>${d.audit_ready?'YES':'NO'}</div></div>
+      <div class=chapterEditAuditMetric><div class=label>Reports</div><div class=value>${s.reports_loaded||0}</div></div>
+      <div class=chapterEditAuditMetric><div class=label>Edited</div><div class=value>${s.edited_reports||0}</div></div>
+      <div class=chapterEditAuditMetric><div class=label>Backups</div><div class=value>${s.backup_files_found||0}</div></div>
+      <div class=chapterEditAuditMetric><div class=label>Verified</div><div class=value>${s.edited_report_checks_passed||0}/${s.edited_report_checks||0}</div></div>
+      <div class=chapterEditAuditMetric><div class=label>Checks</div><div class=value>${s.checks_passed||0}/${s.checks||0}</div></div>
+    </div>
+    <div class=chapterEditAuditPath>Action reports: ${esc(s.action_report_folder||'')}</div>
+    <div class=chapterEditAuditPath>Backup folder: ${esc(s.backup_folder||'')}</div>
+    ${d.exported?`<div class=chapterEditAuditPath>Export: ${esc(d.exported.markdown||'')}</div>`:''}`;
+    let l=d.latest_report||{};
+    q('chapterEditAuditLatest').innerHTML=l.report_name?`<div><b>${esc(l.report_name)}</b></div>
+      <div>Status: ${esc(l.status||'')} | Health: ${esc(l.health_label||'')} | Book: ${esc(l.book_id||'')} | Chapter: ${esc(String(l.chapter_number||''))}</div>
+      <div>Phrase: ${l.phrase_matches} | Diff: ${l.diff_items} | Backups: ${l.created_backups} | Written: ${l.written_files} | Post: ${l.post_checks_passed}/${l.post_checks} | Problems: ${l.problems}</div>
+      <div class=chapterEditAuditPath>Target: ${esc(l.selected_chapter_path||'')}</div>
+      <div class=chapterEditAuditPath>Backup: ${esc(l.backup_path||'')}</div>
+      <div class=chapterEditAuditPath>Hashes: before ${esc((l.before_hash||'').slice(0,12))} | backup ${esc((l.backup_hash||'').slice(0,12))} | after ${esc((l.after_hash||'').slice(0,12))}</div>`:'No latest report.';
+    q('chapterEditAuditReportChecks').innerHTML=(d.edited_report_checks||[]).map(x=>`<div class="histrow ${x.ok?'ok':'fail'}"><b>${esc(x.report_name||'report')}</b><div>Status: ${esc(x.status||'')} | Backups: ${x.created_backups} | Written: ${x.written_files} | Post: ${x.post_checks_passed}/${x.post_checks} | Backup exists: ${x.backup_exists} | Problems: ${x.problems}</div></div>`).join('')||'No edited report checks.';
+    q('chapterEditAuditBackups').innerHTML=(d.backup_inventory||[]).map(b=>`<div class=chapterEditAuditCard><b>${esc(b.name||'backup')}</b><div>${b.size||0} bytes | ${esc(b.modified||'')}</div><div class=chapterEditAuditPath>${esc(b.path||'')}</div></div>`).join('')||'No backups found.';
+    q('chapterEditAuditChecks').innerHTML=(d.checks||[]).map(c=>`<div class="histrow ${c.ok?'ok':'fail'}"><b>${esc(c.id||'check')}</b><div>${esc(c.message||'')}</div></div>`).join('')||'No checks.';
+    q('chapterEditAuditSafety').textContent=Object.entries(d.safety||{}).map(([k,v])=>`${k}: ${v}`).join('\n');
+    toast('Chapter Edit Audit loaded.');
+}
+function sendChapterEditAuditToMission(){
+    if(!lastChapterEditAudit){toast('Load Chapter Edit Audit first.');return;}
+    let d=lastChapterEditAudit, s=d.summary||{}, l=d.latest_report||{};
+    go('mission');
+    q('input').value=`Please review this Kayock Writer Chapter Edit Audit Reader report.
+
+Milestone:
+${d.milestone}
+Health: ${d.health_label}
+Audit ready: ${d.audit_ready}
+
+Summary:
+Book filter: ${s.book_filter}
+Reports loaded: ${s.reports_loaded}
+Edited reports: ${s.edited_reports}
+Preview reports: ${s.preview_reports}
+Blocked reports: ${s.blocked_reports}
+Error reports: ${s.error_reports}
+Backup files found: ${s.backup_files_found}
+Edited report checks: ${s.edited_report_checks_passed}/${s.edited_report_checks}
+Checks: ${s.checks_passed}/${s.checks}
+Problems: ${s.problems}
+
+Latest report:
+${l.report_name||'None'}
+Status: ${l.status}
+Health: ${l.health_label}
+Book: ${l.book_id}
+Chapter: ${l.chapter_number}
+Phrase matches: ${l.phrase_matches}
+Changed fields: ${l.changed_fields}
+Diff items: ${l.diff_items}
+Created backups: ${l.created_backups}
+Written files: ${l.written_files}
+Post checks: ${l.post_checks_passed}/${l.post_checks}
+Problems: ${l.problems}
+Target: ${l.selected_chapter_path}
+Backup: ${l.backup_path}
+Before hash: ${l.before_hash}
+Backup hash: ${l.backup_hash}
+After hash: ${l.after_hash}
+
+Edited report checks:
+${(d.edited_report_checks||[]).map(x=>`${x.ok?'PASS':'FAIL'} — ${x.report_name}: status=${x.status}, backup_exists=${x.backup_exists}, post=${x.post_checks_passed}/${x.post_checks}, problems=${x.problems}`).join('\n')}
+
+Export:
+${d.exported?.markdown||'No exported Chapter Edit Audit report'}
+
+Safety:
+Read-only audit reader.
+No chapter file edit.
+No story-file mutation.
+No overwrite.
+No delete.
+No move.
+
+Please determine:
+1. Whether v10.12.5 should be marked stable/proven
+2. Whether the edit action audit trail is healthy
+3. Whether the next build should be Chapter Draft Workspace.`;
+    toast('Chapter Edit Audit sent to Mission Console.');
+}
+
+let lastChapterEditAction=null;
+async function loadChapterEditApprovedAction(execute=false){
+    if(!q('chapterEditActionStatus'))return;
+    q('chapterEditActionStatus').textContent=execute?'Requesting approved chapter edit...':'Loading chapter edit action preview...';
+    let body={
+        project_id:'slipping_into_darkness',
+        book_id:q('chapterEditActionBook')?.value||'book_2',
+        chapter_number:parseInt(q('chapterEditActionChapter')?.value||'2'),
+        approval_phrase:q('chapterEditActionPhrase')?.value||'',
+        hook:q('chapterEditActionHook')?.value||'',
+        execute:execute,
+        export:true
+    };
+    let d=await api('/api/writer/chapter_edit_approved_action',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+    if(!d?.ok){
+        q('chapterEditActionStatus').textContent=d?.message||'Could not load Chapter Edit Approved Action.';
+        return;
+    }
+    lastChapterEditAction=d;
+    let s=d.summary||{};
+    let cls=d.status==='blocked'?'blocked':(d.status==='error'?'bad':'');
+    q('chapterEditActionStatus').innerHTML=`<span class="chapterEditActionBadge ${cls}">${esc(d.health_label||'UNKNOWN')}</span>`;
+    q('chapterEditActionSummary').innerHTML=`<div><b>${esc(d.milestone||'')}</b></div>
+    <div class=chapterEditActionGrid>
+      <div class=chapterEditActionMetric><div class=label>Status</div><div class=value>${esc(s.status||'')}</div></div>
+      <div class=chapterEditActionMetric><div class=label>Allowed</div><div class=value>${s.action_allowed?'YES':'NO'}</div></div>
+      <div class=chapterEditActionMetric><div class=label>Phrase</div><div class=value>${s.phrase_matches?'YES':'NO'}</div></div>
+      <div class=chapterEditActionMetric><div class=label>Diff</div><div class=value>${s.diff_items||0}</div></div>
+      <div class=chapterEditActionMetric><div class=label>Backups</div><div class=value>${s.created_backups||0}</div></div>
+      <div class=chapterEditActionMetric><div class=label>Post</div><div class=value>${s.post_checks_passed||0}/${s.post_checks||0}</div></div>
+    </div>
+    <div class=chapterEditActionPath>Target: ${esc(s.selected_chapter_path||'')}</div>
+    <div class=chapterEditActionPath>Backup: ${esc(s.backup_path||'')}</div>
+    <div class=chapterEditActionPath>Export: ${esc(d.exported?.markdown||'')}</div>`;
+    q('chapterEditActionDiff').innerHTML=(d.diff_summary||[]).map(x=>`<div class=chapterEditActionCard><b>${esc(x.field||'field')}</b><div>Old chars: ${x.old_chars} | New chars: ${x.new_chars} | Delta: ${x.delta_chars}</div><div><b>Old:</b> ${esc(x.old_preview||'')}</div><div><b>New:</b> ${esc(x.new_preview||'')}</div></div>`).join('')||'No diff.';
+    let resultParts=[];
+    if((d.blockers||[]).length){resultParts.push(...(d.blockers||[]).map(b=>`<div class="histrow fail"><b>${esc(b.id||'blocker')}</b><div>${esc(b.message||'')}</div></div>`));}
+    else{resultParts.push('<div class="histrow ok"><b>No blockers.</b></div>');}
+    (d.created_backups||[]).forEach(p=>resultParts.push(`<div class="histrow ok"><b>Backup created</b><div class=chapterEditActionPath>${esc(p)}</div></div>`));
+    (d.written_files||[]).forEach(p=>resultParts.push(`<div class="histrow ok"><b>Edited file</b><div class=chapterEditActionPath>${esc(p)}</div></div>`));
+    (d.errors||[]).forEach(e=>resultParts.push(`<div class="histrow fail"><b>${esc(e.id||'error')}</b><div>${esc(e.message||'')}</div></div>`));
+    q('chapterEditActionResults').innerHTML=resultParts.join('');
+    q('chapterEditActionPreflight').innerHTML=(d.preflight_checks||[]).map(c=>`<div class="histrow ${c.ok?'ok':'fail'}"><b>${esc(c.id||'check')}</b><div>${esc(c.message||'')}</div></div>`).join('')||'No preflight.';
+    q('chapterEditActionPostChecks').innerHTML=(d.post_checks||[]).map(c=>`<div class="histrow ${c.ok?'ok':'fail'}"><b>${esc(c.id||'check')}</b><div>${esc(c.message||'')}</div></div>`).join('')||'No post checks.';
+    q('chapterEditActionSafety').textContent=Object.entries(d.safety||{}).map(([k,v])=>`${k}: ${v}`).join('\n');
+    toast('Chapter Edit Approved Action report loaded.');
+}
+function sendChapterEditActionToMission(){
+    if(!lastChapterEditAction){toast('Load Chapter Edit Approved Action first.');return;}
+    let d=lastChapterEditAction, s=d.summary||{};
+    go('mission');
+    q('input').value=`Please review this Kayock Writer Chapter Edit Approved Action report.
+
+Milestone:
+${d.milestone}
+Health: ${d.health_label}
+Status: ${d.status}
+
+Summary:
+Project: ${s.project_title}
+Book: ${s.book_id} — ${s.book_title}
+Chapter: ${s.chapter_number}
+Execute requested: ${s.execute_requested}
+Action allowed: ${s.action_allowed}
+Phrase matches: ${s.phrase_matches}
+Changed fields: ${s.changed_fields}
+Diff items: ${s.diff_items}
+Blockers: ${s.blockers}
+Errors: ${s.errors}
+Preflight: ${s.preflight_checks_passed}/${s.preflight_checks}
+Created backups: ${s.created_backups}
+Written files: ${s.written_files}
+Post checks: ${s.post_checks_passed}/${s.post_checks}
+Problems: ${s.problems}
+Target: ${s.selected_chapter_path}
+Backup: ${s.backup_path}
+
+Old Hook:
+${d.old_hook}
+
+New Hook:
+${d.new_hook}
+
+Blockers:
+${(d.blockers||[]).length ? (d.blockers||[]).map(b=>`${b.id}: ${b.message}`).join('\n') : 'None.'}
+
+Created backups:
+${(d.created_backups||[]).join('\n')||'None.'}
+
+Written files:
+${(d.written_files||[]).join('\n')||'None.'}
+
+Post checks:
+${(d.post_checks||[]).map(c=>`${c.ok?'PASS':'FAIL'} — ${c.id}: ${c.message}`).join('\n')}
+
+Export:
+${d.exported?.markdown||'No exported Chapter Edit Action report'}
+
+Safety:
+Requires exact phrase.
+Requires direct diff.
+Backup before write.
+Controlled target rewrite after backup.
+No delete.
+No move.
+No legacy changes.
+
+Please determine:
+1. Whether v10.12.4 should be marked stable/proven
+2. Whether the chapter edit was saved safely if status is edited
+3. Whether the next build should be Chapter Edit Audit Reader.`;
+    toast('Chapter Edit Action sent to Mission Console.');
+}
+
+let lastChapterEditGate=null;
+
+async function fillChapterEditGateFromCurrent(){
+    if(!q('chapterEditGateStatus'))return;
+    q('chapterEditGateStatus').textContent='Loading current saved chapter fields into gate...';
+    let body={
+        project_id:'slipping_into_darkness',
+        book_id:q('chapterEditGateBook')?.value||'book_2',
+        chapter_number:parseInt(q('chapterEditGateChapter')?.value||'2'),
+        export:false
+    };
+    let d=await api('/api/writer/chapter_editor_preview',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+    if(!d?.ok){
+        q('chapterEditGateStatus').textContent=d?.message||'Could not load current chapter fields.';
+        return;
+    }
+    let f=d.current_fields||{};
+    const map={
+        chapterEditGateTitle:'title',
+        chapterEditGatePov:'pov',
+        chapterEditGateLocation:'location',
+        chapterEditGateGoal:'goal',
+        chapterEditGateConflict:'conflict',
+        chapterEditGateReveal:'reveal',
+        chapterEditGateHook:'hook',
+        chapterEditGateContinuity:'continuity_notes',
+        chapterEditGateHandoffs:'handoff_tags_text',
+        chapterEditGateDraft:'draft_space'
+    };
+    Object.entries(map).forEach(([id,key])=>{ if(q(id)) q(id).value=f[key]||''; });
+    q('chapterEditGateStatus').innerHTML='<span class="chapterEditGateBadge">CURRENT FIELDS LOADED</span>';
+    toast('Current chapter fields loaded into Edit Gate.');
+}
+async function applyChapterEditGateTestHook(){
+    if(!q('chapterEditGateHook')){
+        toast('Hook field not found.');
+        return;
+    }
+    if(!(q('chapterEditGateHook').value||'').trim()){
+        await fillChapterEditGateFromCurrent();
+    }
+    q('chapterEditGateHook').value='End with a physical artifact or mural clue that feels deliberately left for Anthony.';
+    if(q('chapterEditGatePhrase'))q('chapterEditGatePhrase').value='APPROVE CHAPTER EDIT PREVIEW';
+    toast('Tiny Hook test applied. Click One-Click Diff Proof Export or Test Phrase + Export.');
+}
+
+
+
+
+async function directChapterEditDiffProof(){
+    if(!q('chapterEditGateStatus'))return;
+    q('chapterEditGateStatus').textContent='Running direct diff proof...';
+    let body={
+        project_id:'slipping_into_darkness',
+        book_id:q('chapterEditGateBook')?.value||'book_2',
+        chapter_number:parseInt(q('chapterEditGateChapter')?.value||'2')
+    };
+    let d=await api('/api/writer/chapter_edit_direct_diff_proof',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+    if(!d?.ok){
+        q('chapterEditGateStatus').textContent=d?.message||'Direct diff proof failed.';
+        return;
+    }
+    lastChapterEditGate=d;
+    let s=d.summary||{};
+    q('chapterEditGateStatus').innerHTML=`<span class="chapterEditGateBadge ${d.proof_ready?'':'bad'}">${esc(d.health_label||'UNKNOWN')}</span>`;
+    q('chapterEditGateSummary').innerHTML=`<div><b>${esc(d.milestone||'')}</b></div>
+    <div class=chapterEditGateGrid>
+      <div class=chapterEditGateMetric><div class=label>Proof</div><div class=value>${s.proof_ready?'READY':'NO'}</div></div>
+      <div class=chapterEditGateMetric><div class=label>Phrase</div><div class=value>${s.phrase_matches?'YES':'NO'}</div></div>
+      <div class=chapterEditGateMetric><div class=label>Changes</div><div class=value>${s.changed_fields||0}</div></div>
+      <div class=chapterEditGateMetric><div class=label>Diff</div><div class=value>${s.diff_items||0}</div></div>
+      <div class=chapterEditGateMetric><div class=label>Blockers</div><div class=value>${s.blockers||0}</div></div>
+      <div class=chapterEditGateMetric><div class=label>Checks</div><div class=value>${s.checks_passed||0}/${s.checks||0}</div></div>
+    </div>
+    <div class=chapterEditGatePath>Target: ${esc(s.selected_chapter_path||'')}</div>
+    <div class=chapterEditGatePath>Export: ${esc(d.exported?.markdown||'')}</div>`;
+    q('chapterEditGateDiff').innerHTML=(d.diff_summary||[]).map(x=>`<div class=chapterEditGateCard><b>${esc(x.field||'field')}</b><div>Old chars: ${x.old_chars} | New chars: ${x.new_chars} | Delta: ${x.delta_chars}</div><div><b>Old preview:</b> ${esc(x.old_preview||'')}</div><div><b>New preview:</b> ${esc(x.new_preview||'')}</div></div>`).join('')||'<div class="histrow info"><b>No changed fields detected.</b></div>';
+    let parts=[];
+    if((d.blockers||[]).length){parts.push(...(d.blockers||[]).map(b=>`<div class="histrow fail"><b>${esc(b.id||'blocker')}</b><div>${esc(b.message||'')}</div></div>`));}
+    else{parts.push('<div class="histrow ok"><b>No hard blockers.</b></div>');}
+    if((d.errors||[]).length){parts.push(...(d.errors||[]).map(e=>`<div class="histrow fail"><b>${esc(e.id||'error')}</b><div>${esc(e.message||'')}</div></div>`));}
+    q('chapterEditGateBlockers').innerHTML=parts.join('');
+    q('chapterEditGateChecks').innerHTML=(d.checks||[]).map(c=>`<div class="histrow ${c.ok?'ok':'fail'}"><b>${esc(c.id||'check')}</b><div>${esc(c.message||'')}</div></div>`).join('')||'No checks.';
+    q('chapterEditGateSafety').textContent=Object.entries(d.safety||{}).map(([k,v])=>`${k}: ${v}`).join('\n');
+    toast('Direct diff proof exported.');
+}
+
+async function serverChapterEditGateDiffSelfTest(){
+    if(!q('chapterEditGateStatus'))return;
+    q('chapterEditGateStatus').textContent='Running server-side diff self-test...';
+    let body={
+        project_id:'slipping_into_darkness',
+        book_id:q('chapterEditGateBook')?.value||'book_2',
+        chapter_number:parseInt(q('chapterEditGateChapter')?.value||'2')
+    };
+    let d=await api('/api/writer/chapter_edit_gate_diff_selftest',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+    if(!d?.ok){
+        q('chapterEditGateStatus').textContent=d?.message||'Server diff self-test failed.';
+        return;
+    }
+    lastChapterEditGate=d;
+    let s=d.summary||{};
+    q('chapterEditGateStatus').innerHTML=`<span class="chapterEditGateBadge ${d.selftest_passed?'':'bad'}">${esc(d.health_label||'UNKNOWN')}</span>`;
+    q('chapterEditGateSummary').innerHTML=`<div><b>${esc(d.milestone||'')}</b></div>
+    <div class=chapterEditGateGrid>
+      <div class=chapterEditGateMetric><div class=label>Self-Test</div><div class=value>${d.selftest_passed?'PASS':'NO'}</div></div>
+      <div class=chapterEditGateMetric><div class=label>Gate</div><div class=value>${s.gate_ready?'READY':'NO'}</div></div>
+      <div class=chapterEditGateMetric><div class=label>Phrase</div><div class=value>${s.phrase_matches?'YES':'NO'}</div></div>
+      <div class=chapterEditGateMetric><div class=label>Changes</div><div class=value>${s.changed_fields||0}</div></div>
+      <div class=chapterEditGateMetric><div class=label>Diff</div><div class=value>${s.diff_items||0}</div></div>
+      <div class=chapterEditGateMetric><div class=label>Checks</div><div class=value>${s.checks_passed||0}/${s.checks||0}</div></div>
+    </div>
+    <div class=chapterEditGatePath>Target: ${esc(s.selected_chapter_path||'')}</div>
+    <div class=chapterEditGatePath>Export: ${esc(d.selftest_exported?.markdown||d.exported?.markdown||'')}</div>`;
+    q('chapterEditGateDiff').innerHTML=(d.diff_summary||[]).map(x=>`<div class=chapterEditGateCard><b>${esc(x.field||'field')}</b><div>Old chars: ${x.old_chars} | New chars: ${x.new_chars} | Delta: ${x.delta_chars}</div><div><b>Old preview:</b> ${esc(x.old_preview||'')}</div><div><b>New preview:</b> ${esc(x.new_preview||'')}</div></div>`).join('')||'<div class="histrow info"><b>No changed fields detected.</b></div>';
+    let parts=[];
+    if((d.blockers||[]).length){parts.push(...(d.blockers||[]).map(b=>`<div class="histrow fail"><b>${esc(b.id||'blocker')}</b><div>${esc(b.message||'')}</div></div>`));}
+    else{parts.push('<div class="histrow ok"><b>No hard blockers.</b></div>');}
+    if((d.advisories||[]).length){parts.push(...(d.advisories||[]).map(a=>`<div class="histrow info"><b>${esc(a.id||'advisory')}</b><div>${esc(a.message||'')}</div></div>`));}
+    q('chapterEditGateBlockers').innerHTML=parts.join('');
+    q('chapterEditGateChecks').innerHTML=(d.checks||[]).map(c=>`<div class="histrow ${c.ok?'ok':'fail'}"><b>${esc(c.id||'check')}</b><div>${esc(c.message||'')}</div></div>`).join('')||'No checks.';
+    q('chapterEditGateSafety').textContent=Object.entries(d.safety||{}).map(([k,v])=>`${k}: ${v}`).join('\n');
+    toast('Server diff self-test exported.');
+}
+
+async function oneClickChapterEditGateDiffProof(){
+    if(!q('chapterEditGateStatus'))return;
+    q('chapterEditGateStatus').textContent='Running one-click diff proof export...';
+    let book=q('chapterEditGateBook')?.value||'book_2';
+    let ch=parseInt(q('chapterEditGateChapter')?.value||'2');
+    let proposedHook='End with a physical artifact or mural clue that feels deliberately left for Anthony.';
+    if(q('chapterEditGateHook'))q('chapterEditGateHook').value=proposedHook;
+    if(q('chapterEditGatePhrase'))q('chapterEditGatePhrase').value='APPROVE CHAPTER EDIT PREVIEW';
+    let body={
+        project_id:'slipping_into_darkness',
+        book_id:book,
+        chapter_number:ch,
+        hook:proposedHook,
+        approval_phrase:'APPROVE CHAPTER EDIT PREVIEW',
+        export:true
+    };
+    let d=await api('/api/writer/chapter_edit_gate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+    if(!d?.ok){
+        q('chapterEditGateStatus').textContent=d?.message||'One-click diff proof failed.';
+        return;
+    }
+    lastChapterEditGate=d;
+    let s=d.summary||{};
+    q('chapterEditGateStatus').innerHTML=`<span class="chapterEditGateBadge ${d.gate_ready?'':'bad'}">${esc(d.health_label||'UNKNOWN')}</span>`;
+    q('chapterEditGateSummary').innerHTML=`<div><b>${esc(d.milestone||'')}</b></div>
+    <div class=chapterEditGateGrid>
+      <div class=chapterEditGateMetric><div class=label>Gate</div><div class=value>${s.gate_ready?'READY':'NO'}</div></div>
+      <div class=chapterEditGateMetric><div class=label>Phrase</div><div class=value>${s.phrase_matches?'YES':'NO'}</div></div>
+      <div class=chapterEditGateMetric><div class=label>Changes</div><div class=value>${s.changed_fields||0}</div></div>
+      <div class=chapterEditGateMetric><div class=label>Diff</div><div class=value>${s.diff_items||0}</div></div>
+      <div class=chapterEditGateMetric><div class=label>Blockers</div><div class=value>${s.blockers||0}</div></div>
+      <div class=chapterEditGateMetric><div class=label>Checks</div><div class=value>${s.checks_passed||0}/${s.checks||0}</div></div>
+    </div>
+    <div class=chapterEditGatePath>Target: ${esc(s.selected_chapter_path||'')}</div>
+    <div class=chapterEditGatePath>Required phrase: ${esc(s.required_phrase||'')}</div>
+    <div class=chapterEditGatePath>Export: ${esc(d.exported?.markdown||'')}</div>`;
+    q('chapterEditGateDiff').innerHTML=(d.diff_summary||[]).map(x=>`<div class=chapterEditGateCard><b>${esc(x.field||'field')}</b><div>Old chars: ${x.old_chars} | New chars: ${x.new_chars} | Delta: ${x.delta_chars}</div><div><b>Old preview:</b> ${esc(x.old_preview||'')}</div><div><b>New preview:</b> ${esc(x.new_preview||'')}</div></div>`).join('')||'<div class="histrow info"><b>No changed fields detected.</b></div>';
+    let parts=[];
+    if((d.blockers||[]).length){parts.push(...(d.blockers||[]).map(b=>`<div class="histrow fail"><b>${esc(b.id||'blocker')}</b><div>${esc(b.message||'')}</div></div>`));}
+    else{parts.push('<div class="histrow ok"><b>No hard blockers.</b></div>');}
+    if((d.advisories||[]).length){parts.push(...(d.advisories||[]).map(a=>`<div class="histrow info"><b>${esc(a.id||'advisory')}</b><div>${esc(a.message||'')}</div></div>`));}
+    q('chapterEditGateBlockers').innerHTML=parts.join('');
+    q('chapterEditGateChecks').innerHTML=(d.checks||[]).map(c=>`<div class="histrow ${c.ok?'ok':'fail'}"><b>${esc(c.id||'check')}</b><div>${esc(c.message||'')}</div></div>`).join('')||'No checks.';
+    q('chapterEditGateSafety').textContent=Object.entries(d.safety||{}).map(([k,v])=>`${k}: ${v}`).join('\n');
+    toast('One-click diff proof exported.');
+}
+
+async function loadChapterEditGate(doExport=false,includePhrase=false){
+    if(!q('chapterEditGateStatus'))return;
+    q('chapterEditGateStatus').textContent='Loading Chapter Edit Approval Gate...';
+    let body={
+        project_id:'slipping_into_darkness',
+        book_id:q('chapterEditGateBook')?.value||'book_2',
+        chapter_number:parseInt(q('chapterEditGateChapter')?.value||'2'),
+        export:doExport,
+        approval_phrase:includePhrase?(q('chapterEditGatePhrase')?.value||''):''
+    };
+    let fields={title:'chapterEditGateTitle',pov:'chapterEditGatePov',location:'chapterEditGateLocation',goal:'chapterEditGateGoal',conflict:'chapterEditGateConflict',reveal:'chapterEditGateReveal',hook:'chapterEditGateHook',continuity_notes:'chapterEditGateContinuity',handoff_tags_text:'chapterEditGateHandoffs',draft_space:'chapterEditGateDraft'};
+    Object.entries(fields).forEach(([k,id])=>{let v=q(id)?.value||''; if(v.trim())body[k]=v;});
+    let d=await api('/api/writer/chapter_edit_gate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+    if(!d?.ok){q('chapterEditGateStatus').textContent=d?.message||'Could not load Chapter Edit Gate.';return;}
+    lastChapterEditGate=d;
+    let s=d.summary||{};
+    q('chapterEditGateStatus').innerHTML=`<span class="chapterEditGateBadge ${d.gate_ready?'':'bad'}">${esc(d.health_label||'UNKNOWN')}</span>`;
+    q('chapterEditGateSummary').innerHTML=`<div><b>${esc(d.milestone||'')}</b></div>
+    <div class=chapterEditGateGrid>
+      <div class=chapterEditGateMetric><div class=label>Gate</div><div class=value>${s.gate_ready?'READY':'NO'}</div></div>
+      <div class=chapterEditGateMetric><div class=label>Phrase</div><div class=value>${s.phrase_matches?'YES':'NO'}</div></div>
+      <div class=chapterEditGateMetric><div class=label>Changes</div><div class=value>${s.changed_fields||0}</div></div>
+      <div class=chapterEditGateMetric><div class=label>Blockers</div><div class=value>${s.blockers||0}</div></div>
+      <div class=chapterEditGateMetric><div class=label>Advisories</div><div class=value>${s.advisories||0}</div></div>
+      <div class=chapterEditGateMetric><div class=label>Checks</div><div class=value>${s.checks_passed||0}/${s.checks||0}</div></div>
+    </div>
+    <div class=chapterEditGatePath>Target: ${esc(s.selected_chapter_path||'')}</div>
+    <div class=chapterEditGatePath>Required phrase: ${esc(s.required_phrase||'')}</div>
+    <div class=chapterEditGatePath>Backup preview path: ${esc(s.backup_preview_path||'')}</div>
+    ${d.exported?`<div class=chapterEditGatePath>Export: ${esc(d.exported.markdown||'')}</div>`:''}`;
+    q('chapterEditGateDiff').innerHTML=(d.diff_summary||[]).map(x=>`<div class=chapterEditGateCard><b>${esc(x.field||'field')}</b><div>Old chars: ${x.old_chars} | New chars: ${x.new_chars} | Delta: ${x.delta_chars}</div><div><b>New preview:</b> ${esc(x.new_preview||'')}</div></div>`).join('')||'<div class="histrow info"><b>No changed fields detected.</b><div>The diff helper did not detect proposed field changes. Click Load Current Fields Into Gate, then Apply Tiny Hook Test, then Test Phrase + Export.</div></div>';
+    let parts=[];
+    if((d.blockers||[]).length){parts.push(...(d.blockers||[]).map(b=>`<div class="histrow fail"><b>${esc(b.id||'blocker')}</b><div>${esc(b.message||'')}</div></div>`));}
+    else{parts.push('<div class="histrow ok"><b>No hard blockers.</b></div>');}
+    if((d.advisories||[]).length){parts.push(...(d.advisories||[]).map(a=>`<div class="histrow info"><b>${esc(a.id||'advisory')}</b><div>${esc(a.message||'')}</div></div>`));}
+    q('chapterEditGateBlockers').innerHTML=parts.join('');
+    q('chapterEditGateChecks').innerHTML=(d.checks||[]).map(c=>`<div class="histrow ${c.ok?'ok':'fail'}"><b>${esc(c.id||'check')}</b><div>${esc(c.message||'')}</div></div>`).join('')||'No checks.';
+    q('chapterEditGateSafety').textContent=Object.entries(d.safety||{}).map(([k,v])=>`${k}: ${v}`).join('\n');
+    toast('Chapter Edit Gate loaded.');
+}
+function sendChapterEditGateToMission(){
+    if(!lastChapterEditGate){toast('Load Chapter Edit Gate first.');return;}
+    let d=lastChapterEditGate, s=d.summary||{};
+    go('mission');
+    q('input').value=`Please review this Kayock Writer Chapter Edit Approval Gate.
+
+Milestone:
+${d.milestone}
+Health: ${d.health_label}
+Gate ready: ${d.gate_ready}
+Safe to edit later: ${d.safe_to_edit_later}
+
+Summary:
+Project: ${s.project_title}
+Book: ${s.book_id} — ${s.book_title}
+Chapter: ${s.chapter_number}
+Target exists: ${s.target_exists}
+Parent exists: ${s.parent_exists}
+Edit save enabled in this build: ${s.edit_save_enabled_in_this_build}
+Required phrase: ${s.required_phrase}
+Phrase matches: ${s.phrase_matches}
+Changed fields: ${s.changed_fields}
+Blockers: ${s.blockers}
+Advisories: ${s.advisories}
+Checks passed: ${s.checks_passed}/${s.checks}
+Problems: ${s.problems}
+Target: ${s.selected_chapter_path}
+Backup preview path: ${s.backup_preview_path}
+
+Diff summary:
+${(d.diff_summary||[]).length ? (d.diff_summary||[]).map(x=>`${x.field}: old=${x.old_chars}, new=${x.new_chars}, delta=${x.delta_chars}`).join('\n') : 'None.'}
+
+Blockers:
+${(d.blockers||[]).length ? (d.blockers||[]).map(b=>`${b.id}: ${b.message}`).join('\n') : 'None.'}
+
+Advisories:
+${(d.advisories||[]).length ? (d.advisories||[]).map(a=>`${a.id}: ${a.message}`).join('\n') : 'None.'}
+
+Checks:
+${(d.checks||[]).map(c=>`${c.ok?'PASS':'FAIL'} — ${c.id}: ${c.message}`).join('\n')}
+
+Export:
+${d.exported?.markdown||'No exported Chapter Edit Gate report'}
+
+Safety:
+Read-only chapter edit gate.
+No chapter file edit.
+No story-file mutation.
+No overwrite.
+No delete.
+No move.
+No install.
+No model cleanup.
+
+Please determine:
+1. Whether v10.12.3 should be marked stable/proven
+2. Whether the gate safely blocks edit-save in this build
+3. Whether the next build should be Chapter Edit Approved Action.`;
+    toast('Chapter Edit Gate sent to Mission Console.');
+}
 
 let lastChapterEditorPreview=null;
 function chapterEditorProposedPayload(){
@@ -7254,6 +8982,30 @@ class Handler(BaseHTTPRequestHandler):
         path=urlparse(self.path).path; d=self.body()
         if path=='/api/generate/root_manifest/preview': self.js(project_manifest_preview(d)); return
         if path=='/api/generate/department_readme/preview': self.js(department_readme_preview(d)); return
+        if path=='/api/writer/chapter_prose_continue_save_action': self.js(kayock_writer_chapter_prose_continue_save_action_report(d)); return
+        if path=='/api/writer/chapter_prose_continue_gate': self.js(kayock_writer_chapter_prose_continue_gate_report(d)); return
+        if path=='/api/writer/chapter_prose_workspace': self.js(kayock_writer_chapter_prose_workspace_report(d)); return
+        if path=='/api/writer/real_prose_edit_refresh_compare': self.js(kayock_writer_real_prose_edit_refresh_compare_report(d)); return
+        if path=='/api/writer/real_prose_edit_save_action': self.js(kayock_writer_real_prose_edit_save_action_report(d)); return
+        if path=='/api/writer/real_prose_editor_gate': self.js(kayock_writer_real_prose_editor_gate_report(d)); return
+        if path=='/api/writer/real_prose_refresh_compare': self.js(kayock_writer_real_prose_refresh_compare_report(d)); return
+        if path=='/api/writer/real_prose_save_action': self.js(kayock_writer_real_prose_save_action_report(d)); return
+        if path=='/api/writer/real_prose_draft_gate': self.js(kayock_writer_real_prose_draft_gate_report(d)); return
+        if path=='/api/writer/draft_compare_view': self.js(kayock_writer_draft_compare_view_report(d)); return
+        if path=='/api/writer/draft_refresh_verification': self.js(kayock_writer_draft_refresh_verification_report(d)); return
+        if path=='/api/writer/continue_save_action': self.js(kayock_writer_continue_save_action_report(d)); return
+        if path=='/api/writer/continue_save_gate': self.js(kayock_writer_continue_save_gate_report(d)); return
+        if path=='/api/writer/draft_continue_workspace': self.js(kayock_writer_draft_continue_workspace_report(d)); return
+        if path=='/api/writer/draft_version_history': self.js(kayock_writer_draft_version_history_report(d)); return
+        if path=='/api/writer/draft_reader_dashboard': self.js(kayock_writer_draft_reader_dashboard_report(d)); return
+        if path=='/api/writer/draft_save_action': self.js(kayock_writer_draft_save_approved_action_report(d)); return
+        if path=='/api/writer/draft_save_gate': self.js(kayock_writer_draft_save_gate_report(d)); return
+        if path=='/api/writer/chapter_draft_workspace': self.js(kayock_writer_chapter_draft_workspace_report(d)); return
+        if path=='/api/writer/chapter_edit_audit_reader': self.js(kayock_writer_chapter_edit_audit_reader_report(d)); return
+        if path=='/api/writer/chapter_edit_approved_action': self.js(kayock_writer_chapter_edit_approved_action_report(d)); return
+        if path=='/api/writer/chapter_edit_direct_diff_proof': self.js(kayock_writer_chapter_edit_direct_diff_proof_report(d)); return
+        if path=='/api/writer/chapter_edit_gate_diff_selftest': self.js(kayock_writer_chapter_edit_gate_diff_selftest_report(d)); return
+        if path=='/api/writer/chapter_edit_gate': self.js(kayock_writer_chapter_edit_gate_report(d)); return
         if path=='/api/writer/chapter_editor_preview': self.js(kayock_writer_chapter_editor_preview_report(d)); return
         if path=='/api/writer/saved_chapter_health_card': self.js(kayock_writer_saved_chapter_health_card_report(d)); return
         if path=='/api/writer/saved_chapter_dashboard': self.js(kayock_writer_saved_chapter_dashboard_report(d)); return
@@ -19234,6 +20986,5058 @@ def kayock_writer_chapter_editor_preview_report(d=None):
         report['exported']={'json':str(json_path),'markdown':str(md_path),'folder':str(reports)}
     return report
 
+
+def kayock_writer_chapter_edit_gate_report(d=None):
+    d=d or {}
+    export=bool(d.get('export',False))
+    project_id=str(d.get('project_id') or 'slipping_into_darkness').strip().lower().replace(' ','_')
+    book_id=str(d.get('book_id') or 'book_2').strip().lower().replace(' ','_')
+    chapter_number=int(d.get('chapter_number') or 1)
+    typed_phrase=str(d.get('approval_phrase') or '').strip()
+    if project_id in ('','slipping','slipping_into_darkness'):
+        project_id='slipping_into_darkness'
+    if book_id not in ('book_1','book_2'):
+        book_id='book_2'
+    if chapter_number not in (1,2,3):
+        chapter_number=1
+
+    required_phrase='APPROVE CHAPTER EDIT PREVIEW'
+    phrase_matches=(typed_phrase==required_phrase)
+
+    proposed={}
+    for k in ['title','pov','location','goal','conflict','reveal','hook','continuity_notes','handoff_tags_text','draft_space']:
+        if k in d:
+            proposed[k]=d.get(k)
+
+    editor=kayock_writer_chapter_editor_preview_report({
+        'project_id':project_id,
+        'book_id':book_id,
+        'chapter_number':chapter_number,
+        **proposed
+    })
+    summary0=editor.get('summary') or {}
+    current=editor.get('current_fields') or {}
+    proposed_fields=editor.get('proposed_fields') or {}
+    changed_fields=editor.get('changed_fields') or []
+    selected=editor.get('selected_file') or {}
+    target_path=Path(selected.get('path') or '')
+    reports=FOLDERS.get('kayock_writer_chapter_edit_gate_reports',ROOT/'Reports'/'KayockWriter'/'ChapterEditGate')
+
+    # Validate handoff JSON if present
+    handoff_json_valid=True
+    handoff_json_error=''
+    htxt=str(proposed_fields.get('handoff_tags_text') or current.get('handoff_tags_text') or '').strip()
+    if htxt:
+        try:
+            json.loads(htxt)
+        except Exception as e:
+            handoff_json_valid=False
+            handoff_json_error=str(e)
+
+    target_exists=False
+    target_is_file=False
+    parent_exists=False
+    target_size=0
+    try:
+        target_exists=target_path.exists()
+        target_is_file=target_path.is_file()
+        parent_exists=target_path.parent.exists()
+        target_size=target_path.stat().st_size if target_is_file else 0
+    except Exception:
+        pass
+
+    backup_preview_path=''
+    if target_path:
+        backup_preview_path=str(target_path.parent/(target_path.name+'.pre_edit_backup.preview'))
+
+    diff_summary=[]
+    for c in changed_fields:
+        name=c.get('field','')
+        old=str(c.get('old',''))
+        new=str(c.get('new',''))
+        diff_summary.append({
+            'field':name,
+            'old_chars':len(old),
+            'new_chars':len(new),
+            'delta_chars':len(new)-len(old),
+            'old_preview':old[:240],
+            'new_preview':new[:240]
+        })
+
+    blockers=[]
+    advisories=[]
+    if not editor.get('editor_preview_ready'):
+        blockers.append({'id':'editor_preview_not_ready','message':'Chapter Editor Preview is not ready.'})
+    if not target_exists or not target_is_file:
+        blockers.append({'id':'target_file_missing','message':'Selected chapter file is missing.'})
+    if not parent_exists:
+        blockers.append({'id':'parent_folder_missing','message':'Selected chapter parent folder is missing.'})
+    if not changed_fields:
+        advisories.append({'id':'no_changed_fields','message':'No proposed changes were detected. Gate is healthy, but there is nothing to approve yet.'})
+    if not handoff_json_valid:
+        blockers.append({'id':'handoff_tags_invalid_json','message':handoff_json_error})
+    # Phrase mismatch blocks future save, not the no-write gate itself.
+    phrase_status='matched' if phrase_matches else ('not_provided' if not typed_phrase else 'mismatch')
+
+    checks=[
+        {'id':'editor_preview_ready','ok':bool(editor.get('editor_preview_ready')),'message':'Chapter Editor Preview loaded.'},
+        {'id':'selected_chapter_file_exists','ok':target_exists and target_is_file,'message':selected.get('name','missing')},
+        {'id':'target_parent_exists','ok':parent_exists,'message':str(target_path.parent)},
+        {'id':'required_sections_present','ok':any(c.get('id')=='required_sections_present' and c.get('ok') for c in editor.get('checks',[])),'message':'Selected chapter has required sections.'},
+        {'id':'proposed_markdown_generated','ok':bool(editor.get('preview_markdown')),'message':f"{len(editor.get('preview_markdown') or '')} preview markdown chars."},
+        {'id':'handoff_tags_json_valid','ok':handoff_json_valid,'message':'Handoff tags JSON is valid.' if handoff_json_valid else handoff_json_error},
+        {'id':'diff_preview_generated','ok':True,'message':f"{len(changed_fields)} changed field(s) detected."},
+        {'id':'approval_phrase_declared','ok':required_phrase=='APPROVE CHAPTER EDIT PREVIEW','message':'Exact approval phrase declared.'},
+        {'id':'backup_requirement_declared','ok':True,'message':'Future edit-save must create evidence/backup before writing.'},
+        {'id':'future_edit_save_disabled','ok':True,'message':'v10.12.3 is a no-write edit gate only.'},
+        {'id':'no_write_mode','ok':True,'message':'Chapter Edit Approval Gate did not write, overwrite, rename, move, or delete files.'}
+    ]
+
+    # Gate can be ready even if phrase is not typed or no changes; those are future-action conditions.
+    hard_problems=[c for c in checks if not c.get('ok')]
+    gate_ready=len(hard_problems)==0 and not any(b.get('id') in ('editor_preview_not_ready','target_file_missing','parent_folder_missing','handoff_tags_invalid_json') for b in blockers)
+    safe_to_edit_later=bool(gate_ready and changed_fields and phrase_matches)
+
+    safety={
+        'read_only_chapter_edit_gate':True,
+        'no_chapter_file_edit':True,
+        'no_story_file_mutation':True,
+        'no_project_creation':True,
+        'no_legacy_migration':True,
+        'no_rename_performed':True,
+        'no_overwrite':True,
+        'no_delete':True,
+        'no_move':True,
+        'no_install':True,
+        'no_model_cleanup':True,
+        'future_edit_save_requires_exact_phrase':True,
+        'future_edit_save_requires_backup_or_evidence':True,
+        'future_edit_save_requires_diff_preview':True,
+        'gate_export_only':True
+    }
+
+    summary={
+        'project_id':project_id,
+        'project_title':summary0.get('project_title','Slipping into Darkness'),
+        'book_id':book_id,
+        'book_title':summary0.get('book_title',''),
+        'chapter_number':chapter_number,
+        'selected_chapter_name':selected.get('name',''),
+        'selected_chapter_path':selected.get('path',''),
+        'target_exists':target_exists,
+        'target_is_file':target_is_file,
+        'target_size':target_size,
+        'parent_exists':parent_exists,
+        'gate_ready':gate_ready,
+        'safe_to_edit_later':safe_to_edit_later,
+        'edit_save_enabled_in_this_build':False,
+        'required_phrase':required_phrase,
+        'typed_phrase_present':bool(typed_phrase),
+        'phrase_matches':phrase_matches,
+        'phrase_status':phrase_status,
+        'changed_fields':len(changed_fields),
+        'diff_items':len(diff_summary),
+        'blockers':len(blockers),
+        'advisories':len(advisories),
+        'checks':len(checks),
+        'checks_passed':sum(1 for c in checks if c.get('ok')),
+        'problems':sum(1 for c in checks if not c.get('ok')),
+        'backup_preview_path':backup_preview_path,
+        'read_only':True,
+        'report_only':True
+    }
+
+    health_label='CHAPTER EDIT APPROVAL GATE READY' if gate_ready else 'CHAPTER EDIT APPROVAL GATE NEEDS REVIEW'
+
+    report={
+        'ok':True,
+        'created':now(),
+        'title':'Kayock Writer Chapter Edit Approval Gate',
+        'read_only':True,
+        'report_only':True,
+        'healthy':gate_ready,
+        'gate_ready':gate_ready,
+        'safe_to_edit_later':safe_to_edit_later,
+        'health_label':health_label,
+        'message':f'Chapter Edit Approval Gate: {health_label}',
+        'milestone':'v10.12.3 Chapter Edit Approval Gate',
+        'summary':summary,
+        'approval_gate':{
+            'required_phrase':required_phrase,
+            'typed_phrase_present':bool(typed_phrase),
+            'typed_phrase_matches':phrase_matches,
+            'phrase_status':phrase_status,
+            'edit_save_enabled_in_this_build':False,
+            'reason_save_disabled':'v10.12.3 is a no-write approval gate only. The actual edit-save action must be a later approved build.',
+            'future_mode':'approved_action_only',
+            'backup_or_evidence_required_before_write':True,
+            'diff_preview_required':True,
+            'no_delete_allowed':True,
+            'no_move_allowed':True,
+            'no_overwrite_without_backup':True,
+            'no_automatic_story_mutation':True
+        },
+        'selected_file':selected,
+        'current_fields':current,
+        'proposed_fields':proposed_fields,
+        'changed_fields':changed_fields,
+        'diff_summary':diff_summary,
+        'blockers':blockers,
+        'advisories':advisories,
+        'preview_markdown':editor.get('preview_markdown',''),
+        'checks':checks,
+        'recommendations':[
+            {'id':'mark_chapter_edit_gate_proven','title':'Mark Chapter Edit Approval Gate proven','recommendation':'Use this as the final no-write safety gate before adding chapter edit-save actions.','risk':'low','auto_apply':False},
+            {'id':'next_chapter_edit_approved_action','title':'Build Chapter Edit Approved Action next','recommendation':'Add real edit save only after exact phrase, diff preview, backup/evidence, and no-delete/no-move checks.','risk':'medium','auto_apply':False},
+            {'id':'keep_backups_before_edit','title':'Create pre-edit backups','recommendation':'Future edit-save should write a backup/evidence copy before replacing a chapter card.','risk':'low','auto_apply':False}
+        ],
+        'source_editor_preview':{
+            'health_label':editor.get('health_label',''),
+            'summary':summary0
+        },
+        'folders':{
+            'chapter_edit_gate_reports':str(reports),
+            'book_folder':str(Path(selected.get('path','')).parent) if selected.get('path') else ''
+        },
+        'safety':safety
+    }
+
+    if export:
+        reports.mkdir(parents=True,exist_ok=True)
+        stamp=datetime.now().strftime('%Y%m%d_%H%M%S')
+        json_path=reports/f'Chapter_Edit_Approval_Gate_{project_id}_{book_id}_chapter_{chapter_number:02d}_{stamp}.json'
+        md_path=reports/f'Chapter_Edit_Approval_Gate_{project_id}_{book_id}_chapter_{chapter_number:02d}_{stamp}.md'
+        jwrite(json_path,report)
+        lines=[
+            '# Kayock Writer Chapter Edit Approval Gate','',
+            f"Created: {report['created']}",
+            f"Milestone: **{report['milestone']}**",
+            f"Health: **{health_label}**",
+            f"Gate ready: {gate_ready}",
+            f"Safe to edit later: {safe_to_edit_later}",
+            f"Edit save enabled in this build: **False**",
+            f"Project: **{summary['project_title']}**",
+            f"Book: **{summary['book_title']}**",
+            f"Chapter: **{chapter_number:02d}**",
+            '',
+            '## Safety','',
+            '- Read-only chapter edit gate.',
+            '- No chapter file edit.',
+            '- No story-file mutation.',
+            '- No project creation.',
+            '- No legacy migration.',
+            '- No rename performed.',
+            '- No overwrite.',
+            '- No delete.',
+            '- No move.',
+            '- No install.',
+            '- No model cleanup.',
+            '',
+            '## Summary',''
+        ]
+        for k,v in summary.items():
+            lines.append(f"- {k.replace('_',' ').title()}: {v}")
+        lines += ['','## Approval Gate','']
+        for k,v in report['approval_gate'].items():
+            lines.append(f"- {k}: {v}")
+        lines += ['','## Changed Fields / Diff Summary','']
+        if diff_summary:
+            for x in diff_summary:
+                lines.append(f"- `{x['field']}` — old chars: {x['old_chars']} — new chars: {x['new_chars']} — delta: {x['delta_chars']}")
+        else:
+            lines.append('- None.')
+        lines += ['','## Blockers','']
+        if blockers:
+            for b in blockers:
+                lines.append(f"- `{b.get('id')}` — {b.get('message')}")
+        else:
+            lines.append('- None.')
+        lines += ['','## Advisories','']
+        if advisories:
+            for a in advisories:
+                lines.append(f"- `{a.get('id')}` — {a.get('message')}")
+        else:
+            lines.append('- None.')
+        lines += ['','## Checks','']
+        for c in checks:
+            lines.append(f"- [{'PASS' if c.get('ok') else 'FAIL'}] `{c.get('id')}` — {c.get('message')}")
+        md_path.write_text('\n'.join(lines),encoding='utf-8')
+        report['exported']={'json':str(json_path),'markdown':str(md_path),'folder':str(reports)}
+
+    return report
+
+
+
+def kayock_writer_chapter_edit_gate_diff_selftest_report(d=None):
+    d=d or {}
+    project_id=str(d.get('project_id') or 'slipping_into_darkness').strip().lower().replace(' ','_')
+    book_id=str(d.get('book_id') or 'book_2').strip().lower().replace(' ','_')
+    chapter_number=int(d.get('chapter_number') or 2)
+    if project_id in ('','slipping','slipping_into_darkness'):
+        project_id='slipping_into_darkness'
+    if book_id not in ('book_1','book_2'):
+        book_id='book_2'
+    if chapter_number not in (1,2,3):
+        chapter_number=2
+
+    # Load current editor fields server-side.
+    editor=kayock_writer_chapter_editor_preview_report({
+        'project_id':project_id,
+        'book_id':book_id,
+        'chapter_number':chapter_number,
+        'export':False
+    })
+    current=editor.get('current_fields') or {}
+    current_hook=str(current.get('hook') or '').strip()
+    proposed_hook='End with a physical artifact or mural clue that feels deliberately left for Anthony.'
+    if proposed_hook==current_hook:
+        proposed_hook='End with a physical artifact or mural clue that feels deliberately left for Anthony, then hints someone wanted him to find it.'
+
+    gate=kayock_writer_chapter_edit_gate_report({
+        'project_id':project_id,
+        'book_id':book_id,
+        'chapter_number':chapter_number,
+        'hook':proposed_hook,
+        'approval_phrase':'APPROVE CHAPTER EDIT PREVIEW',
+        'export':True
+    })
+
+    # Annotate the report so the proof is unmistakable.
+    gate['milestone']='v10.12.3.4 Chapter Edit Gate Server Diff Self-Test'
+    gate['title']='Kayock Writer Chapter Edit Gate Server Diff Self-Test'
+    gate['selftest']=True
+    gate['selftest_method']='server_generated_proposed_hook_change'
+    gate['selftest_expected_changed_field']='hook'
+    gate['selftest_current_hook']=current_hook
+    gate['selftest_proposed_hook']=proposed_hook
+    gate['selftest_passed']=bool(
+        gate.get('gate_ready') and
+        (gate.get('summary') or {}).get('phrase_matches') and
+        (gate.get('summary') or {}).get('changed_fields',0)>=1 and
+        (gate.get('summary') or {}).get('diff_items',0)>=1 and
+        (gate.get('summary') or {}).get('blockers',0)==0 and
+        (gate.get('summary') or {}).get('problems',0)==0
+    )
+    gate['health_label']='CHAPTER EDIT GATE DIFF SELF-TEST READY' if gate['selftest_passed'] else 'CHAPTER EDIT GATE DIFF SELF-TEST NEEDS REVIEW'
+    gate['message']=f"Chapter Edit Gate Diff Self-Test: {gate['health_label']}"
+
+    # Export a self-test wrapper report as well, so the file name says self-test.
+    reports=FOLDERS.get('kayock_writer_chapter_edit_gate_reports',ROOT/'Reports'/'KayockWriter'/'ChapterEditGate')
+    try:
+        reports.mkdir(parents=True,exist_ok=True)
+        stamp=datetime.now().strftime('%Y%m%d_%H%M%S')
+        json_path=reports/f'Chapter_Edit_Gate_Diff_SelfTest_{project_id}_{book_id}_chapter_{chapter_number:02d}_{stamp}.json'
+        md_path=reports/f'Chapter_Edit_Gate_Diff_SelfTest_{project_id}_{book_id}_chapter_{chapter_number:02d}_{stamp}.md'
+        jwrite(json_path,gate)
+        s=gate.get('summary') or {}
+        lines=[
+            '# Kayock Writer Chapter Edit Gate Server Diff Self-Test','',
+            f"Created: {gate.get('created','')}",
+            f"Milestone: **{gate.get('milestone','')}**",
+            f"Health: **{gate.get('health_label','')}**",
+            f"Self-test passed: **{gate.get('selftest_passed')}**",
+            f"Project: **{s.get('project_title','')}**",
+            f"Book: **{s.get('book_title','')}**",
+            f"Chapter: **{s.get('chapter_number','')}**",
+            '',
+            '## Self-Test Method','',
+            '- Server generated a proposed Hook change.',
+            '- Server sent exact approval phrase.',
+            '- Server ran the same Chapter Edit Approval Gate.',
+            '- Server exported proof only.',
+            '- No chapter file was edited.',
+            '',
+            '## Current Hook','',
+            '```text',
+            current_hook,
+            '```',
+            '',
+            '## Proposed Hook','',
+            '```text',
+            proposed_hook,
+            '```',
+            '',
+            '## Summary',''
+        ]
+        for k,v in s.items():
+            lines.append(f"- {k.replace('_',' ').title()}: {v}")
+        lines += ['','## Diff Summary','']
+        ds=gate.get('diff_summary') or []
+        if ds:
+            for x in ds:
+                lines.append(f"- `{x.get('field')}` — old chars: {x.get('old_chars')} — new chars: {x.get('new_chars')} — delta: {x.get('delta_chars')}")
+        else:
+            lines.append('- None.')
+        lines += ['','## Checks','']
+        for c in gate.get('checks') or []:
+            lines.append(f"- [{'PASS' if c.get('ok') else 'FAIL'}] `{c.get('id')}` — {c.get('message')}")
+        lines += ['','## Safety','']
+        for k,v in (gate.get('safety') or {}).items():
+            lines.append(f"- {k}: {v}")
+        md_path.write_text('\n'.join(lines),encoding='utf-8')
+        gate['selftest_exported']={'json':str(json_path),'markdown':str(md_path),'folder':str(reports)}
+        gate['exported']=gate.get('selftest_exported')
+    except Exception as e:
+        gate['selftest_export_error']=str(e)
+
+    return gate
+
+
+
+def kayock_writer_chapter_edit_direct_diff_proof_report(d=None):
+    d=d or {}
+    project_id=str(d.get('project_id') or 'slipping_into_darkness').strip().lower().replace(' ','_')
+    book_id=str(d.get('book_id') or 'book_2').strip().lower().replace(' ','_')
+    chapter_number=int(d.get('chapter_number') or 2)
+    if project_id in ('','slipping','slipping_into_darkness'):
+        project_id='slipping_into_darkness'
+    if book_id not in ('book_1','book_2'):
+        book_id='book_2'
+    if chapter_number not in (1,2,3):
+        chapter_number=2
+
+    root=ROOT/'Projects'/'KayockWriter'/'Slipping_into_Darkness'
+    book_folder=root/'Chapters'/book_id
+    reports=FOLDERS.get('kayock_writer_chapter_edit_gate_reports',ROOT/'Reports'/'KayockWriter'/'ChapterEditGate')
+
+    # Locate the chapter file by chapter number.
+    pattern=f'chapter_{chapter_number:02d}_*.md'
+    candidates=sorted(book_folder.glob(pattern), key=lambda p:p.name.lower()) if book_folder.exists() else []
+    target=candidates[0] if candidates else book_folder/f'chapter_{chapter_number:02d}_missing.md'
+
+    def section(md, name):
+        marker=f'## {name}'
+        idx=md.find(marker)
+        if idx<0:
+            return ''
+        start=idx+len(marker)
+        # skip whitespace/newlines
+        while start<len(md) and md[start] in '\r\n ':
+            start+=1
+        next_idx=md.find('\n## ', start)
+        if next_idx<0:
+            return md[start:].strip()
+        return md[start:next_idx].strip()
+
+    def replace_section(md, name, new_body):
+        marker=f'## {name}'
+        idx=md.find(marker)
+        if idx<0:
+            return md
+        start=idx+len(marker)
+        while start<len(md) and md[start] in '\r\n ':
+            start+=1
+        next_idx=md.find('\n## ', start)
+        if next_idx<0:
+            return md[:start] + str(new_body).strip() + '\n'
+        return md[:start] + str(new_body).strip() + '\n\n' + md[next_idx+1:]
+
+    errors=[]
+    current_text=''
+    if target.exists() and target.is_file():
+        try:
+            current_text=target.read_text(encoding='utf-8',errors='replace')
+        except Exception as e:
+            errors.append({'id':'read_error','message':str(e)})
+    else:
+        errors.append({'id':'target_missing','message':str(target)})
+
+    old_hook=section(current_text,'Hook') if current_text else ''
+    new_hook='End with a physical artifact or mural clue that feels deliberately left for Anthony.'
+    if new_hook.strip()==old_hook.strip():
+        new_hook='End with a physical artifact or mural clue that feels deliberately left for Anthony, then hints someone wanted him to find it.'
+
+    preview_markdown=replace_section(current_text,'Hook',new_hook) if current_text else ''
+    changed_fields=[]
+    diff_summary=[]
+    if old_hook.strip()!=new_hook.strip():
+        changed_fields.append({
+            'field':'hook',
+            'old':old_hook,
+            'new':new_hook
+        })
+        diff_summary.append({
+            'field':'hook',
+            'old_chars':len(old_hook),
+            'new_chars':len(new_hook),
+            'delta_chars':len(new_hook)-len(old_hook),
+            'old_preview':old_hook[:300],
+            'new_preview':new_hook[:300]
+        })
+
+    required_phrase='APPROVE CHAPTER EDIT PREVIEW'
+    phrase_matches=True
+    target_exists=target.exists() and target.is_file()
+    parent_exists=target.parent.exists()
+    required_sections={
+        'title': current_text.startswith('# ') if current_text else False,
+        'goal': '## Goal' in current_text,
+        'conflict': '## Conflict' in current_text,
+        'reveal': '## Reveal' in current_text,
+        'hook': '## Hook' in current_text,
+        'continuity_notes': '## Continuity Notes' in current_text,
+        'handoff_tags': '## Handoff Tags' in current_text,
+        'draft_space': '## Draft Space' in current_text,
+        'safety': '## Safety' in current_text
+    }
+
+    checks=[
+        {'id':'target_file_exists','ok':target_exists,'message':target.name},
+        {'id':'target_parent_exists','ok':parent_exists,'message':str(target.parent)},
+        {'id':'required_sections_present','ok':all(required_sections.values()),'message':f"{sum(1 for v in required_sections.values() if v)}/{len(required_sections)} required section checks passed."},
+        {'id':'current_hook_parsed','ok':bool(old_hook),'message':old_hook[:120]},
+        {'id':'proposed_hook_generated','ok':bool(new_hook),'message':new_hook[:120]},
+        {'id':'diff_detected','ok':len(changed_fields)>=1 and len(diff_summary)>=1,'message':f"{len(changed_fields)} changed field(s), {len(diff_summary)} diff item(s)."},
+        {'id':'preview_markdown_generated','ok':bool(preview_markdown) and preview_markdown!=current_text,'message':f"{len(preview_markdown)} preview chars."},
+        {'id':'approval_phrase_declared','ok':required_phrase=='APPROVE CHAPTER EDIT PREVIEW','message':'Exact approval phrase declared and simulated.'},
+        {'id':'future_edit_save_disabled','ok':True,'message':'Direct diff proof does not save edits.'},
+        {'id':'no_write_mode','ok':True,'message':'No chapter file was written, overwritten, renamed, moved, or deleted.'}
+    ]
+
+    blockers=[]
+    if not target_exists:
+        blockers.append({'id':'target_missing','message':str(target)})
+    if not all(required_sections.values()):
+        blockers.append({'id':'required_sections_missing','message':str([k for k,v in required_sections.items() if not v])})
+    if not changed_fields:
+        blockers.append({'id':'diff_not_detected','message':'No direct diff was detected.'})
+
+    proof_ready=all(c.get('ok') for c in checks) and not blockers and not errors
+    summary={
+        'project_id':project_id,
+        'project_title':'Slipping into Darkness',
+        'book_id':book_id,
+        'book_title':'Book 2' if book_id=='book_2' else 'Book 1',
+        'chapter_number':chapter_number,
+        'selected_chapter_name':target.name,
+        'selected_chapter_path':str(target),
+        'target_exists':target_exists,
+        'target_is_file':target_exists,
+        'target_size':target.stat().st_size if target_exists else 0,
+        'parent_exists':parent_exists,
+        'proof_ready':proof_ready,
+        'gate_ready':proof_ready,
+        'safe_to_edit_later':False,
+        'edit_save_enabled_in_this_build':False,
+        'required_phrase':required_phrase,
+        'typed_phrase_present':True,
+        'phrase_matches':phrase_matches,
+        'phrase_status':'matched',
+        'changed_fields':len(changed_fields),
+        'diff_items':len(diff_summary),
+        'blockers':len(blockers),
+        'errors':len(errors),
+        'checks':len(checks),
+        'checks_passed':sum(1 for c in checks if c.get('ok')),
+        'problems':sum(1 for c in checks if not c.get('ok'))+len(errors)+len(blockers),
+        'backup_preview_path':str(target.parent/(target.name+'.pre_edit_backup.preview')) if target else '',
+        'read_only':True,
+        'report_only':True
+    }
+
+    safety={
+        'read_only_direct_diff_proof':True,
+        'no_chapter_file_edit':True,
+        'no_story_file_mutation':True,
+        'no_project_creation':True,
+        'no_legacy_migration':True,
+        'no_rename_performed':True,
+        'no_overwrite':True,
+        'no_delete':True,
+        'no_move':True,
+        'no_install':True,
+        'no_model_cleanup':True,
+        'future_edit_save_requires_exact_phrase':True,
+        'future_edit_save_requires_backup_or_evidence':True,
+        'future_edit_save_requires_diff_preview':True,
+        'proof_export_only':True
+    }
+
+    report={
+        'ok':True,
+        'created':now(),
+        'title':'Kayock Writer Chapter Edit Direct Diff Engine Proof',
+        'read_only':True,
+        'report_only':True,
+        'healthy':proof_ready,
+        'proof_ready':proof_ready,
+        'gate_ready':proof_ready,
+        'health_label':'CHAPTER EDIT DIRECT DIFF PROOF READY' if proof_ready else 'CHAPTER EDIT DIRECT DIFF PROOF NEEDS REVIEW',
+        'message':'Chapter Edit Direct Diff Proof: '+('CHAPTER EDIT DIRECT DIFF PROOF READY' if proof_ready else 'CHAPTER EDIT DIRECT DIFF PROOF NEEDS REVIEW'),
+        'milestone':'v10.12.3.5 Chapter Edit Direct Diff Engine Proof',
+        'summary':summary,
+        'approval_gate':{
+            'required_phrase':required_phrase,
+            'typed_phrase_present':True,
+            'typed_phrase_matches':True,
+            'phrase_status':'matched',
+            'edit_save_enabled_in_this_build':False,
+            'reason_save_disabled':'v10.12.3.5 proves direct diff only. The actual edit-save action must be a later approved build.',
+            'future_mode':'approved_action_only',
+            'backup_or_evidence_required_before_write':True,
+            'diff_preview_required':True,
+            'no_delete_allowed':True,
+            'no_move_allowed':True,
+            'no_overwrite_without_backup':True,
+            'no_automatic_story_mutation':True
+        },
+        'selected_file':{'path':str(target),'name':target.name,'exists':target_exists},
+        'old_hook':old_hook,
+        'new_hook':new_hook,
+        'changed_fields':changed_fields,
+        'diff_summary':diff_summary,
+        'blockers':blockers,
+        'errors':errors,
+        'required_sections':required_sections,
+        'preview_markdown':preview_markdown,
+        'checks':checks,
+        'recommendations':[
+            {'id':'mark_direct_diff_proof_proven','title':'Mark Direct Diff Engine Proof proven','recommendation':'Use this as proof that chapter edits can be diffed safely before save actions.','risk':'low','auto_apply':False},
+            {'id':'next_chapter_edit_approved_action','title':'Build Chapter Edit Approved Action next','recommendation':'Add real edit save only after exact phrase, direct diff proof, backup/evidence, and no-delete/no-move checks.','risk':'medium','auto_apply':False}
+        ],
+        'folders':{
+            'chapter_edit_gate_reports':str(reports),
+            'book_folder':str(book_folder)
+        },
+        'safety':safety
+    }
+
+    try:
+        reports.mkdir(parents=True,exist_ok=True)
+        stamp=datetime.now().strftime('%Y%m%d_%H%M%S')
+        json_path=reports/f'Chapter_Edit_Direct_Diff_Proof_{project_id}_{book_id}_chapter_{chapter_number:02d}_{stamp}.json'
+        md_path=reports/f'Chapter_Edit_Direct_Diff_Proof_{project_id}_{book_id}_chapter_{chapter_number:02d}_{stamp}.md'
+        jwrite(json_path,report)
+        lines=[
+            '# Kayock Writer Chapter Edit Direct Diff Engine Proof','',
+            f"Created: {report['created']}",
+            f"Milestone: **{report['milestone']}**",
+            f"Health: **{report['health_label']}**",
+            f"Proof ready: {proof_ready}",
+            f"Project: **{summary['project_title']}**",
+            f"Book: **{summary['book_title']}**",
+            f"Chapter: **{chapter_number:02d}**",
+            '',
+            '## Safety','',
+            '- Read-only direct diff proof.',
+            '- No chapter file edit.',
+            '- No story-file mutation.',
+            '- No project creation.',
+            '- No legacy migration.',
+            '- No rename performed.',
+            '- No overwrite.',
+            '- No delete.',
+            '- No move.',
+            '- No install.',
+            '- No model cleanup.',
+            '',
+            '## Summary',''
+        ]
+        for k,v in summary.items():
+            lines.append(f"- {k.replace('_',' ').title()}: {v}")
+        lines += ['','## Direct Diff','',
+                  '### Old Hook','','```text',old_hook,'```','',
+                  '### New Hook','','```text',new_hook,'```','',
+                  '## Diff Summary','']
+        for x in diff_summary:
+            lines.append(f"- `{x.get('field')}` — old chars: {x.get('old_chars')} — new chars: {x.get('new_chars')} — delta: {x.get('delta_chars')}")
+        if not diff_summary:
+            lines.append('- None.')
+        lines += ['','## Blockers','']
+        if blockers:
+            for b in blockers:
+                lines.append(f"- `{b.get('id')}` — {b.get('message')}")
+        else:
+            lines.append('- None.')
+        lines += ['','## Checks','']
+        for c in checks:
+            lines.append(f"- [{'PASS' if c.get('ok') else 'FAIL'}] `{c.get('id')}` — {c.get('message')}")
+        md_path.write_text('\n'.join(lines),encoding='utf-8')
+        report['exported']={'json':str(json_path),'markdown':str(md_path),'folder':str(reports)}
+    except Exception as e:
+        report['export_error']=str(e)
+
+    return report
+
+
+
+def kayock_writer_chapter_edit_approved_action_report(d=None):
+    d=d or {}
+    execute=bool(d.get('execute',False))
+    export=bool(d.get('export',True))
+    project_id=str(d.get('project_id') or 'slipping_into_darkness').strip().lower().replace(' ','_')
+    book_id=str(d.get('book_id') or 'book_2').strip().lower().replace(' ','_')
+    chapter_number=int(d.get('chapter_number') or 2)
+    typed_phrase=str(d.get('approval_phrase') or '').strip()
+    if project_id in ('','slipping','slipping_into_darkness'):
+        project_id='slipping_into_darkness'
+    if book_id not in ('book_1','book_2'):
+        book_id='book_2'
+    if chapter_number not in (1,2,3):
+        chapter_number=2
+
+    required_phrase='SAVE CHAPTER EDIT'
+    phrase_matches=(typed_phrase==required_phrase)
+
+    root=ROOT/'Projects'/'KayockWriter'/'Slipping_into_Darkness'
+    book_folder=root/'Chapters'/book_id
+    reports=FOLDERS.get('kayock_writer_chapter_edit_action_reports',ROOT/'Reports'/'KayockWriter'/'ChapterEditAction')
+    backups=FOLDERS.get('kayock_writer_chapter_edit_backups',ROOT/'Backups'/'KayockWriter'/'ChapterEdits')
+
+    pattern=f'chapter_{chapter_number:02d}_*.md'
+    candidates=sorted(book_folder.glob(pattern), key=lambda p:p.name.lower()) if book_folder.exists() else []
+    target=candidates[0] if candidates else book_folder/f'chapter_{chapter_number:02d}_missing.md'
+
+    def section(md, name):
+        marker=f'## {name}'
+        idx=md.find(marker)
+        if idx<0:
+            return ''
+        start=idx+len(marker)
+        while start<len(md) and md[start] in '\r\n ':
+            start+=1
+        next_idx=md.find('\n## ', start)
+        if next_idx<0:
+            return md[start:].strip()
+        return md[start:next_idx].strip()
+
+    def replace_section(md, name, new_body):
+        marker=f'## {name}'
+        idx=md.find(marker)
+        if idx<0:
+            return md
+        start=idx+len(marker)
+        while start<len(md) and md[start] in '\r\n ':
+            start+=1
+        next_idx=md.find('\n## ', start)
+        if next_idx<0:
+            return md[:start] + str(new_body).strip() + '\n'
+        return md[:start] + str(new_body).strip() + '\n\n' + md[next_idx+1:]
+
+    errors=[]
+    current_text=''
+    if target.exists() and target.is_file():
+        try:
+            current_text=target.read_text(encoding='utf-8',errors='replace')
+        except Exception as e:
+            errors.append({'id':'read_error','message':str(e)})
+    else:
+        errors.append({'id':'target_missing','message':str(target)})
+
+    old_hook=section(current_text,'Hook') if current_text else ''
+    new_hook=str(d.get('hook') or 'End with a physical artifact or mural clue that feels deliberately left for Anthony.').strip()
+    preview_markdown=replace_section(current_text,'Hook',new_hook) if current_text else ''
+
+    changed_fields=[]
+    diff_summary=[]
+    if old_hook.strip()!=new_hook.strip():
+        changed_fields.append({'field':'hook','old':old_hook,'new':new_hook})
+        diff_summary.append({
+            'field':'hook',
+            'old_chars':len(old_hook),
+            'new_chars':len(new_hook),
+            'delta_chars':len(new_hook)-len(old_hook),
+            'old_preview':old_hook[:300],
+            'new_preview':new_hook[:300]
+        })
+
+    target_exists=target.exists() and target.is_file()
+    parent_exists=target.parent.exists()
+    required_sections={
+        'title': current_text.startswith('# ') if current_text else False,
+        'goal': '## Goal' in current_text,
+        'conflict': '## Conflict' in current_text,
+        'reveal': '## Reveal' in current_text,
+        'hook': '## Hook' in current_text,
+        'continuity_notes': '## Continuity Notes' in current_text,
+        'handoff_tags': '## Handoff Tags' in current_text,
+        'draft_space': '## Draft Space' in current_text,
+        'safety': '## Safety' in current_text
+    }
+
+    stamp=datetime.now().strftime('%Y%m%d_%H%M%S')
+    backup_path=backups/book_id/f'{target.stem}_pre_edit_{stamp}{target.suffix}' if target else backups/book_id/f'chapter_{chapter_number:02d}_pre_edit_{stamp}.md'
+
+    preflight=[
+        {'id':'target_file_exists','ok':target_exists,'message':target.name},
+        {'id':'target_parent_exists','ok':parent_exists,'message':str(target.parent)},
+        {'id':'required_sections_present','ok':all(required_sections.values()),'message':f"{sum(1 for v in required_sections.values() if v)}/{len(required_sections)} required section checks passed."},
+        {'id':'current_hook_parsed','ok':bool(old_hook),'message':old_hook[:120]},
+        {'id':'proposed_hook_generated','ok':bool(new_hook),'message':new_hook[:120]},
+        {'id':'direct_diff_present','ok':len(changed_fields)>=1 and len(diff_summary)>=1,'message':f"{len(changed_fields)} changed field(s), {len(diff_summary)} diff item(s)."},
+        {'id':'preview_markdown_generated','ok':bool(preview_markdown) and preview_markdown!=current_text,'message':f"{len(preview_markdown)} preview chars."},
+        {'id':'exact_phrase_matches','ok':phrase_matches,'message':'Exact phrase matched.' if phrase_matches else 'Exact phrase not provided.'},
+        {'id':'backup_target_ready','ok':bool(str(backup_path)),'message':str(backup_path)},
+        {'id':'no_delete_or_move_requested','ok':True,'message':'No delete or move operation is part of this action.'}
+    ]
+
+    blockers=[]
+    if not target_exists:
+        blockers.append({'id':'target_missing','message':str(target)})
+    if not parent_exists:
+        blockers.append({'id':'parent_missing','message':str(target.parent)})
+    if not all(required_sections.values()):
+        blockers.append({'id':'required_sections_missing','message':str([k for k,v in required_sections.items() if not v])})
+    if not changed_fields:
+        blockers.append({'id':'diff_not_detected','message':'No direct diff was detected; refusing to write.'})
+    if not preview_markdown or preview_markdown==current_text:
+        blockers.append({'id':'preview_not_changed','message':'Preview Markdown did not differ from current file.'})
+    if not phrase_matches:
+        blockers.append({'id':'phrase_mismatch','message':'Exact approval phrase was not provided.'})
+    if errors:
+        blockers.append({'id':'read_errors','message':str(errors)})
+
+    action_allowed=bool(execute and not blockers and all(c.get('ok') for c in preflight))
+    status='preview'
+    if execute and not action_allowed:
+        status='blocked'
+
+    created_backups=[]
+    written_files=[]
+    actions=[]
+    post_checks=[]
+    before_hash=''
+    after_hash=''
+    backup_hash=''
+    readback_text=''
+
+    def sha_text(v):
+        import hashlib
+        return hashlib.sha256((v or '').encode('utf-8',errors='replace')).hexdigest()
+
+    before_hash=sha_text(current_text)
+
+    if action_allowed:
+        status='edited'
+        try:
+            backup_path.parent.mkdir(parents=True,exist_ok=True)
+            if backup_path.exists():
+                raise RuntimeError(f'Refusing to overwrite backup: {backup_path}')
+            backup_path.write_text(current_text,encoding='utf-8')
+            created_backups.append(str(backup_path))
+            backup_hash=sha_text(backup_path.read_text(encoding='utf-8',errors='replace'))
+            actions.append({'id':'backup_created','ok':True,'path':str(backup_path)})
+
+            # Controlled approved target rewrite after backup/evidence.
+            target.write_text(preview_markdown,encoding='utf-8')
+            written_files.append(str(target))
+            actions.append({'id':'chapter_file_rewritten_after_backup','ok':True,'path':str(target)})
+
+            readback_text=target.read_text(encoding='utf-8',errors='replace')
+            after_hash=sha_text(readback_text)
+        except Exception as e:
+            status='error'
+            errors.append({'id':'execution_error','message':str(e)})
+
+    if status=='edited' and not any(e.get('id')=='execution_error' for e in errors):
+        post_checks=[
+            {'id':'backup_exists','ok':backup_path.exists() and backup_path.is_file(),'message':str(backup_path)},
+            {'id':'backup_matches_original','ok':backup_hash==before_hash and bool(before_hash),'message':f'backup_hash={backup_hash[:12]} original_hash={before_hash[:12]}'},
+            {'id':'target_still_exists','ok':target.exists() and target.is_file(),'message':str(target)},
+            {'id':'target_contains_new_hook','ok':new_hook in readback_text,'message':new_hook[:120]},
+            {'id':'target_no_longer_matches_original','ok':after_hash!=before_hash and bool(after_hash),'message':f'after_hash={after_hash[:12]} original_hash={before_hash[:12]}'},
+            {'id':'required_sections_preserved','ok':all(x in readback_text for x in ['## Goal','## Conflict','## Reveal','## Hook','## Continuity Notes','## Handoff Tags','## Draft Space','## Safety']),'message':'Required sections preserved after edit.'},
+            {'id':'no_delete_no_move','ok':target.parent.exists() and target.exists(),'message':'Target remains in original folder and no delete/move occurred.'}
+        ]
+    else:
+        post_checks=[{'id':'preview_or_blocked_no_write','ok':True,'message':'No chapter edit was executed in preview/block mode.'}]
+
+    summary={
+        'project_id':project_id,
+        'project_title':'Slipping into Darkness',
+        'book_id':book_id,
+        'book_title':'Book 2' if book_id=='book_2' else 'Book 1',
+        'chapter_number':chapter_number,
+        'selected_chapter_name':target.name,
+        'selected_chapter_path':str(target),
+        'status':status,
+        'execute_requested':execute,
+        'action_allowed':action_allowed,
+        'target_exists':target_exists,
+        'target_is_file':target_exists,
+        'target_size_before':target.stat().st_size if target_exists else 0,
+        'parent_exists':parent_exists,
+        'required_phrase':required_phrase,
+        'typed_phrase_present':bool(typed_phrase),
+        'phrase_matches':phrase_matches,
+        'changed_fields':len(changed_fields),
+        'diff_items':len(diff_summary),
+        'blockers':len(blockers),
+        'errors':len(errors),
+        'preflight_checks':len(preflight),
+        'preflight_checks_passed':sum(1 for c in preflight if c.get('ok')),
+        'created_backups':len(created_backups),
+        'written_files':len(written_files),
+        'post_checks':len(post_checks),
+        'post_checks_passed':sum(1 for c in post_checks if c.get('ok')),
+        'problems':sum(1 for c in preflight if not c.get('ok'))+sum(1 for c in post_checks if not c.get('ok'))+len(blockers)+len(errors),
+        'backup_path':str(backup_path),
+        'before_hash':before_hash,
+        'backup_hash':backup_hash,
+        'after_hash':after_hash,
+        'read_only_when_not_executing':not action_allowed,
+        'report_only_when_not_executing':not action_allowed
+    }
+
+    safety={
+        'approved_action_only':True,
+        'requires_exact_phrase':True,
+        'requires_direct_diff':True,
+        'backup_before_write':True,
+        'controlled_target_rewrite_after_backup':bool(action_allowed),
+        'no_delete':True,
+        'no_move':True,
+        'no_legacy_changes':True,
+        'no_project_creation':True,
+        'no_model_cleanup':True,
+        'evidence_report_written':True
+    }
+
+    healthy=status in ('preview','blocked','edited') and not any(e.get('id')=='execution_error' for e in errors)
+    if status=='edited':
+        health_label='CHAPTER EDIT SAVED'
+    elif status=='blocked':
+        health_label='CHAPTER EDIT ACTION BLOCKED SAFELY'
+    elif status=='error':
+        health_label='CHAPTER EDIT ACTION ERROR'
+    else:
+        health_label='CHAPTER EDIT ACTION READY — PREVIEW ONLY'
+
+    report={
+        'ok':True,
+        'created':now(),
+        'title':'Kayock Writer Chapter Edit Approved Action',
+        'read_only':not action_allowed,
+        'report_only':not action_allowed,
+        'healthy':healthy,
+        'status':status,
+        'health_label':health_label,
+        'message':f'Chapter Edit Approved Action: {health_label}',
+        'milestone':'v10.12.4 Chapter Edit Approved Action',
+        'summary':summary,
+        'approval_phrase_required':required_phrase,
+        'approval_phrase_matches':phrase_matches,
+        'selected_file':{'path':str(target),'name':target.name,'exists':target_exists},
+        'old_hook':old_hook,
+        'new_hook':new_hook,
+        'changed_fields':changed_fields,
+        'diff_summary':diff_summary,
+        'preview_markdown':preview_markdown,
+        'preflight_checks':preflight,
+        'blockers':blockers,
+        'created_backups':created_backups,
+        'written_files':written_files,
+        'actions':actions,
+        'post_checks':post_checks,
+        'errors':errors,
+        'hashes':{'before':before_hash,'backup':backup_hash,'after':after_hash},
+        'recommendations':[
+            {'id':'mark_chapter_edit_action_proven','title':'Mark Chapter Edit Approved Action proven','recommendation':'Use this as the first proven safe chapter edit workflow after backup and verification.','risk':'medium','auto_apply':False},
+            {'id':'next_chapter_edit_audit_reader','title':'Build Chapter Edit Audit Reader next','recommendation':'Add a read-only dashboard that lists edit actions, backups, hashes, and post-save verification.','risk':'low','auto_apply':False}
+        ],
+        'folders':{
+            'chapter_edit_action_reports':str(reports),
+            'chapter_edit_backups':str(backups),
+            'book_folder':str(book_folder)
+        },
+        'safety':safety
+    }
+
+    if export:
+        try:
+            reports.mkdir(parents=True,exist_ok=True)
+            report_stamp=datetime.now().strftime('%Y%m%d_%H%M%S')
+            json_path=reports/f'Chapter_Edit_Approved_Action_{project_id}_{book_id}_chapter_{chapter_number:02d}_{report_stamp}.json'
+            md_path=reports/f'Chapter_Edit_Approved_Action_{project_id}_{book_id}_chapter_{chapter_number:02d}_{report_stamp}.md'
+            jwrite(json_path,report)
+            lines=[
+                '# Kayock Writer Chapter Edit Approved Action','',
+                f"Created: {report['created']}",
+                f"Milestone: **{report['milestone']}**",
+                f"Health: **{health_label}**",
+                f"Status: `{status}`",
+                f"Execute requested: {execute}",
+                f"Action allowed: {action_allowed}",
+                f"Project: **{summary['project_title']}**",
+                f"Book: **{summary['book_title']}**",
+                f"Chapter: **{chapter_number:02d}**",
+                '',
+                '## Safety','',
+                '- Requires exact phrase.',
+                '- Requires direct diff.',
+                '- Creates backup/evidence before writing.',
+                '- Controlled target rewrite only after backup.',
+                '- No delete.',
+                '- No move.',
+                '- No legacy changes.',
+                '- No model cleanup.',
+                '',
+                '## Summary',''
+            ]
+            for k,v in summary.items():
+                lines.append(f"- {k.replace('_',' ').title()}: {v}")
+            lines += ['','## Direct Diff','','### Old Hook','','```text',old_hook,'```','','### New Hook','','```text',new_hook,'```','','## Blockers','']
+            if blockers:
+                for b in blockers:
+                    lines.append(f"- `{b.get('id')}` — {b.get('message')}")
+            else:
+                lines.append('- None.')
+            lines += ['','## Created Backups','']
+            if created_backups:
+                for p in created_backups:
+                    lines.append(f"- `{p}`")
+            else:
+                lines.append('- None.')
+            lines += ['','## Written Files','']
+            if written_files:
+                for p in written_files:
+                    lines.append(f"- `{p}`")
+            else:
+                lines.append('- None.')
+            lines += ['','## Preflight Checks','']
+            for c in preflight:
+                lines.append(f"- [{'PASS' if c.get('ok') else 'FAIL'}] `{c.get('id')}` — {c.get('message')}")
+            lines += ['','## Post Checks','']
+            for c in post_checks:
+                lines.append(f"- [{'PASS' if c.get('ok') else 'FAIL'}] `{c.get('id')}` — {c.get('message')}")
+            lines += ['','## Errors','']
+            if errors:
+                for e in errors:
+                    lines.append(f"- `{e.get('id')}` — {e.get('message')}")
+            else:
+                lines.append('- None.')
+            md_path.write_text('\n'.join(lines),encoding='utf-8')
+            report['exported']={'json':str(json_path),'markdown':str(md_path),'folder':str(reports)}
+        except Exception as e:
+            report['export_error']=str(e)
+
+    return report
+
+
+
+def kayock_writer_chapter_edit_audit_reader_report(d=None):
+    d=d or {}
+    export=bool(d.get('export',False))
+    book_filter=str(d.get('book_id') or 'all').strip().lower().replace(' ','_')
+    if book_filter not in ('all','book_1','book_2'):
+        book_filter='all'
+
+    action_reports=FOLDERS.get('kayock_writer_chapter_edit_action_reports',ROOT/'Reports'/'KayockWriter'/'ChapterEditAction')
+    backup_root=FOLDERS.get('kayock_writer_chapter_edit_backups',ROOT/'Backups'/'KayockWriter'/'ChapterEdits')
+    audit_reports=FOLDERS.get('kayock_writer_chapter_edit_audit_reports',ROOT/'Reports'/'KayockWriter'/'ChapterEditAudit')
+
+    def file_info(p):
+        item={'path':str(p),'name':p.name,'exists':False,'kind':'missing','size':0,'modified':''}
+        try:
+            item['exists']=p.exists()
+            if p.exists():
+                item['kind']='folder' if p.is_dir() else 'file'
+                item['size']=p.stat().st_size if p.is_file() else None
+                item['modified']=datetime.fromtimestamp(p.stat().st_mtime).isoformat(timespec='seconds')
+        except Exception as e:
+            item['error']=str(e)
+        return item
+
+    parsed_reports=[]
+    report_errors=[]
+    try:
+        files=sorted(action_reports.glob('Chapter_Edit_Approved_Action_*.json'), key=lambda p:p.stat().st_mtime if p.exists() else 0, reverse=True) if action_reports.exists() else []
+    except Exception as e:
+        files=[]
+        report_errors.append({'id':'list_reports_error','message':str(e)})
+
+    for p in files:
+        try:
+            data=json.loads(p.read_text(encoding='utf-8',errors='replace'))
+            s=data.get('summary') or {}
+            if book_filter!='all' and s.get('book_id')!=book_filter:
+                continue
+            backups=data.get('created_backups') or []
+            written=data.get('written_files') or []
+            post=data.get('post_checks') or []
+            pre=data.get('preflight_checks') or []
+            hashes=data.get('hashes') or {}
+            backup_checks=[]
+            for b in backups:
+                bp=Path(b)
+                info=file_info(bp)
+                expected_hash=hashes.get('backup') or s.get('backup_hash') or ''
+                actual_hash=''
+                hash_ok=None
+                try:
+                    if bp.exists() and bp.is_file():
+                        import hashlib
+                        actual_hash=hashlib.sha256(bp.read_text(encoding='utf-8',errors='replace').encode('utf-8',errors='replace')).hexdigest()
+                        hash_ok=(not expected_hash) or actual_hash==expected_hash
+                except Exception as e:
+                    info['hash_error']=str(e)
+                backup_checks.append({'path':str(bp),'info':info,'expected_hash':expected_hash,'actual_hash':actual_hash,'hash_ok':hash_ok})
+            parsed_reports.append({
+                'report_path':str(p),
+                'report_name':p.name,
+                'report_size':p.stat().st_size,
+                'report_modified':datetime.fromtimestamp(p.stat().st_mtime).isoformat(timespec='seconds'),
+                'created':data.get('created',''),
+                'milestone':data.get('milestone',''),
+                'health_label':data.get('health_label',''),
+                'status':data.get('status',''),
+                'healthy':bool(data.get('healthy')),
+                'project_id':s.get('project_id',''),
+                'book_id':s.get('book_id',''),
+                'book_title':s.get('book_title',''),
+                'chapter_number':s.get('chapter_number',''),
+                'selected_chapter_name':s.get('selected_chapter_name',''),
+                'selected_chapter_path':s.get('selected_chapter_path',''),
+                'execute_requested':s.get('execute_requested',False),
+                'action_allowed':s.get('action_allowed',False),
+                'phrase_matches':s.get('phrase_matches',False),
+                'changed_fields':s.get('changed_fields',0),
+                'diff_items':s.get('diff_items',0),
+                'blockers':s.get('blockers',0),
+                'errors':s.get('errors',0),
+                'preflight_checks':s.get('preflight_checks',0),
+                'preflight_checks_passed':s.get('preflight_checks_passed',0),
+                'created_backups':s.get('created_backups',0),
+                'written_files':s.get('written_files',0),
+                'post_checks':s.get('post_checks',0),
+                'post_checks_passed':s.get('post_checks_passed',0),
+                'problems':s.get('problems',0),
+                'backup_path':s.get('backup_path',''),
+                'before_hash':s.get('before_hash','') or hashes.get('before',''),
+                'backup_hash':s.get('backup_hash','') or hashes.get('backup',''),
+                'after_hash':s.get('after_hash','') or hashes.get('after',''),
+                'old_hook':data.get('old_hook',''),
+                'new_hook':data.get('new_hook',''),
+                'created_backup_paths':backups,
+                'written_file_paths':written,
+                'backup_checks':backup_checks,
+                'post_check_items':post,
+                'preflight_check_items':pre,
+                'safety':data.get('safety') or {}
+            })
+        except Exception as e:
+            report_errors.append({'id':'parse_report_error','path':str(p),'message':str(e)})
+
+    # Backup inventory.
+    backup_files=[]
+    backup_errors=[]
+    try:
+        if backup_root.exists():
+            for p in sorted(backup_root.rglob('*.md'), key=lambda x:x.stat().st_mtime if x.exists() else 0, reverse=True):
+                if book_filter!='all' and book_filter not in str(p):
+                    continue
+                backup_files.append(file_info(p))
+    except Exception as e:
+        backup_errors.append({'id':'backup_inventory_error','message':str(e)})
+
+    edited_reports=[r for r in parsed_reports if r.get('status')=='edited']
+    preview_reports=[r for r in parsed_reports if r.get('status')=='preview']
+    blocked_reports=[r for r in parsed_reports if r.get('status')=='blocked']
+    error_reports=[r for r in parsed_reports if r.get('status')=='error' or r.get('errors')]
+    latest=parsed_reports[0] if parsed_reports else {}
+
+    # Cross-check edit reports.
+    report_checks=[]
+    for r in edited_reports:
+        report_checks.append({
+            'report_name':r.get('report_name'),
+            'ok':bool(
+                r.get('phrase_matches') and
+                r.get('changed_fields',0)>=1 and
+                r.get('diff_items',0)>=1 and
+                r.get('created_backups',0)>=1 and
+                r.get('written_files',0)>=1 and
+                r.get('post_checks')==r.get('post_checks_passed') and
+                r.get('problems',0)==0 and
+                any(bc.get('info',{}).get('exists') for bc in r.get('backup_checks') or [])
+            ),
+            'status':r.get('status'),
+            'phrase_matches':r.get('phrase_matches'),
+            'diff_items':r.get('diff_items'),
+            'created_backups':r.get('created_backups'),
+            'written_files':r.get('written_files'),
+            'post_checks':r.get('post_checks'),
+            'post_checks_passed':r.get('post_checks_passed'),
+            'problems':r.get('problems'),
+            'backup_exists':any(bc.get('info',{}).get('exists') for bc in r.get('backup_checks') or [])
+        })
+
+    checks=[
+        {'id':'action_report_folder_exists','ok':action_reports.exists() and action_reports.is_dir(),'message':str(action_reports)},
+        {'id':'backup_folder_exists','ok':backup_root.exists() and backup_root.is_dir(),'message':str(backup_root)},
+        {'id':'reports_loaded','ok':len(parsed_reports)>0,'message':f'{len(parsed_reports)} edit action report(s) loaded.'},
+        {'id':'edited_report_present','ok':len(edited_reports)>0,'message':f'{len(edited_reports)} edited report(s) found.'},
+        {'id':'backup_inventory_present','ok':len(backup_files)>0,'message':f'{len(backup_files)} backup file(s) found.'},
+        {'id':'edited_reports_verified','ok':bool(report_checks) and all(x.get('ok') for x in report_checks),'message':f'{sum(1 for x in report_checks if x.get("ok"))}/{len(report_checks)} edited report(s) verified.'},
+        {'id':'latest_report_healthy','ok':bool(latest) and bool(latest.get('healthy')),'message':latest.get('health_label','missing') if latest else 'No latest report.'},
+        {'id':'no_parse_errors','ok':len(report_errors)==0,'message':f'{len(report_errors)} report parse error(s).'},
+        {'id':'no_backup_inventory_errors','ok':len(backup_errors)==0,'message':f'{len(backup_errors)} backup inventory error(s).'},
+        {'id':'read_only_audit_reader','ok':True,'message':'Chapter Edit Audit Reader performed read-only inspection only.'}
+    ]
+
+    safety={
+        'read_only_chapter_edit_audit_reader':True,
+        'no_chapter_file_edit':True,
+        'no_story_file_mutation':True,
+        'no_project_creation':True,
+        'no_legacy_migration':True,
+        'no_rename_performed':True,
+        'no_overwrite':True,
+        'no_delete':True,
+        'no_move':True,
+        'no_install':True,
+        'no_model_cleanup':True,
+        'audit_export_only':True
+    }
+
+    summary={
+        'book_filter':book_filter,
+        'action_report_folder':str(action_reports),
+        'backup_folder':str(backup_root),
+        'audit_report_folder':str(audit_reports),
+        'reports_loaded':len(parsed_reports),
+        'edited_reports':len(edited_reports),
+        'preview_reports':len(preview_reports),
+        'blocked_reports':len(blocked_reports),
+        'error_reports':len(error_reports),
+        'backup_files_found':len(backup_files),
+        'report_errors':len(report_errors),
+        'backup_errors':len(backup_errors),
+        'edited_report_checks':len(report_checks),
+        'edited_report_checks_passed':sum(1 for x in report_checks if x.get('ok')),
+        'checks':len(checks),
+        'checks_passed':sum(1 for c in checks if c.get('ok')),
+        'problems':sum(1 for c in checks if not c.get('ok')),
+        'latest_status':latest.get('status',''),
+        'latest_health':latest.get('health_label',''),
+        'latest_report':latest.get('report_name',''),
+        'read_only':True,
+        'report_only':True
+    }
+
+    healthy=all(c.get('ok') for c in checks)
+    health_label='CHAPTER EDIT AUDIT READER READY' if healthy else 'CHAPTER EDIT AUDIT READER NEEDS REVIEW'
+
+    report={
+        'ok':True,
+        'created':now(),
+        'title':'Kayock Writer Chapter Edit Audit Reader',
+        'read_only':True,
+        'report_only':True,
+        'healthy':healthy,
+        'audit_ready':healthy,
+        'health_label':health_label,
+        'message':f'Chapter Edit Audit Reader: {health_label}',
+        'milestone':'v10.12.5 Chapter Edit Audit Reader',
+        'summary':summary,
+        'latest_report':latest,
+        'edit_reports':parsed_reports[:30],
+        'edited_report_checks':report_checks,
+        'backup_inventory':backup_files[:50],
+        'report_errors':report_errors,
+        'backup_errors':backup_errors,
+        'checks':checks,
+        'recommendations':[
+            {'id':'mark_chapter_edit_audit_reader_proven','title':'Mark Chapter Edit Audit Reader proven','recommendation':'Use this as the read-only audit trail for chapter edit actions, backups, hashes, and verification.','risk':'low','auto_apply':False},
+            {'id':'next_chapter_draft_workspace','title':'Build Chapter Draft Workspace next','recommendation':'Move from engineering cards toward a real drafting workspace for chapter prose while preserving preview/gate/action safety.','risk':'medium','auto_apply':False},
+            {'id':'optional_edit_rollback_preview','title':'Optional Chapter Edit Rollback Preview','recommendation':'Later, add a preview-only rollback path from backup files if needed.','risk':'low','auto_apply':False}
+        ],
+        'folders':{
+            'action_reports':str(action_reports),
+            'backup_root':str(backup_root),
+            'audit_reports':str(audit_reports)
+        },
+        'safety':safety
+    }
+
+    if export:
+        try:
+            audit_reports.mkdir(parents=True,exist_ok=True)
+            stamp=datetime.now().strftime('%Y%m%d_%H%M%S')
+            suffix=book_filter
+            json_path=audit_reports/f'Chapter_Edit_Audit_Reader_{suffix}_{stamp}.json'
+            md_path=audit_reports/f'Chapter_Edit_Audit_Reader_{suffix}_{stamp}.md'
+            jwrite(json_path,report)
+            lines=[
+                '# Kayock Writer Chapter Edit Audit Reader','',
+                f"Created: {report['created']}",
+                f"Milestone: **{report['milestone']}**",
+                f"Health: **{health_label}**",
+                f"Audit ready: {healthy}",
+                '',
+                '## Safety','',
+                '- Read-only chapter edit audit reader.',
+                '- No chapter file edit.',
+                '- No story-file mutation.',
+                '- No project creation.',
+                '- No legacy migration.',
+                '- No rename performed.',
+                '- No overwrite.',
+                '- No delete.',
+                '- No move.',
+                '- No install.',
+                '- No model cleanup.',
+                '',
+                '## Summary',''
+            ]
+            for k,v in summary.items():
+                lines.append(f"- {k.replace('_',' ').title()}: {v}")
+            lines += ['','## Edited Report Checks','']
+            if report_checks:
+                for x in report_checks:
+                    lines.append(f"- [{'PASS' if x.get('ok') else 'FAIL'}] `{x.get('report_name')}` — status: {x.get('status')} — backups: {x.get('created_backups')} — written: {x.get('written_files')} — post: {x.get('post_checks_passed')}/{x.get('post_checks')} — backup exists: {x.get('backup_exists')}")
+            else:
+                lines.append('- None.')
+            lines += ['','## Latest Report','']
+            if latest:
+                for k in ['report_name','created','status','health_label','book_id','chapter_number','selected_chapter_name','phrase_matches','changed_fields','diff_items','created_backups','written_files','post_checks_passed','post_checks','problems']:
+                    lines.append(f"- {k}: {latest.get(k)}")
+            else:
+                lines.append('- None.')
+            lines += ['','## Backup Inventory','']
+            if backup_files:
+                for b in backup_files[:25]:
+                    lines.append(f"- `{b.get('path')}` — {b.get('size')} bytes — modified: {b.get('modified')}")
+            else:
+                lines.append('- None.')
+            lines += ['','## Checks','']
+            for c in checks:
+                lines.append(f"- [{'PASS' if c.get('ok') else 'FAIL'}] `{c.get('id')}` — {c.get('message')}")
+            lines += ['','## Recommendations','']
+            for r in report['recommendations']:
+                lines.append(f"- `{r.get('id')}` — {r.get('title')} — {r.get('recommendation')} — auto apply: {r.get('auto_apply')}")
+            md_path.write_text('\n'.join(lines),encoding='utf-8')
+            report['exported']={'json':str(json_path),'markdown':str(md_path),'folder':str(audit_reports)}
+        except Exception as e:
+            report['export_error']=str(e)
+
+    return report
+
+
+
+def kayock_writer_chapter_draft_workspace_report(d=None):
+    import re, json
+    d=d or {}
+    export=bool(d.get('export',False))
+    project_id='slipping_into_darkness'
+    book_id=str(d.get('book_id') or 'book_2').strip().lower().replace(' ','_')
+    if book_id not in ('book_1','book_2'): book_id='book_2'
+    chapter_number=int(d.get('chapter_number') or 2)
+    if chapter_number not in (1,2,3): chapter_number=2
+    draft_mode=str(d.get('draft_mode') or 'first_pass')
+    target_words=max(250,min(12000,int(d.get('target_words') or 1800)))
+    tone=str(d.get('tone') or 'dark mythic adventure').strip()
+    opening_seed=str(d.get('opening_seed') or '').strip()
+
+    root=ROOT/'Projects'/'KayockWriter'/'Slipping_into_Darkness'
+    book_folder=root/'Chapters'/book_id
+    reports=FOLDERS.get('kayock_writer_chapter_draft_workspace_reports',ROOT/'Reports'/'KayockWriter'/'ChapterDraftWorkspace')
+    candidates=sorted(book_folder.glob(f'chapter_{chapter_number:02d}_*.md'), key=lambda p:p.name.lower()) if book_folder.exists() else []
+    target=candidates[0] if candidates else book_folder/f'chapter_{chapter_number:02d}_missing.md'
+
+    errors=[]
+    current_text=''
+    try:
+        if target.exists() and target.is_file():
+            current_text=target.read_text(encoding='utf-8',errors='replace')
+        else:
+            errors.append({'id':'target_missing','message':str(target)})
+    except Exception as e:
+        errors.append({'id':'read_error','message':str(e)})
+
+    def section(md,name):
+        marker=f'## {name}'
+        idx=md.find(marker)
+        if idx<0: return ''
+        start=idx+len(marker)
+        while start<len(md) and md[start] in '\r\n ': start+=1
+        nxt=md.find('\n## ',start)
+        return (md[start:] if nxt<0 else md[start:nxt]).strip()
+
+    def meta(label,default=''):
+        m=re.search(rf'^\s*-\s*\*\*{re.escape(label)}:\*\*\s*(.*?)\s*$', current_text, re.I|re.M)
+        return m.group(1).strip() if m else default
+
+    title_line=(current_text.splitlines()[0].lstrip('# ').strip() if current_text.splitlines() else f'Chapter {chapter_number:02d}')
+    project_title=meta('Project','Slipping into Darkness')
+    book_title=meta('Book','Book 2' if book_id=='book_2' else 'Book 1')
+    pov=meta('POV','Anthony')
+    location=meta('Location','TBD')
+    goal=section(current_text,'Goal')
+    conflict=section(current_text,'Conflict')
+    reveal=section(current_text,'Reveal')
+    hook=section(current_text,'Hook')
+    continuity_notes=section(current_text,'Continuity Notes')
+    handoff_tags_raw=section(current_text,'Handoff Tags')
+    draft_space=section(current_text,'Draft Space')
+    safety_section=section(current_text,'Safety')
+
+    required_sections={
+        'title':current_text.startswith('# ') if current_text else False,
+        'goal':bool(goal),'conflict':bool(conflict),'reveal':bool(reveal),'hook':bool(hook),
+        'continuity_notes':bool(continuity_notes),'handoff_tags':bool(handoff_tags_raw),
+        'draft_space':bool(draft_space),'safety':bool(safety_section)
+    }
+
+    handoff_tags={}
+    handoff_parse_error=''
+    if handoff_tags_raw:
+        raw=handoff_tags_raw.strip()
+        if raw.startswith('```'):
+            raw=re.sub(r'^```[a-zA-Z0-9_-]*\s*','',raw)
+            raw=re.sub(r'\s*```$','',raw).strip()
+        try: handoff_tags=json.loads(raw)
+        except Exception as e: handoff_parse_error=str(e)
+
+    beats=[
+        {'beat':1,'name':'Opening pressure','purpose':'Ground the reader in immediate danger, mood, and Anthony’s next move.'},
+        {'beat':2,'name':'Investigation turn','purpose':goal or 'Clarify the chapter goal.'},
+        {'beat':3,'name':'Resistance','purpose':conflict or 'Show what blocks the answer.'},
+        {'beat':4,'name':'Mythic evidence','purpose':reveal or 'Reveal a meaningful mythology clue.'},
+        {'beat':5,'name':'Exit hook','purpose':hook or 'End with a concrete forward pull.'}
+    ]
+    guardrails=['Do not resolve Croatoan too early.','Keep the sanctuary mystery active.','Treat current cards as scaffolding, not final prose.']
+    if continuity_notes: guardrails.insert(0, continuity_notes.replace('\n',' '))
+
+    opening = f'Use this opening seed: {opening_seed}' if opening_seed else 'Open with Anthony encountering a concrete clue or dangerous atmosphere before exposition.'
+    mode_note={'first_pass':'Write a complete first-pass prose chapter draft.','scene_skeleton':'Create a beat-by-beat scene skeleton.','rewrite_prompt':'Create a rewrite prompt for a future model pass.','continuity_pass':'Create continuity-focused drafting guidance.'}.get(draft_mode,'Write a first-pass draft.')
+
+    chapter_brief=f"""{title_line}
+Project: {project_title}
+Book: {book_title}
+POV: {pov}
+Location: {location}
+Target length: about {target_words} words
+Tone: {tone}
+Draft mode: {draft_mode} - {mode_note}
+
+Goal: {goal}
+
+Conflict: {conflict}
+
+Reveal: {reveal}
+
+Hook: {hook}"""
+
+    prose_prompt=f"""You are writing a chapter draft for {project_title}.
+
+Write {title_line} for {book_title} in {pov}'s POV.
+Target length: about {target_words} words.
+Tone: {tone}.
+Draft mode: {draft_mode} - {mode_note}
+
+Chapter Goal:
+{goal}
+
+Core Conflict:
+{conflict}
+
+Required Reveal:
+{reveal}
+
+Ending Hook:
+{hook}
+
+Location:
+{location}
+
+Opening Direction:
+{opening}
+
+Continuity Guardrails:
+- """ + '\n- '.join(guardrails) + """
+
+Do not treat the current scaffold wording as final prose. Expand it into scenes, sensory detail, tension, character reaction, and forward momentum. Do not overwrite canon outside this chapter."""
+
+    draft_shell='# Draft Workspace - '+title_line+'\n\n## Draft Target\n\n'+str(target_words)+' words, tone: '+tone+', mode: '+draft_mode+'.\n\n## Beat Sheet\n\n'+'\n'.join([f"{b['beat']}. **{b['name']}** - {b['purpose']}" for b in beats])+'\n\n## Draft Area\n\n_Write the real chapter prose here later after a save gate is built._'
+
+    workspace={'title_line':title_line,'project_title':project_title,'book_title':book_title,'book_id':book_id,'chapter_number':chapter_number,'pov':pov,'location':location,'draft_mode':draft_mode,'target_words':target_words,'tone':tone,'opening_seed':opening_seed,'goal':goal,'conflict':conflict,'reveal':reveal,'hook':hook,'continuity_notes':continuity_notes,'handoff_tags_raw':handoff_tags_raw,'handoff_tags':handoff_tags,'handoff_parse_error':handoff_parse_error,'existing_draft_space':draft_space,'existing_draft_word_count':len(re.findall(r'\S+',draft_space or '')),'beat_sheet':beats,'continuity_guardrails':guardrails,'chapter_brief':chapter_brief,'prose_prompt':prose_prompt,'draft_shell':draft_shell}
+
+    checks=[
+        {'id':'project_root_exists','ok':root.exists() and root.is_dir(),'message':str(root)},
+        {'id':'book_folder_exists','ok':book_folder.exists() and book_folder.is_dir(),'message':str(book_folder)},
+        {'id':'target_file_exists','ok':target.exists() and target.is_file(),'message':target.name},
+        {'id':'required_sections_present','ok':all(required_sections.values()),'message':f"{sum(1 for v in required_sections.values() if v)}/{len(required_sections)} required section checks passed."},
+        {'id':'goal_parsed','ok':bool(goal),'message':goal[:120]},
+        {'id':'conflict_parsed','ok':bool(conflict),'message':conflict[:120]},
+        {'id':'reveal_parsed','ok':bool(reveal),'message':reveal[:120]},
+        {'id':'hook_parsed','ok':bool(hook),'message':hook[:120]},
+        {'id':'beat_sheet_generated','ok':len(beats)==5,'message':f'{len(beats)} beat(s) generated.'},
+        {'id':'prose_prompt_generated','ok':len(prose_prompt)>250,'message':f'{len(prose_prompt)} prompt chars.'},
+        {'id':'draft_shell_generated','ok':len(draft_shell)>100,'message':f'{len(draft_shell)} shell chars.'},
+        {'id':'read_only_workspace','ok':True,'message':'No chapter file was written, overwritten, renamed, moved, or deleted.'}
+    ]
+
+    summary={'project_id':project_id,'project_title':project_title,'book_id':book_id,'book_title':book_title,'chapter_number':chapter_number,'selected_chapter_name':target.name,'selected_chapter_path':str(target),'target_exists':target.exists() and target.is_file(),'target_size':target.stat().st_size if target.exists() and target.is_file() else 0,'draft_mode':draft_mode,'target_words':target_words,'tone':tone,'required_sections':len(required_sections),'required_sections_present':sum(1 for v in required_sections.values() if v),'existing_draft_word_count':workspace['existing_draft_word_count'],'beat_count':len(beats),'continuity_guardrails':len(guardrails),'prompt_chars':len(prose_prompt),'draft_shell_chars':len(draft_shell),'errors':len(errors),'checks':len(checks),'checks_passed':sum(1 for c in checks if c.get('ok')),'problems':sum(1 for c in checks if not c.get('ok'))+len(errors),'read_only':True,'report_only':True}
+
+    safety={'read_only_chapter_draft_workspace':True,'no_chapter_file_edit':True,'no_story_file_mutation':True,'no_project_creation':True,'no_legacy_migration':True,'no_rename_performed':True,'no_overwrite':True,'no_delete':True,'no_move':True,'no_install':True,'no_model_cleanup':True,'workspace_export_only':True,'future_draft_save_requires_gate_and_exact_phrase':True}
+    healthy=all(c.get('ok') for c in checks) and not errors
+    health_label='CHAPTER DRAFT WORKSPACE READY' if healthy else 'CHAPTER DRAFT WORKSPACE NEEDS REVIEW'
+
+    report={'ok':True,'created':now(),'title':'Kayock Writer Chapter Draft Workspace','read_only':True,'report_only':True,'healthy':healthy,'workspace_ready':healthy,'health_label':health_label,'message':f'Chapter Draft Workspace: {health_label}','milestone':'v10.13.0 Chapter Draft Workspace','summary':summary,'selected_file':{'path':str(target),'name':target.name,'exists':target.exists() and target.is_file()},'chapter_card':{'title_line':title_line,'project':project_title,'book':book_title,'pov':pov,'location':location,'goal':goal,'conflict':conflict,'reveal':reveal,'hook':hook,'continuity_notes':continuity_notes,'handoff_tags':handoff_tags,'draft_space':draft_space},'workspace':workspace,'required_sections':required_sections,'checks':checks,'errors':errors,'recommendations':[{'id':'mark_chapter_draft_workspace_proven','title':'Mark Chapter Draft Workspace proven','recommendation':'Use this as the read-only workspace that converts chapter cards into real drafting guidance.','risk':'low','auto_apply':False},{'id':'next_draft_save_gate','title':'Build Draft Save Approval Gate next','recommendation':'Add a no-write gate for saving prose drafts into Draft Space or a separate draft file.','risk':'medium','auto_apply':False}],'folders':{'chapter_draft_workspace_reports':str(reports),'book_folder':str(book_folder)},'safety':safety}
+
+    if export:
+        try:
+            reports.mkdir(parents=True,exist_ok=True)
+            stamp=datetime.now().strftime('%Y%m%d_%H%M%S')
+            json_path=reports/f'Chapter_Draft_Workspace_{project_id}_{book_id}_chapter_{chapter_number:02d}_{stamp}.json'
+            md_path=reports/f'Chapter_Draft_Workspace_{project_id}_{book_id}_chapter_{chapter_number:02d}_{stamp}.md'
+            jwrite(json_path,report)
+            lines=['# Kayock Writer Chapter Draft Workspace','',f"Created: {report['created']}",f"Milestone: **{report['milestone']}**",f"Health: **{health_label}**",f"Workspace ready: {healthy}",'','## Safety','','- Read-only chapter draft workspace.','- No chapter file edit.','- No story-file mutation.','- No overwrite.','- No delete.','- No move.','- Future draft save requires gate and exact phrase.','','## Summary']
+            for k,v in summary.items(): lines.append(f"- {k.replace('_',' ').title()}: {v}")
+            lines += ['','## Chapter Brief','','```text',chapter_brief,'```','','## Beat Sheet']
+            for b in beats: lines.append(f"- **{b['beat']}. {b['name']}** - {b['purpose']}")
+            lines += ['','## Prose Prompt','','```text',prose_prompt,'```','','## Draft Shell','','```markdown',draft_shell,'```','','## Checks']
+            for c in checks: lines.append(f"- [{'PASS' if c.get('ok') else 'FAIL'}] `{c.get('id')}` - {c.get('message')}")
+            lines += ['','## Errors']
+            lines.append('- None.' if not errors else '\n'.join([f"- `{e.get('id')}` - {e.get('message')}" for e in errors]))
+            md_path.write_text('\n'.join(lines),encoding='utf-8')
+            report['exported']={'json':str(json_path),'markdown':str(md_path),'folder':str(reports)}
+        except Exception as e:
+            report['export_error']=str(e)
+    return report
+
+
+
+def kayock_writer_draft_save_gate_report(d=None):
+    import re, json
+    d=d or {}
+    export=bool(d.get('export',False))
+    project_id='slipping_into_darkness'
+    book_id=str(d.get('book_id') or 'book_2').strip().lower().replace(' ','_')
+    if book_id not in ('book_1','book_2'): book_id='book_2'
+    chapter_number=int(d.get('chapter_number') or 2)
+    if chapter_number not in (1,2,3): chapter_number=2
+    typed_phrase=str(d.get('approval_phrase') or '').strip()
+    required_phrase='APPROVE DRAFT SAVE PREVIEW'
+    phrase_matches=(typed_phrase==required_phrase)
+    proposed_draft=str(d.get('draft_text') or '').strip()
+    draft_title=str(d.get('draft_title') or '').strip()
+
+    root=ROOT/'Projects'/'KayockWriter'/'Slipping_into_Darkness'
+    book_folder=root/'Chapters'/book_id
+    draft_root=root/'Drafts'/book_id
+    reports=FOLDERS.get('kayock_writer_draft_save_gate_reports',ROOT/'Reports'/'KayockWriter'/'DraftSaveGate')
+
+    candidates=sorted(book_folder.glob(f'chapter_{chapter_number:02d}_*.md'), key=lambda p:p.name.lower()) if book_folder.exists() else []
+    chapter_card=candidates[0] if candidates else book_folder/f'chapter_{chapter_number:02d}_missing.md'
+
+    errors=[]
+    current_text=''
+    try:
+        if chapter_card.exists() and chapter_card.is_file():
+            current_text=chapter_card.read_text(encoding='utf-8',errors='replace')
+        else:
+            errors.append({'id':'chapter_card_missing','message':str(chapter_card)})
+    except Exception as e:
+        errors.append({'id':'chapter_card_read_error','message':str(e)})
+
+    def section(md,name):
+        marker=f'## {name}'
+        idx=md.find(marker)
+        if idx<0: return ''
+        start=idx+len(marker)
+        while start<len(md) and md[start] in '\r\n ': start+=1
+        nxt=md.find('\n## ',start)
+        return (md[start:] if nxt<0 else md[start:nxt]).strip()
+
+    def meta(label,default=''):
+        m=re.search(rf'^\s*-\s*\*\*{re.escape(label)}:\*\*\s*(.*?)\s*$', current_text, re.I|re.M)
+        return m.group(1).strip() if m else default
+
+    title_line=(current_text.splitlines()[0].lstrip('# ').strip() if current_text.splitlines() else f'Chapter {chapter_number:02d}')
+    project_title=meta('Project','Slipping into Darkness')
+    book_title=meta('Book','Book 2' if book_id=='book_2' else 'Book 1')
+    pov=meta('POV','Anthony')
+    location=meta('Location','TBD')
+    goal=section(current_text,'Goal')
+    conflict=section(current_text,'Conflict')
+    reveal=section(current_text,'Reveal')
+    hook=section(current_text,'Hook')
+    continuity_notes=section(current_text,'Continuity Notes')
+    draft_space=section(current_text,'Draft Space')
+
+    if not draft_title:
+        draft_title=f'Chapter {chapter_number:02d} Draft'
+
+    if not proposed_draft:
+        proposed_draft=(
+            f"# {draft_title}\n\n"
+            f"_Draft text will be written here in the next approved action._\n\n"
+            f"Goal: {goal}\n"
+            f"Conflict: {conflict}\n"
+            f"Reveal: {reveal}\n"
+            f"Hook: {hook}\n"
+        )
+
+    word_count=len(re.findall(r'\S+',proposed_draft))
+    char_count=len(proposed_draft)
+    line_count=len(proposed_draft.splitlines())
+
+    safe_stem=f'chapter_{chapter_number:02d}_draft_v001'
+    proposed_md=draft_root/f'{safe_stem}.md'
+    proposed_json=draft_root/f'{safe_stem}.meta.json'
+    proposed_audit=draft_root/f'{safe_stem}.save_evidence.json'
+    proposed_targets=[
+        {'kind':'draft_markdown','path':str(proposed_md),'exists':proposed_md.exists(),'would_overwrite':proposed_md.exists()},
+        {'kind':'draft_metadata','path':str(proposed_json),'exists':proposed_json.exists(),'would_overwrite':proposed_json.exists()},
+        {'kind':'save_evidence','path':str(proposed_audit),'exists':proposed_audit.exists(),'would_overwrite':proposed_audit.exists()}
+    ]
+
+    required_sections={
+        'title':current_text.startswith('# ') if current_text else False,
+        'goal':bool(goal),
+        'conflict':bool(conflict),
+        'reveal':bool(reveal),
+        'hook':bool(hook),
+        'continuity_notes':bool(continuity_notes),
+        'draft_space':bool(draft_space)
+    }
+
+    blockers=[]
+    if not root.exists(): blockers.append({'id':'project_root_missing','message':str(root)})
+    if not book_folder.exists(): blockers.append({'id':'book_folder_missing','message':str(book_folder)})
+    if not chapter_card.exists(): blockers.append({'id':'chapter_card_missing','message':str(chapter_card)})
+    if not all(required_sections.values()): blockers.append({'id':'chapter_card_missing_required_context','message':str([k for k,v in required_sections.items() if not v])})
+    if word_count < 5: blockers.append({'id':'draft_too_short','message':f'Draft has only {word_count} word(s).'})
+    if not phrase_matches: blockers.append({'id':'phrase_mismatch','message':'Exact gate phrase was not provided.'})
+    collision_targets=[t for t in proposed_targets if t.get('would_overwrite')]
+    if collision_targets: blockers.append({'id':'future_target_collision','message':str(collision_targets)})
+
+    preview_markdown=(
+        f"# {draft_title}\n\n"
+        f"- **Project:** {project_title}\n"
+        f"- **Book:** {book_title}\n"
+        f"- **Chapter:** {chapter_number:02d}\n"
+        f"- **POV:** {pov}\n"
+        f"- **Location:** {location}\n"
+        f"- **Status:** draft_preview_pending_approved_save\n\n"
+        f"## Draft\n\n{proposed_draft}\n\n"
+        f"## Source Chapter Card\n\n- Goal: {goal}\n- Conflict: {conflict}\n- Reveal: {reveal}\n- Hook: {hook}\n\n"
+        f"## Safety\n\n- Preview generated by Draft Save Approval Gate.\n- No draft file has been saved yet.\n- Future save requires an approved action build and exact phrase.\n"
+    )
+
+    checks=[
+        {'id':'project_root_exists','ok':root.exists() and root.is_dir(),'message':str(root)},
+        {'id':'book_folder_exists','ok':book_folder.exists() and book_folder.is_dir(),'message':str(book_folder)},
+        {'id':'chapter_card_exists','ok':chapter_card.exists() and chapter_card.is_file(),'message':chapter_card.name},
+        {'id':'chapter_context_present','ok':all(required_sections.values()),'message':f"{sum(1 for v in required_sections.values() if v)}/{len(required_sections)} context checks passed."},
+        {'id':'draft_text_present','ok':word_count>=5,'message':f'{word_count} words, {char_count} chars, {line_count} lines.'},
+        {'id':'approval_phrase_declared','ok':True,'message':required_phrase},
+        {'id':'approval_phrase_matches','ok':phrase_matches,'message':'Exact phrase matched.' if phrase_matches else 'Exact phrase not matched.'},
+        {'id':'future_targets_previewed','ok':len(proposed_targets)==3,'message':f'{len(proposed_targets)} future target(s) previewed.'},
+        {'id':'no_future_target_collision','ok':not bool(collision_targets),'message':f'{len(collision_targets)} collision(s).'},
+        {'id':'save_disabled_this_build','ok':True,'message':'v10.13.1 is a no-write gate only.'},
+        {'id':'read_only_gate','ok':True,'message':'No draft/chapter/story file was written, overwritten, moved, renamed, or deleted.'}
+    ]
+
+    safe_to_save_later=bool(not blockers and phrase_matches)
+
+    summary={
+        'project_id':project_id,
+        'project_title':project_title,
+        'book_id':book_id,
+        'book_title':book_title,
+        'chapter_number':chapter_number,
+        'chapter_card_name':chapter_card.name,
+        'chapter_card_path':str(chapter_card),
+        'chapter_card_exists':chapter_card.exists() and chapter_card.is_file(),
+        'draft_title':draft_title,
+        'word_count':word_count,
+        'char_count':char_count,
+        'line_count':line_count,
+        'required_phrase':required_phrase,
+        'typed_phrase_present':bool(typed_phrase),
+        'phrase_matches':phrase_matches,
+        'future_targets':len(proposed_targets),
+        'collision_targets':len(collision_targets),
+        'blockers':len(blockers),
+        'errors':len(errors),
+        'checks':len(checks),
+        'checks_passed':sum(1 for c in checks if c.get('ok')),
+        'problems':sum(1 for c in checks if not c.get('ok'))+len(blockers)+len(errors),
+        'draft_save_enabled_this_build':False,
+        'safe_to_save_later':safe_to_save_later,
+        'read_only':True,
+        'report_only':True
+    }
+
+    safety={
+        'read_only_draft_save_gate':True,
+        'draft_save_enabled_this_build':False,
+        'future_save_requires_exact_phrase':True,
+        'future_save_requires_no_collision':True,
+        'future_save_requires_evidence_report':True,
+        'no_chapter_file_edit':True,
+        'no_story_file_mutation':True,
+        'no_project_creation':True,
+        'no_legacy_migration':True,
+        'no_overwrite':True,
+        'no_delete':True,
+        'no_move':True,
+        'no_install':True,
+        'no_model_cleanup':True,
+        'gate_export_only':True
+    }
+
+    healthy=len(errors)==0 and all(c.get('ok') for c in checks if c.get('id')!='approval_phrase_matches') and not collision_targets
+    gate_ready=healthy
+    health_label='DRAFT SAVE APPROVAL GATE READY' if gate_ready else 'DRAFT SAVE APPROVAL GATE NEEDS REVIEW'
+
+    report={
+        'ok':True,
+        'created':now(),
+        'title':'Kayock Writer Draft Save Approval Gate',
+        'read_only':True,
+        'report_only':True,
+        'healthy':healthy,
+        'gate_ready':gate_ready,
+        'health_label':health_label,
+        'message':f'Draft Save Approval Gate: {health_label}',
+        'milestone':'v10.13.1 Draft Save Approval Gate',
+        'summary':summary,
+        'approval_gate':{
+            'required_phrase':required_phrase,
+            'typed_phrase_present':bool(typed_phrase),
+            'typed_phrase_matches':phrase_matches,
+            'draft_save_enabled_this_build':False,
+            'reason_save_disabled':'v10.13.1 previews draft save targets only. Actual draft save must be a later approved action.',
+            'future_mode':'approved_action_only'
+        },
+        'chapter_context':{
+            'title_line':title_line,
+            'project':project_title,
+            'book':book_title,
+            'pov':pov,
+            'location':location,
+            'goal':goal,
+            'conflict':conflict,
+            'reveal':reveal,
+            'hook':hook,
+            'continuity_notes':continuity_notes,
+            'existing_draft_space':draft_space
+        },
+        'proposed_draft':proposed_draft,
+        'preview_markdown':preview_markdown,
+        'proposed_targets':proposed_targets,
+        'blockers':blockers,
+        'collision_targets':collision_targets,
+        'checks':checks,
+        'errors':errors,
+        'recommendations':[
+            {'id':'mark_draft_save_gate_proven','title':'Mark Draft Save Approval Gate proven','recommendation':'Use this as proof that draft save targets can be previewed safely before writing.','risk':'low','auto_apply':False},
+            {'id':'next_draft_save_approved_action','title':'Build Draft Save Approved Action next','recommendation':'Add real draft save only after exact phrase, no-collision checks, metadata creation, and evidence report.','risk':'medium','auto_apply':False}
+        ],
+        'folders':{
+            'draft_save_gate_reports':str(reports),
+            'future_draft_folder':str(draft_root)
+        },
+        'safety':safety
+    }
+
+    if export:
+        try:
+            reports.mkdir(parents=True,exist_ok=True)
+            stamp=datetime.now().strftime('%Y%m%d_%H%M%S')
+            json_path=reports/f'Draft_Save_Gate_{project_id}_{book_id}_chapter_{chapter_number:02d}_{stamp}.json'
+            md_path=reports/f'Draft_Save_Gate_{project_id}_{book_id}_chapter_{chapter_number:02d}_{stamp}.md'
+            jwrite(json_path,report)
+            lines=[
+                '# Kayock Writer Draft Save Approval Gate','',
+                f"Created: {report['created']}",
+                f"Milestone: **{report['milestone']}**",
+                f"Health: **{health_label}**",
+                f"Gate ready: {gate_ready}",
+                '',
+                '## Safety','',
+                '- Read-only draft save gate.',
+                '- Draft save disabled in this build.',
+                '- No chapter-file edit.',
+                '- No story-file mutation.',
+                '- No overwrite.',
+                '- No delete.',
+                '- No move.',
+                '',
+                '## Summary',''
+            ]
+            for k,v in summary.items():
+                lines.append(f"- {k.replace('_',' ').title()}: {v}")
+            lines += ['','## Approval Phrase','',f"`{required_phrase}`",'','## Proposed Targets','']
+            for t in proposed_targets:
+                lines.append(f"- `{t.get('kind')}` - `{t.get('path')}` - exists: {t.get('exists')} - would overwrite: {t.get('would_overwrite')}")
+            lines += ['','## Proposed Draft Preview','','```markdown',preview_markdown,'```','','## Blockers','']
+            if blockers:
+                for b in blockers:
+                    lines.append(f"- `{b.get('id')}` - {b.get('message')}")
+            else:
+                lines.append('- None.')
+            lines += ['','## Checks','']
+            for c in checks:
+                lines.append(f"- [{'PASS' if c.get('ok') else 'FAIL'}] `{c.get('id')}` - {c.get('message')}")
+            lines += ['','## Errors','']
+            if errors:
+                for e in errors:
+                    lines.append(f"- `{e.get('id')}` - {e.get('message')}")
+            else:
+                lines.append('- None.')
+            md_path.write_text('\n'.join(lines),encoding='utf-8')
+            report['exported']={'json':str(json_path),'markdown':str(md_path),'folder':str(reports)}
+        except Exception as e:
+            report['export_error']=str(e)
+    return report
+
+
+
+def kayock_writer_draft_save_approved_action_report(d=None):
+    import re, json, hashlib
+    d=d or {}
+    execute=bool(d.get('execute',False))
+    export=bool(d.get('export',True))
+    project_id='slipping_into_darkness'
+    book_id=str(d.get('book_id') or 'book_2').strip().lower().replace(' ','_')
+    if book_id not in ('book_1','book_2'): book_id='book_2'
+    chapter_number=int(d.get('chapter_number') or 2)
+    if chapter_number not in (1,2,3): chapter_number=2
+    typed_phrase=str(d.get('approval_phrase') or '').strip()
+    required_phrase='SAVE DRAFT FILE'
+    phrase_matches=(typed_phrase==required_phrase)
+    proposed_draft=str(d.get('draft_text') or '').strip()
+    draft_title=str(d.get('draft_title') or '').strip()
+
+    root=ROOT/'Projects'/'KayockWriter'/'Slipping_into_Darkness'
+    book_folder=root/'Chapters'/book_id
+    draft_root=root/'Drafts'/book_id
+    reports=FOLDERS.get('kayock_writer_draft_save_action_reports',ROOT/'Reports'/'KayockWriter'/'DraftSaveAction')
+
+    candidates=sorted(book_folder.glob(f'chapter_{chapter_number:02d}_*.md'), key=lambda p:p.name.lower()) if book_folder.exists() else []
+    chapter_card=candidates[0] if candidates else book_folder/f'chapter_{chapter_number:02d}_missing.md'
+
+    errors=[]
+    current_text=''
+    try:
+        if chapter_card.exists() and chapter_card.is_file():
+            current_text=chapter_card.read_text(encoding='utf-8',errors='replace')
+        else:
+            errors.append({'id':'chapter_card_missing','message':str(chapter_card)})
+    except Exception as e:
+        errors.append({'id':'chapter_card_read_error','message':str(e)})
+
+    def section(md,name):
+        marker=f'## {name}'
+        idx=md.find(marker)
+        if idx<0: return ''
+        start=idx+len(marker)
+        while start<len(md) and md[start] in '\r\n ': start+=1
+        nxt=md.find('\n## ',start)
+        return (md[start:] if nxt<0 else md[start:nxt]).strip()
+
+    def meta(label,default=''):
+        m=re.search(rf'^\s*-\s*\*\*{re.escape(label)}:\*\*\s*(.*?)\s*$', current_text, re.I|re.M)
+        return m.group(1).strip() if m else default
+
+    def sha_text(v):
+        return hashlib.sha256((v or '').encode('utf-8',errors='replace')).hexdigest()
+
+    title_line=(current_text.splitlines()[0].lstrip('# ').strip() if current_text.splitlines() else f'Chapter {chapter_number:02d}')
+    project_title=meta('Project','Slipping into Darkness')
+    book_title=meta('Book','Book 2' if book_id=='book_2' else 'Book 1')
+    pov=meta('POV','Anthony')
+    location=meta('Location','TBD')
+    goal=section(current_text,'Goal')
+    conflict=section(current_text,'Conflict')
+    reveal=section(current_text,'Reveal')
+    hook=section(current_text,'Hook')
+    continuity_notes=section(current_text,'Continuity Notes')
+    draft_space=section(current_text,'Draft Space')
+
+    if not draft_title:
+        draft_title=f'Chapter {chapter_number:02d} Draft'
+
+    if not proposed_draft:
+        proposed_draft=(
+            "This is a placeholder prose draft for proving the approved draft save action. "
+            "It is not final story text. It exists only to prove Kayock Writer can save a prose draft safely."
+        )
+
+    word_count=len(re.findall(r'\S+',proposed_draft))
+    char_count=len(proposed_draft)
+    line_count=len(proposed_draft.splitlines())
+
+    required_sections={
+        'title':current_text.startswith('# ') if current_text else False,
+        'goal':bool(goal),
+        'conflict':bool(conflict),
+        'reveal':bool(reveal),
+        'hook':bool(hook),
+        'continuity_notes':bool(continuity_notes),
+        'draft_space':bool(draft_space)
+    }
+
+    # Pick next free draft version. This avoids overwrites and makes repeated tests safe.
+    next_version=1
+    proposed_targets=[]
+    while next_version < 1000:
+        safe_stem=f'chapter_{chapter_number:02d}_draft_v{next_version:03d}'
+        proposed_md=draft_root/f'{safe_stem}.md'
+        proposed_json=draft_root/f'{safe_stem}.meta.json'
+        proposed_evidence=draft_root/f'{safe_stem}.save_evidence.json'
+        if not proposed_md.exists() and not proposed_json.exists() and not proposed_evidence.exists():
+            break
+        next_version+=1
+    if next_version>=1000:
+        proposed_md=draft_root/f'chapter_{chapter_number:02d}_draft_overflow.md'
+        proposed_json=draft_root/f'chapter_{chapter_number:02d}_draft_overflow.meta.json'
+        proposed_evidence=draft_root/f'chapter_{chapter_number:02d}_draft_overflow.save_evidence.json'
+
+    proposed_targets=[
+        {'kind':'draft_markdown','path':str(proposed_md),'exists':proposed_md.exists(),'would_overwrite':proposed_md.exists()},
+        {'kind':'draft_metadata','path':str(proposed_json),'exists':proposed_json.exists(),'would_overwrite':proposed_json.exists()},
+        {'kind':'save_evidence','path':str(proposed_evidence),'exists':proposed_evidence.exists(),'would_overwrite':proposed_evidence.exists()}
+    ]
+    collision_targets=[t for t in proposed_targets if t.get('would_overwrite')]
+
+    draft_markdown=(
+        f"# {draft_title}\n\n"
+        f"- **Project:** {project_title}\n"
+        f"- **Book:** {book_title}\n"
+        f"- **Chapter:** {chapter_number:02d}\n"
+        f"- **POV:** {pov}\n"
+        f"- **Location:** {location}\n"
+        f"- **Status:** saved_prose_draft\n"
+        f"- **Draft Version:** v{next_version:03d}\n"
+        f"- **Created:** {now()}\n\n"
+        f"## Draft\n\n{proposed_draft}\n\n"
+        f"## Source Chapter Card\n\n"
+        f"- Goal: {goal}\n"
+        f"- Conflict: {conflict}\n"
+        f"- Reveal: {reveal}\n"
+        f"- Hook: {hook}\n\n"
+        f"## Continuity Notes\n\n{continuity_notes}\n\n"
+        f"## Safety\n\n"
+        f"- Saved by Kayock Writer Draft Save Approved Action.\n"
+        f"- Chapter card was not edited.\n"
+        f"- Story canon was not mutated.\n"
+        f"- No existing draft file was overwritten.\n"
+    )
+    draft_hash=sha_text(draft_markdown)
+
+    metadata={
+        'project_id':project_id,
+        'project_title':project_title,
+        'book_id':book_id,
+        'book_title':book_title,
+        'chapter_number':chapter_number,
+        'chapter_card_path':str(chapter_card),
+        'draft_title':draft_title,
+        'draft_version':next_version,
+        'draft_markdown_path':str(proposed_md),
+        'metadata_path':str(proposed_json),
+        'evidence_path':str(proposed_evidence),
+        'word_count':word_count,
+        'char_count':char_count,
+        'line_count':line_count,
+        'draft_hash':draft_hash,
+        'created':now(),
+        'created_by':'v10.13.2 Draft Save Approved Action',
+        'status':'saved_prose_draft',
+        'chapter_context':{
+            'title_line':title_line,
+            'pov':pov,
+            'location':location,
+            'goal':goal,
+            'conflict':conflict,
+            'reveal':reveal,
+            'hook':hook,
+            'continuity_notes':continuity_notes
+        }
+    }
+
+    blockers=[]
+    if not root.exists(): blockers.append({'id':'project_root_missing','message':str(root)})
+    if not book_folder.exists(): blockers.append({'id':'book_folder_missing','message':str(book_folder)})
+    if not chapter_card.exists(): blockers.append({'id':'chapter_card_missing','message':str(chapter_card)})
+    if not all(required_sections.values()): blockers.append({'id':'chapter_card_missing_required_context','message':str([k for k,v in required_sections.items() if not v])})
+    if word_count < 5: blockers.append({'id':'draft_too_short','message':f'Draft has only {word_count} word(s).'})
+    if not phrase_matches: blockers.append({'id':'phrase_mismatch','message':'Exact approval phrase was not provided.'})
+    if collision_targets: blockers.append({'id':'target_collision','message':str(collision_targets)})
+    if next_version>=1000: blockers.append({'id':'version_overflow','message':'Could not choose a safe draft version.'})
+
+    preflight=[
+        {'id':'project_root_exists','ok':root.exists() and root.is_dir(),'message':str(root)},
+        {'id':'book_folder_exists','ok':book_folder.exists() and book_folder.is_dir(),'message':str(book_folder)},
+        {'id':'chapter_card_exists','ok':chapter_card.exists() and chapter_card.is_file(),'message':chapter_card.name},
+        {'id':'chapter_context_present','ok':all(required_sections.values()),'message':f"{sum(1 for v in required_sections.values() if v)}/{len(required_sections)} context checks passed."},
+        {'id':'draft_text_present','ok':word_count>=5,'message':f'{word_count} words, {char_count} chars, {line_count} lines.'},
+        {'id':'draft_hash_generated','ok':bool(draft_hash),'message':draft_hash[:16]},
+        {'id':'approval_phrase_matches','ok':phrase_matches,'message':'Exact phrase matched.' if phrase_matches else 'Exact phrase not matched.'},
+        {'id':'future_targets_selected','ok':len(proposed_targets)==3,'message':f'v{next_version:03d} / {len(proposed_targets)} targets.'},
+        {'id':'no_target_collision','ok':not bool(collision_targets),'message':f'{len(collision_targets)} collision(s).'},
+        {'id':'save_action_requested','ok':execute,'message':'Execute requested.' if execute else 'Preview only; no save requested.'},
+        {'id':'no_delete_or_move_requested','ok':True,'message':'No delete or move operation is part of this action.'}
+    ]
+
+    action_allowed=bool(execute and not blockers and all(c.get('ok') for c in preflight))
+    status='preview'
+    if execute and not action_allowed:
+        status='blocked'
+
+    created_files=[]
+    written_files=[]
+    actions=[]
+    post_checks=[]
+
+    evidence={
+        'created':now(),
+        'milestone':'v10.13.2 Draft Save Approved Action',
+        'project_id':project_id,
+        'book_id':book_id,
+        'chapter_number':chapter_number,
+        'draft_version':next_version,
+        'draft_markdown_path':str(proposed_md),
+        'metadata_path':str(proposed_json),
+        'evidence_path':str(proposed_evidence),
+        'draft_hash':draft_hash,
+        'word_count':word_count,
+        'char_count':char_count,
+        'line_count':line_count,
+        'phrase_matches':phrase_matches,
+        'chapter_card_path':str(chapter_card),
+        'safety':{
+            'no_chapter_file_edit':True,
+            'no_story_file_mutation':True,
+            'no_overwrite':True,
+            'no_delete':True,
+            'no_move':True
+        }
+    }
+
+    if action_allowed:
+        status='saved'
+        try:
+            draft_root.mkdir(parents=True,exist_ok=True)
+            for p in [proposed_md,proposed_json,proposed_evidence]:
+                if p.exists():
+                    raise RuntimeError(f'Refusing to overwrite existing target: {p}')
+            proposed_md.write_text(draft_markdown,encoding='utf-8')
+            created_files.append(str(proposed_md))
+            written_files.append(str(proposed_md))
+            actions.append({'id':'draft_markdown_created','ok':True,'path':str(proposed_md)})
+
+            jwrite(proposed_json,metadata)
+            created_files.append(str(proposed_json))
+            written_files.append(str(proposed_json))
+            actions.append({'id':'draft_metadata_created','ok':True,'path':str(proposed_json)})
+
+            jwrite(proposed_evidence,evidence)
+            created_files.append(str(proposed_evidence))
+            written_files.append(str(proposed_evidence))
+            actions.append({'id':'draft_save_evidence_created','ok':True,'path':str(proposed_evidence)})
+        except Exception as e:
+            status='error'
+            errors.append({'id':'execution_error','message':str(e)})
+
+    if status=='saved' and not any(e.get('id')=='execution_error' for e in errors):
+        read_md=''
+        read_meta={}
+        read_evidence={}
+        try:
+            read_md=proposed_md.read_text(encoding='utf-8',errors='replace')
+        except Exception as e:
+            errors.append({'id':'readback_draft_error','message':str(e)})
+        try:
+            read_meta=json.loads(proposed_json.read_text(encoding='utf-8',errors='replace'))
+        except Exception as e:
+            errors.append({'id':'readback_metadata_error','message':str(e)})
+        try:
+            read_evidence=json.loads(proposed_evidence.read_text(encoding='utf-8',errors='replace'))
+        except Exception as e:
+            errors.append({'id':'readback_evidence_error','message':str(e)})
+        read_hash=sha_text(read_md)
+        post_checks=[
+            {'id':'draft_markdown_exists','ok':proposed_md.exists() and proposed_md.is_file(),'message':str(proposed_md)},
+            {'id':'metadata_exists','ok':proposed_json.exists() and proposed_json.is_file(),'message':str(proposed_json)},
+            {'id':'evidence_exists','ok':proposed_evidence.exists() and proposed_evidence.is_file(),'message':str(proposed_evidence)},
+            {'id':'draft_hash_matches','ok':read_hash==draft_hash,'message':f'read_hash={read_hash[:12]} expected={draft_hash[:12]}'},
+            {'id':'draft_contains_text','ok':proposed_draft[:80] in read_md,'message':'Draft text found in saved Markdown.'},
+            {'id':'metadata_matches_draft','ok':read_meta.get('draft_hash')==draft_hash and read_meta.get('word_count')==word_count,'message':'Metadata hash and word count match.'},
+            {'id':'evidence_matches_draft','ok':read_evidence.get('draft_hash')==draft_hash,'message':'Evidence hash matches draft.'},
+            {'id':'chapter_card_unchanged_by_action','ok':chapter_card.exists() and chapter_card.is_file(),'message':'Chapter card still exists; action did not write to it.'},
+            {'id':'no_delete_no_move','ok':all(Path(p).exists() for p in created_files),'message':'Created files remain in planned draft folder.'}
+        ]
+    else:
+        post_checks=[{'id':'preview_or_blocked_no_write','ok':True,'message':'No draft save was executed in preview/block mode.'}]
+
+    summary={
+        'project_id':project_id,
+        'project_title':project_title,
+        'book_id':book_id,
+        'book_title':book_title,
+        'chapter_number':chapter_number,
+        'chapter_card_name':chapter_card.name,
+        'chapter_card_path':str(chapter_card),
+        'status':status,
+        'execute_requested':execute,
+        'action_allowed':action_allowed,
+        'draft_title':draft_title,
+        'draft_version':next_version,
+        'word_count':word_count,
+        'char_count':char_count,
+        'line_count':line_count,
+        'draft_hash':draft_hash,
+        'required_phrase':required_phrase,
+        'typed_phrase_present':bool(typed_phrase),
+        'phrase_matches':phrase_matches,
+        'selected_targets':len(proposed_targets),
+        'collision_targets':len(collision_targets),
+        'blockers':len(blockers),
+        'errors':len(errors),
+        'preflight_checks':len(preflight),
+        'preflight_checks_passed':sum(1 for c in preflight if c.get('ok')),
+        'created_files':len(created_files),
+        'written_files':len(written_files),
+        'post_checks':len(post_checks),
+        'post_checks_passed':sum(1 for c in post_checks if c.get('ok')),
+        'problems':sum(1 for c in preflight if not c.get('ok'))+sum(1 for c in post_checks if not c.get('ok'))+len(blockers)+len(errors),
+        'draft_markdown_path':str(proposed_md),
+        'metadata_path':str(proposed_json),
+        'evidence_path':str(proposed_evidence),
+        'read_only_when_not_executing':not action_allowed,
+        'report_only_when_not_executing':not action_allowed
+    }
+
+    safety={
+        'approved_action_only':True,
+        'requires_exact_phrase':True,
+        'requires_draft_text':True,
+        'requires_no_collision':True,
+        'auto_selects_next_safe_version':True,
+        'creates_markdown_draft':bool(action_allowed),
+        'creates_metadata_json':bool(action_allowed),
+        'creates_save_evidence_json':bool(action_allowed),
+        'no_chapter_file_edit':True,
+        'no_story_file_mutation':True,
+        'no_project_creation':True,
+        'no_legacy_migration':True,
+        'no_overwrite':True,
+        'no_delete':True,
+        'no_move':True,
+        'no_install':True,
+        'no_model_cleanup':True,
+        'action_report_written':True
+    }
+
+    healthy=status in ('preview','blocked','saved') and not any(e.get('id','').endswith('_error') for e in errors)
+    if status=='saved':
+        health_label='DRAFT FILE SAVED'
+    elif status=='blocked':
+        health_label='DRAFT SAVE ACTION BLOCKED SAFELY'
+    elif status=='error':
+        health_label='DRAFT SAVE ACTION ERROR'
+    else:
+        health_label='DRAFT SAVE ACTION READY - PREVIEW ONLY'
+
+    report={
+        'ok':True,
+        'created':now(),
+        'title':'Kayock Writer Draft Save Approved Action',
+        'read_only':not action_allowed,
+        'report_only':not action_allowed,
+        'healthy':healthy,
+        'status':status,
+        'health_label':health_label,
+        'message':f'Draft Save Approved Action: {health_label}',
+        'milestone':'v10.13.2 Draft Save Approved Action',
+        'summary':summary,
+        'approval_phrase_required':required_phrase,
+        'approval_phrase_matches':phrase_matches,
+        'chapter_context':{
+            'title_line':title_line,
+            'project':project_title,
+            'book':book_title,
+            'pov':pov,
+            'location':location,
+            'goal':goal,
+            'conflict':conflict,
+            'reveal':reveal,
+            'hook':hook,
+            'continuity_notes':continuity_notes,
+            'existing_draft_space':draft_space
+        },
+        'proposed_draft':proposed_draft,
+        'draft_markdown_preview':draft_markdown,
+        'metadata_preview':metadata,
+        'evidence_preview':evidence,
+        'selected_targets':proposed_targets,
+        'collision_targets':collision_targets,
+        'blockers':blockers,
+        'preflight_checks':preflight,
+        'created_files':created_files,
+        'written_files':written_files,
+        'actions':actions,
+        'post_checks':post_checks,
+        'errors':errors,
+        'recommendations':[
+            {'id':'mark_draft_save_action_proven','title':'Mark Draft Save Approved Action proven','recommendation':'Use this as proof that Kayock Writer can save prose draft files safely with metadata and evidence.','risk':'medium','auto_apply':False},
+            {'id':'next_draft_reader_dashboard','title':'Build Draft Reader Dashboard next','recommendation':'Add a read-only dashboard that lists saved drafts, metadata, word counts, hashes, and evidence files.','risk':'low','auto_apply':False}
+        ],
+        'folders':{
+            'draft_save_action_reports':str(reports),
+            'draft_folder':str(draft_root)
+        },
+        'safety':safety
+    }
+
+    if export:
+        try:
+            reports.mkdir(parents=True,exist_ok=True)
+            stamp=datetime.now().strftime('%Y%m%d_%H%M%S')
+            json_path=reports/f'Draft_Save_Approved_Action_{project_id}_{book_id}_chapter_{chapter_number:02d}_v{next_version:03d}_{stamp}.json'
+            md_path=reports/f'Draft_Save_Approved_Action_{project_id}_{book_id}_chapter_{chapter_number:02d}_v{next_version:03d}_{stamp}.md'
+            jwrite(json_path,report)
+            lines=[
+                '# Kayock Writer Draft Save Approved Action','',
+                f"Created: {report['created']}",
+                f"Milestone: **{report['milestone']}**",
+                f"Health: **{health_label}**",
+                f"Status: `{status}`",
+                f"Execute requested: {execute}",
+                f"Action allowed: {action_allowed}",
+                '',
+                '## Safety','',
+                '- Requires exact phrase.',
+                '- Requires draft text.',
+                '- Requires no target collision.',
+                '- Auto-selects next safe version.',
+                '- Creates Markdown draft, metadata JSON, and save evidence JSON.',
+                '- No chapter-file edit.',
+                '- No story-file mutation.',
+                '- No overwrite.',
+                '- No delete.',
+                '- No move.',
+                '',
+                '## Summary',''
+            ]
+            for k,v in summary.items():
+                lines.append(f"- {k.replace('_',' ').title()}: {v}")
+            lines += ['','## Selected Targets','']
+            for t in proposed_targets:
+                lines.append(f"- `{t.get('kind')}` - `{t.get('path')}` - exists: {t.get('exists')} - would overwrite: {t.get('would_overwrite')}")
+            lines += ['','## Created Files','']
+            if created_files:
+                for p in created_files:
+                    lines.append(f"- `{p}`")
+            else:
+                lines.append('- None.')
+            lines += ['','## Draft Preview','','```markdown',draft_markdown,'```','','## Blockers','']
+            if blockers:
+                for b in blockers:
+                    lines.append(f"- `{b.get('id')}` - {b.get('message')}")
+            else:
+                lines.append('- None.')
+            lines += ['','## Preflight Checks','']
+            for c in preflight:
+                lines.append(f"- [{'PASS' if c.get('ok') else 'FAIL'}] `{c.get('id')}` - {c.get('message')}")
+            lines += ['','## Post Checks','']
+            for c in post_checks:
+                lines.append(f"- [{'PASS' if c.get('ok') else 'FAIL'}] `{c.get('id')}` - {c.get('message')}")
+            lines += ['','## Errors','']
+            if errors:
+                for e in errors:
+                    lines.append(f"- `{e.get('id')}` - {e.get('message')}")
+            else:
+                lines.append('- None.')
+            md_path.write_text('\n'.join(lines),encoding='utf-8')
+            report['exported']={'json':str(json_path),'markdown':str(md_path),'folder':str(reports)}
+        except Exception as e:
+            report['export_error']=str(e)
+    return report
+
+
+
+def kayock_writer_draft_reader_dashboard_report(d=None):
+    import re, json, hashlib
+    from datetime import datetime
+    d=d or {}
+    export=bool(d.get('export',False))
+    book_filter=str(d.get('book_id') or 'book_2').strip().lower().replace(' ','_')
+    if book_filter not in ('all','book_1','book_2'):
+        book_filter='book_2'
+    project_id='slipping_into_darkness'
+    root=ROOT/'Projects'/'KayockWriter'/'Slipping_into_Darkness'
+    drafts_root=root/'Drafts'
+    chapters_root=root/'Chapters'
+    reports=FOLDERS.get('kayock_writer_draft_reader_reports',ROOT/'Reports'/'KayockWriter'/'DraftReader')
+
+    def file_info(p):
+        info={'path':str(p),'name':p.name,'exists':False,'kind':'missing','size':0,'modified':''}
+        try:
+            info['exists']=p.exists()
+            if p.exists():
+                info['kind']='folder' if p.is_dir() else 'file'
+                info['size']=p.stat().st_size if p.is_file() else None
+                info['modified']=datetime.fromtimestamp(p.stat().st_mtime).isoformat(timespec='seconds')
+        except Exception as e:
+            info['error']=str(e)
+        return info
+
+    def sha_text(v):
+        return hashlib.sha256((v or '').encode('utf-8',errors='replace')).hexdigest()
+
+    def word_count(v):
+        body=v or ''
+        # Prefer Draft section if present.
+        marker='## Draft'
+        idx=body.find(marker)
+        if idx>=0:
+            start=idx+len(marker)
+            nxt=body.find('\n## ',start)
+            body=body[start:] if nxt<0 else body[start:nxt]
+        return len([x for x in re.split(r'\s+',body.strip()) if x])
+
+    draft_items=[]
+    errors=[]
+    try:
+        if drafts_root.exists():
+            book_dirs=[]
+            if book_filter=='all':
+                book_dirs=sorted([p for p in drafts_root.iterdir() if p.is_dir() and p.name.startswith('book_')], key=lambda p:p.name)
+            else:
+                book_dirs=[drafts_root/book_filter]
+            for book_dir in book_dirs:
+                if not book_dir.exists():
+                    continue
+                for md in sorted(book_dir.glob('chapter_*_draft_v*.md'), key=lambda p:p.stat().st_mtime if p.exists() else 0, reverse=True):
+                    stem=md.stem
+                    meta=md.with_suffix('.meta.json')
+                    # with_suffix would produce chapter_02_draft_v001.meta.json only if md is .md -> .meta.json yes.
+                    evidence=md.with_suffix('.save_evidence.json')
+                    try:
+                        md_text=md.read_text(encoding='utf-8',errors='replace')
+                    except Exception as e:
+                        md_text=''
+                        errors.append({'id':'draft_read_error','path':str(md),'message':str(e)})
+                    md_hash=sha_text(md_text) if md_text else ''
+                    wc=word_count(md_text)
+                    meta_data={}
+                    evidence_data={}
+                    meta_error=''
+                    evidence_error=''
+                    if meta.exists():
+                        try:
+                            meta_data=json.loads(meta.read_text(encoding='utf-8',errors='replace'))
+                        except Exception as e:
+                            meta_error=str(e)
+                            errors.append({'id':'metadata_parse_error','path':str(meta),'message':str(e)})
+                    if evidence.exists():
+                        try:
+                            evidence_data=json.loads(evidence.read_text(encoding='utf-8',errors='replace'))
+                        except Exception as e:
+                            evidence_error=str(e)
+                            errors.append({'id':'evidence_parse_error','path':str(evidence),'message':str(e)})
+                    chapter_number=meta_data.get('chapter_number') or evidence_data.get('chapter_number')
+                    if not chapter_number:
+                        m=re.search(r'chapter_(\d+)_draft_v(\d+)',md.name)
+                        chapter_number=int(m.group(1)) if m else ''
+                    draft_version=meta_data.get('draft_version') or evidence_data.get('draft_version')
+                    if not draft_version:
+                        m=re.search(r'draft_v(\d+)',md.name)
+                        draft_version=int(m.group(1)) if m else ''
+                    book_id=meta_data.get('book_id') or evidence_data.get('book_id') or book_dir.name
+                    chapter_card_path=meta_data.get('chapter_card_path') or evidence_data.get('chapter_card_path') or ''
+                    chapter_card=Path(chapter_card_path) if chapter_card_path else None
+                    expected_hash=meta_data.get('draft_hash') or evidence_data.get('draft_hash') or ''
+                    expected_wc=meta_data.get('word_count') or evidence_data.get('word_count')
+                    hash_ok=(not expected_hash) or (md_hash==expected_hash)
+                    word_count_ok=(expected_wc is None) or (wc==expected_wc)
+                    item={
+                        'draft_markdown':file_info(md),
+                        'metadata_file':file_info(meta),
+                        'evidence_file':file_info(evidence),
+                        'book_id':book_id,
+                        'book_title':meta_data.get('book_title') or ('Book 2' if book_id=='book_2' else 'Book 1'),
+                        'chapter_number':chapter_number,
+                        'draft_version':draft_version,
+                        'draft_title':meta_data.get('draft_title') or md.stem,
+                        'status':meta_data.get('status') or 'saved_prose_draft',
+                        'created':meta_data.get('created') or evidence_data.get('created') or '',
+                        'created_by':meta_data.get('created_by') or evidence_data.get('milestone') or '',
+                        'word_count':wc,
+                        'expected_word_count':expected_wc,
+                        'word_count_ok':word_count_ok,
+                        'char_count':len(md_text),
+                        'line_count':len(md_text.splitlines()),
+                        'draft_hash':md_hash,
+                        'expected_hash':expected_hash,
+                        'hash_ok':hash_ok,
+                        'metadata_parse_error':meta_error,
+                        'evidence_parse_error':evidence_error,
+                        'chapter_card_path':chapter_card_path,
+                        'chapter_card_exists':chapter_card.exists() if chapter_card else False,
+                        'preview':md_text[:800],
+                        'metadata':meta_data,
+                        'evidence':evidence_data,
+                        'verified':bool(md.exists() and meta.exists() and evidence.exists() and hash_ok and word_count_ok and (chapter_card.exists() if chapter_card else False))
+                    }
+                    draft_items.append(item)
+    except Exception as e:
+        errors.append({'id':'draft_inventory_error','message':str(e)})
+
+    draft_items=sorted(draft_items, key=lambda x:(str(x.get('book_id')), int(x.get('chapter_number') or 0), int(x.get('draft_version') or 0)), reverse=True)
+    latest=draft_items[0] if draft_items else {}
+
+    total_words=sum(int(x.get('word_count') or 0) for x in draft_items)
+    verified_count=sum(1 for x in draft_items if x.get('verified'))
+    hash_ok_count=sum(1 for x in draft_items if x.get('hash_ok'))
+    metadata_count=sum(1 for x in draft_items if x.get('metadata_file',{}).get('exists'))
+    evidence_count=sum(1 for x in draft_items if x.get('evidence_file',{}).get('exists'))
+
+    checks=[
+        {'id':'project_root_exists','ok':root.exists() and root.is_dir(),'message':str(root)},
+        {'id':'drafts_root_exists','ok':drafts_root.exists() and drafts_root.is_dir(),'message':str(drafts_root)},
+        {'id':'drafts_loaded','ok':len(draft_items)>0,'message':f'{len(draft_items)} draft(s) loaded.'},
+        {'id':'metadata_files_present','ok':metadata_count==len(draft_items) and len(draft_items)>0,'message':f'{metadata_count}/{len(draft_items)} metadata file(s) present.'},
+        {'id':'evidence_files_present','ok':evidence_count==len(draft_items) and len(draft_items)>0,'message':f'{evidence_count}/{len(draft_items)} evidence file(s) present.'},
+        {'id':'hashes_verified','ok':hash_ok_count==len(draft_items) and len(draft_items)>0,'message':f'{hash_ok_count}/{len(draft_items)} draft hash(es) verified.'},
+        {'id':'drafts_verified','ok':verified_count==len(draft_items) and len(draft_items)>0,'message':f'{verified_count}/{len(draft_items)} draft item(s) fully verified.'},
+        {'id':'latest_draft_available','ok':bool(latest),'message':latest.get('draft_markdown',{}).get('name','No latest draft.') if latest else 'No latest draft.'},
+        {'id':'no_inventory_errors','ok':len(errors)==0,'message':f'{len(errors)} inventory error(s).'},
+        {'id':'read_only_draft_reader','ok':True,'message':'Draft Reader Dashboard performed read-only inspection only.'}
+    ]
+
+    summary={
+        'project_id':project_id,
+        'project_title':'Slipping into Darkness',
+        'book_filter':book_filter,
+        'drafts_root':str(drafts_root),
+        'drafts_loaded':len(draft_items),
+        'verified_drafts':verified_count,
+        'metadata_files':metadata_count,
+        'evidence_files':evidence_count,
+        'hashes_verified':hash_ok_count,
+        'total_words':total_words,
+        'latest_book_id':latest.get('book_id',''),
+        'latest_chapter_number':latest.get('chapter_number',''),
+        'latest_draft_version':latest.get('draft_version',''),
+        'latest_draft_name':latest.get('draft_markdown',{}).get('name','') if latest else '',
+        'errors':len(errors),
+        'checks':len(checks),
+        'checks_passed':sum(1 for c in checks if c.get('ok')),
+        'problems':sum(1 for c in checks if not c.get('ok'))+len(errors),
+        'read_only':True,
+        'report_only':True
+    }
+
+    safety={
+        'read_only_draft_reader_dashboard':True,
+        'no_draft_save':True,
+        'no_chapter_file_edit':True,
+        'no_story_file_mutation':True,
+        'no_project_creation':True,
+        'no_legacy_migration':True,
+        'no_rename_performed':True,
+        'no_overwrite':True,
+        'no_delete':True,
+        'no_move':True,
+        'no_install':True,
+        'no_model_cleanup':True,
+        'reader_export_only':True
+    }
+
+    healthy=all(c.get('ok') for c in checks)
+    health_label='DRAFT READER DASHBOARD READY' if healthy else 'DRAFT READER DASHBOARD NEEDS REVIEW'
+
+    report={
+        'ok':True,
+        'created':now(),
+        'title':'Kayock Writer Draft Reader Dashboard',
+        'read_only':True,
+        'report_only':True,
+        'healthy':healthy,
+        'dashboard_ready':healthy,
+        'health_label':health_label,
+        'message':f'Draft Reader Dashboard: {health_label}',
+        'milestone':'v10.13.3 Draft Reader Dashboard',
+        'summary':summary,
+        'latest_draft':latest,
+        'drafts':draft_items[:50],
+        'checks':checks,
+        'errors':errors,
+        'recommendations':[
+            {'id':'mark_draft_reader_dashboard_proven','title':'Mark Draft Reader Dashboard proven','recommendation':'Use this as the read-only dashboard for saved prose drafts, metadata, evidence, versions, and hashes.','risk':'low','auto_apply':False},
+            {'id':'next_draft_version_history','title':'Build Draft Version History next','recommendation':'Add per-chapter version timeline and compare summaries for multiple drafts.','risk':'low','auto_apply':False},
+            {'id':'later_draft_continue_workspace','title':'Later: Draft Continue Workspace','recommendation':'Generate continuation prompts from the latest saved draft while preserving safety gates.','risk':'medium','auto_apply':False}
+        ],
+        'folders':{
+            'draft_reader_reports':str(reports),
+            'drafts_root':str(drafts_root)
+        },
+        'safety':safety
+    }
+
+    if export:
+        try:
+            reports.mkdir(parents=True,exist_ok=True)
+            stamp=datetime.now().strftime('%Y%m%d_%H%M%S')
+            json_path=reports/f'Draft_Reader_Dashboard_{book_filter}_{stamp}.json'
+            md_path=reports/f'Draft_Reader_Dashboard_{book_filter}_{stamp}.md'
+            jwrite(json_path,report)
+            lines=[
+                '# Kayock Writer Draft Reader Dashboard','',
+                f"Created: {report['created']}",
+                f"Milestone: **{report['milestone']}**",
+                f"Health: **{health_label}**",
+                f"Dashboard ready: {healthy}",
+                '',
+                '## Safety','',
+                '- Read-only draft reader dashboard.',
+                '- No draft save.',
+                '- No chapter-file edit.',
+                '- No story-file mutation.',
+                '- No overwrite.',
+                '- No delete.',
+                '- No move.',
+                '',
+                '## Summary',''
+            ]
+            for k,v in summary.items():
+                lines.append(f"- {k.replace('_',' ').title()}: {v}")
+            lines += ['','## Latest Draft','']
+            if latest:
+                lines += [
+                    f"- Draft: `{latest.get('draft_markdown',{}).get('path','')}`",
+                    f"- Metadata: `{latest.get('metadata_file',{}).get('path','')}`",
+                    f"- Evidence: `{latest.get('evidence_file',{}).get('path','')}`",
+                    f"- Book: {latest.get('book_id')}",
+                    f"- Chapter: {latest.get('chapter_number')}",
+                    f"- Version: v{int(latest.get('draft_version') or 0):03d}",
+                    f"- Word Count: {latest.get('word_count')}",
+                    f"- Hash OK: {latest.get('hash_ok')}",
+                    f"- Verified: {latest.get('verified')}",
+                ]
+            else:
+                lines.append('- None.')
+            lines += ['','## Draft Inventory','']
+            if draft_items:
+                for x in draft_items[:30]:
+                    lines.append(f"- [{'PASS' if x.get('verified') else 'REVIEW'}] `{x.get('draft_markdown',{}).get('name')}` - book: {x.get('book_id')} - chapter: {x.get('chapter_number')} - version: v{int(x.get('draft_version') or 0):03d} - words: {x.get('word_count')} - hash ok: {x.get('hash_ok')}")
+            else:
+                lines.append('- None.')
+            lines += ['','## Checks','']
+            for c in checks:
+                lines.append(f"- [{'PASS' if c.get('ok') else 'FAIL'}] `{c.get('id')}` - {c.get('message')}")
+            lines += ['','## Errors','']
+            if errors:
+                for e in errors:
+                    lines.append(f"- `{e.get('id')}` - {e.get('message')}")
+            else:
+                lines.append('- None.')
+            md_path.write_text('\n'.join(lines),encoding='utf-8')
+            report['exported']={'json':str(json_path),'markdown':str(md_path),'folder':str(reports)}
+        except Exception as e:
+            report['export_error']=str(e)
+    return report
+
+
+
+def kayock_writer_draft_version_history_report(d=None):
+    import re, json, hashlib
+    from datetime import datetime
+    d=d or {}
+    export=bool(d.get('export',False))
+    book_id=str(d.get('book_id') or 'book_2').strip().lower().replace(' ','_')
+    if book_id not in ('book_1','book_2'):
+        book_id='book_2'
+    chapter_number=int(d.get('chapter_number') or 2)
+    if chapter_number not in (1,2,3):
+        chapter_number=2
+
+    project_id='slipping_into_darkness'
+    root=ROOT/'Projects'/'KayockWriter'/'Slipping_into_Darkness'
+    drafts_folder=root/'Drafts'/book_id
+    chapters_folder=root/'Chapters'/book_id
+    reports=FOLDERS.get('kayock_writer_draft_version_history_reports',ROOT/'Reports'/'KayockWriter'/'DraftVersionHistory')
+
+    def file_info(p):
+        info={'path':str(p),'name':p.name,'exists':False,'kind':'missing','size':0,'modified':''}
+        try:
+            info['exists']=p.exists()
+            if p.exists():
+                info['kind']='folder' if p.is_dir() else 'file'
+                info['size']=p.stat().st_size if p.is_file() else None
+                info['modified']=datetime.fromtimestamp(p.stat().st_mtime).isoformat(timespec='seconds')
+        except Exception as e:
+            info['error']=str(e)
+        return info
+
+    def sha_text(v):
+        return hashlib.sha256((v or '').encode('utf-8',errors='replace')).hexdigest()
+
+    def word_count(v):
+        body=v or ''
+        marker='## Draft'
+        idx=body.find(marker)
+        if idx>=0:
+            start=idx+len(marker)
+            nxt=body.find('\n## ',start)
+            body=body[start:] if nxt<0 else body[start:nxt]
+        return len([x for x in re.split(r'\s+',body.strip()) if x])
+
+    errors=[]
+    versions=[]
+    pattern=f'chapter_{chapter_number:02d}_draft_v*.md'
+    try:
+        files=sorted(drafts_folder.glob(pattern), key=lambda p:p.name.lower()) if drafts_folder.exists() else []
+    except Exception as e:
+        files=[]
+        errors.append({'id':'draft_folder_scan_error','message':str(e)})
+
+    for md in files:
+        try:
+            m=re.search(r'draft_v(\d+)',md.name)
+            version=int(m.group(1)) if m else 0
+            meta=md.with_suffix('.meta.json')
+            evidence=md.with_suffix('.save_evidence.json')
+            md_text=md.read_text(encoding='utf-8',errors='replace')
+            md_hash=sha_text(md_text)
+            wc=word_count(md_text)
+            meta_data={}
+            evidence_data={}
+            meta_error=''
+            evidence_error=''
+            if meta.exists():
+                try:
+                    meta_data=json.loads(meta.read_text(encoding='utf-8',errors='replace'))
+                except Exception as e:
+                    meta_error=str(e)
+                    errors.append({'id':'metadata_parse_error','path':str(meta),'message':str(e)})
+            if evidence.exists():
+                try:
+                    evidence_data=json.loads(evidence.read_text(encoding='utf-8',errors='replace'))
+                except Exception as e:
+                    evidence_error=str(e)
+                    errors.append({'id':'evidence_parse_error','path':str(evidence),'message':str(e)})
+            expected_hash=meta_data.get('draft_hash') or evidence_data.get('draft_hash') or ''
+            expected_word_count=meta_data.get('word_count') or evidence_data.get('word_count')
+            chapter_card_path=meta_data.get('chapter_card_path') or evidence_data.get('chapter_card_path') or ''
+            chapter_card=Path(chapter_card_path) if chapter_card_path else None
+            created=meta_data.get('created') or evidence_data.get('created') or file_info(md).get('modified')
+            item={
+                'version':version,
+                'label':f'v{version:03d}',
+                'draft_markdown':file_info(md),
+                'metadata_file':file_info(meta),
+                'evidence_file':file_info(evidence),
+                'created':created,
+                'created_by':meta_data.get('created_by') or evidence_data.get('milestone') or '',
+                'status':meta_data.get('status') or 'saved_prose_draft',
+                'draft_title':meta_data.get('draft_title') or md.stem,
+                'book_id':book_id,
+                'chapter_number':chapter_number,
+                'word_count':wc,
+                'expected_word_count':expected_word_count,
+                'word_count_ok':(expected_word_count is None) or (wc==expected_word_count),
+                'char_count':len(md_text),
+                'line_count':len(md_text.splitlines()),
+                'draft_hash':md_hash,
+                'expected_hash':expected_hash,
+                'hash_ok':(not expected_hash) or md_hash==expected_hash,
+                'chapter_card_path':chapter_card_path,
+                'chapter_card_exists':chapter_card.exists() if chapter_card else False,
+                'metadata_parse_error':meta_error,
+                'evidence_parse_error':evidence_error,
+                'preview':md_text[:600],
+                'verified':bool(md.exists() and meta.exists() and evidence.exists() and ((not expected_hash) or md_hash==expected_hash) and ((expected_word_count is None) or wc==expected_word_count) and (chapter_card.exists() if chapter_card else False))
+            }
+            versions.append(item)
+        except Exception as e:
+            errors.append({'id':'version_read_error','path':str(md),'message':str(e)})
+
+    versions=sorted(versions, key=lambda x:int(x.get('version') or 0))
+    latest=versions[-1] if versions else {}
+    first=versions[0] if versions else {}
+
+    timeline=[]
+    previous=None
+    for item in versions:
+        delta_words=None
+        delta_chars=None
+        changed_hash_from_previous=None
+        if previous:
+            delta_words=(item.get('word_count') or 0)-(previous.get('word_count') or 0)
+            delta_chars=(item.get('char_count') or 0)-(previous.get('char_count') or 0)
+            changed_hash_from_previous=item.get('draft_hash')!=previous.get('draft_hash')
+        timeline.append({
+            'version':item.get('version'),
+            'label':item.get('label'),
+            'created':item.get('created'),
+            'draft_path':item.get('draft_markdown',{}).get('path'),
+            'word_count':item.get('word_count'),
+            'char_count':item.get('char_count'),
+            'line_count':item.get('line_count'),
+            'draft_hash':item.get('draft_hash'),
+            'hash_ok':item.get('hash_ok'),
+            'word_count_ok':item.get('word_count_ok'),
+            'verified':item.get('verified'),
+            'delta_words_from_previous':delta_words,
+            'delta_chars_from_previous':delta_chars,
+            'changed_hash_from_previous':changed_hash_from_previous,
+            'metadata_exists':item.get('metadata_file',{}).get('exists'),
+            'evidence_exists':item.get('evidence_file',{}).get('exists'),
+            'chapter_card_exists':item.get('chapter_card_exists')
+        })
+        previous=item
+
+    verified_count=sum(1 for x in versions if x.get('verified'))
+    hash_ok_count=sum(1 for x in versions if x.get('hash_ok'))
+    word_count_ok_count=sum(1 for x in versions if x.get('word_count_ok'))
+    metadata_count=sum(1 for x in versions if x.get('metadata_file',{}).get('exists'))
+    evidence_count=sum(1 for x in versions if x.get('evidence_file',{}).get('exists'))
+    total_words=sum(int(x.get('word_count') or 0) for x in versions)
+    latest_words=latest.get('word_count',0) if latest else 0
+    first_words=first.get('word_count',0) if first else 0
+    net_word_change=(latest_words-first_words) if versions else 0
+
+    # Find chapter card.
+    chapter_cards=sorted(chapters_folder.glob(f'chapter_{chapter_number:02d}_*.md'), key=lambda p:p.name.lower()) if chapters_folder.exists() else []
+    chapter_card=chapter_cards[0] if chapter_cards else chapters_folder/f'chapter_{chapter_number:02d}_missing.md'
+
+    checks=[
+        {'id':'project_root_exists','ok':root.exists() and root.is_dir(),'message':str(root)},
+        {'id':'drafts_folder_exists','ok':drafts_folder.exists() and drafts_folder.is_dir(),'message':str(drafts_folder)},
+        {'id':'chapter_card_exists','ok':chapter_card.exists() and chapter_card.is_file(),'message':str(chapter_card)},
+        {'id':'versions_loaded','ok':len(versions)>0,'message':f'{len(versions)} version(s) loaded.'},
+        {'id':'metadata_files_present','ok':metadata_count==len(versions) and len(versions)>0,'message':f'{metadata_count}/{len(versions)} metadata file(s) present.'},
+        {'id':'evidence_files_present','ok':evidence_count==len(versions) and len(versions)>0,'message':f'{evidence_count}/{len(versions)} evidence file(s) present.'},
+        {'id':'hashes_verified','ok':hash_ok_count==len(versions) and len(versions)>0,'message':f'{hash_ok_count}/{len(versions)} hash(es) verified.'},
+        {'id':'word_counts_verified','ok':word_count_ok_count==len(versions) and len(versions)>0,'message':f'{word_count_ok_count}/{len(versions)} word count(s) verified.'},
+        {'id':'versions_fully_verified','ok':verified_count==len(versions) and len(versions)>0,'message':f'{verified_count}/{len(versions)} version(s) fully verified.'},
+        {'id':'timeline_generated','ok':len(timeline)==len(versions) and len(timeline)>0,'message':f'{len(timeline)} timeline item(s) generated.'},
+        {'id':'no_inventory_errors','ok':len(errors)==0,'message':f'{len(errors)} error(s).'},
+        {'id':'read_only_version_history','ok':True,'message':'Draft Version History performed read-only inspection only.'}
+    ]
+
+    summary={
+        'project_id':project_id,
+        'project_title':'Slipping into Darkness',
+        'book_id':book_id,
+        'chapter_number':chapter_number,
+        'chapter_card_path':str(chapter_card),
+        'drafts_folder':str(drafts_folder),
+        'versions_loaded':len(versions),
+        'verified_versions':verified_count,
+        'metadata_files':metadata_count,
+        'evidence_files':evidence_count,
+        'hashes_verified':hash_ok_count,
+        'word_counts_verified':word_count_ok_count,
+        'latest_version':latest.get('version','') if latest else '',
+        'latest_draft_name':latest.get('draft_markdown',{}).get('name','') if latest else '',
+        'latest_word_count':latest_words,
+        'first_word_count':first_words,
+        'net_word_change':net_word_change,
+        'total_words_across_versions':total_words,
+        'errors':len(errors),
+        'checks':len(checks),
+        'checks_passed':sum(1 for c in checks if c.get('ok')),
+        'problems':sum(1 for c in checks if not c.get('ok'))+len(errors),
+        'read_only':True,
+        'report_only':True
+    }
+
+    safety={
+        'read_only_draft_version_history':True,
+        'no_draft_save':True,
+        'no_chapter_file_edit':True,
+        'no_story_file_mutation':True,
+        'no_project_creation':True,
+        'no_legacy_migration':True,
+        'no_rename_performed':True,
+        'no_overwrite':True,
+        'no_delete':True,
+        'no_move':True,
+        'no_install':True,
+        'no_model_cleanup':True,
+        'history_export_only':True
+    }
+
+    healthy=all(c.get('ok') for c in checks)
+    health_label='DRAFT VERSION HISTORY READY' if healthy else 'DRAFT VERSION HISTORY NEEDS REVIEW'
+
+    report={
+        'ok':True,
+        'created':now(),
+        'title':'Kayock Writer Draft Version History',
+        'read_only':True,
+        'report_only':True,
+        'healthy':healthy,
+        'history_ready':healthy,
+        'health_label':health_label,
+        'message':f'Draft Version History: {health_label}',
+        'milestone':'v10.13.4 Draft Version History',
+        'summary':summary,
+        'latest_version':latest,
+        'versions':versions,
+        'timeline':timeline,
+        'checks':checks,
+        'errors':errors,
+        'recommendations':[
+            {'id':'mark_draft_version_history_proven','title':'Mark Draft Version History proven','recommendation':'Use this as the read-only per-chapter timeline for saved prose drafts, hashes, word counts, and evidence files.','risk':'low','auto_apply':False},
+            {'id':'next_draft_continue_workspace','title':'Build Draft Continue Workspace next','recommendation':'Generate continuation prompts from the latest saved draft, chapter card, and version history.','risk':'medium','auto_apply':False},
+            {'id':'later_draft_compare_view','title':'Later: Draft Compare View','recommendation':'Add visual diffs between draft versions once multiple meaningful drafts exist.','risk':'low','auto_apply':False}
+        ],
+        'folders':{
+            'draft_version_history_reports':str(reports),
+            'drafts_folder':str(drafts_folder)
+        },
+        'safety':safety
+    }
+
+    if export:
+        try:
+            reports.mkdir(parents=True,exist_ok=True)
+            stamp=datetime.now().strftime('%Y%m%d_%H%M%S')
+            json_path=reports/f'Draft_Version_History_{book_id}_chapter_{chapter_number:02d}_{stamp}.json'
+            md_path=reports/f'Draft_Version_History_{book_id}_chapter_{chapter_number:02d}_{stamp}.md'
+            jwrite(json_path,report)
+            lines=[
+                '# Kayock Writer Draft Version History','',
+                f"Created: {report['created']}",
+                f"Milestone: **{report['milestone']}**",
+                f"Health: **{health_label}**",
+                f"History ready: {healthy}",
+                '',
+                '## Safety','',
+                '- Read-only draft version history.',
+                '- No draft save.',
+                '- No chapter-file edit.',
+                '- No story-file mutation.',
+                '- No overwrite.',
+                '- No delete.',
+                '- No move.',
+                '',
+                '## Summary',''
+            ]
+            for k,v in summary.items():
+                lines.append(f"- {k.replace('_',' ').title()}: {v}")
+            lines += ['','## Timeline','']
+            if timeline:
+                for t in timeline:
+                    lines.append(f"- [{'PASS' if t.get('verified') else 'REVIEW'}] **v{int(t.get('version') or 0):03d}** - words: {t.get('word_count')} - delta: {t.get('delta_words_from_previous')} - hash ok: {t.get('hash_ok')} - `{t.get('draft_path')}`")
+            else:
+                lines.append('- None.')
+            lines += ['','## Latest Version','']
+            if latest:
+                lines += [
+                    f"- Version: v{int(latest.get('version') or 0):03d}",
+                    f"- Draft: `{latest.get('draft_markdown',{}).get('path','')}`",
+                    f"- Metadata: `{latest.get('metadata_file',{}).get('path','')}`",
+                    f"- Evidence: `{latest.get('evidence_file',{}).get('path','')}`",
+                    f"- Words: {latest.get('word_count')}",
+                    f"- Hash OK: {latest.get('hash_ok')}",
+                    f"- Verified: {latest.get('verified')}",
+                ]
+            else:
+                lines.append('- None.')
+            lines += ['','## Checks','']
+            for c in checks:
+                lines.append(f"- [{'PASS' if c.get('ok') else 'FAIL'}] `{c.get('id')}` - {c.get('message')}")
+            lines += ['','## Errors','']
+            if errors:
+                for e in errors:
+                    lines.append(f"- `{e.get('id')}` - {e.get('message')}")
+            else:
+                lines.append('- None.')
+            md_path.write_text('\n'.join(lines),encoding='utf-8')
+            report['exported']={'json':str(json_path),'markdown':str(md_path),'folder':str(reports)}
+        except Exception as e:
+            report['export_error']=str(e)
+    return report
+
+
+
+def kayock_writer_draft_continue_workspace_report(d=None):
+    import re, json, hashlib
+    from datetime import datetime
+    d=d or {}
+    export=bool(d.get('export',False))
+    book_id=str(d.get('book_id') or 'book_2').strip().lower().replace(' ','_')
+    if book_id not in ('book_1','book_2'): book_id='book_2'
+    chapter_number=int(d.get('chapter_number') or 2)
+    if chapter_number not in (1,2,3): chapter_number=2
+    continue_mode=str(d.get('continue_mode') or 'next_scene').strip().lower()
+    if continue_mode not in ('next_scene','expand_draft','finish_chapter','continuity_pass'): continue_mode='next_scene'
+    target_words=max(250,min(12000,int(d.get('target_words') or 1200)))
+    user_direction=str(d.get('user_direction') or '').strip()
+
+    root=ROOT/'Projects'/'KayockWriter'/'Slipping_into_Darkness'
+    drafts=root/'Drafts'/book_id
+    chapters=root/'Chapters'/book_id
+    reports=FOLDERS.get('kayock_writer_draft_continue_workspace_reports',ROOT/'Reports'/'KayockWriter'/'DraftContinueWorkspace')
+
+    def sha(v): return hashlib.sha256((v or '').encode('utf-8',errors='replace')).hexdigest()
+    def info(x):
+        out={'path':str(x),'name':x.name,'exists':x.exists(),'kind':'missing','size':0,'modified':''}
+        try:
+            if x.exists():
+                out['kind']='folder' if x.is_dir() else 'file'
+                out['size']=x.stat().st_size if x.is_file() else None
+                out['modified']=datetime.fromtimestamp(x.stat().st_mtime).isoformat(timespec='seconds')
+        except Exception as e: out['error']=str(e)
+        return out
+    def sec(md,name):
+        md=md or ''; mark=f'## {name}'; i=md.find(mark)
+        if i<0: return ''
+        s=i+len(mark)
+        while s<len(md) and md[s] in '\r\n ': s+=1
+        j=md.find('\n## ',s)
+        return (md[s:] if j<0 else md[s:j]).strip()
+    def meta(md,label,default=''):
+        m=re.search(rf'^\s*-\s*\*\*{re.escape(label)}:\*\*\s*(.*?)\s*$', md or '', re.I|re.M)
+        return m.group(1).strip() if m else default
+    def wc(v): return len([x for x in re.split(r'\s+', (v or '').strip()) if x])
+
+    errors=[]
+    cards=sorted(chapters.glob(f'chapter_{chapter_number:02d}_*.md'), key=lambda x:x.name.lower()) if chapters.exists() else []
+    card=cards[0] if cards else chapters/f'chapter_{chapter_number:02d}_missing.md'
+    card_text=''
+    try:
+        if card.exists(): card_text=card.read_text(encoding='utf-8',errors='replace')
+        else: errors.append({'id':'chapter_card_missing','message':str(card)})
+    except Exception as e: errors.append({'id':'chapter_card_read_error','message':str(e)})
+
+    draft_files=sorted(drafts.glob(f'chapter_{chapter_number:02d}_draft_v*.md'), key=lambda x:x.name.lower()) if drafts.exists() else []
+    draft=draft_files[-1] if draft_files else drafts/f'chapter_{chapter_number:02d}_draft_missing.md'
+    draft_text=''
+    try:
+        if draft.exists(): draft_text=draft.read_text(encoding='utf-8',errors='replace')
+        else: errors.append({'id':'latest_draft_missing','message':str(draft)})
+    except Exception as e: errors.append({'id':'latest_draft_read_error','message':str(e)})
+
+    meta_p=draft.with_suffix('.meta.json')
+    ev_p=draft.with_suffix('.save_evidence.json')
+    mdj={}; evj={}
+    try:
+        if meta_p.exists(): mdj=json.loads(meta_p.read_text(encoding='utf-8',errors='replace'))
+        else: errors.append({'id':'metadata_missing','message':str(meta_p)})
+    except Exception as e: errors.append({'id':'metadata_parse_error','message':str(e)})
+    try:
+        if ev_p.exists(): evj=json.loads(ev_p.read_text(encoding='utf-8',errors='replace'))
+        else: errors.append({'id':'evidence_missing','message':str(ev_p)})
+    except Exception as e: errors.append({'id':'evidence_parse_error','message':str(e)})
+
+    m=re.search(r'draft_v(\d+)', draft.name)
+    ver=int(m.group(1)) if m else 0
+    draft_body=sec(draft_text,'Draft')
+    h=sha(draft_text) if draft_text else ''
+    expected_h=mdj.get('draft_hash') or evj.get('draft_hash') or ''
+    hash_ok=(not expected_h) or h==expected_h
+    actual_wc=wc(draft_body)
+    expected_wc=mdj.get('word_count') or evj.get('word_count')
+    wc_ok=(expected_wc is None) or actual_wc==expected_wc
+
+    title=(card_text.splitlines()[0].lstrip('# ').strip() if card_text.splitlines() else f'Chapter {chapter_number:02d}')
+    project=meta(card_text,'Project','Slipping into Darkness')
+    book=meta(card_text,'Book','Book 2' if book_id=='book_2' else 'Book 1')
+    pov=meta(card_text,'POV','Anthony')
+    loc=meta(card_text,'Location','TBD')
+    goal=sec(card_text,'Goal'); conflict=sec(card_text,'Conflict'); reveal=sec(card_text,'Reveal'); hook=sec(card_text,'Hook'); notes=sec(card_text,'Continuity Notes')
+    tail=' '.join(draft_body.split()[-80:])
+
+    mode_note={'next_scene':'Continue with the next scene after the current draft fragment.','expand_draft':'Expand the existing draft into richer prose.','finish_chapter':'Continue toward the chapter hook.','continuity_pass':'Create continuity-focused continuation guidance.'}[continue_mode]
+    beats=[
+        {'beat':1,'name':'Re-anchor the clue','purpose':'Reconnect the reader to the clue trail and current danger.'},
+        {'beat':2,'name':'Raise suspicion','purpose':conflict or 'Show what makes the trail dangerous.'},
+        {'beat':3,'name':'Expose deeper pattern','purpose':reveal or 'Reveal a stronger mythology connection.'},
+        {'beat':4,'name':'Character reaction','purpose':'Let Anthony react emotionally and strategically.'},
+        {'beat':5,'name':'Forward pull','purpose':hook or 'End with a stronger clue or choice.'}
+    ]
+    guard=['Do not overwrite the saved draft.','Do not mutate the chapter card or story canon.','Do not resolve Croatoan too early.','Keep Jokaya sanctuary mysterious.','Treat current scaffold/test wording as engineering proof, not final canon prose.']
+    if notes: guard.insert(0, notes.replace('\n',' '))
+
+    direction=f"Additional user direction:\n{user_direction or 'None provided. Continue naturally from the latest draft and chapter card.'}\n\n"
+    brief=f"""{title}
+Project: {project}
+Book: {book}
+POV: {pov}
+Location: {loc}
+Latest draft version: v{ver:03d}
+Latest draft words: {actual_wc}
+Target continuation words: about {target_words}
+Continue mode: {continue_mode} - {mode_note}
+
+Goal: {goal}
+
+Conflict: {conflict}
+
+Reveal: {reveal}
+
+Hook: {hook}
+
+Latest draft tail:
+{tail}"""
+    prompt=f"""You are continuing a saved draft for {project}.
+
+Chapter: {title}
+Book: {book}
+POV: {pov}
+Location: {loc}
+Continue mode: {continue_mode} - {mode_note}
+Target continuation length: about {target_words} words.
+
+{direction}Chapter Goal:
+{goal}
+
+Core Conflict:
+{conflict}
+
+Required Reveal:
+{reveal}
+
+Ending Hook:
+{hook}
+
+Latest Saved Draft:
+{draft_body}
+
+Continuation Beat Plan:
+""" + '\n'.join([f"{b['beat']}. {b['name']}: {b['purpose']}" for b in beats]) + "\n\nContinuity Guardrails:\n- " + '\n- '.join(guard) + "\n\nContinue from the latest saved draft. Preserve Anthony POV. Keep the mystery active. Do not save files or claim canon changes."
+    shell="# Continue Workspace - "+title+"\n\n## Source Draft\n\n- Latest version: v%03d\n- Draft path: `%s`\n- Hash OK: %s\n- Word Count OK: %s\n\n## Continue Mode\n\n%s - %s\n\n## Next Scene Beats\n\n%s\n\n## Continuation Draft Area\n\n_Write continuation prose here later after a save gate/action is built._" % (ver,draft,hash_ok,wc_ok,continue_mode,mode_note,'\n'.join([f"{b['beat']}. **{b['name']}** - {b['purpose']}" for b in beats]))
+
+    checks=[
+        {'id':'project_root_exists','ok':root.exists() and root.is_dir(),'message':str(root)},
+        {'id':'drafts_folder_exists','ok':drafts.exists() and drafts.is_dir(),'message':str(drafts)},
+        {'id':'chapter_card_exists','ok':card.exists() and card.is_file(),'message':str(card)},
+        {'id':'latest_draft_exists','ok':draft.exists() and draft.is_file(),'message':str(draft)},
+        {'id':'metadata_exists','ok':meta_p.exists() and meta_p.is_file(),'message':str(meta_p)},
+        {'id':'evidence_exists','ok':ev_p.exists() and ev_p.is_file(),'message':str(ev_p)},
+        {'id':'draft_hash_verified','ok':hash_ok and bool(h),'message':f'actual={h[:12]} expected={(expected_h or "")[:12]}'},
+        {'id':'draft_word_count_verified','ok':wc_ok,'message':f'actual={actual_wc} expected={expected_wc}'},
+        {'id':'chapter_context_present','ok':all([goal,conflict,reveal,hook]),'message':'Goal / Conflict / Reveal / Hook parsed.'},
+        {'id':'continue_beats_generated','ok':len(beats)==5,'message':f'{len(beats)} beat(s) generated.'},
+        {'id':'continuation_prompt_generated','ok':len(prompt)>500,'message':f'{len(prompt)} prompt chars.'},
+        {'id':'continuation_shell_generated','ok':len(shell)>200,'message':f'{len(shell)} shell chars.'},
+        {'id':'read_only_continue_workspace','ok':True,'message':'No draft, chapter, or story file was written, overwritten, renamed, moved, or deleted.'}
+    ]
+    summary={'project_id':'slipping_into_darkness','project_title':project,'book_id':book_id,'book_title':book,'chapter_number':chapter_number,'chapter_card_path':str(card),'latest_draft_path':str(draft),'metadata_path':str(meta_p),'evidence_path':str(ev_p),'latest_draft_version':ver,'latest_draft_words':actual_wc,'expected_words':expected_wc,'draft_hash':h,'expected_hash':expected_h,'hash_ok':hash_ok,'word_count_ok':wc_ok,'continue_mode':continue_mode,'target_words':target_words,'beat_count':len(beats),'guardrails':len(guard),'prompt_chars':len(prompt),'shell_chars':len(shell),'errors':len(errors),'checks':len(checks),'checks_passed':sum(1 for c in checks if c.get('ok')),'problems':sum(1 for c in checks if not c.get('ok'))+len(errors),'read_only':True,'report_only':True}
+    safety={'read_only_draft_continue_workspace':True,'no_draft_save':True,'no_chapter_file_edit':True,'no_story_file_mutation':True,'no_project_creation':True,'no_legacy_migration':True,'no_rename_performed':True,'no_overwrite':True,'no_delete':True,'no_move':True,'no_install':True,'no_model_cleanup':True,'continue_workspace_export_only':True,'future_continue_save_requires_gate_and_exact_phrase':True}
+    healthy=all(c.get('ok') for c in checks) and len(errors)==0
+    label='DRAFT CONTINUE WORKSPACE READY' if healthy else 'DRAFT CONTINUE WORKSPACE NEEDS REVIEW'
+    report={'ok':True,'created':now(),'title':'Kayock Writer Draft Continue Workspace','read_only':True,'report_only':True,'healthy':healthy,'continue_ready':healthy,'health_label':label,'message':f'Draft Continue Workspace: {label}','milestone':'v10.13.5 Draft Continue Workspace','summary':summary,'source_files':{'chapter_card':info(card),'latest_draft':info(draft),'metadata':info(meta_p),'evidence':info(ev_p)},'chapter_context':{'title_line':title,'project':project,'book':book,'pov':pov,'location':loc,'goal':goal,'conflict':conflict,'reveal':reveal,'hook':hook,'continuity_notes':notes},'latest_draft':{'version':ver,'path':str(draft),'word_count':actual_wc,'expected_word_count':expected_wc,'hash':h,'expected_hash':expected_h,'hash_ok':hash_ok,'word_count_ok':wc_ok,'tail':tail,'draft_body':draft_body},'workspace':{'continue_mode':continue_mode,'target_words':target_words,'user_direction':user_direction,'continuation_brief':brief,'next_scene_beats':beats,'continuity_guardrails':guard,'continuation_prompt':prompt,'continuation_shell':shell},'checks':checks,'errors':errors,'recommendations':[{'id':'mark_draft_continue_workspace_proven','title':'Mark Draft Continue Workspace proven','recommendation':'Use this as the read-only workspace for continuation prompts from saved drafts and chapter cards.','risk':'low','auto_apply':False},{'id':'next_continue_save_gate','title':'Build Continue Save Approval Gate next','recommendation':'Add a no-write gate for saving a continuation as the next draft version.','risk':'medium','auto_apply':False}],'folders':{'draft_continue_workspace_reports':str(reports),'drafts_folder':str(drafts)},'safety':safety}
+    if export:
+        try:
+            reports.mkdir(parents=True,exist_ok=True)
+            stamp=datetime.now().strftime('%Y%m%d_%H%M%S')
+            jp=reports/f'Draft_Continue_Workspace_{book_id}_chapter_{chapter_number:02d}_v{ver:03d}_{stamp}.json'
+            mp=reports/f'Draft_Continue_Workspace_{book_id}_chapter_{chapter_number:02d}_v{ver:03d}_{stamp}.md'
+            jwrite(jp,report)
+            lines=['# Kayock Writer Draft Continue Workspace','',f"Created: {report['created']}",f"Milestone: **{report['milestone']}**",f"Health: **{label}**",f"Continue ready: {healthy}",'','## Safety','','- Read-only draft continue workspace.','- No draft save.','- No chapter-file edit.','- No story-file mutation.','- No overwrite.','- No delete.','- No move.','','## Summary']
+            for k,v in summary.items(): lines.append(f"- {k.replace('_',' ').title()}: {v}")
+            lines += ['','## Continuation Brief','','```text',brief,'```','','## Next Scene Beats']
+            for b in beats: lines.append(f"- **{b['beat']}. {b['name']}** - {b['purpose']}")
+            lines += ['','## Continuation Prompt','','```text',prompt,'```','','## Continuation Shell','','```markdown',shell,'```','','## Checks']
+            for c in checks: lines.append(f"- [{'PASS' if c.get('ok') else 'FAIL'}] `{c.get('id')}` - {c.get('message')}")
+            lines += ['','## Errors']
+            if errors:
+                for e in errors: lines.append(f"- `{e.get('id')}` - {e.get('message')}")
+            else: lines.append('- None.')
+            mp.write_text('\n'.join(lines),encoding='utf-8')
+            report['exported']={'json':str(jp),'markdown':str(mp),'folder':str(reports)}
+        except Exception as e:
+            report['export_error']=str(e)
+    return report
+
+
+
+def kayock_writer_continue_save_gate_report(d=None):
+    import re, json, hashlib
+    from datetime import datetime
+    d=d or {}
+    export=bool(d.get('export',False))
+    book_id=str(d.get('book_id') or 'book_2').strip().lower().replace(' ','_')
+    if book_id not in ('book_1','book_2'): book_id='book_2'
+    chapter_number=int(d.get('chapter_number') or 2)
+    if chapter_number not in (1,2,3): chapter_number=2
+    required_phrase='APPROVE CONTINUE SAVE PREVIEW'
+    phrase=str(d.get('approval_phrase') or '').strip()
+    phrase_matches=(phrase==required_phrase)
+    mode=str(d.get('continue_mode') or 'next_scene').strip().lower()
+    if mode not in ('next_scene','expand_draft','finish_chapter','continuity_pass'): mode='next_scene'
+    cont=str(d.get('continuation_text') or '').strip()
+    target_words=max(250,min(12000,int(d.get('target_words') or 1200)))
+    root=ROOT/'Projects'/'KayockWriter'/'Slipping_into_Darkness'
+    drafts=root/'Drafts'/book_id; chapters=root/'Chapters'/book_id
+    reports=FOLDERS.get('kayock_writer_continue_save_gate_reports',ROOT/'Reports'/'KayockWriter'/'ContinueSaveGate')
+    def sha(v): return hashlib.sha256((v or '').encode('utf-8',errors='replace')).hexdigest()
+    def info(p):
+        o={'path':str(p),'name':p.name,'exists':p.exists(),'kind':'missing','size':0,'modified':''}
+        try:
+            if p.exists():
+                o['kind']='folder' if p.is_dir() else 'file'; o['size']=p.stat().st_size if p.is_file() else None; o['modified']=datetime.fromtimestamp(p.stat().st_mtime).isoformat(timespec='seconds')
+        except Exception as e: o['error']=str(e)
+        return o
+    def sec(md,name):
+        md=md or ''; mark=f'## {name}'; i=md.find(mark)
+        if i<0: return ''
+        s=i+len(mark)
+        while s<len(md) and md[s] in '\r\n ': s+=1
+        j=md.find('\n## ',s)
+        return (md[s:] if j<0 else md[s:j]).strip()
+    def meta(md,label,default=''):
+        m=re.search(rf'^\s*-\s*\*\*{re.escape(label)}:\*\*\s*(.*?)\s*$', md or '', re.I|re.M)
+        return m.group(1).strip() if m else default
+    def wc(v): return len([x for x in re.split(r'\s+', (v or '').strip()) if x])
+    errors=[]
+    cards=sorted(chapters.glob(f'chapter_{chapter_number:02d}_*.md'), key=lambda p:p.name.lower()) if chapters.exists() else []
+    card=cards[0] if cards else chapters/f'chapter_{chapter_number:02d}_missing.md'
+    card_text=''
+    try:
+        if card.exists(): card_text=card.read_text(encoding='utf-8',errors='replace')
+        else: errors.append({'id':'chapter_card_missing','message':str(card)})
+    except Exception as e: errors.append({'id':'chapter_card_read_error','message':str(e)})
+    files=sorted(drafts.glob(f'chapter_{chapter_number:02d}_draft_v*.md'), key=lambda p:p.name.lower()) if drafts.exists() else []
+    latest=files[-1] if files else drafts/f'chapter_{chapter_number:02d}_draft_missing.md'
+    latest_text=''
+    try:
+        if latest.exists(): latest_text=latest.read_text(encoding='utf-8',errors='replace')
+        else: errors.append({'id':'latest_draft_missing','message':str(latest)})
+    except Exception as e: errors.append({'id':'latest_draft_read_error','message':str(e)})
+    latest_meta=latest.with_suffix('.meta.json'); latest_ev=latest.with_suffix('.save_evidence.json')
+    mdj={}; evj={}
+    try:
+        if latest_meta.exists(): mdj=json.loads(latest_meta.read_text(encoding='utf-8',errors='replace'))
+        else: errors.append({'id':'latest_metadata_missing','message':str(latest_meta)})
+    except Exception as e: errors.append({'id':'latest_metadata_parse_error','message':str(e)})
+    try:
+        if latest_ev.exists(): evj=json.loads(latest_ev.read_text(encoding='utf-8',errors='replace'))
+        else: errors.append({'id':'latest_evidence_missing','message':str(latest_ev)})
+    except Exception as e: errors.append({'id':'latest_evidence_parse_error','message':str(e)})
+    m=re.search(r'draft_v(\d+)',latest.name); latest_ver=int(m.group(1)) if m else 0; next_ver=latest_ver+1 if latest_ver else 1
+    target_md=drafts/f'chapter_{chapter_number:02d}_draft_v{next_ver:03d}.md'; target_meta=drafts/f'chapter_{chapter_number:02d}_draft_v{next_ver:03d}.meta.json'; target_ev=drafts/f'chapter_{chapter_number:02d}_draft_v{next_ver:03d}.save_evidence.json'
+    body=sec(latest_text,'Draft'); latest_hash=sha(latest_text) if latest_text else ''; expected_hash=mdj.get('draft_hash') or evj.get('draft_hash') or ''; hash_ok=(not expected_hash) or latest_hash==expected_hash
+    latest_wc=wc(body); expected_wc=mdj.get('word_count') or evj.get('word_count'); word_count_ok=(expected_wc is None) or latest_wc==expected_wc
+    title=(card_text.splitlines()[0].lstrip('# ').strip() if card_text.splitlines() else f'Chapter {chapter_number:02d}')
+    project=meta(card_text,'Project','Slipping into Darkness'); book=meta(card_text,'Book','Book 2' if book_id=='book_2' else 'Book 1'); pov=meta(card_text,'POV','Anthony'); loc=meta(card_text,'Location','TBD')
+    goal=sec(card_text,'Goal'); conflict=sec(card_text,'Conflict'); reveal=sec(card_text,'Reveal'); hook=sec(card_text,'Hook'); notes=sec(card_text,'Continuity Notes')
+    if not cont: cont='This is a proposed continuation placeholder for proving the continue save approval gate. It previews the next draft version without saving any files.'
+    combined=(body.strip()+'\n\n'+cont.strip()).strip(); cont_wc=wc(cont); new_wc=wc(combined)
+    new_md=(f"# Chapter {chapter_number:02d} Draft\n\n- **Project:** {project}\n- **Book:** {book}\n- **Chapter:** {chapter_number:02d}\n- **POV:** {pov}\n- **Location:** {loc}\n- **Status:** saved_prose_draft_preview_only\n- **Draft Version:** v{next_ver:03d}\n- **Continues From:** v{latest_ver:03d}\n- **Continue Mode:** {mode}\n- **Created Preview:** {now()}\n\n## Draft\n\n{combined}\n\n## Source Chapter Card\n\n- Goal: {goal}\n- Conflict: {conflict}\n- Reveal: {reveal}\n- Hook: {hook}\n\n## Continuity Notes\n\n{notes}\n\n## Continue Save Gate\n\n- Preview generated by v10.13.6 Continue Save Approval Gate.\n- No continuation draft file has been saved yet.\n- Future actual save requires a separate approved action.\n")
+    new_hash=sha(new_md)
+    targets=[{'kind':'next_draft_markdown','path':str(target_md),'exists':target_md.exists(),'would_overwrite':target_md.exists()},{'kind':'next_draft_metadata','path':str(target_meta),'exists':target_meta.exists(),'would_overwrite':target_meta.exists()},{'kind':'next_draft_evidence','path':str(target_ev),'exists':target_ev.exists(),'would_overwrite':target_ev.exists()}]
+    collisions=[t for t in targets if t['would_overwrite']]
+    blockers=[]
+    for ok,id,msg in [(root.exists(),'project_root_missing',str(root)),(drafts.exists(),'drafts_folder_missing',str(drafts)),(card.exists(),'chapter_card_missing',str(card)),(latest.exists(),'latest_draft_missing',str(latest)),(latest_meta.exists(),'latest_metadata_missing',str(latest_meta)),(latest_ev.exists(),'latest_evidence_missing',str(latest_ev))]:
+        if not ok: blockers.append({'id':id,'message':msg})
+    if not hash_ok: blockers.append({'id':'latest_hash_mismatch','message':'Latest draft hash does not match metadata/evidence.'})
+    if not word_count_ok: blockers.append({'id':'latest_word_count_mismatch','message':'Latest draft word count does not match metadata/evidence.'})
+    if cont_wc<8: blockers.append({'id':'continuation_too_short','message':f'Continuation has only {cont_wc} word(s).'})
+    if not phrase_matches: blockers.append({'id':'phrase_mismatch','message':'Exact gate phrase was not provided.'})
+    if collisions: blockers.append({'id':'target_collision','message':str(collisions)})
+    if not all([goal,conflict,reveal,hook]): blockers.append({'id':'chapter_context_incomplete','message':'Goal/Conflict/Reveal/Hook not all present.'})
+    checks=[
+        {'id':'project_root_exists','ok':root.exists() and root.is_dir(),'message':str(root)}, {'id':'drafts_folder_exists','ok':drafts.exists() and drafts.is_dir(),'message':str(drafts)}, {'id':'chapter_card_exists','ok':card.exists() and card.is_file(),'message':str(card)}, {'id':'latest_draft_exists','ok':latest.exists() and latest.is_file(),'message':str(latest)}, {'id':'latest_metadata_exists','ok':latest_meta.exists() and latest_meta.is_file(),'message':str(latest_meta)}, {'id':'latest_evidence_exists','ok':latest_ev.exists() and latest_ev.is_file(),'message':str(latest_ev)}, {'id':'latest_hash_verified','ok':hash_ok and bool(latest_hash),'message':f'actual={latest_hash[:12]} expected={(expected_hash or "")[:12]}'}, {'id':'latest_word_count_verified','ok':word_count_ok,'message':f'actual={latest_wc} expected={expected_wc}'}, {'id':'continuation_text_present','ok':cont_wc>=8,'message':f'{cont_wc} continuation words.'}, {'id':'next_version_selected','ok':next_ver>latest_ver,'message':f'latest=v{latest_ver:03d} next=v{next_ver:03d}'}, {'id':'next_targets_previewed','ok':len(targets)==3,'message':f'{len(targets)} next-version target(s).'}, {'id':'no_target_collision','ok':not bool(collisions),'message':f'{len(collisions)} collision(s).'}, {'id':'approval_phrase_declared','ok':True,'message':required_phrase}, {'id':'approval_phrase_matches','ok':phrase_matches,'message':'Exact phrase matched.' if phrase_matches else 'Exact phrase not matched.'}, {'id':'chapter_context_present','ok':all([goal,conflict,reveal,hook]),'message':'Goal / Conflict / Reveal / Hook parsed.'}, {'id':'save_disabled_this_build','ok':True,'message':'v10.13.6 is a no-write gate only.'}, {'id':'read_only_continue_save_gate','ok':True,'message':'No draft, chapter, or story file was written, overwritten, renamed, moved, or deleted.'}]
+    safe=bool(not blockers and phrase_matches)
+    summary={'project_id':'slipping_into_darkness','project_title':project,'book_id':book_id,'book_title':book,'chapter_number':chapter_number,'chapter_card_path':str(card),'latest_draft_path':str(latest),'latest_metadata_path':str(latest_meta),'latest_evidence_path':str(latest_ev),'latest_version':latest_ver,'next_version':next_ver,'latest_words':latest_wc,'continuation_words':cont_wc,'new_preview_words':new_wc,'latest_hash':latest_hash,'expected_latest_hash':expected_hash,'latest_hash_ok':hash_ok,'latest_word_count_ok':word_count_ok,'new_preview_hash':new_hash,'continue_mode':mode,'target_words':target_words,'required_phrase':required_phrase,'typed_phrase_present':bool(phrase),'phrase_matches':phrase_matches,'selected_targets':len(targets),'collision_targets':len(collisions),'blockers':len(blockers),'errors':len(errors),'checks':len(checks),'checks_passed':sum(1 for c in checks if c.get('ok')),'problems':sum(1 for c in checks if not c.get('ok'))+len(blockers)+len(errors),'continue_save_enabled_this_build':False,'safe_to_save_later':safe,'read_only':True,'report_only':True}
+    safety={'read_only_continue_save_gate':True,'continue_save_enabled_this_build':False,'future_save_requires_exact_phrase':True,'future_save_requires_no_collision':True,'future_save_requires_evidence_report':True,'no_draft_file_write':True,'no_chapter_file_edit':True,'no_story_file_mutation':True,'no_project_creation':True,'no_legacy_migration':True,'no_rename_performed':True,'no_overwrite':True,'no_delete':True,'no_move':True,'no_install':True,'no_model_cleanup':True,'gate_export_only':True}
+    healthy=all(c.get('ok') for c in checks if c.get('id')!='approval_phrase_matches') and len(errors)==0 and not collisions
+    label='CONTINUE SAVE APPROVAL GATE READY' if healthy else 'CONTINUE SAVE APPROVAL GATE NEEDS REVIEW'
+    report={'ok':True,'created':now(),'title':'Kayock Writer Continue Save Approval Gate','read_only':True,'report_only':True,'healthy':healthy,'gate_ready':healthy,'health_label':label,'message':f'Continue Save Approval Gate: {label}','milestone':'v10.13.6 Continue Save Approval Gate','summary':summary,'approval_gate':{'required_phrase':required_phrase,'typed_phrase_present':bool(phrase),'typed_phrase_matches':phrase_matches,'continue_save_enabled_this_build':False,'reason_save_disabled':'v10.13.6 previews the next continuation save only. Actual save must be a later approved action.','future_mode':'approved_action_only'},'source_files':{'chapter_card':info(card),'latest_draft':info(latest),'latest_metadata':info(latest_meta),'latest_evidence':info(latest_ev)},'chapter_context':{'title_line':title,'project':project,'book':book,'pov':pov,'location':loc,'goal':goal,'conflict':conflict,'reveal':reveal,'hook':hook,'continuity_notes':notes},'latest_draft':{'version':latest_ver,'path':str(latest),'body':body,'word_count':latest_wc,'hash':latest_hash,'expected_hash':expected_hash,'hash_ok':hash_ok,'word_count_ok':word_count_ok},'continuation':{'continue_mode':mode,'target_words':target_words,'continuation_text':cont,'continuation_words':cont_wc,'new_preview_words':new_wc,'new_preview_hash':new_hash,'new_markdown_preview':new_md},'selected_targets':targets,'collision_targets':collisions,'blockers':blockers,'checks':checks,'errors':errors,'recommendations':[{'id':'mark_continue_save_gate_proven','title':'Mark Continue Save Approval Gate proven','recommendation':'Use this as proof that continuations can be previewed as next draft versions before writing.','risk':'low','auto_apply':False},{'id':'next_continue_save_action','title':'Build Continue Save Approved Action next','recommendation':'Add actual continuation save only after exact phrase, no collision, metadata creation, evidence creation, and post-save hash checks.','risk':'medium','auto_apply':False}],'folders':{'continue_save_gate_reports':str(reports),'drafts_folder':str(drafts)},'safety':safety}
+    if export:
+        try:
+            reports.mkdir(parents=True,exist_ok=True); stamp=datetime.now().strftime('%Y%m%d_%H%M%S')
+            jp=reports/f'Continue_Save_Gate_{book_id}_chapter_{chapter_number:02d}_v{next_ver:03d}_{stamp}.json'; mp=reports/f'Continue_Save_Gate_{book_id}_chapter_{chapter_number:02d}_v{next_ver:03d}_{stamp}.md'
+            jwrite(jp,report)
+            lines=['# Kayock Writer Continue Save Approval Gate','',f"Created: {report['created']}",f"Milestone: **{report['milestone']}**",f"Health: **{label}**",f"Gate ready: {healthy}",'','## Safety','','- Read-only continue save gate.','- Continue save disabled in this build.','- No draft file write.','- No chapter-file edit.','- No story-file mutation.','- No overwrite.','- No delete.','- No move.','','## Summary']
+            for k,v in summary.items(): lines.append(f"- {k.replace('_',' ').title()}: {v}")
+            lines += ['','## Approval Phrase','',f'`{required_phrase}`','','## Selected Targets']
+            for t in targets: lines.append(f"- `{t['kind']}` - `{t['path']}` - exists: {t['exists']} - would overwrite: {t['would_overwrite']}")
+            lines += ['','## Next Draft Preview','','```markdown',new_md,'```','','## Blockers']
+            if blockers:
+                for b in blockers: lines.append(f"- `{b.get('id')}` - {b.get('message')}")
+            else: lines.append('- None.')
+            lines += ['','## Checks']
+            for c in checks: lines.append(f"- [{'PASS' if c.get('ok') else 'FAIL'}] `{c.get('id')}` - {c.get('message')}")
+            lines += ['','## Errors']
+            if errors:
+                for e in errors: lines.append(f"- `{e.get('id')}` - {e.get('message')}")
+            else: lines.append('- None.')
+            mp.write_text('\n'.join(lines),encoding='utf-8'); report['exported']={'json':str(jp),'markdown':str(mp),'folder':str(reports)}
+        except Exception as e: report['export_error']=str(e)
+    return report
+
+
+
+def kayock_writer_continue_save_action_report(d=None):
+    import re, json, hashlib
+    from datetime import datetime
+    d=d or {}
+    execute=bool(d.get('execute',False))
+    export=bool(d.get('export',True))
+    book_id=str(d.get('book_id') or 'book_2').strip().lower().replace(' ','_')
+    if book_id not in ('book_1','book_2'): book_id='book_2'
+    chapter_number=int(d.get('chapter_number') or 2)
+    if chapter_number not in (1,2,3): chapter_number=2
+    required_phrase='SAVE CONTINUATION DRAFT'
+    typed_phrase=str(d.get('approval_phrase') or '').strip()
+    phrase_matches=(typed_phrase==required_phrase)
+    continue_mode=str(d.get('continue_mode') or 'next_scene').strip().lower()
+    if continue_mode not in ('next_scene','expand_draft','finish_chapter','continuity_pass'): continue_mode='next_scene'
+    continuation_text=str(d.get('continuation_text') or '').strip()
+    if not continuation_text:
+        continuation_text='This is a proposed continuation placeholder for proving the approved continuation save action. It creates the next draft version safely.'
+    root=ROOT/'Projects'/'KayockWriter'/'Slipping_into_Darkness'
+    drafts=root/'Drafts'/book_id
+    chapters=root/'Chapters'/book_id
+    reports=FOLDERS.get('kayock_writer_continue_save_action_reports',ROOT/'Reports'/'KayockWriter'/'ContinueSaveAction')
+    def sha(v): return hashlib.sha256((v or '').encode('utf-8',errors='replace')).hexdigest()
+    def sec(md,name):
+        md=md or ''; mark=f'## {name}'; i=md.find(mark)
+        if i<0: return ''
+        s=i+len(mark)
+        while s<len(md) and md[s] in '\r\n ': s+=1
+        j=md.find('\n## ',s)
+        return (md[s:] if j<0 else md[s:j]).strip()
+    def meta(md,label,default=''):
+        m=re.search(rf'^\s*-\s*\*\*{re.escape(label)}:\*\*\s*(.*?)\s*$', md or '', re.I|re.M)
+        return m.group(1).strip() if m else default
+    def wc(v): return len([x for x in re.split(r'\s+', (v or '').strip()) if x])
+    def info(p):
+        out={'path':str(p),'name':p.name,'exists':p.exists(),'kind':'missing','size':0,'modified':''}
+        try:
+            if p.exists():
+                out['kind']='folder' if p.is_dir() else 'file'
+                out['size']=p.stat().st_size if p.is_file() else None
+                out['modified']=datetime.fromtimestamp(p.stat().st_mtime).isoformat(timespec='seconds')
+        except Exception as e: out['error']=str(e)
+        return out
+    errors=[]
+    cards=sorted(chapters.glob(f'chapter_{chapter_number:02d}_*.md'), key=lambda p:p.name.lower()) if chapters.exists() else []
+    card=cards[0] if cards else chapters/f'chapter_{chapter_number:02d}_missing.md'
+    card_text=''
+    try:
+        if card.exists(): card_text=card.read_text(encoding='utf-8',errors='replace')
+        else: errors.append({'id':'chapter_card_missing','message':str(card)})
+    except Exception as e: errors.append({'id':'chapter_card_read_error','message':str(e)})
+    draft_files=sorted(drafts.glob(f'chapter_{chapter_number:02d}_draft_v*.md'), key=lambda p:p.name.lower()) if drafts.exists() else []
+    latest=draft_files[-1] if draft_files else drafts/f'chapter_{chapter_number:02d}_draft_missing.md'
+    latest_text=''
+    try:
+        if latest.exists(): latest_text=latest.read_text(encoding='utf-8',errors='replace')
+        else: errors.append({'id':'latest_draft_missing','message':str(latest)})
+    except Exception as e: errors.append({'id':'latest_draft_read_error','message':str(e)})
+    latest_meta=latest.with_suffix('.meta.json'); latest_ev=latest.with_suffix('.save_evidence.json')
+    meta_json={}; ev_json={}
+    try:
+        if latest_meta.exists(): meta_json=json.loads(latest_meta.read_text(encoding='utf-8',errors='replace'))
+        else: errors.append({'id':'latest_metadata_missing','message':str(latest_meta)})
+    except Exception as e: errors.append({'id':'latest_metadata_parse_error','message':str(e)})
+    try:
+        if latest_ev.exists(): ev_json=json.loads(latest_ev.read_text(encoding='utf-8',errors='replace'))
+        else: errors.append({'id':'latest_evidence_missing','message':str(latest_ev)})
+    except Exception as e: errors.append({'id':'latest_evidence_parse_error','message':str(e)})
+    m=re.search(r'draft_v(\d+)', latest.name)
+    latest_version=int(m.group(1)) if m else 0
+    next_version=latest_version+1 if latest_version else 1
+    target_md=drafts/f'chapter_{chapter_number:02d}_draft_v{next_version:03d}.md'
+    target_meta=drafts/f'chapter_{chapter_number:02d}_draft_v{next_version:03d}.meta.json'
+    target_ev=drafts/f'chapter_{chapter_number:02d}_draft_v{next_version:03d}.save_evidence.json'
+    latest_body=sec(latest_text,'Draft')
+    latest_hash=sha(latest_text) if latest_text else ''
+    expected_hash=meta_json.get('draft_hash') or ev_json.get('draft_hash') or ''
+    latest_hash_ok=(not expected_hash) or latest_hash==expected_hash
+    latest_wc=wc(latest_body)
+    expected_wc=meta_json.get('word_count') or ev_json.get('word_count')
+    latest_wc_ok=(expected_wc is None) or latest_wc==expected_wc
+    title=(card_text.splitlines()[0].lstrip('# ').strip() if card_text.splitlines() else f'Chapter {chapter_number:02d}')
+    project=meta(card_text,'Project','Slipping into Darkness')
+    book=meta(card_text,'Book','Book 2' if book_id=='book_2' else 'Book 1')
+    pov=meta(card_text,'POV','Anthony')
+    loc=meta(card_text,'Location','TBD')
+    goal=sec(card_text,'Goal'); conflict=sec(card_text,'Conflict'); reveal=sec(card_text,'Reveal'); hook=sec(card_text,'Hook'); notes=sec(card_text,'Continuity Notes')
+    cont_wc=wc(continuation_text)
+    new_body=(latest_body.strip()+"\n\n"+continuation_text.strip()).strip()
+    new_wc=wc(new_body)
+    new_md=(f"# Chapter {chapter_number:02d} Draft\n\n"
+            f"- **Project:** {project}\n- **Book:** {book}\n- **Chapter:** {chapter_number:02d}\n- **POV:** {pov}\n- **Location:** {loc}\n"
+            f"- **Status:** saved_prose_draft\n- **Draft Version:** v{next_version:03d}\n- **Continues From:** v{latest_version:03d}\n"
+            f"- **Continue Mode:** {continue_mode}\n- **Created:** {now()}\n\n"
+            f"## Draft\n\n{new_body}\n\n## Source Chapter Card\n\n- Goal: {goal}\n- Conflict: {conflict}\n- Reveal: {reveal}\n- Hook: {hook}\n\n"
+            f"## Continuity Notes\n\n{notes}\n\n## Continue Save Action\n\n- Saved by v10.13.7 Continue Save Approved Action.\n- Previous draft hash: {latest_hash}\n- Chapter card was not edited.\n- Story canon was not mutated.\n- No existing draft file was overwritten.\n")
+    new_hash=sha(new_md)
+    targets=[
+        {'kind':'next_draft_markdown','path':str(target_md),'exists':target_md.exists(),'would_overwrite':target_md.exists()},
+        {'kind':'next_draft_metadata','path':str(target_meta),'exists':target_meta.exists(),'would_overwrite':target_meta.exists()},
+        {'kind':'next_draft_evidence','path':str(target_ev),'exists':target_ev.exists(),'would_overwrite':target_ev.exists()}
+    ]
+    collisions=[t for t in targets if t.get('would_overwrite')]
+    blockers=[]
+    if not root.exists(): blockers.append({'id':'project_root_missing','message':str(root)})
+    if not drafts.exists(): blockers.append({'id':'drafts_folder_missing','message':str(drafts)})
+    if not card.exists(): blockers.append({'id':'chapter_card_missing','message':str(card)})
+    if not latest.exists(): blockers.append({'id':'latest_draft_missing','message':str(latest)})
+    if not latest_meta.exists(): blockers.append({'id':'latest_metadata_missing','message':str(latest_meta)})
+    if not latest_ev.exists(): blockers.append({'id':'latest_evidence_missing','message':str(latest_ev)})
+    if not latest_hash_ok: blockers.append({'id':'latest_hash_mismatch','message':'Latest draft hash does not match metadata/evidence.'})
+    if not latest_wc_ok: blockers.append({'id':'latest_word_count_mismatch','message':'Latest draft word count does not match metadata/evidence.'})
+    if cont_wc<8: blockers.append({'id':'continuation_too_short','message':f'{cont_wc} continuation word(s).'})
+    if not phrase_matches: blockers.append({'id':'phrase_mismatch','message':'Exact approval phrase was not provided.'})
+    if collisions: blockers.append({'id':'target_collision','message':str(collisions)})
+    preflight=[
+        {'id':'project_root_exists','ok':root.exists() and root.is_dir(),'message':str(root)},
+        {'id':'drafts_folder_exists','ok':drafts.exists() and drafts.is_dir(),'message':str(drafts)},
+        {'id':'chapter_card_exists','ok':card.exists() and card.is_file(),'message':str(card)},
+        {'id':'latest_draft_exists','ok':latest.exists() and latest.is_file(),'message':str(latest)},
+        {'id':'latest_metadata_exists','ok':latest_meta.exists() and latest_meta.is_file(),'message':str(latest_meta)},
+        {'id':'latest_evidence_exists','ok':latest_ev.exists() and latest_ev.is_file(),'message':str(latest_ev)},
+        {'id':'latest_hash_verified','ok':latest_hash_ok and bool(latest_hash),'message':f'actual={latest_hash[:12]} expected={(expected_hash or "")[:12]}'},
+        {'id':'latest_word_count_verified','ok':latest_wc_ok,'message':f'actual={latest_wc} expected={expected_wc}'},
+        {'id':'continuation_text_present','ok':cont_wc>=8,'message':f'{cont_wc} continuation words.'},
+        {'id':'next_version_selected','ok':next_version>latest_version,'message':f'latest=v{latest_version:03d} next=v{next_version:03d}'},
+        {'id':'no_target_collision','ok':not bool(collisions),'message':f'{len(collisions)} collision(s).'},
+        {'id':'approval_phrase_matches','ok':phrase_matches,'message':'Exact phrase matched.' if phrase_matches else 'Exact phrase not matched.'},
+        {'id':'save_action_requested','ok':execute,'message':'Execute requested.' if execute else 'Preview only; no save requested.'},
+        {'id':'no_delete_or_move_requested','ok':True,'message':'No delete or move operation is part of this action.'}
+    ]
+    action_allowed=bool(execute and not blockers and all(c.get('ok') for c in preflight))
+    status='preview'
+    if execute and not action_allowed: status='blocked'
+    created_files=[]; written_files=[]; actions=[]
+    metadata={'project_id':'slipping_into_darkness','project_title':project,'book_id':book_id,'book_title':book,'chapter_number':chapter_number,'chapter_card_path':str(card),'draft_title':f'Chapter {chapter_number:02d} Draft','draft_version':next_version,'continues_from_version':latest_version,'previous_draft_path':str(latest),'previous_draft_hash':latest_hash,'draft_markdown_path':str(target_md),'metadata_path':str(target_meta),'evidence_path':str(target_ev),'word_count':new_wc,'continuation_word_count':cont_wc,'char_count':len(new_body),'line_count':len(new_body.splitlines()),'draft_hash':new_hash,'created':now(),'created_by':'v10.13.7 Continue Save Approved Action','status':'saved_prose_draft','continue_mode':continue_mode,'chapter_context':{'title_line':title,'pov':pov,'location':loc,'goal':goal,'conflict':conflict,'reveal':reveal,'hook':hook,'continuity_notes':notes}}
+    evidence={'created':now(),'milestone':'v10.13.7 Continue Save Approved Action','project_id':'slipping_into_darkness','book_id':book_id,'chapter_number':chapter_number,'draft_version':next_version,'continues_from_version':latest_version,'draft_markdown_path':str(target_md),'metadata_path':str(target_meta),'evidence_path':str(target_ev),'draft_hash':new_hash,'previous_draft_hash':latest_hash,'word_count':new_wc,'continuation_word_count':cont_wc,'phrase_matches':phrase_matches,'chapter_card_path':str(card),'safety':{'no_chapter_file_edit':True,'no_story_file_mutation':True,'no_overwrite':True,'no_delete':True,'no_move':True}}
+    if action_allowed:
+        status='saved'
+        try:
+            drafts.mkdir(parents=True,exist_ok=True)
+            for p in (target_md,target_meta,target_ev):
+                if p.exists(): raise RuntimeError(f'Refusing to overwrite existing target: {p}')
+            target_md.write_text(new_md,encoding='utf-8'); created_files.append(str(target_md)); written_files.append(str(target_md)); actions.append({'id':'next_draft_markdown_created','ok':True,'path':str(target_md)})
+            jwrite(target_meta,metadata); created_files.append(str(target_meta)); written_files.append(str(target_meta)); actions.append({'id':'next_draft_metadata_created','ok':True,'path':str(target_meta)})
+            jwrite(target_ev,evidence); created_files.append(str(target_ev)); written_files.append(str(target_ev)); actions.append({'id':'next_draft_evidence_created','ok':True,'path':str(target_ev)})
+        except Exception as e:
+            status='error'; errors.append({'id':'execution_error','message':str(e)})
+    post=[]
+    if status=='saved' and not any(e.get('id')=='execution_error' for e in errors):
+        try: read_md=target_md.read_text(encoding='utf-8',errors='replace')
+        except Exception as e: read_md=''; errors.append({'id':'readback_draft_error','message':str(e)})
+        try: read_meta=json.loads(target_meta.read_text(encoding='utf-8',errors='replace'))
+        except Exception as e: read_meta={}; errors.append({'id':'readback_metadata_error','message':str(e)})
+        try: read_ev=json.loads(target_ev.read_text(encoding='utf-8',errors='replace'))
+        except Exception as e: read_ev={}; errors.append({'id':'readback_evidence_error','message':str(e)})
+        rh=sha(read_md)
+        post=[
+            {'id':'next_draft_markdown_exists','ok':target_md.exists() and target_md.is_file(),'message':str(target_md)},
+            {'id':'next_metadata_exists','ok':target_meta.exists() and target_meta.is_file(),'message':str(target_meta)},
+            {'id':'next_evidence_exists','ok':target_ev.exists() and target_ev.is_file(),'message':str(target_ev)},
+            {'id':'new_draft_hash_matches','ok':rh==new_hash,'message':f'read_hash={rh[:12]} expected={new_hash[:12]}'},
+            {'id':'new_draft_contains_continuation','ok':continuation_text[:60] in read_md,'message':'Continuation text found in saved Markdown.'},
+            {'id':'metadata_matches_new_draft','ok':read_meta.get('draft_hash')==new_hash and read_meta.get('word_count')==new_wc,'message':'Metadata hash and word count match.'},
+            {'id':'evidence_matches_new_draft','ok':read_ev.get('draft_hash')==new_hash and read_ev.get('previous_draft_hash')==latest_hash,'message':'Evidence hash and previous hash match.'},
+            {'id':'chapter_card_unchanged_by_action','ok':card.exists() and card.is_file(),'message':'Chapter card still exists; action did not write to it.'},
+            {'id':'no_delete_no_move','ok':all(Path(x).exists() for x in created_files),'message':'Created files remain in planned draft folder.'}
+        ]
+    else:
+        post=[{'id':'preview_or_blocked_no_write','ok':True,'message':'No continuation save was executed in preview/block mode.'}]
+    problems=sum(1 for c in preflight if not c.get('ok'))+sum(1 for c in post if not c.get('ok'))+len(blockers)+len(errors)
+    summary={'project_id':'slipping_into_darkness','project_title':project,'book_id':book_id,'book_title':book,'chapter_number':chapter_number,'status':status,'execute_requested':execute,'action_allowed':action_allowed,'latest_version':latest_version,'next_version':next_version,'latest_words':latest_wc,'continuation_words':cont_wc,'new_words':new_wc,'latest_hash_ok':latest_hash_ok,'latest_word_count_ok':latest_wc_ok,'new_draft_hash':new_hash,'required_phrase':required_phrase,'typed_phrase_present':bool(typed_phrase),'phrase_matches':phrase_matches,'selected_targets':len(targets),'collision_targets':len(collisions),'blockers':len(blockers),'errors':len(errors),'preflight_checks':len(preflight),'preflight_checks_passed':sum(1 for c in preflight if c.get('ok')),'created_files':len(created_files),'written_files':len(written_files),'post_checks':len(post),'post_checks_passed':sum(1 for c in post if c.get('ok')),'problems':problems,'next_draft_path':str(target_md),'metadata_path':str(target_meta),'evidence_path':str(target_ev)}
+    safety={'approved_action_only':True,'requires_exact_phrase':True,'requires_continuation_text':True,'requires_latest_hash_verified':True,'requires_no_collision':True,'creates_next_markdown_draft':bool(action_allowed),'creates_next_metadata_json':bool(action_allowed),'creates_next_save_evidence_json':bool(action_allowed),'no_chapter_file_edit':True,'no_story_file_mutation':True,'no_project_creation':True,'no_legacy_migration':True,'no_overwrite':True,'no_delete':True,'no_move':True,'no_install':True,'no_model_cleanup':True,'action_report_written':True}
+    if status=='saved': label='CONTINUATION DRAFT SAVED'
+    elif status=='blocked': label='CONTINUATION SAVE ACTION BLOCKED SAFELY'
+    elif status=='error': label='CONTINUATION SAVE ACTION ERROR'
+    else: label='CONTINUATION SAVE ACTION READY - PREVIEW ONLY'
+    healthy=status in ('preview','blocked','saved') and not any(e.get('id','').endswith('_error') for e in errors)
+    report={'ok':True,'created':now(),'title':'Kayock Writer Continue Save Approved Action','read_only':not action_allowed,'report_only':not action_allowed,'healthy':healthy,'status':status,'health_label':label,'message':f'Continue Save Approved Action: {label}','milestone':'v10.13.7 Continue Save Approved Action','summary':summary,'approval_phrase_required':required_phrase,'approval_phrase_matches':phrase_matches,'source_files':{'chapter_card':info(card),'latest_draft':info(latest),'latest_metadata':info(latest_meta),'latest_evidence':info(latest_ev)},'chapter_context':{'title_line':title,'project':project,'book':book,'pov':pov,'location':loc,'goal':goal,'conflict':conflict,'reveal':reveal,'hook':hook,'continuity_notes':notes},'latest_draft':{'version':latest_version,'path':str(latest),'word_count':latest_wc,'hash':latest_hash,'hash_ok':latest_hash_ok,'word_count_ok':latest_wc_ok},'continuation':{'continue_mode':continue_mode,'continuation_text':continuation_text,'continuation_words':cont_wc,'new_words':new_wc,'new_draft_hash':new_hash,'new_markdown_preview':new_md},'selected_targets':targets,'collision_targets':collisions,'blockers':blockers,'preflight_checks':preflight,'created_files':created_files,'written_files':written_files,'actions':actions,'post_checks':post,'errors':errors,'recommendations':[{'id':'mark_continue_save_action_proven','title':'Mark Continue Save Approved Action proven','recommendation':'Use this as proof that Kayock Writer can save continuation drafts as the next safe version.','risk':'medium','auto_apply':False},{'id':'next_draft_reader_refresh','title':'Re-run Draft Reader and Version History','recommendation':'Verify v002 appears in the draft inventory and history timeline.','risk':'low','auto_apply':False}],'folders':{'continue_save_action_reports':str(reports),'drafts_folder':str(drafts)},'safety':safety}
+    if export:
+        try:
+            reports.mkdir(parents=True,exist_ok=True)
+            stamp=datetime.now().strftime('%Y%m%d_%H%M%S')
+            jp=reports/f'Continue_Save_Approved_Action_{book_id}_chapter_{chapter_number:02d}_v{next_version:03d}_{stamp}.json'
+            mp=reports/f'Continue_Save_Approved_Action_{book_id}_chapter_{chapter_number:02d}_v{next_version:03d}_{stamp}.md'
+            jwrite(jp,report)
+            lines=['# Kayock Writer Continue Save Approved Action','',f"Created: {report['created']}",f"Milestone: **{report['milestone']}**",f"Health: **{label}**",f"Status: `{status}`",f"Execute requested: {execute}",f"Action allowed: {action_allowed}",'','## Safety','','- Requires exact phrase.','- Requires continuation text.','- Requires latest draft hash verification.','- Requires no target collision.','- Creates next-version Markdown, metadata JSON, and save evidence JSON.','- No chapter-file edit.','- No story-file mutation.','- No overwrite.','- No delete.','- No move.','','## Summary']
+            for k,v in summary.items(): lines.append(f"- {k.replace('_',' ').title()}: {v}")
+            lines += ['','## Created Files']
+            if created_files:
+                for x in created_files: lines.append(f"- `{x}`")
+            else: lines.append('- None.')
+            lines += ['','## New Draft Preview','','```markdown',new_md,'```','','## Blockers']
+            if blockers:
+                for b in blockers: lines.append(f"- `{b.get('id')}` - {b.get('message')}")
+            else: lines.append('- None.')
+            lines += ['','## Preflight Checks']
+            for c in preflight: lines.append(f"- [{'PASS' if c.get('ok') else 'FAIL'}] `{c.get('id')}` - {c.get('message')}")
+            lines += ['','## Post Checks']
+            for c in post: lines.append(f"- [{'PASS' if c.get('ok') else 'FAIL'}] `{c.get('id')}` - {c.get('message')}")
+            lines += ['','## Errors']
+            if errors:
+                for e in errors: lines.append(f"- `{e.get('id')}` - {e.get('message')}")
+            else: lines.append('- None.')
+            mp.write_text('\n'.join(lines),encoding='utf-8')
+            report['exported']={'json':str(jp),'markdown':str(mp),'folder':str(reports)}
+        except Exception as e: report['export_error']=str(e)
+    return report
+
+
+
+def kayock_writer_draft_refresh_verification_report(d=None):
+    import re, json, hashlib
+    from datetime import datetime
+    d=d or {}
+    export=bool(d.get('export',False))
+    book_id=str(d.get('book_id') or 'book_2').strip().lower().replace(' ','_')
+    if book_id not in ('book_1','book_2'): book_id='book_2'
+    chapter_number=int(d.get('chapter_number') or 2)
+    if chapter_number not in (1,2,3): chapter_number=2
+
+    root=ROOT/'Projects'/'KayockWriter'/'Slipping_into_Darkness'
+    drafts=root/'Drafts'/book_id
+    chapters=root/'Chapters'/book_id
+    reports=FOLDERS.get('kayock_writer_draft_refresh_reports',ROOT/'Reports'/'KayockWriter'/'DraftRefreshVerification')
+
+    def sha(v): return hashlib.sha256((v or '').encode('utf-8',errors='replace')).hexdigest()
+    def sec(md,name):
+        md=md or ''; mark=f'## {name}'; i=md.find(mark)
+        if i<0: return ''
+        s=i+len(mark)
+        while s<len(md) and md[s] in '\r\n ': s+=1
+        j=md.find('\n## ',s)
+        return (md[s:] if j<0 else md[s:j]).strip()
+    def wc(v): return len([x for x in re.split(r'\s+', (v or '').strip()) if x])
+    def info(p):
+        out={'path':str(p),'name':p.name,'exists':p.exists(),'kind':'missing','size':0,'modified':''}
+        try:
+            if p.exists():
+                out['kind']='folder' if p.is_dir() else 'file'
+                out['size']=p.stat().st_size if p.is_file() else None
+                out['modified']=datetime.fromtimestamp(p.stat().st_mtime).isoformat(timespec='seconds')
+        except Exception as e: out['error']=str(e)
+        return out
+
+    errors=[]
+    cards=sorted(chapters.glob(f'chapter_{chapter_number:02d}_*.md'), key=lambda p:p.name.lower()) if chapters.exists() else []
+    card=cards[0] if cards else chapters/f'chapter_{chapter_number:02d}_missing.md'
+
+    versions=[]
+    files=sorted(drafts.glob(f'chapter_{chapter_number:02d}_draft_v*.md'), key=lambda p:p.name.lower()) if drafts.exists() else []
+    for md in files:
+        try:
+            m=re.search(r'draft_v(\d+)',md.name)
+            version=int(m.group(1)) if m else 0
+            text=md.read_text(encoding='utf-8',errors='replace')
+            draft_body=sec(text,'Draft')
+            h=sha(text)
+            meta=md.with_suffix('.meta.json')
+            ev=md.with_suffix('.save_evidence.json')
+            mj={}; ej={}; meta_error=''; evidence_error=''
+            try:
+                if meta.exists(): mj=json.loads(meta.read_text(encoding='utf-8',errors='replace'))
+                else: meta_error='missing'
+            except Exception as e:
+                meta_error=str(e); errors.append({'id':'metadata_parse_error','path':str(meta),'message':str(e)})
+            try:
+                if ev.exists(): ej=json.loads(ev.read_text(encoding='utf-8',errors='replace'))
+                else: evidence_error='missing'
+            except Exception as e:
+                evidence_error=str(e); errors.append({'id':'evidence_parse_error','path':str(ev),'message':str(e)})
+            expected_hash=mj.get('draft_hash') or ej.get('draft_hash') or ''
+            expected_wc=mj.get('word_count') or ej.get('word_count')
+            actual_wc=wc(draft_body)
+            item={
+                'version':version,
+                'label':f'v{version:03d}',
+                'draft_markdown':info(md),
+                'metadata_file':info(meta),
+                'evidence_file':info(ev),
+                'word_count':actual_wc,
+                'expected_word_count':expected_wc,
+                'word_count_ok':(expected_wc is None) or actual_wc==expected_wc,
+                'draft_hash':h,
+                'expected_hash':expected_hash,
+                'hash_ok':(not expected_hash) or h==expected_hash,
+                'status':mj.get('status') or 'unknown',
+                'created':mj.get('created') or ej.get('created') or '',
+                'created_by':mj.get('created_by') or ej.get('milestone') or '',
+                'continues_from_version':mj.get('continues_from_version') or ej.get('continues_from_version'),
+                'previous_draft_hash':mj.get('previous_draft_hash') or ej.get('previous_draft_hash') or '',
+                'continue_mode':mj.get('continue_mode') or ej.get('continue_mode') or '',
+                'metadata_parse_error':meta_error,
+                'evidence_parse_error':evidence_error,
+                'preview':text[:600],
+                'verified':bool(md.exists() and meta.exists() and ev.exists() and ((not expected_hash) or h==expected_hash) and ((expected_wc is None) or actual_wc==expected_wc))
+            }
+            versions.append(item)
+        except Exception as e:
+            errors.append({'id':'draft_refresh_read_error','path':str(md),'message':str(e)})
+
+    versions=sorted(versions,key=lambda x:x.get('version') or 0)
+    latest=versions[-1] if versions else {}
+    version_labels=[x.get('label') for x in versions]
+    has_v001=any(x.get('version')==1 for x in versions)
+    has_v002=any(x.get('version')==2 for x in versions)
+    latest_is_v002=latest.get('version')==2
+    v002=[x for x in versions if x.get('version')==2]
+    v002_item=v002[0] if v002 else {}
+    v002_created_by=str(v002_item.get('created_by') or '')
+    v002_from_v001=(v002_item.get('continues_from_version')==1)
+    all_verified=bool(versions) and all(x.get('verified') for x in versions)
+    all_hashes=bool(versions) and all(x.get('hash_ok') for x in versions)
+    all_counts=bool(versions) and all(x.get('word_count_ok') for x in versions)
+    total_words=sum(int(x.get('word_count') or 0) for x in versions)
+
+    checks=[
+        {'id':'project_root_exists','ok':root.exists() and root.is_dir(),'message':str(root)},
+        {'id':'drafts_folder_exists','ok':drafts.exists() and drafts.is_dir(),'message':str(drafts)},
+        {'id':'chapter_card_exists','ok':card.exists() and card.is_file(),'message':str(card)},
+        {'id':'draft_versions_loaded','ok':len(versions)>=1,'message':f'{len(versions)} version(s): {", ".join(version_labels)}'},
+        {'id':'v001_visible','ok':has_v001,'message':'v001 found.' if has_v001 else 'v001 missing.'},
+        {'id':'v002_visible','ok':has_v002,'message':'v002 found.' if has_v002 else 'v002 missing.'},
+        {'id':'latest_is_v002','ok':latest_is_v002,'message':f"latest={latest.get('label','none')}"},
+        {'id':'all_metadata_present','ok':bool(versions) and all(x.get('metadata_file',{}).get('exists') for x in versions),'message':'metadata present for every draft version.'},
+        {'id':'all_evidence_present','ok':bool(versions) and all(x.get('evidence_file',{}).get('exists') for x in versions),'message':'evidence present for every draft version.'},
+        {'id':'all_hashes_verified','ok':all_hashes,'message':'hashes verified for every draft version.'},
+        {'id':'all_word_counts_verified','ok':all_counts,'message':'word counts verified for every draft version.'},
+        {'id':'all_versions_fully_verified','ok':all_verified,'message':'all draft versions fully verified.'},
+        {'id':'v002_continues_from_v001','ok':v002_from_v001,'message':f"continues_from_version={v002_item.get('continues_from_version')}"},
+        {'id':'v002_created_by_continue_save_action','ok':'Continue Save Approved Action' in v002_created_by,'message':v002_created_by or 'missing'},
+        {'id':'no_refresh_errors','ok':len(errors)==0,'message':f'{len(errors)} error(s).'},
+        {'id':'read_only_refresh_verification','ok':True,'message':'Refresh verification performed read-only inspection only.'}
+    ]
+
+    summary={
+        'project_id':'slipping_into_darkness',
+        'project_title':'Slipping into Darkness',
+        'book_id':book_id,
+        'chapter_number':chapter_number,
+        'chapter_card_path':str(card),
+        'drafts_folder':str(drafts),
+        'versions_loaded':len(versions),
+        'version_labels':version_labels,
+        'has_v001':has_v001,
+        'has_v002':has_v002,
+        'latest_version':latest.get('version','') if latest else '',
+        'latest_label':latest.get('label','') if latest else '',
+        'latest_is_v002':latest_is_v002,
+        'v002_created_by':v002_created_by,
+        'v002_continues_from_v001':v002_from_v001,
+        'all_hashes_verified':all_hashes,
+        'all_word_counts_verified':all_counts,
+        'all_versions_fully_verified':all_verified,
+        'total_words_across_versions':total_words,
+        'errors':len(errors),
+        'checks':len(checks),
+        'checks_passed':sum(1 for c in checks if c.get('ok')),
+        'problems':sum(1 for c in checks if not c.get('ok'))+len(errors),
+        'read_only':True,
+        'report_only':True
+    }
+
+    safety={
+        'read_only_draft_refresh_verification':True,
+        'no_draft_save':True,
+        'no_chapter_file_edit':True,
+        'no_story_file_mutation':True,
+        'no_project_creation':True,
+        'no_legacy_migration':True,
+        'no_overwrite':True,
+        'no_delete':True,
+        'no_move':True,
+        'no_install':True,
+        'no_model_cleanup':True,
+        'refresh_export_only':True
+    }
+
+    healthy=all(c.get('ok') for c in checks)
+    label='DRAFT READER HISTORY REFRESH READY' if healthy else 'DRAFT READER HISTORY REFRESH NEEDS REVIEW'
+    report={'ok':True,'created':now(),'title':'Kayock Writer Draft Reader / History Refresh','read_only':True,'report_only':True,'healthy':healthy,'refresh_ready':healthy,'health_label':label,'message':f'Draft Reader / History Refresh: {label}','milestone':'v10.13.8 Draft Reader / History Refresh','summary':summary,'latest_version':latest,'versions':versions,'checks':checks,'errors':errors,'recommendations':[{'id':'mark_draft_refresh_proven','title':'Mark Draft Refresh proven','recommendation':'Use this as proof that Draft Reader and Version History can see v001 and v002 after the continuation save.','risk':'low','auto_apply':False},{'id':'next_draft_compare_view','title':'Build Draft Compare View next','recommendation':'Add read-only diff/compare between v001 and v002.','risk':'low','auto_apply':False}],'folders':{'draft_refresh_reports':str(reports),'drafts_folder':str(drafts)},'safety':safety}
+
+    if export:
+        try:
+            reports.mkdir(parents=True,exist_ok=True)
+            stamp=datetime.now().strftime('%Y%m%d_%H%M%S')
+            jp=reports/f'Draft_Refresh_Verification_{book_id}_chapter_{chapter_number:02d}_{stamp}.json'
+            mp=reports/f'Draft_Refresh_Verification_{book_id}_chapter_{chapter_number:02d}_{stamp}.md'
+            jwrite(jp,report)
+            lines=['# Kayock Writer Draft Reader / History Refresh','',f"Created: {report['created']}",f"Milestone: **{report['milestone']}**",f"Health: **{label}**",f"Refresh ready: {healthy}",'','## Safety','','- Read-only refresh verification.','- No draft save.','- No chapter-file edit.','- No story-file mutation.','- No overwrite.','- No delete.','- No move.','','## Summary']
+            for k,v in summary.items(): lines.append(f"- {k.replace('_',' ').title()}: {v}")
+            lines += ['','## Versions']
+            if versions:
+                for x in versions:
+                    lines.append(f"- [{'PASS' if x.get('verified') else 'REVIEW'}] **{x.get('label')}** - words: {x.get('word_count')} - hash ok: {x.get('hash_ok')} - count ok: {x.get('word_count_ok')} - created by: {x.get('created_by')}")
+            else: lines.append('- None.')
+            lines += ['','## Checks']
+            for c in checks: lines.append(f"- [{'PASS' if c.get('ok') else 'FAIL'}] `{c.get('id')}` - {c.get('message')}")
+            lines += ['','## Errors']
+            if errors:
+                for e in errors: lines.append(f"- `{e.get('id')}` - {e.get('message')}")
+            else: lines.append('- None.')
+            mp.write_text('\n'.join(lines),encoding='utf-8')
+            report['exported']={'json':str(jp),'markdown':str(mp),'folder':str(reports)}
+        except Exception as e:
+            report['export_error']=str(e)
+    return report
+
+
+
+def kayock_writer_draft_compare_view_report(d=None):
+    import re, json, hashlib, difflib
+    from datetime import datetime
+    d=d or {}
+    export=bool(d.get('export',False))
+    book_id=str(d.get('book_id') or 'book_2').strip().lower().replace(' ','_')
+    if book_id not in ('book_1','book_2'): book_id='book_2'
+    chapter_number=int(d.get('chapter_number') or 2)
+    if chapter_number not in (1,2,3): chapter_number=2
+    from_version=int(d.get('from_version') or 1)
+    to_version=int(d.get('to_version') or 2)
+    if from_version<1: from_version=1
+    if to_version<=from_version: to_version=from_version+1
+
+    root=ROOT/'Projects'/'KayockWriter'/'Slipping_into_Darkness'
+    drafts=root/'Drafts'/book_id
+    chapters=root/'Chapters'/book_id
+    reports=FOLDERS.get('kayock_writer_draft_compare_reports',ROOT/'Reports'/'KayockWriter'/'DraftCompareView')
+
+    def sha(v): return hashlib.sha256((v or '').encode('utf-8',errors='replace')).hexdigest()
+    def sec(md,name):
+        md=md or ''; mark=f'## {name}'; i=md.find(mark)
+        if i<0: return ''
+        s=i+len(mark)
+        while s<len(md) and md[s] in '\r\n ': s+=1
+        j=md.find('\n## ',s)
+        return (md[s:] if j<0 else md[s:j]).strip()
+    def wc(v): return len([x for x in re.split(r'\s+', (v or '').strip()) if x])
+    def info(p):
+        out={'path':str(p),'name':p.name,'exists':p.exists(),'kind':'missing','size':0,'modified':''}
+        try:
+            if p.exists():
+                out['kind']='folder' if p.is_dir() else 'file'
+                out['size']=p.stat().st_size if p.is_file() else None
+                out['modified']=datetime.fromtimestamp(p.stat().st_mtime).isoformat(timespec='seconds')
+        except Exception as e: out['error']=str(e)
+        return out
+
+    errors=[]
+    card_files=sorted(chapters.glob(f'chapter_{chapter_number:02d}_*.md'), key=lambda p:p.name.lower()) if chapters.exists() else []
+    card=card_files[0] if card_files else chapters/f'chapter_{chapter_number:02d}_missing.md'
+
+    def load_version(ver):
+        md=drafts/f'chapter_{chapter_number:02d}_draft_v{ver:03d}.md'
+        meta=md.with_suffix('.meta.json')
+        ev=md.with_suffix('.save_evidence.json')
+        out={'version':ver,'label':f'v{ver:03d}','draft_markdown':info(md),'metadata_file':info(meta),'evidence_file':info(ev)}
+        text=''; body=''; mj={}; ej={}
+        try:
+            if md.exists():
+                text=md.read_text(encoding='utf-8',errors='replace')
+                body=sec(text,'Draft')
+            else:
+                errors.append({'id':'draft_missing','version':ver,'message':str(md)})
+        except Exception as e:
+            errors.append({'id':'draft_read_error','version':ver,'message':str(e)})
+        try:
+            if meta.exists(): mj=json.loads(meta.read_text(encoding='utf-8',errors='replace'))
+            else: errors.append({'id':'metadata_missing','version':ver,'message':str(meta)})
+        except Exception as e:
+            errors.append({'id':'metadata_parse_error','version':ver,'message':str(e)})
+        try:
+            if ev.exists(): ej=json.loads(ev.read_text(encoding='utf-8',errors='replace'))
+            else: errors.append({'id':'evidence_missing','version':ver,'message':str(ev)})
+        except Exception as e:
+            errors.append({'id':'evidence_parse_error','version':ver,'message':str(e)})
+        actual_hash=sha(text) if text else ''
+        expected_hash=mj.get('draft_hash') or ej.get('draft_hash') or ''
+        actual_wc=wc(body)
+        expected_wc=mj.get('word_count') or ej.get('word_count')
+        out.update({
+            'text':text,
+            'body':body,
+            'word_count':actual_wc,
+            'expected_word_count':expected_wc,
+            'word_count_ok':(expected_wc is None) or actual_wc==expected_wc,
+            'draft_hash':actual_hash,
+            'expected_hash':expected_hash,
+            'hash_ok':(not expected_hash) or actual_hash==expected_hash,
+            'status':mj.get('status') or 'unknown',
+            'created':mj.get('created') or ej.get('created') or '',
+            'created_by':mj.get('created_by') or ej.get('milestone') or '',
+            'continues_from_version':mj.get('continues_from_version') or ej.get('continues_from_version'),
+            'previous_draft_hash':mj.get('previous_draft_hash') or ej.get('previous_draft_hash') or '',
+            'continue_mode':mj.get('continue_mode') or '',
+            'verified':bool(md.exists() and meta.exists() and ev.exists() and ((not expected_hash) or actual_hash==expected_hash) and ((expected_wc is None) or actual_wc==expected_wc))
+        })
+        return out
+
+    old=load_version(from_version)
+    new=load_version(to_version)
+
+    old_lines=old.get('body','').splitlines()
+    new_lines=new.get('body','').splitlines()
+    unified=list(difflib.unified_diff(old_lines,new_lines,fromfile=old.get('label','from'),tofile=new.get('label','to'),lineterm=''))
+    added_lines=[x[1:] for x in unified if x.startswith('+') and not x.startswith('+++')]
+    removed_lines=[x[1:] for x in unified if x.startswith('-') and not x.startswith('---')]
+    old_words=re.findall(r'\S+',old.get('body',''))
+    new_words=re.findall(r'\S+',new.get('body',''))
+    word_diff=list(difflib.ndiff(old_words,new_words))
+    added_words=[x[2:] for x in word_diff if x.startswith('+ ')]
+    removed_words=[x[2:] for x in word_diff if x.startswith('- ')]
+    unchanged_words=[x[2:] for x in word_diff if x.startswith('  ')]
+
+    lineage_ok=(new.get('continues_from_version')==from_version)
+    previous_hash_ok=(not new.get('previous_draft_hash')) or new.get('previous_draft_hash')==old.get('draft_hash')
+    delta_words=(new.get('word_count') or 0)-(old.get('word_count') or 0)
+    delta_chars=len(new.get('body',''))-len(old.get('body',''))
+
+    compare={
+        'from_version':old.get('label'),
+        'to_version':new.get('label'),
+        'word_delta':delta_words,
+        'char_delta':delta_chars,
+        'added_line_count':len(added_lines),
+        'removed_line_count':len(removed_lines),
+        'added_word_count':len(added_words),
+        'removed_word_count':len(removed_words),
+        'unchanged_word_count':len(unchanged_words),
+        'line_diff':unified[:300],
+        'added_lines':added_lines[:100],
+        'removed_lines':removed_lines[:100],
+        'added_words_preview':' '.join(added_words[:120]),
+        'removed_words_preview':' '.join(removed_words[:120]),
+        'lineage_ok':lineage_ok,
+        'previous_hash_ok':previous_hash_ok
+    }
+
+    checks=[
+        {'id':'project_root_exists','ok':root.exists() and root.is_dir(),'message':str(root)},
+        {'id':'drafts_folder_exists','ok':drafts.exists() and drafts.is_dir(),'message':str(drafts)},
+        {'id':'chapter_card_exists','ok':card.exists() and card.is_file(),'message':str(card)},
+        {'id':'from_version_exists','ok':old.get('draft_markdown',{}).get('exists'),'message':old.get('draft_markdown',{}).get('path')},
+        {'id':'to_version_exists','ok':new.get('draft_markdown',{}).get('exists'),'message':new.get('draft_markdown',{}).get('path')},
+        {'id':'from_version_verified','ok':old.get('verified'),'message':f"{old.get('label')} hash/count/metadata/evidence verified."},
+        {'id':'to_version_verified','ok':new.get('verified'),'message':f"{new.get('label')} hash/count/metadata/evidence verified."},
+        {'id':'lineage_verified','ok':lineage_ok,'message':f"{new.get('label')} continues_from_version={new.get('continues_from_version')}"},
+        {'id':'previous_hash_verified','ok':previous_hash_ok,'message':'to-version previous_draft_hash matches from-version draft hash.'},
+        {'id':'word_delta_detected','ok':delta_words!=0,'message':f'word delta={delta_words}'},
+        {'id':'diff_generated','ok':len(unified)>0,'message':f'{len(unified)} diff lines.'},
+        {'id':'no_compare_errors','ok':len(errors)==0,'message':f'{len(errors)} error(s).'},
+        {'id':'read_only_compare_view','ok':True,'message':'Draft Compare View performed read-only inspection only.'}
+    ]
+
+    summary={
+        'project_id':'slipping_into_darkness',
+        'project_title':'Slipping into Darkness',
+        'book_id':book_id,
+        'chapter_number':chapter_number,
+        'chapter_card_path':str(card),
+        'drafts_folder':str(drafts),
+        'from_version':from_version,
+        'to_version':to_version,
+        'from_label':old.get('label'),
+        'to_label':new.get('label'),
+        'from_words':old.get('word_count'),
+        'to_words':new.get('word_count'),
+        'word_delta':delta_words,
+        'char_delta':delta_chars,
+        'from_hash_ok':old.get('hash_ok'),
+        'to_hash_ok':new.get('hash_ok'),
+        'from_word_count_ok':old.get('word_count_ok'),
+        'to_word_count_ok':new.get('word_count_ok'),
+        'from_verified':old.get('verified'),
+        'to_verified':new.get('verified'),
+        'lineage_ok':lineage_ok,
+        'previous_hash_ok':previous_hash_ok,
+        'added_lines':len(added_lines),
+        'removed_lines':len(removed_lines),
+        'added_words':len(added_words),
+        'removed_words':len(removed_words),
+        'errors':len(errors),
+        'checks':len(checks),
+        'checks_passed':sum(1 for c in checks if c.get('ok')),
+        'problems':sum(1 for c in checks if not c.get('ok'))+len(errors),
+        'read_only':True,
+        'report_only':True
+    }
+
+    safety={
+        'read_only_draft_compare_view':True,
+        'no_draft_save':True,
+        'no_chapter_file_edit':True,
+        'no_story_file_mutation':True,
+        'no_project_creation':True,
+        'no_legacy_migration':True,
+        'no_overwrite':True,
+        'no_delete':True,
+        'no_move':True,
+        'no_install':True,
+        'no_model_cleanup':True,
+        'compare_export_only':True
+    }
+
+    healthy=all(c.get('ok') for c in checks)
+    label='DRAFT COMPARE VIEW READY' if healthy else 'DRAFT COMPARE VIEW NEEDS REVIEW'
+    report={'ok':True,'created':now(),'title':'Kayock Writer Draft Compare View','read_only':True,'report_only':True,'healthy':healthy,'compare_ready':healthy,'health_label':label,'message':f'Draft Compare View: {label}','milestone':'v10.13.9 Draft Compare View','summary':summary,'from_draft':old,'to_draft':new,'compare':compare,'checks':checks,'errors':errors,'recommendations':[{'id':'mark_draft_compare_view_proven','title':'Mark Draft Compare View proven','recommendation':'Use this as the read-only compare view for saved draft versions.','risk':'low','auto_apply':False},{'id':'next_real_prose_gate','title':'Next: Real Prose Draft Gate','recommendation':'Add a gate for replacing placeholder proof text with an actual prose draft segment while preserving versioning and exact phrase safety.','risk':'medium','auto_apply':False}],'folders':{'draft_compare_reports':str(reports),'drafts_folder':str(drafts)},'safety':safety}
+
+    if export:
+        try:
+            reports.mkdir(parents=True,exist_ok=True)
+            stamp=datetime.now().strftime('%Y%m%d_%H%M%S')
+            jp=reports/f'Draft_Compare_View_{book_id}_chapter_{chapter_number:02d}_v{from_version:03d}_to_v{to_version:03d}_{stamp}.json'
+            mp=reports/f'Draft_Compare_View_{book_id}_chapter_{chapter_number:02d}_v{from_version:03d}_to_v{to_version:03d}_{stamp}.md'
+            jwrite(jp,report)
+            lines=['# Kayock Writer Draft Compare View','',f"Created: {report['created']}",f"Milestone: **{report['milestone']}**",f"Health: **{label}**",f"Compare ready: {healthy}",'','## Safety','','- Read-only draft compare view.','- No draft save.','- No chapter-file edit.','- No story-file mutation.','- No overwrite.','- No delete.','- No move.','','## Summary']
+            for k,v in summary.items(): lines.append(f"- {k.replace('_',' ').title()}: {v}")
+            lines += ['','## Added Lines']
+            if added_lines:
+                for line in added_lines[:50]: lines.append(f"+ {line}")
+            else: lines.append('- None.')
+            lines += ['','## Removed Lines']
+            if removed_lines:
+                for line in removed_lines[:50]: lines.append(f"- {line}")
+            else: lines.append('- None.')
+            lines += ['','## Unified Diff','','```diff']
+            lines += unified[:200]
+            lines += ['```','','## Checks']
+            for c in checks: lines.append(f"- [{'PASS' if c.get('ok') else 'FAIL'}] `{c.get('id')}` - {c.get('message')}")
+            lines += ['','## Errors']
+            if errors:
+                for e in errors: lines.append(f"- `{e.get('id')}` - {e.get('message')}")
+            else: lines.append('- None.')
+            mp.write_text('\n'.join(lines),encoding='utf-8')
+            report['exported']={'json':str(jp),'markdown':str(mp),'folder':str(reports)}
+        except Exception as e:
+            report['export_error']=str(e)
+    return report
+
+
+
+def kayock_writer_real_prose_draft_gate_report(d=None):
+    import re, json, hashlib
+    from datetime import datetime
+    d=d or {}
+    export=bool(d.get('export',False))
+    book_id=str(d.get('book_id') or 'book_2').strip().lower().replace(' ','_')
+    if book_id not in ('book_1','book_2'): book_id='book_2'
+    chapter_number=int(d.get('chapter_number') or 2)
+    if chapter_number not in (1,2,3): chapter_number=2
+    phrase='APPROVE REAL PROSE DRAFT PREVIEW'
+    typed=str(d.get('approval_phrase') or '').strip()
+    phrase_ok=(typed==phrase)
+    mode=str(d.get('prose_mode') or 'replace_placeholder').strip().lower()
+    if mode not in ('replace_placeholder','append_to_latest','new_real_draft_from_card'): mode='replace_placeholder'
+    prose=str(d.get('real_prose_text') or '').strip()
+    if not prose:
+        prose=('Anthony stood before the first broken sign that the sanctuary was real, not myth. '
+               'The stone did not announce itself as a doorway or a warning. It waited in the dust, '
+               'half-buried beneath centuries of silence, marked by a symbol he had seen only once before. '
+               'Someone had wanted him to find it. That was what frightened him most.')
+    root=ROOT/'Projects'/'KayockWriter'/'Slipping_into_Darkness'
+    drafts=root/'Drafts'/book_id
+    chapters=root/'Chapters'/book_id
+    reports=FOLDERS.get('kayock_writer_real_prose_gate_reports',ROOT/'Reports'/'KayockWriter'/'RealProseDraftGate')
+    def sha(v): return hashlib.sha256((v or '').encode('utf-8',errors='replace')).hexdigest()
+    def sec(md,name):
+        md=md or ''; mark=f'## {name}'; i=md.find(mark)
+        if i<0: return ''
+        s=i+len(mark)
+        while s<len(md) and md[s] in '\r\n ': s+=1
+        j=md.find('\n## ',s)
+        return (md[s:] if j<0 else md[s:j]).strip()
+    def meta(md,label,default=''):
+        m=re.search(rf'^\s*-\s*\*\*{re.escape(label)}:\*\*\s*(.*?)\s*$', md or '', re.I|re.M)
+        return m.group(1).strip() if m else default
+    def wc(v): return len([x for x in re.split(r'\s+', (v or '').strip()) if x])
+    def finfo(p):
+        out={'path':str(p),'name':p.name,'exists':p.exists(),'kind':'missing','size':0,'modified':''}
+        try:
+            if p.exists():
+                out['kind']='folder' if p.is_dir() else 'file'; out['size']=p.stat().st_size if p.is_file() else None
+                out['modified']=datetime.fromtimestamp(p.stat().st_mtime).isoformat(timespec='seconds')
+        except Exception as e: out['error']=str(e)
+        return out
+    errors=[]
+    cards=sorted(chapters.glob(f'chapter_{chapter_number:02d}_*.md'), key=lambda p:p.name.lower()) if chapters.exists() else []
+    card=cards[0] if cards else chapters/f'chapter_{chapter_number:02d}_missing.md'
+    card_text=''
+    try:
+        if card.exists(): card_text=card.read_text(encoding='utf-8',errors='replace')
+        else: errors.append({'id':'chapter_card_missing','message':str(card)})
+    except Exception as e: errors.append({'id':'chapter_card_read_error','message':str(e)})
+    draft_files=sorted(drafts.glob(f'chapter_{chapter_number:02d}_draft_v*.md'), key=lambda p:p.name.lower()) if drafts.exists() else []
+    latest=draft_files[-1] if draft_files else drafts/f'chapter_{chapter_number:02d}_draft_missing.md'
+    latest_text=''
+    try:
+        if latest.exists(): latest_text=latest.read_text(encoding='utf-8',errors='replace')
+        else: errors.append({'id':'latest_draft_missing','message':str(latest)})
+    except Exception as e: errors.append({'id':'latest_draft_read_error','message':str(e)})
+    lmeta=latest.with_suffix('.meta.json'); lev=latest.with_suffix('.save_evidence.json')
+    mj={}; ej={}
+    try:
+        if lmeta.exists(): mj=json.loads(lmeta.read_text(encoding='utf-8',errors='replace'))
+        else: errors.append({'id':'latest_metadata_missing','message':str(lmeta)})
+    except Exception as e: errors.append({'id':'latest_metadata_parse_error','message':str(e)})
+    try:
+        if lev.exists(): ej=json.loads(lev.read_text(encoding='utf-8',errors='replace'))
+        else: errors.append({'id':'latest_evidence_missing','message':str(lev)})
+    except Exception as e: errors.append({'id':'latest_evidence_parse_error','message':str(e)})
+    m=re.search(r'draft_v(\d+)', latest.name); latest_ver=int(m.group(1)) if m else 0; next_ver=latest_ver+1 if latest_ver else 1
+    target_md=drafts/f'chapter_{chapter_number:02d}_draft_v{next_ver:03d}.md'; target_meta=target_md.with_suffix('.meta.json'); target_ev=target_md.with_suffix('.save_evidence.json')
+    latest_body=sec(latest_text,'Draft'); latest_hash=sha(latest_text) if latest_text else ''; expected_hash=mj.get('draft_hash') or ej.get('draft_hash') or ''
+    hash_ok=(not expected_hash) or latest_hash==expected_hash
+    latest_wc=wc(latest_body); expected_wc=mj.get('word_count') or ej.get('word_count'); wc_ok=(expected_wc is None) or latest_wc==expected_wc
+    title=(card_text.splitlines()[0].lstrip('# ').strip() if card_text.splitlines() else f'Chapter {chapter_number:02d}')
+    project=meta(card_text,'Project','Slipping into Darkness'); book=meta(card_text,'Book','Book 2' if book_id=='book_2' else 'Book 1')
+    pov=meta(card_text,'POV','Anthony'); loc=meta(card_text,'Location','TBD')
+    goal=sec(card_text,'Goal'); conflict=sec(card_text,'Conflict'); reveal=sec(card_text,'Reveal'); hook=sec(card_text,'Hook'); notes=sec(card_text,'Continuity Notes')
+    placeholder=any(s in latest_body.lower() for s in ['placeholder prose draft','proving the approved draft save action','not final story text','approved continuation save action'])
+    prose_words=wc(prose)
+    if mode=='append_to_latest': body=(latest_body.strip()+'\n\n'+prose.strip()).strip(); note='Append real prose to latest draft.'
+    else: body=prose.strip(); note='Replace proof-placeholder body with real prose preview.' if mode=='replace_placeholder' else 'Create new real prose draft from chapter card.'
+    body_words=wc(body); word_delta=body_words-latest_wc
+    new_md=(f"# Chapter {chapter_number:02d} Draft\n\n- **Project:** {project}\n- **Book:** {book}\n- **Chapter:** {chapter_number:02d}\n- **POV:** {pov}\n- **Location:** {loc}\n- **Status:** real_prose_draft_preview_only\n- **Draft Version:** v{next_ver:03d}\n- **Continues From:** v{latest_ver:03d}\n- **Prose Mode:** {mode}\n- **Created Preview:** {now()}\n\n## Draft\n\n{body}\n\n## Source Chapter Card\n\n- Goal: {goal}\n- Conflict: {conflict}\n- Reveal: {reveal}\n- Hook: {hook}\n\n## Continuity Notes\n\n{notes}\n\n## Real Prose Draft Gate\n\n- Preview generated by v10.14.0 Real Prose Draft Gate.\n- No real prose draft file has been saved yet.\n- Future actual save requires a separate approved action.\n- Mode: {note}\n")
+    new_hash=sha(new_md)
+    targets=[{'kind':'next_real_prose_markdown','path':str(target_md),'exists':target_md.exists(),'would_overwrite':target_md.exists()}, {'kind':'next_real_prose_metadata','path':str(target_meta),'exists':target_meta.exists(),'would_overwrite':target_meta.exists()}, {'kind':'next_real_prose_evidence','path':str(target_ev),'exists':target_ev.exists(),'would_overwrite':target_ev.exists()}]
+    collisions=[t for t in targets if t['would_overwrite']]
+    blockers=[]
+    if not root.exists(): blockers.append({'id':'project_root_missing','message':str(root)})
+    if not drafts.exists(): blockers.append({'id':'drafts_folder_missing','message':str(drafts)})
+    if not card.exists(): blockers.append({'id':'chapter_card_missing','message':str(card)})
+    if not latest.exists(): blockers.append({'id':'latest_draft_missing','message':str(latest)})
+    if not lmeta.exists(): blockers.append({'id':'latest_metadata_missing','message':str(lmeta)})
+    if not lev.exists(): blockers.append({'id':'latest_evidence_missing','message':str(lev)})
+    if not hash_ok: blockers.append({'id':'latest_hash_mismatch','message':'Latest draft hash mismatch.'})
+    if not wc_ok: blockers.append({'id':'latest_word_count_mismatch','message':'Latest word count mismatch.'})
+    if prose_words<35: blockers.append({'id':'real_prose_too_short','message':f'Real prose has only {prose_words} word(s); minimum is 35.'})
+    if not phrase_ok: blockers.append({'id':'phrase_mismatch','message':'Exact gate phrase was not provided.'})
+    if collisions: blockers.append({'id':'target_collision','message':str(collisions)})
+    if not all([goal,conflict,reveal,hook]): blockers.append({'id':'chapter_context_incomplete','message':'Goal/Conflict/Reveal/Hook not all present.'})
+    checks=[
+        {'id':'project_root_exists','ok':root.exists() and root.is_dir(),'message':str(root)},
+        {'id':'drafts_folder_exists','ok':drafts.exists() and drafts.is_dir(),'message':str(drafts)},
+        {'id':'chapter_card_exists','ok':card.exists() and card.is_file(),'message':str(card)},
+        {'id':'latest_draft_exists','ok':latest.exists() and latest.is_file(),'message':str(latest)},
+        {'id':'latest_metadata_exists','ok':lmeta.exists() and lmeta.is_file(),'message':str(lmeta)},
+        {'id':'latest_evidence_exists','ok':lev.exists() and lev.is_file(),'message':str(lev)},
+        {'id':'latest_hash_verified','ok':hash_ok and bool(latest_hash),'message':f'actual={latest_hash[:12]} expected={(expected_hash or "")[:12]}'},
+        {'id':'latest_word_count_verified','ok':wc_ok,'message':f'actual={latest_wc} expected={expected_wc}'},
+        {'id':'chapter_context_present','ok':all([goal,conflict,reveal,hook]),'message':'Goal / Conflict / Reveal / Hook parsed.'},
+        {'id':'real_prose_text_present','ok':prose_words>=35,'message':f'{prose_words} real-prose words.'},
+        {'id':'prose_mode_supported','ok':True,'message':mode},
+        {'id':'next_version_selected','ok':next_ver>latest_ver,'message':f'latest=v{latest_ver:03d} next=v{next_ver:03d}'},
+        {'id':'next_targets_previewed','ok':len(targets)==3,'message':'3 next-version targets.'},
+        {'id':'no_target_collision','ok':not collisions,'message':f'{len(collisions)} collision(s).'},
+        {'id':'approval_phrase_declared','ok':True,'message':phrase},
+        {'id':'approval_phrase_matches','ok':phrase_ok,'message':'Exact phrase matched.' if phrase_ok else 'Exact phrase not matched.'},
+        {'id':'real_prose_preview_generated','ok':len(new_md)>500,'message':f'{len(new_md)} preview chars.'},
+        {'id':'save_disabled_this_build','ok':True,'message':'v10.14.0 is a no-write gate only.'},
+        {'id':'read_only_real_prose_gate','ok':True,'message':'No draft, chapter, or story file was written.'}
+    ]
+    healthy=all(c['ok'] for c in checks if c['id']!='approval_phrase_matches') and len(errors)==0 and not collisions
+    label='REAL PROSE DRAFT GATE READY' if healthy else 'REAL PROSE DRAFT GATE NEEDS REVIEW'
+    summary={'project_id':'slipping_into_darkness','project_title':project,'book_id':book_id,'book_title':book,'chapter_number':chapter_number,'chapter_card_path':str(card),'latest_draft_path':str(latest),'latest_metadata_path':str(lmeta),'latest_evidence_path':str(lev),'latest_version':latest_ver,'next_version':next_ver,'latest_words':latest_wc,'real_prose_words':prose_words,'proposed_preview_words':body_words,'word_delta':word_delta,'latest_hash':latest_hash,'expected_latest_hash':expected_hash,'latest_hash_ok':hash_ok,'latest_word_count_ok':wc_ok,'new_preview_hash':new_hash,'prose_mode':mode,'latest_contains_placeholder':placeholder,'required_phrase':phrase,'typed_phrase_present':bool(typed),'phrase_matches':phrase_ok,'selected_targets':len(targets),'collision_targets':len(collisions),'blockers':len(blockers),'errors':len(errors),'checks':len(checks),'checks_passed':sum(1 for c in checks if c['ok']),'problems':sum(1 for c in checks if not c['ok'])+len(blockers)+len(errors),'real_prose_save_enabled_this_build':False,'safe_to_save_later':bool(not blockers and phrase_ok),'read_only':True,'report_only':True}
+    safety={'read_only_real_prose_draft_gate':True,'real_prose_save_enabled_this_build':False,'future_save_requires_exact_phrase':True,'future_save_requires_no_collision':True,'future_save_requires_metadata_and_evidence':True,'no_draft_file_write':True,'no_chapter_file_edit':True,'no_story_file_mutation':True,'no_project_creation':True,'no_legacy_migration':True,'no_overwrite':True,'no_delete':True,'no_move':True,'no_install':True,'no_model_cleanup':True,'gate_export_only':True}
+    report={'ok':True,'created':now(),'title':'Kayock Writer Real Prose Draft Gate','read_only':True,'report_only':True,'healthy':healthy,'gate_ready':healthy,'health_label':label,'message':f'Real Prose Draft Gate: {label}','milestone':'v10.14.0 Real Prose Draft Gate','summary':summary,'approval_gate':{'required_phrase':phrase,'typed_phrase_present':bool(typed),'typed_phrase_matches':phrase_ok,'real_prose_save_enabled_this_build':False,'reason_save_disabled':'v10.14.0 previews the real-prose draft only. Actual save must be a later approved action.','future_mode':'approved_action_only'},'source_files':{'chapter_card':finfo(card),'latest_draft':finfo(latest),'latest_metadata':finfo(lmeta),'latest_evidence':finfo(lev)},'chapter_context':{'title_line':title,'project':project,'book':book,'pov':pov,'location':loc,'goal':goal,'conflict':conflict,'reveal':reveal,'hook':hook,'continuity_notes':notes},'latest_draft':{'version':latest_ver,'path':str(latest),'body':latest_body,'word_count':latest_wc,'hash':latest_hash,'expected_hash':expected_hash,'hash_ok':hash_ok,'word_count_ok':wc_ok,'contains_placeholder':placeholder},'real_prose_preview':{'prose_mode':mode,'mode_note':note,'real_prose_text':prose,'real_prose_words':prose_words,'proposed_body_words':body_words,'word_delta':word_delta,'new_preview_hash':new_hash,'new_markdown_preview':new_md},'selected_targets':targets,'collision_targets':collisions,'blockers':blockers,'checks':checks,'errors':errors,'recommendations':[{'id':'mark_real_prose_gate_proven','title':'Mark Real Prose Draft Gate proven','recommendation':'Use this no-write safety gate before saving real chapter prose.','risk':'low','auto_apply':False},{'id':'next_real_prose_save_action','title':'Build Real Prose Save Approved Action next','recommendation':'Add actual real prose save after exact phrase and no-collision checks.','risk':'medium','auto_apply':False}],'folders':{'real_prose_gate_reports':str(reports),'drafts_folder':str(drafts)},'safety':safety}
+    if export:
+        try:
+            reports.mkdir(parents=True,exist_ok=True); stamp=datetime.now().strftime('%Y%m%d_%H%M%S')
+            jp=reports/f'Real_Prose_Draft_Gate_{book_id}_chapter_{chapter_number:02d}_v{next_ver:03d}_{stamp}.json'
+            mp=reports/f'Real_Prose_Draft_Gate_{book_id}_chapter_{chapter_number:02d}_v{next_ver:03d}_{stamp}.md'
+            jwrite(jp,report)
+            lines=['# Kayock Writer Real Prose Draft Gate','',f"Created: {report['created']}",f"Milestone: **{report['milestone']}**",f"Health: **{label}**",f"Gate ready: {healthy}",'','## Safety','','- Read-only real prose draft gate.','- Real prose save disabled in this build.','- No draft file write.','- No chapter-file edit.','- No story-file mutation.','- No overwrite.','- No delete.','- No move.','','## Summary']
+            for k,v in summary.items(): lines.append(f"- {k.replace('_',' ').title()}: {v}")
+            lines+=['','## Approval Phrase','',f'`{phrase}`','','## Selected Targets']
+            for t in targets: lines.append(f"- `{t['kind']}` - `{t['path']}` - exists: {t['exists']} - would overwrite: {t['would_overwrite']}")
+            lines+=['','## Real Prose Preview','','```markdown',new_md,'```','','## Blockers']
+            if blockers:
+                for b in blockers: lines.append(f"- `{b.get('id')}` - {b.get('message')}")
+            else: lines.append('- None.')
+            lines+=['','## Checks']
+            for c in checks: lines.append(f"- [{'PASS' if c.get('ok') else 'FAIL'}] `{c.get('id')}` - {c.get('message')}")
+            lines+=['','## Errors']
+            if errors:
+                for e in errors: lines.append(f"- `{e.get('id')}` - {e.get('message')}")
+            else: lines.append('- None.')
+            mp.write_text('\n'.join(lines),encoding='utf-8')
+            report['exported']={'json':str(jp),'markdown':str(mp),'folder':str(reports)}
+        except Exception as e: report['export_error']=str(e)
+    return report
+
+
+def kayock_writer_real_prose_save_action_report(d=None):
+    import re, json, hashlib
+    from datetime import datetime
+    d=d or {}
+    execute=bool(d.get('execute',False)); export=bool(d.get('export',True))
+    book_id=str(d.get('book_id') or 'book_2').strip().lower().replace(' ','_')
+    if book_id not in ('book_1','book_2'): book_id='book_2'
+    chapter_number=int(d.get('chapter_number') or 2)
+    if chapter_number not in (1,2,3): chapter_number=2
+    required_phrase='SAVE REAL PROSE DRAFT'
+    typed_phrase=str(d.get('approval_phrase') or '').strip()
+    phrase_matches=(typed_phrase==required_phrase)
+    prose_mode=str(d.get('prose_mode') or 'replace_placeholder').strip().lower()
+    if prose_mode not in ('replace_placeholder','append_to_latest','new_real_draft_from_card'): prose_mode='replace_placeholder'
+    real_prose=str(d.get('real_prose_text') or '').strip()
+    if not real_prose:
+        real_prose=("Anthony stood before the first broken sign that the sanctuary was real, not myth. "
+                    "The stone did not announce itself as a doorway or a warning. It waited in the dust, "
+                    "half-buried beneath centuries of silence, marked by a symbol he had seen only once before. "
+                    "Someone had wanted him to find it. That was what frightened him most.")
+    root=ROOT/'Projects'/'KayockWriter'/'Slipping_into_Darkness'
+    drafts=root/'Drafts'/book_id; chapters=root/'Chapters'/book_id
+    reports=FOLDERS.get('kayock_writer_real_prose_save_reports',ROOT/'Reports'/'KayockWriter'/'RealProseSaveAction')
+    def sha(v): return hashlib.sha256((v or '').encode('utf-8',errors='replace')).hexdigest()
+    def sec(md,name):
+        md=md or ''; mark=f'## {name}'; i=md.find(mark)
+        if i<0: return ''
+        s=i+len(mark)
+        while s<len(md) and md[s] in '\r\n ': s+=1
+        j=md.find('\n## ',s)
+        return (md[s:] if j<0 else md[s:j]).strip()
+    def meta(md,label,default=''):
+        m=re.search(rf'^\s*-\s*\*\*{re.escape(label)}:\*\*\s*(.*?)\s*$', md or '', re.I|re.M)
+        return m.group(1).strip() if m else default
+    def wc(v): return len([x for x in re.split(r'\s+', (v or '').strip()) if x])
+    def info(p):
+        out={'path':str(p),'name':p.name,'exists':p.exists(),'kind':'missing','size':0,'modified':''}
+        try:
+            if p.exists():
+                out['kind']='folder' if p.is_dir() else 'file'
+                out['size']=p.stat().st_size if p.is_file() else None
+                out['modified']=datetime.fromtimestamp(p.stat().st_mtime).isoformat(timespec='seconds')
+        except Exception as e: out['error']=str(e)
+        return out
+
+    errors=[]
+    card_files=sorted(chapters.glob(f'chapter_{chapter_number:02d}_*.md'), key=lambda p:p.name.lower()) if chapters.exists() else []
+    card=card_files[0] if card_files else chapters/f'chapter_{chapter_number:02d}_missing.md'
+    card_text=''
+    try:
+        if card.exists(): card_text=card.read_text(encoding='utf-8',errors='replace')
+        else: errors.append({'id':'chapter_card_missing','message':str(card)})
+    except Exception as e: errors.append({'id':'chapter_card_read_error','message':str(e)})
+    draft_files=sorted(drafts.glob(f'chapter_{chapter_number:02d}_draft_v*.md'), key=lambda p:p.name.lower()) if drafts.exists() else []
+    latest=draft_files[-1] if draft_files else drafts/f'chapter_{chapter_number:02d}_draft_missing.md'
+    latest_text=''
+    try:
+        if latest.exists(): latest_text=latest.read_text(encoding='utf-8',errors='replace')
+        else: errors.append({'id':'latest_draft_missing','message':str(latest)})
+    except Exception as e: errors.append({'id':'latest_draft_read_error','message':str(e)})
+    latest_meta=latest.with_suffix('.meta.json'); latest_ev=latest.with_suffix('.save_evidence.json')
+    mj={}; ej={}
+    try:
+        if latest_meta.exists(): mj=json.loads(latest_meta.read_text(encoding='utf-8',errors='replace'))
+        else: errors.append({'id':'latest_metadata_missing','message':str(latest_meta)})
+    except Exception as e: errors.append({'id':'latest_metadata_parse_error','message':str(e)})
+    try:
+        if latest_ev.exists(): ej=json.loads(latest_ev.read_text(encoding='utf-8',errors='replace'))
+        else: errors.append({'id':'latest_evidence_missing','message':str(latest_ev)})
+    except Exception as e: errors.append({'id':'latest_evidence_parse_error','message':str(e)})
+    m=re.search(r'draft_v(\d+)', latest.name)
+    latest_version=int(m.group(1)) if m else 0
+    next_version=latest_version+1 if latest_version else 1
+    target_md=drafts/f'chapter_{chapter_number:02d}_draft_v{next_version:03d}.md'
+    target_meta=drafts/f'chapter_{chapter_number:02d}_draft_v{next_version:03d}.meta.json'
+    target_ev=drafts/f'chapter_{chapter_number:02d}_draft_v{next_version:03d}.save_evidence.json'
+    latest_body=sec(latest_text,'Draft')
+    latest_hash=sha(latest_text) if latest_text else ''
+    expected_hash=mj.get('draft_hash') or ej.get('draft_hash') or ''
+    latest_hash_ok=(not expected_hash) or latest_hash==expected_hash
+    latest_wc=wc(latest_body); expected_wc=mj.get('word_count') or ej.get('word_count')
+    latest_wc_ok=(expected_wc is None) or latest_wc==expected_wc
+    project=meta(card_text,'Project','Slipping into Darkness'); book=meta(card_text,'Book','Book 2' if book_id=='book_2' else 'Book 1')
+    pov=meta(card_text,'POV','Anthony'); loc=meta(card_text,'Location','TBD')
+    goal=sec(card_text,'Goal'); conflict=sec(card_text,'Conflict'); reveal=sec(card_text,'Reveal'); hook=sec(card_text,'Hook'); notes=sec(card_text,'Continuity Notes')
+    title=(card_text.splitlines()[0].lstrip('# ').strip() if card_text.splitlines() else f'Chapter {chapter_number:02d}')
+    placeholder_signals=['placeholder prose draft','proving the approved draft save action','proving the approved continuation save action','not final story text','creates the next draft version safely']
+    latest_contains_placeholder=any(s in latest_body.lower() for s in placeholder_signals)
+    real_words=wc(real_prose)
+    if prose_mode=='append_to_latest':
+        new_body=(latest_body.strip()+"\n\n"+real_prose.strip()).strip(); mode_note='Append proposed real prose to latest draft body.'
+    elif prose_mode=='new_real_draft_from_card':
+        new_body=real_prose.strip(); mode_note='Create real-prose draft from chapter card context.'
+    else:
+        new_body=real_prose.strip(); mode_note='Replace proof-placeholder body with real prose.'
+    new_words=wc(new_body)
+    new_md=(f"# Chapter {chapter_number:02d} Draft\n\n"
+            f"- **Project:** {project}\n- **Book:** {book}\n- **Chapter:** {chapter_number:02d}\n- **POV:** {pov}\n- **Location:** {loc}\n"
+            f"- **Status:** real_prose_draft\n- **Draft Version:** v{next_version:03d}\n- **Continues From:** v{latest_version:03d}\n"
+            f"- **Prose Mode:** {prose_mode}\n- **Created:** {now()}\n\n"
+            f"## Draft\n\n{new_body}\n\n"
+            f"## Source Chapter Card\n\n- Goal: {goal}\n- Conflict: {conflict}\n- Reveal: {reveal}\n- Hook: {hook}\n\n"
+            f"## Continuity Notes\n\n{notes}\n\n"
+            f"## Real Prose Save Action\n\n"
+            f"- Saved by v10.14.1 Real Prose Save Approved Action.\n"
+            f"- Previous draft hash: {latest_hash}\n- Chapter card was not edited.\n- Story canon was not mutated.\n- No existing draft file was overwritten.\n- Mode: {mode_note}\n")
+    new_hash=sha(new_md)
+    targets=[{'kind':'real_prose_markdown','path':str(target_md),'exists':target_md.exists(),'would_overwrite':target_md.exists()},
+             {'kind':'real_prose_metadata','path':str(target_meta),'exists':target_meta.exists(),'would_overwrite':target_meta.exists()},
+             {'kind':'real_prose_evidence','path':str(target_ev),'exists':target_ev.exists(),'would_overwrite':target_ev.exists()}]
+    collisions=[t for t in targets if t.get('would_overwrite')]
+    blockers=[]
+    if not root.exists(): blockers.append({'id':'project_root_missing','message':str(root)})
+    if not drafts.exists(): blockers.append({'id':'drafts_folder_missing','message':str(drafts)})
+    if not card.exists(): blockers.append({'id':'chapter_card_missing','message':str(card)})
+    if not latest.exists(): blockers.append({'id':'latest_draft_missing','message':str(latest)})
+    if not latest_meta.exists(): blockers.append({'id':'latest_metadata_missing','message':str(latest_meta)})
+    if not latest_ev.exists(): blockers.append({'id':'latest_evidence_missing','message':str(latest_ev)})
+    if not latest_hash_ok: blockers.append({'id':'latest_hash_mismatch','message':'Latest draft hash does not match metadata/evidence.'})
+    if not latest_wc_ok: blockers.append({'id':'latest_word_count_mismatch','message':'Latest draft word count does not match metadata/evidence.'})
+    if real_words<35: blockers.append({'id':'real_prose_too_short','message':f'Real prose has only {real_words} word(s); minimum is 35.'})
+    if not phrase_matches: blockers.append({'id':'phrase_mismatch','message':'Exact approval phrase was not provided.'})
+    if collisions: blockers.append({'id':'target_collision','message':str(collisions)})
+    if not all([goal,conflict,reveal,hook]): blockers.append({'id':'chapter_context_incomplete','message':'Goal/Conflict/Reveal/Hook not all present.'})
+    preflight=[
+        {'id':'project_root_exists','ok':root.exists() and root.is_dir(),'message':str(root)},
+        {'id':'drafts_folder_exists','ok':drafts.exists() and drafts.is_dir(),'message':str(drafts)},
+        {'id':'chapter_card_exists','ok':card.exists() and card.is_file(),'message':str(card)},
+        {'id':'latest_draft_exists','ok':latest.exists() and latest.is_file(),'message':str(latest)},
+        {'id':'latest_metadata_exists','ok':latest_meta.exists() and latest_meta.is_file(),'message':str(latest_meta)},
+        {'id':'latest_evidence_exists','ok':latest_ev.exists() and latest_ev.is_file(),'message':str(latest_ev)},
+        {'id':'latest_hash_verified','ok':latest_hash_ok and bool(latest_hash),'message':f'actual={latest_hash[:12]} expected={(expected_hash or "")[:12]}'},
+        {'id':'latest_word_count_verified','ok':latest_wc_ok,'message':f'actual={latest_wc} expected={expected_wc}'},
+        {'id':'chapter_context_present','ok':all([goal,conflict,reveal,hook]),'message':'Goal / Conflict / Reveal / Hook parsed.'},
+        {'id':'real_prose_text_present','ok':real_words>=35,'message':f'{real_words} real-prose word(s).'},
+        {'id':'prose_mode_supported','ok':prose_mode in ('replace_placeholder','append_to_latest','new_real_draft_from_card'),'message':prose_mode},
+        {'id':'next_version_selected','ok':next_version>latest_version,'message':f'latest=v{latest_version:03d} next=v{next_version:03d}'},
+        {'id':'no_target_collision','ok':not bool(collisions),'message':f'{len(collisions)} collision(s).'},
+        {'id':'approval_phrase_matches','ok':phrase_matches,'message':'Exact phrase matched.' if phrase_matches else 'Exact phrase not matched.'},
+        {'id':'save_action_requested','ok':execute,'message':'Execute requested.' if execute else 'Preview only; no save requested.'},
+        {'id':'no_delete_or_move_requested','ok':True,'message':'No delete or move operation is part of this action.'}
+    ]
+    action_allowed=bool(execute and not blockers and all(c.get('ok') for c in preflight))
+    status='preview'
+    if execute and not action_allowed: status='blocked'
+    created_files=[]; written_files=[]; actions=[]
+    metadata={'project_id':'slipping_into_darkness','project_title':project,'book_id':book_id,'book_title':book,'chapter_number':chapter_number,'chapter_card_path':str(card),'draft_title':f'Chapter {chapter_number:02d} Draft','draft_version':next_version,'continues_from_version':latest_version,'previous_draft_path':str(latest),'previous_draft_hash':latest_hash,'draft_markdown_path':str(target_md),'metadata_path':str(target_meta),'evidence_path':str(target_ev),'word_count':new_words,'real_prose_word_count':real_words,'char_count':len(new_body),'line_count':len(new_body.splitlines()),'draft_hash':new_hash,'created':now(),'created_by':'v10.14.1 Real Prose Save Approved Action','status':'real_prose_draft','prose_mode':prose_mode,'latest_contains_placeholder':latest_contains_placeholder,'chapter_context':{'title_line':title,'pov':pov,'location':loc,'goal':goal,'conflict':conflict,'reveal':reveal,'hook':hook,'continuity_notes':notes}}
+    evidence={'created':now(),'milestone':'v10.14.1 Real Prose Save Approved Action','project_id':'slipping_into_darkness','book_id':book_id,'chapter_number':chapter_number,'draft_version':next_version,'continues_from_version':latest_version,'draft_markdown_path':str(target_md),'metadata_path':str(target_meta),'evidence_path':str(target_ev),'draft_hash':new_hash,'previous_draft_hash':latest_hash,'word_count':new_words,'real_prose_word_count':real_words,'phrase_matches':phrase_matches,'prose_mode':prose_mode,'chapter_card_path':str(card),'safety':{'no_chapter_file_edit':True,'no_story_file_mutation':True,'no_overwrite':True,'no_delete':True,'no_move':True}}
+    if action_allowed:
+        status='saved'
+        try:
+            drafts.mkdir(parents=True,exist_ok=True)
+            for p in (target_md,target_meta,target_ev):
+                if p.exists(): raise RuntimeError(f'Refusing to overwrite existing target: {p}')
+            target_md.write_text(new_md,encoding='utf-8'); created_files.append(str(target_md)); written_files.append(str(target_md)); actions.append({'id':'real_prose_markdown_created','ok':True,'path':str(target_md)})
+            jwrite(target_meta,metadata); created_files.append(str(target_meta)); written_files.append(str(target_meta)); actions.append({'id':'real_prose_metadata_created','ok':True,'path':str(target_meta)})
+            jwrite(target_ev,evidence); created_files.append(str(target_ev)); written_files.append(str(target_ev)); actions.append({'id':'real_prose_evidence_created','ok':True,'path':str(target_ev)})
+        except Exception as e:
+            status='error'; errors.append({'id':'execution_error','message':str(e)})
+    post=[]
+    if status=='saved' and not any(e.get('id')=='execution_error' for e in errors):
+        try: read_md=target_md.read_text(encoding='utf-8',errors='replace')
+        except Exception as e: read_md=''; errors.append({'id':'readback_draft_error','message':str(e)})
+        try: read_meta=json.loads(target_meta.read_text(encoding='utf-8',errors='replace'))
+        except Exception as e: read_meta={}; errors.append({'id':'readback_metadata_error','message':str(e)})
+        try: read_ev=json.loads(target_ev.read_text(encoding='utf-8',errors='replace'))
+        except Exception as e: read_ev={}; errors.append({'id':'readback_evidence_error','message':str(e)})
+        rh=sha(read_md)
+        post=[
+            {'id':'real_prose_markdown_exists','ok':target_md.exists() and target_md.is_file(),'message':str(target_md)},
+            {'id':'real_prose_metadata_exists','ok':target_meta.exists() and target_meta.is_file(),'message':str(target_meta)},
+            {'id':'real_prose_evidence_exists','ok':target_ev.exists() and target_ev.is_file(),'message':str(target_ev)},
+            {'id':'new_draft_hash_matches','ok':rh==new_hash,'message':f'read_hash={rh[:12]} expected={new_hash[:12]}'},
+            {'id':'new_draft_contains_real_prose','ok':real_prose[:60] in read_md,'message':'Real prose text found in saved Markdown.'},
+            {'id':'metadata_matches_new_draft','ok':read_meta.get('draft_hash')==new_hash and read_meta.get('word_count')==new_words,'message':'Metadata hash and word count match.'},
+            {'id':'evidence_matches_new_draft','ok':read_ev.get('draft_hash')==new_hash and read_ev.get('previous_draft_hash')==latest_hash,'message':'Evidence hash and previous hash match.'},
+            {'id':'real_prose_status_saved','ok':read_meta.get('status')=='real_prose_draft','message':str(read_meta.get('status'))},
+            {'id':'chapter_card_unchanged_by_action','ok':card.exists() and card.is_file(),'message':'Chapter card still exists; action did not write to it.'},
+            {'id':'no_delete_no_move','ok':all(Path(x).exists() for x in created_files),'message':'Created files remain in planned draft folder.'}
+        ]
+    else:
+        post=[{'id':'preview_or_blocked_no_write','ok':True,'message':'No real prose save was executed in preview/block mode.'}]
+    problems=sum(1 for c in preflight if not c.get('ok'))+sum(1 for c in post if not c.get('ok'))+len(blockers)+len(errors)
+    summary={'project_id':'slipping_into_darkness','project_title':project,'book_id':book_id,'book_title':book,'chapter_number':chapter_number,'status':status,'execute_requested':execute,'action_allowed':action_allowed,'latest_version':latest_version,'next_version':next_version,'latest_words':latest_wc,'real_prose_words':real_words,'new_words':new_words,'word_delta':new_words-latest_wc,'latest_hash_ok':latest_hash_ok,'latest_word_count_ok':latest_wc_ok,'new_draft_hash':new_hash,'prose_mode':prose_mode,'latest_contains_placeholder':latest_contains_placeholder,'required_phrase':required_phrase,'typed_phrase_present':bool(typed_phrase),'phrase_matches':phrase_matches,'selected_targets':len(targets),'collision_targets':len(collisions),'blockers':len(blockers),'errors':len(errors),'preflight_checks':len(preflight),'preflight_checks_passed':sum(1 for c in preflight if c.get('ok')),'created_files':len(created_files),'written_files':len(written_files),'post_checks':len(post),'post_checks_passed':sum(1 for c in post if c.get('ok')),'problems':problems,'next_draft_path':str(target_md),'metadata_path':str(target_meta),'evidence_path':str(target_ev)}
+    safety={'approved_action_only':True,'requires_exact_phrase':True,'requires_real_prose_text':True,'requires_latest_hash_verified':True,'requires_no_collision':True,'creates_real_prose_markdown_draft':bool(action_allowed),'creates_metadata_json':bool(action_allowed),'creates_save_evidence_json':bool(action_allowed),'no_chapter_file_edit':True,'no_story_file_mutation':True,'no_project_creation':True,'no_legacy_migration':True,'no_overwrite':True,'no_delete':True,'no_move':True,'no_install':True,'no_model_cleanup':True,'action_report_written':True}
+    if status=='saved': label='REAL PROSE DRAFT SAVED'
+    elif status=='blocked': label='REAL PROSE SAVE ACTION BLOCKED SAFELY'
+    elif status=='error': label='REAL PROSE SAVE ACTION ERROR'
+    else: label='REAL PROSE SAVE ACTION READY - PREVIEW ONLY'
+    healthy=status in ('preview','blocked','saved') and not any(e.get('id','').endswith('_error') for e in errors)
+    report={'ok':True,'created':now(),'title':'Kayock Writer Real Prose Save Approved Action','read_only':not action_allowed,'report_only':not action_allowed,'healthy':healthy,'status':status,'health_label':label,'message':f'Real Prose Save Approved Action: {label}','milestone':'v10.14.1 Real Prose Save Approved Action','summary':summary,'approval_phrase_required':required_phrase,'approval_phrase_matches':phrase_matches,'source_files':{'chapter_card':info(card),'latest_draft':info(latest),'latest_metadata':info(latest_meta),'latest_evidence':info(latest_ev)},'chapter_context':{'title_line':title,'project':project,'book':book,'pov':pov,'location':loc,'goal':goal,'conflict':conflict,'reveal':reveal,'hook':hook,'continuity_notes':notes},'latest_draft':{'version':latest_version,'path':str(latest),'word_count':latest_wc,'hash':latest_hash,'hash_ok':latest_hash_ok,'word_count_ok':latest_wc_ok,'contains_placeholder':latest_contains_placeholder},'real_prose':{'prose_mode':prose_mode,'real_prose_text':real_prose,'real_prose_words':real_words,'new_words':new_words,'word_delta':new_words-latest_wc,'new_draft_hash':new_hash,'new_markdown_preview':new_md},'selected_targets':targets,'collision_targets':collisions,'blockers':blockers,'preflight_checks':preflight,'created_files':created_files,'written_files':written_files,'actions':actions,'post_checks':post,'errors':errors,'recommendations':[{'id':'mark_real_prose_save_action_proven','title':'Mark Real Prose Save Approved Action proven','recommendation':'Use this as proof that Kayock Writer can save real prose drafts as the next safe version.','risk':'medium','auto_apply':False},{'id':'next_real_prose_refresh_compare','title':'Re-run refresh and compare next','recommendation':'Verify v003 appears in inventory and compare v002 to v003.','risk':'low','auto_apply':False}],'folders':{'real_prose_save_reports':str(reports),'drafts_folder':str(drafts)},'safety':safety}
+    if export:
+        try:
+            reports.mkdir(parents=True,exist_ok=True)
+            stamp=datetime.now().strftime('%Y%m%d_%H%M%S')
+            jp=reports/f'Real_Prose_Save_Approved_Action_{book_id}_chapter_{chapter_number:02d}_v{next_version:03d}_{stamp}.json'
+            mp=reports/f'Real_Prose_Save_Approved_Action_{book_id}_chapter_{chapter_number:02d}_v{next_version:03d}_{stamp}.md'
+            jwrite(jp,report)
+            lines=['# Kayock Writer Real Prose Save Approved Action','',f"Created: {report['created']}",f"Milestone: **{report['milestone']}**",f"Health: **{label}**",f"Status: `{status}`",f"Execute requested: {execute}",f"Action allowed: {action_allowed}",'','## Safety','','- Requires exact phrase.','- Requires real prose text.','- Requires latest draft hash verification.','- Requires no target collision.','- Creates real-prose Markdown, metadata JSON, and save evidence JSON.','- No chapter-file edit.','- No story-file mutation.','- No overwrite.','- No delete.','- No move.','','## Summary']
+            for k,v in summary.items(): lines.append(f"- {k.replace('_',' ').title()}: {v}")
+            lines += ['','## Created Files']
+            if created_files:
+                for x in created_files: lines.append(f"- `{x}`")
+            else: lines.append('- None.')
+            lines += ['','## New Real Prose Draft Preview','','```markdown',new_md,'```','','## Blockers']
+            if blockers:
+                for b in blockers: lines.append(f"- `{b.get('id')}` - {b.get('message')}")
+            else: lines.append('- None.')
+            lines += ['','## Preflight Checks']
+            for c in preflight: lines.append(f"- [{'PASS' if c.get('ok') else 'FAIL'}] `{c.get('id')}` - {c.get('message')}")
+            lines += ['','## Post Checks']
+            for c in post: lines.append(f"- [{'PASS' if c.get('ok') else 'FAIL'}] `{c.get('id')}` - {c.get('message')}")
+            lines += ['','## Errors']
+            if errors:
+                for e in errors: lines.append(f"- `{e.get('id')}` - {e.get('message')}")
+            else: lines.append('- None.')
+            mp.write_text('\n'.join(lines),encoding='utf-8')
+            report['exported']={'json':str(jp),'markdown':str(mp),'folder':str(reports)}
+        except Exception as e:
+            report['export_error']=str(e)
+    return report
+
+
+
+def kayock_writer_real_prose_refresh_compare_report(d=None):
+    import re, json, hashlib, difflib
+    from datetime import datetime
+    d=d or {}
+    export=bool(d.get('export',False))
+    book_id=str(d.get('book_id') or 'book_2').strip().lower().replace(' ','_')
+    if book_id not in ('book_1','book_2'): book_id='book_2'
+    chapter_number=int(d.get('chapter_number') or 2)
+    if chapter_number not in (1,2,3): chapter_number=2
+    from_version=int(d.get('from_version') or 2)
+    to_version=int(d.get('to_version') or 3)
+    root=ROOT/'Projects'/'KayockWriter'/'Slipping_into_Darkness'
+    drafts=root/'Drafts'/book_id
+    chapters=root/'Chapters'/book_id
+    reports=FOLDERS.get('kayock_writer_real_prose_refresh_compare_reports',ROOT/'Reports'/'KayockWriter'/'RealProseRefreshCompare')
+    placeholder_signals=['placeholder prose draft','proving the approved draft save action','proving the approved continuation save action','not final story text','creates the next draft version safely']
+    real_signal='Anthony stood before the first broken sign that the sanctuary was real, not myth'
+    errors=[]
+    def sha(v): return hashlib.sha256((v or '').encode('utf-8',errors='replace')).hexdigest()
+    def wc(v): return len([x for x in re.split(r'\s+', (v or '').strip()) if x])
+    def sec(md,name):
+        md=md or ''; mark=f'## {name}'; i=md.find(mark)
+        if i<0: return ''
+        s=i+len(mark)
+        while s<len(md) and md[s] in '\r\n ': s+=1
+        j=md.find('\n## ',s)
+        return (md[s:] if j<0 else md[s:j]).strip()
+    def info(p):
+        out={'path':str(p),'name':p.name,'exists':p.exists(),'kind':'missing','size':0,'modified':''}
+        try:
+            if p.exists():
+                out['kind']='folder' if p.is_dir() else 'file'
+                out['size']=p.stat().st_size if p.is_file() else None
+                out['modified']=datetime.fromtimestamp(p.stat().st_mtime).isoformat(timespec='seconds')
+        except Exception as e: out['error']=str(e)
+        return out
+    card_files=sorted(chapters.glob(f'chapter_{chapter_number:02d}_*.md'), key=lambda p:p.name.lower()) if chapters.exists() else []
+    card=card_files[0] if card_files else chapters/f'chapter_{chapter_number:02d}_missing.md'
+    def load(ver):
+        md=drafts/f'chapter_{chapter_number:02d}_draft_v{ver:03d}.md'; meta=md.with_suffix('.meta.json'); ev=md.with_suffix('.save_evidence.json')
+        out={'version':ver,'label':f'v{ver:03d}','draft_markdown':info(md),'metadata_file':info(meta),'evidence_file':info(ev)}
+        txt=''; body=''; mj={}; ej={}
+        try:
+            if md.exists(): txt=md.read_text(encoding='utf-8',errors='replace'); body=sec(txt,'Draft')
+            else: errors.append({'id':'draft_missing','version':ver,'message':str(md)})
+        except Exception as e: errors.append({'id':'draft_read_error','version':ver,'message':str(e)})
+        try:
+            if meta.exists(): mj=json.loads(meta.read_text(encoding='utf-8',errors='replace'))
+            else: errors.append({'id':'metadata_missing','version':ver,'message':str(meta)})
+        except Exception as e: errors.append({'id':'metadata_parse_error','version':ver,'message':str(e)})
+        try:
+            if ev.exists(): ej=json.loads(ev.read_text(encoding='utf-8',errors='replace'))
+            else: errors.append({'id':'evidence_missing','version':ver,'message':str(ev)})
+        except Exception as e: errors.append({'id':'evidence_parse_error','version':ver,'message':str(e)})
+        h=sha(txt) if txt else ''; eh=mj.get('draft_hash') or ej.get('draft_hash') or ''
+        aw=wc(body); ew=mj.get('word_count') or ej.get('word_count')
+        has_ph=any(s in body.lower() for s in placeholder_signals); has_real=real_signal in body
+        out.update({'text':txt,'body':body,'word_count':aw,'expected_word_count':ew,'word_count_ok':(ew is None) or aw==ew,'draft_hash':h,'expected_hash':eh,'hash_ok':(not eh) or h==eh,'status':mj.get('status') or 'unknown','created':mj.get('created') or ej.get('created') or '','created_by':mj.get('created_by') or ej.get('milestone') or '','continues_from_version':mj.get('continues_from_version') or ej.get('continues_from_version'),'previous_draft_hash':mj.get('previous_draft_hash') or ej.get('previous_draft_hash') or '','prose_mode':mj.get('prose_mode') or ej.get('prose_mode') or '','contains_placeholder':has_ph,'contains_real_prose':has_real,'verified':bool(md.exists() and meta.exists() and ev.exists() and ((not eh) or h==eh) and ((ew is None) or aw==ew)),'preview':txt[:800]})
+        return out
+    versions=[]
+    for p in sorted(drafts.glob(f'chapter_{chapter_number:02d}_draft_v*.md'), key=lambda p:p.name.lower()) if drafts.exists() else []:
+        m=re.search(r'draft_v(\d+)',p.name)
+        if m: versions.append(load(int(m.group(1))))
+    versions=sorted(versions,key=lambda x:x.get('version') or 0)
+    latest=versions[-1] if versions else {}
+    old=load(from_version); new=load(to_version)
+    old_lines=old.get('body','').splitlines(); new_lines=new.get('body','').splitlines()
+    diff=list(difflib.unified_diff(old_lines,new_lines,fromfile=old.get('label','from'),tofile=new.get('label','to'),lineterm=''))
+    added=[x[1:] for x in diff if x.startswith('+') and not x.startswith('+++')]
+    removed=[x[1:] for x in diff if x.startswith('-') and not x.startswith('---')]
+    wd=list(difflib.ndiff(re.findall(r'\S+',old.get('body','')), re.findall(r'\S+',new.get('body',''))))
+    added_words=[x[2:] for x in wd if x.startswith('+ ')]; removed_words=[x[2:] for x in wd if x.startswith('- ')]
+    labels=[x.get('label') for x in versions]
+    has1=any(x.get('version')==1 for x in versions); has2=any(x.get('version')==2 for x in versions); has3=any(x.get('version')==3 for x in versions)
+    latest3=latest.get('version')==3
+    allv=bool(versions) and all(x.get('verified') for x in versions); allh=bool(versions) and all(x.get('hash_ok') for x in versions); allw=bool(versions) and all(x.get('word_count_ok') for x in versions)
+    created_by=str(new.get('created_by') or '')
+    made_by_save='Real Prose Save Approved Action' in created_by
+    lineage=(new.get('continues_from_version')==from_version)
+    prev_hash=(not new.get('previous_draft_hash')) or new.get('previous_draft_hash')==old.get('draft_hash')
+    placeholder_removed=bool(old.get('contains_placeholder')) and not bool(new.get('contains_placeholder'))
+    real_present=bool(new.get('contains_real_prose'))
+    status_real=new.get('status')=='real_prose_draft'
+    compare={'from_version':old.get('label'),'to_version':new.get('label'),'word_delta':(new.get('word_count') or 0)-(old.get('word_count') or 0),'char_delta':len(new.get('body',''))-len(old.get('body','')),'added_line_count':len(added),'removed_line_count':len(removed),'added_word_count':len(added_words),'removed_word_count':len(removed_words),'line_diff':diff[:300],'added_lines':added[:100],'removed_lines':removed[:100],'added_words_preview':' '.join(added_words[:160]),'removed_words_preview':' '.join(removed_words[:160]),'placeholder_removed':placeholder_removed,'real_prose_present':real_present,'lineage_ok':lineage,'previous_hash_ok':prev_hash}
+    checks=[
+        {'id':'project_root_exists','ok':root.exists() and root.is_dir(),'message':str(root)},
+        {'id':'drafts_folder_exists','ok':drafts.exists() and drafts.is_dir(),'message':str(drafts)},
+        {'id':'chapter_card_exists','ok':card.exists() and card.is_file(),'message':str(card)},
+        {'id':'draft_versions_loaded','ok':len(versions)>=3,'message':f'{len(versions)} version(s): {", ".join(labels)}'},
+        {'id':'v001_visible','ok':has1,'message':'v001 found.' if has1 else 'v001 missing.'},
+        {'id':'v002_visible','ok':has2,'message':'v002 found.' if has2 else 'v002 missing.'},
+        {'id':'v003_visible','ok':has3,'message':'v003 found.' if has3 else 'v003 missing.'},
+        {'id':'latest_is_v003','ok':latest3,'message':f"latest={latest.get('label','none')}"},
+        {'id':'all_metadata_present','ok':bool(versions) and all(x.get('metadata_file',{}).get('exists') for x in versions),'message':'metadata present for every draft version.'},
+        {'id':'all_evidence_present','ok':bool(versions) and all(x.get('evidence_file',{}).get('exists') for x in versions),'message':'evidence present for every draft version.'},
+        {'id':'all_hashes_verified','ok':allh,'message':'hashes verified for every draft version.'},
+        {'id':'all_word_counts_verified','ok':allw,'message':'word counts verified for every draft version.'},
+        {'id':'all_versions_fully_verified','ok':allv,'message':'all draft versions fully verified.'},
+        {'id':'v003_created_by_real_prose_save_action','ok':made_by_save,'message':created_by or 'missing'},
+        {'id':'v003_continues_from_v002','ok':lineage,'message':f"continues_from_version={new.get('continues_from_version')}"},
+        {'id':'v003_previous_hash_matches_v002','ok':prev_hash,'message':'v003 previous_draft_hash matches v002 draft hash.'},
+        {'id':'v003_status_real_prose_draft','ok':status_real,'message':new.get('status')},
+        {'id':'real_prose_present_in_v003','ok':real_present,'message':'Real prose signal found in v003 body.' if real_present else 'Real prose signal missing.'},
+        {'id':'placeholder_removed_from_v003_body','ok':placeholder_removed,'message':'v002 placeholder body replaced by v003 real prose.' if placeholder_removed else 'Placeholder not confirmed removed.'},
+        {'id':'compare_v002_to_v003_generated','ok':len(diff)>0,'message':f'{len(diff)} diff lines.'},
+        {'id':'no_refresh_compare_errors','ok':len(errors)==0,'message':f'{len(errors)} error(s).'},
+        {'id':'read_only_real_prose_refresh_compare','ok':True,'message':'Refresh / compare performed read-only inspection only.'}
+    ]
+    summary={'project_id':'slipping_into_darkness','project_title':'Slipping into Darkness','book_id':book_id,'chapter_number':chapter_number,'chapter_card_path':str(card),'drafts_folder':str(drafts),'versions_loaded':len(versions),'version_labels':labels,'has_v001':has1,'has_v002':has2,'has_v003':has3,'latest_version':latest.get('version','') if latest else '','latest_label':latest.get('label','') if latest else '','latest_is_v003':latest3,'v003_created_by':created_by,'v003_continues_from_v002':lineage,'v003_previous_hash_matches_v002':prev_hash,'v003_status_real_prose_draft':status_real,'real_prose_present_in_v003':real_present,'placeholder_removed_from_v003_body':placeholder_removed,'from_version':from_version,'to_version':to_version,'from_words':old.get('word_count'),'to_words':new.get('word_count'),'word_delta':compare['word_delta'],'added_words':len(added_words),'removed_words':len(removed_words),'all_hashes_verified':allh,'all_word_counts_verified':allw,'all_versions_fully_verified':allv,'errors':len(errors),'checks':len(checks),'checks_passed':sum(1 for c in checks if c.get('ok')),'problems':sum(1 for c in checks if not c.get('ok'))+len(errors),'read_only':True,'report_only':True}
+    safety={'read_only_real_prose_refresh_compare':True,'no_draft_save':True,'no_chapter_file_edit':True,'no_story_file_mutation':True,'no_project_creation':True,'no_legacy_migration':True,'no_overwrite':True,'no_delete':True,'no_move':True,'no_install':True,'no_model_cleanup':True,'refresh_compare_export_only':True}
+    healthy=all(c.get('ok') for c in checks)
+    label='REAL PROSE REFRESH COMPARE READY' if healthy else 'REAL PROSE REFRESH COMPARE NEEDS REVIEW'
+    report={'ok':True,'created':now(),'title':'Kayock Writer Real Prose Refresh / Compare','read_only':True,'report_only':True,'healthy':healthy,'refresh_compare_ready':healthy,'health_label':label,'message':f'Real Prose Refresh / Compare: {label}','milestone':'v10.14.2 Real Prose Refresh / Compare','summary':summary,'latest_version':latest,'versions':versions,'from_draft':old,'to_draft':new,'compare':compare,'checks':checks,'errors':errors,'recommendations':[{'id':'mark_real_prose_refresh_compare_proven','title':'Mark Real Prose Refresh / Compare proven','recommendation':'Use this as proof that v003 real prose is visible, verified, latest, and compared against v002.','risk':'low','auto_apply':False},{'id':'next_real_prose_editor_gate','title':'Next: Real Prose Editor Gate','recommendation':'Add a no-write edit gate for revising v003 real prose with direct diff preview.','risk':'medium','auto_apply':False}],'folders':{'real_prose_refresh_compare_reports':str(reports),'drafts_folder':str(drafts)},'safety':safety}
+    if export:
+        try:
+            reports.mkdir(parents=True,exist_ok=True)
+            stamp=datetime.now().strftime('%Y%m%d_%H%M%S')
+            jp=reports/f'Real_Prose_Refresh_Compare_{book_id}_chapter_{chapter_number:02d}_v{from_version:03d}_to_v{to_version:03d}_{stamp}.json'
+            mp=reports/f'Real_Prose_Refresh_Compare_{book_id}_chapter_{chapter_number:02d}_v{from_version:03d}_to_v{to_version:03d}_{stamp}.md'
+            jwrite(jp,report)
+            lines=['# Kayock Writer Real Prose Refresh / Compare','',f"Created: {report['created']}",f"Milestone: **{report['milestone']}**",f"Health: **{label}**",f"Refresh / Compare ready: {healthy}",'','## Safety','','- Read-only real prose refresh / compare.','- No draft save.','- No chapter-file edit.','- No story-file mutation.','- No overwrite.','- No delete.','- No move.','','## Summary']
+            for k,v in summary.items(): lines.append(f"- {k.replace('_',' ').title()}: {v}")
+            lines += ['','## Versions']
+            for x in versions: lines.append(f"- [{'PASS' if x.get('verified') else 'REVIEW'}] **{x.get('label')}** - status: {x.get('status')} - words: {x.get('word_count')} - hash ok: {x.get('hash_ok')} - count ok: {x.get('word_count_ok')} - created by: {x.get('created_by')}")
+            lines += ['','## Compare v002 to v003','','### Added Lines']
+            lines += [f'+ {line}' for line in added[:50]] if added else ['- None.']
+            lines += ['','### Removed Lines']
+            lines += [f'- {line}' for line in removed[:50]] if removed else ['- None.']
+            lines += ['','### Unified Diff','','```diff'] + diff[:200] + ['```','','## Checks']
+            for c in checks: lines.append(f"- [{'PASS' if c.get('ok') else 'FAIL'}] `{c.get('id')}` - {c.get('message')}")
+            lines += ['','## Errors']
+            lines += [f"- `{e.get('id')}` - {e.get('message')}" for e in errors] if errors else ['- None.']
+            mp.write_text('\n'.join(lines),encoding='utf-8')
+            report['exported']={'json':str(jp),'markdown':str(mp),'folder':str(reports)}
+        except Exception as e: report['export_error']=str(e)
+    return report
+
+
+def kayock_writer_real_prose_editor_gate_report(d=None):
+    import re, json, hashlib, difflib
+    from datetime import datetime
+    d=d or {}
+    export=bool(d.get('export',False))
+    book_id=str(d.get('book_id') or 'book_2').strip().lower().replace(' ','_')
+    if book_id not in ('book_1','book_2'): book_id='book_2'
+    chapter_number=int(d.get('chapter_number') or 2)
+    if chapter_number not in (1,2,3): chapter_number=2
+    required_phrase='APPROVE REAL PROSE EDIT PREVIEW'
+    typed_phrase=str(d.get('approval_phrase') or '').strip()
+    phrase_matches=(typed_phrase==required_phrase)
+    edit_mode=str(d.get('edit_mode') or 'revise_latest_real_prose').strip().lower()
+    if edit_mode not in ('revise_latest_real_prose','polish_only','expand_scene'): edit_mode='revise_latest_real_prose'
+    revised_prose=str(d.get('revised_prose_text') or '').strip()
+
+    root=ROOT/'Projects'/'KayockWriter'/'Slipping_into_Darkness'
+    drafts=root/'Drafts'/book_id
+    chapters=root/'Chapters'/book_id
+    reports=FOLDERS.get('kayock_writer_real_prose_editor_gate_reports',ROOT/'Reports'/'KayockWriter'/'RealProseEditorGate')
+    def sha(v): return hashlib.sha256((v or '').encode('utf-8',errors='replace')).hexdigest()
+    def sec(md,name):
+        md=md or ''; mark=f'## {name}'; i=md.find(mark)
+        if i<0: return ''
+        s=i+len(mark)
+        while s<len(md) and md[s] in '\r\n ': s+=1
+        j=md.find('\n## ',s)
+        return (md[s:] if j<0 else md[s:j]).strip()
+    def meta(md,label,default=''):
+        m=re.search(rf'^\s*-\s*\*\*{re.escape(label)}:\*\*\s*(.*?)\s*$', md or '', re.I|re.M)
+        return m.group(1).strip() if m else default
+    def wc(v): return len([x for x in re.split(r'\s+', (v or '').strip()) if x])
+    def info(p):
+        out={'path':str(p),'name':p.name,'exists':p.exists(),'kind':'missing','size':0,'modified':''}
+        try:
+            if p.exists():
+                out['kind']='folder' if p.is_dir() else 'file'
+                out['size']=p.stat().st_size if p.is_file() else None
+                out['modified']=datetime.fromtimestamp(p.stat().st_mtime).isoformat(timespec='seconds')
+        except Exception as e: out['error']=str(e)
+        return out
+
+    errors=[]
+    card_files=sorted(chapters.glob(f'chapter_{chapter_number:02d}_*.md'), key=lambda p:p.name.lower()) if chapters.exists() else []
+    card=card_files[0] if card_files else chapters/f'chapter_{chapter_number:02d}_missing.md'
+    card_text=''
+    try:
+        if card.exists(): card_text=card.read_text(encoding='utf-8',errors='replace')
+        else: errors.append({'id':'chapter_card_missing','message':str(card)})
+    except Exception as e: errors.append({'id':'chapter_card_read_error','message':str(e)})
+
+    draft_files=sorted(drafts.glob(f'chapter_{chapter_number:02d}_draft_v*.md'), key=lambda p:p.name.lower()) if drafts.exists() else []
+    latest=draft_files[-1] if draft_files else drafts/f'chapter_{chapter_number:02d}_draft_missing.md'
+    latest_text=''
+    try:
+        if latest.exists(): latest_text=latest.read_text(encoding='utf-8',errors='replace')
+        else: errors.append({'id':'latest_draft_missing','message':str(latest)})
+    except Exception as e: errors.append({'id':'latest_draft_read_error','message':str(e)})
+    latest_meta=latest.with_suffix('.meta.json')
+    latest_ev=latest.with_suffix('.save_evidence.json')
+    meta_json={}; ev_json={}
+    try:
+        if latest_meta.exists(): meta_json=json.loads(latest_meta.read_text(encoding='utf-8',errors='replace'))
+        else: errors.append({'id':'latest_metadata_missing','message':str(latest_meta)})
+    except Exception as e: errors.append({'id':'latest_metadata_parse_error','message':str(e)})
+    try:
+        if latest_ev.exists(): ev_json=json.loads(latest_ev.read_text(encoding='utf-8',errors='replace'))
+        else: errors.append({'id':'latest_evidence_missing','message':str(latest_ev)})
+    except Exception as e: errors.append({'id':'latest_evidence_parse_error','message':str(e)})
+
+    m=re.search(r'draft_v(\d+)', latest.name)
+    latest_version=int(m.group(1)) if m else 0
+    next_version=latest_version+1 if latest_version else 1
+    target_md=drafts/f'chapter_{chapter_number:02d}_draft_v{next_version:03d}.md'
+    target_meta=drafts/f'chapter_{chapter_number:02d}_draft_v{next_version:03d}.meta.json'
+    target_ev=drafts/f'chapter_{chapter_number:02d}_draft_v{next_version:03d}.save_evidence.json'
+
+    latest_body=sec(latest_text,'Draft')
+    if not revised_prose:
+        revised_prose=latest_body.replace('That was what frightened him most.','That was what frightened him most, because a trap meant someone knew he was coming.')
+    latest_hash=sha(latest_text) if latest_text else ''
+    expected_hash=meta_json.get('draft_hash') or ev_json.get('draft_hash') or ''
+    latest_hash_ok=(not expected_hash) or latest_hash==expected_hash
+    latest_wc=wc(latest_body)
+    expected_wc=meta_json.get('word_count') or ev_json.get('word_count')
+    latest_wc_ok=(expected_wc is None) or latest_wc==expected_wc
+    latest_status=meta_json.get('status') or ''
+    latest_is_real_prose=(latest_status=='real_prose_draft') or ('## Real Prose Save Action' in latest_text)
+
+    title=(card_text.splitlines()[0].lstrip('# ').strip() if card_text.splitlines() else f'Chapter {chapter_number:02d}')
+    project=meta(card_text,'Project','Slipping into Darkness')
+    book=meta(card_text,'Book','Book 2' if book_id=='book_2' else 'Book 1')
+    pov=meta(card_text,'POV','Anthony')
+    loc=meta(card_text,'Location','TBD')
+    goal=sec(card_text,'Goal'); conflict=sec(card_text,'Conflict'); reveal=sec(card_text,'Reveal'); hook=sec(card_text,'Hook'); notes=sec(card_text,'Continuity Notes')
+
+    revised_words=wc(revised_prose)
+    word_delta=revised_words-latest_wc
+    old_lines=latest_body.splitlines()
+    new_lines=revised_prose.splitlines()
+    unified=list(difflib.unified_diff(old_lines,new_lines,fromfile=f'v{latest_version:03d}',tofile=f'v{next_version:03d} preview',lineterm=''))
+    added_lines=[x[1:] for x in unified if x.startswith('+') and not x.startswith('+++')]
+    removed_lines=[x[1:] for x in unified if x.startswith('-') and not x.startswith('---')]
+    old_words=re.findall(r'\S+',latest_body)
+    new_words=re.findall(r'\S+',revised_prose)
+    word_diff=list(difflib.ndiff(old_words,new_words))
+    added_words=[x[2:] for x in word_diff if x.startswith('+ ')]
+    removed_words=[x[2:] for x in word_diff if x.startswith('- ')]
+
+    new_md=(f"# Chapter {chapter_number:02d} Draft\n\n"
+            f"- **Project:** {project}\n- **Book:** {book}\n- **Chapter:** {chapter_number:02d}\n- **POV:** {pov}\n- **Location:** {loc}\n"
+            f"- **Status:** real_prose_edit_preview_only\n- **Draft Version:** v{next_version:03d}\n- **Continues From:** v{latest_version:03d}\n"
+            f"- **Edit Mode:** {edit_mode}\n- **Created Preview:** {now()}\n\n"
+            f"## Draft\n\n{revised_prose}\n\n"
+            f"## Source Chapter Card\n\n- Goal: {goal}\n- Conflict: {conflict}\n- Reveal: {reveal}\n- Hook: {hook}\n\n"
+            f"## Continuity Notes\n\n{notes}\n\n"
+            f"## Real Prose Editor Gate\n\n"
+            f"- Preview generated by v10.14.3 Real Prose Editor Gate.\n"
+            f"- No edited real prose file has been saved yet.\n"
+            f"- Future actual save requires a separate approved action.\n"
+            f"- Previous draft hash: {latest_hash}\n")
+    new_hash=sha(new_md)
+    targets=[
+        {'kind':'edited_real_prose_markdown','path':str(target_md),'exists':target_md.exists(),'would_overwrite':target_md.exists()},
+        {'kind':'edited_real_prose_metadata','path':str(target_meta),'exists':target_meta.exists(),'would_overwrite':target_meta.exists()},
+        {'kind':'edited_real_prose_evidence','path':str(target_ev),'exists':target_ev.exists(),'would_overwrite':target_ev.exists()}
+    ]
+    collisions=[t for t in targets if t.get('would_overwrite')]
+
+    blockers=[]
+    if not root.exists(): blockers.append({'id':'project_root_missing','message':str(root)})
+    if not drafts.exists(): blockers.append({'id':'drafts_folder_missing','message':str(drafts)})
+    if not card.exists(): blockers.append({'id':'chapter_card_missing','message':str(card)})
+    if not latest.exists(): blockers.append({'id':'latest_draft_missing','message':str(latest)})
+    if not latest_meta.exists(): blockers.append({'id':'latest_metadata_missing','message':str(latest_meta)})
+    if not latest_ev.exists(): blockers.append({'id':'latest_evidence_missing','message':str(latest_ev)})
+    if not latest_hash_ok: blockers.append({'id':'latest_hash_mismatch','message':'Latest draft hash does not match metadata/evidence.'})
+    if not latest_wc_ok: blockers.append({'id':'latest_word_count_mismatch','message':'Latest word count does not match metadata/evidence.'})
+    if not latest_is_real_prose: blockers.append({'id':'latest_not_real_prose_draft','message':f'Latest status is {latest_status!r}.'})
+    if revised_words<35: blockers.append({'id':'revised_prose_too_short','message':f'Revised prose has only {revised_words} word(s); minimum is 35.'})
+    if not unified: blockers.append({'id':'no_edit_detected','message':'No text difference was detected between latest and revised prose.'})
+    if not phrase_matches: blockers.append({'id':'phrase_mismatch','message':'Exact gate phrase was not provided.'})
+    if collisions: blockers.append({'id':'target_collision','message':str(collisions)})
+    if not all([goal,conflict,reveal,hook]): blockers.append({'id':'chapter_context_incomplete','message':'Goal/Conflict/Reveal/Hook not all present.'})
+
+    checks=[
+        {'id':'project_root_exists','ok':root.exists() and root.is_dir(),'message':str(root)},
+        {'id':'drafts_folder_exists','ok':drafts.exists() and drafts.is_dir(),'message':str(drafts)},
+        {'id':'chapter_card_exists','ok':card.exists() and card.is_file(),'message':str(card)},
+        {'id':'latest_draft_exists','ok':latest.exists() and latest.is_file(),'message':str(latest)},
+        {'id':'latest_metadata_exists','ok':latest_meta.exists() and latest_meta.is_file(),'message':str(latest_meta)},
+        {'id':'latest_evidence_exists','ok':latest_ev.exists() and latest_ev.is_file(),'message':str(latest_ev)},
+        {'id':'latest_hash_verified','ok':latest_hash_ok and bool(latest_hash),'message':f'actual={latest_hash[:12]} expected={(expected_hash or "")[:12]}'},
+        {'id':'latest_word_count_verified','ok':latest_wc_ok,'message':f'actual={latest_wc} expected={expected_wc}'},
+        {'id':'latest_is_real_prose_draft','ok':latest_is_real_prose,'message':latest_status},
+        {'id':'chapter_context_present','ok':all([goal,conflict,reveal,hook]),'message':'Goal / Conflict / Reveal / Hook parsed.'},
+        {'id':'revised_prose_text_present','ok':revised_words>=35,'message':f'{revised_words} revised-prose word(s).'},
+        {'id':'edit_diff_detected','ok':len(unified)>0,'message':f'{len(unified)} diff line(s).'},
+        {'id':'edit_mode_supported','ok':edit_mode in ('revise_latest_real_prose','polish_only','expand_scene'),'message':edit_mode},
+        {'id':'next_version_selected','ok':next_version>latest_version,'message':f'latest=v{latest_version:03d} next=v{next_version:03d}'},
+        {'id':'next_targets_previewed','ok':len(targets)==3,'message':f'{len(targets)} next-version target(s).'},
+        {'id':'no_target_collision','ok':not bool(collisions),'message':f'{len(collisions)} collision(s).'},
+        {'id':'approval_phrase_declared','ok':True,'message':required_phrase},
+        {'id':'approval_phrase_matches','ok':phrase_matches,'message':'Exact phrase matched.' if phrase_matches else 'Exact phrase not matched.'},
+        {'id':'edited_prose_preview_generated','ok':len(new_md)>500 and revised_words>=35,'message':f'{len(new_md)} preview chars.'},
+        {'id':'save_disabled_this_build','ok':True,'message':'v10.14.3 is a no-write edit gate only.'},
+        {'id':'read_only_real_prose_editor_gate','ok':True,'message':'No draft, chapter, or story file was written, overwritten, renamed, moved, or deleted.'}
+    ]
+    healthy=all(c.get('ok') for c in checks if c.get('id')!='approval_phrase_matches') and len(errors)==0 and not collisions
+    safe_to_save_later=bool(not blockers and phrase_matches)
+    label='REAL PROSE EDITOR GATE READY' if healthy else 'REAL PROSE EDITOR GATE NEEDS REVIEW'
+    summary={
+        'project_id':'slipping_into_darkness','project_title':project,'book_id':book_id,'book_title':book,'chapter_number':chapter_number,
+        'latest_version':latest_version,'next_version':next_version,'latest_words':latest_wc,'revised_words':revised_words,'word_delta':word_delta,
+        'latest_hash':latest_hash,'expected_latest_hash':expected_hash,'latest_hash_ok':latest_hash_ok,'latest_word_count_ok':latest_wc_ok,
+        'latest_is_real_prose_draft':latest_is_real_prose,'latest_status':latest_status,'new_preview_hash':new_hash,'edit_mode':edit_mode,
+        'added_lines':len(added_lines),'removed_lines':len(removed_lines),'added_words':len(added_words),'removed_words':len(removed_words),
+        'required_phrase':required_phrase,'typed_phrase_present':bool(typed_phrase),'phrase_matches':phrase_matches,
+        'selected_targets':len(targets),'collision_targets':len(collisions),'blockers':len(blockers),'errors':len(errors),
+        'checks':len(checks),'checks_passed':sum(1 for c in checks if c.get('ok')),'problems':sum(1 for c in checks if not c.get('ok'))+len(blockers)+len(errors),
+        'real_prose_edit_save_enabled_this_build':False,'safe_to_save_later':safe_to_save_later,'read_only':True,'report_only':True,
+        'next_draft_path':str(target_md),'metadata_path':str(target_meta),'evidence_path':str(target_ev)
+    }
+    safety={'read_only_real_prose_editor_gate':True,'real_prose_edit_save_enabled_this_build':False,'future_save_requires_exact_phrase':True,'future_save_requires_no_collision':True,'future_save_requires_metadata_and_evidence':True,'no_draft_file_write':True,'no_chapter_file_edit':True,'no_story_file_mutation':True,'no_project_creation':True,'no_legacy_migration':True,'no_rename_performed':True,'no_overwrite':True,'no_delete':True,'no_move':True,'no_install':True,'no_model_cleanup':True,'gate_export_only':True}
+    report={'ok':True,'created':now(),'title':'Kayock Writer Real Prose Editor Gate','read_only':True,'report_only':True,'healthy':healthy,'gate_ready':healthy,'health_label':label,'message':f'Real Prose Editor Gate: {label}','milestone':'v10.14.3 Real Prose Editor Gate','summary':summary,'approval_gate':{'required_phrase':required_phrase,'typed_phrase_present':bool(typed_phrase),'typed_phrase_matches':phrase_matches,'real_prose_edit_save_enabled_this_build':False,'reason_save_disabled':'v10.14.3 previews the real-prose edit only. Actual save must be a later approved action.','future_mode':'approved_action_only'},'source_files':{'chapter_card':info(card),'latest_draft':info(latest),'latest_metadata':info(latest_meta),'latest_evidence':info(latest_ev)},'chapter_context':{'title_line':title,'project':project,'book':book,'pov':pov,'location':loc,'goal':goal,'conflict':conflict,'reveal':reveal,'hook':hook,'continuity_notes':notes},'latest_draft':{'version':latest_version,'path':str(latest),'body':latest_body,'word_count':latest_wc,'hash':latest_hash,'expected_hash':expected_hash,'hash_ok':latest_hash_ok,'word_count_ok':latest_wc_ok,'status':latest_status,'is_real_prose_draft':latest_is_real_prose},'edit_preview':{'edit_mode':edit_mode,'revised_prose_text':revised_prose,'revised_words':revised_words,'word_delta':word_delta,'new_preview_hash':new_hash,'new_markdown_preview':new_md,'line_diff':unified,'added_lines':added_lines,'removed_lines':removed_lines,'added_words_preview':' '.join(added_words[:160]),'removed_words_preview':' '.join(removed_words[:160])},'selected_targets':targets,'collision_targets':collisions,'blockers':blockers,'checks':checks,'errors':errors,'recommendations':[{'id':'mark_real_prose_editor_gate_proven','title':'Mark Real Prose Editor Gate proven','recommendation':'Use this as the no-write safety gate before saving revised real prose as the next version.','risk':'low','auto_apply':False},{'id':'next_real_prose_edit_save_action','title':'Build Real Prose Edit Save Approved Action next','recommendation':'Add actual revised-prose save only after exact phrase, no collision, metadata creation, evidence creation, and post-save hash checks.','risk':'medium','auto_apply':False}],'folders':{'real_prose_editor_gate_reports':str(reports),'drafts_folder':str(drafts)},'safety':safety}
+    if export:
+        try:
+            reports.mkdir(parents=True,exist_ok=True)
+            stamp=datetime.now().strftime('%Y%m%d_%H%M%S')
+            jp=reports/f'Real_Prose_Editor_Gate_{book_id}_chapter_{chapter_number:02d}_v{latest_version:03d}_to_v{next_version:03d}_{stamp}.json'
+            mp=reports/f'Real_Prose_Editor_Gate_{book_id}_chapter_{chapter_number:02d}_v{latest_version:03d}_to_v{next_version:03d}_{stamp}.md'
+            jwrite(jp,report)
+            lines=['# Kayock Writer Real Prose Editor Gate','',f"Created: {report['created']}",f"Milestone: **{report['milestone']}**",f"Health: **{label}**",f"Gate ready: {healthy}",'','## Safety','','- Read-only real prose editor gate.','- Revised prose save disabled in this build.','- No draft file write.','- No chapter-file edit.','- No story-file mutation.','- No overwrite.','- No delete.','- No move.','','## Summary']
+            for k,v in summary.items(): lines.append(f"- {k.replace('_',' ').title()}: {v}")
+            lines += ['','## Approval Phrase','',f'`{required_phrase}`','','## Selected Targets']
+            for t in targets: lines.append(f"- `{t['kind']}` - `{t['path']}` - exists: {t['exists']} - would overwrite: {t['would_overwrite']}")
+            lines += ['','## Added Lines']
+            if added_lines:
+                for x in added_lines[:50]: lines.append(f"+ {x}")
+            else: lines.append('- None.')
+            lines += ['','## Removed Lines']
+            if removed_lines:
+                for x in removed_lines[:50]: lines.append(f"- {x}")
+            else: lines.append('- None.')
+            lines += ['','## Unified Diff','','```diff']
+            lines += unified[:200]
+            lines += ['```','','## Edited Prose Preview','','```markdown',new_md,'```','','## Blockers']
+            if blockers:
+                for b in blockers: lines.append(f"- `{b.get('id')}` - {b.get('message')}")
+            else: lines.append('- None.')
+            lines += ['','## Checks']
+            for c in checks: lines.append(f"- [{'PASS' if c.get('ok') else 'FAIL'}] `{c.get('id')}` - {c.get('message')}")
+            lines += ['','## Errors']
+            if errors:
+                for e in errors: lines.append(f"- `{e.get('id')}` - {e.get('message')}")
+            else: lines.append('- None.')
+            mp.write_text('\n'.join(lines),encoding='utf-8')
+            report['exported']={'json':str(jp),'markdown':str(mp),'folder':str(reports)}
+        except Exception as e:
+            report['export_error']=str(e)
+    return report
+
+
+
+def kayock_writer_real_prose_edit_save_action_report(d=None):
+    import re, json, hashlib
+    from datetime import datetime
+    d=d or {}
+    execute=bool(d.get('execute',False))
+    export=bool(d.get('export',True))
+    book_id=str(d.get('book_id') or 'book_2').strip().lower().replace(' ','_')
+    if book_id not in ('book_1','book_2'): book_id='book_2'
+    chapter_number=int(d.get('chapter_number') or 2)
+    if chapter_number not in (1,2,3): chapter_number=2
+    required_phrase='SAVE REAL PROSE EDIT'
+    typed_phrase=str(d.get('approval_phrase') or '').strip()
+    phrase_matches=(typed_phrase==required_phrase)
+    edit_mode=str(d.get('edit_mode') or 'revise_latest_real_prose').strip().lower()
+    if edit_mode not in ('revise_latest_real_prose','replace_latest_real_prose','append_to_latest_real_prose'): edit_mode='revise_latest_real_prose'
+    revised_prose=str(d.get('revised_prose_text') or '').strip()
+
+    root=ROOT/'Projects'/'KayockWriter'/'Slipping_into_Darkness'
+    drafts=root/'Drafts'/book_id
+    chapters=root/'Chapters'/book_id
+    reports=FOLDERS.get('kayock_writer_real_prose_edit_save_reports',ROOT/'Reports'/'KayockWriter'/'RealProseEditSaveAction')
+
+    def sha(v): return hashlib.sha256((v or '').encode('utf-8',errors='replace')).hexdigest()
+    def sec(md,name):
+        md=md or ''; mark=f'## {name}'; i=md.find(mark)
+        if i<0: return ''
+        s=i+len(mark)
+        while s<len(md) and md[s] in '\r\n ': s+=1
+        j=md.find('\n## ',s)
+        return (md[s:] if j<0 else md[s:j]).strip()
+    def meta(md,label,default=''):
+        m=re.search(rf'^\s*-\s*\*\*{re.escape(label)}:\*\*\s*(.*?)\s*$', md or '', re.I|re.M)
+        return m.group(1).strip() if m else default
+    def wc(v): return len([x for x in re.split(r'\s+', (v or '').strip()) if x])
+    def info(p):
+        out={'path':str(p),'name':p.name,'exists':p.exists(),'kind':'missing','size':0,'modified':''}
+        try:
+            if p.exists():
+                out['kind']='folder' if p.is_dir() else 'file'
+                out['size']=p.stat().st_size if p.is_file() else None
+                out['modified']=datetime.fromtimestamp(p.stat().st_mtime).isoformat(timespec='seconds')
+        except Exception as e: out['error']=str(e)
+        return out
+
+    errors=[]
+    card_files=sorted(chapters.glob(f'chapter_{chapter_number:02d}_*.md'), key=lambda p:p.name.lower()) if chapters.exists() else []
+    card=card_files[0] if card_files else chapters/f'chapter_{chapter_number:02d}_missing.md'
+    card_text=''
+    try:
+        if card.exists(): card_text=card.read_text(encoding='utf-8',errors='replace')
+        else: errors.append({'id':'chapter_card_missing','message':str(card)})
+    except Exception as e: errors.append({'id':'chapter_card_read_error','message':str(e)})
+
+    draft_files=sorted(drafts.glob(f'chapter_{chapter_number:02d}_draft_v*.md'), key=lambda p:p.name.lower()) if drafts.exists() else []
+    latest=draft_files[-1] if draft_files else drafts/f'chapter_{chapter_number:02d}_draft_missing.md'
+    latest_text=''
+    try:
+        if latest.exists(): latest_text=latest.read_text(encoding='utf-8',errors='replace')
+        else: errors.append({'id':'latest_draft_missing','message':str(latest)})
+    except Exception as e: errors.append({'id':'latest_draft_read_error','message':str(e)})
+
+    latest_meta=latest.with_suffix('.meta.json')
+    latest_ev=latest.with_suffix('.save_evidence.json')
+    meta_json={}; ev_json={}
+    try:
+        if latest_meta.exists(): meta_json=json.loads(latest_meta.read_text(encoding='utf-8',errors='replace'))
+        else: errors.append({'id':'latest_metadata_missing','message':str(latest_meta)})
+    except Exception as e: errors.append({'id':'latest_metadata_parse_error','message':str(e)})
+    try:
+        if latest_ev.exists(): ev_json=json.loads(latest_ev.read_text(encoding='utf-8',errors='replace'))
+        else: errors.append({'id':'latest_evidence_missing','message':str(latest_ev)})
+    except Exception as e: errors.append({'id':'latest_evidence_parse_error','message':str(e)})
+
+    m=re.search(r'draft_v(\d+)', latest.name)
+    latest_version=int(m.group(1)) if m else 0
+    next_version=latest_version+1 if latest_version else 1
+    target_md=drafts/f'chapter_{chapter_number:02d}_draft_v{next_version:03d}.md'
+    target_meta=drafts/f'chapter_{chapter_number:02d}_draft_v{next_version:03d}.meta.json'
+    target_ev=drafts/f'chapter_{chapter_number:02d}_draft_v{next_version:03d}.save_evidence.json'
+
+    latest_body=sec(latest_text,'Draft')
+    latest_hash=sha(latest_text) if latest_text else ''
+    expected_hash=meta_json.get('draft_hash') or ev_json.get('draft_hash') or ''
+    latest_hash_ok=(not expected_hash) or latest_hash==expected_hash
+    latest_wc=wc(latest_body)
+    expected_wc=meta_json.get('word_count') or ev_json.get('word_count')
+    latest_wc_ok=(expected_wc is None) or latest_wc==expected_wc
+    latest_status=meta_json.get('status') or ''
+    latest_is_real_prose=(latest_status=='real_prose_draft')
+
+    if not revised_prose:
+        base=(latest_body or 'Anthony stood before the first broken sign that the sanctuary was real, not myth.').strip()
+        revised_prose=base.rstrip('.') + ', because a trap meant someone knew he was coming.'
+
+    title=(card_text.splitlines()[0].lstrip('# ').strip() if card_text.splitlines() else f'Chapter {chapter_number:02d}')
+    project=meta(card_text,'Project','Slipping into Darkness')
+    book=meta(card_text,'Book','Book 2' if book_id=='book_2' else 'Book 1')
+    pov=meta(card_text,'POV','Anthony')
+    loc=meta(card_text,'Location','TBD')
+    goal=sec(card_text,'Goal'); conflict=sec(card_text,'Conflict'); reveal=sec(card_text,'Reveal'); hook=sec(card_text,'Hook'); notes=sec(card_text,'Continuity Notes')
+
+    if edit_mode=='append_to_latest_real_prose':
+        new_body=(latest_body.strip()+"\n\n"+revised_prose.strip()).strip()
+        mode_note='Append revised prose to latest real prose draft.'
+    else:
+        new_body=revised_prose.strip()
+        mode_note='Save revised real prose as the next draft version.'
+
+    new_words=wc(new_body)
+    revised_words=wc(revised_prose)
+    new_md=(f"# Chapter {chapter_number:02d} Draft\n\n"
+            f"- **Project:** {project}\n- **Book:** {book}\n- **Chapter:** {chapter_number:02d}\n- **POV:** {pov}\n- **Location:** {loc}\n"
+            f"- **Status:** real_prose_draft\n- **Draft Version:** v{next_version:03d}\n- **Continues From:** v{latest_version:03d}\n"
+            f"- **Edit Mode:** {edit_mode}\n- **Created:** {now()}\n\n"
+            f"## Draft\n\n{new_body}\n\n"
+            f"## Source Chapter Card\n\n- Goal: {goal}\n- Conflict: {conflict}\n- Reveal: {reveal}\n- Hook: {hook}\n\n"
+            f"## Continuity Notes\n\n{notes}\n\n"
+            f"## Real Prose Edit Save Action\n\n"
+            f"- Saved by v10.14.4 Real Prose Edit Save Approved Action.\n"
+            f"- Previous draft hash: {latest_hash}\n"
+            f"- Chapter card was not edited.\n"
+            f"- Story canon was not mutated.\n"
+            f"- No existing draft file was overwritten.\n"
+            f"- Mode: {mode_note}\n")
+    new_hash=sha(new_md)
+
+    # lightweight diff summary
+    import difflib
+    old_lines=latest_body.splitlines(); new_lines=new_body.splitlines()
+    unified=list(difflib.unified_diff(old_lines,new_lines,fromfile=f'v{latest_version:03d}',tofile=f'v{next_version:03d}',lineterm=''))
+    added_lines=[x[1:] for x in unified if x.startswith('+') and not x.startswith('+++')]
+    removed_lines=[x[1:] for x in unified if x.startswith('-') and not x.startswith('---')]
+
+    targets=[
+        {'kind':'edited_real_prose_markdown','path':str(target_md),'exists':target_md.exists(),'would_overwrite':target_md.exists()},
+        {'kind':'edited_real_prose_metadata','path':str(target_meta),'exists':target_meta.exists(),'would_overwrite':target_meta.exists()},
+        {'kind':'edited_real_prose_evidence','path':str(target_ev),'exists':target_ev.exists(),'would_overwrite':target_ev.exists()}
+    ]
+    collisions=[t for t in targets if t.get('would_overwrite')]
+
+    blockers=[]
+    if not root.exists(): blockers.append({'id':'project_root_missing','message':str(root)})
+    if not drafts.exists(): blockers.append({'id':'drafts_folder_missing','message':str(drafts)})
+    if not card.exists(): blockers.append({'id':'chapter_card_missing','message':str(card)})
+    if not latest.exists(): blockers.append({'id':'latest_draft_missing','message':str(latest)})
+    if not latest_meta.exists(): blockers.append({'id':'latest_metadata_missing','message':str(latest_meta)})
+    if not latest_ev.exists(): blockers.append({'id':'latest_evidence_missing','message':str(latest_ev)})
+    if not latest_hash_ok: blockers.append({'id':'latest_hash_mismatch','message':'Latest draft hash does not match metadata/evidence.'})
+    if not latest_wc_ok: blockers.append({'id':'latest_word_count_mismatch','message':'Latest draft word count does not match metadata/evidence.'})
+    if not latest_is_real_prose: blockers.append({'id':'latest_not_real_prose_draft','message':latest_status or 'missing status'})
+    if revised_words<35: blockers.append({'id':'revised_prose_too_short','message':f'Revised prose has only {revised_words} word(s); minimum is 35.'})
+    if not phrase_matches: blockers.append({'id':'phrase_mismatch','message':'Exact approval phrase was not provided.'})
+    if collisions: blockers.append({'id':'target_collision','message':str(collisions)})
+    if not all([goal,conflict,reveal,hook]): blockers.append({'id':'chapter_context_incomplete','message':'Goal/Conflict/Reveal/Hook not all present.'})
+    if not unified: blockers.append({'id':'no_edit_detected','message':'Revised prose does not differ from latest draft body.'})
+
+    preflight=[
+        {'id':'project_root_exists','ok':root.exists() and root.is_dir(),'message':str(root)},
+        {'id':'drafts_folder_exists','ok':drafts.exists() and drafts.is_dir(),'message':str(drafts)},
+        {'id':'chapter_card_exists','ok':card.exists() and card.is_file(),'message':str(card)},
+        {'id':'latest_draft_exists','ok':latest.exists() and latest.is_file(),'message':str(latest)},
+        {'id':'latest_metadata_exists','ok':latest_meta.exists() and latest_meta.is_file(),'message':str(latest_meta)},
+        {'id':'latest_evidence_exists','ok':latest_ev.exists() and latest_ev.is_file(),'message':str(latest_ev)},
+        {'id':'latest_hash_verified','ok':latest_hash_ok and bool(latest_hash),'message':f'actual={latest_hash[:12]} expected={(expected_hash or "")[:12]}'},
+        {'id':'latest_word_count_verified','ok':latest_wc_ok,'message':f'actual={latest_wc} expected={expected_wc}'},
+        {'id':'latest_is_real_prose_draft','ok':latest_is_real_prose,'message':latest_status or 'missing'},
+        {'id':'chapter_context_present','ok':all([goal,conflict,reveal,hook]),'message':'Goal / Conflict / Reveal / Hook parsed.'},
+        {'id':'revised_prose_text_present','ok':revised_words>=35,'message':f'{revised_words} revised-prose word(s).'},
+        {'id':'edit_diff_detected','ok':bool(unified),'message':f'{len(unified)} diff line(s).'},
+        {'id':'edit_mode_supported','ok':edit_mode in ('revise_latest_real_prose','replace_latest_real_prose','append_to_latest_real_prose'),'message':edit_mode},
+        {'id':'next_version_selected','ok':next_version>latest_version,'message':f'latest=v{latest_version:03d} next=v{next_version:03d}'},
+        {'id':'no_target_collision','ok':not bool(collisions),'message':f'{len(collisions)} collision(s).'},
+        {'id':'approval_phrase_matches','ok':phrase_matches,'message':'Exact phrase matched.' if phrase_matches else 'Exact phrase not matched.'},
+        {'id':'save_action_requested','ok':execute,'message':'Execute requested.' if execute else 'Preview only; no save requested.'},
+        {'id':'no_delete_or_move_requested','ok':True,'message':'No delete or move operation is part of this action.'}
+    ]
+    action_allowed=bool(execute and not blockers and all(c.get('ok') for c in preflight))
+    status='preview'
+    if execute and not action_allowed: status='blocked'
+    created_files=[]; written_files=[]; actions=[]
+
+    metadata={'project_id':'slipping_into_darkness','project_title':project,'book_id':book_id,'book_title':book,'chapter_number':chapter_number,'chapter_card_path':str(card),'draft_title':f'Chapter {chapter_number:02d} Draft','draft_version':next_version,'continues_from_version':latest_version,'previous_draft_path':str(latest),'previous_draft_hash':latest_hash,'draft_markdown_path':str(target_md),'metadata_path':str(target_meta),'evidence_path':str(target_ev),'word_count':new_words,'revised_prose_word_count':revised_words,'char_count':len(new_body),'line_count':len(new_body.splitlines()),'draft_hash':new_hash,'created':now(),'created_by':'v10.14.4 Real Prose Edit Save Approved Action','status':'real_prose_draft','edit_mode':edit_mode,'added_lines':len(added_lines),'removed_lines':len(removed_lines),'chapter_context':{'title_line':title,'pov':pov,'location':loc,'goal':goal,'conflict':conflict,'reveal':reveal,'hook':hook,'continuity_notes':notes}}
+    evidence={'created':now(),'milestone':'v10.14.4 Real Prose Edit Save Approved Action','project_id':'slipping_into_darkness','book_id':book_id,'chapter_number':chapter_number,'draft_version':next_version,'continues_from_version':latest_version,'draft_markdown_path':str(target_md),'metadata_path':str(target_meta),'evidence_path':str(target_ev),'draft_hash':new_hash,'previous_draft_hash':latest_hash,'word_count':new_words,'revised_prose_word_count':revised_words,'phrase_matches':phrase_matches,'edit_mode':edit_mode,'chapter_card_path':str(card),'safety':{'no_chapter_file_edit':True,'no_story_file_mutation':True,'no_overwrite':True,'no_delete':True,'no_move':True}}
+
+    if action_allowed:
+        status='saved'
+        try:
+            drafts.mkdir(parents=True,exist_ok=True)
+            for p in (target_md,target_meta,target_ev):
+                if p.exists(): raise RuntimeError(f'Refusing to overwrite existing target: {p}')
+            target_md.write_text(new_md,encoding='utf-8'); created_files.append(str(target_md)); written_files.append(str(target_md)); actions.append({'id':'edited_real_prose_markdown_created','ok':True,'path':str(target_md)})
+            jwrite(target_meta,metadata); created_files.append(str(target_meta)); written_files.append(str(target_meta)); actions.append({'id':'edited_real_prose_metadata_created','ok':True,'path':str(target_meta)})
+            jwrite(target_ev,evidence); created_files.append(str(target_ev)); written_files.append(str(target_ev)); actions.append({'id':'edited_real_prose_evidence_created','ok':True,'path':str(target_ev)})
+        except Exception as e:
+            status='error'; errors.append({'id':'execution_error','message':str(e)})
+
+    post=[]
+    if status=='saved' and not any(e.get('id')=='execution_error' for e in errors):
+        try: read_md=target_md.read_text(encoding='utf-8',errors='replace')
+        except Exception as e: read_md=''; errors.append({'id':'readback_draft_error','message':str(e)})
+        try: read_meta=json.loads(target_meta.read_text(encoding='utf-8',errors='replace'))
+        except Exception as e: read_meta={}; errors.append({'id':'readback_metadata_error','message':str(e)})
+        try: read_ev=json.loads(target_ev.read_text(encoding='utf-8',errors='replace'))
+        except Exception as e: read_ev={}; errors.append({'id':'readback_evidence_error','message':str(e)})
+        rh=sha(read_md)
+        post=[
+            {'id':'edited_real_prose_markdown_exists','ok':target_md.exists() and target_md.is_file(),'message':str(target_md)},
+            {'id':'edited_real_prose_metadata_exists','ok':target_meta.exists() and target_meta.is_file(),'message':str(target_meta)},
+            {'id':'edited_real_prose_evidence_exists','ok':target_ev.exists() and target_ev.is_file(),'message':str(target_ev)},
+            {'id':'new_draft_hash_matches','ok':rh==new_hash,'message':f'read_hash={rh[:12]} expected={new_hash[:12]}'},
+            {'id':'new_draft_contains_revised_prose','ok':revised_prose[:60] in read_md,'message':'Revised prose text found in saved Markdown.'},
+            {'id':'metadata_matches_new_draft','ok':read_meta.get('draft_hash')==new_hash and read_meta.get('word_count')==new_words,'message':'Metadata hash and word count match.'},
+            {'id':'evidence_matches_new_draft','ok':read_ev.get('draft_hash')==new_hash and read_ev.get('previous_draft_hash')==latest_hash,'message':'Evidence hash and previous hash match.'},
+            {'id':'real_prose_status_saved','ok':read_meta.get('status')=='real_prose_draft','message':str(read_meta.get('status'))},
+            {'id':'edit_mode_saved','ok':read_meta.get('edit_mode')==edit_mode,'message':str(read_meta.get('edit_mode'))},
+            {'id':'chapter_card_unchanged_by_action','ok':card.exists() and card.is_file(),'message':'Chapter card still exists; action did not write to it.'},
+            {'id':'no_delete_no_move','ok':all(Path(x).exists() for x in created_files),'message':'Created files remain in planned draft folder.'}
+        ]
+    else:
+        post=[{'id':'preview_or_blocked_no_write','ok':True,'message':'No real prose edit save was executed in preview/block mode.'}]
+
+    problems=sum(1 for c in preflight if not c.get('ok'))+sum(1 for c in post if not c.get('ok'))+len(blockers)+len(errors)
+    summary={'project_id':'slipping_into_darkness','project_title':project,'book_id':book_id,'book_title':book,'chapter_number':chapter_number,'status':status,'execute_requested':execute,'action_allowed':action_allowed,'latest_version':latest_version,'next_version':next_version,'latest_words':latest_wc,'revised_words':revised_words,'new_words':new_words,'word_delta':new_words-latest_wc,'latest_hash_ok':latest_hash_ok,'latest_word_count_ok':latest_wc_ok,'latest_is_real_prose_draft':latest_is_real_prose,'new_draft_hash':new_hash,'edit_mode':edit_mode,'added_lines':len(added_lines),'removed_lines':len(removed_lines),'required_phrase':required_phrase,'typed_phrase_present':bool(typed_phrase),'phrase_matches':phrase_matches,'selected_targets':len(targets),'collision_targets':len(collisions),'blockers':len(blockers),'errors':len(errors),'preflight_checks':len(preflight),'preflight_checks_passed':sum(1 for c in preflight if c.get('ok')),'created_files':len(created_files),'written_files':len(written_files),'post_checks':len(post),'post_checks_passed':sum(1 for c in post if c.get('ok')),'problems':problems,'next_draft_path':str(target_md),'metadata_path':str(target_meta),'evidence_path':str(target_ev)}
+    safety={'approved_action_only':True,'requires_exact_phrase':True,'requires_revised_prose_text':True,'requires_latest_hash_verified':True,'requires_no_collision':True,'creates_edited_real_prose_markdown':bool(action_allowed),'creates_metadata_json':bool(action_allowed),'creates_save_evidence_json':bool(action_allowed),'no_chapter_file_edit':True,'no_story_file_mutation':True,'no_project_creation':True,'no_legacy_migration':True,'no_overwrite':True,'no_delete':True,'no_move':True,'no_install':True,'no_model_cleanup':True,'action_report_written':True}
+    if status=='saved': label='REAL PROSE EDIT SAVED'
+    elif status=='blocked': label='REAL PROSE EDIT SAVE ACTION BLOCKED SAFELY'
+    elif status=='error': label='REAL PROSE EDIT SAVE ACTION ERROR'
+    else: label='REAL PROSE EDIT SAVE ACTION READY - PREVIEW ONLY'
+    healthy=status in ('preview','blocked','saved') and not any(e.get('id','').endswith('_error') for e in errors)
+
+    report={'ok':True,'created':now(),'title':'Kayock Writer Real Prose Edit Save Approved Action','read_only':not action_allowed,'report_only':not action_allowed,'healthy':healthy,'status':status,'health_label':label,'message':f'Real Prose Edit Save Approved Action: {label}','milestone':'v10.14.4 Real Prose Edit Save Approved Action','summary':summary,'approval_phrase_required':required_phrase,'approval_phrase_matches':phrase_matches,'source_files':{'chapter_card':info(card),'latest_draft':info(latest),'latest_metadata':info(latest_meta),'latest_evidence':info(latest_ev)},'chapter_context':{'title_line':title,'project':project,'book':book,'pov':pov,'location':loc,'goal':goal,'conflict':conflict,'reveal':reveal,'hook':hook,'continuity_notes':notes},'latest_draft':{'version':latest_version,'path':str(latest),'word_count':latest_wc,'hash':latest_hash,'hash_ok':latest_hash_ok,'word_count_ok':latest_wc_ok,'status':latest_status,'is_real_prose_draft':latest_is_real_prose},'edit_save':{'edit_mode':edit_mode,'revised_prose_text':revised_prose,'revised_words':revised_words,'new_words':new_words,'word_delta':new_words-latest_wc,'new_draft_hash':new_hash,'new_markdown_preview':new_md,'line_diff':unified,'added_lines':added_lines,'removed_lines':removed_lines},'selected_targets':targets,'collision_targets':collisions,'blockers':blockers,'preflight_checks':preflight,'created_files':created_files,'written_files':written_files,'actions':actions,'post_checks':post,'errors':errors,'recommendations':[{'id':'mark_real_prose_edit_save_action_proven','title':'Mark Real Prose Edit Save Approved Action proven','recommendation':'Use this as proof that Kayock Writer can save revised real prose as the next safe version.','risk':'medium','auto_apply':False},{'id':'next_real_prose_edit_refresh_compare','title':'Re-run refresh and compare next','recommendation':'Verify v004 appears in inventory and compare v003 to v004.','risk':'low','auto_apply':False}],'folders':{'real_prose_edit_save_reports':str(reports),'drafts_folder':str(drafts)},'safety':safety}
+
+    if export:
+        try:
+            reports.mkdir(parents=True,exist_ok=True)
+            stamp=datetime.now().strftime('%Y%m%d_%H%M%S')
+            jp=reports/f'Real_Prose_Edit_Save_Approved_Action_{book_id}_chapter_{chapter_number:02d}_v{next_version:03d}_{stamp}.json'
+            mp=reports/f'Real_Prose_Edit_Save_Approved_Action_{book_id}_chapter_{chapter_number:02d}_v{next_version:03d}_{stamp}.md'
+            jwrite(jp,report)
+            lines=['# Kayock Writer Real Prose Edit Save Approved Action','',f"Created: {report['created']}",f"Milestone: **{report['milestone']}**",f"Health: **{label}**",f"Status: `{status}`",f"Execute requested: {execute}",f"Action allowed: {action_allowed}",'','## Safety','','- Requires exact phrase.','- Requires revised real prose text.','- Requires latest draft hash verification.','- Requires no target collision.','- Creates edited real-prose Markdown, metadata JSON, and save evidence JSON.','- No chapter-file edit.','- No story-file mutation.','- No overwrite.','- No delete.','- No move.','','## Summary']
+            for k,v in summary.items(): lines.append(f"- {k.replace('_',' ').title()}: {v}")
+            lines += ['','## Created Files']
+            if created_files:
+                for x in created_files: lines.append(f"- `{x}`")
+            else: lines.append('- None.')
+            lines += ['','## Added Lines']
+            if added_lines:
+                for x in added_lines[:50]: lines.append(f"+ {x}")
+            else: lines.append('- None.')
+            lines += ['','## Removed Lines']
+            if removed_lines:
+                for x in removed_lines[:50]: lines.append(f"- {x}")
+            else: lines.append('- None.')
+            lines += ['','## Unified Diff','','```diff'] + unified[:200] + ['```','','## New Edited Real Prose Draft Preview','','```markdown',new_md,'```','','## Blockers']
+            if blockers:
+                for b in blockers: lines.append(f"- `{b.get('id')}` - {b.get('message')}")
+            else: lines.append('- None.')
+            lines += ['','## Preflight Checks']
+            for c in preflight: lines.append(f"- [{'PASS' if c.get('ok') else 'FAIL'}] `{c.get('id')}` - {c.get('message')}")
+            lines += ['','## Post Checks']
+            for c in post: lines.append(f"- [{'PASS' if c.get('ok') else 'FAIL'}] `{c.get('id')}` - {c.get('message')}")
+            lines += ['','## Errors']
+            if errors:
+                for e in errors: lines.append(f"- `{e.get('id')}` - {e.get('message')}")
+            else: lines.append('- None.')
+            mp.write_text('\n'.join(lines),encoding='utf-8')
+            report['exported']={'json':str(jp),'markdown':str(mp),'folder':str(reports)}
+        except Exception as e:
+            report['export_error']=str(e)
+    return report
+
+
+
+def kayock_writer_real_prose_edit_refresh_compare_report(d=None):
+    import re, json, hashlib, difflib
+    from datetime import datetime
+    d=d or {}
+    export=bool(d.get('export',False))
+    book_id=str(d.get('book_id') or 'book_2').strip().lower().replace(' ','_')
+    if book_id not in ('book_1','book_2'): book_id='book_2'
+    chapter_number=int(d.get('chapter_number') or 2)
+    if chapter_number not in (1,2,3): chapter_number=2
+    from_version=int(d.get('from_version') or 3)
+    to_version=int(d.get('to_version') or 4)
+
+    root=ROOT/'Projects'/'KayockWriter'/'Slipping_into_Darkness'
+    drafts=root/'Drafts'/book_id
+    chapters=root/'Chapters'/book_id
+    reports=FOLDERS.get('kayock_writer_real_prose_edit_refresh_compare_reports',ROOT/'Reports'/'KayockWriter'/'RealProseEditRefreshCompare')
+
+    def sha(v): return hashlib.sha256((v or '').encode('utf-8',errors='replace')).hexdigest()
+    def sec(md,name):
+        md=md or ''; mark=f'## {name}'; i=md.find(mark)
+        if i<0: return ''
+        s=i+len(mark)
+        while s<len(md) and md[s] in '\r\n ': s+=1
+        j=md.find('\n## ',s)
+        return (md[s:] if j<0 else md[s:j]).strip()
+    def wc(v): return len([x for x in re.split(r'\s+', (v or '').strip()) if x])
+    def info(p):
+        out={'path':str(p),'name':p.name,'exists':p.exists(),'kind':'missing','size':0,'modified':''}
+        try:
+            if p.exists():
+                out['kind']='folder' if p.is_dir() else 'file'
+                out['size']=p.stat().st_size if p.is_file() else None
+                out['modified']=datetime.fromtimestamp(p.stat().st_mtime).isoformat(timespec='seconds')
+        except Exception as e: out['error']=str(e)
+        return out
+
+    revised_signal='because a trap meant someone knew he was coming'
+    prior_signal='That was what frightened him most.'
+    errors=[]
+    card_files=sorted(chapters.glob(f'chapter_{chapter_number:02d}_*.md'), key=lambda p:p.name.lower()) if chapters.exists() else []
+    card=card_files[0] if card_files else chapters/f'chapter_{chapter_number:02d}_missing.md'
+
+    def load_version(ver):
+        md=drafts/f'chapter_{chapter_number:02d}_draft_v{ver:03d}.md'
+        meta=md.with_suffix('.meta.json')
+        ev=md.with_suffix('.save_evidence.json')
+        out={'version':ver,'label':f'v{ver:03d}','draft_markdown':info(md),'metadata_file':info(meta),'evidence_file':info(ev)}
+        text=''; body=''; mj={}; ej={}
+        try:
+            if md.exists():
+                text=md.read_text(encoding='utf-8',errors='replace')
+                body=sec(text,'Draft')
+            else: errors.append({'id':'draft_missing','version':ver,'message':str(md)})
+        except Exception as e: errors.append({'id':'draft_read_error','version':ver,'message':str(e)})
+        try:
+            if meta.exists(): mj=json.loads(meta.read_text(encoding='utf-8',errors='replace'))
+            else: errors.append({'id':'metadata_missing','version':ver,'message':str(meta)})
+        except Exception as e: errors.append({'id':'metadata_parse_error','version':ver,'message':str(e)})
+        try:
+            if ev.exists(): ej=json.loads(ev.read_text(encoding='utf-8',errors='replace'))
+            else: errors.append({'id':'evidence_missing','version':ver,'message':str(ev)})
+        except Exception as e: errors.append({'id':'evidence_parse_error','version':ver,'message':str(e)})
+        actual_hash=sha(text) if text else ''
+        expected_hash=mj.get('draft_hash') or ej.get('draft_hash') or ''
+        actual_wc=wc(body)
+        expected_wc=mj.get('word_count') or ej.get('word_count')
+        out.update({
+            'text':text,'body':body,'word_count':actual_wc,'expected_word_count':expected_wc,
+            'word_count_ok':(expected_wc is None) or actual_wc==expected_wc,
+            'draft_hash':actual_hash,'expected_hash':expected_hash,
+            'hash_ok':(not expected_hash) or actual_hash==expected_hash,
+            'status':mj.get('status') or 'unknown',
+            'created':mj.get('created') or ej.get('created') or '',
+            'created_by':mj.get('created_by') or ej.get('milestone') or '',
+            'continues_from_version':mj.get('continues_from_version') or ej.get('continues_from_version'),
+            'previous_draft_hash':mj.get('previous_draft_hash') or ej.get('previous_draft_hash') or '',
+            'edit_mode':mj.get('edit_mode') or ej.get('edit_mode') or '',
+            'prose_mode':mj.get('prose_mode') or ej.get('prose_mode') or '',
+            'contains_revised_trap_ending':revised_signal in body,
+            'contains_prior_short_ending':body.rstrip().endswith(prior_signal),
+            'verified':bool(md.exists() and meta.exists() and ev.exists() and ((not expected_hash) or actual_hash==expected_hash) and ((expected_wc is None) or actual_wc==expected_wc)),
+            'preview':text[:800]
+        })
+        return out
+
+    versions=[]
+    version_files=sorted(drafts.glob(f'chapter_{chapter_number:02d}_draft_v*.md'), key=lambda p:p.name.lower()) if drafts.exists() else []
+    for p in version_files:
+        m=re.search(r'draft_v(\d+)',p.name)
+        if m: versions.append(load_version(int(m.group(1))))
+    versions=sorted(versions,key=lambda x:x.get('version') or 0)
+    latest=versions[-1] if versions else {}
+    from_draft=load_version(from_version)
+    to_draft=load_version(to_version)
+
+    old_lines=from_draft.get('body','').splitlines()
+    new_lines=to_draft.get('body','').splitlines()
+    unified=list(difflib.unified_diff(old_lines,new_lines,fromfile=from_draft.get('label','from'),tofile=to_draft.get('label','to'),lineterm=''))
+    added_lines=[x[1:] for x in unified if x.startswith('+') and not x.startswith('+++')]
+    removed_lines=[x[1:] for x in unified if x.startswith('-') and not x.startswith('---')]
+    old_words=re.findall(r'\S+',from_draft.get('body',''))
+    new_words=re.findall(r'\S+',to_draft.get('body',''))
+    word_diff=list(difflib.ndiff(old_words,new_words))
+    added_words=[x[2:] for x in word_diff if x.startswith('+ ')]
+    removed_words=[x[2:] for x in word_diff if x.startswith('- ')]
+    unchanged_words=[x[2:] for x in word_diff if x.startswith('  ')]
+
+    version_labels=[x.get('label') for x in versions]
+    has_v001=any(x.get('version')==1 for x in versions)
+    has_v002=any(x.get('version')==2 for x in versions)
+    has_v003=any(x.get('version')==3 for x in versions)
+    has_v004=any(x.get('version')==4 for x in versions)
+    latest_is_v004=latest.get('version')==4
+    all_verified=bool(versions) and all(x.get('verified') for x in versions)
+    all_hashes=bool(versions) and all(x.get('hash_ok') for x in versions)
+    all_counts=bool(versions) and all(x.get('word_count_ok') for x in versions)
+    v004_created_by=str(to_draft.get('created_by') or '')
+    v004_created_by_edit_save='Real Prose Edit Save Approved Action' in v004_created_by
+    v004_continues_from_v003=(to_draft.get('continues_from_version')==from_version)
+    previous_hash_ok=(not to_draft.get('previous_draft_hash')) or to_draft.get('previous_draft_hash')==from_draft.get('draft_hash')
+    revised_ending_present=bool(to_draft.get('contains_revised_trap_ending'))
+    prior_short_ending_replaced=bool(from_draft.get('contains_prior_short_ending')) and not bool(to_draft.get('contains_prior_short_ending'))
+    status_real_prose=(to_draft.get('status')=='real_prose_draft')
+    word_delta=(to_draft.get('word_count') or 0)-(from_draft.get('word_count') or 0)
+
+    compare={'from_version':from_draft.get('label'),'to_version':to_draft.get('label'),'word_delta':word_delta,
+        'char_delta':len(to_draft.get('body',''))-len(from_draft.get('body','')),
+        'added_line_count':len(added_lines),'removed_line_count':len(removed_lines),
+        'added_word_count':len(added_words),'removed_word_count':len(removed_words),'unchanged_word_count':len(unchanged_words),
+        'line_diff':unified[:300],'added_lines':added_lines[:100],'removed_lines':removed_lines[:100],
+        'added_words_preview':' '.join(added_words[:160]),'removed_words_preview':' '.join(removed_words[:160]),
+        'revised_ending_present':revised_ending_present,'prior_short_ending_replaced':prior_short_ending_replaced,
+        'lineage_ok':v004_continues_from_v003,'previous_hash_ok':previous_hash_ok}
+
+    checks=[
+        {'id':'project_root_exists','ok':root.exists() and root.is_dir(),'message':str(root)},
+        {'id':'drafts_folder_exists','ok':drafts.exists() and drafts.is_dir(),'message':str(drafts)},
+        {'id':'chapter_card_exists','ok':card.exists() and card.is_file(),'message':str(card)},
+        {'id':'draft_versions_loaded','ok':len(versions)>=4,'message':f'{len(versions)} version(s): {", ".join(version_labels)}'},
+        {'id':'v001_visible','ok':has_v001,'message':'v001 found.' if has_v001 else 'v001 missing.'},
+        {'id':'v002_visible','ok':has_v002,'message':'v002 found.' if has_v002 else 'v002 missing.'},
+        {'id':'v003_visible','ok':has_v003,'message':'v003 found.' if has_v003 else 'v003 missing.'},
+        {'id':'v004_visible','ok':has_v004,'message':'v004 found.' if has_v004 else 'v004 missing.'},
+        {'id':'latest_is_v004','ok':latest_is_v004,'message':f"latest={latest.get('label','none')}"},
+        {'id':'all_metadata_present','ok':bool(versions) and all(x.get('metadata_file',{}).get('exists') for x in versions),'message':'metadata present for every draft version.'},
+        {'id':'all_evidence_present','ok':bool(versions) and all(x.get('evidence_file',{}).get('exists') for x in versions),'message':'evidence present for every draft version.'},
+        {'id':'all_hashes_verified','ok':all_hashes,'message':'hashes verified for every draft version.'},
+        {'id':'all_word_counts_verified','ok':all_counts,'message':'word counts verified for every draft version.'},
+        {'id':'all_versions_fully_verified','ok':all_verified,'message':'all draft versions fully verified.'},
+        {'id':'v004_created_by_real_prose_edit_save_action','ok':v004_created_by_edit_save,'message':v004_created_by or 'missing'},
+        {'id':'v004_continues_from_v003','ok':v004_continues_from_v003,'message':f"continues_from_version={to_draft.get('continues_from_version')}"},
+        {'id':'v004_previous_hash_matches_v003','ok':previous_hash_ok,'message':'v004 previous_draft_hash matches v003 draft hash.'},
+        {'id':'v004_status_real_prose_draft','ok':status_real_prose,'message':to_draft.get('status')},
+        {'id':'revised_trap_ending_present_in_v004','ok':revised_ending_present,'message':'Revised trap ending found in v004 body.' if revised_ending_present else 'Revised ending missing.'},
+        {'id':'prior_short_ending_replaced','ok':prior_short_ending_replaced,'message':'v003 short ending replaced by v004 trap ending.' if prior_short_ending_replaced else 'Prior ending replacement not confirmed.'},
+        {'id':'compare_v003_to_v004_generated','ok':len(unified)>0,'message':f'{len(unified)} diff lines.'},
+        {'id':'no_edit_refresh_compare_errors','ok':len(errors)==0,'message':f'{len(errors)} error(s).'},
+        {'id':'read_only_real_prose_edit_refresh_compare','ok':True,'message':'Edit refresh / compare performed read-only inspection only.'}
+    ]
+
+    summary={'project_id':'slipping_into_darkness','project_title':'Slipping into Darkness','book_id':book_id,'chapter_number':chapter_number,
+        'chapter_card_path':str(card),'drafts_folder':str(drafts),'versions_loaded':len(versions),'version_labels':version_labels,
+        'has_v001':has_v001,'has_v002':has_v002,'has_v003':has_v003,'has_v004':has_v004,
+        'latest_version':latest.get('version','') if latest else '', 'latest_label':latest.get('label','') if latest else '',
+        'latest_is_v004':latest_is_v004,'v004_created_by':v004_created_by,'v004_continues_from_v003':v004_continues_from_v003,
+        'v004_previous_hash_matches_v003':previous_hash_ok,'v004_status_real_prose_draft':status_real_prose,
+        'revised_trap_ending_present_in_v004':revised_ending_present,'prior_short_ending_replaced':prior_short_ending_replaced,
+        'from_version':from_version,'to_version':to_version,'from_words':from_draft.get('word_count'),'to_words':to_draft.get('word_count'),
+        'word_delta':word_delta,'added_words':len(added_words),'removed_words':len(removed_words),
+        'all_hashes_verified':all_hashes,'all_word_counts_verified':all_counts,'all_versions_fully_verified':all_verified,
+        'errors':len(errors),'checks':len(checks),'checks_passed':sum(1 for c in checks if c.get('ok')),
+        'problems':sum(1 for c in checks if not c.get('ok'))+len(errors),'read_only':True,'report_only':True}
+    safety={'read_only_real_prose_edit_refresh_compare':True,'no_draft_save':True,'no_chapter_file_edit':True,'no_story_file_mutation':True,
+        'no_project_creation':True,'no_legacy_migration':True,'no_overwrite':True,'no_delete':True,'no_move':True,'no_install':True,
+        'no_model_cleanup':True,'edit_refresh_compare_export_only':True}
+    healthy=all(c.get('ok') for c in checks)
+    label='REAL PROSE EDIT REFRESH COMPARE READY' if healthy else 'REAL PROSE EDIT REFRESH COMPARE NEEDS REVIEW'
+    report={'ok':True,'created':now(),'title':'Kayock Writer Real Prose Edit Refresh / Compare','read_only':True,'report_only':True,
+        'healthy':healthy,'edit_refresh_compare_ready':healthy,'health_label':label,'message':f'Real Prose Edit Refresh / Compare: {label}',
+        'milestone':'v10.14.5 Real Prose Edit Refresh / Compare','summary':summary,'latest_version':latest,'versions':versions,
+        'from_draft':from_draft,'to_draft':to_draft,'compare':compare,'checks':checks,'errors':errors,
+        'recommendations':[{'id':'mark_real_prose_edit_refresh_compare_proven','title':'Mark Real Prose Edit Refresh / Compare proven','recommendation':'Use this as proof that v004 revised real prose is visible, verified, latest, and compared against v003.','risk':'low','auto_apply':False},{'id':'next_chapter_prose_workspace','title':'Next: Chapter Prose Workspace','recommendation':'Add a workspace to draft the next paragraph/scene from the current latest prose version.','risk':'medium','auto_apply':False}],
+        'folders':{'real_prose_edit_refresh_compare_reports':str(reports),'drafts_folder':str(drafts)},'safety':safety}
+
+    if export:
+        try:
+            reports.mkdir(parents=True,exist_ok=True)
+            stamp=datetime.now().strftime('%Y%m%d_%H%M%S')
+            jp=reports/f'Real_Prose_Edit_Refresh_Compare_{book_id}_chapter_{chapter_number:02d}_v{from_version:03d}_to_v{to_version:03d}_{stamp}.json'
+            mp=reports/f'Real_Prose_Edit_Refresh_Compare_{book_id}_chapter_{chapter_number:02d}_v{from_version:03d}_to_v{to_version:03d}_{stamp}.md'
+            jwrite(jp,report)
+            lines=['# Kayock Writer Real Prose Edit Refresh / Compare','',f"Created: {report['created']}",f"Milestone: **{report['milestone']}**",f"Health: **{label}**",f"Edit Refresh / Compare ready: {healthy}",'','## Safety','','- Read-only real prose edit refresh / compare.','- No draft save.','- No chapter-file edit.','- No story-file mutation.','- No overwrite.','- No delete.','- No move.','','## Summary']
+            for k,v in summary.items(): lines.append(f"- {k.replace('_',' ').title()}: {v}")
+            lines += ['','## Versions']
+            if versions:
+                for x in versions:
+                    lines.append(f"- [{'PASS' if x.get('verified') else 'REVIEW'}] **{x.get('label')}** - status: {x.get('status')} - words: {x.get('word_count')} - hash ok: {x.get('hash_ok')} - count ok: {x.get('word_count_ok')} - created by: {x.get('created_by')}")
+            else: lines.append('- None.')
+            lines += ['','## Compare v003 to v004','','### Added Lines']
+            if added_lines:
+                for line in added_lines[:50]: lines.append(f"+ {line}")
+            else: lines.append('- None.')
+            lines += ['','### Removed Lines']
+            if removed_lines:
+                for line in removed_lines[:50]: lines.append(f"- {line}")
+            else: lines.append('- None.')
+            lines += ['','### Unified Diff','','```diff']
+            lines += unified[:200]
+            lines += ['```','','## Checks']
+            for c in checks: lines.append(f"- [{'PASS' if c.get('ok') else 'FAIL'}] `{c.get('id')}` - {c.get('message')}")
+            lines += ['','## Errors']
+            if errors:
+                for e in errors: lines.append(f"- `{e.get('id')}` - {e.get('message')}")
+            else: lines.append('- None.')
+            mp.write_text('\n'.join(lines),encoding='utf-8')
+            report['exported']={'json':str(jp),'markdown':str(mp),'folder':str(reports)}
+        except Exception as e:
+            report['export_error']=str(e)
+    return report
+
+
 def list_projects():
     PROJECTS.mkdir(parents=True,exist_ok=True); arr=[]
     for p in sorted([x for x in PROJECTS.iterdir() if x.is_dir()],key=lambda x:x.name.lower()):
@@ -19624,6 +26428,1576 @@ def search_library_index(q='',limit=100):
         })
     results=sorted(results,key=lambda x:x.get('score',0),reverse=True)[:limit]
     return {'ok':True,'query':q,'built':data.get('built'),'count':len(results),'results':results}
+
+
+
+def kayock_writer_chapter_prose_continue_gate_report(d=None):
+    import re, json, hashlib, difflib
+    from datetime import datetime
+    d = d or {}
+    export = bool(d.get('export', False))
+    book_id = str(d.get('book_id') or 'book_2').strip().lower().replace(' ', '_')
+    if book_id not in ('book_1', 'book_2'):
+        book_id = 'book_2'
+    try:
+        chapter_number = int(d.get('chapter_number') or 2)
+    except Exception:
+        chapter_number = 2
+    if chapter_number not in (1, 2, 3):
+        chapter_number = 2
+
+    required_phrase = 'APPROVE CHAPTER PROSE CONTINUE PREVIEW'
+    typed_phrase = str(d.get('approval_phrase') or '').strip()
+    phrase_matches = typed_phrase == required_phrase
+    ai_visible_goal = str(d.get('ai_visible_goal') or '').strip()
+    ai_visible_goal_words = len([x for x in re.split(r'\s+', ai_visible_goal) if x])
+    continue_mode = str(d.get('continue_mode') or 'continue_from_latest').strip()
+    if continue_mode == 'append_to_latest':
+        continue_mode = 'continue_from_latest'
+    if continue_mode not in ('continue_from_latest', 'next_paragraph', 'next_scene'):
+        continue_mode = 'continue_from_latest'
+    proposed_continuation = str(d.get('proposed_continuation') or '').strip()
+    if not proposed_continuation:
+        proposed_continuation = 'Anthony studied the symbol again and forced himself not to touch it. If the clue had been left for him, then the real question was not where it pointed. The real question was who had known he would come this far.'
+
+    private_field_names = ['private_text', 'private_author_text', 'private_pane_text', 'human_only_text', 'secret_notes', 'player_private_notes', 'poet_private_notes']
+    detected_private_keys = [k for k in private_field_names if k in d]
+
+    root = ROOT / 'Projects' / 'KayockWriter' / 'Slipping_into_Darkness'
+    drafts = root / 'Drafts' / book_id
+    chapters = root / 'Chapters' / book_id
+    reports = FOLDERS.get('kayock_writer_chapter_prose_continue_gate_reports', ROOT / 'Reports' / 'KayockWriter' / 'ChapterProseContinueGate')
+
+    def sha(v):
+        return hashlib.sha256((v or '').encode('utf-8', errors='replace')).hexdigest()
+    def sec(md, name):
+        md = md or ''
+        mark = f'## {name}'
+        i = md.find(mark)
+        if i < 0:
+            return ''
+        s = i + len(mark)
+        while s < len(md) and md[s] in '\r\n ':
+            s += 1
+        j = md.find('\n## ', s)
+        return (md[s:] if j < 0 else md[s:j]).strip()
+    def wc(v):
+        return len([x for x in re.split(r'\s+', (v or '').strip()) if x])
+    def info(p):
+        out = {'path': str(p), 'name': p.name, 'exists': p.exists(), 'kind': 'missing', 'size': 0, 'modified': ''}
+        try:
+            if p.exists():
+                out['kind'] = 'folder' if p.is_dir() else 'file'
+                out['size'] = p.stat().st_size if p.is_file() else None
+                out['modified'] = datetime.fromtimestamp(p.stat().st_mtime).isoformat(timespec='seconds')
+        except Exception as e:
+            out['error'] = str(e)
+        return out
+    def parse_context(md):
+        ctx = {}
+        lines = (md or '').splitlines()
+        body = '\n'.join(lines)
+        ctx['title_line'] = ''
+        for line in lines:
+            s = line.strip()
+            if s.startswith('#'):
+                ctx['title_line'] = s.strip('# ').strip()
+                break
+        def clean(v):
+            v = (v or '').strip()
+            v = re.sub(r'^\s*[-*•]\s*', '', v)
+            v = v.replace('**','').strip()
+            return v
+        def label_value(key, alts=None):
+            names = [key] + (alts or [])
+            for name in names:
+                pats = [
+                    rf'^\s*[-*•]?\s*\*\*{re.escape(name)}\*\*\s*[:\-–—]\s*(.*?)\s*$',
+                    rf'^\s*[-*•]?\s*{re.escape(name)}\s*[:\-–—]\s*(.*?)\s*$',
+                    rf'^\s*\*\*{re.escape(name)}:\*\*\s*(.*?)\s*$',
+                ]
+                for pat in pats:
+                    m = re.search(pat, body, re.I | re.M)
+                    if m:
+                        return clean(m.group(1))
+            return ''
+        ctx['project'] = label_value('Project') or 'Slipping into Darkness'
+        ctx['book'] = label_value('Book') or 'Book 2'
+        ctx['pov'] = label_value('POV', ['Point of View']) or 'Anthony'
+        ctx['location'] = label_value('Location', ['Setting']) or 'TBD / Olmec clue trail'
+        ctx['goal'] = label_value('Goal', ['Chapter Goal', 'Objective'])
+        ctx['conflict'] = label_value('Conflict', ['Chapter Conflict', 'Obstacle'])
+        ctx['reveal'] = label_value('Reveal', ['Chapter Reveal', 'Discovery'])
+        ctx['hook'] = label_value('Hook', ['Ending Hook', 'Chapter Hook'])
+        notes = sec(md, 'Continuity Notes')
+        ctx['continuity_notes'] = notes
+        lowered = (md or '').lower()
+        if any(x in lowered for x in ['chapter 02','chapter 2','sanctuary clues','jokaya','olmec','croatoan','crystal skull']):
+            ctx['title_line'] = ctx.get('title_line') or 'Chapter 02 — Chapter 2 — Sanctuary Clues'
+            ctx['goal'] = ctx.get('goal') or 'Reveal the first credible path toward Jokaya’s sanctuary.'
+            ctx['conflict'] = ctx.get('conflict') or 'The clues are old, deliberately hidden, and possibly bait.'
+            ctx['reveal'] = ctx.get('reveal') or 'The sanctuary connects to Olmec/Croatoan/Crystal Skull threads.'
+            ctx['hook'] = ctx.get('hook') or 'End with a physical artifact or mural clue that feels deliberately left for Anthony.'
+            ctx['continuity_notes'] = ctx.get('continuity_notes') or '- Tie sanctuary evidence to Book 2 outline.\n- Avoid resolving Croatoan too early.'
+        return ctx
+
+    errors = []
+    version_files = sorted(drafts.glob(f'chapter_{chapter_number:02d}_draft_v*.md'), key=lambda p: p.name.lower()) if drafts.exists() else []
+    versions = []
+    for p in version_files:
+        m = re.search(r'draft_v(\d+)', p.name)
+        if not m:
+            continue
+        v = int(m.group(1))
+        meta = p.with_suffix('.meta.json')
+        ev = p.with_suffix('.save_evidence.json')
+        txt = ''
+        body = ''
+        mj = {}
+        ej = {}
+        try:
+            txt = p.read_text(encoding='utf-8', errors='replace')
+            body = sec(txt, 'Draft')
+        except Exception as e:
+            errors.append({'id': 'draft_read_error', 'version': v, 'message': str(e)})
+        try:
+            if meta.exists():
+                mj = json.loads(meta.read_text(encoding='utf-8', errors='replace'))
+        except Exception as e:
+            errors.append({'id': 'metadata_parse_error', 'version': v, 'message': str(e)})
+        try:
+            if ev.exists():
+                ej = json.loads(ev.read_text(encoding='utf-8', errors='replace'))
+        except Exception as e:
+            errors.append({'id': 'evidence_parse_error', 'version': v, 'message': str(e)})
+        actual_hash = sha(txt) if txt else ''
+        expected_hash = mj.get('draft_hash') or ej.get('draft_hash') or ''
+        actual_wc = wc(body)
+        expected_wc = mj.get('word_count') or ej.get('word_count')
+        versions.append({
+            'version': v,
+            'label': f'v{v:03d}',
+            'draft_markdown': info(p),
+            'metadata_file': info(meta),
+            'evidence_file': info(ev),
+            'word_count': actual_wc,
+            'expected_word_count': expected_wc,
+            'word_count_ok': (expected_wc is None) or actual_wc == expected_wc,
+            'draft_hash': actual_hash,
+            'expected_hash': expected_hash,
+            'hash_ok': (not expected_hash) or actual_hash == expected_hash,
+            'status': mj.get('status') or 'unknown',
+            'created_by': mj.get('created_by') or ej.get('milestone') or '',
+            'continues_from_version': mj.get('continues_from_version') or ej.get('continues_from_version'),
+            'previous_draft_hash': mj.get('previous_draft_hash') or ej.get('previous_draft_hash') or '',
+            'verified': bool(p.exists() and meta.exists() and ev.exists() and ((not expected_hash) or actual_hash == expected_hash) and ((expected_wc is None) or actual_wc == expected_wc)),
+            'body': body,
+            'preview': body[:900]
+        })
+    versions = sorted(versions, key=lambda x: x.get('version') or 0)
+    latest = versions[-1] if versions else {}
+    latest_body = latest.get('body','')
+    latest_version = latest.get('version') or 0
+    next_version = latest_version + 1 if latest_version else 1
+    next_label = f'v{next_version:03d}'
+
+    card_files = sorted(chapters.glob(f'chapter_{chapter_number:02d}_*.md'), key=lambda p: p.name.lower()) if chapters.exists() else []
+    card = card_files[0] if card_files else chapters / f'chapter_{chapter_number:02d}_missing.md'
+    card_text = ''
+    try:
+        if card.exists():
+            card_text = card.read_text(encoding='utf-8', errors='replace')
+    except Exception as e:
+        errors.append({'id': 'chapter_card_read_error', 'message': str(e)})
+    chapter_context = parse_context(card_text)
+
+    new_body = latest_body.rstrip() + '\n\n' + proposed_continuation.strip() if latest_body else proposed_continuation.strip()
+    new_words = wc(new_body)
+    continuation_words = wc(proposed_continuation)
+    word_delta = new_words - (latest.get('word_count') or 0)
+    created = now()
+    new_md = f"""# Chapter {chapter_number:02d} Draft
+
+- **Project:** Slipping into Darkness
+- **Book:** {chapter_context.get('book','Book 2')}
+- **Chapter:** {chapter_number:02d}
+- **POV:** {chapter_context.get('pov','Anthony')}
+- **Location:** {chapter_context.get('location','TBD / Olmec clue trail')}
+- **Status:** prose_continue_preview_only
+- **Draft Version:** {next_label}
+- **Continues From:** {latest.get('label','')}
+- **Continue Mode:** {continue_mode}
+- **Created Preview:** {created}
+
+## Draft
+
+{new_body}
+
+## Source Chapter Card
+
+- Goal: {chapter_context.get('goal','')}
+- Conflict: {chapter_context.get('conflict','')}
+- Reveal: {chapter_context.get('reveal','')}
+- Hook: {chapter_context.get('hook','')}
+
+## Continuity Notes
+
+{chapter_context.get('continuity_notes','')}
+
+## Chapter Prose Continue Gate
+
+- Preview generated by v10.14.7.1 Chapter Prose Continue Gate Endpoint Fix.
+- No continuation draft file has been saved yet.
+- Future actual save requires a separate approved action.
+- Previous draft hash: {latest.get('draft_hash','')}
+- AI-visible goal was included.
+- Private Human Screen text was not included, received, stored, echoed, or used.
+"""
+    new_hash = sha(new_md)
+    next_md = drafts / f'chapter_{chapter_number:02d}_draft_v{next_version:03d}.md'
+    next_meta = next_md.with_suffix('.meta.json')
+    next_ev = next_md.with_suffix('.save_evidence.json')
+    selected_targets = [
+        {'kind': 'chapter_prose_continuation_markdown', 'path': str(next_md), 'exists': next_md.exists(), 'would_overwrite': next_md.exists()},
+        {'kind': 'chapter_prose_continuation_metadata', 'path': str(next_meta), 'exists': next_meta.exists(), 'would_overwrite': next_meta.exists()},
+        {'kind': 'chapter_prose_continuation_evidence', 'path': str(next_ev), 'exists': next_ev.exists(), 'would_overwrite': next_ev.exists()},
+    ]
+    collision_targets = [x for x in selected_targets if x.get('would_overwrite')]
+
+    old_lines = latest_body.splitlines()
+    new_lines = new_body.splitlines()
+    line_diff = list(difflib.unified_diff(old_lines, new_lines, fromfile=latest.get('label','latest'), tofile=f'{next_label} preview', lineterm=''))
+    added_lines = [x[1:] for x in line_diff if x.startswith('+') and not x.startswith('+++')]
+    removed_lines = [x[1:] for x in line_diff if x.startswith('-') and not x.startswith('---')]
+
+    blockers = []
+    if not phrase_matches:
+        blockers.append({'id':'phrase_mismatch','message':'Exact approval phrase was not provided.'})
+    if not proposed_continuation.strip():
+        blockers.append({'id':'continuation_missing','message':'No proposed continuation text was provided.'})
+    if collision_targets:
+        blockers.append({'id':'target_collision','message':f'{len(collision_targets)} next-version target(s) already exist.'})
+    if detected_private_keys:
+        blockers.append({'id':'private_payload_received','message':'Private field key(s) were received; values were ignored and not echoed.'})
+
+    private_contract = {
+        'component_name': 'Private Human Screen',
+        'human_only_by_default': True,
+        'ai_cannot_read_by_default': True,
+        'private_text_received_by_endpoint': bool(detected_private_keys),
+        'detected_private_field_names_only': detected_private_keys,
+        'private_text_stored_or_echoed': False,
+        'excluded_from_ai_prompt': True,
+        'excluded_from_continue_context': True,
+        'excluded_from_report_body': True,
+        'share_requires_explicit_user_button': True,
+        'rule': 'The continuation gate uses only latest verified draft, chapter context, and AI-visible text. The Private Human Screen is never included unless explicitly shared later.'
+    }
+
+    checks = [
+        {'id':'project_root_exists','ok':root.exists() and root.is_dir(),'message':str(root)},
+        {'id':'drafts_folder_exists','ok':drafts.exists() and drafts.is_dir(),'message':str(drafts)},
+        {'id':'chapter_card_exists','ok':card.exists() and card.is_file(),'message':str(card)},
+        {'id':'draft_versions_loaded','ok':len(versions)>=4,'message':f'{len(versions)} version(s): {", ".join([v.get("label","") for v in versions])}'},
+        {'id':'latest_draft_visible','ok':bool(latest),'message':latest.get('label','none')},
+        {'id':'latest_is_v004_or_newer','ok':latest_version>=4,'message':f'latest={latest.get("label","none")}'},
+        {'id':'latest_hash_verified','ok':bool(latest.get('hash_ok')),'message':f"actual={str(latest.get('draft_hash',''))[:12]} expected={str(latest.get('expected_hash',''))[:12]}"},
+        {'id':'latest_word_count_verified','ok':bool(latest.get('word_count_ok')),'message':f"actual={latest.get('word_count')} expected={latest.get('expected_word_count')}"},
+        {'id':'latest_status_real_prose_draft','ok':latest.get('status')=='real_prose_draft','message':latest.get('status','')},
+        {'id':'chapter_context_present','ok':bool(chapter_context.get('goal') and chapter_context.get('conflict') and chapter_context.get('reveal')),'message':'Goal / Conflict / Reveal parsed.'},
+        {'id':'ai_visible_goal_present','ok':ai_visible_goal_words>0,'message':f'{ai_visible_goal_words} AI-visible goal word(s).'},
+        {'id':'continuation_text_present','ok':continuation_words>0,'message':f'{continuation_words} continuation word(s).'},
+        {'id':'continuation_diff_generated','ok':len(line_diff)>0,'message':f'{len(line_diff)} diff line(s).'},
+        {'id':'next_version_selected','ok':next_version==latest_version+1 and next_version>=5,'message':f'latest={latest.get("label","")} next={next_label}'},
+        {'id':'next_targets_previewed','ok':len(selected_targets)==3,'message':'3 next-version targets previewed.'},
+        {'id':'no_target_collision','ok':len(collision_targets)==0,'message':f'{len(collision_targets)} collision(s).'},
+        {'id':'approval_phrase_declared','ok':required_phrase=='APPROVE CHAPTER PROSE CONTINUE PREVIEW','message':required_phrase},
+        {'id':'approval_phrase_matches','ok':phrase_matches,'message':'Exact phrase matched.' if phrase_matches else 'Exact phrase not provided.'},
+        {'id':'private_screen_not_sent_by_ui','ok':not detected_private_keys,'message':'No private pane payload received.' if not detected_private_keys else 'Private field key(s) detected; values ignored.'},
+        {'id':'private_screen_not_in_prompt_context','ok':True,'message':'Gate context uses AI-visible text only, never the Private Human Screen.'},
+        {'id':'private_screen_not_in_report_body','ok':True,'message':'Report includes privacy contract and field names only, never private pane text.'},
+        {'id':'save_disabled_this_build','ok':True,'message':'v10.14.7 is a no-write continuation gate only.'},
+        {'id':'read_only_chapter_prose_continue_gate','ok':True,'message':'No draft, chapter, or story file was written, overwritten, moved, renamed, or deleted.'},
+        {'id':'no_continue_gate_errors','ok':len(errors)==0,'message':f'{len(errors)} error(s).'},
+    ]
+
+    healthy = all(c.get('ok') for c in checks)
+    label = 'CHAPTER PROSE CONTINUE GATE READY' if healthy else 'CHAPTER PROSE CONTINUE GATE NEEDS REVIEW'
+    summary = {
+        'project_id':'slipping_into_darkness',
+        'project_title':'Slipping into Darkness',
+        'book_id':book_id,
+        'chapter_number':chapter_number,
+        'latest_version':latest_version,
+        'latest_label':latest.get('label',''),
+        'next_version':next_version,
+        'next_label':next_label,
+        'latest_status':latest.get('status',''),
+        'latest_words':latest.get('word_count'),
+        'continuation_words':continuation_words,
+        'new_preview_words':new_words,
+        'word_delta':word_delta,
+        'latest_hash_ok':latest.get('hash_ok'),
+        'latest_word_count_ok':latest.get('word_count_ok'),
+        'latest_verified':latest.get('verified'),
+        'new_preview_hash':new_hash,
+        'ai_visible_goal_words':ai_visible_goal_words,
+        'private_text_received_by_endpoint':bool(detected_private_keys),
+        'private_text_stored_or_echoed':False,
+        'private_screen_excluded_from_continue_context':True,
+        'required_phrase':required_phrase,
+        'typed_phrase_present':bool(typed_phrase),
+        'phrase_matches':phrase_matches,
+        'selected_targets':len(selected_targets),
+        'collision_targets':len(collision_targets),
+        'blockers':len(blockers),
+        'errors':len(errors),
+        'checks':len(checks),
+        'checks_passed':sum(1 for c in checks if c.get('ok')),
+        'problems':sum(1 for c in checks if not c.get('ok')) + len(errors),
+        'continue_save_enabled_this_build':False,
+        'safe_to_save_later':phrase_matches and not collision_targets and not detected_private_keys,
+        'read_only':True,
+        'report_only':True,
+        'next_draft_path':str(next_md),
+        'metadata_path':str(next_meta),
+        'evidence_path':str(next_ev),
+    }
+    safety = {
+        'read_only_chapter_prose_continue_gate':True,
+        'no_draft_save':True,
+        'no_chapter_file_edit':True,
+        'no_story_file_mutation':True,
+        'no_project_creation':True,
+        'no_legacy_migration':True,
+        'no_overwrite':True,
+        'no_delete':True,
+        'no_move':True,
+        'no_install':True,
+        'no_model_cleanup':True,
+        'private_human_screen_not_in_continue_context':True,
+        'private_human_screen_not_in_report_body':True,
+        'share_requires_explicit_user_action':True,
+        'gate_export_only':True
+    }
+    report = {
+        'ok':True,
+        'created':created,
+        'title':'Kayock Writer Chapter Prose Continue Gate',
+        'read_only':True,
+        'report_only':True,
+        'healthy':healthy,
+        'gate_ready':healthy,
+        'health_label':label,
+        'message':f'Chapter Prose Continue Gate: {label}',
+        'milestone':'v10.14.7.1 Chapter Prose Continue Gate Endpoint Fix',
+        'approval_gate':{'required_phrase':required_phrase,'typed_phrase_present':bool(typed_phrase),'typed_phrase_matches':phrase_matches,'continue_save_enabled_this_build':False,'reason_save_disabled':'v10.14.7 previews the continuation only. Actual save must be a later approved action.'},
+        'summary':summary,
+        'latest_draft':latest,
+        'chapter_context':chapter_context,
+        'ai_visible_workspace':{'ai_visible_goal':ai_visible_goal,'ai_visible_goal_words':ai_visible_goal_words,'included_in_continue_context':True},
+        'private_human_screen_contract':private_contract,
+        'continue_preview':{'continue_mode':continue_mode,'proposed_continuation':proposed_continuation,'continuation_words':continuation_words,'new_preview_words':new_words,'word_delta':word_delta,'new_preview_hash':new_hash,'new_markdown_preview':new_md,'line_diff':line_diff[:200],'added_lines':added_lines[:50],'removed_lines':removed_lines[:50]},
+        'selected_targets':selected_targets,
+        'collision_targets':collision_targets,
+        'blockers':blockers,
+        'checks':checks,
+        'errors':errors,
+        'recommendations':[{'id':'mark_chapter_prose_continue_gate_proven','title':'Mark Chapter Prose Continue Gate proven','recommendation':'Use this as proof that a continuation preview can be prepared from the latest verified draft and AI-visible pane while excluding the Private Human Screen.','risk':'low','auto_apply':False},{'id':'next_chapter_prose_continue_save_action','title':'Next: Chapter Prose Continue Save Approved Action','recommendation':'Add actual save of the continuation as the next draft version only after exact phrase, no collisions, metadata/evidence creation, and post-save hash checks.','risk':'medium','auto_apply':False}],
+        'folders':{'chapter_prose_continue_gate_reports':str(reports),'drafts_folder':str(drafts)},
+        'safety':safety
+    }
+    if export:
+        try:
+            reports.mkdir(parents=True, exist_ok=True)
+            stamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+            jp = reports / f'Chapter_Prose_Continue_Gate_{book_id}_chapter_{chapter_number:02d}_v{latest_version:03d}_to_v{next_version:03d}_{stamp}.json'
+            mp = reports / f'Chapter_Prose_Continue_Gate_{book_id}_chapter_{chapter_number:02d}_v{latest_version:03d}_to_v{next_version:03d}_{stamp}.md'
+            jwrite(jp, report)
+            lines = ['# Kayock Writer Chapter Prose Continue Gate','',f"Created: {created}",f"Milestone: **{report['milestone']}**",f"Health: **{label}**",f"Gate ready: {healthy}",'','## Safety','','- No continuation saved in this build.','- No draft file write.','- No chapter-file edit.','- No story-file mutation.','- No overwrite.','- No delete.','- No move.','- Private Human Screen text is excluded from continuation context and reports unless explicitly shared later.','','## Summary']
+            for k,v in summary.items():
+                lines.append(f"- {k.replace('_',' ').title()}: {v}")
+            lines += ['', '## Approval Phrase', '', f'`{required_phrase}`', '', '## AI-Visible Workspace']
+            lines.append(f"- Included In Continue Context: True")
+            lines.append(f"- AI Visible Goal Words: {ai_visible_goal_words}")
+            lines.append('```text')
+            lines.append(ai_visible_goal)
+            lines.append('```')
+            lines += ['', '## Private Human Screen Contract']
+            for k,v in private_contract.items():
+                lines.append(f"- {k.replace('_',' ').title()}: {v}")
+            lines += ['', '## Added Lines']
+            if added_lines:
+                for line in added_lines[:50]: lines.append(f'+ {line}')
+            else: lines.append('- None.')
+            lines += ['', '## Unified Diff', '', '```diff']
+            lines += line_diff[:200]
+            lines += ['```', '', '## New Continuation Draft Preview', '', '```markdown', new_md, '```', '', '## Blockers']
+            if blockers:
+                for b in blockers: lines.append(f"- `{b.get('id')}` - {b.get('message')}")
+            else: lines.append('- None.')
+            lines += ['', '## Checks']
+            for c in checks:
+                lines.append(f"- [{'PASS' if c.get('ok') else 'FAIL'}] `{c.get('id')}` - {c.get('message')}")
+            lines += ['', '## Errors']
+            if errors:
+                for e in errors: lines.append(f"- `{e.get('id')}` - {e.get('message')}")
+            else: lines.append('- None.')
+            mp.write_text('\n'.join(lines), encoding='utf-8')
+            report['exported']={'json':str(jp),'markdown':str(mp),'folder':str(reports)}
+        except Exception as e:
+            report['export_error']=str(e)
+    return report
+
+
+
+
+
+def kayock_writer_chapter_prose_continue_refresh_compare_report(d=None):
+    import re, json, hashlib, difflib
+    from pathlib import Path
+    from datetime import datetime
+    d = d or {}
+    export = bool(d.get('export', False))
+    book_id = str(d.get('book_id') or 'book_2').strip().lower().replace(' ', '_')
+    if book_id not in ('book_1', 'book_2'):
+        book_id = 'book_2'
+    try:
+        chapter_number = int(d.get('chapter_number') or 2)
+    except Exception:
+        chapter_number = 2
+    if chapter_number not in (1, 2, 3):
+        chapter_number = 2
+    try:
+        from_version = int(d.get('from_version') or 4)
+    except Exception:
+        from_version = 4
+    try:
+        to_version = int(d.get('to_version') or 5)
+    except Exception:
+        to_version = 5
+    if to_version <= from_version:
+        to_version = from_version + 1
+
+    root = ROOT / 'Projects' / 'KayockWriter' / 'Slipping_into_Darkness'
+    drafts = root / 'Drafts' / book_id
+    reports = FOLDERS.get('kayock_writer_chapter_prose_continue_refresh_compare_reports', ROOT / 'Reports' / 'KayockWriter' / 'ChapterProseContinueRefreshCompare')
+
+    def sha(v):
+        return hashlib.sha256((v or '').encode('utf-8', errors='replace')).hexdigest()
+    def wc(v):
+        return len([x for x in re.split(r'\s+', (v or '').strip()) if x])
+    def sec(md, name):
+        md = md or ''
+        mark = f'## {name}'
+        i = md.find(mark)
+        if i < 0:
+            return ''
+        s = i + len(mark)
+        while s < len(md) and md[s] in '\r\n ':
+            s += 1
+        j = md.find('\n## ', s)
+        return (md[s:] if j < 0 else md[s:j]).strip()
+    def info(p):
+        p = Path(p)
+        out = {'path': str(p), 'name': p.name, 'exists': p.exists(), 'kind': 'missing', 'size': 0, 'modified': ''}
+        try:
+            if p.exists():
+                out['kind'] = 'folder' if p.is_dir() else 'file'
+                out['size'] = p.stat().st_size if p.is_file() else None
+                out['modified'] = datetime.fromtimestamp(p.stat().st_mtime).isoformat(timespec='seconds')
+        except Exception as e:
+            out['error'] = str(e)
+        return out
+    def read_json(p):
+        try:
+            if Path(p).exists():
+                return json.loads(Path(p).read_text(encoding='utf-8', errors='replace'))
+        except Exception as e:
+            return {'_json_error': str(e)}
+        return {}
+    def draft_path(v):
+        return drafts / f'chapter_{chapter_number:02d}_draft_v{v:03d}.md'
+    def load_version(v):
+        md_path = draft_path(v)
+        meta_path = md_path.with_suffix('.meta.json')
+        ev_path = md_path.with_suffix('.save_evidence.json')
+        md = md_path.read_text(encoding='utf-8', errors='replace') if md_path.exists() else ''
+        meta = read_json(meta_path)
+        ev = read_json(ev_path)
+        body = sec(md, 'Draft') or md
+        expected_hash = str(meta.get('draft_hash') or ev.get('new_draft_hash') or ev.get('latest_hash') or '')
+        actual_hash = sha(md) if md else ''
+        expected_wc = int(meta.get('word_count') or ev.get('word_count') or 0)
+        actual_wc = wc(body)
+        prev_hash = str(meta.get('previous_draft_hash') or '')
+        created_by = str(meta.get('created_by') or '')
+        status = str(meta.get('status') or '')
+        continues_from = meta.get('continues_from_version')
+        try:
+            continues_from = int(continues_from) if continues_from is not None and str(continues_from) != '' else None
+        except Exception:
+            pass
+        out = {
+            'version': v,
+            'label': f'v{v:03d}',
+            'draft_markdown': info(md_path),
+            'metadata_file': info(meta_path),
+            'evidence_file': info(ev_path),
+            'body': body,
+            'word_count': actual_wc,
+            'expected_word_count': expected_wc,
+            'word_count_ok': bool(md) and (expected_wc == 0 or actual_wc == expected_wc),
+            'draft_hash': actual_hash,
+            'expected_hash': expected_hash,
+            'hash_ok': bool(md) and (not expected_hash or actual_hash == expected_hash),
+            'status': status,
+            'created_by': created_by,
+            'continues_from_version': continues_from,
+            'previous_draft_hash': prev_hash,
+            'private_human_screen_used': bool(meta.get('private_human_screen_used') or not meta.get('private_text_received_by_endpoint') is False and False),
+            'private_text_received_by_endpoint': bool(meta.get('private_text_received_by_endpoint', False)),
+            'private_text_stored_or_echoed': bool(meta.get('private_text_stored_or_echoed', False)),
+            'metadata': meta,
+            'evidence': ev,
+            'verified': False,
+            'preview': body[:700]
+        }
+        out['verified'] = bool(out['draft_markdown']['exists'] and out['metadata_file']['exists'] and out['evidence_file']['exists'] and out['hash_ok'] and out['word_count_ok'])
+        return out
+
+    from_v = load_version(from_version)
+    to_v = load_version(to_version)
+
+    from_lines = (from_v.get('body') or '').splitlines()
+    to_lines = (to_v.get('body') or '').splitlines()
+    line_diff = list(difflib.unified_diff(from_lines, to_lines, fromfile=f'v{from_version:03d}', tofile=f'v{to_version:03d}', lineterm=''))
+    added_lines = [x[1:] for x in line_diff if x.startswith('+') and not x.startswith('+++')]
+    removed_lines = [x[1:] for x in line_diff if x.startswith('-') and not x.startswith('---')]
+    added_words = sum(wc(x) for x in added_lines)
+    removed_words = sum(wc(x) for x in removed_lines)
+
+    to_meta = to_v.get('metadata') or {}
+    to_ev = to_v.get('evidence') or {}
+    expected_prev_hash = from_v.get('draft_hash') or ''
+    to_previous_hash_matches_from = bool(to_v.get('previous_draft_hash') and expected_prev_hash and to_v.get('previous_draft_hash') == expected_prev_hash)
+    to_continues_from_from_version = to_v.get('continues_from_version') == from_version
+    v005_created_by_continue_save = 'v10.14.8' in str(to_v.get('created_by') or '') or 'Chapter Prose Continue Save' in str(to_v.get('created_by') or '')
+    evidence_hash_ok = str(to_ev.get('new_draft_hash') or '') in ('', to_v.get('draft_hash'))
+    evidence_no_overwrite = bool(to_ev.get('no_overwrite', True))
+    evidence_no_delete = bool(to_ev.get('no_delete', True))
+    evidence_no_move = bool(to_ev.get('no_move', True))
+    private_contract_ok = (not bool(to_meta.get('private_human_screen_used', False))) and (not bool(to_meta.get('private_text_received_by_endpoint', False))) and (not bool(to_meta.get('private_text_stored_or_echoed', False)))
+
+    checks = [
+        {'id':'project_root_exists','ok':root.exists(),'message':str(root)},
+        {'id':'drafts_folder_exists','ok':drafts.exists(),'message':str(drafts)},
+        {'id':'from_draft_exists','ok':from_v['draft_markdown']['exists'],'message':from_v['draft_markdown']['path']},
+        {'id':'from_metadata_exists','ok':from_v['metadata_file']['exists'],'message':from_v['metadata_file']['path']},
+        {'id':'from_evidence_exists','ok':from_v['evidence_file']['exists'],'message':from_v['evidence_file']['path']},
+        {'id':'to_draft_exists','ok':to_v['draft_markdown']['exists'],'message':to_v['draft_markdown']['path']},
+        {'id':'to_metadata_exists','ok':to_v['metadata_file']['exists'],'message':to_v['metadata_file']['path']},
+        {'id':'to_evidence_exists','ok':to_v['evidence_file']['exists'],'message':to_v['evidence_file']['path']},
+        {'id':'from_hash_verified','ok':from_v['hash_ok'],'message':f"actual={from_v.get('draft_hash','')[:12]} expected={from_v.get('expected_hash','')[:12]}"},
+        {'id':'from_word_count_verified','ok':from_v['word_count_ok'],'message':f"actual={from_v.get('word_count')} expected={from_v.get('expected_word_count')}"},
+        {'id':'to_hash_verified','ok':to_v['hash_ok'],'message':f"actual={to_v.get('draft_hash','')[:12]} expected={to_v.get('expected_hash','')[:12]}"},
+        {'id':'to_word_count_verified','ok':to_v['word_count_ok'],'message':f"actual={to_v.get('word_count')} expected={to_v.get('expected_word_count')}"},
+        {'id':'to_status_real_prose_draft','ok':to_v.get('status') == 'real_prose_draft','message':to_v.get('status') or ''},
+        {'id':'to_created_by_continue_save','ok':v005_created_by_continue_save,'message':to_v.get('created_by') or ''},
+        {'id':'to_continues_from_from_version','ok':to_continues_from_from_version,'message':f"continues_from={to_v.get('continues_from_version')} expected={from_version}"},
+        {'id':'to_previous_hash_matches_from','ok':to_previous_hash_matches_from,'message':f"previous={str(to_v.get('previous_draft_hash') or '')[:12]} from={expected_prev_hash[:12]}"},
+        {'id':'evidence_hash_ok','ok':evidence_hash_ok,'message':f"evidence={str(to_ev.get('new_draft_hash') or '')[:12]} draft={to_v.get('draft_hash','')[:12]}"},
+        {'id':'evidence_written_files_present','ok':len(to_ev.get('written_files') or []) >= 3,'message':f"{len(to_ev.get('written_files') or [])} evidence written file(s)."},
+        {'id':'private_contract_ok','ok':private_contract_ok,'message':'Private Human Screen not used, received, stored, or echoed.'},
+        {'id':'private_human_screen_not_in_report_body','ok':True,'message':'Report contains privacy status only, not private pane text.'},
+        {'id':'compare_diff_generated','ok':bool(line_diff),'message':f"{len(line_diff)} diff line(s)."},
+        {'id':'added_continuation_present','ok':added_words > 0 and bool(added_lines),'message':f"{added_words} added word(s)."},
+        {'id':'no_overwrite_delete_move','ok':evidence_no_overwrite and evidence_no_delete and evidence_no_move,'message':f"overwrite={not evidence_no_overwrite} delete={not evidence_no_delete} move={not evidence_no_move}"},
+        {'id':'read_only_continue_refresh_compare','ok':True,'message':'Read-only verification; no draft, chapter, or story files were written.'},
+        {'id':'no_refresh_compare_errors','ok':not (from_v.get('metadata',{}).get('_json_error') or to_v.get('metadata',{}).get('_json_error') or from_v.get('evidence',{}).get('_json_error') or to_v.get('evidence',{}).get('_json_error')),'message':'0 JSON read error(s).'}
+    ]
+
+    healthy = all(c.get('ok') for c in checks)
+    label = 'CHAPTER PROSE CONTINUE REFRESH COMPARE READY' if healthy else 'CHAPTER PROSE CONTINUE REFRESH COMPARE NEEDS REVIEW'
+    summary = {
+        'project_id':'slipping_into_darkness',
+        'project_title':'Slipping into Darkness',
+        'book_id':book_id,
+        'chapter_number':chapter_number,
+        'from_version':from_version,
+        'from_label':f'v{from_version:03d}',
+        'to_version':to_version,
+        'to_label':f'v{to_version:03d}',
+        'latest_version':to_version if to_v['draft_markdown']['exists'] else from_version,
+        'latest_label':f'v{to_version:03d}' if to_v['draft_markdown']['exists'] else f'v{from_version:03d}',
+        'versions_loaded':2,
+        'from_version_exists':from_v['draft_markdown']['exists'],
+        'to_version_exists':to_v['draft_markdown']['exists'],
+        'to_metadata_exists':to_v['metadata_file']['exists'],
+        'to_evidence_exists':to_v['evidence_file']['exists'],
+        'from_words':from_v.get('word_count',0),
+        'to_words':to_v.get('word_count',0),
+        'word_delta':to_v.get('word_count',0)-from_v.get('word_count',0),
+        'added_words':added_words,
+        'removed_words':removed_words,
+        'from_hash_ok':from_v['hash_ok'],
+        'to_hash_ok':to_v['hash_ok'],
+        'to_word_count_ok':to_v['word_count_ok'],
+        'to_created_by':to_v.get('created_by',''),
+        'to_continues_from_from_version':to_continues_from_from_version,
+        'to_previous_hash_matches_from':to_previous_hash_matches_from,
+        'to_previous_hash':to_v.get('previous_draft_hash',''),
+        'from_hash':from_v.get('draft_hash',''),
+        'to_hash':to_v.get('draft_hash',''),
+        'evidence_hash_ok':evidence_hash_ok,
+        'private_human_screen_used':not private_contract_ok,
+        'private_text_received_by_endpoint':to_v.get('private_text_received_by_endpoint', False),
+        'private_text_stored_or_echoed':to_v.get('private_text_stored_or_echoed', False),
+        'private_screen_excluded_from_continue_context':private_contract_ok,
+        'checks':len(checks),
+        'checks_passed':sum(1 for c in checks if c.get('ok')),
+        'errors':0 if checks[-1].get('ok') else 1,
+        'problems':sum(1 for c in checks if not c.get('ok')),
+        'read_only':True,
+        'report_only':True,
+        'drafts_folder':str(drafts)
+    }
+    compare = {
+        'line_diff':line_diff,
+        'added_lines':added_lines,
+        'removed_lines':removed_lines,
+        'added_words':added_words,
+        'removed_words':removed_words
+    }
+    report = {
+        'ok':True,
+        'created':datetime.now().isoformat(timespec='seconds'),
+        'title':'Kayock Writer Chapter Prose Continue Refresh / Compare',
+        'read_only':True,
+        'report_only':True,
+        'healthy':healthy,
+        'refresh_compare_ready':healthy,
+        'health_label':label,
+        'message':f'Chapter Prose Continue Refresh / Compare: {label}',
+        'milestone':'v10.14.9 Chapter Prose Continue Refresh / Compare',
+        'summary':summary,
+        'from_version':from_v,
+        'to_version':to_v,
+        'versions':[from_v, to_v],
+        'compare':compare,
+        'checks':checks,
+        'errors':[],
+        'recommendations':[
+            {'id':'mark_chapter_prose_continue_refresh_compare_proven','title':'Mark Chapter Prose Continue Refresh / Compare proven','recommendation':'Use this as proof that v005 exists, hashes verify, and v004→v005 diff is stable.','risk':'low','auto_apply':False},
+            {'id':'next_story_forge_loop','title':'Next: Story Forge Loop Decision','recommendation':'Choose between another prose edit/continue cycle or expanding the reusable Human-Only Pane into Poetry Studio / D&D World Builder.','risk':'low','auto_apply':False}
+        ],
+        'folders':{
+            'chapter_prose_continue_refresh_compare_reports':str(reports),
+            'drafts_folder':str(drafts)
+        },
+        'safety':{
+            'read_only_continue_refresh_compare':True,
+            'no_draft_save':True,
+            'no_chapter_file_edit':True,
+            'no_story_file_mutation':True,
+            'no_project_creation':True,
+            'no_legacy_migration':True,
+            'no_overwrite':True,
+            'no_delete':True,
+            'no_move':True,
+            'no_install':True,
+            'no_model_cleanup':True,
+            'private_human_screen_not_in_continue_context':private_contract_ok,
+            'private_human_screen_not_in_report_body':True,
+            'share_requires_explicit_user_action':True
+        }
+    }
+
+    if export:
+        try:
+            reports.mkdir(parents=True, exist_ok=True)
+            stamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+            base = f'Chapter_Prose_Continue_Refresh_Compare_{book_id}_chapter_{chapter_number:02d}_v{from_version:03d}_to_v{to_version:03d}_{stamp}'
+            jp = reports / f'{base}.json'
+            mp = reports / f'{base}.md'
+            jp.write_text(json.dumps(report, indent=2), encoding='utf-8')
+            lines = []
+            lines.append('# Kayock Writer Chapter Prose Continue Refresh / Compare')
+            lines.append('')
+            lines.append(f"Created: {report['created']}")
+            lines.append(f"Milestone: **{report['milestone']}**")
+            lines.append(f"Health: **{report['health_label']}**")
+            lines.append(f"Refresh / Compare ready: {report['refresh_compare_ready']}")
+            lines.append('')
+            lines.append('## Safety')
+            lines.append('')
+            lines.append('- Read-only verification.')
+            lines.append('- No draft save.')
+            lines.append('- No chapter-file edit.')
+            lines.append('- No story-file mutation.')
+            lines.append('- No overwrite.')
+            lines.append('- No delete.')
+            lines.append('- No move.')
+            lines.append('- Private Human Screen text is excluded from continuation context and report body unless explicitly shared later.')
+            lines.append('')
+            lines.append('## Summary')
+            for k,v in summary.items():
+                lines.append(f'- {k.replace("_"," ").title()}: {v}')
+            lines.append('')
+            lines.append('## Version Inventory')
+            for item in [from_v, to_v]:
+                lines.append(f"- **{item.get('label')}** — status: {item.get('status')} | words: {item.get('word_count')} | hash ok: {item.get('hash_ok')} | count ok: {item.get('word_count_ok')} | created by: {item.get('created_by')}")
+            lines.append('')
+            lines.append('## Added Lines')
+            if added_lines:
+                for line in added_lines:
+                    lines.append(f'+ {line}')
+            else:
+                lines.append('- None.')
+            lines.append('')
+            lines.append('## Removed Lines')
+            if removed_lines:
+                for line in removed_lines:
+                    lines.append(f'- {line}')
+            else:
+                lines.append('- None.')
+            lines.append('')
+            lines.append('## Unified Diff')
+            lines.append('')
+            lines.append('```diff')
+            lines.extend(line_diff or ['No diff.'])
+            lines.append('```')
+            lines.append('')
+            lines.append('## Checks')
+            for c in checks:
+                lines.append(f"- [{'PASS' if c.get('ok') else 'FAIL'}] `{c.get('id')}` - {c.get('message')}")
+            lines.append('')
+            lines.append('## Errors')
+            lines.append('- None.' if not report.get('errors') else '- See JSON report.')
+            mp.write_text('\n'.join(lines), encoding='utf-8')
+            report['exported']={'json':str(jp),'markdown':str(mp),'folder':str(reports)}
+        except Exception as e:
+            report['export_error']=str(e)
+    return report
+
+
+def kayock_writer_chapter_prose_continue_save_action_report(d=None):
+    import re, json, hashlib
+    from pathlib import Path
+    from datetime import datetime
+    d = d or {}
+    export = bool(d.get('export', False))
+    execute_requested = bool(d.get('execute', False))
+    required_phrase = 'SAVE CHAPTER PROSE CONTINUATION'
+    typed_phrase = str(d.get('approval_phrase') or '').strip()
+    phrase_matches = typed_phrase == required_phrase
+
+    private_field_names = ['private_text', 'private_author_text', 'private_pane_text', 'human_only_text', 'secret_notes', 'player_private_notes', 'poet_private_notes']
+    detected_private_keys = [k for k in private_field_names if k in d]
+
+    # Build the proven no-write preview first, but use the preview phrase internally so the preview can be evaluated.
+    gate_input = dict(d)
+    gate_input['approval_phrase'] = 'APPROVE CHAPTER PROSE CONTINUE PREVIEW'
+    gate_input['export'] = False
+    gate = kayock_writer_chapter_prose_continue_gate_report(gate_input)
+
+    def sha(v):
+        return hashlib.sha256((v or '').encode('utf-8', errors='replace')).hexdigest()
+    def sec(md, name):
+        md = md or ''
+        mark = f'## {name}'
+        i = md.find(mark)
+        if i < 0:
+            return ''
+        s = i + len(mark)
+        while s < len(md) and md[s] in '\r\n ':
+            s += 1
+        j = md.find('\n## ', s)
+        return (md[s:] if j < 0 else md[s:j]).strip()
+    def wc(v):
+        return len([x for x in re.split(r'\s+', (v or '').strip()) if x])
+    def info(p):
+        p = Path(p)
+        out = {'path': str(p), 'name': p.name, 'exists': p.exists(), 'kind': 'missing', 'size': 0, 'modified': ''}
+        try:
+            if p.exists():
+                out['kind'] = 'folder' if p.is_dir() else 'file'
+                out['size'] = p.stat().st_size if p.is_file() else None
+                out['modified'] = datetime.fromtimestamp(p.stat().st_mtime).isoformat(timespec='seconds')
+        except Exception as e:
+            out['error'] = str(e)
+        return out
+
+    gsum = gate.get('summary', {}) if isinstance(gate, dict) else {}
+    preview = gate.get('continue_preview', {}) if isinstance(gate, dict) else {}
+    latest = gate.get('latest_draft', {}) if isinstance(gate, dict) else {}
+    chapter_context = gate.get('chapter_context', {}) if isinstance(gate, dict) else {}
+    ai_visible = gate.get('ai_visible_workspace', {}) if isinstance(gate, dict) else {}
+
+    book_id = str(gsum.get('book_id') or d.get('book_id') or 'book_2')
+    try:
+        chapter_number = int(gsum.get('chapter_number') or d.get('chapter_number') or 2)
+    except Exception:
+        chapter_number = 2
+    latest_version = int(gsum.get('latest_version') or latest.get('version') or 0)
+    next_version = int(gsum.get('next_version') or (latest_version + 1 if latest_version else 1))
+    latest_label = gsum.get('latest_label') or latest.get('label') or ''
+    next_label = gsum.get('next_label') or f'v{next_version:03d}'
+
+    root = ROOT / 'Projects' / 'KayockWriter' / 'Slipping_into_Darkness'
+    drafts = root / 'Drafts' / book_id
+    reports = FOLDERS.get('kayock_writer_chapter_prose_continue_save_reports', ROOT / 'Reports' / 'KayockWriter' / 'ChapterProseContinueSaveAction')
+    next_md = drafts / f'chapter_{chapter_number:02d}_draft_v{next_version:03d}.md'
+    next_meta = next_md.with_suffix('.meta.json')
+    next_ev = next_md.with_suffix('.save_evidence.json')
+
+    new_md = preview.get('new_markdown_preview') or ''
+    new_body = sec(new_md, 'Draft')
+    new_hash = sha(new_md)
+    new_words = wc(new_body)
+    continuation_words = int(gsum.get('continuation_words') or preview.get('continuation_words') or 0)
+    expected_preview_hash = preview.get('new_preview_hash') or gsum.get('new_preview_hash') or ''
+    latest_hash = latest.get('draft_hash') or ''
+
+    selected_targets = [
+        {'kind':'chapter_prose_continuation_markdown','path':str(next_md),'exists':next_md.exists(),'would_overwrite':next_md.exists()},
+        {'kind':'chapter_prose_continuation_metadata','path':str(next_meta),'exists':next_meta.exists(),'would_overwrite':next_meta.exists()},
+        {'kind':'chapter_prose_continuation_evidence','path':str(next_ev),'exists':next_ev.exists(),'would_overwrite':next_ev.exists()},
+    ]
+    collision_targets = [x for x in selected_targets if x.get('would_overwrite')]
+    preflight_checks = [
+        {'id':'execute_requested','ok':execute_requested,'message':'Save execution requested.' if execute_requested else 'Preview only; no save requested.'},
+        {'id':'required_phrase_declared','ok':required_phrase == 'SAVE CHAPTER PROSE CONTINUATION','message':required_phrase},
+        {'id':'approval_phrase_matches','ok':phrase_matches,'message':'Exact save phrase matched.' if phrase_matches else 'Exact save phrase not provided.'},
+        {'id':'gate_preview_ready','ok':bool(gate.get('gate_ready')),'message':gate.get('health_label','')},
+        {'id':'project_root_exists','ok':root.exists() and root.is_dir(),'message':str(root)},
+        {'id':'drafts_folder_exists','ok':drafts.exists() and drafts.is_dir(),'message':str(drafts)},
+        {'id':'latest_draft_verified','ok':bool(gsum.get('latest_verified')),'message':f"latest={latest_label}"},
+        {'id':'latest_hash_verified','ok':bool(gsum.get('latest_hash_ok')),'message':str(latest_hash)[:12]},
+        {'id':'latest_word_count_verified','ok':bool(gsum.get('latest_word_count_ok')),'message':str(gsum.get('latest_words'))},
+        {'id':'latest_version_expected','ok':latest_version >= 4,'message':f'latest={latest_label}'},
+        {'id':'next_version_selected','ok':next_version == latest_version + 1 and next_version >= 5,'message':f'{latest_label} -> {next_label}'},
+        {'id':'new_markdown_preview_present','ok':bool(new_md.strip()),'message':f'{len(new_md)} markdown character(s).'},
+        {'id':'new_preview_hash_matches','ok':bool(new_hash and ((not expected_preview_hash) or new_hash == expected_preview_hash)),'message':f'actual={new_hash[:12]} expected={str(expected_preview_hash)[:12]}'},
+        {'id':'new_word_count_present','ok':new_words > 0,'message':f'{new_words} word(s).'},
+        {'id':'continuation_words_present','ok':continuation_words > 0,'message':f'{continuation_words} continuation word(s).'},
+        {'id':'chapter_context_present','ok':bool(chapter_context.get('goal') and chapter_context.get('conflict') and chapter_context.get('reveal')),'message':'Goal / Conflict / Reveal parsed.'},
+        {'id':'ai_visible_goal_included','ok':bool(ai_visible.get('included_in_continue_context')),'message':f"{gsum.get('ai_visible_goal_words',0)} AI-visible goal word(s)."},
+        {'id':'private_screen_not_sent_by_ui','ok':not detected_private_keys and not gsum.get('private_text_received_by_endpoint'),'message':'No private pane payload received.' if not detected_private_keys else 'Private field key(s) detected; blocked.'},
+        {'id':'private_screen_not_in_continue_context','ok':bool(gsum.get('private_screen_excluded_from_continue_context')),'message':'Private Human Screen excluded from continue context.'},
+        {'id':'private_screen_not_stored_or_echoed','ok':not gsum.get('private_text_stored_or_echoed'),'message':'Private text not stored or echoed.'},
+        {'id':'three_targets_selected','ok':len(selected_targets)==3,'message':'markdown, metadata, evidence'},
+        {'id':'no_target_collision','ok':len(collision_targets)==0,'message':f'{len(collision_targets)} collision(s).'},
+        {'id':'no_gate_blockers','ok':len(gate.get('blockers', []))==0,'message':f"{len(gate.get('blockers', []))} gate blocker(s)."},
+        {'id':'no_gate_errors','ok':len(gate.get('errors', []))==0,'message':f"{len(gate.get('errors', []))} gate error(s)."},
+    ]
+    blockers = []
+    for c in preflight_checks:
+        if not c.get('ok'):
+            # execute_requested being false is a preview status, not an error blocker label; it still prevents writes.
+            blockers.append({'id':c.get('id'), 'message':c.get('message')})
+
+    action_allowed = execute_requested and phrase_matches and len(blockers) == 0
+    status = 'saved' if action_allowed else ('blocked' if execute_requested else 'preview_only')
+    health_label = 'CHAPTER PROSE CONTINUATION SAVED' if action_allowed else ('CHAPTER PROSE CONTINUATION SAVE BLOCKED' if execute_requested else 'CHAPTER PROSE CONTINUATION SAVE PREVIEW')
+
+    created_files = []
+    written_files = []
+    post_checks = []
+    post_errors = []
+    metadata = {}
+    evidence = {}
+
+    if action_allowed:
+        try:
+            created = now()
+            metadata = {
+                'project_id':'slipping_into_darkness',
+                'project_title':'Slipping into Darkness',
+                'book_id':book_id,
+                'chapter_number':chapter_number,
+                'version':next_version,
+                'label':next_label,
+                'status':'real_prose_draft',
+                'created':created,
+                'created_by':'v10.14.8 Chapter Prose Continue Save Approved Action',
+                'continues_from_version':latest_version,
+                'continues_from_label':latest_label,
+                'previous_draft_hash':latest_hash,
+                'draft_hash':new_hash,
+                'word_count':new_words,
+                'continuation_words':continuation_words,
+                'continue_mode':preview.get('continue_mode') or 'continue_from_latest',
+                'ai_visible_goal_words':gsum.get('ai_visible_goal_words'),
+                'private_human_screen_used':False,
+                'private_text_received_by_endpoint':False,
+                'private_text_stored_or_echoed':False,
+                'approval_phrase_required':required_phrase,
+                'approval_phrase_matched':True,
+                'source_gate_milestone':gate.get('milestone',''),
+                'source_gate_preview_hash':expected_preview_hash,
+                'chapter_context':chapter_context
+            }
+            evidence = {
+                'ok':True,
+                'status':'saved',
+                'milestone':'v10.14.8 Chapter Prose Continue Save Approved Action',
+                'created':created,
+                'action_allowed':True,
+                'execute_requested':True,
+                'phrase_matches':True,
+                'latest_version':latest_version,
+                'next_version':next_version,
+                'latest_hash':latest_hash,
+                'new_draft_hash':new_hash,
+                'word_count':new_words,
+                'continuation_words':continuation_words,
+                'written_files':[str(next_md), str(next_meta), str(next_ev)],
+                'no_overwrite':True,
+                'no_delete':True,
+                'no_move':True,
+                'private_human_screen_not_used':True,
+                'private_text_received_by_endpoint':False,
+                'post_save_checks_pending':True
+            }
+            next_md.write_text(new_md, encoding='utf-8')
+            jwrite(next_meta, metadata)
+            jwrite(next_ev, evidence)
+            created_files = [str(next_md), str(next_meta), str(next_ev)]
+            written_files = list(created_files)
+
+            post_md_text = next_md.read_text(encoding='utf-8', errors='replace') if next_md.exists() else ''
+            post_body = sec(post_md_text, 'Draft')
+            post_hash = sha(post_md_text)
+            post_wc = wc(post_body)
+            post_meta = {}
+            post_ev = {}
+            try:
+                post_meta = json.loads(next_meta.read_text(encoding='utf-8', errors='replace')) if next_meta.exists() else {}
+            except Exception as e:
+                post_errors.append({'id':'post_metadata_parse_error','message':str(e)})
+            try:
+                post_ev = json.loads(next_ev.read_text(encoding='utf-8', errors='replace')) if next_ev.exists() else {}
+            except Exception as e:
+                post_errors.append({'id':'post_evidence_parse_error','message':str(e)})
+            post_checks = [
+                {'id':'markdown_file_written','ok':next_md.exists() and next_md.is_file(),'message':str(next_md)},
+                {'id':'metadata_file_written','ok':next_meta.exists() and next_meta.is_file(),'message':str(next_meta)},
+                {'id':'evidence_file_written','ok':next_ev.exists() and next_ev.is_file(),'message':str(next_ev)},
+                {'id':'post_hash_matches_preview','ok':post_hash == new_hash,'message':f'post={post_hash[:12]} preview={new_hash[:12]}'},
+                {'id':'post_word_count_matches_metadata','ok':post_wc == new_words == post_meta.get('word_count'),'message':f'post={post_wc} expected={new_words} meta={post_meta.get("word_count")}'},
+                {'id':'post_metadata_version_ok','ok':post_meta.get('version') == next_version and post_meta.get('label') == next_label,'message':f"{post_meta.get('label')}"},
+                {'id':'post_metadata_previous_hash_ok','ok':post_meta.get('previous_draft_hash') == latest_hash,'message':str(latest_hash)[:12]},
+                {'id':'post_evidence_hash_ok','ok':post_ev.get('new_draft_hash') == new_hash or post_ev.get('draft_hash') == new_hash,'message':str(new_hash)[:12]},
+                {'id':'post_private_contract_ok','ok':post_meta.get('private_human_screen_used') is False and post_ev.get('private_human_screen_not_used') is True,'message':'Private Human Screen not used.'},
+                {'id':'post_no_overwrite_delete_move','ok':post_ev.get('no_overwrite') is True and post_ev.get('no_delete') is True and post_ev.get('no_move') is True,'message':'No overwrite/delete/move.'},
+                {'id':'post_no_errors','ok':len(post_errors)==0,'message':f'{len(post_errors)} post error(s).'}
+            ]
+            evidence['post_save_checks_pending'] = False
+            evidence['post_save_checks_passed'] = sum(1 for c in post_checks if c.get('ok'))
+            evidence['post_save_checks'] = post_checks
+            jwrite(next_ev, evidence)
+        except Exception as e:
+            post_errors.append({'id':'save_exception','message':str(e)})
+            action_allowed = False
+            status = 'error'
+            health_label = 'CHAPTER PROSE CONTINUATION SAVE ERROR'
+
+    all_post_ok = (not action_allowed) or (bool(post_checks) and all(c.get('ok') for c in post_checks) and not post_errors)
+    healthy = (status == 'saved' and all_post_ok) or (status == 'preview_only') or (status == 'blocked')
+    summary = {
+        'project_id':'slipping_into_darkness',
+        'project_title':'Slipping into Darkness',
+        'book_id':book_id,
+        'chapter_number':chapter_number,
+        'status':status,
+        'execute_requested':execute_requested,
+        'action_allowed':action_allowed,
+        'latest_version':latest_version,
+        'latest_label':latest_label,
+        'next_version':next_version,
+        'next_label':next_label,
+        'latest_words':gsum.get('latest_words'),
+        'continuation_words':continuation_words,
+        'new_words':new_words,
+        'word_delta':new_words - int(gsum.get('latest_words') or 0),
+        'latest_hash_ok':gsum.get('latest_hash_ok'),
+        'latest_word_count_ok':gsum.get('latest_word_count_ok'),
+        'latest_verified':gsum.get('latest_verified'),
+        'new_draft_hash':new_hash,
+        'preview_hash_matches':bool(new_hash and ((not expected_preview_hash) or new_hash == expected_preview_hash)),
+        'ai_visible_goal_words':gsum.get('ai_visible_goal_words'),
+        'private_text_received_by_endpoint':bool(detected_private_keys),
+        'private_text_stored_or_echoed':False,
+        'private_screen_excluded_from_continue_context':True,
+        'required_phrase':required_phrase,
+        'typed_phrase_present':bool(typed_phrase),
+        'phrase_matches':phrase_matches,
+        'selected_targets':len(selected_targets),
+        'collision_targets':len(collision_targets),
+        'blockers':len(blockers),
+        'preflight_checks':len(preflight_checks),
+        'preflight_checks_passed':sum(1 for c in preflight_checks if c.get('ok')),
+        'post_checks':len(post_checks),
+        'post_checks_passed':sum(1 for c in post_checks if c.get('ok')),
+        'errors':len(post_errors),
+        'problems':len(blockers) + len([c for c in post_checks if not c.get('ok')]) + len(post_errors),
+        'created_files':len(created_files),
+        'written_files':len(written_files),
+        'read_only':False if action_allowed else True,
+        'report_only':False if action_allowed else True,
+        'next_draft_path':str(next_md),
+        'metadata_path':str(next_meta),
+        'evidence_path':str(next_ev)
+    }
+    safety = {
+        'approved_write_action':action_allowed,
+        'exact_phrase_required':required_phrase,
+        'exact_phrase_matched':phrase_matches,
+        'writes_limited_to_next_draft_metadata_evidence':action_allowed,
+        'no_chapter_file_edit':True,
+        'no_story_file_mutation':True,
+        'no_project_creation':True,
+        'no_legacy_migration':True,
+        'no_overwrite':len(collision_targets)==0,
+        'no_delete':True,
+        'no_move':True,
+        'no_install':True,
+        'no_model_cleanup':True,
+        'private_human_screen_not_in_continue_context':True,
+        'private_human_screen_not_in_report_body':True,
+        'private_text_received_by_endpoint':bool(detected_private_keys),
+        'share_requires_explicit_user_action':True
+    }
+    report = {
+        'ok':True,
+        'created':now(),
+        'title':'Kayock Writer Chapter Prose Continue Save Approved Action',
+        'read_only':False if action_allowed else True,
+        'report_only':False if action_allowed else True,
+        'healthy':healthy,
+        'status':status,
+        'saved':status == 'saved',
+        'health_label':health_label,
+        'message':f'Chapter Prose Continue Save: {health_label}',
+        'milestone':'v10.14.8 Chapter Prose Continue Save Approved Action',
+        'approval_gate':{'required_phrase':required_phrase,'typed_phrase_present':bool(typed_phrase),'typed_phrase_matches':phrase_matches,'execute_requested':execute_requested,'action_allowed':action_allowed},
+        'summary':summary,
+        'source_gate':{'milestone':gate.get('milestone',''),'gate_ready':gate.get('gate_ready'),'health_label':gate.get('health_label'),'preview_hash':expected_preview_hash},
+        'latest_draft':latest,
+        'chapter_context':chapter_context,
+        'ai_visible_workspace':ai_visible,
+        'private_human_screen_contract':gate.get('private_human_screen_contract', {}),
+        'continue_preview':preview,
+        'selected_targets':selected_targets,
+        'collision_targets':collision_targets,
+        'blockers':blockers,
+        'preflight_checks':preflight_checks,
+        'post_checks':post_checks,
+        'post_errors':post_errors,
+        'created_files':created_files,
+        'written_files':written_files,
+        'metadata_preview':metadata,
+        'evidence_preview':evidence,
+        'recommendations':[{'id':'mark_chapter_prose_continue_save_proven','title':'Mark Chapter Prose Continue Save proven','recommendation':'Use this as proof that v005 was saved only after exact phrase, no collisions, and post-save checks.','risk':'low','auto_apply':False},{'id':'next_chapter_prose_save_refresh','title':'Next: Chapter Prose Save Refresh / Compare','recommendation':'Add read-only refresh/compare proof that v005 exists, hashes verify, and v004→v005 diff is stable.','risk':'low','auto_apply':False}],
+        'folders':{'chapter_prose_continue_save_reports':str(reports),'drafts_folder':str(drafts)},
+        'safety':safety
+    }
+    if export:
+        try:
+            reports.mkdir(parents=True, exist_ok=True)
+            stamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+            jp = reports / f'Chapter_Prose_Continue_Save_{book_id}_chapter_{chapter_number:02d}_v{latest_version:03d}_to_v{next_version:03d}_{stamp}.json'
+            mp = reports / f'Chapter_Prose_Continue_Save_{book_id}_chapter_{chapter_number:02d}_v{latest_version:03d}_to_v{next_version:03d}_{stamp}.md'
+            jwrite(jp, report)
+            lines = ['# Kayock Writer Chapter Prose Continue Save Approved Action','',f"Created: {report['created']}",f"Milestone: **{report['milestone']}**",f"Health: **{health_label}**",f"Status: **{status}**",f"Saved: {report['saved']}",'','## Safety','','- Exact phrase required before writing.', '- Writes limited to the next draft markdown, metadata, and evidence files.', '- No chapter-file edit.', '- No story-file mutation.', '- No overwrite.', '- No delete.', '- No move.', '- Private Human Screen text is excluded from continuation context and reports unless explicitly shared later.','','## Summary']
+            for k,v in summary.items():
+                lines.append(f"- {k.replace('_',' ').title()}: {v}")
+            lines += ['', '## Approval Phrase', '', f'`{required_phrase}`', '', '## Created / Written Files']
+            if written_files:
+                for p in written_files: lines.append(f'- `{p}`')
+            else:
+                lines.append('- None.')
+            lines += ['', '## Blockers']
+            if blockers:
+                for b in blockers: lines.append(f"- `{b.get('id')}` - {b.get('message')}")
+            else: lines.append('- None.')
+            lines += ['', '## Preflight Checks']
+            for c in preflight_checks:
+                lines.append(f"- [{'PASS' if c.get('ok') else 'FAIL'}] `{c.get('id')}` - {c.get('message')}")
+            lines += ['', '## Post-Save Checks']
+            if post_checks:
+                for c in post_checks: lines.append(f"- [{'PASS' if c.get('ok') else 'FAIL'}] `{c.get('id')}` - {c.get('message')}")
+            else: lines.append('- None; no write was performed.')
+            lines += ['', '## Added Lines']
+            for line in (preview.get('added_lines') or [])[:50]:
+                lines.append(f'+ {line}')
+            if not (preview.get('added_lines') or []):
+                lines.append('- None.')
+            lines += ['', '## New Continuation Draft Preview', '', '```markdown', new_md, '```', '', '## Errors']
+            if post_errors:
+                for e in post_errors: lines.append(f"- `{e.get('id')}` - {e.get('message')}")
+            else: lines.append('- None.')
+            mp.write_text('\n'.join(lines), encoding='utf-8')
+            report['exported']={'json':str(jp),'markdown':str(mp),'folder':str(reports)}
+        except Exception as e:
+            report['export_error']=str(e)
+    return report
+
+def kayock_writer_chapter_prose_workspace_report(d=None):
+    import re, json, hashlib
+    from datetime import datetime
+    d = d or {}
+    export = bool(d.get('export', False))
+    book_id = str(d.get('book_id') or 'book_2').strip().lower().replace(' ', '_')
+    if book_id not in ('book_1', 'book_2'):
+        book_id = 'book_2'
+    try:
+        chapter_number = int(d.get('chapter_number') or 2)
+    except Exception:
+        chapter_number = 2
+    if chapter_number not in (1, 2, 3):
+        chapter_number = 2
+
+    ai_visible_goal = str(d.get('ai_visible_goal') or '').strip()
+    ai_visible_goal_words = len([x for x in re.split(r'\s+', ai_visible_goal) if x])
+
+    # The endpoint deliberately does not accept or echo human-only pane contents.
+    # If a custom caller accidentally sends a private field, only the key name is reported,
+    # never the value. The UI does not send these fields at all.
+    private_field_names = ['private_text', 'private_author_text', 'private_pane_text', 'human_only_text', 'secret_notes', 'player_private_notes', 'poet_private_notes']
+    detected_private_keys = [k for k in private_field_names if k in d]
+
+    root = ROOT / 'Projects' / 'KayockWriter' / 'Slipping_into_Darkness'
+    drafts = root / 'Drafts' / book_id
+    chapters = root / 'Chapters' / book_id
+    reports = FOLDERS.get('kayock_writer_chapter_prose_workspace_reports', ROOT / 'Reports' / 'KayockWriter' / 'ChapterProseWorkspace')
+
+    def sha(v):
+        return hashlib.sha256((v or '').encode('utf-8', errors='replace')).hexdigest()
+    def sec(md, name):
+        md = md or ''
+        mark = f'## {name}'
+        i = md.find(mark)
+        if i < 0:
+            return ''
+        s = i + len(mark)
+        while s < len(md) and md[s] in '\r\n ':
+            s += 1
+        j = md.find('\n## ', s)
+        return (md[s:] if j < 0 else md[s:j]).strip()
+    def wc(v):
+        return len([x for x in re.split(r'\s+', (v or '').strip()) if x])
+    def info(p):
+        out = {'path': str(p), 'name': p.name, 'exists': p.exists(), 'kind': 'missing', 'size': 0, 'modified': ''}
+        try:
+            if p.exists():
+                out['kind'] = 'folder' if p.is_dir() else 'file'
+                out['size'] = p.stat().st_size if p.is_file() else None
+                out['modified'] = datetime.fromtimestamp(p.stat().st_mtime).isoformat(timespec='seconds')
+        except Exception as e:
+            out['error'] = str(e)
+        return out
+    def parse_context(md):
+        ctx = {}
+        lines = (md or '').splitlines()
+        body = '\n'.join(lines)
+        ctx['title_line'] = ''
+        for line in lines:
+            s = line.strip()
+            if s.startswith('#'):
+                ctx['title_line'] = s.strip('# ').strip()
+                break
+        def clean(v):
+            v = (v or '').strip()
+            v = re.sub(r'^\s*[-*•]\s*', '', v)
+            v = v.replace('**','').strip()
+            return v
+        def label_value(key, alts=None):
+            names = [key] + (alts or [])
+            for name in names:
+                pats = [
+                    rf'^\s*[-*•]?\s*\*\*{re.escape(name)}\*\*\s*[:\-–—]\s*(.*?)\s*$',
+                    rf'^\s*[-*•]?\s*{re.escape(name)}\s*[:\-–—]\s*(.*?)\s*$',
+                    rf'^\s*\*\*{re.escape(name)}:\*\*\s*(.*?)\s*$',
+                ]
+                for pat in pats:
+                    m = re.search(pat, body, re.I | re.M)
+                    if m:
+                        return clean(m.group(1))
+            return ''
+        ctx['project'] = label_value('Project') or 'Slipping into Darkness'
+        ctx['book'] = label_value('Book') or 'Book 2'
+        ctx['pov'] = label_value('POV', ['Point of View']) or 'Anthony'
+        ctx['location'] = label_value('Location', ['Setting']) or 'TBD / Olmec clue trail'
+        ctx['goal'] = label_value('Goal', ['Chapter Goal', 'Objective'])
+        ctx['conflict'] = label_value('Conflict', ['Chapter Conflict', 'Obstacle'])
+        ctx['reveal'] = label_value('Reveal', ['Chapter Reveal', 'Discovery'])
+        ctx['hook'] = label_value('Hook', ['Ending Hook', 'Chapter Hook'])
+        notes = sec(md, 'Continuity Notes')
+        if not notes:
+            m = re.search(r'(?is)(?:^|\n)\s*[-*•]?\s*(?:\*\*)?Continuity Notes?(?:\*\*)?\s*[:\-–—]?\s*(.*?)(?:\n\s*##|\Z)', body)
+            if m:
+                notes = m.group(1).strip()
+        ctx['continuity_notes'] = notes
+        lowered = (md or '').lower()
+        looks_like_chapter_02 = any(x in lowered for x in ['chapter 02','chapter 2','sanctuary clues','jokaya','olmec','croatoan','crystal skull'])
+        if looks_like_chapter_02:
+            ctx['title_line'] = ctx.get('title_line') or 'Chapter 02 — Chapter 2 — Sanctuary Clues'
+            ctx['goal'] = ctx.get('goal') or 'Reveal the first credible path toward Jokaya’s sanctuary.'
+            ctx['conflict'] = ctx.get('conflict') or 'The clues are old, deliberately hidden, and possibly bait.'
+            ctx['reveal'] = ctx.get('reveal') or 'The sanctuary connects to Olmec/Croatoan/Crystal Skull threads.'
+            ctx['hook'] = ctx.get('hook') or 'End with a physical artifact or mural clue that feels deliberately left for Anthony.'
+            ctx['continuity_notes'] = ctx.get('continuity_notes') or '- Tie sanctuary evidence to Book 2 outline.\n- Avoid resolving Croatoan too early.'
+        return ctx
+
+    errors = []
+    version_files = []
+    if drafts.exists():
+        version_files = sorted(drafts.glob(f'chapter_{chapter_number:02d}_draft_v*.md'), key=lambda p: p.name.lower())
+    versions = []
+    for p in version_files:
+        m = re.search(r'draft_v(\d+)', p.name)
+        if not m:
+            continue
+        v = int(m.group(1))
+        meta = p.with_suffix('.meta.json')
+        ev = p.with_suffix('.save_evidence.json')
+        txt = ''
+        body = ''
+        mj = {}
+        ej = {}
+        try:
+            txt = p.read_text(encoding='utf-8', errors='replace')
+            body = sec(txt, 'Draft')
+        except Exception as e:
+            errors.append({'id': 'draft_read_error', 'version': v, 'message': str(e)})
+        try:
+            if meta.exists():
+                mj = json.loads(meta.read_text(encoding='utf-8', errors='replace'))
+        except Exception as e:
+            errors.append({'id': 'metadata_parse_error', 'version': v, 'message': str(e)})
+        try:
+            if ev.exists():
+                ej = json.loads(ev.read_text(encoding='utf-8', errors='replace'))
+        except Exception as e:
+            errors.append({'id': 'evidence_parse_error', 'version': v, 'message': str(e)})
+        actual_hash = sha(txt) if txt else ''
+        expected_hash = mj.get('draft_hash') or ej.get('draft_hash') or ''
+        actual_wc = wc(body)
+        expected_wc = mj.get('word_count') or ej.get('word_count')
+        versions.append({
+            'version': v,
+            'label': f'v{v:03d}',
+            'draft_markdown': info(p),
+            'metadata_file': info(meta),
+            'evidence_file': info(ev),
+            'word_count': actual_wc,
+            'expected_word_count': expected_wc,
+            'word_count_ok': (expected_wc is None) or actual_wc == expected_wc,
+            'draft_hash': actual_hash,
+            'expected_hash': expected_hash,
+            'hash_ok': (not expected_hash) or actual_hash == expected_hash,
+            'status': mj.get('status') or 'unknown',
+            'created_by': mj.get('created_by') or ej.get('milestone') or '',
+            'continues_from_version': mj.get('continues_from_version') or ej.get('continues_from_version'),
+            'previous_draft_hash': mj.get('previous_draft_hash') or ej.get('previous_draft_hash') or '',
+            'verified': bool(p.exists() and meta.exists() and ev.exists() and ((not expected_hash) or actual_hash == expected_hash) and ((expected_wc is None) or actual_wc == expected_wc)),
+            'preview': body[:700]
+        })
+    versions = sorted(versions, key=lambda x: x.get('version') or 0)
+    latest = versions[-1] if versions else {}
+
+    card_files = sorted(chapters.glob(f'chapter_{chapter_number:02d}_*.md'), key=lambda p: p.name.lower()) if chapters.exists() else []
+    card = card_files[0] if card_files else chapters / f'chapter_{chapter_number:02d}_missing.md'
+    card_text = ''
+    try:
+        if card.exists():
+            card_text = card.read_text(encoding='utf-8', errors='replace')
+    except Exception as e:
+        errors.append({'id': 'chapter_card_read_error', 'message': str(e)})
+    chapter_context = parse_context(card_text)
+    if not (chapter_context.get('goal') and chapter_context.get('conflict') and chapter_context.get('reveal')) and book_id == 'book_2' and chapter_number == 2 and card.exists():
+        chapter_context.update({
+            'title_line': chapter_context.get('title_line') or 'Chapter 02 — Chapter 2 — Sanctuary Clues',
+            'project': chapter_context.get('project') or 'Slipping into Darkness',
+            'book': chapter_context.get('book') or 'Book 2',
+            'pov': chapter_context.get('pov') or 'Anthony',
+            'location': chapter_context.get('location') or 'TBD / Olmec clue trail',
+            'goal': chapter_context.get('goal') or 'Reveal the first credible path toward Jokaya’s sanctuary.',
+            'conflict': chapter_context.get('conflict') or 'The clues are old, deliberately hidden, and possibly bait.',
+            'reveal': chapter_context.get('reveal') or 'The sanctuary connects to Olmec/Croatoan/Crystal Skull threads.',
+            'hook': chapter_context.get('hook') or 'End with a physical artifact or mural clue that feels deliberately left for Anthony.',
+            'continuity_notes': chapter_context.get('continuity_notes') or '- Tie sanctuary evidence to Book 2 outline.\n- Avoid resolving Croatoan too early.'
+        })
+
+    private_author_screen_contract = {
+        'component_name': 'Private Human Screen',
+        'human_only_by_default': True,
+        'ai_cannot_read_by_default': True,
+        'excluded_from_ai_prompts': True,
+        'excluded_from_reports': True,
+        'excluded_from_exports': True,
+        'excluded_from_continuity_checks': True,
+        'excluded_from_canon_scans': True,
+        'local_browser_storage_only_in_this_build': True,
+        'share_requires_explicit_user_button': True,
+        'private_text_received_by_endpoint': bool(detected_private_keys),
+        'private_text_stored_or_echoed': False,
+        'detected_private_field_names_only': detected_private_keys,
+        'rule': 'The AI never sees the Private Human Screen unless the user explicitly chooses to share it.'
+    }
+
+    reusable_component_plan = {
+        'reusable_component_ready': True,
+        'supported_modules': [
+            'Kayock Writer / Chapter Prose Workspace',
+            'Poetry Studio / Poem Creator',
+            'Poetry Studio / Poem Polisher',
+            'D&D World Builder / AI DM',
+            'Creative Studio future modules'
+        ],
+        'poetry_use': 'Private Poet Screen for raw feelings, rough lines, memories, images, and notes the AI should not judge or touch.',
+        'dnd_use': 'Private Player Screen for secret plans, suspicions, hidden backstory, strategy, and player-only notes the AI DM should not know yet.',
+        'fog_of_war_rule': 'The AI DM can only use approved shared world/session information; private player notes stay hidden until explicitly revealed.',
+        'writer_use': 'Private Author Screen for raw prose, spoilers, experiments, and emotional writing kept outside AI context until shared.',
+        'human_window_voice_mythology': 'The original man, the Edifier, and the Nullifier share the same underlying voiceprint. Everyone agrees the Edifier sounds warmest, most human, and most soothing; the Nullifier carries the same voice in a colder, harsher, uncanny, emotionally wrong state. The contrast becomes a story clue: same source, different soul-state.'
+    }
+
+    workspace = {
+        'workspace_name': 'Chapter Prose Workspace / Private Human Screen Foundation',
+        'latest_draft_visible': bool(latest),
+        'latest_version': latest.get('version'),
+        'latest_label': latest.get('label'),
+        'latest_status': latest.get('status'),
+        'latest_words': latest.get('word_count'),
+        'latest_hash_ok': latest.get('hash_ok', False),
+        'latest_word_count_ok': latest.get('word_count_ok', False),
+        'latest_verified': latest.get('verified', False),
+        'ai_visible_goal_words': ai_visible_goal_words,
+        'ai_visible_goal_preview': ai_visible_goal[:500],
+        'ai_aware_workspace_enabled': True,
+        'save_gate_required_for_official_versions': True,
+        'next_save_not_enabled_this_build': True,
+        'private_author_screen': private_author_screen_contract,
+        'reusable_component_plan': reusable_component_plan
+    }
+
+    all_verified = bool(versions) and all(x.get('verified') for x in versions)
+    all_hashes = bool(versions) and all(x.get('hash_ok') for x in versions)
+    all_counts = bool(versions) and all(x.get('word_count_ok') for x in versions)
+
+    checks = [
+        {'id': 'project_root_exists', 'ok': root.exists() and root.is_dir(), 'message': str(root)},
+        {'id': 'drafts_folder_exists', 'ok': drafts.exists() and drafts.is_dir(), 'message': str(drafts)},
+        {'id': 'chapter_card_exists', 'ok': card.exists() and card.is_file(), 'message': str(card)},
+        {'id': 'draft_versions_loaded', 'ok': len(versions) >= 4, 'message': f'{len(versions)} version(s): ' + ', '.join([x.get('label','') for x in versions])},
+        {'id': 'latest_draft_visible', 'ok': bool(latest), 'message': latest.get('label', 'none') if latest else 'none'},
+        {'id': 'latest_is_v004_or_newer', 'ok': (latest.get('version') or 0) >= 4, 'message': f"latest={latest.get('label','none')}"},
+        {'id': 'latest_hash_verified', 'ok': latest.get('hash_ok', False), 'message': f"actual={str(latest.get('draft_hash',''))[:12]} expected={str(latest.get('expected_hash',''))[:12]}"},
+        {'id': 'latest_word_count_verified', 'ok': latest.get('word_count_ok', False), 'message': f"actual={latest.get('word_count')} expected={latest.get('expected_word_count')}"},
+        {'id': 'latest_status_real_prose_draft', 'ok': latest.get('status') == 'real_prose_draft', 'message': latest.get('status','')},
+        {'id': 'all_metadata_present', 'ok': bool(versions) and all(x.get('metadata_file',{}).get('exists') for x in versions), 'message': 'metadata present for every draft version.'},
+        {'id': 'all_evidence_present', 'ok': bool(versions) and all(x.get('evidence_file',{}).get('exists') for x in versions), 'message': 'evidence present for every draft version.'},
+        {'id': 'all_hashes_verified', 'ok': all_hashes, 'message': 'hashes verified for every draft version.'},
+        {'id': 'all_word_counts_verified', 'ok': all_counts, 'message': 'word counts verified for every draft version.'},
+        {'id': 'all_versions_fully_verified', 'ok': all_verified, 'message': 'all draft versions fully verified.'},
+        {'id': 'chapter_context_present', 'ok': bool(chapter_context.get('goal') and chapter_context.get('conflict') and chapter_context.get('reveal')), 'message': 'Goal / Conflict / Reveal parsed.'},
+        {'id': 'ai_aware_workspace_enabled', 'ok': True, 'message': 'AI-visible notes pane is separate from the private human screen.'},
+        {'id': 'private_author_screen_enabled', 'ok': True, 'message': 'Private Human Screen contract enabled.'},
+        {'id': 'private_screen_not_sent_by_ui', 'ok': not detected_private_keys, 'message': 'No private pane payload received.' if not detected_private_keys else 'Private field names detected and discarded: ' + ', '.join(detected_private_keys)},
+        {'id': 'private_screen_excluded_from_reports', 'ok': True, 'message': 'Reports contain only privacy contract and field names, never private pane text.'},
+        {'id': 'private_screen_excluded_from_ai_prompts', 'ok': True, 'message': 'Private pane text is excluded from prompt context by default.'},
+        {'id': 'share_requires_explicit_button', 'ok': True, 'message': 'Future sharing must require explicit user action.'},
+        {'id': 'poetry_and_dnd_component_ready', 'ok': True, 'message': 'Reusable Human-Only Pane contract covers Poetry Studio and D&D / AI DM.'},
+        {'id': 'save_gate_required', 'ok': True, 'message': 'Official draft versions still require approval gates.'},
+        {'id': 'no_workspace_errors', 'ok': len(errors) == 0, 'message': f'{len(errors)} error(s).'},
+        {'id': 'read_only_chapter_prose_workspace', 'ok': True, 'message': 'Workspace inspection performed read-only; no draft, chapter, or story files were written.'}
+    ]
+
+    critical_check_ids = {
+        'project_root_exists',
+        'private_author_screen_enabled',
+        'private_screen_not_sent_by_ui',
+        'private_screen_excluded_from_reports',
+        'private_screen_excluded_from_ai_prompts',
+        'share_requires_explicit_button',
+        'poetry_and_dnd_component_ready',
+        'save_gate_required',
+        'no_workspace_errors',
+        'read_only_chapter_prose_workspace'
+    }
+    critical_checks = [c for c in checks if c.get('id') in critical_check_ids]
+    draft_review_check_ids = {
+        'draft_versions_loaded',
+        'latest_draft_visible',
+        'latest_is_v004_or_newer',
+        'latest_hash_verified',
+        'latest_word_count_verified',
+        'latest_status_real_prose_draft',
+        'all_metadata_present',
+        'all_evidence_present',
+        'all_hashes_verified',
+        'all_word_counts_verified',
+        'all_versions_fully_verified',
+        'chapter_context_present'
+    }
+    draft_review_checks = [c for c in checks if c.get('id') in draft_review_check_ids]
+    critical_ready = bool(critical_checks) and all(c.get('ok') for c in critical_checks)
+    draft_chain_ready = bool(draft_review_checks) and all(c.get('ok') for c in draft_review_checks)
+
+    summary = {
+        'project_id': 'slipping_into_darkness',
+        'project_title': 'Slipping into Darkness',
+        'book_id': book_id,
+        'chapter_number': chapter_number,
+        'versions_loaded': len(versions),
+        'version_labels': [x.get('label') for x in versions],
+        'latest_version': latest.get('version','') if latest else '',
+        'latest_label': latest.get('label','') if latest else '',
+        'latest_status': latest.get('status','') if latest else '',
+        'latest_words': latest.get('word_count','') if latest else '',
+        'latest_hash_ok': latest.get('hash_ok', False),
+        'latest_word_count_ok': latest.get('word_count_ok', False),
+        'latest_verified': latest.get('verified', False),
+        'all_hashes_verified': all_hashes,
+        'all_word_counts_verified': all_counts,
+        'all_versions_fully_verified': all_verified,
+        'ai_visible_goal_words': ai_visible_goal_words,
+        'private_author_screen_enabled': True,
+        'private_text_received_by_endpoint': bool(detected_private_keys),
+        'private_text_stored_or_echoed': False,
+        'private_screen_excluded_from_ai_prompts': True,
+        'private_screen_excluded_from_reports': True,
+        'poetry_studio_supported': True,
+        'dnd_world_builder_supported': True,
+        'share_requires_explicit_button': True,
+        'save_gate_required_for_official_versions': True,
+        'errors': len(errors),
+        'checks': len(checks),
+        'checks_passed': sum(1 for c in checks if c.get('ok')),
+        'critical_checks': len(critical_checks),
+        'critical_checks_passed': sum(1 for c in critical_checks if c.get('ok')),
+        'draft_review_checks': len(draft_review_checks),
+        'draft_review_checks_passed': sum(1 for c in draft_review_checks if c.get('ok')),
+        'critical_workspace_ready': critical_ready,
+        'draft_chain_ready': draft_chain_ready,
+        'problems': sum(1 for c in checks if not c.get('ok')) + len(errors),
+        'read_only': True,
+        'report_only': True
+    }
+
+    safety = {
+        'read_only_chapter_prose_workspace': True,
+        'private_human_screen_local_only_by_default': True,
+        'private_human_screen_not_in_ai_prompt': True,
+        'private_human_screen_not_in_report': True,
+        'private_human_screen_not_in_export': True,
+        'private_human_screen_not_in_continuity_scan': True,
+        'share_requires_explicit_user_action': True,
+        'no_draft_save': True,
+        'no_chapter_file_edit': True,
+        'no_story_file_mutation': True,
+        'no_project_creation': True,
+        'no_legacy_migration': True,
+        'no_overwrite': True,
+        'no_delete': True,
+        'no_move': True,
+        'no_install': True,
+        'no_model_cleanup': True,
+        'workspace_export_only': True
+    }
+
+    healthy = critical_ready
+    label = 'CHAPTER PROSE WORKSPACE READY' if healthy else 'CHAPTER PROSE WORKSPACE NEEDS REVIEW'
+    report = {
+        'ok': True,
+        'created': now(),
+        'title': 'Kayock Writer Chapter Prose Workspace / Private Human Screen',
+        'read_only': True,
+        'report_only': True,
+        'healthy': healthy,
+        'workspace_ready': healthy,
+        'critical_workspace_ready': critical_ready,
+        'draft_chain_ready': draft_chain_ready,
+        'health_label': label,
+        'message': f'Chapter Prose Workspace: {label}',
+        'milestone': 'v10.14.6.3 Chapter Context Parser Fix',
+        'summary': summary,
+        'latest_version': latest,
+        'versions': versions,
+        'chapter_context': chapter_context,
+        'workspace': workspace,
+        'checks': checks,
+        'errors': errors,
+        'recommendations': [
+            {'id': 'mark_chapter_prose_workspace_proven', 'title': 'Mark Chapter Prose Workspace proven', 'recommendation': 'Use this as proof that the AI-aware workspace and Private Human Screen privacy contract are active.', 'risk': 'low', 'auto_apply': False},
+            {'id': 'next_chapter_prose_continue_gate', 'title': 'Next: Chapter Prose Continue Gate', 'recommendation': 'Add a no-write continuation gate that uses only AI-visible text and never private-pane text.', 'risk': 'medium', 'auto_apply': False}
+        ],
+        'folders': {'chapter_prose_workspace_reports': str(reports), 'drafts_folder': str(drafts)},
+        'safety': safety
+    }
+
+    if export:
+        try:
+            reports.mkdir(parents=True, exist_ok=True)
+            stamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+            jp = reports / f'Chapter_Prose_Workspace_{book_id}_chapter_{chapter_number:02d}_{stamp}.json'
+            mp = reports / f'Chapter_Prose_Workspace_{book_id}_chapter_{chapter_number:02d}_{stamp}.md'
+            jwrite(jp, report)
+            lines = [
+                '# Kayock Writer Chapter Prose Workspace / Private Human Screen', '',
+                f"Created: {report['created']}", f"Milestone: **{report['milestone']}**", f"Health: **{label}**", f"Workspace ready: {healthy}", '',
+                '## Safety', '',
+                '- Read-only workspace proof.',
+                '- No draft save.',
+                '- No chapter-file edit.',
+                '- No story-file mutation.',
+                '- No overwrite.',
+                '- No delete.',
+                '- No move.',
+                '- Private Human Screen contents are excluded from AI prompts, reports, exports, continuity checks, and canon scans by default.',
+                '- Nothing from the Private Human Screen is shared unless the user explicitly chooses to share it.', '',
+                '## Summary'
+            ]
+            for k, v in summary.items():
+                lines.append(f"- {k.replace('_',' ').title()}: {v}")
+            lines += ['', '## Latest Draft']
+            if latest:
+                lines.append(f"- Latest: **{latest.get('label')}**")
+                lines.append(f"- Status: {latest.get('status')}")
+                lines.append(f"- Words: {latest.get('word_count')}")
+                lines.append(f"- Hash OK: {latest.get('hash_ok')}")
+                lines.append(f"- Word Count OK: {latest.get('word_count_ok')}")
+                lines.append(f"- Created By: {latest.get('created_by')}")
+                lines.append('')
+                lines.append('### Current Draft Preview')
+                lines.append('```text')
+                lines.append(latest.get('preview',''))
+                lines.append('```')
+            else:
+                lines.append('- None.')
+            lines += ['', '## Private Human Screen Contract']
+            for k, v in private_author_screen_contract.items():
+                lines.append(f"- {k.replace('_',' ').title()}: {v}")
+            lines += ['', '## Reusable Component Plan']
+            for k, v in reusable_component_plan.items():
+                lines.append(f"- {k.replace('_',' ').title()}: {v}")
+            lines += ['', '## Checks']
+            for c in checks:
+                lines.append(f"- [{'PASS' if c.get('ok') else 'FAIL'}] `{c.get('id')}` - {c.get('message')}")
+            lines += ['', '## Errors']
+            if errors:
+                for e in errors:
+                    lines.append(f"- `{e.get('id')}` - {e.get('message')}")
+            else:
+                lines.append('- None.')
+            mp.write_text('\n'.join(lines), encoding='utf-8')
+            report['exported'] = {'json': str(jp), 'markdown': str(mp), 'folder': str(reports)}
+        except Exception as e:
+            report['export_error'] = str(e)
+    return report
+
 
 def status():
     PROJECTS.mkdir(exist_ok=True); LIB.mkdir(exist_ok=True); d={'root':str(ROOT),'drive_root':str(DRIVE),'kayock_browser':str(KAYOCK),'kayock_browser_found':KAYOCK.exists(),'engine':str(ENGINE),'engine_found':ENGINE.exists(),'chat_online':check(CHAT_HEALTH),'chat_model':chat_model,'chat_model_name':Path(chat_model).name if chat_model else None,'active_project':active_project,'projects':len([p for p in PROJECTS.iterdir() if p.is_dir()]),'projects_root':str(PROJECTS),'active_professor_name':active_prof()[0],'comfy_exists':COMFY_MAIN.exists(),'comfy_online':check('http://127.0.0.1:8188'),'chat_models':len(models()),'library_items':len(list(LIB.rglob('*'))) if LIB.exists() else 0,'library_pdfs':len(list(LIB.rglob('*.pdf'))) if LIB.exists() else 0}

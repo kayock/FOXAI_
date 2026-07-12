@@ -20,7 +20,7 @@ The sanctuary connects to Olmec/Croatoan/Crystal Skull threads.
 
 ## Hook
 
-End with a physical artifact or mural clue.
+End with a physical artifact or mural clue that feels deliberately left for Anthony. test
 
 ## Continuity Notes
 

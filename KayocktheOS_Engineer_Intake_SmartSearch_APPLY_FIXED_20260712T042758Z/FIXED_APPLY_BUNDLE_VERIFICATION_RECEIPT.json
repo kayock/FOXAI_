@@ -1,0 +1,43 @@
+{
+  "action": "prepare_corrected_engineer_intake_apply_bundle",
+  "created": "2026-07-12T04:27:58+00:00",
+  "state": "verified",
+  "verified": true,
+  "reviewed_source_patch_changed": false,
+  "baseline_sha256": "bf32b0ab80b6cc3a177698101a5c2121a4224d0bf55bbe78c047f541fb3a6339",
+  "candidate_sha256": "a533239c0e4d56352e2efe9ae0e42b1d00616300421da9222ca5e33091f11b8a",
+  "reason_for_correction": "Previous verifier searched rendered report text for '.venv/'. Its own test source contained that literal, causing a false vendor-leak result.",
+  "checks": [
+    {
+      "id": "candidate_hash_unchanged",
+      "ok": true
+    },
+    {
+      "id": "candidate_compile",
+      "ok": true
+    },
+    {
+      "id": "targeted_engineer_tests_8",
+      "ok": true
+    },
+    {
+      "id": "phase1_security_tests_15",
+      "ok": true
+    },
+    {
+      "id": "structural_vendor_path_test",
+      "ok": true
+    },
+    {
+      "id": "self_reference_false_positive_avoided",
+      "ok": true
+    },
+    {
+      "id": "backup_and_rollback_logic_preserved",
+      "ok": true
+    }
+  ],
+  "targeted_test_output": "test_colon_prefix_removed (__main__.NormalizationTests.test_colon_prefix_removed) ... ok\ntest_comma_prefix_removed (__main__.NormalizationTests.test_comma_prefix_removed) ... ok\ntest_ordinary_engineers_word_preserved (__main__.NormalizationTests.test_ordinary_engineers_word_preserved) ... ok\ntest_slash_prefix_removed (__main__.NormalizationTests.test_slash_prefix_removed) ... ok\ntest_analyze_routes_to_parsed_smart_search (__main__.SmartSearchTests.test_analyze_routes_to_parsed_smart_search) ... ok\ntest_empty_target_is_safe_and_read_only (__main__.SmartSearchTests.test_empty_target_is_safe_and_read_only) ... ok\ntest_quoted_target_is_dequoted (__main__.SmartSearchTests.test_quoted_target_is_dequoted) ... ok\ntest_target_is_extracted (__main__.SmartSearchTests.test_target_is_extracted) ... ok\n\n----------------------------------------------------------------------\nRan 8 tests in 0.001s\n\nOK\n",
+  "phase1_test_output": "test_model_claim_is_flagged (__main__.ReceiptTests.test_model_claim_is_flagged) ... ok\ntest_verified_requires_passing_checks (__main__.ReceiptTests.test_verified_requires_passing_checks) ... ok\ntest_protected_paths (__main__.RedactionTests.test_protected_paths) ... ok\ntest_secret_redaction (__main__.RedactionTests.test_secret_redaction) ... ok\ntest_smart_search_excludes_and_redacts (__main__.RedactionTests.test_smart_search_excludes_and_redacts) ... ok\ntest_agent_fox_cannot_apply (__main__.RepairAuthorizationTests.test_agent_fox_cannot_apply) ... ok\ntest_exact_operator_phrase_is_allowed (__main__.RepairAuthorizationTests.test_exact_operator_phrase_is_allowed) ... ok\ntest_yes_is_not_enough (__main__.RepairAuthorizationTests.test_yes_is_not_enough) ... ok\ntest_agent_fox_cannot_route_engineer (__main__.RoutingTests.test_agent_fox_cannot_route_engineer) ... ok\ntest_bare_engineer_word_does_not_route (__main__.RoutingTests.test_bare_engineer_word_does_not_route) ... ok\ntest_delegation_phrase_does_not_route_by_bare_word (__main__.RoutingTests.test_delegation_phrase_does_not_route_by_bare_word) ... ok\ntest_explicit_operator_engineer_command_routes (__main__.RoutingTests.test_explicit_operator_engineer_command_routes) ... ok\ntest_grouped_navigation_present (__main__.WebStaticTests.test_grouped_navigation_present) ... ok\ntest_repair_gate_present (__main__.WebStaticTests.test_repair_gate_present) ... ok\ntest_search_protection_present (__main__.WebStaticTests.test_search_protection_present) ... ok\n\n----------------------------------------------------------------------\nRan 15 tests in 0.020s\n\nOK\n",
+  "functional_test_output": "functional_engineer_search=PASS\nquery=COMFY_MAIN\nsource_match=core/foxai_web.py\nvendor_path_leak=NONE\n"
+}

@@ -1,0 +1,63 @@
+{
+  "action": "portable_python_compatibility_apply",
+  "created": "2026-07-12T02:03:50+00:00",
+  "state": "blocked_existing_server",
+  "verified": false,
+  "modified_files": [],
+  "root_detection": [
+    {
+      "root": "Z:\\FOXAI",
+      "live": "Z:\\FOXAI\\core\\foxai_web.py",
+      "exists": true,
+      "sha256": "5feb632c5d44d260dba706019beeacf2f5e210ab5a495b9ede3fbe287a6b899e"
+    }
+  ],
+  "checks": [
+    {
+      "id": "foxai_root_detected",
+      "ok": true,
+      "detail": "Z:\\FOXAI"
+    },
+    {
+      "id": "bundled_baseline_hash",
+      "ok": true,
+      "detail": "5feb632c5d44d260dba706019beeacf2f5e210ab5a495b9ede3fbe287a6b899e"
+    },
+    {
+      "id": "bundled_candidate_hash",
+      "ok": true,
+      "detail": "4783a95fabb4e494aa8847bbc9eb6266ab5b9779d292ebcc789c945944252c43"
+    },
+    {
+      "id": "bundled_security_module_hash",
+      "ok": true,
+      "detail": "ea45ef5d4a201adc2cf8f337d776a81946d85febe3180e635a9cff4928bdd7e8"
+    },
+    {
+      "id": "live_hash_is_reviewed_version",
+      "ok": true,
+      "detail": "5feb632c5d44d260dba706019beeacf2f5e210ab5a495b9ede3fbe287a6b899e"
+    },
+    {
+      "id": "port_8765_free_before_apply",
+      "ok": false,
+      "detail": {
+        "reachable": true,
+        "status": 200,
+        "welcome_marker": true,
+        "navigation_marker": false,
+        "bytes": 718848
+      }
+    }
+  ],
+  "root": "Z:\\FOXAI",
+  "live_file": "Z:\\FOXAI\\core\\foxai_web.py",
+  "before_sha256": "5feb632c5d44d260dba706019beeacf2f5e210ab5a495b9ede3fbe287a6b899e",
+  "pre_apply_http_probe": {
+    "reachable": true,
+    "status": 200,
+    "welcome_marker": true,
+    "navigation_marker": false,
+    "bytes": 718848
+  }
+}

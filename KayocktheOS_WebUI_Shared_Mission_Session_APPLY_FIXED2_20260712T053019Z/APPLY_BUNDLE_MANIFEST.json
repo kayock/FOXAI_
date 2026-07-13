@@ -1,0 +1,43 @@
+{
+  "bundle": "KayocktheOS_WebUI_Shared_Mission_Session_APPLY_FIXED2_20260712T053019Z",
+  "created": "2026-07-12T05:30:19+00:00",
+  "type": "approved_apply_bundle_verifier_fix_2",
+  "approval_phrase": "APPLY WEBUI SHARED MISSION SESSION",
+  "rollback_phrase": "ROLLBACK WEBUI SHARED MISSION SESSION",
+  "scope": [
+    "core/foxai_web.py",
+    "core/mission_session.py"
+  ],
+  "explicit_non_changes": [
+    "core/memory.py",
+    "ui/main_window.py",
+    "core_v10/*",
+    "core/director.py",
+    "core/engineer_agent.py",
+    "core/security_containment.py"
+  ],
+  "baseline_hashes": {
+    "core/foxai_web.py": "4783a95fabb4e494aa8847bbc9eb6266ab5b9779d292ebcc789c945944252c43",
+    "core/engineer_agent.py": "a533239c0e4d56352e2efe9ae0e42b1d00616300421da9222ca5e33091f11b8a",
+    "core/mission_session.py": null
+  },
+  "candidate_hashes": {
+    "core/foxai_web.py": "0a20f4988f3798aa60eab424ed1cba656b780bde5b131624ee959aa16c824bda",
+    "core/mission_session.py": "d1032abb31b30f9b5a0b8e6169983de368d4a5ab474438f454fe385436a6d57a"
+  },
+  "exact_diff_sha256": "334198bc2289929cb56cd77ebc66cacdad1b40c5f9d84068f15a31a163a2a5b1",
+  "approved_preview_receipt_sha256": "ac1c7a5fc9b34029dd5f283df76e42f791164cf7edd21bd3736e6f34c047e20c",
+  "live_files_modified_during_bundle_creation": false,
+  "candidate_source_changed_from_approved_preview": false,
+  "verifier_fix": {
+    "cause": "Portable embedded Python ignored PYTHONPATH in isolated mode.",
+    "change": "Direct sys.path insertion through tools/run_test_bootstrap.py.",
+    "failed_apply_receipt_sha256": "d2bab80face8557e5a5f0e3b1cb885cd2ca9d0d9fccd8d58c73a8e754a4e0392"
+  },
+  "http_smoke_method_fix": {
+    "cause": "Smoke test sent POST to a GET-only /api/chat/reset route.",
+    "change": "Dedicated GET helper for reset; POST retained for /api/chat/send.",
+    "failed_http_receipt_sha256": "ab9037cffdd1537aa6686852cd655591790709f21fba59a856ac2d17d681b2a8",
+    "engineer_evidence_sha256": "c3d1cfc62c12aed088d6883e23159f44f13600183b77a89c7a470b24855e815c"
+  }
+}

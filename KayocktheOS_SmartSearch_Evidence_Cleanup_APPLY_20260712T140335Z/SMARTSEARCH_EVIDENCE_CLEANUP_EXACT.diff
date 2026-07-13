@@ -1,0 +1,68 @@
+--- a/core/smart_search.py
++++ b/core/smart_search.py
+@@ -31,13 +31,25 @@
+         "models",
+     }
+ 
++    GENERATED_ARTIFACT_TOP_DIRS = {
++        "Backup",
++        "Backups",
++    }
++
++    GENERATED_BUNDLE_MARKERS = (
++        "_apply_",
++        "_preview_",
++        "_patch_bundle_",
++        "_checkpoint_",
++    )
++
+     SEARCH_EXTENSIONS = {
+         ".py", ".json", ".md", ".txt", ".ini", ".bat", ".ps1", ".yaml", ".yml"
+     }
+ 
+     SOURCE_DIRS = {"core", "ui", "departments"}
+     CONFIG_DIRS = {"config"}
+-    MEMORY_DIRS = {"Projects", "Library"}
++    MEMORY_DIRS = {"Projects", "Library", "Memory"}
+     HISTORY_DIRS = {"Mission Archive", "MissionArchive", "Archive"}
+ 
+     def __init__(self, root):
+@@ -60,6 +72,20 @@
+     def is_vendor(self, path):
+         return bool(set(Path(path).parts) & self.VENDOR_DIRS)
+ 
++    def is_generated_artifact(self, path):
++        top = self.top_dir(path)
++        normalized = top.casefold()
++
++        if normalized in {
++            name.casefold() for name in self.GENERATED_ARTIFACT_TOP_DIRS
++        }:
++            return True
++
++        return (
++            normalized.startswith("kayocktheos_")
++            and any(marker in normalized for marker in self.GENERATED_BUNDLE_MARKERS)
++        )
++
+     def evidence_class(self, path):
+         top = self.top_dir(path)
+         suffix = Path(path).suffix.lower()
+@@ -128,6 +154,9 @@
+                 continue
+ 
+             if is_protected_path(path, self.root):
++                continue
++
++            if self.is_generated_artifact(path):
+                 continue
+ 
+             if self.is_vendor(path) and not include_vendor:
+@@ -342,6 +371,7 @@
+             "",
+             "Search Policy:",
+             "Executable FOXAI source outranks project memory, mission history, and vendor dependencies.",
++            "Generated apply/preview/checkpoint bundles and backup trees are excluded.",
+             "Protected credential/key/vault paths are excluded and displayed snippets are secret-redacted.",
+         ])
+ 

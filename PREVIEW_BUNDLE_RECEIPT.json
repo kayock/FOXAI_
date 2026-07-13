@@ -1,0 +1,35 @@
+{
+  "action": "prepare_portable_python_compatibility_preview",
+  "created": "2026-07-12T01:51:50+00:00",
+  "state": "verified",
+  "modified_uploaded_or_live_files": false,
+  "scope": [
+    "core/foxai_web.py"
+  ],
+  "baseline_sha256": "5feb632c5d44d260dba706019beeacf2f5e210ab5a495b9ede3fbe287a6b899e",
+  "candidate_sha256": "4783a95fabb4e494aa8847bbc9eb6266ab5b9779d292ebcc789c945944252c43",
+  "checks": [
+    {
+      "id": "baseline_hash_matches_phase1_receipt",
+      "ok": true
+    },
+    {
+      "id": "python_compile",
+      "ok": true
+    },
+    {
+      "id": "phase1_regression_tests_15",
+      "ok": true
+    },
+    {
+      "id": "restricted_import_test",
+      "ok": true
+    },
+    {
+      "id": "exact_diff_generated",
+      "ok": true
+    }
+  ],
+  "phase1_test_output": "Spreadsheet runtime warmup failed during python startup\nTraceback (most recent call last):\n  File \"/tmp/tmp.yTcnQsZYiA/artifact_tool_v2-2.8.4/artifact_tool/patches/warm_spreadsheet_runtime_on_startup.py\", line 26, in warm_spreadsheet_runtime_on_startup\n  File \"/tmp/tmp.yTcnQsZYiA/artifact_tool_v2-2.8.4/artifact_tool/spreadsheet_warmup.py\", line 785, in warm_spreadsheet_runtime\n  File \"/tmp/tmp.yTcnQsZYiA/artifact_tool_v2-2.8.4/artifact_tool/spreadsheet_warmup.py\", line 720, in _warm_feature_flows\n  File \"/tmp/tmp.yTcnQsZYiA/artifact_tool_v2-2.8.4/artifact_tool/spreadsheet_warmup.py\", line 704, in _warm_collaboration_flows\n  File \"/tmp/tmp.yTcnQsZYiA/artifact_tool_v2-2.8.4/artifact_tool/generated/interface/models.py\", line 30820, in hydrate_crdt_from_proto\n  File \"/tmp/tmp.yTcnQsZYiA/artifact_tool_v2-2.8.4/artifact_tool/rpc/remote.py\", line 749, in __call__\n  File \"/tmp/tmp.yTcnQsZYiA/artifact_tool_v2-2.8.4/artifact_tool/rpc/client.py\", line 150, in call\nartifact_tool.rpc.client.RemoteError: hydrateCrdtFromProto requires an empty collaborative document.\ntest_model_claim_is_flagged (__main__.ReceiptTests.test_model_claim_is_flagged) ... ok\ntest_verified_requires_passing_checks (__main__.ReceiptTests.test_verified_requires_passing_checks) ... ok\ntest_protected_paths (__main__.RedactionTests.test_protected_paths) ... ok\ntest_secret_redaction (__main__.RedactionTests.test_secret_redaction) ... ok\ntest_smart_search_excludes_and_redacts (__main__.RedactionTests.test_smart_search_excludes_and_redacts) ... ok\ntest_agent_fox_cannot_apply (__main__.RepairAuthorizationTests.test_agent_fox_cannot_apply) ... ok\ntest_exact_operator_phrase_is_allowed (__main__.RepairAuthorizationTests.test_exact_operator_phrase_is_allowed) ... ok\ntest_yes_is_not_enough (__main__.RepairAuthorizationTests.test_yes_is_not_enough) ... ok\ntest_agent_fox_cannot_route_engineer (__main__.RoutingTests.test_agent_fox_cannot_route_engineer) ... ok\ntest_bare_engineer_word_does_not_route (__main__.RoutingTests.test_bare_engineer_word_does_not_route) ... ok\ntest_delegation_phrase_does_not_route_by_bare_word (__main__.RoutingTests.test_delegation_phrase_does_not_route_by_bare_word) ... ok\ntest_explicit_operator_engineer_command_routes (__main__.RoutingTests.test_explicit_operator_engineer_command_routes) ... ok\ntest_grouped_navigation_present (__main__.WebStaticTests.test_grouped_navigation_present) ... ok\ntest_repair_gate_present (__main__.WebStaticTests.test_repair_gate_present) ... ok\ntest_search_protection_present (__main__.WebStaticTests.test_search_protection_present) ... ok\n\n----------------------------------------------------------------------\nRan 15 tests in 0.046s\n\nOK\n",
+  "restricted_import_output": "restricted_import=PASS\nroot=/mnt/data/KayocktheOS_Portable_Python_Compatibility_Preview_20260712T015118Z/candidate\nSpreadsheet runtime warmup failed during python startup\nTraceback (most recent call last):\n  File \"/tmp/tmp.yTcnQsZYiA/artifact_tool_v2-2.8.4/artifact_tool/patches/warm_spreadsheet_runtime_on_startup.py\", line 26, in warm_spreadsheet_runtime_on_startup\n  File \"/tmp/tmp.yTcnQsZYiA/artifact_tool_v2-2.8.4/artifact_tool/spreadsheet_warmup.py\", line 785, in warm_spreadsheet_runtime\n  File \"/tmp/tmp.yTcnQsZYiA/artifact_tool_v2-2.8.4/artifact_tool/spreadsheet_warmup.py\", line 720, in _warm_feature_flows\n  File \"/tmp/tmp.yTcnQsZYiA/artifact_tool_v2-2.8.4/artifact_tool/spreadsheet_warmup.py\", line 704, in _warm_collaboration_flows\n  File \"/tmp/tmp.yTcnQsZYiA/artifact_tool_v2-2.8.4/artifact_tool/generated/interface/models.py\", line 30820, in hydrate_crdt_from_proto\n  File \"/tmp/tmp.yTcnQsZYiA/artifact_tool_v2-2.8.4/artifact_tool/rpc/remote.py\", line 749, in __call__\n  File \"/tmp/tmp.yTcnQsZYiA/artifact_tool_v2-2.8.4/artifact_tool/rpc/client.py\", line 150, in call\nartifact_tool.rpc.client.RemoteError: hydrateCrdtFromProto requires an empty collaborative document.\n"
+}

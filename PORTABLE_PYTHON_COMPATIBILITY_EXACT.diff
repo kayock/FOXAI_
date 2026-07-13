@@ -1,0 +1,26 @@
+--- a/core/foxai_web.py
++++ b/core/foxai_web.py
+@@ -9,8 +9,12 @@
+ from datetime import datetime
+ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
+ from urllib.parse import urlparse, parse_qs, unquote
+ 
++PROJECT_ROOT = Path(__file__).resolve().parents[1]
++if str(PROJECT_ROOT) not in sys.path:
++    sys.path.insert(0, str(PROJECT_ROOT))
++
+ try:
+     from core.security_containment import (
+         authorize_repair_action, guard_model_action_claims, is_protected_path,
+         make_tool_receipt, redact_mapping, redact_secrets,
+@@ -20,9 +24,9 @@
+         authorize_repair_action, guard_model_action_claims, is_protected_path,
+         make_tool_receipt, redact_mapping, redact_secrets,
+     )
+ 
+-ROOT=Path(__file__).resolve().parents[1]; DRIVE=Path(ROOT.anchor); PORT=8765; URL=f"http://127.0.0.1:{PORT}"
++ROOT=PROJECT_ROOT; DRIVE=Path(ROOT.anchor); PORT=8765; URL=f"http://127.0.0.1:{PORT}"
+ KAYOCK=DRIVE/'Kayock-Browser-2.5.3-rc.1-Portable.exe'; LOGS=ROOT/'Logs'; LOG=LOGS/'web_gui.log'
+ ENGINE=ROOT/'Engine'/'llama-server.exe'; CHAT_HEALTH='http://127.0.0.1:8080/health'; CHAT_API='http://127.0.0.1:8080/v1/chat/completions'
+ COMFY=ROOT/'ComfyUI'; COMFY_MAIN=COMFY/'main.py'; LIB=ROOT/'Library'; PROJECTS=ROOT/'Projects'
+ SECURITY_SYSTEM_RULES=(

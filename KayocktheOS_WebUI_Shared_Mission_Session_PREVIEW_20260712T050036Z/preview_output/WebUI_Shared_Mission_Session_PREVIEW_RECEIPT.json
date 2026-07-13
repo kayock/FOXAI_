@@ -1,0 +1,52 @@
+{
+  "action": "preview_webui_shared_mission_session",
+  "created": "2026-07-12T05:03:05+00:00",
+  "state": "preview_ready",
+  "verified": true,
+  "live_files_modified": false,
+  "detected_root": "Z:\\FOXAI",
+  "root_checks": [
+    {
+      "root": "Z:\\FOXAI",
+      "exists": true,
+      "web_hash": "4783a95fabb4e494aa8847bbc9eb6266ab5b9779d292ebcc789c945944252c43",
+      "engineer_hash": "a533239c0e4d56352e2efe9ae0e42b1d00616300421da9222ca5e33091f11b8a",
+      "web_match": true,
+      "engineer_match": true
+    }
+  ],
+  "bundle_checks": [
+    {
+      "id": "candidate_web_hash",
+      "ok": true
+    },
+    {
+      "id": "candidate_session_hash",
+      "ok": true
+    },
+    {
+      "id": "exact_diff_present",
+      "ok": true
+    },
+    {
+      "id": "apply_command_absent",
+      "ok": true
+    }
+  ],
+  "proposed_live_changes": [
+    "create core/mission_session.py",
+    "update core/foxai_web.py"
+  ],
+  "explicit_non_changes": [
+    "core/memory.py",
+    "ui/main_window.py",
+    "core_v10/*",
+    "core/director.py",
+    "core/engineer_agent.py",
+    "core/security_containment.py"
+  ],
+  "candidate_hashes": {
+    "core/foxai_web.py": "0a20f4988f3798aa60eab424ed1cba656b780bde5b131624ee959aa16c824bda",
+    "core/mission_session.py": "d1032abb31b30f9b5a0b8e6169983de368d4a5ab474438f454fe385436a6d57a"
+  }
+}

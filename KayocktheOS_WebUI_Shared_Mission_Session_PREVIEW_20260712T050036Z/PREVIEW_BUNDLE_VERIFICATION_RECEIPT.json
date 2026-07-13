@@ -1,0 +1,89 @@
+{
+  "action": "prepare_webui_shared_mission_session_preview",
+  "created": "2026-07-12T05:00:37+00:00",
+  "state": "verified",
+  "verified": true,
+  "live_files_modified": false,
+  "type": "preview_only",
+  "apply_command_included": false,
+  "baseline_hashes": {
+    "core/foxai_web.py": "4783a95fabb4e494aa8847bbc9eb6266ab5b9779d292ebcc789c945944252c43",
+    "core/engineer_agent.py": "a533239c0e4d56352e2efe9ae0e42b1d00616300421da9222ca5e33091f11b8a"
+  },
+  "candidate_hashes": {
+    "core/foxai_web.py": "0a20f4988f3798aa60eab424ed1cba656b780bde5b131624ee959aa16c824bda",
+    "core/mission_session.py": "d1032abb31b30f9b5a0b8e6169983de368d4a5ab474438f454fe385436a6d57a"
+  },
+  "proposed_live_changes": [
+    "create core/mission_session.py",
+    "update core/foxai_web.py"
+  ],
+  "explicit_non_changes": [
+    "core/memory.py",
+    "ui/main_window.py",
+    "core_v10/*",
+    "core/director.py",
+    "core/engineer_agent.py",
+    "core/security_containment.py"
+  ],
+  "checks": [
+    {
+      "id": "candidate_compile_foxai_web",
+      "ok": true
+    },
+    {
+      "id": "candidate_compile_mission_session",
+      "ok": true
+    },
+    {
+      "id": "mission_session_functional_tests_6",
+      "ok": true
+    },
+    {
+      "id": "webui_routing_archive_source_tests_11",
+      "ok": true
+    },
+    {
+      "id": "phase1_security_regression_tests_15",
+      "ok": true
+    },
+    {
+      "id": "engineer_intake_regression_tests_8",
+      "ok": true
+    },
+    {
+      "id": "stable_archive_path_multi_turn",
+      "ok": true
+    },
+    {
+      "id": "atomic_failure_no_success_claim",
+      "ok": true
+    },
+    {
+      "id": "webui_engineer_project_memory_writes_denied",
+      "ok": true
+    },
+    {
+      "id": "claim_guard_preserved",
+      "ok": true
+    },
+    {
+      "id": "core_v10_not_added_by_diff",
+      "ok": true
+    },
+    {
+      "id": "legacy_archive_helper_not_added",
+      "ok": true
+    },
+    {
+      "id": "exact_diff_generated",
+      "ok": true
+    }
+  ],
+  "test_outputs": {
+    "mission_session": "test_archive_is_under_mission_archive_chats (__main__.MissionSessionTests.test_archive_is_under_mission_archive_chats) ... ok\ntest_context_change_starts_new_session (__main__.MissionSessionTests.test_context_change_starts_new_session) ... ok\ntest_empty_transcript_cannot_claim_archive_success (__main__.MissionSessionTests.test_empty_transcript_cannot_claim_archive_success) ... ok\ntest_existing_session_reused_when_context_is_unchanged (__main__.MissionSessionTests.test_existing_session_reused_when_context_is_unchanged) ... ok\ntest_replace_failure_never_claims_success (__main__.MissionSessionTests.test_replace_failure_never_claims_success) ... ok\ntest_stable_path_and_multi_turn_archive (__main__.MissionSessionTests.test_stable_path_and_multi_turn_archive) ... ok\n\n----------------------------------------------------------------------\nRan 6 tests in 0.007s\n\nOK\n",
+    "webui_static": "test_archive_receipt_controls_success (__main__.WebUICandidateTests.test_archive_receipt_controls_success) ... ok\ntest_bare_engineer_text_not_used_as_route_trigger (__main__.WebUICandidateTests.test_bare_engineer_text_not_used_as_route_trigger) ... ok\ntest_chat_start_begins_session (__main__.WebUICandidateTests.test_chat_start_begins_session) ... ok\ntest_claim_guard_remains (__main__.WebUICandidateTests.test_claim_guard_remains) ... ok\ntest_current_director_is_used (__main__.WebUICandidateTests.test_current_director_is_used) ... ok\ntest_engineer_is_read_only_analysis (__main__.WebUICandidateTests.test_engineer_is_read_only_analysis) ... ok\ntest_explicit_engineer_gate_is_used (__main__.WebUICandidateTests.test_explicit_engineer_gate_is_used) ... ok\ntest_frontend_uses_returned_speaker (__main__.WebUICandidateTests.test_frontend_uses_returned_speaker) ... ok\ntest_mission_session_imported (__main__.WebUICandidateTests.test_mission_session_imported) ... ok\ntest_new_integration_does_not_connect_parallel_core (__main__.WebUICandidateTests.test_new_integration_does_not_connect_parallel_core) ... ok\ntest_project_memory_write_commands_are_denied (__main__.WebUICandidateTests.test_project_memory_write_commands_are_denied) ... ok\n\n----------------------------------------------------------------------\nRan 11 tests in 0.005s\n\nOK\n",
+    "phase1": "test_model_claim_is_flagged (__main__.ReceiptTests.test_model_claim_is_flagged) ... ok\ntest_verified_requires_passing_checks (__main__.ReceiptTests.test_verified_requires_passing_checks) ... ok\ntest_protected_paths (__main__.RedactionTests.test_protected_paths) ... ok\ntest_secret_redaction (__main__.RedactionTests.test_secret_redaction) ... ok\ntest_smart_search_excludes_and_redacts (__main__.RedactionTests.test_smart_search_excludes_and_redacts) ... ok\ntest_agent_fox_cannot_apply (__main__.RepairAuthorizationTests.test_agent_fox_cannot_apply) ... ok\ntest_exact_operator_phrase_is_allowed (__main__.RepairAuthorizationTests.test_exact_operator_phrase_is_allowed) ... ok\ntest_yes_is_not_enough (__main__.RepairAuthorizationTests.test_yes_is_not_enough) ... ok\ntest_agent_fox_cannot_route_engineer (__main__.RoutingTests.test_agent_fox_cannot_route_engineer) ... ok\ntest_bare_engineer_word_does_not_route (__main__.RoutingTests.test_bare_engineer_word_does_not_route) ... ok\ntest_delegation_phrase_does_not_route_by_bare_word (__main__.RoutingTests.test_delegation_phrase_does_not_route_by_bare_word) ... ok\ntest_explicit_operator_engineer_command_routes (__main__.RoutingTests.test_explicit_operator_engineer_command_routes) ... ok\ntest_grouped_navigation_present (__main__.WebStaticTests.test_grouped_navigation_present) ... ok\ntest_repair_gate_present (__main__.WebStaticTests.test_repair_gate_present) ... ok\ntest_search_protection_present (__main__.WebStaticTests.test_search_protection_present) ... ok\n\n----------------------------------------------------------------------\nRan 15 tests in 0.026s\n\nOK\n",
+    "engineer_intake": "test_colon_prefix_removed (__main__.NormalizationTests.test_colon_prefix_removed) ... ok\ntest_comma_prefix_removed (__main__.NormalizationTests.test_comma_prefix_removed) ... ok\ntest_ordinary_engineers_word_preserved (__main__.NormalizationTests.test_ordinary_engineers_word_preserved) ... ok\ntest_slash_prefix_removed (__main__.NormalizationTests.test_slash_prefix_removed) ... ok\ntest_analyze_routes_to_parsed_smart_search (__main__.SmartSearchTests.test_analyze_routes_to_parsed_smart_search) ... ok\ntest_empty_target_is_safe_and_read_only (__main__.SmartSearchTests.test_empty_target_is_safe_and_read_only) ... ok\ntest_quoted_target_is_dequoted (__main__.SmartSearchTests.test_quoted_target_is_dequoted) ... ok\ntest_target_is_extracted (__main__.SmartSearchTests.test_target_is_extracted) ... ok\n\n----------------------------------------------------------------------\nRan 8 tests in 0.001s\n\nOK\n"
+  }
+}

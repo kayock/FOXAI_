@@ -1,0 +1,541 @@
+--- /dev/null
++++ b/core/mission_session.py
+@@ -0,0 +1,311 @@
++from __future__ import annotations
++
++"""Stable, receipt-verified mission transcript persistence.
++
++This module is interface-independent. The WebUI is the first caller, while the
++desktop Mission Console remains unchanged during this milestone.
++"""
++
++from datetime import datetime, timezone
++from hashlib import sha256
++import os
++from pathlib import Path
++from secrets import token_hex
++from threading import RLock
++from typing import Any
++
++from core.security_containment import make_tool_receipt
++
++
++class MissionSession:
++    """Own one stable archive path for a multi-turn mission session."""
++
++    def __init__(self, foxai_root: str | Path, interface_name: str = "Unknown") -> None:
++        self.foxai_root = Path(foxai_root).resolve()
++        self.interface_name = (interface_name or "Unknown").strip()
++        self._lock = RLock()
++        self._session_id: str | None = None
++        self._archive_path: Path | None = None
++        self._started_at: datetime | None = None
++        self._context: dict[str, str] = {}
++        self._lines: list[dict[str, str]] = []
++
++    @property
++    def active(self) -> bool:
++        return self._session_id is not None and self._archive_path is not None
++
++    @property
++    def archive_path(self) -> Path | None:
++        return self._archive_path
++
++    @property
++    def session_id(self) -> str | None:
++        return self._session_id
++
++    def _context_key(
++        self,
++        project: str | None,
++        professor: str | None,
++        model: str | None,
++    ) -> tuple[str, str, str]:
++        return (
++            (project or "Default_Mission").strip() or "Default_Mission",
++            (professor or "Agent Fox").strip() or "Agent Fox",
++            (model or "None").strip() or "None",
++        )
++
++    def start(
++        self,
++        *,
++        project: str | None = None,
++        professor: str | None = None,
++        model: str | None = None,
++    ) -> dict[str, Any]:
++        """Begin a new in-memory session and reserve one stable archive path."""
++        with self._lock:
++            started = datetime.now()
++            project_name, professor_name, model_name = self._context_key(
++                project, professor, model
++            )
++            session_id = f"{started:%Y%m%dT%H%M%S%f}_{token_hex(3)}"
++            folder = (
++                self.foxai_root
++                / "Mission Archive"
++                / "Chats"
++                / str(started.year)
++                / f"{started.month:02d}"
++                / f"{started.day:02d}"
++            )
++            filename = f"{started:%H-%M-%S-%f} WebUI Mission {session_id[-6:]}.md"
++
++            self._session_id = session_id
++            self._archive_path = folder / filename
++            self._started_at = started
++            self._context = {
++                "project": project_name,
++                "professor": professor_name,
++                "model": model_name,
++            }
++            self._lines = []
++
++            return make_tool_receipt(
++                "mission_session.start",
++                "verified",
++                checks=[
++                    {
++                        "id": "session_initialized",
++                        "ok": self.active,
++                        "message": "A stable WebUI mission-session identity was created.",
++                    },
++                    {
++                        "id": "archive_path_scoped",
++                        "ok": self._path_is_scoped(self._archive_path),
++                        "message": "Reserved path is inside Mission Archive/Chats.",
++                    },
++                ],
++                details={
++                    "session_id": self._session_id,
++                    "archive_path": str(self._archive_path),
++                    "project": project_name,
++                    "professor": professor_name,
++                    "model": model_name,
++                    "file_created": False,
++                },
++                actor="mission_console",
++            )
++
++    def ensure_started(
++        self,
++        *,
++        project: str | None = None,
++        professor: str | None = None,
++        model: str | None = None,
++    ) -> dict[str, Any]:
++        """Reuse the current session only while its mission context is unchanged."""
++        with self._lock:
++            requested = self._context_key(project, professor, model)
++            current = (
++                self._context.get("project", ""),
++                self._context.get("professor", ""),
++                self._context.get("model", ""),
++            )
++            if not self.active or requested != current:
++                return self.start(
++                    project=project,
++                    professor=professor,
++                    model=model,
++                )
++            return make_tool_receipt(
++                "mission_session.reuse",
++                "verified",
++                checks=[
++                    {
++                        "id": "session_active",
++                        "ok": self.active,
++                        "message": "Existing mission session remains active.",
++                    },
++                    {
++                        "id": "context_unchanged",
++                        "ok": requested == current,
++                        "message": "Project, professor, and model context are unchanged.",
++                    },
++                ],
++                details={
++                    "session_id": self._session_id,
++                    "archive_path": str(self._archive_path),
++                },
++                actor="mission_console",
++            )
++
++    def add(self, speaker: str, text: str) -> None:
++        with self._lock:
++            if not self.active:
++                self.start()
++            self._lines.append(
++                {
++                    "time": datetime.now(timezone.utc).isoformat(timespec="seconds"),
++                    "speaker": (speaker or "UNKNOWN").strip() or "UNKNOWN",
++                    "text": str(text or ""),
++                }
++            )
++
++    def _path_is_scoped(self, path: Path | None) -> bool:
++        if path is None:
++            return False
++        expected = (self.foxai_root / "Mission Archive" / "Chats").resolve()
++        try:
++            path.resolve().relative_to(expected)
++            return True
++        except Exception:
++            return False
++
++    def _render(self) -> str:
++        started = self._started_at or datetime.now()
++        lines = [
++            "# FOXAI Mission Archive",
++            "",
++            f"- Session ID: `{self._session_id or 'unknown'}`",
++            f"- Interface: {self.interface_name}",
++            f"- Project: {self._context.get('project', 'Default_Mission')}",
++            f"- Professor: {self._context.get('professor', 'Agent Fox')}",
++            f"- Model: {self._context.get('model', 'None')}",
++            f"- Started: {started.isoformat(timespec='seconds')}",
++            "",
++            "## Transcript",
++            "",
++        ]
++        for item in self._lines:
++            lines.extend(
++                [
++                    f"### {item['speaker']} — {item['time']}",
++                    "",
++                    item["text"],
++                    "",
++                ]
++            )
++        return "\n".join(lines).rstrip() + "\n"
++
++    def save(self) -> dict[str, Any]:
++        """Atomically write, reopen, and hash-verify the complete transcript."""
++        with self._lock:
++            if not self.active or self._archive_path is None:
++                return make_tool_receipt(
++                    "mission_archive.write",
++                    "failed",
++                    checks=[
++                        {
++                            "id": "session_active",
++                            "ok": False,
++                            "message": "No mission session is active.",
++                        }
++                    ],
++                    actor="mission_console",
++                )
++            if not self._lines:
++                return make_tool_receipt(
++                    "mission_archive.write",
++                    "failed",
++                    checks=[
++                        {
++                            "id": "transcript_not_empty",
++                            "ok": False,
++                            "message": "No transcript lines are available to archive.",
++                        }
++                    ],
++                    details={
++                        "session_id": self._session_id,
++                        "archive_path": str(self._archive_path),
++                    },
++                    actor="mission_console",
++                )
++
++            path = self._archive_path
++            temporary = path.with_name(path.name + ".tmp")
++            rendered = self._render()
++            try:
++                path.parent.mkdir(parents=True, exist_ok=True)
++                temporary.write_text(rendered, encoding="utf-8")
++                os.replace(temporary, path)
++
++                reopened = path.read_text(encoding="utf-8")
++                expected_hash = sha256(rendered.encode("utf-8")).hexdigest()
++                actual_hash = sha256(reopened.encode("utf-8")).hexdigest()
++                path_ok = self._path_is_scoped(path)
++                content_ok = reopened == rendered
++                hash_ok = expected_hash == actual_hash
++
++                return make_tool_receipt(
++                    "mission_archive.write",
++                    "verified",
++                    checks=[
++                        {
++                            "id": "archive_path_scoped",
++                            "ok": path_ok,
++                            "message": "Archive is inside Mission Archive/Chats.",
++                        },
++                        {
++                            "id": "archive_file_readable",
++                            "ok": path.is_file(),
++                            "message": "Archive file exists and reopened successfully.",
++                        },
++                        {
++                            "id": "archive_content_verified",
++                            "ok": content_ok,
++                            "message": "Reopened transcript exactly matches the rendered session.",
++                        },
++                        {
++                            "id": "archive_sha256_verified",
++                            "ok": hash_ok,
++                            "message": "Expected and reopened transcript hashes match.",
++                        },
++                    ],
++                    details={
++                        "session_id": self._session_id,
++                        "archive_path": str(path),
++                        "sha256": actual_hash,
++                        "line_count": len(self._lines),
++                    },
++                    actor="mission_console",
++                )
++            except Exception as error:
++                try:
++                    if temporary.exists():
++                        temporary.unlink()
++                except Exception:
++                    pass
++                return make_tool_receipt(
++                    "mission_archive.write",
++                    "failed",
++                    checks=[
++                        {
++                            "id": "archive_write_completed",
++                            "ok": False,
++                            "message": f"{type(error).__name__}: {error}",
++                        }
++                    ],
++                    details={
++                        "session_id": self._session_id,
++                        "archive_path": str(path),
++                    },
++                    actor="mission_console",
++                )
+--- a/core/foxai_web.py
++++ b/core/foxai_web.py
+@@ -16,14 +16,17 @@
+ 
+ try:
+     from core.security_containment import (
+-        authorize_repair_action, guard_model_action_claims, is_protected_path,
+-        make_tool_receipt, redact_mapping, redact_secrets,
++        authorize_repair_action, guard_model_action_claims, is_explicit_engineer_command,
++        is_protected_path, make_tool_receipt, redact_mapping, redact_secrets,
+     )
+ except ImportError:
+     from security_containment import (
+-        authorize_repair_action, guard_model_action_claims, is_protected_path,
+-        make_tool_receipt, redact_mapping, redact_secrets,
++        authorize_repair_action, guard_model_action_claims, is_explicit_engineer_command,
++        is_protected_path, make_tool_receipt, redact_mapping, redact_secrets,
+     )
++
++from core.director import direct as direct_mission
++from core.mission_session import MissionSession
+ 
+ ROOT=PROJECT_ROOT; DRIVE=Path(ROOT.anchor); PORT=8765; URL=f"http://127.0.0.1:{PORT}"
+ KAYOCK=DRIVE/'Kayock-Browser-2.5.3-rc.1-Portable.exe'; LOGS=ROOT/'Logs'; LOG=LOGS/'web_gui.log'
+@@ -46,6 +49,48 @@
+ 
+ prof='fox'; active_project=None; chat_model=None; chat_process=None
+ messages=[{'role':'system','content':professor_system_prompt(prof)}]
++web_mission_session=MissionSession(ROOT,interface_name='WebUI')
++_web_engineer=None
++
++class _WebEngineerApp:
++    """Minimal adapter for Engineer's existing read-only analysis surface."""
++    models=[]
++    threads=8
++
++WEB_ENGINEER_WRITE_COMMANDS=(
++    'chisel decision for ',
++    'log decision for ',
++    'record decision for ',
++    'log lesson for ',
++    'chisel lesson for ',
++    'log forge for ',
++    'forge journal entry for ',
++)
++
++def web_engineer_read_only_allowed(text):
++    normalized=re.sub(r'^\s*(?:/engineer\b|engineer\s*[:,])\s*','',text or '',flags=re.IGNORECASE).strip().lower()
++    return not any(normalized.startswith(marker) for marker in WEB_ENGINEER_WRITE_COMMANDS)
++
++def web_mission_context():
++    return {
++        'project':active_project or 'Default_Mission',
++        'professor':active_prof()[0],
++        'model':Path(chat_model).name if chat_model else 'None',
++    }
++
++def begin_web_mission_session():
++    return web_mission_session.start(**web_mission_context())
++
++def ensure_web_mission_session():
++    return web_mission_session.ensure_started(**web_mission_context())
++
++def web_engineer_analyze(text):
++    global _web_engineer
++    if _web_engineer is None:
++        from core.engineer_agent import EngineerAgent
++        _web_engineer=EngineerAgent(_WebEngineerApp())
++    return _web_engineer.analyze(text)
++
+ FOLDERS={'root':ROOT,'models':ROOT/'Models','chat_models':ROOT/'Models'/'Chat','comfy_output':COMFY/'output','library':LIB,'projects':PROJECTS,'prompts':ROOT/'Prompts','novel_forge':ROOT/'NovelForge','novel_exports':ROOT/'NovelForge'/'Exports','logs':LOGS,'config':ROOT/'Config','reports':ROOT/'Reports','repair_reports':ROOT/'Reports'/'RepairActions','repair_ops_dashboard':ROOT/'Reports'/'RepairActions'/'OperationsDashboard','repair_action_details':ROOT/'Reports'/'RepairActions'/'ActionDetails','repair_tickets':ROOT/'Reports'/'RepairActions'/'Tickets','repair_ticket_details':ROOT/'Reports'/'RepairActions'/'TicketDetails','repair_ticket_bridges':ROOT/'Reports'/'RepairActions'/'TicketBridges','repair_session_reports':ROOT/'Reports'/'RepairActions'/'SessionReports','repair_milestone_freeze':ROOT/'Reports'/'RepairActions'/'MilestoneFreeze','command_center_reports':ROOT/'Reports'/'CommandCenter','command_center_detail_reports':ROOT/'Reports'/'CommandCenter'/'Details','command_center_card_reports':ROOT/'Reports'/'CommandCenter'/'DashboardCards','command_center_archive_reports':ROOT/'Reports'/'CommandCenter'/'Archive','command_center_milestone_freeze':ROOT/'Reports'/'CommandCenter'/'MilestoneFreeze','kayock_writer_reports':ROOT/'Reports'/'KayockWriter','kayock_writer_foundation_reports':ROOT/'Reports'/'KayockWriter'/'Foundation','kayock_writer_story_forge_reports':ROOT/'Reports'/'KayockWriter'/'StoryForge','kayock_writer_manifest_preview_reports':ROOT/'Reports'/'KayockWriter'/'ManifestPreview','kayock_writer_create_gate_reports':ROOT/'Reports'/'KayockWriter'/'CreateProjectGate','kayock_writer_create_action_reports':ROOT/'Reports'/'KayockWriter'/'CreateProjectAction','kayock_writer_project_dashboard_reports':ROOT/'Reports'/'KayockWriter'/'ProjectDashboard','kayock_writer_project_health_reports':ROOT/'Reports'/'KayockWriter'/'ProjectHealthCards','kayock_writer_chapter_planner_reports':ROOT/'Reports'/'KayockWriter'/'ChapterPlanner','kayock_writer_chapter_save_gate_reports':ROOT/'Reports'/'KayockWriter'/'ChapterSaveGate','kayock_writer_chapter_save_action_reports':ROOT/'Reports'/'KayockWriter'/'ChapterSaveAction','kayock_writer_saved_chapter_dashboard_reports':ROOT/'Reports'/'KayockWriter'/'SavedChapterDashboard','kayock_writer_chapter_editor_preview_reports':ROOT/'Reports'/'KayockWriter'/'ChapterEditorPreview','kayock_writer_chapter_edit_gate_reports':ROOT/'Reports'/'KayockWriter'/'ChapterEditGate','kayock_writer_chapter_edit_action_reports':ROOT/'Reports'/'KayockWriter'/'ChapterEditAction','kayock_writer_chapter_edit_audit_reports':ROOT/'Reports'/'KayockWriter'/'ChapterEditAudit','kayock_writer_chapter_draft_workspace_reports':ROOT/'Reports'/'KayockWriter'/'ChapterDraftWorkspace','kayock_writer_draft_save_gate_reports':ROOT/'Reports'/'KayockWriter'/'DraftSaveGate','kayock_writer_draft_save_action_reports':ROOT/'Reports'/'KayockWriter'/'DraftSaveAction','kayock_writer_draft_reader_reports':ROOT/'Reports'/'KayockWriter'/'DraftReader','kayock_writer_draft_version_history_reports':ROOT/'Reports'/'KayockWriter'/'DraftVersionHistory','kayock_writer_draft_continue_workspace_reports':ROOT/'Reports'/'KayockWriter'/'DraftContinueWorkspace','kayock_writer_continue_save_gate_reports':ROOT/'Reports'/'KayockWriter'/'ContinueSaveGate','kayock_writer_continue_save_action_reports':ROOT/'Reports'/'KayockWriter'/'ContinueSaveAction','kayock_writer_draft_refresh_reports':ROOT/'Reports'/'KayockWriter'/'DraftRefreshVerification','kayock_writer_draft_compare_reports':ROOT/'Reports'/'KayockWriter'/'DraftCompareView','kayock_writer_real_prose_gate_reports':ROOT/'Reports'/'KayockWriter'/'RealProseDraftGate','kayock_writer_real_prose_save_reports':ROOT/'Reports'/'KayockWriter'/'RealProseSaveAction','kayock_writer_real_prose_refresh_compare_reports':ROOT/'Reports'/'KayockWriter'/'RealProseRefreshCompare','kayock_writer_real_prose_editor_gate_reports':ROOT/'Reports'/'KayockWriter'/'RealProseEditorGate','kayock_writer_real_prose_edit_save_reports':ROOT/'Reports'/'KayockWriter'/'RealProseEditSaveAction','kayock_writer_real_prose_edit_refresh_compare_reports':ROOT/'Reports'/'KayockWriter'/'RealProseEditRefreshCompare','kayock_writer_chapter_prose_workspace_reports':ROOT/'Reports'/'KayockWriter'/'ChapterProseWorkspace','kayock_writer_chapter_prose_continue_gate_reports':ROOT/'Reports'/'KayockWriter'/'ChapterProseContinueGate','kayock_writer_chapter_prose_continue_save_reports':ROOT/'Reports'/'KayockWriter'/'ChapterProseContinueSaveAction','kayock_writer_chapter_prose_continue_refresh_compare_reports':ROOT/'Reports'/'KayockWriter'/'ChapterProseContinueRefreshCompare','kayock_writer_chapter_edit_backups':ROOT/'Backups'/'KayockWriter'/'ChapterEdits','kayock_writer_saved_chapter_health_reports':ROOT/'Reports'/'KayockWriter'/'SavedChapterHealth','kayock_writer_slipping_chapters_folder':ROOT/'Projects'/'KayockWriter'/'Slipping_into_Darkness'/'Chapters','kayock_writer_slipping_project_root':ROOT/'Projects'/'KayockWriter'/'Slipping_into_Darkness','env_reports':ROOT/'Reports'/'Environment','portable_reports':ROOT/'Reports'/'PortableReadiness','model_reports':ROOT/'Reports'/'Models','build_reports':ROOT/'Reports'/'BuildVerification','scan_reports':ROOT/'Reports'/'Scans','manifest_backups':ROOT/'Backups'/'Manifests','file_backups':ROOT/'Backups'/'GeneratedFiles','restore_staging':ROOT/'Reports'/'Backups'/'RestoreStaging','staging_inventory':ROOT/'Reports'/'Backups'/'StagingInventory','final_checklist':ROOT/'Reports'/'Backups'/'FinalChecklist','restore_live_backups':ROOT/'Backups'/'RestoreLiveTargets','restore_reports':ROOT/'Reports'/'Backups'/'RestoreActions','restore_audit':ROOT/'Reports'/'Backups'/'RestoreAudit','rollback_previews':ROOT/'Reports'/'Backups'/'RollbackPreviews','rollback_live_backups':ROOT/'Backups'/'RollbackLiveTargets','rollback_reports':ROOT/'Reports'/'Backups'/'RollbackActions','rollback_audit':ROOT/'Reports'/'Backups'/'RollbackAudit','recovery_timeline':ROOT/'Reports'/'Backups'/'RecoveryTimeline','extensions':ROOT/'Extensions','modules':ROOT/'Modules'}
+ OPSBRIDGE_OUTBOX=ROOT/'OpsBridge'/'outbox'; BRIDGE_FEED_FILE=OPSBRIDGE_OUTBOX/'bridge_feed.json'; BUILDER_REPORT_FILE=OPSBRIDGE_OUTBOX/'builder_report.json'
+ 
+@@ -673,7 +718,7 @@
+ async function loadProf(){let d=await (await fetch('/api/professors')).json();q('profgrid').innerHTML=Object.entries(d.professors).map(([k,p])=>`<div class="card prof ${k===d.active?'activeProf':''}"><h3>${esc(p.name)}</h3><div class=warn>${esc(p.college)}</div><p class=small><i>"${esc(p.motto)}"</i></p><button onclick="setProf('${k}')">${k===d.active?'Active':'Activate'}</button><button onclick="setProf('${k}').then(()=>go('mission'))">Use in Mission</button></div>`).join('')}
+ async function setProf(k){let d=await api('/api/professor/set',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({key:k})}); if(d?.ok){logline('sys','ACADEMY',d.message);loadProf();loadMemory()}}
+ async function startChat(){let d=await api('/api/chat/start',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:q('model').value})}); logline(d?.ok?'sys':'bad','SYSTEM',d?.message||'start failed');loadMemory()}
+-async function send(){let text=q('input').value.trim();if(!text)return;q('input').value='';logline('user','ERIC',text);think(true);try{let d=await (await fetch('/api/chat/send',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message:text})})).json();d.ok?logline('fox',q('ap').textContent.toUpperCase(),d.answer):logline('bad','ERROR',d.message)}catch(e){logline('bad','ERROR',String(e))}think(false);loadMemory();refresh()}
++async function send(){let text=q('input').value.trim();if(!text)return;q('input').value='';logline('user','ERIC',text);think(true);try{let d=await (await fetch('/api/chat/send',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message:text})})).json();if(d.answer)logline('fox',d.speaker||q('ap').textContent.toUpperCase(),d.answer);if(!d.ok)logline('bad','ERROR',d.message||'Mission turn failed verification.')}catch(e){logline('bad','ERROR',String(e))}think(false);loadMemory();refresh()}
+ async function loadProjects(){let d=await (await fetch('/api/projects/list')).json();q('plist').innerHTML='<div class=grid>'+d.projects.map(p=>`<div class="card project"><h3>🗂 ${esc(p.name)}</h3><p class=small>Files: ${p.files} | Updated: ${esc(p.modified)}</p><button onclick="selectProject('${js(p.name)}')">Select</button><button onclick="api('/api/projects/open?name=${encodeURIComponent(p.name)}')">Open Folder</button></div>`).join('')+'</div>'}
+ async function createProject(){let name=q('newProject').value.trim();if(!name)return toast('Enter a project name.');let d=await api('/api/projects/create',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name})});if(d?.ok){q('newProject').value='';loadProjects();selectProject(d.name)}}
+ async function selectProject(name){let d=await (await fetch('/api/projects/select',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name})})).json();toast(d.message);if(d.ok){activeProject=d.name;q('apro').textContent=d.name;q('pnoteTitle').textContent=d.name;q('pnote').value=d.note||'';loadMemory();refresh()}}
+@@ -9047,7 +9092,12 @@
+             receipt=make_tool_receipt('shell.open_library_file','requested',details={'path':str(p)},actor='operator')
+             self.js({'ok':True,'message':f'Open request sent for {p.name}; application state is not verified.','receipt':receipt,'claim_state':'requested'}); return
+         if path=='/api/chat/stop': self.js(stop_chat()); return
+-        if path=='/api/chat/reset': reset_msgs(); save_state('Conversation reset'); self.js({'ok':True,'message':'Conversation reset.'}); return
++        if path=='/api/chat/reset':
++            reset_msgs()
++            session_receipt=begin_web_mission_session()
++            save_state('Conversation reset')
++            self.js({'ok':True,'message':'Conversation reset. A new WebUI mission session is ready.','session_receipt':session_receipt})
++            return
+         if path=='/api/launch/comfy':
+             if not COMFY_MAIN.exists(): self.js({'ok':False,'message':'ComfyUI main.py not found.'}); return
+             if check('http://127.0.0.1:8188'):
+@@ -9170,12 +9220,107 @@
+         if path=='/api/chat/start': self.js(start_chat(d.get('model',''))); return
+         if path=='/api/chat/send':
+             text=(d.get('message') or '').strip()
+-            if not text: self.js({'ok':False,'message':'Empty message.'}); return
+-            if not check(CHAT_HEALTH): self.js({'ok':False,'message':'Chat engine is offline. Start Chat Engine first.'}); return
+-            messages.append({'role':'user','content':text}); timeline(active_project,'Message sent to Mission Console') if active_project else None
++            if not text:
++                self.js({'ok':False,'message':'Empty message.'})
++                return
++
++            session_receipt=ensure_web_mission_session()
++            web_mission_session.add('ERIC',text)
++            explicit_engineer=is_explicit_engineer_command(text)
++
++            if explicit_engineer:
++                route=direct_mission(text,actor='operator',operator_approved=True)
++                authorization=route.get('authorization') or {}
++                read_only_allowed=web_engineer_read_only_allowed(text)
++                route_ok=route.get('agent')=='engineer' and bool(authorization.get('allowed')) and read_only_allowed
++                route_receipt=make_tool_receipt(
++                    'webui.department_route',
++                    'verified' if route_ok else 'denied',
++                    checks=[
++                        {'id':'explicit_engineer_command','ok':explicit_engineer,'message':'The operator used an explicit Engineer command.'},
++                        {'id':'director_selected_engineer','ok':route.get('agent')=='engineer','message':'Director selected Engineer.'},
++                        {'id':'engineering_airlock_allowed','ok':bool(authorization.get('allowed')),'message':authorization.get('reason','No authorization reason returned.')},
++                        {'id':'webui_engineer_read_only_request','ok':read_only_allowed,'message':'WebUI Engineer allows inspection only and denies project-memory write commands.'},
++                    ],
++                    details={'route':route.get('agent'),'authorization':authorization},
++                    actor='operator',
++                )
++                if not route_ok:
++                    answer=('Engineering Airlock denied this request.' if bool(authorization.get('allowed')) is False else 'WebUI Engineer is read-only. Project-memory write commands are not allowed from this interface.')
++                    web_mission_session.add('SYSTEM',answer)
++                    archive_receipt=web_mission_session.save()
++                    self.js({'ok':False,'answer':answer,'speaker':'SYSTEM','message':authorization.get('reason',answer),'route_receipt':route_receipt,'archive_receipt':archive_receipt,'session_receipt':session_receipt})
++                    return
++                try:
++                    answer=web_engineer_analyze(route.get('payload') or text)
++                    web_mission_session.add('ENGINEER',answer)
++                    archive_receipt=web_mission_session.save()
++                    completion_receipt=make_tool_receipt(
++                        'engineer.inspect',
++                        'verified',
++                        checks=[
++                            {'id':'engineer_response_present','ok':bool(answer.strip()),'message':'Engineer returned a read-only analysis response.'},
++                            {'id':'repair_authority_not_granted','ok':True,'message':'This route exposes analysis only; no Repair Chamber action was invoked.'},
++                        ],
++                        details={'interface':'WebUI','read_only':True},
++                        actor='operator',
++                    )
++                    archived=bool(archive_receipt.get('verified'))
++                    self.js({'ok':archived,'answer':answer,'speaker':'ENGINEER','message':'Engineer response returned but archive verification failed.' if not archived else 'Engineer response archived.','route':'engineer','route_receipt':route_receipt,'completion_receipt':completion_receipt,'archive_receipt':archive_receipt,'session_receipt':session_receipt})
++                    return
++                except Exception as e:
++                    answer=f'Engineering analysis failed: {e}'
++                    web_mission_session.add('SYSTEM',answer)
++                    archive_receipt=web_mission_session.save()
++                    self.js({'ok':False,'answer':answer,'speaker':'SYSTEM','message':answer,'route':'engineer','route_receipt':route_receipt,'archive_receipt':archive_receipt,'session_receipt':session_receipt})
++                    return
++
++            route_receipt=make_tool_receipt(
++                'webui.department_route',
++                'verified',
++                checks=[
++                    {'id':'explicit_engineer_command_absent','ok':not explicit_engineer,'message':'Ordinary chat remains with the active WebUI professor.'},
++                    {'id':'agent_fox_privilege_boundary','ok':True,'message':'Agent/model text was not allowed to invoke Engineer.'},
++                ],
++                details={'route':'agent_fox','professor':active_prof()[0]},
++                actor='operator',
++            )
++
++            if not check(CHAT_HEALTH):
++                answer='Chat engine is offline. Start Chat Engine first.'
++                web_mission_session.add('SYSTEM',answer)
++                archive_receipt=web_mission_session.save()
++                self.js({'ok':False,'answer':answer,'speaker':'SYSTEM','message':answer,'route':'agent_fox','route_receipt':route_receipt,'archive_receipt':archive_receipt,'session_receipt':session_receipt})
++                return
++
++            messages.append({'role':'user','content':text})
++            timeline(active_project,'Message sent to Mission Console') if active_project else None
+             try:
+-                r=post(CHAT_API,{'model':'local-model','messages':messages,'temperature':0.7,'max_tokens':768,'stream':False}); raw_ans=r['choices'][0]['message']['content'].strip(); claim_guard=guard_model_action_claims(raw_ans); ans=claim_guard['text']; messages.append({'role':'assistant','content':ans}); save_state('Agent response received'); receipt=make_tool_receipt('chat_completion','verified',checks=[{'id':'chat_api_response','ok':True,'message':'Local chat API returned a response.'}],details={'external_action_verified':False,'claim_flagged':claim_guard['flagged']},actor='mission_console'); self.js({'ok':True,'answer':ans,'claim_guard':claim_guard,'receipt':receipt}); return
+-            except Exception as e: self.js({'ok':False,'message':f'Chat request failed: {e}'}); return
++                r=post(CHAT_API,{'model':'local-model','messages':messages,'temperature':0.7,'max_tokens':768,'stream':False})
++                raw_ans=r['choices'][0]['message']['content'].strip()
++                claim_guard=guard_model_action_claims(raw_ans)
++                ans=claim_guard['text']
++                messages.append({'role':'assistant','content':ans})
++                speaker=active_prof()[0].upper()
++                web_mission_session.add(speaker,ans)
++                archive_receipt=web_mission_session.save()
++                save_state('Agent response received')
++                completion_receipt=make_tool_receipt(
++                    'chat_completion',
++                    'verified',
++                    checks=[{'id':'chat_api_response','ok':True,'message':'Local chat API returned a response.'}],
++                    details={'external_action_verified':False,'claim_flagged':claim_guard['flagged']},
++                    actor='mission_console',
++                )
++                archived=bool(archive_receipt.get('verified'))
++                self.js({'ok':archived,'answer':ans,'speaker':speaker,'message':'Agent response returned but archive verification failed.' if not archived else 'Agent response archived.','route':'agent_fox','claim_guard':claim_guard,'route_receipt':route_receipt,'completion_receipt':completion_receipt,'archive_receipt':archive_receipt,'session_receipt':session_receipt})
++                return
++            except Exception as e:
++                answer=f'Chat request failed: {e}'
++                web_mission_session.add('SYSTEM',answer)
++                archive_receipt=web_mission_session.save()
++                self.js({'ok':False,'answer':answer,'speaker':'SYSTEM','message':answer,'route':'agent_fox','route_receipt':route_receipt,'archive_receipt':archive_receipt,'session_receipt':session_receipt})
++                return
+         self.send_response(404); self.end_headers()
+     def log_message(self,*a): return
+ 
+@@ -26193,13 +26338,15 @@
+     if check(CHAT_HEALTH):
+         chat_model=str(m); save_state(f'Chat model selected: {m.name}')
+         receipt=make_tool_receipt('chat_engine.start','verified',checks=[{'id':'health_endpoint','ok':True,'message':'Chat health endpoint responded.'}],details={'model':m.name},actor='operator')
+-        return {'ok':True,'message':f'VERIFIED: Chat engine online with {m.name}','receipt':receipt,'claim_state':'verified'}
++        session_receipt=begin_web_mission_session()
++        return {'ok':True,'message':f'VERIFIED: Chat engine online with {m.name}. WebUI mission session ready.','receipt':receipt,'session_receipt':session_receipt,'claim_state':'verified'}
+     chat_model=str(m); chat_process=launch([str(ENGINE),'--model',str(m),'--host','127.0.0.1','--port','8080','--ctx-size','4096','--threads','8'],ROOT)
+     for _ in range(60):
+         if check(CHAT_HEALTH):
+             save_state(f'Chat engine started with {m.name}')
+             receipt=make_tool_receipt('chat_engine.start','verified',checks=[{'id':'health_endpoint','ok':True,'message':'Chat health endpoint responded after launch.'}],details={'model':m.name,'pid':getattr(chat_process,'pid',None)},actor='operator')
+-            return {'ok':True,'message':f'VERIFIED: Chat engine online with {m.name}','receipt':receipt,'claim_state':'verified'}
++            session_receipt=begin_web_mission_session()
++            return {'ok':True,'message':f'VERIFIED: Chat engine online with {m.name}. WebUI mission session ready.','receipt':receipt,'session_receipt':session_receipt,'claim_state':'verified'}
+         time.sleep(1)
+     receipt=make_tool_receipt('chat_engine.start','failed',checks=[{'id':'health_endpoint','ok':False,'message':'Chat health endpoint did not respond within 60 seconds.'}],details={'model':m.name,'pid':getattr(chat_process,'pid',None)},actor='operator')
+     return {'ok':False,'message':'Chat engine launch was requested but health verification failed within 60 seconds.','receipt':receipt,'claim_state':'failed'}

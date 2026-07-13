@@ -1,0 +1,119 @@
+{
+  "action": "portable_python_compatibility_apply",
+  "created": "2026-07-12T02:15:29+00:00",
+  "state": "rolled_back",
+  "verified": false,
+  "modified_files": [
+    "core/foxai_web.py"
+  ],
+  "root_detection": [
+    {
+      "root": "Z:\\FOXAI",
+      "live": "Z:\\FOXAI\\core\\foxai_web.py",
+      "exists": true,
+      "sha256": "5feb632c5d44d260dba706019beeacf2f5e210ab5a495b9ede3fbe287a6b899e"
+    }
+  ],
+  "checks": [
+    {
+      "id": "foxai_root_detected",
+      "ok": true,
+      "detail": "Z:\\FOXAI"
+    },
+    {
+      "id": "bundled_baseline_hash",
+      "ok": true,
+      "detail": "5feb632c5d44d260dba706019beeacf2f5e210ab5a495b9ede3fbe287a6b899e"
+    },
+    {
+      "id": "bundled_candidate_hash",
+      "ok": true,
+      "detail": "4783a95fabb4e494aa8847bbc9eb6266ab5b9779d292ebcc789c945944252c43"
+    },
+    {
+      "id": "bundled_security_module_hash",
+      "ok": true,
+      "detail": "ea45ef5d4a201adc2cf8f337d776a81946d85febe3180e635a9cff4928bdd7e8"
+    },
+    {
+      "id": "live_hash_is_reviewed_version",
+      "ok": true,
+      "detail": "5feb632c5d44d260dba706019beeacf2f5e210ab5a495b9ede3fbe287a6b899e"
+    },
+    {
+      "id": "port_8765_free_before_apply",
+      "ok": true,
+      "detail": {
+        "reachable": false,
+        "error": "URLError: <urlopen error timed out>"
+      }
+    },
+    {
+      "id": "operator_approval_phrase",
+      "ok": true,
+      "detail": "APPLY PORTABLE PYTHON FIX"
+    },
+    {
+      "id": "backup_created_and_verified",
+      "ok": true,
+      "detail": "Z:\\FOXAI\\Backups\\SecurityMilestone\\PortablePythonFix_20260712T021529Z\\core\\foxai_web.py"
+    },
+    {
+      "id": "candidate_installed_hash",
+      "ok": true,
+      "detail": "4783a95fabb4e494aa8847bbc9eb6266ab5b9779d292ebcc789c945944252c43"
+    },
+    {
+      "id": "python_compile",
+      "ok": true,
+      "detail": "Z:\\FOXAI\\Backups\\SecurityMilestone\\PortablePythonFix_20260712T021529Z\\verification\\foxai_web.pyc"
+    },
+    {
+      "id": "phase1_security_tests_15",
+      "ok": true,
+      "detail": 0
+    },
+    {
+      "id": "portable_python_http_launch",
+      "ok": false,
+      "detail": {
+        "reachable": true,
+        "status": 200,
+        "welcome_marker": true,
+        "navigation_marker": false,
+        "bytes": 718848
+      }
+    },
+    {
+      "id": "automatic_rollback_hash",
+      "ok": true,
+      "detail": "5feb632c5d44d260dba706019beeacf2f5e210ab5a495b9ede3fbe287a6b899e"
+    }
+  ],
+  "root": "Z:\\FOXAI",
+  "live_file": "Z:\\FOXAI\\core\\foxai_web.py",
+  "before_sha256": "5feb632c5d44d260dba706019beeacf2f5e210ab5a495b9ede3fbe287a6b899e",
+  "pre_apply_http_probe": {
+    "reachable": false,
+    "error": "URLError: <urlopen error timed out>"
+  },
+  "backup": "Z:\\FOXAI\\Backups\\SecurityMilestone\\PortablePythonFix_20260712T021529Z",
+  "backup_sha256": "5feb632c5d44d260dba706019beeacf2f5e210ab5a495b9ede3fbe287a6b899e",
+  "after_sha256": "4783a95fabb4e494aa8847bbc9eb6266ab5b9779d292ebcc789c945944252c43",
+  "security_test_output": "test_model_claim_is_flagged (__main__.ReceiptTests.test_model_claim_is_flagged) ... ok\ntest_verified_requires_passing_checks (__main__.ReceiptTests.test_verified_requires_passing_checks) ... ok\ntest_protected_paths (__main__.RedactionTests.test_protected_paths) ... ok\ntest_secret_redaction (__main__.RedactionTests.test_secret_redaction) ... ok\ntest_smart_search_excludes_and_redacts (__main__.RedactionTests.test_smart_search_excludes_and_redacts) ... ok\ntest_agent_fox_cannot_apply (__main__.RepairAuthorizationTests.test_agent_fox_cannot_apply) ... ok\ntest_exact_operator_phrase_is_allowed (__main__.RepairAuthorizationTests.test_exact_operator_phrase_is_allowed) ... ok\ntest_yes_is_not_enough (__main__.RepairAuthorizationTests.test_yes_is_not_enough) ... ok\ntest_agent_fox_cannot_route_engineer (__main__.RoutingTests.test_agent_fox_cannot_route_engineer) ... ok\ntest_bare_engineer_word_does_not_route (__main__.RoutingTests.test_bare_engineer_word_does_not_route) ... ok\ntest_delegation_phrase_does_not_route_by_bare_word (__main__.RoutingTests.test_delegation_phrase_does_not_route_by_bare_word) ... ok\ntest_explicit_operator_engineer_command_routes (__main__.RoutingTests.test_explicit_operator_engineer_command_routes) ... ok\ntest_grouped_navigation_present (__main__.WebStaticTests.test_grouped_navigation_present) ... ok\ntest_repair_gate_present (__main__.WebStaticTests.test_repair_gate_present) ... ok\ntest_search_protection_present (__main__.WebStaticTests.test_search_protection_present) ... ok\n\n----------------------------------------------------------------------\nRan 15 tests in 0.014s\n\nOK\n",
+  "test_server_pid": 34020,
+  "test_server_log": "Z:\\FOXAI\\Backups\\SecurityMilestone\\PortablePythonFix_20260712T021529Z\\verification\\portable_launch_test.log",
+  "http_verification": {
+    "reachable": true,
+    "status": 200,
+    "welcome_marker": true,
+    "navigation_marker": false,
+    "bytes": 718848
+  },
+  "failure": {
+    "type": "RuntimeError",
+    "message": "Portable Python launch did not pass HTTP content verification.",
+    "traceback": "Traceback (most recent call last):\n  File \"Z:\\FOXAI\\KayocktheOS_Portable_Python_Compatibility_APPLY_20260712T020157Z\\tools\\apply_portable_fix.py\", line 294, in <module>\n    raise RuntimeError(\"Portable Python launch did not pass HTTP content verification.\")\nRuntimeError: Portable Python launch did not pass HTTP content verification.\n"
+  },
+  "rollback_restored_sha256": "5feb632c5d44d260dba706019beeacf2f5e210ab5a495b9ede3fbe287a6b899e"
+}

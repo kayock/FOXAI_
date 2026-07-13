@@ -1,0 +1,93 @@
+--- a/core/engineer_agent.py
++++ b/core/engineer_agent.py
+@@ -167,10 +167,26 @@
+             kernel=self.kernel,
+             drivers=self.evidence_drivers,
+         )
+         self.evidence_ranker = EvidenceRanker()
+         self.recommendation_engine = RecommendationEngine()
++
++    @staticmethod
++    def normalize_operator_query(query):
++        """Remove only a leading explicit Engineer invocation token.
++
++        This preserves ordinary words such as "engineers" inside the task while
++        ensuring Engineer subsystems receive the actual operator request.
++        """
++        text = (query or "").strip()
++        return re.sub(
++            r"^(?:/engineer\b|engineer\s*[:,])\s*",
++            "",
++            text,
++            count=1,
++            flags=re.IGNORECASE,
++        ).strip()
+ 
+     def handle(self, text, payload=None, caller="operator", operator_approved=False):
+         query = (payload or text or "").strip()
+         authorization = authorize_department_route(
+             caller, "engineering_airlock", "inspect", operator_approved=operator_approved
+@@ -447,18 +463,30 @@
+             "• Treat browser/download features as a separate trust boundary.\n\n"
+             "Safety Status:\nRead-only. No files were modified."
+         )
+ 
+     def smart_search_report(self, query):
+-        target = query
+-        lowered = query.lower()
+-
+-        for phrase in ["smart search for ", "search smart for ", "foxai search for "]:
+-            if phrase in lowered:
+-                idx = lowered.find(phrase)
+-                target = query[idx + len(phrase):].strip()
+-                break
++        target = self.normalize_operator_query(query)
++
++        command_match = re.match(
++            r"^(?:smart\s+search|search\s+smart|foxai\s+search)\s+for(?:\s+(.*))?$",
++            target,
++            flags=re.IGNORECASE,
++        )
++        if command_match:
++            target = (command_match.group(1) or "").strip()
++
++        target = target.strip().strip('"').strip("'").strip()
++        if not target:
++            return (
++                "SMART SEARCH REPORT\n\n"
++                "No search target was provided.\n\n"
++                "Example:\n"
++                "/engineer smart search for COMFY_MAIN\n\n"
++                "Safety Status:\n"
++                "Read-only. No files were modified."
++            )
+ 
+         return self.smart_search.format_report(target)
+ 
+     def mission_router_report(self, query, route, reason, pipeline):
+         lines = [
+@@ -700,10 +728,11 @@
+             "Safety Status:\n"
+             "Read-only. Status report only."
+         )
+ 
+     def analyze(self, query):
++        query = self.normalize_operator_query(query)
+         lowered = query.lower()
+         intent = self.intent.classify(query)
+ 
+         if any(term in lowered for term in ["boot report", "kernel boot", "startup readiness", "boot manager"]):
+             return self.boot_manager.report()
+@@ -740,11 +769,11 @@
+ 
+         if lowered.startswith("engineer, investigate") or any(term in lowered for term in ["investigate timeout", "investigate right click", "investigate context menu", "investigate investigation engine"]):
+             return self.investigation_engine_test(query)
+ 
+         if any(term in lowered for term in ["smart search", "search smart", "foxai search"]):
+-            return self.kernel.search(query)
++            return self.smart_search_report(query)
+ 
+         if any(term in lowered for term in ["show engineer intent", "classify intent", "what intent"]):
+             return self.intent.report(query)
+ 
+         if intent["intent"] == "forge_build":

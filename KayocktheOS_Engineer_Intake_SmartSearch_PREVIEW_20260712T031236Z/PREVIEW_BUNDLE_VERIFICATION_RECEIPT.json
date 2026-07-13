@@ -1,0 +1,35 @@
+{
+  "action": "prepare_engineer_intake_smartsearch_preview",
+  "created": "2026-07-12T03:12:50+00:00",
+  "state": "verified",
+  "verified": true,
+  "modified_live_or_uploaded_source_files": false,
+  "scope": [
+    "core/engineer_agent.py"
+  ],
+  "baseline_sha256": "bf32b0ab80b6cc3a177698101a5c2121a4224d0bf55bbe78c047f541fb3a6339",
+  "candidate_sha256": "a533239c0e4d56352e2efe9ae0e42b1d00616300421da9222ca5e33091f11b8a",
+  "checks": [
+    {
+      "id": "baseline_hash_matches_phase1",
+      "ok": true
+    },
+    {
+      "id": "candidate_compile",
+      "ok": true
+    },
+    {
+      "id": "targeted_tests_8",
+      "ok": true
+    },
+    {
+      "id": "exact_diff_generated",
+      "ok": true
+    },
+    {
+      "id": "new_code_has_no_write_or_process_calls",
+      "ok": true
+    }
+  ],
+  "test_output": "Spreadsheet runtime warmup failed during python startup\nTraceback (most recent call last):\n  File \"/tmp/tmp.yTcnQsZYiA/artifact_tool_v2-2.8.4/artifact_tool/patches/warm_spreadsheet_runtime_on_startup.py\", line 26, in warm_spreadsheet_runtime_on_startup\n  File \"/tmp/tmp.yTcnQsZYiA/artifact_tool_v2-2.8.4/artifact_tool/spreadsheet_warmup.py\", line 785, in warm_spreadsheet_runtime\n  File \"/tmp/tmp.yTcnQsZYiA/artifact_tool_v2-2.8.4/artifact_tool/spreadsheet_warmup.py\", line 720, in _warm_feature_flows\n  File \"/tmp/tmp.yTcnQsZYiA/artifact_tool_v2-2.8.4/artifact_tool/spreadsheet_warmup.py\", line 704, in _warm_collaboration_flows\n  File \"/tmp/tmp.yTcnQsZYiA/artifact_tool_v2-2.8.4/artifact_tool/generated/interface/models.py\", line 30820, in hydrate_crdt_from_proto\n  File \"/tmp/tmp.yTcnQsZYiA/artifact_tool_v2-2.8.4/artifact_tool/rpc/remote.py\", line 749, in __call__\n  File \"/tmp/tmp.yTcnQsZYiA/artifact_tool_v2-2.8.4/artifact_tool/rpc/client.py\", line 150, in call\nartifact_tool.rpc.client.RemoteError: hydrateCrdtFromProto requires an empty collaborative document.\ntest_colon_prefix_removed (__main__.NormalizationTests.test_colon_prefix_removed) ... ok\ntest_comma_prefix_removed (__main__.NormalizationTests.test_comma_prefix_removed) ... ok\ntest_ordinary_engineers_word_preserved (__main__.NormalizationTests.test_ordinary_engineers_word_preserved) ... ok\ntest_slash_prefix_removed (__main__.NormalizationTests.test_slash_prefix_removed) ... ok\ntest_analyze_routes_to_parsed_smart_search (__main__.SmartSearchTests.test_analyze_routes_to_parsed_smart_search) ... ok\ntest_empty_target_is_safe_and_read_only (__main__.SmartSearchTests.test_empty_target_is_safe_and_read_only) ... ok\ntest_quoted_target_is_dequoted (__main__.SmartSearchTests.test_quoted_target_is_dequoted) ... ok\ntest_target_is_extracted (__main__.SmartSearchTests.test_target_is_extracted) ... ok\n\n----------------------------------------------------------------------\nRan 8 tests in 0.002s\n\nOK\n"
+}

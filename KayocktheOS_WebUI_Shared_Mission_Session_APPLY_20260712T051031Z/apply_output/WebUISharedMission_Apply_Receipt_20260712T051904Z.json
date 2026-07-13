@@ -1,0 +1,155 @@
+{
+  "action": "webui_shared_mission_session_apply",
+  "created": "2026-07-12T05:19:04+00:00",
+  "state": "rolled_back",
+  "verified": false,
+  "scope": [
+    "core/foxai_web.py",
+    "core/mission_session.py"
+  ],
+  "explicit_non_changes": [
+    "core/memory.py",
+    "ui/main_window.py",
+    "core_v10/*",
+    "core/director.py",
+    "core/engineer_agent.py",
+    "core/security_containment.py"
+  ],
+  "root_detection": [
+    {
+      "root": "Z:\\FOXAI",
+      "web_exists": true,
+      "web_sha256": "4783a95fabb4e494aa8847bbc9eb6266ab5b9779d292ebcc789c945944252c43",
+      "engineer_exists": true,
+      "engineer_sha256": "a533239c0e4d56352e2efe9ae0e42b1d00616300421da9222ca5e33091f11b8a",
+      "mission_session_exists": false,
+      "mission_session_sha256": null
+    }
+  ],
+  "checks": [
+    {
+      "id": "foxai_root_and_reviewed_dependencies_detected",
+      "ok": true,
+      "detail": "Z:\\FOXAI"
+    },
+    {
+      "id": "bundled_baseline_web_hash",
+      "ok": true,
+      "detail": "4783a95fabb4e494aa8847bbc9eb6266ab5b9779d292ebcc789c945944252c43"
+    },
+    {
+      "id": "bundled_engineer_dependency_hash",
+      "ok": true,
+      "detail": "a533239c0e4d56352e2efe9ae0e42b1d00616300421da9222ca5e33091f11b8a"
+    },
+    {
+      "id": "bundled_candidate_web_hash",
+      "ok": true,
+      "detail": "0a20f4988f3798aa60eab424ed1cba656b780bde5b131624ee959aa16c824bda"
+    },
+    {
+      "id": "bundled_candidate_session_hash",
+      "ok": true,
+      "detail": "d1032abb31b30f9b5a0b8e6169983de368d4a5ab474438f454fe385436a6d57a"
+    },
+    {
+      "id": "approved_exact_diff_hash",
+      "ok": true,
+      "detail": "334198bc2289929cb56cd77ebc66cacdad1b40c5f9d84068f15a31a163a2a5b1"
+    },
+    {
+      "id": "approved_preview_receipt_hash",
+      "ok": true,
+      "detail": "ac1c7a5fc9b34029dd5f283df76e42f791164cf7edd21bd3736e6f34c047e20c"
+    },
+    {
+      "id": "live_state_is_reviewed",
+      "ok": true,
+      "detail": {
+        "core/foxai_web.py": "4783a95fabb4e494aa8847bbc9eb6266ab5b9779d292ebcc789c945944252c43",
+        "core/engineer_agent.py": "a533239c0e4d56352e2efe9ae0e42b1d00616300421da9222ca5e33091f11b8a",
+        "core/mission_session.py": null,
+        "mission_session_existed": false
+      }
+    },
+    {
+      "id": "webui_port_closed",
+      "ok": true,
+      "detail": "Port 8765 is not accepting connections."
+    },
+    {
+      "id": "operator_approval_phrase",
+      "ok": true,
+      "detail": "APPLY WEBUI SHARED MISSION SESSION"
+    },
+    {
+      "id": "backup_created_and_verified",
+      "ok": true,
+      "detail": {
+        "created": "2026-07-12T05:19:04+00:00",
+        "before_web_sha256": "4783a95fabb4e494aa8847bbc9eb6266ab5b9779d292ebcc789c945944252c43",
+        "mission_session_existed": false,
+        "before_mission_session_sha256": null,
+        "backup_web": "Z:\\FOXAI\\Backups\\SecurityMilestone\\WebUISharedMission_20260712T051904Z\\core\\foxai_web.py",
+        "backup_mission_session": null
+      }
+    },
+    {
+      "id": "candidate_web_installed_hash",
+      "ok": true,
+      "detail": "0a20f4988f3798aa60eab424ed1cba656b780bde5b131624ee959aa16c824bda"
+    },
+    {
+      "id": "candidate_session_installed_hash",
+      "ok": true,
+      "detail": "d1032abb31b30f9b5a0b8e6169983de368d4a5ab474438f454fe385436a6d57a"
+    },
+    {
+      "id": "portable_python_compile_web_and_session",
+      "ok": true,
+      "detail": "Z:\\FOXAI\\Backups\\SecurityMilestone\\WebUISharedMission_20260712T051904Z\\verification"
+    },
+    {
+      "id": "mission_session_functional_tests_6",
+      "ok": false,
+      "detail": {
+        "returncode": 1,
+        "marker": "Ran 6 tests"
+      }
+    },
+    {
+      "id": "automatic_rollback_restored_exact_before_state",
+      "ok": true,
+      "detail": {
+        "restored_web_sha256": "4783a95fabb4e494aa8847bbc9eb6266ab5b9779d292ebcc789c945944252c43",
+        "restored_session_sha256": null,
+        "restored_session_exists": false
+      }
+    }
+  ],
+  "modified_files": [
+    "core/mission_session.py",
+    "core/foxai_web.py"
+  ],
+  "root": "Z:\\FOXAI",
+  "live_web": "Z:\\FOXAI\\core\\foxai_web.py",
+  "live_mission_session": "Z:\\FOXAI\\core\\mission_session.py",
+  "before": {
+    "core/foxai_web.py": "4783a95fabb4e494aa8847bbc9eb6266ab5b9779d292ebcc789c945944252c43",
+    "core/engineer_agent.py": "a533239c0e4d56352e2efe9ae0e42b1d00616300421da9222ca5e33091f11b8a",
+    "core/mission_session.py": null,
+    "mission_session_existed": false
+  },
+  "already_applied": false,
+  "backup": "Z:\\FOXAI\\Backups\\SecurityMilestone\\WebUISharedMission_20260712T051904Z",
+  "installed": {
+    "core/foxai_web.py": "0a20f4988f3798aa60eab424ed1cba656b780bde5b131624ee959aa16c824bda",
+    "core/mission_session.py": "d1032abb31b30f9b5a0b8e6169983de368d4a5ab474438f454fe385436a6d57a"
+  },
+  "mission_session_functional_tests_6_output": "Traceback (most recent call last):\n  File \"Z:\\FOXAI\\KayocktheOS_WebUI_Shared_Mission_Session_APPLY_20260712T051031Z\\tests\\test_mission_session.py\", line 9, in <module>\n    from core.mission_session import MissionSession\nModuleNotFoundError: No module named 'core'\n",
+  "failure": {
+    "type": "RuntimeError",
+    "message": "mission_session_functional_tests_6 failed.",
+    "traceback": "Traceback (most recent call last):\n  File \"Z:\\FOXAI\\KayocktheOS_WebUI_Shared_Mission_Session_APPLY_20260712T051031Z\\tools\\apply_webui_shared_mission_session.py\", line 328, in <module>\n    run_test(\n    ~~~~~~~~^\n        \"mission_session_functional_tests_6\",\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    ...<2 lines>...\n        \"Ran 6 tests\",\n        ^^^^^^^^^^^^^^\n    )\n    ^\n  File \"Z:\\FOXAI\\KayocktheOS_WebUI_Shared_Mission_Session_APPLY_20260712T051031Z\\tools\\apply_webui_shared_mission_session.py\", line 326, in run_test\n    raise RuntimeError(f\"{name} failed.\")\nRuntimeError: mission_session_functional_tests_6 failed.\n"
+  }
+}

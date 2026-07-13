@@ -1,0 +1,117 @@
+{
+  "action": "smartsearch_evidence_cleanup_apply",
+  "created": "2026-07-12T14:13:17+00:00",
+  "state": "verified",
+  "verified": true,
+  "scope": [
+    "core/smart_search.py"
+  ],
+  "explicit_non_changes": [
+    "core/engineer_agent.py",
+    "core/security_containment.py",
+    "core/director.py",
+    "core/foxai_web.py",
+    "core/mission_session.py",
+    "ui/main_window.py",
+    "core_v10/*"
+  ],
+  "checks": [
+    {
+      "id": "foxai_root_detected",
+      "ok": true,
+      "detail": "Z:\\FOXAI"
+    },
+    {
+      "id": "live_baseline_hash",
+      "ok": true,
+      "detail": "f87ff40820e70067ad562ce1ffb57afcb60a3085dcac176deab4d26c4e427d18"
+    },
+    {
+      "id": "candidate_hash",
+      "ok": true,
+      "detail": "be89cfd7c50e00f33f7fb1b0e46384f861b9d4a38395c5c72e9ba6024b52878c"
+    },
+    {
+      "id": "exact_diff_hash",
+      "ok": true,
+      "detail": "c32349b345fc32347877e3d8d39d30d89df49ee5fb20ac9397515e169dbd57b3"
+    },
+    {
+      "id": "verified_preview_receipt",
+      "ok": true
+    },
+    {
+      "id": "desktop_and_webui_closed",
+      "ok": true,
+      "detail": {
+        "webui_8765_open": false,
+        "chat_engine_8080_open": false
+      }
+    },
+    {
+      "id": "operator_approval_phrase",
+      "ok": true,
+      "detail": "APPLY SMARTSEARCH EVIDENCE CLEANUP"
+    },
+    {
+      "id": "backup_created_and_verified",
+      "ok": true,
+      "detail": "Z:\\FOXAI\\Backups\\SecurityMilestone\\SmartSearchEvidenceCleanup_20260712T141310Z\\core\\smart_search.py"
+    },
+    {
+      "id": "candidate_compile",
+      "ok": true
+    },
+    {
+      "id": "targeted_cleanup_tests_7",
+      "ok": true,
+      "detail": {
+        "returncode": 0,
+        "marker": "Ran 7 tests"
+      }
+    },
+    {
+      "id": "phase1_security_regression_tests_15",
+      "ok": true,
+      "detail": {
+        "returncode": 0,
+        "marker": "Ran 15 tests"
+      }
+    },
+    {
+      "id": "candidate_installed_hash",
+      "ok": true,
+      "detail": "be89cfd7c50e00f33f7fb1b0e46384f861b9d4a38395c5c72e9ba6024b52878c"
+    },
+    {
+      "id": "live_compile",
+      "ok": true
+    },
+    {
+      "id": "real_live_smartsearch_smoke",
+      "ok": true,
+      "detail": {
+        "returncode": 0,
+        "required_markers": [
+          "live_generated_artifact_exclusion=PASS",
+          "live_source_priority=PASS",
+          "live_memory_classification=PASS",
+          "live_policy_disclosure=PASS"
+        ]
+      }
+    },
+    {
+      "id": "final_live_hash",
+      "ok": true,
+      "detail": "be89cfd7c50e00f33f7fb1b0e46384f861b9d4a38395c5c72e9ba6024b52878c"
+    }
+  ],
+  "modified_files": [
+    "core/smart_search.py"
+  ],
+  "root": "Z:\\FOXAI",
+  "live_file": "Z:\\FOXAI\\core\\smart_search.py",
+  "before_sha256": "f87ff40820e70067ad562ce1ffb57afcb60a3085dcac176deab4d26c4e427d18",
+  "backup": "Z:\\FOXAI\\Backups\\SecurityMilestone\\SmartSearchEvidenceCleanup_20260712T141310Z",
+  "final_sha256": "be89cfd7c50e00f33f7fb1b0e46384f861b9d4a38395c5c72e9ba6024b52878c"
+}

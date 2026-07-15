@@ -1,0 +1,42 @@
+{
+  "passed": true,
+  "checks": {
+    "fast_text_reasoning_off": true,
+    "quality_vision_current": true,
+    "profile_model_mismatch_fails": true,
+    "raw_fallback_preserved": true,
+    "unknown_profile_fails": true
+  },
+  "fast": {
+    "ok": true,
+    "profile_id": "fast_text",
+    "label": "\u26a1 Fast Text",
+    "reasoning_mode": "off",
+    "reasoning_budget": 0,
+    "require_verified_settings": true
+  },
+  "vision": {
+    "ok": true,
+    "profile_id": "quality_vision",
+    "label": "\ud83d\udd0e Quality Vision",
+    "reasoning_mode": "current",
+    "reasoning_budget": null,
+    "require_verified_settings": true
+  },
+  "mismatch": {
+    "ok": false,
+    "message": "Selected model does not match the requested profile. No engine action occurred."
+  },
+  "raw": {
+    "ok": true,
+    "profile_id": "",
+    "label": "Exact GGUF",
+    "reasoning_mode": "current",
+    "reasoning_budget": null,
+    "require_verified_settings": false
+  },
+  "unknown": {
+    "ok": false,
+    "message": "Unknown model profile. No engine action occurred."
+  }
+}

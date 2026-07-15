@@ -1,0 +1,222 @@
+{
+  "schema_version": 1,
+  "description": "Canonical KayocktheOS application inventory. Passive health telemetry never creates Fox Sentry incidents.",
+  "fleet_merge": {
+    "enabled": true,
+    "path": "Config/fleet_registry.json",
+    "id_prefix": "fleet_"
+  },
+  "applications": [
+    {
+      "id": "foxai_desktop",
+      "name": "FOXAI Desktop",
+      "kind": "frontend",
+      "department": "Command",
+      "lifecycle": "active",
+      "health_mode": "process_self",
+      "path": "ui/main_window.py",
+      "display_order": 10,
+      "security_role": "operator_interface",
+      "notes": "Current CustomTkinter command console."
+    },
+    {
+      "id": "foxai_webui",
+      "name": "FOXAI WebUI",
+      "kind": "frontend",
+      "department": "Command",
+      "lifecycle": "active",
+      "health_mode": "http",
+      "path": "core/foxai_web.py",
+      "url": "http://127.0.0.1:8765/",
+      "display_order": 20,
+      "security_role": "operator_interface"
+    },
+    {
+      "id": "kayock_browser",
+      "name": "Kayock Browser",
+      "kind": "application",
+      "department": "Shell",
+      "lifecycle": "active",
+      "health_mode": "path",
+      "path": "Shell/KayockBrowser/package.json",
+      "display_order": 30,
+      "security_role": "ordinary_application"
+    },
+    {
+      "id": "mission_console",
+      "name": "Mission Console",
+      "kind": "embedded_component",
+      "department": "Command",
+      "lifecycle": "active",
+      "health_mode": "component",
+      "path": "ui/main_window.py",
+      "display_order": 40,
+      "security_role": "operator_interface"
+    },
+    {
+      "id": "agent_fox",
+      "name": "Agent Fox",
+      "kind": "assistant",
+      "department": "Command",
+      "lifecycle": "active",
+      "health_mode": "component",
+      "path": "core/chat_agent.py",
+      "display_order": 50,
+      "security_role": "ordinary_assistant"
+    },
+    {
+      "id": "local_chat_engine",
+      "name": "Local Chat Engine",
+      "kind": "runtime",
+      "department": "Core Intelligence",
+      "lifecycle": "active",
+      "health_mode": "http",
+      "path": "Engine/llama-server.exe",
+      "url": "http://127.0.0.1:8080/health",
+      "display_order": 60,
+      "security_role": "ordinary_runtime"
+    },
+    {
+      "id": "engineer",
+      "name": "Engineer",
+      "kind": "assistant",
+      "department": "Engineering",
+      "lifecycle": "active",
+      "health_mode": "component",
+      "path": "core/engineer_agent.py",
+      "display_order": 70,
+      "security_role": "read_only_privileged_assistant"
+    },
+    {
+      "id": "engineering_airlock",
+      "name": "Engineering Airlock",
+      "kind": "security_boundary",
+      "department": "Engineering",
+      "lifecycle": "active",
+      "health_mode": "component",
+      "path": "core/security_containment.py",
+      "display_order": 80,
+      "security_role": "security_boundary"
+    },
+    {
+      "id": "fox_sentry",
+      "name": "Fox Sentry",
+      "kind": "security_service",
+      "department": "Engineering",
+      "lifecycle": "active",
+      "health_mode": "component",
+      "path": "core/security_containment.py",
+      "display_order": 90,
+      "security_role": "security_monitor"
+    },
+    {
+      "id": "repair_chamber",
+      "name": "Repair Chamber",
+      "kind": "approval_boundary",
+      "department": "Engineering",
+      "lifecycle": "active",
+      "health_mode": "component",
+      "path": "core/security_containment.py",
+      "display_order": 100,
+      "security_role": "approval_required"
+    },
+    {
+      "id": "red_canvas",
+      "name": "Creative Studio / Red Canvas",
+      "kind": "department",
+      "department": "Creative Studio",
+      "lifecycle": "active",
+      "health_mode": "component",
+      "path": "core/red_canvas_agent.py",
+      "display_order": 110,
+      "security_role": "ordinary_application"
+    },
+    {
+      "id": "comfyui",
+      "name": "ComfyUI",
+      "kind": "runtime",
+      "department": "Creative Studio",
+      "lifecycle": "active",
+      "health_mode": "http",
+      "path": "ComfyUI/main.py",
+      "url": "http://127.0.0.1:8188/system_stats",
+      "display_order": 120,
+      "security_role": "ordinary_runtime"
+    },
+    {
+      "id": "iron_library",
+      "name": "Iron Library",
+      "kind": "department",
+      "department": "Knowledge",
+      "lifecycle": "active",
+      "health_mode": "component",
+      "path": "core/library_agent.py",
+      "display_order": 130,
+      "security_role": "ordinary_application"
+    },
+    {
+      "id": "academy",
+      "name": "Academy",
+      "kind": "department",
+      "department": "Knowledge",
+      "lifecycle": "development",
+      "health_mode": "component",
+      "path": "core_v10/academy/__init__.py",
+      "display_order": 140,
+      "security_role": "ordinary_application"
+    },
+    {
+      "id": "kayock_writer",
+      "name": "Kayock Writer",
+      "kind": "application",
+      "department": "Creative Writing",
+      "lifecycle": "development",
+      "health_mode": "component",
+      "path": "core/foxai_web.py",
+      "display_order": 150,
+      "security_role": "ordinary_application",
+      "notes": "Current implementation is hosted in the WebUI source."
+    },
+    {
+      "id": "repair_bay",
+      "name": "Repair Bay",
+      "kind": "department",
+      "department": "Engineering",
+      "lifecycle": "development",
+      "health_mode": "component",
+      "path": "core/forge_master.py",
+      "display_order": 160,
+      "security_role": "approval_required"
+    },
+    {
+      "id": "automation_center",
+      "name": "Automation Center",
+      "kind": "application",
+      "department": "Automation",
+      "lifecycle": "planned",
+      "health_mode": "static",
+      "display_order": 170,
+      "security_role": "ordinary_application"
+    },
+    {
+      "id": "time_lines",
+      "name": "Time Lines",
+      "kind": "application",
+      "department": "History and Continuity",
+      "lifecycle": "planned",
+      "health_mode": "static",
+      "display_order": 180,
+      "security_role": "ordinary_application"
+    },
+    {
+      "id": "kayock_legacy_builder",
+      "name": "Kayock Legacy Builder",
+      "kind": "application",
+      "department": "History and Continuity",
+      "lifecycle": "planned",
+      "health_mode": "static",
+      "display_order": 190,
+      "security_role": "ordinary_application"
+    }
+  ]
+}

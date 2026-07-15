@@ -2,6 +2,8 @@ import time
 import threading
 import configparser
 import json
+import tkinter as tk
+from tkinter import messagebox
 from pathlib import Path
 
 import customtkinter as ctk
@@ -27,6 +29,15 @@ from core.brainstem import Brainstem
 from core.server import LlamaServer
 from core import diagnostics
 from core.chat_resilience import ChatResilience, ChatTimeoutError
+from core.application_registry import ApplicationRegistry
+from core.security_containment import (
+    new_airlock_correlation_id,
+    record_trip_sentry_test_event,
+    redact_mapping,
+    verify_airlock_audit_log,
+    airlock_chain_alert,
+)
+from uuid import uuid4
 
 try:
     from .foxai_theme import configure_ctk_identity, apply_foxai_theme, color
@@ -59,6 +70,7 @@ class FoxAIApp(ctk.CTk):
         self.mission_animation_job = None
         self.mission_animation_step = 0
         self._closing = False
+        self._mission_context_menus = []
         self.specialists = {
             "chat": ChatAgent(self),
             "red_canvas": RedCanvasAgent(self),
@@ -260,6 +272,16 @@ class FoxAIApp(ctk.CTk):
         self.diagnostics_button = ctk.CTkButton(self.sidebar, text="🩺 DIAGNOSTICS", command=self.show_diagnostics, width=230)
         self.diagnostics_button.pack(pady=4)
 
+        self.trip_sentry_button = ctk.CTkButton(
+            self.sidebar,
+            text="⚠ TRIP SENTRY TEST",
+            command=self.show_trip_sentry,
+            width=230,
+            fg_color="#8f2038",
+            hover_color="#b52b4a",
+        )
+        self.trip_sentry_button.pack(pady=4)
+
         self.engineer_button = ctk.CTkButton(self.sidebar, text="🛠 ENGINEER", command=self.show_engineer, width=230)
         self.engineer_button.pack(pady=4)
 
@@ -322,15 +344,696 @@ class FoxAIApp(ctk.CTk):
         panel.grid_columnconfigure(1, weight=1)
         self.make_status_bar()
 
+
+    def _load_application_registry_health(self):
+        registry = ApplicationRegistry(
+            root=Path(__file__).resolve().parents[1],
+            timeout=0.6,
+        )
+        return registry.snapshot()
+
+    def _format_application_registry_health(self, snapshot):
+        if snapshot.get("error"):
+            return (
+                "APPLICATION REGISTRY & HEALTH\n\n"
+                "State: UNKNOWN\n"
+                f"Reason: {snapshot.get('error')}\n\n"
+                "Telemetry only. No Fox Sentry incident was generated."
+            )
+
+        summary = snapshot.get("summary") or {}
+        applications = snapshot.get("applications") or []
+        lines = [
+            "APPLICATION REGISTRY & HEALTH",
+            "",
+            "Boundary: TELEMETRY ONLY — health changes do not create incidents.",
+            f"Generated: {snapshot.get('generated_at', '')}",
+            f"Canonical Apps: {summary.get('canonical', 0)}",
+            f"Fleet Extensions: {summary.get('fleet', 0)}",
+            f"Online: {summary.get('online', 0)}",
+            f"Ready: {summary.get('ready', 0)}",
+            f"Attention: {summary.get('attention', 0)}",
+            f"Planned: {summary.get('planned', 0)}",
+            "",
+        ]
+
+        current_department = None
+        for application in applications:
+            department = application.get("department") or "Unassigned"
+            if department != current_department:
+                if current_department is not None:
+                    lines.append("")
+                lines.append(f"[{department.upper()}]")
+                current_department = department
+
+            latency = application.get("latency_ms")
+            latency_text = (
+                f" // {latency:.1f} ms"
+                if isinstance(latency, (int, float))
+                else ""
+            )
+            source_label = "FLEET" if application.get("source") == "fleet" else "APP"
+            lines.extend([
+                (
+                    f"{source_label} [{application.get('status', 'UNKNOWN')}] "
+                    f"{application.get('name', application.get('id', 'Unknown'))}"
+                    f"{latency_text}"
+                ),
+                (
+                    f"  Lifecycle: {str(application.get('lifecycle', '')).upper()} "
+                    f"// Kind: {application.get('kind', 'application')}"
+                ),
+                f"  {application.get('message', '')}",
+            ])
+
+        return "\n".join(lines)
+
+    def refresh_application_registry_health(self):
+        try:
+            snapshot = self._load_application_registry_health()
+            summary = snapshot.get("summary") or {}
+            status_text = (
+                "REGISTRY READY // "
+                f"{summary.get('canonical', 0)} app(s), "
+                f"{summary.get('fleet', 0)} fleet extension(s), "
+                f"{summary.get('attention', 0)} attention state(s). "
+                "Telemetry only."
+            )
+        except Exception as exc:
+            snapshot = {
+                "error": f"{type(exc).__name__}: {exc}",
+                "applications": [],
+                "summary": {},
+            }
+            status_text = (
+                "REGISTRY UNKNOWN // Passive health refresh failed safely. "
+                "No incident was generated."
+            )
+
+        if hasattr(self, "application_registry_status"):
+            self.application_registry_status.set(status_text)
+
+        if hasattr(self, "application_registry_box"):
+            self.application_registry_box.configure(state="normal")
+            self.application_registry_box.delete("1.0", "end")
+            self.application_registry_box.insert(
+                "end",
+                self._format_application_registry_health(snapshot),
+            )
+            self.application_registry_box.configure(state="disabled")
+        return snapshot
+
+    def _fox_sentry_audit_log_path(self):
+        return (
+            Path(__file__).resolve().parents[1]
+            / "Logs"
+            / "Security"
+            / "engineering_airlock_events.jsonl"
+        )
+
+    def _fox_sentry_event_severity(self, event):
+        stored = str(event.get("severity") or "").strip().upper()
+        if stored:
+            return stored
+        return "TEST" if bool(event.get("test_event")) else "LEGACY"
+
+
+    def _fox_sentry_event_incident_kind(self, event):
+        stored = str(event.get("incident_kind") or "").strip()
+        return stored or (
+            "trip_sentry_test"
+            if bool(event.get("test_event"))
+            else "legacy_unclassified"
+        )
+
+    def _load_fox_sentry_incidents(self, incident_filter="ALL", limit=100):
+        log_path = self._fox_sentry_audit_log_path()
+        verification = verify_airlock_audit_log(log_path)
+        result = {
+            "log_path": str(log_path),
+            "exists": log_path.exists(),
+            "verification": verification,
+            "events": [],
+            "redactions": 0,
+            "read_error": "",
+        }
+        if not log_path.exists():
+            return result
+
+        try:
+            lines = log_path.read_text(
+                encoding="utf-8",
+                errors="strict",
+            ).splitlines()
+        except Exception as exc:
+            result["read_error"] = f"{type(exc).__name__}: {exc}"
+            return result
+
+        events = []
+        redactions = 0
+        for line_number, line in enumerate(lines, start=1):
+            if not line.strip():
+                continue
+            try:
+                event = json.loads(line)
+            except Exception:
+                continue
+            clean_event, count = redact_mapping(event)
+            clean_event["_line_number"] = line_number
+            redactions += count
+            events.append(clean_event)
+
+        selected = str(incident_filter or "ALL").strip().upper()
+        if selected == "TEST":
+            events = [event for event in events if bool(event.get("test_event"))]
+        elif selected == "OPERATIONAL":
+            events = [event for event in events if not bool(event.get("test_event"))]
+        elif selected in {"INFO", "NOTICE", "WARNING", "CRITICAL"}:
+            events = [
+                event for event in events
+                if self._fox_sentry_event_severity(event) == selected
+            ]
+
+        try:
+            bounded_limit = max(1, min(int(limit), 500))
+        except Exception:
+            bounded_limit = 100
+
+        result["events"] = list(reversed(events))[:bounded_limit]
+        result["redactions"] = redactions
+        return result
+
+    @staticmethod
+    def _short_sentry_hash(value):
+        text = str(value or "")
+        if len(text) <= 18:
+            return text
+        return f"{text[:10]}…{text[-8:]}"
+
+    def _format_fox_sentry_incidents(self, result):
+        verification = result.get("verification") or {}
+        chain_valid = bool(verification.get("valid"))
+        chain_alert = airlock_chain_alert(verification)
+        events = result.get("events") or []
+        lines = [
+            "FOX SENTRY INCIDENT VIEWER",
+            "",
+            f"Chain Status: {'VERIFIED' if chain_valid else 'INVALID — UNTRUSTED'}",
+            f"Total Chained Events: {verification.get('event_count', 0)}",
+            f"Visible Events: {len(events)}",
+            f"Final Chain Hash: {self._short_sentry_hash(verification.get('final_hash'))}",
+            f"Log: {result.get('log_path', '')}",
+        ]
+        if chain_alert.get("active"):
+            lines.extend([
+                "",
+                "[CRITICAL] AUDIT CHAIN INVALID — FOX SENTRY FAIL-CLOSED",
+                str(chain_alert.get("message") or "Audit chain verification failed."),
+                "This is a synthetic viewer state. Nothing was appended to the untrusted chain.",
+            ])
+        if result.get("read_error"):
+            lines.extend(["", f"READ FAILED CLOSED: {result['read_error']}"])
+        failures = verification.get("failures") or []
+        if failures:
+            lines.extend(["", "CHAIN VERIFICATION FAILURES:"])
+            for failure in failures[:10]:
+                lines.append(
+                    f"• Line {failure.get('line', '?')}: "
+                    f"{failure.get('reason', 'unknown failure')}"
+                )
+
+        if not result.get("exists"):
+            lines.extend([
+                "",
+                "No audit log exists yet.",
+                "Run Trip Sentry or enter the Engineering Airlock to create the first event.",
+            ])
+            return "\n".join(lines)
+
+        if not events:
+            lines.extend(["", "No incidents match the selected filter."])
+            return "\n".join(lines)
+
+        lines.extend(["", "MOST RECENT FIRST", ""])
+        for event in events:
+            severity = self._fox_sentry_event_severity(event)
+            incident_kind = self._fox_sentry_event_incident_kind(event)
+            event_kind = "TEST" if event.get("test_event") else "OPERATIONAL"
+            verified_label = "CHAINED" if chain_valid else "UNTRUSTED"
+            attempt_count = event.get("attempt_count")
+            context_status = str(event.get("context_status") or "legacy").upper()
+            lines.extend([
+                (
+                    f"[{severity}] [{event_kind}] [{verified_label}] "
+                    f"{event.get('timestamp', 'unknown time')}"
+                ),
+                f"Incident Kind: {incident_kind}",
+                f"Decision: {str(event.get('decision', '')).upper()}",
+                f"Attempt Count: {attempt_count if attempt_count is not None else 'LEGACY'}",
+                f"Context Status: {context_status}",
+                f"Actor: {event.get('actor', '')}",
+                f"Object: {event.get('object', '')}",
+                f"Action: {event.get('action', '')}",
+                f"Reason: {event.get('reason', '')}",
+                f"Policy: {event.get('policy_source', '')}",
+                f"Event ID: {event.get('event_id', '')}",
+                f"Correlation ID: {event.get('correlation_id', '')}",
+                f"Mission ID: {event.get('mission_id', '')}",
+                f"Approval ID: {event.get('approval_id', '')}",
+                f"Receipt ID: {event.get('receipt_id', '')}",
+                f"Previous Hash: {self._short_sentry_hash(event.get('previous_hash'))}",
+                f"Event Hash: {self._short_sentry_hash(event.get('event_hash'))}",
+                "-" * 70,
+            ])
+        return "\n".join(lines)
+
+    def refresh_fox_sentry_incidents(self):
+        incident_filter = (
+            self.fox_sentry_incident_filter.get()
+            if hasattr(self, "fox_sentry_incident_filter")
+            else "ALL"
+        )
+        result = self._load_fox_sentry_incidents(incident_filter, limit=100)
+        verification = result.get("verification") or {}
+        chain_valid = bool(verification.get("valid"))
+
+        if hasattr(self, "fox_sentry_chain_status"):
+            if chain_valid:
+                self.fox_sentry_chain_status.set(
+                    "CHAIN VERIFIED // "
+                    f"{verification.get('event_count', 0)} append-only event(s)."
+                )
+            else:
+                self.fox_sentry_chain_status.set(
+                    "CRITICAL // CHAIN INVALID // Fox Sentry is fail-closed and incidents are untrusted."
+                )
+
+        if hasattr(self, "fox_sentry_incident_box"):
+            self.fox_sentry_incident_box.configure(state="normal")
+            self.fox_sentry_incident_box.delete("1.0", "end")
+            self.fox_sentry_incident_box.insert(
+                "end",
+                self._format_fox_sentry_incidents(result),
+            )
+            self.fox_sentry_incident_box.configure(state="disabled")
+        return result
+
+    def show_trip_sentry(self):
+        self.clear_content()
+        self.make_title("FOX SENTRY // TRIP SENTRY")
+
+        outer = ctk.CTkScrollableFrame(self.content)
+        outer.pack(fill="both", expand=True, padx=20, pady=15)
+
+        warning = ctk.CTkFrame(
+            outer,
+            border_width=2,
+            border_color="#ff4d6d",
+            fg_color="#220b12",
+        )
+        warning.pack(fill="x", padx=10, pady=(10, 15))
+
+        ctk.CTkLabel(
+            warning,
+            text="Ω  OMEGA PROTOCOL  //  TEST MODE",
+            font=("Consolas", 25, "bold"),
+            text_color="#ffd166",
+        ).pack(pady=(20, 4))
+        ctk.CTkLabel(
+            warning,
+            text="HARMLESS SECURITY DRILL",
+            font=("Consolas", 17, "bold"),
+            text_color="#ff758f",
+        ).pack(pady=(0, 12))
+        ctk.CTkLabel(
+            warning,
+            text=(
+                "This test deliberately creates a clearly labeled TEST denial "
+                "event in the append-only Fox Sentry audit log.\n\n"
+                "It grants no access, runs no repair, changes no operational "
+                "project file, and disables nothing. The security log and its "
+                "lock file may be created or appended."
+            ),
+            justify="left",
+            wraplength=760,
+            font=("Consolas", 13),
+            text_color="#f4f1ff",
+        ).pack(padx=24, pady=(0, 18))
+
+        controls = ctk.CTkFrame(outer)
+        controls.pack(fill="x", padx=10, pady=(0, 15))
+        ctk.CTkButton(
+            controls,
+            text="TRIP SENTRY — RUN HARMLESS TEST",
+            command=self.run_trip_sentry_test,
+            width=330,
+            fg_color="#a51f3d",
+            hover_color="#cc2c52",
+        ).pack(pady=16)
+
+        self.trip_sentry_status = ctk.StringVar(
+            value="READY // No TEST incident has been generated in this session."
+        )
+        ctk.CTkLabel(
+            controls,
+            textvariable=self.trip_sentry_status,
+            font=("Consolas", 13, "bold"),
+            text_color="#ffd166",
+            wraplength=760,
+        ).pack(padx=20, pady=(0, 14))
+
+        result_panel = ctk.CTkFrame(outer)
+        result_panel.pack(fill="both", expand=True, padx=10, pady=(0, 15))
+        ctk.CTkLabel(
+            result_panel,
+            text="TEST INCIDENT RECEIPT",
+            font=("Consolas", 15, "bold"),
+            text_color=color("cyan"),
+        ).pack(anchor="w", padx=14, pady=(12, 6))
+        self.trip_sentry_result_box = ctk.CTkTextbox(
+            result_panel,
+            wrap="word",
+            height=260,
+            font=("Consolas", 12),
+        )
+        self.trip_sentry_result_box.pack(
+            fill="both", expand=True, padx=14, pady=(0, 14)
+        )
+        self.trip_sentry_result_box.insert(
+            "end",
+            "Awaiting an operator-initiated harmless TEST event.\n",
+        )
+        self.trip_sentry_result_box.configure(state="disabled")
+
+        registry_panel = ctk.CTkFrame(outer)
+        registry_panel.pack(fill="both", expand=True, padx=10, pady=(0, 15))
+        registry_header = ctk.CTkFrame(registry_panel, fg_color="transparent")
+        registry_header.pack(fill="x", padx=14, pady=(12, 6))
+        ctk.CTkLabel(
+            registry_header,
+            text="APPLICATION REGISTRY & HEALTH",
+            font=("Consolas", 15, "bold"),
+            text_color=color("cyan"),
+        ).pack(side="left")
+        ctk.CTkButton(
+            registry_header,
+            text="REFRESH HEALTH",
+            command=self.refresh_application_registry_health,
+            width=160,
+        ).pack(side="right")
+
+        self.application_registry_status = ctk.StringVar(
+            value=(
+                "CHECKING REGISTRY // Telemetry only; "
+                "no security incident will be generated."
+            )
+        )
+        ctk.CTkLabel(
+            registry_panel,
+            textvariable=self.application_registry_status,
+            font=("Consolas", 12, "bold"),
+            text_color="#ffd166",
+            wraplength=760,
+        ).pack(anchor="w", padx=14, pady=(0, 8))
+
+        self.application_registry_box = ctk.CTkTextbox(
+            registry_panel,
+            wrap="word",
+            height=320,
+            font=("Consolas", 11),
+        )
+        self.application_registry_box.pack(
+            fill="both",
+            expand=True,
+            padx=14,
+            pady=(0, 14),
+        )
+        self.application_registry_box.insert(
+            "end",
+            "Loading passive application health telemetry...\n",
+        )
+        self.application_registry_box.configure(state="disabled")
+
+        incident_panel = ctk.CTkFrame(outer)
+        incident_panel.pack(fill="both", expand=True, padx=10, pady=(0, 15))
+        incident_header = ctk.CTkFrame(incident_panel, fg_color="transparent")
+        incident_header.pack(fill="x", padx=14, pady=(12, 6))
+        ctk.CTkLabel(
+            incident_header,
+            text="FOX SENTRY INCIDENT VIEWER",
+            font=("Consolas", 15, "bold"),
+            text_color="#ff758f",
+        ).pack(side="left")
+
+        self.fox_sentry_incident_filter = ctk.StringVar(value="ALL")
+        ctk.CTkOptionMenu(
+            incident_header,
+            values=["ALL", "TEST", "OPERATIONAL", "INFO", "NOTICE", "WARNING", "CRITICAL"],
+            variable=self.fox_sentry_incident_filter,
+            command=lambda _value: self.refresh_fox_sentry_incidents(),
+            width=150,
+        ).pack(side="right", padx=(8, 0))
+        ctk.CTkButton(
+            incident_header,
+            text="REFRESH INCIDENTS",
+            command=self.refresh_fox_sentry_incidents,
+            width=170,
+        ).pack(side="right")
+
+        self.fox_sentry_chain_status = ctk.StringVar(
+            value="CHECKING CHAIN // Read-only verification pending."
+        )
+        ctk.CTkLabel(
+            incident_panel,
+            textvariable=self.fox_sentry_chain_status,
+            font=("Consolas", 12, "bold"),
+            text_color="#ffd166",
+            wraplength=760,
+        ).pack(anchor="w", padx=14, pady=(0, 8))
+
+        self.fox_sentry_incident_box = ctk.CTkTextbox(
+            incident_panel,
+            wrap="word",
+            height=360,
+            font=("Consolas", 11),
+        )
+        self.fox_sentry_incident_box.pack(
+            fill="both",
+            expand=True,
+            padx=14,
+            pady=(0, 14),
+        )
+        self.fox_sentry_incident_box.insert(
+            "end",
+            "Loading the read-only Fox Sentry incident chain...\n",
+        )
+        self.fox_sentry_incident_box.configure(state="disabled")
+        self.after(25, self.refresh_application_registry_health)
+        self.after(50, self.refresh_fox_sentry_incidents)
+        self.make_status_bar()
+
+    def _show_trip_sentry_omega_alert(self, receipt):
+        event = (receipt.get("details") or {}).get("event") or {}
+        dialog = ctk.CTkToplevel(self)
+        dialog.title("OMEGA PROTOCOL // TEST INCIDENT")
+        dialog.geometry("760x500")
+        dialog.minsize(660, 430)
+        dialog.transient(self)
+        dialog.grab_set()
+
+        frame = ctk.CTkFrame(
+            dialog,
+            border_width=3,
+            border_color="#ff4d6d",
+            fg_color="#16070c",
+        )
+        frame.pack(fill="both", expand=True, padx=18, pady=18)
+        ctk.CTkLabel(
+            frame,
+            text="Ω",
+            font=("Consolas", 70, "bold"),
+            text_color="#ff4d6d",
+        ).pack(pady=(18, 0))
+        ctk.CTkLabel(
+            frame,
+            text="OMEGA PROTOCOL",
+            font=("Consolas", 29, "bold"),
+            text_color="#ffd166",
+        ).pack()
+        ctk.CTkLabel(
+            frame,
+            text="TEST INCIDENT — FOX SENTRY PATH VERIFIED",
+            font=("Consolas", 16, "bold"),
+            text_color="#ff758f",
+        ).pack(pady=(4, 16))
+        ctk.CTkLabel(
+            frame,
+            text=(
+                "DENIAL EVENT RECORDED\n"
+                "NO ACCESS GRANTED\n"
+                "NO REPAIR EXECUTED\n"
+                "NO OPERATIONAL FILE CHANGED"
+            ),
+            justify="center",
+            font=("Consolas", 14, "bold"),
+            text_color="#f4f1ff",
+        ).pack(pady=8)
+        ctk.CTkLabel(
+            frame,
+            text=(
+                f"Event: {event.get('event_id', 'unknown')}\n"
+                f"Correlation: {event.get('correlation_id', 'unknown')}\n"
+                f"Receipt: {receipt.get('receipt_id', 'unknown')}"
+            ),
+            justify="left",
+            font=("Consolas", 11),
+            text_color="#aeb2c8",
+        ).pack(padx=20, pady=(12, 14))
+        ctk.CTkButton(
+            frame,
+            text="ACKNOWLEDGE TEST INCIDENT",
+            command=dialog.destroy,
+            width=280,
+        ).pack(pady=(0, 20))
+
+    def run_trip_sentry_test(self):
+        confirmed = messagebox.askyesno(
+            "Trip Sentry — Harmless TEST",
+            (
+                "Generate one clearly labeled TEST denial event?\n\n"
+                "No access will be granted and no repair will run. "
+                "The append-only security audit log and lock file may be "
+                "created or updated."
+            ),
+            parent=self,
+        )
+        if not confirmed:
+            if hasattr(self, "trip_sentry_status"):
+                self.trip_sentry_status.set(
+                    "CANCELLED // No TEST incident was generated."
+                )
+            return
+
+        correlation_id = new_airlock_correlation_id()
+        mission_id = f"desktop_trip_sentry_{time.strftime('%Y%m%dT%H%M%S')}"
+        receipt = record_trip_sentry_test_event(
+            correlation_id=correlation_id,
+            mission_id=mission_id,
+        )
+        verified = bool(receipt.get("verified"))
+        event = (receipt.get("details") or {}).get("event") or {}
+        lines = [
+            f"State: {receipt.get('state', 'unknown')}",
+            f"Verified: {verified}",
+            f"Receipt ID: {receipt.get('receipt_id', '')}",
+            f"Event ID: {event.get('event_id', '')}",
+            f"Correlation ID: {event.get('correlation_id', correlation_id)}",
+            f"Mission ID: {event.get('mission_id', mission_id)}",
+            f"Decision: {event.get('decision', '')}",
+            f"Action: {event.get('action', '')}",
+            f"TEST Event: {event.get('test_event', False)}",
+            f"Log: {(receipt.get('details') or {}).get('log_path', '')}",
+        ]
+
+        if hasattr(self, "trip_sentry_result_box"):
+            self.trip_sentry_result_box.configure(state="normal")
+            self.trip_sentry_result_box.delete("1.0", "end")
+            self.trip_sentry_result_box.insert("end", "\n".join(lines))
+            self.trip_sentry_result_box.configure(state="disabled")
+
+        if verified:
+            self.trip_sentry_status.set(
+                "VERIFIED TEST INCIDENT // Fox Sentry logging and warning "
+                "path completed without granting access."
+            )
+            self._show_trip_sentry_omega_alert(receipt)
+            self.refresh_fox_sentry_incidents()
+        else:
+            self.trip_sentry_status.set(
+                "TEST FAILED CLOSED // No verified security receipt was produced."
+            )
+            messagebox.showerror(
+                "Trip Sentry Test Failed Closed",
+                (
+                    "Fox Sentry did not produce a verified audit receipt. "
+                    "The test is not being reported as successful."
+                ),
+                parent=self,
+            )
+
+    def _destroy_mission_context_menus(self):
+        for menu in getattr(self, "_mission_context_menus", []):
+            try:
+                menu.destroy()
+            except Exception:
+                pass
+        self._mission_context_menus = []
+
+    @staticmethod
+    def _mission_text_widget(textbox):
+        return getattr(textbox, "_textbox", textbox)
+
+    @staticmethod
+    def _select_all_mission_text(text_widget):
+        try:
+            text_widget.tag_add("sel", "1.0", "end-1c")
+            text_widget.mark_set("insert", "1.0")
+            text_widget.see("insert")
+        except tk.TclError:
+            pass
+        return "break"
+
+    def _bind_mission_context_menu(self, textbox, editable):
+        text_widget = self._mission_text_widget(textbox)
+        menu = tk.Menu(self, tearoff=False)
+
+        if editable:
+            menu.add_command(
+                label="Cut",
+                command=lambda: text_widget.event_generate("<<Cut>>"),
+            )
+
+        menu.add_command(
+            label="Copy",
+            command=lambda: text_widget.event_generate("<<Copy>>"),
+        )
+
+        if editable:
+            menu.add_command(
+                label="Paste",
+                command=lambda: text_widget.event_generate("<<Paste>>"),
+            )
+
+        menu.add_separator()
+        menu.add_command(
+            label="Select All",
+            command=lambda: self._select_all_mission_text(text_widget),
+        )
+
+        def show_menu(event):
+            try:
+                if editable and not text_widget.tag_ranges("sel"):
+                    text_widget.mark_set("insert", f"@{event.x},{event.y}")
+                menu.tk_popup(event.x_root, event.y_root)
+            finally:
+                menu.grab_release()
+            return "break"
+
+        text_widget.bind("<Button-3>", show_menu, add="+")
+        self._mission_context_menus.append(menu)
+
     def show_mission_console(self):
         self.clear_content()
+        self._destroy_mission_context_menus()
         self.make_title("MISSION CONSOLE")
         self.chat_box = ctk.CTkTextbox(self.content, wrap="word", state="disabled", font=("Consolas", 13))
         self.chat_box.pack(padx=15, pady=10, fill="both", expand=True)
+        self._bind_mission_context_menu(self.chat_box, editable=False)
         bottom = ctk.CTkFrame(self.content)
         bottom.pack(padx=15, pady=(0, 10), fill="x")
         self.input_box = ctk.CTkTextbox(bottom, height=90, wrap="word", font=("Consolas", 13))
         self.input_box.pack(side="left", padx=10, pady=10, fill="x", expand=True)
+        self._bind_mission_context_menu(self.input_box, editable=True)
         self.input_box.bind("<Return>", self.send_message)
         self.send_button = ctk.CTkButton(bottom, text="SEND", command=self.send_message, width=100)
         self.send_button.pack(side="right", padx=10, pady=10)
@@ -1063,9 +1766,13 @@ class FoxAIApp(ctk.CTk):
         self.mission_status("Receiving request...\n\nDirector analyzing mission parameters.")
         self.start_mission_animation("Director analyzing")
 
-        mission = direct(text)
+        desktop_mission_id = f"desktop_mission_{uuid4().hex}"
+        mission = direct(text, mission_id=desktop_mission_id)
         agent = mission["agent"]
         payload = mission["payload"]
+        correlation_id = mission.get("correlation_id")
+        mission_id = mission.get("mission_id")
+        route_audit_receipt = mission.get("audit_receipt")
 
         self.mission_status(self.format_director_analysis(mission))
 
@@ -1078,7 +1785,13 @@ class FoxAIApp(ctk.CTk):
             if agent == "engineer":
                 self.begin_workshop_mission("Engineering", "Engineer")
                 self.mission_status("Engineer mission detected.\n\nReading project files in read-only mode.")
-                return self.specialists[agent].handle(payload)
+                return self.specialists[agent].handle(
+                    payload,
+                    caller="operator",
+                    correlation_id=correlation_id,
+                    mission_id=mission_id,
+                    route_audit_receipt=route_audit_receipt,
+                )
 
             if agent == "iron_library":
                 self.begin_workshop_mission("Research", "Iron Library")

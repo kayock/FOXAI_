@@ -1,3 +1,5 @@
+import ast
+import re
 from pathlib import Path
 
 from core.security_containment import is_protected_path, redact_secrets
@@ -148,6 +150,160 @@ class SmartSearch:
             "priority": 45,
         }
 
+    @staticmethod
+    def is_identifier_query(query):
+        return bool(re.fullmatch(r"[A-Za-z_][A-Za-z0-9_]*", query or ""))
+
+    @staticmethod
+    def assignment_names(target):
+        if isinstance(target, ast.Name):
+            return [target.id]
+
+        if isinstance(target, (ast.Tuple, ast.List)):
+            names = []
+            for item in target.elts:
+                names.extend(SmartSearch.assignment_names(item))
+            return names
+
+        return []
+
+    @staticmethod
+    def line_index(text, lineno):
+        if not lineno or lineno < 1:
+            return 0
+
+        lines = text.splitlines(keepends=True)
+        if lineno > len(lines):
+            return len(text)
+
+        return sum(len(line) for line in lines[:lineno - 1])
+
+    def python_symbol_evidence(self, text, query):
+        if not self.is_identifier_query(query):
+            return None
+
+        query_key = query.casefold()
+
+        try:
+            tree = ast.parse(text)
+        except SyntaxError:
+            return {
+                "kind": "text",
+                "label": "Text match",
+                "bonus": 0,
+                "lineno": None,
+                "index": text.casefold().find(query_key),
+            }
+
+        best = None
+
+        def consider(kind, label, bonus, name, node):
+            nonlocal best
+
+            if not name or str(name).casefold() != query_key:
+                return
+
+            candidate = {
+                "kind": kind,
+                "label": label,
+                "bonus": bonus,
+                "lineno": getattr(node, "lineno", None),
+            }
+
+            if best is None or candidate["bonus"] > best["bonus"]:
+                best = candidate
+
+        for node in ast.walk(tree):
+            if isinstance(node, ast.ClassDef):
+                consider(
+                    "class_definition",
+                    "Class definition",
+                    40,
+                    node.name,
+                    node,
+                )
+
+            elif isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)):
+                consider(
+                    "function_definition",
+                    "Function definition",
+                    38,
+                    node.name,
+                    node,
+                )
+
+            elif isinstance(node, ast.Assign):
+                for target in node.targets:
+                    for name in self.assignment_names(target):
+                        consider(
+                            "assignment",
+                            "Assignment / symbol definition",
+                            35,
+                            name,
+                            node,
+                        )
+
+            elif isinstance(node, ast.AnnAssign):
+                for name in self.assignment_names(node.target):
+                    consider(
+                        "assignment",
+                        "Assignment / symbol definition",
+                        35,
+                        name,
+                        node,
+                    )
+
+            elif isinstance(node, ast.NamedExpr):
+                for name in self.assignment_names(node.target):
+                    consider(
+                        "assignment",
+                        "Assignment / symbol definition",
+                        33,
+                        name,
+                        node,
+                    )
+
+            elif isinstance(node, (ast.Import, ast.ImportFrom)):
+                for alias in node.names:
+                    imported_name = alias.asname or alias.name.rsplit(".", 1)[-1]
+                    consider(
+                        "import",
+                        "Imported symbol",
+                        18,
+                        imported_name,
+                        node,
+                    )
+
+            elif isinstance(node, ast.Name):
+                consider(
+                    "reference",
+                    "Code reference",
+                    8,
+                    node.id,
+                    node,
+                )
+
+            elif isinstance(node, ast.Attribute):
+                consider(
+                    "reference",
+                    "Attribute reference",
+                    6,
+                    node.attr,
+                    node,
+                )
+
+        if best is not None:
+            best["index"] = self.line_index(text, best["lineno"])
+            return best
+
+        return {
+            "kind": "text_only",
+            "label": "Text/example only",
+            "bonus": -20,
+            "lineno": None,
+            "index": text.casefold().find(query_key),
+        }
+
     def iter_files(self, include_vendor=False, include_history=True):
         for path in self.root.rglob("*"):
             if not path.is_file():
@@ -192,6 +348,7 @@ class SmartSearch:
             rel = self.rel(path)
 
             score = evidence["priority"]
+            match = None
 
             # Path/name matches matter, but not enough to make history beat source.
             if lowered in rel.lower():
@@ -200,6 +357,11 @@ class SmartSearch:
             # Python source is usually stronger implementation evidence.
             if path.suffix.lower() == ".py":
                 score += 10
+                match = self.python_symbol_evidence(text, query)
+                if match:
+                    score += match["bonus"]
+                    if match.get("index", -1) >= 0:
+                        idx = match["index"]
 
             # Mission archives are intentionally weak implementation evidence.
             if evidence["class"] == "history":
@@ -214,12 +376,16 @@ class SmartSearch:
                 "score": score,
                 "evidence_class": evidence["class"],
                 "evidence_label": evidence["label"],
+                "match_kind": match["kind"] if match else "text",
+                "match_label": match["label"] if match else "Text match",
                 "vendor": evidence["class"] == "vendor",
                 "snippet": snippet,
                 "redactions": redaction_count,
             })
 
-        results.sort(key=lambda item: item["score"], reverse=True)
+        results.sort(
+            key=lambda item: (-item["score"], item["file"].casefold())
+        )
         return results[:limit]
 
     def layered_search(self, query, limit=12, include_history=False):
@@ -329,6 +495,7 @@ class SmartSearch:
                 lines.append(f"--- {item['file']} ---")
                 lines.append(f"Class: {item['evidence_label']}")
                 lines.append(f"Score: {item['score']}")
+                lines.append(f"Match: {item['match_label']}")
                 lines.append(item["snippet"])
                 lines.append("")
 
@@ -348,6 +515,7 @@ class SmartSearch:
                 lines.append(f"--- {item['file']} ---")
                 lines.append(f"Class: {item['evidence_label']}")
                 lines.append(f"Score: {item['score']}")
+                lines.append(f"Match: {item['match_label']}")
                 lines.append(item["snippet"])
                 lines.append("")
 
@@ -364,6 +532,7 @@ class SmartSearch:
                 lines.append(f"--- {item['file']} ---")
                 lines.append(f"Class: {item['evidence_label']}")
                 lines.append(f"Score: {item['score']}")
+                lines.append(f"Match: {item['match_label']}")
                 lines.append(item["snippet"])
                 lines.append("")
 

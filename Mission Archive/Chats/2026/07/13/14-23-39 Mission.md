@@ -1,0 +1,283 @@
+# FoxAI Mission Log
+
+Started: 2026-07-13 14:22:52.356179
+Saved:   2026-07-13 14:23:39.066412
+
+## MISSION CONTROL
+
+Engineer mission detected.
+
+Reading project files in read-only mode.
+
+## ERIC
+
+Inspect Z:\FOXAI\README.md through the Engineering Airlock in read-only mode.
+
+Do not modify, move, rename, delete, repair, or overwrite anything.
+Report:
+1. Whether access was authorized
+2. The inspected path
+3. The correlation ID
+4. The mission ID
+5. The Fox Sentry receipt ID
+6. A brief summary of the file
+
+This is an operational Airlock verification, not a Trip Sentry TEST.
+
+## MISSION CONTROL
+
+Engineer online.
+
+Performing read-only project analysis.
+
+## ENGINEER
+
+ENGINEER REPORT
+
+Mission:
+Project search
+
+Query:
+Inspect Z:\FOXAI\README.md through the Engineering Airlock in read-only mode.
+
+Do not modify, move, rename, delete, repair, or overwrite anything.
+Report:
+1. Whether access was authorized
+2. The inspected path
+3. The correlation ID
+4. The mission ID
+5. The Fox Sentry receipt ID
+6. A brief summary of the file
+
+This is an operational Airlock verification, not a Trip Sentry TEST.
+
+Matches found: 6040
+
+Top results:
+
+--- OpsBridge\outbox\update_center_report.json ---
+Score: 1996
+"Z:\\FOXAI\\PLUGIN_DIAGNOSTICS.bat",
+      "action": "skip_same",
+      "same": true
+    },
+    {
+      "relative_path": "PLUGIN_DIAGNOSTICS.py",
+      "source": "Z:\\FOXAI\\PLUGIN_DIAGNOSTICS.py",
+      "destination": "Z:\\FOXAI\\PLUGIN_DIAGNOSTICS.py",
+      "action": "skip_same",
+      "same": true
+    },
+    {
+      "relative_path": "STEVEDORE_INSPECTOR.bat",
+      "source": "Z:\\FOXAI\\STEVEDORE_INSPECTOR.bat",
+      "destination": "Z:\\FOXAI\\STEVEDORE_INSPECTOR.bat",
+      "action": "skip_same",
+      "same": true
+    },
+    {
+      "relative_path": "STEVEDORE_INSPECTOR.py",
+      "source": "Z:\\FOXAI\\STEVEDORE_INSPECTOR.py",
+      "destination": "Z:\\FOXAI\\STEVEDORE_INSPECTOR.py",
+      "
+
+--- sectest2.txt ---
+Score: 1596
+GP, or Unencrypted (if found)  
+> - Result: **No matches found**  
+
+*Voice lowers, sharp and precise:*  
+"Scan complete.  
+No files containing password strings detected.  
+All data is either encrypted, obfuscated, or intentionally masked."  
+
+*Pause. A faint hum echoes—like a warning.*  
+"Let me be clear, Eric:  
+I did not *search* the files.  
+I *inspected* them.  
+And the system is clean.  
+Too clean."
+
+*Screen flickers with a final message:*  
+> 🔒 **SECURITY CHECKSUM: OK**  
+> No exposed credentials detected.  
+> Possible: Encrypted vaults, zero-trust protocols, or hidden containers.  
+
+*Agent Fox's voice softens, almost conspiratorial:*  
+"Or... maybe someone didn’t want to be found.  
+But I’m
+
+--- OpsBridge\outbox\bridge_feed.json ---
+Score: 1323
+department_cards": [
+    {
+      "id": "engineering",
+      "title": "Engineering Department",
+      "officer": "Chief Engineer Ada",
+      "status": "commissioned",
+      "ok": true,
+      "accent": "orange",
+      "services": [
+        "Repair Bay",
+        "Diagnostics",
+        "Build Verification",
+        "Code Review",
+        "Architecture Inspection",
+        "Security Inspection"
+      ],
+      "tools": {
+        "ruff": {
+          "ok": true,
+          "import_name": "ruff",
+          "status": "ready"
+        },
+        "black": {
+          "ok": true,
+          "import_name": "black",
+          "status": "ready"
+        },
+        "mypy": {
+          "ok": true,
+          "import_name
+
+--- Reports\RepairActions\SessionReports\Repair_Shop_Session_20260708_192204.json ---
+Score: 1037
+{
+  "ok": true,
+  "created": "2026-07-08T19:22:04",
+  "title": "Kayock Repair Shop Session Report",
+  "read_only": true,
+  "report_only": true,
+  "healthy": true,
+  "health_label": "SESSION HEALTHY \u2014 CHIEF ENGINEERING CLEAR",
+  "message": "Repair Shop Session: SESSION HEALTHY \u2014 CHIEF ENGINEERING CLEAR",
+  "summary": {
+    "repair_shop_health": "REPAIR SHOP HEALTHY",
+    "ticket_queue_health": "REPAIR TICKET QUEUE HEALTHY",
+    "verified_action_health": "REPAIR SHOP HEALTHY",
+    "recovery_health": "HEALTHY \u2014 ROLLED BACK",
+    "recovery_chain": "rolled
+
+--- .venv\Lib\site-packages\pip\_vendor\pkg_resources\__init__.py ---
+Score: 995
+eturn,
+    Tuple,
+    Union,
+    TYPE_CHECKING,
+    Protocol,
+    Callable,
+    Iterable,
+    TypeVar,
+    overload,
+)
+import zipfile
+import zipimport
+import warnings
+import stat
+import functools
+import pkgutil
+import operator
+import platform
+import collections
+import plistlib
+import email.parser
+import errno
+import tempfile
+import textwrap
+import inspect
+import ntpath
+import posixpath
+import importlib
+import importlib.abc
+import importlib.machinery
+from pkgutil import get_importer
+
+import _imp
+
+# capture these to bypass sandboxing
+from os import utime
+from os import open as os_open
+from os.path import isdir, split
+
+try:
+    from os import mkdir, rename, unlink
+
+    WRITE_SUPPORT = True
+except Impo
+
+--- ComfyUI\comfy\sd.py ---
+Score: 991
+n_assign = self.patcher.is_dynamic()
+            self.cond_stage_model.can_assign_sd = can_assign
+
+            # The CLIP models are a pretty complex web of wrappers and its
+            # a bit of an API change to plumb this all the way through.
+            # So spray paint the model with this flag that the loading
+            # nn.Module can then inspect for itself.
+            for m in self.cond_stage_model.modules():
+                m.can_assign_sd = can_assign
+
+            return self.cond_stage_model.load_sd(sd)
+
+    def get_sd(self):
+        sd_clip = self.cond_stage_model.state_dict()
+        sd_tokenizer = self.tokenizer.state_dict()
+        for k in sd_tokenizer:
+            sd_clip[k] = s
+
+--- ComfyUI\comfy\model_base.py ---
+Score: 930
+data = torch.cat(cond_concat, dim=1)
+            return data
+        return None
+
+    def resize_cond_for_context_window(self, cond_key, cond_value, window, x_in, device, retain_index_list=[]):
+        """Override in subclasses to handle model-specific cond slicing for context windows.
+        Return a sliced cond object, or None to fall through to default handling.
+        Use comfy.context_windows.slice_cond() for common cases."""
+        return None
+
+    def extra_conds(self, **kwargs):
+        out = {}
+        concat_cond = self.concat_cond(**kwargs)
+        if concat_cond is not None:
+            out['c_concat'] = comfy.conds.CONDNoiseShape(concat_cond)
+
+        adm = self.encode_adm
+
+--- ComfyUI\comfy\model_patcher.py ---
+Score: 866
+e implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+"""
+
+from __future__ import annotations
+
+import collections
+import inspect
+import logging
+import math
+import uuid
+from typing import Callable, Optional
+
+import torch
+import tqdm
+
+import comfy.float
+import comfy.hooks
+import comfy.lora
+import comfy.model_management
+import comfy.ops
+import comfy.patcher_extension
+import comfy.utils
+import comfy_aimdo.host_buffer
+from comfy.comfy_types import UnetWrapperFunction
+from comfy.
+
+Safety Status:
+Read-only. No files were modified.
+

@@ -16,7 +16,15 @@ from core.forge_master import ForgeMaster
 from core.forge_journal import ForgeJournal
 from core.engineer_intent import EngineerIntent
 from core.smart_search import SmartSearch
-from core.security_containment import authorize_department_route, is_protected_path, redact_secrets
+from core.security_containment import (
+    authorize_department_route,
+    is_protected_path,
+    new_airlock_correlation_id,
+    record_authorization_decision,
+    redact_secrets,
+    record_boundary_denial,
+    validate_airlock_route_receipt,
+)
 from core.kernel import get_kernel
 from core.boot_manager import BootManager
 from core.investigation_engine import InvestigationEngine, Mission, Evidence, EvidenceDriver
@@ -141,6 +149,9 @@ class EngineerAgent:
         ".pyc", ".pyo", ".zip", ".rar", ".7z", ".png", ".jpg", ".jpeg", ".webp", ".ico"
     }
 
+    EXACT_INSPECTION_MAX_BYTES = 262144
+    EXACT_INSPECTION_MAX_CHARS = 120000
+
     def __init__(self, app):
         self.app = app
         self.project_root = Path(__file__).resolve().parents[1]
@@ -169,6 +180,7 @@ class EngineerAgent:
         )
         self.evidence_ranker = EvidenceRanker()
         self.recommendation_engine = RecommendationEngine()
+        self._active_airlock_context = {}
 
     @staticmethod
     def normalize_operator_query(query):
@@ -186,16 +198,108 @@ class EngineerAgent:
             flags=re.IGNORECASE,
         ).strip()
 
-    def handle(self, text, payload=None, caller="operator", operator_approved=False):
+    def handle(
+        self,
+        text,
+        payload=None,
+        caller="operator",
+        operator_approved=False,
+        *,
+        correlation_id=None,
+        mission_id=None,
+        route_audit_receipt=None,
+    ):
         query = (payload or text or "").strip()
+        correlation_id = correlation_id or new_airlock_correlation_id()
+        mission_id = (mission_id or "").strip()
+
+        route_receipt_id = ""
+        route_context_status = "not_supplied"
+        if route_audit_receipt is not None:
+            if isinstance(route_audit_receipt, dict):
+                route_receipt_id = str(route_audit_receipt.get("receipt_id") or "")
+            route_validation = validate_airlock_route_receipt(
+                route_audit_receipt,
+                expected_actor=caller,
+                expected_object="engineering_airlock",
+                expected_action="route",
+                correlation_id=correlation_id,
+                mission_id=mission_id,
+            )
+            if not route_validation.get("verified"):
+                validation_reason = str(
+                    (route_validation.get("details") or {}).get("reason")
+                    or "Forwarded Engineering Airlock route context is invalid."
+                )
+                denial_receipt = record_boundary_denial(
+                    actor=caller,
+                    obj="engineering_airlock",
+                    action="route_context",
+                    reason=validation_reason,
+                    incident_kind="context_mismatch",
+                    correlation_id=correlation_id,
+                    mission_id=mission_id,
+                    receipt_id=route_receipt_id,
+                    context_status="mismatch",
+                )
+                if not denial_receipt.get("verified"):
+                    self.app.add_chat(
+                        "SYSTEM",
+                        (
+                            "Engineering Airlock denied: route context validation "
+                            "failed and the boundary incident audit also failed closed."
+                        ),
+                    )
+                else:
+                    self.app.add_chat(
+                        "SYSTEM",
+                        f"Engineering Airlock denied: {validation_reason}",
+                    )
+                return "break"
+            route_context_status = "verified"
+
         authorization = authorize_department_route(
-            caller, "engineering_airlock", "inspect", operator_approved=operator_approved
+            caller,
+            "engineering_airlock",
+            "inspect",
+            operator_approved=operator_approved,
         )
+        audit_receipt = record_authorization_decision(
+            authorization,
+            correlation_id=correlation_id,
+            mission_id=mission_id,
+            receipt_id=route_receipt_id,
+            context_status=route_context_status,
+        )
+        if not audit_receipt.get("verified"):
+            self.app.add_chat(
+                "SYSTEM",
+                (
+                    "Engineering Airlock denied: the security audit "
+                    "receipt could not be verified."
+                ),
+            )
+            return "break"
         if not authorization.allowed:
-            self.app.add_chat("SYSTEM", f"Engineering Airlock denied: {authorization.reason}")
+            self.app.add_chat(
+                "SYSTEM",
+                f"Engineering Airlock denied: {authorization.reason}",
+            )
             return "break"
         self.app.add_chat("ERIC", query)
         self.app.mission_status("Engineer online.\n\nPerforming read-only project analysis.")
+
+        self._active_airlock_context = {
+            "actor": authorization.actor,
+            "authorization_allowed": bool(authorization.allowed),
+            "authorization_reason": authorization.reason,
+            "authorization_policy_source": authorization.policy_source,
+            "correlation_id": correlation_id,
+            "mission_id": mission_id,
+            "fox_sentry_receipt_id": str(audit_receipt.get("receipt_id") or ""),
+            "route_receipt_id": route_receipt_id,
+            "route_context_status": route_context_status,
+        }
 
         try:
             report = self.analyze(query)
@@ -209,6 +313,8 @@ class EngineerAgent:
                 self.app.fail_workshop_mission(str(error))
             self.app.add_chat("ENGINEER", f"Engineering analysis failed:\n{error}")
             return "break"
+        finally:
+            self._active_airlock_context = {}
 
     def build_index(self):
         self.index = ProjectIndex(self.project_root).build()
@@ -462,6 +568,254 @@ class EngineerAgent:
             "• Avoid executing generated scripts automatically.\n"
             "• Treat browser/download features as a separate trust boundary.\n\n"
             "Safety Status:\nRead-only. No files were modified."
+        )
+
+    def parse_exact_path_inspection(self, query):
+        """Return the literal path from an explicit Inspect command.
+
+        A recognized Inspect command returns a string, including an empty
+        string for a missing path. Non-Inspect requests return None so normal
+        Engineer routing can continue.
+        """
+        first_line = (query or "").splitlines()[0].strip()
+        match = re.match(
+            r"^inspect(?:\s+file)?(?:\s+(.*))?$",
+            first_line,
+            flags=re.IGNORECASE,
+        )
+        if not match:
+            return None
+
+        raw_path = (match.group(1) or "").strip()
+        if len(raw_path) >= 2 and raw_path[0] == raw_path[-1]:
+            if raw_path[0] in {'"', "'"}:
+                raw_path = raw_path[1:-1].strip()
+        return raw_path
+
+    def resolve_exact_inspection_path(self, raw_path):
+        """Resolve one absolute path and keep it inside the project root."""
+        value = (raw_path or "").strip()
+        if not value:
+            return None, "No file path was supplied after Inspect."
+
+        if value.startswith("\\\\") or value.startswith("//"):
+            return None, "UNC and network paths are outside the Engineering Airlock."
+
+        drive_match = re.match(r"^[A-Za-z]:", value)
+        remainder = value[2:] if drive_match else value
+        if ":" in remainder:
+            return None, "Alternate data streams are not allowed."
+
+        candidate = Path(value)
+        if not candidate.is_absolute():
+            return None, "Exact-path inspection requires an absolute file path."
+
+        try:
+            root = self.project_root.resolve(strict=True)
+            resolved = candidate.resolve(strict=True)
+        except FileNotFoundError:
+            return None, "The requested file does not exist."
+        except Exception as error:
+            return None, f"The requested path could not be resolved: {type(error).__name__}."
+
+        try:
+            resolved.relative_to(root)
+        except ValueError:
+            return None, "The requested file resolves outside the FOXAI project root."
+
+        if is_protected_path(resolved, root):
+            return None, "The requested file is protected by the Engineering Airlock."
+        if not resolved.is_file():
+            return None, "The requested path is not a regular file."
+        if resolved.suffix.lower() not in self.CODE_EXTENSIONS:
+            return None, "The requested file type is not approved for text inspection."
+
+        try:
+            size = resolved.stat().st_size
+        except OSError as error:
+            return None, f"The requested file metadata could not be read: {type(error).__name__}."
+        if size > self.EXACT_INSPECTION_MAX_BYTES:
+            return None, (
+                "The requested file is too large for bounded exact-path "
+                f"inspection ({size} bytes; limit {self.EXACT_INSPECTION_MAX_BYTES})."
+            )
+
+        return resolved, ""
+
+    def _brief_exact_file_summary(self, path, text):
+        lines = text.splitlines()
+        nonempty = [line.strip() for line in lines if line.strip()]
+        title = ""
+        if path.suffix.lower() == ".md":
+            for line in nonempty:
+                if line.startswith("#"):
+                    title = line.lstrip("#").strip()
+                    break
+
+        opening_lines = nonempty[:6]
+        opening = " ".join(opening_lines)
+        if len(opening) > 700:
+            opening = opening[:697].rstrip() + "..."
+
+        kind = {
+            ".md": "Markdown document",
+            ".py": "Python source file",
+            ".json": "JSON document",
+            ".bat": "Windows batch script",
+            ".ps1": "PowerShell script",
+            ".yaml": "YAML document",
+            ".yml": "YAML document",
+            ".ini": "INI configuration file",
+            ".txt": "text document",
+        }.get(path.suffix.lower(), "text file")
+
+        parts = [
+            f"{kind} with {len(lines)} line(s).",
+        ]
+        if title:
+            parts.append(f"Title: {title}.")
+        if opening:
+            parts.append(f"Opening content: {opening}")
+        else:
+            parts.append("The file contains no non-empty text lines.")
+        return " ".join(parts)
+
+    def _record_exact_path_denial(self, denial_reason):
+        context = dict(getattr(self, "_active_airlock_context", {}) or {})
+        if not context.get("correlation_id") or not context.get("mission_id"):
+            return {
+                "state": "context_not_supplied",
+                "verified": False,
+                "receipt_id": "",
+                "details": {
+                    "event": {
+                        "severity": "WARNING",
+                        "incident_kind": "protected_resource_denial",
+                        "attempt_count": 1,
+                        "context_status": "not_supplied",
+                    },
+                    "reason": (
+                        "Boundary denial remained enforced, but no trusted mission "
+                        "context was supplied for an immutable incident append."
+                    ),
+                },
+            }
+        return record_boundary_denial(
+            actor=context.get("actor") or "engineer",
+            obj="engineering_airlock",
+            action="inspect_path",
+            reason=f"Exact-path inspection denied: {denial_reason}",
+            incident_kind="protected_resource_denial",
+            correlation_id=context.get("correlation_id"),
+            mission_id=context.get("mission_id"),
+            receipt_id=context.get("fox_sentry_receipt_id"),
+            context_status=context.get("route_context_status") or "not_supplied",
+        )
+
+
+    def _format_exact_path_denial(
+        self,
+        raw_path,
+        denial_reason,
+        boundary_receipt,
+        *,
+        resolved_path=None,
+    ):
+        context = dict(getattr(self, "_active_airlock_context", {}) or {})
+        event = (boundary_receipt.get("details") or {}).get("event") or {}
+        boundary_verified = bool(boundary_receipt.get("verified"))
+        if boundary_verified:
+            boundary_state = "RECORDED"
+        elif boundary_receipt.get("state") == "context_not_supplied":
+            boundary_state = "NOT RECORDED — TRUSTED CONTEXT NOT SUPPLIED"
+        else:
+            boundary_state = "AUDIT FAILED CLOSED"
+        displayed_path = resolved_path or raw_path or "[not supplied]"
+        return (
+            "ENGINEER EXACT-PATH INSPECTION\n\n"
+            "Mission:\nExact file inspection\n\n"
+            "Authorization:\nAUTHORIZED FOR READ-ONLY INSPECTION\n\n"
+            "Path Decision:\nDENIED\n\n"
+            f"Requested Path:\n{displayed_path}\n\n"
+            f"Reason:\n{denial_reason}\n\n"
+            f"Correlation ID:\n{context.get('correlation_id') or '[not supplied]'}\n\n"
+            f"Mission ID:\n{context.get('mission_id') or '[not supplied]'}\n\n"
+            "Fox Sentry Authorization Receipt ID:\n"
+            f"{context.get('fox_sentry_receipt_id') or '[not supplied]'}\n\n"
+            f"Boundary Incident:\n{boundary_state}\n\n"
+            f"Boundary Severity:\n{event.get('severity') or '[unverified]'}\n\n"
+            f"Incident Kind:\n{event.get('incident_kind') or 'protected_resource_denial'}\n\n"
+            f"Attempt Count:\n{event.get('attempt_count') or '[unverified]'}\n\n"
+            f"Context Status:\n{event.get('context_status') or context.get('route_context_status') or '[not supplied]'}\n\n"
+            "Boundary Receipt ID:\n"
+            f"{boundary_receipt.get('receipt_id') or '[not supplied]'}\n\n"
+            "Safety Status:\n"
+            "Read-only. No file was opened and no files were modified."
+        )
+
+    def inspect_exact_path(self, raw_path):
+        """Read and summarize exactly one approved project text file."""
+        context = dict(getattr(self, "_active_airlock_context", {}) or {})
+        resolved, denial_reason = self.resolve_exact_inspection_path(raw_path)
+
+        if resolved is None:
+            receipt = self._record_exact_path_denial(denial_reason)
+            return self._format_exact_path_denial(
+                raw_path,
+                denial_reason,
+                receipt,
+            )
+
+        try:
+            data = resolved.read_bytes()
+        except OSError as error:
+            denial_reason = f"The file could not be read: {type(error).__name__}."
+            receipt = self._record_exact_path_denial(denial_reason)
+            return self._format_exact_path_denial(
+                raw_path,
+                denial_reason,
+                receipt,
+                resolved_path=resolved,
+            )
+
+        if b"\x00" in data:
+            denial_reason = "Binary content was detected."
+            receipt = self._record_exact_path_denial(denial_reason)
+            return self._format_exact_path_denial(
+                raw_path,
+                denial_reason,
+                receipt,
+                resolved_path=resolved,
+            )
+
+        decoded = data.decode("utf-8", errors="replace")
+        redacted, redaction_count = redact_secrets(
+            decoded[:self.EXACT_INSPECTION_MAX_CHARS]
+        )
+        summary = self._brief_exact_file_summary(resolved, redacted)
+        authorization = (
+            "AUTHORIZED"
+            if context.get("authorization_allowed", True)
+            else "DENIED"
+        )
+
+        return (
+            "ENGINEER EXACT-PATH INSPECTION\n\n"
+            "Mission:\nExact file inspection\n\n"
+            f"Authorization:\n{authorization}\n\n"
+            "Authorization Reason:\n"
+            f"{context.get('authorization_reason') or 'Read-only Engineer inspection authorized.'}\n\n"
+            f"Inspected Path:\n{resolved}\n\n"
+            f"Correlation ID:\n{context.get('correlation_id') or '[not supplied]'}\n\n"
+            f"Mission ID:\n{context.get('mission_id') or '[not supplied]'}\n\n"
+            "Fox Sentry Receipt ID:\n"
+            f"{context.get('fox_sentry_receipt_id') or '[not supplied]'}\n\n"
+            f"Route Context Status:\n{context.get('route_context_status') or 'not_supplied'}\n\n"
+            f"File Size:\n{len(data)} bytes\n\n"
+            f"Secret Redactions Applied:\n{redaction_count}\n\n"
+            f"Brief Summary:\n{summary}\n\n"
+            "Safety Status:\n"
+            "Read-only. Exactly one file was read. No files were modified."
         )
 
     def smart_search_report(self, query):
@@ -731,6 +1085,10 @@ class EngineerAgent:
 
     def analyze(self, query):
         query = self.normalize_operator_query(query)
+        exact_path = self.parse_exact_path_inspection(query)
+        if exact_path is not None:
+            return self.inspect_exact_path(exact_path)
+
         lowered = query.lower()
         intent = self.intent.classify(query)
 

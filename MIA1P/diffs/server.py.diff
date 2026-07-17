@@ -1,0 +1,181 @@
+--- a/core/server.py
++++ b/core/server.py
+@@ -86,6 +86,7 @@
+         reasoning_mode="current",
+         reasoning_budget=None,
+         require_verified_settings=False,
++        projector=None,
+     ):
+         target = self._target(
+             model,
+@@ -96,6 +97,7 @@
+             reasoning_mode,
+             reasoning_budget,
+             require_verified_settings,
++            projector,
+         )
+         self.model = Path(model)
+         self.host = target["host"]
+@@ -147,7 +149,9 @@
+                                 "port": target["port"],
+                                 "requested_context": target["context"],
+                                 "requested_threads": target["threads"],
++                                "requested_projector": target["projector_name"],
+                                 "active_context": state.get("context"),
++                                "active_projector": state.get("projector_name"),
+                                 "active_threads": state.get("threads"),
+                                 "requested_reasoning_mode": target["reasoning_mode"],
+                                 "requested_reasoning_budget": target["reasoning_budget"],
+@@ -196,6 +200,8 @@
+                     "port": target["port"],
+                     "model_path": target["model_path"],
+                     "model_name": target["model_name"],
++                    "projector_path": target["projector_path"],
++                    "projector_name": target["projector_name"],
+                     "context": target["context"],
+                     "threads": target["threads"],
+                     "reasoning_mode": target["reasoning_mode"],
+@@ -220,6 +226,8 @@
+                         "port": target["port"],
+                         "context": target["context"],
+                         "threads": target["threads"],
++                        "projector_path": target["projector_path"],
++                        "projector_name": target["projector_name"],
+                         "reasoning_mode": target["reasoning_mode"],
+                         "reasoning_budget": target["reasoning_budget"],
+                         "settings_verified": target["require_verified_settings"],
+@@ -257,6 +265,7 @@
+         reasoning_mode="current",
+         reasoning_budget=None,
+         require_verified_settings=False,
++        projector=None,
+     ):
+         """Compatibility wrapper. Prefer ensure_running()."""
+         return bool(
+@@ -266,6 +275,7 @@
+                 port=port,
+                 context=context,
+                 threads=threads,
++                projector=projector,
+                 reasoning_mode=reasoning_mode,
+                 reasoning_budget=reasoning_budget,
+                 require_verified_settings=require_verified_settings,
+@@ -480,6 +490,8 @@
+                         "active_threads": state.get("threads"),
+                         "requested_context": target["context"],
+                         "requested_threads": target["threads"],
++                        "active_projector": state.get("projector_name"),
++                        "requested_projector": target["projector_name"],
+                         "active_reasoning_mode": self._state_reasoning_mode(state),
+                         "active_reasoning_budget": self._state_reasoning_budget(state),
+                         "requested_reasoning_mode": target["reasoning_mode"],
+@@ -502,7 +514,7 @@
+                 "conflict",
+                 "A healthy neural runtime is already using the configured "
+                 "endpoint, but FOXAI cannot verify its context, thread, and "
+-                "reasoning settings for the selected profile. Stop that "
++                "reasoning and projector settings for the selected profile. Stop that "
+                 "runtime before starting this profile.",
+                 target["model_name"],
+                 self._int_or_none((state or {}).get("server_pid")),
+@@ -512,6 +524,7 @@
+                     "port": target["port"],
+                     "requested_context": target["context"],
+                     "requested_threads": target["threads"],
++                    "requested_projector": target["projector_name"],
+                     "requested_reasoning_mode": target["reasoning_mode"],
+                     "requested_reasoning_budget": target["reasoning_budget"],
+                     "settings_verified": False,
+@@ -536,6 +549,8 @@
+                     "port": target["port"],
+                     "model_path": target["model_path"],
+                     "model_name": target["model_name"],
++                    "projector_path": external_state.get("projector_path"),
++                    "projector_name": external_state.get("projector_name"),
+                     "context": external_state.get("context"),
+                     "threads": external_state.get("threads"),
+                     "reasoning_mode": external_state.get("reasoning_mode"),
+@@ -593,6 +608,8 @@
+                 "active_model": state.get("model_name"),
+                 "active_context": state.get("context"),
+                 "active_threads": state.get("threads"),
++                "active_projector": state.get("projector_name"),
++                "requested_projector": target["projector_name"],
+                 "requested_reasoning_mode": target["reasoning_mode"],
+                 "requested_reasoning_budget": target["reasoning_budget"],
+                 "active_reasoning_mode": self._state_reasoning_mode(state),
+@@ -611,8 +628,19 @@
+         reasoning_mode="current",
+         reasoning_budget=None,
+         require_verified_settings=False,
++        projector=None,
+     ):
+         path = Path(model).resolve()
++        projector_path = None
++        projector_name = None
++        if projector not in (None, ""):
++            resolved_projector = Path(projector).resolve()
++            if not resolved_projector.is_file():
++                raise FileNotFoundError(
++                    f"Missing multimodal projector: {resolved_projector}"
++                )
++            projector_path = str(resolved_projector)
++            projector_name = resolved_projector.name
+         mode = str(reasoning_mode or "current").strip().lower()
+         if mode not in {"current", "off"}:
+             raise ValueError(
+@@ -635,6 +663,8 @@
+         return {
+             "model_path": str(path),
+             "model_name": path.name,
++            "projector_path": projector_path,
++            "projector_name": projector_name,
+             "host": str(host),
+             "port": str(port),
+             "context": str(context),
+@@ -675,6 +705,16 @@
+             ).casefold() == target["model_name"].casefold()
+         if not model_matches:
+             return False
++        state_projector = state.get("projector_path")
++        target_projector = target.get("projector_path")
++        if state_projector or target_projector:
++            if not state_projector or not target_projector:
++                return False
++            if (
++                self._normalized_path(state_projector)
++                != self._normalized_path(target_projector)
++            ):
++                return False
+         if not target["require_verified_settings"]:
+             return True
+         return (
+@@ -817,6 +857,8 @@
+             "--threads",
+             target["threads"],
+         ]
++        if target.get("projector_path"):
++            cmd.extend(["--mmproj", target["projector_path"]])
+         if target["reasoning_mode"] == "off":
+             cmd.extend(
+                 [
+@@ -944,6 +986,19 @@
+                 if index + 1 >= len(cmdline):
+                     return None
+                 return str(cmdline[index + 1])
++
++            projector = state.get("projector_path")
++            active_projector = flag_value("--mmproj")
++            if projector:
++                if not active_projector:
++                    return False
++                if (
++                    self._normalized_path(active_projector)
++                    != self._normalized_path(projector)
++                ):
++                    return False
++            elif active_projector is not None:
++                return False
+ 
+             if state.get("context") is not None:
+                 if flag_value("--ctx-size") != str(state.get("context")):

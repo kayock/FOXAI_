@@ -1,0 +1,55 @@
+{
+  "action": "foxai_host_model_phase2c2_exact_preview_build",
+  "created": "2026-07-16T20:01:39.122372+00:00",
+  "state": "exact_preview_r2_package_ready",
+  "verified": true,
+  "apply_capability_present": false,
+  "live_files_modified": false,
+  "model_files_modified": false,
+  "network_access": false,
+  "automatic_model_launch": false,
+  "delete_operations": [],
+  "candidate_hashes": {
+    "core/foxai_web.py": "2bbf66de7d38cae0af92f9b031dd984fe276382b68d5cf3a7b163825ef35a604",
+    "core/model_sources.py": "e00a861265eff8826c4d7eeb89b3765e719b88f349811a2e608525d8a3f91ea2",
+    "Config/model_sources.json": "c17eb3b8b6c93734f7e117522213c95af6c105fe26400d0560768fe586e21c91",
+    "tests/test_model_sources.py": "ec94f8b8d90d36f05385db74400dd99b436cd4e488b1b517bcb77442a16fc6f2"
+  },
+  "preflight": {
+    "python_compile": true,
+    "unit_tests": {
+      "passed": true,
+      "count": 10,
+      "stdout": "",
+      "stderr": "test_approval_requires_explicit_confirmation (test_model_sources.ModelSourceRegistryTests.test_approval_requires_explicit_confirmation) ... ok\ntest_forget_folder_removes_reference_not_model (test_model_sources.ModelSourceRegistryTests.test_forget_folder_removes_reference_not_model) ... ok\ntest_forget_machine_keeps_usb_and_host_files (test_model_sources.ModelSourceRegistryTests.test_forget_machine_keeps_usb_and_host_files) ... ok\ntest_forget_model_only_removes_preference (test_model_sources.ModelSourceRegistryTests.test_forget_model_only_removes_preference) ... ok\ntest_no_silent_fallback_contract_is_present (test_model_sources.ModelSourceRegistryTests.test_no_silent_fallback_contract_is_present) ... ok\ntest_online_and_lan_sources_remain_disabled (test_model_sources.ModelSourceRegistryTests.test_online_and_lan_sources_remain_disabled) ... ok\ntest_remembered_folder_builds_machine_registry (test_model_sources.ModelSourceRegistryTests.test_remembered_folder_builds_machine_registry) ... ok\ntest_session_folder_is_not_persisted (test_model_sources.ModelSourceRegistryTests.test_session_folder_is_not_persisted) ... ok\ntest_usb_catalog_is_available_without_machine_profile (test_model_sources.ModelSourceRegistryTests.test_usb_catalog_is_available_without_machine_profile) ... ok\ntest_whole_drive_or_filesystem_root_is_rejected (test_model_sources.ModelSourceRegistryTests.test_whole_drive_or_filesystem_root_is_rejected) ... ok\n\n----------------------------------------------------------------------\nRan 10 tests in 0.050s\n\nOK\n"
+    },
+    "embedded_javascript": {
+      "passed": true,
+      "blocks": 1,
+      "results": [
+        {
+          "path": "preflight_javascript/embedded_script_001.js",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ]
+    }
+  },
+  "revision": "R2",
+  "r1_failure_diagnosed": true,
+  "r1_live_files_modified": false,
+  "correction": {
+    "type": "explicit_candidate_sys_path_insertion",
+    "pythonpath_environment_required": false,
+    "isolated_python_compatible": true,
+    "candidate_files_changed": false,
+    "approved_live_scope_changed": false
+  },
+  "r2_preflight": {
+    "python_compile": true,
+    "unit_tests_passed": 10,
+    "embedded_javascript_blocks": 1,
+    "embedded_javascript_node_check": true
+  }
+}

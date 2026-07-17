@@ -1,0 +1,669 @@
+--- a/core/foxai_web.py
++++ b/core/foxai_web.py
+@@ -65,6 +65,8 @@
+ prof='fox'; active_project=None; chat_model=None; chat_process=None; chat_profile_id=''
+ web_llama_server=LlamaServer(interface_name='WebUI',new_console=True)
+ messages=[{'role':'system','content':professor_system_prompt(prof)}]
++mission_active_image=None
++mission_image_lock=RLock()
+ web_mission_session=MissionSession(ROOT,interface_name='WebUI')
+ _web_engineer=None
+ _web_engineer_lock=RLock()
+@@ -225,7 +227,9 @@
+     except Exception: return None
+ def active_prof(): return PROF.get(prof,PROF['fox'])
+ def reset_msgs():
+-    global messages; messages=[{'role':'system','content':professor_system_prompt(prof)}]
++    global messages
++    messages=[{'role':'system','content':professor_system_prompt(prof)}]
++    clear_active_mission_image()
+ def timeline(project,event):
+     p=ppath(project); 
+     if not p: return
+@@ -266,13 +270,14 @@
+     req=urllib.request.Request(url,data=json.dumps(payload).encode(),headers={'Content-Type':'application/json'})
+     with urllib.request.urlopen(req,timeout=timeout) as r: return json.loads(r.read().decode(errors='replace'))
+ 
+-# MISSION_IMAGE_ATTACHMENTS_PHASE1_HELPERS_START
++# MISSION_IMAGE_CONTINUITY_REPAIR_PHASE1_HELPERS_START
+ MISSION_IMAGE_MAX_BYTES=6*1024*1024
+ MISSION_JSON_MAX_BYTES=9*1024*1024
+ MISSION_IMAGE_ALLOWED_MIME={'image/png','image/jpeg','image/webp'}
+ VISION_PROJECTOR_FILENAME='mmproj-Qwen3VL-8B-Instruct-Q8_0.gguf'
+ VISION_PROJECTOR_SHA256='c6ba85508d82f42590e6eb77d5340369ab6fecf107a7561d809523d8aa5f3bfd'
+ _vision_projector_cache={}
++_IMAGE_PAYLOAD_MARKERS=('data:image/',';base64,')
+ 
+ class MissionRequestError(ValueError):
+     def __init__(self,message,status=400):
+@@ -402,52 +407,6 @@
+         'filename':filename,
+     }
+ 
+-def mission_user_message(text,image=None):
+-    clean_text=(text or '').strip() or 'Describe this image.'
+-    if not image:
+-        return {'role':'user','content':clean_text}
+-    return {
+-        'role':'user',
+-        'content':[
+-            {'type':'image_url','image_url':{'url':image['data_url']}},
+-            {'type':'text','text':clean_text},
+-        ],
+-    }
+-
+-def mission_archive_user_text(text,image=None):
+-    clean_text=(text or '').strip() or 'Describe this image.'
+-    if not image:
+-        return clean_text
+-    return (
+-        f"{clean_text}\n[Image attachment: {image['filename']} | {image['mime']} | "
+-        f"{image['width']}×{image['height']} | {image['size_bytes']} bytes | "
+-        f"SHA-256 {image['sha256']}]"
+-    )
+-
+-def compact_prior_images(items):
+-    compacted=[]
+-    for message in items:
+-        content=message.get('content') if isinstance(message,dict) else None
+-        if not isinstance(content,list):
+-            compacted.append(message);continue
+-        text_parts=[];had_image=False
+-        for part in content:
+-            if not isinstance(part,dict):
+-                continue
+-            if part.get('type')=='text' and isinstance(part.get('text'),str):
+-                text_parts.append(part['text'])
+-            elif part.get('type')=='image_url':
+-                had_image=True
+-        replacement='\n'.join(text_parts).strip()
+-        if had_image:
+-            replacement=(replacement+'\n[Earlier image attachment omitted after a newer image was attached.]').strip()
+-        compacted.append({'role':message.get('role','user'),'content':replacement})
+-    return compacted
+-
+-def mission_request_messages(history,user_message,image=None):
+-    base=compact_prior_images(history) if image else list(history)
+-    return base+[user_message]
+-
+ def mission_image_receipt_details(image):
+     if not image:
+         return {'attached':False}
+@@ -460,8 +419,136 @@
+         'height':image['height'],
+         'sha256':image['sha256'],
+         'data_archived':False,
+-    }
+-# MISSION_IMAGE_ATTACHMENTS_PHASE1_HELPERS_END
++        'data_url_retained_in_history':False,
++    }
++
++def set_active_mission_image(image):
++    global mission_active_image
++    if not image:
++        return clear_active_mission_image()
++    stored={
++        'data_url':str(image['data_url']),
++        'mime':str(image['mime']),
++        'size_bytes':int(image['size_bytes']),
++        'sha256':str(image['sha256']),
++        'width':int(image['width']),
++        'height':int(image['height']),
++        'filename':str(image['filename']),
++    }
++    with mission_image_lock:
++        mission_active_image=stored
++    return mission_image_receipt_details(stored)
++
++def get_active_mission_image():
++    with mission_image_lock:
++        return dict(mission_active_image) if mission_active_image else None
++
++def clear_active_mission_image():
++    global mission_active_image
++    with mission_image_lock:
++        previous=mission_image_receipt_details(mission_active_image)
++        mission_active_image=None
++    return {'ok':True,'message':'Active mission image cleared.','previous':previous,'active_image':{'attached':False}}
++
++def mission_image_status():
++    image=get_active_mission_image()
++    return {'ok':True,'active_image':mission_image_receipt_details(image)}
++
++def contains_image_payload(value):
++    if isinstance(value,str):
++        lower=value.lower()
++        return any(marker in lower for marker in _IMAGE_PAYLOAD_MARKERS)
++    if isinstance(value,dict):
++        return any(contains_image_payload(item) for item in value.values())
++    if isinstance(value,(list,tuple,set)):
++        return any(contains_image_payload(item) for item in value)
++    return False
++
++def assert_no_image_payload(value,label):
++    if contains_image_payload(value):
++        raise MissionRequestError(f'Raw image payload was blocked from {label}.',500)
++    return True
++
++def mission_user_message(text,image=None):
++    clean_text=(text or '').strip() or 'Describe this image.'
++    if not image:
++        return {'role':'user','content':clean_text}
++    return {
++        'role':'user',
++        'content':[
++            {'type':'image_url','image_url':{'url':image['data_url']}},
++            {'type':'text','text':clean_text},
++        ],
++    }
++
++def mission_archive_user_text(text,image=None,source='none'):
++    clean_text=(text or '').strip() or 'Describe this image.'
++    if not image:
++        assert_no_image_payload(clean_text,'Mission Archive text')
++        return clean_text
++    marker=(
++        f"{clean_text}\n[Image context: {image['filename']} | {image['mime']} | "
++        f"{image['width']}×{image['height']} | {image['size_bytes']} bytes | "
++        f"SHA-256 {image['sha256']} | source {source}]"
++    )
++    assert_no_image_payload(marker,'Mission Archive text')
++    return marker
++
++def compact_prior_images(items):
++    compacted=[]
++    for message in items:
++        if not isinstance(message,dict):
++            continue
++        content=message.get('content')
++        if isinstance(content,str):
++            safe=content
++        elif isinstance(content,list):
++            text_parts=[];had_image=False
++            for part in content:
++                if not isinstance(part,dict):
++                    continue
++                if part.get('type')=='text' and isinstance(part.get('text'),str):
++                    text_parts.append(part['text'])
++                elif part.get('type')=='image_url':
++                    had_image=True
++            safe='\n'.join(text_parts).strip()
++            if had_image:
++                safe=(safe+'\n[Image payload removed from conversation history; current image is held separately in volatile session memory.]').strip()
++        else:
++            safe=str(content or '')
++        assert_no_image_payload(safe,'conversation history')
++        compacted.append({'role':str(message.get('role') or 'user'),'content':safe})
++    return compacted
++
++def prepare_mission_image_context(history,text,new_image=None,use_active=False):
++    global messages
++    clean_history=compact_prior_images(history)
++    if history is messages:
++        messages[:]=clean_history
++    source='none'
++    effective=None
++    if new_image:
++        set_active_mission_image(new_image)
++        effective=get_active_mission_image()
++        source='new'
++    elif use_active:
++        effective=get_active_mission_image()
++        if effective is None:
++            raise MissionRequestError('No active mission image is available. Attach an image again.',409)
++        source='active'
++    user_message=mission_user_message(text,effective)
++    request_messages=clean_history+[user_message]
++    return {
++        'request_messages':request_messages,
++        'history_user_message':{
++            'role':'user',
++            'content':mission_archive_user_text(text,effective,source),
++        },
++        'image':effective,
++        'source':source,
++        'active_image':mission_image_receipt_details(get_active_mission_image()),
++    }
++# MISSION_IMAGE_CONTINUITY_REPAIR_PHASE1_HELPERS_END
+ 
+ # GUARDED_STREAMING_PHASE2_HELPERS_START
+ _GUARDED_STREAM_BOUNDARY=re.compile(r'[.!?](?:["\')\]]*)?\s+|\n+')
+@@ -630,7 +717,7 @@
+ <div class=card><h3>Resume Mission</h3><div id=resume class=status>No active mission.</div><button onclick="goMemory()">Open Mission Memory</button><button onclick="resumeMission()">Resume in Console</button></div><div class=card><h3>Projects</h3><button onclick="go('projects')">Open Projects</button></div><div class=card><h3>Artificial Minds</h3><button onclick="go('mission')">Open Mission Console</button></div><div class=card><h3>PromptSmith</h3><button onclick="go('prompts')">Open PromptSmith</button></div><div class=card><h3>Novel Forge</h3><button onclick="go('novelforge')">Open Novel Forge</button></div><div class="card wide"><h3>Live Command Bridge</h3><div id=bridgeLive class=status>Loading Bridge Feed...</div></div><div class="card wide"><h3>Recovery Foundation</h3><div id=recoveryDashCard class=status>Loading recovery health...</div><button onclick="loadRecoveryDashboard()">Refresh Recovery Health</button><button onclick="go('recoverytimeline')">Open Recovery Timeline</button><button onclick="sendRecoveryDashboardToMission()">Send Recovery Health to Mission</button></div><div class="card wide"><h3>Repair Shop</h3><div id=repairShopDashCard class=status>Loading Repair Shop health...</div><button onclick="loadRepairShopDashboardCard()">Refresh Repair Shop</button><button onclick="go('repairops')">Open Repair Shop</button><button onclick="go('repairdetail')">Open Action Detail</button><button onclick="sendRepairShopDashboardCardToMission()">Send Repair Shop Health to Mission</button></div><div class="card wide"><h3>Department Fleet</h3><div id=deptcards class=grid>Loading departments...</div></div><div class="card wide"><h3>Status</h3><div id=status class=status>Loading...</div></div></div></section>
+ <section id=projects class=page><div class=hero><h2>Project Workspace</h2><p>Create and resume local workspaces.</p></div><div class=grid><div class=card><h3>New Project</h3><input id=newProject placeholder="Project name"><button onclick="createProject()">Create</button></div><div class=card><h3>Projects Folder</h3><button onclick="api('/api/open/projects')">Open Folder</button><button onclick="loadProjects()">Refresh</button></div><div class="card wide"><h3>Available Projects</h3><div id=plist class=status>Loading...</div></div><div class="card wide"><h3>Project Notes</h3><div class=small>Active: <span id=pnoteTitle class=path>None</span></div><textarea id=pnote></textarea><button onclick="saveNote()">Save Note</button><button onclick="askProject()">Ask Agent About Project</button></div></div></section>
+ <section id=memory class=page><div class=hero><h2>Mission Memory</h2><p>Project state, tasks, and timeline persist on the USB.</p></div><div class=grid><div class="card wide"><h3>Mission State</h3><div id=memstate class=status>No active mission.</div><button onclick="resumeMission()">Resume Mission</button><button onclick="api('/api/memory/save');loadMemory()">Save Current State</button></div><div class=card><h3>Add Task</h3><input id=task placeholder="Task"><button onclick="addTask()">Add</button></div><div class="card wide"><h3>Tasks</h3><div id=tasks class=status>No tasks.</div></div><div class="card wide"><h3>Timeline</h3><div id=timeline class=status>No timeline.</div></div></div></section>
+-<section id=mission class=page><div class=hero><h2>Artificial Minds</h2><p>Choose a task profile, then explicitly start the selected local GGUF model.</p></div><div class="card wide"><h3><span id=pulse></span> <span id=mtitle>Agent Fox</span></h3><div class=modelprofileintro><b>Choose by task, not filename.</b><div class=small>Recommended for ordinary chat: ⚡ Fast Text. Selecting a profile changes only the pending choice; FOXAI never starts, stops, restarts, or silently switches the running engine.</div></div><div id=modelProfileGrid class=modelprofilegrid>Loading model profiles...</div><div id=modelProfileStatus class=modelprofilestatus>No profile selected yet.</div><details class=modelfallback><summary>Other installed GGUF models / exact filenames</summary><select id=model onchange="syncProfileFromSelect()"><option>Loading...</option></select></details><button onclick="startChat()">Start Selected Profile</button><button onclick="stopChatEngine()">Stop Chat Engine</button><button onclick="api('/api/chat/reset');chat.innerHTML='Mission console reset.\n';clearMissionImage()">Reset</button><div class=streamnote>Guarded streaming releases complete sentence or newline chunks only after claim checking. Engineer commands and unsupported browsers use the verified non-streaming route.</div><div class=visionhint>Image attachments require an explicitly started 👁️ Fast Vision or 🔎 Quality Vision profile. FOXAI never switches models automatically.</div><div id=chatLog class=status>Mission console ready.</div><div id=imageDrop class=imagedrop tabindex=0 role=button onclick="q('imageFile').click()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();q('imageFile').click()}">Drop one PNG, JPEG, or WebP here, or click to choose. Maximum 6 MB.</div><input id=imageFile type=file accept="image/png,image/jpeg,image/webp" hidden onchange="handleMissionImageFiles(this.files)"><div id=imagePreview class=imagepreview><img id=imagePreviewThumb alt="Attached image preview"><div id=imagePreviewMeta class=imagepreviewmeta></div><button type=button onclick="clearMissionImage()">Remove Image</button></div><textarea id=input placeholder="Ask the active professor..." onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();send()}" ></textarea><div class=imageattachbar><button type=button onclick="q('imageFile').click()">Attach Image</button><button id=sendChatButton onclick="send()">Send</button><button id=cancelChatButton class=streamcancel onclick="cancelChat()" disabled>Cancel Generation</button></div></div></section>
++<section id=mission class=page><div class=hero><h2>Artificial Minds</h2><p>Choose a task profile, then explicitly start the selected local GGUF model.</p></div><div class="card wide"><h3><span id=pulse></span> <span id=mtitle>Agent Fox</span></h3><div class=modelprofileintro><b>Choose by task, not filename.</b><div class=small>Recommended for ordinary chat: ⚡ Fast Text. Selecting a profile changes only the pending choice; FOXAI never starts, stops, restarts, or silently switches the running engine.</div></div><div id=modelProfileGrid class=modelprofilegrid>Loading model profiles...</div><div id=modelProfileStatus class=modelprofilestatus>No profile selected yet.</div><details class=modelfallback><summary>Other installed GGUF models / exact filenames</summary><select id=model onchange="syncProfileFromSelect()"><option>Loading...</option></select></details><button onclick="startChat()">Start Selected Profile</button><button onclick="stopChatEngine()">Stop Chat Engine</button><button onclick="resetMissionConsole()">Reset</button><div class=streamnote>Guarded streaming releases complete sentence or newline chunks only after claim checking. Engineer commands and unsupported browsers use the verified non-streaming route.</div><div class=visionhint>Image attachments require an explicitly started 👁️ Fast Vision or 🔎 Quality Vision profile. The current image stays in volatile session memory for follow-up questions until you remove it, replace it, reset, stop, or start a text profile. Raw image data is never shown or archived.</div><div id=chatLog class=status>Mission console ready.</div><div id=imageDrop class=imagedrop tabindex=0 role=button onclick="q('imageFile').click()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();q('imageFile').click()}">Drop one PNG, JPEG, or WebP here, or click to choose. Maximum 6 MB.</div><input id=imageFile type=file accept="image/png,image/jpeg,image/webp" hidden onchange="handleMissionImageFiles(this.files)"><div id=imagePreview class=imagepreview><img id=imagePreviewThumb alt="Attached image preview"><div id=imagePreviewMeta class=imagepreviewmeta></div><button type=button onclick="clearMissionImage()">Remove Image</button></div><textarea id=input placeholder="Ask the active professor..." onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();send()}" ></textarea><div class=imageattachbar><button type=button onclick="q('imageFile').click()">Attach Image</button><button id=sendChatButton onclick="send()">Send</button><button id=cancelChatButton class=streamcancel onclick="cancelChat()" disabled>Cancel Generation</button></div></div></section>
+ 
+ <section id=commandcenter class=page><div class=hero><h2>Command Center Foundation</h2><p>One command screen for the major Kayock Command OS foundations: Repair Shop, Recovery, Build, Environment, Portable readiness, Models, Scan Bridge, Project Docs, and Extensions.</p></div><div class=grid><div class="card wide"><h3>Command Center Controls</h3><button onclick="loadCommandCenter(false)">Load Command Center</button><button onclick="loadCommandCenter(true)">Export Command Center Report</button><button onclick="api('/api/open/command_center_reports')">Open Command Center Reports</button><button onclick="go('repairfreeze')">Open Repair Shop Freeze</button><button onclick="go('recoverytimeline')">Open Recovery Timeline</button><button onclick="sendCommandCenterToMission()">Send Command Center to Mission</button><div id=commandCenterStatus class=status>No Command Center report loaded yet.</div></div><div class="card wide"><h3>Foundation Summary</h3><div id=commandCenterSummary class=status>No summary yet.</div></div><div class="card wide"><h3>Foundation Health</h3><div id=commandCenterFoundations class=scanlist>No foundation data loaded yet.</div></div><div class="card wide"><h3>Attention</h3><div id=commandCenterAttention class=scanlist>No attention items loaded yet.</div></div><div class="card wide"><h3>Advisories</h3><div id=commandCenterAdvisories class=scanlist>No advisories loaded yet.</div></div><div class="card wide"><h3>Recommended Next</h3><div id=commandCenterNext class=scanlist>No recommendations loaded yet.</div></div><div class="card wide"><h3>Safety Contract</h3><div id=commandCenterSafety class=status>No safety contract loaded yet.</div></div></div></section>
+ 
+@@ -1072,7 +1159,7 @@
+ <section id=logs class=page><div class=hero><h2>Logs</h2></div><div class=card><button onclick="api('/api/open/logs')">Open Logs</button><div id=status2 class=status></div></div></section>
+ <section id=settings class=page><div class=hero><h2>Settings</h2></div><div class=card><div id=paths class=status></div><button onclick="api('/api/open-url/github')">Open GitHub</button></div></section>
+ </main></div><div id=toast></div><script>
+-let activeProject=null, curLib='', missionData=null, modelCatalog=[], selectedProfileId='', activeProfileId='', pendingMissionImage=null, chatStreamController=null; const chat=document.getElementById('chatLog');
++let activeProject=null, curLib='', missionData=null, modelCatalog=[], selectedProfileId='', activeProfileId='', pendingMissionImage=null, activeMissionImage=null, chatStreamController=null; const chat=document.getElementById('chatLog');
+ /* MODEL_PROFILE_SELECTOR_PHASE2_REGISTRY_START */
+ const MODEL_PROFILES=[
+  {id:'fast_text',label:'⚡ Fast Text',model:'Qwen3.5-4B-Q4_K_M.gguf',best:'Quick questions, short summaries, simple instructions, and casual chat.',speed:'Fastest verified text profile',vision:'No',reasoning:'Off',status:'BENCHMARK SUPPORTED',note:'10.87 median tok/s; exact instruction and length checks passed. Runtime launches with reasoning off and budget 0.',recommended:true},
+@@ -1155,114 +1242,53 @@
+  toast('Generation canceled. No partial assistant answer will be archived.');
+ }
+ function explicitEngineerMessage(text){return /^\s*(?:\/engineer(?:\s+|$)|engineer\s*[:,]\s*\S)/i.test(String(text||''))}
+-/* MISSION_IMAGE_ATTACHMENTS_PHASE1_BROWSER_START */
++/* MISSION_IMAGE_CONTINUITY_REPAIR_PHASE1_BROWSER_START */
+ const MISSION_IMAGE_MAX_BYTES=6*1024*1024;
+ function activeVisionProfile(){let profile=modelProfileById(activeProfileId);return Boolean(profile&&profile.vision==='Yes')}
+ function bytesLabel(value){let n=Number(value||0);if(n<1024)return `${n} B`;if(n<1024*1024)return `${(n/1024).toFixed(1)} KB`;return `${(n/1024/1024).toFixed(2)} MB`}
+ async function sha256Hex(buffer){let digest=await crypto.subtle.digest('SHA-256',buffer);return Array.from(new Uint8Array(digest),b=>b.toString(16).padStart(2,'0')).join('')}
+ function readFileDataUrl(file){return new Promise((resolve,reject)=>{let reader=new FileReader();reader.onload=()=>resolve(String(reader.result||''));reader.onerror=()=>reject(reader.error||new Error('Image read failed.'));reader.readAsDataURL(file)})}
+-function readImageDimensions(dataUrl){return new Promise((resolve,reject)=>{let image=new Image();image.onload=()=>resolve({width:image.naturalWidth,height:image.naturalHeight});image.onerror=()=>reject(new Error('Image dimensions could not be read.'));image.src=dataUrl})}
+-function renderMissionImage(){let box=q('imagePreview');if(!box)return;if(!pendingMissionImage){box.classList.remove('show');q('imagePreviewThumb').removeAttribute('src');q('imagePreviewMeta').textContent='';return}q('imagePreviewThumb').src=pendingMissionImage.data_url;q('imagePreviewMeta').textContent=`${pendingMissionImage.name}\n${pendingMissionImage.type} • ${pendingMissionImage.width}×${pendingMissionImage.height} • ${bytesLabel(pendingMissionImage.size)}\nSHA-256 ${pendingMissionImage.sha256}`;box.classList.add('show')}
+-function clearMissionImage(){pendingMissionImage=null;let picker=q('imageFile');if(picker)picker.value='';renderMissionImage()}
+-async function handleMissionImageFiles(files){let file=files&&files[0];if(!file)return;try{if(!['image/png','image/jpeg','image/webp'].includes(file.type))throw new Error('Choose a PNG, JPEG, or WebP image.');if(file.size<1||file.size>MISSION_IMAGE_MAX_BYTES)throw new Error('Image must be larger than 0 bytes and no more than 6 MB.');let buffer=await file.arrayBuffer(),dataUrl=await readFileDataUrl(file),dimensions=await readImageDimensions(dataUrl);if(dimensions.width<1||dimensions.height<1||dimensions.width>8192||dimensions.height>8192)throw new Error('Image dimensions must be between 1 and 8192 pixels.');pendingMissionImage={name:file.name,type:file.type,size:file.size,width:dimensions.width,height:dimensions.height,sha256:await sha256Hex(buffer),data_url:dataUrl};renderMissionImage();toast(`Image ready: ${file.name}. Start a vision profile before sending.`)}catch(error){clearMissionImage();toast(String(error?.message||error));logline('bad','SYSTEM',`Image attachment rejected: ${error?.message||error}`)}}
+-function missionImagePayload(){if(!pendingMissionImage)return null;return {...pendingMissionImage}}
+-function logMissionImage(image){if(!image)return;let row=document.createElement('div');row.className='chatimage';let thumb=document.createElement('img');thumb.src=image.data_url;thumb.alt='Attached image';let meta=document.createElement('div');meta.className='chatimagemeta';meta.textContent=`IMAGE ATTACHMENT\n${image.name}\n${image.width}×${image.height} • ${bytesLabel(image.size)}\nSHA-256 ${image.sha256}`;row.append(thumb,meta);chat.appendChild(row);chat.scrollTop=chat.scrollHeight}
++function readImageDimensions(url){return new Promise((resolve,reject)=>{let image=new Image();image.onload=()=>resolve({width:image.naturalWidth,height:image.naturalHeight});image.onerror=()=>reject(new Error('Image dimensions could not be read.'));image.src=url})}
++function missionImageMetadata(image){if(!image)return null;return {name:String(image.name||image.filename||'attached-image'),type:String(image.type||image.mime||''),size:Number(image.size||image.size_bytes||0),width:Number(image.width||0),height:Number(image.height||0),sha256:String(image.sha256||'')}}
++function revokeMissionPreview(image){let url=String(image?.preview_url||'');if(url.startsWith('blob:')){try{URL.revokeObjectURL(url)}catch(e){}}}
++function renderMissionImage(){let box=q('imagePreview');if(!box)return;let image=pendingMissionImage||activeMissionImage;if(!image){box.classList.remove('show');q('imagePreviewThumb').removeAttribute('src');q('imagePreviewMeta').textContent='';return}let state=pendingMissionImage?'PENDING IMAGE — will replace active context when sent':'ACTIVE IMAGE — retained for follow-up questions';let preview=String(image.preview_url||'');if(preview)q('imagePreviewThumb').src=preview;else q('imagePreviewThumb').removeAttribute('src');q('imagePreviewMeta').textContent=`${state}\n${image.name}\n${image.type} • ${image.width}×${image.height} • ${bytesLabel(image.size)}\nSHA-256 ${image.sha256}\nRaw image data is hidden and never added to the transcript.`;box.classList.add('show')}
++function clearMissionImageLocal(){revokeMissionPreview(pendingMissionImage);if(activeMissionImage?.preview_url!==pendingMissionImage?.preview_url)revokeMissionPreview(activeMissionImage);pendingMissionImage=null;activeMissionImage=null;let picker=q('imageFile');if(picker)picker.value='';renderMissionImage()}
++async function clearMissionImage(options={}){let remote=options.remote!==false,silent=Boolean(options.silent);if(remote){let d=await api('/api/chat/image/clear',{method:'POST',headers:{'Content-Type':'application/json'},body:'{}'});if(!d?.ok){if(!silent)logline('bad','SYSTEM',d?.message||'Active image could not be cleared.');return false}}clearMissionImageLocal();if(!silent)toast('Active mission image removed.');return true}
++async function refreshActiveMissionImage(){try{let d=await (await fetch('/api/chat/image/status')).json();if(!d?.ok)return false;let meta=d.active_image;if(meta?.attached){let local=(pendingMissionImage&&pendingMissionImage.sha256===meta.sha256)?pendingMissionImage:(activeMissionImage&&activeMissionImage.sha256===meta.sha256?activeMissionImage:null),nextPreview=local?.preview_url||'';if(activeMissionImage?.preview_url&&activeMissionImage.preview_url!==nextPreview)revokeMissionPreview(activeMissionImage);activeMissionImage={...missionImageMetadata({name:meta.filename,type:meta.mime,size:meta.size_bytes,width:meta.width,height:meta.height,sha256:meta.sha256}),preview_url:nextPreview};if(pendingMissionImage?.sha256===meta.sha256){pendingMissionImage.data_url='';pendingMissionImage=null}}else{revokeMissionPreview(activeMissionImage);activeMissionImage=null}renderMissionImage();return true}catch(e){return false}}
++async function resetMissionConsole(){let d=await api('/api/chat/reset');if(d?.ok){clearMissionImageLocal();chat.innerHTML='Mission console reset.\n';logline('sys','SYSTEM',d.message||'Conversation reset.')}else logline('bad','SYSTEM',d?.message||'Reset failed.')}
++async function handleMissionImageFiles(files){let file=files&&files[0];if(!file)return;let previewUrl='';try{if(!['image/png','image/jpeg','image/webp'].includes(file.type))throw new Error('Choose a PNG, JPEG, or WebP image.');if(file.size<1||file.size>MISSION_IMAGE_MAX_BYTES)throw new Error('Image must be larger than 0 bytes and no more than 6 MB.');previewUrl=URL.createObjectURL(file);let buffer=await file.arrayBuffer(),dataUrl=await readFileDataUrl(file),dimensions=await readImageDimensions(previewUrl);if(dimensions.width<1||dimensions.height<1||dimensions.width>8192||dimensions.height>8192)throw new Error('Image dimensions must be between 1 and 8192 pixels.');revokeMissionPreview(pendingMissionImage);pendingMissionImage={name:file.name,type:file.type,size:file.size,width:dimensions.width,height:dimensions.height,sha256:await sha256Hex(buffer),data_url:dataUrl,preview_url:previewUrl};renderMissionImage();toast(`Image ready: ${file.name}. It will replace the active image only when sent.`)}catch(error){if(previewUrl.startsWith('blob:'))URL.revokeObjectURL(previewUrl);pendingMissionImage=null;renderMissionImage();toast(String(error?.message||error));logline('bad','SYSTEM',`Image attachment rejected: ${error?.message||error}`)}}
++function missionImagePayload(){if(!pendingMissionImage?.data_url)return null;let image=missionImageMetadata(pendingMissionImage);return {...image,data_url:pendingMissionImage.data_url}}
++function missionUsesActiveImage(){return !pendingMissionImage&&Boolean(activeMissionImage)}
++function logMissionImage(image,label='IMAGE ATTACHMENT'){if(!image)return;let meta=missionImageMetadata(image),row=document.createElement('div');row.className='chatimage';let thumb=document.createElement('img');let preview=String(image.preview_url||'');if(preview)thumb.src=preview;thumb.alt='Attached image preview';let detail=document.createElement('div');detail.className='chatimagemeta';detail.textContent=`${label}\n${meta.name}\n${meta.width}×${meta.height} • ${bytesLabel(meta.size)}\nSHA-256 ${meta.sha256}\n[raw image data hidden]`;row.append(thumb,detail);chat.appendChild(row);chat.scrollTop=chat.scrollHeight}
+ function setupMissionImageDrop(){let drop=q('imageDrop');if(!drop)return;['dragenter','dragover'].forEach(name=>drop.addEventListener(name,event=>{event.preventDefault();event.stopPropagation();drop.classList.add('drag')}));['dragleave','drop'].forEach(name=>drop.addEventListener(name,event=>{event.preventDefault();event.stopPropagation();drop.classList.remove('drag')}));drop.addEventListener('drop',event=>handleMissionImageFiles(event.dataTransfer?.files))}
+-/* MISSION_IMAGE_ATTACHMENTS_PHASE1_BROWSER_END */
+-async function requestNonStreamingChat(text,image=null){
+- let response=await fetch('/api/chat/send',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message:text,image})});
+- let d=await response.json();
+- if(d.answer)logline('fox',d.speaker||q('ap').textContent.toUpperCase(),d.answer);
+- if(!d.ok)logline('bad','ERROR',d.message||'Mission turn failed verification.');
+- return d;
+-}
+-async function requestGuardedStreamChat(text,image=null){
+- if(!globalThis.ReadableStream||!globalThis.TextDecoder)return requestNonStreamingChat(text,image);
++async function requestNonStreamingChat(text,image=null,useActive=false){let response=await fetch('/api/chat/send',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message:text,image,use_active_image:Boolean(useActive)})});let d=await response.json();if(d.answer)logline('fox',d.speaker||q('ap').textContent.toUpperCase(),d.answer);if(!d.ok)logline('bad','ERROR',d.message||'Mission turn failed verification.');return d}
++async function requestGuardedStreamChat(text,image=null,useActive=false){
++ if(!globalThis.ReadableStream||!globalThis.TextDecoder)return requestNonStreamingChat(text,image,useActive);
+  chatStreamController=new AbortController();
+- let response=await fetch('/api/chat/stream',{
+-  method:'POST',
+-  headers:{'Content-Type':'application/json'},
+-  body:JSON.stringify({message:text,image}),
+-  signal:chatStreamController.signal
+- });
++ let response=await fetch('/api/chat/stream',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message:text,image,use_active_image:Boolean(useActive)}),signal:chatStreamController.signal});
+  let contentType=String(response.headers.get('content-type')||'');
+- if(response.status===409&&contentType.includes('application/json')){
+-  let fallback=await response.json();
+-  chatStreamController=null;
+-  if(fallback.fallback==='/api/chat/send')return requestNonStreamingChat(text,image);
+-  throw new Error(fallback.message||'Guarded stream unavailable.');
++ if(response.status===409&&contentType.includes('application/json')){let fallback=await response.json();chatStreamController=null;if(fallback.fallback==='/api/chat/send')return requestNonStreamingChat(text,image,useActive);throw new Error(fallback.message||'Guarded stream unavailable.')}
++ if(!response.ok&&[404,405,501].includes(response.status)){chatStreamController=null;return requestNonStreamingChat(text,image,useActive)}
++ if(!response.ok)throw new Error(`Guarded stream HTTP ${response.status}`);
++ if(!response.body?.getReader){chatStreamController=null;return requestNonStreamingChat(text,image,useActive)}
++ let reader=response.body.getReader(),decoder=new TextDecoder(),buffer='',streamLine=null,receivedChunk=false,finalEvent=null;
++ function handleEvent(event){if(!event||typeof event!=='object')return;if(event.type==='start'&&!streamLine)streamLine=beginStreamLine('fox',event.speaker||q('ap').textContent.toUpperCase());if(event.type==='chunk'){if(!streamLine)streamLine=beginStreamLine('fox',event.speaker||q('ap').textContent.toUpperCase());streamLine.body.textContent+=String(event.text||'');receivedChunk=true;chat.scrollTop=chat.scrollHeight}if(event.type==='final'){if(!streamLine)streamLine=beginStreamLine('fox',event.speaker||q('ap').textContent.toUpperCase());streamLine.body.textContent=String(event.answer||'');finalEvent=event;chat.scrollTop=chat.scrollHeight}if(event.type==='error'){finalEvent=event;if(event.answer){if(!streamLine)streamLine=beginStreamLine('bad',event.speaker||'SYSTEM');streamLine.body.textContent=String(event.answer)}}}
++ while(true){let part=await reader.read();buffer+=decoder.decode(part.value||new Uint8Array(),{stream:!part.done});let lines=buffer.split('\n');buffer=lines.pop()||'';for(let line of lines){line=line.trim();if(!line)continue;handleEvent(JSON.parse(line))}if(part.done)break}
++ if(buffer.trim())handleEvent(JSON.parse(buffer.trim()));chatStreamController=null;if(!finalEvent)throw new Error('Guarded stream ended without a verified final event.');if(finalEvent.type==='error'||!finalEvent.ok)logline('bad','ERROR',finalEvent.message||'Mission turn failed verification.');return finalEvent;
++}
++async function send(){
++ let text=q('input').value.trim(),image=missionImagePayload(),useActive=missionUsesActiveImage();if(!text&&!image&&!useActive)return;
++ if((image||useActive)&&!activeVisionProfile()){let active=modelProfileById(activeProfileId);let message=active?`The active profile is ${active.label}, which is not a vision profile. Select and explicitly start Fast Vision or Quality Vision; no model switch occurred.`:'No verified vision profile is active. Select and explicitly start Fast Vision or Quality Vision; no model switch occurred.';logline('bad','SYSTEM',message);toast(message);return}
++ if((image||useActive)&&explicitEngineerMessage(text)){let message='Engineer image inspection is not enabled. Remove the image or use ordinary vision chat.';logline('bad','SYSTEM',message);toast(message);return}
++ let prompt=text||((image||useActive)?'Describe this image.':''),localImage=pendingMissionImage||activeMissionImage;
++ let browserStarted=performance.now(),d=null;q('input').value='';logline('user','ERIC',prompt);if(image)logMissionImage(localImage,'NEW IMAGE — becomes active for follow-ups');else if(useActive)logMissionImage(activeMissionImage,'USING ACTIVE IMAGE');think(true);
++ try{d=explicitEngineerMessage(prompt)?await requestNonStreamingChat(prompt,null,false):await requestGuardedStreamChat(prompt,image,useActive)}catch(e){if(e?.name==='AbortError'){logline('bad','SYSTEM','Generation canceled. No partial assistant answer was archived. The active image remains available for retry.');d={ok:false,cancelled:true,timing:{}};await refreshActiveMissionImage()}else{logline('bad','ERROR',String(e));d={ok:false,timing:{}}}}finally{
++  chatStreamController=null;think(false);
++  if(d?.active_image?.attached){let meta=d.active_image,local=(pendingMissionImage&&pendingMissionImage.sha256===meta.sha256)?pendingMissionImage:(activeMissionImage&&activeMissionImage.sha256===meta.sha256?activeMissionImage:null),nextPreview=local?.preview_url||'';if(activeMissionImage?.preview_url&&activeMissionImage.preview_url!==nextPreview)revokeMissionPreview(activeMissionImage);activeMissionImage={...missionImageMetadata({name:meta.filename,type:meta.mime,size:meta.size_bytes,width:meta.width,height:meta.height,sha256:meta.sha256}),preview_url:nextPreview};if(pendingMissionImage?.sha256===meta.sha256){pendingMissionImage.data_url='';pendingMissionImage=null}renderMissionImage()}
++  let browserMs=performance.now()-browserStarted,modelMs=Number(d?.timing?.model_ms||0),firstMs=Number(d?.timing?.first_guarded_chunk_ms||0);q('ms').textContent=modelMs>0?`READY • ${(browserMs/1000).toFixed(1)}s total • ${(modelMs/1000).toFixed(1)}s model${firstMs>0?` • ${(firstMs/1000).toFixed(1)}s first guarded`:''}`:`READY • ${(browserMs/1000).toFixed(1)}s total`;
+  }
+- if(!response.ok&&[404,405,501].includes(response.status)){
+-  chatStreamController=null;
+-  return requestNonStreamingChat(text,image);
+- }
+- if(!response.ok)throw new Error(`Guarded stream HTTP ${response.status}`);
+- if(!response.body?.getReader){
+-  chatStreamController=null;
+-  return requestNonStreamingChat(text,image);
+- }
+- let reader=response.body.getReader(),decoder=new TextDecoder(),buffer='',streamLine=null,receivedChunk=false,finalEvent=null;
+- function handleEvent(event){
+-  if(!event||typeof event!=='object')return;
+-  if(event.type==='start'&&!streamLine)streamLine=beginStreamLine('fox',event.speaker||q('ap').textContent.toUpperCase());
+-  if(event.type==='chunk'){
+-   if(!streamLine)streamLine=beginStreamLine('fox',event.speaker||q('ap').textContent.toUpperCase());
+-   streamLine.body.textContent+=String(event.text||'');receivedChunk=true;chat.scrollTop=chat.scrollHeight;
+-  }
+-  if(event.type==='final'){
+-   if(!streamLine)streamLine=beginStreamLine('fox',event.speaker||q('ap').textContent.toUpperCase());
+-   streamLine.body.textContent=String(event.answer||'');finalEvent=event;chat.scrollTop=chat.scrollHeight;
+-  }
+-  if(event.type==='error'){
+-   finalEvent=event;
+-   if(event.answer){
+-    if(!streamLine)streamLine=beginStreamLine('bad',event.speaker||'SYSTEM');
+-    streamLine.body.textContent=String(event.answer);
+-   }
+-  }
+- }
+- while(true){
+-  let part=await reader.read();
+-  buffer+=decoder.decode(part.value||new Uint8Array(),{stream:!part.done});
+-  let lines=buffer.split('\n');buffer=lines.pop()||'';
+-  for(let line of lines){
+-   line=line.trim();if(!line)continue;
+-   handleEvent(JSON.parse(line));
+-  }
+-  if(part.done)break;
+- }
+- if(buffer.trim())handleEvent(JSON.parse(buffer.trim()));
+- chatStreamController=null;
+- if(!finalEvent)throw new Error('Guarded stream ended without a verified final event.');
+- if(finalEvent.type==='error'||!finalEvent.ok)logline('bad','ERROR',finalEvent.message||'Mission turn failed verification.');
+- return finalEvent;
+-}
+-async function send(){
+- let text=q('input').value.trim(),image=missionImagePayload();if(!text&&!image)return;
+- if(image&&!activeVisionProfile()){let active=modelProfileById(activeProfileId);let message=active?`The active profile is ${active.label}, which is not a vision profile. Select and explicitly start Fast Vision or Quality Vision; no model switch occurred.`:'No verified vision profile is active. Select and explicitly start Fast Vision or Quality Vision; no model switch occurred.';logline('bad','SYSTEM',message);toast(message);return}
+- if(image&&explicitEngineerMessage(text)){let message='Engineer image inspection is not enabled. Remove the image or use ordinary vision chat.';logline('bad','SYSTEM',message);toast(message);return}
+- let prompt=text||(image?'Describe this image.':'');
+- let browserStarted=performance.now(),d=null;
+- q('input').value='';logline('user','ERIC',prompt);logMissionImage(image);think(true);
+- try{
+-  d=explicitEngineerMessage(prompt)?await requestNonStreamingChat(prompt,null):await requestGuardedStreamChat(prompt,image);
+- }catch(e){
+-  if(e?.name==='AbortError'){
+-   logline('bad','SYSTEM','Generation canceled. No partial assistant answer was archived.');
+-   d={ok:false,cancelled:true,timing:{}};
+-  }else{
+-   logline('bad','ERROR',String(e));
+-   d={ok:false,timing:{}};
+-  }
+- }finally{
+-  chatStreamController=null;think(false);
+-  if(d?.ok&&image)clearMissionImage();
+-  let browserMs=performance.now()-browserStarted,modelMs=Number(d?.timing?.model_ms||0),firstMs=Number(d?.timing?.first_guarded_chunk_ms||0);
+-  q('ms').textContent=modelMs>0?`READY • ${(browserMs/1000).toFixed(1)}s total • ${(modelMs/1000).toFixed(1)}s model${firstMs>0?` • ${(firstMs/1000).toFixed(1)}s first guarded`:''}`:`READY • ${(browserMs/1000).toFixed(1)}s`;
+-  loadMemory();refresh();
+- }
+-}
+-/* GUARDED_STREAMING_PHASE2_BROWSER_END */
++}
++/* MISSION_IMAGE_CONTINUITY_REPAIR_PHASE1_BROWSER_END */
+ /* MODEL_PROFILE_SELECTOR_PHASE2_BEHAVIOR_START */
+ function modelNameFromPath(value){return String(value||'').replace(/\\/g,'/').split('/').pop()}
+ function modelProfileById(id){return MODEL_PROFILES.find(p=>p.id===id)}
+@@ -1320,8 +1346,8 @@
+ /* MODEL_PROFILE_SELECTOR_PHASE2_BEHAVIOR_END */
+ async function loadProf(){let d=await (await fetch('/api/professors')).json();q('profgrid').innerHTML=Object.entries(d.professors).map(([k,p])=>`<div class="card prof ${k===d.active?'activeProf':''}"><h3>${esc(p.name)}</h3><div class=warn>${esc(p.college)}</div><p class=small><i>"${esc(p.motto)}"</i></p><button onclick="setProf('${k}')">${k===d.active?'Active':'Activate'}</button><button onclick="setProf('${k}').then(()=>go('mission'))">Use in Mission</button></div>`).join('')}
+ async function setProf(k){let d=await api('/api/professor/set',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({key:k})}); if(d?.ok){logline('sys','ACADEMY',d.message);loadProf();loadMemory()}}
+-async function startChat(){let requestedProfile=selectedProfileId||'';let d=await api('/api/chat/start',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:q('model').value,profile:requestedProfile})});if(d?.ok){activeProfileId=String(d?.runtime?.profile_id||requestedProfile||'');}logline(d?.ok?'sys':'bad','SYSTEM',d?.message||'start failed');loadMemory();refresh()}
+-async function stopChatEngine(){let d=await api('/api/chat/stop');if(d?.ok)activeProfileId='';clearMissionImage();logline(d?.ok?'sys':'bad','SYSTEM',d?.message||'stop failed');refresh()}
++async function startChat(){let requestedProfile=selectedProfileId||'';let d=await api('/api/chat/start',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:q('model').value,profile:requestedProfile})});if(d?.ok){activeProfileId=String(d?.runtime?.profile_id||requestedProfile||'');if(!modelProfileById(activeProfileId)?.vision?.includes('Yes'))clearMissionImageLocal();else await refreshActiveMissionImage()}logline(d?.ok?'sys':'bad','SYSTEM',d?.message||'start failed');loadMemory();refresh()}
++async function stopChatEngine(){let d=await api('/api/chat/stop');if(d?.ok){activeProfileId='';clearMissionImageLocal()}logline(d?.ok?'sys':'bad','SYSTEM',d?.message||'stop failed');refresh()}
+ async function loadProjects(){let d=await (await fetch('/api/projects/list')).json();q('plist').innerHTML='<div class=grid>'+d.projects.map(p=>`<div class="card project"><h3>🗂 ${esc(p.name)}</h3><p class=small>Files: ${p.files} | Updated: ${esc(p.modified)}</p><button onclick="selectProject('${js(p.name)}')">Select</button><button onclick="api('/api/projects/open?name=${encodeURIComponent(p.name)}')">Open Folder</button></div>`).join('')+'</div>'}
+ async function createProject(){let name=q('newProject').value.trim();if(!name)return toast('Enter a project name.');let d=await api('/api/projects/create',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name})});if(d?.ok){q('newProject').value='';loadProjects();selectProject(d.name)}}
+ async function selectProject(name){let d=await (await fetch('/api/projects/select',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name})})).json();toast(d.message);if(d.ok){activeProject=d.name;q('apro').textContent=d.name;q('pnoteTitle').textContent=d.name;q('pnote').value=d.note||'';loadMemory();refresh()}}
+@@ -9737,7 +9763,7 @@
+     q('tripSentryOmega').textContent=`Ω OMEGA PROTOCOL\nTEST FAILED CLOSED\n\n${d?.message||'Fox Sentry did not return a verified receipt.'}`;
+ }
+ 
+-async function refresh(){let s=await (await fetch('/api/status')).json();let lines=[`Root: ${s.root}`,`Kayock Browser: ${s.kayock_browser_found?'found':'missing'}`,`Engine: ${s.engine_found?'found':'missing'}`,`Chat online: ${s.chat_online?'yes':'no'}`,`Active project: ${s.active_project||'None'}`,`Projects: ${s.projects}`,`ComfyUI: ${s.comfy_online?'online':'offline'}`,`Chat models: ${s.chat_models}`,`Library items: ${s.library_items}`,`PDFs: ${s.library_pdfs}`];q('status').textContent=lines.join('\n');q('status2').textContent=lines.join('\n');q('paths').textContent=`Root: ${s.root}\nDrive: ${s.drive_root}\nBrowser: ${s.kayock_browser}\nEngine: ${s.engine}\nProjects: ${s.projects_root}`;q('am').textContent=s.chat_model_name||'None';activeProfileId=String(s.chat_profile_id||'');q('ap').textContent=s.active_professor_name||'Agent Fox';q('mtitle').textContent=s.active_professor_name||'Agent Fox';q('apro').textContent=s.active_project||'None';q('rt').textContent=s.chat_online?'ONLINE':'OFFLINE';q('cpu').textContent=s.cpu_percent!==null?`${s.cpu_percent}%`:'n/a';q('ram').textContent=s.ram_used_gb!==null?`${s.ram_used_gb}/${s.ram_total_gb} GB (${s.ram_percent}%)`:'n/a';q('ramm').style.width=s.ram_percent!==null?`${s.ram_percent}%`:'0%';q('quick').innerHTML=`<span class="pill ${s.engine_found?'ok':'bad'}">Engine ${s.engine_found?'Found':'Missing'}</span><br><span class="pill ${s.chat_online?'ok':'warn'}">Chat ${s.chat_online?'Online':'Offline'}</span><br><span class="pill ${s.comfy_online?'ok':'warn'}">ComfyUI ${s.comfy_online?'Online':'Offline'}</span>`}
++async function refresh(){let s=await (await fetch('/api/status')).json();let lines=[`Root: ${s.root}`,`Kayock Browser: ${s.kayock_browser_found?'found':'missing'}`,`Engine: ${s.engine_found?'found':'missing'}`,`Chat online: ${s.chat_online?'yes':'no'}`,`Active project: ${s.active_project||'None'}`,`Projects: ${s.projects}`,`ComfyUI: ${s.comfy_online?'online':'offline'}`,`Chat models: ${s.chat_models}`,`Library items: ${s.library_items}`,`PDFs: ${s.library_pdfs}`];q('status').textContent=lines.join('\n');q('status2').textContent=lines.join('\n');q('paths').textContent=`Root: ${s.root}\nDrive: ${s.drive_root}\nBrowser: ${s.kayock_browser}\nEngine: ${s.engine}\nProjects: ${s.projects_root}`;q('am').textContent=s.chat_model_name||'None';activeProfileId=String(s.chat_profile_id||'');if(s.active_mission_image?.attached&&!pendingMissionImage){let meta=s.active_mission_image;activeMissionImage={...missionImageMetadata({name:meta.filename,type:meta.mime,size:meta.size_bytes,width:meta.width,height:meta.height,sha256:meta.sha256}),preview_url:activeMissionImage?.sha256===meta.sha256?(activeMissionImage.preview_url||''):''};renderMissionImage()}else if(!s.active_mission_image?.attached&&!pendingMissionImage){activeMissionImage=null;renderMissionImage()}q('ap').textContent=s.active_professor_name||'Agent Fox';q('mtitle').textContent=s.active_professor_name||'Agent Fox';q('apro').textContent=s.active_project||'None';q('rt').textContent=s.chat_online?'ONLINE':'OFFLINE';q('cpu').textContent=s.cpu_percent!==null?`${s.cpu_percent}%`:'n/a';q('ram').textContent=s.ram_used_gb!==null?`${s.ram_used_gb}/${s.ram_total_gb} GB (${s.ram_percent}%)`:'n/a';q('ramm').style.width=s.ram_percent!==null?`${s.ram_percent}%`:'0%';q('quick').innerHTML=`<span class="pill ${s.engine_found?'ok':'bad'}">Engine ${s.engine_found?'Found':'Missing'}</span><br><span class="pill ${s.chat_online?'ok':'warn'}">Chat ${s.chat_online?'Online':'Offline'}</span><br><span class="pill ${s.comfy_online?'ok':'warn'}">ComfyUI ${s.comfy_online?'Online':'Offline'}</span>`}
+ initDepartmentNav();setupMissionImageDrop();loadModels();loadProf();loadProjects();loadMemory();loadBridge();loadRecoveryDashboard();loadFoxSentryIncidents();refresh();setInterval(refresh,8000);setInterval(loadBridge,10000)
+ </script></body></html>"""
+ 
+@@ -9900,6 +9926,7 @@
+             receipt=make_tool_receipt('shell.open_library_file','requested',details={'path':str(p)},actor='operator')
+             self.js({'ok':True,'message':f'Open request sent for {p.name}; application state is not verified.','receipt':receipt,'claim_state':'requested'}); return
+         if path=='/api/chat/stop': self.js(stop_chat()); return
++        if path=='/api/chat/image/status': self.js(mission_image_status()); return
+         if path=='/api/chat/reset':
+             reset_msgs()
+             session_receipt=begin_web_mission_session()
+@@ -10035,10 +10062,15 @@
+         if path=='/api/projects/select': self.js(select_project(d.get('name',''))); return
+         if path=='/api/projects/save-note': self.js(save_note(d.get('name',''),d.get('note',''))); return
+         if path=='/api/professor/set': self.js(set_prof(d.get('key',''))); return
++        if path=='/api/chat/image/clear':
++            clear_result=clear_active_mission_image()
++            messages[:]=compact_prior_images(messages)
++            self.js(clear_result); return
+         if path=='/api/chat/start': self.js(start_chat(d.get('model',''),d.get('profile',''))); return
+         # GUARDED_STREAMING_PHASE2_ROUTE_START
+         if path=='/api/chat/stream':
+             text=(d.get('message') or '').strip()
++            use_active=bool(d.get('use_active_image'))
+             try:
+                 image=validate_mission_image(d.get('image'))
+             except MissionRequestError as exc:
+@@ -10048,19 +10080,19 @@
+                 self.end_headers()
+                 self.wfile.write(json.dumps({'ok':False,'message':str(exc)}).encode('utf-8'))
+                 return
+-            if not text and not image:
++            if not text and not image and not use_active:
+                 self.js({'ok':False,'message':'Empty message.'})
+                 return
+             text=text or 'Describe this image.'
+             profile=active_chat_profile()
+-            if image and not bool(profile.get('vision')):
++            if (image or use_active) and not bool(profile.get('vision')):
+                 self.send_response(409)
+                 self.send_header('Content-Type','application/json; charset=utf-8')
+                 self.send_header('Cache-Control','no-store')
+                 self.end_headers()
+                 self.wfile.write(json.dumps({'ok':False,'message':'A verified Fast Vision or Quality Vision profile must be explicitly active. No model switch occurred.'}).encode('utf-8'))
+                 return
+-            if image and is_explicit_engineer_command(text):
++            if (image or use_active) and is_explicit_engineer_command(text):
+                 self.send_response(409)
+                 self.send_header('Content-Type','application/json; charset=utf-8')
+                 self.send_header('Cache-Control','no-store')
+@@ -10094,6 +10126,8 @@
+             client_disconnected=False
+             try:
+                 session_receipt=ensure_web_mission_session()
++                context=prepare_mission_image_context(messages,text,image,use_active)
++                effective_image=context['image']
+                 route_receipt=make_tool_receipt(
+                     'webui.department_route',
+                     'verified',
+@@ -10101,7 +10135,7 @@
+                         {'id':'explicit_engineer_command_absent','ok':True,'message':'Guarded streaming is limited to ordinary Agent Fox chat.'},
+                         {'id':'agent_fox_privilege_boundary','ok':True,'message':'Model text cannot invoke Engineer or Repair Chamber.'},
+                     ],
+-                    details={'route':'agent_fox','professor':active_prof()[0],'transport':'guarded_sentence_ndjson','profile_id':chat_profile_id,'image':mission_image_receipt_details(image)},
++                    details={'route':'agent_fox','professor':active_prof()[0],'transport':'guarded_sentence_ndjson','profile_id':chat_profile_id,'image':mission_image_receipt_details(effective_image),'image_source':context['source']},
+                     actor='operator',
+                 )
+ 
+@@ -10110,7 +10144,7 @@
+                 health_ms=round((time.perf_counter()-health_started)*1000,1)
+                 if not chat_online:
+                     answer='Chat engine is offline. Start Chat Engine first.'
+-                    web_mission_session.add('ERIC',mission_archive_user_text(text,image))
++                    web_mission_session.add('ERIC',context['history_user_message']['content'])
+                     web_mission_session.add('SYSTEM',answer)
+                     archive_started=time.perf_counter()
+                     archive_receipt=web_mission_session.save()
+@@ -10129,8 +10163,8 @@
+                     })
+                     return
+ 
+-                user_message=mission_user_message(text,image)
+-                request_messages=mission_request_messages(messages,user_message,image)
++                user_message=context['history_user_message']
++                request_messages=context['request_messages']
+                 speaker=active_prof()[0].upper()
+                 self.start_ndjson();stream_started=True
+                 self.ndjson({
+@@ -10188,12 +10222,11 @@
+                 final_guard_ms=round((time.perf_counter()-guard_started)*1000,1)
+                 guard_ms=round(chunk_guard_ms+final_guard_ms,1)
+ 
+-                if image:
+-                    messages[:]=compact_prior_images(messages)
++                messages[:]=compact_prior_images(messages)
+                 messages.append(user_message)
+                 messages.append({'role':'assistant','content':ans})
+-                timeline(active_project,'Image sent to Mission Console' if image else 'Message sent to Mission Console') if active_project else None
+-                web_mission_session.add('ERIC',mission_archive_user_text(text,image))
++                timeline(active_project,'Image context used in Mission Console' if effective_image else 'Message sent to Mission Console') if active_project else None
++                web_mission_session.add('ERIC',user_message['content'])
+                 web_mission_session.add(speaker,ans)
+ 
+                 archive_started=time.perf_counter()
+@@ -10212,13 +10245,14 @@
+                         {'id':'chat_api_stream_completed','ok':True,'message':'Local chat API completed its stream.'},
+                         {'id':'raw_tokens_not_exposed','ok':True,'message':'Only complete guarded units were sent to the browser.'},
+                         {'id':'final_full_answer_guarded','ok':True,'message':'The complete answer was claim-guarded before archive and final display.'},
+-                        {'id':'image_attachment_verified','ok':True,'message':'Image bytes and metadata were verified before model submission.' if image else 'No image attachment was supplied.'},
++                        {'id':'image_attachment_verified','ok':True,'message':'Image bytes and metadata were verified before model submission.' if effective_image else 'No image context was supplied.'},
+                         {'id':'image_data_not_archived','ok':True,'message':'Mission Archive stores image metadata and SHA-256, never the base64 image payload.'},
+                     ],
+                     details={
+                         'external_action_verified':False,
+                         'profile_id':chat_profile_id,
+-                        'image':mission_image_receipt_details(image),
++                        'image':mission_image_receipt_details(effective_image),
++                        'image_source':context['source'],
+                         'claim_flagged':bool(claim_guard.get('flagged') or chunk_flagged),
+                         'transport':'guarded_sentence_ndjson',
+                         'stream_chunks':stream_chunks,
+@@ -10246,6 +10280,7 @@
+                     'claim_guard':claim_guard,'route_receipt':route_receipt,
+                     'completion_receipt':completion_receipt,'archive_receipt':archive_receipt,
+                     'session_receipt':session_receipt,'timing':timing,
++                    'active_image':context['active_image'],
+                 })
+                 return
+             except (BrokenPipeError,ConnectionAbortedError,ConnectionResetError):
+@@ -10289,6 +10324,7 @@
+         # GUARDED_STREAMING_PHASE2_ROUTE_END
+         if path=='/api/chat/send':
+             text=(d.get('message') or '').strip()
++            use_active=bool(d.get('use_active_image'))
+             try:
+                 image=validate_mission_image(d.get('image'))
+             except MissionRequestError as exc:
+@@ -10298,18 +10334,20 @@
+                 self.end_headers()
+                 self.wfile.write(json.dumps({'ok':False,'message':str(exc)}).encode('utf-8'))
+                 return
+-            if not text and not image:
++            if not text and not image and not use_active:
+                 self.js({'ok':False,'message':'Empty message.'})
+                 return
+             text=text or 'Describe this image.'
+             profile=active_chat_profile()
+-            if image and not bool(profile.get('vision')):
++            if (image or use_active) and not bool(profile.get('vision')):
+                 self.js({'ok':False,'message':'A verified Fast Vision or Quality Vision profile must be explicitly active. No model switch occurred.'});return
+-            if image and is_explicit_engineer_command(text):
++            if (image or use_active) and is_explicit_engineer_command(text):
+                 self.js({'ok':False,'message':'Engineer image inspection is not enabled.'});return
+ 
+             session_receipt=ensure_web_mission_session()
+-            web_mission_session.add('ERIC',mission_archive_user_text(text,image))
++            context=prepare_mission_image_context(messages,text,image,use_active)
++            effective_image=context['image']
++            web_mission_session.add('ERIC',context['history_user_message']['content'])
+             explicit_engineer=is_explicit_engineer_command(text)
+ 
+             if explicit_engineer:
+@@ -10440,7 +10478,7 @@
+                     {'id':'explicit_engineer_command_absent','ok':not explicit_engineer,'message':'Ordinary chat remains with the active WebUI professor.'},
+                     {'id':'agent_fox_privilege_boundary','ok':True,'message':'Agent/model text was not allowed to invoke Engineer.'},
+                 ],
+-                details={'route':'agent_fox','professor':active_prof()[0],'profile_id':chat_profile_id,'image':mission_image_receipt_details(image)},
++                details={'route':'agent_fox','professor':active_prof()[0],'profile_id':chat_profile_id,'image':mission_image_receipt_details(effective_image),'image_source':context['source']},
+                 actor='operator',
+             )
+ 
+@@ -10465,14 +10503,9 @@
+                 self.js({'ok':False,'answer':answer,'speaker':'SYSTEM','message':answer,'route':'agent_fox','route_receipt':route_receipt,'archive_receipt':archive_receipt,'session_receipt':session_receipt,'timing':timing})
+                 return
+ 
+-            user_message=mission_user_message(text,image)
+-            if image:
+-                request_messages=mission_request_messages(messages,user_message,image)
+-                timeline(active_project,'Image sent to Mission Console') if active_project else None
+-            else:
+-                messages.append(user_message)
+-                request_messages=messages
+-                timeline(active_project,'Message sent to Mission Console') if active_project else None
++            user_message=context['history_user_message']
++            request_messages=context['request_messages']
++            timeline(active_project,'Image context used in Mission Console' if effective_image else 'Message sent to Mission Console') if active_project else None
+             try:
+                 model_started=time.perf_counter()
+                 r=post(CHAT_API,{'model':'local-model','messages':request_messages,'temperature':0.7,'max_tokens':768,'stream':False})
+@@ -10484,9 +10517,8 @@
+                 ans=claim_guard['text']
+                 guard_ms=round((time.perf_counter()-guard_started)*1000,1)
+ 
+-                if image:
+-                    messages[:]=compact_prior_images(messages)
+-                    messages.append(user_message)
++                messages[:]=compact_prior_images(messages)
++                messages.append(user_message)
+                 messages.append({'role':'assistant','content':ans})
+                 speaker=active_prof()[0].upper()
+                 web_mission_session.add(speaker,ans)
+@@ -10505,10 +10537,10 @@
+                     'verified',
+                     checks=[
+                         {'id':'chat_api_response','ok':True,'message':'Local chat API returned a response.'},
+-                        {'id':'image_attachment_verified','ok':True,'message':'Image bytes and metadata were verified before model submission.' if image else 'No image attachment was supplied.'},
++                        {'id':'image_attachment_verified','ok':True,'message':'Image bytes and metadata were verified before model submission.' if effective_image else 'No image context was supplied.'},
+                         {'id':'image_data_not_archived','ok':True,'message':'Mission Archive stores image metadata and SHA-256, never the base64 image payload.'},
+                     ],
+-                    details={'external_action_verified':False,'claim_flagged':claim_guard['flagged'],'profile_id':chat_profile_id,'image':mission_image_receipt_details(image)},
++                    details={'external_action_verified':False,'claim_flagged':claim_guard['flagged'],'profile_id':chat_profile_id,'image':mission_image_receipt_details(effective_image),'image_source':context['source']},
+                     actor='mission_console',
+                 )
+                 receipt_ms=round((time.perf_counter()-receipt_started)*1000,1)
+@@ -10523,7 +10555,7 @@
+                     'server_total_ms':round((time.perf_counter()-request_started)*1000,1),
+                 }
+                 archived=bool(archive_receipt.get('verified'))
+-                self.js({'ok':archived,'answer':ans,'speaker':speaker,'message':'Agent response returned but archive verification failed.' if not archived else 'Agent response archived.','route':'agent_fox','claim_guard':claim_guard,'route_receipt':route_receipt,'completion_receipt':completion_receipt,'archive_receipt':archive_receipt,'session_receipt':session_receipt,'timing':timing})
++                self.js({'ok':archived,'answer':ans,'speaker':speaker,'message':'Agent response returned but archive verification failed.' if not archived else 'Agent response archived.','route':'agent_fox','claim_guard':claim_guard,'route_receipt':route_receipt,'completion_receipt':completion_receipt,'archive_receipt':archive_receipt,'session_receipt':session_receipt,'timing':timing,'active_image':context['active_image']})
+                 return
+             except Exception as e:
+                 answer=f'Chat request failed: {e}'
+@@ -27753,6 +27785,9 @@
+     if key not in allowed: return {'ok':False,'message':'Selected model is not inside FOXAI Models.'}
+     profile=web_model_profile_runtime(m,profile_id)
+     if not profile.get('ok'): return profile
++    if not profile.get('vision'):
++        clear_active_mission_image()
++        messages[:]=compact_prior_images(messages)
+     settings=chat_server_settings()
+     runtime_settings=dict(settings)
+     runtime_settings.update({
+@@ -27802,6 +27837,8 @@
+ 
+ def stop_chat():
+     global chat_process,chat_profile_id
++    clear_active_mission_image()
++    messages[:]=compact_prior_images(messages)
+     result=web_llama_server.stop()
+     chat_process=web_llama_server.process
+     if result.ok:
+@@ -29733,7 +29770,7 @@
+ 
+ 
+ def status():
+-    PROJECTS.mkdir(exist_ok=True); LIB.mkdir(exist_ok=True); chat_online=check(CHAT_HEALTH); d={'root':str(ROOT),'drive_root':str(DRIVE),'kayock_browser':str(KAYOCK),'kayock_browser_found':KAYOCK.exists(),'engine':str(ENGINE),'engine_found':ENGINE.exists(),'chat_online':chat_online,'chat_model':chat_model,'chat_model_name':Path(chat_model).name if chat_model else None,'chat_profile_id':chat_profile_id if chat_online else '','chat_vision_enabled':bool(chat_online and active_chat_profile().get('vision')),'active_project':active_project,'projects':len([p for p in PROJECTS.iterdir() if p.is_dir()]),'projects_root':str(PROJECTS),'active_professor_name':active_prof()[0],'comfy_exists':COMFY_MAIN.exists(),'comfy_online':check('http://127.0.0.1:8188'),'chat_models':len(models()),'library_items':len(list(LIB.rglob('*'))) if LIB.exists() else 0,'library_pdfs':len(list(LIB.rglob('*.pdf'))) if LIB.exists() else 0}
++    PROJECTS.mkdir(exist_ok=True); LIB.mkdir(exist_ok=True); chat_online=check(CHAT_HEALTH); d={'root':str(ROOT),'drive_root':str(DRIVE),'kayock_browser':str(KAYOCK),'kayock_browser_found':KAYOCK.exists(),'engine':str(ENGINE),'engine_found':ENGINE.exists(),'chat_online':chat_online,'chat_model':chat_model,'chat_model_name':Path(chat_model).name if chat_model else None,'chat_profile_id':chat_profile_id if chat_online else '','chat_vision_enabled':bool(chat_online and active_chat_profile().get('vision')),'active_mission_image':mission_image_status()['active_image'],'active_project':active_project,'projects':len([p for p in PROJECTS.iterdir() if p.is_dir()]),'projects_root':str(PROJECTS),'active_professor_name':active_prof()[0],'comfy_exists':COMFY_MAIN.exists(),'comfy_online':check('http://127.0.0.1:8188'),'chat_models':len(models()),'library_items':len(list(LIB.rglob('*'))) if LIB.exists() else 0,'library_pdfs':len(list(LIB.rglob('*.pdf'))) if LIB.exists() else 0}
+     d.update(metric()); return d
+ 
+ def main():

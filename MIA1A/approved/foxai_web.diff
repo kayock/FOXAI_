@@ -1,0 +1,708 @@
+--- a/core/foxai_web.py
++++ b/core/foxai_web.py
+@@ -5,6 +5,8 @@
+ import importlib.util
+ import json
+ import hashlib
++import base64
++import binascii
+ import re, os, re, sys, time, subprocess, shutil, py_compile
+ from pathlib import Path
+ from datetime import datetime
+@@ -60,7 +62,7 @@
+ def professor_system_prompt(key):
+     return PROF.get(key,PROF['fox'])[3]+'\n\n'+SECURITY_SYSTEM_RULES
+ 
+-prof='fox'; active_project=None; chat_model=None; chat_process=None
++prof='fox'; active_project=None; chat_model=None; chat_process=None; chat_profile_id=''
+ web_llama_server=LlamaServer(interface_name='WebUI',new_console=True)
+ messages=[{'role':'system','content':professor_system_prompt(prof)}]
+ web_mission_session=MissionSession(ROOT,interface_name='WebUI')
+@@ -249,6 +251,9 @@
+     for b in bases:
+         if b.exists():
+             for p in b.rglob('*.gguf'):
++                lowered=p.name.casefold()
++                if 'mmproj' in lowered or 'projector' in lowered:
++                    continue
+                 k=str(p.resolve()).lower()
+                 if k not in seen: seen.add(k); out.append(p)
+     return sorted(out,key=lambda p:p.name.lower())
+@@ -260,6 +265,203 @@
+     import urllib.request
+     req=urllib.request.Request(url,data=json.dumps(payload).encode(),headers={'Content-Type':'application/json'})
+     with urllib.request.urlopen(req,timeout=timeout) as r: return json.loads(r.read().decode(errors='replace'))
++
++# MISSION_IMAGE_ATTACHMENTS_PHASE1_HELPERS_START
++MISSION_IMAGE_MAX_BYTES=6*1024*1024
++MISSION_JSON_MAX_BYTES=9*1024*1024
++MISSION_IMAGE_ALLOWED_MIME={'image/png','image/jpeg','image/webp'}
++VISION_PROJECTOR_FILENAME='mmproj-Qwen3VL-8B-Instruct-Q8_0.gguf'
++VISION_PROJECTOR_SHA256='c6ba85508d82f42590e6eb77d5340369ab6fecf107a7561d809523d8aa5f3bfd'
++_vision_projector_cache={}
++
++class MissionRequestError(ValueError):
++    def __init__(self,message,status=400):
++        super().__init__(message)
++        self.status=int(status)
++
++def verified_vision_projector():
++    candidates=[
++        ROOT/'Models'/'Chat'/VISION_PROJECTOR_FILENAME,
++        ROOT/'Models'/VISION_PROJECTOR_FILENAME,
++        ROOT/'models'/VISION_PROJECTOR_FILENAME,
++    ]
++    projector=next((p for p in candidates if p.is_file()),None)
++    if projector is None:
++        return {'ok':False,'message':f'Missing verified vision projector: {VISION_PROJECTOR_FILENAME}.'}
++    stat=projector.stat(); cache_key=(str(projector.resolve()),stat.st_size,stat.st_mtime_ns)
++    actual=_vision_projector_cache.get(cache_key)
++    if actual is None:
++        digest=hashlib.sha256()
++        with projector.open('rb') as handle:
++            for block in iter(lambda:handle.read(4*1024*1024),b''):
++                digest.update(block)
++        actual=digest.hexdigest()
++        _vision_projector_cache.clear();_vision_projector_cache[cache_key]=actual
++    if actual != VISION_PROJECTOR_SHA256:
++        return {'ok':False,'message':'Vision projector identity check failed. No engine action occurred.','path':str(projector),'actual_sha256':actual}
++    return {'ok':True,'path':str(projector),'name':projector.name,'sha256':actual,'size_bytes':stat.st_size}
++
++def active_chat_profile():
++    profile=WEB_MODEL_PROFILE_RUNTIME.get(chat_profile_id) if chat_profile_id else None
++    return profile or {}
++
++def mission_image_identity(payload):
++    if payload.startswith(b'\x89PNG\r\n\x1a\n'):
++        if len(payload)<24 or payload[12:16]!=b'IHDR':
++            raise MissionRequestError('PNG image header is invalid.')
++        return 'image/png',int.from_bytes(payload[16:20],'big'),int.from_bytes(payload[20:24],'big')
++    if payload.startswith(b'\xff\xd8'):
++        position=2
++        sof={0xC0,0xC1,0xC2,0xC3,0xC5,0xC6,0xC7,0xC9,0xCA,0xCB,0xCD,0xCE,0xCF}
++        while position<len(payload):
++            while position<len(payload) and payload[position]==0xFF:
++                position+=1
++            if position>=len(payload):break
++            marker=payload[position];position+=1
++            if marker in {0x01,0xD0,0xD1,0xD2,0xD3,0xD4,0xD5,0xD6,0xD7,0xD8,0xD9}:
++                continue
++            if position+2>len(payload):break
++            length=int.from_bytes(payload[position:position+2],'big')
++            if length<2 or position+length>len(payload):break
++            if marker in sof:
++                if length<7:break
++                height=int.from_bytes(payload[position+3:position+5],'big')
++                width=int.from_bytes(payload[position+5:position+7],'big')
++                return 'image/jpeg',width,height
++            position+=length
++        raise MissionRequestError('JPEG dimensions could not be verified.')
++    if len(payload)>=30 and payload[:4]==b'RIFF' and payload[8:12]==b'WEBP':
++        kind=payload[12:16]
++        if kind==b'VP8X':
++            width=1+int.from_bytes(payload[24:27],'little')
++            height=1+int.from_bytes(payload[27:30],'little')
++            return 'image/webp',width,height
++        if kind==b'VP8L' and len(payload)>=25 and payload[20]==0x2F:
++            b1,b2,b3,b4=payload[21:25]
++            width=1+(b1|((b2&0x3F)<<8))
++            height=1+(((b2&0xC0)>>6)|(b3<<2)|((b4&0x0F)<<10))
++            return 'image/webp',width,height
++        if kind==b'VP8 ' and len(payload)>=30 and payload[23:26]==b'\x9d\x01\x2a':
++            width=int.from_bytes(payload[26:28],'little')&0x3FFF
++            height=int.from_bytes(payload[28:30],'little')&0x3FFF
++            return 'image/webp',width,height
++        raise MissionRequestError('WebP dimensions could not be verified.')
++    raise MissionRequestError('Image bytes do not match PNG, JPEG, or WebP.')
++
++def validate_mission_image(raw):
++    if raw in (None,{},''):
++        return None
++    if not isinstance(raw,dict):
++        raise MissionRequestError('Image attachment metadata is invalid.')
++    data_url=str(raw.get('data_url') or '')
++    match=re.fullmatch(r'data:(image/(?:png|jpeg|webp));base64,([A-Za-z0-9+/=\r\n]+)',data_url)
++    if not match:
++        raise MissionRequestError('Only PNG, JPEG, and WebP image attachments are accepted.')
++    mime=match.group(1).lower()
++    if mime not in MISSION_IMAGE_ALLOWED_MIME:
++        raise MissionRequestError('Unsupported image attachment type.')
++    try:
++        payload=base64.b64decode(match.group(2),validate=True)
++    except (binascii.Error,ValueError) as exc:
++        raise MissionRequestError(f'Image attachment base64 is invalid: {exc}') from exc
++    if not payload:
++        raise MissionRequestError('Image attachment is empty.')
++    if len(payload)>MISSION_IMAGE_MAX_BYTES:
++        raise MissionRequestError('Image attachment exceeds the 6 MB limit.',413)
++    declared_size=raw.get('size')
++    if declared_size not in (None,''):
++        try:
++            declared_size=int(declared_size)
++        except (TypeError,ValueError) as exc:
++            raise MissionRequestError('Image attachment size metadata is invalid.') from exc
++        if declared_size!=len(payload):
++            raise MissionRequestError('Image attachment size verification failed.')
++    actual_sha256=hashlib.sha256(payload).hexdigest()
++    declared_sha256=str(raw.get('sha256') or '').strip().lower()
++    if declared_sha256 and declared_sha256!=actual_sha256:
++        raise MissionRequestError('Image attachment SHA-256 verification failed.')
++    actual_mime,width,height=mission_image_identity(payload)
++    if actual_mime!=mime:
++        raise MissionRequestError('Image MIME type does not match the uploaded bytes.')
++    try:
++        declared_width=int(raw.get('width') or 0);declared_height=int(raw.get('height') or 0)
++    except Exception as exc:
++        raise MissionRequestError('Image dimensions are invalid.') from exc
++    if declared_width!=width or declared_height!=height:
++        raise MissionRequestError('Image dimension verification failed.')
++    if width<1 or height<1 or width>8192 or height>8192:
++        raise MissionRequestError('Image dimensions must be between 1 and 8192 pixels.')
++    filename=Path(str(raw.get('name') or 'attached-image')).name[:180]
++    return {
++        'data_url':data_url,
++        'mime':mime,
++        'size_bytes':len(payload),
++        'sha256':actual_sha256,
++        'width':width,
++        'height':height,
++        'filename':filename,
++    }
++
++def mission_user_message(text,image=None):
++    clean_text=(text or '').strip() or 'Describe this image.'
++    if not image:
++        return {'role':'user','content':clean_text}
++    return {
++        'role':'user',
++        'content':[
++            {'type':'image_url','image_url':{'url':image['data_url']}},
++            {'type':'text','text':clean_text},
++        ],
++    }
++
++def mission_archive_user_text(text,image=None):
++    clean_text=(text or '').strip() or 'Describe this image.'
++    if not image:
++        return clean_text
++    return (
++        f"{clean_text}\n[Image attachment: {image['filename']} | {image['mime']} | "
++        f"{image['width']}×{image['height']} | {image['size_bytes']} bytes | "
++        f"SHA-256 {image['sha256']}]"
++    )
++
++def compact_prior_images(items):
++    compacted=[]
++    for message in items:
++        content=message.get('content') if isinstance(message,dict) else None
++        if not isinstance(content,list):
++            compacted.append(message);continue
++        text_parts=[];had_image=False
++        for part in content:
++            if not isinstance(part,dict):
++                continue
++            if part.get('type')=='text' and isinstance(part.get('text'),str):
++                text_parts.append(part['text'])
++            elif part.get('type')=='image_url':
++                had_image=True
++        replacement='\n'.join(text_parts).strip()
++        if had_image:
++            replacement=(replacement+'\n[Earlier image attachment omitted after a newer image was attached.]').strip()
++        compacted.append({'role':message.get('role','user'),'content':replacement})
++    return compacted
++
++def mission_request_messages(history,user_message,image=None):
++    base=compact_prior_images(history) if image else list(history)
++    return base+[user_message]
++
++def mission_image_receipt_details(image):
++    if not image:
++        return {'attached':False}
++    return {
++        'attached':True,
++        'filename':image['filename'],
++        'mime':image['mime'],
++        'size_bytes':image['size_bytes'],
++        'width':image['width'],
++        'height':image['height'],
++        'sha256':image['sha256'],
++        'data_archived':False,
++    }
++# MISSION_IMAGE_ATTACHMENTS_PHASE1_HELPERS_END
+ 
+ # GUARDED_STREAMING_PHASE2_HELPERS_START
+ _GUARDED_STREAM_BOUNDARY=re.compile(r'[.!?](?:["\')\]]*)?\s+|\n+')
+@@ -384,6 +586,7 @@
+ .activeProf{border-color:#ffd16688;box-shadow:0 0 28px #ffd16618}
+ #chatLog{height:390px;overflow:auto;background:#080a12;border:1px solid #332a55;border-radius:16px;padding:14px}
+ .chatstreamline{white-space:pre-wrap}.chatstreambody{white-space:pre-wrap}.streamnote{margin:8px 0;color:var(--m);font-size:12px}.streamcancel:disabled{opacity:.45;cursor:not-allowed}
++.imageattachbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:10px 0}.imagedrop{border:1px dashed #8f5cff77;background:#8f5cff0b;border-radius:15px;padding:12px;color:var(--m);transition:.15s;cursor:pointer}.imagedrop.drag{border-color:var(--c);background:#23d7ff12;color:var(--t)}.imagepreview{display:none;grid-template-columns:110px 1fr auto;gap:12px;align-items:center;border:1px solid #8f5cff55;background:#090b16;border-radius:15px;padding:10px;margin:8px 0}.imagepreview.show{display:grid}.imagepreview img{width:110px;height:82px;object-fit:contain;background:#05060b;border-radius:10px}.imagepreviewmeta{font-family:Consolas,monospace;font-size:12px;color:#ddd5f6;overflow-wrap:anywhere}.chatimage{display:grid;grid-template-columns:92px 1fr;gap:10px;align-items:center;margin:7px 0 10px;padding:8px;border:1px solid #23d7ff44;border-radius:12px;background:#23d7ff0b}.chatimage img{width:92px;height:68px;object-fit:contain;border-radius:8px;background:#05060b}.chatimagemeta{font-family:Consolas,monospace;font-size:11px;color:#bfefff}.visionhint{color:var(--c);font-size:12px;margin-top:6px}@media(max-width:700px){.imagepreview{grid-template-columns:82px 1fr}.imagepreview button{grid-column:1/-1}.imagepreview img{width:82px;height:68px}}
+ .user{color:#bfefff}.fox{color:#efe9ff}.sys{color:var(--w)}
+ .pulse{display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--g);box-shadow:0 0 14px var(--g);animation:p 1.2s infinite}@keyframes p{50%{opacity:.3}}
+ table{width:100%;border-collapse:collapse;font-family:Consolas,monospace;font-size:13px}
+@@ -427,7 +630,7 @@
+ <div class=card><h3>Resume Mission</h3><div id=resume class=status>No active mission.</div><button onclick="goMemory()">Open Mission Memory</button><button onclick="resumeMission()">Resume in Console</button></div><div class=card><h3>Projects</h3><button onclick="go('projects')">Open Projects</button></div><div class=card><h3>Artificial Minds</h3><button onclick="go('mission')">Open Mission Console</button></div><div class=card><h3>PromptSmith</h3><button onclick="go('prompts')">Open PromptSmith</button></div><div class=card><h3>Novel Forge</h3><button onclick="go('novelforge')">Open Novel Forge</button></div><div class="card wide"><h3>Live Command Bridge</h3><div id=bridgeLive class=status>Loading Bridge Feed...</div></div><div class="card wide"><h3>Recovery Foundation</h3><div id=recoveryDashCard class=status>Loading recovery health...</div><button onclick="loadRecoveryDashboard()">Refresh Recovery Health</button><button onclick="go('recoverytimeline')">Open Recovery Timeline</button><button onclick="sendRecoveryDashboardToMission()">Send Recovery Health to Mission</button></div><div class="card wide"><h3>Repair Shop</h3><div id=repairShopDashCard class=status>Loading Repair Shop health...</div><button onclick="loadRepairShopDashboardCard()">Refresh Repair Shop</button><button onclick="go('repairops')">Open Repair Shop</button><button onclick="go('repairdetail')">Open Action Detail</button><button onclick="sendRepairShopDashboardCardToMission()">Send Repair Shop Health to Mission</button></div><div class="card wide"><h3>Department Fleet</h3><div id=deptcards class=grid>Loading departments...</div></div><div class="card wide"><h3>Status</h3><div id=status class=status>Loading...</div></div></div></section>
+ <section id=projects class=page><div class=hero><h2>Project Workspace</h2><p>Create and resume local workspaces.</p></div><div class=grid><div class=card><h3>New Project</h3><input id=newProject placeholder="Project name"><button onclick="createProject()">Create</button></div><div class=card><h3>Projects Folder</h3><button onclick="api('/api/open/projects')">Open Folder</button><button onclick="loadProjects()">Refresh</button></div><div class="card wide"><h3>Available Projects</h3><div id=plist class=status>Loading...</div></div><div class="card wide"><h3>Project Notes</h3><div class=small>Active: <span id=pnoteTitle class=path>None</span></div><textarea id=pnote></textarea><button onclick="saveNote()">Save Note</button><button onclick="askProject()">Ask Agent About Project</button></div></div></section>
+ <section id=memory class=page><div class=hero><h2>Mission Memory</h2><p>Project state, tasks, and timeline persist on the USB.</p></div><div class=grid><div class="card wide"><h3>Mission State</h3><div id=memstate class=status>No active mission.</div><button onclick="resumeMission()">Resume Mission</button><button onclick="api('/api/memory/save');loadMemory()">Save Current State</button></div><div class=card><h3>Add Task</h3><input id=task placeholder="Task"><button onclick="addTask()">Add</button></div><div class="card wide"><h3>Tasks</h3><div id=tasks class=status>No tasks.</div></div><div class="card wide"><h3>Timeline</h3><div id=timeline class=status>No timeline.</div></div></div></section>
+-<section id=mission class=page><div class=hero><h2>Artificial Minds</h2><p>Choose a task profile, then explicitly start the selected local GGUF model.</p></div><div class="card wide"><h3><span id=pulse></span> <span id=mtitle>Agent Fox</span></h3><div class=modelprofileintro><b>Choose by task, not filename.</b><div class=small>Recommended for ordinary chat: ⚡ Fast Text. Selecting a profile changes only the pending choice; FOXAI never starts, stops, restarts, or silently switches the running engine.</div></div><div id=modelProfileGrid class=modelprofilegrid>Loading model profiles...</div><div id=modelProfileStatus class=modelprofilestatus>No profile selected yet.</div><details class=modelfallback><summary>Other installed GGUF models / exact filenames</summary><select id=model onchange="syncProfileFromSelect()"><option>Loading...</option></select></details><button onclick="startChat()">Start Selected Profile</button><button onclick="api('/api/chat/stop')">Stop Chat Engine</button><button onclick="api('/api/chat/reset');chat.innerHTML='Mission console reset.\n'">Reset</button><div class=streamnote>Guarded streaming releases complete sentence or newline chunks only after claim checking. Engineer commands and unsupported browsers use the verified non-streaming route.</div><div id=chatLog class=status>Mission console ready.</div><textarea id=input placeholder="Ask the active professor..." onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();send()}" ></textarea><button id=sendChatButton onclick="send()">Send</button><button id=cancelChatButton class=streamcancel onclick="cancelChat()" disabled>Cancel Generation</button></div></section>
++<section id=mission class=page><div class=hero><h2>Artificial Minds</h2><p>Choose a task profile, then explicitly start the selected local GGUF model.</p></div><div class="card wide"><h3><span id=pulse></span> <span id=mtitle>Agent Fox</span></h3><div class=modelprofileintro><b>Choose by task, not filename.</b><div class=small>Recommended for ordinary chat: ⚡ Fast Text. Selecting a profile changes only the pending choice; FOXAI never starts, stops, restarts, or silently switches the running engine.</div></div><div id=modelProfileGrid class=modelprofilegrid>Loading model profiles...</div><div id=modelProfileStatus class=modelprofilestatus>No profile selected yet.</div><details class=modelfallback><summary>Other installed GGUF models / exact filenames</summary><select id=model onchange="syncProfileFromSelect()"><option>Loading...</option></select></details><button onclick="startChat()">Start Selected Profile</button><button onclick="stopChatEngine()">Stop Chat Engine</button><button onclick="api('/api/chat/reset');chat.innerHTML='Mission console reset.\n';clearMissionImage()">Reset</button><div class=streamnote>Guarded streaming releases complete sentence or newline chunks only after claim checking. Engineer commands and unsupported browsers use the verified non-streaming route.</div><div class=visionhint>Image attachments require an explicitly started 👁️ Fast Vision or 🔎 Quality Vision profile. FOXAI never switches models automatically.</div><div id=chatLog class=status>Mission console ready.</div><div id=imageDrop class=imagedrop tabindex=0 role=button onclick="q('imageFile').click()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();q('imageFile').click()}">Drop one PNG, JPEG, or WebP here, or click to choose. Maximum 6 MB.</div><input id=imageFile type=file accept="image/png,image/jpeg,image/webp" hidden onchange="handleMissionImageFiles(this.files)"><div id=imagePreview class=imagepreview><img id=imagePreviewThumb alt="Attached image preview"><div id=imagePreviewMeta class=imagepreviewmeta></div><button type=button onclick="clearMissionImage()">Remove Image</button></div><textarea id=input placeholder="Ask the active professor..." onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();send()}" ></textarea><div class=imageattachbar><button type=button onclick="q('imageFile').click()">Attach Image</button><button id=sendChatButton onclick="send()">Send</button><button id=cancelChatButton class=streamcancel onclick="cancelChat()" disabled>Cancel Generation</button></div></div></section>
+ 
+ <section id=commandcenter class=page><div class=hero><h2>Command Center Foundation</h2><p>One command screen for the major Kayock Command OS foundations: Repair Shop, Recovery, Build, Environment, Portable readiness, Models, Scan Bridge, Project Docs, and Extensions.</p></div><div class=grid><div class="card wide"><h3>Command Center Controls</h3><button onclick="loadCommandCenter(false)">Load Command Center</button><button onclick="loadCommandCenter(true)">Export Command Center Report</button><button onclick="api('/api/open/command_center_reports')">Open Command Center Reports</button><button onclick="go('repairfreeze')">Open Repair Shop Freeze</button><button onclick="go('recoverytimeline')">Open Recovery Timeline</button><button onclick="sendCommandCenterToMission()">Send Command Center to Mission</button><div id=commandCenterStatus class=status>No Command Center report loaded yet.</div></div><div class="card wide"><h3>Foundation Summary</h3><div id=commandCenterSummary class=status>No summary yet.</div></div><div class="card wide"><h3>Foundation Health</h3><div id=commandCenterFoundations class=scanlist>No foundation data loaded yet.</div></div><div class="card wide"><h3>Attention</h3><div id=commandCenterAttention class=scanlist>No attention items loaded yet.</div></div><div class="card wide"><h3>Advisories</h3><div id=commandCenterAdvisories class=scanlist>No advisories loaded yet.</div></div><div class="card wide"><h3>Recommended Next</h3><div id=commandCenterNext class=scanlist>No recommendations loaded yet.</div></div><div class="card wide"><h3>Safety Contract</h3><div id=commandCenterSafety class=status>No safety contract loaded yet.</div></div></div></section>
+ 
+@@ -869,14 +1072,14 @@
+ <section id=logs class=page><div class=hero><h2>Logs</h2></div><div class=card><button onclick="api('/api/open/logs')">Open Logs</button><div id=status2 class=status></div></div></section>
+ <section id=settings class=page><div class=hero><h2>Settings</h2></div><div class=card><div id=paths class=status></div><button onclick="api('/api/open-url/github')">Open GitHub</button></div></section>
+ </main></div><div id=toast></div><script>
+-let activeProject=null, curLib='', missionData=null, modelCatalog=[], selectedProfileId='', chatStreamController=null; const chat=document.getElementById('chatLog');
++let activeProject=null, curLib='', missionData=null, modelCatalog=[], selectedProfileId='', activeProfileId='', pendingMissionImage=null, chatStreamController=null; const chat=document.getElementById('chatLog');
+ /* MODEL_PROFILE_SELECTOR_PHASE2_REGISTRY_START */
+ const MODEL_PROFILES=[
+  {id:'fast_text',label:'⚡ Fast Text',model:'Qwen3.5-4B-Q4_K_M.gguf',best:'Quick questions, short summaries, simple instructions, and casual chat.',speed:'Fastest verified text profile',vision:'No',reasoning:'Off',status:'BENCHMARK SUPPORTED',note:'10.87 median tok/s; exact instruction and length checks passed. Runtime launches with reasoning off and budget 0.',recommended:true},
+  {id:'balanced_text',label:'⚖️ Balanced Text',model:'Qwen3.5-9B-Q4_K_M.gguf',best:'Everyday writing, research discussion, longer answers, and general text work.',speed:'Moderate',vision:'No',reasoning:'Off',status:'BENCHMARK SUPPORTED',note:'5.75 median tok/s; exact instruction and length checks passed. Runtime launches with reasoning off and budget 0.',recommended:false},
+  {id:'creative_text',label:'🎭 Creative Text',model:'PsyLLM-8B-Q5_K_M.gguf',best:'Brainstorming, story hooks, dialogue seeds, poetic fragments, and roleplay ideas.',speed:'Moderate',vision:'No',reasoning:'Off',status:'BRAINSTORMING SUPPORTED • LONG-FORM PENDING',note:'All eight creative responses completed without wrapper or reasoning leaks. Story hooks passed exact constraints; seven tasks missed requested length or structure, so strict long-form work remains pending.',recommended:false},
+- {id:'fast_vision',label:'👁️ Fast Vision',model:'Qwen3VL-8B-Instruct-Q4_K_M.gguf',best:'Quick image understanding, screenshots, visible text, and general image questions.',speed:'Fast visual-language profile',vision:'Yes',reasoning:'Current engine behavior',status:'BENCHMARK SUPPORTED',note:'1.56× faster than Q8 in the fixed text benchmark; real image input pending.',recommended:false},
+- {id:'quality_vision',label:'🔎 Quality Vision',model:'Qwen3VL-8B-Instruct-Q8_0.gguf',best:'Detailed image analysis, complex scenes, and careful visual reasoning.',speed:'Quality-first / slower',vision:'Yes',reasoning:'Current engine behavior',status:'BENCHMARK SUPPORTED',note:'Current visual-language quality reference; real image input pending.',recommended:false}
++ {id:'fast_vision',label:'👁️ Fast Vision',model:'Qwen3VL-8B-Instruct-Q4_K_M.gguf',best:'Quick image understanding, screenshots, visible text, and general image questions.',speed:'Fast visual-language profile',vision:'Yes',reasoning:'Current engine behavior',status:'REAL IMAGE INPUT SUPPORTED • BENCHMARK PASSED',note:'Human-reviewed 5/5 real-image suite; 42.58s median and 6.56 tok/s. About 1.65× faster than Q8 with no observed quality loss on this suite.',recommended:false},
++ {id:'quality_vision',label:'🔎 Quality Vision',model:'Qwen3VL-8B-Instruct-Q8_0.gguf',best:'Detailed image analysis, complex scenes, and careful visual reasoning.',speed:'Quality-first / slower',vision:'Yes',reasoning:'Current engine behavior',status:'REAL IMAGE INPUT SUPPORTED • BENCHMARK PASSED',note:'Human-reviewed 5/5 real-image suite; 70.38s median and 4.17 tok/s. Higher precision remains available, but this suite did not prove a quality advantage.',recommended:false}
+ ];
+ /* MODEL_PROFILE_SELECTOR_PHASE2_REGISTRY_END */
+ function q(id){return document.getElementById(id)}function toast(s){q('toast').textContent=s;q('toast').style.display='block';setTimeout(()=>q('toast').style.display='none',4200)}
+@@ -952,37 +1155,51 @@
+  toast('Generation canceled. No partial assistant answer will be archived.');
+ }
+ function explicitEngineerMessage(text){return /^\s*(?:\/engineer(?:\s+|$)|engineer\s*[:,]\s*\S)/i.test(String(text||''))}
+-async function requestNonStreamingChat(text){
+- let response=await fetch('/api/chat/send',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message:text})});
++/* MISSION_IMAGE_ATTACHMENTS_PHASE1_BROWSER_START */
++const MISSION_IMAGE_MAX_BYTES=6*1024*1024;
++function activeVisionProfile(){let profile=modelProfileById(activeProfileId);return Boolean(profile&&profile.vision==='Yes')}
++function bytesLabel(value){let n=Number(value||0);if(n<1024)return `${n} B`;if(n<1024*1024)return `${(n/1024).toFixed(1)} KB`;return `${(n/1024/1024).toFixed(2)} MB`}
++async function sha256Hex(buffer){let digest=await crypto.subtle.digest('SHA-256',buffer);return Array.from(new Uint8Array(digest),b=>b.toString(16).padStart(2,'0')).join('')}
++function readFileDataUrl(file){return new Promise((resolve,reject)=>{let reader=new FileReader();reader.onload=()=>resolve(String(reader.result||''));reader.onerror=()=>reject(reader.error||new Error('Image read failed.'));reader.readAsDataURL(file)})}
++function readImageDimensions(dataUrl){return new Promise((resolve,reject)=>{let image=new Image();image.onload=()=>resolve({width:image.naturalWidth,height:image.naturalHeight});image.onerror=()=>reject(new Error('Image dimensions could not be read.'));image.src=dataUrl})}
++function renderMissionImage(){let box=q('imagePreview');if(!box)return;if(!pendingMissionImage){box.classList.remove('show');q('imagePreviewThumb').removeAttribute('src');q('imagePreviewMeta').textContent='';return}q('imagePreviewThumb').src=pendingMissionImage.data_url;q('imagePreviewMeta').textContent=`${pendingMissionImage.name}\n${pendingMissionImage.type} • ${pendingMissionImage.width}×${pendingMissionImage.height} • ${bytesLabel(pendingMissionImage.size)}\nSHA-256 ${pendingMissionImage.sha256}`;box.classList.add('show')}
++function clearMissionImage(){pendingMissionImage=null;let picker=q('imageFile');if(picker)picker.value='';renderMissionImage()}
++async function handleMissionImageFiles(files){let file=files&&files[0];if(!file)return;try{if(!['image/png','image/jpeg','image/webp'].includes(file.type))throw new Error('Choose a PNG, JPEG, or WebP image.');if(file.size<1||file.size>MISSION_IMAGE_MAX_BYTES)throw new Error('Image must be larger than 0 bytes and no more than 6 MB.');let buffer=await file.arrayBuffer(),dataUrl=await readFileDataUrl(file),dimensions=await readImageDimensions(dataUrl);if(dimensions.width<1||dimensions.height<1||dimensions.width>8192||dimensions.height>8192)throw new Error('Image dimensions must be between 1 and 8192 pixels.');pendingMissionImage={name:file.name,type:file.type,size:file.size,width:dimensions.width,height:dimensions.height,sha256:await sha256Hex(buffer),data_url:dataUrl};renderMissionImage();toast(`Image ready: ${file.name}. Start a vision profile before sending.`)}catch(error){clearMissionImage();toast(String(error?.message||error));logline('bad','SYSTEM',`Image attachment rejected: ${error?.message||error}`)}}
++function missionImagePayload(){if(!pendingMissionImage)return null;return {...pendingMissionImage}}
++function logMissionImage(image){if(!image)return;let row=document.createElement('div');row.className='chatimage';let thumb=document.createElement('img');thumb.src=image.data_url;thumb.alt='Attached image';let meta=document.createElement('div');meta.className='chatimagemeta';meta.textContent=`IMAGE ATTACHMENT\n${image.name}\n${image.width}×${image.height} • ${bytesLabel(image.size)}\nSHA-256 ${image.sha256}`;row.append(thumb,meta);chat.appendChild(row);chat.scrollTop=chat.scrollHeight}
++function setupMissionImageDrop(){let drop=q('imageDrop');if(!drop)return;['dragenter','dragover'].forEach(name=>drop.addEventListener(name,event=>{event.preventDefault();event.stopPropagation();drop.classList.add('drag')}));['dragleave','drop'].forEach(name=>drop.addEventListener(name,event=>{event.preventDefault();event.stopPropagation();drop.classList.remove('drag')}));drop.addEventListener('drop',event=>handleMissionImageFiles(event.dataTransfer?.files))}
++/* MISSION_IMAGE_ATTACHMENTS_PHASE1_BROWSER_END */
++async function requestNonStreamingChat(text,image=null){
++ let response=await fetch('/api/chat/send',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message:text,image})});
+  let d=await response.json();
+  if(d.answer)logline('fox',d.speaker||q('ap').textContent.toUpperCase(),d.answer);
+  if(!d.ok)logline('bad','ERROR',d.message||'Mission turn failed verification.');
+  return d;
+ }
+-async function requestGuardedStreamChat(text){
+- if(!globalThis.ReadableStream||!globalThis.TextDecoder)return requestNonStreamingChat(text);
++async function requestGuardedStreamChat(text,image=null){
++ if(!globalThis.ReadableStream||!globalThis.TextDecoder)return requestNonStreamingChat(text,image);
+  chatStreamController=new AbortController();
+  let response=await fetch('/api/chat/stream',{
+   method:'POST',
+   headers:{'Content-Type':'application/json'},
+-  body:JSON.stringify({message:text}),
++  body:JSON.stringify({message:text,image}),
+   signal:chatStreamController.signal
+  });
+  let contentType=String(response.headers.get('content-type')||'');
+  if(response.status===409&&contentType.includes('application/json')){
+   let fallback=await response.json();
+   chatStreamController=null;
+-  if(fallback.fallback==='/api/chat/send')return requestNonStreamingChat(text);
++  if(fallback.fallback==='/api/chat/send')return requestNonStreamingChat(text,image);
+   throw new Error(fallback.message||'Guarded stream unavailable.');
+  }
+  if(!response.ok&&[404,405,501].includes(response.status)){
+   chatStreamController=null;
+-  return requestNonStreamingChat(text);
++  return requestNonStreamingChat(text,image);
+  }
+  if(!response.ok)throw new Error(`Guarded stream HTTP ${response.status}`);
+  if(!response.body?.getReader){
+   chatStreamController=null;
+-  return requestNonStreamingChat(text);
++  return requestNonStreamingChat(text,image);
+  }
+  let reader=response.body.getReader(),decoder=new TextDecoder(),buffer='',streamLine=null,receivedChunk=false,finalEvent=null;
+  function handleEvent(event){
+@@ -1021,11 +1238,14 @@
+  return finalEvent;
+ }
+ async function send(){
+- let text=q('input').value.trim();if(!text)return;
++ let text=q('input').value.trim(),image=missionImagePayload();if(!text&&!image)return;
++ if(image&&!activeVisionProfile()){let active=modelProfileById(activeProfileId);let message=active?`The active profile is ${active.label}, which is not a vision profile. Select and explicitly start Fast Vision or Quality Vision; no model switch occurred.`:'No verified vision profile is active. Select and explicitly start Fast Vision or Quality Vision; no model switch occurred.';logline('bad','SYSTEM',message);toast(message);return}
++ if(image&&explicitEngineerMessage(text)){let message='Engineer image inspection is not enabled. Remove the image or use ordinary vision chat.';logline('bad','SYSTEM',message);toast(message);return}
++ let prompt=text||(image?'Describe this image.':'');
+  let browserStarted=performance.now(),d=null;
+- q('input').value='';logline('user','ERIC',text);think(true);
++ q('input').value='';logline('user','ERIC',prompt);logMissionImage(image);think(true);
+  try{
+-  d=explicitEngineerMessage(text)?await requestNonStreamingChat(text):await requestGuardedStreamChat(text);
++  d=explicitEngineerMessage(prompt)?await requestNonStreamingChat(prompt,null):await requestGuardedStreamChat(prompt,image);
+  }catch(e){
+   if(e?.name==='AbortError'){
+    logline('bad','SYSTEM','Generation canceled. No partial assistant answer was archived.');
+@@ -1036,6 +1256,7 @@
+   }
+  }finally{
+   chatStreamController=null;think(false);
++  if(d?.ok&&image)clearMissionImage();
+   let browserMs=performance.now()-browserStarted,modelMs=Number(d?.timing?.model_ms||0),firstMs=Number(d?.timing?.first_guarded_chunk_ms||0);
+   q('ms').textContent=modelMs>0?`READY • ${(browserMs/1000).toFixed(1)}s total • ${(modelMs/1000).toFixed(1)}s model${firstMs>0?` • ${(firstMs/1000).toFixed(1)}s first guarded`:''}`:`READY • ${(browserMs/1000).toFixed(1)}s`;
+   loadMemory();refresh();
+@@ -1099,7 +1320,8 @@
+ /* MODEL_PROFILE_SELECTOR_PHASE2_BEHAVIOR_END */
+ async function loadProf(){let d=await (await fetch('/api/professors')).json();q('profgrid').innerHTML=Object.entries(d.professors).map(([k,p])=>`<div class="card prof ${k===d.active?'activeProf':''}"><h3>${esc(p.name)}</h3><div class=warn>${esc(p.college)}</div><p class=small><i>"${esc(p.motto)}"</i></p><button onclick="setProf('${k}')">${k===d.active?'Active':'Activate'}</button><button onclick="setProf('${k}').then(()=>go('mission'))">Use in Mission</button></div>`).join('')}
+ async function setProf(k){let d=await api('/api/professor/set',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({key:k})}); if(d?.ok){logline('sys','ACADEMY',d.message);loadProf();loadMemory()}}
+-async function startChat(){let d=await api('/api/chat/start',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:q('model').value,profile:selectedProfileId||''})}); logline(d?.ok?'sys':'bad','SYSTEM',d?.message||'start failed');loadMemory()}
++async function startChat(){let requestedProfile=selectedProfileId||'';let d=await api('/api/chat/start',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:q('model').value,profile:requestedProfile})});if(d?.ok){activeProfileId=String(d?.runtime?.profile_id||requestedProfile||'');}logline(d?.ok?'sys':'bad','SYSTEM',d?.message||'start failed');loadMemory();refresh()}
++async function stopChatEngine(){let d=await api('/api/chat/stop');if(d?.ok)activeProfileId='';clearMissionImage();logline(d?.ok?'sys':'bad','SYSTEM',d?.message||'stop failed');refresh()}
+ async function loadProjects(){let d=await (await fetch('/api/projects/list')).json();q('plist').innerHTML='<div class=grid>'+d.projects.map(p=>`<div class="card project"><h3>🗂 ${esc(p.name)}</h3><p class=small>Files: ${p.files} | Updated: ${esc(p.modified)}</p><button onclick="selectProject('${js(p.name)}')">Select</button><button onclick="api('/api/projects/open?name=${encodeURIComponent(p.name)}')">Open Folder</button></div>`).join('')+'</div>'}
+ async function createProject(){let name=q('newProject').value.trim();if(!name)return toast('Enter a project name.');let d=await api('/api/projects/create',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name})});if(d?.ok){q('newProject').value='';loadProjects();selectProject(d.name)}}
+ async function selectProject(name){let d=await (await fetch('/api/projects/select',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name})})).json();toast(d.message);if(d.ok){activeProject=d.name;q('apro').textContent=d.name;q('pnoteTitle').textContent=d.name;q('pnote').value=d.note||'';loadMemory();refresh()}}
+@@ -9515,8 +9737,8 @@
+     q('tripSentryOmega').textContent=`Ω OMEGA PROTOCOL\nTEST FAILED CLOSED\n\n${d?.message||'Fox Sentry did not return a verified receipt.'}`;
+ }
+ 
+-async function refresh(){let s=await (await fetch('/api/status')).json();let lines=[`Root: ${s.root}`,`Kayock Browser: ${s.kayock_browser_found?'found':'missing'}`,`Engine: ${s.engine_found?'found':'missing'}`,`Chat online: ${s.chat_online?'yes':'no'}`,`Active project: ${s.active_project||'None'}`,`Projects: ${s.projects}`,`ComfyUI: ${s.comfy_online?'online':'offline'}`,`Chat models: ${s.chat_models}`,`Library items: ${s.library_items}`,`PDFs: ${s.library_pdfs}`];q('status').textContent=lines.join('\n');q('status2').textContent=lines.join('\n');q('paths').textContent=`Root: ${s.root}\nDrive: ${s.drive_root}\nBrowser: ${s.kayock_browser}\nEngine: ${s.engine}\nProjects: ${s.projects_root}`;q('am').textContent=s.chat_model_name||'None';q('ap').textContent=s.active_professor_name||'Agent Fox';q('mtitle').textContent=s.active_professor_name||'Agent Fox';q('apro').textContent=s.active_project||'None';q('rt').textContent=s.chat_online?'ONLINE':'OFFLINE';q('cpu').textContent=s.cpu_percent!==null?`${s.cpu_percent}%`:'n/a';q('ram').textContent=s.ram_used_gb!==null?`${s.ram_used_gb}/${s.ram_total_gb} GB (${s.ram_percent}%)`:'n/a';q('ramm').style.width=s.ram_percent!==null?`${s.ram_percent}%`:'0%';q('quick').innerHTML=`<span class="pill ${s.engine_found?'ok':'bad'}">Engine ${s.engine_found?'Found':'Missing'}</span><br><span class="pill ${s.chat_online?'ok':'warn'}">Chat ${s.chat_online?'Online':'Offline'}</span><br><span class="pill ${s.comfy_online?'ok':'warn'}">ComfyUI ${s.comfy_online?'Online':'Offline'}</span>`}
+-initDepartmentNav();loadModels();loadProf();loadProjects();loadMemory();loadBridge();loadRecoveryDashboard();loadFoxSentryIncidents();refresh();setInterval(refresh,8000);setInterval(loadBridge,10000)
++async function refresh(){let s=await (await fetch('/api/status')).json();let lines=[`Root: ${s.root}`,`Kayock Browser: ${s.kayock_browser_found?'found':'missing'}`,`Engine: ${s.engine_found?'found':'missing'}`,`Chat online: ${s.chat_online?'yes':'no'}`,`Active project: ${s.active_project||'None'}`,`Projects: ${s.projects}`,`ComfyUI: ${s.comfy_online?'online':'offline'}`,`Chat models: ${s.chat_models}`,`Library items: ${s.library_items}`,`PDFs: ${s.library_pdfs}`];q('status').textContent=lines.join('\n');q('status2').textContent=lines.join('\n');q('paths').textContent=`Root: ${s.root}\nDrive: ${s.drive_root}\nBrowser: ${s.kayock_browser}\nEngine: ${s.engine}\nProjects: ${s.projects_root}`;q('am').textContent=s.chat_model_name||'None';activeProfileId=String(s.chat_profile_id||'');q('ap').textContent=s.active_professor_name||'Agent Fox';q('mtitle').textContent=s.active_professor_name||'Agent Fox';q('apro').textContent=s.active_project||'None';q('rt').textContent=s.chat_online?'ONLINE':'OFFLINE';q('cpu').textContent=s.cpu_percent!==null?`${s.cpu_percent}%`:'n/a';q('ram').textContent=s.ram_used_gb!==null?`${s.ram_used_gb}/${s.ram_total_gb} GB (${s.ram_percent}%)`:'n/a';q('ramm').style.width=s.ram_percent!==null?`${s.ram_percent}%`:'0%';q('quick').innerHTML=`<span class="pill ${s.engine_found?'ok':'bad'}">Engine ${s.engine_found?'Found':'Missing'}</span><br><span class="pill ${s.chat_online?'ok':'warn'}">Chat ${s.chat_online?'Online':'Offline'}</span><br><span class="pill ${s.comfy_online?'ok':'warn'}">ComfyUI ${s.comfy_online?'Online':'Offline'}</span>`}
++initDepartmentNav();setupMissionImageDrop();loadModels();loadProf();loadProjects();loadMemory();loadBridge();loadRecoveryDashboard();loadFoxSentryIncidents();refresh();setInterval(refresh,8000);setInterval(loadBridge,10000)
+ </script></body></html>"""
+ 
+ 
+@@ -9620,7 +9842,15 @@
+ 
+ class Handler(BaseHTTPRequestHandler):
+     def body(self):
+-        n=int(self.headers.get('Content-Length','0') or 0); return json.loads(self.rfile.read(n).decode(errors='replace')) if n else {}
++        n=int(self.headers.get('Content-Length','0') or 0)
++        if n<0 or n>MISSION_JSON_MAX_BYTES:
++            raise MissionRequestError('JSON request exceeds the 9 MB limit.',413)
++        if not n:
++            return {}
++        try:
++            return json.loads(self.rfile.read(n).decode('utf-8',errors='strict'))
++        except (UnicodeDecodeError,json.JSONDecodeError) as exc:
++            raise MissionRequestError(f'Invalid JSON request: {exc}') from exc
+     def sendit(self,b,ct='text/html; charset=utf-8'):
+         self.send_response(200); self.send_header('Content-Type',ct); self.send_header('Cache-Control','no-store'); self.end_headers(); self.wfile.write(b)
+     def js(self,d): self.sendit(json.dumps(d,indent=2).encode(),'application/json; charset=utf-8')
+@@ -9689,8 +9919,17 @@
+             f.mkdir(parents=True,exist_ok=True); os.startfile(str(f)); receipt=make_tool_receipt('shell.open_folder','requested',details={'path':str(f)},actor='operator'); self.js({'ok':True,'message':f'Folder open request sent for {f}; Explorer state is not verified.','receipt':receipt,'claim_state':'requested'}); return
+         self.send_response(404); self.end_headers()
+     def do_POST(self):
+-        global prof, active_project, chat_model, chat_process
+-        path=urlparse(self.path).path; d=self.body()
++        global prof, active_project, chat_model, chat_process, chat_profile_id
++        path=urlparse(self.path).path
++        try:
++            d=self.body()
++        except MissionRequestError as exc:
++            self.send_response(exc.status)
++            self.send_header('Content-Type','application/json; charset=utf-8')
++            self.send_header('Cache-Control','no-store')
++            self.end_headers()
++            self.wfile.write(json.dumps({'ok':False,'message':str(exc)}).encode('utf-8'))
++            return
+         if path=='/api/security/trip_sentry_test': self.js(trip_sentry_test(d)); return
+         if path=='/api/generate/root_manifest/preview': self.js(project_manifest_preview(d)); return
+         if path=='/api/generate/department_readme/preview': self.js(department_readme_preview(d)); return
+@@ -9800,8 +10039,33 @@
+         # GUARDED_STREAMING_PHASE2_ROUTE_START
+         if path=='/api/chat/stream':
+             text=(d.get('message') or '').strip()
+-            if not text:
++            try:
++                image=validate_mission_image(d.get('image'))
++            except MissionRequestError as exc:
++                self.send_response(exc.status)
++                self.send_header('Content-Type','application/json; charset=utf-8')
++                self.send_header('Cache-Control','no-store')
++                self.end_headers()
++                self.wfile.write(json.dumps({'ok':False,'message':str(exc)}).encode('utf-8'))
++                return
++            if not text and not image:
+                 self.js({'ok':False,'message':'Empty message.'})
++                return
++            text=text or 'Describe this image.'
++            profile=active_chat_profile()
++            if image and not bool(profile.get('vision')):
++                self.send_response(409)
++                self.send_header('Content-Type','application/json; charset=utf-8')
++                self.send_header('Cache-Control','no-store')
++                self.end_headers()
++                self.wfile.write(json.dumps({'ok':False,'message':'A verified Fast Vision or Quality Vision profile must be explicitly active. No model switch occurred.'}).encode('utf-8'))
++                return
++            if image and is_explicit_engineer_command(text):
++                self.send_response(409)
++                self.send_header('Content-Type','application/json; charset=utf-8')
++                self.send_header('Cache-Control','no-store')
++                self.end_headers()
++                self.wfile.write(json.dumps({'ok':False,'message':'Engineer image inspection is not enabled.','fallback':None}).encode('utf-8'))
+                 return
+             if is_explicit_engineer_command(text):
+                 self.send_response(409)
+@@ -9837,7 +10101,7 @@
+                         {'id':'explicit_engineer_command_absent','ok':True,'message':'Guarded streaming is limited to ordinary Agent Fox chat.'},
+                         {'id':'agent_fox_privilege_boundary','ok':True,'message':'Model text cannot invoke Engineer or Repair Chamber.'},
+                     ],
+-                    details={'route':'agent_fox','professor':active_prof()[0],'transport':'guarded_sentence_ndjson'},
++                    details={'route':'agent_fox','professor':active_prof()[0],'transport':'guarded_sentence_ndjson','profile_id':chat_profile_id,'image':mission_image_receipt_details(image)},
+                     actor='operator',
+                 )
+ 
+@@ -9846,7 +10110,7 @@
+                 health_ms=round((time.perf_counter()-health_started)*1000,1)
+                 if not chat_online:
+                     answer='Chat engine is offline. Start Chat Engine first.'
+-                    web_mission_session.add('ERIC',text)
++                    web_mission_session.add('ERIC',mission_archive_user_text(text,image))
+                     web_mission_session.add('SYSTEM',answer)
+                     archive_started=time.perf_counter()
+                     archive_receipt=web_mission_session.save()
+@@ -9865,7 +10129,8 @@
+                     })
+                     return
+ 
+-                request_messages=messages+[{'role':'user','content':text}]
++                user_message=mission_user_message(text,image)
++                request_messages=mission_request_messages(messages,user_message,image)
+                 speaker=active_prof()[0].upper()
+                 self.start_ndjson();stream_started=True
+                 self.ndjson({
+@@ -9923,10 +10188,12 @@
+                 final_guard_ms=round((time.perf_counter()-guard_started)*1000,1)
+                 guard_ms=round(chunk_guard_ms+final_guard_ms,1)
+ 
+-                messages.append({'role':'user','content':text})
++                if image:
++                    messages[:]=compact_prior_images(messages)
++                messages.append(user_message)
+                 messages.append({'role':'assistant','content':ans})
+-                timeline(active_project,'Message sent to Mission Console') if active_project else None
+-                web_mission_session.add('ERIC',text)
++                timeline(active_project,'Image sent to Mission Console' if image else 'Message sent to Mission Console') if active_project else None
++                web_mission_session.add('ERIC',mission_archive_user_text(text,image))
+                 web_mission_session.add(speaker,ans)
+ 
+                 archive_started=time.perf_counter()
+@@ -9945,9 +10212,13 @@
+                         {'id':'chat_api_stream_completed','ok':True,'message':'Local chat API completed its stream.'},
+                         {'id':'raw_tokens_not_exposed','ok':True,'message':'Only complete guarded units were sent to the browser.'},
+                         {'id':'final_full_answer_guarded','ok':True,'message':'The complete answer was claim-guarded before archive and final display.'},
++                        {'id':'image_attachment_verified','ok':True,'message':'Image bytes and metadata were verified before model submission.' if image else 'No image attachment was supplied.'},
++                        {'id':'image_data_not_archived','ok':True,'message':'Mission Archive stores image metadata and SHA-256, never the base64 image payload.'},
+                     ],
+                     details={
+                         'external_action_verified':False,
++                        'profile_id':chat_profile_id,
++                        'image':mission_image_receipt_details(image),
+                         'claim_flagged':bool(claim_guard.get('flagged') or chunk_flagged),
+                         'transport':'guarded_sentence_ndjson',
+                         'stream_chunks':stream_chunks,
+@@ -10018,12 +10289,27 @@
+         # GUARDED_STREAMING_PHASE2_ROUTE_END
+         if path=='/api/chat/send':
+             text=(d.get('message') or '').strip()
+-            if not text:
++            try:
++                image=validate_mission_image(d.get('image'))
++            except MissionRequestError as exc:
++                self.send_response(exc.status)
++                self.send_header('Content-Type','application/json; charset=utf-8')
++                self.send_header('Cache-Control','no-store')
++                self.end_headers()
++                self.wfile.write(json.dumps({'ok':False,'message':str(exc)}).encode('utf-8'))
++                return
++            if not text and not image:
+                 self.js({'ok':False,'message':'Empty message.'})
+                 return
++            text=text or 'Describe this image.'
++            profile=active_chat_profile()
++            if image and not bool(profile.get('vision')):
++                self.js({'ok':False,'message':'A verified Fast Vision or Quality Vision profile must be explicitly active. No model switch occurred.'});return
++            if image and is_explicit_engineer_command(text):
++                self.js({'ok':False,'message':'Engineer image inspection is not enabled.'});return
+ 
+             session_receipt=ensure_web_mission_session()
+-            web_mission_session.add('ERIC',text)
++            web_mission_session.add('ERIC',mission_archive_user_text(text,image))
+             explicit_engineer=is_explicit_engineer_command(text)
+ 
+             if explicit_engineer:
+@@ -10154,7 +10440,7 @@
+                     {'id':'explicit_engineer_command_absent','ok':not explicit_engineer,'message':'Ordinary chat remains with the active WebUI professor.'},
+                     {'id':'agent_fox_privilege_boundary','ok':True,'message':'Agent/model text was not allowed to invoke Engineer.'},
+                 ],
+-                details={'route':'agent_fox','professor':active_prof()[0]},
++                details={'route':'agent_fox','professor':active_prof()[0],'profile_id':chat_profile_id,'image':mission_image_receipt_details(image)},
+                 actor='operator',
+             )
+ 
+@@ -10179,11 +10465,17 @@
+                 self.js({'ok':False,'answer':answer,'speaker':'SYSTEM','message':answer,'route':'agent_fox','route_receipt':route_receipt,'archive_receipt':archive_receipt,'session_receipt':session_receipt,'timing':timing})
+                 return
+ 
+-            messages.append({'role':'user','content':text})
+-            timeline(active_project,'Message sent to Mission Console') if active_project else None
++            user_message=mission_user_message(text,image)
++            if image:
++                request_messages=mission_request_messages(messages,user_message,image)
++                timeline(active_project,'Image sent to Mission Console') if active_project else None
++            else:
++                messages.append(user_message)
++                request_messages=messages
++                timeline(active_project,'Message sent to Mission Console') if active_project else None
+             try:
+                 model_started=time.perf_counter()
+-                r=post(CHAT_API,{'model':'local-model','messages':messages,'temperature':0.7,'max_tokens':768,'stream':False})
++                r=post(CHAT_API,{'model':'local-model','messages':request_messages,'temperature':0.7,'max_tokens':768,'stream':False})
+                 model_ms=round((time.perf_counter()-model_started)*1000,1)
+ 
+                 guard_started=time.perf_counter()
+@@ -10192,6 +10484,9 @@
+                 ans=claim_guard['text']
+                 guard_ms=round((time.perf_counter()-guard_started)*1000,1)
+ 
++                if image:
++                    messages[:]=compact_prior_images(messages)
++                    messages.append(user_message)
+                 messages.append({'role':'assistant','content':ans})
+                 speaker=active_prof()[0].upper()
+                 web_mission_session.add(speaker,ans)
+@@ -10208,8 +10503,12 @@
+                 completion_receipt=make_tool_receipt(
+                     'chat_completion',
+                     'verified',
+-                    checks=[{'id':'chat_api_response','ok':True,'message':'Local chat API returned a response.'}],
+-                    details={'external_action_verified':False,'claim_flagged':claim_guard['flagged']},
++                    checks=[
++                        {'id':'chat_api_response','ok':True,'message':'Local chat API returned a response.'},
++                        {'id':'image_attachment_verified','ok':True,'message':'Image bytes and metadata were verified before model submission.' if image else 'No image attachment was supplied.'},
++                        {'id':'image_data_not_archived','ok':True,'message':'Mission Archive stores image metadata and SHA-256, never the base64 image payload.'},
++                    ],
++                    details={'external_action_verified':False,'claim_flagged':claim_guard['flagged'],'profile_id':chat_profile_id,'image':mission_image_receipt_details(image)},
+                     actor='mission_console',
+                 )
+                 receipt_ms=round((time.perf_counter()-receipt_started)*1000,1)
+@@ -27364,6 +27663,7 @@
+         'message':f'VERIFIED: Shared chat engine online with {model.name}. WebUI mission session ready.',
+         'receipt':receipt,
+         'session_receipt':session_receipt,
++        'runtime':settings,
+         'claim_state':'verified',
+     }
+ 
+@@ -27391,12 +27691,18 @@
+         'model_filename':'Qwen3VL-8B-Instruct-Q4_K_M.gguf',
+         'reasoning_mode':'current',
+         'reasoning_budget':None,
++        'vision':True,
++        'projector_filename':VISION_PROJECTOR_FILENAME,
++        'projector_sha256':VISION_PROJECTOR_SHA256,
+     },
+     'quality_vision':{
+         'label':'🔎 Quality Vision',
+         'model_filename':'Qwen3VL-8B-Instruct-Q8_0.gguf',
+         'reasoning_mode':'current',
+         'reasoning_budget':None,
++        'vision':True,
++        'projector_filename':VISION_PROJECTOR_FILENAME,
++        'projector_sha256':VISION_PROJECTOR_SHA256,
+     },
+ }
+ 
+@@ -27409,6 +27715,9 @@
+             'label':'Exact GGUF',
+             'reasoning_mode':'current',
+             'reasoning_budget':None,
++            'vision':False,
++            'projector_path':None,
++            'projector_sha256':None,
+             'require_verified_settings':False,
+         }
+     profile=WEB_MODEL_PROFILE_RUNTIME.get(profile_key)
+@@ -27421,17 +27730,25 @@
+             'ok':False,
+             'message':'Selected model does not match the requested profile. No engine action occurred.',
+         }
++    projector=None
++    if profile.get('vision'):
++        projector=verified_vision_projector()
++        if not projector.get('ok'):
++            return projector
+     return {
+         'ok':True,
+         'profile_id':profile_key,
+         'label':profile['label'],
+         'reasoning_mode':profile['reasoning_mode'],
+         'reasoning_budget':profile['reasoning_budget'],
++        'vision':bool(profile.get('vision')),
++        'projector_path':projector.get('path') if projector else None,
++        'projector_sha256':projector.get('sha256') if projector else None,
+         'require_verified_settings':True,
+     }
+ 
+ def start_chat(model_path,profile_id=''):
+-    global chat_model,chat_process
++    global chat_model,chat_process,chat_profile_id
+     m=Path(model_path); allowed={str(p.resolve()).lower():p for p in models()}; key=str(m.resolve()).lower() if m.exists() else ''
+     if key not in allowed: return {'ok':False,'message':'Selected model is not inside FOXAI Models.'}
+     profile=web_model_profile_runtime(m,profile_id)
+@@ -27443,6 +27760,9 @@
+         'profile_label':profile['label'],
+         'reasoning_mode':profile['reasoning_mode'],
+         'reasoning_budget':profile['reasoning_budget'],
++        'vision':profile['vision'],
++        'projector_path':profile['projector_path'],
++        'projector_sha256':profile['projector_sha256'],
+         'settings_verified':profile['require_verified_settings'],
+     })
+     result=web_llama_server.ensure_running(
+@@ -27451,6 +27771,7 @@
+         port=settings['port'],
+         context=settings['context'],
+         threads=settings['threads'],
++        projector=profile['projector_path'],
+         reasoning_mode=profile['reasoning_mode'],
+         reasoning_budget=profile['reasoning_budget'],
+         require_verified_settings=profile['require_verified_settings'],
+@@ -27465,6 +27786,7 @@
+         if not ready.ok:
+             return _shared_chat_failure(ready)
+         chat_model=str(m)
++        chat_profile_id=profile['profile_id']
+         session_receipt=begin_web_mission_session()
+         return _verified_shared_chat_response(m,result,ready,runtime_settings,session_receipt)
+ 
+@@ -27474,14 +27796,16 @@
+         return _shared_chat_failure(ready)
+ 
+     chat_model=str(m)
++    chat_profile_id=profile['profile_id']
+     session_receipt=begin_web_mission_session()
+     return _verified_shared_chat_response(m,result,ready,runtime_settings,session_receipt)
+ 
+ def stop_chat():
+-    global chat_process
++    global chat_process,chat_profile_id
+     result=web_llama_server.stop()
+     chat_process=web_llama_server.process
+     if result.ok:
++        chat_profile_id=''
+         save_state(result.message)
+         return {'ok':True,'message':result.message,'runtime':result.to_dict()}
+     return {'ok':False,'message':result.message,'runtime':result.to_dict()}
+@@ -29409,7 +29733,7 @@
+ 
+ 
+ def status():
+-    PROJECTS.mkdir(exist_ok=True); LIB.mkdir(exist_ok=True); d={'root':str(ROOT),'drive_root':str(DRIVE),'kayock_browser':str(KAYOCK),'kayock_browser_found':KAYOCK.exists(),'engine':str(ENGINE),'engine_found':ENGINE.exists(),'chat_online':check(CHAT_HEALTH),'chat_model':chat_model,'chat_model_name':Path(chat_model).name if chat_model else None,'active_project':active_project,'projects':len([p for p in PROJECTS.iterdir() if p.is_dir()]),'projects_root':str(PROJECTS),'active_professor_name':active_prof()[0],'comfy_exists':COMFY_MAIN.exists(),'comfy_online':check('http://127.0.0.1:8188'),'chat_models':len(models()),'library_items':len(list(LIB.rglob('*'))) if LIB.exists() else 0,'library_pdfs':len(list(LIB.rglob('*.pdf'))) if LIB.exists() else 0}
++    PROJECTS.mkdir(exist_ok=True); LIB.mkdir(exist_ok=True); chat_online=check(CHAT_HEALTH); d={'root':str(ROOT),'drive_root':str(DRIVE),'kayock_browser':str(KAYOCK),'kayock_browser_found':KAYOCK.exists(),'engine':str(ENGINE),'engine_found':ENGINE.exists(),'chat_online':chat_online,'chat_model':chat_model,'chat_model_name':Path(chat_model).name if chat_model else None,'chat_profile_id':chat_profile_id if chat_online else '','chat_vision_enabled':bool(chat_online and active_chat_profile().get('vision')),'active_project':active_project,'projects':len([p for p in PROJECTS.iterdir() if p.is_dir()]),'projects_root':str(PROJECTS),'active_professor_name':active_prof()[0],'comfy_exists':COMFY_MAIN.exists(),'comfy_online':check('http://127.0.0.1:8188'),'chat_models':len(models()),'library_items':len(list(LIB.rglob('*'))) if LIB.exists() else 0,'library_pdfs':len(list(LIB.rglob('*.pdf'))) if LIB.exists() else 0}
+     d.update(metric()); return d
+ 
+ def main():

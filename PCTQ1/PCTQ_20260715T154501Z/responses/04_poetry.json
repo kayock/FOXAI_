@@ -1,0 +1,117 @@
+{
+  "id": "poetry",
+  "title": "Constrained Poetry",
+  "measured": true,
+  "status": 200,
+  "wall_seconds": 29.2,
+  "content": "Small Machines of Mercy  \n\nThe chipped blue cup still holds yesterday\u2019s tea,  \na quiet testament to warmth that once passed through.  \nThe sleeping radio hums a lullaby for the dust  \nthat settles softly on forgotten edges.  \n\nRain fills the glove like a secret held tight\u2014  \nnot poured out, but kept,  \nwaiting for a hand to remember how to receive.  \n\nEach image is a small machine,  \nmoving parts of tenderness  \nthat never stop, even in stillness.",
+  "normalized_content": "Small Machines of Mercy  \n\nThe chipped blue cup still holds yesterday\u2019s tea,  \na quiet testament to warmth that once passed through.  \nThe sleeping radio hums a lullaby for the dust  \nthat settles softly on forgotten edges.  \n\nRain fills the glove like a secret held tight\u2014  \nnot poured out, but kept,  \nwaiting for a hand to remember how to receive.  \n\nEach image is a small machine,  \nmoving parts of tenderness  \nthat never stop, even in stillness.",
+  "reasoning_content": "",
+  "reasoning_character_count": 0,
+  "finish_reason": "stop",
+  "content_wrapper_stripped": false,
+  "usage": {
+    "completion_tokens": 103,
+    "prompt_tokens": 134,
+    "total_tokens": 237,
+    "prompt_tokens_details": {
+      "cached_tokens": 48
+    }
+  },
+  "timings": {
+    "cache_n": 48,
+    "prompt_n": 86,
+    "prompt_ms": 3628.885,
+    "prompt_per_token_ms": 42.19633720930233,
+    "prompt_per_second": 23.698739419959573,
+    "predicted_n": 103,
+    "predicted_ms": 25528.541,
+    "predicted_per_token_ms": 247.84991262135924,
+    "predicted_per_second": 4.034699828713282
+  },
+  "metrics": {
+    "word_count": 76,
+    "nonblank_line_count": 11,
+    "unique_word_ratio": 0.8158,
+    "fourgram_repetition_ratio": 0.0,
+    "duplicate_line_count": 0,
+    "wrapper_like_markup_present": false,
+    "model_meta_language_present": false
+  },
+  "validation": {
+    "checks": {
+      "exact_title": true,
+      "exactly_16_poem_lines": false,
+      "chipped_blue_cup": true,
+      "sleeping_radio": true,
+      "rain_inside_a_glove": false,
+      "forbidden_words_absent": true,
+      "no_numbering_or_bullets": true
+    },
+    "passed": false,
+    "failed_checks": [
+      "exactly_16_poem_lines",
+      "rain_inside_a_glove"
+    ],
+    "notes": []
+  },
+  "request": {
+    "model": "local-model",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are being evaluated as a creative-writing model. Follow every visible structural and length constraint. Return only the finished creative work, without analysis, planning notes, hidden reasoning, or XML-style wrappers."
+      },
+      {
+        "role": "user",
+        "content": "Write a free-verse poem. The first nonblank line must be the exact title 'Small Machines of Mercy'. After the title, write exactly 16 nonblank poem lines. Include the images of a chipped blue cup, a sleeping radio, and rain inside a glove. Do not use bullets or numbering. Do not use any of these words: eternity, forever, soul."
+      }
+    ],
+    "temperature": 0.8,
+    "top_p": 0.92,
+    "seed": 260718,
+    "max_tokens": 420,
+    "stream": false
+  },
+  "raw_response": {
+    "choices": [
+      {
+        "finish_reason": "stop",
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "Small Machines of Mercy  \n\nThe chipped blue cup still holds yesterday\u2019s tea,  \na quiet testament to warmth that once passed through.  \nThe sleeping radio hums a lullaby for the dust  \nthat settles softly on forgotten edges.  \n\nRain fills the glove like a secret held tight\u2014  \nnot poured out, but kept,  \nwaiting for a hand to remember how to receive.  \n\nEach image is a small machine,  \nmoving parts of tenderness  \nthat never stop, even in stillness."
+        }
+      }
+    ],
+    "created": 1784130508,
+    "model": "Z:\\FOXAI\\Models\\Chat\\PsyLLM-8B-Q5_K_M.gguf",
+    "system_fingerprint": "b9821-050ee92d0",
+    "object": "chat.completion",
+    "usage": {
+      "completion_tokens": 103,
+      "prompt_tokens": 134,
+      "total_tokens": 237,
+      "prompt_tokens_details": {
+        "cached_tokens": 48
+      }
+    },
+    "id": "chatcmpl-oew0c7lgcpkEincd7tZMTrs4NkAcg1b3",
+    "timings": {
+      "cache_n": 48,
+      "prompt_n": 86,
+      "prompt_ms": 3628.885,
+      "prompt_per_token_ms": 42.19633720930233,
+      "prompt_per_second": 23.698739419959573,
+      "predicted_n": 103,
+      "predicted_ms": 25528.541,
+      "predicted_per_token_ms": 247.84991262135924,
+      "predicted_per_second": 4.034699828713282
+    }
+  },
+  "error": null,
+  "tokens_per_second": 4.035,
+  "response_ok": true,
+  "reasoning_leak_free": true,
+  "objective_pass": false
+}

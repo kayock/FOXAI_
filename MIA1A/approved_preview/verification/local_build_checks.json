@@ -1,0 +1,144 @@
+{
+  "exact_artifacts": {
+    "passed": true,
+    "checks": {
+      "web_baseline": {
+        "expected": "e4d5811f14ae3ffb0b3f8b59369bee5c0a1218d19459f2decc875589540d04fb",
+        "actual": "e4d5811f14ae3ffb0b3f8b59369bee5c0a1218d19459f2decc875589540d04fb",
+        "ok": true
+      },
+      "server_baseline": {
+        "expected": "9ee8871553113459ac4e234873de2cd3352aa5529ab58fab8d02ece0a53d0c07",
+        "actual": "9ee8871553113459ac4e234873de2cd3352aa5529ab58fab8d02ece0a53d0c07",
+        "ok": true
+      },
+      "web_candidate": {
+        "expected": "3b1a8d9a1bc63c6d0a6a333edf315a4c1aff06f9ffae44f9ddd679c96b7c1d4d",
+        "actual": "3b1a8d9a1bc63c6d0a6a333edf315a4c1aff06f9ffae44f9ddd679c96b7c1d4d",
+        "ok": true
+      },
+      "server_candidate": {
+        "expected": "238931aaa46446448696c5000ae9b744f44d171fd491e0d41b3562b8d9fddd81",
+        "actual": "238931aaa46446448696c5000ae9b744f44d171fd491e0d41b3562b8d9fddd81",
+        "ok": true
+      },
+      "web_diff": {
+        "expected": "511be5afd5d901b43adbeeb89427d3dccc534c07bdfe566119c52a5158131d9f",
+        "actual": "511be5afd5d901b43adbeeb89427d3dccc534c07bdfe566119c52a5158131d9f",
+        "ok": true
+      },
+      "server_diff": {
+        "expected": "c75524f02cec963f950f4d23b14c19e2ba9deef91cece3e3549a2a344007eb70",
+        "actual": "c75524f02cec963f950f4d23b14c19e2ba9deef91cece3e3549a2a344007eb70",
+        "ok": true
+      }
+    },
+    "diff_reconstruction": true,
+    "python_compile": true
+  },
+  "node_and_browser": {
+    "passed": true,
+    "javascript_blocks": 1,
+    "node_check": [
+      {
+        "index": 1,
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "passed": true
+      }
+    ],
+    "browser_harness": {
+      "returncode": 0,
+      "stdout": "{\"passed\":true,\"stream_image_payload\":true,\"text_profile_blocked\":true,\"success_clears\":true,\"cancel_keeps\":true,\"verified_start_sets_profile\":true}\n",
+      "stderr": "",
+      "passed": true
+    }
+  },
+  "image_helpers": {
+    "passed": true,
+    "formats": [
+      {
+        "name": "sample.png",
+        "mime": "image/png",
+        "passed": true
+      },
+      {
+        "name": "sample.jpg",
+        "mime": "image/jpeg",
+        "passed": true
+      },
+      {
+        "name": "sample.webp",
+        "mime": "image/webp",
+        "passed": true
+      }
+    ],
+    "actual_byte_mime_and_dimensions": true,
+    "sha256_and_size_validation": true,
+    "base64_not_archived": true,
+    "prior_image_compaction": true
+  },
+  "model_filter": {
+    "passed": true,
+    "visible_models": [
+      "Qwen.gguf"
+    ],
+    "projectors_filtered": true
+  },
+  "profile_contract": {
+    "passed": true,
+    "fast_vision": {
+      "ok": true,
+      "profile_id": "fast_vision",
+      "label": "\ud83d\udc41\ufe0f Fast Vision",
+      "reasoning_mode": "current",
+      "reasoning_budget": null,
+      "vision": true,
+      "projector_path": "Z:/FOXAI/Models/Chat/mmproj-Qwen3VL-8B-Instruct-Q8_0.gguf",
+      "projector_sha256": "c6ba85508d82f42590e6eb77d5340369ab6fecf107a7561d809523d8aa5f3bfd",
+      "require_verified_settings": true
+    },
+    "quality_vision": {
+      "ok": true,
+      "profile_id": "quality_vision",
+      "label": "\ud83d\udd0e Quality Vision",
+      "reasoning_mode": "current",
+      "reasoning_budget": null,
+      "vision": true,
+      "projector_path": "Z:/FOXAI/Models/Chat/mmproj-Qwen3VL-8B-Instruct-Q8_0.gguf",
+      "projector_sha256": "c6ba85508d82f42590e6eb77d5340369ab6fecf107a7561d809523d8aa5f3bfd",
+      "require_verified_settings": true
+    },
+    "raw_exact_gguf_vision": false,
+    "profile_model_mismatch_denied": true
+  },
+  "server_runtime": {
+    "passed": true,
+    "vision_command_has_mmproj": true,
+    "text_command_has_no_mmproj": true,
+    "exact_projector_runtime_identity": true,
+    "wrong_or_missing_projector_rejected": true,
+    "public_positional_compatibility_preserved": true
+  },
+  "static_contract": {
+    "passed": true,
+    "checks": {
+      "one_image_and_json_limits": true,
+      "allowed_types": true,
+      "actual_byte_validation": true,
+      "sha_validation": true,
+      "no_silent_switch_client": true,
+      "no_silent_switch_server": true,
+      "engineer_image_denied": true,
+      "stream_and_nonstream_accept_image": true,
+      "archive_metadata_only": true,
+      "cancel_keeps_pending": true,
+      "projector_pinned": true,
+      "projector_runtime_identity": true,
+      "projector_filtered_from_selector": true,
+      "vision_evidence_updated": true,
+      "guarded_streaming_preserved": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>FOXAI Vision Input Test</title>
+<style>
+body{font-family:Arial,sans-serif;background:#0e1020;color:#eee;margin:0;padding:28px}
+h1{color:#c6a8ff} .meta,.card{background:#171a2d;border:1px solid #4f357b;border-radius:18px;padding:20px;margin:18px 0}
+.grid{display:grid;grid-template-columns:minmax(280px,42%) 1fr;gap:22px}
+img{width:100%;border-radius:12px;background:white} pre{white-space:pre-wrap;background:#0a0b14;padding:14px;border-radius:10px}
+.pass{color:#64e59d} .fail{color:#ff9b9b} a{color:#c6a8ff}
+@media(max-width:850px){.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<h1>FOXAI Real Image Input Test</h1>
+<div class="meta">
+<p><strong>State:</strong> stopped_fail_closed</p>
+<p><strong>Verified:</strong> True</p>
+<p><strong>Live files modified:</strong> False</p>
+<p>This report uses actual PNG inputs sent to the local Qwen3VL endpoint.</p>
+</div>
+
+        <section class="card">
+          <h2>Fast Vision — Exact OCR and Counting</h2>
+          <div class="grid">
+            <img src="images/ocr_card.png" alt="benchmark image">
+            <div>
+              <p><strong>Objective pass:</strong> False</p>
+              <p><strong>Time:</strong> 0.001s</p>
+              <p><strong>Speed:</strong> None tok/s</p>
+              <pre></pre>
+              <ul><li class="fail">valid_json: False</li><li class="fail">title: False</li><li class="fail">code: False</li><li class="fail">door_label: False</li><li class="fail">star_count: False</li><li class="fail">bicycle_present_false: False</li></ul>
+            </div>
+          </div>
+        </section>
+        
+</body>
+</html>

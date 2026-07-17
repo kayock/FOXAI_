@@ -1,0 +1,74 @@
+{
+  "schema": "foxai.portable-core-runtime-apply.v1",
+  "milestone": "Portable Runtime Phase 2B3 Guarded Apply",
+  "created": "2026-07-16T18:24:42.058293+00:00",
+  "state": "guarded_apply_package_ready",
+  "operator_approval_phrase": "APPROVE PORTABLE CORE RUNTIME PHASE 2B3 APPLY",
+  "grounding": {
+    "live_preview_receipt_path": "PR2B3/LIVE_VERIFY_RECEIPT.json",
+    "live_preview_receipt_sha256": "13b116eb2400058c9d624164bfb8d3ea5db707f787233563717956f563c0817c",
+    "preview_state": "exact_preview_verified",
+    "preview_created": "2026-07-16T18:19:35.678348+00:00",
+    "live_acquisition_receipt_path": "Reports/PortableRuntime/PR2B2_20260716T121014/receipt.json",
+    "live_acquisition_receipt_sha256": "a6e8439f59911a353d24c9a1f159c5b3caf160b1ad6b430d989c34d29a0421d9",
+    "acquisition_state": "quarantined_wheelhouse_verified",
+    "verified_wheel_path": "Z:\\FOXAI\\Wheelhouse\\Core\\verified\\PR2B2_20260716T121014"
+  },
+  "exact_changes": {
+    "new": [
+      "Runtime/Core/site-packages/**",
+      "Runtime/Core/CORE_RUNTIME_MANIFEST.json"
+    ],
+    "modified": [
+      "env/python/python314._pth",
+      "START_FOXAI_WEB_PORTABLE.bat"
+    ],
+    "deleted": []
+  },
+  "candidate": {
+    "site_package_file_count": 329,
+    "site_package_tree_digest": "adf6c53a80b8a45b9595e1ddc96b234ecbdb6a4f9529f266ca06d34058d37add",
+    "runtime_manifest_sha256": "bca61a55178063e5305ac8b5d8ba951f22fdb65d8b29ced443d9fff685668283",
+    "pth_sha256": "48d77ccee161647ef7053cb563d3b37b4053938d5ad92ae64ccedc2165bcd42d",
+    "launcher_sha256": "834e129be2d41405be40e1ea5aeca6d7a96b4faaf3b72c906487e902a9dca3b1",
+    "wheel_count": 12
+  },
+  "live_baselines": {
+    "core/foxai_web.py": "e0ec7d66bae40d3be67653f47f86cde310e50147924ee48778c4634f3c1d7525",
+    "core/server.py": "238931aaa46446448696c5000ae9b744f44d171fd491e0d41b3562b8d9fddd81",
+    "core/security_containment.py": "9a00ed8c1b2ef45a02fab2e4c2e552b3a6532e1609b6995a7985034ccf002a24",
+    "core/engineer_agent.py": "f6346d4fbb8bda82535281e650042a0aeb290de26a000b1f85f0dd572ac28c19",
+    "requirements.txt": "ab55b33a0a31d51be2a81a4f51430dd0b58a9e6c85a884f600b1315b12240447",
+    "env/python/python314._pth": "e5e2f410d50987906471dc221849354947e5d8a5781234089b133285eced37a8",
+    "START_FOXAI_WEB_PORTABLE.bat": "dcd4115c1db4e11996b794fae3e40f8efc743868049c04adf93cd0a9c9157705",
+    "tests/test_boundary_watch.py": "b2eab44689c24802bf0168e8ea3bc94dd8c32a15f9365bb2cd5aea8f896cd382",
+    "System/Commissioning/commission_usb.py": "cd46b557fef1cb6fabccccff96ae73f4a3fcbd146971f80a0971a1b67f1dc869",
+    "COMMISSION_FOXAI_USB.bat": "3a911a8ea2a09b7c99efe857f911ea0f7dddb74d0d0e096346c957b2fd81f38b"
+  },
+  "transaction": {
+    "backup_root": "Backups/SecurityMilestone/PR2B3_<timestamp>",
+    "report_root": "Reports/PortableRuntime/PR2B3_APPLY_<timestamp>",
+    "existing_runtime_core_must_be_absent": true,
+    "candidate_built_before_live_changes": true,
+    "rollback_restores_modified_files": true,
+    "rollback_preserves_failed_runtime_in_backup": true,
+    "automatic_launch": false,
+    "network_access": false,
+    "pip_install": false,
+    "delete_operations": false
+  },
+  "post_apply_checks": [
+    "all 329 runtime files and tree digest",
+    "runtime manifest hash",
+    "launcher and _pth hashes",
+    "12 imports resolve inside Runtime/Core/site-packages with -s",
+    "Psutil, Requests, and Casbin functional tests",
+    "five Boundary Watch tests with live Casbin",
+    "no-write USB commissioning check",
+    "locked source/security baselines unchanged"
+  ],
+  "revision": "R2",
+  "revision_reason": "Write CORE_RUNTIME_MANIFEST.json as deterministic UTF-8 bytes to prevent Windows newline translation. Approved live scope is unchanged.",
+  "r1_failure_receipt_sha256": "44468498e6afa6473980b87336c4f707da90db4f3b8d5100a0a0204b9de9c43d",
+  "r1_failure_backup_zip_sha256": "a7009d0c4d2b7c328830129d45d05c242115d37d91b2d63298e2edc5bc753f2e"
+}

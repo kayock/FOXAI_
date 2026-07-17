@@ -1,0 +1,58 @@
+{
+  "test_id": "spatial",
+  "title": "Spatial Relationships",
+  "image": "images/spatial_scene.png",
+  "status": 200,
+  "wall_seconds": 42.577,
+  "tokens_per_second": 6.28,
+  "content": "{\n  \"leftmost_shape\": {\n    \"color\": \"red\",\n    \"geometry\": \"square\"\n  },\n  \"rightmost_shape\": {\n    \"color\": \"blue\",\n    \"geometry\": \"circle\"\n  },\n  \"topmost_shape\": {\n    \"color\": \"green\",\n    \"geometry\": \"triangle\"\n  },\n  \"bottommost_shape\": {\n    \"color\": \"orange\",\n    \"geometry\": \"diamond\"\n  },\n  \"arrow_direction\": \"right\",\n  \"colored_shape_count\": 4\n}",
+  "reasoning_character_count": 0,
+  "finish_reason": "stop",
+  "validation": {
+    "parsed_json": {
+      "leftmost_shape": {
+        "color": "red",
+        "geometry": "square"
+      },
+      "rightmost_shape": {
+        "color": "blue",
+        "geometry": "circle"
+      },
+      "topmost_shape": {
+        "color": "green",
+        "geometry": "triangle"
+      },
+      "bottommost_shape": {
+        "color": "orange",
+        "geometry": "diamond"
+      },
+      "arrow_direction": "right",
+      "colored_shape_count": 4
+    },
+    "checks": {
+      "valid_json": true,
+      "leftmost_red_square": true,
+      "rightmost_blue_circle": true,
+      "topmost_green_triangle": true,
+      "bottommost_orange_diamond": true,
+      "arrow_left_to_right": false,
+      "shape_count": true
+    },
+    "passed": false,
+    "failed_checks": [
+      "arrow_left_to_right"
+    ],
+    "notes": []
+  },
+  "response_ok": true,
+  "raw_error_excerpt": "",
+  "profile_key": "fast",
+  "profile": "Fast Vision",
+  "model": "Qwen3VL-8B-Instruct-Q4_K_M.gguf",
+  "model_sha256": "67d1659bfe71b89d50b45a4ad1a9e5b997e5bb16ce5da66a6a6167abd569e9e2",
+  "projector": {
+    "path": "Z:\\FOXAI\\Models\\Chat\\mmproj-Qwen3VL-8B-Instruct-Q8_0.gguf",
+    "sha256": "c6ba85508d82f42590e6eb77d5340369ab6fecf107a7561d809523d8aa5f3bfd",
+    "size_bytes": 752289728
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "passed": true,
+  "python_compile": true,
+  "javascript": {
+    "passed": true,
+    "javascript_blocks": 1,
+    "results": [
+      {
+        "file": "candidate_001.js",
+        "sha256": "b7be3e4c10146ed49699d7442593e804da9fb7db949b00606bc2b8e48e6e2ea3",
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "passed": true
+      }
+    ]
+  },
+  "helper_harness": {
+    "passed": true,
+    "complete_units": [
+      "First sentence. ",
+      "I have successfully deleted the file. "
+    ],
+    "retained_tail": "Tail",
+    "claim_guard_triggered_before_exposure": true
+  },
+  "browser_harness": {
+    "passed": true,
+    "returncode": 0,
+    "stdout": "{\"passed\":true,\"streamFinal\":\"Hello world.\",\"fallback\":\"fallback answer\"}\n",
+    "stderr": "",
+    "sha256": "5496a68450b68c57e7ec7f1b939ec75c20ae2731c5b7017bc32c181e1a895363"
+  },
+  "nonstreaming_fallback": {
+    "passed": true,
+    "baseline_segment_sha256": "1f021c5366ccc13088f3280b7c3d981a40388af58294a9113df0e71604ad35fe",
+    "candidate_segment_sha256": "1f021c5366ccc13088f3280b7c3d981a40388af58294a9113df0e71604ad35fe",
+    "byte_identical": true
+  },
+  "static_contract": {
+    "passed": true,
+    "checks": {
+      "helper_markers": true,
+      "browser_markers": true,
+      "route_markers": true,
+      "stream_endpoint": true,
+      "cancel_button": true,
+      "first_guarded_chunk_timing": true,
+      "creative_evidence_label": true,
+      "final_guard_before_archive": true
+    }
+  },
+  "boundary_watch": {
+    "passed": true,
+    "returncode": 0,
+    "stdout": "",
+    "stderr": "test_invalid_chain_fails_closed_and_creates_synthetic_alert (tests.test_boundary_watch.BoundaryWatchTests.test_invalid_chain_fails_closed_and_creates_synthetic_alert) ... ok\ntest_legacy_event_remains_valid_and_is_not_rewritten (tests.test_boundary_watch.BoundaryWatchTests.test_legacy_event_remains_valid_and_is_not_rewritten) ... ok\ntest_repeated_denial_escalates_without_rewriting (tests.test_boundary_watch.BoundaryWatchTests.test_repeated_denial_escalates_without_rewriting) ... ok\ntest_route_receipt_context_validation (tests.test_boundary_watch.BoundaryWatchTests.test_route_receipt_context_validation) ... ok\ntest_trip_sentry_remains_test (tests.test_boundary_watch.BoundaryWatchTests.test_trip_sentry_remains_test) ... ok\n\n----------------------------------------------------------------------\nRan 5 tests in 0.020s\n\nOK\n",
+    "expected_tests": 5,
+    "five_tests_observed": true
+  }
+}

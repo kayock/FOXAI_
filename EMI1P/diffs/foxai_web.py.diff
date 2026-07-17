@@ -1,0 +1,937 @@
+--- a/core/foxai_web.py
++++ b/core/foxai_web.py
+@@ -711,7 +711,7 @@
+ 
+ @media(max-width:900px){.app{grid-template-columns:1fr}aside{position:relative;height:auto}}
+ 
+-.libresult{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px;margin:8px 0}.libresult h4{margin:0 0 5px;color:var(--p2)}.libmeta{color:var(--m);font-family:Consolas,monospace;font-size:12px}.libbadge{display:inline-block;border:1px solid #8f5cff45;border-radius:999px;padding:3px 8px;margin:3px 4px 6px 0;color:var(--p2);font-size:12px}.previewbox{background:#070913;border:1px solid #8f5cff30;border-radius:16px;padding:14px;max-height:520px;overflow:auto;white-space:pre-wrap;font-family:Consolas,monospace;font-size:13px}.previewhead{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:10px}.copypath{color:var(--c);font-family:Consolas,monospace;font-size:12px;overflow-wrap:anywhere}.indexresult{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px;margin:8px 0}.indexresult h4{margin:0 0 5px;color:var(--p2)}.indexsnippet{background:#070913;border:1px solid #8f5cff22;border-radius:12px;padding:10px;margin-top:8px;color:#e7dcff;font-family:Consolas,monospace;font-size:12px;white-space:pre-wrap}.indexscore{color:var(--w);font-family:Consolas,monospace;font-size:12px}.askhint{color:var(--w);font-size:12px;margin-top:6px}.nfitem{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px;margin:8px 0}.nfitem h4{margin:0 0 6px;color:var(--p2)}.nftag{display:inline-block;border:1px solid #8f5cff45;border-radius:999px;padding:3px 8px;margin:3px 4px 6px 0;color:var(--p2);font-size:12px}.nfpreview{color:var(--m);font-family:Consolas,monospace;font-size:12px;white-space:pre-wrap}.nfcount{display:inline-block;border:1px solid #8f5cff45;border-radius:999px;padding:4px 9px;margin:3px;color:var(--p2);font-size:12px}.nfactions button{padding:8px 10px;font-size:13px}.tmevent{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px;margin:8px 0}.tmevent h4{margin:0 0 6px;color:var(--p2)}.tmtag{display:inline-block;border:1px solid #8f5cff45;border-radius:999px;padding:3px 8px;margin:3px 4px 6px 0;color:var(--p2);font-size:12px}.tmdetails{color:var(--m);white-space:pre-wrap;font-family:Consolas,monospace;font-size:12px}.tmactions button{padding:8px 10px;font-size:13px}.charcard{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px;margin:8px 0}.charcard h4{margin:0 0 6px;color:var(--p2)}.chartag{display:inline-block;border:1px solid #8f5cff45;border-radius:999px;padding:3px 8px;margin:3px 4px 6px 0;color:var(--p2);font-size:12px}.chardetails{color:var(--m);white-space:pre-wrap;font-family:Consolas,monospace;font-size:12px}.charactions button{padding:8px 10px;font-size:13px}.mysterycard{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px;margin:8px 0}.mysterycard h4{margin:0 0 6px;color:var(--p2)}.mystag{display:inline-block;border:1px solid #8f5cff45;border-radius:999px;padding:3px 8px;margin:3px 4px 6px 0;color:var(--p2);font-size:12px}.mystatus-unresolved{border-color:#ffd16666;color:#ffd166}.mystatus-solved{border-color:#42ff9e66;color:#42ff9e}.mystatus-red{border-color:#ff4d6d66;color:#ff4d6d}.mysdetails{color:var(--m);white-space:pre-wrap;font-family:Consolas,monospace;font-size:12px}.mysactions button{padding:8px 10px;font-size:13px}.loccard,.artcard{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px;margin:8px 0}.loccard h4,.artcard h4{margin:0 0 6px;color:var(--p2)}.loctag,.arttag{display:inline-block;border:1px solid #8f5cff45;border-radius:999px;padding:3px 8px;margin:3px 4px 6px 0;color:var(--p2);font-size:12px}.locdetails,.artdetails{color:var(--m);white-space:pre-wrap;font-family:Consolas,monospace;font-size:12px}.locactions button,.artactions button{padding:8px 10px;font-size:13px}.codexdash{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin:10px 0}.codexbox{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px}.codexbox .label{color:var(--m);font-size:12px}.codexbox .value{font-size:24px;font-weight:900;color:#fff;margin-top:4px}.readiness{border-left:3px solid var(--w);padding:10px 0 10px 12px;margin-top:12px;background:#ffd1660b;border-radius:0 12px 12px 0}.scenecard{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px;margin:8px 0}.scenecard h4{margin:0 0 6px;color:var(--p2)}.scenetag{display:inline-block;border:1px solid #8f5cff45;border-radius:999px;padding:3px 8px;margin:3px 4px 6px 0;color:var(--p2);font-size:12px}.scenedetails{color:var(--m);white-space:pre-wrap;font-family:Consolas,monospace;font-size:12px}.sceneactions button{padding:8px 10px;font-size:13px}.extcard{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px;margin:8px 0}.extcard h4{margin:0 0 6px;color:var(--p2)}.exttag{display:inline-block;border:1px solid #8f5cff45;border-radius:999px;padding:3px 8px;margin:3px 4px 6px 0;color:var(--p2);font-size:12px}.extmeta{color:var(--m);white-space:pre-wrap;font-family:Consolas,monospace;font-size:12px}.extactions button{padding:8px 10px;font-size:13px}.disabledmod{opacity:.55}.repairbox{background:#050713;border:1px solid #8f5cff45;border-radius:14px;padding:12px;white-space:pre-wrap;overflow:auto;max-height:380px;color:#eae7ff;font-family:Consolas,monospace;font-size:12px}.moddash{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin:10px 0}.modbox{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px}.modbox .label{color:var(--m);font-size:12px}.modbox .value{font-size:24px;font-weight:900;color:#fff;margin-top:4px}.modhint{border-left:3px solid var(--w);padding:10px 0 10px 12px;margin-top:12px;background:#ffd1660b;border-radius:0 12px 12px 0}.modok{border-left-color:var(--ok)!important;background:#00e6860a}.modwarn{border-left-color:var(--bad)!important;background:#ff4d6d0b}.scanbox{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:10px 0}.scanmetric{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px}.scanmetric .label{color:var(--m);font-size:12px}.scanmetric .value{font-size:24px;font-weight:900;color:#fff;margin-top:4px}.scanlist{background:#050713;border:1px solid #8f5cff45;border-radius:14px;padding:12px;white-space:pre-wrap;overflow:auto;max-height:420px;color:#eae7ff;font-family:Consolas,monospace;font-size:12px}.docstatusgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin:10px 0}.docstat{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px}.docstat .label{color:var(--m);font-size:12px}.docstat .value{font-size:24px;font-weight:900;color:#fff;margin-top:4px}.docrow{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:14px;padding:10px;margin:8px 0}.docrow.good{border-left:3px solid var(--ok)}.docrow.bad{border-left:3px solid var(--bad)}.buildgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin:10px 0}.buildmetric{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px}.buildmetric .label{color:var(--m);font-size:12px}.buildmetric .value{font-size:24px;font-weight:900;color:#fff;margin-top:4px}.checkrow{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:14px;padding:10px;margin:8px 0}.checkrow.pass{border-left:3px solid var(--ok)}.checkrow.fail{border-left:3px solid var(--bad)}.envgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin:10px 0}.envmetric{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px}.envmetric .label{color:var(--m);font-size:12px}.envmetric .value{font-size:24px;font-weight:900;color:#fff;margin-top:4px}.envrow{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:14px;padding:10px;margin:8px 0}.envrow.pass{border-left:3px solid var(--ok)}.envrow.fail{border-left:3px solid var(--bad)}.envrow.optional{border-left:3px solid var(--w)}.portablegrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:12px;margin:10px 0}.portablemetric{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px}.portablemetric .label{color:var(--m);font-size:12px}.portablemetric .value{font-size:24px;font-weight:900;color:#fff;margin-top:4px}.portrow{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:14px;padding:10px;margin:8px 0}.portrow.pass{border-left:3px solid var(--ok)}.portrow.warn{border-left:3px solid var(--w)}.portrow.fail{border-left:3px solid var(--bad)}.modelgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:12px;margin:10px 0}.modelmetric{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px}.modelmetric .label{color:var(--m);font-size:12px}.modelmetric .value{font-size:24px;font-weight:900;color:#fff;margin-top:4px}.modelrow{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:14px;padding:10px;margin:8px 0}.modelrow.safe{border-left:3px solid var(--ok)}.modelrow.info{border-left:3px solid var(--m)}.modelrow.review{border-left:3px solid var(--w)}.modelrow.warn{border-left:3px solid var(--bad)}.repairrow{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:14px;padding:12px;margin:10px 0}.repairrow.available{border-left:3px solid var(--ok)}.repairrow.blocked{border-left:3px solid var(--bad)}.repairrow .repairtitle{font-weight:900;color:#fff}.repairrow .risk{color:var(--m);font-size:12px}.repairrow button{margin-top:8px}.historygrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:10px 0}.historymetric{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px}.historymetric .label{color:var(--m);font-size:12px}.historymetric .value{font-size:24px;font-weight:900;color:#fff;margin-top:4px}.histrow{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:14px;padding:10px;margin:8px 0}.histrow.ok{border-left:3px solid var(--ok)}.histrow.fail{border-left:3px solid var(--bad)}.histrow.info{border-left:3px solid var(--m)}.verifybadge{display:inline-block;border-radius:999px;padding:3px 8px;font-size:11px;font-weight:900;margin-left:6px}.verifybadge.pass{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.verifybadge.fail{background:#ff5d5d22;color:#ffb0b0;border:1px solid #ff5d5d55}.verifybadge.none{background:#ffffff12;color:#c9bfdc;border:1px solid #ffffff22}.checkline{font-size:12px;color:#d8d0e8;margin-left:10px}.backupbadge{display:inline-block;border-radius:999px;padding:3px 8px;font-size:11px;font-weight:900;margin-left:6px}.backupbadge.assoc{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.backupbadge.old{background:#ffffff12;color:#c9bfdc;border:1px solid #ffffff22}.vaultpath{font-size:12px;color:#d8d0e8;word-break:break-all}.vaultmetric{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px}.vaultmetric .label{color:var(--m);font-size:12px}.vaultmetric .value{font-size:24px;font-weight:900;color:#fff;margin-top:4px}.timestampnote{font-size:12px;color:#c9bfdc;border-left:3px solid #8f5cff77;padding-left:8px;margin-top:6px}.riskbadge{display:inline-block;border-radius:999px;padding:4px 10px;font-size:12px;font-weight:900}.riskbadge.low{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.riskbadge.medium{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.riskbadge.blocked{background:#ff5d5d22;color:#ffb0b0;border:1px solid #ff5d5d55}.diffbox{white-space:pre-wrap;font-family:ui-monospace,Consolas,monospace}.gatebadge{display:inline-block;border-radius:999px;padding:4px 10px;font-size:12px;font-weight:900;margin-left:6px}.gatebadge.pass{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.gatebadge.warn{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.gatebadge.block{background:#ff5d5d22;color:#ffb0b0;border:1px solid #ff5d5d55}.gatebadge.info{background:#8f5cff22;color:#e2d4ff;border:1px solid #8f5cff55}.phrasebox{font-family:ui-monospace,Consolas,monospace;font-size:16px;border:1px solid #8f5cff55;background:#00000033;border-radius:14px;padding:12px;color:#fff}.packagebadge{display:inline-block;border-radius:999px;padding:4px 10px;font-size:12px;font-weight:900;margin-left:6px}.packagebadge.ok{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.packagebadge.problem{background:#ff5d5d22;color:#ffb0b0;border:1px solid #ff5d5d55}.packagefile{font-size:12px;color:#d8d0e8;word-break:break-all;margin-left:8px}.finalbadge{display:inline-block;border-radius:999px;padding:4px 10px;font-size:12px;font-weight:900;margin-left:6px}.finalbadge.pass{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.finalbadge.warn{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.finalbadge.block{background:#ff5d5d22;color:#ffb0b0;border:1px solid #ff5d5d55}.finalphrase{font-family:ui-monospace,Consolas,monospace;font-size:15px;border:1px solid #8f5cff55;background:#00000033;border-radius:14px;padding:12px;color:#fff}.auditbadge{display:inline-block;border-radius:999px;padding:4px 10px;font-size:12px;font-weight:900;margin-left:6px}.auditbadge.intact{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.auditbadge.attention{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.hashline{font-family:ui-monospace,Consolas,monospace;font-size:12px;word-break:break-all;color:#d8d0e8}.rollbackbadge{display:inline-block;border-radius:999px;padding:4px 10px;font-size:12px;font-weight:900;margin-left:6px}.rollbackbadge.pass{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.rollbackbadge.warn{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.rollbackbadge.block{background:#ff5d5d22;color:#ffb0b0;border:1px solid #ff5d5d55}.rollbackphrase{font-family:ui-monospace,Consolas,monospace;font-size:15px;border:1px solid #8f5cff55;background:#00000033;border-radius:14px;padding:12px;color:#fff}.rbauditbadge{display:inline-block;border-radius:999px;padding:4px 10px;font-size:12px;font-weight:900;margin-left:6px}.rbauditbadge.intact{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.rbauditbadge.attention{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.rbauditHash{font-family:ui-monospace,Consolas,monospace;font-size:12px;word-break:break-all;color:#d8d0e8}.tlbadge{display:inline-block;border-radius:999px;padding:4px 10px;font-size:12px;font-weight:900;margin-left:6px}.tlbadge.intact{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.tlbadge.attention{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.tlbadge.evidence{background:#8f5cff22;color:#d8c7ff;border:1px solid #8f5cff55}.tlbadge.superseded_by_rollback{background:#66c7ff22;color:#b9e8ff;border:1px solid #66c7ff55}.tlbadge.other{background:#ffffff12;color:#ddd;border:1px solid #ffffff22}.timelineHash{font-family:ui-monospace,Consolas,monospace;font-size:12px;word-break:break-all;color:#d8d0e8}.timelineEvent{border-left:3px solid #8f5cff;padding-left:12px}.recoveryHealthBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px}.recoveryHealthBadge.healthy{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.recoveryHealthBadge.warn{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.recoveryMiniGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.recoveryMini{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.recoveryMini .label{font-size:11px;color:#aaa}.recoveryMini .value{font-size:18px;font-weight:900;color:#fff}.recoveryPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.repairShopBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px}.repairShopBadge.healthy{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.repairShopBadge.warn{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.repairShopGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.repairShopMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.repairShopMetric .label{font-size:11px;color:#aaa}.repairShopMetric .value{font-size:18px;font-weight:900;color:#fff}.repairShopPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.actionPill{display:inline-block;border-radius:999px;padding:3px 9px;font-size:11px;font-weight:900;margin-left:6px}.actionPill.available{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.actionPill.blocked{background:#ffffff12;color:#aaa;border:1px solid #ffffff22}.detailBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px}.detailBadge.verified{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.detailBadge.legacy_ok{background:#66c7ff22;color:#b9e8ff;border:1px solid #66c7ff55}.detailBadge.failed{background:#ff5d5d22;color:#ffb0b0;border:1px solid #ff5d5d55}.detailBadge.attention{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.detailGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin-top:10px}.detailMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.detailMetric .label{font-size:11px;color:#aaa}.detailMetric .value{font-size:16px;font-weight:900;color:#fff}.detailHash{font-family:ui-monospace,Consolas,monospace;font-size:12px;word-break:break-all;color:#d8d0e8}.repairCardBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px}.repairCardBadge.healthy{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.repairCardBadge.warn{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.repairCardGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(135px,1fr));gap:10px;margin-top:10px}.repairCardMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.repairCardMetric .label{font-size:11px;color:#aaa}.repairCardMetric .value{font-size:18px;font-weight:900;color:#fff}.repairCardPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.ticketBadge{display:inline-block;border-radius:999px;padding:4px 10px;font-size:11px;font-weight:900;margin-right:6px}.ticketBadge.critical{background:#ff336622;color:#ffb0c4;border:1px solid #ff336655}.ticketBadge.high{background:#ff5d5d22;color:#ffb0b0;border:1px solid #ff5d5d55}.ticketBadge.medium{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.ticketBadge.low{background:#66c7ff22;color:#b9e8ff;border:1px solid #66c7ff55}.ticketBadge.info{background:#ffffff12;color:#d8d0e8;border:1px solid #ffffff24}.ticketBadge.healthy{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.ticketGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(135px,1fr));gap:10px;margin-top:10px}.ticketMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.ticketMetric .label{font-size:11px;color:#aaa}.ticketMetric .value{font-size:18px;font-weight:900;color:#fff}.ticketRow{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:14px;padding:10px;margin:8px 0}.ticketRow.critical,.ticketRow.high{border-left:3px solid var(--bad)}.ticketRow.medium,.ticketRow.low{border-left:3px solid var(--w)}.ticketRow.healthy{border-left:3px solid var(--ok)}.ticketPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:6px}.ticketDetailBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px}.ticketDetailBadge.healthy{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.ticketDetailBadge.available_action{background:#66c7ff22;color:#b9e8ff;border:1px solid #66c7ff55}.ticketDetailBadge.informational{background:#ffffff12;color:#d8d0e8;border:1px solid #ffffff22}.ticketDetailBadge.needs_attention,.ticketDetailBadge.open{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.ticketDetailGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:10px;margin-top:10px}.ticketDetailMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.ticketDetailMetric .label{font-size:11px;color:#aaa}.ticketDetailMetric .value{font-size:17px;font-weight:900;color:#fff}.ticketDetailPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.bridgeBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px}.bridgeBadge.ready{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.bridgeBadge.info{background:#66c7ff22;color:#b9e8ff;border:1px solid #66c7ff55}.bridgeBadge.warn{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.bridgeGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-top:10px}.bridgeMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.bridgeMetric .label{font-size:11px;color:#aaa}.bridgeMetric .value{font-size:16px;font-weight:900;color:#fff}.repairrow.recommended{border-color:#36d399aa!important;box-shadow:0 0 0 1px #36d39955 inset}.recommendTag{display:inline-block;border-radius:999px;padding:4px 10px;background:#36d39922;color:#7fffd4;border:1px solid #36d39955;font-size:11px;font-weight:900;margin-bottom:8px}.sessionBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px}.sessionBadge.healthy{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.sessionBadge.warn{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.sessionGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.sessionMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.sessionMetric .label{font-size:11px;color:#aaa}.sessionMetric .value{font-size:18px;font-weight:900;color:#fff}.sessionPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.freezeBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px}.freezeBadge.healthy{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.freezeBadge.warn{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.freezeGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.freezeMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.freezeMetric .label{font-size:11px;color:#aaa}.freezeMetric .value{font-size:18px;font-weight:900;color:#fff}.freezePath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.ccBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px}.ccBadge.clear{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.ccBadge.advisory{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.ccBadge.bad{background:#ff557722;color:#ff9aaa;border:1px solid #ff557755}.ccGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.ccMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.ccMetric .label{font-size:11px;color:#aaa}.ccMetric .value{font-size:18px;font-weight:900;color:#fff}.ccPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.foundationCard{border:1px solid #ffffff18;border-radius:16px;padding:12px;margin:10px 0;background:#00000022}.foundationCard.clear{border-color:#36d39955}.foundationCard.advisory{border-color:#ffcc6655}.foundationCard.needs_attention{border-color:#ff557755}.cmdDetailBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px}.cmdDetailBadge.clear{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.cmdDetailBadge.advisory{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.cmdDetailBadge.bad{background:#ff557722;color:#ff9aaa;border:1px solid #ff557755}.cmdMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;margin:8px 0;background:#00000022}.cmdMetric .k{font-size:12px;color:#aaa}.cmdMetric .v{font-weight:800;color:#fff;word-break:break-word}.cmdPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:6px}.ccDashBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px}.ccDashBadge.clear{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.ccDashBadge.advisory{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.ccDashBadge.bad{background:#ff557722;color:#ff9aaa;border:1px solid #ff557755}.ccDashGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-top:10px}.ccDashMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.ccDashMetric .label{font-size:11px;color:#aaa}.ccDashMetric .value{font-size:18px;font-weight:900;color:#fff}.ccDashLine{font-size:12px;color:#cfc7df;word-break:break-word;margin-top:8px}.archiveBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px}.archiveBadge.clear{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.archiveBadge.advisory{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.archiveBadge.bad{background:#ff557722;color:#ff9aaa;border:1px solid #ff557755}.archiveGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.archiveMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.archiveMetric .label{font-size:11px;color:#aaa}.archiveMetric .value{font-size:18px;font-weight:900;color:#fff}.archivePath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.cmdFreezeBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px}.cmdFreezeBadge.clear{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.cmdFreezeBadge.advisory{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.cmdFreezeBadge.bad{background:#ff557722;color:#ff9aaa;border:1px solid #ff557755}.cmdFreezeGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.cmdFreezeMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.cmdFreezeMetric .label{font-size:11px;color:#aaa}.cmdFreezeMetric .value{font-size:18px;font-weight:900;color:#fff}.cmdFreezePath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.writerBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#a855f722;color:#e9d5ff;border:1px solid #a855f755}.writerGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.writerMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.writerMetric .label{font-size:11px;color:#aaa}.writerMetric .value{font-size:18px;font-weight:900;color:#fff}.writerPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.writerModule{border:1px solid #a855f733;border-radius:16px;padding:12px;margin:10px 0;background:#14001f33}.storyBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#8b5cf622;color:#ddd6fe;border:1px solid #8b5cf655}.storyGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.storyMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.storyMetric .label{font-size:11px;color:#aaa}.storyMetric .value{font-size:18px;font-weight:900;color:#fff}.storyPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.storyCard{border:1px solid #8b5cf633;border-radius:16px;padding:12px;margin:10px 0;background:#16002433}.manifestBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#7c3aed22;color:#ddd6fe;border:1px solid #7c3aed55}.manifestGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.manifestMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.manifestMetric .label{font-size:11px;color:#aaa}.manifestMetric .value{font-size:18px;font-weight:900;color:#fff}.manifestPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.manifestCard{border:1px solid #7c3aed33;border-radius:16px;padding:12px;margin:10px 0;background:#12002033}.gateBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#6d28d922;color:#ddd6fe;border:1px solid #6d28d955}.gateGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.gateMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.gateMetric .label{font-size:11px;color:#aaa}.gateMetric .value{font-size:18px;font-weight:900;color:#fff}.gatePath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.gateCard{border:1px solid #6d28d933;border-radius:16px;padding:12px;margin:10px 0;background:#12002033}.actionBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#4c1d9522;color:#ddd6fe;border:1px solid #4c1d9555}.actionBadge.created{background:#36d39922;color:#7fffd4;border-color:#36d39955}.actionBadge.blocked{background:#ffcc6622;color:#ffd99a;border-color:#ffcc6655}.actionBadge.error{background:#ff557722;color:#ff9aaa;border-color:#ff557755}.actionGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.actionMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.actionMetric .label{font-size:11px;color:#aaa}.actionMetric .value{font-size:18px;font-weight:900;color:#fff}.actionPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.actionCard{border:1px solid #4c1d9533;border-radius:16px;padding:12px;margin:10px 0;background:#12002033}.dashProjectBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.dashProjectBadge.bad{background:#ff557722;color:#ff9aaa;border-color:#ff557755}.projectDashGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.projectDashMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.projectDashMetric .label{font-size:11px;color:#aaa}.projectDashMetric .value{font-size:18px;font-weight:900;color:#fff}.projectDashPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.projectDashCard{border:1px solid #22c55e33;border-radius:16px;padding:12px;margin:10px 0;background:#001f1233}.storyHealthBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px}.storyHealthBadge.clear{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.storyHealthBadge.advisory{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.storyHealthBadge.bad{background:#ff557722;color:#ff9aaa;border:1px solid #ff557755}.storyHealthGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-top:10px}.storyHealthMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.storyHealthMetric .label{font-size:11px;color:#aaa}.storyHealthMetric .value{font-size:18px;font-weight:900;color:#fff}.storyHealthLine{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.chapterBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#7c3aed22;color:#ddd6fe;border:1px solid #7c3aed55}.chapterBadge.bad{background:#ff557722;color:#ff9aaa;border-color:#ff557755}.chapterGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.chapterMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.chapterMetric .label{font-size:11px;color:#aaa}.chapterMetric .value{font-size:18px;font-weight:900;color:#fff}.chapterPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.chapterCard{border:1px solid #7c3aed33;border-radius:16px;padding:12px;margin:10px 0;background:#12002033}.saveGateBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#0ea5e922;color:#bae6fd;border:1px solid #0ea5e955}.saveGateBadge.bad{background:#ff557722;color:#ff9aaa;border-color:#ff557755}.saveGateGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.saveGateMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.saveGateMetric .label{font-size:11px;color:#aaa}.saveGateMetric .value{font-size:18px;font-weight:900;color:#fff}.saveGatePath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.saveGateCard{border:1px solid #0ea5e933;border-radius:16px;padding:12px;margin:10px 0;background:#001b2f33}.chapterSaveActionBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#4c1d9522;color:#ddd6fe;border:1px solid #4c1d9555}.chapterSaveActionBadge.created{background:#36d39922;color:#7fffd4;border-color:#36d39955}.chapterSaveActionBadge.blocked{background:#ffcc6622;color:#ffd99a;border-color:#ffcc6655}.chapterSaveActionBadge.error{background:#ff557722;color:#ff9aaa;border-color:#ff557755}.chapterSaveActionGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.chapterSaveActionMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.chapterSaveActionMetric .label{font-size:11px;color:#aaa}.chapterSaveActionMetric .value{font-size:18px;font-weight:900;color:#fff}.chapterSaveActionPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.chapterSaveActionCard{border:1px solid #4c1d9533;border-radius:16px;padding:12px;margin:10px 0;background:#12002033}.savedChapterBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.savedChapterBadge.bad{background:#ff557722;color:#ff9aaa;border-color:#ff557755}.savedChapterGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.savedChapterMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.savedChapterMetric .label{font-size:11px;color:#aaa}.savedChapterMetric .value{font-size:18px;font-weight:900;color:#fff}.savedChapterPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.savedChapterCard{border:1px solid #22c55e33;border-radius:16px;padding:12px;margin:10px 0;background:#001f1233}.savedHealthBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.savedHealthBadge.review{background:#ffcc6622;color:#ffd99a;border-color:#ffcc6655}.savedHealthGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-top:10px}.savedHealthMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.savedHealthMetric .label{font-size:11px;color:#aaa}.savedHealthMetric .value{font-size:18px;font-weight:900;color:#fff}.savedHealthPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.chapterEditorBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#8b5cf622;color:#ddd6fe;border:1px solid #8b5cf655}.chapterEditorBadge.bad{background:#ff557722;color:#ff9aaa;border-color:#ff557755}.chapterEditorGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.chapterEditorMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.chapterEditorMetric .label{font-size:11px;color:#aaa}.chapterEditorMetric .value{font-size:18px;font-weight:900;color:#fff}.chapterEditorPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.chapterEditorCard{border:1px solid #8b5cf633;border-radius:16px;padding:12px;margin:10px 0;background:#12002033}#chaptereditorpreview textarea,#chaptereditorpreview input{width:100%;box-sizing:border-box;margin:6px 0 12px 0}.chapterEditGateBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#38bdf822;color:#bae6fd;border:1px solid #38bdf855}.chapterEditGateBadge.bad{background:#ff557722;color:#ff9aaa;border-color:#ff557755}.chapterEditGateGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.chapterEditGateMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.chapterEditGateMetric .label{font-size:11px;color:#aaa}.chapterEditGateMetric .value{font-size:18px;font-weight:900;color:#fff}.chapterEditGatePath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.chapterEditGateCard{border:1px solid #38bdf833;border-radius:16px;padding:12px;margin:10px 0;background:#00182733}.chapterEditActionBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.chapterEditActionBadge.blocked{background:#ffcc6622;color:#ffd99a;border-color:#ffcc6655}.chapterEditActionBadge.bad{background:#ff557722;color:#ff9aaa;border-color:#ff557755}.chapterEditActionGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.chapterEditActionMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.chapterEditActionMetric .label{font-size:11px;color:#aaa}.chapterEditActionMetric .value{font-size:18px;font-weight:900;color:#fff}.chapterEditActionPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.chapterEditActionCard{border:1px solid #22c55e33;border-radius:16px;padding:12px;margin:10px 0;background:#001f1233}.chapterEditAuditBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.chapterEditAuditBadge.bad{background:#ff557722;color:#ff9aaa;border-color:#ff557755}.chapterEditAuditGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.chapterEditAuditMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.chapterEditAuditMetric .label{font-size:11px;color:#aaa}.chapterEditAuditMetric .value{font-size:18px;font-weight:900;color:#fff}.chapterEditAuditPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.chapterEditAuditCard{border:1px solid #22c55e33;border-radius:16px;padding:12px;margin:10px 0;background:#001f1233}.chapterDraftBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.chapterDraftBadge.bad{background:#ff557722;color:#ff9aaa;border-color:#ff557755}.chapterDraftGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.chapterDraftMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.chapterDraftMetric .label{font-size:11px;color:#aaa}.chapterDraftMetric .value{font-size:18px;font-weight:900;color:#fff}.chapterDraftPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.chapterDraftCard{border:1px solid #a855f733;border-radius:16px;padding:12px;margin:10px 0;background:#1f003333}.draftGateBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.draftGateBadge.bad{background:#ffcc6622;color:#ffd99a;border-color:#ffcc6655}.draftGateGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.draftGateMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.draftGateMetric .label{font-size:11px;color:#aaa}.draftGateMetric .value{font-size:18px;font-weight:900;color:#fff}.draftGatePath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.draftGateCard{border:1px solid #a855f733;border-radius:16px;padding:12px;margin:10px 0;background:#1f003333}.draftSaveBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.draftSaveBadge.blocked{background:#ffcc6622;color:#ffd99a;border-color:#ffcc6655}.draftSaveBadge.bad{background:#ff557722;color:#ff9aaa;border-color:#ff557755}.draftSaveGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.draftSaveMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.draftSaveMetric .label{font-size:11px;color:#aaa}.draftSaveMetric .value{font-size:18px;font-weight:900;color:#fff}.draftSavePath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.draftSaveCard{border:1px solid #22c55e33;border-radius:16px;padding:12px;margin:10px 0;background:#001f1233}.draftReaderBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.draftReaderBadge.bad{background:#ffcc6622;color:#ffd99a;border-color:#ffcc6655}.draftReaderGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.draftReaderMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.draftReaderMetric .label{font-size:11px;color:#aaa}.draftReaderMetric .value{font-size:18px;font-weight:900;color:#fff}.draftReaderPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.draftReaderCard{border:1px solid #22c55e33;border-radius:16px;padding:12px;margin:10px 0;background:#001f1233}.draftHistoryBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.draftHistoryBadge.bad{background:#ffcc6622;color:#ffd99a;border-color:#ffcc6655}.draftHistoryGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.draftHistoryMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.draftHistoryMetric .label{font-size:11px;color:#aaa}.draftHistoryMetric .value{font-size:18px;font-weight:900;color:#fff}.draftHistoryPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.draftHistoryCard{border:1px solid #22c55e33;border-radius:16px;padding:12px;margin:10px 0;background:#001f1233}.draftContinueBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.draftContinueBadge.bad{background:#ffcc6622;color:#ffd99a;border-color:#ffcc6655}.draftContinueGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.draftContinueMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.draftContinueMetric .label{font-size:11px;color:#aaa}.draftContinueMetric .value{font-size:18px;font-weight:900;color:#fff}.draftContinuePath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.draftContinueCard{border:1px solid #22c55e33;border-radius:16px;padding:12px;margin:10px 0;background:#001f1233}.continueGateBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.continueGateBadge.bad{background:#ffcc6622;color:#ffd99a;border-color:#ffcc6655}.continueGateGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.continueGateMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.continueGateMetric .label{font-size:11px;color:#aaa}.continueGateMetric .value{font-size:18px;font-weight:900;color:#fff}.continueGatePath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.continueActionBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.continueActionBadge.blocked{background:#ffcc6622;color:#ffd99a;border-color:#ffcc6655}.continueActionBadge.bad{background:#ff557722;color:#ff9aaa;border-color:#ff557755}.continueActionGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.continueActionMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.continueActionMetric .label{font-size:11px;color:#aaa}.continueActionMetric .value{font-size:18px;font-weight:900;color:#fff}.continueActionPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.draftRefreshBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.draftRefreshBadge.bad{background:#ffcc6622;color:#ffd99a;border-color:#ffcc6655}.draftRefreshGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.draftRefreshMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.draftRefreshMetric .label{font-size:11px;color:#aaa}.draftRefreshMetric .value{font-size:18px;font-weight:900;color:#fff}.draftRefreshPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.draftCompareBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.draftCompareBadge.bad{background:#ffcc6622;color:#ffd99a;border-color:#ffcc6655}.draftCompareGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.draftCompareMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.draftCompareMetric .label{font-size:11px;color:#aaa}.draftCompareMetric .value{font-size:18px;font-weight:900;color:#fff}.draftComparePath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.diffadd{color:#86efac}.diffremove{color:#ff9aaa}.realProseBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.realProseBadge.bad{background:#ffcc6622;color:#ffd99a;border-color:#ffcc6655}.realProseGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.realProseMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.realProseMetric .label{font-size:11px;color:#aaa}.realProseMetric .value{font-size:18px;font-weight:900;color:#fff}.realProsePath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.realProseSaveBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.realProseSaveBadge.blocked{background:#ffcc6622;color:#ffd99a;border-color:#ffcc6655}.realProseSaveBadge.bad{background:#ff557722;color:#ff9aaa;border-color:#ff557755}.realProseSaveGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.realProseSaveMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.realProseSaveMetric .label{font-size:11px;color:#aaa}.realProseSaveMetric .value{font-size:18px;font-weight:900;color:#fff}.realProseSavePath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.realProseVerifyBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.realProseVerifyBadge.bad{background:#ffcc6622;color:#ffd99a;border-color:#ffcc6655}.realProseVerifyGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.realProseVerifyMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.realProseVerifyMetric .label{font-size:11px;color:#aaa}.realProseVerifyMetric .value{font-size:18px;font-weight:900;color:#fff}.realProseVerifyPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.rpadd{color:#86efac}.rpremove{color:#ff9aaa}.realProseEditorBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.realProseEditorBadge.bad{background:#ffcc6622;color:#ffd99a;border-color:#ffcc6655}.realProseEditorGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.realProseEditorMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.realProseEditorMetric .label{font-size:11px;color:#aaa}.realProseEditorMetric .value{font-size:18px;font-weight:900;color:#fff}.realProseEditorPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.rpeadd{color:#86efac}.rperemove{color:#ff9aaa}.realProseEditSaveBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.realProseEditSaveBadge.blocked{background:#ffcc6622;color:#ffd99a;border-color:#ffcc6655}.realProseEditSaveBadge.bad{background:#ff557722;color:#ff9aaa;border-color:#ff557755}.realProseEditSaveGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.realProseEditSaveMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.realProseEditSaveMetric .label{font-size:11px;color:#aaa}.realProseEditSaveMetric .value{font-size:18px;font-weight:900;color:#fff}.realProseEditSavePath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.realProseEditVerifyBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.realProseEditVerifyBadge.bad{background:#ffcc6622;color:#ffd99a;border-color:#ffcc6655}.realProseEditVerifyGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.realProseEditVerifyMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.realProseEditVerifyMetric .label{font-size:11px;color:#aaa}.realProseEditVerifyMetric .value{font-size:18px;font-weight:900;color:#fff}.realProseEditVerifyPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.rpeadd{color:#86efac}.rperemove{color:#ff9aaa}.privateHumanBanner{border:1px solid #a855f755;background:#4c1d9522;border-radius:16px;padding:12px;margin:10px 0;color:#f3e8ff}.privatePaneCard{border-color:#a855f755!important;background:linear-gradient(180deg,#2b174422,#00000011)}.chapterProseBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.chapterProseBadge.bad{background:#ffcc6622;color:#ffd99a;border-color:#ffcc6655}.chapterProseGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.chapterProseMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.chapterProseMetric .label{font-size:11px;color:#aaa}.chapterProseMetric .value{font-size:18px;font-weight:900;color:#fff}.chapterContinueBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.chapterContinueBadge.bad{background:#ffcc6622;color:#ffd99a;border-color:#ffcc6655}</style></head><body><div class=app><aside><div class=logo>K</div><h1>KAYOCK</h1><div class=sub>Command OS · FOXAI Core</div><button class="nav command active" onclick="pg('dash',this)">🚀 Command Bridge</button><button class=nav onclick="pg('commandcenter',this)">🛰️ Command Center</button><button class=nav onclick="pg('commanddetail',this)">🔎 Command Detail</button><button class=nav onclick="pg('commandarchive',this)">🗄️ Command Archive</button><button class=nav onclick="pg('commandfreeze',this)">🧊 Command Freeze</button><button class=nav onclick="pg('kayockwriter',this)">✍️ Kayock Writer</button><button class=nav onclick="pg('storyforge',this)">📚 Story Forge</button><button class=nav onclick="pg('storymanifest',this)">🧾 Story Manifest</button><button class=nav onclick="pg('projectgate',this)">🚪 Project Gate</button><button class=nav onclick="pg('projectaction',this)">✅ Project Action</button><button class=nav onclick="pg('projectdashboard',this)">📖 Project Dashboard</button><button class=nav onclick="pg('chapterplanner',this)">🧩 Chapter Planner</button><button class=nav onclick="pg('chaptersavegate',this)">🔐 Chapter Gate</button><button class=nav onclick="pg('chaptersaveaction',this)">💾 Chapter Save</button><button class=nav onclick="pg('savedchapters',this)">📚 Saved Chapters</button><button class=nav onclick="pg('savedchapterhealth',this)">💚 Chapter Health</button><button class=nav onclick="pg('chaptereditorpreview',this)">📝 Chapter Editor</button><button class=nav onclick="pg('chaptereditgate',this)">🛡️ Edit Gate</button><button class=nav onclick="pg('chaptereditaction',this)">✅ Edit Save</button><button class=nav onclick="pg('chaptereditaudit',this)">🧾 Edit Audit</button><button class=nav onclick="pg('chapterdraftworkspace',this)">✍️ Draft Workspace</button><button class=nav onclick="pg('draftsavegate',this)">🛡️ Draft Gate</button><button class=nav onclick="pg('draftsaveaction',this)">💾 Draft Save</button><button class=nav onclick="pg('draftreader',this)">📖 Draft Reader</button><button class=nav onclick="pg('draftversionhistory',this)">🕰️ Draft History</button><button class=nav onclick="pg('draftcontinueworkspace',this)">➡️ Draft Continue</button><button class=nav onclick="pg('continuesavegate',this)">🛂 Continue Gate</button><button class=nav onclick="pg('continuesaveaction',this)">💾 Continue Save</button><button class=nav onclick="pg('draftrefresh',this)">🔄 Draft Refresh</button><button class=nav onclick="pg('draftcompare',this)">🧾 Draft Compare</button><button class=nav onclick="pg('realprosegate',this)">✍️ Real Prose Gate</button><button class=nav onclick="pg('realprosesave',this)">🖋️ Real Prose Save</button><button class=nav onclick="pg('realproserefreshcompare',this)">🔍 Real Prose Verify</button><button class=nav onclick="pg('realproseeditorgate',this)">🛠️ Prose Edit Gate</button><button class=nav onclick="pg('realproseeditsave',this)">💾 Prose Edit Save</button><button class=nav onclick="pg('realproseeditverify',this)">🔎 Prose Edit Verify</button><button class=nav onclick="pg('chapterproseworkspace',this)">🧠 Prose Workspace</button><button class=nav onclick="pg('chapterprosecontinuegate',this)">🧭 Prose Continue Gate</button><button class=nav onclick="pg('chapterprosecontinuesave',this)">💾 Prose Continue Save</button><button class=nav onclick="pg('chapterprosecontinueverify',this)">🔎 Prose Continue Verify</button><div class=navbreak></div><button class=nav onclick="pg('academy',this)">🎓 Academy</button><button class=nav onclick="pg('novelforge',this)">📖 Novel Forge</button><button class=nav onclick="pg('prompts',this)">✍️ PromptSmith</button><button class=nav onclick="pg('creative',this)">🎨 Creative Studio</button><button class=nav onclick="pg('library',this)">📚 Iron Library</button><button class=nav onclick="pg('mission',this)">🤖 Artificial Minds</button><button class=nav onclick="pg('projects',this)">🗂 Projects</button><button class=nav onclick="pg('memory',this)">🧭 Mission Memory</button><button class=nav onclick="pg('repair',this)">🔧 Repair Bay</button><button class=nav onclick="pg('foxsentry',this)">🛡️ Fox Sentry</button><button class=nav onclick="pg('extensions',this)">🧩 Extensions</button><button class=nav onclick="pg('scanbridge',this)">📡 Scan Bridge</button><button class=nav onclick="pg('projectgen',this)">🧾 Project Docs</button><button class=nav onclick="pg('buildverify',this)">🧪 Build Verify</button><button class=nav onclick="pg('envverify',this)">🧰 Env Verify</button><button class=nav onclick="pg('portable',this)">🧳 Portable Ready</button><button class=nav onclick="pg('modelcheck',this)">🧬 Model Check</button><button class=nav onclick="pg('repairactions',this)">🛠️ Repair Actions</button><button class=nav onclick="pg('repairhistory',this)">📜 Repair History</button><button class=nav onclick="pg('repairops',this)">🏪 Repair Shop</button><button class=nav onclick="pg('repairdetail',this)">🔎 Action Detail</button><button class=nav onclick="pg('repairtickets',this)">🎫 Repair Tickets</button><button class=nav onclick="pg('repairticketdetail',this)">📋 Ticket Detail</button><button class=nav onclick="pg('ticketbridge',this)">🔗 Ticket Bridge</button><button class=nav onclick="pg('repairsession',this)">🧾 Shop Session</button><button class=nav onclick="pg('repairfreeze',this)">🧊 Milestone Freeze</button><button class=nav onclick="pg('backupvault',this)">🗄️ Backup Vault</button><button class=nav onclick="pg('restorepreview',this)">🧭 Restore Preview</button><button class=nav onclick="pg('restoregate',this)">🚧 Restore Gate</button><button class=nav onclick="pg('restorestaging',this)">📦 Restore Staging</button><button class=nav onclick="pg('stagingpackages',this)">🧾 Staging Packages</button><button class=nav onclick="pg('restorefinal',this)">✅ Restore Final Check</button><button class=nav onclick="pg('restoreaction',this)">♻️ Restore Action</button><button class=nav onclick="pg('restoreaudit',this)">🧪 Restore Audit</button><button class=nav onclick="pg('rollbackpreview',this)">↩️ Rollback Preview</button><button class=nav onclick="pg('rollbackaction',this)">⏪ Rollback Action</button><button class=nav onclick="pg('rollbackaudit',this)">🧾 Rollback Audit</button><button class=nav onclick="pg('recoverytimeline',this)">🕰️ Recovery Timeline</button><div class=navbreak></div><button class=nav onclick="pg('logs',this)">📜 Captain's Log</button><button class=nav onclick="pg('settings',this)">⚙ Settings</button><div class=ops><div class=row><div class=lab>Operator</div><div>Eric Fox</div></div><div class=row><div class=lab>Professor</div><div id=ap>Agent Fox</div></div><div class=row><div class=lab>Project</div><div id=apro>None</div></div><div class=row><div class=lab>Mission</div><div id=ms>READY</div></div><div class=row><div class=lab>Model</div><div id=am>None</div></div><div class=row><div class=lab>Runtime</div><div id=rt>Checking</div></div></div><div id=quick></div><div class=ops><div class=row><div class=lab>CPU</div><div id=cpu>?</div></div><div class=row><div class=lab>RAM</div><div id=ram>?</div></div><div class=meter><div id=ramm class=fill></div></div></div></aside><main>
++.libresult{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px;margin:8px 0}.libresult h4{margin:0 0 5px;color:var(--p2)}.libmeta{color:var(--m);font-family:Consolas,monospace;font-size:12px}.libbadge{display:inline-block;border:1px solid #8f5cff45;border-radius:999px;padding:3px 8px;margin:3px 4px 6px 0;color:var(--p2);font-size:12px}.previewbox{background:#070913;border:1px solid #8f5cff30;border-radius:16px;padding:14px;max-height:520px;overflow:auto;white-space:pre-wrap;font-family:Consolas,monospace;font-size:13px}.previewhead{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:10px}.copypath{color:var(--c);font-family:Consolas,monospace;font-size:12px;overflow-wrap:anywhere}.indexresult{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px;margin:8px 0}.indexresult h4{margin:0 0 5px;color:var(--p2)}.indexsnippet{background:#070913;border:1px solid #8f5cff22;border-radius:12px;padding:10px;margin-top:8px;color:#e7dcff;font-family:Consolas,monospace;font-size:12px;white-space:pre-wrap}.indexscore{color:var(--w);font-family:Consolas,monospace;font-size:12px}.askhint{color:var(--w);font-size:12px;margin-top:6px}.nfitem{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px;margin:8px 0}.nfitem h4{margin:0 0 6px;color:var(--p2)}.nftag{display:inline-block;border:1px solid #8f5cff45;border-radius:999px;padding:3px 8px;margin:3px 4px 6px 0;color:var(--p2);font-size:12px}.nfpreview{color:var(--m);font-family:Consolas,monospace;font-size:12px;white-space:pre-wrap}.nfcount{display:inline-block;border:1px solid #8f5cff45;border-radius:999px;padding:4px 9px;margin:3px;color:var(--p2);font-size:12px}.nfactions button{padding:8px 10px;font-size:13px}.tmevent{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px;margin:8px 0}.tmevent h4{margin:0 0 6px;color:var(--p2)}.tmtag{display:inline-block;border:1px solid #8f5cff45;border-radius:999px;padding:3px 8px;margin:3px 4px 6px 0;color:var(--p2);font-size:12px}.tmdetails{color:var(--m);white-space:pre-wrap;font-family:Consolas,monospace;font-size:12px}.tmactions button{padding:8px 10px;font-size:13px}.charcard{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px;margin:8px 0}.charcard h4{margin:0 0 6px;color:var(--p2)}.chartag{display:inline-block;border:1px solid #8f5cff45;border-radius:999px;padding:3px 8px;margin:3px 4px 6px 0;color:var(--p2);font-size:12px}.chardetails{color:var(--m);white-space:pre-wrap;font-family:Consolas,monospace;font-size:12px}.charactions button{padding:8px 10px;font-size:13px}.mysterycard{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px;margin:8px 0}.mysterycard h4{margin:0 0 6px;color:var(--p2)}.mystag{display:inline-block;border:1px solid #8f5cff45;border-radius:999px;padding:3px 8px;margin:3px 4px 6px 0;color:var(--p2);font-size:12px}.mystatus-unresolved{border-color:#ffd16666;color:#ffd166}.mystatus-solved{border-color:#42ff9e66;color:#42ff9e}.mystatus-red{border-color:#ff4d6d66;color:#ff4d6d}.mysdetails{color:var(--m);white-space:pre-wrap;font-family:Consolas,monospace;font-size:12px}.mysactions button{padding:8px 10px;font-size:13px}.loccard,.artcard{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px;margin:8px 0}.loccard h4,.artcard h4{margin:0 0 6px;color:var(--p2)}.loctag,.arttag{display:inline-block;border:1px solid #8f5cff45;border-radius:999px;padding:3px 8px;margin:3px 4px 6px 0;color:var(--p2);font-size:12px}.locdetails,.artdetails{color:var(--m);white-space:pre-wrap;font-family:Consolas,monospace;font-size:12px}.locactions button,.artactions button{padding:8px 10px;font-size:13px}.codexdash{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin:10px 0}.codexbox{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px}.codexbox .label{color:var(--m);font-size:12px}.codexbox .value{font-size:24px;font-weight:900;color:#fff;margin-top:4px}.readiness{border-left:3px solid var(--w);padding:10px 0 10px 12px;margin-top:12px;background:#ffd1660b;border-radius:0 12px 12px 0}.scenecard{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px;margin:8px 0}.scenecard h4{margin:0 0 6px;color:var(--p2)}.scenetag{display:inline-block;border:1px solid #8f5cff45;border-radius:999px;padding:3px 8px;margin:3px 4px 6px 0;color:var(--p2);font-size:12px}.scenedetails{color:var(--m);white-space:pre-wrap;font-family:Consolas,monospace;font-size:12px}.sceneactions button{padding:8px 10px;font-size:13px}.extcard{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px;margin:8px 0}.extcard h4{margin:0 0 6px;color:var(--p2)}.exttag{display:inline-block;border:1px solid #8f5cff45;border-radius:999px;padding:3px 8px;margin:3px 4px 6px 0;color:var(--p2);font-size:12px}.extmeta{color:var(--m);white-space:pre-wrap;font-family:Consolas,monospace;font-size:12px}.extactions button{padding:8px 10px;font-size:13px}.disabledmod{opacity:.55}.repairbox{background:#050713;border:1px solid #8f5cff45;border-radius:14px;padding:12px;white-space:pre-wrap;overflow:auto;max-height:380px;color:#eae7ff;font-family:Consolas,monospace;font-size:12px}.moddash{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin:10px 0}.modbox{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px}.modbox .label{color:var(--m);font-size:12px}.modbox .value{font-size:24px;font-weight:900;color:#fff;margin-top:4px}.modhint{border-left:3px solid var(--w);padding:10px 0 10px 12px;margin-top:12px;background:#ffd1660b;border-radius:0 12px 12px 0}.modok{border-left-color:var(--ok)!important;background:#00e6860a}.modwarn{border-left-color:var(--bad)!important;background:#ff4d6d0b}.inventoryreadonly{display:inline-block;border:1px solid #00e68655;background:#00e68610;color:var(--ok);border-radius:999px;padding:4px 9px;font-size:11px;font-weight:800;letter-spacing:.08em}.inventorygrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:10px;margin:12px 0}.inventorymetric{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:15px;padding:11px}.inventorymetric .label{color:var(--m);font-size:11px;text-transform:uppercase;letter-spacing:.05em}.inventorymetric .value{font-size:23px;font-weight:900;color:#fff;margin-top:4px}.inventorytoolbar{display:grid;grid-template-columns:minmax(220px,2fr) repeat(3,minmax(135px,1fr));gap:10px;margin:12px 0}.inventorytoolbar input,.inventorytoolbar select{width:100%;box-sizing:border-box}.inventorysources{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:8px;margin-top:10px}.inventorysource{border-left:3px solid #8f5cff;padding:9px 10px;background:#8f5cff0b;border-radius:0 11px 11px 0;color:var(--m);font-family:Consolas,monospace;font-size:11px;white-space:pre-wrap;overflow-wrap:anywhere}.inventorycard{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:13px;margin:9px 0}.inventorycard.verified{border-left:4px solid var(--ok)}.inventorycard.installed{border-left:4px solid #68a7ff}.inventorycard.missing{border-left:4px solid var(--w)}.inventorycard.attention{border-left:4px solid var(--bad)}.inventorycard h4{margin:0 0 7px;color:#fff}.inventorybadges{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px}.inventorybadge{border:1px solid #8f5cff45;border-radius:999px;padding:3px 8px;color:var(--p2);font-size:11px}.inventorybadge.verified{border-color:#00e68666;color:var(--ok)}.inventorybadge.installed{border-color:#68a7ff66;color:#8fc1ff}.inventorybadge.missing{border-color:#ffd16666;color:var(--w)}.inventorybadge.attention{border-color:#ff4d6d66;color:#ff8296}.inventorymeta{color:var(--m);white-space:pre-wrap;font-family:Consolas,monospace;font-size:11px;overflow-wrap:anywhere}.inventoryhealth{margin-top:9px;padding:8px 10px;border-radius:10px;background:#050713;color:#eae7ff;font-size:12px}.inventoryactions{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}.inventoryactions button{padding:7px 10px;font-size:12px}.inventoryempty{padding:18px;text-align:center;color:var(--m);border:1px dashed #8f5cff45;border-radius:14px}.inventorynote{border-left:3px solid var(--ok);padding:10px 12px;background:#00e6860a;border-radius:0 12px 12px 0;margin:10px 0;color:#d9ffef}@media(max-width:900px){.inventorytoolbar{grid-template-columns:1fr 1fr}.inventorytoolbar input{grid-column:1/-1}}.scanbox{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:10px 0}.scanmetric{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px}.scanmetric .label{color:var(--m);font-size:12px}.scanmetric .value{font-size:24px;font-weight:900;color:#fff;margin-top:4px}.scanlist{background:#050713;border:1px solid #8f5cff45;border-radius:14px;padding:12px;white-space:pre-wrap;overflow:auto;max-height:420px;color:#eae7ff;font-family:Consolas,monospace;font-size:12px}.docstatusgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin:10px 0}.docstat{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px}.docstat .label{color:var(--m);font-size:12px}.docstat .value{font-size:24px;font-weight:900;color:#fff;margin-top:4px}.docrow{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:14px;padding:10px;margin:8px 0}.docrow.good{border-left:3px solid var(--ok)}.docrow.bad{border-left:3px solid var(--bad)}.buildgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin:10px 0}.buildmetric{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px}.buildmetric .label{color:var(--m);font-size:12px}.buildmetric .value{font-size:24px;font-weight:900;color:#fff;margin-top:4px}.checkrow{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:14px;padding:10px;margin:8px 0}.checkrow.pass{border-left:3px solid var(--ok)}.checkrow.fail{border-left:3px solid var(--bad)}.envgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin:10px 0}.envmetric{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px}.envmetric .label{color:var(--m);font-size:12px}.envmetric .value{font-size:24px;font-weight:900;color:#fff;margin-top:4px}.envrow{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:14px;padding:10px;margin:8px 0}.envrow.pass{border-left:3px solid var(--ok)}.envrow.fail{border-left:3px solid var(--bad)}.envrow.optional{border-left:3px solid var(--w)}.portablegrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:12px;margin:10px 0}.portablemetric{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px}.portablemetric .label{color:var(--m);font-size:12px}.portablemetric .value{font-size:24px;font-weight:900;color:#fff;margin-top:4px}.portrow{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:14px;padding:10px;margin:8px 0}.portrow.pass{border-left:3px solid var(--ok)}.portrow.warn{border-left:3px solid var(--w)}.portrow.fail{border-left:3px solid var(--bad)}.modelgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:12px;margin:10px 0}.modelmetric{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px}.modelmetric .label{color:var(--m);font-size:12px}.modelmetric .value{font-size:24px;font-weight:900;color:#fff;margin-top:4px}.modelrow{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:14px;padding:10px;margin:8px 0}.modelrow.safe{border-left:3px solid var(--ok)}.modelrow.info{border-left:3px solid var(--m)}.modelrow.review{border-left:3px solid var(--w)}.modelrow.warn{border-left:3px solid var(--bad)}.repairrow{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:14px;padding:12px;margin:10px 0}.repairrow.available{border-left:3px solid var(--ok)}.repairrow.blocked{border-left:3px solid var(--bad)}.repairrow .repairtitle{font-weight:900;color:#fff}.repairrow .risk{color:var(--m);font-size:12px}.repairrow button{margin-top:8px}.historygrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:10px 0}.historymetric{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px}.historymetric .label{color:var(--m);font-size:12px}.historymetric .value{font-size:24px;font-weight:900;color:#fff;margin-top:4px}.histrow{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:14px;padding:10px;margin:8px 0}.histrow.ok{border-left:3px solid var(--ok)}.histrow.fail{border-left:3px solid var(--bad)}.histrow.info{border-left:3px solid var(--m)}.verifybadge{display:inline-block;border-radius:999px;padding:3px 8px;font-size:11px;font-weight:900;margin-left:6px}.verifybadge.pass{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.verifybadge.fail{background:#ff5d5d22;color:#ffb0b0;border:1px solid #ff5d5d55}.verifybadge.none{background:#ffffff12;color:#c9bfdc;border:1px solid #ffffff22}.checkline{font-size:12px;color:#d8d0e8;margin-left:10px}.backupbadge{display:inline-block;border-radius:999px;padding:3px 8px;font-size:11px;font-weight:900;margin-left:6px}.backupbadge.assoc{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.backupbadge.old{background:#ffffff12;color:#c9bfdc;border:1px solid #ffffff22}.vaultpath{font-size:12px;color:#d8d0e8;word-break:break-all}.vaultmetric{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px}.vaultmetric .label{color:var(--m);font-size:12px}.vaultmetric .value{font-size:24px;font-weight:900;color:#fff;margin-top:4px}.timestampnote{font-size:12px;color:#c9bfdc;border-left:3px solid #8f5cff77;padding-left:8px;margin-top:6px}.riskbadge{display:inline-block;border-radius:999px;padding:4px 10px;font-size:12px;font-weight:900}.riskbadge.low{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.riskbadge.medium{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.riskbadge.blocked{background:#ff5d5d22;color:#ffb0b0;border:1px solid #ff5d5d55}.diffbox{white-space:pre-wrap;font-family:ui-monospace,Consolas,monospace}.gatebadge{display:inline-block;border-radius:999px;padding:4px 10px;font-size:12px;font-weight:900;margin-left:6px}.gatebadge.pass{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.gatebadge.warn{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.gatebadge.block{background:#ff5d5d22;color:#ffb0b0;border:1px solid #ff5d5d55}.gatebadge.info{background:#8f5cff22;color:#e2d4ff;border:1px solid #8f5cff55}.phrasebox{font-family:ui-monospace,Consolas,monospace;font-size:16px;border:1px solid #8f5cff55;background:#00000033;border-radius:14px;padding:12px;color:#fff}.packagebadge{display:inline-block;border-radius:999px;padding:4px 10px;font-size:12px;font-weight:900;margin-left:6px}.packagebadge.ok{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.packagebadge.problem{background:#ff5d5d22;color:#ffb0b0;border:1px solid #ff5d5d55}.packagefile{font-size:12px;color:#d8d0e8;word-break:break-all;margin-left:8px}.finalbadge{display:inline-block;border-radius:999px;padding:4px 10px;font-size:12px;font-weight:900;margin-left:6px}.finalbadge.pass{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.finalbadge.warn{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.finalbadge.block{background:#ff5d5d22;color:#ffb0b0;border:1px solid #ff5d5d55}.finalphrase{font-family:ui-monospace,Consolas,monospace;font-size:15px;border:1px solid #8f5cff55;background:#00000033;border-radius:14px;padding:12px;color:#fff}.auditbadge{display:inline-block;border-radius:999px;padding:4px 10px;font-size:12px;font-weight:900;margin-left:6px}.auditbadge.intact{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.auditbadge.attention{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.hashline{font-family:ui-monospace,Consolas,monospace;font-size:12px;word-break:break-all;color:#d8d0e8}.rollbackbadge{display:inline-block;border-radius:999px;padding:4px 10px;font-size:12px;font-weight:900;margin-left:6px}.rollbackbadge.pass{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.rollbackbadge.warn{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.rollbackbadge.block{background:#ff5d5d22;color:#ffb0b0;border:1px solid #ff5d5d55}.rollbackphrase{font-family:ui-monospace,Consolas,monospace;font-size:15px;border:1px solid #8f5cff55;background:#00000033;border-radius:14px;padding:12px;color:#fff}.rbauditbadge{display:inline-block;border-radius:999px;padding:4px 10px;font-size:12px;font-weight:900;margin-left:6px}.rbauditbadge.intact{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.rbauditbadge.attention{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.rbauditHash{font-family:ui-monospace,Consolas,monospace;font-size:12px;word-break:break-all;color:#d8d0e8}.tlbadge{display:inline-block;border-radius:999px;padding:4px 10px;font-size:12px;font-weight:900;margin-left:6px}.tlbadge.intact{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.tlbadge.attention{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.tlbadge.evidence{background:#8f5cff22;color:#d8c7ff;border:1px solid #8f5cff55}.tlbadge.superseded_by_rollback{background:#66c7ff22;color:#b9e8ff;border:1px solid #66c7ff55}.tlbadge.other{background:#ffffff12;color:#ddd;border:1px solid #ffffff22}.timelineHash{font-family:ui-monospace,Consolas,monospace;font-size:12px;word-break:break-all;color:#d8d0e8}.timelineEvent{border-left:3px solid #8f5cff;padding-left:12px}.recoveryHealthBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px}.recoveryHealthBadge.healthy{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.recoveryHealthBadge.warn{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.recoveryMiniGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.recoveryMini{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.recoveryMini .label{font-size:11px;color:#aaa}.recoveryMini .value{font-size:18px;font-weight:900;color:#fff}.recoveryPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.repairShopBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px}.repairShopBadge.healthy{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.repairShopBadge.warn{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.repairShopGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.repairShopMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.repairShopMetric .label{font-size:11px;color:#aaa}.repairShopMetric .value{font-size:18px;font-weight:900;color:#fff}.repairShopPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.actionPill{display:inline-block;border-radius:999px;padding:3px 9px;font-size:11px;font-weight:900;margin-left:6px}.actionPill.available{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.actionPill.blocked{background:#ffffff12;color:#aaa;border:1px solid #ffffff22}.detailBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px}.detailBadge.verified{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.detailBadge.legacy_ok{background:#66c7ff22;color:#b9e8ff;border:1px solid #66c7ff55}.detailBadge.failed{background:#ff5d5d22;color:#ffb0b0;border:1px solid #ff5d5d55}.detailBadge.attention{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.detailGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin-top:10px}.detailMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.detailMetric .label{font-size:11px;color:#aaa}.detailMetric .value{font-size:16px;font-weight:900;color:#fff}.detailHash{font-family:ui-monospace,Consolas,monospace;font-size:12px;word-break:break-all;color:#d8d0e8}.repairCardBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px}.repairCardBadge.healthy{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.repairCardBadge.warn{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.repairCardGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(135px,1fr));gap:10px;margin-top:10px}.repairCardMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.repairCardMetric .label{font-size:11px;color:#aaa}.repairCardMetric .value{font-size:18px;font-weight:900;color:#fff}.repairCardPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.ticketBadge{display:inline-block;border-radius:999px;padding:4px 10px;font-size:11px;font-weight:900;margin-right:6px}.ticketBadge.critical{background:#ff336622;color:#ffb0c4;border:1px solid #ff336655}.ticketBadge.high{background:#ff5d5d22;color:#ffb0b0;border:1px solid #ff5d5d55}.ticketBadge.medium{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.ticketBadge.low{background:#66c7ff22;color:#b9e8ff;border:1px solid #66c7ff55}.ticketBadge.info{background:#ffffff12;color:#d8d0e8;border:1px solid #ffffff24}.ticketBadge.healthy{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.ticketGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(135px,1fr));gap:10px;margin-top:10px}.ticketMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.ticketMetric .label{font-size:11px;color:#aaa}.ticketMetric .value{font-size:18px;font-weight:900;color:#fff}.ticketRow{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:14px;padding:10px;margin:8px 0}.ticketRow.critical,.ticketRow.high{border-left:3px solid var(--bad)}.ticketRow.medium,.ticketRow.low{border-left:3px solid var(--w)}.ticketRow.healthy{border-left:3px solid var(--ok)}.ticketPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:6px}.ticketDetailBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px}.ticketDetailBadge.healthy{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.ticketDetailBadge.available_action{background:#66c7ff22;color:#b9e8ff;border:1px solid #66c7ff55}.ticketDetailBadge.informational{background:#ffffff12;color:#d8d0e8;border:1px solid #ffffff22}.ticketDetailBadge.needs_attention,.ticketDetailBadge.open{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.ticketDetailGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:10px;margin-top:10px}.ticketDetailMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.ticketDetailMetric .label{font-size:11px;color:#aaa}.ticketDetailMetric .value{font-size:17px;font-weight:900;color:#fff}.ticketDetailPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.bridgeBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px}.bridgeBadge.ready{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.bridgeBadge.info{background:#66c7ff22;color:#b9e8ff;border:1px solid #66c7ff55}.bridgeBadge.warn{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.bridgeGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-top:10px}.bridgeMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.bridgeMetric .label{font-size:11px;color:#aaa}.bridgeMetric .value{font-size:16px;font-weight:900;color:#fff}.repairrow.recommended{border-color:#36d399aa!important;box-shadow:0 0 0 1px #36d39955 inset}.recommendTag{display:inline-block;border-radius:999px;padding:4px 10px;background:#36d39922;color:#7fffd4;border:1px solid #36d39955;font-size:11px;font-weight:900;margin-bottom:8px}.sessionBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px}.sessionBadge.healthy{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.sessionBadge.warn{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.sessionGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.sessionMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.sessionMetric .label{font-size:11px;color:#aaa}.sessionMetric .value{font-size:18px;font-weight:900;color:#fff}.sessionPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.freezeBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px}.freezeBadge.healthy{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.freezeBadge.warn{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.freezeGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.freezeMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.freezeMetric .label{font-size:11px;color:#aaa}.freezeMetric .value{font-size:18px;font-weight:900;color:#fff}.freezePath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.ccBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px}.ccBadge.clear{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.ccBadge.advisory{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.ccBadge.bad{background:#ff557722;color:#ff9aaa;border:1px solid #ff557755}.ccGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.ccMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.ccMetric .label{font-size:11px;color:#aaa}.ccMetric .value{font-size:18px;font-weight:900;color:#fff}.ccPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.foundationCard{border:1px solid #ffffff18;border-radius:16px;padding:12px;margin:10px 0;background:#00000022}.foundationCard.clear{border-color:#36d39955}.foundationCard.advisory{border-color:#ffcc6655}.foundationCard.needs_attention{border-color:#ff557755}.cmdDetailBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px}.cmdDetailBadge.clear{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.cmdDetailBadge.advisory{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.cmdDetailBadge.bad{background:#ff557722;color:#ff9aaa;border:1px solid #ff557755}.cmdMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;margin:8px 0;background:#00000022}.cmdMetric .k{font-size:12px;color:#aaa}.cmdMetric .v{font-weight:800;color:#fff;word-break:break-word}.cmdPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:6px}.ccDashBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px}.ccDashBadge.clear{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.ccDashBadge.advisory{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.ccDashBadge.bad{background:#ff557722;color:#ff9aaa;border:1px solid #ff557755}.ccDashGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-top:10px}.ccDashMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.ccDashMetric .label{font-size:11px;color:#aaa}.ccDashMetric .value{font-size:18px;font-weight:900;color:#fff}.ccDashLine{font-size:12px;color:#cfc7df;word-break:break-word;margin-top:8px}.archiveBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px}.archiveBadge.clear{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.archiveBadge.advisory{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.archiveBadge.bad{background:#ff557722;color:#ff9aaa;border:1px solid #ff557755}.archiveGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.archiveMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.archiveMetric .label{font-size:11px;color:#aaa}.archiveMetric .value{font-size:18px;font-weight:900;color:#fff}.archivePath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.cmdFreezeBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px}.cmdFreezeBadge.clear{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.cmdFreezeBadge.advisory{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.cmdFreezeBadge.bad{background:#ff557722;color:#ff9aaa;border:1px solid #ff557755}.cmdFreezeGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.cmdFreezeMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.cmdFreezeMetric .label{font-size:11px;color:#aaa}.cmdFreezeMetric .value{font-size:18px;font-weight:900;color:#fff}.cmdFreezePath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.writerBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#a855f722;color:#e9d5ff;border:1px solid #a855f755}.writerGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.writerMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.writerMetric .label{font-size:11px;color:#aaa}.writerMetric .value{font-size:18px;font-weight:900;color:#fff}.writerPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.writerModule{border:1px solid #a855f733;border-radius:16px;padding:12px;margin:10px 0;background:#14001f33}.storyBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#8b5cf622;color:#ddd6fe;border:1px solid #8b5cf655}.storyGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.storyMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.storyMetric .label{font-size:11px;color:#aaa}.storyMetric .value{font-size:18px;font-weight:900;color:#fff}.storyPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.storyCard{border:1px solid #8b5cf633;border-radius:16px;padding:12px;margin:10px 0;background:#16002433}.manifestBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#7c3aed22;color:#ddd6fe;border:1px solid #7c3aed55}.manifestGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.manifestMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.manifestMetric .label{font-size:11px;color:#aaa}.manifestMetric .value{font-size:18px;font-weight:900;color:#fff}.manifestPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.manifestCard{border:1px solid #7c3aed33;border-radius:16px;padding:12px;margin:10px 0;background:#12002033}.gateBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#6d28d922;color:#ddd6fe;border:1px solid #6d28d955}.gateGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.gateMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.gateMetric .label{font-size:11px;color:#aaa}.gateMetric .value{font-size:18px;font-weight:900;color:#fff}.gatePath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.gateCard{border:1px solid #6d28d933;border-radius:16px;padding:12px;margin:10px 0;background:#12002033}.actionBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#4c1d9522;color:#ddd6fe;border:1px solid #4c1d9555}.actionBadge.created{background:#36d39922;color:#7fffd4;border-color:#36d39955}.actionBadge.blocked{background:#ffcc6622;color:#ffd99a;border-color:#ffcc6655}.actionBadge.error{background:#ff557722;color:#ff9aaa;border-color:#ff557755}.actionGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.actionMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.actionMetric .label{font-size:11px;color:#aaa}.actionMetric .value{font-size:18px;font-weight:900;color:#fff}.actionPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.actionCard{border:1px solid #4c1d9533;border-radius:16px;padding:12px;margin:10px 0;background:#12002033}.dashProjectBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.dashProjectBadge.bad{background:#ff557722;color:#ff9aaa;border-color:#ff557755}.projectDashGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.projectDashMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.projectDashMetric .label{font-size:11px;color:#aaa}.projectDashMetric .value{font-size:18px;font-weight:900;color:#fff}.projectDashPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.projectDashCard{border:1px solid #22c55e33;border-radius:16px;padding:12px;margin:10px 0;background:#001f1233}.storyHealthBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px}.storyHealthBadge.clear{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.storyHealthBadge.advisory{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.storyHealthBadge.bad{background:#ff557722;color:#ff9aaa;border:1px solid #ff557755}.storyHealthGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-top:10px}.storyHealthMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.storyHealthMetric .label{font-size:11px;color:#aaa}.storyHealthMetric .value{font-size:18px;font-weight:900;color:#fff}.storyHealthLine{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.chapterBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#7c3aed22;color:#ddd6fe;border:1px solid #7c3aed55}.chapterBadge.bad{background:#ff557722;color:#ff9aaa;border-color:#ff557755}.chapterGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.chapterMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.chapterMetric .label{font-size:11px;color:#aaa}.chapterMetric .value{font-size:18px;font-weight:900;color:#fff}.chapterPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.chapterCard{border:1px solid #7c3aed33;border-radius:16px;padding:12px;margin:10px 0;background:#12002033}.saveGateBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#0ea5e922;color:#bae6fd;border:1px solid #0ea5e955}.saveGateBadge.bad{background:#ff557722;color:#ff9aaa;border-color:#ff557755}.saveGateGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.saveGateMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.saveGateMetric .label{font-size:11px;color:#aaa}.saveGateMetric .value{font-size:18px;font-weight:900;color:#fff}.saveGatePath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.saveGateCard{border:1px solid #0ea5e933;border-radius:16px;padding:12px;margin:10px 0;background:#001b2f33}.chapterSaveActionBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#4c1d9522;color:#ddd6fe;border:1px solid #4c1d9555}.chapterSaveActionBadge.created{background:#36d39922;color:#7fffd4;border-color:#36d39955}.chapterSaveActionBadge.blocked{background:#ffcc6622;color:#ffd99a;border-color:#ffcc6655}.chapterSaveActionBadge.error{background:#ff557722;color:#ff9aaa;border-color:#ff557755}.chapterSaveActionGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.chapterSaveActionMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.chapterSaveActionMetric .label{font-size:11px;color:#aaa}.chapterSaveActionMetric .value{font-size:18px;font-weight:900;color:#fff}.chapterSaveActionPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.chapterSaveActionCard{border:1px solid #4c1d9533;border-radius:16px;padding:12px;margin:10px 0;background:#12002033}.savedChapterBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.savedChapterBadge.bad{background:#ff557722;color:#ff9aaa;border-color:#ff557755}.savedChapterGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.savedChapterMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.savedChapterMetric .label{font-size:11px;color:#aaa}.savedChapterMetric .value{font-size:18px;font-weight:900;color:#fff}.savedChapterPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.savedChapterCard{border:1px solid #22c55e33;border-radius:16px;padding:12px;margin:10px 0;background:#001f1233}.savedHealthBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.savedHealthBadge.review{background:#ffcc6622;color:#ffd99a;border-color:#ffcc6655}.savedHealthGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-top:10px}.savedHealthMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.savedHealthMetric .label{font-size:11px;color:#aaa}.savedHealthMetric .value{font-size:18px;font-weight:900;color:#fff}.savedHealthPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.chapterEditorBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#8b5cf622;color:#ddd6fe;border:1px solid #8b5cf655}.chapterEditorBadge.bad{background:#ff557722;color:#ff9aaa;border-color:#ff557755}.chapterEditorGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.chapterEditorMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.chapterEditorMetric .label{font-size:11px;color:#aaa}.chapterEditorMetric .value{font-size:18px;font-weight:900;color:#fff}.chapterEditorPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.chapterEditorCard{border:1px solid #8b5cf633;border-radius:16px;padding:12px;margin:10px 0;background:#12002033}#chaptereditorpreview textarea,#chaptereditorpreview input{width:100%;box-sizing:border-box;margin:6px 0 12px 0}.chapterEditGateBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#38bdf822;color:#bae6fd;border:1px solid #38bdf855}.chapterEditGateBadge.bad{background:#ff557722;color:#ff9aaa;border-color:#ff557755}.chapterEditGateGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.chapterEditGateMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.chapterEditGateMetric .label{font-size:11px;color:#aaa}.chapterEditGateMetric .value{font-size:18px;font-weight:900;color:#fff}.chapterEditGatePath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.chapterEditGateCard{border:1px solid #38bdf833;border-radius:16px;padding:12px;margin:10px 0;background:#00182733}.chapterEditActionBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.chapterEditActionBadge.blocked{background:#ffcc6622;color:#ffd99a;border-color:#ffcc6655}.chapterEditActionBadge.bad{background:#ff557722;color:#ff9aaa;border-color:#ff557755}.chapterEditActionGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.chapterEditActionMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.chapterEditActionMetric .label{font-size:11px;color:#aaa}.chapterEditActionMetric .value{font-size:18px;font-weight:900;color:#fff}.chapterEditActionPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.chapterEditActionCard{border:1px solid #22c55e33;border-radius:16px;padding:12px;margin:10px 0;background:#001f1233}.chapterEditAuditBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.chapterEditAuditBadge.bad{background:#ff557722;color:#ff9aaa;border-color:#ff557755}.chapterEditAuditGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.chapterEditAuditMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.chapterEditAuditMetric .label{font-size:11px;color:#aaa}.chapterEditAuditMetric .value{font-size:18px;font-weight:900;color:#fff}.chapterEditAuditPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.chapterEditAuditCard{border:1px solid #22c55e33;border-radius:16px;padding:12px;margin:10px 0;background:#001f1233}.chapterDraftBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.chapterDraftBadge.bad{background:#ff557722;color:#ff9aaa;border-color:#ff557755}.chapterDraftGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.chapterDraftMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.chapterDraftMetric .label{font-size:11px;color:#aaa}.chapterDraftMetric .value{font-size:18px;font-weight:900;color:#fff}.chapterDraftPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.chapterDraftCard{border:1px solid #a855f733;border-radius:16px;padding:12px;margin:10px 0;background:#1f003333}.draftGateBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.draftGateBadge.bad{background:#ffcc6622;color:#ffd99a;border-color:#ffcc6655}.draftGateGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.draftGateMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.draftGateMetric .label{font-size:11px;color:#aaa}.draftGateMetric .value{font-size:18px;font-weight:900;color:#fff}.draftGatePath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.draftGateCard{border:1px solid #a855f733;border-radius:16px;padding:12px;margin:10px 0;background:#1f003333}.draftSaveBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.draftSaveBadge.blocked{background:#ffcc6622;color:#ffd99a;border-color:#ffcc6655}.draftSaveBadge.bad{background:#ff557722;color:#ff9aaa;border-color:#ff557755}.draftSaveGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.draftSaveMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.draftSaveMetric .label{font-size:11px;color:#aaa}.draftSaveMetric .value{font-size:18px;font-weight:900;color:#fff}.draftSavePath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.draftSaveCard{border:1px solid #22c55e33;border-radius:16px;padding:12px;margin:10px 0;background:#001f1233}.draftReaderBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.draftReaderBadge.bad{background:#ffcc6622;color:#ffd99a;border-color:#ffcc6655}.draftReaderGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.draftReaderMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.draftReaderMetric .label{font-size:11px;color:#aaa}.draftReaderMetric .value{font-size:18px;font-weight:900;color:#fff}.draftReaderPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.draftReaderCard{border:1px solid #22c55e33;border-radius:16px;padding:12px;margin:10px 0;background:#001f1233}.draftHistoryBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.draftHistoryBadge.bad{background:#ffcc6622;color:#ffd99a;border-color:#ffcc6655}.draftHistoryGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.draftHistoryMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.draftHistoryMetric .label{font-size:11px;color:#aaa}.draftHistoryMetric .value{font-size:18px;font-weight:900;color:#fff}.draftHistoryPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.draftHistoryCard{border:1px solid #22c55e33;border-radius:16px;padding:12px;margin:10px 0;background:#001f1233}.draftContinueBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.draftContinueBadge.bad{background:#ffcc6622;color:#ffd99a;border-color:#ffcc6655}.draftContinueGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.draftContinueMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.draftContinueMetric .label{font-size:11px;color:#aaa}.draftContinueMetric .value{font-size:18px;font-weight:900;color:#fff}.draftContinuePath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.draftContinueCard{border:1px solid #22c55e33;border-radius:16px;padding:12px;margin:10px 0;background:#001f1233}.continueGateBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.continueGateBadge.bad{background:#ffcc6622;color:#ffd99a;border-color:#ffcc6655}.continueGateGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.continueGateMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.continueGateMetric .label{font-size:11px;color:#aaa}.continueGateMetric .value{font-size:18px;font-weight:900;color:#fff}.continueGatePath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.continueActionBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.continueActionBadge.blocked{background:#ffcc6622;color:#ffd99a;border-color:#ffcc6655}.continueActionBadge.bad{background:#ff557722;color:#ff9aaa;border-color:#ff557755}.continueActionGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.continueActionMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.continueActionMetric .label{font-size:11px;color:#aaa}.continueActionMetric .value{font-size:18px;font-weight:900;color:#fff}.continueActionPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.draftRefreshBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.draftRefreshBadge.bad{background:#ffcc6622;color:#ffd99a;border-color:#ffcc6655}.draftRefreshGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.draftRefreshMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.draftRefreshMetric .label{font-size:11px;color:#aaa}.draftRefreshMetric .value{font-size:18px;font-weight:900;color:#fff}.draftRefreshPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.draftCompareBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.draftCompareBadge.bad{background:#ffcc6622;color:#ffd99a;border-color:#ffcc6655}.draftCompareGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.draftCompareMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.draftCompareMetric .label{font-size:11px;color:#aaa}.draftCompareMetric .value{font-size:18px;font-weight:900;color:#fff}.draftComparePath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.diffadd{color:#86efac}.diffremove{color:#ff9aaa}.realProseBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.realProseBadge.bad{background:#ffcc6622;color:#ffd99a;border-color:#ffcc6655}.realProseGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.realProseMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.realProseMetric .label{font-size:11px;color:#aaa}.realProseMetric .value{font-size:18px;font-weight:900;color:#fff}.realProsePath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.realProseSaveBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.realProseSaveBadge.blocked{background:#ffcc6622;color:#ffd99a;border-color:#ffcc6655}.realProseSaveBadge.bad{background:#ff557722;color:#ff9aaa;border-color:#ff557755}.realProseSaveGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.realProseSaveMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.realProseSaveMetric .label{font-size:11px;color:#aaa}.realProseSaveMetric .value{font-size:18px;font-weight:900;color:#fff}.realProseSavePath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.realProseVerifyBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.realProseVerifyBadge.bad{background:#ffcc6622;color:#ffd99a;border-color:#ffcc6655}.realProseVerifyGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.realProseVerifyMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.realProseVerifyMetric .label{font-size:11px;color:#aaa}.realProseVerifyMetric .value{font-size:18px;font-weight:900;color:#fff}.realProseVerifyPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.rpadd{color:#86efac}.rpremove{color:#ff9aaa}.realProseEditorBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.realProseEditorBadge.bad{background:#ffcc6622;color:#ffd99a;border-color:#ffcc6655}.realProseEditorGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.realProseEditorMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.realProseEditorMetric .label{font-size:11px;color:#aaa}.realProseEditorMetric .value{font-size:18px;font-weight:900;color:#fff}.realProseEditorPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.rpeadd{color:#86efac}.rperemove{color:#ff9aaa}.realProseEditSaveBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.realProseEditSaveBadge.blocked{background:#ffcc6622;color:#ffd99a;border-color:#ffcc6655}.realProseEditSaveBadge.bad{background:#ff557722;color:#ff9aaa;border-color:#ff557755}.realProseEditSaveGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.realProseEditSaveMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.realProseEditSaveMetric .label{font-size:11px;color:#aaa}.realProseEditSaveMetric .value{font-size:18px;font-weight:900;color:#fff}.realProseEditSavePath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.realProseEditVerifyBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.realProseEditVerifyBadge.bad{background:#ffcc6622;color:#ffd99a;border-color:#ffcc6655}.realProseEditVerifyGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.realProseEditVerifyMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.realProseEditVerifyMetric .label{font-size:11px;color:#aaa}.realProseEditVerifyMetric .value{font-size:18px;font-weight:900;color:#fff}.realProseEditVerifyPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.rpeadd{color:#86efac}.rperemove{color:#ff9aaa}.privateHumanBanner{border:1px solid #a855f755;background:#4c1d9522;border-radius:16px;padding:12px;margin:10px 0;color:#f3e8ff}.privatePaneCard{border-color:#a855f755!important;background:linear-gradient(180deg,#2b174422,#00000011)}.chapterProseBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.chapterProseBadge.bad{background:#ffcc6622;color:#ffd99a;border-color:#ffcc6655}.chapterProseGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.chapterProseMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.chapterProseMetric .label{font-size:11px;color:#aaa}.chapterProseMetric .value{font-size:18px;font-weight:900;color:#fff}.chapterContinueBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.chapterContinueBadge.bad{background:#ffcc6622;color:#ffd99a;border-color:#ffcc6655}</style></head><body><div class=app><aside><div class=logo>K</div><h1>KAYOCK</h1><div class=sub>Command OS · FOXAI Core</div><button class="nav command active" onclick="pg('dash',this)">🚀 Command Bridge</button><button class=nav onclick="pg('commandcenter',this)">🛰️ Command Center</button><button class=nav onclick="pg('commanddetail',this)">🔎 Command Detail</button><button class=nav onclick="pg('commandarchive',this)">🗄️ Command Archive</button><button class=nav onclick="pg('commandfreeze',this)">🧊 Command Freeze</button><button class=nav onclick="pg('kayockwriter',this)">✍️ Kayock Writer</button><button class=nav onclick="pg('storyforge',this)">📚 Story Forge</button><button class=nav onclick="pg('storymanifest',this)">🧾 Story Manifest</button><button class=nav onclick="pg('projectgate',this)">🚪 Project Gate</button><button class=nav onclick="pg('projectaction',this)">✅ Project Action</button><button class=nav onclick="pg('projectdashboard',this)">📖 Project Dashboard</button><button class=nav onclick="pg('chapterplanner',this)">🧩 Chapter Planner</button><button class=nav onclick="pg('chaptersavegate',this)">🔐 Chapter Gate</button><button class=nav onclick="pg('chaptersaveaction',this)">💾 Chapter Save</button><button class=nav onclick="pg('savedchapters',this)">📚 Saved Chapters</button><button class=nav onclick="pg('savedchapterhealth',this)">💚 Chapter Health</button><button class=nav onclick="pg('chaptereditorpreview',this)">📝 Chapter Editor</button><button class=nav onclick="pg('chaptereditgate',this)">🛡️ Edit Gate</button><button class=nav onclick="pg('chaptereditaction',this)">✅ Edit Save</button><button class=nav onclick="pg('chaptereditaudit',this)">🧾 Edit Audit</button><button class=nav onclick="pg('chapterdraftworkspace',this)">✍️ Draft Workspace</button><button class=nav onclick="pg('draftsavegate',this)">🛡️ Draft Gate</button><button class=nav onclick="pg('draftsaveaction',this)">💾 Draft Save</button><button class=nav onclick="pg('draftreader',this)">📖 Draft Reader</button><button class=nav onclick="pg('draftversionhistory',this)">🕰️ Draft History</button><button class=nav onclick="pg('draftcontinueworkspace',this)">➡️ Draft Continue</button><button class=nav onclick="pg('continuesavegate',this)">🛂 Continue Gate</button><button class=nav onclick="pg('continuesaveaction',this)">💾 Continue Save</button><button class=nav onclick="pg('draftrefresh',this)">🔄 Draft Refresh</button><button class=nav onclick="pg('draftcompare',this)">🧾 Draft Compare</button><button class=nav onclick="pg('realprosegate',this)">✍️ Real Prose Gate</button><button class=nav onclick="pg('realprosesave',this)">🖋️ Real Prose Save</button><button class=nav onclick="pg('realproserefreshcompare',this)">🔍 Real Prose Verify</button><button class=nav onclick="pg('realproseeditorgate',this)">🛠️ Prose Edit Gate</button><button class=nav onclick="pg('realproseeditsave',this)">💾 Prose Edit Save</button><button class=nav onclick="pg('realproseeditverify',this)">🔎 Prose Edit Verify</button><button class=nav onclick="pg('chapterproseworkspace',this)">🧠 Prose Workspace</button><button class=nav onclick="pg('chapterprosecontinuegate',this)">🧭 Prose Continue Gate</button><button class=nav onclick="pg('chapterprosecontinuesave',this)">💾 Prose Continue Save</button><button class=nav onclick="pg('chapterprosecontinueverify',this)">🔎 Prose Continue Verify</button><div class=navbreak></div><button class=nav onclick="pg('academy',this)">🎓 Academy</button><button class=nav onclick="pg('novelforge',this)">📖 Novel Forge</button><button class=nav onclick="pg('prompts',this)">✍️ PromptSmith</button><button class=nav onclick="pg('creative',this)">🎨 Creative Studio</button><button class=nav onclick="pg('library',this)">📚 Iron Library</button><button class=nav onclick="pg('mission',this)">🤖 Artificial Minds</button><button class=nav onclick="pg('projects',this)">🗂 Projects</button><button class=nav onclick="pg('memory',this)">🧭 Mission Memory</button><button class=nav onclick="pg('repair',this)">🔧 Repair Bay</button><button class=nav onclick="pg('foxsentry',this)">🛡️ Fox Sentry</button><button class=nav onclick="pg('extensions',this)">🧩 Extensions</button><button class=nav onclick="pg('scanbridge',this)">📡 Scan Bridge</button><button class=nav onclick="pg('projectgen',this)">🧾 Project Docs</button><button class=nav onclick="pg('buildverify',this)">🧪 Build Verify</button><button class=nav onclick="pg('envverify',this)">🧰 Env Verify</button><button class=nav onclick="pg('portable',this)">🧳 Portable Ready</button><button class=nav onclick="pg('modelcheck',this)">🧬 Model Check</button><button class=nav onclick="pg('repairactions',this)">🛠️ Repair Actions</button><button class=nav onclick="pg('repairhistory',this)">📜 Repair History</button><button class=nav onclick="pg('repairops',this)">🏪 Repair Shop</button><button class=nav onclick="pg('repairdetail',this)">🔎 Action Detail</button><button class=nav onclick="pg('repairtickets',this)">🎫 Repair Tickets</button><button class=nav onclick="pg('repairticketdetail',this)">📋 Ticket Detail</button><button class=nav onclick="pg('ticketbridge',this)">🔗 Ticket Bridge</button><button class=nav onclick="pg('repairsession',this)">🧾 Shop Session</button><button class=nav onclick="pg('repairfreeze',this)">🧊 Milestone Freeze</button><button class=nav onclick="pg('backupvault',this)">🗄️ Backup Vault</button><button class=nav onclick="pg('restorepreview',this)">🧭 Restore Preview</button><button class=nav onclick="pg('restoregate',this)">🚧 Restore Gate</button><button class=nav onclick="pg('restorestaging',this)">📦 Restore Staging</button><button class=nav onclick="pg('stagingpackages',this)">🧾 Staging Packages</button><button class=nav onclick="pg('restorefinal',this)">✅ Restore Final Check</button><button class=nav onclick="pg('restoreaction',this)">♻️ Restore Action</button><button class=nav onclick="pg('restoreaudit',this)">🧪 Restore Audit</button><button class=nav onclick="pg('rollbackpreview',this)">↩️ Rollback Preview</button><button class=nav onclick="pg('rollbackaction',this)">⏪ Rollback Action</button><button class=nav onclick="pg('rollbackaudit',this)">🧾 Rollback Audit</button><button class=nav onclick="pg('recoverytimeline',this)">🕰️ Recovery Timeline</button><div class=navbreak></div><button class=nav onclick="pg('logs',this)">📜 Captain's Log</button><button class=nav onclick="pg('settings',this)">⚙ Settings</button><div class=ops><div class=row><div class=lab>Operator</div><div>Eric Fox</div></div><div class=row><div class=lab>Professor</div><div id=ap>Agent Fox</div></div><div class=row><div class=lab>Project</div><div id=apro>None</div></div><div class=row><div class=lab>Mission</div><div id=ms>READY</div></div><div class=row><div class=lab>Model</div><div id=am>None</div></div><div class=row><div class=lab>Runtime</div><div id=rt>Checking</div></div></div><div id=quick></div><div class=ops><div class=row><div class=lab>CPU</div><div id=cpu>?</div></div><div class=row><div class=lab>RAM</div><div id=ram>?</div></div><div class=meter><div id=ramm class=fill></div></div></div></aside><main>
+ <section id=dash class="page active"><div class=hero><h2>Welcome back, Commander.</h2><p>Kayock Command OS is online. FOXAI Core, Mission Memory, and the Bridge are standing by.</p></div><div class=grid>
+ <div class="card wide" id=commandCenterDashCard><h3>🛰️ Command Center</h3><div id=commandCenterDashStatus class=status>Command Center dashboard not loaded yet.</div><div id=commandCenterDashBody class=status>Loading foundation health...</div><button onclick="loadCommandCenterDashboard(false)">Refresh Command Center</button><button onclick="loadCommandCenterDashboard(true)">Export Card Report</button><button onclick="go('commandcenter')">Open Command Center</button><button onclick="go('commanddetail')">Open Command Detail</button><button onclick="sendCommandCenterDashboardToMission()">Send to Mission</button></div>
+ <div class=card><h3>Resume Mission</h3><div id=resume class=status>No active mission.</div><button onclick="goMemory()">Open Mission Memory</button><button onclick="resumeMission()">Resume in Console</button></div><div class=card><h3>Projects</h3><button onclick="go('projects')">Open Projects</button></div><div class=card><h3>Artificial Minds</h3><button onclick="go('mission')">Open Mission Console</button></div><div class=card><h3>PromptSmith</h3><button onclick="go('prompts')">Open PromptSmith</button></div><div class=card><h3>Novel Forge</h3><button onclick="go('novelforge')">Open Novel Forge</button></div><div class="card wide"><h3>Live Command Bridge</h3><div id=bridgeLive class=status>Loading Bridge Feed...</div></div><div class="card wide"><h3>Recovery Foundation</h3><div id=recoveryDashCard class=status>Loading recovery health...</div><button onclick="loadRecoveryDashboard()">Refresh Recovery Health</button><button onclick="go('recoverytimeline')">Open Recovery Timeline</button><button onclick="sendRecoveryDashboardToMission()">Send Recovery Health to Mission</button></div><div class="card wide"><h3>Repair Shop</h3><div id=repairShopDashCard class=status>Loading Repair Shop health...</div><button onclick="loadRepairShopDashboardCard()">Refresh Repair Shop</button><button onclick="go('repairops')">Open Repair Shop</button><button onclick="go('repairdetail')">Open Action Detail</button><button onclick="sendRepairShopDashboardCardToMission()">Send Repair Shop Health to Mission</button></div><div class="card wide"><h3>Department Fleet</h3><div id=deptcards class=grid>Loading departments...</div></div><div class="card wide"><h3>Status</h3><div id=status class=status>Loading...</div></div></div></section>
+@@ -877,19 +877,17 @@
+ 
+ <section id=repair class=page><div class=hero><h2>Repair Bay</h2><p>Diagnostics first. Automated repair only when approved.</p></div><div class=grid><div class=card><h3>Diagnostics</h3><button onclick="refresh()">Refresh Status</button></div><div class=card><h3>Config</h3><button onclick="api('/api/open/config')">Open Config</button></div></div></section>
+ 
+-<section id=extensions class=page><div class=hero><h2>Extension Manager</h2><p>Discover, validate, enable, and disable Kayock modules. This is the shell for the future .kmod ecosystem.</p></div><div class=grid><div class="card wide"><h3>Module Status Dashboard</h3><div id=extDashboard class=status>Loading module dashboard...</div><div class=previewhead><button onclick="loadExtensions()">Refresh</button><button onclick="validateExtensions()">Validate</button><button onclick="exportExtensionReport()">Export Report</button><button onclick="api('/api/open/manifest_backups')">Open Backups</button></div></div><div class="card wide"><h3>Module Control</h3><button onclick="loadExtensions()">Refresh Modules</button><button onclick="validateExtensions()">Validate Manifests</button><button onclick="createSampleExtension()">Create Sample Extension</button><button onclick="exportExtensionReport()">Export Extension Report</button><button onclick="api('/api/open/extensions')">Open Extensions Folder</button><button onclick="api('/api/open/modules')">Open Modules Folder</button><button onclick="api('/api/open/reports')">Open Reports Folder</button><button onclick="api('/api/open/manifest_backups')">Open Manifest Backups</button><div id=extSummary class=status>Loading extensions...</div></div><div class="card wide"><h3>Installed Modules</h3><div id=extList class=status>Loading...</div></div><div class="card wide"><h3>Manifest Repair Helper</h3><p class=small>Safe helper: generates suggested manifest text. Apply Fix backs up the original file before writing.</p><div id=extRepair class=status>Validate manifests, then click Suggest Fix on a problem.</div></div><div class=card><h3>Future .kmod Flow</h3><div class=status>Discover
+-Validate manifest
+-Check dependencies
+-Enable / disable
+-Import / export
+-Package verification
+-Safe update center handoff</div></div><div class=card><h3>Manifest Minimum</h3><div class=status>{
+-  "id": "my-module",
+-  "name": "My Module",
+-  "version": "0.1.0",
+-  "description": "...",
+-  "enabled": true
+-}</div></div></div></section>
++<section id=extensions class=page><div class=hero><h2>Extension Manager</h2><p>Inventory and health first. Phase 1 discovers what is present, what is missing, and what needs attention without installing, removing, updating, or changing configuration.</p></div><div class=grid><div class="card wide"><h3>Inventory &amp; Health Dashboard <span class=inventoryreadonly>PHASE 1 • READ ONLY</span></h3><div class=inventorynote>Passive inspection only. Refreshing this dashboard reads registries, manifests, paths, local health endpoints, and model metadata. It does not create <code>extension_state.json</code> or change an enabled state.</div><div id=extInventorySummary class=status>Loading inventory...</div><div class=inventorytoolbar><input id=extInventorySearch placeholder="Search name, path, department, source..." oninput="renderExtensionInventory()"><select id=extInventoryCategory onchange="renderExtensionInventory()"><option value=all>All categories</option></select><select id=extInventoryStatus onchange="renderExtensionInventory()"><option value=all>All health states</option><option value=VERIFIED>Verified</option><option value=INSTALLED>Installed</option><option value=MISSING>Missing</option><option value=NEEDS_ATTENTION>Needs Attention</option></select><select id=extInventoryRequirement onchange="renderExtensionInventory()"><option value=all>Required + optional</option><option value=required>Required</option><option value=optional>Optional</option></select></div><div class=previewhead><button onclick="loadExtensionInventory()">Refresh Inventory</button><button onclick="api('/api/open/extensions')">Open Extensions Folder</button><button onclick="api('/api/open/modules')">Open Modules Folder</button></div><div id=extInventorySources class=inventorysources></div></div><div class="card wide"><h3>Discovered Components</h3><div id=extInventoryList class=status>Loading inventory items...</div></div><div class="card wide"><h3>Existing Manifest Controls <span class=small>unchanged legacy tools</span></h3><p class=small>The Phase 1 inventory above is read-only. These pre-existing controls remain separate and run only after an explicit button press.</p><div class=previewhead><button onclick="loadExtensions()">Refresh Manifests</button><button onclick="validateExtensions()">Validate Manifests</button><button onclick="exportExtensionReport()">Export Extension Report</button><button onclick="api('/api/open/manifest_backups')">Open Manifest Backups</button></div><div id=extDashboard class=status>Loading manifest dashboard...</div><div id=extSummary class=status>Loading manifests...</div></div><div class="card wide"><h3>Installed Module Manifests</h3><div id=extList class=status>Loading...</div></div><div class="card wide"><h3>Manifest Repair Helper</h3><p class=small>Existing behavior: generates suggested manifest text. Apply Fix backs up the original file before writing.</p><div id=extRepair class=status>Validate manifests, then click Suggest Fix on a problem.</div></div><div class=card><h3>Phase 1 Safety Contract</h3><div class=status>Read registries and manifests
++Check exact paths and sizes
++Probe localhost health only
++Filter projector files from language models
++No install / remove / update
++No automatic configuration writes
++Launch only from a backend allowlist</div></div><div class=card><h3>State Override</h3><div class=status>No extension_state.json is required.
++
++When absent, manifest defaults are used.
++
++The inventory dashboard never creates it.</div></div></div></section>
+ 
+ 
+ <section id=scanbridge class=page><div class=hero><h2>Folder Scan Bridge</h2><p>Read-only folder scanner. Kayock scans allowed FOXAI folders, creates a safe report, then the Mission Console can send that report to the local model.</p></div><div class=grid><div class="card wide"><h3>Scan Control</h3><div class=grid><div><div class=small>Folder / Path / Key</div><input id=scanPath placeholder="extensions, modules, reports, or Z:\FOXAI\Departments\Engineering"></div><div><div class=small>Max Files</div><input id=scanMaxFiles value="3000"></div><div><div class=small>Large File Skip Bytes</div><input id=scanMaxBytes value="1048576"></div></div><button onclick="scanFolder(false)">Scan Folder</button><button onclick="scanFolder(true)">Scan + Export Report</button><button onclick="api('/api/open/scan_reports')">Open Scan Reports</button><button onclick="sendLastScanToMission()">Send Last Scan to Mission</button><div id=scanStatus class=status>No scan yet.</div></div><div class="card wide"><h3>Scan Report Reader</h3><p class=small>Load a saved scan report, preview its contents, and send the report summary/content to Mission Console.</p><div class=grid><div><div class=small>Report Path</div><input id=scanReportPath placeholder="Z:\FOXAI\Reports\Scans\Folder_Scan_....json or .md"></div><div><div class=small>Preview Character Limit</div><input id=scanReportMax value="120000"></div></div><button onclick="loadScanReport()">Load Report</button><button onclick="useLastScanReportPath()">Use Last Exported Report</button><button onclick="sendLoadedScanReportToMission()">Send Loaded Report to Mission</button><div id=scanReportStatus class=status>No saved report loaded yet.</div><div id=scanReportPreview class=scanlist>No preview yet.</div></div><div class="card wide"><h3>Scan Results</h3><div id=scanResults class=status>No results yet.</div></div><div class=card><h3>Allowed Safety Model</h3><div class=status>Read-only scan
+@@ -2786,6 +2784,172 @@
+ }
+ 
+ 
++
++
++/* EXTENSION_MANAGER_INVENTORY_PHASE1_BROWSER_START */
++let extensionInventoryData=null;
++function inventorySize(value){
++    let n=Number(value);
++    if(!Number.isFinite(n)||n<0)return '—';
++    if(n<1024)return `${n} B`;
++    if(n<1024*1024)return `${(n/1024).toFixed(1)} KB`;
++    if(n<1024*1024*1024)return `${(n/1024/1024).toFixed(2)} MB`;
++    return `${(n/1024/1024/1024).toFixed(2)} GB`;
++}
++function inventoryStatusClass(status){
++    status=String(status||'').toUpperCase();
++    if(status==='VERIFIED')return 'verified';
++    if(status==='INSTALLED')return 'installed';
++    if(status==='MISSING')return 'missing';
++    return 'attention';
++}
++function inventoryItemById(id){
++    return (extensionInventoryData?.items||[]).find(item=>item.id===id)||null;
++}
++function renderExtensionInventory(){
++    let data=extensionInventoryData;
++    if(!data||!q('extInventoryList'))return;
++    let search=String(q('extInventorySearch')?.value||'').trim().toLowerCase();
++    let category=q('extInventoryCategory')?.value||'all';
++    let status=q('extInventoryStatus')?.value||'all';
++    let requirement=q('extInventoryRequirement')?.value||'all';
++    let items=(data.items||[]).filter(item=>{
++        if(category!=='all'&&item.category!==category)return false;
++        if(status!=='all'&&item.status!==status)return false;
++        if(requirement==='required'&&!item.required)return false;
++        if(requirement==='optional'&&item.required)return false;
++        if(search){
++            let hay=[
++                item.name,item.path,item.relative_path,item.department,item.source,
++                item.category,item.kind,item.health,item.description,item.version
++            ].join(' ').toLowerCase();
++            if(!hay.includes(search))return false;
++        }
++        return true;
++    });
++    q('extInventoryList').innerHTML=items.map(item=>{
++        let cls=inventoryStatusClass(item.status);
++        let badges=[
++            `<span class="inventorybadge ${cls}">${esc(item.status)}</span>`,
++            `<span class=inventorybadge>${esc(item.category)}</span>`,
++            `<span class=inventorybadge>${item.required?'REQUIRED':'OPTIONAL'}</span>`,
++            item.department?`<span class=inventorybadge>${esc(item.department)}</span>`:'',
++        ].join('');
++        let details=[
++            `Version: ${item.version||'Unspecified'}`,
++            `Path: ${item.path||'(no path registered)'}`,
++            `Size: ${inventorySize(item.size_bytes)}`,
++            `Source: ${item.source||'Unknown'}`,
++            item.manifest_path?`Manifest: ${item.manifest_path}`:'',
++            item.verification_basis?`Verification: ${item.verification_basis}`:'',
++            item.lifecycle?`Lifecycle: ${item.lifecycle}`:'',
++            item.security_role?`Security role: ${item.security_role}`:'',
++            item.modified?`Modified: ${item.modified}`:'',
++        ].filter(Boolean).join('\n');
++        let actions=[];
++        if(item.actions?.open_folder)actions.push(`<button onclick="openExtensionInventoryFolder('${js(item.id)}')">Open Folder</button>`);
++        if(item.actions?.open_url)actions.push(`<button onclick="openExtensionInventoryUrl('${js(item.id)}')">Open UI</button>`);
++        if(item.actions?.launch)actions.push(`<button onclick="launchExtensionInventoryItem('${js(item.id)}')">${esc(item.actions.launch_label||'Launch')}</button>`);
++        actions.push(`<button onclick="sendInventoryItemToMission('${js(item.id)}')">Send to Mission</button>`);
++        return `<div class="inventorycard ${cls}"><h4>${esc(item.name)}</h4><div class=inventorybadges>${badges}</div><div class=inventorymeta>${esc(details)}</div>${item.description?`<div class=inventoryhealth>${esc(item.description)}</div>`:''}<div class=inventoryhealth><b>Health:</b> ${esc(item.health||'No health detail.')}</div><div class=inventoryactions>${actions.join('')}</div></div>`;
++    }).join('')||'<div class=inventoryempty>No components match the current filters.</div>';
++}
++function renderExtensionInventorySummary(data){
++    let summary=data.summary||{};
++    q('extInventorySummary').innerHTML=`<div class=inventorygrid>
++        <div class=inventorymetric><div class=label>Total Components</div><div class=value>${esc(summary.total||0)}</div></div>
++        <div class=inventorymetric><div class=label>Verified</div><div class=value>${esc(summary.verified||0)}</div></div>
++        <div class=inventorymetric><div class=label>Installed</div><div class=value>${esc(summary.installed||0)}</div></div>
++        <div class=inventorymetric><div class=label>Missing</div><div class=value>${esc(summary.missing||0)}</div></div>
++        <div class=inventorymetric><div class=label>Needs Attention</div><div class=value>${esc(summary.needs_attention||0)}</div></div>
++        <div class=inventorymetric><div class=label>Required Problems</div><div class=value>${esc(summary.required_problems||0)}</div></div>
++        <div class=inventorymetric><div class=label>Required</div><div class=value>${esc(summary.required||0)}</div></div>
++        <div class=inventorymetric><div class=label>Optional</div><div class=value>${esc(summary.optional||0)}</div></div>
++    </div>`;
++    let categories=Object.keys(summary.categories||{}).sort();
++    let selector=q('extInventoryCategory');
++    let selected=selector?.value||'all';
++    if(selector){
++        selector.innerHTML='<option value=all>All categories</option>'+categories.map(name=>`<option value="${esc(name)}">${esc(name)} (${esc(summary.categories[name])})</option>`).join('');
++        selector.value=categories.includes(selected)?selected:'all';
++    }
++    let sources=data.sources||{};
++    let sourceCards=[
++        ['Application Registry',sources.application_registry],
++        ['Fleet Registry',sources.fleet_registry],
++        ['Manifest Discovery',sources.manifest_discovery],
++        ['State Override',sources.extension_state],
++    ];
++    q('extInventorySources').innerHTML=sourceCards.map(([name,value])=>{
++        value=value||{};
++        let detail=[
++            name,
++            value.path||'',
++            value.roots?value.roots.join('\n'):'',
++            `Present: ${value.exists===undefined?'n/a':value.exists}`,
++            value.records!==undefined?`Records: ${value.records}`:'',
++            value.mode?`Mode: ${value.mode}`:'',
++            value.error?`Error: ${value.error}`:'',
++        ].filter(Boolean).join('\n');
++        return `<div class=inventorysource>${esc(detail)}</div>`;
++    }).join('');
++}
++async function loadExtensionInventory(){
++    if(!q('extInventoryList'))return;
++    q('extInventoryList').textContent='Reading registries, manifests, local health, and model metadata...';
++    try{
++        let response=await fetch('/api/extensions/inventory',{cache:'no-store'});
++        let data=await response.json();
++        if(!response.ok||!data?.ok)throw new Error(data?.message||`HTTP ${response.status}`);
++        extensionInventoryData=data;
++        renderExtensionInventorySummary(data);
++        renderExtensionInventory();
++    }catch(error){
++        q('extInventorySummary').textContent='Inventory failed: '+error;
++        q('extInventoryList').textContent='No inventory data is available.';
++    }
++}
++async function extensionInventoryAction(endpoint,id){
++    let response=await fetch(endpoint,{
++        method:'POST',
++        headers:{'Content-Type':'application/json'},
++        body:JSON.stringify({id})
++    });
++    let data=await response.json();
++    toast(data?.message||'Inventory action completed.');
++    if(!response.ok||!data?.ok)return data;
++    setTimeout(loadExtensionInventory,600);
++    return data;
++}
++function openExtensionInventoryFolder(id){
++    return extensionInventoryAction('/api/extensions/inventory/open_folder',id);
++}
++function openExtensionInventoryUrl(id){
++    return extensionInventoryAction('/api/extensions/inventory/open_url',id);
++}
++function launchExtensionInventoryItem(id){
++    return extensionInventoryAction('/api/extensions/inventory/launch',id);
++}
++function sendInventoryItemToMission(id){
++    let item=inventoryItemById(id);
++    if(!item)return;
++    go('mission');
++    q('input').value=`Review this read-only Extension Manager inventory item.
++
++Name: ${item.name}
++Status: ${item.status}
++Category: ${item.category}
++Required: ${item.required}
++Version: ${item.version}
++Path: ${item.path||'(none)'}
++Source: ${item.source}
++Health: ${item.health}
++Verification basis: ${item.verification_basis||'Not specified'}
++
++Do not assume a missing optional component is an error. Recommend only preview-first actions.`;
++    toast('Inventory item sent to Mission Console input.');
++}
++/* EXTENSION_MANAGER_INVENTORY_PHASE1_BROWSER_END */
+ 
+ async function exportExtensionReport(){
+     let d=await api('/api/extensions/report');
+@@ -9589,6 +9753,7 @@
+ }
+ 
+ async function loadExtensions(){
++    loadExtensionInventory();
+     if(!q('extList'))return;
+     try{
+         let d=await (await fetch('/api/extensions/list')).json();
+@@ -9901,6 +10066,7 @@
+         if path=='/api/memory/current': self.js(mission_current()); return
+         if path=='/api/projects/list': self.js(list_projects()); return
+         if path=='/api/extensions/list': self.js(list_extensions()); return
++        if path=='/api/extensions/inventory': self.js(extension_inventory_snapshot()); return
+         if path=='/api/extensions/validate': self.js(validate_extensions()); return
+         if path=='/api/extensions/sample': self.js(create_sample_extension()); return
+         if path=='/api/extensions/report': self.js(extension_report_export()); return
+@@ -10036,6 +10202,9 @@
+         if path=='/api/generate/root_manifest/apply': self.js(apply_project_manifest(d)); return
+         if path=='/api/generate/department_readme/apply': self.js(apply_department_readme(d)); return
+         if path=='/api/scan/folder': self.js(folder_scan_bridge(d)); return
++        if path=='/api/extensions/inventory/open_folder': self.js(open_extension_inventory_folder(d)); return
++        if path=='/api/extensions/inventory/open_url': self.js(open_extension_inventory_url(d)); return
++        if path=='/api/extensions/inventory/launch': self.js(launch_extension_inventory_item(d)); return
+         if path=='/api/extensions/apply_repair': self.js(apply_manifest_repair(d)); return
+         if path=='/api/extensions/repair_suggest': self.js(suggest_manifest_repair(d)); return
+         if path=='/api/extensions/toggle': self.js(toggle_extension(d)); return
+@@ -10896,6 +11065,695 @@
+         'text':str(txt_path)
+     }
+ 
++
++
++# EXTENSION_MANAGER_INVENTORY_PHASE1_BACKEND_START
++EXTENSION_INVENTORY_MODEL_SUFFIXES={'.gguf','.safetensors','.ckpt'}
++EXTENSION_INVENTORY_MAX_MODEL_FILES=500
++EXTENSION_INVENTORY_SAFE_FLEET_LAUNCH={
++    'fleet:everything':{'everything.exe','everything64.exe'},
++    'fleet:winmerge':{'winmergeu.exe','winmerge.exe'},
++}
++EXTENSION_INVENTORY_EXPECTED_SIZES={
++    'Qwen3VL-8B-Instruct-Q4_K_M.gguf':5027784800,
++    'Qwen3VL-8B-Instruct-Q8_0.gguf':8709519456,
++    VISION_PROJECTOR_FILENAME:752289728,
++}
++EXTENSION_INVENTORY_CORE_FILES=(
++    ('core:service_registry','Service Registry','Kernel Service','core/service_registry.py'),
++    ('core:application_registry','Application Registry Runtime','Kernel Service','core/application_registry.py'),
++    ('core:department_registry','Department Registry Runtime','Kernel Service','core/department_registry.py'),
++    ('core:kernel','FOX Kernel Runtime','Kernel Service','core/kernel.py'),
++)
++
++def _inventory_read_json(path,default):
++    path=Path(path)
++    if not path.is_file():
++        return default,f'Missing file: {path}'
++    try:
++        data=json.loads(path.read_text(encoding='utf-8'))
++    except Exception as exc:
++        return default,f'{type(exc).__name__}: {exc}'
++    return data,None
++
++def _inventory_resolve_path(value):
++    if value is None or str(value).strip()=='':
++        return None
++    text=os.path.expandvars(str(value).strip())
++    path=Path(text)
++    if not path.is_absolute():
++        path=ROOT/path
++    try:
++        return path.resolve()
++    except Exception:
++        return path
++
++def _inventory_relative(path):
++    if path is None:
++        return ''
++    try:
++        return str(Path(path).resolve().relative_to(ROOT.resolve())).replace('\\','/')
++    except Exception:
++        return str(path)
++
++def _inventory_file_details(path):
++    path=Path(path) if path is not None else None
++    if path is None:
++        return {'exists':False,'is_file':False,'is_dir':False,'size_bytes':None,'modified':None}
++    try:
++        exists=path.exists()
++        is_file=path.is_file()
++        is_dir=path.is_dir()
++        stat=path.stat() if exists else None
++        return {
++            'exists':exists,
++            'is_file':is_file,
++            'is_dir':is_dir,
++            'size_bytes':stat.st_size if is_file and stat else None,
++            'modified':datetime.fromtimestamp(stat.st_mtime).isoformat(timespec='seconds') if stat else None,
++        }
++    except Exception as exc:
++        return {'exists':False,'is_file':False,'is_dir':False,'size_bytes':None,'modified':None,'error':f'{type(exc).__name__}: {exc}'}
++
++def _inventory_manifest_candidates():
++    files=[]
++    ignored={'__pycache__','.git','node_modules','backups','backup'}
++    for base in (ROOT/'Departments',ROOT/'Extensions',ROOT/'Modules'):
++        if not base.exists():
++            continue
++        try:
++            for path in base.rglob('*'):
++                if not path.is_file() or path.name.lower() not in {'manifest.json','module.json','extension.json'}:
++                    continue
++                lowered={part.lower() for part in path.parts}
++                if lowered & ignored:
++                    continue
++                files.append(path)
++        except Exception:
++            continue
++    seen=set()
++    result=[]
++    for path in sorted(files,key=lambda p:str(p).casefold()):
++        try:
++            key=str(path.resolve()).casefold()
++        except Exception:
++            key=str(path).casefold()
++        if key not in seen:
++            seen.add(key)
++            result.append(path)
++    return result
++
++def _inventory_manifest_records():
++    records=[]
++    for path in _inventory_manifest_candidates():
++        raw,error=_inventory_read_json(path,{})
++        if not isinstance(raw,dict):
++            raw={}
++            error=error or 'Manifest root is not an object.'
++        key=str(raw.get('id') or raw.get('key') or raw.get('name') or extension_key_from_path(path)).strip()
++        name=str(raw.get('name') or raw.get('title') or path.parent.name).strip()
++        version=str(raw.get('version') or '').strip()
++        kind=str(raw.get('type') or raw.get('kind') or ('department' if 'departments' in {part.lower() for part in path.parts} else 'extension')).strip().lower()
++        required_fields=['name','version']
++        missing=[field for field in required_fields if not str(raw.get(field) or '').strip()]
++        missing_tools=[]
++        for tool in raw.get('tools') or []:
++            if not isinstance(tool,dict):
++                continue
++            import_name=str(tool.get('import') or '').strip()
++            if import_name:
++                try:
++                    if importlib.util.find_spec(import_name) is None:
++                        missing_tools.append(import_name)
++                except Exception:
++                    missing_tools.append(import_name)
++        enabled=bool(raw.get('enabled',True))
++        required=bool(kind=='department' and enabled)
++        records.append({
++            'key':key,
++            'name':name,
++            'version':version or 'Unspecified',
++            'kind':kind,
++            'required':required,
++            'enabled_default':enabled,
++            'description':str(raw.get('description') or raw.get('summary') or '').strip(),
++            'department':str(raw.get('department') or '').strip(),
++            'manifest_path':path,
++            'folder_path':path.parent,
++            'raw':raw,
++            'error':error,
++            'missing_fields':missing,
++            'missing_tools':sorted(set(missing_tools)),
++        })
++    return records
++
++def _inventory_status(*,exists,required=False,manifest_ok=True,live=None,verified_contract=False,mismatch=False):
++    if mismatch or not manifest_ok:
++        return 'NEEDS_ATTENTION'
++    if not exists:
++        return 'NEEDS_ATTENTION' if required else 'MISSING'
++    if live is True or verified_contract:
++        return 'VERIFIED'
++    return 'INSTALLED'
++
++def _inventory_item(item_id,name,category,source,path=None,version='Unspecified',required=False,status='INSTALLED',health='',description='',department='',kind='',manifest_path=None,verification_basis='',actions=None,extra=None):
++    details=_inventory_file_details(path)
++    item={
++        'id':str(item_id),
++        'name':str(name),
++        'category':str(category),
++        'source':str(source),
++        'path':str(path) if path is not None else '',
++        'relative_path':_inventory_relative(path),
++        'version':str(version or 'Unspecified'),
++        'required':bool(required),
++        'status':str(status),
++        'health':str(health or ''),
++        'description':str(description or ''),
++        'department':str(department or ''),
++        'kind':str(kind or ''),
++        'exists':bool(details.get('exists')),
++        'is_file':bool(details.get('is_file')),
++        'is_dir':bool(details.get('is_dir')),
++        'size_bytes':details.get('size_bytes'),
++        'modified':details.get('modified'),
++        'manifest_path':str(manifest_path) if manifest_path else '',
++        'verification_basis':str(verification_basis or ''),
++        'actions':dict(actions or {}),
++    }
++    if details.get('error'):
++        item['path_error']=details['error']
++    if isinstance(extra,dict):
++        item.update(extra)
++    return item
++
++def _inventory_application_items(registry):
++    items=[]
++    applications=registry.get('applications') if isinstance(registry,dict) else []
++    for app in applications or []:
++        if not isinstance(app,dict):
++            continue
++        app_id=str(app.get('id') or slug(app.get('name') or 'application')).strip()
++        path=_inventory_resolve_path(app.get('path'))
++        details=_inventory_file_details(path)
++        lifecycle=str(app.get('lifecycle') or 'unknown').strip().lower()
++        required=lifecycle=='active'
++        mode=str(app.get('health_mode') or 'path').strip().lower()
++        url=str(app.get('url') or '').strip()
++        live=None
++        if mode=='http' and url.lower().startswith(('http://127.0.0.1','http://localhost')):
++            live=check(url)
++        exists=bool(details.get('exists'))
++        verified_contract=bool(exists and mode in {'path','component'})
++        status=_inventory_status(
++            exists=exists,
++            required=required,
++            live=live,
++            verified_contract=verified_contract,
++        )
++        if live is True:
++            health='Local health endpoint responded.'
++            basis='localhost health endpoint + registered path'
++        elif exists and mode=='http':
++            health='Installed; local service is not currently responding.'
++            basis='registered path exists'
++        elif exists:
++            health='Registered path exists.'
++            basis='application registry + path existence'
++        elif required:
++            health='Active application path is missing.'
++            basis='application registry required path'
++        else:
++            health=f'{lifecycle.title()} application is not installed yet.'
++            basis='application registry lifecycle'
++        actions={'open_folder':exists}
++        if app_id=='comfyui' and exists:
++            actions['launch']=True
++            actions['launch_label']='Start ComfyUI'
++        if url.lower().startswith(('http://127.0.0.1','http://localhost')):
++            actions['open_url']=True
++        items.append(_inventory_item(
++            f'app:{app_id}',
++            app.get('name') or app_id,
++            'Application / Runtime',
++            'Application Registry',
++            path=path,
++            version=app.get('version') or 'Registry entry',
++            required=required,
++            status=status,
++            health=health,
++            description=app.get('notes') or '',
++            department=app.get('department') or '',
++            kind=app.get('kind') or '',
++            verification_basis=basis,
++            actions=actions,
++            extra={
++                'lifecycle':lifecycle,
++                'health_mode':mode,
++                'url':url,
++                'security_role':str(app.get('security_role') or ''),
++                'live':live,
++            },
++        ))
++    return items
++
++def _inventory_fleet_items(registry,manifest_by_key,manifest_by_path=None):
++    items=[]
++    consumed=set()
++    shuttles=registry.get('shuttles') if isinstance(registry,dict) else {}
++    for key,entry in sorted((shuttles or {}).items(),key=lambda pair:str(pair[0]).casefold()):
++        if not isinstance(entry,dict):
++            continue
++        key=str(entry.get('key') or key)
++        path=_inventory_resolve_path(entry.get('path'))
++        manifest_path=_inventory_resolve_path(entry.get('manifest_path'))
++        manifest=manifest_by_key.get(key.casefold())
++        if manifest is None and manifest_path is not None and isinstance(manifest_by_path,dict):
++            try:
++                manifest=manifest_by_path.get(str(manifest_path.resolve()).casefold())
++            except Exception:
++                manifest=manifest_by_path.get(str(manifest_path).casefold())
++        if manifest:
++            consumed.add(str(manifest['manifest_path']).casefold())
++        details=_inventory_file_details(path)
++        manifest_exists=bool(manifest_path and manifest_path.is_file())
++        installed_flag=bool(entry.get('installed'))
++        mismatch=bool(installed_flag != bool(details.get('exists')))
++        manifest_ok=bool(manifest_exists and not (manifest or {}).get('missing_fields') and not (manifest or {}).get('error'))
++        status=_inventory_status(
++            exists=bool(details.get('exists')),
++            required=False,
++            manifest_ok=manifest_ok,
++            verified_contract=bool(installed_flag and details.get('exists') and manifest_ok),
++            mismatch=mismatch,
++        )
++        if mismatch:
++            health='Fleet registry installation flag does not match the executable path.'
++        elif status=='VERIFIED':
++            health=str(entry.get('health_message') or 'Executable and manifest are present.')
++        elif status=='MISSING':
++            health='Optional fleet tool is not installed.'
++        else:
++            health='Executable is present; manifest verification is incomplete.'
++        actions={'open_folder':bool(details.get('exists'))}
++        item_id=f'fleet:{key}'
++        if item_id in EXTENSION_INVENTORY_SAFE_FLEET_LAUNCH and details.get('exists'):
++            actions['launch']=True
++            actions['launch_label']='Launch'
++        items.append(_inventory_item(
++            item_id,
++            entry.get('name') or key,
++            'Optional Tool',
++            'Fleet Registry',
++            path=path,
++            version=(manifest or {}).get('version') or 'Auto-detected',
++            required=False,
++            status=status,
++            health=health,
++            description=(manifest or {}).get('description') or '',
++            department=entry.get('department') or '',
++            kind=entry.get('kind') or 'application',
++            manifest_path=manifest_path,
++            verification_basis='fleet registry + executable path + manifest' if status=='VERIFIED' else 'fleet registry and passive path check',
++            actions=actions,
++            extra={
++                'callsign':str(entry.get('callsign') or ''),
++                'capabilities':list(entry.get('capabilities') or []),
++                'installed_flag':installed_flag,
++                'service_state':str(entry.get('service_state') or ''),
++                'manifest_valid':manifest_ok,
++                'registry_health_status':str(entry.get('health_status') or ''),
++            },
++        ))
++    return items,consumed
++
++def _inventory_manifest_items(records,consumed):
++    items=[]
++    for record in records:
++        if str(record['manifest_path']).casefold() in consumed:
++            continue
++        manifest_ok=not record['error'] and not record['missing_fields']
++        tools_ok=not record['missing_tools']
++        status=_inventory_status(
++            exists=record['manifest_path'].is_file(),
++            required=record['required'],
++            manifest_ok=manifest_ok and tools_ok,
++            verified_contract=manifest_ok and tools_ok,
++        )
++        issues=[]
++        if record['error']:
++            issues.append(record['error'])
++        if record['missing_fields']:
++            issues.append('Missing fields: '+', '.join(record['missing_fields']))
++        if record['missing_tools']:
++            issues.append('Missing declared tools: '+', '.join(record['missing_tools']))
++        health='Manifest and declared Python tools verified.' if status=='VERIFIED' else ('; '.join(issues) if issues else 'Manifest is present.')
++        item_id='manifest:'+slug(record['key']).lower()+':'+hashlib.sha256(str(record['manifest_path']).encode()).hexdigest()[:8]
++        items.append(_inventory_item(
++            item_id,
++            record['name'],
++            'Department Manifest' if record['kind']=='department' else 'Extension Manifest',
++            'Manifest Discovery',
++            path=record['folder_path'],
++            version=record['version'],
++            required=record['required'],
++            status=status,
++            health=health,
++            description=record['description'],
++            department=record['department'],
++            kind=record['kind'],
++            manifest_path=record['manifest_path'],
++            verification_basis='manifest schema + declared Python tool availability',
++            actions={'open_folder':record['folder_path'].exists()},
++            extra={
++                'missing_fields':record['missing_fields'],
++                'missing_tools':record['missing_tools'],
++                'enabled_default':record['enabled_default'],
++                'depends_on':list(record['raw'].get('depends_on') or []),
++                'capabilities':list(record['raw'].get('capabilities') or record['raw'].get('provides') or []),
++            },
++        ))
++    return items
++
++def _inventory_core_items():
++    items=[]
++    for item_id,name,category,relative in EXTENSION_INVENTORY_CORE_FILES:
++        path=ROOT/relative
++        exists=path.is_file()
++        status='VERIFIED' if exists else 'MISSING'
++        health='Core registry module is present.' if exists else 'Optional registry runtime is not present in this build.'
++        items.append(_inventory_item(
++            item_id,name,category,'Core Runtime',
++            path=path,
++            version='Python module',
++            required=False,
++            status=status,
++            health=health,
++            kind='python_module',
++            verification_basis='exact path existence',
++            actions={'open_folder':exists},
++        ))
++    return items
++
++def _inventory_model_items():
++    items=[]
++    seen=set()
++    scanned=0
++    truncated=False
++    projector_count=0
++    configured={
++        str(spec.get('model_filename') or '').casefold()
++        for spec in (globals().get('WEB_MODEL_PROFILE_RUNTIME') or {}).values()
++        if isinstance(spec,dict) and spec.get('model_filename')
++    }
++    roots=[
++        ('Chat Model',ROOT/'Models'/'Chat'),
++        ('Chat Model',ROOT/'Models'),
++        ('Creative Checkpoint',ROOT/'ComfyUI'/'models'/'checkpoints'),
++        ('Creative LoRA',ROOT/'ComfyUI'/'models'/'loras'),
++        ('Creative VAE',ROOT/'ComfyUI'/'models'/'vae'),
++    ]
++    for category,base in roots:
++        if not base.exists():
++            continue
++        try:
++            paths=base.rglob('*')
++        except Exception:
++            continue
++        for path in paths:
++            if scanned>=EXTENSION_INVENTORY_MAX_MODEL_FILES:
++                truncated=True
++                break
++            if not path.is_file() or path.suffix.lower() not in EXTENSION_INVENTORY_MODEL_SUFFIXES:
++                continue
++            try:
++                resolved=str(path.resolve()).casefold()
++            except Exception:
++                resolved=str(path).casefold()
++            if resolved in seen:
++                continue
++            seen.add(resolved)
++            scanned+=1
++            is_projector='mmproj' in path.name.casefold() or 'projector' in path.name.casefold()
++            item_category='Vision Projector' if is_projector else category
++            if is_projector:
++                projector_count+=1
++            required=path.name.casefold() in configured or path.name==VISION_PROJECTOR_FILENAME
++            expected=EXTENSION_INVENTORY_EXPECTED_SIZES.get(path.name)
++            size=path.stat().st_size
++            size_verified=expected is not None and size==expected
++            mismatch=expected is not None and size!=expected
++            status='NEEDS_ATTENTION' if mismatch else ('VERIFIED' if size_verified else 'INSTALLED')
++            health=(
++                f'Expected size verified: {expected} bytes.'
++                if size_verified
++                else (
++                    f'Expected {expected} bytes but found {size}.'
++                    if mismatch
++                    else 'Model file is installed; passive inventory did not hash this large file.'
++                )
++            )
++            basis='expected byte-size contract' if expected is not None else 'file existence and metadata only'
++            items.append(_inventory_item(
++                'model:'+_inventory_relative(path).casefold(),
++                path.name,
++                item_category,
++                'Model Filesystem',
++                path=path,
++                version=path.suffix.lstrip('.').upper(),
++                required=required,
++                status=status,
++                health=health,
++                kind='vision_projector' if is_projector else 'model',
++                verification_basis=basis,
++                actions={'open_folder':True},
++                extra={
++                    'expected_size_bytes':expected,
++                    'configured_profile_model':path.name.casefold() in configured,
++                    'excluded_from_language_model_selector':is_projector,
++                },
++            ))
++        if truncated:
++            break
++    return items,{
++        'files_scanned':scanned,
++        'truncated':truncated,
++        'projectors_classified_separately':projector_count,
++        'projectors_filtered_from_language_models':True,
++    }
++
++def extension_inventory_snapshot():
++    application_path=ROOT/'Config'/'application_registry.json'
++    fleet_path=ROOT/'Config'/'fleet_registry.json'
++    state_path=ROOT/'Config'/'extension_state.json'
++    application,error_app=_inventory_read_json(application_path,{})
++    fleet,error_fleet=_inventory_read_json(fleet_path,{})
++    manifests=_inventory_manifest_records()
++    manifest_by_key={
++        str(record['key']).casefold():record
++        for record in manifests
++        if record.get('key')
++    }
++    manifest_by_path={
++        str(record['manifest_path'].resolve()).casefold():record
++        for record in manifests
++    }
++
++    items=[]
++    items.extend(_inventory_application_items(application))
++    fleet_items,consumed=_inventory_fleet_items(fleet,manifest_by_key,manifest_by_path)
++    items.extend(fleet_items)
++    items.extend(_inventory_manifest_items(manifests,consumed))
++    items.extend(_inventory_core_items())
++    model_items,model_scan=_inventory_model_items()
++    items.extend(model_items)
++
++    status_order={'NEEDS_ATTENTION':0,'MISSING':1,'INSTALLED':2,'VERIFIED':3}
++    items.sort(key=lambda item:(status_order.get(item.get('status'),9),str(item.get('category')).casefold(),str(item.get('name')).casefold()))
++
++    counts={name:sum(1 for item in items if item.get('status')==name) for name in ('VERIFIED','INSTALLED','MISSING','NEEDS_ATTENTION')}
++    categories={}
++    for item in items:
++        categories[item['category']]=categories.get(item['category'],0)+1
++    required_items=[item for item in items if item.get('required')]
++    required_problems=[
++        item for item in required_items
++        if item.get('status') in {'MISSING','NEEDS_ATTENTION'}
++    ]
++    sources={
++        'application_registry':{
++            'path':str(application_path),
++            'exists':application_path.is_file(),
++            'error':error_app,
++            'records':len(application.get('applications') or []) if isinstance(application,dict) else 0,
++        },
++        'fleet_registry':{
++            'path':str(fleet_path),
++            'exists':fleet_path.is_file(),
++            'error':error_fleet,
++            'records':len(fleet.get('shuttles') or {}) if isinstance(fleet,dict) else 0,
++            'mode':str(fleet.get('mode') or '') if isinstance(fleet,dict) else '',
++        },
++        'manifest_discovery':{
++            'roots':[str(ROOT/'Departments'),str(ROOT/'Extensions'),str(ROOT/'Modules')],
++            'records':len(manifests),
++            'recursive':True,
++        },
++        'extension_state':{
++            'path':str(state_path),
++            'exists':state_path.is_file(),
++            'mode':'explicit overrides' if state_path.is_file() else 'manifest defaults; no state file created',
++        },
++    }
++    return {
++        'ok':True,
++        'created':now(),
++        'read_only':True,
++        'report_only':True,
++        'configuration_modified':False,
++        'state_file_created':False,
++        'summary':{
++            'total':len(items),
++            'verified':counts['VERIFIED'],
++            'installed':counts['INSTALLED'],
++            'missing':counts['MISSING'],
++            'needs_attention':counts['NEEDS_ATTENTION'],
++            'required':len(required_items),
++            'optional':len(items)-len(required_items),
++            'required_problems':len(required_problems),
++            'categories':categories,
++            'model_scan':model_scan,
++        },
++        'sources':sources,
++        'items':items,
++        'safety':{
++            'install':False,
++            'remove':False,
++            'update':False,
++            'configuration_write':False,
++            'folder_open':'operator initiated; backend path allowlist',
++            'launch':'operator initiated; backend item allowlist only',
++        },
++        'message':f"Read-only inventory: {len(items)} component(s), {counts['NEEDS_ATTENTION']} needing attention.",
++    }
++
++def _inventory_lookup(item_id):
++    item_id=str(item_id or '').strip()
++    if not item_id:
++        return None
++    data=extension_inventory_snapshot()
++    return next((item for item in data.get('items',[]) if item.get('id')==item_id),None)
++
++def _inventory_allowed_path(path):
++    path=_inventory_resolve_path(path)
++    if path is None:
++        return False
++    try:
++        resolved=path.resolve()
++    except Exception:
++        return False
++    allowed=[ROOT.resolve()]
++    hanger=DRIVE/'Hanger Bay'
++    if hanger.exists():
++        allowed.append(hanger.resolve())
++    for base in allowed:
++        try:
++            resolved.relative_to(base)
++            return True
++        except Exception:
++            continue
++    return False
++
++def open_extension_inventory_folder(d):
++    item=_inventory_lookup(d.get('id') if isinstance(d,dict) else '')
++    if not item:
++        return {'ok':False,'message':'Inventory item not found. No folder was opened.'}
++    path=_inventory_resolve_path(item.get('path') or item.get('manifest_path'))
++    if path is None or not path.exists():
++        return {'ok':False,'message':'Inventory path is missing. No folder was opened.'}
++    folder=path if path.is_dir() else path.parent
++    if not _inventory_allowed_path(folder):
++        return {'ok':False,'message':'Inventory folder is outside the approved FOXAI / Hanger Bay roots.'}
++    os.startfile(str(folder))
++    receipt=make_tool_receipt(
++        'shell.open_extension_inventory_folder',
++        'requested',
++        details={'item_id':item['id'],'path':str(folder)},
++        actor='operator',
++    )
++    return {
++        'ok':True,
++        'message':f"Folder open request sent for {item['name']}; Explorer state is not verified.",
++        'receipt':receipt,
++        'claim_state':'requested',
++    }
++
++def open_extension_inventory_url(d):
++    item=_inventory_lookup(d.get('id') if isinstance(d,dict) else '')
++    if not item:
++        return {'ok':False,'message':'Inventory item not found. No URL was opened.'}
++    url=str(item.get('url') or '').strip()
++    if not url.lower().startswith(('http://127.0.0.1','http://localhost')):
++        return {'ok':False,'message':'Only registered localhost URLs may be opened from Phase 1 inventory.'}
++    openurl(url)
++    receipt=make_tool_receipt(
++        'browser.open_extension_inventory_url',
++        'requested',
++        details={'item_id':item['id'],'url':url},
++        actor='operator',
++    )
++    return {
++        'ok':True,
++        'message':f"Browser open request sent for {item['name']}; tab state is not verified.",
++        'receipt':receipt,
++        'claim_state':'requested',
++    }
++
++def launch_extension_inventory_item(d):
++    item=_inventory_lookup(d.get('id') if isinstance(d,dict) else '')
++    if not item:
++        return {'ok':False,'message':'Inventory item not found. No process was launched.'}
++    item_id=str(item.get('id') or '')
++    if item_id=='app:comfyui':
++        if not COMFY_MAIN.is_file():
++            return {'ok':False,'message':'ComfyUI main.py is missing. No process was launched.'}
++        if check('http://127.0.0.1:8188/system_stats'):
++            receipt=make_tool_receipt(
++                'comfy.start','verified',
++                checks=[{'id':'health_endpoint','ok':True,'message':'ComfyUI endpoint responded.'}],
++                actor='operator',
++            )
++            return {'ok':True,'message':'VERIFIED: ComfyUI is already online.','receipt':receipt,'claim_state':'verified'}
++        proc=launch(pycmd()+[str(COMFY_MAIN),'--cpu'],COMFY)
++        receipt=make_tool_receipt(
++            'comfy.start','requested',
++            details={'pid':getattr(proc,'pid',None),'source':'extension_inventory'},
++            actor='operator',
++        )
++        return {'ok':True,'message':'ComfyUI launch requested; online state is not yet verified.','receipt':receipt,'claim_state':'requested'}
++
++    allowed_names=EXTENSION_INVENTORY_SAFE_FLEET_LAUNCH.get(item_id)
++    path=_inventory_resolve_path(item.get('path'))
++    if not allowed_names or path is None or not path.is_file():
++        return {'ok':False,'message':'This inventory item is not in the Phase 1 launch allowlist.'}
++    if path.name.casefold() not in {name.casefold() for name in allowed_names}:
++        return {'ok':False,'message':'Executable identity does not match the Phase 1 launch allowlist.'}
++    if not _inventory_allowed_path(path):
++        return {'ok':False,'message':'Executable path is outside the approved FOXAI / Hanger Bay roots.'}
++    proc=subprocess.Popen([str(path)],cwd=str(path.parent))
++    receipt=make_tool_receipt(
++        'extension_inventory.launch',
++        'requested',
++        details={'item_id':item_id,'path':str(path),'pid':getattr(proc,'pid',None)},
++        actor='operator',
++    )
++    return {
++        'ok':True,
++        'message':f"Launch requested for {item['name']}; application state is not yet verified.",
++        'receipt':receipt,
++        'claim_state':'requested',
++    }
++# EXTENSION_MANAGER_INVENTORY_PHASE1_BACKEND_END
+ 
+ def extension_roots():
+     roots=[FOLDERS.get('extensions',ROOT/'Extensions'),FOLDERS.get('modules',ROOT/'Modules'),ROOT/'Departments']

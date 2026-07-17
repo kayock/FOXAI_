@@ -1,0 +1,76 @@
+{
+  "exact_artifacts": {
+    "passed": true,
+    "checks": {
+      "baseline_hash": true,
+      "candidate_hash": true,
+      "diff_hash": true,
+      "diff_reconstructs_candidate": true,
+      "python_compile": true
+    }
+  },
+  "applied_receipt": {
+    "passed": true,
+    "sha256": "73956c6443eb4e02b813be7cbb57812d50d5412977277ee4bdd943c578fb264a",
+    "checks": {
+      "state": true,
+      "verified": true,
+      "web_hash": true,
+      "server_hash": true,
+      "no_deletes": true,
+      "no_rollback": true
+    }
+  },
+  "node_and_browser": {
+    "passed": true,
+    "javascript_blocks": 1,
+    "node_check": [
+      {
+        "index": 1,
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "passed": true
+      }
+    ],
+    "browser_harness": {
+      "returncode": 0,
+      "stdout": "{\"passed\":true,\"visible_payload_free\":true,\"client_active_state_metadata_only\":true,\"followup_uses_server_active_reference\":true,\"cancellation_preserves_active_image\":true,\"text_profile_refuses_image\":true,\"explicit_clear_verified\":true}\n",
+      "stderr": "",
+      "passed": true
+    }
+  },
+  "continuity_and_leakage_helpers": {
+    "passed": true,
+    "history_payload_free": true,
+    "initial_current_turn_image_count": 1,
+    "followup_current_turn_image_count": 1,
+    "followup_reattaches_active_image": true,
+    "active_status_metadata_only": true,
+    "archive_payload_guard": true,
+    "missing_active_fails_closed": true
+  },
+  "static_contract": {
+    "passed": true,
+    "checks": {
+      "volatile_single_active_image": true,
+      "history_is_compacted": true,
+      "current_turn_reattachment": true,
+      "safe_history_user_message": true,
+      "metadata_only_status": true,
+      "payload_guard": true,
+      "status_endpoint": true,
+      "clear_endpoint": true,
+      "cancel_preserves": true,
+      "browser_active_metadata_only": true,
+      "browser_uses_active_reference": true,
+      "text_profile_clears": true,
+      "stop_clears": true,
+      "reset_clears": true,
+      "visible_card_hides_raw": true,
+      "guarded_streaming_preserved": true,
+      "engineer_image_still_denied": true,
+      "no_server_change_proposed": true
+    }
+  }
+}

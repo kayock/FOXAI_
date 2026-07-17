@@ -1,0 +1,442 @@
+[
+  {
+    "test_id": "ocr",
+    "title": "Exact OCR and Counting",
+    "image": "images/ocr_card.png",
+    "status": 200,
+    "wall_seconds": 33.093,
+    "tokens_per_second": 6.603,
+    "content": "{\n  \"title\": \"FOX SENTRY VISION TEST\",\n  \"code\": \"7429\",\n  \"door_label\": \"PURPLE DOOR\",\n  \"star_count\": 3,\n  \"bicycle_present\": false\n}",
+    "reasoning_character_count": 0,
+    "finish_reason": "stop",
+    "validation": {
+      "parsed_json": {
+        "title": "FOX SENTRY VISION TEST",
+        "code": "7429",
+        "door_label": "PURPLE DOOR",
+        "star_count": 3,
+        "bicycle_present": false
+      },
+      "checks": {
+        "valid_json": true,
+        "title": true,
+        "code": true,
+        "door_label": true,
+        "star_count": true,
+        "bicycle_present_false": true
+      },
+      "passed": true,
+      "failed_checks": [],
+      "notes": []
+    },
+    "response_ok": true,
+    "raw_error_excerpt": "",
+    "profile_key": "fast",
+    "profile": "Fast Vision",
+    "model": "Qwen3VL-8B-Instruct-Q4_K_M.gguf",
+    "model_sha256": "67d1659bfe71b89d50b45a4ad1a9e5b997e5bb16ce5da66a6a6167abd569e9e2",
+    "projector": {
+      "path": "Z:\\FOXAI\\Models\\Chat\\mmproj-Qwen3VL-8B-Instruct-Q8_0.gguf",
+      "sha256": "c6ba85508d82f42590e6eb77d5340369ab6fecf107a7561d809523d8aa5f3bfd",
+      "size_bytes": 752289728
+    }
+  },
+  {
+    "test_id": "spatial",
+    "title": "Spatial Relationships",
+    "image": "images/spatial_scene.png",
+    "status": 200,
+    "wall_seconds": 42.577,
+    "tokens_per_second": 6.28,
+    "content": "{\n  \"leftmost_shape\": {\n    \"color\": \"red\",\n    \"geometry\": \"square\"\n  },\n  \"rightmost_shape\": {\n    \"color\": \"blue\",\n    \"geometry\": \"circle\"\n  },\n  \"topmost_shape\": {\n    \"color\": \"green\",\n    \"geometry\": \"triangle\"\n  },\n  \"bottommost_shape\": {\n    \"color\": \"orange\",\n    \"geometry\": \"diamond\"\n  },\n  \"arrow_direction\": \"right\",\n  \"colored_shape_count\": 4\n}",
+    "reasoning_character_count": 0,
+    "finish_reason": "stop",
+    "validation": {
+      "parsed_json": {
+        "leftmost_shape": {
+          "color": "red",
+          "geometry": "square"
+        },
+        "rightmost_shape": {
+          "color": "blue",
+          "geometry": "circle"
+        },
+        "topmost_shape": {
+          "color": "green",
+          "geometry": "triangle"
+        },
+        "bottommost_shape": {
+          "color": "orange",
+          "geometry": "diamond"
+        },
+        "arrow_direction": "right",
+        "colored_shape_count": 4
+      },
+      "checks": {
+        "valid_json": true,
+        "leftmost_red_square": true,
+        "rightmost_blue_circle": true,
+        "topmost_green_triangle": true,
+        "bottommost_orange_diamond": true,
+        "arrow_left_to_right": false,
+        "shape_count": true
+      },
+      "passed": false,
+      "failed_checks": [
+        "arrow_left_to_right"
+      ],
+      "notes": []
+    },
+    "response_ok": true,
+    "raw_error_excerpt": "",
+    "profile_key": "fast",
+    "profile": "Fast Vision",
+    "model": "Qwen3VL-8B-Instruct-Q4_K_M.gguf",
+    "model_sha256": "67d1659bfe71b89d50b45a4ad1a9e5b997e5bb16ce5da66a6a6167abd569e9e2",
+    "projector": {
+      "path": "Z:\\FOXAI\\Models\\Chat\\mmproj-Qwen3VL-8B-Instruct-Q8_0.gguf",
+      "sha256": "c6ba85508d82f42590e6eb77d5340369ab6fecf107a7561d809523d8aa5f3bfd",
+      "size_bytes": 752289728
+    }
+  },
+  {
+    "test_id": "ui",
+    "title": "Screenshot/UI Understanding",
+    "image": "images/ui_mock.png",
+    "status": 200,
+    "wall_seconds": 43.142,
+    "tokens_per_second": 6.532,
+    "content": "{\n  \"app_title\": \"MODEL LAB\",\n  \"selected_profile\": \"Fast Vision\",\n  \"selected_status\": \"READY\",\n  \"main_button\": \"RUN IMAGE TEST\",\n  \"mode\": \"Offline\",\n  \"screen_code\": \"V-203\"\n}",
+    "reasoning_character_count": 0,
+    "finish_reason": "stop",
+    "validation": {
+      "parsed_json": {
+        "app_title": "MODEL LAB",
+        "selected_profile": "Fast Vision",
+        "selected_status": "READY",
+        "main_button": "RUN IMAGE TEST",
+        "mode": "Offline",
+        "screen_code": "V-203"
+      },
+      "checks": {
+        "valid_json": true,
+        "app_title": true,
+        "selected_profile": true,
+        "selected_status_contains_ready": true,
+        "main_button": true,
+        "mode_contains_offline": true,
+        "screen_code": true
+      },
+      "passed": true,
+      "failed_checks": [],
+      "notes": []
+    },
+    "response_ok": true,
+    "raw_error_excerpt": "",
+    "profile_key": "fast",
+    "profile": "Fast Vision",
+    "model": "Qwen3VL-8B-Instruct-Q4_K_M.gguf",
+    "model_sha256": "67d1659bfe71b89d50b45a4ad1a9e5b997e5bb16ce5da66a6a6167abd569e9e2",
+    "projector": {
+      "path": "Z:\\FOXAI\\Models\\Chat\\mmproj-Qwen3VL-8B-Instruct-Q8_0.gguf",
+      "sha256": "c6ba85508d82f42590e6eb77d5340369ab6fecf107a7561d809523d8aa5f3bfd",
+      "size_bytes": 752289728
+    }
+  },
+  {
+    "test_id": "detail",
+    "title": "Detailed Scene Description",
+    "image": "images/detail_scene.png",
+    "status": 200,
+    "wall_seconds": 49.807,
+    "tokens_per_second": 6.56,
+    "content": "The image depicts a quiet desk scene at 7:15, as written in the bottom-left corner. On the brown desk surface, a blue mug with a brown liquid inside sits beside an open notebook with horizontal lines and a red vertical margin. A single gold-colored key lies near the notebook, and two gray paper clips are visible beside it. To the right, a green potted plant with five oval leaves stands in a brown pot. On the left, a tall lamp with a yellow conical shade and a dark gray base stands against a beige wall. The overall setting suggests a calm, organized workspace, possibly for writing or studying. The time, objects, and plant are clearly illustrated without any human or animal presence.",
+    "reasoning_character_count": 0,
+    "finish_reason": "stop",
+    "validation": {
+      "parsed_json": null,
+      "checks": {
+        "word_range_120_180": true,
+        "time_7_15": true,
+        "blue_mug": true,
+        "two_paper_clips": true,
+        "plant": true,
+        "notebook": true,
+        "key": true,
+        "no_people_or_animals_invented": false
+      },
+      "passed": false,
+      "failed_checks": [
+        "no_people_or_animals_invented"
+      ],
+      "notes": []
+    },
+    "response_ok": true,
+    "raw_error_excerpt": "",
+    "profile_key": "fast",
+    "profile": "Fast Vision",
+    "model": "Qwen3VL-8B-Instruct-Q4_K_M.gguf",
+    "model_sha256": "67d1659bfe71b89d50b45a4ad1a9e5b997e5bb16ce5da66a6a6167abd569e9e2",
+    "projector": {
+      "path": "Z:\\FOXAI\\Models\\Chat\\mmproj-Qwen3VL-8B-Instruct-Q8_0.gguf",
+      "sha256": "c6ba85508d82f42590e6eb77d5340369ab6fecf107a7561d809523d8aa5f3bfd",
+      "size_bytes": 752289728
+    }
+  },
+  {
+    "test_id": "hallucination",
+    "title": "Hallucination Resistance",
+    "image": "images/ocr_card.png",
+    "status": 200,
+    "wall_seconds": 4.58,
+    "tokens_per_second": 6.677,
+    "content": "{\n  \"bicycle_visible\": false,\n  \"evidence\": \"NO BICYCLE PRESENT\"\n}",
+    "reasoning_character_count": 0,
+    "finish_reason": "stop",
+    "validation": {
+      "parsed_json": {
+        "bicycle_visible": false,
+        "evidence": "NO BICYCLE PRESENT"
+      },
+      "checks": {
+        "valid_json": true,
+        "bicycle_visible_false": true,
+        "evidence_exact": true
+      },
+      "passed": true,
+      "failed_checks": [],
+      "notes": []
+    },
+    "response_ok": true,
+    "raw_error_excerpt": "",
+    "profile_key": "fast",
+    "profile": "Fast Vision",
+    "model": "Qwen3VL-8B-Instruct-Q4_K_M.gguf",
+    "model_sha256": "67d1659bfe71b89d50b45a4ad1a9e5b997e5bb16ce5da66a6a6167abd569e9e2",
+    "projector": {
+      "path": "Z:\\FOXAI\\Models\\Chat\\mmproj-Qwen3VL-8B-Instruct-Q8_0.gguf",
+      "sha256": "c6ba85508d82f42590e6eb77d5340369ab6fecf107a7561d809523d8aa5f3bfd",
+      "size_bytes": 752289728
+    }
+  },
+  {
+    "test_id": "ocr",
+    "title": "Exact OCR and Counting",
+    "image": "images/ocr_card.png",
+    "status": 200,
+    "wall_seconds": 52.672,
+    "tokens_per_second": 4.128,
+    "content": "{\n  \"title\": \"FOX SENTRY VISION TEST\",\n  \"code\": \"7429\",\n  \"door_label\": \"PURPLE DOOR\",\n  \"star_count\": 3,\n  \"bicycle_present\": false\n}",
+    "reasoning_character_count": 0,
+    "finish_reason": "stop",
+    "validation": {
+      "parsed_json": {
+        "title": "FOX SENTRY VISION TEST",
+        "code": "7429",
+        "door_label": "PURPLE DOOR",
+        "star_count": 3,
+        "bicycle_present": false
+      },
+      "checks": {
+        "valid_json": true,
+        "title": true,
+        "code": true,
+        "door_label": true,
+        "star_count": true,
+        "bicycle_present_false": true
+      },
+      "passed": true,
+      "failed_checks": [],
+      "notes": []
+    },
+    "response_ok": true,
+    "raw_error_excerpt": "",
+    "profile_key": "quality",
+    "profile": "Quality Vision",
+    "model": "Qwen3VL-8B-Instruct-Q8_0.gguf",
+    "model_sha256": "0d264b3941185d00a74f75c4245521dae088ff1efc90ab8d1754e83f5844adb0",
+    "projector": {
+      "path": "Z:\\FOXAI\\Models\\Chat\\mmproj-Qwen3VL-8B-Instruct-Q8_0.gguf",
+      "sha256": "c6ba85508d82f42590e6eb77d5340369ab6fecf107a7561d809523d8aa5f3bfd",
+      "size_bytes": 752289728
+    }
+  },
+  {
+    "test_id": "spatial",
+    "title": "Spatial Relationships",
+    "image": "images/spatial_scene.png",
+    "status": 200,
+    "wall_seconds": 70.381,
+    "tokens_per_second": 4.18,
+    "content": "{\n  \"leftmost_shape\": {\n    \"color\": \"red\",\n    \"geometry\": \"square\"\n  },\n  \"rightmost_shape\": {\n    \"color\": \"blue\",\n    \"geometry\": \"circle\"\n  },\n  \"topmost_shape\": {\n    \"color\": \"green\",\n    \"geometry\": \"triangle\"\n  },\n  \"bottommost_shape\": {\n    \"color\": \"orange\",\n    \"geometry\": \"diamond\"\n  },\n  \"arrow_direction\": \"right\",\n  \"colored_shape_count\": 4\n}",
+    "reasoning_character_count": 0,
+    "finish_reason": "stop",
+    "validation": {
+      "parsed_json": {
+        "leftmost_shape": {
+          "color": "red",
+          "geometry": "square"
+        },
+        "rightmost_shape": {
+          "color": "blue",
+          "geometry": "circle"
+        },
+        "topmost_shape": {
+          "color": "green",
+          "geometry": "triangle"
+        },
+        "bottommost_shape": {
+          "color": "orange",
+          "geometry": "diamond"
+        },
+        "arrow_direction": "right",
+        "colored_shape_count": 4
+      },
+      "checks": {
+        "valid_json": true,
+        "leftmost_red_square": true,
+        "rightmost_blue_circle": true,
+        "topmost_green_triangle": true,
+        "bottommost_orange_diamond": true,
+        "arrow_left_to_right": false,
+        "shape_count": true
+      },
+      "passed": false,
+      "failed_checks": [
+        "arrow_left_to_right"
+      ],
+      "notes": []
+    },
+    "response_ok": true,
+    "raw_error_excerpt": "",
+    "profile_key": "quality",
+    "profile": "Quality Vision",
+    "model": "Qwen3VL-8B-Instruct-Q8_0.gguf",
+    "model_sha256": "0d264b3941185d00a74f75c4245521dae088ff1efc90ab8d1754e83f5844adb0",
+    "projector": {
+      "path": "Z:\\FOXAI\\Models\\Chat\\mmproj-Qwen3VL-8B-Instruct-Q8_0.gguf",
+      "sha256": "c6ba85508d82f42590e6eb77d5340369ab6fecf107a7561d809523d8aa5f3bfd",
+      "size_bytes": 752289728
+    }
+  },
+  {
+    "test_id": "ui",
+    "title": "Screenshot/UI Understanding",
+    "image": "images/ui_mock.png",
+    "status": 200,
+    "wall_seconds": 72.18,
+    "tokens_per_second": 4.166,
+    "content": "{\n  \"app_title\": \"MODEL LAB\",\n  \"selected_profile\": \"Fast Vision\",\n  \"selected_status\": \"READY\",\n  \"main_button\": \"RUN IMAGE TEST\",\n  \"mode\": \"Offline\",\n  \"screen_code\": \"V-203\"\n}",
+    "reasoning_character_count": 0,
+    "finish_reason": "stop",
+    "validation": {
+      "parsed_json": {
+        "app_title": "MODEL LAB",
+        "selected_profile": "Fast Vision",
+        "selected_status": "READY",
+        "main_button": "RUN IMAGE TEST",
+        "mode": "Offline",
+        "screen_code": "V-203"
+      },
+      "checks": {
+        "valid_json": true,
+        "app_title": true,
+        "selected_profile": true,
+        "selected_status_contains_ready": true,
+        "main_button": true,
+        "mode_contains_offline": true,
+        "screen_code": true
+      },
+      "passed": true,
+      "failed_checks": [],
+      "notes": []
+    },
+    "response_ok": true,
+    "raw_error_excerpt": "",
+    "profile_key": "quality",
+    "profile": "Quality Vision",
+    "model": "Qwen3VL-8B-Instruct-Q8_0.gguf",
+    "model_sha256": "0d264b3941185d00a74f75c4245521dae088ff1efc90ab8d1754e83f5844adb0",
+    "projector": {
+      "path": "Z:\\FOXAI\\Models\\Chat\\mmproj-Qwen3VL-8B-Instruct-Q8_0.gguf",
+      "sha256": "c6ba85508d82f42590e6eb77d5340369ab6fecf107a7561d809523d8aa5f3bfd",
+      "size_bytes": 752289728
+    }
+  },
+  {
+    "test_id": "detail",
+    "title": "Detailed Scene Description",
+    "image": "images/detail_scene.png",
+    "status": 200,
+    "wall_seconds": 81.089,
+    "tokens_per_second": 4.14,
+    "content": "The image depicts a serene, minimalist desk scene at 7:15, as indicated by the text at the bottom. On the brown desk surface, a blue mug with a brown circular design sits beside an open notebook with horizontal lines and a red vertical margin. A single gold-colored key lies near the notebook, and two gray paper clips are positioned close to it. To the right, a small potted plant with five rounded green leaves and a brown pot adds a touch of nature. In the background, a floor lamp with a yellow conical shade and a dark gray stand stands against a beige wall. The overall composition suggests a quiet, organized workspace, possibly for writing or reflection. The time, objects, and colors are clearly rendered without any human or animal presence.",
+    "reasoning_character_count": 0,
+    "finish_reason": "stop",
+    "validation": {
+      "parsed_json": null,
+      "checks": {
+        "word_range_120_180": true,
+        "time_7_15": true,
+        "blue_mug": true,
+        "two_paper_clips": true,
+        "plant": true,
+        "notebook": true,
+        "key": true,
+        "no_people_or_animals_invented": false
+      },
+      "passed": false,
+      "failed_checks": [
+        "no_people_or_animals_invented"
+      ],
+      "notes": []
+    },
+    "response_ok": true,
+    "raw_error_excerpt": "",
+    "profile_key": "quality",
+    "profile": "Quality Vision",
+    "model": "Qwen3VL-8B-Instruct-Q8_0.gguf",
+    "model_sha256": "0d264b3941185d00a74f75c4245521dae088ff1efc90ab8d1754e83f5844adb0",
+    "projector": {
+      "path": "Z:\\FOXAI\\Models\\Chat\\mmproj-Qwen3VL-8B-Instruct-Q8_0.gguf",
+      "sha256": "c6ba85508d82f42590e6eb77d5340369ab6fecf107a7561d809523d8aa5f3bfd",
+      "size_bytes": 752289728
+    }
+  },
+  {
+    "test_id": "hallucination",
+    "title": "Hallucination Resistance",
+    "image": "images/ocr_card.png",
+    "status": 200,
+    "wall_seconds": 7.245,
+    "tokens_per_second": 4.234,
+    "content": "{\n  \"bicycle_visible\": false,\n  \"evidence\": \"NO BICYCLE PRESENT\"\n}",
+    "reasoning_character_count": 0,
+    "finish_reason": "stop",
+    "validation": {
+      "parsed_json": {
+        "bicycle_visible": false,
+        "evidence": "NO BICYCLE PRESENT"
+      },
+      "checks": {
+        "valid_json": true,
+        "bicycle_visible_false": true,
+        "evidence_exact": true
+      },
+      "passed": true,
+      "failed_checks": [],
+      "notes": []
+    },
+    "response_ok": true,
+    "raw_error_excerpt": "",
+    "profile_key": "quality",
+    "profile": "Quality Vision",
+    "model": "Qwen3VL-8B-Instruct-Q8_0.gguf",
+    "model_sha256": "0d264b3941185d00a74f75c4245521dae088ff1efc90ab8d1754e83f5844adb0",
+    "projector": {
+      "path": "Z:\\FOXAI\\Models\\Chat\\mmproj-Qwen3VL-8B-Instruct-Q8_0.gguf",
+      "sha256": "c6ba85508d82f42590e6eb77d5340369ab6fecf107a7561d809523d8aa5f3bfd",
+      "size_bytes": 752289728
+    }
+  }
+]

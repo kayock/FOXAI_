@@ -1,0 +1,53 @@
+FOXAI MODEL STATUS CLARITY PHASE 2C4 — EXACT REPLACEMENTS
+
+PROPOSED MODIFIED FILE
+  core/foxai_web.py
+
+PROPOSED ADDED LIVE FILES
+  None
+
+PROPOSED DELETED LIVE FILES
+  None
+
+CHANGE 1: sidebar_status_rows
+OLD:
+<div class=row><div class=lab>Runtime</div><div id=rt>Checking</div></div>
+NEW:
+<div class=row><div class=lab>Engine</div><div id=rt>Checking</div></div><div class=row><div class=lab>Model source</div><div id=msrc>Checking</div></div><div class=row><div class=lab>Network use</div><div id=nuse>Checking</div></div>
+
+CHANGE 2: backend_network_classification
+OLD:
+    active_source=dict(chat_model_source or {}) if chat_online else {}
+    d={
+NEW:
+    active_source=dict(chat_model_source or {}) if chat_online else {}
+    active_source_type=str(active_source.get('source') or '')
+    if active_source_type=='LAN_OPENAI_COMPATIBLE':
+        chat_network_use='LAN'
+    elif active_source_type=='ONLINE_PROVIDER':
+        chat_network_use='INTERNET'
+    else:
+        chat_network_use='NONE'
+    d={
+
+CHANGE 3: backend_status_fields
+OLD:
+        'chat_model_source_label':active_source.get('source_label') if active_source else None,
+        'chat_vision_enabled':
+NEW:
+        'chat_engine_state':'RUNNING' if chat_online else 'STOPPED',
+        'chat_model_source_label':active_source.get('source_label') if active_source else None,
+        'chat_network_use':chat_network_use,
+        'chat_vision_enabled':
+
+CHANGE 4: frontend_separate_status_values
+OLD:
+q('rt').textContent=s.chat_online?`ONLINE • ${s.chat_model_source_label||'LOCAL'}`:'OFFLINE';
+NEW:
+q('rt').textContent=s.chat_engine_state||(s.chat_online?'RUNNING':'STOPPED');q('msrc').textContent=s.chat_online?(s.chat_model_source_label||'LOCAL'):'NONE';q('nuse').textContent=s.chat_network_use||'NONE';
+
+CHANGE 5: quick_status_running_wording
+OLD:
+<span class="pill ${s.chat_online?'ok':'warn'}">Chat ${s.chat_online?'Online':'Offline'}</span><br><span class="pill ${s.comfy_online?'ok':'warn'}">ComfyUI ${s.comfy_online?'Online':'Offline'}</span>
+NEW:
+<span class="pill ${s.chat_online?'ok':'warn'}">Chat ${s.chat_online?'Running':'Stopped'}</span><br><span class="pill ${s.comfy_online?'ok':'warn'}">ComfyUI ${s.comfy_online?'Running':'Stopped'}</span>

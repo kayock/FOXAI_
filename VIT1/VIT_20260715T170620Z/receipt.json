@@ -1,0 +1,128 @@
+{
+  "action": "qwen3vl_real_image_input_test",
+  "created": "2026-07-15T17:06:20.809662+00:00",
+  "selection": "both",
+  "state": "stopped_fail_closed",
+  "verified": true,
+  "live_files_modified": false,
+  "apply_capability_present": false,
+  "configuration_modified": false,
+  "archive_modified": false,
+  "security_logs_modified": false,
+  "models": {
+    "fast": {
+      "profile": "Fast Vision",
+      "filename": "Qwen3VL-8B-Instruct-Q4_K_M.gguf",
+      "relative": "Models/Chat/Qwen3VL-8B-Instruct-Q4_K_M.gguf",
+      "expected_size": 5027784800,
+      "actual_size": 5027784800,
+      "sha256": "67d1659bfe71b89d50b45a4ad1a9e5b997e5bb16ce5da66a6a6167abd569e9e2",
+      "state": "ready",
+      "launch": {
+        "command": [
+          "Z:\\FOXAI\\Engine\\llama-server.exe",
+          "--model",
+          "Z:\\FOXAI\\Models\\Chat\\Qwen3VL-8B-Instruct-Q4_K_M.gguf",
+          "--host",
+          "127.0.0.1",
+          "--port",
+          "8098",
+          "--ctx-size",
+          "8192",
+          "--threads",
+          "12"
+        ],
+        "projector": null,
+        "health": {
+          "ready": true,
+          "seconds": 4.136,
+          "health": {
+            "status": "ok"
+          }
+        },
+        "attempt": 1,
+        "log": "Z:\\FOXAI\\VIT1\\VIT_20260715T170620Z\\logs\\fast_attempt_1.log"
+      },
+      "completed_tests": 1
+    }
+  },
+  "projector_inventory": {
+    "fast": []
+  },
+  "checks": {
+    "locked_baselines": {
+      "passed": true,
+      "files": [
+        {
+          "path": "core/foxai_web.py",
+          "expected": "e4d5811f14ae3ffb0b3f8b59369bee5c0a1218d19459f2decc875589540d04fb",
+          "actual": "e4d5811f14ae3ffb0b3f8b59369bee5c0a1218d19459f2decc875589540d04fb",
+          "ok": true
+        },
+        {
+          "path": "core/server.py",
+          "expected": "9ee8871553113459ac4e234873de2cd3352aa5529ab58fab8d02ece0a53d0c07",
+          "actual": "9ee8871553113459ac4e234873de2cd3352aa5529ab58fab8d02ece0a53d0c07",
+          "ok": true
+        },
+        {
+          "path": "core/security_containment.py",
+          "expected": "9a00ed8c1b2ef45a02fab2e4c2e552b3a6532e1609b6995a7985034ccf002a24",
+          "actual": "9a00ed8c1b2ef45a02fab2e4c2e552b3a6532e1609b6995a7985034ccf002a24",
+          "ok": true
+        },
+        {
+          "path": "core/engineer_agent.py",
+          "expected": "f6346d4fbb8bda82535281e650042a0aeb290de26a000b1f85f0dd572ac28c19",
+          "actual": "f6346d4fbb8bda82535281e650042a0aeb290de26a000b1f85f0dd572ac28c19",
+          "ok": true
+        },
+        {
+          "path": "tests/test_boundary_watch.py",
+          "expected": "b2eab44689c24802bf0168e8ea3bc94dd8c32a15f9365bb2cd5aea8f896cd382",
+          "actual": "b2eab44689c24802bf0168e8ea3bc94dd8c32a15f9365bb2cd5aea8f896cd382",
+          "ok": true
+        },
+        {
+          "path": "Config/FoxAI.ini",
+          "expected": "677067e2b58416ba7d7bacc1dcfe40b9f43783e625dd305d0bbf82b6d3174d41",
+          "actual": "677067e2b58416ba7d7bacc1dcfe40b9f43783e625dd305d0bbf82b6d3174d41",
+          "ok": true
+        },
+        {
+          "path": "Engine/llama-server.exe",
+          "expected": "936cfb77f011911f879a5af715013eb12141115547c1f731114d8e9c20ebd89e",
+          "actual": "936cfb77f011911f879a5af715013eb12141115547c1f731114d8e9c20ebd89e",
+          "ok": true
+        }
+      ]
+    },
+    "ports_closed": {
+      "passed": true,
+      "ports": {
+        "8765": "FOXAI WebUI",
+        "8080": "Chat Engine",
+        "8098": "Vision benchmark",
+        "8099": "Other benchmark"
+      }
+    },
+    "engine_help": {
+      "returncode": 0,
+      "supports_mmproj": true,
+      "supports_reasoning": true,
+      "supports_reasoning_budget": true,
+      "excerpt": "                                        mmproj is also downloaded automatically if available. to disable, add\n                                        --no-mmproj\n-mm,   --mmproj FILE                    path to a multimodal projector file. see tools/mtmd/README.md\n                                        (env: LLAMA_ARG_MMPROJ)\n-mmu,  --mmproj-url URL                 URL to a multimodal projector file. see tools/mtmd/README.md\n                                        (env: LLAMA_ARG_MMPROJ_URL)\n--mmproj-auto, --no-mmproj, --no-mmproj-auto\n                                        whether to use multimodal projector file (if available), useful when\n                                        (env: LLAMA_ARG_MMPROJ_AUTO)\n--mmproj-offload, --no-mmproj-offload   whether to enable GPU offloading for multimodal projector (default:\n                                        (env: LLAMA_ARG_MMPROJ_OFFLOAD)\n--image-min-tokens N                    minimum number of tokens each image can take, only used by vision\n--image-max-tokens N                    maximum number of tokens each image can take, only used by vision\n--vision-gemma-4b-default               use Gemma 3 4B QAT (note: can download weights from the internet)\n--vision-gemma-12b-default              use Gemma 3 12B QAT (note: can download weights from the internet)"
+    }
+  },
+  "failure": {
+    "type": "VisionError",
+    "message": "Fast Vision failed ocr: HTTP 500 {\"error\":{\"code\":500,\"message\":\"image input is not supported - hint: if this is unexpected, you may need to provide the mmproj\",\"type\":\"server_error\"}}",
+    "traceback": "Traceback (most recent call last):\n  File \"Z:\\FOXAI\\VIT1\\vision_test.py\", line 1075, in main\n    raise VisionError(\n    ...<3 lines>...\n    )\nVisionError: Fast Vision failed ocr: HTTP 500 {\"error\":{\"code\":500,\"message\":\"image input is not supported - hint: if this is unexpected, you may need to provide the mmproj\",\"type\":\"server_error\"}}\n"
+  },
+  "emergency_stop": {
+    "requested": true,
+    "stopped": true,
+    "exit_code": 1
+  },
+  "protected_changes": []
+}

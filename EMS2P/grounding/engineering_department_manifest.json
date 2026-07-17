@@ -1,0 +1,84 @@
+{
+  "api_version": "foxai.department.v1",
+  "id": "engineering",
+  "name": "Engineering Department",
+  "officer": {
+    "name": "Chief Engineer Ada",
+    "callsign": "Ada",
+    "role": "Chief Engineer"
+  },
+  "startup_priority": 30,
+  "depends_on": [
+    "foxkernel",
+    "missionbus",
+    "vault"
+  ],
+  "provides": [
+    "engineering.health",
+    "code.format",
+    "code.lint",
+    "code.typecheck",
+    "architecture.inspect",
+    "security.audit",
+    "sbom.generate"
+  ],
+  "services": [
+    "Repair Bay",
+    "Diagnostics",
+    "Build Verification",
+    "Code Review",
+    "Architecture Inspection",
+    "Security Inspection"
+  ],
+  "tools": [
+    {
+      "id": "ruff",
+      "import": "ruff",
+      "purpose": "Fast linting and formatting checks"
+    },
+    {
+      "id": "black",
+      "import": "black",
+      "purpose": "Python formatting"
+    },
+    {
+      "id": "mypy",
+      "import": "mypy",
+      "purpose": "Static type checking"
+    },
+    {
+      "id": "pydeps",
+      "import": "pydeps",
+      "purpose": "Import graph visualization"
+    },
+    {
+      "id": "import-linter",
+      "import": "importlinter",
+      "purpose": "Architecture boundary enforcement"
+    },
+    {
+      "id": "grimp",
+      "import": "grimp",
+      "purpose": "Import graph analysis"
+    },
+    {
+      "id": "pip-audit",
+      "import": "pip_audit",
+      "purpose": "Dependency vulnerability scanning"
+    },
+    {
+      "id": "cyclonedx-bom",
+      "import": "cyclonedx_py",
+      "purpose": "SBOM generation"
+    }
+  ],
+  "health_check": "Departments.Engineering.health:health",
+  "ui": {
+    "panel": "engineering",
+    "accent": "orange"
+  },
+  "version": "0.1.0",
+  "type": "department",
+  "description": "Engineering Department module for Kayock Command OS.",
+  "enabled": true
+}

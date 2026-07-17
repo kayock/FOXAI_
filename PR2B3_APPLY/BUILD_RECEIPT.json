@@ -1,0 +1,38 @@
+{
+  "action": "foxai_portable_core_runtime_phase2b3_guarded_apply_build",
+  "created": "2026-07-16T18:25:28.453673+00:00",
+  "state": "guarded_apply_package_ready",
+  "verified": true,
+  "operator_approval_received": true,
+  "operator_approval_phrase": "APPROVE PORTABLE CORE RUNTIME PHASE 2B3 APPLY",
+  "preview_receipt_sha256": "13b116eb2400058c9d624164bfb8d3ea5db707f787233563717956f563c0817c",
+  "acquisition_receipt_sha256": "a6e8439f59911a353d24c9a1f159c5b3caf160b1ad6b430d989c34d29a0421d9",
+  "candidate": {
+    "site_package_file_count": 329,
+    "site_package_tree_digest": "adf6c53a80b8a45b9595e1ddc96b234ecbdb6a4f9529f266ca06d34058d37add",
+    "runtime_manifest_sha256": "bca61a55178063e5305ac8b5d8ba951f22fdb65d8b29ced443d9fff685668283",
+    "pth_sha256": "48d77ccee161647ef7053cb563d3b37b4053938d5ad92ae64ccedc2165bcd42d",
+    "launcher_sha256": "834e129be2d41405be40e1ea5aeca6d7a96b4faaf3b72c906487e902a9dca3b1",
+    "wheel_count": 12
+  },
+  "exact_changes": {
+    "new": [
+      "Runtime/Core/site-packages/**",
+      "Runtime/Core/CORE_RUNTIME_MANIFEST.json"
+    ],
+    "modified": [
+      "env/python/python314._pth",
+      "START_FOXAI_WEB_PORTABLE.bat"
+    ],
+    "deleted": []
+  },
+  "automatic_launch": false,
+  "network_access": false,
+  "pip_install": false,
+  "delete_operations": [],
+  "correction": {
+    "reason": "Post-apply verification now excludes only the two approved modified files instead of reusing the pre-apply absence check.",
+    "candidate_preflight_simplified": true,
+    "prior_package_should_not_be_used": true
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "failed_run_state": "stopped_fail_closed",
+  "failed_run_verified": false,
+  "protected_live_state_unchanged": true,
+  "manifest_entries_checked": 3683,
+  "hash_mismatches": 58,
+  "all_mismatches_are_python_bytecode_cache": true,
+  "root_cause": "Phase 3C imported the quarantined Desktop packages after their manifest was written. Python regenerated imported .pyc files inside __pycache__, so those disposable cache files no longer matched their original copy-time hashes. Source .py files, native extensions, resources, and protected FOXAI files were not implicated.",
+  "fix": "Exclude all __pycache__, .pyc, and .pyo files from the deterministic portable-runtime manifest and live apply plan; set PYTHONDONTWRITEBYTECODE=1 in diagnostics and future portable launchers; and make failure-report generation safe even when no exact plan exists."
+}

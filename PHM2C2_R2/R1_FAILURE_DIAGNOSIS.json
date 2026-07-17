@@ -1,0 +1,43 @@
+{
+  "action": "foxai_host_model_phase2c2_r1_failure_diagnosis",
+  "created": "2026-07-16T20:01:39.122372+00:00",
+  "state": "diagnosed_no_live_change",
+  "verified": true,
+  "failure": "ModuleNotFoundError: No module named 'core'",
+  "cause": "The embedded CPython runtime uses python314._pth isolated mode. That mode ignores the PYTHONPATH environment variable used by the R1 exact-preview verifier.",
+  "candidate_files_present": true,
+  "uploaded_candidate_matches_preview": true,
+  "candidate_comparison": [
+    {
+      "path": "core/foxai_web.py",
+      "expected_sha256": "2bbf66de7d38cae0af92f9b031dd984fe276382b68d5cf3a7b163825ef35a604",
+      "uploaded_sha256": "2bbf66de7d38cae0af92f9b031dd984fe276382b68d5cf3a7b163825ef35a604",
+      "match": true
+    },
+    {
+      "path": "core/model_sources.py",
+      "expected_sha256": "e00a861265eff8826c4d7eeb89b3765e719b88f349811a2e608525d8a3f91ea2",
+      "uploaded_sha256": "e00a861265eff8826c4d7eeb89b3765e719b88f349811a2e608525d8a3f91ea2",
+      "match": true
+    },
+    {
+      "path": "Config/model_sources.json",
+      "expected_sha256": "c17eb3b8b6c93734f7e117522213c95af6c105fe26400d0560768fe586e21c91",
+      "uploaded_sha256": "c17eb3b8b6c93734f7e117522213c95af6c105fe26400d0560768fe586e21c91",
+      "match": true
+    },
+    {
+      "path": "tests/test_model_sources.py",
+      "expected_sha256": "ec94f8b8d90d36f05385db74400dd99b436cd4e488b1b517bcb77442a16fc6f2",
+      "uploaded_sha256": "ec94f8b8d90d36f05385db74400dd99b436cd4e488b1b517bcb77442a16fc6f2",
+      "match": true
+    }
+  ],
+  "live_files_modified": false,
+  "model_files_modified": false,
+  "apply_capability_present": false,
+  "correction": "Invoke Python with -c and explicitly insert the candidate directory into sys.path before unittest discovery.",
+  "approved_live_scope_changed": false,
+  "screenshot_sha256": "87846dc3219c29bcc0f375bebfa5b0964c4ec6949ac1bbfa1a4c5086b1cf0fe9",
+  "uploaded_candidate_zip_sha256": "4a45253dffa84f19d337d9d7689b88503263065c0d1e778594108825d9823018"
+}

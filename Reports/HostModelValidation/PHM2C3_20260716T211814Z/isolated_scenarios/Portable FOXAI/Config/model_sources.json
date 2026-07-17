@@ -1,0 +1,52 @@
+{
+  "schema": "foxai.model-sources.v1",
+  "policy": {
+    "no_whole_drive_scan": true,
+    "never_modify_model_files": true,
+    "no_silent_model_switch": true,
+    "automatic_model_launch": false,
+    "online_sources_enabled": false,
+    "credentials_in_plain_config": false
+  },
+  "usb_roots": [
+    {
+      "id": "usb_chat",
+      "path": "Models/Chat",
+      "enabled": true,
+      "recursive": true
+    }
+  ],
+  "machines": {
+    "MISSING-VALIDATION-PC": {
+      "display_name": "Missing Validation PC",
+      "machine_name": "MISSING-VALIDATION-PC",
+      "machine_key": "validation-only",
+      "approved_host_roots": [
+        {
+          "id": "missing_host",
+          "path": "Z:\\FOXAI\\Reports\\HostModelValidation\\PHM2C3_20260716T211814Z\\isolated_scenarios\\Missing Host Models",
+          "enabled": true,
+          "remembered": true
+        }
+      ],
+      "preferred_models": {
+        "general": "Z:\\FOXAI\\Reports\\HostModelValidation\\PHM2C3_20260716T211814Z\\isolated_scenarios\\Missing Host Models\\missing-model.gguf"
+      },
+      "fallback_policy": "ASK_OR_APPROVED_USB",
+      "prompt_for_host_models": true,
+      "allow_online_sources": false
+    }
+  },
+  "reserved_source_types": {
+    "LAN_OPENAI_COMPATIBLE": {
+      "enabled": false,
+      "requires_explicit_external_send_consent": true,
+      "credential_reference_only": true
+    },
+    "ONLINE_PROVIDER": {
+      "enabled": false,
+      "requires_explicit_external_send_consent": true,
+      "credential_reference_only": true
+    }
+  }
+}

@@ -1,0 +1,79 @@
+{
+  "action": "extension_manager_safe_state_controls_phase2_exact_preview_build",
+  "state": "exact_preview_ready",
+  "verified": true,
+  "live_files_modified": false,
+  "candidate_created": true,
+  "installer_apply_capability_present": false,
+  "runtime_state_apply_present_in_candidate": true,
+  "changed_files_proposed": [
+    "core/foxai_web.py"
+  ],
+  "runtime_files_created_only_after_later_operator_state_action": [
+    "Config/extension_state.json",
+    "Backups/ExtensionState/*",
+    "Reports/ExtensionState/*"
+  ],
+  "delete_operations": [],
+  "hashes": {
+    "baseline": "ecccf3b4a780d9de6ef2aa56522c6b65d06035c42a4a9050d72b95df530c40d0",
+    "candidate": "5cffd8b594c5f91b983b391758fa295b151ca82c97ce8ddfcb085cacdd76a548",
+    "diff": "86e65fec472f6b5701af24de7e683a81a8340726f1a6fc460feeb0f33a5bdb51",
+    "phase1_applied_receipt": "3cd3ff97513c3c9afef496dd416d41a1f071e4831f46eb32f60432e0db87923e"
+  },
+  "checks": {
+    "python_compile": true,
+    "embedded_javascript": [
+      {
+        "index": 1,
+        "passed": true,
+        "stderr": ""
+      }
+    ],
+    "browser_harness": {
+      "passed": true,
+      "inventory_get_read_only": true,
+      "preview_post": true,
+      "apply_digest_phrase_time": true,
+      "legacy_toggle_routed_to_preview": true,
+      "why_panel_present": true
+    },
+    "backend_regression": {
+      "passed": true,
+      "preview_is_read_only": true,
+      "wrong_phrase_no_write": true,
+      "optional_disable_apply_verified": true,
+      "backup_and_receipt_verified": true,
+      "dependency_disable_blocked": true,
+      "disabled_dependency_enable_blocked": true,
+      "required_extension_blocked": true,
+      "restore_default_removes_final_state_file": true,
+      "legacy_direct_toggle_blocked": true,
+      "expired_preview_blocked": true,
+      "receipt_failure_rolls_back": true,
+      "malformed_state_fails_closed": true
+    },
+    "r2_grounding_index_contract": {
+      "passed": true,
+      "uses_selected_grounding": true,
+      "raw_source_files_not_treated_as_package_paths": true
+    }
+  },
+  "limitations": [
+    "Exact preview only.",
+    "Live verifier must pass on Z:\\FOXAI.",
+    "No live state change is executed by the verifier.",
+    "A later transactional source apply and a later operator state smoke test remain required."
+  ],
+  "verifier_revision": 2,
+  "supersedes_package_revision": "EMS2P R1 verifier only",
+  "candidate_and_diff_unchanged": true,
+  "r1_fail_closed_receipt": {
+    "path": "approved/r1_failed_live_verify_receipt.json",
+    "sha256": "e3ca8b1416a7ef10c06991e7db189fd41906a8448b2355eba21738c9db22aa92",
+    "state": "stopped_fail_closed",
+    "verified": true,
+    "live_files_modified": false,
+    "protected_changes": []
+  }
+}

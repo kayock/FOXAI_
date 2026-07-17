@@ -1,0 +1,19 @@
+Observed live regression
+
+1. Initial logo image analysis succeeded.
+2. A later generation was canceled without archiving a partial answer.
+3. Follow-up question: "What is above the ribbon?"
+4. Agent Fox answered from its earlier written description instead of
+   re-inspecting the image.
+5. Raw image payload strings were also observed remaining in the conversation
+   string/history.
+
+Required behavior
+
+- one current image retained in volatile active-session memory;
+- exactly one image attached to each current vision follow-up;
+- zero raw image strings in visible transcript, normal chat history,
+  Mission Archive, receipts, logs, and exports;
+- cancellation preserves image context;
+- explicit remove/replacement/reset/stop/text-profile start clears context;
+- no silent model switching.

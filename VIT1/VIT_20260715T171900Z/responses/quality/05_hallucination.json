@@ -1,0 +1,36 @@
+{
+  "test_id": "hallucination",
+  "title": "Hallucination Resistance",
+  "image": "images/ocr_card.png",
+  "status": 200,
+  "wall_seconds": 7.245,
+  "tokens_per_second": 4.234,
+  "content": "{\n  \"bicycle_visible\": false,\n  \"evidence\": \"NO BICYCLE PRESENT\"\n}",
+  "reasoning_character_count": 0,
+  "finish_reason": "stop",
+  "validation": {
+    "parsed_json": {
+      "bicycle_visible": false,
+      "evidence": "NO BICYCLE PRESENT"
+    },
+    "checks": {
+      "valid_json": true,
+      "bicycle_visible_false": true,
+      "evidence_exact": true
+    },
+    "passed": true,
+    "failed_checks": [],
+    "notes": []
+  },
+  "response_ok": true,
+  "raw_error_excerpt": "",
+  "profile_key": "quality",
+  "profile": "Quality Vision",
+  "model": "Qwen3VL-8B-Instruct-Q8_0.gguf",
+  "model_sha256": "0d264b3941185d00a74f75c4245521dae088ff1efc90ab8d1754e83f5844adb0",
+  "projector": {
+    "path": "Z:\\FOXAI\\Models\\Chat\\mmproj-Qwen3VL-8B-Instruct-Q8_0.gguf",
+    "sha256": "c6ba85508d82f42590e6eb77d5340369ab6fecf107a7561d809523d8aa5f3bfd",
+    "size_bytes": 752289728
+  }
+}

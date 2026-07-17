@@ -1,0 +1,61 @@
+{
+  "schema": "foxai.host-model-audit-targets.v1",
+  "milestone": "Portable Host Model Library Phase 2C1",
+  "created": "2026-07-16T19:11:11.270615+00:00",
+  "expected_primary_machine": "DESKTOP-G9ERN9B",
+  "approved_host_roots": [
+    "C:\\KayockModels"
+  ],
+  "priority_host_models": [
+    {
+      "machine": "DESKTOP-G9ERN9B",
+      "directory": "C:\\KayockModels\\General\\Qwen3-30B-A3B",
+      "filename": "Qwen3-30B-A3B-Q4_K_M.gguf",
+      "intended_role": "host-PC general model"
+    }
+  ],
+  "usb_model_roots": [
+    "Models/Chat",
+    "Models/Vision"
+  ],
+  "source_files": [
+    "core/foxai_web.py",
+    "core/server.py",
+    "core/service_registry.py",
+    "core/application_registry.py",
+    "Config/FoxAI.ini",
+    "Config/application_registry.json",
+    "Config/fleet_registry.json",
+    "START_FOXAI_WEB_PORTABLE.bat"
+  ],
+  "locked_baselines": {
+    "core/foxai_web.py": "e0ec7d66bae40d3be67653f47f86cde310e50147924ee48778c4634f3c1d7525",
+    "core/server.py": "238931aaa46446448696c5000ae9b744f44d171fd491e0d41b3562b8d9fddd81",
+    "core/service_registry.py": "cc798df061a27a51c4ea1f64b3757d2a92724a9a5768e4c190846966efe0251b",
+    "core/application_registry.py": "7be3cbc893e4dfa38d1b09509b6b391c27446fdfe2eb8b1b93949160935be262",
+    "Config/FoxAI.ini": "677067e2b58416ba7d7bacc1dcfe40b9f43783e625dd305d0bbf82b6d3174d41",
+    "Config/application_registry.json": "6338e10b813460ee421e4cbf3d9d74fd82d5f24178347e35f4318ef3c4ef9022",
+    "Config/fleet_registry.json": "18745be73f67e073c002bb645a3c0eaad0a3090ebee1b3bb547ddcc2f147bdb6"
+  },
+  "audit_questions": [
+    "Where are the current model profiles defined?",
+    "How does the WebUI pass a GGUF path to llama-server?",
+    "Can the current launch path safely accept an absolute host-PC GGUF path?",
+    "Does the UI clearly identify USB versus host-PC source?",
+    "Is fallback explicit or silent?",
+    "What per-machine configuration structure is missing?",
+    "What existing provider/endpoint hooks can later support LAN or online models?",
+    "Where must external-send consent and credential references be added?"
+  ],
+  "policy": {
+    "read_only": true,
+    "automatic_launch": false,
+    "network_access": false,
+    "full_gguf_hashing": false,
+    "model_copy_move_rename_delete": false,
+    "configuration_changes": false,
+    "source_changes": false,
+    "launcher_changes": false,
+    "report_writes_only": true
+  }
+}

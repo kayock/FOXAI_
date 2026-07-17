@@ -1,0 +1,428 @@
+{
+  "action": "foxai_usb_commissioning_check",
+  "created": "2026-07-17T01:29:27.121067+00:00",
+  "version": "1.0-preview",
+  "root": "Z:\\FOXAI",
+  "read_only_check": true,
+  "reports_written": true,
+  "automatic_install": false,
+  "automatic_repair": false,
+  "automatic_launch": false,
+  "overall_status": "READY_WITH_NOTES",
+  "primary_launcher": "START_FOXAI_WEB_PORTABLE.bat",
+  "desktop_launcher": "Start FoxAI.bat",
+  "alternate_shell_launcher": "Start_KayocktheOS.bat",
+  "profiles": {
+    "FOXAI WebUI": {
+      "status": "READY",
+      "required_ok": true,
+      "notes": [],
+      "launcher": "START_FOXAI_WEB_PORTABLE.bat"
+    },
+    "FOXAI Desktop": {
+      "status": "NEEDS_ATTENTION",
+      "required_ok": false,
+      "notes": [
+        "Missing desktop modules: customtkinter, PIL",
+        ".venv pyvenv.cfg points outside the USB and may not transfer to another computer."
+      ],
+      "launcher": "Start FoxAI.bat"
+    },
+    "Creative Studio / ComfyUI": {
+      "status": "READY_WITH_NOTES",
+      "required_ok": true,
+      "notes": [
+        "torch is supplied outside the USB; Creative Studio is not yet proven portable."
+      ],
+      "launcher": "operator-controlled through FOXAI"
+    },
+    "KayocktheOS Alternate Shell": {
+      "status": "READY_WITH_NOTES",
+      "required_ok": true,
+      "notes": [
+        "This is a separate alternate shell, not the primary FOXAI WebUI launcher.",
+        "Starting it writes System/Logs/boot.log and first boot may update System/Config/operator.yaml."
+      ],
+      "launcher": "Start_KayocktheOS.bat",
+      "default": false
+    },
+    "Bridge / Node Shell": {
+      "status": "READY_WITH_NOTES",
+      "required_ok": true,
+      "notes": [
+        "Existing Bridge launchers may run npm install; commissioning never runs them automatically."
+      ],
+      "default": false
+    }
+  },
+  "runtime": {
+    "embedded_python": {
+      "path": "Z:\\FOXAI\\env\\python\\python.exe",
+      "exists": true,
+      "runs": true,
+      "portable_origins": {
+        "psutil": true,
+        "PIL": false,
+        "customtkinter": false,
+        "requests": true,
+        "casbin": true,
+        "torch": false
+      },
+      "modules": {
+        "psutil": {
+          "available": true,
+          "origin": "Z:\\FOXAI\\Runtime\\Core\\site-packages\\psutil\\__init__.py"
+        },
+        "PIL": {
+          "available": true,
+          "origin": "C:\\Users\\kayoc\\AppData\\Roaming\\Python\\Python314\\site-packages\\PIL\\__init__.py"
+        },
+        "customtkinter": {
+          "available": true,
+          "origin": "C:\\Users\\kayoc\\AppData\\Roaming\\Python\\Python314\\site-packages\\customtkinter\\__init__.py"
+        },
+        "requests": {
+          "available": true,
+          "origin": "Z:\\FOXAI\\Runtime\\Core\\site-packages\\requests\\__init__.py"
+        },
+        "casbin": {
+          "available": true,
+          "origin": "Z:\\FOXAI\\Runtime\\Core\\site-packages\\casbin\\__init__.py"
+        },
+        "torch": {
+          "available": true,
+          "origin": "C:\\Users\\kayoc\\AppData\\Roaming\\Python\\Python314\\site-packages\\torch\\__init__.py"
+        }
+      },
+      "returncode": 0,
+      "stderr": "",
+      "version": "3.14.6 (tags/v3.14.6:c63aec6, Jun 10 2026, 10:26:10) [MSC v.1944 64 bit (AMD64)]",
+      "executable_reported": "Z:\\FOXAI\\env\\python\\python.exe",
+      "prefix": "Z:\\FOXAI\\env\\python",
+      "base_prefix": "Z:\\FOXAI\\env\\python",
+      "user_site": "C:\\Users\\kayoc\\AppData\\Roaming\\Python\\Python314\\site-packages",
+      "enable_user_site": true
+    },
+    "embedded_pth": {
+      "exists": true,
+      "sha256": "48d77ccee161647ef7053cb563d3b37b4053938d5ad92ae64ccedc2165bcd42d",
+      "entries": [
+        "python314.zip",
+        ".",
+        "..\\..\\Runtime\\Core\\site-packages",
+        "import site"
+      ],
+      "has_current_directory": true,
+      "imports_site": true,
+      "portable_base_ready": true
+    },
+    "venv_python": {
+      "path": "Z:\\FOXAI\\.venv\\Scripts\\python.exe",
+      "exists": true,
+      "runs": true,
+      "portable_origins": {
+        "psutil": true,
+        "PIL": true,
+        "customtkinter": true,
+        "requests": true,
+        "casbin": true,
+        "torch": true
+      },
+      "modules": {
+        "psutil": {
+          "available": true,
+          "origin": "Z:\\FOXAI\\.venv\\Lib\\site-packages\\psutil\\__init__.py"
+        },
+        "PIL": {
+          "available": false,
+          "origin": null
+        },
+        "customtkinter": {
+          "available": false,
+          "origin": null
+        },
+        "requests": {
+          "available": true,
+          "origin": "Z:\\FOXAI\\.venv\\Lib\\site-packages\\requests\\__init__.py"
+        },
+        "casbin": {
+          "available": false,
+          "origin": null
+        },
+        "torch": {
+          "available": false,
+          "origin": null
+        }
+      },
+      "returncode": 0,
+      "stderr": "",
+      "version": "3.14.6 (tags/v3.14.6:c63aec6, Jun 10 2026, 10:26:10) [MSC v.1944 64 bit (AMD64)]",
+      "executable_reported": "Z:\\FOXAI\\.venv\\Scripts\\python.exe",
+      "prefix": "Z:\\FOXAI\\.venv",
+      "base_prefix": "C:\\Users\\kayoc\\AppData\\Local\\Python\\pythoncore-3.14-64",
+      "user_site": "C:\\Users\\kayoc\\AppData\\Roaming\\Python\\Python314\\site-packages",
+      "enable_user_site": false
+    },
+    "venv_config": {
+      "exists": true,
+      "sha256": "eb39473659ab87649ce31798e6d4cebe616652435ffd9f147cedc96718cd0f29",
+      "values": {
+        "home": "C:\\Users\\kayoc\\AppData\\Local\\Python\\pythoncore-3.14-64",
+        "include-system-site-packages": "false",
+        "version": "3.14.6",
+        "executable": "C:\\Users\\kayoc\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe",
+        "command": "C:\\Users\\kayoc\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe -m venv Z:\\FOXAI\\.venv"
+      },
+      "home_inside_usb": false,
+      "portability_warning": true
+    },
+    "system_python": {
+      "path": "C:\\Python314\\python.EXE",
+      "exists": true,
+      "runs": true,
+      "portable_origins": {
+        "psutil": false,
+        "PIL": false,
+        "customtkinter": false,
+        "requests": false,
+        "casbin": true,
+        "torch": false
+      },
+      "modules": {
+        "psutil": {
+          "available": true,
+          "origin": "C:\\Users\\kayoc\\AppData\\Roaming\\Python\\Python314\\site-packages\\psutil\\__init__.py"
+        },
+        "PIL": {
+          "available": true,
+          "origin": "C:\\Users\\kayoc\\AppData\\Roaming\\Python\\Python314\\site-packages\\PIL\\__init__.py"
+        },
+        "customtkinter": {
+          "available": true,
+          "origin": "C:\\Users\\kayoc\\AppData\\Roaming\\Python\\Python314\\site-packages\\customtkinter\\__init__.py"
+        },
+        "requests": {
+          "available": true,
+          "origin": "C:\\Users\\kayoc\\AppData\\Roaming\\Python\\Python314\\site-packages\\requests\\__init__.py"
+        },
+        "casbin": {
+          "available": false,
+          "origin": null
+        },
+        "torch": {
+          "available": true,
+          "origin": "C:\\Users\\kayoc\\AppData\\Roaming\\Python\\Python314\\site-packages\\torch\\__init__.py"
+        }
+      },
+      "returncode": 0,
+      "stderr": "",
+      "version": "3.14.6 (tags/v3.14.6:c63aec6, Jun 10 2026, 10:26:10) [MSC v.1944 64 bit (AMD64)]",
+      "executable_reported": "C:\\Python314\\python.EXE",
+      "prefix": "C:\\Python314",
+      "base_prefix": "C:\\Python314",
+      "user_site": "C:\\Users\\kayoc\\AppData\\Roaming\\Python\\Python314\\site-packages",
+      "enable_user_site": true
+    }
+  },
+  "core_files": {
+    "webui": {
+      "exists": true,
+      "compiles": true,
+      "sha256": "ca45bfc72ce73a47df3ca11b1d1f0564b070cf70ae766a956fb1daaff3dfc2a7"
+    },
+    "server": {
+      "exists": true,
+      "compiles": true,
+      "sha256": "238931aaa46446448696c5000ae9b744f44d171fd491e0d41b3562b8d9fddd81"
+    },
+    "security": {
+      "exists": true,
+      "compiles": true,
+      "sha256": "9a00ed8c1b2ef45a02fab2e4c2e552b3a6532e1609b6995a7985034ccf002a24"
+    },
+    "engine": {
+      "exists": true,
+      "size_bytes": 9216,
+      "size_ok": true,
+      "sha256": "936cfb77f011911f879a5af715013eb12141115547c1f731114d8e9c20ebd89e"
+    },
+    "config": {
+      "exists": true,
+      "size_bytes": 58,
+      "size_ok": true,
+      "sha256": "677067e2b58416ba7d7bacc1dcfe40b9f43783e625dd305d0bbf82b6d3174d41"
+    }
+  },
+  "models": {
+    "language_models": [
+      {
+        "path": "Models/Chat/DeepSeek-R1-Distill-Qwen-14B-Q4_K_M.gguf",
+        "size_bytes": 8988110240
+      },
+      {
+        "path": "Models/Chat/DeepSeek-R1-Distill-Qwen-32B-Q4_K_M.gguf",
+        "size_bytes": 19851335840
+      },
+      {
+        "path": "Models/Chat/gemma-4-31B-it-qat-UD-Q4_K_XL.gguf",
+        "size_bytes": 17287668064
+      },
+      {
+        "path": "Models/Chat/PsyLLM-8B-Q5_K_M.gguf",
+        "size_bytes": 5851112672
+      },
+      {
+        "path": "Models/Chat/Qwen3-Coder-30B-A3B-Instruct-Q4_K_M.gguf",
+        "size_bytes": 18556689568
+      },
+      {
+        "path": "Models/Chat/Qwen3.5-4B-Q4_K_M.gguf",
+        "size_bytes": 2740937888
+      },
+      {
+        "path": "Models/Chat/Qwen3.5-9B-Q4_K_M.gguf",
+        "size_bytes": 5680522464
+      },
+      {
+        "path": "Models/Chat/Qwen3VL-8B-Instruct-Q4_K_M.gguf",
+        "size_bytes": 5027784800
+      },
+      {
+        "path": "Models/Chat/Qwen3VL-8B-Instruct-Q8_0.gguf",
+        "size_bytes": 8709519456
+      },
+      {
+        "path": "Models/Vision/Qwen_Qwen3-VL-30B-A3B-Instruct-Q5_K_M.gguf",
+        "size_bytes": 21744456928
+      }
+    ],
+    "vision_projectors": [
+      {
+        "path": "Models/Chat/mmproj-Qwen3VL-8B-Instruct-Q8_0.gguf",
+        "size_bytes": 752289728
+      }
+    ],
+    "creative_checkpoints": [
+      {
+        "path": "ComfyUI/models/checkpoints/DreamShaperXL_Turbo_V2-SFW.safetensors",
+        "size_bytes": 6939220250
+      },
+      {
+        "path": "ComfyUI/models/checkpoints/Juggernaut-XL_v9_RunDiffusionPhoto_v2.safetensors",
+        "size_bytes": 7105348188
+      },
+      {
+        "path": "ComfyUI/models/checkpoints/sd_xl_turbo_1.0_fp16.safetensors",
+        "size_bytes": 6938081905
+      }
+    ],
+    "language_model_count": 10,
+    "vision_projector_count": 1,
+    "creative_checkpoint_count": 3
+  },
+  "comfyui": {
+    "main": {
+      "exists": true,
+      "compiles": true,
+      "sha256": "d2580be49e7abb3218b1e7056844b2c72a2e7d8711268849429ad3b418c38bc9"
+    },
+    "safe_directories": {
+      "ComfyUI/custom_nodes": {
+        "exists": true
+      },
+      "ComfyUI/models": {
+        "exists": true
+      },
+      "ComfyUI/models/checkpoints": {
+        "exists": true
+      },
+      "ComfyUI/models/loras": {
+        "exists": true
+      },
+      "ComfyUI/models/vae": {
+        "exists": true
+      },
+      "ComfyUI/input": {
+        "exists": true
+      },
+      "ComfyUI/output": {
+        "exists": true
+      },
+      "ComfyUI/temp": {
+        "exists": true
+      }
+    },
+    "missing_safe_directories": [],
+    "safe_folder_repair_available_in_this_phase": false
+  },
+  "alternate_shell": {
+    "launcher": {
+      "exists": true,
+      "size_bytes": 6296,
+      "size_ok": true,
+      "sha256": "1bbb6873f11ebccc8a12ceb9c5c8dfd29087d44c25b987c106dbb606e27252a5"
+    },
+    "core_api": {
+      "exists": true,
+      "size_bytes": 21610,
+      "size_ok": true,
+      "sha256": "76c73ceac23a264b99191297a43cec62900a8821ea0765ca50609f2c6e0f1be9"
+    },
+    "dashboard": {
+      "exists": true,
+      "size_bytes": 1781,
+      "size_ok": true,
+      "sha256": "a51ecca342b2b62b71740175b9ac75253b5b243ef9b9411f86fa075018f65cc3"
+    },
+    "operator": {
+      "exists": true,
+      "size_bytes": 160,
+      "size_ok": true,
+      "sha256": "82ca837175473c252c109e4dfe7eaa2711231407840f815bf11ab275e399acdc"
+    },
+    "browser_interface": {
+      "exists": true,
+      "size_bytes": 83420598,
+      "size_ok": true,
+      "sha256": null
+    },
+    "browser_shell": {
+      "exists": true
+    }
+  },
+  "ports": {
+    "8765": {
+      "label": "FOXAI WebUI",
+      "open": false,
+      "probe": null
+    },
+    "8080": {
+      "label": "Local Chat Engine",
+      "open": false,
+      "probe": null
+    },
+    "8188": {
+      "label": "ComfyUI",
+      "open": false,
+      "probe": null
+    },
+    "8844": {
+      "label": "KayocktheOS Core API",
+      "open": false,
+      "probe": null
+    }
+  },
+  "portability": {
+    "root_drive": "Z:",
+    "root_bat_files": 106,
+    "fleet_registry_contains_hardcoded_z": true,
+    "secondary_browser_launcher_path_stale": false,
+    "embedded_python_has_local_site_packages_directory": false
+  },
+  "storage": {
+    "total_bytes": 1000185266176,
+    "used_bytes": 196899766272,
+    "free_bytes": 803285499904
+  },
+  "next_safe_action": "Start FOXAI WebUI"
+}

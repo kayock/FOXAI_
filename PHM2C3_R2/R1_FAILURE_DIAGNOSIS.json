@@ -1,0 +1,27 @@
+{
+  "action": "foxai_host_model_phase2c3_r1_failure_diagnosis",
+  "created": "2026-07-16T21:01:12.374557+00:00",
+  "state": "diagnosed_no_live_change",
+  "verified": true,
+  "failure": {
+    "type": "TypeError",
+    "message": "ModelSourceRegistry.state() takes 1 positional argument but 2 were given"
+  },
+  "live_validation_completed_before_failure": true,
+  "live_baselines_passed": true,
+  "live_model_source_checks_passed": true,
+  "web_contract_passed": true,
+  "isolated_scenarios_started": false,
+  "cause": "ModelSourceRegistry.state defines include_catalog as a keyword-only argument. The R1 temporary validator used state(False) and state(True).",
+  "correction": [
+    "state(False) -> state(include_catalog=False)",
+    "state(True) -> state(include_catalog=True)"
+  ],
+  "live_files_modified": false,
+  "live_registry_modified": false,
+  "model_files_modified": false,
+  "model_server_action": false,
+  "network_access": false,
+  "apply_capability_present": false,
+  "validation_scope_changed": false
+}

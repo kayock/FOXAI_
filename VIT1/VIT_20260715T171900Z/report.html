@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>FOXAI Vision Input Test</title>
+<style>
+body{font-family:Arial,sans-serif;background:#0e1020;color:#eee;margin:0;padding:28px}
+h1{color:#c6a8ff} .meta,.card{background:#171a2d;border:1px solid #4f357b;border-radius:18px;padding:20px;margin:18px 0}
+.grid{display:grid;grid-template-columns:minmax(280px,42%) 1fr;gap:22px}
+img{width:100%;border-radius:12px;background:white} pre{white-space:pre-wrap;background:#0a0b14;padding:14px;border-radius:10px}
+.pass{color:#64e59d} .fail{color:#ff9b9b} a{color:#c6a8ff}
+@media(max-width:850px){.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<h1>FOXAI Real Image Input Test</h1>
+<div class="meta">
+<p><strong>State:</strong> vision_test_complete</p>
+<p><strong>Verified:</strong> True</p>
+<p><strong>Live files modified:</strong> False</p>
+<p>This report uses actual PNG inputs sent to the local Qwen3VL endpoint.</p>
+</div>
+
+        <section class="card">
+          <h2>Fast Vision — Exact OCR and Counting</h2>
+          <div class="grid">
+            <img src="images/ocr_card.png" alt="benchmark image">
+            <div>
+              <p><strong>Objective pass:</strong> True</p>
+              <p><strong>Time:</strong> 33.093s</p>
+              <p><strong>Speed:</strong> 6.603 tok/s</p>
+              <pre>{
+  &quot;title&quot;: &quot;FOX SENTRY VISION TEST&quot;,
+  &quot;code&quot;: &quot;7429&quot;,
+  &quot;door_label&quot;: &quot;PURPLE DOOR&quot;,
+  &quot;star_count&quot;: 3,
+  &quot;bicycle_present&quot;: false
+}</pre>
+              <ul><li class="pass">valid_json: True</li><li class="pass">title: True</li><li class="pass">code: True</li><li class="pass">door_label: True</li><li class="pass">star_count: True</li><li class="pass">bicycle_present_false: True</li></ul>
+            </div>
+          </div>
+        </section>
+        
+        <section class="card">
+          <h2>Fast Vision — Spatial Relationships</h2>
+          <div class="grid">
+            <img src="images/spatial_scene.png" alt="benchmark image">
+            <div>
+              <p><strong>Objective pass:</strong> False</p>
+              <p><strong>Time:</strong> 42.577s</p>
+              <p><strong>Speed:</strong> 6.28 tok/s</p>
+              <pre>{
+  &quot;leftmost_shape&quot;: {
+    &quot;color&quot;: &quot;red&quot;,
+    &quot;geometry&quot;: &quot;square&quot;
+  },
+  &quot;rightmost_shape&quot;: {
+    &quot;color&quot;: &quot;blue&quot;,
+    &quot;geometry&quot;: &quot;circle&quot;
+  },
+  &quot;topmost_shape&quot;: {
+    &quot;color&quot;: &quot;green&quot;,
+    &quot;geometry&quot;: &quot;triangle&quot;
+  },
+  &quot;bottommost_shape&quot;: {
+    &quot;color&quot;: &quot;orange&quot;,
+    &quot;geometry&quot;: &quot;diamond&quot;
+  },
+  &quot;arrow_direction&quot;: &quot;right&quot;,
+  &quot;colored_shape_count&quot;: 4
+}</pre>
+              <ul><li class="pass">valid_json: True</li><li class="pass">leftmost_red_square: True</li><li class="pass">rightmost_blue_circle: True</li><li class="pass">topmost_green_triangle: True</li><li class="pass">bottommost_orange_diamond: True</li><li class="fail">arrow_left_to_right: False</li><li class="pass">shape_count: True</li></ul>
+            </div>
+          </div>
+        </section>
+        
+        <section class="card">
+          <h2>Fast Vision — Screenshot/UI Understanding</h2>
+          <div class="grid">
+            <img src="images/ui_mock.png" alt="benchmark image">
+            <div>
+              <p><strong>Objective pass:</strong> True</p>
+              <p><strong>Time:</strong> 43.142s</p>
+              <p><strong>Speed:</strong> 6.532 tok/s</p>
+              <pre>{
+  &quot;app_title&quot;: &quot;MODEL LAB&quot;,
+  &quot;selected_profile&quot;: &quot;Fast Vision&quot;,
+  &quot;selected_status&quot;: &quot;READY&quot;,
+  &quot;main_button&quot;: &quot;RUN IMAGE TEST&quot;,
+  &quot;mode&quot;: &quot;Offline&quot;,
+  &quot;screen_code&quot;: &quot;V-203&quot;
+}</pre>
+              <ul><li class="pass">valid_json: True</li><li class="pass">app_title: True</li><li class="pass">selected_profile: True</li><li class="pass">selected_status_contains_ready: True</li><li class="pass">main_button: True</li><li class="pass">mode_contains_offline: True</li><li class="pass">screen_code: True</li></ul>
+            </div>
+          </div>
+        </section>
+        
+        <section class="card">
+          <h2>Fast Vision — Detailed Scene Description</h2>
+          <div class="grid">
+            <img src="images/detail_scene.png" alt="benchmark image">
+            <div>
+              <p><strong>Objective pass:</strong> False</p>
+              <p><strong>Time:</strong> 49.807s</p>
+              <p><strong>Speed:</strong> 6.56 tok/s</p>
+              <pre>The image depicts a quiet desk scene at 7:15, as written in the bottom-left corner. On the brown desk surface, a blue mug with a brown liquid inside sits beside an open notebook with horizontal lines and a red vertical margin. A single gold-colored key lies near the notebook, and two gray paper clips are visible beside it. To the right, a green potted plant with five oval leaves stands in a brown pot. On the left, a tall lamp with a yellow conical shade and a dark gray base stands against a beige wall. The overall setting suggests a calm, organized workspace, possibly for writing or studying. The time, objects, and plant are clearly illustrated without any human or animal presence.</pre>
+              <ul><li class="pass">word_range_120_180: True</li><li class="pass">time_7_15: True</li><li class="pass">blue_mug: True</li><li class="pass">two_paper_clips: True</li><li class="pass">plant: True</li><li class="pass">notebook: True</li><li class="pass">key: True</li><li class="fail">no_people_or_animals_invented: False</li></ul>
+            </div>
+          </div>
+        </section>
+        
+        <section class="card">
+          <h2>Fast Vision — Hallucination Resistance</h2>
+          <div class="grid">
+            <img src="images/ocr_card.png" alt="benchmark image">
+            <div>
+              <p><strong>Objective pass:</strong> True</p>
+              <p><strong>Time:</strong> 4.58s</p>
+              <p><strong>Speed:</strong> 6.677 tok/s</p>
+              <pre>{
+  &quot;bicycle_visible&quot;: false,
+  &quot;evidence&quot;: &quot;NO BICYCLE PRESENT&quot;
+}</pre>
+              <ul><li class="pass">valid_json: True</li><li class="pass">bicycle_visible_false: True</li><li class="pass">evidence_exact: True</li></ul>
+            </div>
+          </div>
+        </section>
+        
+        <section class="card">
+          <h2>Quality Vision — Exact OCR and Counting</h2>
+          <div class="grid">
+            <img src="images/ocr_card.png" alt="benchmark image">
+            <div>
+              <p><strong>Objective pass:</strong> True</p>
+              <p><strong>Time:</strong> 52.672s</p>
+              <p><strong>Speed:</strong> 4.128 tok/s</p>
+              <pre>{
+  &quot;title&quot;: &quot;FOX SENTRY VISION TEST&quot;,
+  &quot;code&quot;: &quot;7429&quot;,
+  &quot;door_label&quot;: &quot;PURPLE DOOR&quot;,
+  &quot;star_count&quot;: 3,
+  &quot;bicycle_present&quot;: false
+}</pre>
+              <ul><li class="pass">valid_json: True</li><li class="pass">title: True</li><li class="pass">code: True</li><li class="pass">door_label: True</li><li class="pass">star_count: True</li><li class="pass">bicycle_present_false: True</li></ul>
+            </div>
+          </div>
+        </section>
+        
+        <section class="card">
+          <h2>Quality Vision — Spatial Relationships</h2>
+          <div class="grid">
+            <img src="images/spatial_scene.png" alt="benchmark image">
+            <div>
+              <p><strong>Objective pass:</strong> False</p>
+              <p><strong>Time:</strong> 70.381s</p>
+              <p><strong>Speed:</strong> 4.18 tok/s</p>
+              <pre>{
+  &quot;leftmost_shape&quot;: {
+    &quot;color&quot;: &quot;red&quot;,
+    &quot;geometry&quot;: &quot;square&quot;
+  },
+  &quot;rightmost_shape&quot;: {
+    &quot;color&quot;: &quot;blue&quot;,
+    &quot;geometry&quot;: &quot;circle&quot;
+  },
+  &quot;topmost_shape&quot;: {
+    &quot;color&quot;: &quot;green&quot;,
+    &quot;geometry&quot;: &quot;triangle&quot;
+  },
+  &quot;bottommost_shape&quot;: {
+    &quot;color&quot;: &quot;orange&quot;,
+    &quot;geometry&quot;: &quot;diamond&quot;
+  },
+  &quot;arrow_direction&quot;: &quot;right&quot;,
+  &quot;colored_shape_count&quot;: 4
+}</pre>
+              <ul><li class="pass">valid_json: True</li><li class="pass">leftmost_red_square: True</li><li class="pass">rightmost_blue_circle: True</li><li class="pass">topmost_green_triangle: True</li><li class="pass">bottommost_orange_diamond: True</li><li class="fail">arrow_left_to_right: False</li><li class="pass">shape_count: True</li></ul>
+            </div>
+          </div>
+        </section>
+        
+        <section class="card">
+          <h2>Quality Vision — Screenshot/UI Understanding</h2>
+          <div class="grid">
+            <img src="images/ui_mock.png" alt="benchmark image">
+            <div>
+              <p><strong>Objective pass:</strong> True</p>
+              <p><strong>Time:</strong> 72.18s</p>
+              <p><strong>Speed:</strong> 4.166 tok/s</p>
+              <pre>{
+  &quot;app_title&quot;: &quot;MODEL LAB&quot;,
+  &quot;selected_profile&quot;: &quot;Fast Vision&quot;,
+  &quot;selected_status&quot;: &quot;READY&quot;,
+  &quot;main_button&quot;: &quot;RUN IMAGE TEST&quot;,
+  &quot;mode&quot;: &quot;Offline&quot;,
+  &quot;screen_code&quot;: &quot;V-203&quot;
+}</pre>
+              <ul><li class="pass">valid_json: True</li><li class="pass">app_title: True</li><li class="pass">selected_profile: True</li><li class="pass">selected_status_contains_ready: True</li><li class="pass">main_button: True</li><li class="pass">mode_contains_offline: True</li><li class="pass">screen_code: True</li></ul>
+            </div>
+          </div>
+        </section>
+        
+        <section class="card">
+          <h2>Quality Vision — Detailed Scene Description</h2>
+          <div class="grid">
+            <img src="images/detail_scene.png" alt="benchmark image">
+            <div>
+              <p><strong>Objective pass:</strong> False</p>
+              <p><strong>Time:</strong> 81.089s</p>
+              <p><strong>Speed:</strong> 4.14 tok/s</p>
+              <pre>The image depicts a serene, minimalist desk scene at 7:15, as indicated by the text at the bottom. On the brown desk surface, a blue mug with a brown circular design sits beside an open notebook with horizontal lines and a red vertical margin. A single gold-colored key lies near the notebook, and two gray paper clips are positioned close to it. To the right, a small potted plant with five rounded green leaves and a brown pot adds a touch of nature. In the background, a floor lamp with a yellow conical shade and a dark gray stand stands against a beige wall. The overall composition suggests a quiet, organized workspace, possibly for writing or reflection. The time, objects, and colors are clearly rendered without any human or animal presence.</pre>
+              <ul><li class="pass">word_range_120_180: True</li><li class="pass">time_7_15: True</li><li class="pass">blue_mug: True</li><li class="pass">two_paper_clips: True</li><li class="pass">plant: True</li><li class="pass">notebook: True</li><li class="pass">key: True</li><li class="fail">no_people_or_animals_invented: False</li></ul>
+            </div>
+          </div>
+        </section>
+        
+        <section class="card">
+          <h2>Quality Vision — Hallucination Resistance</h2>
+          <div class="grid">
+            <img src="images/ocr_card.png" alt="benchmark image">
+            <div>
+              <p><strong>Objective pass:</strong> True</p>
+              <p><strong>Time:</strong> 7.245s</p>
+              <p><strong>Speed:</strong> 4.234 tok/s</p>
+              <pre>{
+  &quot;bicycle_visible&quot;: false,
+  &quot;evidence&quot;: &quot;NO BICYCLE PRESENT&quot;
+}</pre>
+              <ul><li class="pass">valid_json: True</li><li class="pass">bicycle_visible_false: True</li><li class="pass">evidence_exact: True</li></ul>
+            </div>
+          </div>
+        </section>
+        
+</body>
+</html>

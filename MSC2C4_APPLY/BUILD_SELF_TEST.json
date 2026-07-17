@@ -1,0 +1,125 @@
+{
+  "state": "full_simulated_apply_verified",
+  "verified": true,
+  "checks": {
+    "exact_transformation": {
+      "passed": true,
+      "replacements": [
+        {
+          "id": "sidebar_status_rows",
+          "occurrences": 1,
+          "expected": 1
+        },
+        {
+          "id": "backend_network_classification",
+          "occurrences": 1,
+          "expected": 1
+        },
+        {
+          "id": "backend_status_fields",
+          "occurrences": 1,
+          "expected": 1
+        },
+        {
+          "id": "frontend_separate_status_values",
+          "occurrences": 1,
+          "expected": 1
+        },
+        {
+          "id": "quick_status_running_wording",
+          "occurrences": 1,
+          "expected": 1
+        }
+      ],
+      "candidate_sha256": "ca45bfc72ce73a47df3ca11b1d1f0564b070cf70ae766a956fb1daaff3dfc2a7"
+    },
+    "candidate_compile": {
+      "passed": true,
+      "path": "/mnt/data/_msc2c4_apply_build/MSC2C4_APPLY/candidate/core/foxai_web.py"
+    },
+    "candidate_status": {
+      "passed": true,
+      "label": "Self-test candidate status clarity",
+      "tests": 10,
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "test_backend_engine_state_present (test_model_status_clarity.ModelStatusClarityTests.test_backend_engine_state_present) ... ok\ntest_backend_network_mapping_present (test_model_status_clarity.ModelStatusClarityTests.test_backend_network_mapping_present) ... ok\ntest_frontend_fields_are_separate (test_model_status_clarity.ModelStatusClarityTests.test_frontend_fields_are_separate) ... ok\ntest_local_profiles_report_no_network (test_model_status_clarity.ModelStatusClarityTests.test_local_profiles_report_no_network) ... ok\ntest_model_source_and_fallback_contract_preserved (test_model_status_clarity.ModelStatusClarityTests.test_model_source_and_fallback_contract_preserved) ... ok\ntest_old_combined_status_removed (test_model_status_clarity.ModelStatusClarityTests.test_old_combined_status_removed) ... ok\ntest_online_provider_not_enabled (test_model_status_clarity.ModelStatusClarityTests.test_online_provider_not_enabled) ... ok\ntest_python_parses (test_model_status_clarity.ModelStatusClarityTests.test_python_parses) ... ok\ntest_quick_status_uses_running_stopped (test_model_status_clarity.ModelStatusClarityTests.test_quick_status_uses_running_stopped) ... ok\ntest_three_operator_labels_present (test_model_status_clarity.ModelStatusClarityTests.test_three_operator_labels_present) ... ok\n\n----------------------------------------------------------------------\nRan 10 tests in 0.877s\n\nOK\n",
+      "bytecode_writes_disabled": true
+    },
+    "model_sources_before": {
+      "passed": true,
+      "label": "Self-test model-source tests",
+      "tests": 10,
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "test_approval_requires_explicit_confirmation (test_model_sources.ModelSourceRegistryTests.test_approval_requires_explicit_confirmation) ... ok\ntest_forget_folder_removes_reference_not_model (test_model_sources.ModelSourceRegistryTests.test_forget_folder_removes_reference_not_model) ... ok\ntest_forget_machine_keeps_usb_and_host_files (test_model_sources.ModelSourceRegistryTests.test_forget_machine_keeps_usb_and_host_files) ... ok\ntest_forget_model_only_removes_preference (test_model_sources.ModelSourceRegistryTests.test_forget_model_only_removes_preference) ... ok\ntest_no_silent_fallback_contract_is_present (test_model_sources.ModelSourceRegistryTests.test_no_silent_fallback_contract_is_present) ... ok\ntest_online_and_lan_sources_remain_disabled (test_model_sources.ModelSourceRegistryTests.test_online_and_lan_sources_remain_disabled) ... ok\ntest_remembered_folder_builds_machine_registry (test_model_sources.ModelSourceRegistryTests.test_remembered_folder_builds_machine_registry) ... ok\ntest_session_folder_is_not_persisted (test_model_sources.ModelSourceRegistryTests.test_session_folder_is_not_persisted) ... ok\ntest_usb_catalog_is_available_without_machine_profile (test_model_sources.ModelSourceRegistryTests.test_usb_catalog_is_available_without_machine_profile) ... ok\ntest_whole_drive_or_filesystem_root_is_rejected (test_model_sources.ModelSourceRegistryTests.test_whole_drive_or_filesystem_root_is_rejected) ... ok\n\n----------------------------------------------------------------------\nRan 10 tests in 0.048s\n\nOK\n",
+      "bytecode_writes_disabled": true
+    },
+    "boundary_before": {
+      "passed": true,
+      "label": "Self-test Boundary Watch",
+      "tests": 5,
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "test_invalid_chain_fails_closed_and_creates_synthetic_alert (test_boundary_watch.BoundaryWatchTests.test_invalid_chain_fails_closed_and_creates_synthetic_alert) ... ok\ntest_legacy_event_remains_valid_and_is_not_rewritten (test_boundary_watch.BoundaryWatchTests.test_legacy_event_remains_valid_and_is_not_rewritten) ... ok\ntest_repeated_denial_escalates_without_rewriting (test_boundary_watch.BoundaryWatchTests.test_repeated_denial_escalates_without_rewriting) ... ok\ntest_route_receipt_context_validation (test_boundary_watch.BoundaryWatchTests.test_route_receipt_context_validation) ... ok\ntest_trip_sentry_remains_test (test_boundary_watch.BoundaryWatchTests.test_trip_sentry_remains_test) ... ok\n\n----------------------------------------------------------------------\nRan 5 tests in 0.013s\n\nOK\n",
+      "bytecode_writes_disabled": true
+    },
+    "candidate_javascript": {
+      "passed": true,
+      "blocks": 1,
+      "results": [
+        {
+          "path": "/tmp/msc2c4_self_test_ogfv0znv/FOXAI/js_candidate/candidate_embedded_001.js",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ]
+    },
+    "live_compile": {
+      "passed": true,
+      "path": "/tmp/msc2c4_self_test_ogfv0znv/FOXAI/core/foxai_web.py"
+    },
+    "live_status": {
+      "passed": true,
+      "label": "Self-test live status clarity",
+      "tests": 10,
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "test_backend_engine_state_present (test_model_status_clarity.ModelStatusClarityTests.test_backend_engine_state_present) ... ok\ntest_backend_network_mapping_present (test_model_status_clarity.ModelStatusClarityTests.test_backend_network_mapping_present) ... ok\ntest_frontend_fields_are_separate (test_model_status_clarity.ModelStatusClarityTests.test_frontend_fields_are_separate) ... ok\ntest_local_profiles_report_no_network (test_model_status_clarity.ModelStatusClarityTests.test_local_profiles_report_no_network) ... ok\ntest_model_source_and_fallback_contract_preserved (test_model_status_clarity.ModelStatusClarityTests.test_model_source_and_fallback_contract_preserved) ... ok\ntest_old_combined_status_removed (test_model_status_clarity.ModelStatusClarityTests.test_old_combined_status_removed) ... ok\ntest_online_provider_not_enabled (test_model_status_clarity.ModelStatusClarityTests.test_online_provider_not_enabled) ... ok\ntest_python_parses (test_model_status_clarity.ModelStatusClarityTests.test_python_parses) ... ok\ntest_quick_status_uses_running_stopped (test_model_status_clarity.ModelStatusClarityTests.test_quick_status_uses_running_stopped) ... ok\ntest_three_operator_labels_present (test_model_status_clarity.ModelStatusClarityTests.test_three_operator_labels_present) ... ok\n\n----------------------------------------------------------------------\nRan 10 tests in 0.899s\n\nOK\n",
+      "bytecode_writes_disabled": true
+    },
+    "model_sources_after": {
+      "passed": true,
+      "label": "Self-test live model-source tests",
+      "tests": 10,
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "test_approval_requires_explicit_confirmation (test_model_sources.ModelSourceRegistryTests.test_approval_requires_explicit_confirmation) ... ok\ntest_forget_folder_removes_reference_not_model (test_model_sources.ModelSourceRegistryTests.test_forget_folder_removes_reference_not_model) ... ok\ntest_forget_machine_keeps_usb_and_host_files (test_model_sources.ModelSourceRegistryTests.test_forget_machine_keeps_usb_and_host_files) ... ok\ntest_forget_model_only_removes_preference (test_model_sources.ModelSourceRegistryTests.test_forget_model_only_removes_preference) ... ok\ntest_no_silent_fallback_contract_is_present (test_model_sources.ModelSourceRegistryTests.test_no_silent_fallback_contract_is_present) ... ok\ntest_online_and_lan_sources_remain_disabled (test_model_sources.ModelSourceRegistryTests.test_online_and_lan_sources_remain_disabled) ... ok\ntest_remembered_folder_builds_machine_registry (test_model_sources.ModelSourceRegistryTests.test_remembered_folder_builds_machine_registry) ... ok\ntest_session_folder_is_not_persisted (test_model_sources.ModelSourceRegistryTests.test_session_folder_is_not_persisted) ... ok\ntest_usb_catalog_is_available_without_machine_profile (test_model_sources.ModelSourceRegistryTests.test_usb_catalog_is_available_without_machine_profile) ... ok\ntest_whole_drive_or_filesystem_root_is_rejected (test_model_sources.ModelSourceRegistryTests.test_whole_drive_or_filesystem_root_is_rejected) ... ok\n\n----------------------------------------------------------------------\nRan 10 tests in 0.045s\n\nOK\n",
+      "bytecode_writes_disabled": true
+    },
+    "boundary_after": {
+      "passed": true,
+      "label": "Self-test live Boundary Watch",
+      "tests": 5,
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "test_invalid_chain_fails_closed_and_creates_synthetic_alert (test_boundary_watch.BoundaryWatchTests.test_invalid_chain_fails_closed_and_creates_synthetic_alert) ... ok\ntest_legacy_event_remains_valid_and_is_not_rewritten (test_boundary_watch.BoundaryWatchTests.test_legacy_event_remains_valid_and_is_not_rewritten) ... ok\ntest_repeated_denial_escalates_without_rewriting (test_boundary_watch.BoundaryWatchTests.test_repeated_denial_escalates_without_rewriting) ... ok\ntest_route_receipt_context_validation (test_boundary_watch.BoundaryWatchTests.test_route_receipt_context_validation) ... ok\ntest_trip_sentry_remains_test (test_boundary_watch.BoundaryWatchTests.test_trip_sentry_remains_test) ... ok\n\n----------------------------------------------------------------------\nRan 5 tests in 0.017s\n\nOK\n",
+      "bytecode_writes_disabled": true
+    },
+    "live_javascript": {
+      "passed": true,
+      "blocks": 1,
+      "results": [
+        {
+          "path": "/tmp/msc2c4_self_test_ogfv0znv/FOXAI/js_live/live_embedded_001.js",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ]
+    }
+  },
+  "applied_hash": "ca45bfc72ce73a47df3ca11b1d1f0564b070cf70ae766a956fb1daaff3dfc2a7",
+  "backup_hash": "2bbf66de7d38cae0af92f9b031dd984fe276382b68d5cf3a7b163825ef35a604"
+}

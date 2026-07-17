@@ -1,0 +1,45 @@
+PORTABLE DESKTOP RUNTIME PHASE 3B — SCOPE
+
+READS
+  protected stable Desktop and WebUI shortcut metadata
+  USB-owned icon files
+  Launch FOXAI Workshop.bat
+  foxai.py and recursive local Desktop dependencies
+  exact `python` command used from the FOXAI root
+  current Tcl/Tk and package metadata
+  protected baseline hashes
+
+WRITES
+  timestamped design report and receipt only
+
+DOES NOT
+  launch the Desktop GUI
+  start or stop models or ComfyUI
+  use network access
+  invoke pip or install packages
+  modify shortcuts, launchers, source, configuration, models, or runtimes
+
+PROPOSED LATER ADDITIONS
+  Runtime\Desktop\python\**
+  Runtime\Desktop\site-packages\**
+  Runtime\Desktop\DESKTOP_RUNTIME_MANIFEST.json
+  START_FOXAI_DESKTOP_PORTABLE_DIAGNOSTIC.bat
+  START_FOXAI_DESKTOP_PORTABLE.bat
+
+PROPOSED LATER MODIFICATIONS
+  none
+
+PROPOSED LATER DELETIONS
+  none
+
+APPLY CAPABILITY
+  absent
+
+
+R2 SHORTCUT DISCOVERY
+  searches only Z:\FOXAI\*.lnk
+  identifies shortcuts by exact BAT target
+  permits renamed shortcut display files
+  permits any existing icon directly under Z:\FOXAI\Icons
+  requires exactly one shortcut match for each protected target
+  does not scan the Desktop, user profile, registry, or whole drive

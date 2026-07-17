@@ -1,0 +1,24 @@
+PORTABLE HOST MODEL LIBRARY PHASE 2C2 — GUARDED APPLY SCOPE
+
+MODIFY
+  core\foxai_web.py
+
+ADD
+  core\model_sources.py
+  Config\model_sources.json
+  tests\test_model_sources.py
+
+DELETE
+  nothing
+
+ROLLBACK ONLY
+  A failed post-apply verification may remove only the three files created by
+  this transaction and restore the backed-up core\foxai_web.py.
+
+SAFETY
+  FOXAI WebUI port 8765 must be closed.
+  No automatic application or model launch.
+  No network access or pip install.
+  No model file hashing, copying, moving, renaming, overwriting, or deletion.
+  All embedded JavaScript is checked with node --check.
+  All 10 model-source tests and all 5 Boundary Watch tests must pass.

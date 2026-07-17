@@ -1,0 +1,71 @@
+{
+  "schema": "foxai.model-sources.v1",
+  "created": "2026-07-16T19:34:21.258360+00:00",
+  "policy": {
+    "no_whole_drive_scan": true,
+    "never_modify_model_files": true,
+    "no_silent_model_switch": true,
+    "automatic_model_launch": false,
+    "online_sources_enabled": false,
+    "credentials_in_plain_config": false
+  },
+  "usb_roots": [
+    {
+      "id": "usb_chat",
+      "path": "Models/Chat",
+      "enabled": true,
+      "recursive": true
+    },
+    {
+      "id": "usb_models",
+      "path": "Models",
+      "enabled": true,
+      "recursive": true
+    },
+    {
+      "id": "usb_models_legacy",
+      "path": "models",
+      "enabled": true,
+      "recursive": true
+    },
+    {
+      "id": "usb_engine",
+      "path": "Engine",
+      "enabled": true,
+      "recursive": true
+    }
+  ],
+  "machines": {
+    "DESKTOP-G9ERN9B": {
+      "display_name": "Eric's Main Desktop",
+      "machine_name": "DESKTOP-G9ERN9B",
+      "machine_key": "sha256:3218a3ebb464f18c5271455f",
+      "approved_host_roots": [
+        {
+          "id": "eric_host_models",
+          "path": "C:\\KayockModels",
+          "enabled": true,
+          "remembered": true
+        }
+      ],
+      "preferred_models": {
+        "general": "C:\\KayockModels\\General\\Qwen3-30B-A3B\\Qwen3-30B-A3B-Q4_K_M.gguf"
+      },
+      "fallback_policy": "ASK_OR_APPROVED_USB",
+      "prompt_for_host_models": true,
+      "allow_online_sources": false
+    }
+  },
+  "reserved_source_types": {
+    "LAN_OPENAI_COMPATIBLE": {
+      "enabled": false,
+      "requires_explicit_external_send_consent": true,
+      "credential_reference_only": true
+    },
+    "ONLINE_PROVIDER": {
+      "enabled": false,
+      "requires_explicit_external_send_consent": true,
+      "credential_reference_only": true
+    }
+  }
+}

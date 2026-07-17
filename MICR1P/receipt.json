@@ -1,0 +1,51 @@
+{
+  "state": "exact_preview_ready",
+  "verified": true,
+  "live_files_modified": false,
+  "candidate_created": true,
+  "apply_capability_present": false,
+  "changed_files_proposed": [
+    "core/foxai_web.py"
+  ],
+  "unchanged_files_explicit": [
+    "core/server.py"
+  ],
+  "delete_operations": [],
+  "hashes": {
+    "baseline": "3b1a8d9a1bc63c6d0a6a333edf315a4c1aff06f9ffae44f9ddd679c96b7c1d4d",
+    "candidate": "7fcbddeae22904af7f9aa75e9546e3e28721d455222fbfc42c27c5186ba45180",
+    "diff": "2a847670fc10575b9eb3c1e25c305dbd087784ceccb3f488b4d07626422a2165",
+    "applied_baseline_receipt": "73956c6443eb4e02b813be7cbb57812d50d5412977277ee4bdd943c578fb264a"
+  },
+  "checks": {
+    "baseline_python_compile": true,
+    "candidate_python_compile": true,
+    "embedded_javascript_node_check": {
+      "passed": true,
+      "results": [
+        {
+          "index": 1,
+          "path": "verification/embedded_script_001.js",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": "",
+          "passed": true
+        }
+      ]
+    },
+    "browser_continuity_leakage_harness": {
+      "returncode": 0,
+      "stdout": "{\"passed\":true,\"visible_payload_free\":true,\"client_active_state_metadata_only\":true,\"followup_uses_server_active_reference\":true,\"cancellation_preserves_active_image\":true,\"text_profile_refuses_image\":true,\"explicit_clear_verified\":true}\n",
+      "stderr": "",
+      "passed": true
+    },
+    "candidate_contains_one_file_repair": true,
+    "server_candidate_not_created": true
+  },
+  "limitations": [
+    "This is a preview only.",
+    "The live verifier must pass on Z:\\FOXAI.",
+    "Existing persisted payload findings are reported but not cleaned.",
+    "A live post-apply image smoke test remains required."
+  ]
+}

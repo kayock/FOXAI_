@@ -1,0 +1,73 @@
+{
+  "source_zip": "VIT_20260715T171900Z.zip",
+  "source_zip_sha256": "310879b4b4a9a51c7864982d1d6a2a493c2e68ef2311e1e9a44ea44d58e92029",
+  "receipt_member": "VIT_20260715T171900Z/receipt.json",
+  "receipt_sha256": "cef25300dce2256d8a2c2d79a44317e326f47990e1e48c87cd13805738afb71a",
+  "state": "vision_test_complete",
+  "verified": true,
+  "live_files_modified": false,
+  "configuration_modified": false,
+  "archive_modified": false,
+  "security_logs_modified": false,
+  "models": {
+    "fast": {
+      "profile": "Fast Vision",
+      "filename": "Qwen3VL-8B-Instruct-Q4_K_M.gguf",
+      "size_bytes": 5027784800,
+      "sha256": "67d1659bfe71b89d50b45a4ad1a9e5b997e5bb16ce5da66a6a6167abd569e9e2",
+      "completed_tests": 5,
+      "projector": {
+        "path": "Z:\\FOXAI\\Models\\Chat\\mmproj-Qwen3VL-8B-Instruct-Q8_0.gguf",
+        "sha256": "c6ba85508d82f42590e6eb77d5340369ab6fecf107a7561d809523d8aa5f3bfd",
+        "size_bytes": 752289728
+      },
+      "launch_command": [
+        "Z:\\FOXAI\\Engine\\llama-server.exe",
+        "--model",
+        "Z:\\FOXAI\\Models\\Chat\\Qwen3VL-8B-Instruct-Q4_K_M.gguf",
+        "--host",
+        "127.0.0.1",
+        "--port",
+        "8098",
+        "--ctx-size",
+        "8192",
+        "--threads",
+        "12",
+        "--mmproj",
+        "Z:\\FOXAI\\Models\\Chat\\mmproj-Qwen3VL-8B-Instruct-Q8_0.gguf"
+      ]
+    },
+    "quality": {
+      "profile": "Quality Vision",
+      "filename": "Qwen3VL-8B-Instruct-Q8_0.gguf",
+      "size_bytes": 8709519456,
+      "sha256": "0d264b3941185d00a74f75c4245521dae088ff1efc90ab8d1754e83f5844adb0",
+      "completed_tests": 5,
+      "projector": {
+        "path": "Z:\\FOXAI\\Models\\Chat\\mmproj-Qwen3VL-8B-Instruct-Q8_0.gguf",
+        "sha256": "c6ba85508d82f42590e6eb77d5340369ab6fecf107a7561d809523d8aa5f3bfd",
+        "size_bytes": 752289728
+      },
+      "launch_command": [
+        "Z:\\FOXAI\\Engine\\llama-server.exe",
+        "--model",
+        "Z:\\FOXAI\\Models\\Chat\\Qwen3VL-8B-Instruct-Q8_0.gguf",
+        "--host",
+        "127.0.0.1",
+        "--port",
+        "8098",
+        "--ctx-size",
+        "8192",
+        "--threads",
+        "12",
+        "--mmproj",
+        "Z:\\FOXAI\\Models\\Chat\\mmproj-Qwen3VL-8B-Instruct-Q8_0.gguf"
+      ]
+    }
+  },
+  "human_reviewed_result": {
+    "Fast Vision": "5/5",
+    "Quality Vision": "5/5",
+    "validator_false_negatives_corrected": true
+  }
+}

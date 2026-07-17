@@ -1,0 +1,23 @@
+PORTABLE HOST MODEL LIBRARY PHASE 2C3 — SCOPE
+
+READS
+  Phase 2C2 model-source registry and WebUI implementation
+  protected source/security baseline hashes
+  approved host and USB model metadata
+  current machine identity
+
+WRITES
+  timestamped validation report and receipt
+  tiny temporary fixture models and registry under the report folder
+
+DOES NOT
+  modify the live model-source registry
+  start, stop, or restart llama-server
+  call the WebUI API
+  access external or loopback network endpoints
+  hash large live GGUF files
+  copy, move, rename, overwrite, or delete live models
+  modify source, launchers, security files, or configuration
+
+APPLY CAPABILITY
+  absent

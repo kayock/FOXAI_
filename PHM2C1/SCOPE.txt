@@ -1,0 +1,22 @@
+PORTABLE HOST MODEL LIBRARY PHASE 2C1 — SCOPE
+
+Reads:
+  current model/profile source and configuration
+  Models\Chat and Models\Vision metadata
+  approved C:\KayockModels metadata
+  machine name and platform identity
+
+Writes:
+  Reports\HostModelAudit\PHM2C1_<timestamp>\report.md
+  Reports\HostModelAudit\PHM2C1_<timestamp>\receipt.json
+
+Does not:
+  start llama-server
+  load a GGUF
+  contact LAN or online endpoints
+  hash large model files
+  copy, move, rename, overwrite, or delete models
+  change source, configuration, launcher, registry, or credentials
+
+Apply capability:
+  absent

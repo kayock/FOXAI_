@@ -1,0 +1,158 @@
+{
+  "action": "foxai_portable_host_model_library_phase2c2_exact_preview",
+  "created": "2026-07-16T20:03:08.549273+00:00",
+  "state": "exact_preview_verified",
+  "verified": true,
+  "root": "Z:\\FOXAI",
+  "apply_capability_present": false,
+  "live_files_modified": false,
+  "model_files_modified": false,
+  "automatic_model_launch": false,
+  "network_access": false,
+  "delete_operations": [],
+  "checks": {
+    "live_baselines": {
+      "passed": true,
+      "files": [
+        {
+          "path": "core/foxai_web.py",
+          "expected": "e0ec7d66bae40d3be67653f47f86cde310e50147924ee48778c4634f3c1d7525",
+          "actual": "e0ec7d66bae40d3be67653f47f86cde310e50147924ee48778c4634f3c1d7525",
+          "ok": true
+        },
+        {
+          "path": "core/server.py",
+          "expected": "238931aaa46446448696c5000ae9b744f44d171fd491e0d41b3562b8d9fddd81",
+          "actual": "238931aaa46446448696c5000ae9b744f44d171fd491e0d41b3562b8d9fddd81",
+          "ok": true
+        },
+        {
+          "path": "core/security_containment.py",
+          "expected": "9a00ed8c1b2ef45a02fab2e4c2e552b3a6532e1609b6995a7985034ccf002a24",
+          "actual": "9a00ed8c1b2ef45a02fab2e4c2e552b3a6532e1609b6995a7985034ccf002a24",
+          "ok": true
+        },
+        {
+          "path": "core/engineer_agent.py",
+          "expected": "f6346d4fbb8bda82535281e650042a0aeb290de26a000b1f85f0dd572ac28c19",
+          "actual": "f6346d4fbb8bda82535281e650042a0aeb290de26a000b1f85f0dd572ac28c19",
+          "ok": true
+        },
+        {
+          "path": "tests/test_boundary_watch.py",
+          "expected": "b2eab44689c24802bf0168e8ea3bc94dd8c32a15f9365bb2cd5aea8f896cd382",
+          "actual": "b2eab44689c24802bf0168e8ea3bc94dd8c32a15f9365bb2cd5aea8f896cd382",
+          "ok": true
+        },
+        {
+          "path": "START_FOXAI_WEB_PORTABLE.bat",
+          "expected": "834e129be2d41405be40e1ea5aeca6d7a96b4faaf3b72c906487e902a9dca3b1",
+          "actual": "834e129be2d41405be40e1ea5aeca6d7a96b4faaf3b72c906487e902a9dca3b1",
+          "ok": true
+        },
+        {
+          "path": "Config/fleet_registry.json",
+          "expected": "18745be73f67e073c002bb645a3c0eaad0a3090ebee1b3bb547ddcc2f147bdb6",
+          "actual": "18745be73f67e073c002bb645a3c0eaad0a3090ebee1b3bb547ddcc2f147bdb6",
+          "ok": true
+        }
+      ]
+    },
+    "new_file_absence": {
+      "passed": true,
+      "files": [
+        {
+          "path": "core/model_sources.py",
+          "absent": true
+        },
+        {
+          "path": "Config/model_sources.json",
+          "absent": true
+        },
+        {
+          "path": "tests/test_model_sources.py",
+          "absent": true
+        }
+      ]
+    },
+    "candidate_hashes": {
+      "passed": true,
+      "files": [
+        {
+          "path": "core/foxai_web.py",
+          "expected": "2bbf66de7d38cae0af92f9b031dd984fe276382b68d5cf3a7b163825ef35a604",
+          "actual": "2bbf66de7d38cae0af92f9b031dd984fe276382b68d5cf3a7b163825ef35a604",
+          "ok": true
+        },
+        {
+          "path": "core/model_sources.py",
+          "expected": "e00a861265eff8826c4d7eeb89b3765e719b88f349811a2e608525d8a3f91ea2",
+          "actual": "e00a861265eff8826c4d7eeb89b3765e719b88f349811a2e608525d8a3f91ea2",
+          "ok": true
+        },
+        {
+          "path": "Config/model_sources.json",
+          "expected": "c17eb3b8b6c93734f7e117522213c95af6c105fe26400d0560768fe586e21c91",
+          "actual": "c17eb3b8b6c93734f7e117522213c95af6c105fe26400d0560768fe586e21c91",
+          "ok": true
+        },
+        {
+          "path": "tests/test_model_sources.py",
+          "expected": "ec94f8b8d90d36f05385db74400dd99b436cd4e488b1b517bcb77442a16fc6f2",
+          "actual": "ec94f8b8d90d36f05385db74400dd99b436cd4e488b1b517bcb77442a16fc6f2",
+          "ok": true
+        }
+      ]
+    },
+    "python_compile": {
+      "passed": true
+    },
+    "registry_contract": {
+      "passed": true,
+      "checks": {
+        "schema": true,
+        "machine_preconfigured": true,
+        "host_root": true,
+        "preferred_model": true,
+        "no_whole_drive_scan": true,
+        "never_modify_models": true,
+        "no_silent_switch": true,
+        "online_disabled": true
+      }
+    },
+    "model_source_tests": {
+      "passed": true,
+      "tests": 10,
+      "stdout": "",
+      "stderr": "test_approval_requires_explicit_confirmation (test_model_sources.ModelSourceRegistryTests.test_approval_requires_explicit_confirmation) ... ok\ntest_forget_folder_removes_reference_not_model (test_model_sources.ModelSourceRegistryTests.test_forget_folder_removes_reference_not_model) ... ok\ntest_forget_machine_keeps_usb_and_host_files (test_model_sources.ModelSourceRegistryTests.test_forget_machine_keeps_usb_and_host_files) ... ok\ntest_forget_model_only_removes_preference (test_model_sources.ModelSourceRegistryTests.test_forget_model_only_removes_preference) ... ok\ntest_no_silent_fallback_contract_is_present (test_model_sources.ModelSourceRegistryTests.test_no_silent_fallback_contract_is_present) ... ok\ntest_online_and_lan_sources_remain_disabled (test_model_sources.ModelSourceRegistryTests.test_online_and_lan_sources_remain_disabled) ... ok\ntest_remembered_folder_builds_machine_registry (test_model_sources.ModelSourceRegistryTests.test_remembered_folder_builds_machine_registry) ... ok\ntest_session_folder_is_not_persisted (test_model_sources.ModelSourceRegistryTests.test_session_folder_is_not_persisted) ... ok\ntest_usb_catalog_is_available_without_machine_profile (test_model_sources.ModelSourceRegistryTests.test_usb_catalog_is_available_without_machine_profile) ... ok\ntest_whole_drive_or_filesystem_root_is_rejected (test_model_sources.ModelSourceRegistryTests.test_whole_drive_or_filesystem_root_is_rejected) ... ok\n\n----------------------------------------------------------------------\nRan 10 tests in 0.050s\n\nOK\n",
+      "candidate_path_inserted_explicitly": true,
+      "pythonpath_environment_required": false
+    },
+    "embedded_javascript": {
+      "passed": true,
+      "blocks": 1,
+      "results": [
+        {
+          "path": "Z:\\FOXAI\\Reports\\HostModelPreview\\PHM2C2_20260716T200308Z\\candidate_javascript\\embedded_script_001.js",
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ]
+    },
+    "integration_contract": {
+      "passed": true,
+      "markers": {
+        "ModelSourceRegistry": true,
+        "/api/model-sources/approve-folder": true,
+        "/api/model-sources/forget-folder": true,
+        "/api/model-sources/forget-model": true,
+        "/api/model-sources/forget-machine": true,
+        "'silent_fallback_used':False": true,
+        "'model_source_label':model_record['source_label']": true,
+        "The approved host model is unavailable. FOXAI did not switch to a USB model.": true
+      }
+    }
+  },
+  "failure": null
+}

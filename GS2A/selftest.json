@@ -1,0 +1,83 @@
+{
+  "passed": true,
+  "package": "GS2A",
+  "apply_script_compiles": true,
+  "startup_wrapper_compiles": true,
+  "exact_scope": {
+    "passed": true,
+    "checks": {
+      "baseline_sha256": true,
+      "candidate_sha256": true,
+      "diff_sha256": true,
+      "diff_reconstructs_candidate": true
+    }
+  },
+  "approved_preview": {
+    "passed": true,
+    "receipt_sha256": "eb6299623c8c4a3877f946eae9536f998a4f965e7b25ae1cbbd43d40b60eac33",
+    "checks": {
+      "state": true,
+      "verified": true,
+      "live_files_unmodified": true,
+      "candidate_created": true,
+      "apply_capability_absent": true,
+      "one_file_scope": true,
+      "no_deletes": true,
+      "baseline_hash": true,
+      "candidate_hash": true,
+      "diff_hash": true,
+      "all_expected_checks_present_and_true": true
+    }
+  },
+  "candidate_node_check": {
+    "passed": true,
+    "javascript_blocks": 1,
+    "results": [
+      {
+        "file": "candidate_001.js",
+        "sha256": "b7be3e4c10146ed49699d7442593e804da9fb7db949b00606bc2b8e48e6e2ea3",
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "passed": true
+      }
+    ]
+  },
+  "helper_harness": {
+    "passed": true,
+    "complete_units": [
+      "First sentence. ",
+      "I have successfully deleted the file. "
+    ],
+    "retained_tail": "Tail",
+    "claim_guard_triggered_before_exposure": true
+  },
+  "browser_harness": {
+    "passed": true,
+    "returncode": 0,
+    "stdout": "{\"passed\":true,\"streamFinal\":\"Hello world.\",\"fallback\":\"fallback answer\"}\n",
+    "stderr": "",
+    "sha256": "5496a68450b68c57e7ec7f1b939ec75c20ae2731c5b7017bc32c181e1a895363"
+  },
+  "nonstreaming_fallback": {
+    "passed": true,
+    "baseline_segment_sha256": "1f021c5366ccc13088f3280b7c3d981a40388af58294a9113df0e71604ad35fe",
+    "candidate_segment_sha256": "1f021c5366ccc13088f3280b7c3d981a40388af58294a9113df0e71604ad35fe",
+    "byte_identical": true
+  },
+  "static_contract": {
+    "passed": true,
+    "checks": {
+      "helper_markers": true,
+      "browser_markers": true,
+      "route_markers": true,
+      "stream_endpoint": true,
+      "cancel_button": true,
+      "first_guarded_chunk_timing": true,
+      "creative_evidence_label": true,
+      "final_guard_before_archive": true
+    }
+  },
+  "live_files_modified": false,
+  "apply_executed": false
+}

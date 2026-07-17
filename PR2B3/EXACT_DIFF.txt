@@ -1,0 +1,21 @@
+--- env/python/python314._pth (current)
++++ env/python/python314._pth (proposed)
+@@
+ python314.zip
+ .
++..\..\Runtime\Core\site-packages
+
+-# Uncomment to run site.main() automatically
++# Keep standard site helpers; the primary launcher disables host user-site.
+ import site
+
+--- START_FOXAI_WEB_PORTABLE.bat (current)
++++ START_FOXAI_WEB_PORTABLE.bat (proposed)
+@@
+ @echo off
++setlocal
+ cd /d "%~dp0"
+-"%~dp0env\python\python.exe" "%~dp0core\foxai_web.py"
++set "PYTHONNOUSERSITE=1"
++"%~dp0env\python\python.exe" -s "%~dp0core\foxai_web.py"
+ pause

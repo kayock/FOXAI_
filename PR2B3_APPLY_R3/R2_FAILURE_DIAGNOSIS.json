@@ -1,0 +1,40 @@
+{
+  "action": "foxai_portable_core_runtime_phase2b3_r2_failure_diagnosis",
+  "created": "2026-07-16T18:46:05.735236+00:00",
+  "state": "diagnosed_and_rolled_back",
+  "verified": true,
+  "failure": {
+    "type": "RuntimeError",
+    "message": "Post-apply file verification failed."
+  },
+  "rollback": {
+    "attempted": true,
+    "actions": [
+      {
+        "action": "preserve_failed_runtime",
+        "from": "Z:\\FOXAI\\Runtime\\Core",
+        "to": "Z:\\FOXAI\\Backups\\SecurityMilestone\\PR2B3_20260716T184049Z\\failed_applied_Runtime_Core"
+      },
+      {
+        "action": "restore_file",
+        "path": "Z:\\FOXAI\\env\\python\\python314._pth",
+        "from": "Z:\\FOXAI\\Backups\\SecurityMilestone\\PR2B3_20260716T184049Z\\preapply\\env\\python\\python314._pth"
+      },
+      {
+        "action": "restore_file",
+        "path": "Z:\\FOXAI\\START_FOXAI_WEB_PORTABLE.bat",
+        "from": "Z:\\FOXAI\\Backups\\SecurityMilestone\\PR2B3_20260716T184049Z\\preapply\\START_FOXAI_WEB_PORTABLE.bat"
+      }
+    ]
+  },
+  "all_runtime_files_seen": 467,
+  "verified_wheel_owned_files": 329,
+  "generated_bytecode_cache_files": 138,
+  "all_extras_are_pycache_pyc": true,
+  "wheel_owned_tree_digest": "adf6c53a80b8a45b9595e1ddc96b234ecbdb6a4f9529f266ca06d34058d37add",
+  "expected_wheel_owned_tree_digest": "adf6c53a80b8a45b9595e1ddc96b234ecbdb6a4f9529f266ca06d34058d37add",
+  "wheel_owned_tree_matches_preview": true,
+  "approved_scope_changed": false,
+  "source_or_security_modified": false,
+  "r2_live_changes_rolled_back": true
+}

@@ -1,0 +1,37 @@
+{
+  "format": "foxai_usbc2_portable_path_patch_plan_v1",
+  "created_from_capture": "2026-07-17T05:15:40.086773+00:00",
+  "capture_root": "Z:\\FOXAI",
+  "actions": [
+    {
+      "kind": "modify_existing_file",
+      "relative_destination": "COMMISSION_FOXAI_USB.bat",
+      "expected_before_sha256": "3a911a8ea2a09b7c99efe857f911ea0f7dddb74d0d0e096346c957b2fd81f38b",
+      "expected_after_sha256": "253fda6a7b57271e688063374bd6be8507671a540a42984c60a40dc9b8ce5663"
+    },
+    {
+      "kind": "modify_existing_file",
+      "relative_destination": "System/Commissioning/commission_usb.py",
+      "expected_before_sha256": "cd46b557fef1cb6fabccccff96ae73f4a3fcbd146971f80a0971a1b67f1dc869",
+      "expected_after_sha256": "f6bbf7815a7da2a83e98091e787ee0c3283e8264ca58b4b2bcac61129f0cbb95"
+    }
+  ],
+  "files_to_add": [],
+  "files_to_delete": [],
+  "guide_changed": false,
+  "behavior": [
+    "Prefer Runtime/Desktop/python/python.exe for commissioning with legacy env/python fallback.",
+    "Expose Runtime/Desktop/site-packages and Runtime/Core/site-packages only to the portable commissioning runtime.",
+    "Probe portable, legacy, venv, and host Python with explicit separated environments.",
+    "Use the portable Desktop runtime first for FOXAI WebUI and Desktop readiness.",
+    "Stop an unused external .venv from degrading a verified portable Desktop result.",
+    "Report PORTABLE_READY, HOST_ASSISTED_READY, or NEEDS_ATTENTION as runtime_mode.",
+    "Preserve read-only, no-install, no-repair, and no-auto-launch commissioning behavior."
+  ],
+  "diff_summary": {
+    "added_lines": 142,
+    "removed_lines": 16
+  },
+  "plan_id": "ae46a1151cd4abd717204a79fc5e53c6c98acd84713668f66d96e0abe8911eed",
+  "approval_phrase": "APPROVE USBC2 AE46A1151CD4"
+}

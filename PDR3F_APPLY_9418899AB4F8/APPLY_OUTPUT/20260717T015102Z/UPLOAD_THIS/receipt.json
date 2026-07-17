@@ -1,0 +1,588 @@
+{
+  "action": "foxai_pdr_phase3f_approved_combined_launcher_apply",
+  "created": "2026-07-17T01:51:02.450065+00:00",
+  "state": "combined_launcher_applied_verified",
+  "verified": true,
+  "plan_id": "9418899ab4f89bc9445589015422b8015220c0040bb77c63e864ca7ccdc95dc6",
+  "approval_phrase_required": "APPROVE PDR3F 9418899AB4F8",
+  "operator_approval_verified": true,
+  "apply_capability_present": true,
+  "live_apply_performed": true,
+  "new_launcher_added": true,
+  "existing_files_modified": false,
+  "existing_files_overwritten": false,
+  "files_deleted": false,
+  "shortcut_changes": false,
+  "existing_launcher_changes": false,
+  "source_changes": false,
+  "package_install": false,
+  "package_download": false,
+  "network_access": false,
+  "desktop_gui_launched": false,
+  "comfyui_launched": false,
+  "launcher_run": false,
+  "recursive_drive_scan": false,
+  "net_live_changes": true,
+  "plan_validation": {
+    "checks": {
+      "format": true,
+      "plan_id_field": true,
+      "plan_hash": true,
+      "approval_phrase": true,
+      "preview_state": true,
+      "preview_verified": true,
+      "preview_plan_id": true,
+      "action_kind": true,
+      "destination_status_add": true,
+      "no_existing_modifications": true,
+      "no_deletions": true,
+      "no_shortcut_changes": true,
+      "no_existing_launcher_changes": true,
+      "payload_exists": true,
+      "payload_hash": true,
+      "payload_size": true,
+      "destination_exact": true,
+      "actual_destination_absent": true
+    },
+    "passed": true
+  },
+  "protected_before": {
+    "baselines": [
+      {
+        "path": "Config/fleet_registry.json",
+        "exists": true,
+        "expected_sha256": "18745be73f67e073c002bb645a3c0eaad0a3090ebee1b3bb547ddcc2f147bdb6",
+        "actual_sha256": "18745be73f67e073c002bb645a3c0eaad0a3090ebee1b3bb547ddcc2f147bdb6",
+        "matches_expected": true
+      },
+      {
+        "path": "Config/model_sources.json",
+        "exists": true,
+        "expected_sha256": "c17eb3b8b6c93734f7e117522213c95af6c105fe26400d0560768fe586e21c91",
+        "actual_sha256": "c17eb3b8b6c93734f7e117522213c95af6c105fe26400d0560768fe586e21c91",
+        "matches_expected": true
+      },
+      {
+        "path": "Launch FOXAI Workshop.bat",
+        "exists": true,
+        "expected_sha256": "7f974eeeaa66c6fd331b6b3e8cb5f312d25a410761817ad35408ccb47acd4480",
+        "actual_sha256": "7f974eeeaa66c6fd331b6b3e8cb5f312d25a410761817ad35408ccb47acd4480",
+        "matches_expected": true
+      },
+      {
+        "path": "START_FOXAI_WEB_PORTABLE.bat",
+        "exists": true,
+        "expected_sha256": "834e129be2d41405be40e1ea5aeca6d7a96b4faaf3b72c906487e902a9dca3b1",
+        "actual_sha256": "834e129be2d41405be40e1ea5aeca6d7a96b4faaf3b72c906487e902a9dca3b1",
+        "matches_expected": true
+      },
+      {
+        "path": "core/engineer_agent.py",
+        "exists": true,
+        "expected_sha256": "f6346d4fbb8bda82535281e650042a0aeb290de26a000b1f85f0dd572ac28c19",
+        "actual_sha256": "f6346d4fbb8bda82535281e650042a0aeb290de26a000b1f85f0dd572ac28c19",
+        "matches_expected": true
+      },
+      {
+        "path": "core/foxai_web.py",
+        "exists": true,
+        "expected_sha256": "ca45bfc72ce73a47df3ca11b1d1f0564b070cf70ae766a956fb1daaff3dfc2a7",
+        "actual_sha256": "ca45bfc72ce73a47df3ca11b1d1f0564b070cf70ae766a956fb1daaff3dfc2a7",
+        "matches_expected": true
+      },
+      {
+        "path": "core/model_sources.py",
+        "exists": true,
+        "expected_sha256": "e00a861265eff8826c4d7eeb89b3765e719b88f349811a2e608525d8a3f91ea2",
+        "actual_sha256": "e00a861265eff8826c4d7eeb89b3765e719b88f349811a2e608525d8a3f91ea2",
+        "matches_expected": true
+      },
+      {
+        "path": "core/security_containment.py",
+        "exists": true,
+        "expected_sha256": "9a00ed8c1b2ef45a02fab2e4c2e552b3a6532e1609b6995a7985034ccf002a24",
+        "actual_sha256": "9a00ed8c1b2ef45a02fab2e4c2e552b3a6532e1609b6995a7985034ccf002a24",
+        "matches_expected": true
+      },
+      {
+        "path": "core/server.py",
+        "exists": true,
+        "expected_sha256": "238931aaa46446448696c5000ae9b744f44d171fd491e0d41b3562b8d9fddd81",
+        "actual_sha256": "238931aaa46446448696c5000ae9b744f44d171fd491e0d41b3562b8d9fddd81",
+        "matches_expected": true
+      },
+      {
+        "path": "core/service_registry.py",
+        "exists": true,
+        "expected_sha256": "cc798df061a27a51c4ea1f64b3757d2a92724a9a5768e4c190846966efe0251b",
+        "actual_sha256": "cc798df061a27a51c4ea1f64b3757d2a92724a9a5768e4c190846966efe0251b",
+        "matches_expected": true
+      },
+      {
+        "path": "env/python/python314._pth",
+        "exists": true,
+        "expected_sha256": "48d77ccee161647ef7053cb563d3b37b4053938d5ad92ae64ccedc2165bcd42d",
+        "actual_sha256": "48d77ccee161647ef7053cb563d3b37b4053938d5ad92ae64ccedc2165bcd42d",
+        "matches_expected": true
+      },
+      {
+        "path": "tests/test_boundary_watch.py",
+        "exists": true,
+        "expected_sha256": "b2eab44689c24802bf0168e8ea3bc94dd8c32a15f9365bb2cd5aea8f896cd382",
+        "actual_sha256": "b2eab44689c24802bf0168e8ea3bc94dd8c32a15f9365bb2cd5aea8f896cd382",
+        "matches_expected": true
+      },
+      {
+        "path": "tests/test_model_sources.py",
+        "exists": true,
+        "expected_sha256": "ec94f8b8d90d36f05385db74400dd99b436cd4e488b1b517bcb77442a16fc6f2",
+        "actual_sha256": "ec94f8b8d90d36f05385db74400dd99b436cd4e488b1b517bcb77442a16fc6f2",
+        "matches_expected": true
+      },
+      {
+        "path": "ui/main_window.py",
+        "exists": true,
+        "expected_sha256": "2e8f452d36f3a3c697b23ebdee2921f5fe01aa1b1c28460dfbc36921ca5ee0c3",
+        "actual_sha256": "2e8f452d36f3a3c697b23ebdee2921f5fe01aa1b1c28460dfbc36921ca5ee0c3",
+        "matches_expected": true
+      }
+    ],
+    "shortcuts": {
+      "desktop": {
+        "path": "Z:\\Launch FOXAI Workshop.bat - Shortcut.lnk",
+        "exists": true,
+        "expected_sha256": "2a41fab836312e95e40d5404bc379b050f31b7cd61bd1ac26bb22ce902aeae02",
+        "actual_sha256": "2a41fab836312e95e40d5404bc379b050f31b7cd61bd1ac26bb22ce902aeae02",
+        "matches_expected": true
+      },
+      "web": {
+        "path": "Z:\\START_FOXAI_WEB_PORTABLE.bat - Shortcut.lnk",
+        "exists": true,
+        "expected_sha256": "af0f79cfc583c51c4108cb2c1baa86634bf427e2eb881c64ed51a5994f2e40dd",
+        "actual_sha256": "af0f79cfc583c51c4108cb2c1baa86634bf427e2eb881c64ed51a5994f2e40dd",
+        "matches_expected": true
+      }
+    },
+    "passed": true
+  },
+  "exact_required_files_before": {
+    "files": [
+      {
+        "path": "START_FOXAI_DESKTOP_PORTABLE.bat",
+        "expected_sha256": "89e906d805f99392b4ecc2ea85aa688577517a26e577de3542159a1f5eaf046c",
+        "actual_sha256": "89e906d805f99392b4ecc2ea85aa688577517a26e577de3542159a1f5eaf046c",
+        "matches_expected": true
+      },
+      {
+        "path": "foxai.py",
+        "expected_sha256": "423bb098170dbaad2b96c6b07e31beee171904d286b8364457ce6357551c33d0",
+        "actual_sha256": "423bb098170dbaad2b96c6b07e31beee171904d286b8364457ce6357551c33d0",
+        "matches_expected": true
+      },
+      {
+        "path": "ComfyUI/main.py",
+        "expected_sha256": "d2580be49e7abb3218b1e7056844b2c72a2e7d8711268849429ad3b418c38bc9",
+        "actual_sha256": "d2580be49e7abb3218b1e7056844b2c72a2e7d8711268849429ad3b418c38bc9",
+        "matches_expected": true
+      },
+      {
+        "path": "System/PortableRuntime/verify_desktop_runtime.py",
+        "expected_sha256": "3743657d9249c00cf11f891b3e703743eca206301f9a48807b17d568a440939e",
+        "actual_sha256": "3743657d9249c00cf11f891b3e703743eca206301f9a48807b17d568a440939e",
+        "matches_expected": true
+      }
+    ],
+    "passed": true
+  },
+  "protected_precommit": {
+    "baselines": [
+      {
+        "path": "Config/fleet_registry.json",
+        "exists": true,
+        "expected_sha256": "18745be73f67e073c002bb645a3c0eaad0a3090ebee1b3bb547ddcc2f147bdb6",
+        "actual_sha256": "18745be73f67e073c002bb645a3c0eaad0a3090ebee1b3bb547ddcc2f147bdb6",
+        "matches_expected": true
+      },
+      {
+        "path": "Config/model_sources.json",
+        "exists": true,
+        "expected_sha256": "c17eb3b8b6c93734f7e117522213c95af6c105fe26400d0560768fe586e21c91",
+        "actual_sha256": "c17eb3b8b6c93734f7e117522213c95af6c105fe26400d0560768fe586e21c91",
+        "matches_expected": true
+      },
+      {
+        "path": "Launch FOXAI Workshop.bat",
+        "exists": true,
+        "expected_sha256": "7f974eeeaa66c6fd331b6b3e8cb5f312d25a410761817ad35408ccb47acd4480",
+        "actual_sha256": "7f974eeeaa66c6fd331b6b3e8cb5f312d25a410761817ad35408ccb47acd4480",
+        "matches_expected": true
+      },
+      {
+        "path": "START_FOXAI_WEB_PORTABLE.bat",
+        "exists": true,
+        "expected_sha256": "834e129be2d41405be40e1ea5aeca6d7a96b4faaf3b72c906487e902a9dca3b1",
+        "actual_sha256": "834e129be2d41405be40e1ea5aeca6d7a96b4faaf3b72c906487e902a9dca3b1",
+        "matches_expected": true
+      },
+      {
+        "path": "core/engineer_agent.py",
+        "exists": true,
+        "expected_sha256": "f6346d4fbb8bda82535281e650042a0aeb290de26a000b1f85f0dd572ac28c19",
+        "actual_sha256": "f6346d4fbb8bda82535281e650042a0aeb290de26a000b1f85f0dd572ac28c19",
+        "matches_expected": true
+      },
+      {
+        "path": "core/foxai_web.py",
+        "exists": true,
+        "expected_sha256": "ca45bfc72ce73a47df3ca11b1d1f0564b070cf70ae766a956fb1daaff3dfc2a7",
+        "actual_sha256": "ca45bfc72ce73a47df3ca11b1d1f0564b070cf70ae766a956fb1daaff3dfc2a7",
+        "matches_expected": true
+      },
+      {
+        "path": "core/model_sources.py",
+        "exists": true,
+        "expected_sha256": "e00a861265eff8826c4d7eeb89b3765e719b88f349811a2e608525d8a3f91ea2",
+        "actual_sha256": "e00a861265eff8826c4d7eeb89b3765e719b88f349811a2e608525d8a3f91ea2",
+        "matches_expected": true
+      },
+      {
+        "path": "core/security_containment.py",
+        "exists": true,
+        "expected_sha256": "9a00ed8c1b2ef45a02fab2e4c2e552b3a6532e1609b6995a7985034ccf002a24",
+        "actual_sha256": "9a00ed8c1b2ef45a02fab2e4c2e552b3a6532e1609b6995a7985034ccf002a24",
+        "matches_expected": true
+      },
+      {
+        "path": "core/server.py",
+        "exists": true,
+        "expected_sha256": "238931aaa46446448696c5000ae9b744f44d171fd491e0d41b3562b8d9fddd81",
+        "actual_sha256": "238931aaa46446448696c5000ae9b744f44d171fd491e0d41b3562b8d9fddd81",
+        "matches_expected": true
+      },
+      {
+        "path": "core/service_registry.py",
+        "exists": true,
+        "expected_sha256": "cc798df061a27a51c4ea1f64b3757d2a92724a9a5768e4c190846966efe0251b",
+        "actual_sha256": "cc798df061a27a51c4ea1f64b3757d2a92724a9a5768e4c190846966efe0251b",
+        "matches_expected": true
+      },
+      {
+        "path": "env/python/python314._pth",
+        "exists": true,
+        "expected_sha256": "48d77ccee161647ef7053cb563d3b37b4053938d5ad92ae64ccedc2165bcd42d",
+        "actual_sha256": "48d77ccee161647ef7053cb563d3b37b4053938d5ad92ae64ccedc2165bcd42d",
+        "matches_expected": true
+      },
+      {
+        "path": "tests/test_boundary_watch.py",
+        "exists": true,
+        "expected_sha256": "b2eab44689c24802bf0168e8ea3bc94dd8c32a15f9365bb2cd5aea8f896cd382",
+        "actual_sha256": "b2eab44689c24802bf0168e8ea3bc94dd8c32a15f9365bb2cd5aea8f896cd382",
+        "matches_expected": true
+      },
+      {
+        "path": "tests/test_model_sources.py",
+        "exists": true,
+        "expected_sha256": "ec94f8b8d90d36f05385db74400dd99b436cd4e488b1b517bcb77442a16fc6f2",
+        "actual_sha256": "ec94f8b8d90d36f05385db74400dd99b436cd4e488b1b517bcb77442a16fc6f2",
+        "matches_expected": true
+      },
+      {
+        "path": "ui/main_window.py",
+        "exists": true,
+        "expected_sha256": "2e8f452d36f3a3c697b23ebdee2921f5fe01aa1b1c28460dfbc36921ca5ee0c3",
+        "actual_sha256": "2e8f452d36f3a3c697b23ebdee2921f5fe01aa1b1c28460dfbc36921ca5ee0c3",
+        "matches_expected": true
+      }
+    ],
+    "shortcuts": {
+      "desktop": {
+        "path": "Z:\\Launch FOXAI Workshop.bat - Shortcut.lnk",
+        "exists": true,
+        "expected_sha256": "2a41fab836312e95e40d5404bc379b050f31b7cd61bd1ac26bb22ce902aeae02",
+        "actual_sha256": "2a41fab836312e95e40d5404bc379b050f31b7cd61bd1ac26bb22ce902aeae02",
+        "matches_expected": true
+      },
+      "web": {
+        "path": "Z:\\START_FOXAI_WEB_PORTABLE.bat - Shortcut.lnk",
+        "exists": true,
+        "expected_sha256": "af0f79cfc583c51c4108cb2c1baa86634bf427e2eb881c64ed51a5994f2e40dd",
+        "actual_sha256": "af0f79cfc583c51c4108cb2c1baa86634bf427e2eb881c64ed51a5994f2e40dd",
+        "matches_expected": true
+      }
+    },
+    "passed": true
+  },
+  "protected_after": {
+    "baselines": [
+      {
+        "path": "Config/fleet_registry.json",
+        "exists": true,
+        "expected_sha256": "18745be73f67e073c002bb645a3c0eaad0a3090ebee1b3bb547ddcc2f147bdb6",
+        "actual_sha256": "18745be73f67e073c002bb645a3c0eaad0a3090ebee1b3bb547ddcc2f147bdb6",
+        "matches_expected": true
+      },
+      {
+        "path": "Config/model_sources.json",
+        "exists": true,
+        "expected_sha256": "c17eb3b8b6c93734f7e117522213c95af6c105fe26400d0560768fe586e21c91",
+        "actual_sha256": "c17eb3b8b6c93734f7e117522213c95af6c105fe26400d0560768fe586e21c91",
+        "matches_expected": true
+      },
+      {
+        "path": "Launch FOXAI Workshop.bat",
+        "exists": true,
+        "expected_sha256": "7f974eeeaa66c6fd331b6b3e8cb5f312d25a410761817ad35408ccb47acd4480",
+        "actual_sha256": "7f974eeeaa66c6fd331b6b3e8cb5f312d25a410761817ad35408ccb47acd4480",
+        "matches_expected": true
+      },
+      {
+        "path": "START_FOXAI_WEB_PORTABLE.bat",
+        "exists": true,
+        "expected_sha256": "834e129be2d41405be40e1ea5aeca6d7a96b4faaf3b72c906487e902a9dca3b1",
+        "actual_sha256": "834e129be2d41405be40e1ea5aeca6d7a96b4faaf3b72c906487e902a9dca3b1",
+        "matches_expected": true
+      },
+      {
+        "path": "core/engineer_agent.py",
+        "exists": true,
+        "expected_sha256": "f6346d4fbb8bda82535281e650042a0aeb290de26a000b1f85f0dd572ac28c19",
+        "actual_sha256": "f6346d4fbb8bda82535281e650042a0aeb290de26a000b1f85f0dd572ac28c19",
+        "matches_expected": true
+      },
+      {
+        "path": "core/foxai_web.py",
+        "exists": true,
+        "expected_sha256": "ca45bfc72ce73a47df3ca11b1d1f0564b070cf70ae766a956fb1daaff3dfc2a7",
+        "actual_sha256": "ca45bfc72ce73a47df3ca11b1d1f0564b070cf70ae766a956fb1daaff3dfc2a7",
+        "matches_expected": true
+      },
+      {
+        "path": "core/model_sources.py",
+        "exists": true,
+        "expected_sha256": "e00a861265eff8826c4d7eeb89b3765e719b88f349811a2e608525d8a3f91ea2",
+        "actual_sha256": "e00a861265eff8826c4d7eeb89b3765e719b88f349811a2e608525d8a3f91ea2",
+        "matches_expected": true
+      },
+      {
+        "path": "core/security_containment.py",
+        "exists": true,
+        "expected_sha256": "9a00ed8c1b2ef45a02fab2e4c2e552b3a6532e1609b6995a7985034ccf002a24",
+        "actual_sha256": "9a00ed8c1b2ef45a02fab2e4c2e552b3a6532e1609b6995a7985034ccf002a24",
+        "matches_expected": true
+      },
+      {
+        "path": "core/server.py",
+        "exists": true,
+        "expected_sha256": "238931aaa46446448696c5000ae9b744f44d171fd491e0d41b3562b8d9fddd81",
+        "actual_sha256": "238931aaa46446448696c5000ae9b744f44d171fd491e0d41b3562b8d9fddd81",
+        "matches_expected": true
+      },
+      {
+        "path": "core/service_registry.py",
+        "exists": true,
+        "expected_sha256": "cc798df061a27a51c4ea1f64b3757d2a92724a9a5768e4c190846966efe0251b",
+        "actual_sha256": "cc798df061a27a51c4ea1f64b3757d2a92724a9a5768e4c190846966efe0251b",
+        "matches_expected": true
+      },
+      {
+        "path": "env/python/python314._pth",
+        "exists": true,
+        "expected_sha256": "48d77ccee161647ef7053cb563d3b37b4053938d5ad92ae64ccedc2165bcd42d",
+        "actual_sha256": "48d77ccee161647ef7053cb563d3b37b4053938d5ad92ae64ccedc2165bcd42d",
+        "matches_expected": true
+      },
+      {
+        "path": "tests/test_boundary_watch.py",
+        "exists": true,
+        "expected_sha256": "b2eab44689c24802bf0168e8ea3bc94dd8c32a15f9365bb2cd5aea8f896cd382",
+        "actual_sha256": "b2eab44689c24802bf0168e8ea3bc94dd8c32a15f9365bb2cd5aea8f896cd382",
+        "matches_expected": true
+      },
+      {
+        "path": "tests/test_model_sources.py",
+        "exists": true,
+        "expected_sha256": "ec94f8b8d90d36f05385db74400dd99b436cd4e488b1b517bcb77442a16fc6f2",
+        "actual_sha256": "ec94f8b8d90d36f05385db74400dd99b436cd4e488b1b517bcb77442a16fc6f2",
+        "matches_expected": true
+      },
+      {
+        "path": "ui/main_window.py",
+        "exists": true,
+        "expected_sha256": "2e8f452d36f3a3c697b23ebdee2921f5fe01aa1b1c28460dfbc36921ca5ee0c3",
+        "actual_sha256": "2e8f452d36f3a3c697b23ebdee2921f5fe01aa1b1c28460dfbc36921ca5ee0c3",
+        "matches_expected": true
+      }
+    ],
+    "shortcuts": {
+      "desktop": {
+        "path": "Z:\\Launch FOXAI Workshop.bat - Shortcut.lnk",
+        "exists": true,
+        "expected_sha256": "2a41fab836312e95e40d5404bc379b050f31b7cd61bd1ac26bb22ce902aeae02",
+        "actual_sha256": "2a41fab836312e95e40d5404bc379b050f31b7cd61bd1ac26bb22ce902aeae02",
+        "matches_expected": true
+      },
+      "web": {
+        "path": "Z:\\START_FOXAI_WEB_PORTABLE.bat - Shortcut.lnk",
+        "exists": true,
+        "expected_sha256": "af0f79cfc583c51c4108cb2c1baa86634bf427e2eb881c64ed51a5994f2e40dd",
+        "actual_sha256": "af0f79cfc583c51c4108cb2c1baa86634bf427e2eb881c64ed51a5994f2e40dd",
+        "matches_expected": true
+      }
+    },
+    "passed": true
+  },
+  "exact_required_files_after": {
+    "files": [
+      {
+        "path": "START_FOXAI_DESKTOP_PORTABLE.bat",
+        "expected_sha256": "89e906d805f99392b4ecc2ea85aa688577517a26e577de3542159a1f5eaf046c",
+        "actual_sha256": "89e906d805f99392b4ecc2ea85aa688577517a26e577de3542159a1f5eaf046c",
+        "matches_expected": true
+      },
+      {
+        "path": "foxai.py",
+        "expected_sha256": "423bb098170dbaad2b96c6b07e31beee171904d286b8364457ce6357551c33d0",
+        "actual_sha256": "423bb098170dbaad2b96c6b07e31beee171904d286b8364457ce6357551c33d0",
+        "matches_expected": true
+      },
+      {
+        "path": "ComfyUI/main.py",
+        "expected_sha256": "d2580be49e7abb3218b1e7056844b2c72a2e7d8711268849429ad3b418c38bc9",
+        "actual_sha256": "d2580be49e7abb3218b1e7056844b2c72a2e7d8711268849429ad3b418c38bc9",
+        "matches_expected": true
+      },
+      {
+        "path": "System/PortableRuntime/verify_desktop_runtime.py",
+        "expected_sha256": "3743657d9249c00cf11f891b3e703743eca206301f9a48807b17d568a440939e",
+        "actual_sha256": "3743657d9249c00cf11f891b3e703743eca206301f9a48807b17d568a440939e",
+        "matches_expected": true
+      }
+    ],
+    "passed": true
+  },
+  "destination": "Z:\\FOXAI\\START_FOXAI_WORKSHOP_PORTABLE.bat",
+  "destination_sha256": "1e6b4bb53b81ba53c88fb6d88bf91f35ac5f730744e3ebd7329c6ec79af6728f",
+  "destination_size_bytes": 2346,
+  "protected_final": {
+    "baselines": [
+      {
+        "path": "Config/fleet_registry.json",
+        "exists": true,
+        "expected_sha256": "18745be73f67e073c002bb645a3c0eaad0a3090ebee1b3bb547ddcc2f147bdb6",
+        "actual_sha256": "18745be73f67e073c002bb645a3c0eaad0a3090ebee1b3bb547ddcc2f147bdb6",
+        "matches_expected": true
+      },
+      {
+        "path": "Config/model_sources.json",
+        "exists": true,
+        "expected_sha256": "c17eb3b8b6c93734f7e117522213c95af6c105fe26400d0560768fe586e21c91",
+        "actual_sha256": "c17eb3b8b6c93734f7e117522213c95af6c105fe26400d0560768fe586e21c91",
+        "matches_expected": true
+      },
+      {
+        "path": "Launch FOXAI Workshop.bat",
+        "exists": true,
+        "expected_sha256": "7f974eeeaa66c6fd331b6b3e8cb5f312d25a410761817ad35408ccb47acd4480",
+        "actual_sha256": "7f974eeeaa66c6fd331b6b3e8cb5f312d25a410761817ad35408ccb47acd4480",
+        "matches_expected": true
+      },
+      {
+        "path": "START_FOXAI_WEB_PORTABLE.bat",
+        "exists": true,
+        "expected_sha256": "834e129be2d41405be40e1ea5aeca6d7a96b4faaf3b72c906487e902a9dca3b1",
+        "actual_sha256": "834e129be2d41405be40e1ea5aeca6d7a96b4faaf3b72c906487e902a9dca3b1",
+        "matches_expected": true
+      },
+      {
+        "path": "core/engineer_agent.py",
+        "exists": true,
+        "expected_sha256": "f6346d4fbb8bda82535281e650042a0aeb290de26a000b1f85f0dd572ac28c19",
+        "actual_sha256": "f6346d4fbb8bda82535281e650042a0aeb290de26a000b1f85f0dd572ac28c19",
+        "matches_expected": true
+      },
+      {
+        "path": "core/foxai_web.py",
+        "exists": true,
+        "expected_sha256": "ca45bfc72ce73a47df3ca11b1d1f0564b070cf70ae766a956fb1daaff3dfc2a7",
+        "actual_sha256": "ca45bfc72ce73a47df3ca11b1d1f0564b070cf70ae766a956fb1daaff3dfc2a7",
+        "matches_expected": true
+      },
+      {
+        "path": "core/model_sources.py",
+        "exists": true,
+        "expected_sha256": "e00a861265eff8826c4d7eeb89b3765e719b88f349811a2e608525d8a3f91ea2",
+        "actual_sha256": "e00a861265eff8826c4d7eeb89b3765e719b88f349811a2e608525d8a3f91ea2",
+        "matches_expected": true
+      },
+      {
+        "path": "core/security_containment.py",
+        "exists": true,
+        "expected_sha256": "9a00ed8c1b2ef45a02fab2e4c2e552b3a6532e1609b6995a7985034ccf002a24",
+        "actual_sha256": "9a00ed8c1b2ef45a02fab2e4c2e552b3a6532e1609b6995a7985034ccf002a24",
+        "matches_expected": true
+      },
+      {
+        "path": "core/server.py",
+        "exists": true,
+        "expected_sha256": "238931aaa46446448696c5000ae9b744f44d171fd491e0d41b3562b8d9fddd81",
+        "actual_sha256": "238931aaa46446448696c5000ae9b744f44d171fd491e0d41b3562b8d9fddd81",
+        "matches_expected": true
+      },
+      {
+        "path": "core/service_registry.py",
+        "exists": true,
+        "expected_sha256": "cc798df061a27a51c4ea1f64b3757d2a92724a9a5768e4c190846966efe0251b",
+        "actual_sha256": "cc798df061a27a51c4ea1f64b3757d2a92724a9a5768e4c190846966efe0251b",
+        "matches_expected": true
+      },
+      {
+        "path": "env/python/python314._pth",
+        "exists": true,
+        "expected_sha256": "48d77ccee161647ef7053cb563d3b37b4053938d5ad92ae64ccedc2165bcd42d",
+        "actual_sha256": "48d77ccee161647ef7053cb563d3b37b4053938d5ad92ae64ccedc2165bcd42d",
+        "matches_expected": true
+      },
+      {
+        "path": "tests/test_boundary_watch.py",
+        "exists": true,
+        "expected_sha256": "b2eab44689c24802bf0168e8ea3bc94dd8c32a15f9365bb2cd5aea8f896cd382",
+        "actual_sha256": "b2eab44689c24802bf0168e8ea3bc94dd8c32a15f9365bb2cd5aea8f896cd382",
+        "matches_expected": true
+      },
+      {
+        "path": "tests/test_model_sources.py",
+        "exists": true,
+        "expected_sha256": "ec94f8b8d90d36f05385db74400dd99b436cd4e488b1b517bcb77442a16fc6f2",
+        "actual_sha256": "ec94f8b8d90d36f05385db74400dd99b436cd4e488b1b517bcb77442a16fc6f2",
+        "matches_expected": true
+      },
+      {
+        "path": "ui/main_window.py",
+        "exists": true,
+        "expected_sha256": "2e8f452d36f3a3c697b23ebdee2921f5fe01aa1b1c28460dfbc36921ca5ee0c3",
+        "actual_sha256": "2e8f452d36f3a3c697b23ebdee2921f5fe01aa1b1c28460dfbc36921ca5ee0c3",
+        "matches_expected": true
+      }
+    ],
+    "shortcuts": {
+      "desktop": {
+        "path": "Z:\\Launch FOXAI Workshop.bat - Shortcut.lnk",
+        "exists": true,
+        "expected_sha256": "2a41fab836312e95e40d5404bc379b050f31b7cd61bd1ac26bb22ce902aeae02",
+        "actual_sha256": "2a41fab836312e95e40d5404bc379b050f31b7cd61bd1ac26bb22ce902aeae02",
+        "matches_expected": true
+      },
+      "web": {
+        "path": "Z:\\START_FOXAI_WEB_PORTABLE.bat - Shortcut.lnk",
+        "exists": true,
+        "expected_sha256": "af0f79cfc583c51c4108cb2c1baa86634bf427e2eb881c64ed51a5994f2e40dd",
+        "actual_sha256": "af0f79cfc583c51c4108cb2c1baa86634bf427e2eb881c64ed51a5994f2e40dd",
+        "matches_expected": true
+      }
+    },
+    "passed": true
+  },
+  "completed": "2026-07-17T01:51:17.058564+00:00",
+  "elapsed_seconds": 14.61
+}

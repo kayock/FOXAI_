@@ -1,0 +1,41 @@
+--- a/core/foxai_web.py
++++ b/core/foxai_web.py
+@@ -710,9 +710,18 @@
+         'external_action_verified':False,
+     }
+ # GUARDED_STREAMING_PHASE2_HELPERS_END
+-def launch(cmd,cwd): return subprocess.Popen(cmd,cwd=str(cwd),creationflags=subprocess.CREATE_NEW_CONSOLE if os.name=='nt' else 0)
++def launch(cmd,cwd,env=None): return subprocess.Popen(cmd,cwd=str(cwd),env=env,creationflags=subprocess.CREATE_NEW_CONSOLE if os.name=='nt' else 0)
++def comfy_child_env():
++    env=os.environ.copy()
++    for key in ('PYTHONNOUSERSITE','PYTHONHOME','PYTHONPATH'):
++        env.pop(key,None)
++    env['PYTHONDONTWRITEBYTECODE']='1'
++    return env
+ def pycmd():
+-    for p in [ROOT/'env'/'python'/'python.exe',ROOT/'python'/'python.exe',ROOT/'ComfyUI'/'python_embeded'/'python.exe']:
++    for command in ('python.exe','python'):
++        resolved=shutil.which(command)
++        if resolved: return [str(Path(resolved).resolve())]
++    for p in [COMFY/'python_embeded'/'python.exe',ROOT/'env'/'python'/'python.exe',ROOT/'python'/'python.exe']:
+         if p.exists(): return [str(p)]
+     return [sys.executable]
+ def openurl(u): subprocess.Popen([str(KAYOCK),u],cwd=str(DRIVE)) if KAYOCK.exists() else __import__('webbrowser').open(u)
+@@ -10409,7 +10418,7 @@
+             if not COMFY_MAIN.exists(): self.js({'ok':False,'message':'ComfyUI main.py not found.'}); return
+             if check('http://127.0.0.1:8188'):
+                 receipt=make_tool_receipt('comfy.start','verified',checks=[{'id':'health_endpoint','ok':True,'message':'ComfyUI endpoint responded.'}],actor='operator'); self.js({'ok':True,'message':'VERIFIED: ComfyUI is already online.','receipt':receipt,'claim_state':'verified'}); return
+-            proc=launch(pycmd()+[str(COMFY_MAIN),'--cpu'],COMFY); timeline(active_project,'ComfyUI launch requested') if active_project else None; receipt=make_tool_receipt('comfy.start','requested',details={'pid':getattr(proc,'pid',None)},actor='operator'); self.js({'ok':True,'message':'ComfyUI launch requested; online state is not yet verified.','receipt':receipt,'claim_state':'requested'}); return
++            proc=launch(pycmd()+[str(COMFY_MAIN),'--cpu'],COMFY,env=comfy_child_env()); timeline(active_project,'ComfyUI launch requested') if active_project else None; receipt=make_tool_receipt('comfy.start','requested',details={'pid':getattr(proc,'pid',None)},actor='operator'); self.js({'ok':True,'message':'ComfyUI launch requested; online state is not yet verified.','receipt':receipt,'claim_state':'requested'}); return
+         if path=='/api/open-url/comfy': openurl('http://127.0.0.1:8188'); receipt=make_tool_receipt('browser.open_url','requested',details={'target':'comfy'},actor='operator'); self.js({'ok':True,'message':'Browser open request sent for ComfyUI; tab state is not verified.','receipt':receipt,'claim_state':'requested'}); return
+         if path=='/api/open-url/github': openurl('https://github.com/kayock/FOXAI_'); receipt=make_tool_receipt('browser.open_url','requested',details={'target':'github'},actor='operator'); self.js({'ok':True,'message':'Browser open request sent for GitHub; tab state is not verified.','receipt':receipt,'claim_state':'requested'}); return
+         if path.startswith('/api/open/'):
+@@ -12037,7 +12046,7 @@
+                 actor='operator',
+             )
+             return {'ok':True,'message':'VERIFIED: ComfyUI is already online.','receipt':receipt,'claim_state':'verified'}
+-        proc=launch(pycmd()+[str(COMFY_MAIN),'--cpu'],COMFY)
++        proc=launch(pycmd()+[str(COMFY_MAIN),'--cpu'],COMFY,env=comfy_child_env())
+         receipt=make_tool_receipt(
+             'comfy.start','requested',
+             details={'pid':getattr(proc,'pid',None),'source':'extension_inventory'},

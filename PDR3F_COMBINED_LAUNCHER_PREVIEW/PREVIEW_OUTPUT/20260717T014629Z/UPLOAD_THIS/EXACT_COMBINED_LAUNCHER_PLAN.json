@@ -1,0 +1,42 @@
+{
+  "format": "foxai_pdr_phase3f_combined_launcher_plan_v1",
+  "created": "2026-07-17T01:46:29.273109+00:00",
+  "foxai_root": "Z:\\FOXAI",
+  "action": {
+    "kind": "combined_portable_workshop_launcher",
+    "source": "Z:\\FOXAI\\PDR3F_COMBINED_LAUNCHER_PREVIEW\\PREVIEW_OUTPUT\\20260717T014629Z\\UPLOAD_THIS\\PROPOSED_FILES_NOT_APPLIED\\START_FOXAI_WORKSHOP_PORTABLE.bat",
+    "destination": "Z:\\FOXAI\\START_FOXAI_WORKSHOP_PORTABLE.bat",
+    "destination_status": "ADD",
+    "destination_sha256": null,
+    "size_bytes": 2346,
+    "expected_sha256": "1e6b4bb53b81ba53c88fb6d88bf91f35ac5f730744e3ebd7329c6ec79af6728f"
+  },
+  "host_python": {
+    "selection_method": "PATH resolution matching existing launcher command",
+    "command": "python.exe main.py --cpu",
+    "resolved_path": "C:\\Python314\\python.exe",
+    "portable": false,
+    "reason": "ComfyUI/torch remains outside the Desktop runtime; preserve the existing proven CPU backend command for this machine."
+  },
+  "portable_foxai_launcher": {
+    "path": "Z:\\FOXAI\\START_FOXAI_DESKTOP_PORTABLE.bat",
+    "sha256": "89e906d805f99392b4ecc2ea85aa688577517a26e577de3542159a1f5eaf046c"
+  },
+  "startup_order": [
+    "preflight exact required paths and host python command",
+    "verify USB-owned Desktop runtime",
+    "start ComfyUI CPU using host PATH python",
+    "wait 8 seconds",
+    "start FOXAI through verified portable Desktop launcher"
+  ],
+  "existing_files_to_modify": [],
+  "files_to_delete": [],
+  "shortcuts_to_change": [],
+  "existing_launchers_to_change": [],
+  "test_after_apply": {
+    "run": "Z:\\FOXAI\\START_FOXAI_WORKSHOP_PORTABLE.bat",
+    "expected": "ComfyUI CPU starts using the same host-Python method as the working shortcut, then FOXAI opens through the USB-owned Desktop runtime."
+  },
+  "plan_id": "9418899ab4f89bc9445589015422b8015220c0040bb77c63e864ca7ccdc95dc6",
+  "approval_phrase": "APPROVE PDR3F 9418899AB4F8"
+}

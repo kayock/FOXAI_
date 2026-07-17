@@ -1,0 +1,692 @@
+[
+  {
+    "source": "Z:\\FOXAI\\Launch FOXAI Workshop.bat",
+    "line": 6,
+    "text": "echo Launching ComfyUI CPU backend..."
+  },
+  {
+    "source": "Z:\\FOXAI\\Launch FOXAI Workshop.bat",
+    "line": 8,
+    "text": "if exist \"%~dp0ComfyUI\\main.py\" ("
+  },
+  {
+    "source": "Z:\\FOXAI\\Launch FOXAI Workshop.bat",
+    "line": 9,
+    "text": "    start \"ComfyUI CPU\" cmd /k \"cd /d \"%~dp0ComfyUI\" && python main.py --cpu\""
+  },
+  {
+    "source": "Z:\\FOXAI\\Launch FOXAI Workshop.bat",
+    "line": 11,
+    "text": "    echo ComfyUI folder not found at %~dp0ComfyUI"
+  },
+  {
+    "source": "Z:\\FOXAI\\ComfyUI\\main.py",
+    "line": 1,
+    "text": "import comfy.options"
+  },
+  {
+    "source": "Z:\\FOXAI\\ComfyUI\\main.py",
+    "line": 2,
+    "text": "comfy.options.enable_args_parsing()"
+  },
+  {
+    "source": "Z:\\FOXAI\\ComfyUI\\main.py",
+    "line": 4,
+    "text": "from comfy.cli_args import args"
+  },
+  {
+    "source": "Z:\\FOXAI\\ComfyUI\\main.py",
+    "line": 8,
+    "text": "    from comfy_api.feature_flags import CLI_FEATURE_FLAG_REGISTRY"
+  },
+  {
+    "source": "Z:\\FOXAI\\ComfyUI\\main.py",
+    "line": 18,
+    "text": "from comfy.cli_args import enables_dynamic_vram"
+  },
+  {
+    "source": "Z:\\FOXAI\\ComfyUI\\main.py",
+    "line": 31,
+    "text": "from comfy_execution.progress import get_progress_state"
+  },
+  {
+    "source": "Z:\\FOXAI\\ComfyUI\\main.py",
+    "line": 32,
+    "text": "from comfy_execution.utils import get_executing_context"
+  },
+  {
+    "source": "Z:\\FOXAI\\ComfyUI\\main.py",
+    "line": 33,
+    "text": "from comfy_api import feature_flags"
+  },
+  {
+    "source": "Z:\\FOXAI\\ComfyUI\\main.py",
+    "line": 37,
+    "text": "    #NOTE: These do not do anything on core ComfyUI, they are for custom nodes."
+  },
+  {
+    "source": "Z:\\FOXAI\\ComfyUI\\main.py",
+    "line": 55,
+    "text": "import comfy_aimdo.control"
+  },
+  {
+    "source": "Z:\\FOXAI\\ComfyUI\\main.py",
+    "line": 59,
+    "text": "        comfy_aimdo.control.init(simple_vram_headroom=None if args.reserve_vram is None else int(args.reserve_vram * 1024 ** 3))"
+  },
+  {
+    "source": "Z:\\FOXAI\\ComfyUI\\main.py",
+    "line": 61,
+    "text": "        # comfy-aimdo 0.4.9 protocol."
+  },
+  {
+    "source": "Z:\\FOXAI\\ComfyUI\\main.py",
+    "line": 62,
+    "text": "        comfy_aimdo.control.init()"
+  },
+  {
+    "source": "Z:\\FOXAI\\ComfyUI\\main.py",
+    "line": 97,
+    "text": "def handle_comfyui_manager_unavailable():"
+  },
+  {
+    "source": "Z:\\FOXAI\\ComfyUI\\main.py",
+    "line": 102,
+    "text": "    msg = f\"\\n\\nTo use the `--enable-manager` feature, the `comfyui-manager` package must be installed first.\\ncommand:\\n\\t{pip_cmd}\""
+  },
+  {
+    "source": "Z:\\FOXAI\\ComfyUI\\main.py",
+    "line": 111,
+    "text": "    if importlib.util.find_spec(\"comfyui_manager\"):"
+  },
+  {
+    "source": "Z:\\FOXAI\\ComfyUI\\main.py",
+    "line": 112,
+    "text": "        import comfyui_manager"
+  },
+  {
+    "source": "Z:\\FOXAI\\ComfyUI\\main.py",
+    "line": 114,
+    "text": "        if not comfyui_manager.__file__ or not comfyui_manager.__file__.endswith('__init__.py'):"
+  },
+  {
+    "source": "Z:\\FOXAI\\ComfyUI\\main.py",
+    "line": 115,
+    "text": "            handle_comfyui_manager_unavailable()"
+  },
+  {
+    "source": "Z:\\FOXAI\\ComfyUI\\main.py",
+    "line": 117,
+    "text": "        handle_comfyui_manager_unavailable()"
+  },
+  {
+    "source": "Z:\\FOXAI\\ComfyUI\\main.py",
+    "line": 183,
+    "text": "                if comfyui_manager.should_be_disabled(module_path):"
+  },
+  {
+    "source": "Z:\\FOXAI\\ComfyUI\\main.py",
+    "line": 211,
+    "text": "    comfyui_manager.prestartup()"
+  },
+  {
+    "source": "Z:\\FOXAI\\ComfyUI\\main.py",
+    "line": 225,
+    "text": "import comfy.utils"
+  },
+  {
+    "source": "Z:\\FOXAI\\ComfyUI\\main.py",
+    "line": 231,
+    "text": "import comfy.model_management"
+  },
+  {
+    "source": "Z:\\FOXAI\\ComfyUI\\main.py",
+    "line": 232,
+    "text": "import comfyui_version"
+  },
+  {
+    "source": "Z:\\FOXAI\\ComfyUI\\main.py",
+    "line": 236,
+    "text": "import comfy.memory_management"
+  },
+  {
+    "source": "Z:\\FOXAI\\ComfyUI\\main.py",
+    "line": 237,
+    "text": "import comfy.model_patcher"
+  },
+  {
+    "source": "Z:\\FOXAI\\ComfyUI\\main.py",
+    "line": 239,
+    "text": "if args.enable_dynamic_vram or (enables_dynamic_vram() and comfy.model_management.is_nvidia() and not comfy.model_management.is_wsl()):"
+  },
+  {
+    "source": "Z:\\FOXAI\\ComfyUI\\main.py",
+    "line": 240,
+    "text": "    if (not args.enable_dynamic_vram) and (comfy.model_management.torch_version_numeric < (2, 8)):"
+  },
+  {
+    "source": "Z:\\FOXAI\\ComfyUI\\main.py",
+    "line": 244,
+    "text": "            aimdo_initialized = comfy_aimdo.control.init_devices((d.index, int(args.vram_headroom * 1024 ** 3)) for d in comfy.model_management.get_all_torch_devices())"
+  },
+  {
+    "source": "Z:\\FOXAI\\ComfyUI\\main.py",
+    "line": 246,
+    "text": "            # comfy-aimdo 0.4.9 protocol."
+  },
+  {
+    "source": "Z:\\FOXAI\\ComfyUI\\main.py",
+    "line": 247,
+    "text": "            aimdo_initialized = comfy_aimdo.control.init_devices(d.index for d in comfy.model_management.get_all_torch_devices())"
+  },
+  {
+    "source": "Z:\\FOXAI\\ComfyUI\\main.py",
+    "line": 251,
+    "text": "                comfy_aimdo.control.set_log_debug()"
+  },
+  {
+    "source": "Z:\\FOXAI\\ComfyUI\\main.py",
+    "line": 253,
+    "text": "                comfy_aimdo.control.set_log_critical()"
+  },
+  {
+    "source": "Z:\\FOXAI\\ComfyUI\\main.py",
+    "line": 255,
+    "text": "                comfy_aimdo.control.set_log_error()"
+  },
+  {
+    "source": "Z:\\FOXAI\\ComfyUI\\main.py",
+    "line": 257,
+    "text": "                comfy_aimdo.control.set_log_warning()"
+  },
+  {
+    "source": "Z:\\FOXAI\\ComfyUI\\main.py",
+    "line": 259,
+    "text": "                comfy_aimdo.control.set_log_info()"
+  },
+  {
+    "source": "Z:\\FOXAI\\ComfyUI\\main.py",
+    "line": 261,
+    "text": "            comfy.model_patcher.CoreModelPatcher = comfy.model_patcher.ModelPatcherDynamic"
+  },
+  {
+    "source": "Z:\\FOXAI\\ComfyUI\\main.py",
+    "line": 262,
+    "text": "            comfy.memory_management.aimdo_enabled = True"
+  },
+  {
+    "source": "Z:\\FOXAI\\ComfyUI\\main.py",
+    "line": 265,
+    "text": "            logging.warning(\"No working comfy-aimdo install detected. DynamicVRAM support disabled. Falling back to legacy ModelPatcher. VRAM estimates may be unreliable especially on Windows\")"
+  },
+  {
+    "source": "Z:\\FOXAI\\ComfyUI\\main.py",
+    "line": 269,
+    "text": "    device = comfy.model_management.get_torch_device()"
+  },
+  {
+    "source": "Z:\\FOXAI\\ComfyUI\\main.py",
+    "line": 270,
+    "text": "    device_name = comfy.model_management.get_torch_device_name(device)"
+  },
+  {
+    "source": "Z:\\FOXAI\\ComfyUI\\main.py",
+    "line": 277,
+    "text": "            logging.warning(\"\\nWARNING: this card most likely does not support cuda-malloc, if you get \\\"CUDA error\\\" please run ComfyUI with: --disable-cuda-malloc\\n\")"
+  },
+  {
+    "source": "Z:\\FOXAI\\ComfyUI\\main.py",
+    "line": 317,
+    "text": "        cache_ram = min(10.0, max(2.0, comfy.model_management.total_ram * 0.10 / 1024.0))"
+  },
+  {
+    "source": "Z:\\FOXAI\\ComfyUI\\main.py",
+    "line": 318,
+    "text": "        cache_ram_inactive = min(96.0, comfy.model_management.total_ram / 1024.0)"
+  },
+  {
+    "source": "Z:\\FOXAI\\ComfyUI\\main.py",
+    "line": 387,
+    "text": "            comfy.model_management.unload_all_models()"
+  },
+  {
+    "source": "Z:\\FOXAI\\ComfyUI\\main.py",
+    "line": 400,
+    "text": "                comfy.model_management.soft_empty_cache()"
+  },
+  {
+    "source": "Z:\\FOXAI\\ComfyUI\\main.py",
+    "line": 410,
+    "text": "async def run(server_instance, address='', port=8188, verbose=True, call_on_start=None):"
+  },
+  {
+    "source": "Z:\\FOXAI\\ComfyUI\\main.py",
+    "line": 425,
+    "text": "        comfy.model_management.throw_exception_if_processing_interrupted()"
+  },
+  {
+    "source": "Z:\\FOXAI\\ComfyUI\\main.py",
+    "line": 447,
+    "text": "    comfy.utils.set_progress_bar_global_hook(hook)"
+  },
+  {
+    "source": "Z:\\FOXAI\\ComfyUI\\main.py",
+    "line": 466,
+    "text": "                \"Database is locked. Another ComfyUI process is already using this database.\\n\""
+  },
+  {
+    "source": "Z:\\FOXAI\\ComfyUI\\main.py",
+    "line": 484,
+    "text": "def start_comfyui(asyncio_loop=None):"
+  },
+  {
+    "source": "Z:\\FOXAI\\ComfyUI\\main.py",
+    "line": 486,
+    "text": "    Starts the ComfyUI server using the provided asyncio event loop or creates a new one."
+  },
+  {
+    "source": "Z:\\FOXAI\\ComfyUI\\main.py",
+    "line": 501,
+    "text": "        comfyui_manager.start()"
+  },
+  {
+    "source": "Z:\\FOXAI\\ComfyUI\\main.py",
+    "line": 509,
+    "text": "    # Re-apply Comfy's cuDNN benchmark policy after custom-node imports. Benchmark"
+  },
+  {
+    "source": "Z:\\FOXAI\\ComfyUI\\main.py",
+    "line": 511,
+    "text": "    comfy.model_management.set_cudnn_benchmark()"
+  },
+  {
+    "source": "Z:\\FOXAI\\ComfyUI\\main.py",
+    "line": 542,
+    "text": "    # Returning these so that other code can integrate with the ComfyUI loop and server"
+  },
+  {
+    "source": "Z:\\FOXAI\\ComfyUI\\main.py",
+    "line": 547,
+    "text": "    # Running directly, just start ComfyUI."
+  },
+  {
+    "source": "Z:\\FOXAI\\ComfyUI\\main.py",
+    "line": 549,
+    "text": "    logging.info(\"ComfyUI version: {}\".format(comfyui_version.__version__))"
+  },
+  {
+    "source": "Z:\\FOXAI\\ComfyUI\\main.py",
+    "line": 550,
+    "text": "    for package in (\"comfy-aimdo\", \"comfy-kitchen\"):"
+  },
+  {
+    "source": "Z:\\FOXAI\\ComfyUI\\main.py",
+    "line": 564,
+    "text": "            \"dynamic vram enabled and using native ComfyUI model formats instead. \""
+  },
+  {
+    "source": "Z:\\FOXAI\\ComfyUI\\main.py",
+    "line": 565,
+    "text": "            \"ComfyUI native formats like fp8 will be faster even if they are larger than your memory.\""
+  },
+  {
+    "source": "Z:\\FOXAI\\ComfyUI\\main.py",
+    "line": 567,
+    "text": "    event_loop, _, start_all_func = start_comfyui()"
+  },
+  {
+    "source": "Z:\\FOXAI\\core\\foxai_web.py",
+    "line": 52,
+    "text": "COMFY=ROOT/'ComfyUI'; COMFY_MAIN=COMFY/'main.py'; LIB=ROOT/'Library'; PROJECTS=ROOT/'Projects'"
+  },
+  {
+    "source": "Z:\\FOXAI\\core\\foxai_web.py",
+    "line": 218,
+    "text": "FOLDERS={'root':ROOT,'models':ROOT/'Models','chat_models':ROOT/'Models'/'Chat','comfy_output':COMFY/'output','library':LIB,'projects':PROJECTS,'prompts':ROOT/'Prompts','novel_forge':ROOT/'NovelForge','novel_exports':ROOT/'NovelForge'/'Exports','logs':LOGS,'config':ROOT/'Config','reports':ROOT/'Reports','repair_reports':ROOT/'Reports'/'RepairActions','repair_ops_dashboard':ROOT/'Reports'/'RepairActions'/'OperationsDashboard','repair_action_details':ROOT/'Reports'/'RepairActions'/'ActionDetails','repair_tickets':ROOT/'Reports'/'RepairActions'/'Tickets','repair_ticket_details':ROOT/'Reports'/'RepairActions'/'TicketDetails','repair_ticket_bridges':ROOT/'Reports'/'RepairActions'/'TicketBridges','repair_session_reports':ROOT/'Reports'/'RepairActions'/'SessionReports','repair_milestone_freeze':ROOT/'Reports'/'RepairActions'/'MilestoneFreeze','command_center_reports':ROOT/'Reports'/'CommandCenter','command_center_detail_reports':ROOT/'Reports'/'CommandCenter'/'Details','command_center_card_reports':ROOT/'Reports'/'CommandCenter'/'DashboardCards','command_center_archive_reports':ROOT/'Reports'/'CommandCenter'/'Archive','command_center_milestone_freeze':ROOT/'Reports'/'CommandCenter'/'MilestoneFreeze','kayock_writer_reports':ROOT/'Reports'/'KayockWriter','kayock_writer_foundation_reports':ROOT/'Reports'/'KayockWriter'/'Foundation','kayock_writer_story_forge_reports':ROOT/'Reports'/'KayockWriter'/'StoryForge','kayock_writer_manifest_preview_reports':ROOT/'Reports'/'KayockWriter'/'ManifestPreview','kayock_writer_create_gate_reports':ROOT/'Reports'/'KayockWriter'/'CreateProjectGate','kayock_writer_create_action_reports':ROOT/'Reports'/'KayockWriter'/'CreateProjectAction','kayock_writer_project_dashboard_reports':ROOT/'Reports'/'KayockWriter'/'ProjectDashboard','kayock_writer_project_health_reports':ROOT/'Reports'/'KayockWriter'/'ProjectHealthCards','kayock_writer_chapter_planner_reports':ROOT/'Reports'/'KayockWriter'/'ChapterPlanner','kayock_writer_chapter_save_gate_reports':ROOT/'Reports'/'KayockWriter'/'ChapterSaveGate','kayock_writer_chapter_save_action_reports':ROOT/'Reports'/'KayockWriter'/'ChapterSaveAction','kayock_writer_saved_chapter_dashboard_reports':ROOT/'Reports'/'KayockWriter'/'SavedChapterDashboard','kayock_writer_chapter_editor_preview_reports':ROOT/'Reports'/'KayockWriter'/'ChapterEditorPreview','kayock_writer_chapter_edit_gate_reports':ROOT/'Reports'/'KayockWriter'/'ChapterEditGate','kayock_writer_chapter_edit_action_reports':ROOT/'Reports'/'KayockWriter'/'ChapterEditAction','kayock_writer_chapter_edit_audit_reports':ROOT/'Reports'/'KayockWriter'/'ChapterEditAudit','kayock_writer_chapter_draft_workspace_reports':ROOT/'Reports'/'KayockWriter'/'ChapterDraftWorkspace','kayock_writer_draft_save_gate_reports':ROOT/'Reports'/'KayockWriter'/'DraftSaveGate','kayock_writer_draft_save_action_reports':ROOT/'Reports'/'KayockWriter'/'DraftSaveAction','kayock_writer_draft_reader_reports':ROOT/'Reports'/'KayockWriter'/'DraftReader','kayock_writer_draft_version_history_reports':ROOT/'Reports'/'KayockWriter'/'DraftVersionHistory','kayock_writer_draft_continue_workspace_reports':ROOT/'Reports'/'KayockWriter'/'DraftContinueWorkspace','kayock_writer_continue_save_gate_reports':ROOT/'Reports'/'KayockWriter'/'ContinueSaveGate','kayock_writer_continue_save_action_reports':ROOT/'Reports'/'KayockWriter'/'ContinueSaveAction','kayock_writer_draft_refresh_reports':ROOT/'Reports'/'KayockWriter'/'DraftRefreshVerification','kayock_writer_draft_compare_reports':ROOT/'Reports'/'KayockWriter'/'DraftCompareView','kayock_writer_real_prose_gate_reports':ROOT/'Reports'/'KayockWriter'/'RealProseDraftGate','kayock_writer_real_prose_save_reports':ROOT/'Reports'/'KayockWriter'/'RealProseSaveAction','kayock_writer_real_prose_refresh_compare_reports':ROOT/'Reports'/'KayockWriter'/'RealProseRefreshCompare','kayock_writer_real_prose_editor_gate_reports':ROOT/'Reports'/'KayockWriter'/'RealProseEditorGate','kayock_writer_real_prose_edit_save_reports':ROOT/'Reports'/'KayockWriter'/'RealProseEditSaveAction','kayock_writer_real_prose_edit_refresh_compare_reports':ROOT/'Reports'/'KayockWriter'/'RealProseEditRefreshCompare','kayock_writer_chapter_prose_workspace_reports':ROOT/'Reports'/'KayockWriter'/'ChapterProseWorkspace','kayock_writer_chapter_prose_continue_gate_reports':ROOT/'Reports'/'KayockWriter'/'ChapterProseContinueGate','kayock_writer_chapter_prose_continue_save_reports':ROOT/'Reports'/'KayockWriter'/'ChapterProseContinueSaveAction','kayock_writer_chapter_prose_continue_refresh_compare_reports':ROOT/'Reports'/'KayockWriter'/'ChapterProseContinueRefreshCompare','kayock_writer_chapter_edit_backups':ROOT/'Backups'/'KayockWriter'/'ChapterEdits','kayock_writer_saved_chapter_health_reports':ROOT/'Reports'/'KayockWriter'/'SavedChapterHealth','kayock_writer_slipping_chapters_folder':ROOT/'Projects'/'KayockWriter'/'Slipping_into_Darkness'/'Chapters','kayock_writer_slipping_project_root':ROOT/'Projects'/'KayockWriter'/'Slipping_into_Darkness','env_reports':ROOT/'Reports'/'Environment','portable_reports':ROOT/'Reports'/'PortableReadiness','model_reports':ROOT/'Reports'/'Models','build_reports':ROOT/'Reports'/'BuildVerification','scan_reports':ROOT/'Reports'/'Scans','manifest_backups':ROOT/'Backups'/'Manifests','file_backups':ROOT/'Backups'/'GeneratedFiles','restore_staging':ROOT/'Reports'/'Backups'/'RestoreStaging','staging_inventory':ROOT/'Reports'/'Backups'/'StagingInventory','final_checklist':ROOT/'Reports'/'Backups'/'FinalChecklist','restore_live_backups':ROOT/'Backups'/'RestoreLiveTargets','restore_reports':ROOT/'Reports'/'Backups'/'RestoreActions','restore_audit':ROOT/'Reports'/'Backups'/'RestoreAudit','rollback_previews':ROOT/'Reports'/'Backups'/'RollbackPreviews','rollback_live_backups':ROOT/'Backups'/'RollbackLiveTargets','rollback_reports':ROOT/'Reports'/'Backups'/'RollbackActions','rollback_audit':ROOT/'Reports'/'Backups'/'RollbackAudit','recovery_timeline':ROOT/'Reports'/'Backups'/'RecoveryTimeline','extensions':ROOT/'Extensions','modules':ROOT/'Modules'}"
+  },
+  {
+    "source": "Z:\\FOXAI\\core\\foxai_web.py",
+    "line": 715,
+    "text": "    for p in [ROOT/'env'/'python'/'python.exe',ROOT/'python'/'python.exe',ROOT/'ComfyUI'/'python_embeded'/'python.exe']:"
+  },
+  {
+    "source": "Z:\\FOXAI\\core\\foxai_web.py",
+    "line": 964,
+    "text": "<section id=creative class=page><div class=hero><h2>Creative Studio</h2><p>ComfyUI remains the image engine.</p></div><div class=grid><div class=card><h3>ComfyUI</h3><button onclick=\"api('/api/launch/comfy')\">Launch</button><button onclick=\"api('/api/open-url/comfy')\">Open</button></div><div class=card><h3>Gallery</h3><button onclick=\"api('/api/open/comfy_output')\">Open Output</button></div></div></section>"
+  },
+  {
+    "source": "Z:\\FOXAI\\core\\foxai_web.py",
+    "line": 10236,
+    "text": "async function refresh(){let s=await (await fetch('/api/status')).json();let lines=[`Root: ${s.root}`,`Kayock Browser: ${s.kayock_browser_found?'found':'missing'}`,`Engine: ${s.engine_found?'found':'missing'}`,`Chat online: ${s.chat_online?'yes':'no'}`,`Active project: ${s.active_project||'None'}`,`Projects: ${s.projects}`,`ComfyUI: ${s.comfy_online?'online':'offline'}`,`Chat models: ${s.chat_models}`,`Library items: ${s.library_items}`,`PDFs: ${s.library_pdfs}`];q('status').textContent=lines.join('\\n');q('status2').textContent=lines.join('\\n');q('paths').textContent=`Root: ${s.root}\\nDrive: ${s.drive_root}\\nBrowser: ${s.kayock_browser}\\nEngine: ${s.engine}\\nProjects: ${s.projects_root}`;q('am').textContent=s.chat_model_name||'None';activeProfileId=String(s.chat_profile_id||'');if(s.active_mission_image?.attached&&!pendingMissionImage){let meta=s.active_mission_image;activeMissionImage={...missionImageMetadata({name:meta.filename,type:meta.mime,size:meta.size_bytes,width:meta.width,height:meta.height,sha256:meta.sha256}),preview_url:activeMissionImage?.sha256===meta.sha256?(activeMissionImage.preview_url||''):''};renderMissionImage()}else if(!s.active_mission_image?.attached&&!pendingMissionImage){activeMissionImage=null;renderMissionImage()}q('ap').textContent=s.active_professor_name||'Agent Fox';q('mtitle').textContent=s.active_professor_name||'Agent Fox';q('apro').textContent=s.active_project||'None';q('rt').textContent=s.chat_engine_state||(s.chat_online?'RUNNING':'STOPPED');q('msrc').textContent=s.chat_online?(s.chat_model_source_label||'LOCAL'):'NONE';q('nuse').textContent=s.chat_network_use||'NONE';q('cpu').textContent=s.cpu_percent!==null?`${s.cpu_percent}%`:'n/a';q('ram').textContent=s.ram_used_gb!==null?`${s.ram_used_gb}/${s.ram_total_gb} GB (${s.ram_percent}%)`:'n/a';q('ramm').style.width=s.ram_percent!==null?`${s.ram_percent}%`:'0%';q('quick').innerHTML=`<span class=\"pill ${s.engine_found?'ok':'bad'}\">Engine ${s.engine_found?'Found':'Missing'}</span><br><span class=\"pill ${s.chat_online?'ok':'warn'}\">Chat ${s.chat_online?'Running':'Stopped'}</span><br><span class=\"pill ${s.comfy_online?'ok':'warn'}\">ComfyUI ${s.comfy_online?'Running':'Stopped'}</span>`}"
+  },
+  {
+    "source": "Z:\\FOXAI\\core\\foxai_web.py",
+    "line": 10408,
+    "text": "        if path=='/api/launch/comfy':"
+  },
+  {
+    "source": "Z:\\FOXAI\\core\\foxai_web.py",
+    "line": 10409,
+    "text": "            if not COMFY_MAIN.exists(): self.js({'ok':False,'message':'ComfyUI main.py not found.'}); return"
+  },
+  {
+    "source": "Z:\\FOXAI\\core\\foxai_web.py",
+    "line": 10410,
+    "text": "            if check('http://127.0.0.1:8188'):"
+  },
+  {
+    "source": "Z:\\FOXAI\\core\\foxai_web.py",
+    "line": 10411,
+    "text": "                receipt=make_tool_receipt('comfy.start','verified',checks=[{'id':'health_endpoint','ok':True,'message':'ComfyUI endpoint responded.'}],actor='operator'); self.js({'ok':True,'message':'VERIFIED: ComfyUI is already online.','receipt':receipt,'claim_state':'verified'}); return"
+  },
+  {
+    "source": "Z:\\FOXAI\\core\\foxai_web.py",
+    "line": 10412,
+    "text": "            proc=launch(pycmd()+[str(COMFY_MAIN),'--cpu'],COMFY); timeline(active_project,'ComfyUI launch requested') if active_project else None; receipt=make_tool_receipt('comfy.start','requested',details={'pid':getattr(proc,'pid',None)},actor='operator'); self.js({'ok':True,'message':'ComfyUI launch requested; online state is not yet verified.','receipt':receipt,'claim_state':'requested'}); return"
+  },
+  {
+    "source": "Z:\\FOXAI\\core\\foxai_web.py",
+    "line": 10413,
+    "text": "        if path=='/api/open-url/comfy': openurl('http://127.0.0.1:8188'); receipt=make_tool_receipt('browser.open_url','requested',details={'target':'comfy'},actor='operator'); self.js({'ok':True,'message':'Browser open request sent for ComfyUI; tab state is not verified.','receipt':receipt,'claim_state':'requested'}); return"
+  },
+  {
+    "source": "Z:\\FOXAI\\core\\foxai_web.py",
+    "line": 11603,
+    "text": "        if app_id=='comfyui' and exists:"
+  },
+  {
+    "source": "Z:\\FOXAI\\core\\foxai_web.py",
+    "line": 11605,
+    "text": "            actions['launch_label']='Start ComfyUI'"
+  },
+  {
+    "source": "Z:\\FOXAI\\core\\foxai_web.py",
+    "line": 11785,
+    "text": "        ('Creative Checkpoint',ROOT/'ComfyUI'/'models'/'checkpoints'),"
+  },
+  {
+    "source": "Z:\\FOXAI\\core\\foxai_web.py",
+    "line": 11786,
+    "text": "        ('Creative LoRA',ROOT/'ComfyUI'/'models'/'loras'),"
+  },
+  {
+    "source": "Z:\\FOXAI\\core\\foxai_web.py",
+    "line": 11787,
+    "text": "        ('Creative VAE',ROOT/'ComfyUI'/'models'/'vae'),"
+  },
+  {
+    "source": "Z:\\FOXAI\\core\\foxai_web.py",
+    "line": 12030,
+    "text": "    if item_id=='app:comfyui':"
+  },
+  {
+    "source": "Z:\\FOXAI\\core\\foxai_web.py",
+    "line": 12031,
+    "text": "        if not COMFY_MAIN.is_file():"
+  },
+  {
+    "source": "Z:\\FOXAI\\core\\foxai_web.py",
+    "line": 12032,
+    "text": "            return {'ok':False,'message':'ComfyUI main.py is missing. No process was launched.'}"
+  },
+  {
+    "source": "Z:\\FOXAI\\core\\foxai_web.py",
+    "line": 12033,
+    "text": "        if check('http://127.0.0.1:8188/system_stats'):"
+  },
+  {
+    "source": "Z:\\FOXAI\\core\\foxai_web.py",
+    "line": 12035,
+    "text": "                'comfy.start','verified',"
+  },
+  {
+    "source": "Z:\\FOXAI\\core\\foxai_web.py",
+    "line": 12036,
+    "text": "                checks=[{'id':'health_endpoint','ok':True,'message':'ComfyUI endpoint responded.'}],"
+  },
+  {
+    "source": "Z:\\FOXAI\\core\\foxai_web.py",
+    "line": 12039,
+    "text": "            return {'ok':True,'message':'VERIFIED: ComfyUI is already online.','receipt':receipt,'claim_state':'verified'}"
+  },
+  {
+    "source": "Z:\\FOXAI\\core\\foxai_web.py",
+    "line": 12040,
+    "text": "        proc=launch(pycmd()+[str(COMFY_MAIN),'--cpu'],COMFY)"
+  },
+  {
+    "source": "Z:\\FOXAI\\core\\foxai_web.py",
+    "line": 12042,
+    "text": "            'comfy.start','requested',"
+  },
+  {
+    "source": "Z:\\FOXAI\\core\\foxai_web.py",
+    "line": 12046,
+    "text": "        return {'ok':True,'message':'ComfyUI launch requested; online state is not yet verified.','receipt':receipt,'claim_state':'requested'}"
+  },
+  {
+    "source": "Z:\\FOXAI\\core\\foxai_web.py",
+    "line": 13736,
+    "text": "    optional=['NovelForge','Prompts','Extensions','Modules','Models','models','ComfyUI','Library','IronLibrary']"
+  },
+  {
+    "source": "Z:\\FOXAI\\core\\foxai_web.py",
+    "line": 29731,
+    "text": "            {'name':'Creative Studio','status':'READY' if COMFY_MAIN.exists() else 'STAGED','officer':'Image Forge'},"
+  },
+  {
+    "source": "Z:\\FOXAI\\core\\foxai_web.py",
+    "line": 31567,
+    "text": "        'comfy_exists':COMFY_MAIN.exists(),"
+  },
+  {
+    "source": "Z:\\FOXAI\\core\\foxai_web.py",
+    "line": 31568,
+    "text": "        'comfy_online':check('http://127.0.0.1:8188'),"
+  },
+  {
+    "source": "Z:\\FOXAI\\System\\PortableRuntime\\verify_desktop_runtime.py",
+    "line": 41,
+    "text": "        \"comfyui_launched\": False,"
+  },
+  {
+    "source": "Z:\\FOXAI\\ui\\main_window.py",
+    "line": 20,
+    "text": "from core.comfy_bridge import is_comfy_running, generate_image"
+  },
+  {
+    "source": "Z:\\FOXAI\\ui\\main_window.py",
+    "line": 336,
+    "text": "            (\"COMFYUI\", \"ONLINE\" if is_comfy_running() else \"OFFLINE\"),"
+  },
+  {
+    "source": "Z:\\FOXAI\\ui\\main_window.py",
+    "line": 1106,
+    "text": "        comfy_status = \"ONLINE\" if is_comfy_running() else \"OFFLINE\""
+  },
+  {
+    "source": "Z:\\FOXAI\\ui\\main_window.py",
+    "line": 1107,
+    "text": "        self.canvas_status = ctk.CTkLabel(preview, text=f\"COMFYUI STATUS: {comfy_status}\\n\\nReady for Operation Red Bridge.\", font=(\"Consolas\", 14))"
+  },
+  {
+    "source": "Z:\\FOXAI\\ui\\main_window.py",
+    "line": 1179,
+    "text": "        self.canvas_status.configure(text=\"MISSION ACCEPTED\\n\\nRendering through ComfyUI...\\nCPU mode may take a while.\")"
+  },
+  {
+    "source": "Z:\\FOXAI\\ui\\main_window.py",
+    "line": 1194,
+    "text": "                self.after(0, self._red_canvas_error, \"No image returned from ComfyUI.\")"
+  },
+  {
+    "source": "Z:\\FOXAI\\ui\\main_window.py",
+    "line": 1434,
+    "text": "            f\"ComfyUI Online: {creative['comfy_online']}\\n\""
+  },
+  {
+    "source": "Z:\\FOXAI\\ui\\main_window.py",
+    "line": 1499,
+    "text": "            f\"ComfyUI Online: {creative['comfy_online']}\\n\\n\""
+  },
+  {
+    "source": "Z:\\FOXAI\\ui\\main_window.py",
+    "line": 1523,
+    "text": "        box.insert(\"end\", f\"Language models detected: {len(self.models)}\\nComfyUI: {'ONLINE' if is_comfy_running() else 'OFFLINE'}\")"
+  },
+  {
+    "source": "Z:\\FOXAI\\ui\\main_window.py",
+    "line": 1828,
+    "text": "        self.mission_status(\"PromptSmith complete.\\n\\nSending render request to ComfyUI.\")"
+  },
+  {
+    "source": "Z:\\FOXAI\\core\\foxai_web.py",
+    "line": 52,
+    "text": "COMFY=ROOT/'ComfyUI'; COMFY_MAIN=COMFY/'main.py'; LIB=ROOT/'Library'; PROJECTS=ROOT/'Projects'"
+  },
+  {
+    "source": "Z:\\FOXAI\\core\\foxai_web.py",
+    "line": 218,
+    "text": "FOLDERS={'root':ROOT,'models':ROOT/'Models','chat_models':ROOT/'Models'/'Chat','comfy_output':COMFY/'output','library':LIB,'projects':PROJECTS,'prompts':ROOT/'Prompts','novel_forge':ROOT/'NovelForge','novel_exports':ROOT/'NovelForge'/'Exports','logs':LOGS,'config':ROOT/'Config','reports':ROOT/'Reports','repair_reports':ROOT/'Reports'/'RepairActions','repair_ops_dashboard':ROOT/'Reports'/'RepairActions'/'OperationsDashboard','repair_action_details':ROOT/'Reports'/'RepairActions'/'ActionDetails','repair_tickets':ROOT/'Reports'/'RepairActions'/'Tickets','repair_ticket_details':ROOT/'Reports'/'RepairActions'/'TicketDetails','repair_ticket_bridges':ROOT/'Reports'/'RepairActions'/'TicketBridges','repair_session_reports':ROOT/'Reports'/'RepairActions'/'SessionReports','repair_milestone_freeze':ROOT/'Reports'/'RepairActions'/'MilestoneFreeze','command_center_reports':ROOT/'Reports'/'CommandCenter','command_center_detail_reports':ROOT/'Reports'/'CommandCenter'/'Details','command_center_card_reports':ROOT/'Reports'/'CommandCenter'/'DashboardCards','command_center_archive_reports':ROOT/'Reports'/'CommandCenter'/'Archive','command_center_milestone_freeze':ROOT/'Reports'/'CommandCenter'/'MilestoneFreeze','kayock_writer_reports':ROOT/'Reports'/'KayockWriter','kayock_writer_foundation_reports':ROOT/'Reports'/'KayockWriter'/'Foundation','kayock_writer_story_forge_reports':ROOT/'Reports'/'KayockWriter'/'StoryForge','kayock_writer_manifest_preview_reports':ROOT/'Reports'/'KayockWriter'/'ManifestPreview','kayock_writer_create_gate_reports':ROOT/'Reports'/'KayockWriter'/'CreateProjectGate','kayock_writer_create_action_reports':ROOT/'Reports'/'KayockWriter'/'CreateProjectAction','kayock_writer_project_dashboard_reports':ROOT/'Reports'/'KayockWriter'/'ProjectDashboard','kayock_writer_project_health_reports':ROOT/'Reports'/'KayockWriter'/'ProjectHealthCards','kayock_writer_chapter_planner_reports':ROOT/'Reports'/'KayockWriter'/'ChapterPlanner','kayock_writer_chapter_save_gate_reports':ROOT/'Reports'/'KayockWriter'/'ChapterSaveGate','kayock_writer_chapter_save_action_reports':ROOT/'Reports'/'KayockWriter'/'ChapterSaveAction','kayock_writer_saved_chapter_dashboard_reports':ROOT/'Reports'/'KayockWriter'/'SavedChapterDashboard','kayock_writer_chapter_editor_preview_reports':ROOT/'Reports'/'KayockWriter'/'ChapterEditorPreview','kayock_writer_chapter_edit_gate_reports':ROOT/'Reports'/'KayockWriter'/'ChapterEditGate','kayock_writer_chapter_edit_action_reports':ROOT/'Reports'/'KayockWriter'/'ChapterEditAction','kayock_writer_chapter_edit_audit_reports':ROOT/'Reports'/'KayockWriter'/'ChapterEditAudit','kayock_writer_chapter_draft_workspace_reports':ROOT/'Reports'/'KayockWriter'/'ChapterDraftWorkspace','kayock_writer_draft_save_gate_reports':ROOT/'Reports'/'KayockWriter'/'DraftSaveGate','kayock_writer_draft_save_action_reports':ROOT/'Reports'/'KayockWriter'/'DraftSaveAction','kayock_writer_draft_reader_reports':ROOT/'Reports'/'KayockWriter'/'DraftReader','kayock_writer_draft_version_history_reports':ROOT/'Reports'/'KayockWriter'/'DraftVersionHistory','kayock_writer_draft_continue_workspace_reports':ROOT/'Reports'/'KayockWriter'/'DraftContinueWorkspace','kayock_writer_continue_save_gate_reports':ROOT/'Reports'/'KayockWriter'/'ContinueSaveGate','kayock_writer_continue_save_action_reports':ROOT/'Reports'/'KayockWriter'/'ContinueSaveAction','kayock_writer_draft_refresh_reports':ROOT/'Reports'/'KayockWriter'/'DraftRefreshVerification','kayock_writer_draft_compare_reports':ROOT/'Reports'/'KayockWriter'/'DraftCompareView','kayock_writer_real_prose_gate_reports':ROOT/'Reports'/'KayockWriter'/'RealProseDraftGate','kayock_writer_real_prose_save_reports':ROOT/'Reports'/'KayockWriter'/'RealProseSaveAction','kayock_writer_real_prose_refresh_compare_reports':ROOT/'Reports'/'KayockWriter'/'RealProseRefreshCompare','kayock_writer_real_prose_editor_gate_reports':ROOT/'Reports'/'KayockWriter'/'RealProseEditorGate','kayock_writer_real_prose_edit_save_reports':ROOT/'Reports'/'KayockWriter'/'RealProseEditSaveAction','kayock_writer_real_prose_edit_refresh_compare_reports':ROOT/'Reports'/'KayockWriter'/'RealProseEditRefreshCompare','kayock_writer_chapter_prose_workspace_reports':ROOT/'Reports'/'KayockWriter'/'ChapterProseWorkspace','kayock_writer_chapter_prose_continue_gate_reports':ROOT/'Reports'/'KayockWriter'/'ChapterProseContinueGate','kayock_writer_chapter_prose_continue_save_reports':ROOT/'Reports'/'KayockWriter'/'ChapterProseContinueSaveAction','kayock_writer_chapter_prose_continue_refresh_compare_reports':ROOT/'Reports'/'KayockWriter'/'ChapterProseContinueRefreshCompare','kayock_writer_chapter_edit_backups':ROOT/'Backups'/'KayockWriter'/'ChapterEdits','kayock_writer_saved_chapter_health_reports':ROOT/'Reports'/'KayockWriter'/'SavedChapterHealth','kayock_writer_slipping_chapters_folder':ROOT/'Projects'/'KayockWriter'/'Slipping_into_Darkness'/'Chapters','kayock_writer_slipping_project_root':ROOT/'Projects'/'KayockWriter'/'Slipping_into_Darkness','env_reports':ROOT/'Reports'/'Environment','portable_reports':ROOT/'Reports'/'PortableReadiness','model_reports':ROOT/'Reports'/'Models','build_reports':ROOT/'Reports'/'BuildVerification','scan_reports':ROOT/'Reports'/'Scans','manifest_backups':ROOT/'Backups'/'Manifests','file_backups':ROOT/'Backups'/'GeneratedFiles','restore_staging':ROOT/'Reports'/'Backups'/'RestoreStaging','staging_inventory':ROOT/'Reports'/'Backups'/'StagingInventory','final_checklist':ROOT/'Reports'/'Backups'/'FinalChecklist','restore_live_backups':ROOT/'Backups'/'RestoreLiveTargets','restore_reports':ROOT/'Reports'/'Backups'/'RestoreActions','restore_audit':ROOT/'Reports'/'Backups'/'RestoreAudit','rollback_previews':ROOT/'Reports'/'Backups'/'RollbackPreviews','rollback_live_backups':ROOT/'Backups'/'RollbackLiveTargets','rollback_reports':ROOT/'Reports'/'Backups'/'RollbackActions','rollback_audit':ROOT/'Reports'/'Backups'/'RollbackAudit','recovery_timeline':ROOT/'Reports'/'Backups'/'RecoveryTimeline','extensions':ROOT/'Extensions','modules':ROOT/'Modules'}"
+  },
+  {
+    "source": "Z:\\FOXAI\\core\\foxai_web.py",
+    "line": 715,
+    "text": "    for p in [ROOT/'env'/'python'/'python.exe',ROOT/'python'/'python.exe',ROOT/'ComfyUI'/'python_embeded'/'python.exe']:"
+  },
+  {
+    "source": "Z:\\FOXAI\\core\\foxai_web.py",
+    "line": 964,
+    "text": "<section id=creative class=page><div class=hero><h2>Creative Studio</h2><p>ComfyUI remains the image engine.</p></div><div class=grid><div class=card><h3>ComfyUI</h3><button onclick=\"api('/api/launch/comfy')\">Launch</button><button onclick=\"api('/api/open-url/comfy')\">Open</button></div><div class=card><h3>Gallery</h3><button onclick=\"api('/api/open/comfy_output')\">Open Output</button></div></div></section>"
+  },
+  {
+    "source": "Z:\\FOXAI\\core\\foxai_web.py",
+    "line": 10236,
+    "text": "async function refresh(){let s=await (await fetch('/api/status')).json();let lines=[`Root: ${s.root}`,`Kayock Browser: ${s.kayock_browser_found?'found':'missing'}`,`Engine: ${s.engine_found?'found':'missing'}`,`Chat online: ${s.chat_online?'yes':'no'}`,`Active project: ${s.active_project||'None'}`,`Projects: ${s.projects}`,`ComfyUI: ${s.comfy_online?'online':'offline'}`,`Chat models: ${s.chat_models}`,`Library items: ${s.library_items}`,`PDFs: ${s.library_pdfs}`];q('status').textContent=lines.join('\\n');q('status2').textContent=lines.join('\\n');q('paths').textContent=`Root: ${s.root}\\nDrive: ${s.drive_root}\\nBrowser: ${s.kayock_browser}\\nEngine: ${s.engine}\\nProjects: ${s.projects_root}`;q('am').textContent=s.chat_model_name||'None';activeProfileId=String(s.chat_profile_id||'');if(s.active_mission_image?.attached&&!pendingMissionImage){let meta=s.active_mission_image;activeMissionImage={...missionImageMetadata({name:meta.filename,type:meta.mime,size:meta.size_bytes,width:meta.width,height:meta.height,sha256:meta.sha256}),preview_url:activeMissionImage?.sha256===meta.sha256?(activeMissionImage.preview_url||''):''};renderMissionImage()}else if(!s.active_mission_image?.attached&&!pendingMissionImage){activeMissionImage=null;renderMissionImage()}q('ap').textContent=s.active_professor_name||'Agent Fox';q('mtitle').textContent=s.active_professor_name||'Agent Fox';q('apro').textContent=s.active_project||'None';q('rt').textContent=s.chat_engine_state||(s.chat_online?'RUNNING':'STOPPED');q('msrc').textContent=s.chat_online?(s.chat_model_source_label||'LOCAL'):'NONE';q('nuse').textContent=s.chat_network_use||'NONE';q('cpu').textContent=s.cpu_percent!==null?`${s.cpu_percent}%`:'n/a';q('ram').textContent=s.ram_used_gb!==null?`${s.ram_used_gb}/${s.ram_total_gb} GB (${s.ram_percent}%)`:'n/a';q('ramm').style.width=s.ram_percent!==null?`${s.ram_percent}%`:'0%';q('quick').innerHTML=`<span class=\"pill ${s.engine_found?'ok':'bad'}\">Engine ${s.engine_found?'Found':'Missing'}</span><br><span class=\"pill ${s.chat_online?'ok':'warn'}\">Chat ${s.chat_online?'Running':'Stopped'}</span><br><span class=\"pill ${s.comfy_online?'ok':'warn'}\">ComfyUI ${s.comfy_online?'Running':'Stopped'}</span>`}"
+  },
+  {
+    "source": "Z:\\FOXAI\\core\\foxai_web.py",
+    "line": 10408,
+    "text": "        if path=='/api/launch/comfy':"
+  },
+  {
+    "source": "Z:\\FOXAI\\core\\foxai_web.py",
+    "line": 10409,
+    "text": "            if not COMFY_MAIN.exists(): self.js({'ok':False,'message':'ComfyUI main.py not found.'}); return"
+  },
+  {
+    "source": "Z:\\FOXAI\\core\\foxai_web.py",
+    "line": 10410,
+    "text": "            if check('http://127.0.0.1:8188'):"
+  },
+  {
+    "source": "Z:\\FOXAI\\core\\foxai_web.py",
+    "line": 10411,
+    "text": "                receipt=make_tool_receipt('comfy.start','verified',checks=[{'id':'health_endpoint','ok':True,'message':'ComfyUI endpoint responded.'}],actor='operator'); self.js({'ok':True,'message':'VERIFIED: ComfyUI is already online.','receipt':receipt,'claim_state':'verified'}); return"
+  },
+  {
+    "source": "Z:\\FOXAI\\core\\foxai_web.py",
+    "line": 10412,
+    "text": "            proc=launch(pycmd()+[str(COMFY_MAIN),'--cpu'],COMFY); timeline(active_project,'ComfyUI launch requested') if active_project else None; receipt=make_tool_receipt('comfy.start','requested',details={'pid':getattr(proc,'pid',None)},actor='operator'); self.js({'ok':True,'message':'ComfyUI launch requested; online state is not yet verified.','receipt':receipt,'claim_state':'requested'}); return"
+  },
+  {
+    "source": "Z:\\FOXAI\\core\\foxai_web.py",
+    "line": 10413,
+    "text": "        if path=='/api/open-url/comfy': openurl('http://127.0.0.1:8188'); receipt=make_tool_receipt('browser.open_url','requested',details={'target':'comfy'},actor='operator'); self.js({'ok':True,'message':'Browser open request sent for ComfyUI; tab state is not verified.','receipt':receipt,'claim_state':'requested'}); return"
+  },
+  {
+    "source": "Z:\\FOXAI\\core\\foxai_web.py",
+    "line": 11603,
+    "text": "        if app_id=='comfyui' and exists:"
+  },
+  {
+    "source": "Z:\\FOXAI\\core\\foxai_web.py",
+    "line": 11605,
+    "text": "            actions['launch_label']='Start ComfyUI'"
+  },
+  {
+    "source": "Z:\\FOXAI\\core\\foxai_web.py",
+    "line": 11785,
+    "text": "        ('Creative Checkpoint',ROOT/'ComfyUI'/'models'/'checkpoints'),"
+  },
+  {
+    "source": "Z:\\FOXAI\\core\\foxai_web.py",
+    "line": 11786,
+    "text": "        ('Creative LoRA',ROOT/'ComfyUI'/'models'/'loras'),"
+  },
+  {
+    "source": "Z:\\FOXAI\\core\\foxai_web.py",
+    "line": 11787,
+    "text": "        ('Creative VAE',ROOT/'ComfyUI'/'models'/'vae'),"
+  },
+  {
+    "source": "Z:\\FOXAI\\core\\foxai_web.py",
+    "line": 12030,
+    "text": "    if item_id=='app:comfyui':"
+  },
+  {
+    "source": "Z:\\FOXAI\\core\\foxai_web.py",
+    "line": 12031,
+    "text": "        if not COMFY_MAIN.is_file():"
+  },
+  {
+    "source": "Z:\\FOXAI\\core\\foxai_web.py",
+    "line": 12032,
+    "text": "            return {'ok':False,'message':'ComfyUI main.py is missing. No process was launched.'}"
+  },
+  {
+    "source": "Z:\\FOXAI\\core\\foxai_web.py",
+    "line": 12033,
+    "text": "        if check('http://127.0.0.1:8188/system_stats'):"
+  },
+  {
+    "source": "Z:\\FOXAI\\core\\foxai_web.py",
+    "line": 12035,
+    "text": "                'comfy.start','verified',"
+  },
+  {
+    "source": "Z:\\FOXAI\\core\\foxai_web.py",
+    "line": 12036,
+    "text": "                checks=[{'id':'health_endpoint','ok':True,'message':'ComfyUI endpoint responded.'}],"
+  },
+  {
+    "source": "Z:\\FOXAI\\core\\foxai_web.py",
+    "line": 12039,
+    "text": "            return {'ok':True,'message':'VERIFIED: ComfyUI is already online.','receipt':receipt,'claim_state':'verified'}"
+  },
+  {
+    "source": "Z:\\FOXAI\\core\\foxai_web.py",
+    "line": 12040,
+    "text": "        proc=launch(pycmd()+[str(COMFY_MAIN),'--cpu'],COMFY)"
+  },
+  {
+    "source": "Z:\\FOXAI\\core\\foxai_web.py",
+    "line": 12042,
+    "text": "            'comfy.start','requested',"
+  },
+  {
+    "source": "Z:\\FOXAI\\core\\foxai_web.py",
+    "line": 12046,
+    "text": "        return {'ok':True,'message':'ComfyUI launch requested; online state is not yet verified.','receipt':receipt,'claim_state':'requested'}"
+  },
+  {
+    "source": "Z:\\FOXAI\\core\\foxai_web.py",
+    "line": 13736,
+    "text": "    optional=['NovelForge','Prompts','Extensions','Modules','Models','models','ComfyUI','Library','IronLibrary']"
+  },
+  {
+    "source": "Z:\\FOXAI\\core\\foxai_web.py",
+    "line": 29731,
+    "text": "            {'name':'Creative Studio','status':'READY' if COMFY_MAIN.exists() else 'STAGED','officer':'Image Forge'},"
+  },
+  {
+    "source": "Z:\\FOXAI\\core\\foxai_web.py",
+    "line": 31567,
+    "text": "        'comfy_exists':COMFY_MAIN.exists(),"
+  },
+  {
+    "source": "Z:\\FOXAI\\core\\foxai_web.py",
+    "line": 31568,
+    "text": "        'comfy_online':check('http://127.0.0.1:8188'),"
+  }
+]

@@ -1,0 +1,139 @@
+{
+  "python": {
+    "path": "Z:\\FOXAI\\System\\Commissioning\\commission_usb.py",
+    "sha256": "cd46b557fef1cb6fabccccff96ae73f4a3fcbd146971f80a0971a1b67f1dc869",
+    "syntax_passed": true,
+    "matching_lines": [
+      {
+        "line": 110,
+        "text": "names = ['psutil', 'PIL', 'customtkinter', 'requests', 'casbin', 'torch']"
+      },
+      {
+        "line": 205,
+        "text": "def compile_check(path: Path) -> dict[str, Any]:"
+      },
+      {
+        "line": 207,
+        "text": "        return {\"exists\": False, \"compiles\": False}"
+      },
+      {
+        "line": 209,
+        "text": "        compile(path.read_text(encoding=\"utf-8\"), str(path), \"exec\")"
+      },
+      {
+        "line": 210,
+        "text": "        return {\"exists\": True, \"compiles\": True, \"sha256\": sha256(path)}"
+      },
+      {
+        "line": 214,
+        "text": "            \"compiles\": False,"
+      },
+      {
+        "line": 240,
+        "text": "        return \"NEEDS_ATTENTION\""
+      },
+      {
+        "line": 241,
+        "text": "    return \"READY_WITH_NOTES\" if notes else \"READY\""
+      },
+      {
+        "line": 302,
+        "text": "    embedded = root / \"env/python/python.exe\""
+      },
+      {
+        "line": 303,
+        "text": "    venv = root / \".venv/Scripts/python.exe\""
+      },
+      {
+        "line": 326,
+        "text": "    pth = parse_pth(root / \"env/python/python314._pth\")"
+      },
+      {
+        "line": 340,
+        "text": "        \"webui\": compile_check(root / \"core/foxai_web.py\"),"
+      },
+      {
+        "line": 341,
+        "text": "        \"server\": compile_check(root / \"core/server.py\"),"
+      },
+      {
+        "line": 342,
+        "text": "        \"security\": compile_check(root / \"core/security_containment.py\"),"
+      },
+      {
+        "line": 356,
+        "text": "            core_files[\"webui\"].get(\"compiles\"),"
+      },
+      {
+        "line": 357,
+        "text": "            core_files[\"server\"].get(\"compiles\"),"
+      },
+      {
+        "line": 364,
+        "text": "        if not runtime_has(embedded_probe, \"psutil\"):"
+      },
+      {
+        "line": 366,
+        "text": "                \"psutil is unavailable to bundled Python; metrics and \""
+      },
+      {
+        "line": 371,
+        "text": "            \"psutil\","
+      },
+      {
+        "line": 375,
+        "text": "                \"psutil resolves outside the USB; another computer may \""
+      },
+      {
+        "line": 388,
+        "text": "        \"customtkinter\","
+      },
+      {
+        "line": 389,
+        "text": "        \"PIL\","
+      },
+      {
+        "line": 390,
+        "text": "        \"requests\","
+      },
+      {
+        "line": 391,
+        "text": "        \"psutil\","
+      },
+      {
+        "line": 427,
+        "text": "    comfy_main = compile_check(root / \"ComfyUI/main.py\")"
+      },
+      {
+        "line": 438,
+        "text": "        comfy_main.get(\"compiles\")"
+      },
+      {
+        "line": 541,
+        "text": "    if web_status == \"NEEDS_ATTENTION\":"
+      },
+      {
+        "line": 542,
+        "text": "        overall_status = \"NEEDS_ATTENTION\""
+      },
+      {
+        "line": 550,
+        "text": "        overall_status = \"READY_WITH_NOTES\""
+      },
+      {
+        "line": 630,
+        "text": "                root / \"env/python/Lib/site-packages\""
+      }
+    ]
+  },
+  "batch": {
+    "path": "Z:\\FOXAI\\COMMISSION_FOXAI_USB.bat",
+    "sha256": "3a911a8ea2a09b7c99efe857f911ea0f7dddb74d0d0e096346c957b2fd81f38b",
+    "matching_lines": [
+      {
+        "line": 6,
+        "text": "set \"PY=%~dp0env\\python\\python.exe\""
+      }
+    ]
+  }
+}

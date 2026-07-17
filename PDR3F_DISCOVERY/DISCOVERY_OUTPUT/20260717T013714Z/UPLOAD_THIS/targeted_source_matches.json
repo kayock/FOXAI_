@@ -1,0 +1,441 @@
+[
+  {
+    "path": "Z:\\FOXAI\\foxai.py",
+    "exists": true,
+    "sha256": "423bb098170dbaad2b96c6b07e31beee171904d286b8364457ce6357551c33d0",
+    "matches": [],
+    "encoding": "utf-8-sig"
+  },
+  {
+    "path": "Z:\\FOXAI\\ui\\main_window.py",
+    "exists": true,
+    "sha256": "2e8f452d36f3a3c697b23ebdee2921f5fe01aa1b1c28460dfbc36921ca5ee0c3",
+    "matches": [
+      {
+        "line": 20,
+        "text": "from core.comfy_bridge import is_comfy_running, generate_image"
+      },
+      {
+        "line": 336,
+        "text": "            (\"COMFYUI\", \"ONLINE\" if is_comfy_running() else \"OFFLINE\"),"
+      },
+      {
+        "line": 1106,
+        "text": "        comfy_status = \"ONLINE\" if is_comfy_running() else \"OFFLINE\""
+      },
+      {
+        "line": 1107,
+        "text": "        self.canvas_status = ctk.CTkLabel(preview, text=f\"COMFYUI STATUS: {comfy_status}\\n\\nReady for Operation Red Bridge.\", font=(\"Consolas\", 14))"
+      },
+      {
+        "line": 1179,
+        "text": "        self.canvas_status.configure(text=\"MISSION ACCEPTED\\n\\nRendering through ComfyUI...\\nCPU mode may take a while.\")"
+      },
+      {
+        "line": 1194,
+        "text": "                self.after(0, self._red_canvas_error, \"No image returned from ComfyUI.\")"
+      },
+      {
+        "line": 1434,
+        "text": "            f\"ComfyUI Online: {creative['comfy_online']}\\n\""
+      },
+      {
+        "line": 1499,
+        "text": "            f\"ComfyUI Online: {creative['comfy_online']}\\n\\n\""
+      },
+      {
+        "line": 1523,
+        "text": "        box.insert(\"end\", f\"Language models detected: {len(self.models)}\\nComfyUI: {'ONLINE' if is_comfy_running() else 'OFFLINE'}\")"
+      },
+      {
+        "line": 1828,
+        "text": "        self.mission_status(\"PromptSmith complete.\\n\\nSending render request to ComfyUI.\")"
+      }
+    ],
+    "encoding": "utf-8-sig"
+  },
+  {
+    "path": "Z:\\FOXAI\\core\\foxai_web.py",
+    "exists": true,
+    "sha256": "ca45bfc72ce73a47df3ca11b1d1f0564b070cf70ae766a956fb1daaff3dfc2a7",
+    "matches": [
+      {
+        "line": 10,
+        "text": "import re, os, re, sys, time, subprocess, shutil, py_compile"
+      },
+      {
+        "line": 52,
+        "text": "COMFY=ROOT/'ComfyUI'; COMFY_MAIN=COMFY/'main.py'; LIB=ROOT/'Library'; PROJECTS=ROOT/'Projects'"
+      },
+      {
+        "line": 218,
+        "text": "FOLDERS={'root':ROOT,'models':ROOT/'Models','chat_models':ROOT/'Models'/'Chat','comfy_output':COMFY/'output','library':LIB,'projects':PROJECTS,'prompts':ROOT/'Prompts','novel_forge':ROOT/'NovelForge','novel_exports':ROOT/'NovelForge'/'Exports','logs':LOGS,'config':ROOT/'Config','reports':ROOT/'Reports','repair_reports':ROOT/'Reports'/'RepairActions','repair_ops_dashboard':ROOT/'Reports'/'RepairActions'/'OperationsDashboard','repair_action_details':ROOT/'Reports'/'RepairActions'/'ActionDetails','repair_tickets':ROOT/'Reports'/'RepairActions'/'Tickets','repair_ticket_details':ROOT/'Reports'/'RepairActions'/'TicketDetails','repair_ticket_bridges':ROOT/'Reports'/'RepairActions'/'TicketBridges','repair_session_reports':ROOT/'Reports'/'RepairActions'/'SessionReports','repair_milestone_freeze':ROOT/'Reports'/'RepairActions'/'MilestoneFreeze','command_center_reports':ROOT/'Reports'/'CommandCenter','command_center_detail_reports':ROOT/'Reports'/'CommandCenter'/'Details','command_center_card_reports':ROOT/'Reports'/'CommandCenter'/'DashboardCards','command_center_archive_reports':ROOT/'Reports'/'CommandCenter'/'Archive','command_center_milestone_freeze':ROOT/'Reports'/'CommandCenter'/'MilestoneFreeze','kayock_writer_reports':ROOT/'Reports'/'KayockWriter','kayock_writer_foundation_reports':ROOT/'Reports'/'KayockWriter'/'Foundation','kayock_writer_story_forge_reports':ROOT/'Reports'/'KayockWriter'/'StoryForge','kayock_writer_manifest_preview_reports':ROOT/'Reports'/'KayockWriter'/'ManifestPreview','kayock_writer_create_gate_reports':ROOT/'Reports'/'KayockWriter'/'CreateProjectGate','kayock_writer_create_action_reports':ROOT/'Reports'/'KayockWriter'/'CreateProjectAction','kayock_writer_project_dashboard_reports':ROOT/'Reports'/'KayockWriter'/'ProjectDashboard','kayock_writer_project_health_reports':ROOT/'Reports'/'KayockWriter'/'ProjectHealthCards','kayock_writer_chapter_planner_reports':ROOT/'Reports'/'KayockWriter'/'ChapterPlanner','kayock_writer_chapter_save_gate_reports':ROOT/'Reports'/'KayockWriter'/'ChapterSaveGate','kayock_writer_chapter_save_action_reports':ROOT/'Reports'/'KayockWriter'/'ChapterSaveAction','kayock_writer_saved_chapter_dashboard_reports':ROOT/'Reports'/'KayockWriter'/'SavedChapterDashboard','kayock_writer_chapter_editor_preview_reports':ROOT/'Reports'/'KayockWriter'/'ChapterEditorPreview','kayock_writer_chapter_edit_gate_reports':ROOT/'Reports'/'KayockWriter'/'ChapterEditGate','kayock_writer_chapter_edit_action_reports':ROOT/'Reports'/'KayockWriter'/'ChapterEditAction','kayock_writer_chapter_edit_audit_reports':ROOT/'Reports'/'KayockWriter'/'ChapterEditAudit','kayock_writer_chapter_draft_workspace_reports':ROOT/'Reports'/'KayockWriter'/'ChapterDraftWorkspace','kayock_writer_draft_save_gate_reports':ROOT/'Reports'/'KayockWriter'/'DraftSaveGate','kayock_writer_draft_save_action_reports':ROOT/'Reports'/'KayockWriter'/'DraftSaveAction','kayock_writer_draft_reader_reports':ROOT/'Reports'/'KayockWriter'/'DraftReader','kayock_writer_draft_version_history_reports':ROOT/'Reports'/'KayockWriter'/'DraftVersionHistory','kayock_writer_draft_continue_workspace_reports':ROOT/'Reports'/'KayockWriter'/'DraftContinueWorkspace','kayock_writer_continue_save_gate_reports':ROOT/'Reports'/'KayockWriter'/'ContinueSaveGate','kayock_writer_continue_save_action_reports':ROOT/'Reports'/'KayockWriter'/'ContinueSaveAction','kayock_writer_draft_refresh_reports':ROOT/'Reports'/'KayockWriter'/'DraftRefreshVerification','kayock_writer_draft_compare_reports':ROOT/'Reports'/'KayockWriter'/'DraftCompareView','kayock_writer_real_prose_gate_reports':ROOT/'Reports'/'KayockWriter'/'RealProseDraftGate','kayock_writer_real_prose_save_reports':ROOT/'Reports'/'KayockWriter'/'RealProseSaveAction','kayock_writer_real_prose_refresh_compare_reports':ROOT/'Reports'/'KayockWriter'/'RealProseRefreshCompare','kayock_writer_real_prose_editor_gate_reports':ROOT/'Reports'/'KayockWriter'/'RealProseEditorGate','kayock_writer_real_prose_edit_save_reports':ROOT/'Reports'/'KayockWriter'/'RealProseEditSaveAction','kayock_writer_real_prose_edit_refresh_compare_reports':ROOT/'Reports'/'KayockWriter'/'RealProseEditRefreshCompare','kayock_writer_chapter_prose_workspace_reports':ROOT/'Reports'/'KayockWriter'/'ChapterProseWorkspace','kayock_writer_chapter_prose_continue_gate_reports':ROOT/'Reports'/'KayockWriter'/'ChapterProseContinueGate','kayock_writer_chapter_prose_continue_save_reports':ROOT/'Reports'/'KayockWriter'/'ChapterProseContinueSaveAction','kayock_writer_chapter_prose_continue_refresh_compare_reports':ROOT/'Reports'/'KayockWriter'/'ChapterProseContinueRefreshCompare','kayock_writer_chapter_edit_backups':ROOT/'Backups'/'KayockWriter'/'ChapterEdits','kayock_writer_saved_chapter_health_reports':ROOT/'Reports'/'KayockWriter'/'SavedChapterHealth','kayock_writer_slipping_chapters_folder':ROOT/'Projects'/'KayockWriter'/'Slipping_into_Darkness'/'Chapters','kayock_writer_slipping_project_root':ROOT/'Projects'/'KayockWriter'/'Slipping_into_Darkness','env_reports':ROOT/'Reports'/'Environment','portable_reports':ROOT/'Reports'/'PortableReadiness','model_reports':ROOT/'Reports'/'Models','build_reports':ROOT/'Reports'/'BuildVerification','scan_reports':ROOT/'Reports'/'Scans','manifest_backups':ROOT/'Backups'/'Manifests','file_backups':ROOT/'Backups'/'GeneratedFiles','restore_staging':ROOT/'Reports'/'Backups'/'RestoreStaging','staging_inventory':ROOT/'Reports'/'Backups'/'StagingInventory','final_checklist':ROOT/'Reports'/'Backups'/'FinalChecklist','restore_live_backups':ROOT/'Backups'/'RestoreLiveTargets','restore_reports':ROOT/'Reports'/'Backups'/'RestoreActions','restore_audit':ROOT/'Reports'/'Backups'/'RestoreAudit','rollback_previews':ROOT/'Reports'/'Backups'/'RollbackPreviews','rollback_live_backups':ROOT/'Backups'/'RollbackLiveTargets','rollback_reports':ROOT/'Reports'/'Backups'/'RollbackActions','rollback_audit':ROOT/'Reports'/'Backups'/'RollbackAudit','recovery_timeline':ROOT/'Reports'/'Backups'/'RecoveryTimeline','extensions':ROOT/'Extensions','modules':ROOT/'Modules'}"
+      },
+      {
+        "line": 713,
+        "text": "def launch(cmd,cwd): return subprocess.Popen(cmd,cwd=str(cwd),creationflags=subprocess.CREATE_NEW_CONSOLE if os.name=='nt' else 0)"
+      },
+      {
+        "line": 715,
+        "text": "    for p in [ROOT/'env'/'python'/'python.exe',ROOT/'python'/'python.exe',ROOT/'ComfyUI'/'python_embeded'/'python.exe']:"
+      },
+      {
+        "line": 718,
+        "text": "def openurl(u): subprocess.Popen([str(KAYOCK),u],cwd=str(DRIVE)) if KAYOCK.exists() else __import__('webbrowser').open(u)"
+      },
+      {
+        "line": 964,
+        "text": "<section id=creative class=page><div class=hero><h2>Creative Studio</h2><p>ComfyUI remains the image engine.</p></div><div class=grid><div class=card><h3>ComfyUI</h3><button onclick=\"api('/api/launch/comfy')\">Launch</button><button onclick=\"api('/api/open-url/comfy')\">Open</button></div><div class=card><h3>Gallery</h3><button onclick=\"api('/api/open/comfy_output')\">Open Output</button></div></div></section>"
+      },
+      {
+        "line": 1269,
+        "text": " {id:'fast_text',label:'⚡ Fast Text',model:'Qwen3.5-4B-Q4_K_M.gguf',source:'USB',best:'Quick questions, short summaries, simple instructions, and casual chat.',speed:'Fastest verified text profile',vision:'No',reasoning:'Off',status:'BENCHMARK SUPPORTED',note:'10.87 median tok/s; exact instruction and length checks passed. Runtime launches with reasoning off and budget 0.',recommended:true},"
+      },
+      {
+        "line": 1270,
+        "text": " {id:'balanced_text',label:'⚖️ Balanced Text',model:'Qwen3.5-9B-Q4_K_M.gguf',source:'USB',best:'Everyday writing, research discussion, longer answers, and general text work.',speed:'Moderate',vision:'No',reasoning:'Off',status:'BENCHMARK SUPPORTED',note:'5.75 median tok/s; exact instruction and length checks passed. Runtime launches with reasoning off and budget 0.',recommended:false},"
+      },
+      {
+        "line": 3029,
+        "text": "        if(item.actions?.launch)actions.push(`<button onclick=\"launchExtensionInventoryItem('${js(item.id)}')\">${esc(item.actions.launch_label||'Launch')}</button>`);"
+      },
+      {
+        "line": 3114,
+        "text": "function launchExtensionInventoryItem(id){"
+      },
+      {
+        "line": 3115,
+        "text": "    return extensionInventoryAction('/api/extensions/inventory/launch',id);"
+      },
+      {
+        "line": 3233,
+        "text": "  ['What Disable Does',['Disable records an operator override and blocks Extension Manager launch eligibility for state-aware components. It does not terminate an already running process, uninstall files, delete data, or rewrite the manifest.']],"
+      },
+      {
+        "line": 10236,
+        "text": "async function refresh(){let s=await (await fetch('/api/status')).json();let lines=[`Root: ${s.root}`,`Kayock Browser: ${s.kayock_browser_found?'found':'missing'}`,`Engine: ${s.engine_found?'found':'missing'}`,`Chat online: ${s.chat_online?'yes':'no'}`,`Active project: ${s.active_project||'None'}`,`Projects: ${s.projects}`,`ComfyUI: ${s.comfy_online?'online':'offline'}`,`Chat models: ${s.chat_models}`,`Library items: ${s.library_items}`,`PDFs: ${s.library_pdfs}`];q('status').textContent=lines.join('\\n');q('status2').textContent=lines.join('\\n');q('paths').textContent=`Root: ${s.root}\\nDrive: ${s.drive_root}\\nBrowser: ${s.kayock_browser}\\nEngine: ${s.engine}\\nProjects: ${s.projects_root}`;q('am').textContent=s.chat_model_name||'None';activeProfileId=String(s.chat_profile_id||'');if(s.active_mission_image?.attached&&!pendingMissionImage){let meta=s.active_mission_image;activeMissionImage={...missionImageMetadata({name:meta.filename,type:meta.mime,size:meta.size_bytes,width:meta.width,height:meta.height,sha256:meta.sha256}),preview_url:activeMissionImage?.sha256===meta.sha256?(activeMissionImage.preview_url||''):''};renderMissionImage()}else if(!s.active_mission_image?.attached&&!pendingMissionImage){activeMissionImage=null;renderMissionImage()}q('ap').textContent=s.active_professor_name||'Agent Fox';q('mtitle').textContent=s.active_professor_name||'Agent Fox';q('apro').textContent=s.active_project||'None';q('rt').textContent=s.chat_engine_state||(s.chat_online?'RUNNING':'STOPPED');q('msrc').textContent=s.chat_online?(s.chat_model_source_label||'LOCAL'):'NONE';q('nuse').textContent=s.chat_network_use||'NONE';q('cpu').textContent=s.cpu_percent!==null?`${s.cpu_percent}%`:'n/a';q('ram').textContent=s.ram_used_gb!==null?`${s.ram_used_gb}/${s.ram_total_gb} GB (${s.ram_percent}%)`:'n/a';q('ramm').style.width=s.ram_percent!==null?`${s.ram_percent}%`:'0%';q('quick').innerHTML=`<span class=\"pill ${s.engine_found?'ok':'bad'}\">Engine ${s.engine_found?'Found':'Missing'}</span><br><span class=\"pill ${s.chat_online?'ok':'warn'}\">Chat ${s.chat_online?'Running':'Stopped'}</span><br><span class=\"pill ${s.comfy_online?'ok':'warn'}\">ComfyUI ${s.comfy_online?'Running':'Stopped'}</span>`}"
+      },
+      {
+        "line": 10386,
+        "text": "            os.startfile(str(p)); timeline(p.name,'Project folder open requested'); receipt=make_tool_receipt('shell.open_project','requested',details={'path':str(p)},actor='operator'); self.js({'ok':True,'message':f'Open request sent for {p.name}; window state is not verified.','receipt':receipt,'claim_state':'requested'}); return"
+      },
+      {
+        "line": 10396,
+        "text": "            os.startfile(str(p));"
+      },
+      {
+        "line": 10408,
+        "text": "        if path=='/api/launch/comfy':"
+      },
+      {
+        "line": 10409,
+        "text": "            if not COMFY_MAIN.exists(): self.js({'ok':False,'message':'ComfyUI main.py not found.'}); return"
+      },
+      {
+        "line": 10410,
+        "text": "            if check('http://127.0.0.1:8188'):"
+      },
+      {
+        "line": 10411,
+        "text": "                receipt=make_tool_receipt('comfy.start','verified',checks=[{'id':'health_endpoint','ok':True,'message':'ComfyUI endpoint responded.'}],actor='operator'); self.js({'ok':True,'message':'VERIFIED: ComfyUI is already online.','receipt':receipt,'claim_state':'verified'}); return"
+      },
+      {
+        "line": 10412,
+        "text": "            proc=launch(pycmd()+[str(COMFY_MAIN),'--cpu'],COMFY); timeline(active_project,'ComfyUI launch requested') if active_project else None; receipt=make_tool_receipt('comfy.start','requested',details={'pid':getattr(proc,'pid',None)},actor='operator'); self.js({'ok':True,'message':'ComfyUI launch requested; online state is not yet verified.','receipt':receipt,'claim_state':'requested'}); return"
+      },
+      {
+        "line": 10413,
+        "text": "        if path=='/api/open-url/comfy': openurl('http://127.0.0.1:8188'); receipt=make_tool_receipt('browser.open_url','requested',details={'target':'comfy'},actor='operator'); self.js({'ok':True,'message':'Browser open request sent for ComfyUI; tab state is not verified.','receipt':receipt,'claim_state':'requested'}); return"
+      },
+      {
+        "line": 10418,
+        "text": "            f.mkdir(parents=True,exist_ok=True); os.startfile(str(f)); receipt=make_tool_receipt('shell.open_folder','requested',details={'path':str(f)},actor='operator'); self.js({'ok':True,'message':f'Folder open request sent for {f}; Explorer state is not verified.','receipt':receipt,'claim_state':'requested'}); return"
+      },
+      {
+        "line": 10513,
+        "text": "        if path=='/api/extensions/inventory/launch': self.js(launch_extension_inventory_item(d)); return"
+      },
+      {
+        "line": 11386,
+        "text": "EXTENSION_INVENTORY_SAFE_FLEET_LAUNCH={"
+      },
+      {
+        "line": 11603,
+        "text": "        if app_id=='comfyui' and exists:"
+      },
+      {
+        "line": 11604,
+        "text": "            actions['launch']=True"
+      },
+      {
+        "line": 11605,
+        "text": "            actions['launch_label']='Start ComfyUI'"
+      },
+      {
+        "line": 11673,
+        "text": "        if item_id in EXTENSION_INVENTORY_SAFE_FLEET_LAUNCH and details.get('exists'):"
+      },
+      {
+        "line": 11674,
+        "text": "            actions['launch']=True"
+      },
+      {
+        "line": 11675,
+        "text": "            actions['launch_label']='Launch'"
+      },
+      {
+        "line": 11785,
+        "text": "        ('Creative Checkpoint',ROOT/'ComfyUI'/'models'/'checkpoints'),"
+      },
+      {
+        "line": 11786,
+        "text": "        ('Creative LoRA',ROOT/'ComfyUI'/'models'/'loras'),"
+      },
+      {
+        "line": 11787,
+        "text": "        ('Creative VAE',ROOT/'ComfyUI'/'models'/'vae'),"
+      },
+      {
+        "line": 11948,
+        "text": "            'launch':'operator initiated; backend item allowlist only',"
+      },
+      {
+        "line": 11990,
+        "text": "    os.startfile(str(folder))"
+      },
+      {
+        "line": 12025,
+        "text": "def launch_extension_inventory_item(d):"
+      },
+      {
+        "line": 12028,
+        "text": "        return {'ok':False,'message':'Inventory item not found. No process was launched.'}"
+      },
+      {
+        "line": 12030,
+        "text": "    if item_id=='app:comfyui':"
+      },
+      {
+        "line": 12031,
+        "text": "        if not COMFY_MAIN.is_file():"
+      },
+      {
+        "line": 12032,
+        "text": "            return {'ok':False,'message':'ComfyUI main.py is missing. No process was launched.'}"
+      },
+      {
+        "line": 12033,
+        "text": "        if check('http://127.0.0.1:8188/system_stats'):"
+      },
+      {
+        "line": 12035,
+        "text": "                'comfy.start','verified',"
+      },
+      {
+        "line": 12036,
+        "text": "                checks=[{'id':'health_endpoint','ok':True,'message':'ComfyUI endpoint responded.'}],"
+      },
+      {
+        "line": 12039,
+        "text": "            return {'ok':True,'message':'VERIFIED: ComfyUI is already online.','receipt':receipt,'claim_state':'verified'}"
+      },
+      {
+        "line": 12040,
+        "text": "        proc=launch(pycmd()+[str(COMFY_MAIN),'--cpu'],COMFY)"
+      },
+      {
+        "line": 12042,
+        "text": "            'comfy.start','requested',"
+      },
+      {
+        "line": 12046,
+        "text": "        return {'ok':True,'message':'ComfyUI launch requested; online state is not yet verified.','receipt':receipt,'claim_state':'requested'}"
+      },
+      {
+        "line": 12048,
+        "text": "    allowed_names=EXTENSION_INVENTORY_SAFE_FLEET_LAUNCH.get(item_id)"
+      },
+      {
+        "line": 12051,
+        "text": "        return {'ok':False,'message':'This inventory item is not in the Phase 1 launch allowlist.'}"
+      },
+      {
+        "line": 12053,
+        "text": "        return {'ok':False,'message':'Executable identity does not match the Phase 1 launch allowlist.'}"
+      },
+      {
+        "line": 12056,
+        "text": "    proc=subprocess.Popen([str(path)],cwd=str(path.parent))"
+      },
+      {
+        "line": 12058,
+        "text": "        'extension_inventory.launch',"
+      },
+      {
+        "line": 12065,
+        "text": "        'message':f\"Launch requested for {item['name']}; application state is not yet verified.\","
+      },
+      {
+        "line": 12077,
+        "text": "_launch_extension_inventory_item_phase1=launch_extension_inventory_item"
+      },
+      {
+        "line": 12315,
+        "text": "        warnings.append('Disabling does not terminate an already running process. It blocks Extension Manager launch eligibility and records the state override for state-aware components.')"
+      },
+      {
+        "line": 12615,
+        "text": "def launch_extension_inventory_item(d):"
+      },
+      {
+        "line": 12621,
+        "text": "            'message':f\"{item.get('name') or 'Extension'} is disabled by an approved extension-state override. Restore or enable it through the guarded preview before launch.\","
+      },
+      {
+        "line": 12625,
+        "text": "    return _launch_extension_inventory_item_phase1(d)"
+      },
+      {
+        "line": 13680,
+        "text": "    required_imports=['json','os','sys','pathlib','http.server','urllib.parse','datetime','subprocess','py_compile','shutil','importlib.util']"
+      },
+      {
+        "line": 13730,
+        "text": "        if any(x in n for x in ['start','run','launch','foxai','kayock','build']):"
+      },
+      {
+        "line": 13732,
+        "text": "    add_check('Key launcher/build BAT files',bool(key_bats),f\"{len(key_bats)} key BAT/CMD launcher or build file(s) found.\",{'files':[str(p) for p in key_bats],'all_root_bats':[str(p) for p in bat_files]},'paths',optional=True)"
+      },
+      {
+        "line": 13736,
+        "text": "    optional=['NovelForge','Prompts','Extensions','Modules','Models','models','ComfyUI','Library','IronLibrary']"
+      },
+      {
+        "line": 13887,
+        "text": "    # Portable launcher."
+      },
+      {
+        "line": 13888,
+        "text": "    launcher=ROOT/'START_FOXAI_WEB_PORTABLE.bat'"
+      },
+      {
+        "line": 13889,
+        "text": "    launcher_ok=launcher.exists()"
+      },
+      {
+        "line": 13890,
+        "text": "    add_check('Portable Web Launcher',launcher_ok,'START_FOXAI_WEB_PORTABLE.bat found.' if launcher_ok else 'Portable web launcher missing.',{"
+      },
+      {
+        "line": 13891,
+        "text": "        'path':str(launcher)"
+      },
+      {
+        "line": 13911,
+        "text": "    required_imports=['json','os','sys','pathlib','http.server','urllib.parse','datetime','subprocess','py_compile','shutil','importlib.util']"
+      },
+      {
+        "line": 14014,
+        "text": "    add_check('Root Launcher Clarity',len(suspicious)==0,f\"{len(bat_files)} BAT/CMD file(s) in root; {len(suspicious)} suspicious filename(s).\",{"
+      },
+      {
+        "line": 14493,
+        "text": "            ROOT/'LegacyLaunchers',"
+      },
+      {
+        "line": 14504,
+        "text": "    elif action_id=='move_suspicious_root_launchers':"
+      },
+      {
+        "line": 14510,
+        "text": "                add('moved_source_absent',not src.exists(),'Original suspicious launcher is no longer at root.' if not src.exists() else 'Original suspicious launcher still exists.',str(src))"
+      },
+      {
+        "line": 14511,
+        "text": "                add('moved_destination_exists',dst.exists() and dst.is_file(),'Moved launcher exists in LegacyLaunchers.' if dst.exists() and dst.is_file() else 'Moved launcher destination missing.',str(dst))"
+      },
+      {
+        "line": 14513,
+        "text": "            add('no_suspicious_launchers_remaining',not any(p.name.lower().startswith('@echo off') for p in list(ROOT.glob('*.bat'))+list(ROOT.glob('*.cmd'))),'No suspicious root launcher filenames remain.')"
+      },
+      {
+        "line": 14554,
+        "text": "        ROOT/'LegacyLaunchers',"
+      },
+      {
+        "line": 14611,
+        "text": "        'move_suspicious_root_launchers',"
+      },
+      {
+        "line": 14612,
+        "text": "        'Move Suspicious Root Launchers',"
+      },
+      {
+        "line": 14613,
+        "text": "        'Moves suspicious root BAT/CMD files into LegacyLaunchers with safer names. No deletion.',"
+      },
+      {
+        "line": 14616,
+        "text": "        f\"{len(suspicious)} suspicious launcher(s) found.\" if suspicious else 'No suspicious root launcher filenames found.',"
+      },
+      {
+        "line": 14765,
+        "text": "            ROOT/'LegacyLaunchers',"
+      },
+      {
+        "line": 14844,
+        "text": "    elif action_id=='move_suspicious_root_launchers':"
+      },
+      {
+        "line": 14845,
+        "text": "        legacy=ROOT/'LegacyLaunchers'"
+      },
+      {
+        "line": 14853,
+        "text": "                    dest=legacy/f'OLD_SUSPICIOUS_LAUNCHER_{stamp}{p.suffix.lower()}'"
+      },
+      {
+        "line": 14858,
+        "text": "        result={'ok':len(errors)==0,'message':f\"Moved {len(moved)} suspicious launcher(s); {len(errors)} error(s).\",'moved':moved,'errors':errors,'action_id':action_id}"
+      },
+      {
+        "line": 18397,
+        "text": "        ROOT/'LegacyLaunchers',"
+      },
+      {
+        "line": 18450,
+        "text": "        'move_suspicious_root_launchers',"
+      },
+      {
+        "line": 18451,
+        "text": "        'Move Suspicious Root Launchers',"
+      },
+      {
+        "line": 18452,
+        "text": "        'Moves suspicious root BAT/CMD files into LegacyLaunchers with safer names. No deletion.',"
+      },
+      {
+        "line": 18455,
+        "text": "        f\"{len(suspicious)} suspicious launcher(s) found.\" if suspicious else 'No suspicious root launcher filenames found.',"
+      },
+      {
+        "line": 23082,
+        "text": "                'goal':'Launch Anthony’s hunt for his turned ex.',"
+      },
+      {
+        "line": 29731,
+        "text": "            {'name':'Creative Studio','status':'READY' if COMFY_MAIN.exists() else 'STAGED','officer':'Image Forge'},"
+      },
+      {
+        "line": 31567,
+        "text": "        'comfy_exists':COMFY_MAIN.exists(),"
+      },
+      {
+        "line": 31568,
+        "text": "        'comfy_online':check('http://127.0.0.1:8188'),"
+      }
+    ],
+    "encoding": "utf-8-sig"
+  }
+]

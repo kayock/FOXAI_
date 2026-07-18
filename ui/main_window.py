@@ -2,6 +2,7 @@ import time
 import threading
 import configparser
 import json
+import re
 import tkinter as tk
 from tkinter import messagebox
 from pathlib import Path
@@ -30,6 +31,7 @@ from core.server import LlamaServer
 from core import diagnostics
 from core.chat_resilience import ChatResilience, ChatTimeoutError
 from core.application_registry import ApplicationRegistry
+from core.comfy_ops_monitor import comfy_operations_snapshot
 from core.security_containment import (
     new_airlock_correlation_id,
     record_trip_sentry_test_event,
@@ -71,6 +73,15 @@ class FoxAIApp(ctk.CTk):
         self.mission_animation_step = 0
         self._closing = False
         self._mission_context_menus = []
+        self.comfy_ops_window = None
+        self.comfy_ops_refresh_job = None
+        self.red_canvas_progress_job = None
+        self.red_canvas_active = False
+        self.red_canvas_progress_percent = 0
+        self.red_canvas_progress_text = ""
+        self.red_canvas_log_path = None
+        self.red_canvas_log_offset = 0
+        self.red_canvas_log_buffer = ""
         self.specialists = {
             "chat": ChatAgent(self),
             "red_canvas": RedCanvasAgent(self),
@@ -294,6 +305,14 @@ class FoxAIApp(ctk.CTk):
         self.red_canvas_button = ctk.CTkButton(self.sidebar, text="◈ RED CANVAS", command=self.show_red_canvas, width=230)
         self.red_canvas_button.pack(pady=4)
 
+        self.comfy_ops_button = ctk.CTkButton(
+            self.sidebar,
+            text="▸ COMFYUI OPERATIONS",
+            command=self.show_comfy_operations,
+            width=230,
+        )
+        self.comfy_ops_button.pack(pady=4)
+
         self.arsenal_button = ctk.CTkButton(self.sidebar, text="⚙ ARSENAL", command=self.show_arsenal, width=230)
         self.arsenal_button.pack(pady=4)
 
@@ -307,6 +326,195 @@ class FoxAIApp(ctk.CTk):
 
         self.save_button = ctk.CTkButton(self.sidebar, text="SAVE MISSION", command=self.save_mission, width=230)
         self.save_button.pack(pady=4)
+
+    def show_comfy_operations(self):
+        """Open the lightweight read-only ComfyUI operations viewer."""
+        if self.comfy_ops_window is not None:
+            try:
+                if self.comfy_ops_window.winfo_exists():
+                    self.comfy_ops_window.deiconify()
+                    self.comfy_ops_window.lift()
+                    self.comfy_ops_window.focus_force()
+                    return
+            except Exception:
+                pass
+
+        window = ctk.CTkToplevel(self)
+        self.comfy_ops_window = window
+        window.title("FOXAI // ComfyUI Operations")
+        window.geometry("920x560")
+        window.minsize(700, 420)
+        window.protocol("WM_DELETE_WINDOW", self.hide_comfy_operations)
+
+        header = ctk.CTkFrame(window)
+        header.pack(fill="x", padx=12, pady=(12, 6))
+
+        ctk.CTkLabel(
+            header,
+            text="COMFYUI OPERATIONS",
+            font=("Consolas", 20, "bold"),
+            text_color="#42ff9e",
+        ).pack(side="left", padx=12, pady=10)
+
+        self.comfy_ops_status_var = ctk.StringVar(value="CHECKING")
+        ctk.CTkLabel(
+            header,
+            textvariable=self.comfy_ops_status_var,
+            font=("Consolas", 14, "bold"),
+            text_color="#42ff9e",
+        ).pack(side="right", padx=12, pady=10)
+
+        self.comfy_ops_progress = ctk.CTkProgressBar(window)
+        self.comfy_ops_progress.pack(fill="x", padx=18, pady=(2, 8))
+        self.comfy_ops_progress.set(0)
+
+        details = ctk.CTkFrame(window)
+        details.pack(fill="x", padx=12, pady=(0, 6))
+        self.comfy_ops_details_var = ctk.StringVar(
+            value="Endpoint: 127.0.0.1:8188"
+        )
+        ctk.CTkLabel(
+            details,
+            textvariable=self.comfy_ops_details_var,
+            justify="left",
+            anchor="w",
+            font=("Consolas", 12),
+        ).pack(fill="x", padx=12, pady=8)
+
+        self.comfy_ops_text = ctk.CTkTextbox(
+            window,
+            wrap="none",
+            font=("Consolas", 12),
+            text_color="#42ff9e",
+            fg_color="#030805",
+        )
+        self.comfy_ops_text.pack(
+            fill="both",
+            expand=True,
+            padx=12,
+            pady=(0, 8),
+        )
+        self.comfy_ops_text.insert(
+            "end",
+            "Waiting for ComfyUI output. This panel is read-only.\n",
+        )
+        self.comfy_ops_text.configure(state="disabled")
+
+        controls = ctk.CTkFrame(window)
+        controls.pack(fill="x", padx=12, pady=(0, 12))
+        ctk.CTkButton(
+            controls,
+            text="REFRESH",
+            width=120,
+            command=self._refresh_comfy_operations,
+        ).pack(side="left", padx=8, pady=8)
+        ctk.CTkButton(
+            controls,
+            text="OPEN COMFYUI",
+            width=150,
+            command=lambda: __import__("webbrowser").open(
+                "http://127.0.0.1:8188"
+            ),
+        ).pack(side="left", padx=8, pady=8)
+        ctk.CTkButton(
+            controls,
+            text="HIDE",
+            width=100,
+            command=self.hide_comfy_operations,
+        ).pack(side="right", padx=8, pady=8)
+
+        self._refresh_comfy_operations()
+
+    def hide_comfy_operations(self):
+        if self.comfy_ops_refresh_job is not None:
+            try:
+                self.after_cancel(self.comfy_ops_refresh_job)
+            except Exception:
+                pass
+            self.comfy_ops_refresh_job = None
+
+        if self.comfy_ops_window is not None:
+            try:
+                if self.comfy_ops_window.winfo_exists():
+                    self.comfy_ops_window.withdraw()
+            except Exception:
+                self.comfy_ops_window = None
+
+    def _refresh_comfy_operations(self):
+        if self._closing:
+            return
+
+        window = self.comfy_ops_window
+        try:
+            if (
+                window is None
+                or not window.winfo_exists()
+                or not window.winfo_viewable()
+            ):
+                return
+        except Exception:
+            return
+
+        try:
+            snapshot = comfy_operations_snapshot(
+                Path(__file__).resolve().parents[1],
+                line_limit=140,
+            )
+            state = str(snapshot.get("state") or "UNKNOWN")
+            progress = snapshot.get("progress_percent")
+            online = bool(snapshot.get("online"))
+            log_path = str(
+                snapshot.get("log_path") or "No live log located"
+            )
+            updated = str(snapshot.get("log_modified") or "—")
+            tail = str(snapshot.get("tail") or "")
+            message = str(snapshot.get("message") or "")
+
+            self.comfy_ops_status_var.set(
+                f"{state}"
+                + (
+                    f"  {progress}%"
+                    if isinstance(progress, int)
+                    else ""
+                )
+            )
+            self.comfy_ops_progress.set(
+                max(0.0, min(1.0, (progress or 0) / 100.0))
+            )
+            self.comfy_ops_details_var.set(
+                f"Endpoint: 127.0.0.1:8188  |  "
+                f"Health: {'ONLINE' if online else 'OFFLINE'}\n"
+                f"Log: {log_path}\nUpdated: {updated}"
+            )
+
+            display = (
+                tail
+                or message
+                or "No ComfyUI console output has been captured yet."
+            )
+            self.comfy_ops_text.configure(state="normal")
+            self.comfy_ops_text.delete("1.0", "end")
+            self.comfy_ops_text.insert("end", display)
+            self.comfy_ops_text.see("end")
+            self.comfy_ops_text.configure(state="disabled")
+        except Exception as exc:
+            try:
+                self.comfy_ops_status_var.set("MONITOR ERROR")
+                self.comfy_ops_text.configure(state="normal")
+                self.comfy_ops_text.delete("1.0", "end")
+                self.comfy_ops_text.insert(
+                    "end",
+                    f"ComfyUI monitor error: "
+                    f"{type(exc).__name__}: {exc}",
+                )
+                self.comfy_ops_text.configure(state="disabled")
+            except Exception:
+                pass
+
+        self.comfy_ops_refresh_job = self.after(
+            750,
+            self._refresh_comfy_operations,
+        )
 
     def clear_content(self):
         for widget in self.content.winfo_children():
@@ -1104,12 +1312,25 @@ class FoxAIApp(ctk.CTk):
         self.apply_workshop_state()
 
         comfy_status = "ONLINE" if is_comfy_running() else "OFFLINE"
-        self.canvas_status = ctk.CTkLabel(preview, text=f"COMFYUI STATUS: {comfy_status}\n\nReady for Operation Red Bridge.", font=("Consolas", 14))
+        initial_canvas_text = (
+            self.red_canvas_progress_text
+            if self.red_canvas_active and self.red_canvas_progress_text
+            else f"COMFYUI STATUS: {comfy_status}\n\nReady for Operation Red Bridge."
+        )
+        self.canvas_status = ctk.CTkLabel(
+            preview,
+            text=initial_canvas_text,
+            font=("Consolas", 14),
+        )
         self.canvas_status.pack(pady=(20, 10))
 
         self.canvas_progress = ctk.CTkProgressBar(preview, width=460)
         self.canvas_progress.pack(pady=10)
-        self.canvas_progress.set(0)
+        self.canvas_progress.set(
+            self.red_canvas_progress_percent / 100.0
+            if self.red_canvas_active
+            else 0
+        )
 
         self.preview_area = preview
         ctk.CTkLabel(preview, text="IMAGE PREVIEW", font=("Consolas", 18, "bold")).pack(pady=(20, 10))
@@ -1176,13 +1397,176 @@ class FoxAIApp(ctk.CTk):
 
         save_prompt(prompt, negative, checkpoint or "workflow default", size)
         self.status.set("RENDERING")
-        self.canvas_status.configure(text="MISSION ACCEPTED\n\nRendering through ComfyUI...\nCPU mode may take a while.")
-        self.canvas_progress.set(0.15)
+        self.canvas_status.configure(
+            text=(
+                "MISSION ACCEPTED\n\n"
+                "Sending prompt to ComfyUI...\n"
+                "Waiting for real generation progress."
+            )
+        )
+        self.canvas_progress.set(0)
+        self._start_red_canvas_progress_tracking()
         threading.Thread(
             target=self._generate_red_canvas_thread,
             args=(prompt, negative, checkpoint, width, height, seed),
             daemon=True
         ).start()
+
+    def _cancel_red_canvas_progress_tracking(self):
+        if self.red_canvas_progress_job is not None:
+            try:
+                self.after_cancel(self.red_canvas_progress_job)
+            except Exception:
+                pass
+            self.red_canvas_progress_job = None
+
+    def _start_red_canvas_progress_tracking(self):
+        """Track only console output appended after this generation starts."""
+        self._cancel_red_canvas_progress_tracking()
+        self.red_canvas_active = True
+        self.red_canvas_progress_percent = 0
+        self.red_canvas_progress_text = (
+            "MISSION ACCEPTED\n\n"
+            "Sending prompt to ComfyUI...\n"
+            "Waiting for real generation progress."
+        )
+        self.red_canvas_log_path = None
+        self.red_canvas_log_offset = 0
+        self.red_canvas_log_buffer = ""
+
+        try:
+            snapshot = comfy_operations_snapshot(
+                Path(__file__).resolve().parents[1],
+                line_limit=20,
+            )
+            log_value = snapshot.get("log_path")
+            if log_value:
+                log_path = Path(str(log_value))
+                if log_path.is_file():
+                    self.red_canvas_log_path = log_path
+                    self.red_canvas_log_offset = log_path.stat().st_size
+        except Exception:
+            pass
+
+        self.red_canvas_progress_job = self.after(
+            250,
+            self._poll_red_canvas_progress,
+        )
+
+    def _update_red_canvas_progress_widgets(self):
+        try:
+            if (
+                hasattr(self, "canvas_progress")
+                and self.canvas_progress.winfo_exists()
+            ):
+                self.canvas_progress.set(
+                    max(
+                        0.0,
+                        min(
+                            1.0,
+                            self.red_canvas_progress_percent / 100.0,
+                        ),
+                    )
+                )
+            if (
+                hasattr(self, "canvas_status")
+                and self.canvas_status.winfo_exists()
+                and self.red_canvas_progress_text
+            ):
+                self.canvas_status.configure(
+                    text=self.red_canvas_progress_text
+                )
+        except Exception:
+            pass
+
+    def _poll_red_canvas_progress(self):
+        if self._closing or not self.red_canvas_active:
+            self.red_canvas_progress_job = None
+            return
+
+        try:
+            snapshot = comfy_operations_snapshot(
+                Path(__file__).resolve().parents[1],
+                line_limit=20,
+            )
+            log_value = snapshot.get("log_path")
+            log_path = Path(str(log_value)) if log_value else None
+
+            if log_path is not None and log_path.is_file():
+                if (
+                    self.red_canvas_log_path is None
+                    or log_path != self.red_canvas_log_path
+                ):
+                    self.red_canvas_log_path = log_path
+                    self.red_canvas_log_offset = 0
+                    self.red_canvas_log_buffer = ""
+
+                size = log_path.stat().st_size
+                if size < self.red_canvas_log_offset:
+                    self.red_canvas_log_offset = 0
+                    self.red_canvas_log_buffer = ""
+
+                if size > self.red_canvas_log_offset:
+                    with log_path.open("rb") as handle:
+                        handle.seek(self.red_canvas_log_offset)
+                        raw = handle.read(
+                            min(
+                                256 * 1024,
+                                size - self.red_canvas_log_offset,
+                            )
+                        )
+                    self.red_canvas_log_offset += len(raw)
+                    chunk = raw.decode(
+                        "utf-8",
+                        errors="replace",
+                    ).replace("\r", "\n")
+                    self.red_canvas_log_buffer = (
+                        self.red_canvas_log_buffer + chunk
+                    )[-4096:]
+
+                    # ComfyUI/tqdm lines look like:
+                    # 75%|######5 | 15/20 [02:43<00:55, 11.12s/it]
+                    matches = re.findall(
+                        r"(?<!\d)(100|[1-9]?\d)%\|"
+                        r"[^\r\n]*(?:\d+/\d+)",
+                        self.red_canvas_log_buffer,
+                    )
+                    if matches:
+                        actual = max(0, min(100, int(matches[-1])))
+                        self.red_canvas_progress_percent = actual
+                        self.red_canvas_progress_text = (
+                            "MISSION IN PROGRESS\n\n"
+                            f"ComfyUI generation: {actual}%\n"
+                            "Progress is coming from the live console."
+                        )
+                    else:
+                        lower = self.red_canvas_log_buffer.casefold()
+                        if "got prompt" in lower:
+                            self.red_canvas_progress_text = (
+                                "PROMPT RECEIVED\n\n"
+                                "ComfyUI accepted the request.\n"
+                                "Preparing the image model..."
+                            )
+                        if (
+                            "requested to load" in lower
+                            or "model_type" in lower
+                            or "loaded completely" in lower
+                        ):
+                            self.red_canvas_progress_text = (
+                                "LOADING IMAGE MODEL\n\n"
+                                "ComfyUI is preparing SDXL on the CPU.\n"
+                                "The percentage will appear when sampling starts."
+                            )
+
+            self._update_red_canvas_progress_widgets()
+        except Exception:
+            # Progress display must never interfere with generation.
+            pass
+
+        self.red_canvas_progress_job = self.after(
+            350,
+            self._poll_red_canvas_progress,
+        )
 
     def _generate_red_canvas_thread(self, prompt, negative, checkpoint, width, height, seed):
         try:
@@ -1196,6 +1580,12 @@ class FoxAIApp(ctk.CTk):
             self.after(0, self._red_canvas_error, str(e))
 
     def _red_canvas_done(self, image_path):
+        self._cancel_red_canvas_progress_tracking()
+        self.red_canvas_active = False
+        self.red_canvas_progress_percent = 100
+        self.red_canvas_progress_text = (
+            f"MISSION COMPLETE\n\nImage saved:\n{image_path}"
+        )
         self.stop_mission_animation("ONLINE")
         self.complete_workshop_mission("ONLINE")
         self.mission_status(f"Red Canvas mission complete.\n\nImage saved:\n{image_path}")
@@ -1206,6 +1596,11 @@ class FoxAIApp(ctk.CTk):
             self.canvas_status.configure(text=f"MISSION COMPLETE\n\nImage saved:\n{image_path}")
 
     def _red_canvas_error(self, error_text):
+        self._cancel_red_canvas_progress_tracking()
+        self.red_canvas_active = False
+        self.red_canvas_progress_text = (
+            f"RED BRIDGE ERROR:\n{error_text}"
+        )
         self.stop_mission_animation("ERROR")
         self.fail_workshop_mission(error_text)
         self.mission_status(f"Red Canvas error.\n\n{error_text}")
@@ -1995,6 +2390,13 @@ class FoxAIApp(ctk.CTk):
 
     def on_close(self):
         self._closing = True
+        if self.comfy_ops_refresh_job is not None:
+            try:
+                self.after_cancel(self.comfy_ops_refresh_job)
+            except Exception:
+                pass
+            self.comfy_ops_refresh_job = None
+        self._cancel_red_canvas_progress_tracking()
         self.stop_chat_heartbeat()
         self.stop_mission_animation("OFFLINE")
         self.server.release()

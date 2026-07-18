@@ -1,0 +1,40 @@
+{
+  "package": "FOXAI_USBC3E_EXACT_ISOLATED_INSTALL",
+  "revision": "R2",
+  "reviewed_failed_run": {
+    "classification": "C3E_BLOCKED_FAIL_CLOSED_STAGING_PRESERVED",
+    "elapsed_seconds": 213.125,
+    "exact_packages_installed": 96,
+    "pip_returncode": 0,
+    "network_access": false,
+    "staging_target": "Runtime\\ComfyUI\\.C3E_site-packages_staging_20260718T020221Z",
+    "staging_preserved": true,
+    "final_target_committed": false,
+    "protected_boundaries_unchanged": true,
+    "evidence_file_count": 24,
+    "evidence_integrity_verified": true
+  },
+  "root_cause": {
+    "type": "overly_strict_PE_inventory_policy",
+    "reviewed_non_current_resources": {
+      "PyOpenGL_legacy_x86_DLLs": 6,
+      "Setuptools_x86_ARM64_launcher_templates": 6
+    },
+    "runtime_or_wheel_corruption": false
+  },
+  "repair": {
+    "resume_without_reinstall": true,
+    "resume_requires_exact_prior_evidence": true,
+    "allowlist_is_exact_path_and_machine": true,
+    "unreviewed_non_AMD64_still_fails": true,
+    "all_pyd_extensions_must_be_AMD64": true,
+    "pyopengl_isolated_import_required": true,
+    "batch_window_pauses_on_exit": true,
+    "install_manifest_changed": false,
+    "wheel_hashes_changed": false,
+    "installer_changed": false,
+    "network_policy_changed": false,
+    "launcher_policy_changed": false,
+    "final_target_changed": false
+  }
+}

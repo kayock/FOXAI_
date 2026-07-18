@@ -1,0 +1,110 @@
+--- live/System/PortableRuntime/COMFYUI_NORMAL_POLICY.json
++++ candidate/System/PortableRuntime/COMFYUI_NORMAL_POLICY.json
+@@ -1,7 +1,52 @@
+ {
+-  "policy_id": "FOXAI_COMFYUI_SAFE_NORMAL_CPU_V1",
+-  "status": "recommended_for_C3J_operator_approval",
+-  "default_profile": "Safe Normal CPU",
++  "policy_id": "FOXAI_COMFYUI_DUAL_CPU_PROFILE_V1",
++  "status": "approved_for_C4D_no_launch_apply",
++  "default_profile_id": "safe-normal-cpu",
++  "default_profile_name": "Safe Normal CPU",
++  "profiles": [
++    {
++      "id": "safe-normal-cpu",
++      "display_name": "Safe Normal CPU",
++      "default": true,
++      "arguments": [
++        "--cpu",
++        "--disable-all-custom-nodes",
++        "--listen",
++        "127.0.0.1",
++        "--port",
++        "8188"
++      ],
++      "approved_nodes": [],
++      "selection": "implicit_or_explicit"
++    },
++    {
++      "id": "approved-custom-nodes-cpu",
++      "display_name": "Approved Custom Nodes CPU",
++      "default": false,
++      "arguments": [
++        "--cpu",
++        "--disable-all-custom-nodes",
++        "--whitelist-custom-nodes",
++        "websocket_image_save.py",
++        "--listen",
++        "127.0.0.1",
++        "--port",
++        "8188"
++      ],
++      "approved_nodes": [
++        {
++          "relative_path": "ComfyUI/custom_nodes/websocket_image_save.py",
++          "filename": "websocket_image_save.py",
++          "display_name": "Save Image (Websocket)",
++          "class_key": "SaveImageWebsocket",
++          "sha256": "0b66b69eb7dab007d55bf63c5bd0f1343dcfbc2f5a350983f906ba2cd3dd5d23",
++          "size_bytes": 1348,
++          "audit_state": "C4B_VERIFIED"
++        }
++      ],
++      "selection": "explicit_only_non_persistent"
++    }
++  ],
+   "runtime": {
+     "python": "Runtime/Desktop/python/python.exe",
+     "activator": "System/PortableRuntime/launch_comfyui_isolated.py",
+@@ -30,7 +75,8 @@
+     ],
+     "duplicate_start": "Return already-running only when state, PID identity, command fingerprint, and localhost health all agree.",
+     "unknown_port_owner": "Refuse to start or stop and show a clear conflict report.",
+-    "stale_state": "Preserve the stale state and logs, mark them stale, and require exact PID/creation-time validation before replacement."
++    "stale_state": "Preserve the stale state and logs, mark them stale, and require exact PID/creation-time validation before replacement.",
++    "profile_switch": "Refuse while a different profile is HEALTHY; operator must stop first."
+   },
+   "browser": {
+     "direct_user_start_default": "Open the default browser only after verified health.",
+@@ -39,10 +85,18 @@
+     "no_browser_option": true
+   },
+   "custom_nodes": {
+-    "default": "disabled",
+-    "reason": "C3H verified only the no-custom-node path.",
+-    "enablement": "Requires a separate read-only inventory, compatibility audit, and operator-approved allowlist gate.",
++    "safe_default": "disabled",
++    "approved_profile": "exact hash-locked whitelist only",
++    "unknown_or_changed_node": "fail_closed_before_launch",
++    "post_health_recheck": true,
+     "automatic_enablement": false
++  },
++  "webui": {
++    "selector_default_each_page_load": "safe-normal-cpu",
++    "approved_profile_persisted": false,
++    "legacy_get_start_profile": "safe-normal-cpu",
++    "profile_post_route": "/api/launch/comfy/profile",
++    "open_action": "separate"
+   },
+   "stop_control": {
+     "normal": "A controller-owned supervisor requests graceful child shutdown and waits up to 15 seconds.",
+@@ -62,7 +116,13 @@
+     "directory": "Runtime/ComfyUI/state",
+     "active_state": "Runtime/ComfyUI/state/normal_instance.json",
+     "atomic_write": true,
+-    "preserve_last_failure": true
++    "preserve_last_failure": true,
++    "profile_binding": [
++      "profile_id",
++      "profile_name",
++      "command_fingerprint",
++      "approved_node_sha256"
++    ]
+   },
+   "logs": {
+     "directory": "Runtime/ComfyUI/logs/normal/<UTC-run-id>",
+@@ -89,4 +149,4 @@
+       "runtime packages"
+     ]
+   }
+-}+}

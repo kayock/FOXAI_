@@ -1,3 +1,10 @@
+# ============================================================
+# FOXAI GitHub source repository exclusions
+# Keep source, launchers, documentation, and safe templates.
+# Keep large runtimes, models, generated data, and private data local.
+# ============================================================
+
+# AI models and checkpoints
 *.gguf
 *.safetensors
 *.ckpt
@@ -5,28 +12,86 @@
 *.pth
 *.bin
 
+# Portable runtimes, package stores, and binary dependencies
+Runtime/
+Wheelhouse/
+env/
+.venv/
+venv/
+*.whl
+*.dll
+*.pyd
+*.so
+*.dylib
+*.exe
+
+# ComfyUI generated and downloaded data
 ComfyUI/models/
 ComfyUI/output/
 ComfyUI/input/
 ComfyUI/temp/
+Red Canvas/Outputs/
+CreativeStudio/output/
+CreativeStudio/outputs/
 
+# Python and JavaScript caches
 __pycache__/
 *.pyc
-.venv/
-venv/
+*.pyo
 node_modules/
+.npm/
+.cache/
 
+# Personal databases, memory, machine state, and credentials
+Vault/
+Memory/
+Data/
+*.db
+*.db-journal
+*.sqlite
+*.sqlite3
+.env
+.env.*
+secrets*.txt
+*API_KEY*
+*.pem
+*.key
+Config/FoxAI.ini
+Config/model_sources.json
+
+# Library content that should remain local
 Library/**/*.pdf
 Library/**/*.epub
 Library/**/*.mobi
 Library/**/*.azw3
 
+# Generated logs, downloads, reports, and backups
 *.log
+Logs/
+Downloads/
+.downloads/
+Backups/
+Archive/
+Reports/GitHubUploads/
+OpsBridge/outbox/
+
+# Compressed packages and generated release bundles
 *.zip
 *.7z
 *.rar
-Backups/
-Archive/
 
+# Temporary build/probe snapshots that may contain copied runtimes
+**/SOURCE_SNAPSHOTS/
+**/PREFLIGHT_OUTPUT/
+**/APPLY_OUTPUT/
+**/probe_output/
+preview_output/
+candidate/
+payload/
+
+# This installer package is local-only
+FOXAI_GITHUB_SOURCE_UPLOADER/
+
+# Operating-system files
 Thumbs.db
 Desktop.ini

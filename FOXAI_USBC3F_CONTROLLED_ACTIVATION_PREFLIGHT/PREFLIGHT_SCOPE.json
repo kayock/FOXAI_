@@ -1,0 +1,24 @@
+{
+  "stage": "USB C3F",
+  "name": "Controlled Activation and Launcher Integration Preflight",
+  "mode": "read_only_no_launch_fail_closed",
+  "allowed_writes": [
+    "FOXAI_USBC3F_CONTROLLED_ACTIVATION_PREFLIGHT/PREFLIGHT_OUTPUT/<timestamp>/**"
+  ],
+  "prohibited": [
+    "launcher edits",
+    "ComfyUI source edits",
+    "Runtime/ComfyUI/site-packages edits",
+    "package installation or uninstallation",
+    "wheel downloads",
+    "network access",
+    "port bind",
+    "subprocess launch from activation probe",
+    "FOXAI launch",
+    "WebUI launch",
+    "Desktop launch",
+    "ComfyUI launch"
+  ],
+  "expected_success_classification": "C3F_READY_FOR_C3G_CONTROLLED_INTEGRATION_APPROVAL",
+  "next_gate": "C3G controlled no-launch integration apply after fresh explicit operator approval"
+}

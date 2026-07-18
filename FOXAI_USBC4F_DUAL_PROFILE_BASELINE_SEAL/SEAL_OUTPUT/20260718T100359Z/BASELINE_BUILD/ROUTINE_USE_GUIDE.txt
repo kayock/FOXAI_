@@ -1,0 +1,30 @@
+FOXAI COMFYUI — C4 DUAL-PROFILE ROUTINE USE
+
+Known-good baseline: ComfyUI_USB_C4_DUAL_PROFILE_KNOWN_GOOD_20260718T081508Z
+
+WEBUI
+  Start FOXAI with START_FOXAI_WEB_PORTABLE.bat.
+  Safe Normal CPU is selected by default whenever the page loads.
+  Approved Custom Nodes CPU must be selected explicitly and is not remembered.
+
+SAFE DIRECT START
+  START_COMFYUI_NORMAL.bat
+
+APPROVED-NODE DIRECT START
+  START_COMFYUI_APPROVED_NODES.bat
+
+STATUS / STOP
+  STATUS_COMFYUI_NORMAL.bat
+  STOP_COMFYUI_NORMAL.bat
+
+VERIFY
+  VERIFY_COMFYUI_KNOWN_GOOD.bat
+  This performs a complete offline 39,046-file verification.
+
+APPROVED NODE
+  ComfyUI\custom_nodes\websocket_image_save.py
+  SHA-256: 0b66b69eb7dab007d55bf63c5bd0f1343dcfbc2f5a350983f906ba2cd3dd5d23
+
+SAFETY
+  CPU only; localhost only; no automatic force-kill; no automatic log deletion.
+  A changed approved-node hash fails closed and requires a new Airlock review.

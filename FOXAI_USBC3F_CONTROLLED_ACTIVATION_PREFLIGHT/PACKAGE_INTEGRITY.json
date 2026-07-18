@@ -1,0 +1,72 @@
+{
+  "package": "FOXAI_USBC3F_CONTROLLED_ACTIVATION_PREFLIGHT",
+  "revision": "C3F-R2",
+  "integrity_version": 1,
+  "file_count": 10,
+  "mode": "read_only_no_launch_fail_closed",
+  "repair_scope": "Mirror exact local ComfyUI main.py CPU argument initialization: set sys.argv, call comfy.options.enable_args_parsing(), import comfy.cli_args, and require args.cpu plus args.disable_all_custom_nodes before importing CUDA-sensitive ComfyUI modules.",
+  "reviewed_failed_run": {
+    "classification": "C3F_BLOCKED_FAIL_CLOSED",
+    "outer_exit_code": 19,
+    "probe_returncode": 17,
+    "target_reverification": "passed_exactly",
+    "root_cause": "CPU command-line parsing was never enabled before comfy.cli_args was imported, so ComfyUI retained default GPU mode and CPU-only torch raised CUDA assertions.",
+    "launcher_change": false,
+    "runtime_change": false,
+    "network_access": false,
+    "comfyui_launch": false
+  },
+  "expected_success_classification": "C3F_READY_FOR_C3G_CONTROLLED_INTEGRATION_APPROVAL",
+  "files": [
+    {
+      "path": "00_READ_ME_FIRST.txt",
+      "size_bytes": 1390,
+      "sha256": "1e6cbf60206333fee7a7387bb69707456b820aed839dd3466ea637e52c5157b9"
+    },
+    {
+      "path": "C3F_DESIGN_NOTE.md",
+      "size_bytes": 712,
+      "sha256": "f978ee86eb4645f9111b2f85ada5caa1b527591d62fcc766ae813ec71ad81758"
+    },
+    {
+      "path": "C3F_R1_REPAIR_NOTE.json",
+      "size_bytes": 1157,
+      "sha256": "3d03450d7a8207c997257db04dce739cd30eefbd31d8962d96fbd469f992d7f5"
+    },
+    {
+      "path": "C3F_R2_REPAIR_NOTE.json",
+      "size_bytes": 952,
+      "sha256": "4de04bd92e7e95e83e0a30fefbcea06ef7b2fd3548ad35ba8bc3291e8afd67eb"
+    },
+    {
+      "path": "KNOWN_VERIFIED_INPUT_STATE.json",
+      "size_bytes": 679,
+      "sha256": "f7d08c471ac8882067a6bb1fe687865eac10820c66ea9cd2eb0bc1661f2c8fe6"
+    },
+    {
+      "path": "PREFLIGHT_SCOPE.json",
+      "size_bytes": 794,
+      "sha256": "3b52b8c972789f1e9f6b114ce2aa74c8a52457904cd61565de5996bce5b6a8a0"
+    },
+    {
+      "path": "RUN_USB_C3F_PREFLIGHT.bat",
+      "size_bytes": 1498,
+      "sha256": "741485eddc19c571415afaaa7bdf9eea620aa336f28390ce1f4c23baa72ea250"
+    },
+    {
+      "path": "System/Activation/usbc3f_activation_review.py",
+      "size_bytes": 39287,
+      "sha256": "650156803bfbe004ff04d17fcb366c1b3e4b826b1363bb05f732491e4dbdc18a"
+    },
+    {
+      "path": "System/Activation/usbc3f_portable_activation_probe.py",
+      "size_bytes": 15787,
+      "sha256": "c3dd158a6da253db05fc3dab48e53f5f99bf738373ebc2dfe5a680bad01872d0"
+    },
+    {
+      "path": "VALIDATION_RESULTS.json",
+      "size_bytes": 808,
+      "sha256": "bbfedce7e92e80dbd38f54d99bcbf9496a823c2228738ddd18d49ed0db571933"
+    }
+  ]
+}

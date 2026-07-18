@@ -1,0 +1,13 @@
+{
+  "mode": "C3C_BLOCKED_FAIL_CLOSED",
+  "blocking_findings": [
+    "RuntimeError: RECORD/archive member mismatch in 009__av-18.0.0-cp311-abi3-win_amd64.whl.partial; missing=['av-18.0.0.dist-info/licenses/', 'av.libs/', 'av/', 'av/audio/', 'av/codec/', 'av/container/', 'av/filter/', 'av/sidedata/', 'av/subtitles/', 'av/video/'], extra=[]",
+    "Traceback (most recent call last):\n  File \"Z:\\FOXAI\\FOXAI_USBC3C_EXACT_WHEEL_ACQUISITION\\System\\Acquisition\\usbc3c_exact_wheel_acquisition.py\", line 1037, in main\n    structure = validate_wheel_structure(partial_path, item, packaging_api)\n  File \"Z:\\FOXAI\\FOXAI_USBC3C_EXACT_WHEEL_ACQUISITION\\System\\Acquisition\\usbc3c_exact_wheel_acquisition.py\", line 696, in validate_wheel_structure\n    raise RuntimeError(f\"RECORD/archive member mismatch in {path.name}; missing={missing}, extra={extra}\")\nRuntimeError: RECORD/archive member mismatch in 009__av-18.0.0-cp311-abi3-win_amd64.whl.partial; missing=['av-18.0.0.dist-info/licenses/', 'av.libs/', 'av/', 'av/audio/', 'av/codec/', 'av/container/', 'av/filter/', 'av/sidedata/', 'av/subtitles/', 'av/video/'], extra=[]\n"
+  ],
+  "notes": [
+    "C3C accepts only the exact externally reviewed C3B manifest.",
+    "Every accepted wheel must match exact PyPI metadata, URL, size, SHA-256, compatible tags, ZIP structure, and wheel RECORD hashes.",
+    "Accepted payloads are staged only under the C3C package and are not installed."
+  ],
+  "next_gate": "Upload UPLOAD_THIS_C3C_REVIEW.zip for failure review. Do not install or create the isolated target."
+}

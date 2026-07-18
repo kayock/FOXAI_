@@ -1,0 +1,23 @@
+{
+  "phase": "USB C3A",
+  "title": "ComfyUI Dependency Closure and Binary Compatibility Preflight",
+  "mode": "read_only_fail_closed",
+  "verified_desktop_runtime_must_not_be_modified": true,
+  "portable_python": "<FOXAI_ROOT>\\Runtime\\Desktop\\python\\python.exe",
+  "preferred_isolated_target": "<FOXAI_ROOT>\\Runtime\\ComfyUI\\site-packages",
+  "allowed_writes": [
+    "<THIS_PACKAGE>\\PREFLIGHT_OUTPUT\\<UTC_TIMESTAMP>\\*"
+  ],
+  "prohibited_actions": [
+    "install",
+    "download",
+    "dependency_copy",
+    "target_creation",
+    "launcher_change",
+    "foxai_launch",
+    "webui_launch",
+    "desktop_launch",
+    "comfyui_launch",
+    "network_access"
+  ]
+}

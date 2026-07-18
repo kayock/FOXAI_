@@ -1,0 +1,21 @@
+{
+  "verified": true,
+  "process_count": 310,
+  "blockers": [],
+  "probe": {
+    "command": [
+      "powershell.exe",
+      "-NoProfile",
+      "-NonInteractive",
+      "-ExecutionPolicy",
+      "Bypass",
+      "-Command",
+      "$ErrorActionPreference='Stop'; Get-CimInstance Win32_Process | Select-Object ProcessId,Name,ExecutablePath,CommandLine | ConvertTo-Json -Compress -Depth 3"
+    ],
+    "command_display": "powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -Command \"$ErrorActionPreference='Stop'; Get-CimInstance Win32_Process | Select-Object ProcessId,Name,ExecutablePath,CommandLine | ConvertTo-Json -Compress -Depth 3\"",
+    "started": "2026-07-17T20:51:47.426562+00:00",
+    "completed": "2026-07-17T20:51:48.503029+00:00",
+    "elapsed_seconds": 1.076,
+    "returncode": 0
+  }
+}

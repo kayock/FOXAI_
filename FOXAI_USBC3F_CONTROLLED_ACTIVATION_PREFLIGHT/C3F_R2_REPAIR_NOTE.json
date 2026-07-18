@@ -1,0 +1,16 @@
+{
+  "revision": "C3F-R2",
+  "reviewed_exit_code": 19,
+  "root_cause": "The no-launch probe set sys.argv to --cpu but imported comfy.cli_args before calling comfy.options.enable_args_parsing(), unlike the first two lines of the exact local ComfyUI main.py. CLI args therefore remained defaults and CUDA-sensitive imports asserted against the CPU-only torch build.",
+  "repair": "Call comfy.options.enable_args_parsing(), then import comfy.cli_args and require both args.cpu and args.disable_all_custom_nodes before importing CUDA-sensitive ComfyUI modules.",
+  "unchanged": [
+    "read-only",
+    "no launcher edits",
+    "no package changes",
+    "no network",
+    "no port bind",
+    "no subprocess or server start",
+    "main.py compiled but never executed"
+  ],
+  "target_state": "The committed target independently reverified at 39046 files, 1520221467 bytes, exact aggregate SHA-256, zero missing/unexpected/mismatched files, and zero symlinks."
+}

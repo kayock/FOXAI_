@@ -1,0 +1,31 @@
+{
+  "reviewed_run": "20260718T073543Z",
+  "classification": "C4E_BLOCKED_FAIL_CLOSED_STOPPED",
+  "verified_evidence_files": 20,
+  "webui_root_body_size_bytes": 794671,
+  "test_capture_limit_bytes": 200000,
+  "full_status_http_200": true,
+  "full_status_elapsed_seconds": 3.21,
+  "root_cause": "The served WebUI page was 794,671 bytes, but the C4E-R1 test helper retained only the first 200,000 bytes for contract searching. The profile selector and profile names were present, but the profile POST route text fell beyond the retained segment, creating a false failure.",
+  "evidence": {
+    "selector_position_in_retained_text": 190047,
+    "safe_profile_position_in_retained_text": 189814,
+    "approved_profile_position_in_retained_text": 189851,
+    "start_function_position_in_retained_text": 190230,
+    "profile_post_route_present_in_retained_text": false,
+    "webui_left_running": false,
+    "comfyui_left_running": false,
+    "browser_opened": false,
+    "external_network_access": false,
+    "approved_node_unchanged": true,
+    "isolated_runtime_verified_before": true,
+    "live_boundaries_verified_before": true
+  },
+  "repair_scope": {
+    "test_harness_only": true,
+    "html_capture_limit_bytes": 2000000,
+    "require_complete_body_capture": true,
+    "live_foxai_files_modified": false,
+    "live_comfyui_files_modified": false
+  }
+}

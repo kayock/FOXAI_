@@ -1,0 +1,19 @@
+{
+  "mode": "controlled_live_start_then_stop",
+  "write_scope": [
+    "FOXAI_USBC3H_CONTROLLED_FIRST_START/START_OUTPUT/<timestamp>",
+    "ComfyUI operational runtime directories if ComfyUI creates them: user, temp, output, input"
+  ],
+  "forbidden": [
+    "launcher edits",
+    "dependency target edits",
+    "package install/uninstall",
+    "custom-node loading",
+    "external listen address",
+    "leaving ComfyUI running after the gate"
+  ],
+  "startup_timeout_seconds": 300,
+  "health_stability_seconds": 10,
+  "graceful_stop_timeout_seconds": 25,
+  "expected_success_classification": "C3H_FIRST_START_VERIFIED_STOPPED_READY_FOR_C3I_REVIEW"
+}

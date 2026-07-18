@@ -1,0 +1,31 @@
+{
+  "verified": true,
+  "base": "Z:\\FOXAI\\FOXAI_USBC3G_CONTROLLED_INTEGRATION\\APPLY_OUTPUT\\20260718T034126Z",
+  "evidence_file_count": 25,
+  "classification": "C3G_INTEGRATED_VERIFIED_NO_LAUNCH_READY_FOR_C3H_APPROVAL",
+  "contract": {
+    "verified": true,
+    "next_gate": "C3H controlled first-start",
+    "requires_fresh_explicit_operator_approval": true,
+    "no_launch_performed_by_c3g": true,
+    "recommended_first_start": {
+      "python": "Runtime/Desktop/python/python.exe",
+      "activator": "System/PortableRuntime/launch_comfyui_isolated.py",
+      "arguments": [
+        "--cpu",
+        "--disable-all-custom-nodes",
+        "--listen",
+        "127.0.0.1",
+        "--port",
+        "8188"
+      ],
+      "health_endpoint": "http://127.0.0.1:8188"
+    },
+    "forbidden_before_c3h_review": [
+      "Do not launch ComfyUI",
+      "Do not modify Runtime/ComfyUI/site-packages",
+      "Do not run the legacy requirements installer",
+      "Do not edit the applied integration files"
+    ]
+  }
+}

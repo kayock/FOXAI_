@@ -1,0 +1,180 @@
+{
+  "verified": true,
+  "profile_id": "approved-custom-nodes-cpu",
+  "payload": {
+    "ok": true,
+    "state": "HEALTHY",
+    "message": "Verified controller-owned ComfyUI instance is healthy.",
+    "managed": true,
+    "active_profile_id": "approved-custom-nodes-cpu",
+    "active_profile_name": "Approved Custom Nodes CPU",
+    "default_profile_id": "safe-normal-cpu",
+    "approved_node_hash_state": "VERIFIED",
+    "approved_nodes": [
+      {
+        "relative_path": "ComfyUI/custom_nodes/websocket_image_save.py",
+        "filename": "websocket_image_save.py",
+        "display_name": "Save Image (Websocket)",
+        "class_key": "SaveImageWebsocket",
+        "size_bytes": 1348,
+        "sha256": "0b66b69eb7dab007d55bf63c5bd0f1343dcfbc2f5a350983f906ba2cd3dd5d23"
+      }
+    ],
+    "recorded_state": {
+      "approved_node_hash_state": "VERIFIED",
+      "approved_nodes": [
+        {
+          "class_key": "SaveImageWebsocket",
+          "display_name": "Save Image (Websocket)",
+          "filename": "websocket_image_save.py",
+          "relative_path": "ComfyUI/custom_nodes/websocket_image_save.py",
+          "sha256": "0b66b69eb7dab007d55bf63c5bd0f1343dcfbc2f5a350983f906ba2cd3dd5d23",
+          "size_bytes": 1348
+        }
+      ],
+      "child_create_time": 1784362162.3541496,
+      "child_pid": 37028,
+      "command": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "Z:\\FOXAI\\System\\PortableRuntime\\launch_comfyui_isolated.py",
+        "--root",
+        "Z:\\FOXAI",
+        "--",
+        "--cpu",
+        "--disable-all-custom-nodes",
+        "--whitelist-custom-nodes",
+        "websocket_image_save.py",
+        "--listen",
+        "127.0.0.1",
+        "--port",
+        "8188"
+      ],
+      "command_fingerprint": "6529f755c74b22d50328764b6d4cf37a0fdd7163516d18ca86e9e7e53c049d86",
+      "custom_nodes_disabled": true,
+      "listen": "127.0.0.1",
+      "log_dir": "Z:\\FOXAI\\Runtime\\ComfyUI\\logs\\normal\\20260718T080922Z",
+      "manager_version": "1.1.0",
+      "policy_id": "FOXAI_COMFYUI_DUAL_CPU_PROFILE_V1",
+      "port": 8188,
+      "portable_python": "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+      "profile_id": "approved-custom-nodes-cpu",
+      "profile_name": "Approved Custom Nodes CPU",
+      "retention": {
+        "automatic_deletion": false,
+        "run_count": 4,
+        "total_bytes": 22590,
+        "warning": false
+      },
+      "root": "Z:\\FOXAI",
+      "run_id": "20260718T080922Z",
+      "schema": 1,
+      "source": "webui",
+      "started": "2026-07-18T08:09:22.352710+00:00",
+      "status": "STARTING",
+      "stop_request": "Z:\\FOXAI\\Runtime\\ComfyUI\\logs\\normal\\20260718T080922Z\\stop.request.json",
+      "supervisor_create_time": 1784362161.6993446,
+      "supervisor_pid": 31644
+    },
+    "verification": {
+      "child": {
+        "pid": 37028,
+        "create_time": 1784362162.3541496,
+        "exe": "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "cmdline": [
+          "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+          "-I",
+          "-B",
+          "-S",
+          "Z:\\FOXAI\\System\\PortableRuntime\\launch_comfyui_isolated.py",
+          "--root",
+          "Z:\\FOXAI",
+          "--",
+          "--cpu",
+          "--disable-all-custom-nodes",
+          "--whitelist-custom-nodes",
+          "websocket_image_save.py",
+          "--listen",
+          "127.0.0.1",
+          "--port",
+          "8188"
+        ],
+        "status": "running",
+        "running": true
+      },
+      "supervisor": {
+        "pid": 31644,
+        "create_time": 1784362161.6993446,
+        "exe": "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "cmdline": [
+          "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+          "-I",
+          "-B",
+          "-S",
+          "Z:\\FOXAI\\System\\PortableRuntime\\manage_comfyui_normal.py",
+          "--root",
+          "Z:\\FOXAI",
+          "start",
+          "--no-browser",
+          "--source",
+          "webui",
+          "--profile",
+          "approved-custom-nodes-cpu"
+        ],
+        "status": "running",
+        "running": true
+      },
+      "listeners": [
+        {
+          "ip": "127.0.0.1",
+          "port": 8188,
+          "pid": 37028,
+          "status": "LISTEN"
+        }
+      ],
+      "child_owned": true,
+      "supervisor_owned": true,
+      "loopback_only": true,
+      "health": {
+        "ok": true,
+        "checks": [
+          {
+            "url": "http://127.0.0.1:8188/",
+            "ok": true,
+            "status": 200,
+            "bytes": 4096,
+            "elapsed_seconds": 0.037,
+            "error": null
+          },
+          {
+            "url": "http://127.0.0.1:8188/system_stats",
+            "ok": true,
+            "status": 200,
+            "bytes": 1198,
+            "elapsed_seconds": 0.023,
+            "error": null
+          }
+        ],
+        "observed": "2026-07-18T08:09:38.572951+00:00"
+      },
+      "profile_id": "approved-custom-nodes-cpu",
+      "profile_name": "Approved Custom Nodes CPU",
+      "approved_node_hash_state": "VERIFIED",
+      "approved_nodes": [
+        {
+          "relative_path": "ComfyUI/custom_nodes/websocket_image_save.py",
+          "filename": "websocket_image_save.py",
+          "display_name": "Save Image (Websocket)",
+          "class_key": "SaveImageWebsocket",
+          "size_bytes": 1348,
+          "sha256": "0b66b69eb7dab007d55bf63c5bd0f1343dcfbc2f5a350983f906ba2cd3dd5d23"
+        }
+      ],
+      "expected_command_fingerprint": "6529f755c74b22d50328764b6d4cf37a0fdd7163516d18ca86e9e7e53c049d86",
+      "owned_healthy": true
+    },
+    "controller_returncode": 0
+  }
+}

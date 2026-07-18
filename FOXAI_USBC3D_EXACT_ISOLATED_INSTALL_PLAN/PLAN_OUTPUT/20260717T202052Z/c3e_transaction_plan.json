@@ -1,0 +1,134 @@
+{
+  "status": "PLAN_ONLY_NOT_AUTHORIZED_FOR_EXECUTION",
+  "portable_python": "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+  "installer_engine": {
+    "label": "host_pip",
+    "python": "C:\\Python314\\python.exe",
+    "exists": true,
+    "require_exact_host": true,
+    "verified": true,
+    "python_size_bytes": 106208,
+    "python_sha256": "03168c01b7b7491423350e82c26fee71f35b43694d1319d3c668bda6903a0c38",
+    "identity_probe": {
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-I",
+        "-B",
+        "-c",
+        "import json,platform,struct,sys;print(json.dumps({'version':list(sys.version_info[:3]),'implementation':platform.python_implementation(),'machine':platform.machine(),'pointer_bits':struct.calcsize('P')*8,'platform':sys.platform,'executable':sys.executable}))"
+      ],
+      "started": "2026-07-17T20:20:54.519789+00:00",
+      "completed": "2026-07-17T20:20:54.605882+00:00",
+      "returncode": 0,
+      "stdout": "{\"version\": [3, 14, 6], \"implementation\": \"CPython\", \"machine\": \"AMD64\", \"pointer_bits\": 64, \"platform\": \"win32\", \"executable\": \"C:\\\\Python314\\\\python.exe\"}\n",
+      "stderr": ""
+    },
+    "identity": {
+      "version": [
+        3,
+        14,
+        6
+      ],
+      "implementation": "CPython",
+      "machine": "AMD64",
+      "pointer_bits": 64,
+      "platform": "win32",
+      "executable": "C:\\Python314\\python.exe"
+    },
+    "pip_version": "26.1.2",
+    "version_probe": {
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-I",
+        "-B",
+        "-m",
+        "pip",
+        "--isolated",
+        "--disable-pip-version-check",
+        "--version"
+      ],
+      "started": "2026-07-17T20:20:54.605917+00:00",
+      "completed": "2026-07-17T20:20:54.885461+00:00",
+      "returncode": 0,
+      "stdout": "pip 26.1.2 from C:\\Python314\\Lib\\site-packages\\pip (python 3.14)\n\n",
+      "stderr": ""
+    },
+    "install_help_returncode": 0,
+    "required_option_support": {
+      "--dry-run": true,
+      "--report": true,
+      "--target": true,
+      "--require-hashes": true,
+      "--no-deps": true,
+      "--no-index": true,
+      "--only-binary": true,
+      "--no-compile": true,
+      "--no-cache-dir": true
+    },
+    "pip_install_help_sha256": "c005f057a82f37f8a1bc458fb8a0a12fcd0af12683676f746b3297d593feaa02",
+    "pip_install_help_length": 18019,
+    "command_prefix": [
+      "C:\\Python314\\python.exe",
+      "-I",
+      "-B",
+      "-m",
+      "pip",
+      "--isolated",
+      "--disable-pip-version-check"
+    ],
+    "issues": []
+  },
+  "installer_mode": "HOST_ASSISTED_INSTALLER_ONLY",
+  "result_portability": "The selected pip process is only the offline installer. The installed target is consumed by the protected portable CPython 3.14.6 runtime and must not import from the host after commit.",
+  "read_only_wheel_source": "Z:\\FOXAI\\FOXAI_USBC3C_EXACT_WHEEL_ACQUISITION\\STAGING_WHEELHOUSE",
+  "requirements_lock": "Z:\\FOXAI\\FOXAI_USBC3D_EXACT_ISOLATED_INSTALL_PLAN\\PLAN_OUTPUT\\20260717T202052Z\\exact-offline-install-requirements.txt",
+  "future_staging_target_template": "Z:\\FOXAI\\Runtime\\ComfyUI\\.C3E_site-packages_staging_<UTC_RUN_ID>",
+  "future_final_target": "Z:\\FOXAI\\Runtime\\ComfyUI\\site-packages",
+  "future_install_command_argv": [
+    "C:\\Python314\\python.exe",
+    "-I",
+    "-B",
+    "-m",
+    "pip",
+    "--isolated",
+    "--disable-pip-version-check",
+    "install",
+    "--ignore-installed",
+    "--no-index",
+    "--no-deps",
+    "--only-binary=:all:",
+    "--require-hashes",
+    "--no-cache-dir",
+    "--no-compile",
+    "--progress-bar",
+    "off",
+    "--target",
+    "Z:\\FOXAI\\Runtime\\ComfyUI\\.C3E_site-packages_staging_<UTC_RUN_ID>",
+    "-r",
+    "Z:\\FOXAI\\FOXAI_USBC3D_EXACT_ISOLATED_INSTALL_PLAN\\PLAN_OUTPUT\\20260717T202052Z\\exact-offline-install-requirements.txt"
+  ],
+  "future_install_command_display": "C:\\Python314\\python.exe -I -B -m pip --isolated --disable-pip-version-check install --ignore-installed --no-index --no-deps --only-binary=:all: --require-hashes --no-cache-dir --no-compile --progress-bar off --target Z:\\FOXAI\\Runtime\\ComfyUI\\.C3E_site-packages_staging_<UTC_RUN_ID> -r Z:\\FOXAI\\FOXAI_USBC3D_EXACT_ISOLATED_INSTALL_PLAN\\PLAN_OUTPUT\\20260717T202052Z\\exact-offline-install-requirements.txt",
+  "required_preconditions": [
+    "Fresh C3E operator approval",
+    "C3D evidence remains exact and verified",
+    "C3C wheelhouse re-hashes exactly",
+    "Selected installer Python SHA-256, exact version, architecture, and pip version match the reviewed C3D evidence",
+    "Final target and C3E staging target do not exist",
+    "No FOXAI, Desktop, WebUI, or ComfyUI process is using the runtime"
+  ],
+  "transaction_sequence": [
+    "Create one new timestamped staging directory adjacent to the final target",
+    "Re-hash all 96 source wheels and the selected installer Python immediately before pip",
+    "Run one offline hash-locked pip install with --ignore-installed into the empty staging directory",
+    "Perform inventory, dependency, import, CPU tensor, torchvision-op, torchaudio, and DLL tests against staging",
+    "Write a complete installation receipt and exact file inventory",
+    "Commit only by same-volume rename from staging to the still-absent final target",
+    "Do not edit or enable any launcher during C3E"
+  ],
+  "pth_activation_review": {
+    "pth_file_count": 1,
+    "executable_pth_file_count": 1,
+    "future_test_activation": "Use site.addsitedir(staging_or_final_target) in a dedicated verification process so exact .pth behavior is visible and logged."
+  },
+  "not_performed_by_c3d": true
+}

@@ -1,0 +1,11 @@
+--- START_FOXAI_CLEAN.bat
++++ START_FOXAI_CLEAN.bat.proposed
+@@ -83,7 +83,7 @@
+         echo %COMFY_DIR%
+         echo [%date% %time%] Starting ComfyUI>> "%LOG_FILE%"
+ 
+-        start "FOXAI ComfyUI" cmd /k "cd /d "%COMFY_DIR%" && %PYTHON_CMD% main.py --cpu"
++        start "FOXAI ComfyUI" cmd /k ""%FOXAI_ROOT%\Runtime\Desktop\python\python.exe" -I -B -S "%FOXAI_ROOT%\System\PortableRuntime\launch_comfyui_isolated.py" --root "%FOXAI_ROOT%" -- --cpu"
+ 
+         echo Waiting for ComfyUI to answer...
+         set /a COUNT=0

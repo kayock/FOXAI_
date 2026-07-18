@@ -1,0 +1,28 @@
+{
+  "revision": "C3F-R1",
+  "scope": "Aggregate tree digest ordering only",
+  "failed_run_classification": "C3F_BLOCKED_FAIL_CLOSED",
+  "failed_run_exit_code": 19,
+  "root_cause": "C3F re-sorted sealed C3E inventory rows by forward-slash relative path, while C3E generated its aggregate digest in Windows full-path/backslash order.",
+  "evidence": {
+    "file_count_expected": 39046,
+    "file_count_actual": 39046,
+    "bytes_expected": 1520221467,
+    "bytes_actual": 1520221467,
+    "missing": 0,
+    "unexpected": 0,
+    "content_mismatches": 0,
+    "symlinks": 0,
+    "c3e_tree_sha256": "e689af293a34f34f59da8f76f0bbb682d2de2df712467cde0134d8c510e99b62",
+    "incorrect_forward_slash_order_digest": "66f31ec1acc79d31be7793007a4ca88ea287fdc45427f24ef9ff6717808ae8e8"
+  },
+  "repair": "Preserve exact sealed C3E inventory row order when recomputing the aggregate tree digest; continue verifying every actual file path, size, and SHA-256 independently.",
+  "unchanged_boundaries": [
+    "read-only",
+    "no launcher edits",
+    "no runtime edits",
+    "no package installation or removal",
+    "no network access",
+    "no ComfyUI or FOXAI launch"
+  ]
+}

@@ -1,0 +1,29 @@
+--- START_FOXAI_WORKSHOP_PORTABLE.bat
++++ START_FOXAI_WORKSHOP_PORTABLE.bat.proposed
+@@ -37,9 +37,14 @@
+     exit /b 3
+ )
+ 
+-where python.exe >nul 2>&1
+-if errorlevel 1 (
+-    echo ERROR: The proven ComfyUI startup method requires python.exe on the host PATH.
++if not exist "%ROOT%Runtime\ComfyUI\site-packages\torch\__init__.py" (
++    echo ERROR: The verified isolated ComfyUI target is missing or incomplete.
++    echo FOXAI and ComfyUI were not launched.
++    pause
++    exit /b 4
++)
++if not exist "%ROOT%System\PortableRuntime\launch_comfyui_isolated.py" (
++    echo ERROR: The isolated ComfyUI activator is missing.
+     echo FOXAI and ComfyUI were not launched.
+     pause
+     exit /b 4
+@@ -65,7 +70,7 @@
+ 
+ echo.
+ echo Launching ComfyUI with the existing proven CPU command...
+-start "ComfyUI CPU" /D "%ROOT%ComfyUI" cmd.exe /d /k "set PYTHONHOME=& set PYTHONPATH=& python.exe main.py --cpu"
++start "ComfyUI CPU" /D "%ROOT%ComfyUI" cmd.exe /d /k ""%ROOT%Runtime\Desktop\python\python.exe" -I -B -S "%ROOT%System\PortableRuntime\launch_comfyui_isolated.py" --root "%ROOT%." -- --cpu"
+ 
+ echo Waiting 8 seconds before starting FOXAI Desktop...
+ timeout /t 8 /nobreak >nul

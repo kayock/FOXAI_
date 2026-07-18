@@ -1,0 +1,35 @@
+{
+  "verified": true,
+  "policy_id": "FOXAI_COMFYUI_SAFE_NORMAL_CPU_V1",
+  "normal_commands": {
+    "start": "START_COMFYUI_NORMAL.bat",
+    "status": "STATUS_COMFYUI_NORMAL.bat",
+    "stop": "STOP_COMFYUI_NORMAL.bat",
+    "verify": "VERIFY_COMFYUI_KNOWN_GOOD.bat"
+  },
+  "profile": {
+    "python": "Runtime/Desktop/python/python.exe",
+    "runtime": "Runtime/ComfyUI/site-packages",
+    "mode": "CPU",
+    "custom_nodes": "disabled by default",
+    "listen": "127.0.0.1:8188",
+    "direct_start_browser": "open only after verified health",
+    "stop": "graceful controller-owned stop; no automatic force-kill"
+  },
+  "accepted_c3k": {
+    "sequence": [
+      "STOPPED",
+      "start no-browser",
+      "HEALTHY",
+      "graceful stop",
+      "STOPPED"
+    ],
+    "browser_opened": false,
+    "custom_nodes_disabled": true,
+    "listen": "127.0.0.1:8188",
+    "force_kill": false,
+    "external_network": false,
+    "left_running": false,
+    "normal_run_id": "20260718T045919Z"
+  }
+}

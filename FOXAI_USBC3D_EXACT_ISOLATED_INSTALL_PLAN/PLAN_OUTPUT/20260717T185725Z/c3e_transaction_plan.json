@@ -1,0 +1,52 @@
+{
+  "status": "PLAN_ONLY_NOT_AUTHORIZED_FOR_EXECUTION",
+  "portable_python": "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+  "read_only_wheel_source": "Z:\\FOXAI\\FOXAI_USBC3C_EXACT_WHEEL_ACQUISITION\\STAGING_WHEELHOUSE",
+  "requirements_lock": "Z:\\FOXAI\\FOXAI_USBC3D_EXACT_ISOLATED_INSTALL_PLAN\\PLAN_OUTPUT\\20260717T185725Z\\exact-offline-install-requirements.txt",
+  "future_staging_target_template": "Z:\\FOXAI\\Runtime\\ComfyUI\\.C3E_site-packages_staging_<UTC_RUN_ID>",
+  "future_final_target": "Z:\\FOXAI\\Runtime\\ComfyUI\\site-packages",
+  "future_install_command_argv": [
+    "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+    "-B",
+    "-m",
+    "pip",
+    "--isolated",
+    "--disable-pip-version-check",
+    "install",
+    "--no-index",
+    "--no-deps",
+    "--only-binary=:all:",
+    "--require-hashes",
+    "--no-cache-dir",
+    "--no-compile",
+    "--progress-bar",
+    "off",
+    "--target",
+    "Z:\\FOXAI\\Runtime\\ComfyUI\\.C3E_site-packages_staging_<UTC_RUN_ID>",
+    "-r",
+    "Z:\\FOXAI\\FOXAI_USBC3D_EXACT_ISOLATED_INSTALL_PLAN\\PLAN_OUTPUT\\20260717T185725Z\\exact-offline-install-requirements.txt"
+  ],
+  "future_install_command_display": "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe -B -m pip --isolated --disable-pip-version-check install --no-index --no-deps --only-binary=:all: --require-hashes --no-cache-dir --no-compile --progress-bar off --target Z:\\FOXAI\\Runtime\\ComfyUI\\.C3E_site-packages_staging_<UTC_RUN_ID> -r Z:\\FOXAI\\FOXAI_USBC3D_EXACT_ISOLATED_INSTALL_PLAN\\PLAN_OUTPUT\\20260717T185725Z\\exact-offline-install-requirements.txt",
+  "required_preconditions": [
+    "Fresh C3E operator approval",
+    "C3D evidence remains exact and verified",
+    "C3C wheelhouse re-hashes exactly",
+    "Final target and C3E staging target do not exist",
+    "No FOXAI, Desktop, WebUI, or ComfyUI process is using the runtime"
+  ],
+  "transaction_sequence": [
+    "Create one new timestamped staging directory adjacent to the final target",
+    "Re-hash all 96 source wheels immediately before pip",
+    "Run one offline hash-locked pip install into the empty staging directory",
+    "Perform inventory, dependency, import, CPU tensor, torchvision-op, torchaudio, and DLL tests against staging",
+    "Write a complete installation receipt and exact file inventory",
+    "Commit only by same-volume rename from staging to the still-absent final target",
+    "Do not edit or enable any launcher during C3E"
+  ],
+  "pth_activation_review": {
+    "pth_file_count": 1,
+    "executable_pth_file_count": 1,
+    "future_test_activation": "Use site.addsitedir(staging_or_final_target) in a dedicated verification process so exact .pth behavior is visible and logged."
+  },
+  "not_performed_by_c3d": true
+}

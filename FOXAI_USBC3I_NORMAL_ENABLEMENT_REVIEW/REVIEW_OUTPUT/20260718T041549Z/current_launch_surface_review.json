@@ -1,0 +1,287 @@
+{
+  "verified": true,
+  "surfaces": [
+    {
+      "path": "START_COMFYUI_ISOLATED.bat",
+      "size_bytes": 997,
+      "sha256": "e796f76d3edf87e69b9220a0b06617b70743a3090588da1d7bf3ed1eb758e589",
+      "markers": {
+        "uses_isolated_activator": true,
+        "cpu_flag": true,
+        "disable_custom_nodes_flag": false,
+        "loopback_flag": false,
+        "port_8188": false,
+        "health_check": false,
+        "browser_open": false,
+        "explicit_stop_control": false,
+        "legacy_pip_disabled": false,
+        "keeps_console_open": true
+      },
+      "excerpts": [
+        {
+          "line": 6,
+          "text": "set \"ACTIVATOR=%FOXAI_ROOT%\\System\\PortableRuntime\\launch_comfyui_isolated.py\""
+        },
+        {
+          "line": 19,
+          "text": "\"%PYTHON%\" -I -B -S \"%ACTIVATOR%\" --root \"%FOXAI_ROOT%\" -- --cpu"
+        }
+      ]
+    },
+    {
+      "path": "Start ComfyUI CPU.bat",
+      "size_bytes": 973,
+      "sha256": "41d85e61f2dbe31cb4211bce4f07534b7e5602e84853ae74261f93913f25ec9f",
+      "markers": {
+        "uses_isolated_activator": true,
+        "cpu_flag": true,
+        "disable_custom_nodes_flag": false,
+        "loopback_flag": false,
+        "port_8188": false,
+        "health_check": false,
+        "browser_open": false,
+        "explicit_stop_control": false,
+        "legacy_pip_disabled": false,
+        "keeps_console_open": true
+      },
+      "excerpts": [
+        {
+          "line": 6,
+          "text": "set \"ACTIVATOR=%FOXAI_ROOT%\\System\\PortableRuntime\\launch_comfyui_isolated.py\""
+        },
+        {
+          "line": 19,
+          "text": "\"%PYTHON%\" -I -B -S \"%ACTIVATOR%\" --root \"%FOXAI_ROOT%\" -- --cpu"
+        }
+      ]
+    },
+    {
+      "path": "Launch FOXAI Workshop.bat",
+      "size_bytes": 698,
+      "sha256": "e688cffad2b121081bcebbeda1ebc90b978f5ad4606f4beb7e3bb65dea106810",
+      "markers": {
+        "uses_isolated_activator": true,
+        "cpu_flag": true,
+        "disable_custom_nodes_flag": false,
+        "loopback_flag": false,
+        "port_8188": false,
+        "health_check": false,
+        "browser_open": false,
+        "explicit_stop_control": false,
+        "legacy_pip_disabled": false,
+        "keeps_console_open": true
+      },
+      "excerpts": [
+        {
+          "line": 9,
+          "text": "    start \"ComfyUI CPU\" cmd /k \"\"%~dp0Runtime\\Desktop\\python\\python.exe\" -I -B -S \"%~dp0System\\PortableRuntime\\launch_comfyui_isolated.py\" --root \"%~dp0.\" -- --cpu\""
+        },
+        {
+          "line": 21,
+          "text": "start \"FOXAI\" cmd /k \"cd /d \"%~dp0\" && python foxai.py\""
+        }
+      ]
+    },
+    {
+      "path": "START_FOXAI_CLEAN.bat",
+      "size_bytes": 4891,
+      "sha256": "e1ceee26292f96ea9fac53fdca3fa351ea2e3ad1f46d4ae46d200717cf320b73",
+      "markers": {
+        "uses_isolated_activator": true,
+        "cpu_flag": true,
+        "disable_custom_nodes_flag": false,
+        "loopback_flag": true,
+        "port_8188": true,
+        "health_check": true,
+        "browser_open": false,
+        "explicit_stop_control": false,
+        "legacy_pip_disabled": false,
+        "keeps_console_open": true
+      },
+      "excerpts": [
+        {
+          "line": 74,
+          "text": "echo Checking ComfyUI at http://127.0.0.1:8188 ..."
+        },
+        {
+          "line": 77,
+          "text": "  \"try { $r = Invoke-WebRequest -UseBasicParsing -Uri 'http://127.0.0.1:8188' -TimeoutSec 2; exit 0 } catch { exit 1 }\""
+        },
+        {
+          "line": 86,
+          "text": "        start \"FOXAI ComfyUI\" cmd /k \"\"%FOXAI_ROOT%\\Runtime\\Desktop\\python\\python.exe\" -I -B -S \"%FOXAI_ROOT%\\System\\PortableRuntime\\launch_comfyui_isolated.py\" --root \"%FOXAI_ROOT%\" -- --cpu\""
+        },
+        {
+          "line": 96,
+          "text": "          \"try { $r = Invoke-WebRequest -UseBasicParsing -Uri 'http://127.0.0.1:8188' -TimeoutSec 2; exit 0 } catch { exit 1 }\""
+        },
+        {
+          "line": 137,
+          "text": "    start \"FOXAI\" cmd /k \"cd /d \"%FOXAI_ROOT%\" && %PYTHON_CMD% foxai.py\""
+        },
+        {
+          "line": 144,
+          "text": "    start \"FOXAI\" cmd /k \"cd /d \"%FOXAI_ROOT%\" && %PYTHON_CMD% FoxAI_Desktop.py\""
+        }
+      ]
+    },
+    {
+      "path": "START_FOXAI_WORKSHOP_PORTABLE.bat",
+      "size_bytes": 2648,
+      "sha256": "d9f7da3dd64d199b58be75f550dce7609f952bce203941313b6d87869ab5e642",
+      "markers": {
+        "uses_isolated_activator": true,
+        "cpu_flag": true,
+        "disable_custom_nodes_flag": false,
+        "loopback_flag": false,
+        "port_8188": false,
+        "health_check": false,
+        "browser_open": false,
+        "explicit_stop_control": false,
+        "legacy_pip_disabled": false,
+        "keeps_console_open": true
+      },
+      "excerpts": [
+        {
+          "line": 46,
+          "text": "if not exist \"%ROOT%System\\PortableRuntime\\launch_comfyui_isolated.py\" ("
+        },
+        {
+          "line": 73,
+          "text": "start \"ComfyUI CPU\" /D \"%ROOT%ComfyUI\" cmd.exe /d /k \"\"%ROOT%Runtime\\Desktop\\python\\python.exe\" -I -B -S \"%ROOT%System\\PortableRuntime\\launch_comfyui_isolated.py\" --root \"%ROOT%.\" -- --cpu\""
+        }
+      ]
+    },
+    {
+      "path": "Install ComfyUI Requirements.bat",
+      "size_bytes": 240,
+      "sha256": "96489cdd881505b818b5e90415f28529a152c7a185ad126584c2fb8e54de67bb",
+      "markers": {
+        "uses_isolated_activator": false,
+        "cpu_flag": false,
+        "disable_custom_nodes_flag": false,
+        "loopback_flag": false,
+        "port_8188": false,
+        "health_check": false,
+        "browser_open": false,
+        "explicit_stop_control": false,
+        "legacy_pip_disabled": true,
+        "keeps_console_open": true
+      },
+      "excerpts": [
+        {
+          "line": 4,
+          "text": "echo This legacy pip installer is intentionally disabled."
+        }
+      ]
+    },
+    {
+      "path": "core/foxai_web.py",
+      "size_bytes": 1987446,
+      "sha256": "ffde5ac19952226d7bcd874dfb6a8a763b0cd78303b7ef34bd8ae19c314a24eb",
+      "markers": {
+        "uses_isolated_activator": true,
+        "cpu_flag": true,
+        "disable_custom_nodes_flag": false,
+        "loopback_flag": true,
+        "port_8188": true,
+        "health_check": true,
+        "browser_open": true,
+        "explicit_stop_control": false,
+        "legacy_pip_disabled": false,
+        "keeps_console_open": false
+      },
+      "excerpts": [
+        {
+          "line": 49,
+          "text": "ROOT=PROJECT_ROOT; DRIVE=Path(ROOT.anchor); PORT=8765; URL=f\"http://127.0.0.1:{PORT}\""
+        },
+        {
+          "line": 51,
+          "text": "ENGINE=ROOT/'Engine'/'llama-server.exe'; CHAT_HEALTH='http://127.0.0.1:8080/health'; CHAT_API='http://127.0.0.1:8080/v1/chat/completions'"
+        },
+        {
+          "line": 722,
+          "text": "    activator=ROOT/'System'/'PortableRuntime'/'launch_comfyui_isolated.py'"
+        },
+        {
+          "line": 723,
+          "text": "    return [str(portable),'-I','-B','-S',str(activator),'--root',str(ROOT),'--','--cpu']"
+        },
+        {
+          "line": 986,
+          "text": "<section id=creative class=page><div class=hero><h2>Creative Studio</h2><p>ComfyUI remains the image engine.</p></div><div class=grid><div class=card><h3>ComfyUI</h3><button onclick=\"api('/api/launch/comfy')\">Launch</button><button onclick=\"api('/api/open-url/comfy')\">Open</button></div><div class=card><h3>Gallery</h3><button onclick=\"api('/api/open/comfy_output')\">Open Output</button></div></div></section>"
+        },
+        {
+          "line": 10430,
+          "text": "        if path=='/api/launch/comfy':"
+        },
+        {
+          "line": 10432,
+          "text": "            if check('http://127.0.0.1:8188'):"
+        },
+        {
+          "line": 10435,
+          "text": "        if path=='/api/open-url/comfy': openurl('http://127.0.0.1:8188'); receipt=make_tool_receipt('browser.open_url','requested',details={'target':'comfy'},actor='operator'); self.js({'ok':True,'message':'Browser open request sent for ComfyUI; tab state is not verified.','receipt':receipt,'claim_state':'requested'}); return"
+        },
+        {
+          "line": 11599,
+          "text": "        if mode=='http' and url.lower().startswith(('http://127.0.0.1','http://localhost')):"
+        },
+        {
+          "line": 11628,
+          "text": "        if url.lower().startswith(('http://127.0.0.1','http://localhost')):"
+        },
+        {
+          "line": 12031,
+          "text": "    if not url.lower().startswith(('http://127.0.0.1','http://localhost')):"
+        },
+        {
+          "line": 12055,
+          "text": "        if check('http://127.0.0.1:8188/system_stats'):"
+        },
+        {
+          "line": 29407,
+          "text": "    return {'host':'127.0.0.1','port':'8080','context':str(context),'threads':str(threads)}"
+        },
+        {
+          "line": 31590,
+          "text": "        'comfy_online':check('http://127.0.0.1:8188'),"
+        },
+        {
+          "line": 31600,
+          "text": "    LOGS.mkdir(exist_ok=True); PROJECTS.mkdir(exist_ok=True); log(f'Starting FOXAI Web Console at {URL}'); ThreadingHTTPServer(('127.0.0.1',PORT),Handler).serve_forever()"
+        }
+      ]
+    },
+    {
+      "path": "System/PortableRuntime/launch_comfyui_isolated.py",
+      "size_bytes": 1751,
+      "sha256": "e714428b172fbdbf91b19625d9feef5638c9e7c03751cfc46ba6db542223933f",
+      "markers": {
+        "uses_isolated_activator": false,
+        "cpu_flag": false,
+        "disable_custom_nodes_flag": false,
+        "loopback_flag": false,
+        "port_8188": false,
+        "health_check": false,
+        "browser_open": false,
+        "explicit_stop_control": false,
+        "legacy_pip_disabled": false,
+        "keeps_console_open": false
+      },
+      "excerpts": []
+    }
+  ],
+  "summary": {
+    "direct_surface_count": 6,
+    "all_use_isolated_activator": true,
+    "all_request_cpu": true,
+    "all_disable_custom_nodes": false,
+    "all_explicit_loopback": false,
+    "all_explicit_port": false,
+    "all_have_health_wait": false,
+    "any_explicit_stop_control": false,
+    "legacy_pip_disabled": true
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "mode": "C3D_BLOCKED_FAIL_CLOSED",
+  "verified": false,
+  "blocking_findings": [
+    "Portable pip is unavailable or lacks one or more required no-action/install-control options"
+  ],
+  "review_findings": [
+    "1 .pth file(s) contain executable import lines; exact contents are recorded in pth_review.json and must remain visible in C3E testing"
+  ],
+  "notes": [
+    "C3D is no-install and no-network.",
+    "The exact C3C wheelhouse was re-hashed before planning.",
+    "Portable pip was used only in dry-run mode with local hash-locked wheels, --no-index, and --no-deps.",
+    "A successful C3D result authorizes operator review only, not target creation or package installation."
+  ],
+  "next_gate": "Upload UPLOAD_THIS_C3D_REVIEW.zip for exact review. Do not create the target or run an installation until C3E is explicitly approved."
+}

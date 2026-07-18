@@ -1,0 +1,173 @@
+{
+  "verified": true,
+  "revision": "R2",
+  "tests": {
+    "python_syntax_compile_with_SyntaxWarning_as_error": {
+      "passed": true,
+      "files": [
+        "usbc3e_exact_isolated_install.py",
+        "usbc3e_portable_verify.py"
+      ],
+      "returns_inside_finally": []
+    },
+    "exact_reviewed_resume_evidence_binding": {
+      "passed": true,
+      "reviewed_run_id": "20260718T020221Z",
+      "exact_bound_file_count": 25,
+      "prior_integrity_record_count": 24
+    },
+    "resume_evidence_tamper_rejection": {
+      "passed": true
+    },
+    "reviewed_cross_architecture_resource_allowlist": {
+      "passed": true,
+      "exact_entry_count": 12,
+      "policy": "Exact relative path and exact PE machine value; all other non-AMD64 binaries fail closed."
+    },
+    "unapproved_non_AMD64_rejection": {
+      "passed": true
+    },
+    "portable_PyOpenGL_import_gate": {
+      "passed": true
+    },
+    "batch_window_persistence": {
+      "passed": true
+    },
+    "resume_without_reinstall_branch": {
+      "passed": true
+    },
+    "static_network_import_scan": {
+      "passed": true,
+      "findings": []
+    },
+    "no_return_inside_finally": {
+      "passed": true,
+      "lines": []
+    }
+  },
+  "reviewed_failed_run": {
+    "classification": "C3E_BLOCKED_FAIL_CLOSED_STAGING_PRESERVED",
+    "elapsed_seconds": 213.125,
+    "pip_returncode": 0,
+    "exact_packages_installed": 96,
+    "staging_preserved": true,
+    "final_target_committed": false,
+    "protected_boundaries_unchanged": true,
+    "review_bundle_file_count": 25,
+    "evidence_integrity_record_count": 24
+  },
+  "subprocess_audit": {
+    "static_call_sites": [
+      {
+        "file": "usbc3e_exact_isolated_install.py",
+        "line": 215,
+        "call": "run"
+      }
+    ],
+    "approved_effects": [
+      "host Python identity and pip capability probes",
+      "PowerShell read-only process inventory",
+      "offline pip installation only when no exact reviewed staging exists",
+      "portable Python isolated verification"
+    ],
+    "resume_path_pip_install": "skipped after exact evidence binding"
+  },
+  "filesystem_mutation_audit": {
+    "static_call_sites": [
+      {
+        "file": "usbc3e_exact_isolated_install.py",
+        "line": 636,
+        "call": "mkdir"
+      },
+      {
+        "file": "usbc3e_exact_isolated_install.py",
+        "line": 978,
+        "call": "mkdir"
+      },
+      {
+        "file": "usbc3e_exact_isolated_install.py",
+        "line": 981,
+        "call": "mkdir"
+      },
+      {
+        "file": "usbc3e_exact_isolated_install.py",
+        "line": 420,
+        "call": "mkdir"
+      },
+      {
+        "file": "usbc3e_exact_isolated_install.py",
+        "line": 953,
+        "call": "unlink"
+      },
+      {
+        "file": "usbc3e_exact_isolated_install.py",
+        "line": 1178,
+        "call": "rename"
+      },
+      {
+        "file": "usbc3e_exact_isolated_install.py",
+        "line": 819,
+        "call": "replace"
+      },
+      {
+        "file": "usbc3e_exact_isolated_install.py",
+        "line": 1102,
+        "call": "mkdir"
+      },
+      {
+        "file": "usbc3e_exact_isolated_install.py",
+        "line": 1117,
+        "call": "rmtree"
+      },
+      {
+        "file": "usbc3e_exact_isolated_install.py",
+        "line": 1118,
+        "call": "rmtree"
+      },
+      {
+        "file": "usbc3e_exact_isolated_install.py",
+        "line": 1119,
+        "call": "mkdir"
+      },
+      {
+        "file": "usbc3e_exact_isolated_install.py",
+        "line": 1120,
+        "call": "mkdir"
+      },
+      {
+        "file": "usbc3e_exact_isolated_install.py",
+        "line": 1134,
+        "call": "rmtree"
+      },
+      {
+        "file": "usbc3e_exact_isolated_install.py",
+        "line": 1135,
+        "call": "rmtree"
+      },
+      {
+        "file": "usbc3e_exact_isolated_install.py",
+        "line": 1327,
+        "call": "rmtree"
+      },
+      {
+        "file": "usbc3e_portable_verify.py",
+        "line": 159,
+        "call": "replace"
+      },
+      {
+        "file": "usbc3e_portable_verify.py",
+        "line": 189,
+        "call": "replace"
+      }
+    ],
+    "authorized": [
+      "new C3E INSTALL_OUTPUT evidence only",
+      "same-volume rename of exact verified staging to absent final target",
+      "temporary C3E evidence cache cleanup",
+      "review ZIP replacement inside the current C3E output"
+    ],
+    "preserved_staging_delete": false,
+    "uninstall": false,
+    "launcher_change": false
+  }
+}

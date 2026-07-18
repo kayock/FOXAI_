@@ -1,0 +1,46 @@
+{
+  "reviewed_run": "20260718T080827Z",
+  "classification": "C4E_BLOCKED_FAIL_CLOSED_STOPPED",
+  "verified_evidence_files": 34,
+  "lifecycle_summary_verified": true,
+  "completed_sequence": [
+    "WEBUI_HEALTHY",
+    "LEGACY_GET_SAFE_NORMAL_CPU_HEALTHY",
+    "SAFE_STOPPED",
+    "EXPLICIT_APPROVED_CUSTOM_NODES_CPU_HEALTHY",
+    "SAVE_IMAGE_WEBSOCKET_REGISTERED",
+    "SAFE_PROFILE_SWITCH_REFUSED_WHILE_APPROVED_HEALTHY",
+    "APPROVED_STOPPED",
+    "COMFYUI_FINAL_STOPPED"
+  ],
+  "root_cause": "The R3 wrapper correctly recorded high-level guard decisions as c4e.guard.Popen/allowed_exact_manager_command and platform audit events as subprocess.Popen/allowed_guarded_manager_command. The unchanged R2 parser still searched subprocess.Popen for the old allowed_exact_manager_command label, producing a false final audit failure after the complete lifecycle had succeeded.",
+  "reviewed_audit": {
+    "event_count": 29,
+    "denied_event_count": 0,
+    "webui_listener_bind_count": 1,
+    "guarded_manager_command_count": 11,
+    "authorized_platform_popen_count": 11,
+    "external_denied_socket_count": 0,
+    "manager_tail_counts": {
+      "status": 6,
+      "stop": 2,
+      "safe_spawn": 2,
+      "approved_spawn": 1
+    }
+  },
+  "safety": {
+    "webui_left_running": false,
+    "comfyui_left_running": false,
+    "browser_opened": false,
+    "external_network_access": false,
+    "approved_node_hash_verified": true
+  },
+  "repair_scope": {
+    "test_harness_parser_only": true,
+    "recognize_r3_high_level_guard_records": true,
+    "require_one_to_one_platform_event_pairing": true,
+    "require_only_four_approved_manager_actions": true,
+    "live_foxai_files_modified": false,
+    "live_comfyui_files_modified": false
+  }
+}

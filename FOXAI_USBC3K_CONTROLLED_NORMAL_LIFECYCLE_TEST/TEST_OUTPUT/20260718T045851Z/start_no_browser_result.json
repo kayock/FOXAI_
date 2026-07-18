@@ -1,0 +1,135 @@
+{
+  "ok": true,
+  "state": "HEALTHY",
+  "message": "ComfyUI started and passed controller ownership and health checks.",
+  "supervisor_pid": 23292,
+  "status": {
+    "ok": true,
+    "state": "HEALTHY",
+    "message": "Verified controller-owned ComfyUI instance is healthy.",
+    "managed": true,
+    "recorded_state": {
+      "child_create_time": 1784350759.0850608,
+      "child_pid": 13208,
+      "command": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "Z:\\FOXAI\\System\\PortableRuntime\\launch_comfyui_isolated.py",
+        "--root",
+        "Z:\\FOXAI",
+        "--",
+        "--cpu",
+        "--disable-all-custom-nodes",
+        "--listen",
+        "127.0.0.1",
+        "--port",
+        "8188"
+      ],
+      "command_fingerprint": "2ccfc46e055a556925ed208f4b0a58cfd7e5ae89fdb9bf094799bc5f9457487d",
+      "custom_nodes_disabled": true,
+      "listen": "127.0.0.1",
+      "log_dir": "Z:\\FOXAI\\Runtime\\ComfyUI\\logs\\normal\\20260718T045919Z",
+      "manager_version": "1.0.0",
+      "policy_id": "FOXAI_COMFYUI_SAFE_NORMAL_CPU_V1",
+      "port": 8188,
+      "portable_python": "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+      "retention": {
+        "automatic_deletion": false,
+        "run_count": 1,
+        "total_bytes": 0,
+        "warning": false
+      },
+      "root": "Z:\\FOXAI",
+      "run_id": "20260718T045919Z",
+      "schema": 1,
+      "source": "test",
+      "started": "2026-07-18T04:59:19.083436+00:00",
+      "status": "STARTING",
+      "stop_request": "Z:\\FOXAI\\Runtime\\ComfyUI\\logs\\normal\\20260718T045919Z\\stop.request.json",
+      "supervisor_create_time": 1784350758.394062,
+      "supervisor_pid": 23292
+    },
+    "verification": {
+      "child": {
+        "pid": 13208,
+        "create_time": 1784350759.0850608,
+        "exe": "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "cmdline": [
+          "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+          "-I",
+          "-B",
+          "-S",
+          "Z:\\FOXAI\\System\\PortableRuntime\\launch_comfyui_isolated.py",
+          "--root",
+          "Z:\\FOXAI",
+          "--",
+          "--cpu",
+          "--disable-all-custom-nodes",
+          "--listen",
+          "127.0.0.1",
+          "--port",
+          "8188"
+        ],
+        "status": "running",
+        "running": true
+      },
+      "supervisor": {
+        "pid": 23292,
+        "create_time": 1784350758.394062,
+        "exe": "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "cmdline": [
+          "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+          "-I",
+          "-B",
+          "-S",
+          "Z:\\FOXAI\\System\\PortableRuntime\\manage_comfyui_normal.py",
+          "--root",
+          "Z:\\FOXAI",
+          "start",
+          "--no-browser",
+          "--source",
+          "test"
+        ],
+        "status": "running",
+        "running": true
+      },
+      "listeners": [
+        {
+          "ip": "127.0.0.1",
+          "port": 8188,
+          "pid": 13208,
+          "status": "LISTEN"
+        }
+      ],
+      "child_owned": true,
+      "supervisor_owned": true,
+      "loopback_only": true,
+      "health": {
+        "ok": true,
+        "checks": [
+          {
+            "url": "http://127.0.0.1:8188/",
+            "ok": true,
+            "status": 200,
+            "bytes": 4096,
+            "elapsed_seconds": 0.045,
+            "error": null
+          },
+          {
+            "url": "http://127.0.0.1:8188/system_stats",
+            "ok": true,
+            "status": 200,
+            "bytes": 1143,
+            "elapsed_seconds": 0.002,
+            "error": null
+          }
+        ],
+        "observed": "2026-07-18T04:59:34.618397+00:00"
+      },
+      "expected_command_fingerprint": "2ccfc46e055a556925ed208f4b0a58cfd7e5ae89fdb9bf094799bc5f9457487d",
+      "owned_healthy": true
+    }
+  }
+}

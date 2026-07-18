@@ -1,0 +1,60 @@
+{
+  "package": "FOXAI_USBC3H_CONTROLLED_FIRST_START",
+  "revision": "C3H",
+  "integrity_version": 1,
+  "file_count": 7,
+  "mode": "controlled_live_start_health_verify_then_stop",
+  "operator_approval": "Proceed to USB C3H controlled first start under the reviewed C3G contract.",
+  "approved_launch": {
+    "python": "Runtime/Desktop/python/python.exe",
+    "activator": "System/PortableRuntime/launch_comfyui_isolated.py",
+    "arguments": [
+      "--cpu",
+      "--disable-all-custom-nodes",
+      "--listen",
+      "127.0.0.1",
+      "--port",
+      "8188"
+    ],
+    "startup_timeout_seconds": 300,
+    "leave_running": false
+  },
+  "expected_success_classification": "C3H_FIRST_START_VERIFIED_STOPPED_READY_FOR_C3I_REVIEW",
+  "files": [
+    {
+      "path": "00_READ_ME_FIRST.txt",
+      "size_bytes": 545,
+      "sha256": "5164d44246d6ae8f3d2f0ce58704b1f7ddfb4013282959766332114db7e7a785"
+    },
+    {
+      "path": "C3H_CONTRACT.json",
+      "size_bytes": 648,
+      "sha256": "3db1c174d01c27e5d766d473eedb3094ec5e6529d06d4622d3d0824f3bbe835c"
+    },
+    {
+      "path": "EXPECTED_C3G_BINDING.json",
+      "size_bytes": 3310,
+      "sha256": "54092caea34ec4ac9c2800907ecd9d3c7eb6b0ff2f589ef013b0a57706bdf807"
+    },
+    {
+      "path": "OPERATOR_APPROVAL.json",
+      "size_bytes": 269,
+      "sha256": "169e507b76d6f8adbcdcfc13832db20db1fb3ed09173c05b8ee97c637805a250"
+    },
+    {
+      "path": "RUN_USB_C3H_FIRST_START.bat",
+      "size_bytes": 1609,
+      "sha256": "213a3f0447118615f0e2013ad1f75c61beee8ca1dc54f76709cb2a4664251320"
+    },
+    {
+      "path": "System/FirstStart/usbc3h_controlled_first_start.py",
+      "size_bytes": 38756,
+      "sha256": "5eec094f577ff7b6fee7499d1a1df70171f65b8a062eb47eabeb3813920e4734"
+    },
+    {
+      "path": "VALIDATION_RESULTS.json",
+      "size_bytes": 232,
+      "sha256": "6e4fb1ec02c1801e3a611d856cdf056ac2baeea41cec07bf2b5a4cc9486524d9"
+    }
+  ]
+}

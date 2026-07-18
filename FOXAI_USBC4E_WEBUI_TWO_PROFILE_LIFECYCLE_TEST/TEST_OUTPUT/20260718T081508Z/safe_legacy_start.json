@@ -1,0 +1,184 @@
+{
+  "verified": true,
+  "profile_id": "safe-normal-cpu",
+  "approved": false,
+  "payload": {
+    "ok": true,
+    "message": "ComfyUI started and passed controller ownership, profile, node-hash, and health checks.",
+    "state": "HEALTHY",
+    "controller": {
+      "ok": true,
+      "state": "HEALTHY",
+      "message": "ComfyUI started and passed controller ownership, profile, node-hash, and health checks.",
+      "supervisor_pid": 38080,
+      "active_profile_id": "safe-normal-cpu",
+      "active_profile_name": "Safe Normal CPU",
+      "approved_node_hash_state": "NOT_APPLICABLE",
+      "status": {
+        "ok": true,
+        "state": "HEALTHY",
+        "message": "Verified controller-owned ComfyUI instance is healthy.",
+        "managed": true,
+        "active_profile_id": "safe-normal-cpu",
+        "active_profile_name": "Safe Normal CPU",
+        "default_profile_id": "safe-normal-cpu",
+        "approved_node_hash_state": "NOT_APPLICABLE",
+        "approved_nodes": [],
+        "recorded_state": {
+          "approved_node_hash_state": "NOT_APPLICABLE",
+          "approved_nodes": [],
+          "child_create_time": 1784362542.4259627,
+          "child_pid": 23036,
+          "command": [
+            "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+            "-I",
+            "-B",
+            "-S",
+            "Z:\\FOXAI\\System\\PortableRuntime\\launch_comfyui_isolated.py",
+            "--root",
+            "Z:\\FOXAI",
+            "--",
+            "--cpu",
+            "--disable-all-custom-nodes",
+            "--listen",
+            "127.0.0.1",
+            "--port",
+            "8188"
+          ],
+          "command_fingerprint": "e6a2af2d71a4eb25f92858a1c20e6a8aa15610b9a126477b03d1c72934aa8f0a",
+          "custom_nodes_disabled": true,
+          "listen": "127.0.0.1",
+          "log_dir": "Z:\\FOXAI\\Runtime\\ComfyUI\\logs\\normal\\20260718T081542Z",
+          "manager_version": "1.1.0",
+          "policy_id": "FOXAI_COMFYUI_DUAL_CPU_PROFILE_V1",
+          "port": 8188,
+          "portable_python": "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+          "profile_id": "safe-normal-cpu",
+          "profile_name": "Safe Normal CPU",
+          "retention": {
+            "automatic_deletion": false,
+            "run_count": 5,
+            "total_bytes": 34020,
+            "warning": false
+          },
+          "root": "Z:\\FOXAI",
+          "run_id": "20260718T081542Z",
+          "schema": 1,
+          "source": "webui",
+          "started": "2026-07-18T08:15:42.424369+00:00",
+          "status": "STARTING",
+          "stop_request": "Z:\\FOXAI\\Runtime\\ComfyUI\\logs\\normal\\20260718T081542Z\\stop.request.json",
+          "supervisor_create_time": 1784362541.799852,
+          "supervisor_pid": 38080
+        },
+        "verification": {
+          "child": {
+            "pid": 23036,
+            "create_time": 1784362542.4259627,
+            "exe": "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+            "cmdline": [
+              "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+              "-I",
+              "-B",
+              "-S",
+              "Z:\\FOXAI\\System\\PortableRuntime\\launch_comfyui_isolated.py",
+              "--root",
+              "Z:\\FOXAI",
+              "--",
+              "--cpu",
+              "--disable-all-custom-nodes",
+              "--listen",
+              "127.0.0.1",
+              "--port",
+              "8188"
+            ],
+            "status": "running",
+            "running": true
+          },
+          "supervisor": {
+            "pid": 38080,
+            "create_time": 1784362541.799852,
+            "exe": "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+            "cmdline": [
+              "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+              "-I",
+              "-B",
+              "-S",
+              "Z:\\FOXAI\\System\\PortableRuntime\\manage_comfyui_normal.py",
+              "--root",
+              "Z:\\FOXAI",
+              "start",
+              "--no-browser",
+              "--source",
+              "webui",
+              "--profile",
+              "safe-normal-cpu"
+            ],
+            "status": "running",
+            "running": true
+          },
+          "listeners": [
+            {
+              "ip": "127.0.0.1",
+              "port": 8188,
+              "pid": 23036,
+              "status": "LISTEN"
+            }
+          ],
+          "child_owned": true,
+          "supervisor_owned": true,
+          "loopback_only": true,
+          "health": {
+            "ok": true,
+            "checks": [
+              {
+                "url": "http://127.0.0.1:8188/",
+                "ok": true,
+                "status": 200,
+                "bytes": 4096,
+                "elapsed_seconds": 0.044,
+                "error": null
+              },
+              {
+                "url": "http://127.0.0.1:8188/system_stats",
+                "ok": true,
+                "status": 200,
+                "bytes": 1143,
+                "elapsed_seconds": 0.002,
+                "error": null
+              }
+            ],
+            "observed": "2026-07-18T08:15:58.050344+00:00"
+          },
+          "profile_id": "safe-normal-cpu",
+          "profile_name": "Safe Normal CPU",
+          "approved_node_hash_state": "NOT_APPLICABLE",
+          "approved_nodes": [],
+          "expected_command_fingerprint": "e6a2af2d71a4eb25f92858a1c20e6a8aa15610b9a126477b03d1c72934aa8f0a",
+          "owned_healthy": true
+        }
+      },
+      "controller_returncode": 0
+    },
+    "receipt": {
+      "action": "comfy.start",
+      "state": "verified",
+      "verified": true,
+      "actor": "operator",
+      "created": "2026-07-18T08:15:58+00:00",
+      "checks": [
+        {
+          "id": "normal_controller",
+          "ok": true,
+          "message": "ComfyUI started and passed controller ownership, profile, node-hash, and health checks."
+        }
+      ],
+      "details": {
+        "state": "HEALTHY",
+        "profile_id": "safe-normal-cpu"
+      },
+      "receipt_id": "d36d74335b26eea6e1bf9580"
+    },
+    "claim_state": "verified"
+  }
+}

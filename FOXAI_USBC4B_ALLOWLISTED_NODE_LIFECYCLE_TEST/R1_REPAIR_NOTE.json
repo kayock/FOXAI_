@@ -1,0 +1,28 @@
+{
+  "revision": "C4B-R1",
+  "repair_scope": "Allow only loopback ephemeral port 0 binds required by the Windows asyncio ProactorEventLoop self-pipe, while continuing to require the actual ComfyUI listener at exactly 127.0.0.1:8188 and rejecting all other bind addresses and ports.",
+  "reviewed_failed_run": {
+    "classification": "C4B_BLOCKED_FAIL_CLOSED",
+    "exit_code": 23,
+    "process_returncode": 1,
+    "root_cause": "Audit wrapper denied asyncio's internal loopback socketpair bind at ('127.0.0.1', 0) after an IPv6 loopback attempt at ('::1', 0).",
+    "approved_node_hash_verified": true,
+    "isolated_target_unchanged": true,
+    "source_boundaries_unchanged": true,
+    "external_network_access": false,
+    "left_running": false
+  },
+  "unchanged_contract": {
+    "approved_node": "websocket_image_save.py",
+    "approved_sha256": "0b66b69eb7dab007d55bf63c5bd0f1343dcfbc2f5a350983f906ba2cd3dd5d23",
+    "cpu": true,
+    "disable_all_custom_nodes": true,
+    "whitelist_custom_nodes": [
+      "websocket_image_save.py"
+    ],
+    "listen": "127.0.0.1",
+    "port": 8188,
+    "browser_open": false,
+    "leave_running": false
+  }
+}

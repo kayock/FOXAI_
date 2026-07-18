@@ -1,0 +1,26 @@
+{
+  "package": "FOXAI_USBC3E_EXACT_ISOLATED_INSTALL",
+  "revision": "R1",
+  "reviewed_failed_run": {
+    "classification": "C3E_BLOCKED_FAIL_CLOSED_NO_RUNTIME_WRITE",
+    "elapsed_seconds": 9.817,
+    "wheelhouse_reverified": true,
+    "wheel_count": 96,
+    "package_install_attempted": false,
+    "staging_exists": false,
+    "final_target_exists": false,
+    "protected_boundaries_unchanged": true,
+    "blocking_exception": "FileNotFoundError [WinError 3] creating Runtime/ComfyUI/.C3E_site-packages_staging_* because Runtime/ComfyUI was absent."
+  },
+  "repair": {
+    "create_only": "Runtime/ComfyUI",
+    "precondition": "Runtime exists as a non-symlink directory",
+    "reject_if": "Runtime is missing/unsafe or Runtime/ComfyUI exists as a file/symlink/unsafe object",
+    "preserve_on_failure": true,
+    "install_manifest_changed": false,
+    "wheel_hashes_changed": false,
+    "installer_changed": false,
+    "network_policy_changed": false,
+    "launcher_policy_changed": false
+  }
+}

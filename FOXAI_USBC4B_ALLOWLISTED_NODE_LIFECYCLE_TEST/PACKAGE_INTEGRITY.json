@@ -1,0 +1,83 @@
+{
+  "package": "FOXAI_USBC4B_ALLOWLISTED_NODE_LIFECYCLE_TEST",
+  "revision": "C4B-R1",
+  "integrity_version": 1,
+  "file_count": 9,
+  "mode": "controlled_allowlisted_node_import_health_verify_then_stop",
+  "operator_approval": "Proceed to USB C4B controlled allowlisted custom-node import and lifecycle test under the accepted C4A review.",
+  "repair_scope": "Permit only loopback ephemeral port 0 binds required by the Windows asyncio event-loop self-pipe. Continue requiring the actual ComfyUI listener at exactly 127.0.0.1:8188 and reject every other bind.",
+  "reviewed_failed_run": {
+    "classification": "C4B_BLOCKED_FAIL_CLOSED",
+    "exit_code": 23,
+    "process_returncode": 1,
+    "root_cause": "The audit wrapper denied Windows asyncio's internal loopback socketpair bind on ephemeral port 0 before ComfyUI could create its event loop.",
+    "approved_node_verified": true,
+    "isolated_target_unchanged": true,
+    "source_boundaries_unchanged": true,
+    "runtime_changes": [],
+    "external_network_access": false,
+    "left_running": false,
+    "review_evidence_files_verified": 21
+  },
+  "unchanged_contract": {
+    "approved_node": "websocket_image_save.py",
+    "approved_sha256": "0b66b69eb7dab007d55bf63c5bd0f1343dcfbc2f5a350983f906ba2cd3dd5d23",
+    "cpu": true,
+    "disable_all_custom_nodes": true,
+    "whitelist_custom_nodes": [
+      "websocket_image_save.py"
+    ],
+    "listen": "127.0.0.1",
+    "port": 8188,
+    "browser_open": false,
+    "leave_running": false
+  },
+  "expected_success_classification": "C4B_ALLOWLISTED_NODE_VERIFIED_STOPPED_READY_FOR_C4C_WEBUI_PROFILE_REVIEW",
+  "files": [
+    {
+      "path": "00_READ_ME_FIRST.txt",
+      "size_bytes": 704,
+      "sha256": "df3b6715460e1a9c8075b1ca5176ea51e6366faf7de509b131135dedccb1ee0e"
+    },
+    {
+      "path": "C4B_TEST_CONTRACT.json",
+      "size_bytes": 1226,
+      "sha256": "7ac4b039f89393b594c2f73e3955f00eff7095992e3e79b4fba7bb7b2e0e404b"
+    },
+    {
+      "path": "EXPECTED_C4A_BINDING.json",
+      "size_bytes": 7531,
+      "sha256": "ccbf8b928cc5a711ad574480189f14283e8c21b5d839944675cd2399bc4a9051"
+    },
+    {
+      "path": "OPERATOR_APPROVAL.json",
+      "size_bytes": 538,
+      "sha256": "13061533d3f3c6756ecfac507968591b54f9560e8fd75e7723a10437a4ff757a"
+    },
+    {
+      "path": "R1_REPAIR_NOTE.json",
+      "size_bytes": 1146,
+      "sha256": "8f10ed2b1a2347cf8015e45d377c31b882678dfd1d051ce9c4c44115040d5835"
+    },
+    {
+      "path": "RUN_USB_C4B_TEST.bat",
+      "size_bytes": 1645,
+      "sha256": "fc29b79fe2a38300d98f5bb2a221e8e87b615420274f2fe80278c2a04fd92dd8"
+    },
+    {
+      "path": "System/NodeTest/c4b_audited_allowlisted_launcher.py",
+      "size_bytes": 6325,
+      "sha256": "520e47b7b29baf7fc2584df3cc8a29e5ca39fd68eb8d9ca70b19a969f2a93dca"
+    },
+    {
+      "path": "System/NodeTest/usbc4b_allowlisted_node_lifecycle_test.py",
+      "size_bytes": 46639,
+      "sha256": "09e5fb943c392a5784783787fdc2031b574b23c3d56ff2fc2a2fe5d04f9dc1cf"
+    },
+    {
+      "path": "VALIDATION_RESULTS.json",
+      "size_bytes": 639,
+      "sha256": "63119325a536be04e89ec2f1f3a0e0d0163fa19f81d69291f45376735cad26bb"
+    }
+  ]
+}

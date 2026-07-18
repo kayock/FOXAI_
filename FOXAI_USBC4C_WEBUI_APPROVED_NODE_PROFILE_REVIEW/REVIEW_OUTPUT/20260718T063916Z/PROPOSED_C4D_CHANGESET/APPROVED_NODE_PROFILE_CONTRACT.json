@@ -1,0 +1,88 @@
+{
+  "contract_id": "FOXAI_COMFYUI_DUAL_CPU_PROFILE_V1",
+  "controller_requirements": {
+    "changed_node_rule": "Fail closed before launch.",
+    "hash_checks": [
+      "approved node immediately before process creation",
+      "approved node after verified health"
+    ],
+    "listen": "127.0.0.1:8188 only",
+    "profile_argument": "--profile on start and spawn; omitted means safe-normal-cpu",
+    "profile_switch_rule": "If a different profile is already HEALTHY, refuse and require operator stop first.",
+    "state_binding": [
+      "profile id",
+      "profile display name",
+      "exact child command fingerprint",
+      "approved node path, size, and SHA-256"
+    ],
+    "unknown_profile_rule": "Fail closed.",
+    "unreviewed_nodes": "Remain disabled."
+  },
+  "default_profile_id": "safe-normal-cpu",
+  "profiles": [
+    {
+      "arguments": [
+        "--cpu",
+        "--disable-all-custom-nodes",
+        "--listen",
+        "127.0.0.1",
+        "--port",
+        "8188"
+      ],
+      "browser": "WebUI Open remains separate",
+      "custom_nodes": "none",
+      "default": true,
+      "display_name": "Safe Normal CPU",
+      "id": "safe-normal-cpu"
+    },
+    {
+      "approved_nodes": [
+        {
+          "audit_state": "C4B_VERIFIED",
+          "class_key": "SaveImageWebsocket",
+          "display_name": "Save Image (Websocket)",
+          "filename": "websocket_image_save.py",
+          "relative_path": "ComfyUI/custom_nodes/websocket_image_save.py",
+          "sha256": "0b66b69eb7dab007d55bf63c5bd0f1343dcfbc2f5a350983f906ba2cd3dd5d23"
+        }
+      ],
+      "arguments": [
+        "--cpu",
+        "--disable-all-custom-nodes",
+        "--whitelist-custom-nodes",
+        "websocket_image_save.py",
+        "--listen",
+        "127.0.0.1",
+        "--port",
+        "8188"
+      ],
+      "browser": "WebUI Open remains separate",
+      "default": false,
+      "display_name": "Approved Custom Nodes CPU",
+      "id": "approved-custom-nodes-cpu"
+    }
+  ],
+  "safety": {
+    "approved_profile_explicit_only": true,
+    "automatic_log_deletion": false,
+    "custom_node_install": false,
+    "force_kill": false,
+    "network_policy_change": false,
+    "safe_profile_unchanged": true
+  },
+  "webui_behavior": {
+    "do_not_persist_approved_profile": true,
+    "legacy_get_start": "GET /api/launch/comfy remains Safe Normal CPU for compatibility",
+    "open_action": "unchanged separate browser Open action",
+    "selector_default_each_page_load": "safe-normal-cpu",
+    "selector_label": "ComfyUI Profile",
+    "start_action": "POST /api/launch/comfy/profile with JSON {profile_id}",
+    "status_display": [
+      "state",
+      "active_profile_id",
+      "active_profile_name",
+      "approved_node_hash_state"
+    ],
+    "stop_action": "unchanged controller-owned graceful stop"
+  }
+}

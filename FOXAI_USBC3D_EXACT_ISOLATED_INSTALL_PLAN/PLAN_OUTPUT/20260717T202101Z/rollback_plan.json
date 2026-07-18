@@ -1,0 +1,17 @@
+{
+  "status": "PLAN_ONLY",
+  "protected_existing_content": "No existing target is present, so no existing package tree may be overwritten or merged.",
+  "before_commit": "On any failure, preserve evidence and remove only the newly created C3E transaction staging directory after operator approval.",
+  "after_commit_before_launcher_integration": "The new final target is self-contained and can be disabled by renaming it or removed after operator approval; no launcher rollback is required because C3E changes no launcher.",
+  "forbidden_rollback_actions": [
+    "Do not run pip uninstall against Desktop, Core, host Python, or the isolated target",
+    "Do not delete or alter the C3C staging wheelhouse",
+    "Do not delete ComfyUI models, inputs, outputs, custom nodes, source, or launchers",
+    "Do not overwrite a pre-existing final target"
+  ],
+  "future_authorized_write_boundary": [
+    "Z:\\FOXAI\\Runtime\\ComfyUI\\.C3E_site-packages_staging_<UTC_RUN_ID>",
+    "Z:\\FOXAI\\Runtime\\ComfyUI\\site-packages",
+    "Z:\\FOXAI\\FOXAI_USBC3E_EXACT_ISOLATED_INSTALL"
+  ]
+}

@@ -1,0 +1,47 @@
+FOXAI USB C3C R2 — Wheel RECORD Directory-Entry Validation Repair
+
+REASON FOR R2
+The R1 rerun successfully accepted and cryptographically verified the first
+eight wheels. It stopped fail-closed while validating:
+
+  av-18.0.0-cp311-abi3-win_amd64.whl
+
+That wheel contains explicit ZIP directory placeholder entries such as "av/"
+and "av.libs/". Its wheel RECORD correctly lists installed file payloads, not
+those directory placeholders. R1 incorrectly required every ZIP entry,
+including directory placeholders, to appear in RECORD.
+
+SAFETY RESULT OF THE STOPPED R1 RUN
+- All 96 release metadata records were revalidated.
+- Eight exact wheels were accepted before the stop.
+- The ninth payload was downloaded and quarantined but not accepted.
+- No package was installed.
+- Runtime\ComfyUI\site-packages was not created.
+- Desktop, Core, ComfyUI, System, and launchers were unchanged.
+- The rerun may safely revalidate and reuse the eight accepted wheels.
+
+EXACT REPAIR
+R2:
+1. continues validating every ZIP entry for safe paths, duplicate names,
+   encryption, and symbolic links;
+2. identifies explicit directory entries using ZipInfo.is_dir();
+3. compares RECORD exactly against non-directory file members only;
+4. cryptographically verifies every non-directory file member against RECORD;
+5. records file-member and directory-member counts in the evidence.
+
+R2 does not weaken file verification. A real file omitted from RECORD, an extra
+RECORD file entry, unsigned payload, wrong size, wrong digest, unsafe path,
+duplicate member, encrypted member, symlink, metadata mismatch, tag mismatch,
+outer size mismatch, or outer SHA-256 mismatch still causes a fail-closed stop.
+
+No acquisition manifest, approved URL, package version, hash, size, source
+host, install boundary, runtime boundary, or launcher boundary changed.
+
+RERUN
+Extract R2 directly into Z:\FOXAI and allow replacement only inside:
+
+  FOXAI_USBC3C_EXACT_WHEEL_ACQUISITION
+
+Keep the existing STAGING_WHEELHOUSE and all prior ACQUISITION_OUTPUT evidence.
+Run RUN_USB_C3C_ACQUIRE.bat again. The eight accepted wheels should be rehashed,
+revalidated, and reused; acquisition should resume with the missing wheel set.

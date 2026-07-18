@@ -1,0 +1,92 @@
+{
+  "policy_id": "FOXAI_COMFYUI_SAFE_NORMAL_CPU_V1",
+  "status": "recommended_for_C3J_operator_approval",
+  "default_profile": "Safe Normal CPU",
+  "runtime": {
+    "python": "Runtime/Desktop/python/python.exe",
+    "activator": "System/PortableRuntime/launch_comfyui_isolated.py",
+    "site_packages": "Runtime/ComfyUI/site-packages",
+    "arguments": [
+      "--cpu",
+      "--disable-all-custom-nodes",
+      "--listen",
+      "127.0.0.1",
+      "--port",
+      "8188"
+    ],
+    "bind": "127.0.0.1",
+    "port": 8188,
+    "external_bind_allowed": false,
+    "telemetry_environment_disabled": true
+  },
+  "lifecycle": {
+    "stay_running_after_verified_start": true,
+    "startup_timeout_seconds": 300,
+    "required_consecutive_health_checks": 3,
+    "health_interval_seconds": 1,
+    "health_endpoints": [
+      "/",
+      "/system_stats"
+    ],
+    "duplicate_start": "Return already-running only when state, PID identity, command fingerprint, and localhost health all agree.",
+    "unknown_port_owner": "Refuse to start or stop and show a clear conflict report.",
+    "stale_state": "Preserve the stale state and logs, mark them stale, and require exact PID/creation-time validation before replacement."
+  },
+  "browser": {
+    "direct_user_start_default": "Open the default browser only after verified health.",
+    "webui_start_default": "Do not auto-open; keep the existing separate Open action.",
+    "url": "http://127.0.0.1:8188",
+    "no_browser_option": true
+  },
+  "custom_nodes": {
+    "default": "disabled",
+    "reason": "C3H verified only the no-custom-node path.",
+    "enablement": "Requires a separate read-only inventory, compatibility audit, and operator-approved allowlist gate.",
+    "automatic_enablement": false
+  },
+  "stop_control": {
+    "normal": "A controller-owned supervisor requests graceful child shutdown and waits up to 15 seconds.",
+    "identity_requirements": [
+      "recorded PID",
+      "process creation time",
+      "portable python executable path",
+      "root path",
+      "command fingerprint",
+      "localhost port ownership"
+    ],
+    "force_kill_default": false,
+    "force_kill_requires_explicit_operator_action": true,
+    "unknown_process_never_killed": true
+  },
+  "state": {
+    "directory": "Runtime/ComfyUI/state",
+    "active_state": "Runtime/ComfyUI/state/normal_instance.json",
+    "atomic_write": true,
+    "preserve_last_failure": true
+  },
+  "logs": {
+    "directory": "Runtime/ComfyUI/logs/normal/<UTC-run-id>",
+    "files": [
+      "stdout.log",
+      "stderr.log",
+      "start_receipt.json",
+      "health_receipt.json",
+      "stop_receipt.json"
+    ],
+    "initial_retention": "retain_all_no_automatic_deletion",
+    "warning_thresholds": {
+      "run_count": 100,
+      "total_bytes": 1073741824
+    },
+    "on_threshold": "Warn and prepare a preview-only prune manifest; do not delete automatically.",
+    "preserve_failures": true,
+    "never_prune": [
+      "C3A-C3I evidence",
+      "user input/output",
+      "models",
+      "workflows",
+      "source",
+      "runtime packages"
+    ]
+  }
+}

@@ -217,6 +217,9 @@ def web_engineer_analyze(
 
 
 FOLDERS={'root':ROOT,'models':ROOT/'Models','chat_models':ROOT/'Models'/'Chat','comfy_output':COMFY/'output','library':LIB,'projects':PROJECTS,'prompts':ROOT/'Prompts','novel_forge':ROOT/'NovelForge','novel_exports':ROOT/'NovelForge'/'Exports','logs':LOGS,'config':ROOT/'Config','reports':ROOT/'Reports','repair_reports':ROOT/'Reports'/'RepairActions','repair_ops_dashboard':ROOT/'Reports'/'RepairActions'/'OperationsDashboard','repair_action_details':ROOT/'Reports'/'RepairActions'/'ActionDetails','repair_tickets':ROOT/'Reports'/'RepairActions'/'Tickets','repair_ticket_details':ROOT/'Reports'/'RepairActions'/'TicketDetails','repair_ticket_bridges':ROOT/'Reports'/'RepairActions'/'TicketBridges','repair_session_reports':ROOT/'Reports'/'RepairActions'/'SessionReports','repair_milestone_freeze':ROOT/'Reports'/'RepairActions'/'MilestoneFreeze','command_center_reports':ROOT/'Reports'/'CommandCenter','command_center_detail_reports':ROOT/'Reports'/'CommandCenter'/'Details','command_center_card_reports':ROOT/'Reports'/'CommandCenter'/'DashboardCards','command_center_archive_reports':ROOT/'Reports'/'CommandCenter'/'Archive','command_center_milestone_freeze':ROOT/'Reports'/'CommandCenter'/'MilestoneFreeze','kayock_writer_reports':ROOT/'Reports'/'KayockWriter','kayock_writer_foundation_reports':ROOT/'Reports'/'KayockWriter'/'Foundation','kayock_writer_story_forge_reports':ROOT/'Reports'/'KayockWriter'/'StoryForge','kayock_writer_manifest_preview_reports':ROOT/'Reports'/'KayockWriter'/'ManifestPreview','kayock_writer_create_gate_reports':ROOT/'Reports'/'KayockWriter'/'CreateProjectGate','kayock_writer_create_action_reports':ROOT/'Reports'/'KayockWriter'/'CreateProjectAction','kayock_writer_project_dashboard_reports':ROOT/'Reports'/'KayockWriter'/'ProjectDashboard','kayock_writer_project_health_reports':ROOT/'Reports'/'KayockWriter'/'ProjectHealthCards','kayock_writer_chapter_planner_reports':ROOT/'Reports'/'KayockWriter'/'ChapterPlanner','kayock_writer_chapter_save_gate_reports':ROOT/'Reports'/'KayockWriter'/'ChapterSaveGate','kayock_writer_chapter_save_action_reports':ROOT/'Reports'/'KayockWriter'/'ChapterSaveAction','kayock_writer_saved_chapter_dashboard_reports':ROOT/'Reports'/'KayockWriter'/'SavedChapterDashboard','kayock_writer_chapter_editor_preview_reports':ROOT/'Reports'/'KayockWriter'/'ChapterEditorPreview','kayock_writer_chapter_edit_gate_reports':ROOT/'Reports'/'KayockWriter'/'ChapterEditGate','kayock_writer_chapter_edit_action_reports':ROOT/'Reports'/'KayockWriter'/'ChapterEditAction','kayock_writer_chapter_edit_audit_reports':ROOT/'Reports'/'KayockWriter'/'ChapterEditAudit','kayock_writer_chapter_draft_workspace_reports':ROOT/'Reports'/'KayockWriter'/'ChapterDraftWorkspace','kayock_writer_draft_save_gate_reports':ROOT/'Reports'/'KayockWriter'/'DraftSaveGate','kayock_writer_draft_save_action_reports':ROOT/'Reports'/'KayockWriter'/'DraftSaveAction','kayock_writer_draft_reader_reports':ROOT/'Reports'/'KayockWriter'/'DraftReader','kayock_writer_draft_version_history_reports':ROOT/'Reports'/'KayockWriter'/'DraftVersionHistory','kayock_writer_draft_continue_workspace_reports':ROOT/'Reports'/'KayockWriter'/'DraftContinueWorkspace','kayock_writer_continue_save_gate_reports':ROOT/'Reports'/'KayockWriter'/'ContinueSaveGate','kayock_writer_continue_save_action_reports':ROOT/'Reports'/'KayockWriter'/'ContinueSaveAction','kayock_writer_draft_refresh_reports':ROOT/'Reports'/'KayockWriter'/'DraftRefreshVerification','kayock_writer_draft_compare_reports':ROOT/'Reports'/'KayockWriter'/'DraftCompareView','kayock_writer_real_prose_gate_reports':ROOT/'Reports'/'KayockWriter'/'RealProseDraftGate','kayock_writer_real_prose_save_reports':ROOT/'Reports'/'KayockWriter'/'RealProseSaveAction','kayock_writer_real_prose_refresh_compare_reports':ROOT/'Reports'/'KayockWriter'/'RealProseRefreshCompare','kayock_writer_real_prose_editor_gate_reports':ROOT/'Reports'/'KayockWriter'/'RealProseEditorGate','kayock_writer_real_prose_edit_save_reports':ROOT/'Reports'/'KayockWriter'/'RealProseEditSaveAction','kayock_writer_real_prose_edit_refresh_compare_reports':ROOT/'Reports'/'KayockWriter'/'RealProseEditRefreshCompare','kayock_writer_chapter_prose_workspace_reports':ROOT/'Reports'/'KayockWriter'/'ChapterProseWorkspace','kayock_writer_chapter_prose_continue_gate_reports':ROOT/'Reports'/'KayockWriter'/'ChapterProseContinueGate','kayock_writer_chapter_prose_continue_save_reports':ROOT/'Reports'/'KayockWriter'/'ChapterProseContinueSaveAction','kayock_writer_chapter_prose_continue_refresh_compare_reports':ROOT/'Reports'/'KayockWriter'/'ChapterProseContinueRefreshCompare','kayock_writer_chapter_edit_backups':ROOT/'Backups'/'KayockWriter'/'ChapterEdits','kayock_writer_saved_chapter_health_reports':ROOT/'Reports'/'KayockWriter'/'SavedChapterHealth','kayock_writer_slipping_chapters_folder':ROOT/'Projects'/'KayockWriter'/'Slipping_into_Darkness'/'Chapters','kayock_writer_slipping_project_root':ROOT/'Projects'/'KayockWriter'/'Slipping_into_Darkness','env_reports':ROOT/'Reports'/'Environment','portable_reports':ROOT/'Reports'/'PortableReadiness','model_reports':ROOT/'Reports'/'Models','build_reports':ROOT/'Reports'/'BuildVerification','scan_reports':ROOT/'Reports'/'Scans','manifest_backups':ROOT/'Backups'/'Manifests','file_backups':ROOT/'Backups'/'GeneratedFiles','restore_staging':ROOT/'Reports'/'Backups'/'RestoreStaging','staging_inventory':ROOT/'Reports'/'Backups'/'StagingInventory','final_checklist':ROOT/'Reports'/'Backups'/'FinalChecklist','restore_live_backups':ROOT/'Backups'/'RestoreLiveTargets','restore_reports':ROOT/'Reports'/'Backups'/'RestoreActions','restore_audit':ROOT/'Reports'/'Backups'/'RestoreAudit','rollback_previews':ROOT/'Reports'/'Backups'/'RollbackPreviews','rollback_live_backups':ROOT/'Backups'/'RollbackLiveTargets','rollback_reports':ROOT/'Reports'/'Backups'/'RollbackActions','rollback_audit':ROOT/'Reports'/'Backups'/'RollbackAudit','recovery_timeline':ROOT/'Reports'/'Backups'/'RecoveryTimeline','extensions':ROOT/'Extensions','modules':ROOT/'Modules'}
+FOLDERS['kayock_writer_poetry_drafts']=ROOT/'Projects'/'KayockWriter'/'Poetry'/'Drafts'
+FOLDERS['kayock_writer_poetry_recordings']=ROOT/'Projects'/'KayockWriter'/'Poetry'/'Recordings'
+FOLDERS['kayock_writer_poetry_legacy']=ROOT/'Projects'/'KayockWriter'/'Poetry'/'Legacy'
 OPSBRIDGE_OUTBOX=ROOT/'OpsBridge'/'outbox'; BRIDGE_FEED_FILE=OPSBRIDGE_OUTBOX/'bridge_feed.json'; BUILDER_REPORT_FILE=OPSBRIDGE_OUTBOX/'builder_report.json'
 
 def log(s): LOGS.mkdir(exist_ok=True); LOG.open('a',encoding='utf-8').write(f"[{datetime.now():%F %T}] {s}\n")
@@ -374,6 +377,214 @@ def post(url,payload,timeout=300):
     import urllib.request
     req=urllib.request.Request(url,data=json.dumps(payload).encode(),headers={'Content-Type':'application/json'})
     with urllib.request.urlopen(req,timeout=timeout) as r: return json.loads(r.read().decode(errors='replace'))
+
+# ERIC_POET_NARRATOR_PROFILE_V1_START
+
+ERIC_POET_NARRATOR_PROFILE = {
+    "id": "eric_poet_narrator",
+    "name": "Eric — Poet/Narrator",
+    "author": "Eric Z. Fox",
+    "kind": "read_only_style_reference",
+    "originals_modified": False,
+    "source_titles": [
+        "Eternity",
+        "The City Of Sorrows",
+        "The Vampire Lestat",
+        "The Soliloquy of 2002",
+    ],
+    "traits": [
+        "direct emotional declaration rather than detached description",
+        "frequent rhyme and near-rhyme used as forward momentum",
+        "mythic, cosmic, historical, religious, or supernatural framing",
+        "plainspoken lines beside unusual dreamlike phrases",
+        "love, mortality, injustice, faith, darkness, endurance, and hope",
+        "strong concluding couplets or final declarations",
+        "willingness to keep rough edges when they carry the writer's identity",
+    ],
+    "sources": [
+        {
+            "title": "Eternity",
+            "author": "Eric Z. Fox",
+            "text": """Eternity
+
+For thousands of years it was only you
+Yes, as Egyptian slaves my heart was true
+And as Romans we danced through ancient wonders
+In Iceland we worshiped Thor god of thunder
+For you countless times I've died
+And for me I know countless times you've cried
+Yet, still I fight to go on
+Because I know you'll never be gone
+So once again in purgatory I wait
+For three sisters to decide my fate
+Just like three times before
+When I gave my life so you'd have more
+Several times I gave my Gods for you
+Just to hear you say you love me too
+Yet now we live apart
+And I wish for a start
+Truly though I know it will come
+Because eternity has just begun.""",
+        },
+        {
+            "title": "The City Of Sorrows",
+            "author": "Eric Z Fox",
+            "date": "July 10,02",
+            "copyright": "© Copyright 2002 Whisper (UN: kayock at Writing.Com). All rights reserved.",
+            "text": """The City Of Sorrows
+
+It is a dank and awful place
+Not held by any one race
+It has us all in a melting pot
+Just ready for the right spot
+
+A situation to light the fire
+To start off the bombs higher
+But this land that time forgot
+is the feeding grounds for the juggernaut
+
+It is a world that God misplaced
+Or sent here all the waste
+Because here it is horror
+And the hour never reaches half past quarter
+
+Yes the days go by but time does not
+It is the land of the Devils rot
+So this city of useless tomorrows
+Is the famous city of sorrows.""",
+        },
+        {
+            "title": "The Vampire Lestat",
+            "author": "Eric Z Fox",
+            "text": """The Vampire Lestat
+
+The moon is above me bright and full
+I'm a hunter with body and soul as my tool
+With immeasurable senses I stalk upon this city
+Look for evil doers and people without pity.
+
+Because those are the hearts upon I feast.
+Every morning I hardly fear the east.
+Cuz it will take more than the power of the sun.
+Cuz Saint Lestat Is having to much fun.
+
+Fighting monsters, and easing suffering these I do.
+And the Catholic edict I hold true.
+And once in awhile I do give the dark gift.
+But to stop me you better be swift
+
+Cuz I can cloud your mind.
+and you'll think your desires you'll find
+but it will only be my dark embrace
+Cuz I am the brat prince of my entire race.""",
+        },
+        {
+            "title": "The Soliloquy of 2002",
+            "author": "Eric Z Fox",
+            "copyright": "Copyright © 2003 by Eric Z. Fox",
+            "text": """The Soliloquy of 2002
+by Eric Z Fox
+
+Within the lit darkness of eternity we await
+To see if it was St John who saw our fate
+Through terrorism and war we wish to pass
+But it's over religion that we clash
+Be it Solomon's God or that of Christ
+Or even Allah to stop this heist
+That steals life and love in the name
+Of prophets who's faces are gone but all the same.
+Because it is Abraham who's the father of all our belief
+And when we see that Moses, Jesus, and Mohamed are relief
+That our religions are all one
+Than our souls will finally brighten to its own sun.
+
+
+Copyright © 2003 by Eric Z. Fox""",
+        },
+    ],
+}
+
+
+_STRENGTH_RULES = {
+    "light influence": (
+        "Use only a light influence: emotional directness, purposeful cadence, "
+        "and a decisive ending. Do not borrow the source poems' vocabulary, "
+        "images, situations, rhyme pairs, titles, or line structures."
+    ),
+    "recognizably eric": (
+        "Make the new poem recognizably Eric-like through direct emotion, "
+        "rhyme or near-rhyme when natural, mythic or spiritual scale, unusual "
+        "plainspoken images, and a strong concluding declaration. Keep all "
+        "subject matter and wording original."
+    ),
+    "strong eric voice": (
+        "Use a strong Eric voice: emotionally declarative lines, energetic "
+        "rhyme, cosmic or historical reach, moral or spiritual tension, "
+        "unusual phrases that remain understandable, and a memorable final "
+        "couplet or declaration. Do not copy any distinctive source wording."
+    ),
+}
+
+
+def get_writer_voice_profile(
+    profile_id: str = "eric_poet_narrator",
+) -> dict | None:
+    if str(profile_id or "").strip().casefold() != "eric_poet_narrator":
+        return None
+    return json.loads(json.dumps(ERIC_POET_NARRATOR_PROFILE))
+
+
+def build_writer_voice_prompt(
+    profile_id: str,
+    strength: str = "Recognizably Eric",
+) -> str:
+    profile = get_writer_voice_profile(profile_id)
+    if profile is None:
+        return ""
+
+    strength_key = str(strength or "Recognizably Eric").strip().casefold()
+    strength_rule = _STRENGTH_RULES.get(
+        strength_key,
+        _STRENGTH_RULES["recognizably eric"],
+    )
+    traits = "\n".join(f"- {item}" for item in profile["traits"])
+    sources = "\n\n".join(
+        (
+            f"--- SOURCE: {source['title']} ---\n"
+            f"{source['text'].strip()}"
+        )
+        for source in profile["sources"]
+    )
+
+    return f"""
+ERIC — POET/NARRATOR VOICE PROFILE
+Author: Eric Z. Fox
+Strength: {strength}
+
+Purpose:
+Use the protected poems below only as evidence of the writer's tendencies.
+Create or revise new work in a compatible voice without reproducing a source.
+
+Voice fingerprint:
+{traits}
+
+Strength instruction:
+{strength_rule}
+
+Non-copying rules:
+- Never reuse a complete source line.
+- Never reuse six or more consecutive source words.
+- Never reuse a source title, named character, signature image sequence,
+  historical sequence, rhyme pair, or closing line unless the operator
+  supplied it in the current poem or opening line.
+- Preserve rough or unconventional phrasing when it carries identity.
+- New work must remain clearly new work, not a remix of a source poem.
+- Do not correct or alter any source poem; they are read-only references.
+
+Protected read-only source poems:
+{sources}
+""".strip()
+# ERIC_POET_NARRATOR_PROFILE_V1_END
 
 # MISSION_IMAGE_CONTINUITY_REPAIR_PHASE1_HELPERS_START
 MISSION_IMAGE_MAX_BYTES=6*1024*1024
@@ -823,6 +1034,7 @@ h1{color:var(--p2);margin:14px 0 3px;font-size:28px;letter-spacing:.04em}
 .wide{grid-column:1/-1}
 button,select{border:1px solid #8f5cff66;background:#8f5cff;color:#fff;border-radius:12px;padding:10px 13px;margin:5px 5px 0 0;font-weight:800}
 button:hover{background:var(--ah)}
+button:disabled{opacity:.45;cursor:not-allowed;filter:saturate(.45);transform:none}
 select,input,textarea{width:100%;background:#0b0d17;color:var(--t);border:1px solid #332a55;border-radius:14px;padding:12px}
 textarea{min-height:92px;resize:vertical}
 .status{white-space:pre-wrap;font-family:Consolas,monospace;font-size:13px;color:#e7dcff}
@@ -876,6 +1088,21 @@ td,th{border-bottom:1px solid #8f5cff18;padding:9px;text-align:left}
 .modelfallback summary{cursor:pointer;color:var(--m);font-size:12px;font-weight:800}
 .modelsourcebox{border:1px solid #4dc9ff44;background:#07121a;border-radius:14px;padding:11px;margin:10px 0;color:#d9f5ff;font-family:Consolas,monospace;font-size:12px;white-space:pre-wrap;overflow-wrap:anywhere}.modelsourcecontrols{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:9px 0}.modelsourcecontrols input{min-width:320px;flex:1}.modelsourceroot{border-left:3px solid var(--c);padding:8px 10px;margin:7px 0;background:#4dc9ff0a;border-radius:0 10px 10px 0}.sourcebadge{display:inline-block;border:1px solid #4dc9ff66;border-radius:999px;padding:3px 7px;color:var(--c);font-size:10px;font-weight:900}.sourcebadge.host{border-color:#ffd16677;color:var(--w)}
 
+
+/* KAYOCK_WRITER_CALM_HOME_V1_START */
+.writerHomeHero{padding:26px;background:radial-gradient(circle at 12% 0,#8f5cff2c,transparent 36%),linear-gradient(180deg,#15182a,#11131f)}
+.writerEyebrow{font-family:Consolas,monospace;font-size:12px;font-weight:900;letter-spacing:.12em;color:var(--c);margin-bottom:8px}.writerHomeHero h2{font-size:38px;margin:0 0 8px}.writerHomeHero p{max-width:760px;color:var(--m);font-size:16px;line-height:1.5}
+.writerRoomGrid{display:grid;grid-template-columns:repeat(2,minmax(260px,1fr));gap:16px;margin-bottom:16px}.writerRoom{border:1px solid #8f5cff3d;background:linear-gradient(180deg,#171a29,#11131f);border-radius:22px;padding:20px;min-height:220px;display:flex;flex-direction:column}.writerRoom:hover{border-color:#8f5cff88;box-shadow:0 0 26px #8f5cff15}.writerRoomIcon{font-size:38px;line-height:1;margin-bottom:13px}.writerRoom h3{font-size:25px;margin:0 0 8px;color:#fff}.writerRoom p{color:var(--m);line-height:1.48;margin:0 0 16px}.writerRoom button{margin-top:auto;width:100%}.writerRoom.poetry{border-color:#ff5ccf55}.writerRoom.story{border-color:#8f5cff66}.writerRoom.world{border-color:#23d7ff55}.writerRoom.libraryroom{border-color:#42ff9e44}
+.writerContinue{display:flex;gap:12px;align-items:center;flex-wrap:wrap}.writerContinue h3{margin:0 auto 0 0}.writerAdvancedHome{padding:0;overflow:hidden}.writerAdvancedHome>summary{cursor:pointer;padding:16px 18px;font-weight:900;color:var(--m);list-style:none}.writerAdvancedHome>summary::-webkit-details-marker{display:none}.writerAdvancedHome>summary:after{content:'▸';float:right}.writerAdvancedHome[open]>summary:after{transform:rotate(90deg)}.writerAdvancedBody{padding:0 18px 18px}.writerAdvancedBody p{color:var(--m)}
+.writerWorkspace{display:grid;grid-template-columns:minmax(300px,.85fr) minmax(420px,1.15fr);gap:16px}.writerField{margin-bottom:12px}.writerField label{display:block;color:var(--m);font-size:12px;font-weight:900;margin:0 0 6px}.writerField textarea{min-height:84px}.poemOutput{min-height:470px;font-family:Georgia,'Times New Roman',serif;font-size:17px;line-height:1.62}.poemActions{display:flex;gap:8px;flex-wrap:wrap}.poemStatus{margin-top:10px;border-left:3px solid var(--a);padding:10px 12px;background:#8f5cff0c;border-radius:0 12px 12px 0}.poemPolisher{margin-top:14px;border:1px solid #8f5cff2f;border-radius:16px;background:#090b14}.poemPolisher>summary{cursor:pointer;padding:12px 14px;font-weight:900;color:var(--p2)}.poemPolisherBody{padding:0 14px 14px}.poemPolisher textarea{min-height:220px;font-family:Georgia,'Times New Roman',serif;font-size:16px;line-height:1.55}
+.poemCompareActions{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0}.poemCompareActions button{margin:0}.poemStateBadge{display:inline-block;border:1px solid #8f5cff55;border-radius:999px;padding:4px 9px;margin-right:7px;color:var(--p2);font-family:Consolas,monospace;font-size:11px;font-weight:900}.poemVersionNote{color:var(--m);font-size:12px;margin:8px 0 0}
+.worldIntro{display:grid;grid-template-columns:1fr 240px;gap:12px;align-items:end}.worldTaskGrid{display:grid;grid-template-columns:repeat(2,minmax(250px,1fr));gap:12px}.worldTask{border:1px solid #23d7ff35;background:#23d7ff08;border-radius:18px;padding:16px;display:flex;flex-direction:column;min-height:165px}.worldTask h3{margin:0 0 7px;color:#dff9ff}.worldTask p{color:var(--m);margin:0 0 12px;line-height:1.4}.worldTask button{margin-top:auto}.myWritingGrid{display:grid;grid-template-columns:repeat(2,minmax(260px,1fr));gap:14px}.myWritingCard{border:1px solid #8f5cff35;border-radius:18px;padding:17px;background:#ffffff04}.myWritingCard h3{margin:0 0 7px}.myWritingCard p{color:var(--m);line-height:1.4}.myWritingCard button{width:100%;margin-top:8px}
+.voiceProfileBox{border:1px solid #ff5ccf55;background:#ff5ccf09;border-radius:16px;padding:12px;margin:-2px 0 13px}.voiceProfileBox[hidden]{display:none}.voiceProfileHead{font-weight:900;color:#ffd8f5;margin-bottom:6px}.voiceProfileSources{color:var(--m);font-size:12px;line-height:1.45}.voiceProfileBadge{display:inline-block;border:1px solid #ff5ccf66;border-radius:999px;padding:3px 8px;margin:5px 4px 0 0;color:#ffd8f5;font-family:Consolas,monospace;font-size:10px}.voiceProfileNotice{border-left:3px solid #ff5ccf;padding:8px 10px;margin-top:9px;background:#ff5ccf0b;border-radius:0 10px 10px 0;color:#f7dbef;font-size:12px}
+.poemArchiveToolbar{display:grid;grid-template-columns:minmax(240px,1fr) 210px auto;gap:10px;align-items:end;margin-bottom:14px}.poemArchiveLayout{display:grid;grid-template-columns:minmax(320px,.82fr) minmax(460px,1.18fr);gap:16px}.poemArchiveList{display:grid;gap:10px;max-height:720px;overflow:auto;padding-right:3px}.poemArchiveCard{width:100%;text-align:left;margin:0;border:1px solid #8f5cff35;background:linear-gradient(180deg,#171a29,#10121d);border-radius:16px;padding:14px;color:var(--t)}.poemArchiveCard:hover,.poemArchiveCard.selected{border-color:#ff5ccf88;background:linear-gradient(180deg,#2a1730,#151522)}.poemArchiveCard h3{margin:0 0 6px;color:#fff}.poemArchiveMeta{color:var(--m);font:11px/1.45 Consolas,monospace;overflow-wrap:anywhere}.poemArchiveBadges{display:flex;gap:5px;flex-wrap:wrap;margin:8px 0}.poemArchiveBadge{display:inline-block;border:1px solid #8f5cff55;border-radius:999px;padding:3px 8px;color:var(--p2);font:10px Consolas,monospace}.poemArchiveBadge.legacy{border-color:#ffd16677;color:var(--w);background:#ffd1660c}.poemArchiveBadge.voice{border-color:#ff5ccf77;color:#ffd8f5;background:#ff5ccf0b}.poemArchiveBadge.ready{border-color:#42ff9e77;color:var(--g);background:#42ff9e0b}.poemArchiveDetailEmpty{min-height:420px;display:grid;place-items:center;color:var(--m);text-align:center}.poemArchiveHeader{border-bottom:1px solid #8f5cff28;padding-bottom:12px;margin-bottom:12px}.poemArchiveHeader h2{margin:0 0 5px;color:#fff}.poemArchiveActions{display:flex;gap:7px;flex-wrap:wrap;margin:10px 0}.poemArchiveCompare{display:grid;grid-template-columns:1fr 1fr;gap:12px}.poemArchiveVersion{border:1px solid #8f5cff2f;border-radius:16px;background:#080a12;padding:12px;min-width:0}.poemArchiveVersion h3{margin:0 0 8px;color:var(--p2)}.poemArchiveText{white-space:pre-wrap;font:16px/1.58 Georgia,'Times New Roman',serif;color:#f6f0ff;max-height:520px;overflow:auto;margin:0}.poemArchiveSlots{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0}.poemArchiveSlot{border:1px solid #8f5cff2f;border-radius:13px;padding:10px;background:#ffffff04}.poemArchiveSlot b{display:block;margin-bottom:4px}.poemArchiveSlot .found{color:var(--g)}.poemArchiveSlot .missing{color:var(--m)}.poemArchiveMilestone{border:1px solid #ffd16666;background:radial-gradient(circle at 0 0,#ffd1661d,transparent 45%),linear-gradient(180deg,#1a1720,#11131f)}.poemArchiveMilestone h3{color:var(--w);margin:0 0 6px}.poemArchiveHistory{margin-top:12px;border-top:1px solid #8f5cff25;padding-top:10px}.poemArchiveHistoryRow{display:grid;grid-template-columns:90px 1fr auto;gap:8px;align-items:center;padding:7px 0;border-bottom:1px solid #8f5cff16;font:11px Consolas,monospace}.poemArchiveHistoryRow button{padding:6px 8px;margin:0;font-size:11px}.poemArchiveStatus{color:var(--m);font-size:12px;margin-top:7px}
+@media(max-width:1100px){.poemArchiveLayout,.poemArchiveCompare{grid-template-columns:1fr}.poemArchiveToolbar{grid-template-columns:1fr}.poemArchiveSlots{grid-template-columns:1fr}}
+@media(max-width:1050px){.writerWorkspace{grid-template-columns:1fr}.writerRoomGrid,.worldTaskGrid,.myWritingGrid{grid-template-columns:1fr}.worldIntro{grid-template-columns:1fr}}
+/* KAYOCK_WRITER_CALM_HOME_V1_END */
+
 @media(max-width:900px){.app{grid-template-columns:1fr}aside{position:relative;height:auto}}
 
 .libresult{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px;margin:8px 0}.libresult h4{margin:0 0 5px;color:var(--p2)}.libmeta{color:var(--m);font-family:Consolas,monospace;font-size:12px}.libbadge{display:inline-block;border:1px solid #8f5cff45;border-radius:999px;padding:3px 8px;margin:3px 4px 6px 0;color:var(--p2);font-size:12px}.previewbox{background:#070913;border:1px solid #8f5cff30;border-radius:16px;padding:14px;max-height:520px;overflow:auto;white-space:pre-wrap;font-family:Consolas,monospace;font-size:13px}.previewhead{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:10px}.copypath{color:var(--c);font-family:Consolas,monospace;font-size:12px;overflow-wrap:anywhere}.indexresult{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px;margin:8px 0}.indexresult h4{margin:0 0 5px;color:var(--p2)}.indexsnippet{background:#070913;border:1px solid #8f5cff22;border-radius:12px;padding:10px;margin-top:8px;color:#e7dcff;font-family:Consolas,monospace;font-size:12px;white-space:pre-wrap}.indexscore{color:var(--w);font-family:Consolas,monospace;font-size:12px}.askhint{color:var(--w);font-size:12px;margin-top:6px}.nfitem{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px;margin:8px 0}.nfitem h4{margin:0 0 6px;color:var(--p2)}.nftag{display:inline-block;border:1px solid #8f5cff45;border-radius:999px;padding:3px 8px;margin:3px 4px 6px 0;color:var(--p2);font-size:12px}.nfpreview{color:var(--m);font-family:Consolas,monospace;font-size:12px;white-space:pre-wrap}.nfcount{display:inline-block;border:1px solid #8f5cff45;border-radius:999px;padding:4px 9px;margin:3px;color:var(--p2);font-size:12px}.nfactions button{padding:8px 10px;font-size:13px}.tmevent{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px;margin:8px 0}.tmevent h4{margin:0 0 6px;color:var(--p2)}.tmtag{display:inline-block;border:1px solid #8f5cff45;border-radius:999px;padding:3px 8px;margin:3px 4px 6px 0;color:var(--p2);font-size:12px}.tmdetails{color:var(--m);white-space:pre-wrap;font-family:Consolas,monospace;font-size:12px}.tmactions button{padding:8px 10px;font-size:13px}.charcard{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px;margin:8px 0}.charcard h4{margin:0 0 6px;color:var(--p2)}.chartag{display:inline-block;border:1px solid #8f5cff45;border-radius:999px;padding:3px 8px;margin:3px 4px 6px 0;color:var(--p2);font-size:12px}.chardetails{color:var(--m);white-space:pre-wrap;font-family:Consolas,monospace;font-size:12px}.charactions button{padding:8px 10px;font-size:13px}.mysterycard{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px;margin:8px 0}.mysterycard h4{margin:0 0 6px;color:var(--p2)}.mystag{display:inline-block;border:1px solid #8f5cff45;border-radius:999px;padding:3px 8px;margin:3px 4px 6px 0;color:var(--p2);font-size:12px}.mystatus-unresolved{border-color:#ffd16666;color:#ffd166}.mystatus-solved{border-color:#42ff9e66;color:#42ff9e}.mystatus-red{border-color:#ff4d6d66;color:#ff4d6d}.mysdetails{color:var(--m);white-space:pre-wrap;font-family:Consolas,monospace;font-size:12px}.mysactions button{padding:8px 10px;font-size:13px}.loccard,.artcard{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px;margin:8px 0}.loccard h4,.artcard h4{margin:0 0 6px;color:var(--p2)}.loctag,.arttag{display:inline-block;border:1px solid #8f5cff45;border-radius:999px;padding:3px 8px;margin:3px 4px 6px 0;color:var(--p2);font-size:12px}.locdetails,.artdetails{color:var(--m);white-space:pre-wrap;font-family:Consolas,monospace;font-size:12px}.locactions button,.artactions button{padding:8px 10px;font-size:13px}.codexdash{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin:10px 0}.codexbox{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px}.codexbox .label{color:var(--m);font-size:12px}.codexbox .value{font-size:24px;font-weight:900;color:#fff;margin-top:4px}.readiness{border-left:3px solid var(--w);padding:10px 0 10px 12px;margin-top:12px;background:#ffd1660b;border-radius:0 12px 12px 0}.scenecard{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px;margin:8px 0}.scenecard h4{margin:0 0 6px;color:var(--p2)}.scenetag{display:inline-block;border:1px solid #8f5cff45;border-radius:999px;padding:3px 8px;margin:3px 4px 6px 0;color:var(--p2);font-size:12px}.scenedetails{color:var(--m);white-space:pre-wrap;font-family:Consolas,monospace;font-size:12px}.sceneactions button{padding:8px 10px;font-size:13px}.extcard{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px;margin:8px 0}.extcard h4{margin:0 0 6px;color:var(--p2)}.exttag{display:inline-block;border:1px solid #8f5cff45;border-radius:999px;padding:3px 8px;margin:3px 4px 6px 0;color:var(--p2);font-size:12px}.extmeta{color:var(--m);white-space:pre-wrap;font-family:Consolas,monospace;font-size:12px}.extactions button{padding:8px 10px;font-size:13px}.disabledmod{opacity:.55}.repairbox{background:#050713;border:1px solid #8f5cff45;border-radius:14px;padding:12px;white-space:pre-wrap;overflow:auto;max-height:380px;color:#eae7ff;font-family:Consolas,monospace;font-size:12px}.moddash{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin:10px 0}.modbox{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px}.modbox .label{color:var(--m);font-size:12px}.modbox .value{font-size:24px;font-weight:900;color:#fff;margin-top:4px}.modhint{border-left:3px solid var(--w);padding:10px 0 10px 12px;margin-top:12px;background:#ffd1660b;border-radius:0 12px 12px 0}.modok{border-left-color:var(--ok)!important;background:#00e6860a}.modwarn{border-left-color:var(--bad)!important;background:#ff4d6d0b}.inventoryreadonly{display:inline-block;border:1px solid #00e68655;background:#00e68610;color:var(--ok);border-radius:999px;padding:4px 9px;font-size:11px;font-weight:800;letter-spacing:.08em}.inventorygrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:10px;margin:12px 0}.inventorymetric{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:15px;padding:11px}.inventorymetric .label{color:var(--m);font-size:11px;text-transform:uppercase;letter-spacing:.05em}.inventorymetric .value{font-size:23px;font-weight:900;color:#fff;margin-top:4px}.inventorytoolbar{display:grid;grid-template-columns:minmax(220px,2fr) repeat(3,minmax(135px,1fr));gap:10px;margin:12px 0}.inventorytoolbar input,.inventorytoolbar select{width:100%;box-sizing:border-box}.inventorysources{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:8px;margin-top:10px}.inventorysource{border-left:3px solid #8f5cff;padding:9px 10px;background:#8f5cff0b;border-radius:0 11px 11px 0;color:var(--m);font-family:Consolas,monospace;font-size:11px;white-space:pre-wrap;overflow-wrap:anywhere}.inventorycard{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:13px;margin:9px 0}.inventorycard.verified{border-left:4px solid var(--ok)}.inventorycard.installed{border-left:4px solid #68a7ff}.inventorycard.missing{border-left:4px solid var(--w)}.inventorycard.attention{border-left:4px solid var(--bad)}.inventorycard h4{margin:0 0 7px;color:#fff}.inventorybadges{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px}.inventorybadge{border:1px solid #8f5cff45;border-radius:999px;padding:3px 8px;color:var(--p2);font-size:11px}.inventorybadge.verified{border-color:#00e68666;color:var(--ok)}.inventorybadge.installed{border-color:#68a7ff66;color:#8fc1ff}.inventorybadge.missing{border-color:#ffd16666;color:var(--w)}.inventorybadge.attention{border-color:#ff4d6d66;color:#ff8296}.inventorymeta{color:var(--m);white-space:pre-wrap;font-family:Consolas,monospace;font-size:11px;overflow-wrap:anywhere}.inventoryhealth{margin-top:9px;padding:8px 10px;border-radius:10px;background:#050713;color:#eae7ff;font-size:12px}.inventoryactions{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}.inventoryactions button{padding:7px 10px;font-size:12px}.inventoryempty{padding:18px;text-align:center;color:var(--m);border:1px dashed #8f5cff45;border-radius:14px}.inventorynote{border-left:3px solid var(--ok);padding:10px 12px;background:#00e6860a;border-radius:0 12px 12px 0;margin:10px 0;color:#d9ffef}@media(max-width:900px){.inventorytoolbar{grid-template-columns:1fr 1fr}.inventorytoolbar input{grid-column:1/-1}}.inventoryreadonly.phase2{border-color:#ffd16666;background:#ffd16610;color:var(--w)}.inventorystate{margin-top:9px;padding:9px 10px;border:1px solid #8f5cff35;border-radius:11px;background:#8f5cff09;color:#eadfff;font-size:12px}.inventorystate b{color:#fff}.statepreview{border:1px solid #ffd16655;background:#ffd16608;border-radius:16px;padding:14px}.statepreview.safe{border-color:#00e68655;background:#00e68608}.statepreview.blocked{border-color:#ff4d6d66;background:#ff4d6d08}.stategrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:9px;margin:10px 0}.statebox{border:1px solid #8f5cff2f;background:#050713;border-radius:12px;padding:10px}.statebox .label{color:var(--m);font-size:11px;text-transform:uppercase}.statebox .value{color:#fff;font-weight:800;margin-top:4px;overflow-wrap:anywhere}.statediff{background:#050713;border:1px solid #8f5cff45;border-radius:12px;padding:11px;white-space:pre-wrap;overflow:auto;max-height:300px;color:#eae7ff;font-family:Consolas,monospace;font-size:11px}.stateapproval{display:grid;grid-template-columns:minmax(260px,1fr) auto auto;gap:8px;align-items:center;margin-top:10px}.stateapproval input{width:100%;box-sizing:border-box}.statewarning{border-left:3px solid var(--w);padding:8px 10px;background:#ffd1660b;border-radius:0 10px 10px 0;margin:7px 0;color:#fff0bf}.stateblocker{border-left:3px solid var(--bad);padding:8px 10px;background:#ff4d6d0b;border-radius:0 10px 10px 0;margin:7px 0;color:#ffd4db}.whybox{background:#050713;border:1px solid #68a7ff44;border-radius:12px;padding:11px;color:#e9f2ff;white-space:pre-wrap;font-family:Consolas,monospace;font-size:11px}.exthelpbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:10px 0}.extlegend{display:flex;gap:7px;flex-wrap:wrap;align-items:center;margin:10px 0}.extlegend span{border:1px solid #8f5cff45;border-radius:999px;padding:4px 9px;font-size:11px}.extlegend .safe{border-color:#00e68666;color:var(--ok)}.extlegend .preview{border-color:#68a7ff66;color:#9ac7ff}.extlegend .approval{border-color:#ffd16666;color:var(--w)}.extadvanced{padding:0;overflow:hidden}.extadvanced>summary{cursor:pointer;padding:16px 18px;font-weight:900;color:#fff;list-style:none}.extadvanced>summary::-webkit-details-marker{display:none}.extadvanced>summary:before{content:'▶';display:inline-block;margin-right:9px;color:var(--p2);transition:transform .15s ease}.extadvanced[open]>summary:before{transform:rotate(90deg)}.extadvancedbody{border-top:1px solid #8f5cff2f;padding:16px 18px}.protectedcontrol{opacity:.7;cursor:not-allowed!important;border-color:#ff4d6d55!important;color:#ff9aaa!important}.exthelpmodal{position:fixed;inset:0;z-index:9999;background:#02030bd9;display:grid;place-items:center;padding:24px}.exthelpmodal[hidden]{display:none}.exthelpdialog{width:min(920px,96vw);max-height:88vh;overflow:auto;background:#121420;border:1px solid #8f5cff66;border-radius:20px;box-shadow:0 24px 80px #000c;padding:18px}.exthelphead{display:flex;justify-content:space-between;gap:12px;align-items:center;position:sticky;top:-18px;background:#121420;padding:12px 0;z-index:2}.exthelpcontent{display:grid;gap:12px}.exthelpsection{border:1px solid #8f5cff2f;background:#070913;border-radius:14px;padding:12px}.exthelpsection h4{margin:0 0 8px;color:var(--p2)}.exthelpsection ul{margin:6px 0 0 20px;padding:0}.exthelpsection li{margin:5px 0}.exthelpcode{font-family:Consolas,monospace;color:#eae7ff;white-space:pre-wrap;overflow-wrap:anywhere}@media(max-width:720px){.stateapproval{grid-template-columns:1fr}.stateapproval button{width:100%}}.scanbox{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:10px 0}.scanmetric{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px}.scanmetric .label{color:var(--m);font-size:12px}.scanmetric .value{font-size:24px;font-weight:900;color:#fff;margin-top:4px}.scanlist{background:#050713;border:1px solid #8f5cff45;border-radius:14px;padding:12px;white-space:pre-wrap;overflow:auto;max-height:420px;color:#eae7ff;font-family:Consolas,monospace;font-size:12px}.docstatusgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin:10px 0}.docstat{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px}.docstat .label{color:var(--m);font-size:12px}.docstat .value{font-size:24px;font-weight:900;color:#fff;margin-top:4px}.docrow{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:14px;padding:10px;margin:8px 0}.docrow.good{border-left:3px solid var(--ok)}.docrow.bad{border-left:3px solid var(--bad)}.buildgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin:10px 0}.buildmetric{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px}.buildmetric .label{color:var(--m);font-size:12px}.buildmetric .value{font-size:24px;font-weight:900;color:#fff;margin-top:4px}.checkrow{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:14px;padding:10px;margin:8px 0}.checkrow.pass{border-left:3px solid var(--ok)}.checkrow.fail{border-left:3px solid var(--bad)}.envgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin:10px 0}.envmetric{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px}.envmetric .label{color:var(--m);font-size:12px}.envmetric .value{font-size:24px;font-weight:900;color:#fff;margin-top:4px}.envrow{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:14px;padding:10px;margin:8px 0}.envrow.pass{border-left:3px solid var(--ok)}.envrow.fail{border-left:3px solid var(--bad)}.envrow.optional{border-left:3px solid var(--w)}.portablegrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:12px;margin:10px 0}.portablemetric{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px}.portablemetric .label{color:var(--m);font-size:12px}.portablemetric .value{font-size:24px;font-weight:900;color:#fff;margin-top:4px}.portrow{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:14px;padding:10px;margin:8px 0}.portrow.pass{border-left:3px solid var(--ok)}.portrow.warn{border-left:3px solid var(--w)}.portrow.fail{border-left:3px solid var(--bad)}.modelgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:12px;margin:10px 0}.modelmetric{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px}.modelmetric .label{color:var(--m);font-size:12px}.modelmetric .value{font-size:24px;font-weight:900;color:#fff;margin-top:4px}.modelrow{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:14px;padding:10px;margin:8px 0}.modelrow.safe{border-left:3px solid var(--ok)}.modelrow.info{border-left:3px solid var(--m)}.modelrow.review{border-left:3px solid var(--w)}.modelrow.warn{border-left:3px solid var(--bad)}.repairrow{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:14px;padding:12px;margin:10px 0}.repairrow.available{border-left:3px solid var(--ok)}.repairrow.blocked{border-left:3px solid var(--bad)}.repairrow .repairtitle{font-weight:900;color:#fff}.repairrow .risk{color:var(--m);font-size:12px}.repairrow button{margin-top:8px}.historygrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:10px 0}.historymetric{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px}.historymetric .label{color:var(--m);font-size:12px}.historymetric .value{font-size:24px;font-weight:900;color:#fff;margin-top:4px}.histrow{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:14px;padding:10px;margin:8px 0}.histrow.ok{border-left:3px solid var(--ok)}.histrow.fail{border-left:3px solid var(--bad)}.histrow.info{border-left:3px solid var(--m)}.verifybadge{display:inline-block;border-radius:999px;padding:3px 8px;font-size:11px;font-weight:900;margin-left:6px}.verifybadge.pass{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.verifybadge.fail{background:#ff5d5d22;color:#ffb0b0;border:1px solid #ff5d5d55}.verifybadge.none{background:#ffffff12;color:#c9bfdc;border:1px solid #ffffff22}.checkline{font-size:12px;color:#d8d0e8;margin-left:10px}.backupbadge{display:inline-block;border-radius:999px;padding:3px 8px;font-size:11px;font-weight:900;margin-left:6px}.backupbadge.assoc{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.backupbadge.old{background:#ffffff12;color:#c9bfdc;border:1px solid #ffffff22}.vaultpath{font-size:12px;color:#d8d0e8;word-break:break-all}.vaultmetric{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px}.vaultmetric .label{color:var(--m);font-size:12px}.vaultmetric .value{font-size:24px;font-weight:900;color:#fff;margin-top:4px}.timestampnote{font-size:12px;color:#c9bfdc;border-left:3px solid #8f5cff77;padding-left:8px;margin-top:6px}.riskbadge{display:inline-block;border-radius:999px;padding:4px 10px;font-size:12px;font-weight:900}.riskbadge.low{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.riskbadge.medium{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.riskbadge.blocked{background:#ff5d5d22;color:#ffb0b0;border:1px solid #ff5d5d55}.diffbox{white-space:pre-wrap;font-family:ui-monospace,Consolas,monospace}.gatebadge{display:inline-block;border-radius:999px;padding:4px 10px;font-size:12px;font-weight:900;margin-left:6px}.gatebadge.pass{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.gatebadge.warn{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.gatebadge.block{background:#ff5d5d22;color:#ffb0b0;border:1px solid #ff5d5d55}.gatebadge.info{background:#8f5cff22;color:#e2d4ff;border:1px solid #8f5cff55}.phrasebox{font-family:ui-monospace,Consolas,monospace;font-size:16px;border:1px solid #8f5cff55;background:#00000033;border-radius:14px;padding:12px;color:#fff}.packagebadge{display:inline-block;border-radius:999px;padding:4px 10px;font-size:12px;font-weight:900;margin-left:6px}.packagebadge.ok{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.packagebadge.problem{background:#ff5d5d22;color:#ffb0b0;border:1px solid #ff5d5d55}.packagefile{font-size:12px;color:#d8d0e8;word-break:break-all;margin-left:8px}.finalbadge{display:inline-block;border-radius:999px;padding:4px 10px;font-size:12px;font-weight:900;margin-left:6px}.finalbadge.pass{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.finalbadge.warn{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.finalbadge.block{background:#ff5d5d22;color:#ffb0b0;border:1px solid #ff5d5d55}.finalphrase{font-family:ui-monospace,Consolas,monospace;font-size:15px;border:1px solid #8f5cff55;background:#00000033;border-radius:14px;padding:12px;color:#fff}.auditbadge{display:inline-block;border-radius:999px;padding:4px 10px;font-size:12px;font-weight:900;margin-left:6px}.auditbadge.intact{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.auditbadge.attention{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.hashline{font-family:ui-monospace,Consolas,monospace;font-size:12px;word-break:break-all;color:#d8d0e8}.rollbackbadge{display:inline-block;border-radius:999px;padding:4px 10px;font-size:12px;font-weight:900;margin-left:6px}.rollbackbadge.pass{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.rollbackbadge.warn{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.rollbackbadge.block{background:#ff5d5d22;color:#ffb0b0;border:1px solid #ff5d5d55}.rollbackphrase{font-family:ui-monospace,Consolas,monospace;font-size:15px;border:1px solid #8f5cff55;background:#00000033;border-radius:14px;padding:12px;color:#fff}.rbauditbadge{display:inline-block;border-radius:999px;padding:4px 10px;font-size:12px;font-weight:900;margin-left:6px}.rbauditbadge.intact{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.rbauditbadge.attention{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.rbauditHash{font-family:ui-monospace,Consolas,monospace;font-size:12px;word-break:break-all;color:#d8d0e8}.tlbadge{display:inline-block;border-radius:999px;padding:4px 10px;font-size:12px;font-weight:900;margin-left:6px}.tlbadge.intact{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.tlbadge.attention{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.tlbadge.evidence{background:#8f5cff22;color:#d8c7ff;border:1px solid #8f5cff55}.tlbadge.superseded_by_rollback{background:#66c7ff22;color:#b9e8ff;border:1px solid #66c7ff55}.tlbadge.other{background:#ffffff12;color:#ddd;border:1px solid #ffffff22}.timelineHash{font-family:ui-monospace,Consolas,monospace;font-size:12px;word-break:break-all;color:#d8d0e8}.timelineEvent{border-left:3px solid #8f5cff;padding-left:12px}.recoveryHealthBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px}.recoveryHealthBadge.healthy{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.recoveryHealthBadge.warn{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.recoveryMiniGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.recoveryMini{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.recoveryMini .label{font-size:11px;color:#aaa}.recoveryMini .value{font-size:18px;font-weight:900;color:#fff}.recoveryPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.repairShopBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px}.repairShopBadge.healthy{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.repairShopBadge.warn{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.repairShopGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.repairShopMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.repairShopMetric .label{font-size:11px;color:#aaa}.repairShopMetric .value{font-size:18px;font-weight:900;color:#fff}.repairShopPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.actionPill{display:inline-block;border-radius:999px;padding:3px 9px;font-size:11px;font-weight:900;margin-left:6px}.actionPill.available{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.actionPill.blocked{background:#ffffff12;color:#aaa;border:1px solid #ffffff22}.detailBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px}.detailBadge.verified{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.detailBadge.legacy_ok{background:#66c7ff22;color:#b9e8ff;border:1px solid #66c7ff55}.detailBadge.failed{background:#ff5d5d22;color:#ffb0b0;border:1px solid #ff5d5d55}.detailBadge.attention{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.detailGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin-top:10px}.detailMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.detailMetric .label{font-size:11px;color:#aaa}.detailMetric .value{font-size:16px;font-weight:900;color:#fff}.detailHash{font-family:ui-monospace,Consolas,monospace;font-size:12px;word-break:break-all;color:#d8d0e8}.repairCardBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px}.repairCardBadge.healthy{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.repairCardBadge.warn{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.repairCardGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(135px,1fr));gap:10px;margin-top:10px}.repairCardMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.repairCardMetric .label{font-size:11px;color:#aaa}.repairCardMetric .value{font-size:18px;font-weight:900;color:#fff}.repairCardPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.ticketBadge{display:inline-block;border-radius:999px;padding:4px 10px;font-size:11px;font-weight:900;margin-right:6px}.ticketBadge.critical{background:#ff336622;color:#ffb0c4;border:1px solid #ff336655}.ticketBadge.high{background:#ff5d5d22;color:#ffb0b0;border:1px solid #ff5d5d55}.ticketBadge.medium{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.ticketBadge.low{background:#66c7ff22;color:#b9e8ff;border:1px solid #66c7ff55}.ticketBadge.info{background:#ffffff12;color:#d8d0e8;border:1px solid #ffffff24}.ticketBadge.healthy{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.ticketGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(135px,1fr));gap:10px;margin-top:10px}.ticketMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.ticketMetric .label{font-size:11px;color:#aaa}.ticketMetric .value{font-size:18px;font-weight:900;color:#fff}.ticketRow{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:14px;padding:10px;margin:8px 0}.ticketRow.critical,.ticketRow.high{border-left:3px solid var(--bad)}.ticketRow.medium,.ticketRow.low{border-left:3px solid var(--w)}.ticketRow.healthy{border-left:3px solid var(--ok)}.ticketPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:6px}.ticketDetailBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px}.ticketDetailBadge.healthy{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.ticketDetailBadge.available_action{background:#66c7ff22;color:#b9e8ff;border:1px solid #66c7ff55}.ticketDetailBadge.informational{background:#ffffff12;color:#d8d0e8;border:1px solid #ffffff22}.ticketDetailBadge.needs_attention,.ticketDetailBadge.open{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.ticketDetailGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:10px;margin-top:10px}.ticketDetailMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.ticketDetailMetric .label{font-size:11px;color:#aaa}.ticketDetailMetric .value{font-size:17px;font-weight:900;color:#fff}.ticketDetailPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.bridgeBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px}.bridgeBadge.ready{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.bridgeBadge.info{background:#66c7ff22;color:#b9e8ff;border:1px solid #66c7ff55}.bridgeBadge.warn{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.bridgeGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-top:10px}.bridgeMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.bridgeMetric .label{font-size:11px;color:#aaa}.bridgeMetric .value{font-size:16px;font-weight:900;color:#fff}.repairrow.recommended{border-color:#36d399aa!important;box-shadow:0 0 0 1px #36d39955 inset}.recommendTag{display:inline-block;border-radius:999px;padding:4px 10px;background:#36d39922;color:#7fffd4;border:1px solid #36d39955;font-size:11px;font-weight:900;margin-bottom:8px}.sessionBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px}.sessionBadge.healthy{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.sessionBadge.warn{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.sessionGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.sessionMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.sessionMetric .label{font-size:11px;color:#aaa}.sessionMetric .value{font-size:18px;font-weight:900;color:#fff}.sessionPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.freezeBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px}.freezeBadge.healthy{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.freezeBadge.warn{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.freezeGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.freezeMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.freezeMetric .label{font-size:11px;color:#aaa}.freezeMetric .value{font-size:18px;font-weight:900;color:#fff}.freezePath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.ccBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px}.ccBadge.clear{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.ccBadge.advisory{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.ccBadge.bad{background:#ff557722;color:#ff9aaa;border:1px solid #ff557755}.ccGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.ccMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.ccMetric .label{font-size:11px;color:#aaa}.ccMetric .value{font-size:18px;font-weight:900;color:#fff}.ccPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.foundationCard{border:1px solid #ffffff18;border-radius:16px;padding:12px;margin:10px 0;background:#00000022}.foundationCard.clear{border-color:#36d39955}.foundationCard.advisory{border-color:#ffcc6655}.foundationCard.needs_attention{border-color:#ff557755}.cmdDetailBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px}.cmdDetailBadge.clear{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.cmdDetailBadge.advisory{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.cmdDetailBadge.bad{background:#ff557722;color:#ff9aaa;border:1px solid #ff557755}.cmdMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;margin:8px 0;background:#00000022}.cmdMetric .k{font-size:12px;color:#aaa}.cmdMetric .v{font-weight:800;color:#fff;word-break:break-word}.cmdPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:6px}.ccDashBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px}.ccDashBadge.clear{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.ccDashBadge.advisory{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.ccDashBadge.bad{background:#ff557722;color:#ff9aaa;border:1px solid #ff557755}.ccDashGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-top:10px}.ccDashMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.ccDashMetric .label{font-size:11px;color:#aaa}.ccDashMetric .value{font-size:18px;font-weight:900;color:#fff}.ccDashLine{font-size:12px;color:#cfc7df;word-break:break-word;margin-top:8px}.archiveBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px}.archiveBadge.clear{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.archiveBadge.advisory{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.archiveBadge.bad{background:#ff557722;color:#ff9aaa;border:1px solid #ff557755}.archiveGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.archiveMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.archiveMetric .label{font-size:11px;color:#aaa}.archiveMetric .value{font-size:18px;font-weight:900;color:#fff}.archivePath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.cmdFreezeBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px}.cmdFreezeBadge.clear{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.cmdFreezeBadge.advisory{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.cmdFreezeBadge.bad{background:#ff557722;color:#ff9aaa;border:1px solid #ff557755}.cmdFreezeGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.cmdFreezeMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.cmdFreezeMetric .label{font-size:11px;color:#aaa}.cmdFreezeMetric .value{font-size:18px;font-weight:900;color:#fff}.cmdFreezePath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.writerBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#a855f722;color:#e9d5ff;border:1px solid #a855f755}.writerGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.writerMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.writerMetric .label{font-size:11px;color:#aaa}.writerMetric .value{font-size:18px;font-weight:900;color:#fff}.writerPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.writerModule{border:1px solid #a855f733;border-radius:16px;padding:12px;margin:10px 0;background:#14001f33}.storyBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#8b5cf622;color:#ddd6fe;border:1px solid #8b5cf655}.storyGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.storyMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.storyMetric .label{font-size:11px;color:#aaa}.storyMetric .value{font-size:18px;font-weight:900;color:#fff}.storyPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.storyCard{border:1px solid #8b5cf633;border-radius:16px;padding:12px;margin:10px 0;background:#16002433}.manifestBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#7c3aed22;color:#ddd6fe;border:1px solid #7c3aed55}.manifestGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.manifestMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.manifestMetric .label{font-size:11px;color:#aaa}.manifestMetric .value{font-size:18px;font-weight:900;color:#fff}.manifestPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.manifestCard{border:1px solid #7c3aed33;border-radius:16px;padding:12px;margin:10px 0;background:#12002033}.gateBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#6d28d922;color:#ddd6fe;border:1px solid #6d28d955}.gateGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.gateMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.gateMetric .label{font-size:11px;color:#aaa}.gateMetric .value{font-size:18px;font-weight:900;color:#fff}.gatePath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.gateCard{border:1px solid #6d28d933;border-radius:16px;padding:12px;margin:10px 0;background:#12002033}.actionBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#4c1d9522;color:#ddd6fe;border:1px solid #4c1d9555}.actionBadge.created{background:#36d39922;color:#7fffd4;border-color:#36d39955}.actionBadge.blocked{background:#ffcc6622;color:#ffd99a;border-color:#ffcc6655}.actionBadge.error{background:#ff557722;color:#ff9aaa;border-color:#ff557755}.actionGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.actionMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.actionMetric .label{font-size:11px;color:#aaa}.actionMetric .value{font-size:18px;font-weight:900;color:#fff}.actionPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.actionCard{border:1px solid #4c1d9533;border-radius:16px;padding:12px;margin:10px 0;background:#12002033}.dashProjectBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.dashProjectBadge.bad{background:#ff557722;color:#ff9aaa;border-color:#ff557755}.projectDashGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.projectDashMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.projectDashMetric .label{font-size:11px;color:#aaa}.projectDashMetric .value{font-size:18px;font-weight:900;color:#fff}.projectDashPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.projectDashCard{border:1px solid #22c55e33;border-radius:16px;padding:12px;margin:10px 0;background:#001f1233}.storyHealthBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px}.storyHealthBadge.clear{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.storyHealthBadge.advisory{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.storyHealthBadge.bad{background:#ff557722;color:#ff9aaa;border:1px solid #ff557755}.storyHealthGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-top:10px}.storyHealthMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.storyHealthMetric .label{font-size:11px;color:#aaa}.storyHealthMetric .value{font-size:18px;font-weight:900;color:#fff}.storyHealthLine{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.chapterBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#7c3aed22;color:#ddd6fe;border:1px solid #7c3aed55}.chapterBadge.bad{background:#ff557722;color:#ff9aaa;border-color:#ff557755}.chapterGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.chapterMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.chapterMetric .label{font-size:11px;color:#aaa}.chapterMetric .value{font-size:18px;font-weight:900;color:#fff}.chapterPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.chapterCard{border:1px solid #7c3aed33;border-radius:16px;padding:12px;margin:10px 0;background:#12002033}.saveGateBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#0ea5e922;color:#bae6fd;border:1px solid #0ea5e955}.saveGateBadge.bad{background:#ff557722;color:#ff9aaa;border-color:#ff557755}.saveGateGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.saveGateMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.saveGateMetric .label{font-size:11px;color:#aaa}.saveGateMetric .value{font-size:18px;font-weight:900;color:#fff}.saveGatePath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.saveGateCard{border:1px solid #0ea5e933;border-radius:16px;padding:12px;margin:10px 0;background:#001b2f33}.chapterSaveActionBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#4c1d9522;color:#ddd6fe;border:1px solid #4c1d9555}.chapterSaveActionBadge.created{background:#36d39922;color:#7fffd4;border-color:#36d39955}.chapterSaveActionBadge.blocked{background:#ffcc6622;color:#ffd99a;border-color:#ffcc6655}.chapterSaveActionBadge.error{background:#ff557722;color:#ff9aaa;border-color:#ff557755}.chapterSaveActionGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.chapterSaveActionMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.chapterSaveActionMetric .label{font-size:11px;color:#aaa}.chapterSaveActionMetric .value{font-size:18px;font-weight:900;color:#fff}.chapterSaveActionPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.chapterSaveActionCard{border:1px solid #4c1d9533;border-radius:16px;padding:12px;margin:10px 0;background:#12002033}.savedChapterBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.savedChapterBadge.bad{background:#ff557722;color:#ff9aaa;border-color:#ff557755}.savedChapterGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.savedChapterMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.savedChapterMetric .label{font-size:11px;color:#aaa}.savedChapterMetric .value{font-size:18px;font-weight:900;color:#fff}.savedChapterPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.savedChapterCard{border:1px solid #22c55e33;border-radius:16px;padding:12px;margin:10px 0;background:#001f1233}.savedHealthBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.savedHealthBadge.review{background:#ffcc6622;color:#ffd99a;border-color:#ffcc6655}.savedHealthGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-top:10px}.savedHealthMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.savedHealthMetric .label{font-size:11px;color:#aaa}.savedHealthMetric .value{font-size:18px;font-weight:900;color:#fff}.savedHealthPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.chapterEditorBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#8b5cf622;color:#ddd6fe;border:1px solid #8b5cf655}.chapterEditorBadge.bad{background:#ff557722;color:#ff9aaa;border-color:#ff557755}.chapterEditorGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.chapterEditorMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.chapterEditorMetric .label{font-size:11px;color:#aaa}.chapterEditorMetric .value{font-size:18px;font-weight:900;color:#fff}.chapterEditorPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.chapterEditorCard{border:1px solid #8b5cf633;border-radius:16px;padding:12px;margin:10px 0;background:#12002033}#chaptereditorpreview textarea,#chaptereditorpreview input{width:100%;box-sizing:border-box;margin:6px 0 12px 0}.chapterEditGateBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#38bdf822;color:#bae6fd;border:1px solid #38bdf855}.chapterEditGateBadge.bad{background:#ff557722;color:#ff9aaa;border-color:#ff557755}.chapterEditGateGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.chapterEditGateMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.chapterEditGateMetric .label{font-size:11px;color:#aaa}.chapterEditGateMetric .value{font-size:18px;font-weight:900;color:#fff}.chapterEditGatePath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.chapterEditGateCard{border:1px solid #38bdf833;border-radius:16px;padding:12px;margin:10px 0;background:#00182733}.chapterEditActionBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.chapterEditActionBadge.blocked{background:#ffcc6622;color:#ffd99a;border-color:#ffcc6655}.chapterEditActionBadge.bad{background:#ff557722;color:#ff9aaa;border-color:#ff557755}.chapterEditActionGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.chapterEditActionMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.chapterEditActionMetric .label{font-size:11px;color:#aaa}.chapterEditActionMetric .value{font-size:18px;font-weight:900;color:#fff}.chapterEditActionPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.chapterEditActionCard{border:1px solid #22c55e33;border-radius:16px;padding:12px;margin:10px 0;background:#001f1233}.chapterEditAuditBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.chapterEditAuditBadge.bad{background:#ff557722;color:#ff9aaa;border-color:#ff557755}.chapterEditAuditGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.chapterEditAuditMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.chapterEditAuditMetric .label{font-size:11px;color:#aaa}.chapterEditAuditMetric .value{font-size:18px;font-weight:900;color:#fff}.chapterEditAuditPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.chapterEditAuditCard{border:1px solid #22c55e33;border-radius:16px;padding:12px;margin:10px 0;background:#001f1233}.chapterDraftBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.chapterDraftBadge.bad{background:#ff557722;color:#ff9aaa;border-color:#ff557755}.chapterDraftGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.chapterDraftMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.chapterDraftMetric .label{font-size:11px;color:#aaa}.chapterDraftMetric .value{font-size:18px;font-weight:900;color:#fff}.chapterDraftPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.chapterDraftCard{border:1px solid #a855f733;border-radius:16px;padding:12px;margin:10px 0;background:#1f003333}.draftGateBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.draftGateBadge.bad{background:#ffcc6622;color:#ffd99a;border-color:#ffcc6655}.draftGateGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.draftGateMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.draftGateMetric .label{font-size:11px;color:#aaa}.draftGateMetric .value{font-size:18px;font-weight:900;color:#fff}.draftGatePath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.draftGateCard{border:1px solid #a855f733;border-radius:16px;padding:12px;margin:10px 0;background:#1f003333}.draftSaveBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.draftSaveBadge.blocked{background:#ffcc6622;color:#ffd99a;border-color:#ffcc6655}.draftSaveBadge.bad{background:#ff557722;color:#ff9aaa;border-color:#ff557755}.draftSaveGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.draftSaveMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.draftSaveMetric .label{font-size:11px;color:#aaa}.draftSaveMetric .value{font-size:18px;font-weight:900;color:#fff}.draftSavePath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.draftSaveCard{border:1px solid #22c55e33;border-radius:16px;padding:12px;margin:10px 0;background:#001f1233}.draftReaderBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.draftReaderBadge.bad{background:#ffcc6622;color:#ffd99a;border-color:#ffcc6655}.draftReaderGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.draftReaderMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.draftReaderMetric .label{font-size:11px;color:#aaa}.draftReaderMetric .value{font-size:18px;font-weight:900;color:#fff}.draftReaderPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.draftReaderCard{border:1px solid #22c55e33;border-radius:16px;padding:12px;margin:10px 0;background:#001f1233}.draftHistoryBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.draftHistoryBadge.bad{background:#ffcc6622;color:#ffd99a;border-color:#ffcc6655}.draftHistoryGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.draftHistoryMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.draftHistoryMetric .label{font-size:11px;color:#aaa}.draftHistoryMetric .value{font-size:18px;font-weight:900;color:#fff}.draftHistoryPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.draftHistoryCard{border:1px solid #22c55e33;border-radius:16px;padding:12px;margin:10px 0;background:#001f1233}.draftContinueBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.draftContinueBadge.bad{background:#ffcc6622;color:#ffd99a;border-color:#ffcc6655}.draftContinueGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.draftContinueMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.draftContinueMetric .label{font-size:11px;color:#aaa}.draftContinueMetric .value{font-size:18px;font-weight:900;color:#fff}.draftContinuePath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.draftContinueCard{border:1px solid #22c55e33;border-radius:16px;padding:12px;margin:10px 0;background:#001f1233}.continueGateBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.continueGateBadge.bad{background:#ffcc6622;color:#ffd99a;border-color:#ffcc6655}.continueGateGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.continueGateMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.continueGateMetric .label{font-size:11px;color:#aaa}.continueGateMetric .value{font-size:18px;font-weight:900;color:#fff}.continueGatePath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.continueActionBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.continueActionBadge.blocked{background:#ffcc6622;color:#ffd99a;border-color:#ffcc6655}.continueActionBadge.bad{background:#ff557722;color:#ff9aaa;border-color:#ff557755}.continueActionGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.continueActionMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.continueActionMetric .label{font-size:11px;color:#aaa}.continueActionMetric .value{font-size:18px;font-weight:900;color:#fff}.continueActionPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.draftRefreshBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.draftRefreshBadge.bad{background:#ffcc6622;color:#ffd99a;border-color:#ffcc6655}.draftRefreshGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.draftRefreshMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.draftRefreshMetric .label{font-size:11px;color:#aaa}.draftRefreshMetric .value{font-size:18px;font-weight:900;color:#fff}.draftRefreshPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.draftCompareBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.draftCompareBadge.bad{background:#ffcc6622;color:#ffd99a;border-color:#ffcc6655}.draftCompareGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.draftCompareMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.draftCompareMetric .label{font-size:11px;color:#aaa}.draftCompareMetric .value{font-size:18px;font-weight:900;color:#fff}.draftComparePath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.diffadd{color:#86efac}.diffremove{color:#ff9aaa}.realProseBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.realProseBadge.bad{background:#ffcc6622;color:#ffd99a;border-color:#ffcc6655}.realProseGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.realProseMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.realProseMetric .label{font-size:11px;color:#aaa}.realProseMetric .value{font-size:18px;font-weight:900;color:#fff}.realProsePath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.realProseSaveBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.realProseSaveBadge.blocked{background:#ffcc6622;color:#ffd99a;border-color:#ffcc6655}.realProseSaveBadge.bad{background:#ff557722;color:#ff9aaa;border-color:#ff557755}.realProseSaveGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.realProseSaveMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.realProseSaveMetric .label{font-size:11px;color:#aaa}.realProseSaveMetric .value{font-size:18px;font-weight:900;color:#fff}.realProseSavePath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.realProseVerifyBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.realProseVerifyBadge.bad{background:#ffcc6622;color:#ffd99a;border-color:#ffcc6655}.realProseVerifyGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.realProseVerifyMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.realProseVerifyMetric .label{font-size:11px;color:#aaa}.realProseVerifyMetric .value{font-size:18px;font-weight:900;color:#fff}.realProseVerifyPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.rpadd{color:#86efac}.rpremove{color:#ff9aaa}.realProseEditorBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.realProseEditorBadge.bad{background:#ffcc6622;color:#ffd99a;border-color:#ffcc6655}.realProseEditorGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.realProseEditorMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.realProseEditorMetric .label{font-size:11px;color:#aaa}.realProseEditorMetric .value{font-size:18px;font-weight:900;color:#fff}.realProseEditorPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.rpeadd{color:#86efac}.rperemove{color:#ff9aaa}.realProseEditSaveBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.realProseEditSaveBadge.blocked{background:#ffcc6622;color:#ffd99a;border-color:#ffcc6655}.realProseEditSaveBadge.bad{background:#ff557722;color:#ff9aaa;border-color:#ff557755}.realProseEditSaveGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.realProseEditSaveMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.realProseEditSaveMetric .label{font-size:11px;color:#aaa}.realProseEditSaveMetric .value{font-size:18px;font-weight:900;color:#fff}.realProseEditSavePath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.realProseEditVerifyBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.realProseEditVerifyBadge.bad{background:#ffcc6622;color:#ffd99a;border-color:#ffcc6655}.realProseEditVerifyGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.realProseEditVerifyMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.realProseEditVerifyMetric .label{font-size:11px;color:#aaa}.realProseEditVerifyMetric .value{font-size:18px;font-weight:900;color:#fff}.realProseEditVerifyPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.rpeadd{color:#86efac}.rperemove{color:#ff9aaa}.privateHumanBanner{border:1px solid #a855f755;background:#4c1d9522;border-radius:16px;padding:12px;margin:10px 0;color:#f3e8ff}.privatePaneCard{border-color:#a855f755!important;background:linear-gradient(180deg,#2b174422,#00000011)}.chapterProseBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.chapterProseBadge.bad{background:#ffcc6622;color:#ffd99a;border-color:#ffcc6655}.chapterProseGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.chapterProseMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.chapterProseMetric .label{font-size:11px;color:#aaa}.chapterProseMetric .value{font-size:18px;font-weight:900;color:#fff}.chapterContinueBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.chapterContinueBadge.bad{background:#ffcc6622;color:#ffd99a;border-color:#ffcc6655}
@@ -888,7 +1115,7 @@ td,th{border-bottom:1px solid #8f5cff18;padding:9px;text-align:left}
 .comfyopsbar{height:9px;border:1px solid #42ff9e55;border-radius:999px;background:#07120c;overflow:hidden;margin:7px 0 10px}
 .comfyopsfill{height:100%;width:0;background:linear-gradient(90deg,#42ff9e,#23d7ff);transition:width .25s}
 .comfyopslog{height:260px;overflow:auto;white-space:pre-wrap;background:#010403;border:1px solid #42ff9e33;border-radius:10px;color:#42ff9e;padding:10px;font:12px/1.35 Consolas,monospace;margin:0}
-</style></head><body><div class=app><aside><div class=logo>K</div><h1>KAYOCK</h1><div class=sub>Command OS · FOXAI Core</div><button class="nav command active" onclick="pg('dash',this)">🚀 Command Bridge</button><button class=nav onclick="pg('commandcenter',this)">🛰️ Command Center</button><button class=nav onclick="pg('commanddetail',this)">🔎 Command Detail</button><button class=nav onclick="pg('commandarchive',this)">🗄️ Command Archive</button><button class=nav onclick="pg('commandfreeze',this)">🧊 Command Freeze</button><button class=nav onclick="pg('kayockwriter',this)">✍️ Kayock Writer</button><button class=nav onclick="pg('storyforge',this)">📚 Story Forge</button><button class=nav onclick="pg('storymanifest',this)">🧾 Story Manifest</button><button class=nav onclick="pg('projectgate',this)">🚪 Project Gate</button><button class=nav onclick="pg('projectaction',this)">✅ Project Action</button><button class=nav onclick="pg('projectdashboard',this)">📖 Project Dashboard</button><button class=nav onclick="pg('chapterplanner',this)">🧩 Chapter Planner</button><button class=nav onclick="pg('chaptersavegate',this)">🔐 Chapter Gate</button><button class=nav onclick="pg('chaptersaveaction',this)">💾 Chapter Save</button><button class=nav onclick="pg('savedchapters',this)">📚 Saved Chapters</button><button class=nav onclick="pg('savedchapterhealth',this)">💚 Chapter Health</button><button class=nav onclick="pg('chaptereditorpreview',this)">📝 Chapter Editor</button><button class=nav onclick="pg('chaptereditgate',this)">🛡️ Edit Gate</button><button class=nav onclick="pg('chaptereditaction',this)">✅ Edit Save</button><button class=nav onclick="pg('chaptereditaudit',this)">🧾 Edit Audit</button><button class=nav onclick="pg('chapterdraftworkspace',this)">✍️ Draft Workspace</button><button class=nav onclick="pg('draftsavegate',this)">🛡️ Draft Gate</button><button class=nav onclick="pg('draftsaveaction',this)">💾 Draft Save</button><button class=nav onclick="pg('draftreader',this)">📖 Draft Reader</button><button class=nav onclick="pg('draftversionhistory',this)">🕰️ Draft History</button><button class=nav onclick="pg('draftcontinueworkspace',this)">➡️ Draft Continue</button><button class=nav onclick="pg('continuesavegate',this)">🛂 Continue Gate</button><button class=nav onclick="pg('continuesaveaction',this)">💾 Continue Save</button><button class=nav onclick="pg('draftrefresh',this)">🔄 Draft Refresh</button><button class=nav onclick="pg('draftcompare',this)">🧾 Draft Compare</button><button class=nav onclick="pg('realprosegate',this)">✍️ Real Prose Gate</button><button class=nav onclick="pg('realprosesave',this)">🖋️ Real Prose Save</button><button class=nav onclick="pg('realproserefreshcompare',this)">🔍 Real Prose Verify</button><button class=nav onclick="pg('realproseeditorgate',this)">🛠️ Prose Edit Gate</button><button class=nav onclick="pg('realproseeditsave',this)">💾 Prose Edit Save</button><button class=nav onclick="pg('realproseeditverify',this)">🔎 Prose Edit Verify</button><button class=nav onclick="pg('chapterproseworkspace',this)">🧠 Prose Workspace</button><button class=nav onclick="pg('chapterprosecontinuegate',this)">🧭 Prose Continue Gate</button><button class=nav onclick="pg('chapterprosecontinuesave',this)">💾 Prose Continue Save</button><button class=nav onclick="pg('chapterprosecontinueverify',this)">🔎 Prose Continue Verify</button><div class=navbreak></div><button class=nav onclick="pg('academy',this)">🎓 Academy</button><button class=nav onclick="pg('novelforge',this)">📖 Novel Forge</button><button class=nav onclick="pg('prompts',this)">✍️ PromptSmith</button><button class=nav onclick="pg('creative',this)">🎨 Creative Studio</button><button class=nav onclick="pg('library',this)">📚 Iron Library</button><button class=nav onclick="pg('mission',this)">🤖 Artificial Minds</button><button class=nav onclick="pg('projects',this)">🗂 Projects</button><button class=nav onclick="pg('memory',this)">🧭 Mission Memory</button><button class=nav onclick="pg('repair',this)">🔧 Repair Bay</button><button class=nav onclick="pg('foxsentry',this)">🛡️ Fox Sentry</button><button class=nav onclick="pg('extensions',this)">🧩 Extensions</button><button class=nav onclick="pg('scanbridge',this)">📡 Scan Bridge</button><button class=nav onclick="pg('projectgen',this)">🧾 Project Docs</button><button class=nav onclick="pg('buildverify',this)">🧪 Build Verify</button><button class=nav onclick="pg('envverify',this)">🧰 Env Verify</button><button class=nav onclick="pg('portable',this)">🧳 Portable Ready</button><button class=nav onclick="pg('modelcheck',this)">🧬 Model Check</button><button class=nav onclick="pg('repairactions',this)">🛠️ Repair Actions</button><button class=nav onclick="pg('repairhistory',this)">📜 Repair History</button><button class=nav onclick="pg('repairops',this)">🏪 Repair Shop</button><button class=nav onclick="pg('repairdetail',this)">🔎 Action Detail</button><button class=nav onclick="pg('repairtickets',this)">🎫 Repair Tickets</button><button class=nav onclick="pg('repairticketdetail',this)">📋 Ticket Detail</button><button class=nav onclick="pg('ticketbridge',this)">🔗 Ticket Bridge</button><button class=nav onclick="pg('repairsession',this)">🧾 Shop Session</button><button class=nav onclick="pg('repairfreeze',this)">🧊 Milestone Freeze</button><button class=nav onclick="pg('backupvault',this)">🗄️ Backup Vault</button><button class=nav onclick="pg('restorepreview',this)">🧭 Restore Preview</button><button class=nav onclick="pg('restoregate',this)">🚧 Restore Gate</button><button class=nav onclick="pg('restorestaging',this)">📦 Restore Staging</button><button class=nav onclick="pg('stagingpackages',this)">🧾 Staging Packages</button><button class=nav onclick="pg('restorefinal',this)">✅ Restore Final Check</button><button class=nav onclick="pg('restoreaction',this)">♻️ Restore Action</button><button class=nav onclick="pg('restoreaudit',this)">🧪 Restore Audit</button><button class=nav onclick="pg('rollbackpreview',this)">↩️ Rollback Preview</button><button class=nav onclick="pg('rollbackaction',this)">⏪ Rollback Action</button><button class=nav onclick="pg('rollbackaudit',this)">🧾 Rollback Audit</button><button class=nav onclick="pg('recoverytimeline',this)">🕰️ Recovery Timeline</button><div class=navbreak></div><button class=nav onclick="pg('logs',this)">📜 Captain's Log</button><button class=nav onclick="pg('settings',this)">⚙ Settings</button><div class=ops><div class=row><div class=lab>Operator</div><div>Eric Fox</div></div><div class=row><div class=lab>Professor</div><div id=ap>Agent Fox</div></div><div class=row><div class=lab>Project</div><div id=apro>None</div></div><div class=row><div class=lab>Mission</div><div id=ms>READY</div></div><div class=row><div class=lab>Model</div><div id=am>None</div></div><div class=row><div class=lab>Engine</div><div id=rt>Checking</div></div><div class=row><div class=lab>Model source</div><div id=msrc>Checking</div></div><div class=row><div class=lab>Network use</div><div id=nuse>Checking</div></div></div><div id=quick></div><div class=ops><div class=row><div class=lab>CPU</div><div id=cpu>?</div></div><div class=row><div class=lab>RAM</div><div id=ram>?</div></div><div class=meter><div id=ramm class=fill></div></div></div></aside><main>
+</style></head><body><div class=app><aside><div class=logo>K</div><h1>KAYOCK</h1><div class=sub>Command OS · FOXAI Core</div><button class="nav command active" onclick="pg('dash',this)">🚀 Command Bridge</button><button class=nav onclick="pg('commandcenter',this)">🛰️ Command Center</button><button class=nav onclick="pg('commanddetail',this)">🔎 Command Detail</button><button class=nav onclick="pg('commandarchive',this)">🗄️ Command Archive</button><button class=nav onclick="pg('commandfreeze',this)">🧊 Command Freeze</button><button class=nav onclick="pg('kayockwriter',this)">✍️ Kayock Writer</button><button class=nav onclick="pg('poetrystudio',this)">🪶 Poetry Studio</button><button class=nav onclick="pg('poemarchive',this)">📜 My Poems</button><button class=nav onclick="pg('storyforge',this)">📚 Story Forge</button><button class=nav onclick="pg('worldbuilder',this)">🌍 World Builder</button><button class=nav onclick="pg('mywriting',this)">🗂️ My Writing</button><button class=nav onclick="pg('storymanifest',this)">🧾 Story Manifest</button><button class=nav onclick="pg('projectgate',this)">🚪 Project Gate</button><button class=nav onclick="pg('projectaction',this)">✅ Project Action</button><button class=nav onclick="pg('projectdashboard',this)">📖 Project Dashboard</button><button class=nav onclick="pg('chapterplanner',this)">🧩 Chapter Planner</button><button class=nav onclick="pg('chaptersavegate',this)">🔐 Chapter Gate</button><button class=nav onclick="pg('chaptersaveaction',this)">💾 Chapter Save</button><button class=nav onclick="pg('savedchapters',this)">📚 Saved Chapters</button><button class=nav onclick="pg('savedchapterhealth',this)">💚 Chapter Health</button><button class=nav onclick="pg('chaptereditorpreview',this)">📝 Chapter Editor</button><button class=nav onclick="pg('chaptereditgate',this)">🛡️ Edit Gate</button><button class=nav onclick="pg('chaptereditaction',this)">✅ Edit Save</button><button class=nav onclick="pg('chaptereditaudit',this)">🧾 Edit Audit</button><button class=nav onclick="pg('chapterdraftworkspace',this)">✍️ Draft Workspace</button><button class=nav onclick="pg('draftsavegate',this)">🛡️ Draft Gate</button><button class=nav onclick="pg('draftsaveaction',this)">💾 Draft Save</button><button class=nav onclick="pg('draftreader',this)">📖 Draft Reader</button><button class=nav onclick="pg('draftversionhistory',this)">🕰️ Draft History</button><button class=nav onclick="pg('draftcontinueworkspace',this)">➡️ Draft Continue</button><button class=nav onclick="pg('continuesavegate',this)">🛂 Continue Gate</button><button class=nav onclick="pg('continuesaveaction',this)">💾 Continue Save</button><button class=nav onclick="pg('draftrefresh',this)">🔄 Draft Refresh</button><button class=nav onclick="pg('draftcompare',this)">🧾 Draft Compare</button><button class=nav onclick="pg('realprosegate',this)">✍️ Real Prose Gate</button><button class=nav onclick="pg('realprosesave',this)">🖋️ Real Prose Save</button><button class=nav onclick="pg('realproserefreshcompare',this)">🔍 Real Prose Verify</button><button class=nav onclick="pg('realproseeditorgate',this)">🛠️ Prose Edit Gate</button><button class=nav onclick="pg('realproseeditsave',this)">💾 Prose Edit Save</button><button class=nav onclick="pg('realproseeditverify',this)">🔎 Prose Edit Verify</button><button class=nav onclick="pg('chapterproseworkspace',this)">🧠 Prose Workspace</button><button class=nav onclick="pg('chapterprosecontinuegate',this)">🧭 Prose Continue Gate</button><button class=nav onclick="pg('chapterprosecontinuesave',this)">💾 Prose Continue Save</button><button class=nav onclick="pg('chapterprosecontinueverify',this)">🔎 Prose Continue Verify</button><div class=navbreak></div><button class=nav onclick="pg('academy',this)">🎓 Academy</button><button class=nav onclick="pg('novelforge',this)">📖 Novel Forge</button><button class=nav onclick="pg('prompts',this)">✍️ PromptSmith</button><button class=nav onclick="pg('creative',this)">🎨 Creative Studio</button><button class=nav onclick="pg('library',this)">📚 Iron Library</button><button class=nav onclick="pg('mission',this)">🤖 Artificial Minds</button><button class=nav onclick="pg('projects',this)">🗂 Projects</button><button class=nav onclick="pg('memory',this)">🧭 Mission Memory</button><button class=nav onclick="pg('repair',this)">🔧 Repair Bay</button><button class=nav onclick="pg('foxsentry',this)">🛡️ Fox Sentry</button><button class=nav onclick="pg('extensions',this)">🧩 Extensions</button><button class=nav onclick="pg('scanbridge',this)">📡 Scan Bridge</button><button class=nav onclick="pg('projectgen',this)">🧾 Project Docs</button><button class=nav onclick="pg('buildverify',this)">🧪 Build Verify</button><button class=nav onclick="pg('envverify',this)">🧰 Env Verify</button><button class=nav onclick="pg('portable',this)">🧳 Portable Ready</button><button class=nav onclick="pg('modelcheck',this)">🧬 Model Check</button><button class=nav onclick="pg('repairactions',this)">🛠️ Repair Actions</button><button class=nav onclick="pg('repairhistory',this)">📜 Repair History</button><button class=nav onclick="pg('repairops',this)">🏪 Repair Shop</button><button class=nav onclick="pg('repairdetail',this)">🔎 Action Detail</button><button class=nav onclick="pg('repairtickets',this)">🎫 Repair Tickets</button><button class=nav onclick="pg('repairticketdetail',this)">📋 Ticket Detail</button><button class=nav onclick="pg('ticketbridge',this)">🔗 Ticket Bridge</button><button class=nav onclick="pg('repairsession',this)">🧾 Shop Session</button><button class=nav onclick="pg('repairfreeze',this)">🧊 Milestone Freeze</button><button class=nav onclick="pg('backupvault',this)">🗄️ Backup Vault</button><button class=nav onclick="pg('restorepreview',this)">🧭 Restore Preview</button><button class=nav onclick="pg('restoregate',this)">🚧 Restore Gate</button><button class=nav onclick="pg('restorestaging',this)">📦 Restore Staging</button><button class=nav onclick="pg('stagingpackages',this)">🧾 Staging Packages</button><button class=nav onclick="pg('restorefinal',this)">✅ Restore Final Check</button><button class=nav onclick="pg('restoreaction',this)">♻️ Restore Action</button><button class=nav onclick="pg('restoreaudit',this)">🧪 Restore Audit</button><button class=nav onclick="pg('rollbackpreview',this)">↩️ Rollback Preview</button><button class=nav onclick="pg('rollbackaction',this)">⏪ Rollback Action</button><button class=nav onclick="pg('rollbackaudit',this)">🧾 Rollback Audit</button><button class=nav onclick="pg('recoverytimeline',this)">🕰️ Recovery Timeline</button><div class=navbreak></div><button class=nav onclick="pg('logs',this)">📜 Captain's Log</button><button class=nav onclick="pg('settings',this)">⚙ Settings</button><div class=ops><div class=row><div class=lab>Operator</div><div>Eric Fox</div></div><div class=row><div class=lab>Professor</div><div id=ap>Agent Fox</div></div><div class=row><div class=lab>Project</div><div id=apro>None</div></div><div class=row><div class=lab>Mission</div><div id=ms>READY</div></div><div class=row><div class=lab>Model</div><div id=am>None</div></div><div class=row><div class=lab>Engine</div><div id=rt>Checking</div></div><div class=row><div class=lab>Model source</div><div id=msrc>Checking</div></div><div class=row><div class=lab>Network use</div><div id=nuse>Checking</div></div></div><div id=quick></div><div class=ops><div class=row><div class=lab>CPU</div><div id=cpu>?</div></div><div class=row><div class=lab>RAM</div><div id=ram>?</div></div><div class=meter><div id=ramm class=fill></div></div></div></aside><main>
 <section id=dash class="page active"><div class=hero><h2>Welcome back, Commander.</h2><p>Kayock Command OS is online. FOXAI Core, Mission Memory, and the Bridge are standing by.</p></div><div class=grid>
 <div class="card wide" id=commandCenterDashCard><h3>🛰️ Command Center</h3><div id=commandCenterDashStatus class=status>Command Center dashboard not loaded yet.</div><div id=commandCenterDashBody class=status>Loading foundation health...</div><button onclick="loadCommandCenterDashboard(false)">Refresh Command Center</button><button onclick="loadCommandCenterDashboard(true)">Export Card Report</button><button onclick="go('commandcenter')">Open Command Center</button><button onclick="go('commanddetail')">Open Command Detail</button><button onclick="sendCommandCenterDashboardToMission()">Send to Mission</button></div>
 <div class=card><h3>Resume Mission</h3><div id=resume class=status>No active mission.</div><button onclick="goMemory()">Open Mission Memory</button><button onclick="resumeMission()">Resume in Console</button></div><div class=card><h3>Projects</h3><button onclick="go('projects')">Open Projects</button></div><div class=card><h3>Artificial Minds</h3><button onclick="go('mission')">Open Mission Console</button></div><div class=card><h3>PromptSmith</h3><button onclick="go('prompts')">Open PromptSmith</button></div><div class=card><h3>Novel Forge</h3><button onclick="go('novelforge')">Open Novel Forge</button></div><div class="card wide"><h3>Live Command Bridge</h3><div id=bridgeLive class=status>Loading Bridge Feed...</div></div><div class="card wide"><h3>Recovery Foundation</h3><div id=recoveryDashCard class=status>Loading recovery health...</div><button onclick="loadRecoveryDashboard()">Refresh Recovery Health</button><button onclick="go('recoverytimeline')">Open Recovery Timeline</button><button onclick="sendRecoveryDashboardToMission()">Send Recovery Health to Mission</button></div><div class="card wide"><h3>Repair Shop</h3><div id=repairShopDashCard class=status>Loading Repair Shop health...</div><button onclick="loadRepairShopDashboardCard()">Refresh Repair Shop</button><button onclick="go('repairops')">Open Repair Shop</button><button onclick="go('repairdetail')">Open Action Detail</button><button onclick="sendRepairShopDashboardCardToMission()">Send Repair Shop Health to Mission</button></div><div class="card wide"><h3>Department Fleet</h3><div id=deptcards class=grid>Loading departments...</div></div><div class="card wide"><h3>Status</h3><div id=status class=status>Loading...</div></div></div></section>
@@ -908,7 +1135,73 @@ td,th{border-bottom:1px solid #8f5cff18;padding:9px;text-align:left}
 <section id=commandfreeze class=page><div class=hero><h2>Command Center Milestone Freeze</h2><p>Formal freeze report for the v10.10.x Command Center foundation: proven modules, advisories, safety contract, and readiness to move to the next milestone.</p></div><div class=grid><div class="card wide"><h3>Freeze Controls</h3><button onclick="loadCommandFreeze(false)">Load Freeze</button><button onclick="loadCommandFreeze(true)">Export Freeze Report</button><button onclick="api('/api/open/command_center_milestone_freeze')">Open Freeze Reports</button><button onclick="go('commandcenter')">Open Command Center</button><button onclick="go('commandarchive')">Open Command Archive</button><button onclick="sendCommandFreezeToMission()">Send Freeze to Mission</button><div id=commandFreezeStatus class=status>No Command Center freeze loaded yet.</div></div><div class="card wide"><h3>Freeze Summary</h3><div id=commandFreezeSummary class=status>No summary yet.</div></div><div class="card wide"><h3>Proven Modules</h3><div id=commandFreezeModules class=scanlist>No modules loaded yet.</div></div><div class="card wide"><h3>Advisories</h3><div id=commandFreezeAdvisories class=scanlist>No advisories loaded yet.</div></div><div class="card wide"><h3>Recommendations</h3><div id=commandFreezeRecommendations class=scanlist>No recommendations loaded yet.</div></div><div class="card wide"><h3>Problems / Review Items</h3><div id=commandFreezeProblems class=scanlist>No review items loaded yet.</div></div><div class="card wide"><h3>Safety Contract</h3><div id=commandFreezeSafety class=status>No safety contract loaded yet.</div></div></div></section>
 
 
-<section id=kayockwriter class=page><div class=hero><h2>Kayock Writer Foundation</h2><p>The new creative writing department: Story Forge, Poetry Studio, Codex, Timeline, Continuity, Mystery Tracker, and Story Bible Export. This foundation report is read-only and does not migrate or modify story files.</p></div><div class=grid><div class="card wide"><h3>Foundation Controls</h3><button onclick="loadKayockWriter(false)">Load Writer Foundation</button><button onclick="loadKayockWriter(true)">Export Foundation Report</button><button onclick="api('/api/open/kayock_writer_foundation_reports')">Open Writer Foundation Reports</button><button onclick="sendKayockWriterToMission()">Send Writer Foundation to Mission</button><div id=kayockWriterStatus class=status>No Kayock Writer foundation report loaded yet.</div></div><div class="card wide"><h3>Foundation Summary</h3><div id=kayockWriterSummary class=status>No summary yet.</div></div><div class="card wide"><h3>Module Plan</h3><div id=kayockWriterModules class=scanlist>No modules loaded yet.</div></div><div class="card wide"><h3>Naming Decisions</h3><div id=kayockWriterNames class=scanlist>No naming decisions loaded yet.</div></div><div class="card wide"><h3>Flagship Universe</h3><div id=kayockWriterFlagship class=status>No flagship universe loaded yet.</div></div><div class="card wide"><h3>Path Checks</h3><div id=kayockWriterPaths class=scanlist>No path checks loaded yet.</div></div><div class="card wide"><h3>Recommendations</h3><div id=kayockWriterRecommendations class=scanlist>No recommendations loaded yet.</div></div><div class="card wide"><h3>Safety Contract</h3><div id=kayockWriterSafety class=status>No safety contract loaded yet.</div></div></div></section>
+<section id=kayockwriter class=page>
+<div class="hero writerHomeHero"><div class=writerEyebrow>KAYOCK WRITER</div><h2>What would you like to create?</h2><p>Choose one room and begin. The engineering reports, save gates, audits, and legacy tools are still available, but they no longer fill the writing desk.</p></div>
+<div class=writerRoomGrid>
+<article class="writerRoom poetry"><div class=writerRoomIcon>🪶</div><h3>Poetry Studio</h3><p>Create a poem from a theme, emotion, image, voice, and form. Then edit it, save it, or send it to the Poem Polisher.</p><button onclick="go('poetrystudio')">Open Poetry Studio</button></article>
+<article class="writerRoom story"><div class=writerRoomIcon>📚</div><h3>Story Forge</h3><p>Work on novels, short stories, scripts, chapters, scenes, and your Slipping into Darkness project.</p><button onclick="go('storyforge')">Open Story Forge</button></article>
+<article class="writerRoom world"><div class=writerRoomIcon>🌍</div><h3>World Builder</h3><p>Build D&amp;D settings, regions, settlements, factions, gods, dungeons, campaigns, and connected lore.</p><button onclick="go('worldbuilder')">Open World Builder</button></article>
+<article class="writerRoom libraryroom"><div class=writerRoomIcon>🗂️</div><h3>My Writing</h3><p>Return to saved projects, chapters, poetry drafts, and the existing Codex without hunting through technical pages.</p><button onclick="go('mywriting')">Open My Writing</button></article>
+</div>
+<div class="card writerContinue"><h3>Continue where you left off</h3><button onclick="go('projectdashboard')">Slipping into Darkness</button><button onclick="go('draftreader')">Read Drafts</button><button onclick="go('poemarchive')">My Poems</button><button onclick="api('/api/open/kayock_writer_poetry_drafts')">Open Poetry Folder</button></div>
+<details class="card writerAdvancedHome"><summary>Writer Advanced Tools</summary><div class=writerAdvancedBody><p>Foundation reports, manifests, save gates, audits, verification pages, PromptSmith, and the legacy Novel Forge remain available here when they are actually needed.</p><button onclick="loadKayockWriter(false);this.closest('details').open=true">Load Foundation Report</button><button onclick="go('storymanifest')">Story Manifest</button><button onclick="go('prompts')">PromptSmith</button><button onclick="go('novelforge')">Legacy Codex / Novel Forge</button><div id=kayockWriterStatus class=status>Advanced writer report not loaded.</div><div id=kayockWriterSummary class=status></div><div id=kayockWriterModules hidden></div><div id=kayockWriterNames hidden></div><div id=kayockWriterFlagship hidden></div><div id=kayockWriterPaths hidden></div><div id=kayockWriterRecommendations hidden></div><div id=kayockWriterSafety hidden></div></div></details>
+</section>
+
+<section id=poetrystudio class=page>
+<div class=hero><h2>Poetry Studio</h2><p>A calm poem creator. Fill only what helps; leave anything else blank.</p></div>
+<div class=writerWorkspace>
+<div class=card><h3>Poem Creator</h3>
+<div class=writerField><label for=poemTheme>Theme</label><input id=poemTheme placeholder="memory, eternity, grief, wonder, home"></div>
+<div class=writerField><label for=poemEmotion>Emotion</label><input id=poemEmotion placeholder="haunted, hopeful, tender, furious, quietly joyful"></div>
+<div class=writerField><label for=poemImagery>Scene or imagery</label><textarea id=poemImagery placeholder="A porch light in falling snow; an empty city after midnight..."></textarea></div>
+<div class=writerField><label for=poemVoice>Voice</label><select id=poemVoice onchange="updatePoetryVoiceControls()"><option>My natural voice</option><option>Eric — Poet/Narrator</option><option>Lyrical</option><option>Spare and direct</option><option>Narrative</option><option>Dark and mythic</option><option>Hopeful and intimate</option><option>Spoken-word energy</option></select></div>
+<div id=ericVoiceControls class=voiceProfileBox hidden><div class=voiceProfileHead>Eric — Poet/Narrator</div><div class=writerField><label for=poemVoiceStrength>Voice strength</label><select id=poemVoiceStrength><option>Light Influence</option><option selected>Recognizably Eric</option><option>Strong Eric Voice</option></select></div><div class=voiceProfileSources>Read-only source profile built from:</div><span class=voiceProfileBadge>Eternity</span><span class=voiceProfileBadge>The City Of Sorrows</span><span class=voiceProfileBadge>The Vampire Lestat</span><span class=voiceProfileBadge>The Soliloquy of 2002</span><div class=voiceProfileNotice>Inspired by the Eric — Poet/Narrator voice profile. New work; not copied from a source poem. Originals remain unchanged.</div></div>
+<div class=grid><div class=writerField><label for=poemForm>Form</label><select id=poemForm><option>Free verse</option><option>Rhymed</option><option>Sonnet</option><option>Haiku</option><option>Spoken word</option></select></div><div class=writerField><label for=poemLength>Length</label><select id=poemLength><option>Short</option><option selected>Medium</option><option>Long</option></select></div></div>
+<div class=writerField><label for=poemOpening>Optional opening line</label><input id=poemOpening placeholder="Leave blank unless a line is already calling to you"></div>
+<button id=createPoemButton onclick="createPoem(false)">Create Poem</button>
+<div id=poemStatus class="status poemStatus"><span class=poemStateBadge>READY</span>Start the local chat engine, then create when ready.</div>
+</div>
+<div class=card><h3>Your Poem</h3><div class=writerField><label for=poemTitle>Title</label><input id=poemTitle placeholder="FOXAI will suggest a real title; you can edit it"></div><div class=writerField><label for=poemAuthor>Author</label><input id=poemAuthor value="Eric Z. Fox" placeholder="Author or pen name"></div><div class=writerField><label for=poemCopyright>Copyright notice</label><input id=poemCopyright value="Copyright © 2026 by Eric Z. Fox" placeholder="Optional copyright notice"></div><textarea id=poemResult class=poemOutput placeholder="Your poem will appear here and remain editable."></textarea><div class=poemActions><button id=tryAnotherPoemButton onclick="createPoem(true)">Try Another</button><button id=savePoemButton onclick="savePoemDraft()">Save Draft</button><button id=sendPoemPolisherButton onclick="sendPoemToPolisher()">Send to Poem Polisher</button><button onclick="go('poemarchive')">My Poems</button></div>
+<details id=poemPolisherPanel class=poemPolisher><summary>Poem Polisher</summary><div class=poemPolisherBody><p class=small>Polish rhythm, word choice, imagery, emotional impact, line breaks, and clarity without replacing the writer's voice.</p><textarea id=poemPolisherInput placeholder="Send a poem here from the creator, or paste one."></textarea><div class=writerField><label for=poemPolishFocus>Focus</label><select id=poemPolishFocus><option>Light touch</option><option selected>Balanced polish</option><option>Bold rewrite</option><option>Rhythm and line breaks</option><option>Imagery and emotional impact</option><option>Word choice and clarity</option><option>Preserve voice with minimal changes</option></select></div><button id=polishPoemButton onclick="polishPoem()">Polish Poem</button><textarea id=poemPolishedResult placeholder="The finished polished version will appear here."></textarea><div class=poemCompareActions><button id=keepOriginalPoemButton onclick="keepOriginalPoem()" disabled>Keep Original</button><button id=usePolishedPoemButton onclick="usePolishedPoem()" disabled>Use Polished Version</button><button id=saveBothPoemButton onclick="saveBothPoemVersions()" disabled>Save Both</button></div><div class=poemVersionNote>The original remains separate until you explicitly choose or save a version.</div><div id=poemPolishStatus class=status><span class=poemStateBadge>READY</span>Send a poem here when you want a second version.</div></div></details>
+</div></div></section>
+
+<section id=worldbuilder class=page>
+<div class=hero><h2>World Builder</h2><p>Build a D&amp;D campaign setting one understandable piece at a time. FOXAI will guide you with one calm question at a time in Mission Console.</p></div>
+<div class="card worldIntro"><div><div class=small>World or Campaign Name</div><input id=worldBuilderName placeholder="Example: The Shattered Crown"></div><div><div class=small>Style</div><select id=worldBuilderStyle><option>D&amp;D fantasy</option><option>Dark fantasy</option><option>Science fantasy</option><option>Post-apocalyptic</option><option>Historical fantasy</option><option>System-neutral setting</option></select></div></div>
+<div class=worldTaskGrid>
+<div class=worldTask><h3>🌐 Create a World</h3><p>Define the central idea, tone, conflicts, magic, and what makes the setting different.</p><button onclick="startWorldBuilderTask('world')">Start World</button></div>
+<div class=worldTask><h3>🗺️ Build a Region</h3><p>Create terrain, borders, travel, cultures, dangers, landmarks, and adventure hooks.</p><button onclick="startWorldBuilderTask('region')">Build Region</button></div>
+<div class=worldTask><h3>🏘️ Make a Settlement</h3><p>Design a village, town, or city with districts, leaders, problems, secrets, and useful places.</p><button onclick="startWorldBuilderTask('settlement')">Make Settlement</button></div>
+<div class=worldTask><h3>⚔️ Create a Faction</h3><p>Give an organization goals, resources, rivals, leaders, methods, and internal tensions.</p><button onclick="startWorldBuilderTask('faction')">Create Faction</button></div>
+<div class=worldTask><h3>✨ Deity or Religion</h3><p>Build beliefs, myths, rituals, clergy, symbols, taboos, holy places, and conflicts.</p><button onclick="startWorldBuilderTask('deity')">Design Faith</button></div>
+<div class=worldTask><h3>🏰 Dungeon or Adventure Site</h3><p>Create a location with purpose, history, rooms, inhabitants, hazards, rewards, and clues.</p><button onclick="startWorldBuilderTask('dungeon')">Build Adventure Site</button></div>
+<div class=worldTask><h3>🎲 Create a Campaign</h3><p>Shape a campaign premise, starting situation, major threats, arcs, milestones, and session-one hook.</p><button onclick="startWorldBuilderTask('campaign')">Create Campaign</button></div>
+<div class=worldTask><h3>📜 Open the Codex</h3><p>Use the existing characters, locations, artifacts, timelines, mysteries, and lore tools.</p><button onclick="go('novelforge')">Open Existing Codex</button></div>
+</div>
+<div class="card writerAdvancedHome"><details><summary>World Builder Advanced Tools</summary><div class=writerAdvancedBody><button onclick="go('projectdashboard')">Open Story Project</button><button onclick="api('/api/open/novel_forge')">Open Legacy World Files</button><button onclick="go('prompts')">Open PromptSmith</button><p class=small>Map generation, heraldry, printable campaign books, linked entity graphs, and structured Codex migration can be added after the calm foundation is proven.</p></div></details></div>
+</section>
+
+
+<section id=poemarchive class=page>
+<div class=hero><h2>My Poems</h2><p>Your Poetry Studio body of work: original drafts, polished versions, voice-profile history, and future recordings—without changing the saved poems.</p><button onclick="loadPoemArchive(true)">Refresh Archive</button><button onclick="api('/api/open/kayock_writer_poetry_drafts')">Open Markdown Folder</button></div>
+<div class="card poemArchiveMilestone"><h3>⭐ First Eric Voice Milestone</h3><div><b>Voices That Carry Home</b> is recognized as the first official poem created with the Eric — Poet/Narrator profile. Its original and polished versions remain separate.</div></div>
+<div class=poemArchiveLayout>
+<div class=card>
+<div class=poemArchiveToolbar><div class=writerField><label for=poemArchiveSearch>Find a poem</label><input id=poemArchiveSearch oninput="renderPoemArchive()" placeholder="title, voice, author, theme"></div><div class=writerField><label for=poemArchiveFilter>Show</label><select id=poemArchiveFilter onchange="renderPoemArchive()"><option value=all>All poems</option><option value=eric>Eric voice</option><option value=legacy>Legacy works</option><option value=recorded>With recordings</option></select></div><button onclick="loadPoemArchive(true)">Refresh</button></div>
+<div id=poemArchiveSummary class=poemArchiveStatus>Archive not loaded yet.</div>
+<div id=poemArchiveList class=poemArchiveList><div class=poemArchiveDetailEmpty>Open My Poems to scan the saved Markdown drafts.</div></div>
+</div>
+<div class=card><div id=poemArchiveDetail class=poemArchiveDetailEmpty><div><div style="font-size:42px">📜</div><h3>Select a poem</h3><p>Original and polished versions will appear here together.</p></div></div></div>
+</div>
+</section>
+
+<section id=mywriting class=page>
+<div class=hero><h2>My Writing</h2><p>Return to your work without navigating through implementation reports.</p></div><div class=myWritingGrid>
+<div class=myWritingCard><h3>📖 Slipping into Darkness</h3><p>Open the current Kayock Writer story project, chapter status, and saved work.</p><button onclick="go('projectdashboard')">Open Project</button></div>
+<div class=myWritingCard><h3>📝 Drafts and Chapters</h3><p>Read saved chapter drafts and continue from the current manuscript state.</p><button onclick="go('draftreader')">Open Draft Reader</button></div>
+<div class=myWritingCard><h3>📜 My Poems</h3><p>Browse original and polished versions together, preserve legacy works, and prepare future voice recordings.</p><button onclick="go('poemarchive')">Open My Poems</button><button onclick="api('/api/open/kayock_writer_poetry_drafts')">Open Markdown Folder</button></div>
+<div class=myWritingCard><h3>🌍 Worlds and Codex</h3><p>Open the existing universes, characters, locations, artifacts, timelines, and mysteries.</p><button onclick="go('novelforge')">Open Codex</button></div>
+</div><details class="card writerAdvancedHome"><summary>Writer Reports and Technical Pages</summary><div class=writerAdvancedBody><button onclick="go('storymanifest')">Story Manifest</button><button onclick="go('savedchapterhealth')">Chapter Health</button><button onclick="go('draftversionhistory')">Draft History</button><button onclick="go('chaptereditaudit')">Edit Audit</button></div></details></section>
 
 <section id=storyforge class=page><div class=hero><h2>Story Forge Shell</h2><p>The first Kayock Writer working module: story projects, chapter planning, scene planning, and Slipping into Darkness as the flagship demo universe. This shell is read-only.</p></div><div class=grid>
 <div class="card wide" id=storyProjectHealthCard><h3>💚 Slipping into Darkness Project Health</h3><div id=storyProjectHealthStatus class=status>Project health card not loaded yet.</div><div id=storyProjectHealthBody class=status>Load Story Forge to inspect the created project.</div><button onclick="loadStoryProjectHealth(false)">Refresh Project Health</button><button onclick="loadStoryProjectHealth(true)">Export Health Card</button><button onclick="go('projectdashboard')">Open Project Dashboard</button><button onclick="api('/api/open/kayock_writer_slipping_project_root')">Open Project Folder</button><button onclick="sendStoryProjectHealthToMission()">Send Health to Mission</button></div>
@@ -1350,13 +1643,14 @@ function q(id){return document.getElementById(id)}function toast(s){q('toast').t
 
 const NAV_GROUPS={
   'Command':['dash','commandcenter','commanddetail','commandarchive','commandfreeze','mission','projects','memory'],
-  'Kayock Writer':['kayockwriter','storyforge','storymanifest','projectgate','projectaction','projectdashboard','chapterplanner','chaptersavegate','chaptersaveaction','savedchapters','savedchapterhealth','chaptereditorpreview','chaptereditgate','chaptereditaction','chaptereditaudit','chapterdraftworkspace','draftsavegate','draftsaveaction','draftreader','draftversionhistory','draftcontinueworkspace','continuesavegate','continuesaveaction','draftrefresh','draftcompare','realprosegate','realprosesave','realproserefreshcompare','realproseeditorgate','realproseeditsave','realproseeditverify','chapterproseworkspace','chapterprosecontinuegate','chapterprosecontinuesave','chapterprosecontinueverify','novelforge','prompts'],
+  'Kayock Writer':['kayockwriter','poetrystudio','poemarchive','storyforge','worldbuilder','mywriting'],
+  'Writer Advanced Tools':['storymanifest','projectgate','projectaction','projectdashboard','chapterplanner','chaptersavegate','chaptersaveaction','savedchapters','savedchapterhealth','chaptereditorpreview','chaptereditgate','chaptereditaction','chaptereditaudit','chapterdraftworkspace','draftsavegate','draftsaveaction','draftreader','draftversionhistory','draftcontinueworkspace','continuesavegate','continuesaveaction','draftrefresh','draftcompare','realprosegate','realprosesave','realproserefreshcompare','realproseeditorgate','realproseeditsave','realproseeditverify','chapterproseworkspace','chapterprosecontinuegate','chapterprosecontinuesave','chapterprosecontinueverify','novelforge','prompts'],
   'Knowledge & Creative':['academy','creative','library'],
   'Engineering & Repair':['repair','extensions','scanbridge','projectgen','buildverify','envverify','portable','modelcheck','repairactions','repairhistory','repairops','repairdetail','repairtickets','repairticketdetail','ticketbridge','repairsession','repairfreeze'],
   'Recovery & Backups':['backupvault','restorepreview','restoregate','restorestaging','stagingpackages','restorefinal','restoreaction','restoreaudit','rollbackpreview','rollbackaction','rollbackaudit','recoverytimeline'],
   'System':['logs','settings']
 };
-const NAV_DEFAULT_FAVORITES=['dash','mission','kayockwriter','library','repairops'];
+const NAV_DEFAULT_FAVORITES=['dash','mission','kayockwriter','poetrystudio','worldbuilder','library'];
 let navCatalog=[];let commandSelection=0;
 function navPageId(button){let m=(button.getAttribute('onclick')||'').match(/pg\('([^']+)'/);return m?m[1]:''}
 function navFavorites(){try{return JSON.parse(localStorage.getItem('kayock.nav.favorites')||'null')||NAV_DEFAULT_FAVORITES.slice()}catch(e){return NAV_DEFAULT_FAVORITES.slice()}}
@@ -1394,7 +1688,7 @@ function initDepartmentNav(){
   document.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='k'){e.preventDefault();openCommandPalette()}else if(e.key==='Escape')closeCommandPalette()});
   aside.querySelectorAll(':scope > .navbreak').forEach(x=>x.remove());aside.classList.add('nav-enhanced');renderNavShortcuts();navFavorites().forEach(id=>document.querySelectorAll(`.favtoggle[data-page="${id}"]`).forEach(x=>x.classList.add('on')))
 }
-function pg(id,b){recordRecent(id);syncNavState(id);if(id==='dash')setTimeout(()=>loadRecoveryDashboard(),0); if(id==='commandcenter')setTimeout(()=>loadCommandCenter(false),0); if(id==='commanddetail')setTimeout(()=>loadCommandDetailList(),0); if(id==='commandarchive')setTimeout(()=>loadCommandArchive(false),0); if(id==='commandfreeze')setTimeout(()=>loadCommandFreeze(false),0); if(id==='kayockwriter')setTimeout(()=>loadKayockWriter(false),0); if(id==='storyforge')setTimeout(()=>loadStoryForge(false),0); if(id==='storymanifest')setTimeout(()=>loadStoryManifest(false),0); if(id==='projectgate')setTimeout(()=>loadProjectGate(false),0); if(id==='projectaction')setTimeout(()=>loadProjectAction(false,false),0); if(id==='projectdashboard')setTimeout(()=>loadProjectDashboard(false),0); if(id==='chapterplanner')setTimeout(()=>loadChapterPlanner(false),0); if(id==='chaptersavegate')setTimeout(()=>loadChapterSaveGate(false),0); if(id==='chaptersaveaction')setTimeout(()=>loadChapterSaveAction(false,false),0); if(id==='savedchapters')setTimeout(()=>loadSavedChapterDashboard(false),0); if(id==='savedchapterhealth')setTimeout(()=>loadSavedChapterHealthCard(false,'savedChapterHealth','savedChapterHealthBook'),0);document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));q(id).classList.add('active');document.querySelectorAll('.nav').forEach(x=>x.classList.remove('active'));if(b)b.classList.add('active'); if(id==='projects')loadProjects(); if(id==='memory')loadMemory(); if(id==='library'){loadLib(curLib);loadIronIndexStatus(); if(q('libResults')&&!q('libResults').innerHTML.trim())searchLib()} if(id==='novelforge'){loadNovelForgeList();setTimeout(updateCodexDashboard,0)} if(id==='prompts')loadPrompts(); if(id==='extensions')loadExtensions(); if(id==='scanbridge'&&!q('scanPath').value)q('scanPath').value='Departments'; if(id==='projectgen')setTimeout(refreshProjectDocsStatus,0); if(id==='repairhistory')setTimeout(()=>loadRepairHistory(false),0); if(id==='repairops')setTimeout(()=>loadRepairOps(false),0); if(id==='repairdetail')setTimeout(()=>loadRepairDetailList(),0); if(id==='repairtickets')setTimeout(()=>loadRepairTickets(false),0); if(id==='repairticketdetail')setTimeout(()=>loadRepairTicketDetailList(),0); if(id==='ticketbridge')setTimeout(()=>loadTicketBridgeList(),0); if(id==='repairsession')setTimeout(()=>loadRepairSession(false),0); if(id==='repairfreeze')setTimeout(()=>loadRepairFreeze(false),0); if(id==='backupvault')setTimeout(()=>loadBackupVault(false),0); if(id==='restorepreview')setTimeout(()=>loadRestoreBackupList(),0); if(id==='restoregate')setTimeout(()=>loadRestoreGateList(),0); if(id==='restorestaging')setTimeout(()=>loadRestoreStagingList(),0); if(id==='stagingpackages')setTimeout(()=>loadStagingPackages(false),0); if(id==='restorefinal')setTimeout(()=>loadRestoreFinalList(),0); if(id==='restoreaction')setTimeout(()=>loadRestoreActionList(),0); if(id==='restoreaudit')setTimeout(()=>loadRestoreAudit(false),0); if(id==='rollbackpreview')setTimeout(()=>loadRollbackPreviewActions(),0); if(id==='rollbackaction')setTimeout(()=>loadRollbackActionList(),0); if(id==='rollbackaudit')setTimeout(()=>loadRollbackAudit(false),0); if(id==='recoverytimeline')setTimeout(()=>loadRecoveryTimeline(false),0); if(id==='realproseeditorgate')setTimeout(()=>loadRealProseEditorGate(false),0); if(id==='realproseeditsave')setTimeout(()=>loadRealProseEditSave(false),0); if(id==='chapterproseworkspace')setTimeout(()=>loadChapterProseWorkspace(false),0); if(id==='chapterprosecontinuegate')setTimeout(()=>loadChapterProseContinueGate(false),0); if(id==='chapterprosecontinuesave')setTimeout(()=>loadChapterProseContinueSave(false,false),0)}
+function pg(id,b){recordRecent(id);syncNavState(id);if(id==='dash')setTimeout(()=>loadRecoveryDashboard(),0); if(id==='commandcenter')setTimeout(()=>loadCommandCenter(false),0); if(id==='commanddetail')setTimeout(()=>loadCommandDetailList(),0); if(id==='commandarchive')setTimeout(()=>loadCommandArchive(false),0); if(id==='commandfreeze')setTimeout(()=>loadCommandFreeze(false),0); if(id==='kayockwriter')setTimeout(()=>loadKayockWriter(false),0); if(id==='poemarchive')setTimeout(()=>loadPoemArchive(false),0); if(id==='storyforge')setTimeout(()=>loadStoryForge(false),0); if(id==='storymanifest')setTimeout(()=>loadStoryManifest(false),0); if(id==='projectgate')setTimeout(()=>loadProjectGate(false),0); if(id==='projectaction')setTimeout(()=>loadProjectAction(false,false),0); if(id==='projectdashboard')setTimeout(()=>loadProjectDashboard(false),0); if(id==='chapterplanner')setTimeout(()=>loadChapterPlanner(false),0); if(id==='chaptersavegate')setTimeout(()=>loadChapterSaveGate(false),0); if(id==='chaptersaveaction')setTimeout(()=>loadChapterSaveAction(false,false),0); if(id==='savedchapters')setTimeout(()=>loadSavedChapterDashboard(false),0); if(id==='savedchapterhealth')setTimeout(()=>loadSavedChapterHealthCard(false,'savedChapterHealth','savedChapterHealthBook'),0);document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));q(id).classList.add('active');document.querySelectorAll('.nav').forEach(x=>x.classList.remove('active'));if(b)b.classList.add('active'); if(id==='projects')loadProjects(); if(id==='memory')loadMemory(); if(id==='library'){loadLib(curLib);loadIronIndexStatus(); if(q('libResults')&&!q('libResults').innerHTML.trim())searchLib()} if(id==='novelforge'){loadNovelForgeList();setTimeout(updateCodexDashboard,0)} if(id==='prompts')loadPrompts(); if(id==='extensions')loadExtensions(); if(id==='scanbridge'&&!q('scanPath').value)q('scanPath').value='Departments'; if(id==='projectgen')setTimeout(refreshProjectDocsStatus,0); if(id==='repairhistory')setTimeout(()=>loadRepairHistory(false),0); if(id==='repairops')setTimeout(()=>loadRepairOps(false),0); if(id==='repairdetail')setTimeout(()=>loadRepairDetailList(),0); if(id==='repairtickets')setTimeout(()=>loadRepairTickets(false),0); if(id==='repairticketdetail')setTimeout(()=>loadRepairTicketDetailList(),0); if(id==='ticketbridge')setTimeout(()=>loadTicketBridgeList(),0); if(id==='repairsession')setTimeout(()=>loadRepairSession(false),0); if(id==='repairfreeze')setTimeout(()=>loadRepairFreeze(false),0); if(id==='backupvault')setTimeout(()=>loadBackupVault(false),0); if(id==='restorepreview')setTimeout(()=>loadRestoreBackupList(),0); if(id==='restoregate')setTimeout(()=>loadRestoreGateList(),0); if(id==='restorestaging')setTimeout(()=>loadRestoreStagingList(),0); if(id==='stagingpackages')setTimeout(()=>loadStagingPackages(false),0); if(id==='restorefinal')setTimeout(()=>loadRestoreFinalList(),0); if(id==='restoreaction')setTimeout(()=>loadRestoreActionList(),0); if(id==='restoreaudit')setTimeout(()=>loadRestoreAudit(false),0); if(id==='rollbackpreview')setTimeout(()=>loadRollbackPreviewActions(),0); if(id==='rollbackaction')setTimeout(()=>loadRollbackActionList(),0); if(id==='rollbackaudit')setTimeout(()=>loadRollbackAudit(false),0); if(id==='recoverytimeline')setTimeout(()=>loadRecoveryTimeline(false),0); if(id==='realproseeditorgate')setTimeout(()=>loadRealProseEditorGate(false),0); if(id==='realproseeditsave')setTimeout(()=>loadRealProseEditSave(false),0); if(id==='chapterproseworkspace')setTimeout(()=>loadChapterProseWorkspace(false),0); if(id==='chapterprosecontinuegate')setTimeout(()=>loadChapterProseContinueGate(false),0); if(id==='chapterprosecontinuesave')setTimeout(()=>loadChapterProseContinueSave(false,false),0)}
 function go(id){let b=[...document.querySelectorAll('.nav-primary')].find(x=>x.dataset.page===id)||[...document.querySelectorAll('.nav')].find(x=>x.dataset.page===id);pg(id,b)}function goMemory(){go('memory')}
 async function api(u,opt){try{let r=await fetch(u,opt);let d=await r.json();toast(d.message||JSON.stringify(d));refresh();return d}catch(e){toast('Request failed: '+e)}}function esc(s){return String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}function js(s){return String(s).replace(/\\/g,'\\\\').replace(/'/g,"\\'")}
 /* GUARDED_STREAMING_PHASE2_BROWSER_START */
@@ -7864,6 +8158,330 @@ Please determine:
     toast('Story Forge sent to Mission Console.');
 }
 
+
+/* KAYOCK_WRITER_CALM_HOME_V1_JS_START */
+let poetryBusy=false;
+let poemOriginalVersion='';
+let poemPolishedVersion='';
+let poemOriginalTitle='';
+
+function updatePoetryVoiceControls(){
+    let selected=(q('poemVoice')?.value||'').trim();
+    let box=q('ericVoiceControls');
+    if(box)box.hidden=selected!=='Eric — Poet/Narrator';
+}
+
+function poetryPayload(){return {author:q('poemAuthor')?.value||'Eric Z. Fox',copyright:q('poemCopyright')?.value||'',theme:q('poemTheme')?.value||'',emotion:q('poemEmotion')?.value||'',imagery:q('poemImagery')?.value||'',voice:q('poemVoice')?.value||'My natural voice',voice_strength:q('poemVoiceStrength')?.value||'Recognizably Eric',form:q('poemForm')?.value||'Free verse',length:q('poemLength')?.value||'Medium',opening_line:q('poemOpening')?.value||''}}
+
+function inferPoemTitle(poem){
+    let lines=String(poem||'')
+        .split(/\r?\n/)
+        .map(line=>line.trim())
+        .filter(Boolean);
+    if(!lines.length)return 'Untitled Poem';
+    let first=lines[0]
+        .replace(/^#{1,6}\s*/,'')
+        .replace(/^["“]|["”]$/g,'')
+        .trim();
+    let words=first.split(/\s+/).filter(Boolean);
+    let looksLikeTitle=(
+        first.length>0
+        &&first.length<=80
+        &&words.length<=12
+        &&!/[.!?,;:]$/.test(first)
+    );
+    return looksLikeTitle?first:'Untitled Poem';
+}
+
+function resolvedPoemTitle(poem){
+    let current=(q('poemTitle')?.value||'').trim();
+    if(!current||/^untitled poem$/i.test(current)){
+        current=inferPoemTitle(poem);
+        if(q('poemTitle'))q('poemTitle').value=current;
+    }
+    return current||'Untitled Poem';
+}
+
+function poetryStatus(target,state,message){
+    let el=q(target);
+    if(!el)return;
+    el.innerHTML=`<span class=poemStateBadge>${esc(state)}</span>${esc(message)}`;
+}
+
+function setPoetryBusy(busy,mode=''){
+    poetryBusy=Boolean(busy);
+    ['createPoemButton','tryAnotherPoemButton','savePoemButton','sendPoemPolisherButton','polishPoemButton'].forEach(id=>{let el=q(id);if(el)el.disabled=poetryBusy});
+    let compareReady=!poetryBusy&&Boolean(poemOriginalVersion)&&Boolean(poemPolishedVersion);
+    ['keepOriginalPoemButton','usePolishedPoemButton','saveBothPoemButton'].forEach(id=>{let el=q(id);if(el)el.disabled=!compareReady});
+    ['poemTheme','poemEmotion','poemImagery','poemVoice','poemVoiceStrength','poemForm','poemLength','poemOpening','poemPolisherInput','poemPolishFocus'].forEach(id=>{let el=q(id);if(el)el.disabled=poetryBusy});
+    if(mode==='create'&&q('createPoemButton'))q('createPoemButton').textContent=busy?'Creating...':'Create Poem';
+    if(mode==='polish'&&q('polishPoemButton'))q('polishPoemButton').textContent=busy?'Polishing...':'Polish Poem';
+}
+
+function resetPoemComparison(){
+    poemOriginalVersion='';
+    poemPolishedVersion='';
+    poemOriginalTitle='';
+    if(q('poemPolisherInput'))q('poemPolisherInput').value='';
+    if(q('poemPolishedResult'))q('poemPolishedResult').value='';
+    ['keepOriginalPoemButton','usePolishedPoemButton','saveBothPoemButton'].forEach(id=>{let el=q(id);if(el)el.disabled=true});
+    poetryStatus('poemPolishStatus','READY','Send a poem here when you want a second version.');
+}
+
+async function createPoem(variation=false){
+    if(poetryBusy)return;
+    let body=poetryPayload();
+    body.variation=Boolean(variation);
+    poetryStatus('poemStatus','CREATING',variation?'The local model is creating a distinctly different version...':'The local model is drafting your poem...');
+    setPoetryBusy(true,'create');
+    try{
+        let d=await api('/api/writer/poetry/create',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+        if(!d?.ok){poetryStatus('poemStatus','ERROR',d?.message||'Poem creation failed.');return}
+        q('poemResult').value=d.poem||'';
+        q('poemTitle').value=d.suggested_title||'Untitled Poem';
+        resetPoemComparison();
+        let profileNote=d.voice_profile?` Inspired by ${d.voice_profile} at ${d.voice_strength||'Recognizably Eric'} strength. New work; source poems unchanged.`:'';
+        poetryStatus('poemStatus','READY TO EDIT',`Created with ${d.model_name||'the active local model'}. The title and poem remain editable.${profileNote}`);
+    }finally{
+        setPoetryBusy(false,'create');
+    }
+}
+
+async function savePoemVersion(poem,versionKind='draft',versionGroup=''){
+    let title=resolvedPoemTitle(poem);
+    return await api('/api/writer/poetry/save',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({title,poem,settings:poetryPayload(),version_kind:versionKind,version_group:versionGroup})});
+}
+
+async function savePoemDraft(){
+    if(poetryBusy)return;
+    let poem=(q('poemResult')?.value||'').trim();
+    if(!poem){toast('There is no poem to save yet.');return}
+    poetryStatus('poemStatus','SAVING','Creating a new Markdown draft. Existing files will not be overwritten.');
+    setPoetryBusy(true);
+    try{
+        let d=await savePoemVersion(poem,'draft','');
+        if(d?.ok)poetryStatus('poemStatus','SAVED',d.path);
+        else poetryStatus('poemStatus','ERROR',d?.message||'Save failed.');
+    }finally{
+        setPoetryBusy(false);
+    }
+}
+
+function sendPoemToPolisher(){
+    if(poetryBusy)return;
+    let poem=(q('poemResult')?.value||'').trim();
+    if(!poem){toast('Create or paste a poem first.');return}
+    poemOriginalVersion=poem;
+    poemOriginalTitle=resolvedPoemTitle(poem);
+    poemPolishedVersion='';
+    q('poemPolisherInput').value=poem;
+    q('poemPolishedResult').value='';
+    ['keepOriginalPoemButton','usePolishedPoemButton','saveBothPoemButton'].forEach(id=>{let el=q(id);if(el)el.disabled=true});
+    poetryStatus('poemPolishStatus','READY','Original captured. Choose a focus and polish when ready.');
+    q('poemPolisherPanel').open=true;
+    q('poemPolisherPanel').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+async function polishPoem(){
+    if(poetryBusy)return;
+    let poem=(q('poemPolisherInput')?.value||'').trim();
+    if(!poem){toast('Paste or send a poem first.');return}
+    poemOriginalVersion=poem;
+    poemOriginalTitle=resolvedPoemTitle(poem);
+    poemPolishedVersion='';
+    q('poemPolishedResult').value='';
+    poetryStatus('poemPolishStatus','POLISHING','The model is revising while preserving the writer voice...');
+    setPoetryBusy(true,'polish');
+    try{
+        let settings=poetryPayload();
+        let d=await api('/api/writer/poetry/polish',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({poem,focus:q('poemPolishFocus')?.value||'Balanced polish',voice:settings.voice,voice_strength:settings.voice_strength})});
+        if(!d?.ok){poetryStatus('poemPolishStatus','ERROR',d?.message||'Polish failed.');return}
+        poemPolishedVersion=(d.poem||'').trim();
+        q('poemPolishedResult').value=poemPolishedVersion;
+        let profileNote=d.voice_profile?` ${d.voice_profile} was used at ${d.voice_strength||'Recognizably Eric'} strength; protected source poems were not changed.`:'';
+        poetryStatus('poemPolishStatus','READY TO COMPARE',`Original and polished versions are both available. Nothing has been replaced.${profileNote}`);
+    }finally{
+        setPoetryBusy(false,'polish');
+    }
+}
+
+function keepOriginalPoem(){
+    if(poetryBusy||!poemOriginalVersion)return;
+    q('poemResult').value=poemOriginalVersion;
+    if(poemOriginalTitle)q('poemTitle').value=poemOriginalTitle;
+    poetryStatus('poemStatus','ORIGINAL KEPT','The original remains the active poem. The polished version is still available below.');
+    q('poemResult').scrollIntoView({behavior:'smooth',block:'center'});
+}
+
+function usePolishedPoem(){
+    if(poetryBusy||!poemPolishedVersion){toast('No finished polished version is ready.');return}
+    q('poemResult').value=poemPolishedVersion;
+    poetryStatus('poemStatus','POLISHED SELECTED','The polished version is now active. The original remains available in the Polisher until you create a new poem.');
+    q('poemResult').scrollIntoView({behavior:'smooth',block:'center'});
+}
+
+async function saveBothPoemVersions(){
+    if(poetryBusy||!poemOriginalVersion||!poemPolishedVersion){toast('Finish a polish before saving both versions.');return}
+    let group=`poetry-${Date.now()}`;
+    poetryStatus('poemPolishStatus','SAVING BOTH','Saving separate original and polished Markdown files...');
+    setPoetryBusy(true);
+    try{
+        let original=await savePoemVersion(poemOriginalVersion,'original',group);
+        let polished=await savePoemVersion(poemPolishedVersion,'polished',group);
+        if(original?.ok&&polished?.ok){
+            poetryStatus('poemPolishStatus','SAVED BOTH',`Original: ${original.path}\nPolished: ${polished.path}`);
+        }else{
+            poetryStatus('poemPolishStatus','PARTIAL SAVE',`Original: ${original?.ok?original.path:(original?.message||'failed')}\nPolished: ${polished?.ok?polished.path:(polished?.message||'failed')}`);
+        }
+    }finally{
+        setPoetryBusy(false);
+    }
+}
+const WORLD_BUILDER_TASKS={world:'Help me create the foundation of a new world: central idea, tone, major conflicts, magic, cultures, and what makes it distinctive.',region:'Help me build one region: terrain, borders, travel, cultures, settlements, dangers, landmarks, resources, and adventure hooks.',settlement:'Help me design a settlement: purpose, population, districts, leadership, useful locations, current problems, secrets, factions, and adventure hooks.',faction:'Help me create a faction: public goal, hidden goal, leadership, members, resources, methods, allies, rivals, internal divisions, symbols, and hooks.',deity:'Help me design a deity or religion: domain, myths, values, rituals, clergy, symbols, taboos, holy places, schisms, miracles, and conflicts.',dungeon:'Help me build a dungeon or adventure site: original purpose, history, present inhabitants, zones, hazards, clues, rewards, choices, and a memorable final area.',campaign:'Help me create a campaign: premise, player role, starting situation, major threats, factions, campaign arcs, milestones, secrets, and a strong session-one hook.'};
+function startWorldBuilderTask(task){let request=WORLD_BUILDER_TASKS[task]||WORLD_BUILDER_TASKS.world,name=(q('worldBuilderName')?.value||'').trim()||'a new setting',style=q('worldBuilderStyle')?.value||'D&D fantasy';go('mission');q('input').value=`WORLD BUILDER — ${name}\nStyle: ${style}\n\n${request}\n\nGuide me calmly. Ask only one useful question at a time, explain unfamiliar terms in plain language, and keep a concise running summary I can later save into the Codex.`;q('input').focus();toast('World Builder brief is ready in Mission Console.')}
+
+let poemArchiveState={groups:[],selected:''};
+
+async function poemArchiveRequest(url,opt){
+    try{
+        let response=await fetch(url,opt);
+        let data=await response.json();
+        if(!response.ok||data.ok===false)throw new Error(data.message||`Request failed (${response.status})`);
+        return data;
+    }catch(error){
+        toast('Poem Archive: '+error.message);
+        return {ok:false,message:error.message};
+    }
+}
+
+function poemArchiveGroup(id){
+    return poemArchiveState.groups.find(group=>group.id===id)||null;
+}
+
+function poemArchiveBadges(group){
+    let badges=[];
+    if(group.is_first_eric_voice)badges.push('<span class="poemArchiveBadge legacy">FIRST ERIC VOICE POEM</span>');
+    else if(group.legacy)badges.push('<span class="poemArchiveBadge legacy">LEGACY</span>');
+    if(group.is_eric_voice)badges.push('<span class="poemArchiveBadge voice">ERIC VOICE</span>');
+    if(group.version_counts?.original)badges.push(`<span class=poemArchiveBadge>${group.version_counts.original} ORIGINAL</span>`);
+    if(group.version_counts?.polished)badges.push(`<span class=poemArchiveBadge>${group.version_counts.polished} POLISHED</span>`);
+    if(group.recordings?.found_count)badges.push(`<span class="poemArchiveBadge ready">${group.recordings.found_count} RECORDING${group.recordings.found_count===1?'':'S'}</span>`);
+    if(group.for_akaysha)badges.push('<span class=poemArchiveBadge>FOR AKAYSHA</span>');
+    if(group.for_nevaeh)badges.push('<span class=poemArchiveBadge>FOR NEVAEH</span>');
+    return badges.join('');
+}
+
+function renderPoemArchive(){
+    let list=q('poemArchiveList');
+    if(!list)return;
+    let term=(q('poemArchiveSearch')?.value||'').trim().toLowerCase();
+    let filter=q('poemArchiveFilter')?.value||'all';
+    let groups=poemArchiveState.groups.filter(group=>{
+        let hay=[group.title,group.author,group.voice,group.voice_strength,group.theme,group.emotion].join(' ').toLowerCase();
+        if(term&&!hay.includes(term))return false;
+        if(filter==='eric'&&!group.is_eric_voice)return false;
+        if(filter==='legacy'&&!group.legacy&&!group.is_first_eric_voice)return false;
+        if(filter==='recorded'&&!(group.recordings?.found_count))return false;
+        return true;
+    });
+    if(!groups.length){
+        list.innerHTML='<div class=poemArchiveDetailEmpty>No poems match this view.</div>';
+        return;
+    }
+    list.innerHTML=groups.map(group=>`<button class="poemArchiveCard ${poemArchiveState.selected===group.id?'selected':''}" onclick="openPoemArchive('${group.id}')"><h3>${esc(group.title)}</h3><div class=poemArchiveBadges>${poemArchiveBadges(group)}</div><div class=poemArchiveMeta>${esc(group.author||'Author not recorded')} · ${esc(group.latest_created_display||'Date unknown')}<br>${esc(group.voice||'Voice not recorded')}${group.voice_strength?' · '+esc(group.voice_strength):''}<br>${group.version_total} saved version${group.version_total===1?'':'s'}</div></button>`).join('');
+}
+
+async function loadPoemArchive(showToast=false){
+    let summary=q('poemArchiveSummary');
+    if(summary)summary.textContent='Scanning saved Poetry Studio Markdown files…';
+    let data=await poemArchiveRequest('/api/writer/poetry/archive');
+    if(!data.ok){
+        if(summary)summary.textContent=data.message||'Archive scan failed.';
+        return;
+    }
+    poemArchiveState.groups=data.groups||[];
+    if(summary)summary.textContent=`${data.poem_count} poem${data.poem_count===1?'':'s'} · ${data.file_count} saved Markdown file${data.file_count===1?'':'s'} · source files unchanged`;
+    renderPoemArchive();
+    if(poemArchiveState.selected&&poemArchiveGroup(poemArchiveState.selected)){
+        await openPoemArchive(poemArchiveState.selected,false);
+    }else if(poemArchiveState.groups.length){
+        await openPoemArchive(poemArchiveState.groups[0].id,false);
+    }
+    if(showToast)toast(`My Poems refreshed: ${data.poem_count} poems.`);
+}
+
+function poemArchiveVersionBox(label,data){
+    if(!data?.ok)return `<div class=poemArchiveVersion><h3>${esc(label)}</h3><div class=poemArchiveDetailEmpty>Not saved yet.</div></div>`;
+    return `<div class=poemArchiveVersion><h3>${esc(label)}</h3><pre class=poemArchiveText>${esc(data.poem||'')}</pre><div class=poemArchiveMeta style="margin-top:9px">${esc(data.filename||'')}<br>${esc(data.created_display||'')}</div></div>`;
+}
+
+function poemArchiveSlot(label,slot){
+    let found=slot?.found;
+    return `<div class=poemArchiveSlot><b>${esc(label)}</b><span class=${found?'found':'missing'}>${found?'READY':'NOT RECORDED'}</span>${found?`<div class=poemArchiveMeta>${esc(slot.filename||'')}</div>`:''}</div>`;
+}
+
+async function openPoemArchive(id,scroll=true){
+    let group=poemArchiveGroup(id);
+    if(!group)return;
+    poemArchiveState.selected=id;
+    renderPoemArchive();
+    let detail=q('poemArchiveDetail');
+    detail.className='';
+    detail.innerHTML='<div class=poemArchiveDetailEmpty>Loading poem versions…</div>';
+    let originalFile=group.latest_original||group.latest_draft||group.latest_any;
+    let polishedFile=group.latest_polished||'';
+    let [original,polished]=await Promise.all([
+        originalFile?poemArchiveRequest('/api/writer/poetry/archive/read?name='+encodeURIComponent(originalFile)):Promise.resolve({ok:false}),
+        polishedFile?poemArchiveRequest('/api/writer/poetry/archive/read?name='+encodeURIComponent(polishedFile)):Promise.resolve({ok:false})
+    ]);
+    let recordings=group.recordings||{};
+    let versionRows=(group.versions||[]).map(version=>`<div class=poemArchiveHistoryRow><span>${esc((version.version||'draft').toUpperCase())}</span><span>${esc(version.filename)}<br>${esc(version.created_display||'')}</span><button onclick="viewPoemArchiveFile('${encodeURIComponent(version.filename)}','${encodeURIComponent(group.title)}')">Read</button></div>`).join('');
+    detail.innerHTML=`<div class=poemArchiveHeader><h2>${esc(group.title)}</h2><div class=poemArchiveBadges>${poemArchiveBadges(group)}</div><div class=poemArchiveMeta>${esc(group.author||'Author not recorded')}<br>${group.copyright?esc(group.copyright)+'<br>':''}${esc(group.voice||'Voice not recorded')}${group.voice_strength?' · '+esc(group.voice_strength):''}${group.model?' · '+esc(group.model):''}</div><div class=poemArchiveActions><button onclick="togglePoemLegacy('${group.id}','legacy')">${group.legacy?'Remove Legacy Mark':'Mark as Legacy Work'}</button><button onclick="togglePoemLegacy('${group.id}','for_akaysha')">${group.for_akaysha?'✓ Akaysha':'For Akaysha'}</button><button onclick="togglePoemLegacy('${group.id}','for_nevaeh')">${group.for_nevaeh?'✓ Nevaeh':'For Nevaeh'}</button><button onclick="preparePoemRecordings('${group.id}')">Prepare Recording Folder</button>${recordings.folder_exists?`<button onclick="openPoemRecordingFolder('${group.id}')">Open Recordings</button>`:''}</div></div><div class=poemArchiveCompare>${poemArchiveVersionBox(original?.version==='polished'?'Latest Saved Version':'Original / Draft',original)}${poemArchiveVersionBox('Polished',polished)}</div><h3 style="margin-top:16px">Voice Legacy Recordings</h3><div class=poemArchiveSlots>${poemArchiveSlot('Original Reading',recordings.slots?.original)}${poemArchiveSlot('Polished Reading',recordings.slots?.polished)}${poemArchiveSlot('Personal Message',recordings.slots?.personal_message)}</div><div class=poemArchiveStatus>Suggested folder: ${esc(recordings.folder||'Prepare the folder when ready.')}</div><details class=poemArchiveHistory><summary>Version history (${group.version_total})</summary>${versionRows||'<div class=poemArchiveStatus>No versions found.</div>'}</details>`;
+    if(scroll)detail.scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+async function viewPoemArchiveFile(encodedName,encodedTitle){
+    let data=await poemArchiveRequest('/api/writer/poetry/archive/read?name='+encodedName);
+    if(!data.ok)return;
+    let title=decodeURIComponent(encodedTitle||'');
+    let detail=q('poemArchiveDetail');
+    detail.innerHTML=`<div class=poemArchiveHeader><h2>${esc(title)}</h2><button onclick="openPoemArchive('${poemArchiveState.selected}')">Back to paired view</button></div>${poemArchiveVersionBox((data.version||'draft').toUpperCase(),data)}`;
+    detail.scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+async function togglePoemLegacy(id,field){
+    let group=poemArchiveGroup(id);
+    if(!group)return;
+    let current=Boolean(group[field]);
+    let data=await poemArchiveRequest('/api/writer/poetry/legacy',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({title:group.title,field,value:!current})});
+    if(data.ok){
+        toast(data.message||'Poem legacy setting saved.');
+        poemArchiveState.selected=id;
+        await loadPoemArchive(false);
+    }
+}
+
+async function preparePoemRecordings(id){
+    let group=poemArchiveGroup(id);
+    if(!group)return;
+    let data=await poemArchiveRequest('/api/writer/poetry/recordings/prepare',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({title:group.title})});
+    if(data.ok){
+        toast(data.message||'Recording folder prepared.');
+        poemArchiveState.selected=id;
+        await loadPoemArchive(false);
+    }
+}
+
+async function openPoemRecordingFolder(id){
+    let group=poemArchiveGroup(id);
+    if(!group)return;
+    let data=await poemArchiveRequest('/api/writer/poetry/recordings/open?title='+encodeURIComponent(group.title));
+    if(data.ok)toast(data.message||'Recording folder open requested.');
+}
+
+try{updatePoetryVoiceControls()}catch(e){}
+/* KAYOCK_WRITER_CALM_HOME_V1_JS_END */
+
 let lastKayockWriter=null;
 async function loadKayockWriter(doExport=false){
     if(!q('kayockWriterStatus'))return;
@@ -10319,7 +10937,8 @@ async function refreshComfyOperations(){
     const title=q('comfyOpsTitle');
     if(!meta||!log||!fill||!title)return;
     try{
-        const d=await api('/api/comfy/operations');
+        const response=await fetch('/api/comfy/operations',{cache:'no-store'});
+        const d=await response.json();
         const online=!!d?.online;
         const state=String(d?.state||'UNKNOWN');
         const pct=Number.isInteger(d?.progress_percent)
@@ -10480,6 +11099,9 @@ class Handler(BaseHTTPRequestHandler):
         u=urlparse(self.path); path=u.path; qs=parse_qs(u.query)
         if path=='/': self.sendit(HTML.encode()); return
         if path=='/api/status': self.js(status()); return
+        if path=='/api/writer/poetry/archive': self.js(kayock_writer_poetry_archive()); return
+        if path=='/api/writer/poetry/archive/read': self.js(kayock_writer_poetry_archive_read(qs.get('name',[''])[0])); return
+        if path=='/api/writer/poetry/recordings/open': self.js(kayock_writer_poetry_recordings_open(qs.get('title',[''])[0])); return
         if path=='/api/comfy/operations': self.js(comfy_operations_snapshot(ROOT,line_limit=140)); return
         if path=='/api/security/incidents': self.js(fox_sentry_incidents(qs.get('kind',['all'])[0],qs.get('limit',['100'])[0])); return
         if path=='/api/bridge/feed': self.js(bridge_feed()); return
@@ -10572,6 +11194,11 @@ class Handler(BaseHTTPRequestHandler):
         if path=='/api/security/trip_sentry_test': self.js(trip_sentry_test(d)); return
         if path=='/api/generate/root_manifest/preview': self.js(project_manifest_preview(d)); return
         if path=='/api/generate/department_readme/preview': self.js(department_readme_preview(d)); return
+        if path=='/api/writer/poetry/create': self.js(kayock_writer_poetry_create(d)); return
+        if path=='/api/writer/poetry/polish': self.js(kayock_writer_poetry_polish(d)); return
+        if path=='/api/writer/poetry/save': self.js(kayock_writer_poetry_save(d)); return
+        if path=='/api/writer/poetry/recordings/prepare': self.js(kayock_writer_poetry_recordings_prepare(d)); return
+        if path=='/api/writer/poetry/legacy': self.js(kayock_writer_poetry_legacy_update(d)); return
         if path=='/api/writer/chapter_prose_continue_save_action': self.js(kayock_writer_chapter_prose_continue_save_action_report(d)); return
         if path=='/api/writer/chapter_prose_continue_gate': self.js(kayock_writer_chapter_prose_continue_gate_report(d)); return
         if path=='/api/writer/chapter_prose_workspace': self.js(kayock_writer_chapter_prose_workspace_report(d)); return
@@ -21473,6 +22100,577 @@ def command_center_milestone_freeze_report(d=None):
 
     return report
 
+
+
+
+# KAYOCK_WRITER_CALM_HOME_V1_BACKEND_START
+def _writer_text(value,limit=12000):
+    return str(value or '').replace('\x00','').strip()[:max(1,int(limit))]
+
+
+def _poetry_chat(messages,max_tokens=900,temperature=0.82):
+    if not check(CHAT_HEALTH):
+        return {'ok':False,'message':'The local chat engine is stopped. Start a writing model in Artificial Minds first.'}
+    try:
+        result=post(CHAT_API,{
+            'model':'local-model',
+            'messages':messages,
+            'temperature':float(temperature),
+            'max_tokens':int(max_tokens),
+            'stream':False,
+        },timeout=420)
+        poem=str(result['choices'][0]['message']['content']).strip()
+        if not poem:
+            return {'ok':False,'message':'The model returned an empty poem.'}
+        return {'ok':True,'poem':poem,'model_name':Path(chat_model).name if chat_model else 'active local model'}
+    except Exception as exc:
+        return {'ok':False,'message':f'Poetry Studio could not reach the active model: {type(exc).__name__}: {exc}'}
+
+
+def _poetry_clean_title(value):
+    candidate=_writer_text(value,160)
+    candidate=re.sub(r'^\s*(?:title\s*[:\-]\s*)','',candidate,flags=re.IGNORECASE)
+    candidate=candidate.strip().strip('#*_`"“”\' ')
+    candidate=re.sub(r'\s+',' ',candidate)
+    candidate=re.sub(r'[.,;:!?—\-]+\s*$','',candidate).strip()
+    words=candidate.split()
+    if len(words)>10:
+        candidate=' '.join(words[:10])
+    return candidate[:80].strip()
+
+
+def _poetry_fallback_title(theme,emotion,imagery):
+    theme_words=re.findall(r"[A-Za-z0-9']+",theme or '')[:4]
+    emotion_words=re.findall(r"[A-Za-z0-9']+",emotion or '')[:2]
+    image_words=re.findall(r"[A-Za-z0-9']+",imagery or '')[:5]
+    if theme_words and emotion_words:
+        return _poetry_clean_title(' '.join(theme_words+['in']+emotion_words)) or 'Untitled Poem'
+    if theme_words:
+        return _poetry_clean_title(' '.join(theme_words)) or 'Untitled Poem'
+    if image_words:
+        return _poetry_clean_title(' '.join(image_words)) or 'Untitled Poem'
+    return 'Untitled Poem'
+
+
+def _poetry_generate_title(poem,theme='',emotion='',imagery=''):
+    first_nonempty=next((line.strip() for line in poem.splitlines() if line.strip()),'')
+    system=(
+        'You title poems for FOXAI Poetry Studio. Return only one concise original title of two to seven words. '
+        'Do not use quotation marks, markdown, labels, commentary, or terminal punctuation. '
+        'Do not simply repeat the first line. Prefer a memorable image or tension from the poem.'
+    )
+    user='\n'.join([
+        f'Theme: {theme or "open"}',
+        f'Emotion: {emotion or "open"}',
+        f'Imagery: {imagery or "open"}',
+        '',
+        'POEM:',
+        poem[:12000],
+    ])
+    result=_poetry_chat(
+        [{'role':'system','content':system},{'role':'user','content':user}],
+        max_tokens=48,
+        temperature=0.55,
+    )
+    if result.get('ok'):
+        candidate=_poetry_clean_title(result.get('poem'))
+        if candidate and candidate.casefold()!=first_nonempty.casefold():
+            return candidate
+    return _poetry_fallback_title(theme,emotion,imagery)
+
+
+def kayock_writer_poetry_create(d=None):
+    d=d or {}
+    theme=_writer_text(d.get('theme'),300)
+    emotion=_writer_text(d.get('emotion'),300)
+    imagery=_writer_text(d.get('imagery'),1200)
+    voice=_writer_text(d.get('voice') or 'My natural voice',160)
+    voice_strength=_writer_text(d.get('voice_strength') or 'Recognizably Eric',80)
+    form=_writer_text(d.get('form') or 'Free verse',80)
+    length=_writer_text(d.get('length') or 'Medium',40)
+    opening=_writer_text(d.get('opening_line'),500)
+    variation=bool(d.get('variation'))
+    if not any((theme,emotion,imagery,opening)):
+        return {'ok':False,'message':'Add at least a theme, emotion, image, or opening line.'}
+    length_guide={'short':'roughly 8 to 16 lines','medium':'roughly 18 to 32 lines','long':'roughly 35 to 60 lines'}.get(length.lower(),'roughly 18 to 32 lines')
+    voice_profile_id='eric_poet_narrator' if voice.strip().casefold()=='eric — poet/narrator'.casefold() else ''
+    voice_profile_prompt=build_writer_voice_prompt(
+        voice_profile_id,
+        voice_strength,
+    ) if voice_profile_id else ''
+    system=(
+        'You are FOXAI Poetry Studio, a respectful creative partner. Write one finished poem only. '
+        'Do not explain the poem, announce the title, discuss your process, or add commentary outside the poem. '
+        'Preserve the writer\'s requested voice. Prefer vivid, specific language over generic inspiration. '
+        'Avoid clichés unless deliberately transformed. Follow the requested form honestly. '
+        'If an opening line is supplied, use it exactly as the first line. Do not imitate a living poet.'
+    )
+    if voice_profile_prompt:
+        system+='\n\n'+voice_profile_prompt
+    user='\n'.join([
+        f'Theme: {theme or "open"}',
+        f'Emotion: {emotion or "open"}',
+        f'Scene or imagery: {imagery or "open"}',
+        f'Voice: {voice}',
+        f'Form: {form}',
+        f'Length: {length_guide}',
+        f'Opening line: {opening or "none"}',
+        'Create a distinctly different variation from the previous attempt.' if variation else 'Create the first strong version.',
+    ])
+    max_tokens={'short':500,'medium':900,'long':1500}.get(length.lower(),900)
+    result=_poetry_chat([{'role':'system','content':system},{'role':'user','content':user}],max_tokens=max_tokens,temperature=0.9 if variation else 0.82)
+    if not result.get('ok'):
+        return result
+    suggested=_poetry_generate_title(result['poem'],theme=theme,emotion=emotion,imagery=imagery)
+    result.update({
+        'message':'Poem created.',
+        'suggested_title':suggested,
+        'title_generated_separately':True,
+        'settings':{
+            'theme':theme,
+            'emotion':emotion,
+            'imagery':imagery,
+            'voice':voice,
+            'voice_strength':voice_strength,
+            'form':form,
+            'length':length,
+            'opening_line':opening,
+        },
+        'voice_profile':'Eric — Poet/Narrator' if voice_profile_id else '',
+        'voice_strength':voice_strength if voice_profile_id else '',
+        'profile_sources':(
+            get_writer_voice_profile(voice_profile_id).get('source_titles',[])
+            if voice_profile_id else []
+        ),
+        'source_poems_modified':False,
+        'new_work_not_copied':bool(voice_profile_id),
+    })
+    return result
+
+
+def kayock_writer_poetry_polish(d=None):
+    d=d or {}
+    poem=_writer_text(d.get('poem'),24000)
+    focus=_writer_text(d.get('focus') or 'Balanced polish',160)
+    voice=_writer_text(d.get('voice') or 'My natural voice',160)
+    voice_strength=_writer_text(d.get('voice_strength') or 'Recognizably Eric',80)
+    if not poem:
+        return {'ok':False,'message':'There is no poem to polish.'}
+    focus_key=focus.strip().casefold()
+    if focus_key=='light touch':
+        change_rule='Make only one to three small edits unless a line is clearly broken.'
+        temperature=0.30
+    elif focus_key=='bold rewrite':
+        change_rule='You may substantially recast weak lines, imagery, rhythm, and structure while preserving the poem\'s core meaning and recognizable voice.'
+        temperature=0.62
+    elif focus_key=='preserve voice with minimal changes':
+        change_rule='Change as little as possible. Preserve unusual diction and rough edges that feel intentional.'
+        temperature=0.28
+    else:
+        change_rule='Make only changes that clearly improve the selected focus; preserve strong lines and the poem\'s overall identity.'
+        temperature=0.45
+    voice_profile_id='eric_poet_narrator' if voice.strip().casefold()=='eric — poet/narrator'.casefold() else ''
+    voice_profile_prompt=build_writer_voice_prompt(
+        voice_profile_id,
+        voice_strength,
+    ) if voice_profile_id else ''
+    system=(
+        'You are FOXAI Poem Polisher. Return only the revised poem, with no critique or commentary. '
+        'Preserve the writer\'s identity, meaning, strongest images, emotional intention, and unusual phrasing. '
+        'Do not turn the poem into generic polished verse. '
+        f'{change_rule} '
+        'Do not imitate a living poet.'
+    )
+    if voice_profile_prompt:
+        system+='\n\n'+voice_profile_prompt
+        system+=(
+            '\n\nFor polishing, the submitted poem remains the primary authority. '
+            'The profile may strengthen compatible qualities but must not replace '
+            'the poem with material from a source poem.'
+        )
+    user=f'Polish focus: {focus}\n\nPOEM:\n{poem}'
+    result=_poetry_chat([{'role':'system','content':system},{'role':'user','content':user}],max_tokens=1700,temperature=temperature)
+    if result.get('ok'):
+        result['message']='Polished version created.'
+        result['focus']=focus
+        result['voice_profile']='Eric — Poet/Narrator' if voice_profile_id else ''
+        result['voice_strength']=voice_strength if voice_profile_id else ''
+        result['profile_sources']=(
+            get_writer_voice_profile(voice_profile_id).get('source_titles',[])
+            if voice_profile_id else []
+        )
+        result['source_poems_modified']=False
+        result['new_work_not_copied']=bool(voice_profile_id)
+    return result
+
+
+def kayock_writer_poetry_save(d=None):
+    d=d or {}
+    poem=_writer_text(d.get('poem'),32000)
+    title=_writer_text(d.get('title'),160)
+    settings=d.get('settings') if isinstance(d.get('settings'),dict) else {}
+    version_kind=_writer_text(d.get('version_kind') or 'draft',40).strip().casefold()
+    version_group=_writer_text(d.get('version_group'),120)
+    if version_kind not in {'draft','original','polished'}:
+        version_kind='draft'
+    if not poem:
+        return {'ok':False,'message':'There is no poem to save.'}
+    folder=FOLDERS.get('kayock_writer_poetry_drafts',ROOT/'Projects'/'KayockWriter'/'Poetry'/'Drafts')
+    folder.mkdir(parents=True,exist_ok=True)
+    stamp=datetime.now().strftime('%Y%m%d_%H%M%S_%f')
+    display_title=title or 'Untitled Poem'
+    safe=re.sub(r'[^A-Za-z0-9 _.-]','',display_title).strip().replace(' ','_')[:70] or 'Untitled_Poem'
+    kind_suffix='' if version_kind=='draft' else f'_{version_kind}'
+    path=folder/f'{safe}{kind_suffix}_{stamp}.md'
+    front=[
+        '---',
+        f'title: {json.dumps(display_title,ensure_ascii=False)}',
+        f'author: {json.dumps(_writer_text(settings.get("author") or "Eric Z. Fox",160),ensure_ascii=False)}',
+        f'copyright: {json.dumps(_writer_text(settings.get("copyright"),240),ensure_ascii=False)}',
+        f'created: {json.dumps(now())}',
+        'source: Kayock Writer Poetry Studio',
+        f'model: {json.dumps(Path(chat_model).name if chat_model else "",ensure_ascii=False)}',
+        f'version: {json.dumps(version_kind)}',
+        f'version_group: {json.dumps(version_group,ensure_ascii=False)}',
+        f'form: {json.dumps(_writer_text(settings.get("form"),80),ensure_ascii=False)}',
+        f'voice: {json.dumps(_writer_text(settings.get("voice"),160),ensure_ascii=False)}',
+        f'voice_strength: {json.dumps(_writer_text(settings.get("voice_strength"),80),ensure_ascii=False)}',
+        f'voice_profile_sources_read_only: {json.dumps(bool(_writer_text(settings.get("voice"),160).strip().casefold()=="eric — poet/narrator".casefold()))}',
+        f'theme: {json.dumps(_writer_text(settings.get("theme"),300),ensure_ascii=False)}',
+        f'emotion: {json.dumps(_writer_text(settings.get("emotion"),300),ensure_ascii=False)}',
+        '---','',f'# {display_title}','',poem,'',
+    ]
+    path.write_text('\n'.join(front),encoding='utf-8')
+    return {
+        'ok':True,
+        'message':f'Poetry {version_kind} saved as {path.name}.',
+        'path':str(path),
+        'version_kind':version_kind,
+        'version_group':version_group,
+        'overwritten':False,
+        'new_file':True,
+    }
+
+_POETRY_AUDIO_SUFFIXES={'.wav','.flac','.mp3','.m4a','.ogg','.aac'}
+
+def _poetry_archive_folder():
+    return FOLDERS.get(
+        'kayock_writer_poetry_drafts',
+        ROOT/'Projects'/'KayockWriter'/'Poetry'/'Drafts',
+    )
+
+def _poetry_recordings_root():
+    return FOLDERS.get(
+        'kayock_writer_poetry_recordings',
+        ROOT/'Projects'/'KayockWriter'/'Poetry'/'Recordings',
+    )
+
+def _poetry_legacy_root():
+    return FOLDERS.get(
+        'kayock_writer_poetry_legacy',
+        ROOT/'Projects'/'KayockWriter'/'Poetry'/'Legacy',
+    )
+
+def _poetry_archive_title_key(title):
+    return slug(_writer_text(title,160)).casefold()
+
+def _poetry_archive_manifest_path():
+    return _poetry_legacy_root()/'legacy_manifest.json'
+
+def _poetry_archive_manifest():
+    data=jread(_poetry_archive_manifest_path(),{})
+    return data if isinstance(data,dict) else {}
+
+def _poetry_parse_scalar(value):
+    raw=str(value or '').strip()
+    if not raw:
+        return ''
+    try:
+        return json.loads(raw)
+    except Exception:
+        return raw.strip('"').strip("'")
+
+def _poetry_parse_markdown(path,include_poem=False):
+    try:
+        raw=path.read_text(encoding='utf-8',errors='replace')
+    except Exception as exc:
+        return {'ok':False,'message':f'{type(exc).__name__}: {exc}','filename':path.name}
+    lines=raw.splitlines()
+    meta={}
+    body_start=0
+    if lines and lines[0].strip()=='---':
+        for index in range(1,len(lines)):
+            line=lines[index]
+            if line.strip()=='---':
+                body_start=index+1
+                break
+            if ':' in line:
+                key,value=line.split(':',1)
+                meta[key.strip()]=_poetry_parse_scalar(value)
+    body='\n'.join(lines[body_start:]).strip()
+    body_lines=body.splitlines()
+    if body_lines and body_lines[0].lstrip().startswith('# '):
+        body='\n'.join(body_lines[1:]).strip()
+    stat=path.stat()
+    created=str(meta.get('created') or datetime.fromtimestamp(stat.st_mtime).isoformat(timespec='seconds'))
+    try:
+        created_dt=datetime.fromisoformat(created.replace('Z','+00:00'))
+        created_display=created_dt.astimezone().strftime('%b %d, %Y · %I:%M %p')
+        created_sort=created_dt.timestamp()
+    except Exception:
+        created_display=created
+        created_sort=stat.st_mtime
+    title=_writer_text(meta.get('title'),160) or re.sub(r'_(?:draft|original|polished)?_?\d{8}_\d{6}(?:_\d+)?$','',path.stem,flags=re.IGNORECASE).replace('_',' ')
+    version=_writer_text(meta.get('version') or 'draft',40).strip().casefold()
+    if version not in {'draft','original','polished'}:
+        version='draft'
+    entry={
+        'ok':True,
+        'filename':path.name,
+        'title':title or 'Untitled Poem',
+        'author':_writer_text(meta.get('author') or 'Eric Z. Fox',160),
+        'copyright':_writer_text(meta.get('copyright'),240),
+        'created':created,
+        'created_display':created_display,
+        'created_sort':created_sort,
+        'version':version,
+        'version_group':_writer_text(meta.get('version_group'),120),
+        'voice':_writer_text(meta.get('voice'),160),
+        'voice_strength':_writer_text(meta.get('voice_strength'),80),
+        'model':_writer_text(meta.get('model'),180),
+        'theme':_writer_text(meta.get('theme'),300),
+        'emotion':_writer_text(meta.get('emotion'),300),
+        'form':_writer_text(meta.get('form'),80),
+        'profile_sources_read_only':bool(meta.get('voice_profile_sources_read_only')),
+        'excerpt':re.sub(r'\s+',' ',body)[:220],
+        'size_bytes':stat.st_size,
+    }
+    if include_poem:
+        entry['poem']=body
+    return entry
+
+def _poetry_safe_markdown(name):
+    folder=_poetry_archive_folder()
+    candidate=(folder/Path(str(name or '')).name).resolve()
+    try:
+        candidate.relative_to(folder.resolve())
+    except Exception:
+        return None
+    if candidate.suffix.casefold()!='.md' or not candidate.is_file():
+        return None
+    return candidate
+
+def _poetry_recording_folder(title):
+    return _poetry_recordings_root()/slug(_writer_text(title,160))
+
+def _poetry_recording_snapshot(title):
+    folder=_poetry_recording_folder(title)
+    files=[]
+    if folder.is_dir():
+        files=sorted(
+            [
+                path for path in folder.iterdir()
+                if path.is_file() and path.suffix.casefold() in _POETRY_AUDIO_SUFFIXES
+            ],
+            key=lambda item:item.name.casefold(),
+        )
+    def find_slot(*terms):
+        for path in files:
+            stem=path.stem.casefold().replace('-','_').replace(' ','_')
+            if any(term in stem for term in terms):
+                return {'found':True,'filename':path.name,'path':str(path)}
+        return {'found':False,'filename':'','path':''}
+    slots={
+        'original':find_slot('original'),
+        'polished':find_slot('polished'),
+        'personal_message':find_slot('personal_message','personalmessage','message'),
+    }
+    return {
+        'folder':str(folder),
+        'folder_exists':folder.is_dir(),
+        'found_count':sum(1 for slot in slots.values() if slot['found']),
+        'audio_file_count':len(files),
+        'slots':slots,
+        'master_policy':'Original recordings remain read-only; cleaned or model-ready copies stay separate.',
+    }
+
+def kayock_writer_poetry_archive():
+    folder=_poetry_archive_folder()
+    folder.mkdir(parents=True,exist_ok=True)
+    manifest=_poetry_archive_manifest()
+    entries=[]
+    for path in sorted(folder.glob('*.md'),key=lambda item:item.stat().st_mtime,reverse=True)[:500]:
+        parsed=_poetry_parse_markdown(path,include_poem=False)
+        if parsed.get('ok'):
+            entries.append(parsed)
+    grouped={}
+    for entry in entries:
+        title=entry['title']
+        key=_poetry_archive_title_key(title)
+        grouped.setdefault(key,{'title':title,'versions':[]})['versions'].append(entry)
+    groups=[]
+    for key,group in grouped.items():
+        versions=sorted(group['versions'],key=lambda item:item.get('created_sort',0),reverse=True)
+        latest=versions[0]
+        counts={'draft':0,'original':0,'polished':0}
+        for version in versions:
+            counts[version['version']]=counts.get(version['version'],0)+1
+        def latest_file(kind):
+            return next((item['filename'] for item in versions if item['version']==kind),'')
+        is_eric_voice=any(
+            item.get('voice','').strip().casefold()=='eric — poet/narrator'.casefold()
+            or item.get('profile_sources_read_only')
+            for item in versions
+        )
+        special=group['title'].strip().casefold()=='voices that carry home'.casefold() and is_eric_voice
+        stored=manifest.get(key,{}) if isinstance(manifest.get(key,{}),dict) else {}
+        legacy=bool(stored.get('legacy',special))
+        for_akaysha=bool(stored.get('for_akaysha',special))
+        for_nevaeh=bool(stored.get('for_nevaeh',special))
+        recordings=_poetry_recording_snapshot(group['title'])
+        groups.append({
+            'id':hashlib.sha256(key.encode('utf-8')).hexdigest()[:16],
+            'key':key,
+            'title':group['title'],
+            'author':latest.get('author') or 'Eric Z. Fox',
+            'copyright':next((item.get('copyright') for item in versions if item.get('copyright')),'Copyright © 2026 by Eric Z. Fox' if special else ''),
+            'latest_created':latest.get('created',''),
+            'latest_created_display':latest.get('created_display',''),
+            'voice':next((item.get('voice') for item in versions if item.get('voice')),''),
+            'voice_strength':next((item.get('voice_strength') for item in versions if item.get('voice_strength')),''),
+            'model':next((item.get('model') for item in versions if item.get('model')),''),
+            'theme':next((item.get('theme') for item in versions if item.get('theme')),''),
+            'emotion':next((item.get('emotion') for item in versions if item.get('emotion')),''),
+            'is_eric_voice':is_eric_voice,
+            'is_first_eric_voice':special,
+            'legacy':legacy,
+            'for_akaysha':for_akaysha,
+            'for_nevaeh':for_nevaeh,
+            'legacy_notes':_writer_text(stored.get('notes'),500),
+            'version_total':len(versions),
+            'version_counts':counts,
+            'latest_original':latest_file('original'),
+            'latest_polished':latest_file('polished'),
+            'latest_draft':latest_file('draft'),
+            'latest_any':latest['filename'],
+            'versions':versions,
+            'recordings':recordings,
+        })
+    groups.sort(key=lambda item:max((v.get('created_sort',0) for v in item['versions']),default=0),reverse=True)
+    return {
+        'ok':True,
+        'message':'Poetry archive scanned without changing source files.',
+        'folder':str(folder),
+        'poem_count':len(groups),
+        'file_count':len(entries),
+        'groups':groups,
+        'source_files_modified':False,
+    }
+
+def kayock_writer_poetry_archive_read(name):
+    path=_poetry_safe_markdown(name)
+    if path is None:
+        return {'ok':False,'message':'Saved poem file was not found.'}
+    result=_poetry_parse_markdown(path,include_poem=True)
+    result['source_file_modified']=False
+    return result
+
+def kayock_writer_poetry_recordings_prepare(d=None):
+    d=d or {}
+    title=_writer_text(d.get('title'),160)
+    if not title:
+        return {'ok':False,'message':'Choose a poem first.'}
+    folder=_poetry_recording_folder(title)
+    existed=folder.is_dir()
+    folder.mkdir(parents=True,exist_ok=True)
+    readme=folder/'README_RECORDINGS.txt'
+    created_readme=False
+    if not readme.exists():
+        base=slug(title)
+        readme.write_text(
+            '\n'.join([
+                f'FOXAI VOICE LEGACY RECORDINGS — {title}',
+                '',
+                'Suggested master filenames:',
+                f'{base}_original.wav',
+                f'{base}_polished.wav',
+                f'{base}_personal_message.wav',
+                '',
+                'Keep these master recordings read-only.',
+                'Create separate copies for noise cleanup, trimming, segmentation, or voice-model preparation.',
+                'Spoken names personalize playback; they are not secure authentication.',
+                '',
+            ]),
+            encoding='utf-8',
+        )
+        created_readme=True
+    return {
+        'ok':True,
+        'message':'Recording folder prepared.' if not existed else 'Recording folder already exists.',
+        'folder':str(folder),
+        'folder_created':not existed,
+        'readme_created':created_readme,
+        'poem_files_modified':False,
+        'recordings':_poetry_recording_snapshot(title),
+    }
+
+def kayock_writer_poetry_recordings_open(title):
+    title=_writer_text(title,160)
+    if not title:
+        return {'ok':False,'message':'Choose a poem first.'}
+    folder=_poetry_recording_folder(title)
+    if not folder.is_dir():
+        return {'ok':False,'message':'Prepare the recording folder first.'}
+    try:
+        os.startfile(str(folder))
+    except Exception as exc:
+        return {'ok':False,'message':f'Could not open recording folder: {exc}'}
+    return {
+        'ok':True,
+        'message':f'Open request sent for {folder.name}; window state is not verified.',
+        'folder':str(folder),
+        'claim_state':'requested',
+        'poem_files_modified':False,
+    }
+
+def kayock_writer_poetry_legacy_update(d=None):
+    d=d or {}
+    title=_writer_text(d.get('title'),160)
+    field=_writer_text(d.get('field'),40).strip().casefold()
+    if not title:
+        return {'ok':False,'message':'Choose a poem first.'}
+    if field not in {'legacy','for_akaysha','for_nevaeh'}:
+        return {'ok':False,'message':'That legacy setting is not supported.'}
+    value=bool(d.get('value'))
+    path=_poetry_archive_manifest_path()
+    manifest=_poetry_archive_manifest()
+    key=_poetry_archive_title_key(title)
+    record=manifest.get(key,{}) if isinstance(manifest.get(key,{}),dict) else {}
+    record.update({
+        'title':title,
+        field:value,
+        'updated':now(),
+    })
+    manifest[key]=record
+    jwrite(path,manifest)
+    labels={
+        'legacy':'Legacy work',
+        'for_akaysha':'For Akaysha',
+        'for_nevaeh':'For Nevaeh',
+    }
+    return {
+        'ok':True,
+        'message':f'{labels[field]} {"enabled" if value else "disabled"} for {title}.',
+        'title':title,
+        'field':field,
+        'value':value,
+        'manifest_path':str(path),
+        'poem_files_modified':False,
+    }
+
+# KAYOCK_WRITER_POEM_ARCHIVE_V1_END
+
+# KAYOCK_WRITER_CALM_HOME_V1_BACKEND_END
 
 
 def kayock_writer_foundation_report(d=None):

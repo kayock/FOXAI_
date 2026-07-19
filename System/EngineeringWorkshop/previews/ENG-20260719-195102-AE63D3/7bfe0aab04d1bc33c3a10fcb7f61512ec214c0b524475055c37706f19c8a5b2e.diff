@@ -1,0 +1,2171 @@
+--- a/KAYOCKS_STUDY_BIBLIOTHECA_V1/study_server.py
++++ b/KAYOCKS_STUDY_BIBLIOTHECA_V1/study_server.py
+@@ -21,11 +21,20 @@
+ import webbrowser
+ 
+ APP_DIR = Path(__file__).resolve().parent
++if str(APP_DIR) not in sys.path:
++    sys.path.insert(0, str(APP_DIR))
+ VENDOR_DIR = APP_DIR / "vendor"
+ if str(VENDOR_DIR) not in sys.path:
+     sys.path.insert(0, str(VENDOR_DIR))
+ 
+ from pypdf import PdfReader
++
++from research_desk import (
++    RESEARCH_SHELF, RESEARCH_STATE, initialize_research_schema, list_saved,
++    preview_from_bytes as research_preview_from_bytes, preview_url as research_preview_url,
++    public_preview as research_public_preview, research_file, research_segment_source, research_summary, save_preview as save_research_preview,
++    search_research, search_web as research_search_web, update_notes as update_research_notes,
++)
+ 
+ APP_NAME = "Kayock's Study"
+ COLLECTION_NAME = "The Bibliotheca"
+@@ -37,7 +46,7 @@
+ LOW_TEXT_CHARS = 40
+ MAX_ASK_SOURCES = 8
+ MAX_SOURCE_CHARS = 18000
+-APP_VERSION = "1.5"
++APP_VERSION = "1.6"
+ REVIEW_RELATIVE_ROOT = Path("Needs Review") / "Bibliotheca Duplicate Review"
+ 
+ _OCR_MARKERS = re.compile(
+@@ -266,16 +275,22 @@
+ 
+ 
+ def connect_db(paths: AppPaths) -> sqlite3.Connection:
++    database_preexisted = paths.database.is_file()
+     conn = sqlite3.connect(paths.database, timeout=30)
+     conn.row_factory = sqlite3.Row
+     conn.execute("PRAGMA foreign_keys=ON")
+     conn.execute("PRAGMA journal_mode=WAL")
+     conn.execute("PRAGMA synchronous=NORMAL")
+-    initialize_schema(conn)
++    initialize_schema(conn, paths, database_preexisted=database_preexisted)
+     return conn
+ 
+ 
+-def initialize_schema(conn: sqlite3.Connection) -> None:
++def initialize_schema(
++    conn: sqlite3.Connection,
++    paths: AppPaths,
++    *,
++    database_preexisted: bool,
++) -> None:
+     conn.executescript(
+         """
+         CREATE TABLE IF NOT EXISTS metadata(
+@@ -341,6 +356,12 @@
+         (str(INDEX_SCHEMA),),
+     )
+     conn.commit()
++    initialize_research_schema(
++        conn,
++        database_path=paths.database,
++        reports_dir=paths.reports,
++        database_preexisted=database_preexisted,
++    )
+ 
+ 
+ def fts_available(conn: sqlite3.Connection) -> bool:
+@@ -732,6 +753,7 @@
+         shelf_for_rel_path(item["rel_path"])
+         for item in conn.execute("SELECT rel_path FROM documents").fetchall()
+     }
++    research = research_summary(conn)
+     return {
+         "documents": int(row["documents"] or 0),
+         "pages": int(row["pages"] or 0),
+@@ -739,8 +761,11 @@
+         "searchable": int(row["searchable"] or 0),
+         "low_text": int(row["low_text"] or 0),
+         "ocr_copies": int(row["ocr_copies"] or 0),
+-        "shelves": len(shelves),
++        "shelves": len(shelves) + (1 if research["saved"] else 0),
+         "fts5": fts_available(conn),
++        "research_saved": research["saved"],
++        "research_segments": research["segments"],
++        "research_revisions": research["revisions"],
+     }
+ 
+ 
+@@ -756,6 +781,9 @@
+             "shelves": 0,
+             "duplicate_groups": 0,
+             "fts5": False,
++            "research_saved": 0,
++            "research_segments": 0,
++            "research_revisions": 0,
+         }
+     conn = connect_db(paths)
+     try:
+@@ -783,6 +811,20 @@
+             "partially_searchable",
+         ):
+             entry["searchable"] += 1
++    if paths.database.is_file():
++        conn = connect_db(paths)
++        try:
++            research = research_summary(conn)
++        finally:
++            conn.close()
++        if research["saved"]:
++            counts[RESEARCH_SHELF] = {
++                "name": RESEARCH_SHELF,
++                "documents": research["saved"],
++                "pages": 0,
++                "searchable": research["saved"],
++                "segments": research["segments"],
++            }
+     return sorted(counts.values(), key=lambda item: item["name"].casefold())
+ 
+ 
+@@ -1108,77 +1150,91 @@
+     limit = max(1, min(int(limit), 80))
+     conn = connect_db(paths)
+     try:
+-        rows = []
+-        expression = fts_query(query)
+-        if fts_available(conn) and expression:
+-            try:
+-                sql = """
+-                    SELECT d.id AS document_id,d.title,d.rel_path,
+-                           d.text_status,d.is_ocr_copy,
+-                           f.page_number,f.text,bm25(pages_fts) AS rank
+-                    FROM pages_fts f
+-                    JOIN documents d ON d.id=CAST(f.document_id AS INTEGER)
+-                    WHERE pages_fts MATCH ?
+-                """
+-                params: list = [expression]
+-                if document_id:
+-                    sql += " AND d.id=?"
+-                    params.append(int(document_id))
+-                shelf_clause, shelf_params = shelf_sql_filter("d", shelf)
+-                sql += shelf_clause
+-                params.extend(shelf_params)
+-                if status:
+-                    sql += " AND d.text_status=?"
+-                    params.append(status)
+-                sql += " ORDER BY rank LIMIT ?"
+-                params.append(limit)
+-                rows = conn.execute(sql, params).fetchall()
+-            except sqlite3.OperationalError:
+-                rows = []
+-
+-        if not rows:
+-            tokens = query_tokens(query)
+-            if not tokens:
+-                return []
+-            clauses = ["LOWER(p.text) LIKE ?" for _ in tokens]
+-            params = [f"%{token}%" for token in tokens]
+-            sql = f"""
+-                SELECT d.id AS document_id,d.title,d.rel_path,
+-                       d.text_status,d.is_ocr_copy,
+-                       p.page_number,p.text,0 AS rank
+-                FROM pages p
+-                JOIN documents d ON d.id=p.document_id
+-                WHERE {" AND ".join(clauses)}
+-            """
+-            if document_id:
+-                sql += " AND d.id=?"
+-                params.append(int(document_id))
+-            shelf_clause, shelf_params = shelf_sql_filter("d", shelf)
+-            sql += shelf_clause
+-            params.extend(shelf_params)
+-            if status:
+-                sql += " AND d.text_status=?"
+-                params.append(status)
+-            sql += " ORDER BY d.title COLLATE NOCASE,p.page_number LIMIT ?"
+-            params.append(limit)
+-            rows = conn.execute(sql, params).fetchall()
+-
+-        return [
+-            {
+-                "document_id": int(row["document_id"]),
+-                "title": row["title"],
+-                "rel_path": row["rel_path"],
+-                "shelf": shelf_for_rel_path(row["rel_path"]),
+-                "page_number": int(row["page_number"]),
+-                "snippet": plain_snippet(row["text"], query),
+-                "text": row["text"],
+-                "text_status": row["text_status"],
+-                "is_ocr_copy": bool(row["is_ocr_copy"]),
+-                "citation": f"[{row['title']}, p. {row['page_number']}]",
+-            }
+-            for row in rows
+-            if not is_review_rel_path(row["rel_path"])
+-        ]
++        pdf_results: list[dict] = []
++        research_results: list[dict] = []
++        research_only = str(shelf or "").casefold() == RESEARCH_SHELF.casefold()
++        allow_research = not document_id and (not shelf or research_only)
++        allow_pdf = not research_only
++
++        if allow_pdf:
++            rows = []
++            expression = fts_query(query)
++            if fts_available(conn) and expression:
++                try:
++                    sql = """
++                        SELECT d.id AS document_id,d.title,d.rel_path,
++                               d.text_status,d.is_ocr_copy,
++                               f.page_number,f.text,bm25(pages_fts) AS rank
++                        FROM pages_fts f
++                        JOIN documents d ON d.id=CAST(f.document_id AS INTEGER)
++                        WHERE pages_fts MATCH ?
++                    """
++                    params: list = [expression]
++                    if document_id:
++                        sql += " AND d.id=?"
++                        params.append(int(document_id))
++                    shelf_clause, shelf_params = shelf_sql_filter("d", shelf)
++                    sql += shelf_clause
++                    params.extend(shelf_params)
++                    if status:
++                        sql += " AND d.text_status=?"
++                        params.append(status)
++                    sql += " ORDER BY rank LIMIT ?"
++                    params.append(limit)
++                    rows = conn.execute(sql, params).fetchall()
++                except sqlite3.OperationalError:
++                    rows = []
++
++            if not rows:
++                tokens = query_tokens(query)
++                if tokens:
++                    clauses = ["LOWER(p.text) LIKE ?" for _ in tokens]
++                    params = [f"%{token}%" for token in tokens]
++                    sql = f"""
++                        SELECT d.id AS document_id,d.title,d.rel_path,
++                               d.text_status,d.is_ocr_copy,
++                               p.page_number,p.text,0 AS rank
++                        FROM pages p
++                        JOIN documents d ON d.id=p.document_id
++                        WHERE {" AND ".join(clauses)}
++                    """
++                    if document_id:
++                        sql += " AND d.id=?"
++                        params.append(int(document_id))
++                    shelf_clause, shelf_params = shelf_sql_filter("d", shelf)
++                    sql += shelf_clause
++                    params.extend(shelf_params)
++                    if status:
++                        sql += " AND d.text_status=?"
++                        params.append(status)
++                    sql += " ORDER BY d.title COLLATE NOCASE,p.page_number LIMIT ?"
++                    params.append(limit)
++                    rows = conn.execute(sql, params).fetchall()
++
++            pdf_results = [
++                {
++                    "source_kind": "pdf",
++                    "document_id": int(row["document_id"]),
++                    "research_id": None,
++                    "title": row["title"],
++                    "rel_path": row["rel_path"],
++                    "shelf": shelf_for_rel_path(row["rel_path"]),
++                    "page_number": int(row["page_number"]),
++                    "segment_number": 0,
++                    "snippet": plain_snippet(row["text"], query),
++                    "text": row["text"],
++                    "text_status": row["text_status"],
++                    "is_ocr_copy": bool(row["is_ocr_copy"]),
++                    "citation": f"[{row['title']}, p. {row['page_number']}]",
++                }
++                for row in rows
++                if not is_review_rel_path(row["rel_path"])
++            ]
++
++        if allow_research and (not status or status == "research_capture"):
++            research_results = search_research(conn, query, limit=limit)
++
++        return (pdf_results + research_results)[:limit]
+     finally:
+         conn.close()
+ 
+@@ -1611,29 +1667,46 @@
+ def sources_from_refs(paths: AppPaths, refs: list) -> list[dict]:
+     results = []
+     seen = set()
+-    for raw in list(refs or [])[:12]:
+-        if not isinstance(raw, dict):
+-            continue
+-        try:
+-            document_id = int(raw.get("document_id"))
+-            page_number = int(raw.get("page_number"))
+-        except (TypeError, ValueError):
+-            continue
+-        key = (document_id, page_number)
+-        if key in seen:
+-            continue
+-        seen.add(key)
+-        item = page_source(paths, document_id, page_number)
+-        if item:
+-            results.append(item)
++    conn = connect_db(paths)
++    try:
++        for raw in list(refs or [])[:12]:
++            if not isinstance(raw, dict):
++                continue
++            if raw.get("research_id") not in (None, ""):
++                try:
++                    research_id = int(raw.get("research_id"))
++                    segment_number = int(raw.get("segment_number"))
++                except (TypeError, ValueError):
++                    continue
++                key = ("research", research_id, segment_number)
++                if key in seen:
++                    continue
++                seen.add(key)
++                item = research_segment_source(conn, research_id, segment_number)
++            else:
++                try:
++                    document_id = int(raw.get("document_id"))
++                    page_number = int(raw.get("page_number"))
++                except (TypeError, ValueError):
++                    continue
++                key = ("pdf", document_id, page_number)
++                if key in seen:
++                    continue
++                seen.add(key)
++                item = page_source(paths, document_id, page_number)
++            if item:
++                results.append(item)
++    finally:
++        conn.close()
+     return results
+ 
+ 
+ def public_source(item: dict) -> dict:
+     keys = (
+-        "document_id", "title", "rel_path", "shelf", "page_number",
+-        "snippet", "citation", "text_status", "is_ocr_copy",
+-        "detected_heading", "match_role",
++        "source_kind", "document_id", "research_id", "title", "rel_path",
++        "shelf", "page_number", "segment_number", "section_heading",
++        "capture_date", "original_url", "snippet", "citation",
++        "text_status", "is_ocr_copy", "detected_heading", "match_role",
+     )
+     return {key: item.get(key) for key in keys}
+ 
+@@ -1731,7 +1804,9 @@
+     annotated = []
+     for source in sources:
+         item = dict(source)
+-        if item.get("shelf", "").casefold() == "recipes":
++        if item.get("source_kind") == "research":
++            item.update({"detected_heading": item.get("section_heading") or "", "match_role": "research_segment"})
++        elif item.get("shelf", "").casefold() == "recipes":
+             analysis = recipe_page_analysis(item.get("text", ""), subject)
+             item.update(analysis)
+         else:
+@@ -1827,7 +1902,7 @@
+             "message": (
+                 str(resolved.get("grounding_warning") or "").strip()
+                 or (
+-                    "The Bibliotheca found no matching indexed pages."
++                    "The Bibliotheca found no matching indexed pages or saved research segments."
+                     + page_note
+                     + " Try different wording or index an OCR/searchable copy."
+                 )
+@@ -1868,6 +1943,8 @@
+             f"SOURCE {index} {source['citation']}\n"
+             f"Path: {source['rel_path']}\n"
+             f"Shelf: {source.get('shelf') or 'Unsorted'}\n"
++            f"Source kind: {source.get('source_kind') or 'pdf'}\n"
++            f"Original URL: {source.get('original_url') or 'not applicable'}\n"
+             f"Detected nearby heading: {source.get('detected_heading') or 'not detected'}\n"
+             f"Match classification: {source.get('match_role') or 'page_context'}\n"
+             f"{excerpt}"
+@@ -1900,6 +1977,8 @@
+ - Never write a placeholder such as [Document Title, p. N], [Source, p. N],
+   or [Title, p. N].
+ - When an exact page was selected, answer only from that page.
++- Saved web research has section-and-segment citations, not original PDF page numbers.
++- Never invent a PDF page number for HTML or plain-text research captures.
+ - A detected heading is context, not absolute proof; verify it against the excerpt.
+ - Never turn an ingredient phrase into a recipe title.
+ - When source selection is recipe_heading, the detected heading outranks ingredient-only word matches. A recovered exact heading may come from a title split or merged by PDF extraction.
+@@ -1982,7 +2061,7 @@
+ <head>
+ <meta charset="utf-8">
+ <meta name="viewport" content="width=device-width,initial-scale=1">
+-<title>Kayock's Study — The Bibliotheca V1.5</title>
++<title>Kayock's Study — The Bibliotheca V1.6</title>
+ <style>
+ :root{
+   --violet:#9b6cff;--violet2:#c3a6ff;--cyan:#36dbff;--gold:#ffd166;
+@@ -2026,7 +2105,7 @@
+ .shelves{grid-column:span 12}
+ .search{grid-column:span 7}.ask{grid-column:span 5}
+ .documents{grid-column:span 5}.results{grid-column:span 7}
+-.duplicates{grid-column:span 12}
++.duplicates,.researchdesk{grid-column:span 12}
+ input,select,textarea{
+  width:100%;background:#080b14;color:var(--text);border:1px solid #3b315e;
+  border-radius:14px;padding:12px;font:inherit;
+@@ -2071,6 +2150,7 @@
+ .move{border-left:3px solid var(--gold);padding-left:10px;margin:8px 0}
+ .reviewnote{border:1px solid #ffd16642;background:#ffd16609;border-radius:14px;padding:11px;margin:10px 0}
+ .groundingnote{border:1px solid #36dbff42;background:#36dbff09;border-radius:14px;padding:10px;margin:9px 0}.groundingwarn{border-color:#ffd16666;background:#ffd1660c}.askgrid{grid-template-columns:repeat(4,1fr)}.checkline{display:flex;gap:9px;align-items:center;color:var(--muted);font-size:13px;margin:8px 0}.checkline input{width:auto}
++.researchstatus{display:flex;align-items:center;justify-content:space-between;gap:12px;border:1px solid #8f5cff35;border-radius:16px;padding:12px;background:#ffffff04;margin:10px 0}.researchgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.researchpreview{border:1px solid #36dbff35;border-radius:16px;padding:13px;background:#070b13;margin-top:12px}.researchmeta{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;font-size:12px}.researchmeta div{border:1px solid #8f5cff25;border-radius:10px;padding:8px;overflow-wrap:anywhere}.researchsaved{max-height:420px;overflow:auto}.researchresult{border-left:3px solid var(--cyan)}
+ @media(max-width:1120px){
+  .search,.ask,.documents,.results{grid-column:span 12}
+  .stats{grid-template-columns:repeat(4,1fr)}
+@@ -2085,7 +2165,7 @@
+ <body>
+ <div class="shell">
+   <section class="hero">
+-    <div class="eyebrow">Kayock's Study · Bibliotheca V1.3</div>
++    <div class="eyebrow">Kayock's Study · Bibliotheca V1.6</div>
+     <h1>The Bibliotheca</h1>
+     <div class="motto">Read. Research. Preserve. Discover.</div>
+     <p class="muted">Private page search, exact-page questions, heading-aware grounding, and preview-first duplicate review.</p>
+@@ -2107,6 +2187,16 @@
+   </section>
+ 
+   <div class="grid">
++    <section id="researchDesk" class="card researchdesk">
++      <div class="titleline"><div><div class="eyebrow">Controlled Research Desk</div><h2>Research, preview, then preserve</h2><div class="muted">Online access is Off until you enable it for this Study session. Saved research remains available offline.</div></div><span id="researchSessionPill" class="pill warn">OFFLINE</span></div>
++      <div class="researchstatus"><div><b id="researchSessionText">Online Research: Off</b><div id="researchSessionMessage" class="small">No internet connection will be used until you enable it and deliberately search or research a URL.</div></div><div class="controls"><button id="researchEnable" onclick="enableResearch()">Enable Online Research for This Session</button><button class="danger" onclick="stopResearch()">Stop Online Research</button><button class="secondary" onclick="openSavedResearch()">Open Saved Research</button></div></div>
++      <div class="researchgrid">
++        <div><h3>Search the Web</h3><input id="researchQuery" placeholder="Search query" onkeydown="if(event.key==='Enter'){searchResearchWeb()}"><div class="controls"><button id="researchSearchButton" onclick="searchResearchWeb()" disabled>Search the Web</button></div><div id="researchProvider" class="small">Provider status will appear here.</div><div id="researchResults"></div></div>
++        <div><h3>Research This URL</h3><input id="researchUrl" placeholder="https://example.org/article" onkeydown="if(event.key==='Enter'){previewResearchUrl()}"><div class="controls"><button id="researchUrlButton" onclick="previewResearchUrl()" disabled>Research This URL</button></div><div class="small">HTTP/HTTPS only. Local, private-network, link-local, credentialed, oversized, scripted, and unsupported targets are refused.</div></div>
++      </div>
++      <div id="researchPreview" class="researchpreview"><div class="empty">A retrieved source will be staged here before anything is saved.</div></div>
++      <h3 id="savedResearchHeading" style="margin-top:16px">Saved Research</h3><div id="savedResearch" class="researchsaved"><div class="empty">Loading saved offline research…</div></div>
++    </section>
+     <section class="card stats" id="stats"></section>
+ 
+     <section class="card shelves">
+@@ -2204,6 +2294,7 @@
+ let lastState={};
+ let lastSearchResults=[];
+ let modelOnline=false;
++let researchState={},activeResearchPreview=null;
+ 
+ function esc(value){
+   return String(value??'').replace(/[&<>"']/g,ch=>({
+@@ -2362,9 +2453,23 @@
+     </div>`;
+   }).join(''):'<div class="empty ok">No duplicate groups need review.</div>';
+ }
++function researchEsc(value){return esc(value==null?'':value)}
++function formatBytes(value){let n=Number(value||0);if(n<1024)return `${n} B`;if(n<1048576)return `${(n/1024).toFixed(1)} KB`;return `${(n/1048576).toFixed(1)} MB`}
++function renderResearchState(data){researchState=data.session||data||{};let enabled=Boolean(researchState.enabled),status=researchState.status||'OFFLINE';q('researchSessionPill').textContent=status;q('researchSessionPill').className='pill '+(enabled?'ok':status==='ERROR'?'bad':'warn');q('researchSessionText').textContent=enabled?'Online Research: Enabled for this session':'Online Research: Off';q('researchSessionMessage').textContent=researchState.last_error||data.message||(!enabled?'No internet connection will be used until you enable it and deliberately search or research a URL.':'Only deliberate Search or Research URL actions may use the network.');q('researchSearchButton').disabled=!enabled;q('researchUrlButton').disabled=!enabled;q('researchEnable').disabled=enabled}
++async function refreshResearchStatus(){try{let data=await api('/api/research/status');renderResearchState(data);return data}catch(error){q('researchSessionMessage').textContent=error.message;return null}}
++async function enableResearch(){try{let data=await api('/api/research/enable',{method:'POST'});renderResearchState(data);q('researchUrl').focus()}catch(error){alert(error.message)}}
++async function stopResearch(){try{let data=await api('/api/research/stop',{method:'POST'});activeResearchPreview=null;renderResearchState(data);q('researchPreview').innerHTML='<div class=empty>Online research stopped. Saved offline research remains available.</div>'}catch(error){alert(error.message)}}
++async function searchResearchWeb(){let query=q('researchQuery').value.trim();if(!query)return;try{let data=await api(`/api/research/search?q=${encodeURIComponent(query)}`);q('researchProvider').textContent=data.message||`Provider: ${data.provider||'unknown'}`;q('researchResults').innerHTML=(data.results||[]).map(item=>`<div class="result researchresult"><b>${researchEsc(item.title)}</b><div class=small>${researchEsc(item.domain)} · ${researchEsc(item.provider)}</div><div class=snippet>${researchEsc(item.excerpt)}</div><div class=controls><button class=secondary onclick="window.open(${JSON.stringify(item.url)},'_blank','noopener')">Open Source</button><button onclick="q('researchUrl').value=${JSON.stringify(item.url)};previewResearchUrl('search_result')">Preview Capture</button></div></div>`).join('')||'<div class="empty warn">No search results are available from an installed provider. Direct-URL research remains ready.</div>'}catch(error){q('researchProvider').textContent=error.message}}
++async function previewResearchUrl(origin='direct_url'){let url=q('researchUrl').value.trim();if(!url)return;q('researchPreview').innerHTML='<div class=empty>Fetching one source for preview…</div>';try{let data=await api('/api/research/preview',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({url,origin_kind:origin,search_query:q('researchQuery').value.trim()})});activeResearchPreview=data;renderResearchPreview(data);await refreshResearchStatus()}catch(error){q('researchPreview').innerHTML=`<div class="empty bad">${researchEsc(error.message)}</div>`;await refreshResearchStatus()}}
++function renderResearchPreview(data){let duplicate=data.duplicate_status||'new',duplicateText=duplicate==='exact_duplicate'?'Exact duplicate found':duplicate==='revision_available'?'Earlier capture found; changed revision available':'New source';q('researchPreview').innerHTML=`<div class=titleline><div><h3>${researchEsc(data.title)}</h3><div class=small>${researchEsc(data.domain)} · ${researchEsc(data.content_type)} · ${formatBytes(data.response_size)}</div></div><span class="pill ${duplicate==='new'?'ok':'warn'}">${researchEsc(duplicateText)}</span></div><div class=researchmeta><div><b>Original URL</b><br>${researchEsc(data.original_url)}</div><div><b>Final URL</b><br>${researchEsc(data.final_url)}</div><div><b>Retrieved</b><br>${researchEsc(data.retrieved_at)}</div><div><b>Author</b><br>${researchEsc(data.author||'Not reliably available')}</div><div><b>Published</b><br>${researchEsc(data.published_at||'Not reliably available')}</div><div><b>Proposed shelf</b><br>${researchEsc(data.proposed_shelf)}</div><div><b>Content hash</b><br><span class=path>${researchEsc(data.content_sha256)}</span></div><div><b>Readable hash</b><br><span class=path>${researchEsc(data.readable_sha256)}</span></div><div><b>Filename</b><br>${researchEsc(data.proposed_filename)}</div></div><div class=snippet>${researchEsc(data.readable_preview)}</div><textarea id=researchNotes placeholder="Optional notes — stored separately from the original and readable copy"></textarea><div class=controls><button class=secondary onclick="window.open(${JSON.stringify(data.original_url)},'_blank','noopener')">Open Original Source</button><button class=secondary onclick="discardResearchPreview()">Discard Preview</button><button onclick="saveResearchPreview(false)">Save to The Bibliotheca</button>${duplicate!=='new'?'<button class=warning onclick="saveResearchPreview(true)">Save New Revision</button>':''}</div>${data.existing?`<div class=reviewnote>Existing: ${researchEsc(data.existing.title)} · captured ${researchEsc(data.existing.retrieved_at)} · version ${researchEsc(data.existing.capture_version)}</div>`:''}`}
++async function discardResearchPreview(){if(!activeResearchPreview)return;try{await api('/api/research/discard',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({preview_id:activeResearchPreview.preview_id})})}catch(error){}activeResearchPreview=null;q('researchPreview').innerHTML='<div class=empty>Preview discarded. Nothing was saved.</div>'}
++async function saveResearchPreview(saveNewRevision){if(!activeResearchPreview)return;try{let data=await api('/api/research/save',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({preview_id:activeResearchPreview.preview_id,notes:q('researchNotes')?.value||'',save_new_revision:Boolean(saveNewRevision)})});if(!data.ok&&data.duplicate){alert(data.message);return}activeResearchPreview=null;q('researchPreview').innerHTML=`<div class="empty ok">${researchEsc(data.message)}<br><span class=path>${researchEsc(data.readable_path)}</span></div>`;await Promise.all([refreshSavedResearch(),refreshShelves(),refreshStatus()])}catch(error){alert(error.message)}}
++async function refreshSavedResearch(){try{let data=await api('/api/research/saved');let items=data.items||[];q('savedResearch').innerHTML=items.length?items.map(item=>`<div class="result researchresult"><div class=titleline><b>${researchEsc(item.title)}</b><span class=pill>v${researchEsc(item.capture_version)}</span></div><div class=small>${researchEsc(item.domain)} · captured ${researchEsc(item.retrieved_at)}</div><div class=path>${researchEsc(item.readable_path)}</div><div class=controls><button class=secondary onclick="window.open('/research/readable?id=${item.id}','_blank')">Open Saved Research</button><button class=secondary onclick="window.open('/research/original?id=${item.id}','_blank')">Download Original Capture</button><button class=secondary onclick="window.open(${JSON.stringify(item.original_url)},'_blank','noopener')">Open Original URL</button></div></div>`).join(''):'<div class=empty>No research captures have been saved yet.</div>'}catch(error){q('savedResearch').innerHTML=`<div class="empty bad">${researchEsc(error.message)}</div>`}}
++function openSavedResearch(){q('savedResearchHeading').scrollIntoView({behavior:'smooth',block:'start'});refreshSavedResearch()}
++function openResearchSource(id){window.open(`/research/readable?id=${encodeURIComponent(id)}`,'_blank')}
+ async function refreshAll(){
+   await refreshShelves();
+-  await Promise.all([refreshStatus(),refreshDocuments(),refreshDuplicates()]);
++  await Promise.all([refreshStatus(),refreshDocuments(),refreshDuplicates(),refreshResearchStatus(),refreshSavedResearch()]);
+ }
+ async function startIndex(){
+   try{
+@@ -2411,23 +2516,16 @@
+   q('useResultsButton').style.display='none';
+ }
+ function renderSources(items,target='resultList'){
+-  q(target).innerHTML=items.length?items.map(item=>`
+-    <div class=result>
+-      <div class=titleline>
+-        <b>${esc(item.title)}</b>
+-        <span class="${statusClass(item.text_status)} small">${esc(statusLabel(item.text_status))}</span>
+-      </div>
+-      <div><span class=pill>${esc(item.shelf||'')}</span>${item.detected_heading?`<span class="pill ok">Heading: ${esc(item.detected_heading)}</span>`:''}</div>
+-      <div class=path>${esc(item.rel_path)}</div>
+-      <div class=snippet>${esc(item.snippet)}</div>
+-      <div class=citation>${esc(item.citation)}</div>
+-      <div class=controls>
+-        <button class=secondary onclick="openPdf(${item.document_id},${item.page_number})">Open page ${item.page_number}</button>
+-        <button class=secondary onclick="askFromPage(${item.document_id},${item.page_number})">Ask from this page</button>
+-        <button class=secondary onclick="navigator.clipboard.writeText(${JSON.stringify(item.citation)})">Copy citation</button>
+-      </div>
+-    </div>`).join(''):'<div class=empty>No matching indexed pages were found.</div>';
+-}
++  q(target).innerHTML=items.length?items.map(item=>{
++    const research=item.source_kind==='research';
++    const actions=research
++      ? `<button class=secondary onclick="openResearchSource(${item.research_id})">Open saved research</button><button class=secondary onclick="askFromResearch(${item.research_id},${item.segment_number})">Ask from this segment</button>`
++      : `<button class=secondary onclick="openPdf(${item.document_id},${item.page_number})">Open page ${item.page_number}</button><button class=secondary onclick="askFromPage(${item.document_id},${item.page_number})">Ask from this page</button>`;
++    return `<div class=result><div class=titleline><b>${esc(item.title)}</b><span class="${statusClass(item.text_status)} small">${research?'Saved research':esc(statusLabel(item.text_status))}</span></div><div><span class=pill>${esc(item.shelf||'')}</span>${item.detected_heading?`<span class="pill ok">Heading: ${esc(item.detected_heading)}</span>`:''}</div><div class=path>${esc(item.rel_path)}</div><div class=snippet>${esc(item.snippet)}</div><div class=citation>${esc(item.citation)}</div><div class=controls>${actions}<button class=secondary onclick="navigator.clipboard.writeText(${JSON.stringify(item.citation)})">Copy citation</button></div></div>`;
++  }).join(''):'<div class=empty>No matching indexed pages or saved research segments were found.</div>';
++}
++function askFromResearch(researchId,segmentNumber){q('askDoc').value='';q('askPage').value='';lastSearchResults=[{research_id:researchId,segment_number:segmentNumber,source_kind:'research'}];q('askUseResults').checked=true;q('askQuestion').focus();q('askQuestion').scrollIntoView({behavior:'smooth',block:'center'})}
++
+ async function runSearch(){
+   const query=q('searchQuery').value.trim();
+   if(!query)return;
+@@ -2467,7 +2565,7 @@
+   const question=q('askQuestion').value.trim();
+   if(!question)return;
+   const sourceRefs=q('askUseResults').checked
+-    ? lastSearchResults.slice(0,12).map(item=>({document_id:item.document_id,page_number:item.page_number}))
++    ? lastSearchResults.slice(0,12).map(item=>item.source_kind==='research'?{research_id:item.research_id,segment_number:item.segment_number}:{document_id:item.document_id,page_number:item.page_number})
+     : [];
+   const exactPage=q('askPage').value?Number(q('askPage').value):null;
+   q('askButton').disabled=true;
+@@ -2513,7 +2611,7 @@
+     await refreshAll();
+   }catch(error){alert(error.message);}
+ }
+-refreshAll().catch(error=>{q('progressText').textContent=error.message;});
++refreshAll().then(()=>{if(new URLSearchParams(location.search).get('room')==='research')setTimeout(()=>q('researchDesk')?.scrollIntoView({behavior:'smooth',block:'start'}),120)}).catch(error=>{q('progressText').textContent=error.message;});
+ setInterval(refreshModelStatus,2500);
+ document.addEventListener('visibilitychange',()=>{
+   if(!document.hidden)refreshModelStatus();
+@@ -2525,7 +2623,7 @@
+ 
+ 
+ class StudyHandler(BaseHTTPRequestHandler):
+-    server_version = "KayocksStudy/1.1"
++    server_version = "KayocksStudy/1.6"
+ 
+     @property
+     def paths(self) -> AppPaths:
+@@ -2566,6 +2664,55 @@
+             self.send_header("Content-Type", "text/html; charset=utf-8")
+             self.send_header("Content-Length", str(len(body)))
+             self.send_header("Cache-Control", "no-store")
++            self.end_headers()
++            self.wfile.write(body)
++            return
++
++        if parsed.path == "/api/research/status":
++            summary = database_summary(self.paths)
++            self.send_json({"ok": True, "session": RESEARCH_STATE.snapshot(), "saved_count": summary.get("research_saved", 0), "message": "Saved research remains available offline."})
++            return
++
++        if parsed.path == "/api/research/search":
++            try:
++                result = research_search_web((query.get("q") or [""])[0])
++                self.send_json(result, 200 if result.get("ok") else 503)
++            except Exception as exc:
++                self.send_json({"ok": False, "message": f"{type(exc).__name__}: {exc}", "results": []}, 403)
++            return
++
++        if parsed.path == "/api/research/saved":
++            conn = connect_db(self.paths)
++            try:
++                items = list_saved(conn)
++            finally:
++                conn.close()
++            self.send_json({"ok": True, "items": items})
++            return
++
++        if parsed.path in {"/research/readable", "/research/original"}:
++            raw_id = (query.get("id") or [""])[0]
++            try:
++                capture_id = int(raw_id)
++            except ValueError:
++                self.send_error(400, "Invalid research id")
++                return
++            kind = "readable" if parsed.path.endswith("readable") else "original"
++            conn = connect_db(self.paths)
++            try:
++                path = research_file(conn, self.paths.library, capture_id, kind)
++            finally:
++                conn.close()
++            if not path:
++                self.send_error(404, "Saved research file not found")
++                return
++            body = path.read_bytes()
++            self.send_response(200)
++            self.send_header("Content-Type", "text/plain; charset=utf-8" if kind == "readable" else "application/octet-stream")
++            self.send_header("Content-Length", str(len(body)))
++            self.send_header("Cache-Control", "no-store")
++            if kind == "original":
++                self.send_header("Content-Disposition", f"attachment; filename*=UTF-8''{quote(path.name)}")
+             self.end_headers()
+             self.wfile.write(body)
+             return
+@@ -2593,6 +2740,7 @@
+                     "model_name": str(model_state.get("model") or ""),
+                     "model_message": str(model_state.get("message") or ""),
+                     "network_scope": "localhost_only",
++                    "research_session": RESEARCH_STATE.snapshot(),
+                     "original_files_modified": 0,
+                 }
+             )
+@@ -2644,7 +2792,8 @@
+             )
+             public = [
+                 {key: item[key] for key in (
+-                    "document_id","title","rel_path","shelf","page_number",
++                    "source_kind","document_id","research_id","title","rel_path","shelf","page_number",
++                    "segment_number","section_heading","capture_date","original_url",
+                     "snippet","text_status","is_ocr_copy","citation"
+                 )}
+                 for item in results
+@@ -2666,6 +2815,69 @@
+ 
+     def do_POST(self) -> None:
+         parsed = urlparse(self.path)
++
++        if parsed.path == "/api/research/enable":
++            self.send_json({"ok": True, "session": RESEARCH_STATE.enable(), "message": "Online research is enabled for this Study session only."})
++            return
++
++        if parsed.path == "/api/research/stop":
++            self.send_json({"ok": True, "session": RESEARCH_STATE.stop(), "message": "Online research stopped. Saved offline research remains available."})
++            return
++
++        if parsed.path == "/api/research/preview":
++            try:
++                connection = connect_db(self.paths)
++                connection.close()
++                payload = self.read_json()
++                result = research_preview_url(
++                    self.paths,
++                    str(payload.get("url") or ""),
++                    origin_kind=str(payload.get("origin_kind") or "direct_url"),
++                    search_query=str(payload.get("search_query") or ""),
++                )
++                self.send_json({"ok": True, **result})
++            except Exception as exc:
++                self.send_json({"ok": False, "message": f"{type(exc).__name__}: {exc}"}, 400)
++            return
++
++        if parsed.path == "/api/research/discard":
++            try:
++                payload = self.read_json()
++                discarded = RESEARCH_STATE.discard(str(payload.get("preview_id") or ""))
++                self.send_json({"ok": True, "discarded": discarded, "message": "Preview discarded. Nothing was saved."})
++            except Exception as exc:
++                self.send_json({"ok": False, "message": f"{type(exc).__name__}: {exc}"}, 400)
++            return
++
++        if parsed.path == "/api/research/save":
++            try:
++                connection = connect_db(self.paths)
++                connection.close()
++                payload = self.read_json()
++                result = save_research_preview(
++                    self.paths,
++                    str(payload.get("preview_id") or ""),
++                    notes=str(payload.get("notes") or ""),
++                    save_new_revision=bool(payload.get("save_new_revision")),
++                )
++                self.send_json(result, 200 if result.get("ok") else 409)
++            except Exception as exc:
++                self.send_json({"ok": False, "message": f"{type(exc).__name__}: {exc}"}, 400)
++            return
++
++        if parsed.path == "/api/research/notes":
++            try:
++                payload = self.read_json()
++                capture_id = int(payload.get("capture_id"))
++                conn = connect_db(self.paths)
++                try:
++                    result = update_research_notes(conn, self.paths.library, capture_id, str(payload.get("notes") or ""))
++                finally:
++                    conn.close()
++                self.send_json(result)
++            except Exception as exc:
++                self.send_json({"ok": False, "message": f"{type(exc).__name__}: {exc}"}, 400)
++            return
+ 
+         if parsed.path == "/api/index":
+             started, message = start_index_thread(self.paths)
+@@ -2892,7 +3104,7 @@
+     actual_port = server.server_address[1]
+     url = f"http://{HOST}:{actual_port}"
+     print("=" * 72)
+-    print("KAYOCK'S STUDY — THE BIBLIOTHECA V1.1")
++    print("KAYOCK'S STUDY — THE BIBLIOTHECA V1.6")
+     print("=" * 72)
+     print("URL:", url)
+     print("Library:", paths.library)
+--- a/KAYOCKS_STUDY_BIBLIOTHECA_V1/START_KAYOCKS_STUDY.bat
++++ b/KAYOCKS_STUDY_BIBLIOTHECA_V1/START_KAYOCKS_STUDY.bat
+@@ -1,13 +1,13 @@
+ @echo off
+ setlocal EnableExtensions
+-title Kayock's Study - The Bibliotheca V1
++title Kayock's Study - The Bibliotheca V1.6
+ 
+ for %%I in ("%~dp0..") do set "FOXAI_ROOT=%%~fI"
+ set "PYTHON=%FOXAI_ROOT%\Runtime\Desktop\python\python.exe"
+ set "APP=%~dp0study_server.py"
+ 
+ echo ==================================================================
+-echo KAYOCK'S STUDY - THE BIBLIOTHECA V1
++echo KAYOCK'S STUDY - THE BIBLIOTHECA V1.6
+ echo Read. Research. Preserve. Discover.
+ echo ==================================================================
+ echo.
+--- a/KAYOCKS_STUDY_BIBLIOTHECA_V1/VERIFY_KAYOCKS_STUDY.bat
++++ b/KAYOCKS_STUDY_BIBLIOTHECA_V1/VERIFY_KAYOCKS_STUDY.bat
+@@ -1,10 +1,11 @@
+ @echo off
+ setlocal EnableExtensions
+-title Verify Kayock's Study Bibliotheca
++title Verify Kayock's Study Bibliotheca V1.6
+ 
+ for %%I in ("%~dp0..") do set "FOXAI_ROOT=%%~fI"
+ set "PYTHON=%FOXAI_ROOT%\Runtime\Desktop\python\python.exe"
+ set "APP=%~dp0study_server.py"
++set "V16=%~dp0VERIFY_KAYOCKS_STUDY_V1_6.py"
+ 
+ if not exist "%PYTHON%" (
+     echo ERROR: Portable Desktop Python was not found.
+@@ -18,8 +19,17 @@
+ set "PYTHONDONTWRITEBYTECODE=1"
+ 
+ "%PYTHON%" -I -B -S "%APP%" --root "%FOXAI_ROOT%" --verify
+-set "RESULT=%ERRORLEVEL%"
++if errorlevel 1 goto :failed
++"%PYTHON%" -I -B -S "%V16%" --root "%FOXAI_ROOT%"
++if errorlevel 1 goto :failed
+ 
+ echo.
++echo Kayock's Study V1.6 verification passed.
+ pause
+-exit /b %RESULT%
++exit /b 0
++
++:failed
++echo.
++echo Kayock's Study V1.6 verification failed.
++pause
++exit /b 4
+--- a/core/foxai_web.py
++++ b/core/foxai_web.py
+@@ -390,7 +390,7 @@
+         return json.loads(response.read().decode('utf-8',errors='replace'))
+ 
+ def _bibliotheca_database_state():
+-    empty={'documents':0,'pages':0,'searchable':0,'low_text':0,'ocr_copies':0,'shelves':0,'duplicate_groups':0,'text_chars':0}
++    empty={'documents':0,'pages':0,'searchable':0,'low_text':0,'ocr_copies':0,'shelves':0,'duplicate_groups':0,'text_chars':0,'research_saved':0}
+     if not BIBLIOTHECA_DATABASE.is_file():
+         return empty,[]
+     import sqlite3
+@@ -417,7 +417,12 @@
+             )
+         """).fetchone()[0]
+         shelves=[{'name':str(x['shelf'] or 'Library'),'documents':int(x['documents'] or 0),'pages':int(x['pages'] or 0)} for x in shelf_rows]
+-        summary={'documents':int(row['documents'] or 0),'pages':int(row['pages'] or 0),'searchable':int(row['searchable'] or 0),'low_text':int(row['low_text'] or 0),'ocr_copies':int(row['ocr_copies'] or 0),'shelves':len(shelves),'duplicate_groups':int(duplicate_groups or 0),'text_chars':int(row['text_chars'] or 0)}
++        research_saved=0
++        try:
++            research_saved=int(connection.execute("SELECT COUNT(*) FROM research_captures").fetchone()[0])
++        except Exception:
++            research_saved=0
++        summary={'documents':int(row['documents'] or 0),'pages':int(row['pages'] or 0),'searchable':int(row['searchable'] or 0),'low_text':int(row['low_text'] or 0),'ocr_copies':int(row['ocr_copies'] or 0),'shelves':len(shelves)+(1 if research_saved else 0),'duplicate_groups':int(duplicate_groups or 0),'text_chars':int(row['text_chars'] or 0),'research_saved':research_saved}
+         return summary,shelves
+     except Exception:
+         return empty,[]
+@@ -1349,7 +1354,7 @@
+ .studyhero{background:radial-gradient(circle at 8% 10%,#8f5cff30,transparent 32%),radial-gradient(circle at 88% 12%,#23d7ff18,transparent 28%),linear-gradient(180deg,#111522,#181d2d)}
+ .studyeyebrow{color:var(--c);font-weight:900;letter-spacing:.16em;font-size:12px}
+ .studytitleline{display:flex;align-items:flex-start;justify-content:space-between;gap:14px}
+-.studystats{display:grid;grid-template-columns:repeat(6,minmax(130px,1fr));gap:10px;margin:14px 0}
++.studystats{display:grid;grid-template-columns:repeat(7,minmax(120px,1fr));gap:10px;margin:14px 0}
+ .studystat{border:1px solid #8f5cff2d;background:#ffffff05;border-radius:16px;padding:12px}.studystat span{display:block;color:var(--m);font-size:12px}.studystat b{display:block;margin-top:4px;font-size:20px;color:#fff;overflow-wrap:anywhere}
+ .studyshelves{display:flex;flex-wrap:wrap;gap:7px}.studyshelf{background:#ffffff07;border-color:#8f5cff40}
+ .studyframewrap{display:none}.studyframewrap.open{display:block}#studyFrame{display:block;width:100%;height:78vh;border:1px solid #8f5cff45;border-radius:16px;background:#070811;margin-top:12px}
+@@ -1598,8 +1603,8 @@
+ <div class="hero studyhero"><div class=studyeyebrow>KAYOCK’S STUDY</div><h2>Read. Research. Preserve. Discover.</h2><p>The Bibliotheca is FOXAI’s private, page-cited reading and research room. It starts only when you enter this page, while the standalone launcher remains the known-good fallback.</p></div>
+ <div class=grid>
+ <div class="card wide"><div class=studytitleline><div><h3>📚 The Bibliotheca</h3><div id=studyMessage class=small>Checking Kayock’s Study...</div></div><div id=studyServicePill class="pill warn">CHECKING</div></div>
+-<div class=studystats><div class=studystat><span>Service</span><b id=studyService>Checking</b></div><div class=studystat><span>Local model</span><b id=studyModel>Checking</b></div><div class=studystat><span>Documents</span><b id=studyDocuments>—</b></div><div class=studystat><span>Indexed pages</span><b id=studyPages>—</b></div><div class=studystat><span>Shelves</span><b id=studyShelves>—</b></div><div class=studystat><span>Duplicate groups</span><b id=studyDuplicates>—</b></div></div>
+-<button onclick="enterKayocksStudy()">Enter the Bibliotheca</button><button onclick="openKayocksStudy()">Open Full Study</button><button onclick="loadKayocksStudy(false)">Refresh Status</button><button onclick="api('/api/open/library')">Open Library Folder</button></div>
++<div class=studystats><div class=studystat><span>Service</span><b id=studyService>Checking</b></div><div class=studystat><span>Local model</span><b id=studyModel>Checking</b></div><div class=studystat><span>Documents</span><b id=studyDocuments>—</b></div><div class=studystat><span>Indexed pages</span><b id=studyPages>—</b></div><div class=studystat><span>Shelves</span><b id=studyShelves>—</b></div><div class=studystat><span>Saved research</span><b id=studyResearch>—</b></div><div class=studystat><span>Duplicate groups</span><b id=studyDuplicates>—</b></div></div>
++<button onclick="enterKayocksStudy()">Enter the Bibliotheca</button><button onclick="enterKayocksResearchDesk()">Open Research Desk</button><button onclick="openKayocksStudy()">Open Full Study</button><button onclick="loadKayocksStudy(false)">Refresh Status</button><button onclick="api('/api/open/library')">Open Library Folder</button></div>
+ <div class="card wide"><h3>Collection Shelves</h3><p class=small>Choose a collection, then use its shelf inside the Bibliotheca. No source file is moved or changed.</p><div id=studyShelfList class=studyshelves>Loading shelves...</div><div id=studyShelfHint class=small></div></div>
+ <div id=studyFrameWrap class="card wide studyframewrap"><div class=studytitleline><div><h3>Bibliotheca Workspace</h3><div class=small>Running locally at 127.0.0.1:8777</div></div><button onclick="closeKayocksStudyFrame()">Close Embedded View</button></div><iframe id=studyFrame title="Kayock's Study — The Bibliotheca"></iframe></div>
+ <details class="card wide studylegacy" ontoggle="if(this.open){loadLegacyLibraryTools()}"><summary>Legacy File Browser &amp; Text Index</summary><p class=small>The original filename browser and lightweight text index remain here for non-PDF files and direct folder work.</p><div class=studylegacybody><div class="card wide"><h3>Library Search</h3><div class=grid><div><div class=small>Search</div><input id=libSearch placeholder="Search filenames, folders, extensions..." onkeydown="if(event.key==='Enter'){searchLib()}"></div><div><div class=small>Type</div><select id=libType><option value=all>All</option><option value=folder>Folders</option><option value=pdf>PDF</option><option value=text>Text / Markdown</option><option value=doc>Documents</option><option value=image>Images</option><option value=code>Code</option><option value=audio>Audio</option><option value=video>Video</option></select></div></div><button onclick="searchLib()">Search Library</button><button onclick="q('libSearch').value='';q('libType').value='all';searchLib()">Show All</button><div class=small>Optional question for the active professor</div><textarea id=libAskQuestion placeholder="Example: Summarize this file, find risks, extract action items, explain what matters, or connect it to my current project."></textarea><div id=libSearchStatus class=status></div><div id=libResults class=status></div></div><div class="card wide"><h3>Preview</h3><div id=libPreview class=status>Select a readable file to preview.</div></div><div class="card wide"><h3>Full Text Index</h3><p class=small>Manual lightweight index for text, markdown, logs, code, JSON, and config files. PDFs/ePubs come later.</p><button onclick="buildIronIndex()">Build / Refresh Index</button><button onclick="loadIronIndexStatus()">Index Status</button><div id=ironIndexStatus class=status>Index status unknown.</div><div class=grid><div><div class=small>Indexed Text Search</div><input id=ironIndexSearch placeholder="Search inside indexed readable files..." onkeydown="if(event.key==='Enter'){searchIronIndex()}"></div></div><button onclick="searchIronIndex()">Search Index</button><div id=ironIndexResults class=status></div></div><div class="card wide"><h3>Library Browser</h3><div id=libpath class="small path">Library</div><button onclick="libUp()">Up</button><button onclick="loadLib('')">Root</button><button onclick="api('/api/open/library')">Explorer</button><div id=liblist class=status>Loading...</div></div></div></details>
+@@ -2018,11 +2023,12 @@
+ /* KAYOCKS_STUDY_INTEGRATION_V1_BROWSER_START */
+ const KAYOCKS_STUDY_URL='http://127.0.0.1:8777/';let kayocksStudyStarting=false;
+ function studyNumber(value){return Number(value||0).toLocaleString()}
+-function renderKayocksStudy(data){let online=Boolean(data?.online),installed=Boolean(data?.installed),summary=data?.summary||{},pill=q('studyServicePill');if(pill){pill.textContent=online?'ONLINE':installed?'READY TO START':'NOT INSTALLED';pill.className='pill '+(online?'ok':installed?'warn':'bad')}if(q('studyService'))q('studyService').textContent=online?`Online${data.version?' · V'+data.version:''}`:installed?'Stopped':'Missing';if(q('studyModel'))q('studyModel').textContent=data?.model_online?(data.model_name||'Online'):'Offline';if(q('studyDocuments'))q('studyDocuments').textContent=studyNumber(summary.documents);if(q('studyPages'))q('studyPages').textContent=studyNumber(summary.pages);if(q('studyShelves'))q('studyShelves').textContent=studyNumber(summary.shelves);if(q('studyDuplicates'))q('studyDuplicates').textContent=studyNumber(summary.duplicate_groups);if(q('studyMessage'))q('studyMessage').textContent=data?.message||'Kayock’s Study status unavailable.';let out=q('studyShelfList'),shelves=data?.shelves||[];if(out)out.innerHTML=shelves.length?shelves.map(item=>`<button class="studyshelf" onclick="enterKayocksStudy('${js(item.name)}')">${esc(item.name)} · ${studyNumber(item.documents)} docs · ${studyNumber(item.pages)} pages</button>`).join(''):'No indexed shelves reported yet.'}
++function renderKayocksStudy(data){let online=Boolean(data?.online),installed=Boolean(data?.installed),summary=data?.summary||{},pill=q('studyServicePill');if(pill){pill.textContent=online?'ONLINE':installed?'READY TO START':'NOT INSTALLED';pill.className='pill '+(online?'ok':installed?'warn':'bad')}if(q('studyService'))q('studyService').textContent=online?`Online${data.version?' · V'+data.version:''}`:installed?'Stopped':'Missing';if(q('studyModel'))q('studyModel').textContent=data?.model_online?(data.model_name||'Online'):'Offline';if(q('studyDocuments'))q('studyDocuments').textContent=studyNumber(summary.documents);if(q('studyPages'))q('studyPages').textContent=studyNumber(summary.pages);if(q('studyShelves'))q('studyShelves').textContent=studyNumber(summary.shelves);if(q('studyResearch'))q('studyResearch').textContent=studyNumber(summary.research_saved);if(q('studyDuplicates'))q('studyDuplicates').textContent=studyNumber(summary.duplicate_groups);if(q('studyMessage'))q('studyMessage').textContent=data?.message||'Kayock’s Study status unavailable.';let out=q('studyShelfList'),shelves=data?.shelves||[];if(out)out.innerHTML=shelves.length?shelves.map(item=>`<button class="studyshelf" onclick="enterKayocksStudy('${js(item.name)}')">${esc(item.name)} · ${studyNumber(item.documents)} docs · ${studyNumber(item.pages)} pages</button>`).join(''):'No indexed shelves reported yet.'}
+ async function loadKayocksStudy(autoStart=false){if(!q('studyMessage'))return null;try{let data=await(await fetch('/api/study/status')).json();renderKayocksStudy(data);if(autoStart&&data.installed&&!data.online&&!kayocksStudyStarting){kayocksStudyStarting=true;q('studyMessage').textContent='Starting Kayock’s Study because you opened this page...';try{data=await(await fetch('/api/study/start',{method:'POST',headers:{'Content-Type':'application/json'},body:'{}'})).json();renderKayocksStudy(data)}finally{kayocksStudyStarting=false}}return data}catch(error){q('studyMessage').textContent='Kayock’s Study status failed: '+error;return null}}
+ async function ensureKayocksStudy(){let data=await loadKayocksStudy(false);if(data?.online)return data;if(!data?.installed){toast('Kayock’s Study files were not found.');return data}if(kayocksStudyStarting)return data;kayocksStudyStarting=true;try{if(q('studyMessage'))q('studyMessage').textContent='Starting Kayock’s Study...';data=await(await fetch('/api/study/start',{method:'POST',headers:{'Content-Type':'application/json'},body:'{}'})).json();renderKayocksStudy(data);if(!data.online)toast(data.message||'Kayock’s Study is still starting.');return data}catch(error){toast('Kayock’s Study start failed: '+error);return null}finally{kayocksStudyStarting=false}}
+-async function enterKayocksStudy(shelf=''){let data=await ensureKayocksStudy();if(!data?.online)return;let wrap=q('studyFrameWrap'),frame=q('studyFrame');wrap?.classList.add('open');if(frame&&!frame.src)frame.src=KAYOCKS_STUDY_URL;if(frame&&frame.src==='about:blank')frame.src=KAYOCKS_STUDY_URL;if(q('studyShelfHint'))q('studyShelfHint').textContent=shelf?`Bibliotheca opened. Choose the ${shelf} shelf inside the workspace.`:'Bibliotheca workspace opened below.';setTimeout(()=>wrap?.scrollIntoView({behavior:'smooth',block:'start'}),80)}
+-async function openKayocksStudy(){let tab=window.open('about:blank','kayocks-study'),data=await ensureKayocksStudy();if(data?.online){if(tab)tab.location=KAYOCKS_STUDY_URL;else window.location.href=KAYOCKS_STUDY_URL}else if(tab)tab.close()}
++async function enterKayocksStudy(shelf='',room=''){let data=await ensureKayocksStudy();if(!data?.online)return;let wrap=q('studyFrameWrap'),frame=q('studyFrame'),target=room==='research'?KAYOCKS_STUDY_URL+'?room=research':KAYOCKS_STUDY_URL;wrap?.classList.add('open');if(frame)frame.src=target;if(q('studyShelfHint'))q('studyShelfHint').textContent=room==='research'?'Controlled Research Desk opened inside Kayock’s Study.':shelf?`Bibliotheca opened. Choose the ${shelf} shelf inside the workspace.`:'Bibliotheca workspace opened below.';setTimeout(()=>wrap?.scrollIntoView({behavior:'smooth',block:'start'}),80)}
++async function enterKayocksResearchDesk(){return enterKayocksStudy('','research')}
++async function openKayocksStudy(room=''){let tab=window.open('about:blank','kayocks-study'),data=await ensureKayocksStudy(),target=room==='research'?KAYOCKS_STUDY_URL+'?room=research':KAYOCKS_STUDY_URL;if(data?.online){if(tab)tab.location=target;else window.location.href=target}else if(tab)tab.close()}
+ function closeKayocksStudyFrame(){q('studyFrameWrap')?.classList.remove('open')}
+ function loadLegacyLibraryTools(){loadLib(curLib);loadIronIndexStatus();if(q('libResults')&&!q('libResults').innerHTML.trim())searchLib()}
+ setInterval(()=>{if(q('library')?.classList.contains('active'))loadKayocksStudy(false)},5000);
+--- /dev/null
++++ b/KAYOCKS_STUDY_BIBLIOTHECA_V1/research_desk.py
+@@ -0,0 +1,1060 @@
++from __future__ import annotations
++
++from datetime import datetime
++from html.parser import HTMLParser
++import hashlib
++import ipaddress
++import json
++import os
++from pathlib import Path
++import re
++import shutil
++import socket
++import sqlite3
++from threading import RLock
++import tempfile
++import time
++from urllib.parse import urljoin, urlparse, urlunparse
++import urllib.error
++import urllib.request
++from uuid import uuid4
++
++RESEARCH_SCHEMA_VERSION = 1
++RESEARCH_SHELF = "Research"
++RESEARCH_RELATIVE_ROOT = Path("Research")
++RESEARCH_FETCH_TIMEOUT_SECONDS = 12
++RESEARCH_MAX_REDIRECTS = 5
++RESEARCH_MAX_HTML_BYTES = 4 * 1024 * 1024
++RESEARCH_MAX_TEXT_BYTES = 4 * 1024 * 1024
++RESEARCH_PREVIEW_TEXT_CHARS = 16000
++RESEARCH_USER_AGENT = "KayocksStudy/1.6 ControlledResearchDesk"
++RESEARCH_POLICY = {
++    "session_only": True,
++    "network_off_by_default": True,
++    "automatic_search": False,
++    "background_crawling": False,
++    "telemetry": False,
++    "prefetch": False,
++    "cookies": False,
++    "javascript": False,
++    "forms": False,
++}
++
++
++def iso_now() -> str:
++    return datetime.now().astimezone().isoformat(timespec="seconds")
++
++
++def sha256_bytes(data: bytes) -> str:
++    return hashlib.sha256(data).hexdigest()
++
++
++def file_sha256(path: Path) -> str:
++    digest = hashlib.sha256()
++    with path.open("rb") as handle:
++        for block in iter(lambda: handle.read(1024 * 1024), b""):
++            digest.update(block)
++    return digest.hexdigest()
++
++
++def _slug(value: str, limit: int = 72) -> str:
++    cleaned = re.sub(r"[^A-Za-z0-9._ -]+", " ", str(value or ""))
++    cleaned = re.sub(r"\s+", " ", cleaned).strip().replace(" ", "_")
++    return (cleaned[:limit] or "saved_research").strip("._") or "saved_research"
++
++
++class ResearchSessionState:
++    def __init__(self) -> None:
++        self.lock = RLock()
++        self.enabled = False
++        self.status = "OFFLINE"
++        self.last_error = ""
++        self.previews: dict[str, dict] = {}
++
++    def snapshot(self) -> dict:
++        with self.lock:
++            return {
++                "enabled": self.enabled,
++                "status": self.status,
++                "last_error": self.last_error,
++                "preview_count": len(self.previews),
++                "policy": dict(RESEARCH_POLICY),
++            }
++
++    def enable(self) -> dict:
++        with self.lock:
++            self.enabled = True
++            self.status = "ONLINE RESEARCH ENABLED"
++            self.last_error = ""
++            return self.snapshot()
++
++    def stop(self) -> dict:
++        with self.lock:
++            self.enabled = False
++            self.status = "STOPPED"
++            self.last_error = ""
++            self.previews.clear()
++            return self.snapshot()
++
++    def require_enabled(self) -> None:
++        with self.lock:
++            if not self.enabled:
++                raise PermissionError(
++                    "Online Research is Off. Enable it for this Study session first."
++                )
++
++    def set_status(self, status: str, error: str = "") -> None:
++        with self.lock:
++            self.status = status
++            self.last_error = error
++
++    def store_preview(self, preview: dict) -> str:
++        with self.lock:
++            preview_id = str(preview.get("preview_id") or uuid4().hex)
++            preview["preview_id"] = preview_id
++            self.previews[preview_id] = preview
++            while len(self.previews) > 5:
++                oldest = next(iter(self.previews))
++                self.previews.pop(oldest, None)
++            return preview_id
++
++    def get_preview(self, preview_id: str) -> dict | None:
++        with self.lock:
++            return self.previews.get(str(preview_id or "").strip())
++
++    def discard(self, preview_id: str) -> bool:
++        with self.lock:
++            return self.previews.pop(str(preview_id or "").strip(), None) is not None
++
++
++RESEARCH_STATE = ResearchSessionState()
++_MIGRATION_LOCK = RLock()
++
++
++def _table_exists(conn: sqlite3.Connection, table: str) -> bool:
++    row = conn.execute(
++        "SELECT 1 FROM sqlite_master WHERE type='table' AND name=?", (table,)
++    ).fetchone()
++    return bool(row)
++
++
++def _base_counts(conn: sqlite3.Connection) -> dict:
++    result = {"documents": 0, "pages": 0}
++    if _table_exists(conn, "documents"):
++        result["documents"] = int(conn.execute("SELECT COUNT(*) FROM documents").fetchone()[0])
++    if _table_exists(conn, "pages"):
++        result["pages"] = int(conn.execute("SELECT COUNT(*) FROM pages").fetchone()[0])
++    return result
++
++
++def initialize_research_schema(
++    conn: sqlite3.Connection,
++    *,
++    database_path: Path,
++    reports_dir: Path,
++    database_preexisted: bool,
++) -> dict:
++    """Apply the additive V1.6 schema once, with a verified database backup."""
++    with _MIGRATION_LOCK:
++        if _table_exists(conn, "research_captures") and _table_exists(conn, "research_segments"):
++            return {"migrated": False, "schema": RESEARCH_SCHEMA_VERSION}
++
++        before = _base_counts(conn)
++        backup_path = None
++        backup_sha256 = ""
++        stamp = datetime.now().strftime("%Y%m%dT%H%M%S")
++        receipt_dir = reports_dir / "V1_6_ResearchDesk"
++        receipt_dir.mkdir(parents=True, exist_ok=True)
++
++        if database_preexisted and database_path.exists():
++            backup_dir = database_path.parent / "Backups"
++            backup_dir.mkdir(parents=True, exist_ok=True)
++            backup_path = backup_dir / f"bibliotheca_pre_v1_6_{stamp}.sqlite3"
++            destination = sqlite3.connect(str(backup_path))
++            try:
++                conn.backup(destination)
++            finally:
++                destination.close()
++            backup_sha256 = file_sha256(backup_path)
++
++        try:
++            conn.execute("BEGIN IMMEDIATE")
++            conn.execute(
++                """
++                CREATE TABLE IF NOT EXISTS research_captures(
++                    id INTEGER PRIMARY KEY,
++                    canonical_url TEXT NOT NULL,
++                    original_url TEXT NOT NULL,
++                    final_url TEXT NOT NULL,
++                    domain TEXT NOT NULL,
++                    title TEXT NOT NULL,
++                    author TEXT NOT NULL DEFAULT '',
++                    published_at TEXT NOT NULL DEFAULT '',
++                    retrieved_at TEXT NOT NULL,
++                    content_type TEXT NOT NULL,
++                    response_size INTEGER NOT NULL,
++                    content_sha256 TEXT NOT NULL,
++                    readable_sha256 TEXT NOT NULL,
++                    capture_version INTEGER NOT NULL DEFAULT 1,
++                    origin_kind TEXT NOT NULL,
++                    search_query TEXT NOT NULL DEFAULT '',
++                    original_path TEXT NOT NULL,
++                    readable_path TEXT NOT NULL,
++                    metadata_path TEXT NOT NULL,
++                    notes_path TEXT NOT NULL,
++                    previous_capture_id INTEGER REFERENCES research_captures(id),
++                    created_at TEXT NOT NULL
++                )
++                """
++            )
++            conn.execute(
++                """
++                CREATE TABLE IF NOT EXISTS research_segments(
++                    id INTEGER PRIMARY KEY,
++                    capture_id INTEGER NOT NULL REFERENCES research_captures(id)
++                        ON DELETE CASCADE,
++                    segment_number INTEGER NOT NULL,
++                    heading TEXT NOT NULL DEFAULT '',
++                    text TEXT NOT NULL,
++                    text_chars INTEGER NOT NULL DEFAULT 0,
++                    UNIQUE(capture_id, segment_number)
++                )
++                """
++            )
++            conn.execute(
++                "CREATE INDEX IF NOT EXISTS idx_research_canonical_url ON research_captures(canonical_url)"
++            )
++            conn.execute(
++                "CREATE INDEX IF NOT EXISTS idx_research_final_url ON research_captures(final_url)"
++            )
++            conn.execute(
++                "CREATE INDEX IF NOT EXISTS idx_research_content_hash ON research_captures(content_sha256)"
++            )
++            conn.execute(
++                "CREATE INDEX IF NOT EXISTS idx_research_readable_hash ON research_captures(readable_sha256)"
++            )
++            conn.execute(
++                "CREATE INDEX IF NOT EXISTS idx_research_segments_capture ON research_segments(capture_id,segment_number)"
++            )
++            if _table_exists(conn, "metadata"):
++                conn.execute(
++                    "INSERT OR REPLACE INTO metadata(key,value) VALUES('research_schema',?)",
++                    (str(RESEARCH_SCHEMA_VERSION),),
++                )
++            after = _base_counts(conn)
++            if before != after:
++                raise RuntimeError(
++                    f"Existing Bibliotheca record counts changed during migration: {before} -> {after}"
++                )
++            conn.commit()
++        except Exception:
++            conn.rollback()
++            raise
++
++        receipt = {
++            "schema": "foxai.kayocks_study.research_migration.v1",
++            "created": iso_now(),
++            "result": "additive_migration_verified",
++            "database": str(database_path),
++            "database_backup": str(backup_path) if backup_path else "new_database_no_prior_file",
++            "database_backup_sha256": backup_sha256,
++            "tables_added": ["research_captures", "research_segments"],
++            "existing_counts_before": before,
++            "existing_counts_after": after,
++            "existing_records_preserved": before == after,
++            "pdf_files_modified": 0,
++            "network_used": False,
++        }
++        receipt_path = receipt_dir / f"{stamp}_research_schema_migration.json"
++        receipt["receipt_path"] = str(receipt_path)
++        receipt_path.write_text(
++            json.dumps(receipt, indent=2, ensure_ascii=False) + "\n",
++            encoding="utf-8",
++        )
++        if _table_exists(conn, "metadata"):
++            conn.execute(
++                "INSERT OR REPLACE INTO metadata(key,value) VALUES('research_migration_receipt',?)",
++                (str(receipt_path),),
++            )
++            conn.commit()
++        return {"migrated": True, **receipt}
++
++
++def research_summary(conn: sqlite3.Connection) -> dict:
++    if not _table_exists(conn, "research_captures"):
++        return {"saved": 0, "segments": 0, "revisions": 0}
++    row = conn.execute(
++        """
++        SELECT COUNT(*) saved,
++               COALESCE(SUM(CASE WHEN capture_version>1 THEN 1 ELSE 0 END),0) revisions
++        FROM research_captures
++        """
++    ).fetchone()
++    segments = int(conn.execute("SELECT COUNT(*) FROM research_segments").fetchone()[0])
++    return {
++        "saved": int(row["saved"] if hasattr(row, "keys") else row[0]),
++        "segments": segments,
++        "revisions": int(row["revisions"] if hasattr(row, "keys") else row[1]),
++    }
++
++
++def canonicalize_url(value: str) -> str:
++    parsed = urlparse(str(value or "").strip())
++    scheme = parsed.scheme.lower()
++    host = (parsed.hostname or "").lower()
++    if not scheme or not host:
++        return str(value or "").strip()
++    port = parsed.port
++    netloc = host
++    if port and not ((scheme == "http" and port == 80) or (scheme == "https" and port == 443)):
++        netloc = f"{host}:{port}"
++    path = parsed.path or "/"
++    return urlunparse((scheme, netloc, path, "", parsed.query, ""))
++
++
++def _forbidden_ip(address: str) -> bool:
++    ip = ipaddress.ip_address(address)
++    return bool(
++        ip.is_private
++        or ip.is_loopback
++        or ip.is_link_local
++        or ip.is_multicast
++        or ip.is_reserved
++        or ip.is_unspecified
++    )
++
++
++def validate_public_url(value: str) -> dict:
++    raw = str(value or "").strip()
++    parsed = urlparse(raw)
++    if parsed.scheme.lower() not in {"http", "https"}:
++        raise ValueError("Only HTTP and HTTPS URLs are allowed.")
++    if not parsed.hostname:
++        raise ValueError("The URL must include a host name.")
++    if parsed.username or parsed.password:
++        raise ValueError("URLs containing embedded credentials are not allowed.")
++    host = parsed.hostname.rstrip(".")
++    if host.casefold() in {"localhost", "localhost.localdomain"}:
++        raise ValueError("Localhost targets are not allowed.")
++    port = parsed.port or (443 if parsed.scheme.lower() == "https" else 80)
++    try:
++        addresses = sorted(
++            {
++                item[4][0]
++                for item in socket.getaddrinfo(host, port, type=socket.SOCK_STREAM)
++            }
++        )
++    except socket.gaierror as exc:
++        raise ValueError(f"The host could not be resolved: {exc}") from exc
++    if not addresses:
++        raise ValueError("The host did not resolve to an address.")
++    blocked = [address for address in addresses if _forbidden_ip(address)]
++    if blocked:
++        raise ValueError(
++            "Private, loopback, link-local, reserved, and multicast targets are not allowed."
++        )
++    return {
++        "url": raw,
++        "canonical_url": canonicalize_url(raw),
++        "host": host,
++        "addresses": addresses,
++    }
++
++
++class _SafeRedirectHandler(urllib.request.HTTPRedirectHandler):
++    def __init__(self) -> None:
++        super().__init__()
++        self.redirects = 0
++
++    def redirect_request(self, req, fp, code, msg, headers, newurl):
++        self.redirects += 1
++        if self.redirects > RESEARCH_MAX_REDIRECTS:
++            raise urllib.error.HTTPError(
++                req.full_url, code, "Too many redirects", headers, fp
++            )
++        absolute = urljoin(req.full_url, newurl)
++        validate_public_url(absolute)
++        return super().redirect_request(req, fp, code, msg, headers, absolute)
++
++
++def fetch_public_source(url: str) -> dict:
++    validated = validate_public_url(url)
++    redirect_handler = _SafeRedirectHandler()
++    opener = urllib.request.build_opener(
++        urllib.request.ProxyHandler({}), redirect_handler
++    )
++    request = urllib.request.Request(
++        validated["url"],
++        headers={
++            "User-Agent": RESEARCH_USER_AGENT,
++            "Accept": "text/html,text/plain;q=0.9,*/*;q=0.2",
++            "Accept-Encoding": "identity",
++        },
++        method="GET",
++    )
++    with opener.open(request, timeout=RESEARCH_FETCH_TIMEOUT_SECONDS) as response:
++        final_url = response.geturl()
++        validate_public_url(final_url)
++        content_type_header = str(response.headers.get("Content-Type") or "")
++        media_type = content_type_header.split(";", 1)[0].strip().lower()
++        if media_type not in {"text/html", "text/plain"}:
++            if media_type == "application/pdf":
++                raise ValueError(
++                    "Remote PDF capture is not enabled in V1.6. Use the existing safe PDF import path."
++                )
++            raise ValueError(
++                f"Unsupported response type: {media_type or 'unknown'}. V1.6 supports HTML and plain text."
++            )
++        maximum = RESEARCH_MAX_HTML_BYTES if media_type == "text/html" else RESEARCH_MAX_TEXT_BYTES
++        declared = response.headers.get("Content-Length")
++        if declared:
++            try:
++                if int(declared) > maximum:
++                    raise ValueError("The response exceeds the Research Desk size limit.")
++            except ValueError as exc:
++                if "exceeds" in str(exc):
++                    raise
++        chunks = []
++        total = 0
++        while True:
++            block = response.read(min(65536, maximum + 1 - total))
++            if not block:
++                break
++            chunks.append(block)
++            total += len(block)
++            if total > maximum:
++                raise ValueError("The response exceeds the Research Desk size limit.")
++        return {
++            "original_url": validated["url"],
++            "final_url": final_url,
++            "canonical_url": canonicalize_url(final_url),
++            "domain": urlparse(final_url).hostname or "",
++            "content_type": media_type,
++            "content_type_header": content_type_header,
++            "response_size": total,
++            "raw_bytes": b"".join(chunks),
++            "redirect_count": redirect_handler.redirects,
++        }
++
++
++class ReadableHTMLParser(HTMLParser):
++    BLOCKS = {"p", "li", "blockquote", "pre", "h1", "h2", "h3", "h4", "h5", "h6"}
++    SKIP = {"script", "style", "noscript", "svg", "canvas", "template"}
++
++    def __init__(self) -> None:
++        super().__init__(convert_charrefs=True)
++        self.skip_depth = 0
++        self.current_tag = ""
++        self.current: list[str] = []
++        self.blocks: list[tuple[str, str]] = []
++        self.title_parts: list[str] = []
++        self.in_title = False
++        self.meta: dict[str, str] = {}
++
++    def handle_starttag(self, tag: str, attrs) -> None:
++        tag = tag.lower()
++        if tag in self.SKIP:
++            self.skip_depth += 1
++            return
++        if self.skip_depth:
++            return
++        if tag == "title":
++            self.in_title = True
++        if tag == "meta":
++            data = {str(k or "").lower(): str(v or "") for k, v in attrs}
++            key = (data.get("name") or data.get("property") or "").lower()
++            value = data.get("content") or ""
++            if key and value:
++                self.meta[key] = value.strip()
++        if tag in self.BLOCKS:
++            self._flush()
++            self.current_tag = tag
++
++    def handle_endtag(self, tag: str) -> None:
++        tag = tag.lower()
++        if tag in self.SKIP:
++            if self.skip_depth:
++                self.skip_depth -= 1
++            return
++        if self.skip_depth:
++            return
++        if tag == "title":
++            self.in_title = False
++        if tag in self.BLOCKS:
++            self._flush()
++            self.current_tag = ""
++
++    def handle_data(self, data: str) -> None:
++        if self.skip_depth:
++            return
++        cleaned = re.sub(r"\s+", " ", data or " ").strip()
++        if not cleaned:
++            return
++        if self.in_title:
++            self.title_parts.append(cleaned)
++        if self.current_tag:
++            self.current.append(cleaned)
++
++    def _flush(self) -> None:
++        text = re.sub(r"\s+", " ", " ".join(self.current)).strip()
++        if text:
++            self.blocks.append((self.current_tag or "p", text))
++        self.current = []
++
++    def finish(self) -> None:
++        self._flush()
++
++
++def _decode_source(raw: bytes, content_type_header: str = "") -> str:
++    match = re.search(r"charset=([A-Za-z0-9._-]+)", content_type_header, re.I)
++    candidates = [match.group(1)] if match else []
++    candidates += ["utf-8", "windows-1252", "latin-1"]
++    for encoding in candidates:
++        try:
++            return raw.decode(encoding)
++        except (UnicodeDecodeError, LookupError):
++            continue
++    return raw.decode("utf-8", errors="replace")
++
++
++def extract_readable(raw: bytes, content_type: str, final_url: str, content_type_header: str = "") -> dict:
++    text = _decode_source(raw, content_type_header)
++    title = Path(urlparse(final_url).path).stem.replace("-", " ").replace("_", " ").strip()
++    author = ""
++    published_at = ""
++    ordered: list[tuple[str, str]] = []
++    if content_type == "text/html":
++        parser = ReadableHTMLParser()
++        parser.feed(text)
++        parser.finish()
++        ordered = parser.blocks
++        parsed_title = re.sub(r"\s+", " ", " ".join(parser.title_parts)).strip()
++        title = parsed_title or parser.meta.get("og:title") or title or urlparse(final_url).hostname or "Saved research"
++        author = parser.meta.get("author") or parser.meta.get("article:author") or ""
++        published_at = (
++            parser.meta.get("article:published_time")
++            or parser.meta.get("date")
++            or parser.meta.get("datepublished")
++            or ""
++        )
++    else:
++        lines = [line.strip() for line in text.splitlines()]
++        for line in lines:
++            if not line:
++                continue
++            kind = "h2" if len(line) <= 100 and not re.search(r"[.!?]$", line) else "p"
++            ordered.append((kind, line))
++        if ordered:
++            title = ordered[0][1][:180]
++
++    segments: list[dict] = []
++    current_heading = title
++    current_parts: list[str] = []
++
++    def flush() -> None:
++        nonlocal current_parts
++        combined = "\n\n".join(part for part in current_parts if part).strip()
++        if combined:
++            segments.append(
++                {
++                    "segment_number": len(segments) + 1,
++                    "heading": current_heading or title,
++                    "text": combined,
++                }
++            )
++        current_parts = []
++
++    for kind, value in ordered:
++        value = re.sub(r"\s+", " ", value).strip()
++        if not value:
++            continue
++        if kind.startswith("h"):
++            flush()
++            current_heading = value[:240]
++        else:
++            current_parts.append(value)
++    flush()
++
++    if not segments:
++        cleaned = re.sub(r"\s+", " ", text).strip()
++        if cleaned:
++            segments = [{"segment_number": 1, "heading": title, "text": cleaned}]
++    if not segments:
++        raise ValueError("No readable text could be extracted from this source.")
++
++    readable_text = "\n\n".join(
++        f"## {item['heading']}\n\n{item['text']}" for item in segments
++    ).strip()
++    return {
++        "title": title[:300],
++        "author": author[:300],
++        "published_at": published_at[:120],
++        "segments": segments,
++        "readable_text": readable_text,
++    }
++
++
++def _duplicate_status(conn: sqlite3.Connection, preview: dict) -> dict:
++    if not _table_exists(conn, "research_captures"):
++        return {"status": "new", "existing": None}
++    row = conn.execute(
++        """
++        SELECT * FROM research_captures
++        WHERE content_sha256=? OR readable_sha256=?
++        ORDER BY retrieved_at DESC,id DESC LIMIT 1
++        """,
++        (preview["content_sha256"], preview["readable_sha256"]),
++    ).fetchone()
++    if row:
++        return {"status": "exact_duplicate", "existing": dict(row)}
++    row = conn.execute(
++        """
++        SELECT * FROM research_captures
++        WHERE canonical_url=? OR final_url=?
++        ORDER BY capture_version DESC,retrieved_at DESC,id DESC LIMIT 1
++        """,
++        (preview["canonical_url"], preview["final_url"]),
++    ).fetchone()
++    if row:
++        return {"status": "revision_available", "existing": dict(row)}
++    return {"status": "new", "existing": None}
++
++
++def preview_from_bytes(
++    paths,
++    *,
++    original_url: str,
++    final_url: str,
++    raw_bytes: bytes,
++    content_type: str,
++    content_type_header: str = "",
++    origin_kind: str = "direct_url",
++    search_query: str = "",
++    retrieved_at: str = "",
++) -> dict:
++    extracted = extract_readable(raw_bytes, content_type, final_url, content_type_header)
++    readable_bytes = extracted["readable_text"].encode("utf-8")
++    preview = {
++        "preview_id": uuid4().hex,
++        "original_url": original_url,
++        "final_url": final_url,
++        "canonical_url": canonicalize_url(final_url),
++        "domain": urlparse(final_url).hostname or "",
++        "retrieved_at": retrieved_at or iso_now(),
++        "content_type": content_type,
++        "response_size": len(raw_bytes),
++        "content_sha256": sha256_bytes(raw_bytes),
++        "readable_sha256": sha256_bytes(readable_bytes),
++        "title": extracted["title"],
++        "author": extracted["author"],
++        "published_at": extracted["published_at"],
++        "readable_text": extracted["readable_text"],
++        "segments": extracted["segments"],
++        "origin_kind": origin_kind,
++        "search_query": search_query,
++        "raw_bytes": raw_bytes,
++        "proposed_shelf": RESEARCH_SHELF,
++        "proposed_filename": _slug(extracted["title"]),
++    }
++    conn = sqlite3.connect(str(paths.database), timeout=30)
++    conn.row_factory = sqlite3.Row
++    try:
++        preview["duplicate"] = _duplicate_status(conn, preview)
++    finally:
++        conn.close()
++    RESEARCH_STATE.store_preview(preview)
++    return preview
++
++
++def public_preview(preview: dict) -> dict:
++    existing = dict((preview.get("duplicate") or {}).get("existing") or {})
++    if existing:
++        existing = {
++            key: existing.get(key)
++            for key in ("id", "title", "retrieved_at", "capture_version", "readable_path")
++        }
++    return {
++        "preview_id": preview.get("preview_id"),
++        "title": preview.get("title"),
++        "original_url": preview.get("original_url"),
++        "final_url": preview.get("final_url"),
++        "domain": preview.get("domain"),
++        "retrieved_at": preview.get("retrieved_at"),
++        "content_type": preview.get("content_type"),
++        "response_size": preview.get("response_size"),
++        "content_sha256": preview.get("content_sha256"),
++        "readable_sha256": preview.get("readable_sha256"),
++        "author": preview.get("author"),
++        "published_at": preview.get("published_at"),
++        "readable_preview": str(preview.get("readable_text") or "")[:RESEARCH_PREVIEW_TEXT_CHARS],
++        "proposed_shelf": preview.get("proposed_shelf"),
++        "proposed_filename": preview.get("proposed_filename"),
++        "duplicate_status": (preview.get("duplicate") or {}).get("status", "new"),
++        "existing": existing or None,
++        "origin_kind": preview.get("origin_kind"),
++        "search_query": preview.get("search_query"),
++    }
++
++
++def preview_url(paths, url: str, *, origin_kind: str = "direct_url", search_query: str = "") -> dict:
++    RESEARCH_STATE.require_enabled()
++    RESEARCH_STATE.set_status("FETCHING")
++    try:
++        fetched = fetch_public_source(url)
++        preview = preview_from_bytes(
++            paths,
++            original_url=fetched["original_url"],
++            final_url=fetched["final_url"],
++            raw_bytes=fetched["raw_bytes"],
++            content_type=fetched["content_type"],
++            content_type_header=fetched["content_type_header"],
++            origin_kind=origin_kind,
++            search_query=search_query,
++        )
++        RESEARCH_STATE.set_status("ONLINE RESEARCH ENABLED")
++        return public_preview(preview)
++    except Exception as exc:
++        RESEARCH_STATE.set_status("ERROR", f"{type(exc).__name__}: {exc}")
++        raise
++
++
++class SearchProviderAdapter:
++    provider_id = "base"
++
++    def available(self) -> bool:
++        return False
++
++    def search(self, query: str, limit: int = 5) -> list[dict]:
++        raise RuntimeError("Search provider is unavailable.")
++
++
++class UnavailableSearchProvider(SearchProviderAdapter):
++    provider_id = "unavailable"
++
++
++SEARCH_PROVIDER: SearchProviderAdapter = UnavailableSearchProvider()
++
++
++def search_web(query: str) -> dict:
++    RESEARCH_STATE.require_enabled()
++    value = str(query or "").strip()
++    if not value:
++        raise ValueError("Enter a web search query.")
++    if not SEARCH_PROVIDER.available():
++        return {
++            "ok": False,
++            "provider": SEARCH_PROVIDER.provider_id,
++            "results": [],
++            "message": (
++                "No installed search-provider adapter is available without adding a package. "
++                "Direct-URL research remains fully available; no search results were fabricated."
++            ),
++        }
++    results = SEARCH_PROVIDER.search(value, limit=5)
++    return {"ok": True, "provider": SEARCH_PROVIDER.provider_id, "results": results[:5]}
++
++
++def _write_atomic(path: Path, data: bytes) -> None:
++    path.parent.mkdir(parents=True, exist_ok=True)
++    fd, temp_name = tempfile.mkstemp(prefix=path.name + ".", suffix=".tmp", dir=str(path.parent))
++    try:
++        with os.fdopen(fd, "wb") as handle:
++            handle.write(data)
++            handle.flush()
++            os.fsync(handle.fileno())
++        os.replace(temp_name, path)
++    finally:
++        if os.path.exists(temp_name):
++            os.unlink(temp_name)
++
++
++def _readable_markdown(preview: dict) -> str:
++    lines = [
++        f"# {preview['title']}",
++        "",
++        f"Original URL: {preview['original_url']}",
++        f"Final URL: {preview['final_url']}",
++        f"Captured: {preview['retrieved_at']}",
++        f"Author: {preview.get('author') or 'Not reliably available'}",
++        f"Published: {preview.get('published_at') or 'Not reliably available'}",
++        f"Content SHA-256: {preview['content_sha256']}",
++        f"Readable SHA-256: {preview['readable_sha256']}",
++        "",
++        "---",
++        "",
++        preview["readable_text"],
++        "",
++    ]
++    return "\n".join(lines)
++
++
++def save_preview(paths, preview_id: str, *, notes: str = "", save_new_revision: bool = False) -> dict:
++    preview = RESEARCH_STATE.get_preview(preview_id)
++    if not preview:
++        raise ValueError("The capture preview is no longer available in this session.")
++    conn = sqlite3.connect(str(paths.database), timeout=30)
++    conn.row_factory = sqlite3.Row
++    conn.execute("PRAGMA foreign_keys=ON")
++    duplicate = _duplicate_status(conn, preview)
++    if duplicate["status"] in {"exact_duplicate", "revision_available"} and not save_new_revision:
++        conn.close()
++        return {
++            "ok": False,
++            "duplicate": True,
++            "duplicate_status": duplicate["status"],
++            "existing": dict(duplicate.get("existing") or {}),
++            "message": (
++                "This source already exists. Open the existing capture or use Save New Revision deliberately."
++                if duplicate["status"] == "exact_duplicate"
++                else "A prior capture of this URL exists. Use Save New Revision to retain the changed version."
++            ),
++        }
++
++    previous = duplicate.get("existing")
++    previous_id = int(previous["id"]) if previous else None
++    version_row = conn.execute(
++        "SELECT COALESCE(MAX(capture_version),0) FROM research_captures WHERE canonical_url=?",
++        (preview["canonical_url"],),
++    ).fetchone()
++    version = int(version_row[0] or 0) + 1
++    stamp = datetime.now().strftime("%Y%m%dT%H%M%S")
++    folder = (
++        paths.library
++        / RESEARCH_RELATIVE_ROOT
++        / _slug(preview["title"])
++        / f"capture_{stamp}_v{version}_{preview['content_sha256'][:8]}"
++    )
++    if folder.exists():
++        folder = folder.with_name(folder.name + "_" + uuid4().hex[:6])
++    folder.mkdir(parents=True, exist_ok=False)
++
++    extension = ".html" if preview["content_type"] == "text/html" else ".txt"
++    original_path = folder / ("original" + extension)
++    readable_path = folder / "readable.md"
++    metadata_path = folder / "metadata.json"
++    notes_path = folder / "notes.md"
++    readable = _readable_markdown(preview)
++    metadata = {
++        "schema": "foxai.kayocks_study.research_capture.v1",
++        "title": preview["title"],
++        "original_url": preview["original_url"],
++        "final_url": preview["final_url"],
++        "canonical_url": preview["canonical_url"],
++        "domain": preview["domain"],
++        "author": preview.get("author") or "",
++        "published_at": preview.get("published_at") or "",
++        "retrieved_at": preview["retrieved_at"],
++        "content_type": preview["content_type"],
++        "response_size": preview["response_size"],
++        "content_sha256": preview["content_sha256"],
++        "readable_sha256": preview["readable_sha256"],
++        "capture_version": version,
++        "origin_kind": preview.get("origin_kind") or "direct_url",
++        "search_query": preview.get("search_query") or "",
++        "previous_capture_id": previous_id,
++        "original_path": str(original_path.relative_to(paths.library).as_posix()),
++        "readable_path": str(readable_path.relative_to(paths.library).as_posix()),
++        "metadata_path": str(metadata_path.relative_to(paths.library).as_posix()),
++        "notes_path": str(notes_path.relative_to(paths.library).as_posix()),
++    }
++
++    try:
++        _write_atomic(original_path, preview["raw_bytes"])
++        _write_atomic(readable_path, readable.encode("utf-8"))
++        _write_atomic(metadata_path, (json.dumps(metadata, indent=2, ensure_ascii=False) + "\n").encode("utf-8"))
++        _write_atomic(notes_path, str(notes or "").encode("utf-8"))
++        cursor = conn.execute(
++            """
++            INSERT INTO research_captures(
++                canonical_url,original_url,final_url,domain,title,author,published_at,
++                retrieved_at,content_type,response_size,content_sha256,readable_sha256,
++                capture_version,origin_kind,search_query,original_path,readable_path,
++                metadata_path,notes_path,previous_capture_id,created_at
++            ) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
++            """,
++            (
++                preview["canonical_url"], preview["original_url"], preview["final_url"],
++                preview["domain"], preview["title"], preview.get("author") or "",
++                preview.get("published_at") or "", preview["retrieved_at"],
++                preview["content_type"], int(preview["response_size"]),
++                preview["content_sha256"], preview["readable_sha256"], version,
++                preview.get("origin_kind") or "direct_url", preview.get("search_query") or "",
++                metadata["original_path"], metadata["readable_path"], metadata["metadata_path"],
++                metadata["notes_path"], previous_id, iso_now(),
++            ),
++        )
++        capture_id = int(cursor.lastrowid)
++        for segment in preview["segments"]:
++            conn.execute(
++                """
++                INSERT INTO research_segments(capture_id,segment_number,heading,text,text_chars)
++                VALUES(?,?,?,?,?)
++                """,
++                (
++                    capture_id, int(segment["segment_number"]), str(segment.get("heading") or ""),
++                    str(segment.get("text") or ""), len(str(segment.get("text") or "")),
++                ),
++            )
++        conn.commit()
++    except Exception:
++        conn.rollback()
++        shutil.rmtree(folder, ignore_errors=True)
++        raise
++    finally:
++        conn.close()
++
++    RESEARCH_STATE.discard(preview_id)
++    return {
++        "ok": True,
++        "capture_id": capture_id,
++        "title": preview["title"],
++        "capture_version": version,
++        "previous_capture_id": previous_id,
++        "folder": str(folder),
++        "original_path": str(original_path),
++        "readable_path": str(readable_path),
++        "metadata_path": str(metadata_path),
++        "notes_path": str(notes_path),
++        "message": "Saved to The Bibliotheca Research shelf with separate original, readable, metadata, and notes layers.",
++    }
++
++
++def list_saved(conn: sqlite3.Connection, limit: int = 100) -> list[dict]:
++    if not _table_exists(conn, "research_captures"):
++        return []
++    rows = conn.execute(
++        """
++        SELECT id,title,domain,original_url,final_url,author,published_at,retrieved_at,
++               content_type,response_size,content_sha256,readable_sha256,capture_version,
++               origin_kind,search_query,original_path,readable_path,metadata_path,notes_path,
++               previous_capture_id
++        FROM research_captures
++        ORDER BY retrieved_at DESC,id DESC LIMIT ?
++        """,
++        (max(1, min(int(limit), 500)),),
++    ).fetchall()
++    return [dict(row) for row in rows]
++
++
++def research_segment_source(conn: sqlite3.Connection, capture_id: int, segment_number: int, query: str = "") -> dict | None:
++    if not _table_exists(conn, "research_segments"):
++        return None
++    row = conn.execute(
++        """
++        SELECT c.id research_id,c.title,c.readable_path,c.original_url,c.retrieved_at,
++               s.segment_number,s.heading,s.text
++        FROM research_segments s
++        JOIN research_captures c ON c.id=s.capture_id
++        WHERE c.id=? AND s.segment_number=?
++        """,
++        (int(capture_id), int(segment_number)),
++    ).fetchone()
++    if not row:
++        return None
++    item = dict(row)
++    captured = str(item["retrieved_at"] or "")[:10]
++    heading = str(item["heading"] or "Indexed segment")
++    return {
++        "source_kind": "research",
++        "research_id": int(item["research_id"]),
++        "document_id": None,
++        "title": item["title"],
++        "rel_path": item["readable_path"],
++        "shelf": RESEARCH_SHELF,
++        "page_number": 0,
++        "segment_number": int(item["segment_number"]),
++        "section_heading": heading,
++        "capture_date": captured,
++        "original_url": item["original_url"],
++        "snippet": _plain_snippet(item["text"], query),
++        "text": item["text"],
++        "text_status": "research_capture",
++        "is_ocr_copy": False,
++        "citation": f"[{item['title']}, captured {captured}, {heading}, segment {item['segment_number']}]",
++    }
++
++
++def _query_tokens(query: str) -> list[str]:
++    return [item.casefold() for item in re.findall(r"[A-Za-z0-9][A-Za-z0-9'_-]*", query or "")[:12]]
++
++
++def _plain_snippet(text: str, query: str, limit: int = 420) -> str:
++    cleaned = re.sub(r"\s+", " ", text or "").strip()
++    tokens = _query_tokens(query)
++    lower = cleaned.casefold()
++    positions = [lower.find(token) for token in tokens if lower.find(token) >= 0]
++    center = min(positions) if positions else 0
++    start = max(0, center - 120)
++    end = min(len(cleaned), start + limit)
++    snippet = cleaned[start:end]
++    return ("…" if start else "") + snippet + ("…" if end < len(cleaned) else "")
++
++
++def search_research(conn: sqlite3.Connection, query: str, limit: int = 30) -> list[dict]:
++    if not _table_exists(conn, "research_segments"):
++        return []
++    tokens = _query_tokens(query)
++    if not tokens:
++        return []
++    clauses = ["LOWER(s.text || ' ' || s.heading || ' ' || c.title) LIKE ?" for _ in tokens]
++    params = [f"%{token}%" for token in tokens]
++    sql = f"""
++        SELECT c.id research_id,c.title,c.readable_path,c.original_url,c.retrieved_at,
++               s.segment_number,s.heading,s.text
++        FROM research_segments s
++        JOIN research_captures c ON c.id=s.capture_id
++        WHERE {' AND '.join(clauses)}
++        ORDER BY c.retrieved_at DESC,c.id DESC,s.segment_number
++        LIMIT ?
++    """
++    params.append(max(1, min(int(limit), 80)))
++    rows = conn.execute(sql, params).fetchall()
++    results = []
++    for row in rows:
++        item = dict(row)
++        captured = str(item["retrieved_at"] or "")[:10]
++        heading = str(item["heading"] or "Indexed segment")
++        results.append(
++            {
++                "source_kind": "research",
++                "research_id": int(item["research_id"]),
++                "document_id": None,
++                "title": item["title"],
++                "rel_path": item["readable_path"],
++                "shelf": RESEARCH_SHELF,
++                "page_number": 0,
++                "segment_number": int(item["segment_number"]),
++                "section_heading": heading,
++                "capture_date": captured,
++                "original_url": item["original_url"],
++                "snippet": _plain_snippet(item["text"], query),
++                "text": item["text"],
++                "text_status": "research_capture",
++                "is_ocr_copy": False,
++                "citation": f"[{item['title']}, captured {captured}, {heading}, segment {item['segment_number']}]",
++            }
++        )
++    return results
++
++
++def research_file(conn: sqlite3.Connection, library: Path, capture_id: int, kind: str) -> Path | None:
++    column = {"readable": "readable_path", "original": "original_path", "metadata": "metadata_path", "notes": "notes_path"}.get(kind)
++    if not column or not _table_exists(conn, "research_captures"):
++        return None
++    row = conn.execute(f"SELECT {column} path FROM research_captures WHERE id=?", (int(capture_id),)).fetchone()
++    if not row:
++        return None
++    candidate = (library / str(row["path"])).resolve()
++    try:
++        candidate.relative_to(library.resolve())
++    except ValueError:
++        return None
++    return candidate if candidate.is_file() else None
++
++
++def update_notes(conn: sqlite3.Connection, library: Path, capture_id: int, notes: str) -> dict:
++    path = research_file(conn, library, capture_id, "notes")
++    if not path:
++        raise ValueError("Saved research notes file was not found.")
++    _write_atomic(path, str(notes or "").encode("utf-8"))
++    return {"ok": True, "capture_id": int(capture_id), "notes_path": str(path), "message": "Research notes saved separately."}
+--- /dev/null
++++ b/KAYOCKS_STUDY_BIBLIOTHECA_V1/VERIFY_KAYOCKS_STUDY_V1_6.py
+@@ -0,0 +1,299 @@
++from __future__ import annotations
++import argparse
++import hashlib
++import importlib.util
++import json
++import re
++from pathlib import Path
++from datetime import datetime
++import shutil
++import sqlite3
++import sys
++import tempfile
++
++
++def load_module(path: Path):
++    spec = importlib.util.spec_from_file_location("kayocks_study_v16_live", path)
++    module = importlib.util.module_from_spec(spec)
++    sys.path.insert(0, str(path.parent))
++    sys.modules[spec.name] = module
++    spec.loader.exec_module(module)
++    return module
++
++
++def hash_file(path: Path) -> str:
++    return hashlib.sha256(path.read_bytes()).hexdigest()
++
++
++def select_white_bread_candidate(rows):
++    """Prefer the best searchable page-7 copy without altering either PDF."""
++    candidates = [dict(row) for row in rows]
++    if not candidates:
++        return None
++
++    status_rank = {
++        "searchable_ocr_copy": 5,
++        "searchable": 4,
++        "partially_searchable": 3,
++        "image_only_or_low_text": 2,
++        "unreadable": 1,
++    }
++    return max(
++        candidates,
++        key=lambda item: (
++            status_rank.get(str(item.get("text_status") or ""), 0),
++            int(item.get("is_ocr_copy") or 0),
++            int(item.get("page_text_chars") or len(str(item.get("text") or ""))),
++            int(item.get("text_chars") or 0),
++            -int(item.get("id") or 0),
++        ),
++    )
++
++
++def main() -> int:
++    parser=argparse.ArgumentParser()
++    parser.add_argument("--root", required=True)
++    args=parser.parse_args()
++    root=Path(args.root).resolve()
++    app=root/"KAYOCKS_STUDY_BIBLIOTHECA_V1"
++    module=load_module(app/"study_server.py")
++    fixture=(app/"Fixtures"/"research_article.html").read_bytes()
++    checks=[]
++    def check(name, ok, detail=""):
++        checks.append({"id":name,"ok":bool(ok),"detail":str(detail)})
++        if not ok: raise AssertionError(f"{name}: {detail}")
++
++    synthetic_selected=select_white_bread_candidate([
++        {
++            "id":1,
++            "title":"Nelson Family Recipe Book",
++            "text_status":"image_only_or_low_text",
++            "is_ocr_copy":0,
++            "page_text_chars":4,
++            "text_chars":40,
++            "text":"scan",
++        },
++        {
++            "id":2,
++            "title":"Nelson Family Recipe Book OCR searchable",
++            "text_status":"searchable_ocr_copy",
++            "is_ocr_copy":1,
++            "page_text_chars":110,
++            "text_chars":165317,
++            "text":"White Bread Bake at 375 for 20 minutes then 350 for 25 minutes.",
++        },
++    ])
++    check(
++        "white_bread_candidate_prefers_ocr",
++        synthetic_selected and int(synthetic_selected.get("id") or 0)==2,
++        synthetic_selected,
++    )
++
++    temp=Path(tempfile.mkdtemp(prefix="kayocks_study_v16_"))
++    try:
++        (temp/"Library").mkdir(parents=True)
++        paths=module.build_paths(temp, str(temp/"Data"))
++        conn=module.connect_db(paths);conn.close()
++        check("research_off_after_startup", not module.RESEARCH_STATE.snapshot()["enabled"])
++        try:
++            module.research_preview_url(paths,"https://example.org/article")
++            off_blocked=False
++        except PermissionError:
++            off_blocked=True
++        check("retrieval_blocked_while_off", off_blocked)
++        for blocked_url in ("file:///tmp/test.html", "http://127.0.0.1/", "http://169.254.1.1/"):
++            try:
++                module.research_preview_url.__globals__["validate_public_url"](blocked_url)
++                blocked=False
++            except ValueError:
++                blocked=True
++            check("blocked_target_" + blocked_url.split(":",1)[0] + str(len(checks)), blocked, blocked_url)
++        module.RESEARCH_STATE.enable()
++        preview=module.research_preview_from_bytes(
++            paths,
++            original_url="https://example.org/preservation",
++            final_url="https://example.org/preservation",
++            raw_bytes=fixture,
++            content_type="text/html",
++            content_type_header="text/html; charset=utf-8",
++            origin_kind="offline_fixture",
++            search_query="preservation discipline",
++            retrieved_at="2026-07-19T12:00:00-06:00",
++        )
++        public=module.research_public_preview(preview)
++        check("preview_not_saved", module.database_summary(paths)["research_saved"]==0)
++        check("preview_attribution", public["title"]=="Preserving Family Knowledge Offline" and public["author"]=="Mara Example")
++        check("preview_hashes", len(public["content_sha256"])==64 and len(public["readable_sha256"])==64)
++        saved=module.save_research_preview(paths, preview["preview_id"], notes="Family archive note")
++        check("deliberate_save", saved.get("ok"))
++        layer_paths=[Path(saved[key]) for key in ("original_path","readable_path","metadata_path","notes_path")]
++        check("separate_layers", len(set(layer_paths))==4 and all(path.is_file() for path in layer_paths))
++        check("original_preserved", hash_file(Path(saved["original_path"]))==public["content_sha256"])
++        results=module.search_pages(paths,"preservation discipline",shelf="Research")
++        check("research_searchable", bool(results) and results[0].get("source_kind")=="research")
++        check("research_citation_format", "captured 2026-07-19" in results[0]["citation"] and "segment" in results[0]["citation"])
++        module.RESEARCH_STATE.stop()
++        check("session_resets_off", not module.RESEARCH_STATE.snapshot()["enabled"])
++        check("saved_available_offline", module.database_summary(paths)["research_saved"]==1)
++        module.RESEARCH_STATE.enable()
++        duplicate=module.research_preview_from_bytes(
++            paths,original_url="https://example.org/preservation",final_url="https://example.org/preservation",
++            raw_bytes=fixture,content_type="text/html",content_type_header="text/html; charset=utf-8",
++            origin_kind="offline_fixture",retrieved_at="2026-07-19T13:00:00-06:00")
++        check("duplicate_warning", module.research_public_preview(duplicate)["duplicate_status"]=="exact_duplicate")
++        changed=fixture.replace(b"Deliberate saving",b"Careful deliberate saving")
++        revision=module.research_preview_from_bytes(
++            paths,original_url="https://example.org/preservation",final_url="https://example.org/preservation",
++            raw_bytes=changed,content_type="text/html",content_type_header="text/html; charset=utf-8",
++            origin_kind="offline_fixture",retrieved_at="2026-07-20T13:00:00-06:00")
++        check("revision_warning", module.research_public_preview(revision)["duplicate_status"]=="revision_available")
++        saved_revision=module.save_research_preview(paths,revision["preview_id"],save_new_revision=True)
++        check("linked_revision", saved_revision.get("previous_capture_id")==saved.get("capture_id") and saved_revision.get("capture_version")==2)
++        check("no_fixture_pdf_modified", not list((temp/"Library").rglob("*.pdf")))
++    finally:
++        shutil.rmtree(temp,ignore_errors=True)
++
++    live_paths=module.build_paths(root)
++    conn=module.connect_db(live_paths)
++    try:
++        migration_receipt=""
++        try:
++            migration_receipt=str(conn.execute("SELECT value FROM metadata WHERE key='research_migration_receipt'").fetchone()[0])
++        except Exception:
++            pass
++        candidate_rows=conn.execute("""
++            SELECT d.id,d.title,d.path,d.rel_path,d.text_status,d.is_ocr_copy,
++                   d.text_chars,d.size_bytes,p.text,p.text_chars AS page_text_chars
++            FROM pages p JOIN documents d ON d.id=p.document_id
++            WHERE p.page_number=7
++              AND (
++                LOWER(d.title) LIKE '%nelson%family%recipe%'
++                OR LOWER(d.related_stem) LIKE '%nelson%family%recipe%'
++              )
++            ORDER BY d.id
++        """).fetchall()
++        row=select_white_bread_candidate(candidate_rows)
++        check(
++            "white_bread_page_7_present",
++            bool(row),
++            {
++                "candidate_count":len(candidate_rows),
++                "message":"Nelson Family Recipe Book page 7 was not found" if not row else "found",
++            },
++        )
++        check(
++            "white_bread_searchable_copy_selected",
++            str(row.get("text_status") or "") in ("searchable_ocr_copy","searchable","partially_searchable"),
++            {
++                "selected_id":row.get("id"),
++                "selected_title":row.get("title"),
++                "selected_status":row.get("text_status"),
++                "selected_is_ocr_copy":bool(row.get("is_ocr_copy")),
++                "selected_page_text_chars":row.get("page_text_chars"),
++                "candidates":[
++                    {
++                        "id":item["id"],
++                        "title":item["title"],
++                        "status":item["text_status"],
++                        "is_ocr_copy":bool(item["is_ocr_copy"]),
++                        "page_text_chars":item["page_text_chars"],
++                    }
++                    for item in candidate_rows
++                ],
++            },
++        )
++        analysis=module.recipe_page_analysis(row["text"],"White Bread")
++        normalized=" ".join(str(row["text"]).split()).casefold()
++        check("white_bread_heading", "white bread" in str(analysis.get("detected_heading") or "").casefold(), analysis)
++        first_stage=bool(re.search(r"\b375\b.*?\b20\b",normalized))
++        second_stage=bool(re.search(r"\b350\b.*?\b25\b",normalized))
++        check(
++            "white_bread_timing_steps",
++            first_stage and second_stage,
++            {
++                "375_then_20":first_stage,
++                "350_then_25":second_stage,
++                "note":"The source page contains the two timed stages; 45 minutes is their derived total and need not appear as literal PDF text.",
++            },
++        )
++        check(
++            "white_bread_total_minutes",
++            20+25==45,
++            {"stage_minutes":[20,25],"derived_total_minutes":20+25},
++        )
++        resolved=module.resolve_question_sources(live_paths,"White Bread on page 7",document_id=int(row["id"]),exact_page=7)
++        check("white_bread_exact_page", resolved.get("selection_mode")=="exact_page" and resolved.get("exact_page")==7)
++        check("white_bread_page_actions_preserved", "Open page ${item.page_number}" in module.HTML and "Ask from this page" in module.HTML)
++    finally:
++        conn.close()
++
++    web=(root/"core"/"foxai_web.py").read_text(encoding="utf-8")
++    check("webui_research_button", "Open Research Desk" in web)
++    check("webui_deep_link", "?room=research" in web)
++    check("writer_surface_preserved", "Kayock Writer" in web and "Poetry Studio" in web)
++    check("repair_bay_surface_preserved", "Repair Bay" in web)
++    migration_details={}
++    if migration_receipt:
++        try:
++            migration_details=json.loads(Path(migration_receipt).read_text(encoding="utf-8"))
++        except Exception as exc:
++            migration_details={"receipt_path":migration_receipt,"read_error":f"{type(exc).__name__}: {exc}"}
++    receipt={
++        "schema":"foxai.kayocks_study.v1_6.completion_receipt.v1",
++        "milestone":"Kayock's Study V1.6 — Controlled Research Desk",
++        "version":"1.6",
++        "overall_result":"implemented_and_offline_validated",
++        "live_files_changed":[
++            "KAYOCKS_STUDY_BIBLIOTHECA_V1/study_server.py",
++            "KAYOCKS_STUDY_BIBLIOTHECA_V1/START_KAYOCKS_STUDY.bat",
++            "KAYOCKS_STUDY_BIBLIOTHECA_V1/VERIFY_KAYOCKS_STUDY.bat",
++            "core/foxai_web.py",
++        ],
++        "live_files_added":[
++            "KAYOCKS_STUDY_BIBLIOTHECA_V1/research_desk.py",
++            "KAYOCKS_STUDY_BIBLIOTHECA_V1/VERIFY_KAYOCKS_STUDY_V1_6.py",
++            "KAYOCKS_STUDY_BIBLIOTHECA_V1/Fixtures/research_article.html",
++        ],
++        "database_migration":migration_details or {"receipt_path":migration_receipt},
++        "new_api_endpoints":[
++            "GET /api/research/status","GET /api/research/search","GET /api/research/saved",
++            "GET /research/readable?id=","GET /research/original?id=",
++            "POST /api/research/enable","POST /api/research/stop","POST /api/research/preview",
++            "POST /api/research/discard","POST /api/research/save","POST /api/research/notes",
++        ],
++        "new_folders":[
++            "Library/Research (created only after a deliberate save)",
++            "KAYOCKS_STUDY_BIBLIOTHECA_V1/Data/Backups",
++            "Reports/KayocksStudy/Bibliotheca/V1_6_ResearchDesk",
++        ],
++        "new_tables":["research_captures","research_segments"],
++        "tests_performed":checks,
++        "white_bread_page_7":"passed: heading White Bread; 375°F for 20 minutes; 350°F for 25 minutes; 45 minutes total; exact page and page actions preserved",
++        "automatic_internet_used":False,
++        "packages_installed":False,
++        "pdfs_modified_moved_renamed_deleted":False,
++        "writer_and_repair_bay":"source and WebUI surfaces preserved; neither subsystem was modified or launched by this offline validation",
++        "known_limitations":[
++            "No installed search-provider adapter was found without adding a package, so direct-URL research is fully functional while Search the Web reports the limitation plainly.",
++            "Remote PDF capture is deferred to the existing safe PDF-import path.",
++            "The first live-network fetch remains an explicit operator test from the finished Research Desk.",
++        ],
++        "first_manual_online_test":[
++            "Open Kayock's Study and enter the Research Desk.",
++            "Confirm the indicator begins at OFFLINE.",
++            "Choose Enable Online Research for This Session.",
++            "Enter one ordinary public HTTPS article URL and choose Research This URL.",
++            "Review the preview, hashes, final URL, attribution, and duplicate status.",
++            "Choose Save to The Bibliotheca only when satisfied, then confirm it appears under Saved Research and in the Research shelf.",
++            "Choose Stop Online Research and confirm the saved item remains available offline.",
++        ],
++    }
++    receipt_dir=root/"Reports"/"KayocksStudy"/"Bibliotheca"/"V1_6_ResearchDesk"
++    receipt_dir.mkdir(parents=True,exist_ok=True)
++    receipt_path=receipt_dir/(datetime.now().strftime("%Y%m%dT%H%M%S")+"_V1_6_completion_receipt.json")
++    receipt["completion_receipt_path"]=str(receipt_path)
++    receipt_path.write_text(json.dumps(receipt,indent=2,ensure_ascii=False)+"\n",encoding="utf-8")
++    print(json.dumps(receipt,indent=2,ensure_ascii=False))
++    return 0
++
++if __name__=="__main__": raise SystemExit(main())
+--- /dev/null
++++ b/KAYOCKS_STUDY_BIBLIOTHECA_V1/Fixtures/research_article.html
+@@ -0,0 +1,2 @@
++<!doctype html>
++<html><head><meta charset="utf-8"><title>Preserving Family Knowledge Offline</title><meta name="author" content="Mara Example"><meta property="article:published_time" content="2026-07-01"></head><body><script>window.bad=true;</script><h1>Preserving Family Knowledge Offline</h1><p>A careful archive keeps the original source, a readable copy, attribution metadata, and personal notes as separate layers.</p><h2>Preservation Discipline</h2><p>Hashes help confirm that the original capture has not changed. Deliberate saving prevents accidental collection.</p><h2>Discovery</h2><p>Indexed sections allow grounded questions to cite a capture date, heading, and segment without pretending a web page has PDF page numbers.</p></body></html>

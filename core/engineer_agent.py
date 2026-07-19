@@ -1117,6 +1117,34 @@ class EngineerAgent:
 
     def analyze(self, query):
         query = self.normalize_operator_query(query)
+        # FOXAI_ENGINEERING_WORKSHOP_V1_2_ANALYZE_ROUTE
+        if re.match(r"^workshop\b", query, flags=re.IGNORECASE):
+            workshop_bridge = (
+                getattr(self, "engineering_workshop", None)
+                or getattr(self, "_engineering_workshop_bridge", None)
+            )
+            if workshop_bridge is None:
+                try:
+                    from core.engineering_workshop_bridge import EngineeringWorkshopBridge
+                    workshop_bridge = EngineeringWorkshopBridge(self)
+                    self._engineering_workshop_bridge = workshop_bridge
+                    self.engineering_workshop = workshop_bridge
+                except Exception as workshop_error:
+                    return (
+                        "ENGINEERING WORKSHOP — ROUTE UNAVAILABLE\n\n"
+                        "The explicit Workshop command was recognized, but the "
+                        "Workshop bridge could not load.\n\n"
+                        f"{type(workshop_error).__name__}: {workshop_error}"
+                    )
+            context = getattr(self, "_active_airlock_context", {}) or {}
+            caller = str(context.get("actor") or "operator")
+            workshop_report = workshop_bridge.handle(
+                query,
+                caller=caller,
+                operator_approved=bool(context.get("authorization_allowed")),
+            )
+            if workshop_report is not None:
+                return workshop_report
         exact_path = self.parse_exact_path_inspection(query)
         if exact_path is not None:
             return self.inspect_exact_path(exact_path)

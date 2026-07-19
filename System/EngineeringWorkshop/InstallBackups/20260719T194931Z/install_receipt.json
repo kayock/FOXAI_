@@ -1,0 +1,32 @@
+{
+  "schema": "foxai.engineering.workshop.v1_2_3.policy-receipt",
+  "result": "installed_verified",
+  "timestamp": "20260719T194932Z",
+  "target_root": "Z:\\FOXAI",
+  "diagnosis": "The WebUI executable runs core/foxai_web.py, which explicitly inserts the FOXAI project root into sys.path before importing core modules. V1.2.2 used -c without reproducing that import-path step.",
+  "backup": {
+    "archive": "Z:\\FOXAI\\System\\EngineeringWorkshop\\InstallBackups\\20260719T194931Z\\before_engineering_workshop_v1_2_3_policy.zip",
+    "sha256": "8615dcd212a882f8892262c0ab6b6072c4dae376f68e66bbf13d34ebce17f3b3",
+    "target_before_sha256": "9b141b9d73bcf46a69616650448cb0a28e5a987c8f0b6242defc7db786396c3a"
+  },
+  "change": {
+    "path": "Config/engineering_airlock_policy.csv",
+    "line_added": "p, operator, engineering_airlock, preview, allow",
+    "already_present": false,
+    "before_sha256": "9b141b9d73bcf46a69616650448cb0a28e5a987c8f0b6242defc7db786396c3a",
+    "after_sha256": "d28769bb784801aae07f6f219c0ef0830e551fbfb2e23844646a8e80ae998d40"
+  },
+  "validation": {
+    "runtime": "Z:\\FOXAI\\env\\python\\python.exe",
+    "import_root_inserted": "Z:\\FOXAI",
+    "returncode": 0,
+    "stdout": "CASBIN_RAW_ALLOW=True\nDECISION_ALLOWED=True\nPOLICY_SOURCE=casbin\nCASBIN_ENGINEERING_PREVIEW_POLICY_OK\n",
+    "stderr": ""
+  },
+  "deletions": 0,
+  "network_used": false,
+  "packages_installed": false,
+  "model_started_or_stopped": false,
+  "restart_required": true,
+  "receipt_path": "Z:\\FOXAI\\System\\EngineeringWorkshop\\InstallBackups\\20260719T194931Z\\install_receipt.json"
+}

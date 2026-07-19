@@ -1,0 +1,53 @@
+{
+  "schema": "foxai.kayocks_study.v1_6.r2.plan_build_receipt.v1",
+  "mission_id": "ENG-20260719-195102-AE63D3",
+  "result": "corrected_exact_plan_built",
+  "root_cause": "The first validation required the derived 45-minute total to appear literally in the indexed PDF page. The live page contains the two source stages, 20 and 25 minutes; 45 is their computed total.",
+  "correction": {
+    "file": "KAYOCKS_STUDY_BIBLIOTHECA_V1/VERIFY_KAYOCKS_STUDY_V1_6.py",
+    "old_assertion": "raw page must literally contain 375, 20, 350, 25, and 45",
+    "new_assertions": [
+      "raw page contains 375 followed by 20",
+      "raw page contains 350 followed by 25",
+      "derived total 20 + 25 equals 45"
+    ]
+  },
+  "plan_sha256": "24ca82f555a5c569d3c73c7155018989381954013d2d2661437f979ba1e7fde0",
+  "changed_path_count": 7,
+  "changed_paths": [
+    "KAYOCKS_STUDY_BIBLIOTHECA_V1/study_server.py",
+    "KAYOCKS_STUDY_BIBLIOTHECA_V1/START_KAYOCKS_STUDY.bat",
+    "KAYOCKS_STUDY_BIBLIOTHECA_V1/VERIFY_KAYOCKS_STUDY.bat",
+    "core/foxai_web.py",
+    "KAYOCKS_STUDY_BIBLIOTHECA_V1/research_desk.py",
+    "KAYOCKS_STUDY_BIBLIOTHECA_V1/VERIFY_KAYOCKS_STUDY_V1_6.py",
+    "KAYOCKS_STUDY_BIBLIOTHECA_V1/Fixtures/research_article.html"
+  ],
+  "validation_count": 3,
+  "r2_simulation": {
+    "fixture_page_literal_45_removed": true,
+    "result": "implemented_and_offline_validated",
+    "checks_passed": 29,
+    "white_bread_page_7_present": true,
+    "white_bread_heading": "White Bread",
+    "first_stage": "375°F for 20 minutes",
+    "second_stage": "350°F for 25 minutes",
+    "derived_total_minutes": 45,
+    "exact_page_preserved": true,
+    "page_actions_preserved": true
+  },
+  "automatic_internet_used": false,
+  "packages_installed": false,
+  "deletions": 0,
+  "renames": 0,
+  "pdfs_modified_moved_renamed_deleted": false,
+  "review_after_file_sha256": {
+    "KAYOCKS_STUDY_BIBLIOTHECA_V1/study_server.py": "7fdb6621fc0cd7822ca2169949b3791638cceb787d51d6f8689f4e050597b555",
+    "KAYOCKS_STUDY_BIBLIOTHECA_V1/START_KAYOCKS_STUDY.bat": "a672a9f1ce07b313a3d0abcc4d38a541870472f85e505f6c8fa70a54b39ca7c9",
+    "KAYOCKS_STUDY_BIBLIOTHECA_V1/VERIFY_KAYOCKS_STUDY.bat": "47b72839acb562ba83e73aacfa066f968ae88f675161051bfcb151ad3320ba43",
+    "core/foxai_web.py": "40421226137e455fd7fefb13d043a8d4b9b41230e2e9c338f9586735ec8e7383",
+    "KAYOCKS_STUDY_BIBLIOTHECA_V1/research_desk.py": "dd2d4fbb68e79e3011f767e0ea2bbc16dd56f23eb5bb14b1a81c86539c160519",
+    "KAYOCKS_STUDY_BIBLIOTHECA_V1/VERIFY_KAYOCKS_STUDY_V1_6.py": "13bd1ce7e2a0c69746e45c8630f7bf766778556ec4ae79c23799ac0aaeafb5b1",
+    "KAYOCKS_STUDY_BIBLIOTHECA_V1/Fixtures/research_article.html": "0a244fb33466d83f1ce8c31b143902f031d3923a4bec2695148bd0f154bde6d2"
+  }
+}

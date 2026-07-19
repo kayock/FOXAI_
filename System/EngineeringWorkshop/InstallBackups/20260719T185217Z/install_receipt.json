@@ -1,0 +1,82 @@
+{
+  "schema": "foxai.engineering.workshop.v1_1_1.receipt",
+  "result": "installed_verified",
+  "timestamp": "20260719T185220Z",
+  "target_root": "Z:\\FOXAI",
+  "diagnosis": "FOXAI WebUI called EngineerAgent.analyze() directly and bypassed the V1.1 hook in EngineerAgent.handle().",
+  "backup": {
+    "archive": "Z:\\FOXAI\\System\\EngineeringWorkshop\\InstallBackups\\20260719T185217Z\\before_engineering_workshop_v1_1_1.zip",
+    "sha256": "d7426b4377c64ec5d3c7dfeb0e66ae485dbd2ee723fd581b02145b78bd973910",
+    "entries": [
+      {
+        "path": "core/engineer_agent.py",
+        "sha256": "a05e71ebec246dd4c00d2774a2eac43c14c595258c6bc0650b3d96a2520a693d",
+        "size": 78575
+      },
+      {
+        "path": "core/foxai_web.py",
+        "sha256": "e1ae59bddc87a3f624939f5935b17da9d36d972e09e21aaebaeb2c2108d04ee2",
+        "size": 2157219
+      }
+    ]
+  },
+  "changes": [
+    {
+      "path": "core/engineer_agent.py",
+      "before_sha256": "a05e71ebec246dd4c00d2774a2eac43c14c595258c6bc0650b3d96a2520a693d",
+      "after_sha256": "de1fc060faa9f55ca11f8c84e47d3be775dd30eb33d0227f32ae22dd1e899cfa"
+    },
+    {
+      "path": "core/foxai_web.py",
+      "before_sha256": "e1ae59bddc87a3f624939f5935b17da9d36d972e09e21aaebaeb2c2108d04ee2",
+      "after_sha256": "fb6f919724ded95f97f58383b0447981bbe74fe0ccd31942b60968a88e9eeaa5"
+    }
+  ],
+  "validations": [
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-m",
+        "py_compile",
+        "core/engineer_agent.py",
+        "core/engineering_workshop_bridge.py",
+        "core/foxai_web.py"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "returncode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-c",
+        "from core.engineering_workshop_bridge import EngineeringWorkshopBridge; print('WORKSHOP_BRIDGE_IMPORT_OK')"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "returncode": 0,
+      "stdout": "WORKSHOP_BRIDGE_IMPORT_OK\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "Departments/Engineering/tests",
+        "-v"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "test_excludes_docs_quarantine_and_snapshots (test_workshop.LocatorTests.test_excludes_docs_quarantine_and_snapshots) ... ok\ntest_continue_resumes_active_implementation (test_workshop.RouterTests.test_continue_resumes_active_implementation) ... ok\ntest_find_routes_to_search (test_workshop.RouterTests.test_find_routes_to_search) ... ok\ntest_implement_routes_to_implementation (test_workshop.RouterTests.test_implement_routes_to_implementation) ... ok\ntest_inspect_routes_to_diagnose (test_workshop.RouterTests.test_inspect_routes_to_diagnose) ... ok\ntest_full_inspect_snapshot_modify_test_receipt_flow (test_workshop.WorkshopTests.test_full_inspect_snapshot_modify_test_receipt_flow) ... ok\ntest_plan_cannot_delete_or_rename (test_workshop.WorkshopTests.test_plan_cannot_delete_or_rename) ... ok\ntest_receipt_is_not_created_before_real_apply (test_workshop.WorkshopTests.test_receipt_is_not_created_before_real_apply) ... ok\ntest_validation_failure_rolls_back (test_workshop.WorkshopTests.test_validation_failure_rolls_back) ... ok\ntest_wrong_approval_hash_makes_no_change (test_workshop.WorkshopTests.test_wrong_approval_hash_makes_no_change) ... ok\n\n----------------------------------------------------------------------\nRan 10 tests in 0.178s\n\nOK\n"
+    }
+  ],
+  "error": null,
+  "deletions": 0,
+  "network_used": false,
+  "packages_installed": false,
+  "receipt_path": "Z:\\FOXAI\\System\\EngineeringWorkshop\\InstallBackups\\20260719T185217Z\\install_receipt.json"
+}

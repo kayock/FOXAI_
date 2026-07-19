@@ -18,8 +18,13 @@ from core.engineer_intent import EngineerIntent
 # FOXAI_ENGINEERING_WORKSHOP_V1_1_INTEGRATION
 try:
     from core.engineering_workshop_bridge import EngineeringWorkshopBridge
-except Exception:
+    _ENGINEERING_WORKSHOP_IMPORT_ERROR = ""
+except Exception as _engineering_workshop_import_exception:
     EngineeringWorkshopBridge = None
+    _ENGINEERING_WORKSHOP_IMPORT_ERROR = (
+        f"{type(_engineering_workshop_import_exception).__name__}: "
+        f"{_engineering_workshop_import_exception}"
+    )
 
 from core.smart_search import SmartSearch
 from core.security_containment import (
@@ -172,6 +177,7 @@ class EngineerAgent:
         self.forge_journal = ForgeJournal()
         self.intent = EngineerIntent()
         # FOXAI_ENGINEERING_WORKSHOP_V1_1_INTEGRATION
+        self._engineering_workshop_import_error = _ENGINEERING_WORKSHOP_IMPORT_ERROR
         self.engineering_workshop = (
             EngineeringWorkshopBridge(self)
             if EngineeringWorkshopBridge is not None

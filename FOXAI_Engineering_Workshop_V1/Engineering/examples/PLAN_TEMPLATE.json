@@ -1,0 +1,36 @@
+{
+  "schema": "foxai.engineering.plan.v1",
+  "mission_id": "replace-with-mission-id",
+  "title": "Exact approved implementation plan",
+  "project_root": "Z:\\FOXAI\\replace-with-live-project-root",
+  "changes": [
+    {
+      "action": "replace_text",
+      "path": "relative\\path\\to\\existing_file.py",
+      "old": "exact text that must occur once",
+      "new": "replacement text",
+      "expected_occurrences": 1
+    },
+    {
+      "action": "write_file",
+      "path": "relative\\path\\to\\new_file.py",
+      "content": "complete UTF-8 file content\n",
+      "must_not_exist": true
+    }
+  ],
+  "validations": [
+    {
+      "name": "focused unit tests",
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests"
+      ],
+      "cwd": ".",
+      "timeout_seconds": 180
+    }
+  ]
+}

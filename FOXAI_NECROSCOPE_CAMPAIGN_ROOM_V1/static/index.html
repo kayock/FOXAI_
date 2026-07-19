@@ -1,0 +1,568 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FOXAI Necroscope Campaign Room</title>
+<style>
+:root{
+  color-scheme:dark;
+  --bg:#090b13;
+  --panel:#111522;
+  --panel2:#171c2b;
+  --line:#2a3248;
+  --text:#edf1ff;
+  --muted:#aab3cc;
+  --purple:#8b5cf6;
+  --red:#e05263;
+  --green:#58c78c;
+  --amber:#d5a94f;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Inter,Segoe UI,system-ui,sans-serif;
+  background:
+    radial-gradient(circle at top right,#24143d 0,transparent 35%),
+    linear-gradient(180deg,#090b13,#0c101a);
+  color:var(--text);
+  min-height:100vh;
+}
+header{
+  padding:22px 26px 14px;
+  border-bottom:1px solid var(--line);
+  background:rgba(8,10,18,.86);
+  position:sticky;
+  top:0;
+  z-index:5;
+}
+header h1{margin:0;font-size:24px}
+header p{margin:6px 0 0;color:var(--muted)}
+.status-row{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:12px;
+}
+.badge{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  border:1px solid var(--line);
+  border-radius:999px;
+  padding:6px 10px;
+  background:#121827;
+  color:var(--muted);
+  font-size:13px;
+}
+.badge.ok{border-color:#2e7651;color:#99e7bb}
+.badge.warn{border-color:#7b6127;color:#f2d489}
+.badge.bad{border-color:#743441;color:#f4a6b2}
+main{
+  max-width:1500px;
+  margin:0 auto;
+  padding:18px;
+  display:grid;
+  grid-template-columns:minmax(260px,340px) minmax(420px,1fr) minmax(260px,340px);
+  gap:16px;
+}
+.panel{
+  background:rgba(17,21,34,.96);
+  border:1px solid var(--line);
+  border-radius:16px;
+  overflow:hidden;
+}
+.panel h2{
+  margin:0;
+  padding:15px 16px;
+  font-size:17px;
+  border-bottom:1px solid var(--line);
+  background:#121726;
+}
+.panel-body{padding:14px}
+label{
+  display:block;
+  color:var(--muted);
+  font-size:13px;
+  margin:12px 0 6px;
+}
+input,select,textarea{
+  width:100%;
+  border:1px solid #35405b;
+  background:#0d1220;
+  color:var(--text);
+  border-radius:10px;
+  padding:10px 11px;
+  font:inherit;
+}
+textarea{resize:vertical;min-height:78px}
+button{
+  border:1px solid #3f4a68;
+  background:#20283b;
+  color:var(--text);
+  border-radius:10px;
+  padding:10px 13px;
+  font:inherit;
+  cursor:pointer;
+}
+button:hover{border-color:#6f7ca5}
+button.primary{
+  background:var(--purple);
+  border-color:var(--purple);
+  color:white;
+}
+button.danger{border-color:#713341;color:#ffc0ca;background:#2a151b}
+.button-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:13px}
+.character{
+  margin-top:14px;
+  border-top:1px solid var(--line);
+  padding-top:12px;
+}
+.small{font-size:13px;color:var(--muted)}
+.kv{
+  display:grid;
+  grid-template-columns:1fr auto;
+  gap:6px 12px;
+  font-size:13px;
+  margin-top:10px;
+}
+.kv span:nth-child(even){color:#fff}
+.chat-panel{
+  min-height:720px;
+  display:flex;
+  flex-direction:column;
+}
+.transcript{
+  padding:18px;
+  flex:1;
+  min-height:480px;
+  max-height:67vh;
+  overflow:auto;
+}
+.message{
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:13px 15px;
+  margin-bottom:12px;
+  white-space:pre-wrap;
+  line-height:1.52;
+}
+.message.user{background:#171527;border-color:#43336f}
+.message.assistant{background:#111a22;border-color:#2d4b59}
+.message .meta{
+  color:var(--muted);
+  font-size:12px;
+  margin-bottom:7px;
+}
+.sources{
+  margin-top:10px;
+  padding-top:9px;
+  border-top:1px dashed #34405a;
+  color:#b9c6e7;
+  font-size:12px;
+}
+.composer{
+  border-top:1px solid var(--line);
+  padding:14px;
+  background:#0f1421;
+}
+.composer textarea{min-height:92px}
+.deck-card{
+  border:1px solid #4a3d68;
+  background:#171327;
+  border-radius:12px;
+  padding:12px;
+  margin-top:10px;
+}
+.deck-card strong{display:block;margin-bottom:5px}
+.roll-result{
+  margin-top:12px;
+  border:1px solid var(--line);
+  background:#0d1220;
+  border-radius:12px;
+  padding:12px;
+  min-height:80px;
+  white-space:pre-wrap;
+}
+.notice{
+  padding:10px 12px;
+  border:1px solid #6d592c;
+  background:#241f13;
+  color:#ead18d;
+  border-radius:10px;
+  font-size:13px;
+  line-height:1.4;
+}
+.footer-note{
+  text-align:center;
+  color:var(--muted);
+  padding:8px 20px 24px;
+  font-size:12px;
+}
+@media(max-width:1100px){
+  main{grid-template-columns:300px 1fr}
+  .right-column{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;gap:16px}
+}
+@media(max-width:760px){
+  main{display:block;padding:10px}
+  .panel{margin-bottom:12px}
+  .right-column{display:block}
+  .chat-panel{min-height:650px}
+}
+</style>
+</head>
+<body>
+<header>
+  <h1>Necroscope Campaign Room</h1>
+  <p>Private, page-grounded play with Agent Fox.</p>
+  <div class="status-row">
+    <span id="sourceStatus" class="badge">Source index…</span>
+    <span id="modelStatus" class="badge">Local model…</span>
+    <span id="deckStatus" class="badge">Story deck…</span>
+  </div>
+</header>
+
+<main>
+  <section class="panel">
+    <h2>Campaign & Character</h2>
+    <div class="panel-body">
+      <label for="campaignName">Campaign name</label>
+      <input id="campaignName">
+
+      <label for="playerName">Player</label>
+      <input id="playerName">
+
+      <label for="characterName">Character name</label>
+      <input id="characterName">
+
+      <label for="role">Quick-start role</label>
+      <select id="role"></select>
+
+      <label for="canonMode">Canon mode</label>
+      <select id="canonMode">
+        <option>Canon + Original Gaps</option>
+        <option>Canon Only</option>
+      </select>
+
+      <label for="deckMode">Deck mode</label>
+      <select id="deckMode">
+        <option>Agent-Managed</option>
+        <option>Visible</option>
+        <option>Off</option>
+      </select>
+
+      <label for="notes">Campaign notes</label>
+      <textarea id="notes" placeholder="Tone, boundaries, preferred themes, character details…"></textarea>
+
+      <div class="button-row">
+        <button id="saveSetup" class="primary">Save Setup</button>
+        <button id="startCampaign">Start First Scene</button>
+      </div>
+
+      <div id="characterBox" class="character"></div>
+    </div>
+  </section>
+
+  <section class="panel chat-panel">
+    <h2>Agent Fox</h2>
+    <div id="transcript" class="transcript">
+      <div class="notice">
+        Start Fast Talk or Creative Brain in FOXAI Artificial Minds. Agent Fox
+        will search your private Necroscope index before every turn.
+      </div>
+    </div>
+    <div class="composer">
+      <label for="action">What do you do?</label>
+      <textarea id="action" placeholder="Describe your action, question, dialogue, or investigation…"></textarea>
+      <div class="button-row">
+        <button id="sendAction" class="primary">Send to Agent Fox</button>
+        <button id="refreshState">Refresh</button>
+      </div>
+      <div id="chatStatus" class="small" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <div class="right-column">
+    <section class="panel">
+      <h2>Agent-Managed Story Deck</h2>
+      <div class="panel-body">
+        <div class="notice">
+          This is an original FOXAI proxy deck, not a transcription of the
+          copyrighted MasterDeck. Agent Fox quietly checks it every third turn.
+        </div>
+        <div id="deckSummary" class="small" style="margin-top:12px"></div>
+        <div id="lastCard"></div>
+        <div class="button-row">
+          <button id="revealDeck">Reveal State</button>
+          <button id="drawCard">Draw & Apply Now</button>
+          <button id="resetDeck">Reshuffle</button>
+        </div>
+        <pre id="deckReveal" class="roll-result" hidden></pre>
+      </div>
+    </section>
+
+    <section class="panel" style="margin-top:16px">
+      <h2>MasterBook Roll</h2>
+      <div class="panel-body">
+        <label for="skillValue">Skill value</label>
+        <input id="skillValue" type="number" value="12">
+
+        <label for="difficulty">Difficulty Number</label>
+        <input id="difficulty" type="number" value="10">
+
+        <label for="effectValue">Effect Value</label>
+        <input id="effectValue" type="number" value="0">
+
+        <div class="button-row">
+          <button id="rollDice" class="primary">Roll 2d10</button>
+        </div>
+        <div id="rollResult" class="roll-result">No roll yet.</div>
+      </div>
+    </section>
+
+    <section class="panel" style="margin-top:16px">
+      <h2>Campaign Safety</h2>
+      <div class="panel-body small">
+        <p>Source PDFs and the SQLite index remain read-only.</p>
+        <p>Campaign state is saved only under <code>Projects\NecroscopeCampaign\CampaignRoomV1</code>.</p>
+        <p>The local model endpoint is <code>127.0.0.1:8080</code>. No internet service is required.</p>
+        <div class="button-row">
+          <button id="resetCampaign" class="danger">Archive & Reset Campaign</button>
+        </div>
+      </div>
+    </section>
+  </div>
+</main>
+
+<div class="footer-note">
+  FOXAI Necroscope Campaign Room V1 — local private play.
+</div>
+
+<script>
+const q=id=>document.getElementById(id);
+let current=null;
+let roles={};
+
+async function api(path, options={}){
+  const response=await fetch(path,{
+    headers:{'Content-Type':'application/json'},
+    ...options
+  });
+  return response.json();
+}
+
+function esc(value){
+  return String(value??'').replace(/[&<>"']/g,ch=>({
+    '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+  })[ch]);
+}
+
+function renderCharacter(){
+  if(!current)return;
+  const character=current.character||{};
+  const attributes=character.attributes||{};
+  const skills=character.skills||{};
+  q('characterBox').innerHTML=`
+    <strong>${esc(current.role)}</strong>
+    <p class="small">${esc(character.summary||'')}</p>
+    <div class="small"><b>Talent:</b> ${esc(character.talent||'None')}</div>
+    <div class="kv">
+      ${Object.entries(attributes).map(([k,v])=>`<span>${esc(k)}</span><span>${esc(v)}</span>`).join('')}
+    </div>
+    <p class="small"><b>Key skills:</b><br>
+      ${Object.entries(skills).map(([k,v])=>`${esc(k)} ${esc(v)}`).join(' · ')}
+    </p>
+    <p class="small"><b>Equipment:</b> ${esc(character.equipment||'')}</p>
+  `;
+}
+
+function renderTranscript(){
+  const transcript=current?.transcript||[];
+  if(!transcript.length){
+    q('transcript').innerHTML=`
+      <div class="notice">
+        Save your setup, start a local model in Artificial Minds, then press
+        <b>Start First Scene</b>.
+      </div>`;
+    return;
+  }
+  q('transcript').innerHTML=transcript.map(item=>{
+    const sources=(item.sources||[]).map(source=>
+      `${esc(source.title)}, PDF p. ${esc(source.page_number)}`
+    ).join('<br>');
+    const card=item.story_card
+      ?`<div class="sources">Story Deck: ${esc(item.story_card.title)} — ${esc(item.story_card.effect)}</div>`
+      :'';
+    return `
+      <div class="message ${item.role==='user'?'user':'assistant'}">
+        <div class="meta">${item.role==='user'?'You':'Agent Fox'} · ${esc(item.created||'')}</div>
+        ${esc(item.content||'')}
+        ${sources?`<div class="sources"><b>Retrieved sources</b><br>${sources}</div>`:''}
+        ${card}
+      </div>`;
+  }).join('');
+  q('transcript').scrollTop=q('transcript').scrollHeight;
+}
+
+function renderCard(card){
+  if(!card){
+    q('lastCard').innerHTML='';
+    return;
+  }
+  q('lastCard').innerHTML=`
+    <div class="deck-card">
+      <strong>${esc(card.title)}</strong>
+      <span class="small">${esc(card.category)} · ${esc(card.effect)}</span>
+    </div>`;
+}
+
+async function refresh(){
+  const data=await api('/api/status');
+  if(!data.ok)return;
+  current=data.state;
+  roles=data.roles||{};
+
+  q('sourceStatus').textContent=data.source_index_ready?'Source index ready':'Source index missing';
+  q('sourceStatus').className='badge '+(data.source_index_ready?'ok':'bad');
+  q('modelStatus').textContent=data.local_model_online?'Local model online':'Local model stopped';
+  q('modelStatus').className='badge '+(data.local_model_online?'ok':'warn');
+  q('deckStatus').textContent=`Deck: ${data.deck.mode}`;
+  q('deckStatus').className='badge ok';
+
+  q('campaignName').value=current.campaign_name||'';
+  q('playerName').value=current.player_name||'';
+  q('characterName').value=current.character_name||'';
+  q('canonMode').value=current.canon_mode||'Canon + Original Gaps';
+  q('deckMode').value=current.deck_mode||'Agent-Managed';
+  q('notes').value=current.notes||'';
+
+  q('role').innerHTML=Object.keys(roles)
+    .map(role=>`<option>${esc(role)}</option>`).join('');
+  q('role').value=current.role||Object.keys(roles)[0];
+
+  q('deckSummary').textContent=
+    `${data.deck.remaining} cards remain · ${data.deck.held_count} hidden Edge cards · ${data.deck.discarded} discarded`;
+  renderCard(data.deck.last_applied);
+  renderCharacter();
+  renderTranscript();
+}
+
+async function saveSetup(){
+  q('chatStatus').textContent='Saving setup…';
+  const data=await api('/api/setup',{
+    method:'POST',
+    body:JSON.stringify({
+      campaign_name:q('campaignName').value,
+      player_name:q('playerName').value,
+      character_name:q('characterName').value,
+      role:q('role').value,
+      canon_mode:q('canonMode').value,
+      deck_mode:q('deckMode').value,
+      notes:q('notes').value,
+    })
+  });
+  q('chatStatus').textContent=data.ok?'Setup saved.':data.message||'Save failed.';
+  await refresh();
+}
+
+async function startCampaign(){
+  q('chatStatus').textContent='Agent Fox is preparing the opening scene…';
+  const data=await api('/api/start',{method:'POST',body:'{}'});
+  q('chatStatus').textContent=data.ok?'Opening scene ready.':data.message||'Could not start.';
+  await refresh();
+}
+
+async function sendAction(){
+  const message=q('action').value.trim();
+  if(!message)return;
+  q('sendAction').disabled=true;
+  q('chatStatus').textContent='Agent Fox is searching the books and resolving the turn…';
+  const data=await api('/api/chat',{
+    method:'POST',
+    body:JSON.stringify({message})
+  });
+  q('sendAction').disabled=false;
+  if(data.ok){
+    q('action').value='';
+    q('chatStatus').textContent='Turn complete.';
+  }else{
+    q('chatStatus').textContent=data.message||'Turn failed.';
+  }
+  await refresh();
+}
+
+async function rollDice(){
+  const data=await api('/api/roll',{
+    method:'POST',
+    body:JSON.stringify({
+      skill:Number(q('skillValue').value),
+      difficulty:Number(q('difficulty').value),
+      effect_value:Number(q('effectValue').value),
+    })
+  });
+  if(!data.ok){
+    q('rollResult').textContent=data.message||'Roll failed.';
+    return;
+  }
+  const r=data.roll;
+  const explosion=r.explosions.length?` + explosions ${r.explosions.join(', ')}`:'';
+  q('rollResult').textContent=
+`Dice: ${r.dice.join(' + ')}${explosion}
+Roll total: ${r.roll_total}
+Bonus Number: ${r.bonus_number>=0?'+':''}${r.bonus_number}
+Skill ${r.skill} → Action Total ${r.action_total}
+DN ${r.difficulty_number} → Result Points ${r.result_points}
+${r.success?'SUCCESS':'FAILURE'}
+Final Effect: ${r.final_effect}`;
+}
+
+async function revealDeck(){
+  const data=await api('/api/deck/reveal');
+  if(!data.ok)return;
+  q('deckReveal').hidden=false;
+  q('deckReveal').textContent=JSON.stringify(data.deck,null,2);
+}
+
+async function drawCard(){
+  const data=await api('/api/deck/draw',{method:'POST',body:'{}'});
+  if(data.ok)renderCard(data.card);
+  await refresh();
+}
+
+async function resetDeck(){
+  if(!confirm('Reshuffle the FOXAI Story Deck?'))return;
+  await api('/api/deck/reset',{method:'POST',body:'{}'});
+  q('deckReveal').hidden=true;
+  await refresh();
+}
+
+async function resetCampaign(){
+  if(!confirm('Archive this campaign state and begin a new one?'))return;
+  const data=await api('/api/campaign/reset',{method:'POST',body:'{}'});
+  q('chatStatus').textContent=data.message||'Campaign reset.';
+  await refresh();
+}
+
+q('saveSetup').addEventListener('click',saveSetup);
+q('startCampaign').addEventListener('click',startCampaign);
+q('sendAction').addEventListener('click',sendAction);
+q('refreshState').addEventListener('click',refresh);
+q('rollDice').addEventListener('click',rollDice);
+q('revealDeck').addEventListener('click',revealDeck);
+q('drawCard').addEventListener('click',drawCard);
+q('resetDeck').addEventListener('click',resetDeck);
+q('resetCampaign').addEventListener('click',resetCampaign);
+q('role').addEventListener('change',()=>{
+  current.role=q('role').value;
+  current.character=roles[current.role];
+  renderCharacter();
+});
+q('action').addEventListener('keydown',event=>{
+  if(event.key==='Enter'&&event.ctrlKey)sendAction();
+});
+
+refresh();
+setInterval(refresh,10000);
+</script>
+</body>
+</html>

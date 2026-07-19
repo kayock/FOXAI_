@@ -505,6 +505,91 @@ Copyright © 2003 by Eric Z. Fox""",
 }
 
 
+# POETRY_VOICE_PACK_V1_START
+
+ADDITIONAL_POETRY_VOICE_PROFILES = {'edgar_allan_poe_gothic_lyric': {'id': 'edgar_allan_poe_gothic_lyric', 'name': 'Edgar Allan Poe — Gothic Lyric', 'kind': 'public_domain_style_reference', 'author': 'Public-domain literary tradition', 'default_strength': 'Gothic Lyric', 'source_titles': ['The Raven', 'Annabel Lee', 'The Bells', 'Alone', 'The Haunted Palace'], 'traits': ['musical cadence shaped by internal rhyme, alliteration, and refrain', 'grief, memory, obsession, dream, dread, beauty, and mortality', 'ornate language balanced by a clear emotional center', 'gothic rooms, storms, bells, moonlight, shadows, tombs, and thresholds', 'a dramatic speaker whose certainty may be wounded or unreliable', 'sound patterns that intensify rather than merely decorate', 'an ending that closes like a door, tolling bell, or final revelation'], 'strength_rules': {'candlelit influence': 'Use a light gothic influence: musical phrasing, shadowed imagery, and restrained melancholy. Keep the language accessible.', 'gothic lyric': 'Use a clear gothic lyric voice: deliberate sound, internal rhyme when natural, haunted beauty, emotional obsession, and a memorable refrain or closing image.', 'midnight full force': 'Use full gothic intensity: incantatory cadence, layered sound, dramatic atmosphere, psychological dread, tragic beauty, and a powerful final turn. Avoid empty purple prose.'}, 'originality_rules': ['Do not reproduce or closely paraphrase a famous line, refrain, title, or plot.', 'Do not insert a raven, Lenore-like beloved, telltale heart, or other signature device unless the operator independently requests it.', 'Create a new speaker, situation, imagery sequence, rhyme design, and ending.']}, 'beneath_the_beats_west_coast_voice': {'id': 'beneath_the_beats_west_coast_voice', 'name': 'Beneath the Beats — West Coast Voice', 'kind': 'original_trait_composite', 'author': 'Original FOXAI craft profile', 'default_strength': 'Truth & Defiance', 'source_titles': [], 'traits': ['plainspoken emotional truth that sounds natural when read aloud', 'family, loyalty, abandonment, poverty, injustice, survival, responsibility, and hope', 'controlled anger beside vulnerability, humor, tenderness, and self-examination', 'strong internal rhyme, conversational cadence, and flexible line length', 'cinematic street-level scenes built from specific physical details', 'compact turns of phrase that carry consequence without decorative filler', 'a closing statement that feels earned rather than inspirational by default'], 'strength_rules': {'light west coast influence': 'Use a light spoken-word influence: direct language, natural cadence, one or two internal rhymes, and grounded emotional honesty.', 'truth & defiance': 'Balance vulnerability and resistance. Use conversational rhythm, internal rhyme, concrete social reality, loyalty, contradiction, and a forceful but human conclusion.', 'full spoken-word force': 'Use full performance energy: layered internal rhyme, sharp scene changes, controlled anger, dark humor, confession, social pressure, and lines designed to strike when spoken aloud.'}, 'originality_rules': ['Do not quote, remix, paraphrase, or continue any copyrighted poem or lyric.', 'Do not imitate or name a specific rapper, performer, song, album, persona, or signature phrase.', 'Use wholly original wording, scenes, rhyme patterns, arguments, and endings.']}, 'dust_and_duty_last_gunslinger': {'id': 'dust_and_duty_last_gunslinger', 'name': 'Dust and Duty — Last Gunslinger Voice', 'kind': 'original_fictional_archetype', 'author': 'Original FOXAI fictional archetype', 'default_strength': 'The Gunslinger’s Oath', 'source_titles': [], 'traits': ['spare deliberate language spoken by a traveler who has survived too much', 'duty, old promises, found family, sacrifice, guilt, endurance, and unfinished roads', 'old-west frontier imagery joined to fantasy ruins and failing science-fiction machinery', 'strange stars, empty stations, worn weapons, broken radios, dry towns, and impossible horizons', 'campfire stew in a blackened iron pot, tin cups, quiet fellowship, and making sure everyone eats', 'grief carried through action and silence rather than long explanation', 'small moments of tenderness from someone trained to keep walking'], 'strength_rules': {'quiet resolve': 'Use restrained frontier language, one strong image at a time, quiet loyalty, and grief shown through action.', 'the gunslinger’s oath': 'Balance old vows, frontier fantasy, ruined technology, found family, campfire fellowship, and the cost of completing the road.', 'last road, full force': 'Use the full dying-world atmosphere: severe cadence, strange stars, ancient duty, broken machines, remembered companions, hard choices, and tenderness hidden beneath iron resolve.'}, 'originality_rules': ['Do not use protected character names, place names, cosmology, catchphrases, artifacts, recipes, or franchise terminology.', 'Do not recreate a scene or plot from an existing western, fantasy, or science-fiction work.', 'Build a wholly original traveler, road, world, fellowship, meal, mission, and ending.']}, 'the_forsaken_flame_exiles_voice': {'id': 'the_forsaken_flame_exiles_voice', 'name': 'The Forsaken Flame — Exile’s Voice', 'kind': 'public_domain_character_tradition', 'author': 'Public-domain Frankenstein tradition', 'default_strength': 'Beautiful and Unwanted', 'source_titles': ['Frankenstein; or, The Modern Prometheus (1818)'], 'traits': ['eloquent intelligence formed in isolation and sharpened by rejection', 'a desperate wish to be seen, taught, loved, named, and answered', 'tender observation of ordinary human warmth from outside the window', 'abandonment, judgment, responsibility, identity, rage, remorse, and moral contradiction', 'beautiful formal language that can turn suddenly raw and accusatory', 'the question of whether cruelty is born, made, chosen, or imposed', 'fire as warmth, knowledge, creation, pain, destruction, and surviving light'], 'strength_rules': {'lonely wanderer': 'Use restrained eloquence, solitude, wonder, and a quiet wish for human recognition. Keep anger beneath the surface.', 'beautiful and unwanted': 'Balance intellectual beauty, tenderness, abandonment, accusation, self-questioning, and the pain of being judged before being known.', 'forsaken flame': 'Use full tragic intensity: formal eloquence, moral argument, longing, rage, remorse, fire imagery, creator-and-created tension, and an ending that leaves both speaker and listener implicated.'}, 'originality_rules': ['Do not copy or closely paraphrase passages from Frankenstein.', 'Do not simply retell the creature’s biography or reproduce its plot.', 'Create a new exile, circumstances, imagery sequence, conflict, and conclusion.']}}
+
+POETRY_VOICE_PROFILES = {
+    "eric_poet_narrator": ERIC_POET_NARRATOR_PROFILE,
+    **ADDITIONAL_POETRY_VOICE_PROFILES,
+}
+
+POETRY_VOICE_NAME_TO_ID = {
+    profile["name"].strip().casefold(): profile_id
+    for profile_id, profile in POETRY_VOICE_PROFILES.items()
+}
+
+
+def _writer_voice_profile_id(voice: str = "") -> str:
+    return POETRY_VOICE_NAME_TO_ID.get(
+        str(voice or "").strip().casefold(),
+        "",
+    )
+
+
+def _writer_voice_profile_name(profile_id: str = "") -> str:
+    profile = POETRY_VOICE_PROFILES.get(str(profile_id or "").strip())
+    return str(profile.get("name") or "") if profile else ""
+
+
+def _writer_additional_voice_prompt(
+    profile: dict,
+    strength: str,
+) -> str:
+    strength_rules = profile.get("strength_rules") or {}
+    strength_key = str(strength or "").strip().casefold()
+    strength_rule = strength_rules.get(strength_key)
+    if not strength_rule:
+        default_key = str(
+            profile.get("default_strength") or ""
+        ).strip().casefold()
+        strength_rule = strength_rules.get(
+            default_key,
+            "Use the profile traits with restraint and keep all writing original.",
+        )
+
+    traits = "\n".join(
+        f"- {item}"
+        for item in profile.get("traits") or []
+    )
+    originality = "\n".join(
+        f"- {item}"
+        for item in profile.get("originality_rules") or []
+    )
+    titles = profile.get("source_titles") or []
+    source_note = (
+        "\nReference tradition or titles:\n"
+        + "\n".join(f"- {title}" for title in titles)
+        if titles else
+        "\nNo copyrighted source text is stored in this profile."
+    )
+
+    return f"""
+{profile.get("name","POETRY VOICE PROFILE").upper()}
+Profile kind: {profile.get("kind","creative_profile")}
+Strength: {strength or profile.get("default_strength","balanced")}
+
+Purpose:
+Create wholly new poetry guided by broad craft traits. The operator’s theme,
+emotion, imagery, opening line, and existing poem remain the primary authority.
+
+Voice fingerprint:
+{traits}
+
+Strength instruction:
+{strength_rule}
+
+Originality and boundary rules:
+{originality}
+- Never reproduce a recognizable passage from another work.
+- Never allow the profile to override the operator’s meaning or lived experience.
+- Keep the result a new poem rather than a parody, pastiche exercise, or sequel.
+{source_note}
+""".strip()
+
+# POETRY_VOICE_PACK_V1_END
+
+
 _STRENGTH_RULES = {
     "light influence": (
         "Use only a light influence: emotional directness, purposeful cadence, "
@@ -529,20 +614,30 @@ _STRENGTH_RULES = {
 def get_writer_voice_profile(
     profile_id: str = "eric_poet_narrator",
 ) -> dict | None:
-    if str(profile_id or "").strip().casefold() != "eric_poet_narrator":
+    profile = POETRY_VOICE_PROFILES.get(
+        str(profile_id or "").strip(),
+    )
+    if profile is None:
         return None
-    return json.loads(json.dumps(ERIC_POET_NARRATOR_PROFILE))
+    return json.loads(json.dumps(profile))
 
 
 def build_writer_voice_prompt(
     profile_id: str,
-    strength: str = "Recognizably Eric",
+    strength: str = "",
 ) -> str:
     profile = get_writer_voice_profile(profile_id)
     if profile is None:
         return ""
 
-    strength_key = str(strength or "Recognizably Eric").strip().casefold()
+    if profile_id != "eric_poet_narrator":
+        return _writer_additional_voice_prompt(
+            profile,
+            strength or profile.get("default_strength") or "balanced",
+        )
+
+    resolved_strength = strength or "Recognizably Eric"
+    strength_key = str(resolved_strength).strip().casefold()
     strength_rule = _STRENGTH_RULES.get(
         strength_key,
         _STRENGTH_RULES["recognizably eric"],
@@ -559,7 +654,7 @@ def build_writer_voice_prompt(
     return f"""
 ERIC — POET/NARRATOR VOICE PROFILE
 Author: Eric Z. Fox
-Strength: {strength}
+Strength: {resolved_strength}
 
 Purpose:
 Use the protected poems below only as evidence of the writer's tendencies.
@@ -584,6 +679,7 @@ Non-copying rules:
 Protected read-only source poems:
 {sources}
 """.strip()
+
 # ERIC_POET_NARRATOR_PROFILE_V1_END
 
 # MISSION_IMAGE_CONTINUITY_REPAIR_PHASE1_HELPERS_START
@@ -1013,7 +1109,7 @@ HTML=r"""<!doctype html><html><head><meta charset=utf-8><title>Kayock Command OS
 body{margin:0;background:radial-gradient(circle at 12% 8%,#8f5cff33,transparent 28%),radial-gradient(circle at 88% 12%,#23d7ff16,transparent 26%),linear-gradient(135deg,#04050b,#0d0f1a 58%,#05060b);color:var(--t);font-family:Segoe UI,system-ui,sans-serif}
 .app{display:grid;grid-template-columns:285px 1fr;min-height:100vh}
 aside{border-right:1px solid #8f5cff35;padding:18px 16px;background:#0007;position:sticky;top:0;height:100vh;overflow:auto;backdrop-filter:blur(10px)}
-main{padding:24px}
+main{padding:24px 24px 96px}
 .logo{width:76px;height:76px;border:1px solid #8f5cff66;border-radius:22px;display:grid;place-items:center;color:var(--p2);font-size:36px;font-weight:900;box-shadow:0 0 28px #8f5cff22;background:#8f5cff10}
 h1{color:var(--p2);margin:14px 0 3px;font-size:28px;letter-spacing:.04em}
 .sub,.small{color:var(--m);font-size:13px}
@@ -1096,17 +1192,57 @@ td,th{border-bottom:1px solid #8f5cff18;padding:9px;text-align:left}
 .writerContinue{display:flex;gap:12px;align-items:center;flex-wrap:wrap}.writerContinue h3{margin:0 auto 0 0}.writerAdvancedHome{padding:0;overflow:hidden}.writerAdvancedHome>summary{cursor:pointer;padding:16px 18px;font-weight:900;color:var(--m);list-style:none}.writerAdvancedHome>summary::-webkit-details-marker{display:none}.writerAdvancedHome>summary:after{content:'▸';float:right}.writerAdvancedHome[open]>summary:after{transform:rotate(90deg)}.writerAdvancedBody{padding:0 18px 18px}.writerAdvancedBody p{color:var(--m)}
 .writerWorkspace{display:grid;grid-template-columns:minmax(300px,.85fr) minmax(420px,1.15fr);gap:16px}.writerField{margin-bottom:12px}.writerField label{display:block;color:var(--m);font-size:12px;font-weight:900;margin:0 0 6px}.writerField textarea{min-height:84px}.poemOutput{min-height:470px;font-family:Georgia,'Times New Roman',serif;font-size:17px;line-height:1.62}.poemActions{display:flex;gap:8px;flex-wrap:wrap}.poemStatus{margin-top:10px;border-left:3px solid var(--a);padding:10px 12px;background:#8f5cff0c;border-radius:0 12px 12px 0}.poemPolisher{margin-top:14px;border:1px solid #8f5cff2f;border-radius:16px;background:#090b14}.poemPolisher>summary{cursor:pointer;padding:12px 14px;font-weight:900;color:var(--p2)}.poemPolisherBody{padding:0 14px 14px}.poemPolisher textarea{min-height:220px;font-family:Georgia,'Times New Roman',serif;font-size:16px;line-height:1.55}
 .poemCompareActions{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0}.poemCompareActions button{margin:0}.poemStateBadge{display:inline-block;border:1px solid #8f5cff55;border-radius:999px;padding:4px 9px;margin-right:7px;color:var(--p2);font-family:Consolas,monospace;font-size:11px;font-weight:900}.poemVersionNote{color:var(--m);font-size:12px;margin:8px 0 0}
+.selectionWorkshop{margin-top:14px;border:1px solid #23d7ff38;border-radius:16px;background:#071018}.selectionWorkshop>summary{cursor:pointer;padding:12px 14px;font-weight:900;color:#dff9ff}.selectionWorkshopBody{padding:0 14px 14px}.selectionCapture{display:grid;grid-template-columns:minmax(280px,1fr) minmax(220px,.7fr);gap:12px}.selectionCapture textarea{min-height:160px;font-family:Georgia,'Times New Roman',serif;font-size:16px;line-height:1.55}.selectionAltGrid{display:grid;grid-template-columns:repeat(3,minmax(210px,1fr));gap:10px;margin-top:12px}.selectionAlt{border:1px solid #23d7ff33;border-radius:14px;background:#050b11;padding:10px}.selectionAlt h4{margin:0 0 7px;color:#dff9ff}.selectionAlt textarea{min-height:190px;font-family:Georgia,'Times New Roman',serif;font-size:15px;line-height:1.5}.selectionAlt button{width:100%;margin-top:8px}.selectionHint{color:var(--m);font-size:12px;line-height:1.45}.selectionStatus{margin-top:10px;border-left:3px solid var(--c);padding:9px 11px;background:#23d7ff0b;border-radius:0 10px 10px 0}
+.rhymeCoach{margin-top:14px;border:1px solid #ffd16655;border-radius:16px;background:#120f07}.rhymeCoach>summary{cursor:pointer;padding:12px 14px;font-weight:900;color:#ffe3a1}.rhymeCoachBody{padding:0 14px 14px}.rhymeCoachIntro{color:var(--m);line-height:1.45}.rhymeCoachControls{display:grid;grid-template-columns:minmax(220px,1fr) auto;gap:10px;align-items:end;margin:10px 0}.rhymeCoachResults{display:grid;gap:12px}.rhymeStanza{border:1px solid #ffd1663d;background:#ffd16608;border-radius:16px;padding:13px}.rhymeStanzaHead{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:8px}.rhymeStanzaHead h4{margin:0 auto 0 0;color:#fff}.rhymeBadge{display:inline-block;border:1px solid #ffd16666;border-radius:999px;padding:3px 8px;color:var(--w);font-family:Consolas,monospace;font-size:10px;font-weight:900}.rhymeBadge.good{border-color:#42ff9e66;color:var(--g)}.rhymeBadge.loose{border-color:#ff9f4366;color:var(--orange)}.rhymeSummary{font-family:Consolas,monospace;font-size:12px;color:#efe4c7;white-space:pre-wrap}.rhymeLineGrid{display:grid;gap:5px;margin:9px 0}.rhymeLine{display:grid;grid-template-columns:34px minmax(0,1fr) 76px 90px;gap:8px;align-items:center;border-bottom:1px solid #ffd16618;padding:5px 0;font-size:12px}.rhymeLineNo{color:var(--m);font-family:Consolas,monospace}.rhymeLineText{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.rhymeMetric{font-family:Consolas,monospace;color:#ffe3a1}.rhymeCoachEmpty{color:var(--m);padding:12px;border:1px dashed #ffd16635;border-radius:13px}.rhymeDisclaimer{color:var(--m);font-size:11px;margin-top:8px}.rhymeStanzaActions{display:flex;gap:8px;flex-wrap:wrap;margin-top:9px}
+@media(max-width:1150px){.selectionAltGrid{grid-template-columns:1fr}.selectionCapture{grid-template-columns:1fr}}@media(max-width:780px){.rhymeCoachControls{grid-template-columns:1fr}.rhymeLine{grid-template-columns:28px minmax(0,1fr) 62px}.rhymeLine .rhymeKey{display:none}}
 .worldIntro{display:grid;grid-template-columns:1fr 240px;gap:12px;align-items:end}.worldTaskGrid{display:grid;grid-template-columns:repeat(2,minmax(250px,1fr));gap:12px}.worldTask{border:1px solid #23d7ff35;background:#23d7ff08;border-radius:18px;padding:16px;display:flex;flex-direction:column;min-height:165px}.worldTask h3{margin:0 0 7px;color:#dff9ff}.worldTask p{color:var(--m);margin:0 0 12px;line-height:1.4}.worldTask button{margin-top:auto}.myWritingGrid{display:grid;grid-template-columns:repeat(2,minmax(260px,1fr));gap:14px}.myWritingCard{border:1px solid #8f5cff35;border-radius:18px;padding:17px;background:#ffffff04}.myWritingCard h3{margin:0 0 7px}.myWritingCard p{color:var(--m);line-height:1.4}.myWritingCard button{width:100%;margin-top:8px}
 .voiceProfileBox{border:1px solid #ff5ccf55;background:#ff5ccf09;border-radius:16px;padding:12px;margin:-2px 0 13px}.voiceProfileBox[hidden]{display:none}.voiceProfileHead{font-weight:900;color:#ffd8f5;margin-bottom:6px}.voiceProfileSources{color:var(--m);font-size:12px;line-height:1.45}.voiceProfileBadge{display:inline-block;border:1px solid #ff5ccf66;border-radius:999px;padding:3px 8px;margin:5px 4px 0 0;color:#ffd8f5;font-family:Consolas,monospace;font-size:10px}.voiceProfileNotice{border-left:3px solid #ff5ccf;padding:8px 10px;margin-top:9px;background:#ff5ccf0b;border-radius:0 10px 10px 0;color:#f7dbef;font-size:12px}
-.poemArchiveToolbar{display:grid;grid-template-columns:minmax(240px,1fr) 210px auto;gap:10px;align-items:end;margin-bottom:14px}.poemArchiveLayout{display:grid;grid-template-columns:minmax(320px,.82fr) minmax(460px,1.18fr);gap:16px}.poemArchiveList{display:grid;gap:10px;max-height:720px;overflow:auto;padding-right:3px}.poemArchiveCard{width:100%;text-align:left;margin:0;border:1px solid #8f5cff35;background:linear-gradient(180deg,#171a29,#10121d);border-radius:16px;padding:14px;color:var(--t)}.poemArchiveCard:hover,.poemArchiveCard.selected{border-color:#ff5ccf88;background:linear-gradient(180deg,#2a1730,#151522)}.poemArchiveCard h3{margin:0 0 6px;color:#fff}.poemArchiveMeta{color:var(--m);font:11px/1.45 Consolas,monospace;overflow-wrap:anywhere}.poemArchiveBadges{display:flex;gap:5px;flex-wrap:wrap;margin:8px 0}.poemArchiveBadge{display:inline-block;border:1px solid #8f5cff55;border-radius:999px;padding:3px 8px;color:var(--p2);font:10px Consolas,monospace}.poemArchiveBadge.legacy{border-color:#ffd16677;color:var(--w);background:#ffd1660c}.poemArchiveBadge.voice{border-color:#ff5ccf77;color:#ffd8f5;background:#ff5ccf0b}.poemArchiveBadge.ready{border-color:#42ff9e77;color:var(--g);background:#42ff9e0b}.poemArchiveDetailEmpty{min-height:420px;display:grid;place-items:center;color:var(--m);text-align:center}.poemArchiveHeader{border-bottom:1px solid #8f5cff28;padding-bottom:12px;margin-bottom:12px}.poemArchiveHeader h2{margin:0 0 5px;color:#fff}.poemArchiveActions{display:flex;gap:7px;flex-wrap:wrap;margin:10px 0}.poemArchiveCompare{display:grid;grid-template-columns:1fr 1fr;gap:12px}.poemArchiveVersion{border:1px solid #8f5cff2f;border-radius:16px;background:#080a12;padding:12px;min-width:0}.poemArchiveVersion h3{margin:0 0 8px;color:var(--p2)}.poemArchiveText{white-space:pre-wrap;font:16px/1.58 Georgia,'Times New Roman',serif;color:#f6f0ff;max-height:520px;overflow:auto;margin:0}.poemArchiveSlots{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0}.poemArchiveSlot{border:1px solid #8f5cff2f;border-radius:13px;padding:10px;background:#ffffff04}.poemArchiveSlot b{display:block;margin-bottom:4px}.poemArchiveSlot .found{color:var(--g)}.poemArchiveSlot .missing{color:var(--m)}.poemArchiveMilestone{border:1px solid #ffd16666;background:radial-gradient(circle at 0 0,#ffd1661d,transparent 45%),linear-gradient(180deg,#1a1720,#11131f)}.poemArchiveMilestone h3{color:var(--w);margin:0 0 6px}.poemArchiveHistory{margin-top:12px;border-top:1px solid #8f5cff25;padding-top:10px}.poemArchiveHistoryRow{display:grid;grid-template-columns:90px 1fr auto;gap:8px;align-items:center;padding:7px 0;border-bottom:1px solid #8f5cff16;font:11px Consolas,monospace}.poemArchiveHistoryRow button{padding:6px 8px;margin:0;font-size:11px}.poemArchiveStatus{color:var(--m);font-size:12px;margin-top:7px}
+.poemArchiveToolbar{display:grid;grid-template-columns:minmax(240px,1fr) 210px auto;gap:10px;align-items:end;margin-bottom:14px}.poemArchiveLayout{display:grid;grid-template-columns:minmax(320px,.82fr) minmax(460px,1.18fr);gap:16px}.poemArchiveList{display:grid;gap:10px;max-height:720px;overflow:auto;padding-right:3px}.poemArchiveCard{width:100%;text-align:left;margin:0;border:1px solid #8f5cff35;background:linear-gradient(180deg,#171a29,#10121d);border-radius:16px;padding:14px;color:var(--t)}.poemArchiveCard:hover,.poemArchiveCard.selected{border-color:#ff5ccf88;background:linear-gradient(180deg,#2a1730,#151522)}.poemArchiveCard h3{margin:0 0 6px;color:#fff}.poemArchiveMeta{color:var(--m);font:11px/1.45 Consolas,monospace;overflow-wrap:anywhere}.poemArchiveBadges{display:flex;gap:5px;flex-wrap:wrap;margin:8px 0}.poemArchiveBadge{display:inline-block;border:1px solid #8f5cff55;border-radius:999px;padding:3px 8px;color:var(--p2);font:10px Consolas,monospace}.poemArchiveBadge.legacy{border-color:#ffd16677;color:var(--w);background:#ffd1660c}.poemArchiveBadge.voice{border-color:#ff5ccf77;color:#ffd8f5;background:#ff5ccf0b}.poemArchiveBadge.ready{border-color:#42ff9e77;color:var(--g);background:#42ff9e0b}.poemArchiveDetailEmpty{min-height:420px;display:grid;place-items:center;color:var(--m);text-align:center}.poemArchiveHeader{border-bottom:1px solid #8f5cff28;padding-bottom:12px;margin-bottom:12px}.poemArchiveHeader h2{margin:0 0 5px;color:#fff}.poemArchiveActions{display:flex;gap:7px;flex-wrap:wrap;margin:10px 0}.poemArchiveCompare{display:grid;grid-template-columns:1fr 1fr;gap:12px}.poemArchiveVersion{border:1px solid #8f5cff2f;border-radius:16px;background:#080a12;padding:12px;min-width:0}.poemArchiveVersion h3{margin:0 0 8px;color:var(--p2)}.poemArchiveText{white-space:pre-wrap;font:16px/1.58 Georgia,'Times New Roman',serif;color:#f6f0ff;max-height:520px;overflow:auto;margin:0}.poemArchiveSlots{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0}.poemArchiveSlot{border:1px solid #8f5cff2f;border-radius:13px;padding:10px;background:#ffffff04}.poemArchiveSlot b{display:block;margin-bottom:4px}.poemArchiveSlot .found{color:var(--g)}.poemArchiveSlot .missing{color:var(--m)}.poemArchiveMilestone{border:1px solid #ffd16666;background:radial-gradient(circle at 0 0,#ffd1661d,transparent 45%),linear-gradient(180deg,#1a1720,#11131f)}.poemArchiveMilestone h3{color:var(--w);margin:0 0 6px}.poemArchiveHistory{margin-top:12px;border-top:1px solid #8f5cff25;padding-top:10px}.poemArchiveHistoryRow{display:grid;grid-template-columns:90px 1fr auto;gap:8px;align-items:center;padding:7px 0;border-bottom:1px solid #8f5cff16;font:11px Consolas,monospace}.poemArchiveHistoryRow button{padding:6px 8px;margin:0;font-size:11px}.poemArchiveStatus{color:var(--m);font-size:12px;margin-top:7px}.poemArchivePromptDetails{margin-top:12px;border:1px solid #23d7ff35;border-radius:15px;background:#23d7ff07;padding:12px}.poemArchivePromptDetails>summary{cursor:pointer;color:#dff9ff;font-weight:900}.poemArchivePromptGrid{display:grid;grid-template-columns:repeat(2,minmax(220px,1fr));gap:8px;margin-top:10px}.poemArchivePromptItem{border-left:3px solid #23d7ff;padding:8px 10px;background:#061219;border-radius:0 10px 10px 0;min-width:0}.poemArchivePromptItem b{display:block;color:var(--m);font-size:11px;margin-bottom:4px;text-transform:uppercase;letter-spacing:.05em}.poemArchivePromptItem span{white-space:pre-wrap;overflow-wrap:anywhere}.poemOpenNotice{border-left:3px solid var(--g);padding:9px 11px;margin:8px 0;background:#42ff9e0b;border-radius:0 11px 11px 0;color:#dfffee;font-size:12px}@media(max-width:800px){.poemArchivePromptGrid{grid-template-columns:1fr}}
 @media(max-width:1100px){.poemArchiveLayout,.poemArchiveCompare{grid-template-columns:1fr}.poemArchiveToolbar{grid-template-columns:1fr}.poemArchiveSlots{grid-template-columns:1fr}}
 @media(max-width:1050px){.writerWorkspace{grid-template-columns:1fr}.writerRoomGrid,.worldTaskGrid,.myWritingGrid{grid-template-columns:1fr}.worldIntro{grid-template-columns:1fr}}
+
+
+/* REPAIR_BAY_GUIDED_CLEANUP_V1_START */
+.repairTrustStrip{display:grid;grid-template-columns:repeat(4,minmax(160px,1fr));gap:10px;margin:0 0 16px}
+.repairTrustStep{border:1px solid #42ff9e35;background:#42ff9e08;border-radius:14px;padding:12px}
+.repairTrustStep strong{display:block;color:#cffff0;margin-bottom:4px}.repairTrustStep span{color:var(--m);font-size:12px;line-height:1.35}
+.repairGuidedGrid{display:grid;grid-template-columns:repeat(3,minmax(230px,1fr));gap:14px;margin-bottom:16px}
+.repairTaskCard{border:1px solid #8f5cff3d;background:linear-gradient(180deg,#161927,#10121d);border-radius:18px;padding:17px;display:flex;flex-direction:column;min-height:218px}
+.repairTaskCard:hover{border-color:#8f5cff80;box-shadow:0 0 22px #8f5cff12}.repairTaskIcon{font-size:32px;line-height:1}
+.repairTaskCard h3{margin:10px 0 6px;font-size:21px}.repairTaskCard p{margin:0 0 14px;color:var(--m);line-height:1.42}
+.repairTaskCard button{margin-top:auto;width:100%}.repairTaskCard.check{border-color:#23d7ff55}.repairTaskCard.engineer{border-color:#ff9f4355}.repairTaskCard.scan{border-color:#8f5cff66}.repairTaskCard.review{border-color:#ffd16655}.repairTaskCard.fix{border-color:#42ff9e55}.repairTaskCard.history{border-color:#3ba7ff55}
+.repairStatusCard{display:grid;grid-template-columns:minmax(260px,1fr) auto;gap:16px;align-items:center}.repairStatusCard h3{margin:0 0 7px}.repairStatusCard p{margin:0;color:var(--m);line-height:1.42}.repairStatusActions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.repairLiveStatus{margin-top:12px;padding:12px;border:1px solid #23d7ff35;background:#07131a;border-radius:13px;font-family:Consolas,monospace;font-size:12px;white-space:pre-wrap;color:#d6f6ff}
+.repairAdvancedTools{padding:0;overflow:hidden}.repairAdvancedTools>summary{cursor:pointer;padding:16px 18px;font-weight:900;color:var(--m);list-style:none}.repairAdvancedTools>summary::-webkit-details-marker{display:none}.repairAdvancedTools>summary:after{content:'▸';float:right}.repairAdvancedTools[open]>summary:after{transform:rotate(90deg)}.repairAdvancedBody{padding:0 16px 16px}.repairAdvancedGroup{border:1px solid #8f5cff25;border-radius:14px;background:#090b14;padding:14px;margin-top:10px}.repairAdvancedGroup h3{margin:0 0 7px}.repairAdvancedButtons{display:flex;gap:7px;flex-wrap:wrap}
+.repairSafetyNote{border-left:3px solid var(--w);padding:10px 12px;background:#ffd1660b;border-radius:0 12px 12px 0;color:#f6e5b5;font-size:12px;line-height:1.45}
+@media(max-width:1180px){.repairGuidedGrid{grid-template-columns:repeat(2,minmax(240px,1fr))}.repairTrustStrip{grid-template-columns:repeat(2,minmax(200px,1fr))}}
+@media(max-width:800px){.repairGuidedGrid,.repairTrustStrip{grid-template-columns:1fr}.repairStatusCard{grid-template-columns:1fr}.repairStatusActions{justify-content:flex-start}}
+/* REPAIR_BAY_GUIDED_CLEANUP_V1_END */
+
+/* KAYOCK_WRITER_GUIDED_CLEANUP_V1_START */
+.writerGuidedTasks{display:grid;grid-template-columns:repeat(2,minmax(280px,1fr));gap:14px;margin-bottom:16px}
+.writerTaskCard{border:1px solid #8f5cff42;background:linear-gradient(180deg,#171a29,#10121d);border-radius:20px;padding:18px;display:grid;grid-template-columns:52px 1fr;gap:12px;align-items:start;min-height:190px}
+.writerTaskCard:hover{border-color:#8f5cff88;box-shadow:0 0 24px #8f5cff16}
+.writerTaskCard>button{grid-column:1/-1;width:100%;margin-top:auto}
+.writerTaskCard h3{font-size:23px;margin:0 0 6px;color:#fff}.writerTaskCard p{color:var(--m);line-height:1.45;margin:0}
+.writerTaskIcon{font-size:34px;line-height:1}
+.writerTaskCard.poetry{border-color:#ff5ccf66}.writerTaskCard.polish{border-color:#ffd16655}.writerTaskCard.story{border-color:#8f5cff77}.writerTaskCard.libraryroom{border-color:#42ff9e55}
+.writerSecondaryRooms{display:grid;grid-template-columns:minmax(250px,1fr) auto;gap:16px;align-items:center}.writerSecondaryRooms h3{margin:0 0 5px}.writerSecondaryRooms p{margin:0;color:var(--m);line-height:1.4}.writerSecondaryActions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.writerQuietHint{border-left:3px solid var(--c);padding:8px 10px;margin:0 0 12px;background:#23d7ff09;border-radius:0 10px 10px 0;color:#cfeef6;font-size:12px}
+.writerOptionalControls{border:1px solid #8f5cff35;border-radius:15px;background:#0a0c15;margin:10px 0 13px;overflow:hidden}.writerOptionalControls>summary{cursor:pointer;padding:12px 14px;font-weight:900;color:#ddd5f6;list-style:none}.writerOptionalControls>summary::-webkit-details-marker{display:none}.writerOptionalControls>summary:after{content:'▸';float:right;color:var(--m)}.writerOptionalControls[open]>summary:after{transform:rotate(90deg)}.writerOptionalBody{padding:0 14px 12px}.writerOptionalNote{color:var(--m);font-size:12px;margin:0 0 10px}
+.storyContinueBanner{display:grid;grid-template-columns:minmax(260px,1fr) auto;gap:16px;align-items:center;border-color:#8f5cff66;background:radial-gradient(circle at 0 0,#8f5cff20,transparent 48%),linear-gradient(180deg,#171a29,#11131f)}.storyContinueBanner h3{font-size:25px;margin:2px 0 5px}.storyContinueBanner p{margin:0;color:var(--m)}.storyContinueActions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.storyGuidedGrid{display:grid;grid-template-columns:repeat(3,minmax(230px,1fr));gap:14px;margin-bottom:16px}.storyTaskCard{border:1px solid #8f5cff38;background:linear-gradient(180deg,#161927,#10121d);border-radius:18px;padding:17px;display:flex;flex-direction:column;min-height:220px}.storyTaskCard:hover{border-color:#8f5cff80;box-shadow:0 0 22px #8f5cff12}.storyTaskCard.newstory{border-color:#42ff9e55}.storyTaskCard h3{margin:10px 0 6px;font-size:21px}.storyTaskCard p{margin:0 0 14px;color:var(--m);line-height:1.42}.storyTaskCard button{margin-top:auto;width:100%}
+.storyAdvancedTools{padding:0;overflow:hidden}.storyAdvancedTools>summary{cursor:pointer;padding:16px 18px;font-weight:900;color:var(--m);list-style:none}.storyAdvancedTools>summary::-webkit-details-marker{display:none}.storyAdvancedTools>summary:after{content:'▸';float:right}.storyAdvancedTools[open]>summary:after{transform:rotate(90deg)}.storyAdvancedBody{padding:0 16px 16px;display:grid;gap:12px}.storyAdvancedSection{border:1px solid #8f5cff25;border-radius:14px;background:#090b14;padding:14px}.storyAdvancedSection h3{margin:0 0 8px}
+@media(max-width:1150px){.storyGuidedGrid{grid-template-columns:repeat(2,minmax(240px,1fr))}}
+@media(max-width:900px){.writerGuidedTasks,.storyGuidedGrid{grid-template-columns:1fr}.writerSecondaryRooms,.storyContinueBanner{grid-template-columns:1fr}.writerSecondaryActions,.storyContinueActions{justify-content:flex-start}}
+/* KAYOCK_WRITER_GUIDED_CLEANUP_V1_END */
+
 /* KAYOCK_WRITER_CALM_HOME_V1_END */
 
 @media(max-width:900px){.app{grid-template-columns:1fr}aside{position:relative;height:auto}}
 
 .libresult{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px;margin:8px 0}.libresult h4{margin:0 0 5px;color:var(--p2)}.libmeta{color:var(--m);font-family:Consolas,monospace;font-size:12px}.libbadge{display:inline-block;border:1px solid #8f5cff45;border-radius:999px;padding:3px 8px;margin:3px 4px 6px 0;color:var(--p2);font-size:12px}.previewbox{background:#070913;border:1px solid #8f5cff30;border-radius:16px;padding:14px;max-height:520px;overflow:auto;white-space:pre-wrap;font-family:Consolas,monospace;font-size:13px}.previewhead{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:10px}.copypath{color:var(--c);font-family:Consolas,monospace;font-size:12px;overflow-wrap:anywhere}.indexresult{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px;margin:8px 0}.indexresult h4{margin:0 0 5px;color:var(--p2)}.indexsnippet{background:#070913;border:1px solid #8f5cff22;border-radius:12px;padding:10px;margin-top:8px;color:#e7dcff;font-family:Consolas,monospace;font-size:12px;white-space:pre-wrap}.indexscore{color:var(--w);font-family:Consolas,monospace;font-size:12px}.askhint{color:var(--w);font-size:12px;margin-top:6px}.nfitem{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px;margin:8px 0}.nfitem h4{margin:0 0 6px;color:var(--p2)}.nftag{display:inline-block;border:1px solid #8f5cff45;border-radius:999px;padding:3px 8px;margin:3px 4px 6px 0;color:var(--p2);font-size:12px}.nfpreview{color:var(--m);font-family:Consolas,monospace;font-size:12px;white-space:pre-wrap}.nfcount{display:inline-block;border:1px solid #8f5cff45;border-radius:999px;padding:4px 9px;margin:3px;color:var(--p2);font-size:12px}.nfactions button{padding:8px 10px;font-size:13px}.tmevent{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px;margin:8px 0}.tmevent h4{margin:0 0 6px;color:var(--p2)}.tmtag{display:inline-block;border:1px solid #8f5cff45;border-radius:999px;padding:3px 8px;margin:3px 4px 6px 0;color:var(--p2);font-size:12px}.tmdetails{color:var(--m);white-space:pre-wrap;font-family:Consolas,monospace;font-size:12px}.tmactions button{padding:8px 10px;font-size:13px}.charcard{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px;margin:8px 0}.charcard h4{margin:0 0 6px;color:var(--p2)}.chartag{display:inline-block;border:1px solid #8f5cff45;border-radius:999px;padding:3px 8px;margin:3px 4px 6px 0;color:var(--p2);font-size:12px}.chardetails{color:var(--m);white-space:pre-wrap;font-family:Consolas,monospace;font-size:12px}.charactions button{padding:8px 10px;font-size:13px}.mysterycard{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px;margin:8px 0}.mysterycard h4{margin:0 0 6px;color:var(--p2)}.mystag{display:inline-block;border:1px solid #8f5cff45;border-radius:999px;padding:3px 8px;margin:3px 4px 6px 0;color:var(--p2);font-size:12px}.mystatus-unresolved{border-color:#ffd16666;color:#ffd166}.mystatus-solved{border-color:#42ff9e66;color:#42ff9e}.mystatus-red{border-color:#ff4d6d66;color:#ff4d6d}.mysdetails{color:var(--m);white-space:pre-wrap;font-family:Consolas,monospace;font-size:12px}.mysactions button{padding:8px 10px;font-size:13px}.loccard,.artcard{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px;margin:8px 0}.loccard h4,.artcard h4{margin:0 0 6px;color:var(--p2)}.loctag,.arttag{display:inline-block;border:1px solid #8f5cff45;border-radius:999px;padding:3px 8px;margin:3px 4px 6px 0;color:var(--p2);font-size:12px}.locdetails,.artdetails{color:var(--m);white-space:pre-wrap;font-family:Consolas,monospace;font-size:12px}.locactions button,.artactions button{padding:8px 10px;font-size:13px}.codexdash{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin:10px 0}.codexbox{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px}.codexbox .label{color:var(--m);font-size:12px}.codexbox .value{font-size:24px;font-weight:900;color:#fff;margin-top:4px}.readiness{border-left:3px solid var(--w);padding:10px 0 10px 12px;margin-top:12px;background:#ffd1660b;border-radius:0 12px 12px 0}.scenecard{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px;margin:8px 0}.scenecard h4{margin:0 0 6px;color:var(--p2)}.scenetag{display:inline-block;border:1px solid #8f5cff45;border-radius:999px;padding:3px 8px;margin:3px 4px 6px 0;color:var(--p2);font-size:12px}.scenedetails{color:var(--m);white-space:pre-wrap;font-family:Consolas,monospace;font-size:12px}.sceneactions button{padding:8px 10px;font-size:13px}.extcard{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px;margin:8px 0}.extcard h4{margin:0 0 6px;color:var(--p2)}.exttag{display:inline-block;border:1px solid #8f5cff45;border-radius:999px;padding:3px 8px;margin:3px 4px 6px 0;color:var(--p2);font-size:12px}.extmeta{color:var(--m);white-space:pre-wrap;font-family:Consolas,monospace;font-size:12px}.extactions button{padding:8px 10px;font-size:13px}.disabledmod{opacity:.55}.repairbox{background:#050713;border:1px solid #8f5cff45;border-radius:14px;padding:12px;white-space:pre-wrap;overflow:auto;max-height:380px;color:#eae7ff;font-family:Consolas,monospace;font-size:12px}.moddash{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin:10px 0}.modbox{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px}.modbox .label{color:var(--m);font-size:12px}.modbox .value{font-size:24px;font-weight:900;color:#fff;margin-top:4px}.modhint{border-left:3px solid var(--w);padding:10px 0 10px 12px;margin-top:12px;background:#ffd1660b;border-radius:0 12px 12px 0}.modok{border-left-color:var(--ok)!important;background:#00e6860a}.modwarn{border-left-color:var(--bad)!important;background:#ff4d6d0b}.inventoryreadonly{display:inline-block;border:1px solid #00e68655;background:#00e68610;color:var(--ok);border-radius:999px;padding:4px 9px;font-size:11px;font-weight:800;letter-spacing:.08em}.inventorygrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:10px;margin:12px 0}.inventorymetric{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:15px;padding:11px}.inventorymetric .label{color:var(--m);font-size:11px;text-transform:uppercase;letter-spacing:.05em}.inventorymetric .value{font-size:23px;font-weight:900;color:#fff;margin-top:4px}.inventorytoolbar{display:grid;grid-template-columns:minmax(220px,2fr) repeat(3,minmax(135px,1fr));gap:10px;margin:12px 0}.inventorytoolbar input,.inventorytoolbar select{width:100%;box-sizing:border-box}.inventorysources{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:8px;margin-top:10px}.inventorysource{border-left:3px solid #8f5cff;padding:9px 10px;background:#8f5cff0b;border-radius:0 11px 11px 0;color:var(--m);font-family:Consolas,monospace;font-size:11px;white-space:pre-wrap;overflow-wrap:anywhere}.inventorycard{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:13px;margin:9px 0}.inventorycard.verified{border-left:4px solid var(--ok)}.inventorycard.installed{border-left:4px solid #68a7ff}.inventorycard.missing{border-left:4px solid var(--w)}.inventorycard.attention{border-left:4px solid var(--bad)}.inventorycard h4{margin:0 0 7px;color:#fff}.inventorybadges{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px}.inventorybadge{border:1px solid #8f5cff45;border-radius:999px;padding:3px 8px;color:var(--p2);font-size:11px}.inventorybadge.verified{border-color:#00e68666;color:var(--ok)}.inventorybadge.installed{border-color:#68a7ff66;color:#8fc1ff}.inventorybadge.missing{border-color:#ffd16666;color:var(--w)}.inventorybadge.attention{border-color:#ff4d6d66;color:#ff8296}.inventorymeta{color:var(--m);white-space:pre-wrap;font-family:Consolas,monospace;font-size:11px;overflow-wrap:anywhere}.inventoryhealth{margin-top:9px;padding:8px 10px;border-radius:10px;background:#050713;color:#eae7ff;font-size:12px}.inventoryactions{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}.inventoryactions button{padding:7px 10px;font-size:12px}.inventoryempty{padding:18px;text-align:center;color:var(--m);border:1px dashed #8f5cff45;border-radius:14px}.inventorynote{border-left:3px solid var(--ok);padding:10px 12px;background:#00e6860a;border-radius:0 12px 12px 0;margin:10px 0;color:#d9ffef}@media(max-width:900px){.inventorytoolbar{grid-template-columns:1fr 1fr}.inventorytoolbar input{grid-column:1/-1}}.inventoryreadonly.phase2{border-color:#ffd16666;background:#ffd16610;color:var(--w)}.inventorystate{margin-top:9px;padding:9px 10px;border:1px solid #8f5cff35;border-radius:11px;background:#8f5cff09;color:#eadfff;font-size:12px}.inventorystate b{color:#fff}.statepreview{border:1px solid #ffd16655;background:#ffd16608;border-radius:16px;padding:14px}.statepreview.safe{border-color:#00e68655;background:#00e68608}.statepreview.blocked{border-color:#ff4d6d66;background:#ff4d6d08}.stategrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:9px;margin:10px 0}.statebox{border:1px solid #8f5cff2f;background:#050713;border-radius:12px;padding:10px}.statebox .label{color:var(--m);font-size:11px;text-transform:uppercase}.statebox .value{color:#fff;font-weight:800;margin-top:4px;overflow-wrap:anywhere}.statediff{background:#050713;border:1px solid #8f5cff45;border-radius:12px;padding:11px;white-space:pre-wrap;overflow:auto;max-height:300px;color:#eae7ff;font-family:Consolas,monospace;font-size:11px}.stateapproval{display:grid;grid-template-columns:minmax(260px,1fr) auto auto;gap:8px;align-items:center;margin-top:10px}.stateapproval input{width:100%;box-sizing:border-box}.statewarning{border-left:3px solid var(--w);padding:8px 10px;background:#ffd1660b;border-radius:0 10px 10px 0;margin:7px 0;color:#fff0bf}.stateblocker{border-left:3px solid var(--bad);padding:8px 10px;background:#ff4d6d0b;border-radius:0 10px 10px 0;margin:7px 0;color:#ffd4db}.whybox{background:#050713;border:1px solid #68a7ff44;border-radius:12px;padding:11px;color:#e9f2ff;white-space:pre-wrap;font-family:Consolas,monospace;font-size:11px}.exthelpbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:10px 0}.extlegend{display:flex;gap:7px;flex-wrap:wrap;align-items:center;margin:10px 0}.extlegend span{border:1px solid #8f5cff45;border-radius:999px;padding:4px 9px;font-size:11px}.extlegend .safe{border-color:#00e68666;color:var(--ok)}.extlegend .preview{border-color:#68a7ff66;color:#9ac7ff}.extlegend .approval{border-color:#ffd16666;color:var(--w)}.extadvanced{padding:0;overflow:hidden}.extadvanced>summary{cursor:pointer;padding:16px 18px;font-weight:900;color:#fff;list-style:none}.extadvanced>summary::-webkit-details-marker{display:none}.extadvanced>summary:before{content:'▶';display:inline-block;margin-right:9px;color:var(--p2);transition:transform .15s ease}.extadvanced[open]>summary:before{transform:rotate(90deg)}.extadvancedbody{border-top:1px solid #8f5cff2f;padding:16px 18px}.protectedcontrol{opacity:.7;cursor:not-allowed!important;border-color:#ff4d6d55!important;color:#ff9aaa!important}.exthelpmodal{position:fixed;inset:0;z-index:9999;background:#02030bd9;display:grid;place-items:center;padding:24px}.exthelpmodal[hidden]{display:none}.exthelpdialog{width:min(920px,96vw);max-height:88vh;overflow:auto;background:#121420;border:1px solid #8f5cff66;border-radius:20px;box-shadow:0 24px 80px #000c;padding:18px}.exthelphead{display:flex;justify-content:space-between;gap:12px;align-items:center;position:sticky;top:-18px;background:#121420;padding:12px 0;z-index:2}.exthelpcontent{display:grid;gap:12px}.exthelpsection{border:1px solid #8f5cff2f;background:#070913;border-radius:14px;padding:12px}.exthelpsection h4{margin:0 0 8px;color:var(--p2)}.exthelpsection ul{margin:6px 0 0 20px;padding:0}.exthelpsection li{margin:5px 0}.exthelpcode{font-family:Consolas,monospace;color:#eae7ff;white-space:pre-wrap;overflow-wrap:anywhere}@media(max-width:720px){.stateapproval{grid-template-columns:1fr}.stateapproval button{width:100%}}.scanbox{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:10px 0}.scanmetric{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px}.scanmetric .label{color:var(--m);font-size:12px}.scanmetric .value{font-size:24px;font-weight:900;color:#fff;margin-top:4px}.scanlist{background:#050713;border:1px solid #8f5cff45;border-radius:14px;padding:12px;white-space:pre-wrap;overflow:auto;max-height:420px;color:#eae7ff;font-family:Consolas,monospace;font-size:12px}.docstatusgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin:10px 0}.docstat{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px}.docstat .label{color:var(--m);font-size:12px}.docstat .value{font-size:24px;font-weight:900;color:#fff;margin-top:4px}.docrow{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:14px;padding:10px;margin:8px 0}.docrow.good{border-left:3px solid var(--ok)}.docrow.bad{border-left:3px solid var(--bad)}.buildgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin:10px 0}.buildmetric{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px}.buildmetric .label{color:var(--m);font-size:12px}.buildmetric .value{font-size:24px;font-weight:900;color:#fff;margin-top:4px}.checkrow{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:14px;padding:10px;margin:8px 0}.checkrow.pass{border-left:3px solid var(--ok)}.checkrow.fail{border-left:3px solid var(--bad)}.envgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin:10px 0}.envmetric{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px}.envmetric .label{color:var(--m);font-size:12px}.envmetric .value{font-size:24px;font-weight:900;color:#fff;margin-top:4px}.envrow{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:14px;padding:10px;margin:8px 0}.envrow.pass{border-left:3px solid var(--ok)}.envrow.fail{border-left:3px solid var(--bad)}.envrow.optional{border-left:3px solid var(--w)}.portablegrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:12px;margin:10px 0}.portablemetric{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px}.portablemetric .label{color:var(--m);font-size:12px}.portablemetric .value{font-size:24px;font-weight:900;color:#fff;margin-top:4px}.portrow{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:14px;padding:10px;margin:8px 0}.portrow.pass{border-left:3px solid var(--ok)}.portrow.warn{border-left:3px solid var(--w)}.portrow.fail{border-left:3px solid var(--bad)}.modelgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:12px;margin:10px 0}.modelmetric{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px}.modelmetric .label{color:var(--m);font-size:12px}.modelmetric .value{font-size:24px;font-weight:900;color:#fff;margin-top:4px}.modelrow{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:14px;padding:10px;margin:8px 0}.modelrow.safe{border-left:3px solid var(--ok)}.modelrow.info{border-left:3px solid var(--m)}.modelrow.review{border-left:3px solid var(--w)}.modelrow.warn{border-left:3px solid var(--bad)}.repairrow{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:14px;padding:12px;margin:10px 0}.repairrow.available{border-left:3px solid var(--ok)}.repairrow.blocked{border-left:3px solid var(--bad)}.repairrow .repairtitle{font-weight:900;color:#fff}.repairrow .risk{color:var(--m);font-size:12px}.repairrow button{margin-top:8px}.historygrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:10px 0}.historymetric{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px}.historymetric .label{color:var(--m);font-size:12px}.historymetric .value{font-size:24px;font-weight:900;color:#fff;margin-top:4px}.histrow{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:14px;padding:10px;margin:8px 0}.histrow.ok{border-left:3px solid var(--ok)}.histrow.fail{border-left:3px solid var(--bad)}.histrow.info{border-left:3px solid var(--m)}.verifybadge{display:inline-block;border-radius:999px;padding:3px 8px;font-size:11px;font-weight:900;margin-left:6px}.verifybadge.pass{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.verifybadge.fail{background:#ff5d5d22;color:#ffb0b0;border:1px solid #ff5d5d55}.verifybadge.none{background:#ffffff12;color:#c9bfdc;border:1px solid #ffffff22}.checkline{font-size:12px;color:#d8d0e8;margin-left:10px}.backupbadge{display:inline-block;border-radius:999px;padding:3px 8px;font-size:11px;font-weight:900;margin-left:6px}.backupbadge.assoc{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.backupbadge.old{background:#ffffff12;color:#c9bfdc;border:1px solid #ffffff22}.vaultpath{font-size:12px;color:#d8d0e8;word-break:break-all}.vaultmetric{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px}.vaultmetric .label{color:var(--m);font-size:12px}.vaultmetric .value{font-size:24px;font-weight:900;color:#fff;margin-top:4px}.timestampnote{font-size:12px;color:#c9bfdc;border-left:3px solid #8f5cff77;padding-left:8px;margin-top:6px}.riskbadge{display:inline-block;border-radius:999px;padding:4px 10px;font-size:12px;font-weight:900}.riskbadge.low{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.riskbadge.medium{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.riskbadge.blocked{background:#ff5d5d22;color:#ffb0b0;border:1px solid #ff5d5d55}.diffbox{white-space:pre-wrap;font-family:ui-monospace,Consolas,monospace}.gatebadge{display:inline-block;border-radius:999px;padding:4px 10px;font-size:12px;font-weight:900;margin-left:6px}.gatebadge.pass{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.gatebadge.warn{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.gatebadge.block{background:#ff5d5d22;color:#ffb0b0;border:1px solid #ff5d5d55}.gatebadge.info{background:#8f5cff22;color:#e2d4ff;border:1px solid #8f5cff55}.phrasebox{font-family:ui-monospace,Consolas,monospace;font-size:16px;border:1px solid #8f5cff55;background:#00000033;border-radius:14px;padding:12px;color:#fff}.packagebadge{display:inline-block;border-radius:999px;padding:4px 10px;font-size:12px;font-weight:900;margin-left:6px}.packagebadge.ok{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.packagebadge.problem{background:#ff5d5d22;color:#ffb0b0;border:1px solid #ff5d5d55}.packagefile{font-size:12px;color:#d8d0e8;word-break:break-all;margin-left:8px}.finalbadge{display:inline-block;border-radius:999px;padding:4px 10px;font-size:12px;font-weight:900;margin-left:6px}.finalbadge.pass{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.finalbadge.warn{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.finalbadge.block{background:#ff5d5d22;color:#ffb0b0;border:1px solid #ff5d5d55}.finalphrase{font-family:ui-monospace,Consolas,monospace;font-size:15px;border:1px solid #8f5cff55;background:#00000033;border-radius:14px;padding:12px;color:#fff}.auditbadge{display:inline-block;border-radius:999px;padding:4px 10px;font-size:12px;font-weight:900;margin-left:6px}.auditbadge.intact{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.auditbadge.attention{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.hashline{font-family:ui-monospace,Consolas,monospace;font-size:12px;word-break:break-all;color:#d8d0e8}.rollbackbadge{display:inline-block;border-radius:999px;padding:4px 10px;font-size:12px;font-weight:900;margin-left:6px}.rollbackbadge.pass{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.rollbackbadge.warn{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.rollbackbadge.block{background:#ff5d5d22;color:#ffb0b0;border:1px solid #ff5d5d55}.rollbackphrase{font-family:ui-monospace,Consolas,monospace;font-size:15px;border:1px solid #8f5cff55;background:#00000033;border-radius:14px;padding:12px;color:#fff}.rbauditbadge{display:inline-block;border-radius:999px;padding:4px 10px;font-size:12px;font-weight:900;margin-left:6px}.rbauditbadge.intact{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.rbauditbadge.attention{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.rbauditHash{font-family:ui-monospace,Consolas,monospace;font-size:12px;word-break:break-all;color:#d8d0e8}.tlbadge{display:inline-block;border-radius:999px;padding:4px 10px;font-size:12px;font-weight:900;margin-left:6px}.tlbadge.intact{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.tlbadge.attention{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.tlbadge.evidence{background:#8f5cff22;color:#d8c7ff;border:1px solid #8f5cff55}.tlbadge.superseded_by_rollback{background:#66c7ff22;color:#b9e8ff;border:1px solid #66c7ff55}.tlbadge.other{background:#ffffff12;color:#ddd;border:1px solid #ffffff22}.timelineHash{font-family:ui-monospace,Consolas,monospace;font-size:12px;word-break:break-all;color:#d8d0e8}.timelineEvent{border-left:3px solid #8f5cff;padding-left:12px}.recoveryHealthBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px}.recoveryHealthBadge.healthy{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.recoveryHealthBadge.warn{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.recoveryMiniGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.recoveryMini{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.recoveryMini .label{font-size:11px;color:#aaa}.recoveryMini .value{font-size:18px;font-weight:900;color:#fff}.recoveryPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.repairShopBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px}.repairShopBadge.healthy{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.repairShopBadge.warn{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.repairShopGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.repairShopMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.repairShopMetric .label{font-size:11px;color:#aaa}.repairShopMetric .value{font-size:18px;font-weight:900;color:#fff}.repairShopPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.actionPill{display:inline-block;border-radius:999px;padding:3px 9px;font-size:11px;font-weight:900;margin-left:6px}.actionPill.available{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.actionPill.blocked{background:#ffffff12;color:#aaa;border:1px solid #ffffff22}.detailBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px}.detailBadge.verified{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.detailBadge.legacy_ok{background:#66c7ff22;color:#b9e8ff;border:1px solid #66c7ff55}.detailBadge.failed{background:#ff5d5d22;color:#ffb0b0;border:1px solid #ff5d5d55}.detailBadge.attention{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.detailGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin-top:10px}.detailMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.detailMetric .label{font-size:11px;color:#aaa}.detailMetric .value{font-size:16px;font-weight:900;color:#fff}.detailHash{font-family:ui-monospace,Consolas,monospace;font-size:12px;word-break:break-all;color:#d8d0e8}.repairCardBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px}.repairCardBadge.healthy{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.repairCardBadge.warn{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.repairCardGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(135px,1fr));gap:10px;margin-top:10px}.repairCardMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.repairCardMetric .label{font-size:11px;color:#aaa}.repairCardMetric .value{font-size:18px;font-weight:900;color:#fff}.repairCardPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.ticketBadge{display:inline-block;border-radius:999px;padding:4px 10px;font-size:11px;font-weight:900;margin-right:6px}.ticketBadge.critical{background:#ff336622;color:#ffb0c4;border:1px solid #ff336655}.ticketBadge.high{background:#ff5d5d22;color:#ffb0b0;border:1px solid #ff5d5d55}.ticketBadge.medium{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.ticketBadge.low{background:#66c7ff22;color:#b9e8ff;border:1px solid #66c7ff55}.ticketBadge.info{background:#ffffff12;color:#d8d0e8;border:1px solid #ffffff24}.ticketBadge.healthy{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.ticketGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(135px,1fr));gap:10px;margin-top:10px}.ticketMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.ticketMetric .label{font-size:11px;color:#aaa}.ticketMetric .value{font-size:18px;font-weight:900;color:#fff}.ticketRow{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:14px;padding:10px;margin:8px 0}.ticketRow.critical,.ticketRow.high{border-left:3px solid var(--bad)}.ticketRow.medium,.ticketRow.low{border-left:3px solid var(--w)}.ticketRow.healthy{border-left:3px solid var(--ok)}.ticketPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:6px}.ticketDetailBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px}.ticketDetailBadge.healthy{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.ticketDetailBadge.available_action{background:#66c7ff22;color:#b9e8ff;border:1px solid #66c7ff55}.ticketDetailBadge.informational{background:#ffffff12;color:#d8d0e8;border:1px solid #ffffff22}.ticketDetailBadge.needs_attention,.ticketDetailBadge.open{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.ticketDetailGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:10px;margin-top:10px}.ticketDetailMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.ticketDetailMetric .label{font-size:11px;color:#aaa}.ticketDetailMetric .value{font-size:17px;font-weight:900;color:#fff}.ticketDetailPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.bridgeBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px}.bridgeBadge.ready{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.bridgeBadge.info{background:#66c7ff22;color:#b9e8ff;border:1px solid #66c7ff55}.bridgeBadge.warn{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.bridgeGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-top:10px}.bridgeMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.bridgeMetric .label{font-size:11px;color:#aaa}.bridgeMetric .value{font-size:16px;font-weight:900;color:#fff}.repairrow.recommended{border-color:#36d399aa!important;box-shadow:0 0 0 1px #36d39955 inset}.recommendTag{display:inline-block;border-radius:999px;padding:4px 10px;background:#36d39922;color:#7fffd4;border:1px solid #36d39955;font-size:11px;font-weight:900;margin-bottom:8px}.sessionBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px}.sessionBadge.healthy{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.sessionBadge.warn{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.sessionGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.sessionMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.sessionMetric .label{font-size:11px;color:#aaa}.sessionMetric .value{font-size:18px;font-weight:900;color:#fff}.sessionPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.freezeBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px}.freezeBadge.healthy{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.freezeBadge.warn{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.freezeGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.freezeMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.freezeMetric .label{font-size:11px;color:#aaa}.freezeMetric .value{font-size:18px;font-weight:900;color:#fff}.freezePath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.ccBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px}.ccBadge.clear{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.ccBadge.advisory{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.ccBadge.bad{background:#ff557722;color:#ff9aaa;border:1px solid #ff557755}.ccGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.ccMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.ccMetric .label{font-size:11px;color:#aaa}.ccMetric .value{font-size:18px;font-weight:900;color:#fff}.ccPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.foundationCard{border:1px solid #ffffff18;border-radius:16px;padding:12px;margin:10px 0;background:#00000022}.foundationCard.clear{border-color:#36d39955}.foundationCard.advisory{border-color:#ffcc6655}.foundationCard.needs_attention{border-color:#ff557755}.cmdDetailBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px}.cmdDetailBadge.clear{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.cmdDetailBadge.advisory{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.cmdDetailBadge.bad{background:#ff557722;color:#ff9aaa;border:1px solid #ff557755}.cmdMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;margin:8px 0;background:#00000022}.cmdMetric .k{font-size:12px;color:#aaa}.cmdMetric .v{font-weight:800;color:#fff;word-break:break-word}.cmdPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:6px}.ccDashBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px}.ccDashBadge.clear{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.ccDashBadge.advisory{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.ccDashBadge.bad{background:#ff557722;color:#ff9aaa;border:1px solid #ff557755}.ccDashGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-top:10px}.ccDashMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.ccDashMetric .label{font-size:11px;color:#aaa}.ccDashMetric .value{font-size:18px;font-weight:900;color:#fff}.ccDashLine{font-size:12px;color:#cfc7df;word-break:break-word;margin-top:8px}.archiveBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px}.archiveBadge.clear{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.archiveBadge.advisory{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.archiveBadge.bad{background:#ff557722;color:#ff9aaa;border:1px solid #ff557755}.archiveGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.archiveMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.archiveMetric .label{font-size:11px;color:#aaa}.archiveMetric .value{font-size:18px;font-weight:900;color:#fff}.archivePath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.cmdFreezeBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px}.cmdFreezeBadge.clear{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.cmdFreezeBadge.advisory{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.cmdFreezeBadge.bad{background:#ff557722;color:#ff9aaa;border:1px solid #ff557755}.cmdFreezeGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.cmdFreezeMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.cmdFreezeMetric .label{font-size:11px;color:#aaa}.cmdFreezeMetric .value{font-size:18px;font-weight:900;color:#fff}.cmdFreezePath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.writerBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#a855f722;color:#e9d5ff;border:1px solid #a855f755}.writerGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.writerMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.writerMetric .label{font-size:11px;color:#aaa}.writerMetric .value{font-size:18px;font-weight:900;color:#fff}.writerPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.writerModule{border:1px solid #a855f733;border-radius:16px;padding:12px;margin:10px 0;background:#14001f33}.storyBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#8b5cf622;color:#ddd6fe;border:1px solid #8b5cf655}.storyGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.storyMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.storyMetric .label{font-size:11px;color:#aaa}.storyMetric .value{font-size:18px;font-weight:900;color:#fff}.storyPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.storyCard{border:1px solid #8b5cf633;border-radius:16px;padding:12px;margin:10px 0;background:#16002433}.manifestBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#7c3aed22;color:#ddd6fe;border:1px solid #7c3aed55}.manifestGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.manifestMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.manifestMetric .label{font-size:11px;color:#aaa}.manifestMetric .value{font-size:18px;font-weight:900;color:#fff}.manifestPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.manifestCard{border:1px solid #7c3aed33;border-radius:16px;padding:12px;margin:10px 0;background:#12002033}.gateBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#6d28d922;color:#ddd6fe;border:1px solid #6d28d955}.gateGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.gateMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.gateMetric .label{font-size:11px;color:#aaa}.gateMetric .value{font-size:18px;font-weight:900;color:#fff}.gatePath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.gateCard{border:1px solid #6d28d933;border-radius:16px;padding:12px;margin:10px 0;background:#12002033}.actionBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#4c1d9522;color:#ddd6fe;border:1px solid #4c1d9555}.actionBadge.created{background:#36d39922;color:#7fffd4;border-color:#36d39955}.actionBadge.blocked{background:#ffcc6622;color:#ffd99a;border-color:#ffcc6655}.actionBadge.error{background:#ff557722;color:#ff9aaa;border-color:#ff557755}.actionGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.actionMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.actionMetric .label{font-size:11px;color:#aaa}.actionMetric .value{font-size:18px;font-weight:900;color:#fff}.actionPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.actionCard{border:1px solid #4c1d9533;border-radius:16px;padding:12px;margin:10px 0;background:#12002033}.dashProjectBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.dashProjectBadge.bad{background:#ff557722;color:#ff9aaa;border-color:#ff557755}.projectDashGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.projectDashMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.projectDashMetric .label{font-size:11px;color:#aaa}.projectDashMetric .value{font-size:18px;font-weight:900;color:#fff}.projectDashPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.projectDashCard{border:1px solid #22c55e33;border-radius:16px;padding:12px;margin:10px 0;background:#001f1233}.storyHealthBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px}.storyHealthBadge.clear{background:#36d39922;color:#7fffd4;border:1px solid #36d39955}.storyHealthBadge.advisory{background:#ffcc6622;color:#ffd99a;border:1px solid #ffcc6655}.storyHealthBadge.bad{background:#ff557722;color:#ff9aaa;border:1px solid #ff557755}.storyHealthGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-top:10px}.storyHealthMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.storyHealthMetric .label{font-size:11px;color:#aaa}.storyHealthMetric .value{font-size:18px;font-weight:900;color:#fff}.storyHealthLine{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.chapterBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#7c3aed22;color:#ddd6fe;border:1px solid #7c3aed55}.chapterBadge.bad{background:#ff557722;color:#ff9aaa;border-color:#ff557755}.chapterGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.chapterMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.chapterMetric .label{font-size:11px;color:#aaa}.chapterMetric .value{font-size:18px;font-weight:900;color:#fff}.chapterPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.chapterCard{border:1px solid #7c3aed33;border-radius:16px;padding:12px;margin:10px 0;background:#12002033}.saveGateBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#0ea5e922;color:#bae6fd;border:1px solid #0ea5e955}.saveGateBadge.bad{background:#ff557722;color:#ff9aaa;border-color:#ff557755}.saveGateGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.saveGateMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.saveGateMetric .label{font-size:11px;color:#aaa}.saveGateMetric .value{font-size:18px;font-weight:900;color:#fff}.saveGatePath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.saveGateCard{border:1px solid #0ea5e933;border-radius:16px;padding:12px;margin:10px 0;background:#001b2f33}.chapterSaveActionBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#4c1d9522;color:#ddd6fe;border:1px solid #4c1d9555}.chapterSaveActionBadge.created{background:#36d39922;color:#7fffd4;border-color:#36d39955}.chapterSaveActionBadge.blocked{background:#ffcc6622;color:#ffd99a;border-color:#ffcc6655}.chapterSaveActionBadge.error{background:#ff557722;color:#ff9aaa;border-color:#ff557755}.chapterSaveActionGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.chapterSaveActionMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.chapterSaveActionMetric .label{font-size:11px;color:#aaa}.chapterSaveActionMetric .value{font-size:18px;font-weight:900;color:#fff}.chapterSaveActionPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.chapterSaveActionCard{border:1px solid #4c1d9533;border-radius:16px;padding:12px;margin:10px 0;background:#12002033}.savedChapterBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.savedChapterBadge.bad{background:#ff557722;color:#ff9aaa;border-color:#ff557755}.savedChapterGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.savedChapterMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.savedChapterMetric .label{font-size:11px;color:#aaa}.savedChapterMetric .value{font-size:18px;font-weight:900;color:#fff}.savedChapterPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.savedChapterCard{border:1px solid #22c55e33;border-radius:16px;padding:12px;margin:10px 0;background:#001f1233}.savedHealthBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.savedHealthBadge.review{background:#ffcc6622;color:#ffd99a;border-color:#ffcc6655}.savedHealthGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-top:10px}.savedHealthMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.savedHealthMetric .label{font-size:11px;color:#aaa}.savedHealthMetric .value{font-size:18px;font-weight:900;color:#fff}.savedHealthPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.chapterEditorBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#8b5cf622;color:#ddd6fe;border:1px solid #8b5cf655}.chapterEditorBadge.bad{background:#ff557722;color:#ff9aaa;border-color:#ff557755}.chapterEditorGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.chapterEditorMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.chapterEditorMetric .label{font-size:11px;color:#aaa}.chapterEditorMetric .value{font-size:18px;font-weight:900;color:#fff}.chapterEditorPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.chapterEditorCard{border:1px solid #8b5cf633;border-radius:16px;padding:12px;margin:10px 0;background:#12002033}#chaptereditorpreview textarea,#chaptereditorpreview input{width:100%;box-sizing:border-box;margin:6px 0 12px 0}.chapterEditGateBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#38bdf822;color:#bae6fd;border:1px solid #38bdf855}.chapterEditGateBadge.bad{background:#ff557722;color:#ff9aaa;border-color:#ff557755}.chapterEditGateGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.chapterEditGateMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.chapterEditGateMetric .label{font-size:11px;color:#aaa}.chapterEditGateMetric .value{font-size:18px;font-weight:900;color:#fff}.chapterEditGatePath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.chapterEditGateCard{border:1px solid #38bdf833;border-radius:16px;padding:12px;margin:10px 0;background:#00182733}.chapterEditActionBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.chapterEditActionBadge.blocked{background:#ffcc6622;color:#ffd99a;border-color:#ffcc6655}.chapterEditActionBadge.bad{background:#ff557722;color:#ff9aaa;border-color:#ff557755}.chapterEditActionGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.chapterEditActionMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.chapterEditActionMetric .label{font-size:11px;color:#aaa}.chapterEditActionMetric .value{font-size:18px;font-weight:900;color:#fff}.chapterEditActionPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.chapterEditActionCard{border:1px solid #22c55e33;border-radius:16px;padding:12px;margin:10px 0;background:#001f1233}.chapterEditAuditBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.chapterEditAuditBadge.bad{background:#ff557722;color:#ff9aaa;border-color:#ff557755}.chapterEditAuditGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.chapterEditAuditMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.chapterEditAuditMetric .label{font-size:11px;color:#aaa}.chapterEditAuditMetric .value{font-size:18px;font-weight:900;color:#fff}.chapterEditAuditPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.chapterEditAuditCard{border:1px solid #22c55e33;border-radius:16px;padding:12px;margin:10px 0;background:#001f1233}.chapterDraftBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.chapterDraftBadge.bad{background:#ff557722;color:#ff9aaa;border-color:#ff557755}.chapterDraftGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.chapterDraftMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.chapterDraftMetric .label{font-size:11px;color:#aaa}.chapterDraftMetric .value{font-size:18px;font-weight:900;color:#fff}.chapterDraftPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.chapterDraftCard{border:1px solid #a855f733;border-radius:16px;padding:12px;margin:10px 0;background:#1f003333}.draftGateBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.draftGateBadge.bad{background:#ffcc6622;color:#ffd99a;border-color:#ffcc6655}.draftGateGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.draftGateMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.draftGateMetric .label{font-size:11px;color:#aaa}.draftGateMetric .value{font-size:18px;font-weight:900;color:#fff}.draftGatePath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.draftGateCard{border:1px solid #a855f733;border-radius:16px;padding:12px;margin:10px 0;background:#1f003333}.draftSaveBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.draftSaveBadge.blocked{background:#ffcc6622;color:#ffd99a;border-color:#ffcc6655}.draftSaveBadge.bad{background:#ff557722;color:#ff9aaa;border-color:#ff557755}.draftSaveGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.draftSaveMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.draftSaveMetric .label{font-size:11px;color:#aaa}.draftSaveMetric .value{font-size:18px;font-weight:900;color:#fff}.draftSavePath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.draftSaveCard{border:1px solid #22c55e33;border-radius:16px;padding:12px;margin:10px 0;background:#001f1233}.draftReaderBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.draftReaderBadge.bad{background:#ffcc6622;color:#ffd99a;border-color:#ffcc6655}.draftReaderGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.draftReaderMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.draftReaderMetric .label{font-size:11px;color:#aaa}.draftReaderMetric .value{font-size:18px;font-weight:900;color:#fff}.draftReaderPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.draftReaderCard{border:1px solid #22c55e33;border-radius:16px;padding:12px;margin:10px 0;background:#001f1233}.draftHistoryBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.draftHistoryBadge.bad{background:#ffcc6622;color:#ffd99a;border-color:#ffcc6655}.draftHistoryGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.draftHistoryMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.draftHistoryMetric .label{font-size:11px;color:#aaa}.draftHistoryMetric .value{font-size:18px;font-weight:900;color:#fff}.draftHistoryPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.draftHistoryCard{border:1px solid #22c55e33;border-radius:16px;padding:12px;margin:10px 0;background:#001f1233}.draftContinueBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.draftContinueBadge.bad{background:#ffcc6622;color:#ffd99a;border-color:#ffcc6655}.draftContinueGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.draftContinueMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.draftContinueMetric .label{font-size:11px;color:#aaa}.draftContinueMetric .value{font-size:18px;font-weight:900;color:#fff}.draftContinuePath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.draftContinueCard{border:1px solid #22c55e33;border-radius:16px;padding:12px;margin:10px 0;background:#001f1233}.continueGateBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.continueGateBadge.bad{background:#ffcc6622;color:#ffd99a;border-color:#ffcc6655}.continueGateGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.continueGateMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.continueGateMetric .label{font-size:11px;color:#aaa}.continueGateMetric .value{font-size:18px;font-weight:900;color:#fff}.continueGatePath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.continueActionBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.continueActionBadge.blocked{background:#ffcc6622;color:#ffd99a;border-color:#ffcc6655}.continueActionBadge.bad{background:#ff557722;color:#ff9aaa;border-color:#ff557755}.continueActionGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.continueActionMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.continueActionMetric .label{font-size:11px;color:#aaa}.continueActionMetric .value{font-size:18px;font-weight:900;color:#fff}.continueActionPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.draftRefreshBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.draftRefreshBadge.bad{background:#ffcc6622;color:#ffd99a;border-color:#ffcc6655}.draftRefreshGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.draftRefreshMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.draftRefreshMetric .label{font-size:11px;color:#aaa}.draftRefreshMetric .value{font-size:18px;font-weight:900;color:#fff}.draftRefreshPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.draftCompareBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.draftCompareBadge.bad{background:#ffcc6622;color:#ffd99a;border-color:#ffcc6655}.draftCompareGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.draftCompareMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.draftCompareMetric .label{font-size:11px;color:#aaa}.draftCompareMetric .value{font-size:18px;font-weight:900;color:#fff}.draftComparePath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.diffadd{color:#86efac}.diffremove{color:#ff9aaa}.realProseBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.realProseBadge.bad{background:#ffcc6622;color:#ffd99a;border-color:#ffcc6655}.realProseGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.realProseMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.realProseMetric .label{font-size:11px;color:#aaa}.realProseMetric .value{font-size:18px;font-weight:900;color:#fff}.realProsePath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.realProseSaveBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.realProseSaveBadge.blocked{background:#ffcc6622;color:#ffd99a;border-color:#ffcc6655}.realProseSaveBadge.bad{background:#ff557722;color:#ff9aaa;border-color:#ff557755}.realProseSaveGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.realProseSaveMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.realProseSaveMetric .label{font-size:11px;color:#aaa}.realProseSaveMetric .value{font-size:18px;font-weight:900;color:#fff}.realProseSavePath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.realProseVerifyBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.realProseVerifyBadge.bad{background:#ffcc6622;color:#ffd99a;border-color:#ffcc6655}.realProseVerifyGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.realProseVerifyMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.realProseVerifyMetric .label{font-size:11px;color:#aaa}.realProseVerifyMetric .value{font-size:18px;font-weight:900;color:#fff}.realProseVerifyPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.rpadd{color:#86efac}.rpremove{color:#ff9aaa}.realProseEditorBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.realProseEditorBadge.bad{background:#ffcc6622;color:#ffd99a;border-color:#ffcc6655}.realProseEditorGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.realProseEditorMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.realProseEditorMetric .label{font-size:11px;color:#aaa}.realProseEditorMetric .value{font-size:18px;font-weight:900;color:#fff}.realProseEditorPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.rpeadd{color:#86efac}.rperemove{color:#ff9aaa}.realProseEditSaveBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.realProseEditSaveBadge.blocked{background:#ffcc6622;color:#ffd99a;border-color:#ffcc6655}.realProseEditSaveBadge.bad{background:#ff557722;color:#ff9aaa;border-color:#ff557755}.realProseEditSaveGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.realProseEditSaveMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.realProseEditSaveMetric .label{font-size:11px;color:#aaa}.realProseEditSaveMetric .value{font-size:18px;font-weight:900;color:#fff}.realProseEditSavePath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.realProseEditVerifyBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.realProseEditVerifyBadge.bad{background:#ffcc6622;color:#ffd99a;border-color:#ffcc6655}.realProseEditVerifyGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.realProseEditVerifyMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.realProseEditVerifyMetric .label{font-size:11px;color:#aaa}.realProseEditVerifyMetric .value{font-size:18px;font-weight:900;color:#fff}.realProseEditVerifyPath{font-size:12px;color:#cfc7df;word-break:break-all;margin-top:8px}.rpeadd{color:#86efac}.rperemove{color:#ff9aaa}.privateHumanBanner{border:1px solid #a855f755;background:#4c1d9522;border-radius:16px;padding:12px;margin:10px 0;color:#f3e8ff}.privatePaneCard{border-color:#a855f755!important;background:linear-gradient(180deg,#2b174422,#00000011)}.chapterProseBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.chapterProseBadge.bad{background:#ffcc6622;color:#ffd99a;border-color:#ffcc6655}.chapterProseGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}.chapterProseMetric{border:1px solid #ffffff18;border-radius:14px;padding:10px;background:#00000022}.chapterProseMetric .label{font-size:11px;color:#aaa}.chapterProseMetric .value{font-size:18px;font-weight:900;color:#fff}.chapterContinueBadge{display:inline-block;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:900;margin-bottom:8px;background:#22c55e22;color:#86efac;border:1px solid #22c55e55}.chapterContinueBadge.bad{background:#ffcc6622;color:#ffd99a;border-color:#ffcc6655}
-.comfyopsdock{position:fixed;right:18px;bottom:16px;width:min(720px,calc(100vw - 36px));z-index:8500;border:1px solid #42ff9e55;border-radius:16px;background:#030805f2;box-shadow:0 16px 60px #000;overflow:hidden}
+.comfyopsdock{position:fixed;right:18px;bottom:16px;width:min(390px,calc(100vw - 36px));z-index:8500;border:1px solid #42ff9e55;border-radius:16px;background:#030805f2;box-shadow:0 16px 60px #000;overflow:hidden}.comfyopsdock[open]{width:min(720px,calc(100vw - 36px))}
 .comfyopsdock>summary{cursor:pointer;list-style:none;padding:11px 14px;font:800 13px Consolas,monospace;color:#42ff9e;display:flex;align-items:center;justify-content:space-between}
 .comfyopsdock>summary::-webkit-details-marker{display:none}
 .comfyopsdock>summary:after{content:'▸';transition:.15s}.comfyopsdock[open]>summary:after{transform:rotate(90deg)}
@@ -1136,32 +1272,39 @@ td,th{border-bottom:1px solid #8f5cff18;padding:9px;text-align:left}
 
 
 <section id=kayockwriter class=page>
-<div class="hero writerHomeHero"><div class=writerEyebrow>KAYOCK WRITER</div><h2>What would you like to create?</h2><p>Choose one room and begin. The engineering reports, save gates, audits, and legacy tools are still available, but they no longer fill the writing desk.</p></div>
-<div class=writerRoomGrid>
-<article class="writerRoom poetry"><div class=writerRoomIcon>🪶</div><h3>Poetry Studio</h3><p>Create a poem from a theme, emotion, image, voice, and form. Then edit it, save it, or send it to the Poem Polisher.</p><button onclick="go('poetrystudio')">Open Poetry Studio</button></article>
-<article class="writerRoom story"><div class=writerRoomIcon>📚</div><h3>Story Forge</h3><p>Work on novels, short stories, scripts, chapters, scenes, and your Slipping into Darkness project.</p><button onclick="go('storyforge')">Open Story Forge</button></article>
-<article class="writerRoom world"><div class=writerRoomIcon>🌍</div><h3>World Builder</h3><p>Build D&amp;D settings, regions, settlements, factions, gods, dungeons, campaigns, and connected lore.</p><button onclick="go('worldbuilder')">Open World Builder</button></article>
-<article class="writerRoom libraryroom"><div class=writerRoomIcon>🗂️</div><h3>My Writing</h3><p>Return to saved projects, chapters, poetry drafts, and the existing Codex without hunting through technical pages.</p><button onclick="go('mywriting')">Open My Writing</button></article>
+<div class="hero writerHomeHero"><div class=writerEyebrow>KAYOCK WRITER</div><h2>What are we making today?</h2><p>Choose the next creative step. FOXAI keeps the technical reports, save gates, and audits available, but they stay out of the way until you need them.</p></div>
+<div class=writerGuidedTasks>
+<article class="writerTaskCard poetry"><div class=writerTaskIcon>🪶</div><div><h3>Write a Poem</h3><p>Begin with a theme, feeling, or image. Everything else is optional.</p></div><button onclick="go('poetrystudio')">Start a Poem</button></article>
+<article class="writerTaskCard polish"><div class=writerTaskIcon>✨</div><div><h3>Polish a Poem</h3><p>Paste or open a poem and improve it without replacing your voice.</p></div><button onclick="openPoemPolisherFromWriterHome()">Open Poem Polisher</button></article>
+<article class="writerTaskCard story"><div class=writerTaskIcon>📚</div><div><h3>Write a Story</h3><p>Start something new, continue a chapter, plan a scene, or return to Slipping into Darkness.</p></div><button onclick="go('storyforge')">Open Story Forge</button></article>
+<article class="writerTaskCard libraryroom"><div class=writerTaskIcon>🗂️</div><div><h3>Open My Writing</h3><p>Return to saved poems, drafts, chapters, projects, and worlds.</p></div><button onclick="go('mywriting')">Browse My Writing</button></article>
 </div>
+<div class="card writerSecondaryRooms"><div><h3>More creative rooms</h3><p>Build settings and lore, review your poem archive, or open PromptSmith when you need a more specialized tool.</p></div><div class=writerSecondaryActions><button onclick="go('worldbuilder')">🌍 World Builder</button><button onclick="go('poemarchive')">📜 My Poems</button><button onclick="go('prompts')">🧠 PromptSmith</button></div></div>
 <div class="card writerContinue"><h3>Continue where you left off</h3><button onclick="go('projectdashboard')">Slipping into Darkness</button><button onclick="go('draftreader')">Read Drafts</button><button onclick="go('poemarchive')">My Poems</button><button onclick="api('/api/open/kayock_writer_poetry_drafts')">Open Poetry Folder</button></div>
 <details class="card writerAdvancedHome"><summary>Writer Advanced Tools</summary><div class=writerAdvancedBody><p>Foundation reports, manifests, save gates, audits, verification pages, PromptSmith, and the legacy Novel Forge remain available here when they are actually needed.</p><button onclick="loadKayockWriter(false);this.closest('details').open=true">Load Foundation Report</button><button onclick="go('storymanifest')">Story Manifest</button><button onclick="go('prompts')">PromptSmith</button><button onclick="go('novelforge')">Legacy Codex / Novel Forge</button><div id=kayockWriterStatus class=status>Advanced writer report not loaded.</div><div id=kayockWriterSummary class=status></div><div id=kayockWriterModules hidden></div><div id=kayockWriterNames hidden></div><div id=kayockWriterFlagship hidden></div><div id=kayockWriterPaths hidden></div><div id=kayockWriterRecommendations hidden></div><div id=kayockWriterSafety hidden></div></div></details>
 </section>
+
 
 <section id=poetrystudio class=page>
 <div class=hero><h2>Poetry Studio</h2><p>A calm poem creator. Fill only what helps; leave anything else blank.</p></div>
 <div class=writerWorkspace>
 <div class=card><h3>Poem Creator</h3>
+<div class=writerQuietHint>A theme is enough to begin. Add emotion or imagery only when it helps.</div>
 <div class=writerField><label for=poemTheme>Theme</label><input id=poemTheme placeholder="memory, eternity, grief, wonder, home"></div>
-<div class=writerField><label for=poemEmotion>Emotion</label><input id=poemEmotion placeholder="haunted, hopeful, tender, furious, quietly joyful"></div>
-<div class=writerField><label for=poemImagery>Scene or imagery</label><textarea id=poemImagery placeholder="A porch light in falling snow; an empty city after midnight..."></textarea></div>
-<div class=writerField><label for=poemVoice>Voice</label><select id=poemVoice onchange="updatePoetryVoiceControls()"><option>My natural voice</option><option>Eric — Poet/Narrator</option><option>Lyrical</option><option>Spare and direct</option><option>Narrative</option><option>Dark and mythic</option><option>Hopeful and intimate</option><option>Spoken-word energy</option></select></div>
-<div id=ericVoiceControls class=voiceProfileBox hidden><div class=voiceProfileHead>Eric — Poet/Narrator</div><div class=writerField><label for=poemVoiceStrength>Voice strength</label><select id=poemVoiceStrength><option>Light Influence</option><option selected>Recognizably Eric</option><option>Strong Eric Voice</option></select></div><div class=voiceProfileSources>Read-only source profile built from:</div><span class=voiceProfileBadge>Eternity</span><span class=voiceProfileBadge>The City Of Sorrows</span><span class=voiceProfileBadge>The Vampire Lestat</span><span class=voiceProfileBadge>The Soliloquy of 2002</span><div class=voiceProfileNotice>Inspired by the Eric — Poet/Narrator voice profile. New work; not copied from a source poem. Originals remain unchanged.</div></div>
+<div class=writerField><label for=poemEmotion>Emotion <span class=small>— optional</span></label><input id=poemEmotion placeholder="haunted, hopeful, tender, furious, quietly joyful"></div>
+<div class=writerField><label for=poemImagery>Scene or imagery <span class=small>— optional</span></label><textarea id=poemImagery placeholder="A porch light in falling snow; an empty city after midnight..."></textarea></div>
+<details class=writerOptionalControls><summary>Voice, form, length, and opening line</summary><div class=writerOptionalBody><p class=writerOptionalNote>Open these only when you want more control. The defaults are ready to use.</p>
+<div class=writerField><label for=poemVoice>Voice</label><select id=poemVoice onchange="updatePoetryVoiceControls()"><option>My natural voice</option><option>Eric — Poet/Narrator</option><option>Edgar Allan Poe — Gothic Lyric</option><option>Beneath the Beats — West Coast Voice</option><option>Dust and Duty — Last Gunslinger Voice</option><option>The Forsaken Flame — Exile’s Voice</option><option>Lyrical</option><option>Spare and direct</option><option>Narrative</option><option>Dark and mythic</option><option>Hopeful and intimate</option><option>Spoken-word energy</option></select></div>
+<div id=voiceProfileControls class=voiceProfileBox hidden><div id=voiceProfileHead class=voiceProfileHead>Poetry Voice Profile</div><div class=writerField><label for=poemVoiceStrength>Voice strength</label><select id=poemVoiceStrength></select></div><div id=voiceProfileSources class=voiceProfileSources></div><div id=voiceProfileBadges></div><div id=voiceProfileNotice class=voiceProfileNotice></div></div>
 <div class=grid><div class=writerField><label for=poemForm>Form</label><select id=poemForm><option>Free verse</option><option>Rhymed</option><option>Sonnet</option><option>Haiku</option><option>Spoken word</option></select></div><div class=writerField><label for=poemLength>Length</label><select id=poemLength><option>Short</option><option selected>Medium</option><option>Long</option></select></div></div>
-<div class=writerField><label for=poemOpening>Optional opening line</label><input id=poemOpening placeholder="Leave blank unless a line is already calling to you"></div>
+<div class=writerField><label for=poemOpening>Opening line</label><input id=poemOpening placeholder="Leave blank unless a line is already calling to you"></div>
+</div></details>
 <button id=createPoemButton onclick="createPoem(false)">Create Poem</button>
 <div id=poemStatus class="status poemStatus"><span class=poemStateBadge>READY</span>Start the local chat engine, then create when ready.</div>
 </div>
-<div class=card><h3>Your Poem</h3><div class=writerField><label for=poemTitle>Title</label><input id=poemTitle placeholder="FOXAI will suggest a real title; you can edit it"></div><div class=writerField><label for=poemAuthor>Author</label><input id=poemAuthor value="Eric Z. Fox" placeholder="Author or pen name"></div><div class=writerField><label for=poemCopyright>Copyright notice</label><input id=poemCopyright value="Copyright © 2026 by Eric Z. Fox" placeholder="Optional copyright notice"></div><textarea id=poemResult class=poemOutput placeholder="Your poem will appear here and remain editable."></textarea><div class=poemActions><button id=tryAnotherPoemButton onclick="createPoem(true)">Try Another</button><button id=savePoemButton onclick="savePoemDraft()">Save Draft</button><button id=sendPoemPolisherButton onclick="sendPoemToPolisher()">Send to Poem Polisher</button><button onclick="go('poemarchive')">My Poems</button></div>
+<div class=card><h3>Your Poem</h3><div class=writerField><label for=poemTitle>Title</label><input id=poemTitle placeholder="FOXAI will suggest a real title; you can edit it"></div><div class=writerField><label for=poemAuthor>Author</label><input id=poemAuthor value="Eric Z. Fox" placeholder="Author or pen name"></div><div class=writerField><label for=poemCopyright>Copyright notice</label><input id=poemCopyright value="Copyright © 2026 by Eric Z. Fox" placeholder="Optional copyright notice"></div><textarea id=poemResult class=poemOutput placeholder="Your poem will appear here and remain editable."></textarea><div class=poemActions><button id=tryAnotherPoemButton onclick="createPoem(true)">Try Another</button><button id=savePoemButton onclick="savePoemDraft()">Save Draft</button><button id=capturePoemSelectionButton onclick="capturePoemSelection()">Revise Selection / Stanza</button><button onclick="analyzePoemRhymeRhythm()">Check Rhyme &amp; Rhythm</button><button id=sendPoemPolisherButton onclick="sendPoemToPolisher()">Send to Poem Polisher</button><button onclick="go('poemarchive')">My Poems</button></div>
+<details id=poemSelectionPanel class=selectionWorkshop><summary>Selected Lines / Stanza Workshop</summary><div class=selectionWorkshopBody><p class=selectionHint>Highlight lines in <b>Your Poem</b>, then press <b>Revise Selection / Stanza</b>. With no highlight, FOXAI captures the stanza containing the cursor. Only the captured passage can be replaced.</p><div class=selectionCapture><div><div class=writerField><label for=poemSelectionText>Captured passage</label><textarea id=poemSelectionText readonly placeholder="Your selected lines or current stanza will appear here."></textarea></div></div><div><div class=writerField><label for=poemSelectionFocus>What should improve?</label><select id=poemSelectionFocus><option selected>Keep meaning, improve the lines</option><option>Stronger imagery</option><option>Smoother rhyme and rhythm</option><option>More emotional impact</option><option>Clearer wording</option><option>Make it stranger and more memorable</option><option>Preserve voice with minimal changes</option></select></div><div class=writerField><label for=poemSelectionNote>Optional direction</label><textarea id=poemSelectionNote placeholder="Example: keep the final rhyme; make the second line less ordinary"></textarea></div><button id=revisePoemSelectionButton onclick="revisePoemSelection()" disabled>Create 3 Alternatives</button></div></div><div id=poemSelectionAlternatives class=selectionAltGrid></div><div id=poemSelectionStatus class="status selectionStatus"><span class=poemStateBadge>READY</span>Select lines or place the cursor inside a stanza.</div></div></details>
+<details id=poemRhymeCoachPanel class=rhymeCoach><summary>Rhyme &amp; Rhythm Coach</summary><div class=rhymeCoachBody><p class=rhymeCoachIntro>Check stanza shape before rewriting anything. FOXAI estimates syllables, identifies spelling-based rhyme families, and shows where line lengths drift. Use your ear as the final judge.</p><div class=poemOpenNotice><b>Analysis and revision are separate.</b> Changing the target below does not alter the analysis. It changes the instruction used after you press <b>Revise This Stanza</b>.</div><div class=rhymeCoachControls><div class=writerField><label for=poemRhymeTarget>Revision target for the Workshop</label><select id=poemRhymeTarget onchange="updateRhymeTargetPreview()"><option value=auto selected>Natural rhyme — model chooses</option><option value=aabb>Couplets — AABB</option><option value=abab>Alternating — ABAB</option><option value=aaaa>Monorhyme — AAAA</option><option value=none>Rhythm only — do not force rhyme</option></select><div id=poemRhymeTargetPreview class=poemArchiveStatus>Natural rhyme will guide the next stanza revision. The current analysis will not change.</div></div><button onclick="analyzePoemRhymeRhythm()">Recheck Poem</button></div><div id=poemRhymeCoachResults class=rhymeCoachResults><div class=rhymeCoachEmpty>Create, paste, or reopen a poem, then press <b>Check Rhyme &amp; Rhythm</b>.</div></div><div id=poemRhymeCoachStatus class="status poemStatus"><span class=poemStateBadge>READY</span>No poem analyzed yet.</div><div class=rhymeDisclaimer>Syllable and rhyme results are approximate spelling-based guidance. English pronunciation, names, dialect, and performance can differ.</div></div></details>
 <details id=poemPolisherPanel class=poemPolisher><summary>Poem Polisher</summary><div class=poemPolisherBody><p class=small>Polish rhythm, word choice, imagery, emotional impact, line breaks, and clarity without replacing the writer's voice.</p><textarea id=poemPolisherInput placeholder="Send a poem here from the creator, or paste one."></textarea><div class=writerField><label for=poemPolishFocus>Focus</label><select id=poemPolishFocus><option>Light touch</option><option selected>Balanced polish</option><option>Bold rewrite</option><option>Rhythm and line breaks</option><option>Imagery and emotional impact</option><option>Word choice and clarity</option><option>Preserve voice with minimal changes</option></select></div><button id=polishPoemButton onclick="polishPoem()">Polish Poem</button><textarea id=poemPolishedResult placeholder="The finished polished version will appear here."></textarea><div class=poemCompareActions><button id=keepOriginalPoemButton onclick="keepOriginalPoem()" disabled>Keep Original</button><button id=usePolishedPoemButton onclick="usePolishedPoem()" disabled>Use Polished Version</button><button id=saveBothPoemButton onclick="saveBothPoemVersions()" disabled>Save Both</button></div><div class=poemVersionNote>The original remains separate until you explicitly choose or save a version.</div><div id=poemPolishStatus class=status><span class=poemStateBadge>READY</span>Send a poem here when you want a second version.</div></div></details>
 </div></div></section>
 
@@ -1203,11 +1346,30 @@ td,th{border-bottom:1px solid #8f5cff18;padding:9px;text-align:left}
 <div class=myWritingCard><h3>🌍 Worlds and Codex</h3><p>Open the existing universes, characters, locations, artifacts, timelines, and mysteries.</p><button onclick="go('novelforge')">Open Codex</button></div>
 </div><details class="card writerAdvancedHome"><summary>Writer Reports and Technical Pages</summary><div class=writerAdvancedBody><button onclick="go('storymanifest')">Story Manifest</button><button onclick="go('savedchapterhealth')">Chapter Health</button><button onclick="go('draftversionhistory')">Draft History</button><button onclick="go('chaptereditaudit')">Edit Audit</button></div></details></section>
 
-<section id=storyforge class=page><div class=hero><h2>Story Forge Shell</h2><p>The first Kayock Writer working module: story projects, chapter planning, scene planning, and Slipping into Darkness as the flagship demo universe. This shell is read-only.</p></div><div class=grid>
-<div class="card wide" id=storyProjectHealthCard><h3>💚 Slipping into Darkness Project Health</h3><div id=storyProjectHealthStatus class=status>Project health card not loaded yet.</div><div id=storyProjectHealthBody class=status>Load Story Forge to inspect the created project.</div><button onclick="loadStoryProjectHealth(false)">Refresh Project Health</button><button onclick="loadStoryProjectHealth(true)">Export Health Card</button><button onclick="go('projectdashboard')">Open Project Dashboard</button><button onclick="api('/api/open/kayock_writer_slipping_project_root')">Open Project Folder</button><button onclick="sendStoryProjectHealthToMission()">Send Health to Mission</button></div>
-
-<div class="card wide" id=storySavedChapterHealthCard><h3>💚 Saved Chapter Health</h3><select id=storySavedChapterHealthBook><option value="book_1">Book 1</option><option value="book_2" selected>Book 2</option></select><button onclick="loadSavedChapterHealthCard(false,'storySavedChapterHealth','storySavedChapterHealthBook')">Refresh Saved Chapter Health</button><button onclick="loadSavedChapterHealthCard(true,'storySavedChapterHealth','storySavedChapterHealthBook')">Export Health Card</button><button onclick="go('savedchapters')">Open Saved Chapters</button><button onclick="sendSavedChapterHealthToMission()">Send Health to Mission</button><div id=storySavedChapterHealthStatus class=status>Saved chapter health card not loaded yet.</div><div id=storySavedChapterHealthBody class=status>Load Story Forge to inspect saved chapter health.</div></div>
-<div class="card wide"><h3>Story Forge Controls</h3><button onclick="loadStoryForge(false)">Load Story Forge Shell</button><button onclick="loadStoryForge(true)">Export Shell Report</button><button onclick="api('/api/open/kayock_writer_story_forge_reports')">Open Story Forge Reports</button><button onclick="go('kayockwriter')">Open Kayock Writer</button><button onclick="sendStoryForgeToMission()">Send Story Forge to Mission</button><div id=storyForgeStatus class=status>No Story Forge shell loaded yet.</div></div><div class="card wide"><h3>Shell Summary</h3><div id=storyForgeSummary class=status>No summary yet.</div></div><div class="card wide"><h3>Flagship Story</h3><div id=storyForgeFlagship class=status>No flagship loaded yet.</div></div><div class="card wide"><h3>Project Candidates</h3><div id=storyForgeProjects class=scanlist>No project candidates loaded yet.</div></div><div class="card wide"><h3>Shell Sections</h3><div id=storyForgeSections class=scanlist>No shell sections loaded yet.</div></div><div class="card wide"><h3>Future Actions</h3><div id=storyForgeActions class=scanlist>No future actions loaded yet.</div></div><div class="card wide"><h3>Checks</h3><div id=storyForgeChecks class=scanlist>No checks loaded yet.</div></div><div class="card wide"><h3>Safety Contract</h3><div id=storyForgeSafety class=status>No safety contract loaded yet.</div></div></div></section>
+<section id=storyforge class=page>
+<div class="hero writerHomeHero"><div class=writerEyebrow>STORY FORGE</div><h2>Where are you in the story?</h2><p>Choose the next thing you need. You do not have to understand the project machinery before you write.</p><button onclick="go('kayockwriter')">← Writer Home</button></div>
+<div class="card storyContinueBanner"><div><div class=writerEyebrow>CURRENT PROJECT</div><h3>Slipping into Darkness</h3><p>Return to the project, read the latest saved work, or continue drafting.</p></div><div class=storyContinueActions><button onclick="go('projectdashboard')">Open Project</button><button onclick="go('draftreader')">Read Drafts</button><button onclick="go('chapterproseworkspace')">Continue Writing</button></div></div>
+<div class=storyGuidedGrid>
+<article class="storyTaskCard newstory"><div class=writerTaskIcon>🌱</div><h3>Start a New Story</h3><p>Develop the premise one calm question at a time before creating project files.</p><button onclick="startStoryWriterTask('new')">Begin Story Idea</button></article>
+<article class=storyTaskCard><div class=writerTaskIcon>🧩</div><h3>Plan a Chapter</h3><p>Work out the goal, conflict, reveal, and ending hook for a chapter.</p><button onclick="go('chapterplanner')">Open Chapter Planner</button></article>
+<article class=storyTaskCard><div class=writerTaskIcon>✍️</div><h3>Write or Continue</h3><p>Draft beside the AI while keeping your private human writing separate.</p><button onclick="go('chapterproseworkspace')">Open Writing Workspace</button></article>
+<article class=storyTaskCard><div class=writerTaskIcon>🎬</div><h3>Plan a Scene</h3><p>Shape who wants what, what blocks them, what changes, and why the scene matters.</p><button onclick="startStoryWriterTask('scene')">Plan a Scene</button></article>
+<article class=storyTaskCard><div class=writerTaskIcon>🧑‍🚀</div><h3>Build a Character</h3><p>Create a person with desires, contradictions, history, voice, and a role in the story.</p><button onclick="startStoryWriterTask('character')">Build Character</button></article>
+<article class=storyTaskCard><div class=writerTaskIcon>📚</div><h3>Review Saved Chapters</h3><p>Open the saved chapter reader, continuity notes, and chapter cards.</p><button onclick="go('savedchapters')">Browse Chapters</button></article>
+</div>
+<details class="card storyAdvancedTools"><summary>Project health and technical tools</summary><div class=storyAdvancedBody>
+<div class=storyAdvancedSection id=storyProjectHealthCard><h3>💚 Slipping into Darkness Project Health</h3><div id=storyProjectHealthStatus class=status>Project health card not loaded yet.</div><div id=storyProjectHealthBody class=status>Load Story Forge to inspect the created project.</div><button onclick="loadStoryProjectHealth(false)">Refresh Project Health</button><button onclick="loadStoryProjectHealth(true)">Export Health Card</button><button onclick="go('projectdashboard')">Open Project Dashboard</button><button onclick="api('/api/open/kayock_writer_slipping_project_root')">Open Project Folder</button><button onclick="sendStoryProjectHealthToMission()">Send Health to Mission</button></div>
+<div class=storyAdvancedSection id=storySavedChapterHealthCard><h3>💚 Saved Chapter Health</h3><select id=storySavedChapterHealthBook><option value="book_1">Book 1</option><option value="book_2" selected>Book 2</option></select><button onclick="loadSavedChapterHealthCard(false,'storySavedChapterHealth','storySavedChapterHealthBook')">Refresh Saved Chapter Health</button><button onclick="loadSavedChapterHealthCard(true,'storySavedChapterHealth','storySavedChapterHealthBook')">Export Health Card</button><button onclick="go('savedchapters')">Open Saved Chapters</button><button onclick="sendSavedChapterHealthToMission()">Send Health to Mission</button><div id=storySavedChapterHealthStatus class=status>Saved chapter health card not loaded yet.</div><div id=storySavedChapterHealthBody class=status>Load Story Forge to inspect saved chapter health.</div></div>
+<div class=storyAdvancedSection><h3>Story Forge Controls</h3><button onclick="loadStoryForge(false)">Load Story Forge Shell</button><button onclick="loadStoryForge(true)">Export Shell Report</button><button onclick="api('/api/open/kayock_writer_story_forge_reports')">Open Story Forge Reports</button><button onclick="go('kayockwriter')">Open Kayock Writer</button><button onclick="sendStoryForgeToMission()">Send Story Forge to Mission</button><div id=storyForgeStatus class=status>No Story Forge shell loaded yet.</div></div>
+<div class=storyAdvancedSection><h3>Shell Summary</h3><div id=storyForgeSummary class=status>No summary yet.</div></div>
+<div class=storyAdvancedSection><h3>Flagship Story</h3><div id=storyForgeFlagship class=status>No flagship loaded yet.</div></div>
+<div class=storyAdvancedSection><h3>Project Candidates</h3><div id=storyForgeProjects class=scanlist>No project candidates loaded yet.</div></div>
+<div class=storyAdvancedSection><h3>Shell Sections</h3><div id=storyForgeSections class=scanlist>No shell sections loaded yet.</div></div>
+<div class=storyAdvancedSection><h3>Future Actions</h3><div id=storyForgeActions class=scanlist>No future actions loaded yet.</div></div>
+<div class=storyAdvancedSection><h3>Checks</h3><div id=storyForgeChecks class=scanlist>No checks loaded yet.</div></div>
+<div class=storyAdvancedSection><h3>Safety Contract</h3><div id=storyForgeSafety class=status>No safety contract loaded yet.</div></div>
+</div></details>
+</section>
 
 
 <section id=storymanifest class=page><div class=hero><h2>Story Project Manifest Preview</h2><p>Preview the proposed Kayock Writer project manifest before anything is created. This page scans legacy NovelForge read-only and lists exact future writes behind an approval gate.</p></div><div class=grid><div class="card wide"><h3>Manifest Preview Controls</h3><button onclick="loadStoryManifest(false)">Load Manifest Preview</button><button onclick="loadStoryManifest(true)">Export Manifest Preview</button><button onclick="api('/api/open/kayock_writer_manifest_preview_reports')">Open Manifest Preview Reports</button><button onclick="go('storyforge')">Open Story Forge</button><button onclick="sendStoryManifestToMission()">Send Manifest Preview to Mission</button><div id=storyManifestStatus class=status>No manifest preview loaded yet.</div></div><div class="card wide"><h3>Preview Summary</h3><div id=storyManifestSummary class=status>No summary yet.</div></div><div class="card wide"><h3>Proposed Manifest</h3><div id=storyManifestBody class=status>No manifest loaded yet.</div></div><div class="card wide"><h3>Legacy Sources Detected</h3><div id=storyManifestLegacy class=scanlist>No legacy sources loaded yet.</div></div><div class="card wide"><h3>Proposed Folders</h3><div id=storyManifestFolders class=scanlist>No proposed folders loaded yet.</div></div><div class="card wide"><h3>Future Writes / Approval Gate</h3><div id=storyManifestWrites class=scanlist>No future writes loaded yet.</div></div><div class="card wide"><h3>Checks</h3><div id=storyManifestChecks class=scanlist>No checks loaded yet.</div></div><div class="card wide"><h3>Safety Contract</h3><div id=storyManifestSafety class=status>No safety contract loaded yet.</div></div></div></section>
@@ -1345,7 +1507,32 @@ Append-only security log and lock file may be created or updated
 Incident Viewer is read-only and verifies the hash chain before labeling it trusted
 A success message is shown only after a verified receipt</div></div></div></section>
 
-<section id=repair class=page><div class=hero><h2>Repair Bay</h2><p>Diagnostics first. Automated repair only when approved.</p></div><div class=grid><div class=card><h3>Diagnostics</h3><button onclick="refresh()">Refresh Status</button></div><div class=card><h3>Config</h3><button onclick="api('/api/open/config')">Open Config</button></div></div></section>
+<section id=repair class=page>
+<div class=hero><h2>Repair Bay</h2><p>Start with the problem. FOXAI checks first, explains what it found, and changes nothing until you approve the exact repair.</p></div>
+<div class=repairTrustStrip>
+<div class=repairTrustStep><strong>1. Check read-only</strong><span>Inspect status, files, projects, or the selected system area without changing it.</span></div>
+<div class=repairTrustStep><strong>2. Explain findings</strong><span>Plain-language results first, with technical evidence available when needed.</span></div>
+<div class=repairTrustStep><strong>3. Preview the repair</strong><span>Show the exact files, commands, backup, risk, and expected result before approval.</span></div>
+<div class=repairTrustStep><strong>4. Verify and receipt</strong><span>Apply only after approval, then confirm the result and preserve a before-and-after record.</span></div>
+</div>
+<div class=repairGuidedGrid>
+<div class="repairTaskCard check"><div class=repairTaskIcon>🩺</div><h3>Check FOXAI Status</h3><p>Refresh the current engine, model, library, project, and Creative Studio status without changing anything.</p><button onclick="refreshRepairBayStatus()">Run Read-Only Check</button></div>
+<div class="repairTaskCard engineer"><div class=repairTaskIcon>🧑‍🔧</div><h3>Explain a Problem</h3><p>Open Engineer in read-only-first mode. Describe what is wrong and get a diagnosis before discussing repairs.</p><button onclick="openGuidedEngineer()">Ask Engineer</button></div>
+<div class="repairTaskCard scan"><div class=repairTaskIcon>🔎</div><h3>Scan a Project or Folder</h3><p>Inspect an approved location for missing files, broken imports, risky scripts, secrets, or structural problems.</p><button onclick="go('scanbridge')">Open Scan Bridge</button></div>
+<div class="repairTaskCard review"><div class=repairTaskIcon>📋</div><h3>Review Findings</h3><p>See repair-shop findings, recommendations, status, and supporting evidence before deciding what to do.</p><button onclick="go('repairops')">Open Findings</button></div>
+<div class="repairTaskCard fix"><div class=repairTaskIcon>🛠️</div><h3>Fix Something Safely</h3><p>Review an exact repair action with backup, approval, verification, and a final receipt.</p><button onclick="go('repairactions')">Open Repair Actions</button></div>
+<div class="repairTaskCard history"><div class=repairTaskIcon>📜</div><h3>Open Repair History</h3><p>Review prior actions and receipts so you can see what changed, when it changed, and whether it verified.</p><button onclick="go('repairhistory')">Browse History</button></div>
+</div>
+<div class="card wide repairStatusCard">
+<div><h3>Current Readiness</h3><p>This compact view shows whether the main FOXAI services are available. It is status only and performs no repair.</p><div id=repairGuidedStatus class=repairLiveStatus>Waiting for the next read-only status refresh...</div></div>
+<div class=repairStatusActions><button onclick="refreshRepairBayStatus()">Refresh</button><button onclick="go('foxsentry')">Open Fox Sentry</button><button onclick="api('/api/open/config')">Open Config</button></div>
+</div>
+<div class="card wide repairSafetyNote"><strong>Approvals remain visible.</strong> Simplifying Repair Bay does not hide consequences. Any real repair must still show what will change, where the backup goes, what could fail, and the receipt that proves the result.</div>
+<details class="card wide repairAdvancedTools"><summary>Engineering and technical tools</summary><div class=repairAdvancedBody>
+<div class=repairAdvancedGroup><h3>Inspection and readiness</h3><div class=repairAdvancedButtons><button onclick="go('extensions')">Extensions</button><button onclick="go('projectgen')">Project Docs</button><button onclick="go('buildverify')">Build Verify</button><button onclick="go('envverify')">Environment Verify</button><button onclick="go('portable')">Portable Readiness</button><button onclick="go('modelcheck')">Model Check</button></div></div>
+<div class=repairAdvancedGroup><h3>Repair operations and records</h3><div class=repairAdvancedButtons><button onclick="go('repairdetail')">Action Detail</button><button onclick="go('repairtickets')">Repair Tickets</button><button onclick="go('repairticketdetail')">Ticket Detail</button><button onclick="go('ticketbridge')">Ticket Bridge</button><button onclick="go('repairsession')">Shop Session</button><button onclick="go('repairfreeze')">Milestone Freeze</button></div></div>
+</div></details>
+</section>
 
 <section id=extensions class=page><div class=hero><h2>Extension Manager</h2><p>Inventory, health, and guarded optional-extension state. Phase 2 keeps discovery passive and requires an exact preview plus typed operator approval before any state override is written.</p><div class=exthelpbar><button onclick="openExtensionHelp('quick')">Quick Cheat Sheet</button><button onclick="openExtensionHelp('manual')">Operator Manual</button></div></div><div class=grid><div class="card wide"><h3>Inventory &amp; Health Dashboard <span class="inventoryreadonly phase2">PHASE 2 • GUARDED STATE</span></h3><div class=inventorynote>Refreshing remains read-only. Enable, Disable, and Restore Default are available only for optional manifest-backed extensions. Every state write is dependency-checked, preview-hashed, operator-approved, backed up, verified, receipted, and rolled back on failure.</div><div class=extlegend><span class=safe>SAFE • read-only</span><span class=preview>PREVIEW • no write</span><span class=approval>APPROVAL • writes state</span></div><div id=extInventorySummary class=status>Loading inventory...</div><div class=inventorytoolbar><input id=extInventorySearch placeholder="Search name, path, department, source..." oninput="renderExtensionInventory()"><select id=extInventoryCategory onchange="renderExtensionInventory()"><option value=all>All categories</option></select><select id=extInventoryStatus onchange="renderExtensionInventory()"><option value=all>All health states</option><option value=VERIFIED>Verified</option><option value=INSTALLED>Installed</option><option value=MISSING>Missing</option><option value=NEEDS_ATTENTION>Needs Attention</option></select><select id=extInventoryRequirement onchange="renderExtensionInventory()"><option value=all>Required + optional</option><option value=required>Required</option><option value=optional>Optional</option></select></div><div class=previewhead><button onclick="loadExtensionInventory()">Refresh Inventory</button><button onclick="api('/api/open/extensions')">Open Extensions Folder</button><button onclick="api('/api/open/modules')">Open Modules Folder</button></div><div id=extInventorySources class=inventorysources></div></div><div class="card wide"><h3>Discovered Components</h3><div id=extInventoryList class=status>Loading inventory items...</div></div><div class="card wide"><h3>State Change Preview</h3><div id=extStatePreview class=status>No state change is pending. Inventory buttons create a read-only exact preview first.</div></div><details class="card wide extadvanced"><summary>Advanced Manifest Tools <span class=small>validation, reports, repair suggestions, and legacy manifest records</span></summary><div class=extadvancedbody><h3>Manifest Validation &amp; Reports</h3><p class=small>This section counts manifest records only. It is separate from the full Inventory &amp; Health component totals. Legacy Enable/Disable actions route into the same guarded Phase 2 preview and cannot write directly.</p><div class=previewhead><button onclick="loadExtensions()">Refresh Manifests</button><button onclick="validateExtensions()">Validate Manifests</button><button onclick="exportExtensionReport()">Export Extension Report</button><button onclick="api('/api/open/manifest_backups')">Open Manifest Backups</button></div><div id=extDashboard class=status>Loading manifest dashboard...</div><div id=extSummary class=status>Loading manifests...</div><h3>Manifest Records</h3><div id=extList class=status>Loading...</div><h3>Manifest Repair Helper</h3><p class=small>Generates suggested manifest text. Apply Fix backs up the original file before writing.</p><div id=extRepair class=status>Validate manifests, then click Suggest Fix on a problem.</div></div></details><div class=card><h3>Phase 2 Safety Contract</h3><div class=status>Optional manifest-backed extensions only
 Required / core / department state is blocked
@@ -1646,7 +1833,8 @@ const NAV_GROUPS={
   'Kayock Writer':['kayockwriter','poetrystudio','poemarchive','storyforge','worldbuilder','mywriting'],
   'Writer Advanced Tools':['storymanifest','projectgate','projectaction','projectdashboard','chapterplanner','chaptersavegate','chaptersaveaction','savedchapters','savedchapterhealth','chaptereditorpreview','chaptereditgate','chaptereditaction','chaptereditaudit','chapterdraftworkspace','draftsavegate','draftsaveaction','draftreader','draftversionhistory','draftcontinueworkspace','continuesavegate','continuesaveaction','draftrefresh','draftcompare','realprosegate','realprosesave','realproserefreshcompare','realproseeditorgate','realproseeditsave','realproseeditverify','chapterproseworkspace','chapterprosecontinuegate','chapterprosecontinuesave','chapterprosecontinueverify','novelforge','prompts'],
   'Knowledge & Creative':['academy','creative','library'],
-  'Engineering & Repair':['repair','extensions','scanbridge','projectgen','buildverify','envverify','portable','modelcheck','repairactions','repairhistory','repairops','repairdetail','repairtickets','repairticketdetail','ticketbridge','repairsession','repairfreeze'],
+  'Engineering & Repair':['repair','foxsentry','scanbridge','repairactions','repairhistory'],
+  'Engineering Advanced Tools':['extensions','projectgen','buildverify','envverify','portable','modelcheck','repairops','repairdetail','repairtickets','repairticketdetail','ticketbridge','repairsession','repairfreeze'],
   'Recovery & Backups':['backupvault','restorepreview','restoregate','restorestaging','stagingpackages','restorefinal','restoreaction','restoreaudit','rollbackpreview','rollbackaction','rollbackaudit','recoverytimeline'],
   'System':['logs','settings']
 };
@@ -1688,7 +1876,32 @@ function initDepartmentNav(){
   document.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='k'){e.preventDefault();openCommandPalette()}else if(e.key==='Escape')closeCommandPalette()});
   aside.querySelectorAll(':scope > .navbreak').forEach(x=>x.remove());aside.classList.add('nav-enhanced');renderNavShortcuts();navFavorites().forEach(id=>document.querySelectorAll(`.favtoggle[data-page="${id}"]`).forEach(x=>x.classList.add('on')))
 }
-function pg(id,b){recordRecent(id);syncNavState(id);if(id==='dash')setTimeout(()=>loadRecoveryDashboard(),0); if(id==='commandcenter')setTimeout(()=>loadCommandCenter(false),0); if(id==='commanddetail')setTimeout(()=>loadCommandDetailList(),0); if(id==='commandarchive')setTimeout(()=>loadCommandArchive(false),0); if(id==='commandfreeze')setTimeout(()=>loadCommandFreeze(false),0); if(id==='kayockwriter')setTimeout(()=>loadKayockWriter(false),0); if(id==='poemarchive')setTimeout(()=>loadPoemArchive(false),0); if(id==='storyforge')setTimeout(()=>loadStoryForge(false),0); if(id==='storymanifest')setTimeout(()=>loadStoryManifest(false),0); if(id==='projectgate')setTimeout(()=>loadProjectGate(false),0); if(id==='projectaction')setTimeout(()=>loadProjectAction(false,false),0); if(id==='projectdashboard')setTimeout(()=>loadProjectDashboard(false),0); if(id==='chapterplanner')setTimeout(()=>loadChapterPlanner(false),0); if(id==='chaptersavegate')setTimeout(()=>loadChapterSaveGate(false),0); if(id==='chaptersaveaction')setTimeout(()=>loadChapterSaveAction(false,false),0); if(id==='savedchapters')setTimeout(()=>loadSavedChapterDashboard(false),0); if(id==='savedchapterhealth')setTimeout(()=>loadSavedChapterHealthCard(false,'savedChapterHealth','savedChapterHealthBook'),0);document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));q(id).classList.add('active');document.querySelectorAll('.nav').forEach(x=>x.classList.remove('active'));if(b)b.classList.add('active'); if(id==='projects')loadProjects(); if(id==='memory')loadMemory(); if(id==='library'){loadLib(curLib);loadIronIndexStatus(); if(q('libResults')&&!q('libResults').innerHTML.trim())searchLib()} if(id==='novelforge'){loadNovelForgeList();setTimeout(updateCodexDashboard,0)} if(id==='prompts')loadPrompts(); if(id==='extensions')loadExtensions(); if(id==='scanbridge'&&!q('scanPath').value)q('scanPath').value='Departments'; if(id==='projectgen')setTimeout(refreshProjectDocsStatus,0); if(id==='repairhistory')setTimeout(()=>loadRepairHistory(false),0); if(id==='repairops')setTimeout(()=>loadRepairOps(false),0); if(id==='repairdetail')setTimeout(()=>loadRepairDetailList(),0); if(id==='repairtickets')setTimeout(()=>loadRepairTickets(false),0); if(id==='repairticketdetail')setTimeout(()=>loadRepairTicketDetailList(),0); if(id==='ticketbridge')setTimeout(()=>loadTicketBridgeList(),0); if(id==='repairsession')setTimeout(()=>loadRepairSession(false),0); if(id==='repairfreeze')setTimeout(()=>loadRepairFreeze(false),0); if(id==='backupvault')setTimeout(()=>loadBackupVault(false),0); if(id==='restorepreview')setTimeout(()=>loadRestoreBackupList(),0); if(id==='restoregate')setTimeout(()=>loadRestoreGateList(),0); if(id==='restorestaging')setTimeout(()=>loadRestoreStagingList(),0); if(id==='stagingpackages')setTimeout(()=>loadStagingPackages(false),0); if(id==='restorefinal')setTimeout(()=>loadRestoreFinalList(),0); if(id==='restoreaction')setTimeout(()=>loadRestoreActionList(),0); if(id==='restoreaudit')setTimeout(()=>loadRestoreAudit(false),0); if(id==='rollbackpreview')setTimeout(()=>loadRollbackPreviewActions(),0); if(id==='rollbackaction')setTimeout(()=>loadRollbackActionList(),0); if(id==='rollbackaudit')setTimeout(()=>loadRollbackAudit(false),0); if(id==='recoverytimeline')setTimeout(()=>loadRecoveryTimeline(false),0); if(id==='realproseeditorgate')setTimeout(()=>loadRealProseEditorGate(false),0); if(id==='realproseeditsave')setTimeout(()=>loadRealProseEditSave(false),0); if(id==='chapterproseworkspace')setTimeout(()=>loadChapterProseWorkspace(false),0); if(id==='chapterprosecontinuegate')setTimeout(()=>loadChapterProseContinueGate(false),0); if(id==='chapterprosecontinuesave')setTimeout(()=>loadChapterProseContinueSave(false,false),0)}
+/* REPAIR_BAY_GUIDED_CLEANUP_V1_BROWSER_START */
+async function refreshRepairBayStatus(){
+ await refresh();
+ toast('Repair Bay status refreshed read-only.');
+}
+async function openGuidedEngineer(){
+ await setProf('kayock');
+ go('mission');
+ let box=q('input');
+ if(box){
+  if(!box.value.trim())box.value='/engineer Read-only inspection only. Explain the problem and evidence before proposing any change.\n\nProblem:\n';
+  box.focus();
+  box.setSelectionRange(box.value.length,box.value.length);
+ }
+ toast('Engineer is ready in read-only-first mode. Describe the problem, then send.');
+}
+function renderRepairGuidedStatus(s){
+ let out=q('repairGuidedStatus');if(!out||!s)return;
+ let engine=s.engine_found?'FOUND':'MISSING';
+ let chat=s.chat_online?`RUNNING • ${s.chat_model_name||'local model'}`:'STOPPED';
+ let comfy=s.comfy_online?'RUNNING':'STOPPED';
+ let project=s.active_project||'None selected';
+ out.textContent=`FOXAI Engine: ${engine}\nAI Engine: ${chat}\nCreative Studio: ${comfy}\nActive Project: ${project}\nLibrary: ${s.library_items} items • ${s.library_pdfs} PDFs\nLast checked: ${new Date().toLocaleTimeString()}`;
+}
+/* REPAIR_BAY_GUIDED_CLEANUP_V1_BROWSER_END */
+function pg(id,b){recordRecent(id);syncNavState(id);if(id==='dash')setTimeout(()=>loadRecoveryDashboard(),0); if(id==='commandcenter')setTimeout(()=>loadCommandCenter(false),0); if(id==='commanddetail')setTimeout(()=>loadCommandDetailList(),0); if(id==='commandarchive')setTimeout(()=>loadCommandArchive(false),0); if(id==='commandfreeze')setTimeout(()=>loadCommandFreeze(false),0); if(id==='kayockwriter')setTimeout(()=>loadKayockWriter(false),0); if(id==='poemarchive')setTimeout(()=>loadPoemArchive(false),0); if(id==='storyforge')setTimeout(()=>loadStoryForge(false),0); if(id==='storymanifest')setTimeout(()=>loadStoryManifest(false),0); if(id==='projectgate')setTimeout(()=>loadProjectGate(false),0); if(id==='projectaction')setTimeout(()=>loadProjectAction(false,false),0); if(id==='projectdashboard')setTimeout(()=>loadProjectDashboard(false),0); if(id==='chapterplanner')setTimeout(()=>loadChapterPlanner(false),0); if(id==='chaptersavegate')setTimeout(()=>loadChapterSaveGate(false),0); if(id==='chaptersaveaction')setTimeout(()=>loadChapterSaveAction(false,false),0); if(id==='savedchapters')setTimeout(()=>loadSavedChapterDashboard(false),0); if(id==='savedchapterhealth')setTimeout(()=>loadSavedChapterHealthCard(false,'savedChapterHealth','savedChapterHealthBook'),0);document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));q(id).classList.add('active');document.querySelectorAll('.nav').forEach(x=>x.classList.remove('active'));if(b)b.classList.add('active'); if(id==='projects')loadProjects(); if(id==='memory')loadMemory(); if(id==='library'){loadLib(curLib);loadIronIndexStatus(); if(q('libResults')&&!q('libResults').innerHTML.trim())searchLib()} if(id==='novelforge'){loadNovelForgeList();setTimeout(updateCodexDashboard,0)} if(id==='prompts')loadPrompts(); if(id==='extensions')loadExtensions(); if(id==='scanbridge'&&!q('scanPath').value)q('scanPath').value='Departments'; if(id==='projectgen')setTimeout(refreshProjectDocsStatus,0); if(id==='repair')setTimeout(()=>refresh(),0); if(id==='repairhistory')setTimeout(()=>loadRepairHistory(false),0); if(id==='repairops')setTimeout(()=>loadRepairOps(false),0); if(id==='repairdetail')setTimeout(()=>loadRepairDetailList(),0); if(id==='repairtickets')setTimeout(()=>loadRepairTickets(false),0); if(id==='repairticketdetail')setTimeout(()=>loadRepairTicketDetailList(),0); if(id==='ticketbridge')setTimeout(()=>loadTicketBridgeList(),0); if(id==='repairsession')setTimeout(()=>loadRepairSession(false),0); if(id==='repairfreeze')setTimeout(()=>loadRepairFreeze(false),0); if(id==='backupvault')setTimeout(()=>loadBackupVault(false),0); if(id==='restorepreview')setTimeout(()=>loadRestoreBackupList(),0); if(id==='restoregate')setTimeout(()=>loadRestoreGateList(),0); if(id==='restorestaging')setTimeout(()=>loadRestoreStagingList(),0); if(id==='stagingpackages')setTimeout(()=>loadStagingPackages(false),0); if(id==='restorefinal')setTimeout(()=>loadRestoreFinalList(),0); if(id==='restoreaction')setTimeout(()=>loadRestoreActionList(),0); if(id==='restoreaudit')setTimeout(()=>loadRestoreAudit(false),0); if(id==='rollbackpreview')setTimeout(()=>loadRollbackPreviewActions(),0); if(id==='rollbackaction')setTimeout(()=>loadRollbackActionList(),0); if(id==='rollbackaudit')setTimeout(()=>loadRollbackAudit(false),0); if(id==='recoverytimeline')setTimeout(()=>loadRecoveryTimeline(false),0); if(id==='realproseeditorgate')setTimeout(()=>loadRealProseEditorGate(false),0); if(id==='realproseeditsave')setTimeout(()=>loadRealProseEditSave(false),0); if(id==='chapterproseworkspace')setTimeout(()=>loadChapterProseWorkspace(false),0); if(id==='chapterprosecontinuegate')setTimeout(()=>loadChapterProseContinueGate(false),0); if(id==='chapterprosecontinuesave')setTimeout(()=>loadChapterProseContinueSave(false,false),0)}
 function go(id){let b=[...document.querySelectorAll('.nav-primary')].find(x=>x.dataset.page===id)||[...document.querySelectorAll('.nav')].find(x=>x.dataset.page===id);pg(id,b)}function goMemory(){go('memory')}
 async function api(u,opt){try{let r=await fetch(u,opt);let d=await r.json();toast(d.message||JSON.stringify(d));refresh();return d}catch(e){toast('Request failed: '+e)}}function esc(s){return String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}function js(s){return String(s).replace(/\\/g,'\\\\').replace(/'/g,"\\'")}
 /* GUARDED_STREAMING_PHASE2_BROWSER_START */
@@ -8164,14 +8377,41 @@ let poetryBusy=false;
 let poemOriginalVersion='';
 let poemPolishedVersion='';
 let poemOriginalTitle='';
+let poemOpenedFrom='';
+let poemOpenedMode='';
+let poemSelectionState={base:'',start:0,end:0,selected:'',alternatives:[]};
+let poemRhymeState={base:'',stanzas:[]};
+
+const POETRY_VOICE_PROFILE_UI={"Eric — Poet/Narrator":{"id":"eric_poet_narrator","strengths":["Light Influence","Recognizably Eric","Strong Eric Voice"],"default_strength":"Recognizably Eric","source_label":"Read-only source profile built from:","badges":["Eternity","The City Of Sorrows","The Vampire Lestat","The Soliloquy of 2002"],"notice":"Inspired by the Eric — Poet/Narrator voice profile. New work; not copied from a source poem. Eric’s originals remain unchanged."},"Edgar Allan Poe — Gothic Lyric":{"id":"edgar_allan_poe_gothic_lyric","strengths":["Candlelit Influence","Gothic Lyric","Midnight Full Force"],"default_strength":"Gothic Lyric","source_label":"Public-domain literary foundation:","badges":["The Raven","Annabel Lee","The Bells","Alone","The Haunted Palace"],"notice":"Musical gothic poetry shaped by public-domain Poe traditions. FOXAI creates a new poem rather than reproducing famous lines, titles, refrains, or plots."},"Beneath the Beats — West Coast Voice":{"id":"beneath_the_beats_west_coast_voice","strengths":["Light West Coast Influence","Truth & Defiance","Full Spoken-Word Force"],"default_strength":"Truth & Defiance","source_label":"Original trait-based composite:","badges":["Emotional truth","Family & loyalty","Social conscience","Internal rhyme","Street-level cinema"],"notice":"Broad West Coast spoken-word craft only. No copyrighted lyrics are stored, quoted, remixed, paraphrased, or imitated."},"Dust and Duty — Last Gunslinger Voice":{"id":"dust_and_duty_last_gunslinger","strengths":["Quiet Resolve","The Gunslinger’s Oath","Last Road, Full Force"],"default_strength":"The Gunslinger’s Oath","source_label":"Original frontier-fantasy archetype:","badges":["Old West","Dying worlds","Ruined machines","Strange stars","Campfire stew","Found family"],"notice":"An original tragic frontier voice: dust, duty, strange technology, quiet grief, and meals shared beside the last fire. No protected characters, mythology, phrases, or franchise details are used."},"The Forsaken Flame — Exile’s Voice":{"id":"the_forsaken_flame_exiles_voice","strengths":["Lonely Wanderer","Beautiful and Unwanted","Forsaken Flame"],"default_strength":"Beautiful and Unwanted","source_label":"Public-domain literary foundation:","badges":["Frankenstein (1818)","Abandonment","Eloquent exile","Longing","Judgment","Terrible tenderness"],"notice":"Inspired by the public-domain Frankenstein tradition: intelligent, abandoned, eloquent, loving, and furious. New poems only; no copied passages or retelling of the novel."}};
 
 function updatePoetryVoiceControls(){
-    let selected=(q('poemVoice')?.value||'').trim();
-    let box=q('ericVoiceControls');
-    if(box)box.hidden=selected!=='Eric — Poet/Narrator';
+    let selected=q('poemVoice')?.value||'My natural voice';
+    let profile=POETRY_VOICE_PROFILE_UI[selected]||null;
+    let box=q('voiceProfileControls');
+    if(!box)return;
+    box.hidden=!profile;
+    if(!profile)return;
+
+    q('voiceProfileHead').textContent=selected;
+    q('voiceProfileSources').textContent=profile.source_label||'Voice profile:';
+    q('voiceProfileBadges').innerHTML=(profile.badges||[])
+        .map(item=>`<span class=voiceProfileBadge>${esc(item)}</span>`)
+        .join('');
+    q('voiceProfileNotice').textContent=profile.notice||'';
+
+    let strength=q('poemVoiceStrength');
+    let previous=strength?.value||'';
+    if(strength){
+        strength.innerHTML=(profile.strengths||[])
+            .map(item=>`<option>${esc(item)}</option>`)
+            .join('');
+        strength.value=(profile.strengths||[]).includes(previous)
+            ?previous
+            :(profile.default_strength||profile.strengths?.[0]||'');
+    }
 }
 
-function poetryPayload(){return {author:q('poemAuthor')?.value||'Eric Z. Fox',copyright:q('poemCopyright')?.value||'',theme:q('poemTheme')?.value||'',emotion:q('poemEmotion')?.value||'',imagery:q('poemImagery')?.value||'',voice:q('poemVoice')?.value||'My natural voice',voice_strength:q('poemVoiceStrength')?.value||'Recognizably Eric',form:q('poemForm')?.value||'Free verse',length:q('poemLength')?.value||'Medium',opening_line:q('poemOpening')?.value||''}}
+function poetryPayload(){return {author:q('poemAuthor')?.value||'Eric Z. Fox',copyright:q('poemCopyright')?.value||'',theme:q('poemTheme')?.value||'',emotion:q('poemEmotion')?.value||'',imagery:q('poemImagery')?.value||'',voice:q('poemVoice')?.value||'My natural voice',voice_strength:q('poemVoiceStrength')?.value||'Recognizably Eric',form:q('poemForm')?.value||'Free verse',length:q('poemLength')?.value||'Medium',opening_line:q('poemOpening')?.value||'',opened_from:poemOpenedFrom||'',opened_mode:poemOpenedMode||''}}
 
 function inferPoemTitle(poem){
     let lines=String(poem||'')
@@ -8210,10 +8450,10 @@ function poetryStatus(target,state,message){
 
 function setPoetryBusy(busy,mode=''){
     poetryBusy=Boolean(busy);
-    ['createPoemButton','tryAnotherPoemButton','savePoemButton','sendPoemPolisherButton','polishPoemButton'].forEach(id=>{let el=q(id);if(el)el.disabled=poetryBusy});
+    ['createPoemButton','tryAnotherPoemButton','savePoemButton','capturePoemSelectionButton','sendPoemPolisherButton','polishPoemButton','revisePoemSelectionButton'].forEach(id=>{let el=q(id);if(el)el.disabled=poetryBusy});
     let compareReady=!poetryBusy&&Boolean(poemOriginalVersion)&&Boolean(poemPolishedVersion);
     ['keepOriginalPoemButton','usePolishedPoemButton','saveBothPoemButton'].forEach(id=>{let el=q(id);if(el)el.disabled=!compareReady});
-    ['poemTheme','poemEmotion','poemImagery','poemVoice','poemVoiceStrength','poemForm','poemLength','poemOpening','poemPolisherInput','poemPolishFocus'].forEach(id=>{let el=q(id);if(el)el.disabled=poetryBusy});
+    ['poemTheme','poemEmotion','poemImagery','poemVoice','poemVoiceStrength','poemForm','poemLength','poemOpening','poemPolisherInput','poemPolishFocus','poemSelectionFocus','poemSelectionNote'].forEach(id=>{let el=q(id);if(el)el.disabled=poetryBusy});
     if(mode==='create'&&q('createPoemButton'))q('createPoemButton').textContent=busy?'Creating...':'Create Poem';
     if(mode==='polish'&&q('polishPoemButton'))q('polishPoemButton').textContent=busy?'Polishing...':'Polish Poem';
 }
@@ -8239,8 +8479,12 @@ async function createPoem(variation=false){
         if(!d?.ok){poetryStatus('poemStatus','ERROR',d?.message||'Poem creation failed.');return}
         q('poemResult').value=d.poem||'';
         q('poemTitle').value=d.suggested_title||'Untitled Poem';
+        poemOpenedFrom='';
+        poemOpenedMode='created';
+        poemRhymeState={base:'',stanzas:[]};
+        if(q('poemRhymeCoachResults'))q('poemRhymeCoachResults').innerHTML='<div class=rhymeCoachEmpty>Press <b>Check Rhyme &amp; Rhythm</b> to analyze this poem.</div>';
         resetPoemComparison();
-        let profileNote=d.voice_profile?` Inspired by ${d.voice_profile} at ${d.voice_strength||'Recognizably Eric'} strength. New work; source poems unchanged.`:'';
+        let profileNote=d.voice_profile?` Inspired by ${d.voice_profile} at ${d.voice_strength||'selected strength'} strength. New work; source poems unchanged.`:'';
         poetryStatus('poemStatus','READY TO EDIT',`Created with ${d.model_name||'the active local model'}. The title and poem remain editable.${profileNote}`);
     }finally{
         setPoetryBusy(false,'create');
@@ -8265,6 +8509,345 @@ async function savePoemDraft(){
     }finally{
         setPoetryBusy(false);
     }
+}
+
+function rhymeCoachStatus(state,message){
+    poetryStatus('poemRhymeCoachStatus',state,message);
+}
+
+function poetryAnalysisWords(line){
+    return String(line||'')
+        .replace(/[’']/g,"'")
+        .match(/[A-Za-zÀ-ÖØ-öø-ÿ]+(?:'[A-Za-zÀ-ÖØ-öø-ÿ]+)*/g)||[];
+}
+
+function poetryAnalysisEndWord(line){
+    let words=poetryAnalysisWords(line);
+    return words.length?words[words.length-1]:'';
+}
+
+function poetryAnalysisCleanWord(word){
+    let clean=String(word||'')
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g,'')
+        .replace(/[^a-z]/g,'');
+    if(clean.length>4&&clean.endsWith('ies'))clean=clean.slice(0,-3)+'y';
+    else if(clean.length>4&&clean.endsWith('es'))clean=clean.slice(0,-2);
+    else if(clean.length>3&&clean.endsWith('s'))clean=clean.slice(0,-1);
+    if(clean.length>4&&clean.endsWith('ed')&&!/[aeiou]ed$/.test(clean))clean=clean.slice(0,-2);
+    if(clean.length>3&&clean.endsWith('e')&&!/[aeiou]le$/.test(clean))clean=clean.slice(0,-1);
+    return clean;
+}
+
+function poetryRhymeKey(word){
+    let clean=poetryAnalysisCleanWord(word);
+    if(!clean)return '';
+    let matches=[...clean.matchAll(/[aeiouy]+/g)];
+    if(!matches.length)return clean.slice(-3);
+    let last=matches[matches.length-1];
+    let start=last.index;
+    let tail=clean.slice(start);
+    if(tail.length<2&&clean.length>=2)tail=clean.slice(-2);
+    return tail;
+}
+
+function poetryEstimateWordSyllables(word){
+    let clean=String(word||'')
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g,'')
+        .replace(/[^a-z]/g,'');
+    if(!clean)return 0;
+    if(clean.length<=3)return 1;
+    let work=clean;
+    if(work.endsWith('e')&&!work.endsWith('le'))work=work.slice(0,-1);
+    let groups=work.match(/[aeiouy]+/g)||[];
+    let count=groups.length;
+    if(/[^aeiou]le$/.test(clean))count+=1;
+    if(/(?:ia|io|eo)/.test(clean))count+=1;
+    if(/(?:cial|tial)$/.test(clean))count=Math.max(1,count-1);
+    return Math.max(1,count);
+}
+
+function poetryEstimateLineSyllables(line){
+    return poetryAnalysisWords(line)
+        .reduce((sum,word)=>sum+poetryEstimateWordSyllables(word),0);
+}
+
+function poetryStanzaSpans(poem){
+    let value=String(poem||'');
+    let spans=[];
+    let pattern=/\S(?:[\s\S]*?\S)?(?=\n[ \t]*\n|$)/g;
+    let match;
+    while((match=pattern.exec(value))!==null){
+        let raw=match[0];
+        let start=match.index;
+        let end=start+raw.length;
+        let lines=raw.split(/\r?\n/).filter(line=>line.trim());
+        if(lines.length)spans.push({start,end,text:raw,lines});
+        if(pattern.lastIndex===match.index)pattern.lastIndex++;
+    }
+    return spans;
+}
+
+function poetryRhymeLetters(keys){
+    let map=new Map();
+    let next=0;
+    let alphabet='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    return keys.map(key=>{
+        if(!key)return '–';
+        if(!map.has(key)){
+            map.set(key,alphabet[next]||`R${next+1}`);
+            next++;
+        }
+        return map.get(key);
+    });
+}
+
+function poetryAnalyzeStanza(stanza,index){
+    let rows=stanza.lines.map((line,lineIndex)=>{
+        let endWord=poetryAnalysisEndWord(line);
+        return {
+            lineIndex,
+            line,
+            endWord,
+            rhymeKey:poetryRhymeKey(endWord),
+            syllables:poetryEstimateLineSyllables(line)
+        };
+    });
+    let letters=poetryRhymeLetters(rows.map(row=>row.rhymeKey));
+    rows.forEach((row,i)=>row.rhymeLetter=letters[i]);
+    let frequencies={};
+    rows.forEach(row=>{
+        if(row.rhymeKey)frequencies[row.rhymeKey]=(frequencies[row.rhymeKey]||0)+1;
+    });
+    let matched=rows.filter(row=>(frequencies[row.rhymeKey]||0)>1).length;
+    let rhymeRatio=rows.length?matched/rows.length:0;
+    let syllables=rows.map(row=>row.syllables).filter(value=>value>0);
+    let minSyllables=syllables.length?Math.min(...syllables):0;
+    let maxSyllables=syllables.length?Math.max(...syllables):0;
+    let spread=maxSyllables-minSyllables;
+    let rhythmLabel=spread<=2?'steady':spread<=4?'mostly steady':'uneven';
+    let rhymeLabel=rhymeRatio>=.75?'strong':rhymeRatio>=.4?'partial':'loose';
+    return {
+        ...stanza,
+        index,
+        rows,
+        scheme:letters.join(''),
+        rhymeRatio,
+        rhymeLabel,
+        minSyllables,
+        maxSyllables,
+        spread,
+        rhythmLabel
+    };
+}
+
+function renderPoemRhymeCoach(stanzas){
+    let box=q('poemRhymeCoachResults');
+    if(!box)return;
+    if(!stanzas.length){
+        box.innerHTML='<div class=rhymeCoachEmpty>No nonblank stanzas were found.</div>';
+        return;
+    }
+    box.innerHTML=stanzas.map(stanza=>{
+        let rhymeClass=stanza.rhymeLabel==='strong'?'good':stanza.rhymeLabel==='loose'?'loose':'';
+        let rows=stanza.rows.map(row=>`<div class=rhymeLine><span class=rhymeLineNo>${row.lineIndex+1}</span><span class=rhymeLineText title="${esc(row.line)}">${esc(row.line)}</span><span class=rhymeMetric>${row.syllables} syl.</span><span class="rhymeMetric rhymeKey">${esc(row.endWord||'—')} · ${esc(row.rhymeLetter)}</span></div>`).join('');
+        let summary=`Approx. scheme: ${stanza.scheme||'—'}\nRhyme: ${stanza.rhymeLabel} · Rhythm: ${stanza.rhythmLabel} · Syllable range: ${stanza.minSyllables}–${stanza.maxSyllables}`;
+        return `<div class=rhymeStanza><div class=rhymeStanzaHead><h4>Stanza ${stanza.index+1}</h4><span class="rhymeBadge ${rhymeClass}">${esc(stanza.rhymeLabel.toUpperCase())} RHYME</span><span class="rhymeBadge ${stanza.rhythmLabel==='steady'?'good':stanza.rhythmLabel==='uneven'?'loose':''}">${esc(stanza.rhythmLabel.toUpperCase())} RHYTHM</span></div><div class=rhymeSummary>${esc(summary)}</div><div class=rhymeLineGrid>${rows}</div><div class=rhymeStanzaActions><button onclick="sendRhymeStanzaToWorkshop(${stanza.index})">Revise This Stanza</button></div></div>`;
+    }).join('');
+}
+
+function analyzePoemRhymeRhythm(){
+    if(poetryBusy)return;
+    let poem=q('poemResult')?.value||'';
+    if(!poem.trim()){toast('Create, paste, or reopen a poem first.');return}
+    let samePoem=poemRhymeState.base===poem&&poemRhymeState.stanzas?.length;
+    let stanzas=poetryStanzaSpans(poem).map(poetryAnalyzeStanza);
+    poemRhymeState={base:poem,stanzas};
+    renderPoemRhymeCoach(stanzas);
+    q('poemRhymeCoachPanel').open=true;
+    let form=q('poemForm')?.value||'';
+    let loose=stanzas.filter(stanza=>stanza.rhymeLabel==='loose').length;
+    let uneven=stanzas.filter(stanza=>stanza.rhythmLabel==='uneven').length;
+    let warning=form==='Rhymed'&&loose?` ${loose} stanza${loose===1?'':'s'} look loosely rhymed for the selected Rhymed form.`:'';
+    let unchanged=samePoem?' The poem has not changed, so the analysis is unchanged.':'';
+    rhymeCoachStatus('ANALYZED',`${stanzas.length} stanza${stanzas.length===1?'':'s'} checked. ${uneven} have noticeably uneven estimated line lengths.${warning}${unchanged}`);
+    updateRhymeTargetPreview();
+    q('poemRhymeCoachPanel').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function rhymeTargetDirection(){
+    let target=q('poemRhymeTarget')?.value||'auto';
+    return {
+        auto:'Strengthen natural end rhyme and cadence without forcing filler.',
+        aabb:'Use a clear AABB couplet pattern: lines 1 and 2 rhyme; lines 3 and 4 rhyme.',
+        abab:'Use a clear ABAB alternating pattern: lines 1 and 3 rhyme; lines 2 and 4 rhyme.',
+        aaaa:'Use one strong monorhyme family across the stanza without sounding repetitive.',
+        none:'Improve rhythm and line balance only. Do not force end rhyme.'
+    }[target]||'Strengthen natural rhyme and cadence.';
+}
+
+function updateRhymeTargetPreview(){
+    let labels={
+        auto:'Natural rhyme',
+        aabb:'AABB couplets',
+        abab:'ABAB alternating rhyme',
+        aaaa:'AAAA monorhyme',
+        none:'Rhythm only'
+    };
+    let target=q('poemRhymeTarget')?.value||'auto';
+    let box=q('poemRhymeTargetPreview');
+    if(box)box.textContent=`${labels[target]||'Selected target'} will guide the next stanza revision. The current analysis will not change until the poem changes.`;
+}
+
+function sendRhymeStanzaToWorkshop(index){
+    if(poetryBusy)return;
+    let poem=q('poemResult')?.value||'';
+    let stanza=poemRhymeState.stanzas?.[index];
+    if(!stanza){toast('Analyze the poem again first.');return}
+    if(poem!==poemRhymeState.base||poem.slice(stanza.start,stanza.end)!==stanza.text){
+        toast('The poem changed after analysis. Check Rhyme & Rhythm again.');
+        return;
+    }
+    poemSelectionState={
+        base:poem,
+        start:stanza.start,
+        end:stanza.end,
+        selected:stanza.text,
+        alternatives:[]
+    };
+    q('poemSelectionText').value=stanza.text;
+    q('poemSelectionFocus').value='Smoother rhyme and rhythm';
+    q('poemSelectionNote').value=rhymeTargetDirection();
+    clearPoemSelectionAlternatives();
+    q('revisePoemSelectionButton').disabled=false;
+    q('poemSelectionPanel').open=true;
+    selectionWorkshopStatus('CAPTURED',`Stanza ${index+1} was sent from the Rhyme & Rhythm Coach. Only this stanza can be replaced.`);
+    q('poemSelectionPanel').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function selectionWorkshopStatus(state,message){
+    poetryStatus('poemSelectionStatus',state,message);
+}
+
+function clearPoemSelectionAlternatives(){
+    poemSelectionState.alternatives=[];
+    let box=q('poemSelectionAlternatives');
+    if(box)box.innerHTML='';
+}
+
+function stanzaBounds(text,cursor){
+    let start=text.lastIndexOf('\n\n',Math.max(0,cursor-1));
+    start=start<0?0:start+2;
+    let end=text.indexOf('\n\n',cursor);
+    end=end<0?text.length:end;
+    return [start,end];
+}
+
+function trimSelectionBounds(text,start,end){
+    while(start<end&&/[\r\n]/.test(text[start]))start++;
+    while(end>start&&/[\r\n]/.test(text[end-1]))end--;
+    return [start,end];
+}
+
+function capturePoemSelection(){
+    if(poetryBusy)return;
+    let editor=q('poemResult');
+    let poem=editor?.value||'';
+    if(!poem.trim()){toast('Create or paste a poem first.');return}
+    let start=Number(editor.selectionStart||0);
+    let end=Number(editor.selectionEnd||0);
+    let usedStanza=false;
+    if(start===end){
+        [start,end]=stanzaBounds(poem,start);
+        usedStanza=true;
+    }
+    [start,end]=trimSelectionBounds(poem,start,end);
+    let selected=poem.slice(start,end);
+    if(!selected.trim()){toast('Highlight lines or place the cursor inside a stanza.');return}
+    poemSelectionState={base:poem,start,end,selected,alternatives:[]};
+    q('poemSelectionText').value=selected;
+    clearPoemSelectionAlternatives();
+    q('revisePoemSelectionButton').disabled=false;
+    q('poemSelectionPanel').open=true;
+    selectionWorkshopStatus('CAPTURED',usedStanza?'No text was highlighted, so the current stanza was captured.':'The highlighted passage was captured. The rest of the poem is protected.');
+    q('poemSelectionPanel').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function renderPoemSelectionAlternatives(items){
+    let box=q('poemSelectionAlternatives');
+    box.innerHTML='';
+    (items||[]).forEach((item,index)=>{
+        let card=document.createElement('div');
+        card.className='selectionAlt';
+        card.innerHTML=`<h4>Alternative ${index+1}</h4><textarea id="poemSelectionAlt${index}">${esc(item)}</textarea><button onclick="applyPoemSelectionAlternative(${index})">Use This Alternative</button>`;
+        box.appendChild(card);
+    });
+}
+
+async function revisePoemSelection(){
+    if(poetryBusy)return;
+    let selected=poemSelectionState.selected||'';
+    if(!selected){toast('Capture selected lines or a stanza first.');return}
+    let current=q('poemResult')?.value||'';
+    if(current!==poemSelectionState.base){selectionWorkshopStatus('RESELECT','The poem changed after capture. Select the passage again so FOXAI replaces the correct text.');return}
+    clearPoemSelectionAlternatives();
+    selectionWorkshopStatus('CREATING','Creating three selection-sized choices. Full-poem answers will be rejected automatically; the poem itself is not changing yet.');
+    setPoetryBusy(true);
+    try{
+        let settings=poetryPayload();
+        let body={
+            poem:current,
+            title:q('poemTitle')?.value||'',
+            selection:selected,
+            selection_start:poemSelectionState.start,
+            selection_end:poemSelectionState.end,
+            focus:q('poemSelectionFocus')?.value||'Keep meaning, improve the lines',
+            note:q('poemSelectionNote')?.value||'',
+            voice:settings.voice,
+            voice_strength:settings.voice_strength
+        };
+        let d=await api('/api/writer/poetry/revise-selection',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+        if(!d?.ok){selectionWorkshopStatus('ERROR',d?.message||'Selection revision failed.');return}
+        if(Number.isInteger(d.verified_selection_start)&&Number.isInteger(d.verified_selection_end)){
+            poemSelectionState.start=d.verified_selection_start;
+            poemSelectionState.end=d.verified_selection_end;
+            poemSelectionState.selected=d.verified_selection||poemSelectionState.selected;
+            q('poemSelectionText').value=poemSelectionState.selected;
+        }
+        poemSelectionState.alternatives=(d.alternatives||[]).slice(0,3);
+        renderPoemSelectionAlternatives(poemSelectionState.alternatives);
+        let profileNote=d.voice_profile?` ${d.voice_profile} guided the choices at ${d.voice_strength||'selected strength'} strength.`:'';
+        selectionWorkshopStatus('3 CHOICES',`Nothing has been replaced. Edit a choice if needed, then use only the one you prefer.${profileNote}`);
+    }finally{
+        setPoetryBusy(false);
+        if(poemSelectionState.selected)q('revisePoemSelectionButton').disabled=false;
+    }
+}
+
+function applyPoemSelectionAlternative(index){
+    if(poetryBusy)return;
+    let current=q('poemResult')?.value||'';
+    if(current!==poemSelectionState.base){selectionWorkshopStatus('RESELECT','The poem changed after capture. Select the passage again before applying a choice.');return}
+    let field=q(`poemSelectionAlt${index}`);
+    let replacement=(field?.value||'').trim();
+    if(!replacement){toast('That alternative is empty.');return}
+    let updated=current.slice(0,poemSelectionState.start)+replacement+current.slice(poemSelectionState.end);
+    q('poemResult').value=updated;
+    let appliedStart=poemSelectionState.start;
+    let appliedEnd=appliedStart+replacement.length;
+    resetPoemComparison();
+    poemSelectionState={base:updated,start:appliedStart,end:appliedEnd,selected:replacement,alternatives:[]};
+    q('poemSelectionText').value=replacement;
+    clearPoemSelectionAlternatives();
+    selectionWorkshopStatus('APPLIED','Only the captured passage was replaced. Review the full poem, then save a new draft when ready.');
+    poetryStatus('poemStatus','SELECTION APPLIED','Selected lines were replaced. No saved poem was overwritten.');
+    let editor=q('poemResult');
+    editor.focus();
+    editor.setSelectionRange(appliedStart,appliedEnd);
+    editor.scrollIntoView({behavior:'smooth',block:'center'});
 }
 
 function sendPoemToPolisher(){
@@ -8298,7 +8881,7 @@ async function polishPoem(){
         if(!d?.ok){poetryStatus('poemPolishStatus','ERROR',d?.message||'Polish failed.');return}
         poemPolishedVersion=(d.poem||'').trim();
         q('poemPolishedResult').value=poemPolishedVersion;
-        let profileNote=d.voice_profile?` ${d.voice_profile} was used at ${d.voice_strength||'Recognizably Eric'} strength; protected source poems were not changed.`:'';
+        let profileNote=d.voice_profile?` ${d.voice_profile} was used at ${d.voice_strength||'selected strength'} strength; protected source poems were not changed.`:'';
         poetryStatus('poemPolishStatus','READY TO COMPARE',`Original and polished versions are both available. Nothing has been replaced.${profileNote}`);
     }finally{
         setPoetryBusy(false,'polish');
@@ -8337,6 +8920,36 @@ async function saveBothPoemVersions(){
         setPoetryBusy(false);
     }
 }
+
+/* KAYOCK_WRITER_GUIDED_CLEANUP_V1_BROWSER_START */
+const STORY_WRITER_TASKS={
+    new:'Help me discover and shape a new story. Begin with the smallest useful question about the central situation, character, or change. Do not create files yet.',
+    scene:'Help me plan one scene. Clarify the viewpoint character, immediate desire, obstacle, turning point, emotional change, useful setting details, and the question or pressure that carries into the next scene.',
+    character:'Help me create a story character. Develop what they want, what they fear, what they hide, their contradictions, formative history, relationships, speaking voice, strengths, flaws, and how they can change.',
+    outline:'Help me build a flexible story outline from premise through ending. Keep room for discovery and do not bury me in technical structure.'
+};
+function startStoryWriterTask(task){
+    let request=STORY_WRITER_TASKS[task]||STORY_WRITER_TASKS.new;
+    go('mission');
+    let input=q('input');
+    if(!input){toast('Mission Console input is unavailable.');return}
+    input.value=`GUIDED WRITER — STORY FORGE\n\n${request}\n\nGuide me calmly. Ask only one useful question at a time, use plain language, and keep a short running story summary. Preserve my decisions and do not replace my voice.`;
+    input.focus();
+    toast('Story Forge brief is ready in Mission Console.');
+}
+function openPoemPolisherFromWriterHome(){
+    go('poetrystudio');
+    setTimeout(()=>{
+        let panel=q('poemPolisherPanel');
+        if(panel){
+            panel.open=true;
+            panel.scrollIntoView({behavior:'smooth',block:'start'});
+        }
+        q('poemPolisherInput')?.focus();
+    },80);
+}
+/* KAYOCK_WRITER_GUIDED_CLEANUP_V1_BROWSER_END */
+
 const WORLD_BUILDER_TASKS={world:'Help me create the foundation of a new world: central idea, tone, major conflicts, magic, cultures, and what makes it distinctive.',region:'Help me build one region: terrain, borders, travel, cultures, settlements, dangers, landmarks, resources, and adventure hooks.',settlement:'Help me design a settlement: purpose, population, districts, leadership, useful locations, current problems, secrets, factions, and adventure hooks.',faction:'Help me create a faction: public goal, hidden goal, leadership, members, resources, methods, allies, rivals, internal divisions, symbols, and hooks.',deity:'Help me design a deity or religion: domain, myths, values, rituals, clergy, symbols, taboos, holy places, schisms, miracles, and conflicts.',dungeon:'Help me build a dungeon or adventure site: original purpose, history, present inhabitants, zones, hazards, clues, rewards, choices, and a memorable final area.',campaign:'Help me create a campaign: premise, player role, starting situation, major threats, factions, campaign arcs, milestones, secrets, and a strong session-one hook.'};
 function startWorldBuilderTask(task){let request=WORLD_BUILDER_TASKS[task]||WORLD_BUILDER_TASKS.world,name=(q('worldBuilderName')?.value||'').trim()||'a new setting',style=q('worldBuilderStyle')?.value||'D&D fantasy';go('mission');q('input').value=`WORLD BUILDER — ${name}\nStyle: ${style}\n\n${request}\n\nGuide me calmly. Ask only one useful question at a time, explain unfamiliar terms in plain language, and keep a concise running summary I can later save into the Codex.`;q('input').focus();toast('World Builder brief is ready in Mission Console.')}
 
@@ -8377,7 +8990,7 @@ function renderPoemArchive(){
     let term=(q('poemArchiveSearch')?.value||'').trim().toLowerCase();
     let filter=q('poemArchiveFilter')?.value||'all';
     let groups=poemArchiveState.groups.filter(group=>{
-        let hay=[group.title,group.author,group.voice,group.voice_strength,group.theme,group.emotion].join(' ').toLowerCase();
+        let hay=[group.title,group.author,group.voice,group.voice_strength,group.theme,group.emotion,group.imagery,group.form,group.length,group.opening_line].join(' ').toLowerCase();
         if(term&&!hay.includes(term))return false;
         if(filter==='eric'&&!group.is_eric_voice)return false;
         if(filter==='legacy'&&!group.legacy&&!group.is_first_eric_voice)return false;
@@ -8420,6 +9033,89 @@ function poemArchiveSlot(label,slot){
     return `<div class=poemArchiveSlot><b>${esc(label)}</b><span class=${found?'found':'missing'}>${found?'READY':'NOT RECORDED'}</span>${found?`<div class=poemArchiveMeta>${esc(slot.filename||'')}</div>`:''}</div>`;
 }
 
+function poemArchivePromptDetails(data){
+    if(!data?.ok)return '';
+    let items=[
+        ['Theme',data.theme],
+        ['Emotion',data.emotion],
+        ['Scene / imagery',data.imagery],
+        ['Voice',data.voice],
+        ['Voice strength',data.voice_strength],
+        ['Form',data.form],
+        ['Length',data.length],
+        ['Opening line',data.opening_line],
+        ['Model used',data.model],
+        ['Opened from',data.opened_from],
+    ].filter(item=>String(item[1]||'').trim());
+    if(!items.length)return '<div class=poemArchiveStatus>No creation fields were recorded in this older save.</div>';
+    return `<details class=poemArchivePromptDetails><summary>Saved Prompt &amp; Creation Fields (${items.length})</summary><div class=poemArchivePromptGrid>${items.map(item=>`<div class=poemArchivePromptItem><b>${esc(item[0])}</b><span>${esc(String(item[1]||''))}</span></div>`).join('')}</div></details>`;
+}
+
+function setPoetryStudioField(id,value){
+    let el=q(id);
+    if(!el)return;
+    let next=String(value??'');
+    if(el.tagName==='SELECT'&&next){
+        let exists=[...el.options].some(option=>option.value===next||option.text===next);
+        if(!exists){
+            let option=document.createElement('option');
+            option.value=next;
+            option.textContent=next;
+            el.appendChild(option);
+        }
+    }
+    el.value=next;
+}
+
+function resetPoetrySelectionWorkshop(){
+    poemSelectionState={base:'',start:0,end:0,selected:'',alternatives:[]};
+    if(q('poemSelectionText'))q('poemSelectionText').value='';
+    if(q('poemSelectionAlternatives'))q('poemSelectionAlternatives').innerHTML='';
+    if(q('revisePoemSelectionButton'))q('revisePoemSelectionButton').disabled=true;
+    selectionWorkshopStatus('READY','Select lines or place the cursor inside a stanza.');
+}
+
+async function openSavedPoemInStudio(encodedName,mode='continue'){
+    let name=decodeURIComponent(encodedName||'');
+    if(!name){toast('No saved poem file was selected.');return}
+    let data=await poemArchiveRequest('/api/writer/poetry/archive/read?name='+encodeURIComponent(name));
+    if(!data?.ok)return;
+
+    let duplicate=mode==='duplicate';
+    let loadedTitle=data.title||'Untitled Poem';
+    if(duplicate)loadedTitle=`${loadedTitle} — New Work`;
+
+    setPoetryStudioField('poemTitle',loadedTitle);
+    setPoetryStudioField('poemAuthor',data.author||'Eric Z. Fox');
+    setPoetryStudioField('poemCopyright',data.copyright||'');
+    setPoetryStudioField('poemTheme',data.theme||'');
+    setPoetryStudioField('poemEmotion',data.emotion||'');
+    setPoetryStudioField('poemImagery',data.imagery||'');
+    setPoetryStudioField('poemVoice',data.voice||'My natural voice');
+    setPoetryStudioField('poemVoiceStrength',data.voice_strength||'Recognizably Eric');
+    setPoetryStudioField('poemForm',data.form||'Free verse');
+    setPoetryStudioField('poemLength',data.length||'Medium');
+    setPoetryStudioField('poemOpening',data.opening_line||'');
+    setPoetryStudioField('poemResult',data.poem||'');
+
+    poemOpenedFrom=duplicate?'':(data.filename||name);
+    poemOpenedMode=duplicate?'duplicate':'working_copy';
+    updatePoetryVoiceControls();
+    poemRhymeState={base:'',stanzas:[]};
+    if(q('poemRhymeCoachResults'))q('poemRhymeCoachResults').innerHTML='<div class=rhymeCoachEmpty>Press <b>Check Rhyme &amp; Rhythm</b> to analyze this working copy.</div>';
+    resetPoemComparison();
+    resetPoetrySelectionWorkshop();
+
+    go('poetrystudio');
+    let action=duplicate?'DUPLICATED':'OPENED WORKING COPY';
+    let lineage=duplicate
+        ?'This is a new poem based on the saved version. Saving creates a new Markdown file.'
+        :`Loaded from ${data.filename||name}. Saving creates a new Markdown file and records this source; the archived file remains unchanged.`;
+    poetryStatus('poemStatus',action,lineage);
+    q('poemResult')?.scrollIntoView({behavior:'smooth',block:'center'});
+    toast(duplicate?'Saved poem duplicated as a new work.':'Saved poem opened as a working copy.');
+}
+
 async function openPoemArchive(id,scroll=true){
     let group=poemArchiveGroup(id);
     if(!group)return;
@@ -8435,8 +9131,10 @@ async function openPoemArchive(id,scroll=true){
         polishedFile?poemArchiveRequest('/api/writer/poetry/archive/read?name='+encodeURIComponent(polishedFile)):Promise.resolve({ok:false})
     ]);
     let recordings=group.recordings||{};
-    let versionRows=(group.versions||[]).map(version=>`<div class=poemArchiveHistoryRow><span>${esc((version.version||'draft').toUpperCase())}</span><span>${esc(version.filename)}<br>${esc(version.created_display||'')}</span><button onclick="viewPoemArchiveFile('${encodeURIComponent(version.filename)}','${encodeURIComponent(group.title)}')">Read</button></div>`).join('');
-    detail.innerHTML=`<div class=poemArchiveHeader><h2>${esc(group.title)}</h2><div class=poemArchiveBadges>${poemArchiveBadges(group)}</div><div class=poemArchiveMeta>${esc(group.author||'Author not recorded')}<br>${group.copyright?esc(group.copyright)+'<br>':''}${esc(group.voice||'Voice not recorded')}${group.voice_strength?' · '+esc(group.voice_strength):''}${group.model?' · '+esc(group.model):''}</div><div class=poemArchiveActions><button onclick="togglePoemLegacy('${group.id}','legacy')">${group.legacy?'Remove Legacy Mark':'Mark as Legacy Work'}</button><button onclick="togglePoemLegacy('${group.id}','for_akaysha')">${group.for_akaysha?'✓ Akaysha':'For Akaysha'}</button><button onclick="togglePoemLegacy('${group.id}','for_nevaeh')">${group.for_nevaeh?'✓ Nevaeh':'For Nevaeh'}</button><button onclick="preparePoemRecordings('${group.id}')">Prepare Recording Folder</button>${recordings.folder_exists?`<button onclick="openPoemRecordingFolder('${group.id}')">Open Recordings</button>`:''}</div></div><div class=poemArchiveCompare>${poemArchiveVersionBox(original?.version==='polished'?'Latest Saved Version':'Original / Draft',original)}${poemArchiveVersionBox('Polished',polished)}</div><h3 style="margin-top:16px">Voice Legacy Recordings</h3><div class=poemArchiveSlots>${poemArchiveSlot('Original Reading',recordings.slots?.original)}${poemArchiveSlot('Polished Reading',recordings.slots?.polished)}${poemArchiveSlot('Personal Message',recordings.slots?.personal_message)}</div><div class=poemArchiveStatus>Suggested folder: ${esc(recordings.folder||'Prepare the folder when ready.')}</div><details class=poemArchiveHistory><summary>Version history (${group.version_total})</summary>${versionRows||'<div class=poemArchiveStatus>No versions found.</div>'}</details>`;
+    let versionRows=(group.versions||[]).map(version=>`<div class=poemArchiveHistoryRow><span>${esc((version.version||'draft').toUpperCase())}</span><span>${esc(version.filename)}<br>${esc(version.created_display||'')}</span><span><button onclick="viewPoemArchiveFile('${encodeURIComponent(version.filename)}','${encodeURIComponent(group.title)}')">Read</button><button onclick="openSavedPoemInStudio('${encodeURIComponent(version.filename)}','continue')">Open</button></span></div>`).join('');
+    let openButtons=`${original?.ok?`<button onclick="openSavedPoemInStudio('${encodeURIComponent(original.filename)}','continue')">Open Original</button>`:''}${polished?.ok?`<button onclick="openSavedPoemInStudio('${encodeURIComponent(polished.filename)}','continue')">Open Polished</button>`:''}${(polished?.ok||original?.ok)?`<button onclick="openSavedPoemInStudio('${encodeURIComponent((polished?.ok?polished:original).filename)}','duplicate')">Duplicate as New Poem</button>`:''}`;
+    let promptSource=polished?.ok?polished:original;
+    detail.innerHTML=`<div class=poemArchiveHeader><h2>${esc(group.title)}</h2><div class=poemArchiveBadges>${poemArchiveBadges(group)}</div><div class=poemArchiveMeta>${esc(group.author||'Author not recorded')}<br>${group.copyright?esc(group.copyright)+'<br>':''}${esc(group.voice||'Voice not recorded')}${group.voice_strength?' · '+esc(group.voice_strength):''}${group.model?' · '+esc(group.model):''}</div><div class=poemOpenNotice>Opening a saved version creates an editable working copy. Saving always creates a new Markdown file; the archived source remains unchanged.</div><div class=poemArchiveActions>${openButtons}<button onclick="togglePoemLegacy('${group.id}','legacy')">${group.legacy?'Remove Legacy Mark':'Mark as Legacy Work'}</button><button onclick="togglePoemLegacy('${group.id}','for_akaysha')">${group.for_akaysha?'✓ Akaysha':'For Akaysha'}</button><button onclick="togglePoemLegacy('${group.id}','for_nevaeh')">${group.for_nevaeh?'✓ Nevaeh':'For Nevaeh'}</button><button onclick="preparePoemRecordings('${group.id}')">Prepare Recording Folder</button>${recordings.folder_exists?`<button onclick="openPoemRecordingFolder('${group.id}')">Open Recordings</button>`:''}</div></div><div class=poemArchiveCompare>${poemArchiveVersionBox(original?.version==='polished'?'Latest Saved Version':'Original / Draft',original)}${poemArchiveVersionBox('Polished',polished)}</div>${poemArchivePromptDetails(promptSource)}<h3 style="margin-top:16px">Voice Legacy Recordings</h3><div class=poemArchiveSlots>${poemArchiveSlot('Original Reading',recordings.slots?.original)}${poemArchiveSlot('Polished Reading',recordings.slots?.polished)}${poemArchiveSlot('Personal Message',recordings.slots?.personal_message)}</div><div class=poemArchiveStatus>Suggested folder: ${esc(recordings.folder||'Prepare the folder when ready.')}</div><details class=poemArchiveHistory><summary>Version history (${group.version_total})</summary>${versionRows||'<div class=poemArchiveStatus>No versions found.</div>'}</details>`;
     if(scroll)detail.scrollIntoView({behavior:'smooth',block:'start'});
 }
 
@@ -8445,7 +9143,7 @@ async function viewPoemArchiveFile(encodedName,encodedTitle){
     if(!data.ok)return;
     let title=decodeURIComponent(encodedTitle||'');
     let detail=q('poemArchiveDetail');
-    detail.innerHTML=`<div class=poemArchiveHeader><h2>${esc(title)}</h2><button onclick="openPoemArchive('${poemArchiveState.selected}')">Back to paired view</button></div>${poemArchiveVersionBox((data.version||'draft').toUpperCase(),data)}`;
+    detail.innerHTML=`<div class=poemArchiveHeader><h2>${esc(title)}</h2><div class=poemArchiveActions><button onclick="openPoemArchive('${poemArchiveState.selected}')">Back to paired view</button><button onclick="openSavedPoemInStudio('${encodeURIComponent(data.filename||'')}','continue')">Open in Poetry Studio</button><button onclick="openSavedPoemInStudio('${encodeURIComponent(data.filename||'')}','duplicate')">Duplicate as New Poem</button></div></div>${poemArchiveVersionBox((data.version||'draft').toUpperCase(),data)}${poemArchivePromptDetails(data)}`;
     detail.scrollIntoView({behavior:'smooth',block:'start'});
 }
 
@@ -8480,6 +9178,7 @@ async function openPoemRecordingFolder(id){
 }
 
 try{updatePoetryVoiceControls()}catch(e){}
+try{updateRhymeTargetPreview()}catch(e){}
 /* KAYOCK_WRITER_CALM_HOME_V1_JS_END */
 
 let lastKayockWriter=null;
@@ -10928,7 +11627,7 @@ function renderComfyProfileStatus(d){let el=q('comfyProfileStatus');if(!el)retur
 async function startComfyProfile(){let current=await fetch('/api/comfy/operations',{cache:'no-store'}).then(r=>r.json()).catch(()=>null);if(current&&(current.online||current.process_running)){renderComfyProfileStatus(current);return}let sel=q('comfyProfile');let profile_id=sel?String(sel.value||'safe-normal-cpu'):'safe-normal-cpu';let d=await api('/api/launch/comfy/profile',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({profile_id})});if(d)renderComfyProfileStatus(d.controller||d)}
 async function statusComfyProfile(){try{let r=await fetch('/api/comfy/operations',{cache:'no-store'});let d=await r.json();renderComfyProfileStatus(d)}catch(e){renderComfyProfileStatus({state:'UNKNOWN'})}}
 
-async function refresh(){let s=await (await fetch('/api/status')).json();let lines=[`Root: ${s.root}`,`Kayock Browser: ${s.kayock_browser_found?'found':'missing'}`,`Engine: ${s.engine_found?'found':'missing'}`,`Chat online: ${s.chat_online?'yes':'no'}`,`Active project: ${s.active_project||'None'}`,`Projects: ${s.projects}`,`ComfyUI: ${s.comfy_online?'online':'offline'}`,`Chat models: ${s.chat_models}`,`Library items: ${s.library_items}`,`PDFs: ${s.library_pdfs}`];q('status').textContent=lines.join('\n');q('status2').textContent=lines.join('\n');q('paths').textContent=`Root: ${s.root}\nDrive: ${s.drive_root}\nBrowser: ${s.kayock_browser}\nEngine: ${s.engine}\nProjects: ${s.projects_root}`;q('am').textContent=s.chat_model_name||'None';activeProfileId=String(s.chat_profile_id||'');if(s.active_mission_image?.attached&&!pendingMissionImage){let meta=s.active_mission_image;activeMissionImage={...missionImageMetadata({name:meta.filename,type:meta.mime,size:meta.size_bytes,width:meta.width,height:meta.height,sha256:meta.sha256}),preview_url:activeMissionImage?.sha256===meta.sha256?(activeMissionImage.preview_url||''):''};renderMissionImage()}else if(!s.active_mission_image?.attached&&!pendingMissionImage){activeMissionImage=null;renderMissionImage()}q('ap').textContent=s.active_professor_name||'Agent Fox';q('mtitle').textContent=s.active_professor_name||'Agent Fox';q('apro').textContent=s.active_project||'None';q('rt').textContent=s.chat_engine_state||(s.chat_online?'RUNNING':'STOPPED');q('msrc').textContent=s.chat_online?(s.chat_model_source_label||'LOCAL'):'NONE';q('nuse').textContent=s.chat_network_use||'NONE';q('cpu').textContent=s.cpu_percent!==null?`${s.cpu_percent}%`:'n/a';q('ram').textContent=s.ram_used_gb!==null?`${s.ram_used_gb}/${s.ram_total_gb} GB (${s.ram_percent}%)`:'n/a';q('ramm').style.width=s.ram_percent!==null?`${s.ram_percent}%`:'0%';q('quick').innerHTML=`<span class="pill ${s.engine_found?'ok':'bad'}">Engine ${s.engine_found?'Found':'Missing'}</span><br><span class="pill ${s.chat_online?'ok':'warn'}">Chat ${s.chat_online?'Running':'Stopped'}</span><br><span class="pill ${s.comfy_online?'ok':'warn'}">ComfyUI ${s.comfy_online?'Running':'Stopped'}</span>`}
+async function refresh(){let s=await (await fetch('/api/status')).json();let lines=[`Root: ${s.root}`,`Kayock Browser: ${s.kayock_browser_found?'found':'missing'}`,`Engine: ${s.engine_found?'found':'missing'}`,`Chat online: ${s.chat_online?'yes':'no'}`,`Active project: ${s.active_project||'None'}`,`Projects: ${s.projects}`,`ComfyUI: ${s.comfy_online?'online':'offline'}`,`Chat models: ${s.chat_models}`,`Library items: ${s.library_items}`,`PDFs: ${s.library_pdfs}`];q('status').textContent=lines.join('\n');q('status2').textContent=lines.join('\n');q('paths').textContent=`Root: ${s.root}\nDrive: ${s.drive_root}\nBrowser: ${s.kayock_browser}\nEngine: ${s.engine}\nProjects: ${s.projects_root}`;q('am').textContent=s.chat_model_name||'None';activeProfileId=String(s.chat_profile_id||'');if(s.active_mission_image?.attached&&!pendingMissionImage){let meta=s.active_mission_image;activeMissionImage={...missionImageMetadata({name:meta.filename,type:meta.mime,size:meta.size_bytes,width:meta.width,height:meta.height,sha256:meta.sha256}),preview_url:activeMissionImage?.sha256===meta.sha256?(activeMissionImage.preview_url||''):''};renderMissionImage()}else if(!s.active_mission_image?.attached&&!pendingMissionImage){activeMissionImage=null;renderMissionImage()}q('ap').textContent=s.active_professor_name||'Agent Fox';q('mtitle').textContent=s.active_professor_name||'Agent Fox';q('apro').textContent=s.active_project||'None';q('rt').textContent=s.chat_engine_state||(s.chat_online?'RUNNING':'STOPPED');q('msrc').textContent=s.chat_online?(s.chat_model_source_label||'LOCAL'):'NONE';q('nuse').textContent=s.chat_network_use||'NONE';q('cpu').textContent=s.cpu_percent!==null?`${s.cpu_percent}%`:'n/a';q('ram').textContent=s.ram_used_gb!==null?`${s.ram_used_gb}/${s.ram_total_gb} GB (${s.ram_percent}%)`:'n/a';q('ramm').style.width=s.ram_percent!==null?`${s.ram_percent}%`:'0%';q('quick').innerHTML=`<span class="pill ${s.engine_found?'ok':'bad'}">Engine ${s.engine_found?'Found':'Missing'}</span><br><span class="pill ${s.chat_online?'ok':'warn'}">Chat ${s.chat_online?'Running':'Stopped'}</span><br><span class="pill ${s.comfy_online?'ok':'warn'}">ComfyUI ${s.comfy_online?'Running':'Stopped'}</span>`;renderRepairGuidedStatus(s)}
 
 async function refreshComfyOperations(){
     const meta=q('comfyOpsMeta');
@@ -11196,6 +11895,7 @@ class Handler(BaseHTTPRequestHandler):
         if path=='/api/generate/department_readme/preview': self.js(department_readme_preview(d)); return
         if path=='/api/writer/poetry/create': self.js(kayock_writer_poetry_create(d)); return
         if path=='/api/writer/poetry/polish': self.js(kayock_writer_poetry_polish(d)); return
+        if path=='/api/writer/poetry/revise-selection': self.js(kayock_writer_poetry_revise_selection(d)); return
         if path=='/api/writer/poetry/save': self.js(kayock_writer_poetry_save(d)); return
         if path=='/api/writer/poetry/recordings/prepare': self.js(kayock_writer_poetry_recordings_prepare(d)); return
         if path=='/api/writer/poetry/legacy': self.js(kayock_writer_poetry_legacy_update(d)); return
@@ -22108,6 +22808,11 @@ def _writer_text(value,limit=12000):
     return str(value or '').replace('\x00','').strip()[:max(1,int(limit))]
 
 
+def _writer_exact_text(value,limit=12000):
+    """Preserve whitespace when browser character positions must remain exact."""
+    return str(value or '').replace('\x00','')[:max(1,int(limit))]
+
+
 def _poetry_chat(messages,max_tokens=900,temperature=0.82):
     if not check(CHAT_HEALTH):
         return {'ok':False,'message':'The local chat engine is stopped. Start a writing model in Artificial Minds first.'}
@@ -22193,7 +22898,7 @@ def kayock_writer_poetry_create(d=None):
     if not any((theme,emotion,imagery,opening)):
         return {'ok':False,'message':'Add at least a theme, emotion, image, or opening line.'}
     length_guide={'short':'roughly 8 to 16 lines','medium':'roughly 18 to 32 lines','long':'roughly 35 to 60 lines'}.get(length.lower(),'roughly 18 to 32 lines')
-    voice_profile_id='eric_poet_narrator' if voice.strip().casefold()=='eric — poet/narrator'.casefold() else ''
+    voice_profile_id=_writer_voice_profile_id(voice)
     voice_profile_prompt=build_writer_voice_prompt(
         voice_profile_id,
         voice_strength,
@@ -22236,7 +22941,7 @@ def kayock_writer_poetry_create(d=None):
             'length':length,
             'opening_line':opening,
         },
-        'voice_profile':'Eric — Poet/Narrator' if voice_profile_id else '',
+        'voice_profile':_writer_voice_profile_name(voice_profile_id) if voice_profile_id else '',
         'voice_strength':voice_strength if voice_profile_id else '',
         'profile_sources':(
             get_writer_voice_profile(voice_profile_id).get('source_titles',[])
@@ -22269,7 +22974,7 @@ def kayock_writer_poetry_polish(d=None):
     else:
         change_rule='Make only changes that clearly improve the selected focus; preserve strong lines and the poem\'s overall identity.'
         temperature=0.45
-    voice_profile_id='eric_poet_narrator' if voice.strip().casefold()=='eric — poet/narrator'.casefold() else ''
+    voice_profile_id=_writer_voice_profile_id(voice)
     voice_profile_prompt=build_writer_voice_prompt(
         voice_profile_id,
         voice_strength,
@@ -22293,7 +22998,7 @@ def kayock_writer_poetry_polish(d=None):
     if result.get('ok'):
         result['message']='Polished version created.'
         result['focus']=focus
-        result['voice_profile']='Eric — Poet/Narrator' if voice_profile_id else ''
+        result['voice_profile']=_writer_voice_profile_name(voice_profile_id) if voice_profile_id else ''
         result['voice_strength']=voice_strength if voice_profile_id else ''
         result['profile_sources']=(
             get_writer_voice_profile(voice_profile_id).get('source_titles',[])
@@ -22302,6 +23007,358 @@ def kayock_writer_poetry_polish(d=None):
         result['source_poems_modified']=False
         result['new_work_not_copied']=bool(voice_profile_id)
     return result
+
+
+def _poetry_nonempty_lines(value):
+    return [
+        line.strip()
+        for line in str(value or '').splitlines()
+        if line.strip()
+    ]
+
+
+def _poetry_nearby_context(value,*,take_last=False,max_lines=2):
+    lines=_poetry_nonempty_lines(value)
+    if take_last:
+        lines=lines[-max_lines:]
+    else:
+        lines=lines[:max_lines]
+    return '\n'.join(lines)
+
+
+def _poetry_compact_voice_prompt(
+    profile_id,
+    strength,
+):
+    profile=get_writer_voice_profile(profile_id)
+    if not profile:
+        return ""
+
+    if profile_id=="eric_poet_narrator":
+        strength_key=str(
+            strength or "Recognizably Eric"
+        ).strip().casefold()
+        strength_rule={
+            "light influence":(
+                "Use only light Eric influence: direct feeling, purposeful "
+                "cadence, and a decisive ending."
+            ),
+            "strong eric voice":(
+                "Use strong Eric influence: emotionally direct language, "
+                "energetic rhyme or near-rhyme, mythic scale when natural, "
+                "memorable unusual phrasing, and a forceful final line."
+            ),
+        }.get(
+            strength_key,
+            "Use recognizable Eric influence: direct emotion, natural rhyme "
+            "or near-rhyme, unusual but understandable imagery, and a strong "
+            "ending.",
+        )
+        return (
+            "ERIC — POET/NARRATOR COMPACT VOICE GUIDE\n"
+            f"{strength_rule}\n"
+            "Preserve rough edges that carry identity. Keep all wording new. "
+            "Do not copy or recall any protected source poem line."
+        )
+
+    strength_rules=profile.get("strength_rules") or {}
+    strength_key=str(
+        strength
+        or profile.get("default_strength")
+        or ""
+    ).strip().casefold()
+    strength_rule=strength_rules.get(
+        strength_key,
+        next(
+            iter(strength_rules.values()),
+            "Use the profile traits with restraint.",
+        ),
+    )
+    traits="; ".join(
+        str(item)
+        for item in (profile.get("traits") or [])[:5]
+    )
+    boundaries=" ".join(
+        str(item)
+        for item in (
+            profile.get("originality_rules")
+            or []
+        )[:3]
+    )
+    return (
+        f"{profile.get('name','POETRY VOICE').upper()} "
+        "COMPACT VOICE GUIDE\n"
+        f"{strength_rule}\n"
+        f"Core traits: {traits}.\n"
+        f"Boundaries: {boundaries} "
+        "Keep every replacement line new and limited to the submitted passage."
+    )
+
+
+def _poetry_selection_alternatives(raw,selected,before='',after=''):
+    value=_writer_text(raw,12000)
+    value=re.sub(
+        r'^```(?:text|markdown)?\s*',
+        '',
+        value,
+        flags=re.IGNORECASE,
+    )
+    value=re.sub(r'\s*```$','',value)
+
+    pattern=(
+        r'\n\s*(?:<<<ALT>>>|'
+        r'---+\s*ALTERNATIVE(?:\s+\d+)?\s*---+|'
+        r'ALTERNATIVE\s+\d+\s*:?|'
+        r'OPTION\s+\d+\s*:?)\s*\n'
+    )
+    parts=[
+        part.strip()
+        for part in re.split(
+            pattern,
+            '\n'+value,
+            flags=re.IGNORECASE,
+        )
+        if part.strip()
+    ]
+    if len(parts)<2:
+        numbered=re.split(
+            r'(?m)^\s*(?:\d+[.)]|[A-C][.)])\s+',
+            value,
+        )
+        parts=[
+            part.strip()
+            for part in numbered
+            if part.strip()
+        ]
+
+    selected_lines=_poetry_nonempty_lines(selected)
+    selected_line_count=max(1,len(selected_lines))
+    max_line_count=selected_line_count+max(
+        1,
+        min(2,(selected_line_count+1)//2),
+    )
+    selected_length=max(1,len(selected.strip()))
+    max_character_count=max(
+        260,
+        int(selected_length*1.85)+80,
+    )
+
+    protected_context=[
+        line.casefold()
+        for line in (
+            _poetry_nonempty_lines(before)
+            +_poetry_nonempty_lines(after)
+        )
+        if len(line)>=12
+    ]
+
+    cleaned=[]
+    normalized_seen=set()
+    selected_key=re.sub(
+        r'\s+',
+        ' ',
+        selected,
+    ).strip().casefold()
+
+    for part in parts:
+        part=re.sub(
+            r'^\s*(?:alternative|option)\s*\d*\s*[:\-]\s*',
+            '',
+            part,
+            flags=re.IGNORECASE,
+        ).strip()
+        part=part.strip('` ')
+        if not part:
+            continue
+
+        lines=_poetry_nonempty_lines(part)
+        if not lines:
+            continue
+
+        # Reject full-poem or multi-stanza answers. A replacement may vary by
+        # one or two lines, but it may not grow into the surrounding poem.
+        if len(lines)>max_line_count:
+            continue
+        if len(part)>max_character_count:
+            continue
+
+        part_key=part.casefold()
+        if any(context_line in part_key for context_line in protected_context):
+            continue
+
+        key=re.sub(
+            r'\s+',
+            ' ',
+            part,
+        ).strip().casefold()
+        if key==selected_key or key in normalized_seen:
+            continue
+
+        normalized_seen.add(key)
+        cleaned.append(part)
+        if len(cleaned)>=3:
+            break
+
+    return cleaned
+
+
+def kayock_writer_poetry_revise_selection(d=None):
+    d=d or {}
+    # Character positions come from the browser textarea. Do not strip either
+    # value before validating the selected slice.
+    poem=_writer_exact_text(d.get('poem'),32000)
+    selected=_writer_exact_text(d.get('selection'),8000)
+    title=_writer_text(d.get('title'),160)
+    focus=_writer_text(d.get('focus') or 'Keep meaning, improve the lines',160)
+    note=_writer_text(d.get('note'),800)
+    voice=_writer_text(d.get('voice') or 'My natural voice',160)
+    voice_strength=_writer_text(d.get('voice_strength') or 'Recognizably Eric',80)
+    try:
+        start=int(d.get('selection_start'))
+        end=int(d.get('selection_end'))
+    except Exception:
+        return {'ok':False,'message':'Selection positions were invalid. Capture the passage again.'}
+    if not poem.strip() or not selected.strip():
+        return {'ok':False,'message':'Capture selected lines or a stanza first.'}
+    if start<0 or end<=start or end>len(poem):
+        return {'ok':False,'message':'The captured positions were outside the poem. Select the passage again.'}
+
+    captured_slice=poem[start:end]
+    if captured_slice!=selected:
+        # Older browser selections may include harmless leading/trailing
+        # whitespace differently. Recover only when the same passage remains
+        # at the same location after trimming those edges.
+        left_trim=len(captured_slice)-len(captured_slice.lstrip())
+        right_trim=len(captured_slice)-len(captured_slice.rstrip())
+        adjusted_start=start+left_trim
+        adjusted_end=end-right_trim
+        adjusted_slice=poem[adjusted_start:adjusted_end]
+        if adjusted_slice.strip()==selected.strip() and adjusted_slice.strip():
+            start=adjusted_start
+            end=adjusted_end
+            selected=adjusted_slice
+        else:
+            return {
+                'ok':False,
+                'message':(
+                    'The poem changed after the passage was captured. '
+                    'Select the lines again before creating alternatives.'
+                ),
+            }
+    before_raw=poem[max(0,start-1200):start]
+    after_raw=poem[end:min(len(poem),end+1200)]
+    before=_poetry_nearby_context(
+        before_raw,
+        take_last=True,
+        max_lines=2,
+    )
+    after=_poetry_nearby_context(
+        after_raw,
+        take_last=False,
+        max_lines=2,
+    )
+    focus_rules={
+        'stronger imagery':'Make each option more vivid and specific without changing the central meaning.',
+        'smoother rhyme and rhythm':'Improve cadence, line balance, rhyme, or near-rhyme while avoiding forced filler.',
+        'more emotional impact':'Increase emotional force through concrete language rather than melodrama.',
+        'clearer wording':'Clarify confusing wording while keeping the writer\'s distinctive phrasing.',
+        'make it stranger and more memorable':'Offer unusual but understandable images and phrasing; avoid generic poetic language.',
+        'preserve voice with minimal changes':'Make restrained edits and preserve rough edges that carry identity.',
+    }
+    focus_rule=focus_rules.get(focus.strip().casefold(),'Preserve the meaning and role of the passage while making the lines stronger.')
+    voice_profile_id=_writer_voice_profile_id(voice)
+    # The full profile contains four complete poems. That is useful for whole
+    # poem creation, but it can distract a small model during a four-line edit.
+    voice_profile_prompt=(
+        _poetry_compact_voice_prompt(voice_profile_id,voice_strength)
+        if voice_profile_id else ''
+    )
+    selected_line_count=max(
+        1,
+        len(_poetry_nonempty_lines(selected)),
+    )
+    minimum_lines=max(1,selected_line_count-1)
+    maximum_lines=selected_line_count+1
+    system=(
+        'You are the FOXAI Selected Lines and Stanza Workshop. '
+        'Create exactly three distinct replacement passages. '
+        'OUTPUT ONLY THE REPLACEMENT LINES. NEVER RETURN THE WHOLE POEM. '
+        'Never repeat a BEFORE or AFTER context line. '
+        'Each choice must fit naturally between the supplied context. '
+        f'Each choice must contain {minimum_lines} to {maximum_lines} nonblank lines. '
+        'Do not include the title, context, explanations, labels, numbering, '
+        'quotation marks, or markdown fences. '
+        'Separate the three passages with a line containing exactly <<<ALT>>>. '
+        'Do not return the unchanged selection as an option. '
+        'Do not imitate a living poet. '
+        f'{focus_rule}'
+    )
+    if voice_profile_prompt:
+        system+='\n\n'+voice_profile_prompt
+        system+=(
+            '\n\nFor this workshop, the submitted poem and selected passage are the primary authority. '
+            'Use the profile only to preserve compatible voice qualities. Never import a source-poem line.'
+        )
+    user='\n'.join([
+        f'Title: {title or "Untitled Poem"}',
+        f'Focus: {focus}',
+        f'Additional direction: {note or "none"}',
+        '',
+        'BEFORE CONTEXT:',
+        before or '[beginning of poem]',
+        '',
+        'SELECTED PASSAGE TO REPLACE:',
+        selected,
+        '',
+        'AFTER CONTEXT:',
+        after or '[end of poem]',
+        '',
+        'Return exactly three replacement passages separated by <<<ALT>>>.',
+    ])
+    selected_word_count=max(1,len(selected.split()))
+    token_budget=min(
+        700,
+        max(260,selected_word_count*7),
+    )
+    result=_poetry_chat(
+        [
+            {'role':'system','content':system},
+            {'role':'user','content':user},
+        ],
+        max_tokens=token_budget,
+        temperature=0.68,
+    )
+    if not result.get('ok'):
+        return result
+    alternatives=_poetry_selection_alternatives(
+        result.get('poem'),
+        selected,
+        before,
+        after,
+    )
+    if not alternatives:
+        return {
+            'ok':False,
+            'message':(
+                'The model returned text outside the selected passage, so '
+                'FOXAI rejected it. Press Create 3 Alternatives again.'
+            ),
+            'scope_rejected':True,
+            'whole_poem_unchanged':True,
+        }
+    return {
+        'ok':True,
+        'message':f'{len(alternatives)} replacement choices created.',
+        'alternatives':alternatives,
+        'verified_selection_start':start,
+        'verified_selection_end':end,
+        'verified_selection':selected,
+        'selection_unchanged':True,
+        'whole_poem_unchanged':True,
+        'voice_profile':_writer_voice_profile_name(voice_profile_id) if voice_profile_id else '',
+        'voice_strength':voice_strength if voice_profile_id else '',
+        'source_poems_modified':False,
+    }
 
 
 def kayock_writer_poetry_save(d=None):
@@ -22333,11 +23390,17 @@ def kayock_writer_poetry_save(d=None):
         f'version: {json.dumps(version_kind)}',
         f'version_group: {json.dumps(version_group,ensure_ascii=False)}',
         f'form: {json.dumps(_writer_text(settings.get("form"),80),ensure_ascii=False)}',
+        f'length: {json.dumps(_writer_text(settings.get("length"),80),ensure_ascii=False)}',
         f'voice: {json.dumps(_writer_text(settings.get("voice"),160),ensure_ascii=False)}',
         f'voice_strength: {json.dumps(_writer_text(settings.get("voice_strength"),80),ensure_ascii=False)}',
-        f'voice_profile_sources_read_only: {json.dumps(bool(_writer_text(settings.get("voice"),160).strip().casefold()=="eric — poet/narrator".casefold()))}',
+        f'voice_profile_sources_read_only: {json.dumps(bool(_writer_voice_profile_id(_writer_text(settings.get("voice"),160))))}',
         f'theme: {json.dumps(_writer_text(settings.get("theme"),300),ensure_ascii=False)}',
         f'emotion: {json.dumps(_writer_text(settings.get("emotion"),300),ensure_ascii=False)}',
+        f'imagery: {json.dumps(_writer_text(settings.get("imagery"),4000),ensure_ascii=False)}',
+        f'opening_line: {json.dumps(_writer_text(settings.get("opening_line"),1000),ensure_ascii=False)}',
+        f'opened_from: {json.dumps(_writer_text(settings.get("opened_from"),220),ensure_ascii=False)}',
+        f'opened_mode: {json.dumps(_writer_text(settings.get("opened_mode"),80),ensure_ascii=False)}',
+        f'prompt_fields: {json.dumps({"theme":_writer_text(settings.get("theme"),300),"emotion":_writer_text(settings.get("emotion"),300),"imagery":_writer_text(settings.get("imagery"),4000),"voice":_writer_text(settings.get("voice"),160),"voice_strength":_writer_text(settings.get("voice_strength"),80),"form":_writer_text(settings.get("form"),80),"length":_writer_text(settings.get("length"),80),"opening_line":_writer_text(settings.get("opening_line"),1000),"author":_writer_text(settings.get("author") or "Eric Z. Fox",160),"copyright":_writer_text(settings.get("copyright"),240)},ensure_ascii=False)}',
         '---','',f'# {display_title}','',poem,'',
     ]
     path.write_text('\n'.join(front),encoding='utf-8')
@@ -22440,7 +23503,13 @@ def _poetry_parse_markdown(path,include_poem=False):
         'model':_writer_text(meta.get('model'),180),
         'theme':_writer_text(meta.get('theme'),300),
         'emotion':_writer_text(meta.get('emotion'),300),
+        'imagery':_writer_text(meta.get('imagery'),4000),
         'form':_writer_text(meta.get('form'),80),
+        'length':_writer_text(meta.get('length'),80),
+        'opening_line':_writer_text(meta.get('opening_line'),1000),
+        'opened_from':_writer_text(meta.get('opened_from'),220),
+        'opened_mode':_writer_text(meta.get('opened_mode'),80),
+        'prompt_fields':meta.get('prompt_fields') if isinstance(meta.get('prompt_fields'),dict) else {},
         'profile_sources_read_only':bool(meta.get('voice_profile_sources_read_only')),
         'excerpt':re.sub(r'\s+',' ',body)[:220],
         'size_bytes':stat.st_size,
@@ -22541,6 +23610,10 @@ def kayock_writer_poetry_archive():
             'model':next((item.get('model') for item in versions if item.get('model')),''),
             'theme':next((item.get('theme') for item in versions if item.get('theme')),''),
             'emotion':next((item.get('emotion') for item in versions if item.get('emotion')),''),
+            'imagery':next((item.get('imagery') for item in versions if item.get('imagery')),''),
+            'form':next((item.get('form') for item in versions if item.get('form')),''),
+            'length':next((item.get('length') for item in versions if item.get('length')),''),
+            'opening_line':next((item.get('opening_line') for item in versions if item.get('opening_line')),''),
             'is_eric_voice':is_eric_voice,
             'is_first_eric_voice':special,
             'legacy':legacy,

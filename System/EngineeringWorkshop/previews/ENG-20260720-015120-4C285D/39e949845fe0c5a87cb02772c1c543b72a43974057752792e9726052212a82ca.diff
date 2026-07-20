@@ -1,0 +1,344 @@
+--- a/core/foxai_web.py
++++ b/core/foxai_web.py
+@@ -2087,7 +2087,7 @@
+ function repairPlainFinding(item){
+  let id=String(item?.id||''),fallback={title:item?.title||'Item to review',explanation:item?.summary||'Repair Bay found something that deserves review.',action:item?.suggested_action||'Review the details before making any change.'};
+  let known={
+-  root_launcher_inventory:{title:'FOXAI has many launcher files',explanation:'Nothing is broken. FOXAI has accumulated many old, specialized, and testing launchers. The important launchers are protected and indexed.',action:'Keep using the approved front-door launchers. Review older scripts later through a separate approved plan.'},
++  root_launcher_inventory:{title:'Launcher evidence needs review',explanation:'Repair Bay found at least one unresolved launcher item or evidence-backed low-confidence candidate. Nothing was changed.',action:'Review only the exact evidence shown in Launcher Index. Do not move, rename, archive, delete, or execute a launcher from this screen.'},
+   memory_pressure:{title:'FOXAI is using a lot of memory',explanation:'A large local AI model or another heavy program may be using most of the computer’s memory.',action:'Close an unneeded model or application before starting another heavy task.'},
+   disk_space:{title:'The FOXAI drive is low on free space',explanation:'FOXAI may not have enough room for new models, images, backups, or updates.',action:'Review large files through an approved cleanup plan. Do not delete anything automatically.'},
+   pending_reboot:{title:'Windows may need a normal restart',explanation:'Windows reported a confirmed update or servicing restart request.',action:'Save your work and restart normally when convenient. Repair Bay will not force a restart.'},
+@@ -2103,13 +2103,14 @@
+  return known[id]||fallback;
+ }
+ function repairCalmViewModel(report){
+- let counts=report?.summary?.counts||{},urgent=Number(counts.urgent||0),recommended=Number(counts.recommended||0);
+- let attention=(report?.findings||[]).filter(item=>item?.severity==='urgent'||item?.severity==='recommended').slice(0,3).map(item=>({...repairPlainFinding(item),severity:item.severity,id:item.id}));
++ let counts=report?.summary?.counts||{},actionable=repairActionableFindings(report);
++ let urgent=actionable.filter(item=>item?.severity==='urgent').length,recommended=actionable.filter(item=>item?.severity==='recommended').length;
++ let attention=actionable.slice(0,3).map(item=>({...repairPlainFinding(item),severity:item.severity,id:item.id}));
+  let state=urgent?'urgent':recommended?'attention':'healthy';
+  let badge=urgent?'URGENT':recommended?'NEEDS ATTENTION':'HEALTHY';
+  let title=urgent?'This computer needs attention.':recommended===1?'Your computer looks healthy, with one item to review.':recommended>1?`Your computer looks healthy, with ${recommended} items to review.`:'Your computer looks healthy.';
+- let message=urgent?'Repair Bay found a problem that should be reviewed before heavy work continues. Nothing was changed.':recommended?'Nothing appears broken. Repair Bay found a small number of items worth reviewing when convenient.':'No problems were found in the areas Repair Bay checked.';
+- let next=attention.length?attention[0].action:'No action is required. Continue using FOXAI normally.';
++ let message=urgent?'Repair Bay found a problem that should be reviewed before heavy work continues. Nothing was changed.':recommended?'Nothing appears broken. Repair Bay found a small number of items worth reviewing when convenient.':'No repairs are needed. Repair Bay found no urgent or recommended problems in the areas checked.';
++ let next=attention.length?attention[0].action:'Continue using FOXAI normally.';
+  let info=Number(counts.informational||0);
+  let safety=`Read-only check complete • Network used: ${report?.safety?.network_used?'YES':'NO'} • Repairs applied: ${report?.safety?.repairs_applied||0}`+(info?` • ${info} informational note${info===1?'':'s'} available in details`:'');
+  return {state,badge,title,message,next,attention,safety};
+@@ -2181,7 +2182,16 @@
+  };
+ }
+ /* REPAIR_BAY_PLANNING_ONLY_GUARD_V2_3_BROWSER_END */
+-function repairActionableFindings(report){return (report?.findings||[]).filter(item=>item?.severity==='urgent'||item?.severity==='recommended')}
++/* REPAIR_BAY_HEALTHY_LAUNCHER_CLASSIFICATION_V2_5_BROWSER_START */
++function repairFindingIsActionable(item,report){
++ let severity=String(item?.severity||'').toLowerCase();
++ if(severity!=='urgent'&&severity!=='recommended')return false;
++ if(String(item?.id||'')!=='root_launcher_inventory')return true;
++ let inventory=report?.evidence?.launcher_inventory||{};
++ return Boolean((inventory.unresolved_items||[]).length||(inventory.obsolete_looking_candidates||[]).length);
++}
++function repairActionableFindings(report){return (report?.findings||[]).filter(item=>repairFindingIsActionable(item,report))}
++/* REPAIR_BAY_HEALTHY_LAUNCHER_CLASSIFICATION_V2_5_BROWSER_END */
+ function preparedRepairMissionIsValid(){return Boolean(preparedRepairMission&&String(preparedRepairMission.text||'').trim()&&preparedRepairMission.packet&&validRepairEngineerCommand(preparedRepairMission.packet))}
+ function syncPreparedRepairMissionUI(){
+  let ready=preparedRepairMissionIsValid(),advanced=q('repairHandoffOpenButton'),calmOpen=q('repairHandoffCalmOpenButton'),calmActions=q('repairHandoffCalmActions');
+@@ -2216,7 +2226,7 @@
+  if(state==='running'){button.disabled=true;button.textContent='Check Running…';button.title='Wait for the read-only check to finish.';return}
+  if(!report){button.disabled=true;button.textContent='Run a Check First';button.title='Repair Bay needs a completed health scan before it can prepare a finding handoff.';return}
+  let findings=repairActionableFindings(report);
+- if(!findings.length){button.disabled=true;button.textContent='No Repair Needed';button.title='The completed scan found no urgent or recommended repair item.';return}
++ if(!findings.length){button.disabled=true;button.textContent='No Repairs Needed';button.title='The completed scan found no urgent or recommended repair item.';return}
+  button.disabled=false;
+  if(findings.length===1){button.textContent='Ask Engineer';button.title='Prepare the one actionable finding for review in Mission Console.'}
+  else{button.textContent='Choose a Finding';button.title='Several items need review. Choose one item below before preparing a handoff.'}
+--- a/core/repair_bay_diagnostics.py
++++ b/core/repair_bay_diagnostics.py
+@@ -14,7 +14,7 @@
+ from pathlib import Path
+ from typing import Any
+ 
+-SCAN_VERSION = "1.4"
++SCAN_VERSION = "1.5"
+ SEVERITIES = ("urgent", "recommended", "informational", "healthy")
+ 
+ 
+@@ -833,6 +833,14 @@
+     }
+ 
+ 
++def _launcher_inventory_needs_review(inventory: dict[str, Any]) -> bool:
++    """Return True only for evidence-backed launcher work, never quantity or duplicate count alone."""
++    return bool(
++        list(inventory.get("unresolved_items") or [])
++        or list(inventory.get("obsolete_looking_candidates") or [])
++    )
++
++
+ def _launcher_inventory_evidence(inventory: dict[str, Any]) -> list[str]:
+     counts = dict(inventory.get("category_counts") or {})
+     protected = list((inventory.get("protected_baseline") or {}).get("root") or [])
+@@ -1205,7 +1213,7 @@
+     return {
+         "ok": project_root.is_dir(),
+         "version": SCAN_VERSION,
+-        "title": "Repair Bay V1.4 — Consistent Launcher Evidence",
++        "title": "Repair Bay V1.5 — Healthy Launcher Classification",
+         "created_at": _iso_now(),
+         "root": str(project_root),
+         "read_only": True,
+@@ -1333,7 +1341,7 @@
+         "changes_applied": 0,
+         "steps": steps,
+         "message": (
+-            "Review each proposed action separately. Repair Bay V1.4 does not apply repairs."
++            "Review each proposed action separately. Repair Bay V1.5 does not apply repairs."
+             if steps
+             else "No repair steps are proposed from this scan."
+         ),
+@@ -1407,7 +1415,7 @@
+         return {
+             "ok": False,
+             "version": SCAN_VERSION,
+-            "title": "Repair Bay V1.4 — Consistent Launcher Evidence",
++            "title": "Repair Bay V1.5 — Healthy Launcher Classification",
+             "created_at": _iso_now(),
+             "mode": scan_mode,
+             "root": str(project_root),
+@@ -1821,7 +1829,7 @@
+         protected_count = len((launcher_inventory.get("protected_baseline") or {}).get("root") or [])
+         candidate_count = len(launcher_inventory.get("obsolete_looking_candidates") or [])
+         unresolved_count = len(launcher_inventory.get("unresolved_items") or [])
+-        launcher_review = launcher_count > 40 or duplicate_count > 0 or unresolved_count > 0
++        launcher_review = _launcher_inventory_needs_review(launcher_inventory)
+         raw_unknown_count = len(launcher_inventory.get("raw_unknown_items") or [])
+         launcher_summary = (
+             f"Mapped {launcher_count} root BAT file(s) from one finalized read-only dataset. "
+@@ -1837,7 +1845,13 @@
+                 "recommended" if launcher_review else "informational",
+                 launcher_summary,
+                 evidence=_launcher_inventory_evidence(launcher_inventory),
+-                suggested_action="Preserve the protected baseline. Review exact duplicate members and their static evidence only; a filename marker alone never justifies cleanup. Do not move, rename, delete, archive, or execute scripts from this scan.",
++                suggested_action=(
++                    "Preserve the protected baseline. Review only the exact unresolved items or evidence-backed "
++                    "low-confidence candidates shown in Launcher Index. Do not move, rename, delete, archive, or execute scripts."
++                    if launcher_review
++                    else "No repair is needed. Continue using the approved front-door launchers. Exact duplicate-group "
++                    "details remain informational in Show scan details and Launcher Index."
++                ),
+                 category="organization",
+             )
+         )
+@@ -1850,7 +1864,7 @@
+     report = {
+         "ok": counts["urgent"] == 0,
+         "version": SCAN_VERSION,
+-        "title": "Repair Bay V1.4 — Consistent Launcher Evidence",
++        "title": "Repair Bay V1.5 — Healthy Launcher Classification",
+         "created_at": _iso_now(),
+         "mode": scan_mode,
+         "root": str(project_root),
+--- a/core/repair_bay_handoff.py
++++ b/core/repair_bay_handoff.py
+@@ -6,7 +6,7 @@
+ from pathlib import Path
+ from typing import Any, Iterable
+ 
+-SCHEMA = "foxai.repair_bay.guarded_handoff.v2_3"
++SCHEMA = "foxai.repair_bay.guarded_handoff.v2_5"
+ MAX_EVIDENCE_ITEMS = 12
+ MAX_AFFECTED_PATHS = 24
+ 
+@@ -295,6 +295,19 @@
+         "and a final receipt. A later separate operator decision is required before any file change. "
+         "Uncertain paths must remain advisory."
+     )
++
++def _finding_is_actionable(report: dict[str, Any], finding: dict[str, Any]) -> bool:
++    severity = str(finding.get("severity") or "").strip().casefold()
++    if severity not in {"urgent", "recommended"}:
++        return False
++    if str(finding.get("id") or "") != "root_launcher_inventory":
++        return True
++    inventory = (report.get("evidence") or {}).get("launcher_inventory") or {}
++    return bool(
++        list(inventory.get("unresolved_items") or [])
++        or list(inventory.get("obsolete_looking_candidates") or [])
++    )
++
+ 
+ def build_repair_handoff(
+     root: str | Path,
+@@ -339,6 +352,27 @@
+             "implementation_authorized": False,
+         }
+ 
++    if not _finding_is_actionable(report, selected):
++        return {
++            "ok": False,
++            "schema": SCHEMA,
++            "message": (
++                "No repair is needed for this item. Launcher quantity, raw unknown classification, "
++                "and exact duplicate content are informational unless the finalized scan contains an "
++                "unresolved item or an evidence-backed review candidate."
++            ),
++            "requested_finding_id": _clean(requested or selected.get("id"), 100),
++            "finding": {
++                "id": _clean(selected.get("id"), 100),
++                "title": _safe_title(selected.get("title") or selected.get("id")),
++                "severity": _clean(selected.get("severity"), 30).casefold(),
++            },
++            "read_only": True,
++            "changes_applied": 0,
++            "mission_staged": False,
++            "implementation_authorized": False,
++        }
++
+     evidence = [_clean(item, 900) for item in list(selected.get("evidence") or [])[:MAX_EVIDENCE_ITEMS]]
+     paths = _finding_paths(root_path, report, selected)
+     eligible, reason, profile = _support_decision(selected, paths)
+@@ -352,7 +386,7 @@
+     packet: dict[str, Any] = {
+         "ok": True,
+         "schema": SCHEMA,
+-        "version": "2.3",
++        "version": "2.5",
+         "level": "advanced" if str(level).casefold() == "advanced" else "guided",
+         "read_only": True,
+         "eligible": eligible,
+--- a/core/VERIFY_REPAIR_BAY_V1.py
++++ b/core/VERIFY_REPAIR_BAY_V1.py
+@@ -15,7 +15,7 @@
+ from Departments.Engineering.mission_router import classify_mission as official_classify_mission
+ 
+ import core.repair_bay_diagnostics as diagnostics
+-from core.repair_bay_diagnostics import SEVERITIES, run_launcher_index, run_repair_bay_scan
++from core.repair_bay_diagnostics import SEVERITIES, _launcher_inventory_needs_review, run_launcher_index, run_repair_bay_scan
+ from core.repair_bay_handoff import build_repair_handoff, predict_engineer_route
+ 
+ 
+@@ -122,7 +122,7 @@
+ 
+ def assert_report(report: dict, mode: str) -> None:
+     assert report["mode"] == mode
+-    assert report["version"] == "1.4"
++    assert report["version"] == "1.5"
+     assert report["read_only"] is True
+     assert report["safety"]["network_used"] is False
+     assert report["safety"]["commands_run"] is False
+@@ -231,10 +231,18 @@
+         assert inventory["evidence_consistency"]["finalized"] is True
+         assert inventory["evidence_consistency"]["unresolved_after_resolution_count"] == len(inventory["unresolved_items"])
+         assert "raw_unknown_items" in inventory
++        assert _launcher_inventory_needs_review(inventory) is True
++        assert _launcher_inventory_needs_review({
++            "total": 115,
++            "exact_duplicate_groups": [{"files": ["Start FoxAI.bat", "start FoxAI 3 Alpha.bat"]}],
++            "raw_unknown_items": [f"RAW_{index}.bat" for index in range(17)],
++            "unresolved_items": [],
++            "obsolete_looking_candidates": [],
++        }) is False
+ 
+         index_before = tree_snapshot(root)
+         launcher_index = run_launcher_index(root, context={"test": True})
+-        assert launcher_index["version"] == "1.4"
++        assert launcher_index["version"] == "1.5"
+         assert launcher_index["read_only"] is True
+         assert launcher_index["safety"]["batch_files_executed"] is False
+         assert launcher_index["safety"]["network_used"] is False
+@@ -429,6 +437,47 @@
+     assert launcher_official.mission_type == "plan", launcher_official
+     assert launcher_official.authorized is False, launcher_official
+     assert launcher_handoff["route_guard"]["safe_for_repair_bay_send"] is True
++
++    healthy_launcher_report = {
++        "read_only": True,
++        "safety": {"network_used": False, "commands_run": False, "files_written": 0, "repairs_applied": 0},
++        "findings": [
++            {
++                "id": "root_launcher_inventory",
++                "title": "FOXAI launcher map and protected baseline",
++                "severity": "informational",
++                "summary": "115 launchers, one duplicate group, zero unresolved items, and zero review candidates.",
++                "suggested_action": "No repair is needed.",
++                "evidence": ["Exact duplicate group: Start FoxAI.bat | start FoxAI 3 Alpha.bat"],
++            }
++        ],
++        "evidence": {
++            "launcher_inventory": {
++                "total": 115,
++                "raw_unknown_items": [f"RAW_{index}.bat" for index in range(17)],
++                "unresolved_items": [],
++                "obsolete_looking_candidates": [],
++                "exact_duplicate_groups": [
++                    {"group_id": 1, "files": ["Start FoxAI.bat", "start FoxAI 3 Alpha.bat"]}
++                ],
++            }
++        },
++    }
++    healthy_launcher_handoff = build_repair_handoff(
++        root, healthy_launcher_report, "root_launcher_inventory", level="guided"
++    )
++    assert healthy_launcher_handoff["ok"] is False, healthy_launcher_handoff
++    assert healthy_launcher_handoff["implementation_authorized"] is False
++    assert "engineer_command" not in healthy_launcher_handoff
++    assert "No repair is needed" in healthy_launcher_handoff["message"]
++
++    recommended_without_evidence = json.loads(json.dumps(healthy_launcher_report))
++    recommended_without_evidence["findings"][0]["severity"] = "recommended"
++    recommended_without_evidence_handoff = build_repair_handoff(
++        root, recommended_without_evidence, "root_launcher_inventory", level="guided"
++    )
++    assert recommended_without_evidence_handoff["ok"] is False, recommended_without_evidence_handoff
++    assert "engineer_command" not in recommended_without_evidence_handoff
+     assert handoff_before == tree_snapshot(root), "Guarded handoff modified fixture files."
+ 
+     live_web = PROJECT_ROOT / "core" / "foxai_web.py"
+@@ -469,7 +518,6 @@
+         "REPAIR_BAY_HANDOFF_READINESS_GUARD_V2_1_BROWSER_START",
+         "repairAskEngineerButton",
+         "Run a Check First",
+-        "No Repair Needed",
+         "Choose a Finding",
+         "handleRepairAskEngineer",
+         "validRepairEngineerCommand",
+@@ -484,6 +532,10 @@
+         "Already prepared — Open Mission Console",
+         "consumePreparedRepairMission",
+         "REPAIR_BAY_PLANNING_ONLY_GUARD_V2_3_BROWSER_START",
++        "REPAIR_BAY_HEALTHY_LAUNCHER_CLASSIFICATION_V2_5_BROWSER_START",
++        "repairFindingIsActionable",
++        "No repairs are needed. Repair Bay found no urgent or recommended problems",
++        "No Repairs Needed",
+         "repairPlanningRouteDecision",
+         "preparedRepairMissionRouteGuard",
+         "Expected Workshop route:",
+@@ -560,6 +612,15 @@
+     assert send_function.index("preparedRepairMissionRouteGuard(prompt)") < send_function.index("consumePreparedRepairMission(prompt)")
+     assert "routeGuard.prepared&&!routeGuard.ok" in send_function
+     assert "File-change permission remained NO" in send_function
++
++    v25_block = web_text.split("/* REPAIR_BAY_HEALTHY_LAUNCHER_CLASSIFICATION_V2_5_BROWSER_START */", 1)[1].split("/* REPAIR_BAY_HEALTHY_LAUNCHER_CLASSIFICATION_V2_5_BROWSER_END */", 1)[0]
++    assert "inventory.unresolved_items" in v25_block
++    assert "inventory.obsolete_looking_candidates" in v25_block
++    assert "exact_duplicate_groups" not in v25_block
++    assert "repairFindingIsActionable" in v25_block
++    calm_model = web_text.split("function repairCalmViewModel(report){", 1)[1].split("function renderRepairCalmView(report){", 1)[0]
++    assert "actionable=repairActionableFindings(report)" in calm_model
++    assert "No repairs are needed." in calm_model
+ 
+     launcher_render = web_text.split("function renderRepairLauncherIndex(){", 1)[1].split("async function loadRepairLauncherIndex", 1)[0]
+     assert "repairLauncherReview" in launcher_render
+@@ -639,6 +700,9 @@
+         "reliable_mission_console_transfer_verified": True,
+         "planning_only_authorization_guard_verified": True,
+         "launcher_evidence_consistency_verified": True,
++        "healthy_launcher_summary_classification_verified": True,
++        "duplicate_only_informational_verified": True,
++        "non_actionable_launcher_handoff_blocked_verified": True,
+         "duplicate_candidate_details_verified": True,
+         "filename_only_cleanup_blocked_verified": True,
+         "launcher_review_filters_verified": True,

@@ -6,7 +6,7 @@ import re
 from pathlib import Path
 from typing import Any, Iterable
 
-SCHEMA = "foxai.repair_bay.guarded_handoff.v2_5"
+SCHEMA = "foxai.repair_bay.guarded_handoff.v2_3"
 MAX_EVIDENCE_ITEMS = 12
 MAX_AFFECTED_PATHS = 24
 
@@ -296,19 +296,6 @@ def _command_text(packet: dict[str, Any]) -> str:
         "Uncertain paths must remain advisory."
     )
 
-def _finding_is_actionable(report: dict[str, Any], finding: dict[str, Any]) -> bool:
-    severity = str(finding.get("severity") or "").strip().casefold()
-    if severity not in {"urgent", "recommended"}:
-        return False
-    if str(finding.get("id") or "") != "root_launcher_inventory":
-        return True
-    inventory = (report.get("evidence") or {}).get("launcher_inventory") or {}
-    return bool(
-        list(inventory.get("unresolved_items") or [])
-        or list(inventory.get("obsolete_looking_candidates") or [])
-    )
-
-
 def build_repair_handoff(
     root: str | Path,
     report: dict[str, Any],
@@ -352,27 +339,6 @@ def build_repair_handoff(
             "implementation_authorized": False,
         }
 
-    if not _finding_is_actionable(report, selected):
-        return {
-            "ok": False,
-            "schema": SCHEMA,
-            "message": (
-                "No repair is needed for this item. Launcher quantity, raw unknown classification, "
-                "and exact duplicate content are informational unless the finalized scan contains an "
-                "unresolved item or an evidence-backed review candidate."
-            ),
-            "requested_finding_id": _clean(requested or selected.get("id"), 100),
-            "finding": {
-                "id": _clean(selected.get("id"), 100),
-                "title": _safe_title(selected.get("title") or selected.get("id")),
-                "severity": _clean(selected.get("severity"), 30).casefold(),
-            },
-            "read_only": True,
-            "changes_applied": 0,
-            "mission_staged": False,
-            "implementation_authorized": False,
-        }
-
     evidence = [_clean(item, 900) for item in list(selected.get("evidence") or [])[:MAX_EVIDENCE_ITEMS]]
     paths = _finding_paths(root_path, report, selected)
     eligible, reason, profile = _support_decision(selected, paths)
@@ -386,7 +352,7 @@ def build_repair_handoff(
     packet: dict[str, Any] = {
         "ok": True,
         "schema": SCHEMA,
-        "version": "2.5",
+        "version": "2.3",
         "level": "advanced" if str(level).casefold() == "advanced" else "guided",
         "read_only": True,
         "eligible": eligible,

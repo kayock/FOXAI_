@@ -1,0 +1,641 @@
+--- a/core/foxai_web.py
++++ b/core/foxai_web.py
+@@ -1315,7 +1315,7 @@
+ .repairAdvancedTools{padding:0;overflow:hidden}.repairAdvancedTools>summary{cursor:pointer;padding:16px 18px;font-weight:900;color:var(--m);list-style:none}.repairAdvancedTools>summary::-webkit-details-marker{display:none}.repairAdvancedTools>summary:after{content:'▸';float:right}.repairAdvancedTools[open]>summary:after{transform:rotate(90deg)}.repairAdvancedBody{padding:0 16px 16px}.repairAdvancedGroup{border:1px solid #8f5cff25;border-radius:14px;background:#090b14;padding:14px;margin-top:10px}.repairAdvancedGroup h3{margin:0 0 7px}.repairAdvancedButtons{display:flex;gap:7px;flex-wrap:wrap}
+ .repairSafetyNote{border-left:3px solid var(--w);padding:10px 12px;background:#ffd1660b;border-radius:0 12px 12px 0;color:#f6e5b5;font-size:12px;line-height:1.45}
+ .repairHealthScanCard{border-color:#23d7ff45;background:radial-gradient(circle at 0 0,#23d7ff12,transparent 42%),linear-gradient(180deg,#131825,#0d1019)}.repairHealthHead{display:flex;gap:12px;align-items:flex-start;flex-wrap:wrap}.repairHealthHead h3{margin:0 0 6px}.repairHealthHead p{margin:0;color:var(--m);line-height:1.45;max-width:820px}.repairHealthHead .pill{margin-left:auto}.repairHealthActions{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}.repairHealthScanStatus{border-left:3px solid var(--c);padding:10px 12px;background:#23d7ff09;border-radius:0 12px 12px 0;color:#d9f8ff;white-space:pre-wrap}.repairHealthSummary{display:grid;grid-template-columns:repeat(4,minmax(120px,1fr));gap:9px;margin:13px 0}.repairHealthMetric{border:1px solid #23d7ff2f;border-radius:13px;background:#07131a;padding:11px}.repairHealthMetric .label{font-size:11px;color:var(--m);text-transform:uppercase;letter-spacing:.06em}.repairHealthMetric .value{font-size:24px;font-weight:900;margin-top:3px}.repairHealthFindings{display:grid;gap:10px}.repairFinding{border:1px solid #8f5cff2f;border-radius:14px;background:#090b14;padding:13px}.repairFindingHead{display:flex;gap:9px;align-items:center;flex-wrap:wrap}.repairFindingHead h4{margin:0 auto 0 0}.repairSeverity{display:inline-block;border:1px solid #8f5cff55;border-radius:999px;padding:3px 8px;font:10px Consolas,monospace;font-weight:900;text-transform:uppercase}.repairSeverity.urgent{border-color:#ff4d6d88;color:#ff9bab}.repairSeverity.recommended{border-color:#ffd16688;color:#ffe3a1}.repairSeverity.informational{border-color:#23d7ff77;color:#c9f6ff}.repairSeverity.healthy{border-color:#42ff9e77;color:#bfffe0}.repairFinding p{margin:7px 0;color:#e9e3f5;line-height:1.42}.repairEvidence{white-space:pre-wrap;font:11px/1.45 Consolas,monospace;color:var(--m);background:#05070d;border-radius:10px;padding:9px}.repairSuggested{margin-top:8px;color:#f3dfaa;font-size:12px}.repairPlanBox{white-space:pre-wrap;font:12px/1.5 Consolas,monospace;color:#e9e3f5;background:#070913;border:1px solid #8f5cff28;border-radius:12px;padding:11px;margin-top:10px}.repairPlanDetails>summary{cursor:pointer;color:var(--p2);font-weight:900;margin-top:12px}.repairHealthEmpty{color:var(--m);padding:13px;border:1px dashed #23d7ff38;border-radius:13px}@media(max-width:800px){.repairHealthSummary{grid-template-columns:repeat(2,minmax(120px,1fr))}.repairHealthHead .pill{margin-left:0}}
+-.repairLauncherCard{border-color:#8f5cff45;background:radial-gradient(circle at 100% 0,#8f5cff12,transparent 40%),linear-gradient(180deg,#131425,#0d1019)}.repairLauncherToolbar{display:grid;grid-template-columns:minmax(180px,1.5fr) repeat(4,minmax(125px,.8fr));gap:8px;margin:13px 0}.repairLauncherToolbar input,.repairLauncherToolbar select{width:100%;border:1px solid #8f5cff46;border-radius:10px;background:#080a12;color:#f2edff;padding:9px 10px}.repairLauncherMetrics{display:grid;grid-template-columns:repeat(5,minmax(105px,1fr));gap:8px;margin:12px 0}.repairLauncherFrontDoors{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:8px;margin:10px 0}.repairFrontDoor{border:1px solid #42ff9e43;border-radius:12px;background:#071510;padding:10px}.repairFrontDoor strong{display:block}.repairFrontDoor span{display:block;color:var(--m);font-size:11px;margin-top:4px}.repairLauncherList{display:grid;gap:9px}.repairLauncherItem{border:1px solid #8f5cff2f;border-radius:13px;background:#080a12;padding:11px}.repairLauncherItem summary{cursor:pointer;list-style:none}.repairLauncherItem summary::-webkit-details-marker{display:none}.repairLauncherRow{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.repairLauncherName{font:700 12px/1.35 Consolas,monospace;overflow-wrap:anywhere;margin-right:auto}.repairLauncherPurpose{color:#e9e3f5;margin:7px 0;line-height:1.4}.repairLauncherMeta{display:flex;gap:6px;flex-wrap:wrap}.repairLauncherTag{border:1px solid #8f5cff4f;border-radius:999px;padding:2px 7px;font:10px Consolas,monospace;color:#d9cfff}.repairLauncherTag.protected{border-color:#42ff9e66;color:#bfffe0}.repairLauncherTag.unresolved{border-color:#ffd16677;color:#ffe3a1}.repairLauncherTag.duplicate{border-color:#ff8ac777;color:#ffc9e7}.repairLauncherDetails{white-space:pre-wrap;font:11px/1.5 Consolas,monospace;color:var(--m);background:#05070d;border-radius:10px;padding:9px;margin-top:9px}.repairLauncherEmpty{color:var(--m);padding:13px;border:1px dashed #8f5cff45;border-radius:12px}@media(max-width:1050px){.repairLauncherToolbar{grid-template-columns:repeat(2,minmax(140px,1fr))}.repairLauncherMetrics{grid-template-columns:repeat(3,minmax(105px,1fr))}}@media(max-width:620px){.repairLauncherToolbar{grid-template-columns:1fr}.repairLauncherMetrics{grid-template-columns:repeat(2,minmax(105px,1fr))}}
++.repairLauncherCard{border-color:#8f5cff45;background:radial-gradient(circle at 100% 0,#8f5cff12,transparent 40%),linear-gradient(180deg,#131425,#0d1019)}.repairLauncherEvidence{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:8px;margin:10px 0}.repairLauncherEvidenceBlock{border:1px solid #8f5cff35;border-radius:12px;background:#080a12;padding:10px}.repairLauncherEvidenceBlock strong{display:block;margin-bottom:6px}.repairLauncherEvidenceBlock span{display:block;color:var(--m);font:11px/1.5 Consolas,monospace;overflow-wrap:anywhere}.repairLauncherToolbar{display:grid;grid-template-columns:minmax(180px,1.5fr) repeat(5,minmax(125px,.8fr));gap:8px;margin:13px 0}.repairLauncherToolbar input,.repairLauncherToolbar select{width:100%;border:1px solid #8f5cff46;border-radius:10px;background:#080a12;color:#f2edff;padding:9px 10px}.repairLauncherMetrics{display:grid;grid-template-columns:repeat(5,minmax(105px,1fr));gap:8px;margin:12px 0}.repairLauncherFrontDoors{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:8px;margin:10px 0}.repairFrontDoor{border:1px solid #42ff9e43;border-radius:12px;background:#071510;padding:10px}.repairFrontDoor strong{display:block}.repairFrontDoor span{display:block;color:var(--m);font-size:11px;margin-top:4px}.repairLauncherList{display:grid;gap:9px}.repairLauncherItem{border:1px solid #8f5cff2f;border-radius:13px;background:#080a12;padding:11px}.repairLauncherItem summary{cursor:pointer;list-style:none}.repairLauncherItem summary::-webkit-details-marker{display:none}.repairLauncherRow{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.repairLauncherName{font:700 12px/1.35 Consolas,monospace;overflow-wrap:anywhere;margin-right:auto}.repairLauncherPurpose{color:#e9e3f5;margin:7px 0;line-height:1.4}.repairLauncherMeta{display:flex;gap:6px;flex-wrap:wrap}.repairLauncherTag{border:1px solid #8f5cff4f;border-radius:999px;padding:2px 7px;font:10px Consolas,monospace;color:#d9cfff}.repairLauncherTag.protected{border-color:#42ff9e66;color:#bfffe0}.repairLauncherTag.unresolved{border-color:#ffd16677;color:#ffe3a1}.repairLauncherTag.duplicate{border-color:#ff8ac777;color:#ffc9e7}.repairLauncherDetails{white-space:pre-wrap;font:11px/1.5 Consolas,monospace;color:var(--m);background:#05070d;border-radius:10px;padding:9px;margin-top:9px}.repairLauncherEmpty{color:var(--m);padding:13px;border:1px dashed #8f5cff45;border-radius:12px}@media(max-width:1050px){.repairLauncherToolbar{grid-template-columns:repeat(2,minmax(140px,1fr))}.repairLauncherMetrics{grid-template-columns:repeat(3,minmax(105px,1fr))}}@media(max-width:620px){.repairLauncherToolbar{grid-template-columns:1fr}.repairLauncherMetrics{grid-template-columns:repeat(2,minmax(105px,1fr))}}
+ @media(max-width:1180px){.repairGuidedGrid{grid-template-columns:repeat(2,minmax(240px,1fr))}.repairTrustStrip{grid-template-columns:repeat(2,minmax(200px,1fr))}}
+ @media(max-width:800px){.repairGuidedGrid,.repairTrustStrip{grid-template-columns:1fr}.repairStatusCard{grid-template-columns:1fr}.repairStatusActions{justify-content:flex-start}}
+ 
+@@ -1692,12 +1692,14 @@
+ <div id=repairLauncherStatus class=repairHealthScanStatus>Launcher Index has not been loaded yet.</div>
+ <div id=repairLauncherMetrics class=repairLauncherMetrics></div>
+ <div id=repairLauncherFrontDoors class=repairLauncherFrontDoors></div>
++<div id=repairLauncherEvidence class=repairLauncherEvidence></div>
+ <div class=repairLauncherToolbar>
+-<input id=repairLauncherSearch placeholder="Search launcher, purpose, command, child, caller..." oninput="renderRepairLauncherIndex()">
++<input id=repairLauncherSearch placeholder="Search names, badges, evidence, relationships, candidates..." oninput="renderRepairLauncherIndex()">
+ <select id=repairLauncherCategory onchange="renderRepairLauncherIndex()"><option value=all>All categories</option></select>
+ <select id=repairLauncherProtection onchange="renderRepairLauncherIndex()"><option value=all>Protected + unprotected</option><option value=protected>Protected only</option><option value=unprotected>Unprotected only</option></select>
+ <select id=repairLauncherEntry onchange="renderRepairLauncherIndex()"><option value=all>All entry statuses</option></select>
+ <select id=repairLauncherResolution onchange="renderRepairLauncherIndex()"><option value=all>Resolved + unresolved</option><option value=resolved>Resolved only</option><option value=unresolved>Unresolved only</option></select>
++<select id=repairLauncherReview onchange="renderRepairLauncherIndex()"><option value=all>All review states</option><option value=exact_duplicates>Exact duplicates</option><option value=archive_candidates>Archive-review candidates</option></select>
+ </div>
+ <div id=repairLauncherList class=repairLauncherList><div class=repairLauncherEmpty>Load the Launcher Index to inspect all launchers without executing or modifying them.</div></div>
+ </div>
+@@ -2360,9 +2362,9 @@
+ function launcherTag(text,kind=''){return `<span class="repairLauncherTag ${esc(kind)}">${esc(text)}</span>`}
+ function fillLauncherSelect(id,values,label){let select=q(id);if(!select)return;let current=select.value||'all';select.innerHTML=`<option value=all>${esc(label)}</option>`+(values||[]).map(value=>`<option value="${esc(value)}">${esc(String(value).replaceAll('_',' '))}</option>`).join('');select.value=[...select.options].some(option=>option.value===current)?current:'all'}
+ function renderRepairLauncherIndex(){
+- let report=repairLauncherIndexReport,inventory=report?.inventory||{},items=inventory.items||[],summary=report?.summary||{},status=q('repairLauncherStatus'),metrics=q('repairLauncherMetrics'),doors=q('repairLauncherFrontDoors'),list=q('repairLauncherList');
++ let report=repairLauncherIndexReport,inventory=report?.inventory||{},items=inventory.items||[],summary=report?.summary||{},status=q('repairLauncherStatus'),metrics=q('repairLauncherMetrics'),doors=q('repairLauncherFrontDoors'),evidence=q('repairLauncherEvidence'),list=q('repairLauncherList');
+  if(!report){if(status)status.textContent='Launcher Index has not been loaded yet.';return}
+- let query=String(q('repairLauncherSearch')?.value||'').trim().toLowerCase(),category=q('repairLauncherCategory')?.value||'all',protection=q('repairLauncherProtection')?.value||'all',entry=q('repairLauncherEntry')?.value||'all',resolution=q('repairLauncherResolution')?.value||'all';
++ let query=String(q('repairLauncherSearch')?.value||'').trim().toLowerCase(),category=q('repairLauncherCategory')?.value||'all',protection=q('repairLauncherProtection')?.value||'all',entry=q('repairLauncherEntry')?.value||'all',resolution=q('repairLauncherResolution')?.value||'all',review=q('repairLauncherReview')?.value||'all';
+  let filtered=items.filter(item=>{
+   if(query&&!String(item.search_text||'').includes(query))return false;
+   if(category!=='all'&&item.category!==category)return false;
+@@ -2370,16 +2372,22 @@
+   if(protection==='unprotected'&&item.protected)return false;
+   if(entry!=='all'&&item.entry_point_status!==entry)return false;
+   if(resolution!=='all'&&item.resolution_state!==resolution)return false;
++  if(review==='exact_duplicates'&&!item.review_flags?.exact_duplicate)return false;
++  if(review==='archive_candidates'&&!item.review_flags?.archive_candidate)return false;
+   return true;
+  });
+- if(status)status.textContent=`Showing ${filtered.length} of ${summary.total||items.length} launcher(s). Read-only: ${report.read_only?'YES':'NO'} • BAT files executed: ${report.safety?.batch_files_executed?'YES':'NO'} • Changes applied: ${(report.safety?.moves||0)+(report.safety?.renames||0)+(report.safety?.deletions||0)+(report.safety?.repairs_applied||0)}`;
+- if(metrics)metrics.innerHTML=repairHealthMetric('Launchers',summary.total||0)+repairHealthMetric('Protected',summary.protected||0)+repairHealthMetric('Front doors',summary.approved_front_doors||0)+repairHealthMetric('Unresolved',summary.unresolved||0)+repairHealthMetric('Duplicate groups',summary.exact_duplicate_groups||0);
++ if(status)status.textContent=`Showing ${filtered.length} of ${summary.total||items.length} launcher(s). Read-only: ${report.read_only?'YES':'NO'} • BAT files executed: ${report.safety?.batch_files_executed?'YES':'NO'} • Changes applied: ${(report.safety?.moves||0)+(report.safety?.renames||0)+(report.safety?.deletions||0)+(report.safety?.repairs_applied||0)} • Evidence dataset: ${inventory.evidence_consistency?.finalized?'FINALIZED':'UNVERIFIED'}`;
++ if(metrics)metrics.innerHTML=repairHealthMetric('Launchers',summary.total||0)+repairHealthMetric('Protected',summary.protected||0)+repairHealthMetric('Front doors',summary.approved_front_doors||0)+repairHealthMetric('Unresolved',summary.unresolved||0)+repairHealthMetric('Duplicate groups',summary.exact_duplicate_groups||0)+repairHealthMetric('Review candidates',summary.archive_review_candidates||0);
+  let front=[...(inventory.approved_front_doors?.root||[]),...(inventory.approved_front_doors?.external||[])].filter(item=>item.present);
+  if(doors)doors.innerHTML=front.map(item=>`<div class=repairFrontDoor><strong>${esc(item.label||item.name||item.path)}</strong><span>${esc(item.name||item.path||'')}</span><span>${esc(item.reason||'Approved protected launcher.')}</span><span>${esc(String(item.tier||'specialized').toUpperCase())}</span></div>`).join('');
++ let duplicateGroups=inventory.exact_duplicate_groups||[],candidates=inventory.obsolete_looking_candidates||[];
++ if(evidence)evidence.innerHTML=`<div class=repairLauncherEvidenceBlock><strong>Exact duplicate groups (${duplicateGroups.length})</strong>${duplicateGroups.length?duplicateGroups.map((group,index)=>`<span>Group ${index+1}: ${esc((group.files||[]).join(' | '))}</span>`).join(''):'<span>None</span>'}</div><div class=repairLauncherEvidenceBlock><strong>Low-confidence review candidates (${candidates.length})</strong>${candidates.length?candidates.map(item=>`<span>${esc(item.name||'')} — ${esc((item.reasons||[]).join(' '))}</span>`).join(''):'<span>None. Filename wording alone never creates a candidate.</span>'}</div><div class=repairLauncherEvidenceBlock><strong>Classification consistency</strong><span>Raw unknown classifications: ${inventory.evidence_consistency?.raw_unknown_count||0}</span><span>Unresolved after static resolution: ${inventory.evidence_consistency?.unresolved_after_resolution_count||0}</span><span>Filename-only cleanup allowed: NO</span></div>`;
+  if(list)list.innerHTML=filtered.map(item=>{
+-  let tags=[launcherTag(item.category||'unknown'),launcherTag(item.entry_point_status||'unresolved',item.entry_point_status==='unresolved'?'unresolved':''),item.protected?launcherTag('PROTECTED','protected'):'',item.exact_duplicate_membership?.length?launcherTag('EXACT DUPLICATE','duplicate'):'',item.resolution_state==='unresolved'?launcherTag('NEEDS REVIEW','unresolved'):''].join('');
++  let tags=[launcherTag(item.category||'unknown'),launcherTag(item.entry_point_status||'unresolved',item.entry_point_status==='unresolved'?'unresolved':''),item.protected?launcherTag('PROTECTED','protected'):'',item.exact_duplicate_membership?.length?launcherTag('EXACT DUPLICATE','duplicate'):'',item.archive_review?.status==='review_candidate_only'?launcherTag('ARCHIVE REVIEW','unresolved'):'',item.resolution_state==='unresolved'?launcherTag('NEEDS REVIEW','unresolved'):''].join('');
+   let detail=[
+    `Path: ${item.relative_path||item.name}`,
++   `Raw classification: ${item.raw_category||item.category||'unknown'} / ${item.raw_entry_point_status||'unresolved'}`,
++   `Final resolution: ${item.resolution_state||'unknown'} / ${item.entry_point_status||'unknown'}`,
+    `Purpose confidence: ${item.purpose_confidence||'unknown'}`,
+    `Protected roles: ${(item.protected_roles||[]).join(', ')||'none'}`,
+    `Commands: ${(item.commands||[]).join(', ')||'none recognized'}`,
+@@ -2392,6 +2400,10 @@
+    `Exact duplicate group: ${(item.exact_duplicate_membership||[]).map(group=>group.files.join(' | ')).join(' ; ')||'none'}`,
+    `Similar-name family: ${(item.similar_name_membership||[]).map(group=>group.family+': '+group.files.join(' | ')).join(' ; ')||'none'}`,
+    `Archive review: ${item.archive_review?.status||'not proposed'}${(item.archive_review?.reasons||[]).length?' — '+item.archive_review.reasons.join(' '):''}`,
++   `Candidate basis: ${(item.archive_review?.candidate_basis||[]).join(', ')||'none'}`,
++   `Filename markers: ${(item.archive_review?.name_markers||[]).join(', ')||'none'} (context only)`,
++   `Filename-only cleanup allowed: ${item.archive_review?.filename_only_cleanup_allowed?'YES':'NO'}`,
++   `Resolution signals: ${(item.resolution_signals||[]).join(' | ')||'none'}`,
+    `Unresolved reason: ${item.unresolved_reason||'none'}`
+   ].join('\n');
+   return `<details class=repairLauncherItem><summary><div class=repairLauncherRow><span class=repairLauncherName>${esc(item.name)}</span>${tags}</div><div class=repairLauncherPurpose>${esc(item.purpose||'Purpose unresolved.')}</div></summary><div class=repairLauncherDetails>${esc(detail)}</div></details>`;
+@@ -2410,7 +2422,7 @@
+  }catch(error){if(status)status.textContent='Launcher Index failed: '+error}
+ }
+ function clearRepairLauncherFilters(){
+- ['repairLauncherSearch','repairLauncherCategory','repairLauncherProtection','repairLauncherEntry','repairLauncherResolution'].forEach(id=>{let el=q(id);if(!el)return;el.value=id==='repairLauncherSearch'?'':'all'});
++ ['repairLauncherSearch','repairLauncherCategory','repairLauncherProtection','repairLauncherEntry','repairLauncherResolution','repairLauncherReview'].forEach(id=>{let el=q(id);if(!el)return;el.value=id==='repairLauncherSearch'?'':'all'});
+  renderRepairLauncherIndex();
+ }
+ /* REPAIR_BAY_GUIDED_CLEANUP_V1_BROWSER_END */
+--- a/core/repair_bay_diagnostics.py
++++ b/core/repair_bay_diagnostics.py
+@@ -14,7 +14,7 @@
+ from pathlib import Path
+ from typing import Any
+ 
+-SCAN_VERSION = "1.3"
++SCAN_VERSION = "1.4"
+ SEVERITIES = ("urgent", "recommended", "informational", "healthy")
+ 
+ 
+@@ -669,6 +669,18 @@
+         if digest and len(group) > 1
+     ]
+     duplicate_members = {name for group in exact_duplicates for name in group["files"]}
++    duplicate_group_markers: dict[str, list[str]] = {}
++    for group in exact_duplicates:
++        group_markers = sorted(
++            {
++                token
++                for member in group.get("files") or []
++                for token in re.findall(r"[A-Z0-9]+", Path(member).stem.upper())
++                if token in legacy_tokens
++            }
++        )
++        for member in group.get("files") or []:
++            duplicate_group_markers[str(member)] = group_markers
+     similar_names = [
+         {"family": family, "files": sorted(set(group))}
+         for family, group in sorted(family_groups.items())
+@@ -694,25 +706,61 @@
+             item["entry_point_status"] = "unresolved"
+ 
+         upper_tokens = set(re.findall(r"[A-Z0-9]+", Path(item["name"]).stem.upper()))
++        name_markers = sorted(upper_tokens & legacy_tokens)
++        group_name_markers = list(duplicate_group_markers.get(item["name"]) or [])
++        duplicate_evidence = item["name"] in duplicate_members
+         reasons: list[str] = []
+-        if item["name"] in duplicate_members:
++        if duplicate_evidence:
+             reasons.append("Exact duplicate content exists elsewhere in the root.")
+-        if upper_tokens & legacy_tokens:
+-            reasons.append("Filename contains a legacy-stage marker such as OLD, COPY, ALPHA, or BETA.")
++        if name_markers:
++            reasons.append(
++                "Filename marker(s) " + ", ".join(name_markers)
++                + " are context only and are not cleanup evidence by themselves."
++            )
++        elif group_name_markers:
++            reasons.append(
++                "Another member of the exact duplicate group contains contextual marker(s): "
++                + ", ".join(group_name_markers) + "."
++            )
++        candidate_basis = []
++        if duplicate_evidence:
++            candidate_basis.append("exact_duplicate_content")
++        if group_name_markers:
++            candidate_basis.append("context_marker_in_duplicate_group")
++        item["name_markers"] = name_markers
++        item["archive_review"] = {
++            "status": "not_proposed",
++            "reasons": [],
++            "name_markers": name_markers,
++            "duplicate_group_name_markers": group_name_markers,
++            "candidate_basis": candidate_basis,
++            "filename_only_cleanup_allowed": False,
++        }
+         if (
+-            reasons
++            duplicate_evidence
++            and group_name_markers
+             and not item["receipt_evidence"]
+             and not item["called_by"]
+             and item["category"] in {"historical_build_patch", "likely_active", "unknown"}
+         ):
+-            item["archive_review"] = {"status": "review_candidate_only", "reasons": reasons}
++            item["archive_review"] = {
++                "status": "review_candidate_only",
++                "reasons": reasons,
++                "name_markers": name_markers,
++                "duplicate_group_name_markers": group_name_markers,
++                "candidate_basis": candidate_basis,
++                "filename_only_cleanup_allowed": False,
++            }
+             obsolete_candidates.append(
+                 {
+                     "name": item["name"],
+                     "confidence": "low",
+                     "reasons": reasons,
++                    "name_markers": name_markers,
++                    "candidate_basis": candidate_basis,
+                     "protected": False,
+                     "action": "manual_review_only",
++                    "filename_only_cleanup_allowed": False,
+                 }
+             )
+         if item["entry_point_status"] == "unresolved":
+@@ -748,18 +796,18 @@
+             },
+             {
+                 "phase": 2,
+-                "name": "Resolve unknown launchers",
+-                "action": "Review unresolved contents and relationships; do not classify by filename alone.",
++                "name": "Resolve raw unknown classifications",
++                "action": "Use static content and relationships to distinguish raw unknown classification from unresolved-after-resolution status.",
+             },
+             {
+                 "phase": 3,
+-                "name": "Compare duplicate and legacy-looking candidates",
+-                "action": "Compare exact content, callers, receipts, and known workflows. Candidate does not mean obsolete.",
++                "name": "Compare exact duplicate evidence",
++                "action": "Compare exact content, callers, receipts, and known workflows. Filename wording is context only; candidate does not mean obsolete.",
+             },
+             {
+                 "phase": 4,
+-                "name": "Prepare a separate exact archive plan",
+-                "action": "Require a new snapshot, exact destination list, reversible archive location, and explicit operator approval. Never delete directly.",
++                "name": "Prepare a separate proposal only if evidence justifies it",
++                "action": "Require a new snapshot, exact destination list, reversible location, and explicit operator approval. Never infer cleanup from a filename and never delete directly.",
+             },
+         ],
+     }
+@@ -791,7 +839,7 @@
+     external = list((inventory.get("protected_baseline") or {}).get("external") or [])
+     lines = [
+         (
+-            "Categories: "
++            "Raw categories before static resolution: "
+             f"{counts.get('known_good_active', 0)} known-good active, "
+             f"{counts.get('likely_active', 0)} likely active, "
+             f"{counts.get('historical_build_patch', 0)} historical/build/patch, "
+@@ -807,6 +855,13 @@
+             for item in external
+         ),
+     ]
++    consistency = dict(inventory.get("evidence_consistency") or {})
++    lines.append(
++        "Final static resolution: "
++        f"{consistency.get('raw_unknown_count', len(inventory.get('raw_unknown_items') or []))} raw unknown classification(s), "
++        f"{consistency.get('unresolved_after_resolution_count', len(inventory.get('unresolved_items') or []))} unresolved-after-resolution item(s)."
++    )
++    lines.append("Filename-only cleanup allowed: NO.")
+     receipt_backed = list(inventory.get("receipt_backed") or [])
+     lines.append(
+         f"Receipt-backed launchers ({len(receipt_backed)}): "
+@@ -818,12 +873,12 @@
+         lines.append("Exact duplicate content: " + " | ".join(group.get("files") or []))
+     for candidate in list(inventory.get("obsolete_looking_candidates") or [])[:12]:
+         lines.append(
+-            f"Archive-review candidate only [{candidate.get('confidence')} confidence]: "
++            f"Duplicate-review candidate only [{candidate.get('confidence')} confidence]: "
+             f"{candidate.get('name')} — " + " ".join(candidate.get("reasons") or [])
+         )
+     unresolved = list(inventory.get("unresolved_items") or [])
+     lines.append(
+-        f"Unresolved items ({len(unresolved)}): " + (", ".join(unresolved[:20]) or "none")
++        f"Unresolved after static resolution ({len(unresolved)}): " + (", ".join(unresolved[:20]) or "none")
+     )
+     lines.extend(list(inventory.get("unreadable") or [])[:10])
+     return lines
+@@ -998,44 +1053,44 @@
+     return {"root": root_entries, "external": external_entries}
+ 
+ 
+-def run_launcher_index(
+-    root: str | Path,
+-    *,
+-    context: dict[str, Any] | None = None,
+-) -> dict[str, Any]:
+-    """Build a read-only searchable launcher index without executing or changing BAT files."""
+-    started = time.perf_counter()
+-    project_root = Path(root).expanduser().resolve()
+-    inventory = _launcher_inventory(project_root)
+-
++def _finalize_launcher_inventory(inventory: dict[str, Any]) -> dict[str, Any]:
++    """Create one finalized launcher dataset shared by scans, the index, and handoffs."""
++    finalized = dict(inventory or {})
+     duplicate_lookup: dict[str, list[dict[str, Any]]] = {}
+-    for group_index, group in enumerate(inventory.get("exact_duplicate_groups") or [], start=1):
++    for group_index, group in enumerate(finalized.get("exact_duplicate_groups") or [], start=1):
+         group_id = f"exact-{group_index}"
+-        for name in group.get("files") or []:
++        files = list(group.get("files") or [])
++        for name in files:
+             duplicate_lookup.setdefault(str(name).casefold(), []).append(
+                 {
+                     "group_id": group_id,
+                     "sha256": str(group.get("sha256") or ""),
+-                    "files": list(group.get("files") or []),
++                    "files": files,
+                 }
+             )
+ 
+     similar_lookup: dict[str, list[dict[str, Any]]] = {}
+-    for group_index, group in enumerate(inventory.get("similar_name_groups") or [], start=1):
++    for group_index, group in enumerate(finalized.get("similar_name_groups") or [], start=1):
+         group_id = f"similar-{group_index}"
+-        for name in group.get("files") or []:
++        files = list(group.get("files") or [])
++        for name in files:
+             similar_lookup.setdefault(str(name).casefold(), []).append(
+                 {
+                     "group_id": group_id,
+                     "family": str(group.get("family") or ""),
+-                    "files": list(group.get("files") or []),
++                    "files": files,
+                 }
+             )
+ 
++    raw_unknown: list[str] = []
+     refined_unresolved: list[str] = []
+     enriched_items: list[dict[str, Any]] = []
+-    for original in inventory.get("items") or []:
++    for original in finalized.get("items") or []:
+         item = dict(original)
++        item["raw_category"] = str(item.get("category") or "unknown")
++        item["raw_entry_point_status"] = str(item.get("entry_point_status") or "unresolved")
++        if item["raw_category"] == "unknown" or item["raw_entry_point_status"] == "unresolved":
++            raw_unknown.append(str(item.get("name") or ""))
+         resolution = _launcher_index_resolution(item)
+         item.update(resolution)
+         item["exact_duplicate_membership"] = duplicate_lookup.get(
+@@ -1044,30 +1099,65 @@
+         item["similar_name_membership"] = similar_lookup.get(
+             str(item.get("name") or "").casefold(), []
+         )
++        item["review_flags"] = {
++            "exact_duplicate": bool(item["exact_duplicate_membership"]),
++            "archive_candidate": item.get("archive_review", {}).get("status") == "review_candidate_only",
++        }
+         if item.get("resolution_state") == "unresolved":
+             refined_unresolved.append(str(item.get("name") or ""))
++        duplicate_terms = []
++        for group in item["exact_duplicate_membership"]:
++            duplicate_terms.extend(
++                [str(group.get("group_id") or ""), str(group.get("sha256") or ""), *(group.get("files") or [])]
++            )
++        similar_terms = []
++        for group in item["similar_name_membership"]:
++            similar_terms.extend(
++                [str(group.get("group_id") or ""), str(group.get("family") or ""), *(group.get("files") or [])]
++            )
++        archive_review = item.get("archive_review") or {}
+         item["search_text"] = " ".join(
+             [
+                 str(item.get("name") or ""),
++                str(item.get("relative_path") or ""),
+                 str(item.get("purpose") or ""),
++                str(item.get("raw_category") or ""),
+                 str(item.get("category") or ""),
++                str(item.get("raw_entry_point_status") or ""),
+                 str(item.get("entry_point_status") or ""),
++                str(item.get("resolution_state") or ""),
++                str(item.get("unresolved_reason") or ""),
++                " ".join(item.get("resolution_signals") or []),
+                 " ".join(item.get("protected_roles") or []),
+                 " ".join(item.get("commands") or []),
++                " ".join(item.get("change_capable_commands_present") or []),
+                 " ".join(item.get("child_launchers") or []),
+                 " ".join(item.get("called_by") or []),
+                 " ".join(item.get("python_scripts") or []),
+                 " ".join(item.get("powershell_scripts") or []),
+                 " ".join(item.get("executables") or []),
+-                str(item.get("unresolved_reason") or ""),
++                " ".join(item.get("receipt_evidence") or []),
++                " ".join(duplicate_terms),
++                " ".join(similar_terms),
++                str(archive_review.get("status") or ""),
++                " ".join(archive_review.get("reasons") or []),
++                " ".join(archive_review.get("name_markers") or []),
++                " ".join(archive_review.get("duplicate_group_name_markers") or []),
++                " ".join(archive_review.get("candidate_basis") or []),
++                "exact duplicate" if item["review_flags"]["exact_duplicate"] else "",
++                "archive review candidate" if item["review_flags"]["archive_candidate"] else "",
++                "protected" if item.get("protected") else "unprotected",
+             ]
+         ).casefold()
+         enriched_items.append(item)
+ 
+-    inventory["items"] = sorted(enriched_items, key=lambda item: str(item.get("name") or "").casefold())
+-    inventory["unresolved_items"] = sorted(refined_unresolved, key=str.casefold)
+-    inventory["approved_front_doors"] = _approved_launcher_front_doors(inventory)
+-    inventory["index_filters"] = {
++    finalized["items"] = sorted(
++        enriched_items, key=lambda item: str(item.get("name") or "").casefold()
++    )
++    finalized["raw_unknown_items"] = sorted(set(raw_unknown), key=str.casefold)
++    finalized["unresolved_items"] = sorted(set(refined_unresolved), key=str.casefold)
++    finalized["approved_front_doors"] = _approved_launcher_front_doors(finalized)
++    finalized["index_filters"] = {
+         "categories": sorted(
+             {str(item.get("category") or "") for item in enriched_items if item.get("category")}
+         ),
+@@ -1080,7 +1170,29 @@
+         ),
+         "protection": ["all", "protected", "unprotected"],
+         "resolution": ["all", "resolved", "unresolved"],
+-    }
++        "review": ["all", "exact_duplicates", "archive_candidates"],
++    }
++    finalized["evidence_consistency"] = {
++        "finalized": True,
++        "dataset": "finalized_launcher_index_dataset",
++        "raw_unknown_count": len(finalized["raw_unknown_items"]),
++        "unresolved_after_resolution_count": len(finalized["unresolved_items"]),
++        "filename_only_cleanup_allowed": False,
++    }
++    return finalized
++
++
++def run_launcher_index(
++    root: str | Path,
++    *,
++    context: dict[str, Any] | None = None,
++) -> dict[str, Any]:
++    """Build a read-only searchable launcher index without executing or changing BAT files."""
++    started = time.perf_counter()
++    project_root = Path(root).expanduser().resolve()
++    inventory = _finalize_launcher_inventory(_launcher_inventory(project_root))
++    enriched_items = list(inventory.get("items") or [])
++    refined_unresolved = list(inventory.get("unresolved_items") or [])
+ 
+     protected_count = sum(1 for item in enriched_items if item.get("protected"))
+     front_doors = inventory["approved_front_doors"]
+@@ -1093,7 +1205,7 @@
+     return {
+         "ok": project_root.is_dir(),
+         "version": SCAN_VERSION,
+-        "title": "Repair Bay V1.3 — Launcher Index and Unknown Resolution",
++        "title": "Repair Bay V1.4 — Consistent Launcher Evidence",
+         "created_at": _iso_now(),
+         "root": str(project_root),
+         "read_only": True,
+@@ -1221,7 +1333,7 @@
+         "changes_applied": 0,
+         "steps": steps,
+         "message": (
+-            "Review each proposed action separately. Repair Bay V1.3 does not apply repairs."
++            "Review each proposed action separately. Repair Bay V1.4 does not apply repairs."
+             if steps
+             else "No repair steps are proposed from this scan."
+         ),
+@@ -1295,7 +1407,7 @@
+         return {
+             "ok": False,
+             "version": SCAN_VERSION,
+-            "title": "Repair Bay V1.3 — Launcher Index and Unknown Resolution",
++            "title": "Repair Bay V1.4 — Consistent Launcher Evidence",
+             "created_at": _iso_now(),
+             "mode": scan_mode,
+             "root": str(project_root),
+@@ -1700,7 +1812,7 @@
+             )
+         )
+ 
+-        launcher_inventory = _launcher_inventory(project_root)
++        launcher_inventory = _finalize_launcher_inventory(_launcher_inventory(project_root))
+         evidence["launcher_inventory"] = launcher_inventory
+         launcher_count = int(launcher_inventory.get("total") or 0)
+         duplicate_count = len(launcher_inventory.get("exact_duplicate_groups") or [])
+@@ -1710,11 +1822,13 @@
+         candidate_count = len(launcher_inventory.get("obsolete_looking_candidates") or [])
+         unresolved_count = len(launcher_inventory.get("unresolved_items") or [])
+         launcher_review = launcher_count > 40 or duplicate_count > 0 or unresolved_count > 0
++        raw_unknown_count = len(launcher_inventory.get("raw_unknown_items") or [])
+         launcher_summary = (
+-            f"Mapped {launcher_count} root BAT file(s) by static content and relationships. "
++            f"Mapped {launcher_count} root BAT file(s) from one finalized read-only dataset. "
+             f"Protected {protected_count} root launcher(s), found {edge_count} child-launcher relationship(s), "
+             f"{receipt_count} receipt-backed launcher(s), {duplicate_count} exact duplicate group(s), "
+-            f"{candidate_count} low-confidence archive-review candidate(s), and {unresolved_count} unresolved item(s)."
++            f"{candidate_count} low-confidence duplicate-review candidate(s), "
++            f"{raw_unknown_count} raw unknown classification(s), and {unresolved_count} unresolved-after-resolution item(s)."
+         )
+         findings.append(
+             _finding(
+@@ -1723,7 +1837,7 @@
+                 "recommended" if launcher_review else "informational",
+                 launcher_summary,
+                 evidence=_launcher_inventory_evidence(launcher_inventory),
+-                suggested_action="Preserve the protected baseline, resolve unknowns, and review duplicate or legacy-looking candidates through a separate exact reversible archive plan; do not move, rename, delete, or execute scripts from this scan.",
++                suggested_action="Preserve the protected baseline. Review exact duplicate members and their static evidence only; a filename marker alone never justifies cleanup. Do not move, rename, delete, archive, or execute scripts from this scan.",
+                 category="organization",
+             )
+         )
+@@ -1736,7 +1850,7 @@
+     report = {
+         "ok": counts["urgent"] == 0,
+         "version": SCAN_VERSION,
+-        "title": "Repair Bay V1.3 — Launcher Index and Unknown Resolution",
++        "title": "Repair Bay V1.4 — Consistent Launcher Evidence",
+         "created_at": _iso_now(),
+         "mode": scan_mode,
+         "root": str(project_root),
+--- a/core/repair_bay_handoff.py
++++ b/core/repair_bay_handoff.py
+@@ -54,8 +54,8 @@
+         "path_required": False,
+     },
+     "root_launcher_inventory": {
+-        "repair_kind": "prepare_reversible_launcher_archive_plan",
+-        "label": "Prepare a reversible launcher archive plan",
++        "repair_kind": "review_launcher_duplicate_evidence",
++        "label": "Review launcher duplicate evidence and prepare a reversible proposal",
+         "backup_required": True,
+         "path_required": False,
+     },
+@@ -158,9 +158,15 @@
+             str(item.get("name") or "").casefold()
+             for item in ((inventory.get("protected_baseline") or {}).get("root") or [])
+         }
++        paths = []
+         for item in inventory.get("obsolete_looking_candidates") or []:
+             name = str(item.get("name") or "").strip()
+-            if not name or name.casefold() in protected_names:
++            basis = set(item.get("candidate_basis") or [])
++            if (
++                not name
++                or name.casefold() in protected_names
++                or "exact_duplicate_content" not in basis
++            ):
+                 continue
+             normalized = _normalize_candidate(root, name)
+             if normalized and normalized not in paths:
+--- a/core/VERIFY_REPAIR_BAY_V1.py
++++ b/core/VERIFY_REPAIR_BAY_V1.py
+@@ -122,7 +122,7 @@
+ 
+ def assert_report(report: dict, mode: str) -> None:
+     assert report["mode"] == mode
+-    assert report["version"] == "1.3"
++    assert report["version"] == "1.4"
+     assert report["read_only"] is True
+     assert report["safety"]["network_used"] is False
+     assert report["safety"]["commands_run"] is False
+@@ -156,7 +156,7 @@
+ 
+ 
+ def main() -> int:
+-    root = Path(tempfile.mkdtemp(prefix="repair_bay_v1_3_"))
++    root = Path(tempfile.mkdtemp(prefix="repair_bay_v1_4_"))
+     build_fixture(root)
+     before = tree_snapshot(root)
+ 
+@@ -223,13 +223,18 @@
+             for group in inventory["exact_duplicate_groups"]
+         ), inventory["exact_duplicate_groups"]
+         candidates = {item["name"] for item in inventory["obsolete_looking_candidates"]}
+-        assert "start FoxAI 3 Alpha.bat" in candidates, candidates
+-        assert "OLD_UNUSED_COPY.bat" in candidates, candidates
++        assert candidates == {"Start FoxAI.bat", "start FoxAI 3 Alpha.bat"}, candidates
++        assert "OLD_UNUSED_COPY.bat" not in candidates, candidates
++        assert map_item(inventory, "OLD_UNUSED_COPY.bat")["archive_review"]["status"] == "not_proposed"
++        assert map_item(inventory, "OLD_UNUSED_COPY.bat")["archive_review"]["filename_only_cleanup_allowed"] is False
+         assert not any(map_item(inventory, name)["protected"] for name in candidates)
++        assert inventory["evidence_consistency"]["finalized"] is True
++        assert inventory["evidence_consistency"]["unresolved_after_resolution_count"] == len(inventory["unresolved_items"])
++        assert "raw_unknown_items" in inventory
+ 
+         index_before = tree_snapshot(root)
+         launcher_index = run_launcher_index(root, context={"test": True})
+-        assert launcher_index["version"] == "1.3"
++        assert launcher_index["version"] == "1.4"
+         assert launcher_index["read_only"] is True
+         assert launcher_index["safety"]["batch_files_executed"] is False
+         assert launcher_index["safety"]["network_used"] is False
+@@ -245,6 +250,9 @@
+         assert len(indexed_inventory["items"]) == indexed_inventory["total"]
+         assert indexed_inventory["index_filters"]["categories"]
+         assert indexed_inventory["index_filters"]["entry_point_statuses"]
++        assert indexed_inventory["index_filters"]["review"] == ["all", "exact_duplicates", "archive_candidates"]
++        assert indexed_inventory["evidence_consistency"] == inventory["evidence_consistency"]
++        assert indexed_inventory["unresolved_items"] == inventory["unresolved_items"]
+         indexed_web = map_item(indexed_inventory, "START_FOXAI_WEB_WITH_COMFYUI.bat")
+         indexed_mystery = map_item(indexed_inventory, "MYSTERY_THING.bat")
+         indexed_bridge = map_item(indexed_inventory, "BRIDGE_COMMAND.bat")
+@@ -261,6 +269,14 @@
+         assert indexed_log["resolution_state"] == "resolved", indexed_log
+         assert indexed_log["entry_point_status"] == "utility_entry_point", indexed_log
+         assert indexed_web["search_text"]
++        indexed_alpha = map_item(indexed_inventory, "start FoxAI 3 Alpha.bat")
++        indexed_old = map_item(indexed_inventory, "OLD_UNUSED_COPY.bat")
++        assert "exact duplicate" in indexed_alpha["search_text"]
++        assert "archive review candidate" in indexed_alpha["search_text"]
++        assert "start foxai.bat" in indexed_alpha["search_text"]
++        assert "filename markers" not in indexed_old["search_text"]
++        assert indexed_alpha["raw_entry_point_status"]
++        assert indexed_alpha["resolution_state"] == "resolved"
+         assert any(item.get("exact_duplicate_membership") for item in indexed_inventory["items"])
+         assert any(item.get("similar_name_membership") for item in indexed_inventory["items"])
+         front = indexed_inventory["approved_front_doors"]
+@@ -396,17 +412,17 @@
+             "launcher_inventory": {
+                 "protected_baseline": {"root": [{"name": "PUSH_TO_GITHUB.bat"}]},
+                 "obsolete_looking_candidates": [
+-                    {"name": "OLD_UNUSED_COPY.bat"},
+-                    {"name": "start FoxAI 3 Alpha.bat"},
+-                    {"name": "PUSH_TO_GITHUB.bat"},
++                    {"name": "OLD_UNUSED_COPY.bat", "candidate_basis": []},
++                    {"name": "start FoxAI 3 Alpha.bat", "candidate_basis": ["exact_duplicate_content"]},
++                    {"name": "PUSH_TO_GITHUB.bat", "candidate_basis": ["exact_duplicate_content"]},
+                 ],
+             }
+         },
+     }
+     launcher_handoff = build_repair_handoff(root, launcher_report, "root_launcher_inventory", level="advanced")
+     assert launcher_handoff["eligible"] is True, launcher_handoff
+-    assert launcher_handoff["repair_kind"] == "prepare_reversible_launcher_archive_plan"
+-    assert "OLD_UNUSED_COPY.bat" in launcher_handoff["affected_paths"]
++    assert launcher_handoff["repair_kind"] == "review_launcher_duplicate_evidence"
++    assert "OLD_UNUSED_COPY.bat" not in launcher_handoff["affected_paths"]
+     assert "start FoxAI 3 Alpha.bat" in launcher_handoff["affected_paths"]
+     assert "PUSH_TO_GITHUB.bat" not in launcher_handoff["affected_paths"]
+     launcher_official = official_classify_mission(launcher_handoff["engineer_command"])
+@@ -472,6 +488,12 @@
+         "preparedRepairMissionRouteGuard",
+         "Expected Workshop route:",
+         "File-change permission:",
++        "repairLauncherReview",
++        "Exact duplicate groups",
++        "Low-confidence review candidates",
++        "Classification consistency",
++        "Filename-only cleanup allowed",
++        "Evidence dataset:",
+     ):
+         assert marker in web_text, marker
+ 
+@@ -538,6 +560,17 @@
+     assert send_function.index("preparedRepairMissionRouteGuard(prompt)") < send_function.index("consumePreparedRepairMission(prompt)")
+     assert "routeGuard.prepared&&!routeGuard.ok" in send_function
+     assert "File-change permission remained NO" in send_function
++
++    launcher_render = web_text.split("function renderRepairLauncherIndex(){", 1)[1].split("async function loadRepairLauncherIndex", 1)[0]
++    assert "repairLauncherReview" in launcher_render
++    assert "review==='exact_duplicates'" in launcher_render
++    assert "review==='archive_candidates'" in launcher_render
++    assert "inventory.exact_duplicate_groups" in launcher_render
++    assert "inventory.obsolete_looking_candidates" in launcher_render
++    assert "Raw classification:" in launcher_render
++    assert "Final resolution:" in launcher_render
++    assert "Filename-only cleanup allowed:" in launcher_render
++    assert "Evidence dataset:" in launcher_render
+ 
+     full_ids = {item["id"] for item in full["findings"]}
+     for required in {
+@@ -605,6 +638,10 @@
+         "handoff_readiness_guard_verified": True,
+         "reliable_mission_console_transfer_verified": True,
+         "planning_only_authorization_guard_verified": True,
++        "launcher_evidence_consistency_verified": True,
++        "duplicate_candidate_details_verified": True,
++        "filename_only_cleanup_blocked_verified": True,
++        "launcher_review_filters_verified": True,
+         "official_workshop_route_plan_verified": True,
+         "official_workshop_authorization_false_verified": True,
+         "prepared_handoff_session_state_verified": True,

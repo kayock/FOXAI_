@@ -1,0 +1,109 @@
+{
+  "authorized": true,
+  "changes": [
+    {
+      "action": "write_file",
+      "after_sha256": "3fab4a1f6194347e8d77c7761d110d5be5e7201ff12692603dfac5cb466d6860",
+      "after_size": 2216812,
+      "before_sha256": "288732b71cbff82d116d2f84a2446038bab3a3da871c899008002fff6e79b5cf",
+      "before_size": 2216232,
+      "relative_path": "core/foxai_web.py"
+    },
+    {
+      "action": "write_file",
+      "after_sha256": "6952e242233f63d3f04af2f2e0a7a2070abadd2dd4ef2ea73bb60d100162ac3f",
+      "after_size": 80060,
+      "before_sha256": "2bab33717d684a84005171400868ab97b13d1adbeb1403647d36114f7e1215fe",
+      "before_size": 79445,
+      "relative_path": "core/repair_bay_diagnostics.py"
+    },
+    {
+      "action": "write_file",
+      "after_sha256": "4bfd074c48bfc94183320e3c90dcdebe5da18cc91cf8194b1fd93e82db92fb25",
+      "after_size": 19265,
+      "before_sha256": "9f60b9722df56b3b062778721ffe9a99bc18f43c911abe9022eb5ceeb819d795",
+      "before_size": 17787,
+      "relative_path": "core/repair_bay_handoff.py"
+    },
+    {
+      "action": "write_file",
+      "after_sha256": "e3527e5cf3b0b6bb63bd23d1be87f78348277653ba117107d78a788bdd5232a7",
+      "after_size": 38776,
+      "before_sha256": "c70a09714fb3e2ad8cbffb937600b27e1e9004a9ce2fe5c4dd220d1ebac581c0",
+      "before_size": 35237,
+      "relative_path": "core/VERIFY_REPAIR_BAY_V1.py"
+    }
+  ],
+  "created_at": "2026-07-20T02:05:22.993778Z",
+  "evidence_is_tool_generated": true,
+  "failure": null,
+  "mission_id": "ENG-20260720-015120-4C285D",
+  "mission_title": "Repair Bay V2.5 \u2014 Healthy Launcher Summary Classification",
+  "mission_type": "repair",
+  "no_deletions": true,
+  "no_renames": true,
+  "plan_path": "Z:\\FOXAI\\FOXAI_Repair_Bay_V2_5_Healthy_Launcher_Summary\\REPAIR_BAY_V2_5_EXACT_PLAN.json",
+  "plan_sha256": "39e949845fe0c5a87cb02772c1c543b72a43974057752792e9726052212a82ca",
+  "project_root": "Z:\\FOXAI",
+  "result": "applied_verified",
+  "rolled_back": false,
+  "schema": "foxai.engineering.receipt.v1",
+  "snapshot_manifest": "Z:\\FOXAI\\System\\EngineeringWorkshop\\snapshots\\ENG-20260720-015120-4C285D\\snapshot_20260720T020514434834Z.manifest.json",
+  "snapshot_path": "Z:\\FOXAI\\System\\EngineeringWorkshop\\snapshots\\ENG-20260720-015120-4C285D\\snapshot_20260720T020514434834Z.zip",
+  "snapshot_sha256": "27aec710388bd74b8ab66a632ef9a0c298846c97fc741b5a660939b01f436f72",
+  "validations": [
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "exec('from pathlib import Path\\n\\nfiles = [\\n    Path(r\"Z:\\\\FOXAI\\\\core\\\\foxai_web.py\"),\\n    Path(r\"Z:\\\\FOXAI\\\\core\\\\repair_bay_diagnostics.py\"),\\n    Path(r\"Z:\\\\FOXAI\\\\core\\\\repair_bay_handoff.py\"),\\n    Path(r\"Z:\\\\FOXAI\\\\core\\\\VERIFY_REPAIR_BAY_V1.py\"),\\n]\\nfor path in files:\\n    compile(path.read_text(encoding=\"utf-8\"), str(path), \"exec\")\\nprint(\"REPAIR_BAY_V2_5_SOURCE_COMPILE_OK\")')"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-20T02:05:17.043253Z",
+      "name": "Compile Repair Bay V2.5 sources without writing bytecode",
+      "returncode": 0,
+      "started_at": "2026-07-20T02:05:14.519932Z",
+      "stderr": "",
+      "stdout": "REPAIR_BAY_V2_5_SOURCE_COMPILE_OK\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "Z:\\FOXAI\\core\\VERIFY_REPAIR_BAY_V1.py"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-20T02:05:17.442208Z",
+      "name": "Verify healthy launcher classification, handoff blocking, and retained Repair Bay behavior",
+      "returncode": 0,
+      "started_at": "2026-07-20T02:05:17.043631Z",
+      "stderr": "",
+      "stdout": "{\n  \"ok\": true,\n  \"schema\": \"foxai.repair_bay.v2.verification\",\n  \"quick_checks\": 13,\n  \"full_checks\": 18,\n  \"launcher_contents_parsed\": 23,\n  \"launcher_relationships_verified\": 4,\n  \"protected_root_launchers_verified\": 12,\n  \"protected_study_launchers_verified\": 2,\n  \"receipt_backed_launchers_verified\": 3,\n  \"exact_duplicate_groups_verified\": 2,\n  \"archive_review_candidates_verified\": 2,\n  \"unresolved_items_verified\": 2,\n  \"archive_plan_proposal_only\": true,\n  \"launcher_index_verified\": true,\n  \"launcher_index_items_verified\": 23,\n  \"approved_front_doors_verified\": 4,\n  \"unknown_resolution_verified\": true,\n  \"search_and_filter_metadata_verified\": true,\n  \"webui_launcher_index_verified\": true,\n  \"calm_guided_default_verified\": true,\n  \"plain_english_attention_summary_verified\": true,\n  \"scan_details_progressive_disclosure_verified\": true,\n  \"self_repair_bay_advanced_verified\": true,\n  \"advanced_controls_closed_by_default_verified\": true,\n  \"guarded_repair_handoff_verified\": true,\n  \"handoff_readiness_guard_verified\": true,\n  \"reliable_mission_console_transfer_verified\": true,\n  \"planning_only_authorization_guard_verified\": true,\n  \"launcher_evidence_consistency_verified\": true,\n  \"healthy_launcher_summary_classification_verified\": true,\n  \"duplicate_only_informational_verified\": true,\n  \"non_actionable_launcher_handoff_blocked_verified\": true,\n  \"duplicate_candidate_details_verified\": true,\n  \"filename_only_cleanup_blocked_verified\": true,\n  \"launcher_review_filters_verified\": true,\n  \"official_workshop_route_plan_verified\": true,\n  \"official_workshop_authorization_false_verified\": true,\n  \"prepared_handoff_session_state_verified\": true,\n  \"open_mission_console_button_verified\": true,\n  \"preparation_lock_cleared_before_open_verified\": true,\n  \"prepared_handoff_lifecycle_verified\": true,\n  \"pre_scan_handoff_disabled_verified\": true,\n  \"healthy_scan_no_repair_state_verified\": true,\n  \"single_finding_auto_attach_verified\": true,\n  \"multiple_findings_selection_required_verified\": true,\n  \"invalid_finding_fails_closed_verified\": true,\n  \"duplicate_handoff_open_guard_verified\": true,\n  \"blank_problem_guard_verified\": true,\n  \"supported_low_risk_planning_verified\": true,\n  \"unsupported_findings_advisory_verified\": true,\n  \"implementation_authorization_false_verified\": true,\n  \"mission_console_review_before_stage_verified\": true,\n  \"handoff_tree_unchanged\": true,\n  \"healthy_guidance_corrected\": true,\n  \"empty_init_recognized_as_valid\": true,\n  \"rename_only_restart_marker_informational\": true,\n  \"read_only_tree_unchanged\": true,\n  \"network_used\": false,\n  \"commands_run\": false,\n  \"files_written\": 0,\n  \"repairs_applied\": 0\n}\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "exec('import hashlib\\nimport json\\nimport sys\\nfrom pathlib import Path\\n\\nroot = Path(r\"Z:\\\\FOXAI\")\\nsys.path.insert(0, str(root))\\n\\nfrom core.repair_bay_diagnostics import run_launcher_index, run_repair_bay_scan\\nfrom core.repair_bay_handoff import build_repair_handoff\\n\\nbefore = {\\n    path.name: hashlib.sha256(path.read_bytes()).hexdigest()\\n    for path in root.glob(\"*.bat\")\\n    if path.is_file()\\n}\\n\\nscan = run_repair_bay_scan(\\n    root,\\n    mode=\"full\",\\n    context={\"validation\": \"repair_bay_v2_5_live_healthy_launcher\"},\\n)\\nindex = run_launcher_index(\\n    root,\\n    context={\"validation\": \"repair_bay_v2_5_live_healthy_launcher\"},\\n)\\n\\nafter = {\\n    path.name: hashlib.sha256(path.read_bytes()).hexdigest()\\n    for path in root.glob(\"*.bat\")\\n    if path.is_file()\\n}\\nassert before == after, \"Launcher files changed during the read-only validation.\"\\n\\nscan_inventory = (scan.get(\"evidence\") or {}).get(\"launcher_inventory\") or {}\\nindex_inventory = index.get(\"inventory\") or {}\\nassert scan_inventory.get(\"unresolved_items\") == index_inventory.get(\"unresolved_items\")\\nassert scan_inventory.get(\"obsolete_looking_candidates\") == index_inventory.get(\"obsolete_looking_candidates\")\\nassert scan_inventory.get(\"exact_duplicate_groups\") == index_inventory.get(\"exact_duplicate_groups\")\\n\\nunresolved = list(scan_inventory.get(\"unresolved_items\") or [])\\ncandidates = list(scan_inventory.get(\"obsolete_looking_candidates\") or [])\\nassert not unresolved, unresolved\\nassert not candidates, candidates\\n\\nlauncher_finding = next(\\n    item\\n    for item in scan.get(\"findings\") or []\\n    if item.get(\"id\") == \"root_launcher_inventory\"\\n)\\nassert launcher_finding.get(\"severity\") == \"informational\", launcher_finding\\nassert \"No repair is needed\" in str(launcher_finding.get(\"suggested_action\") or \"\")\\n\\nplan_steps = (scan.get(\"proposed_repair_plan\") or {}).get(\"steps\") or []\\nassert not any(step.get(\"finding_id\") == \"root_launcher_inventory\" for step in plan_steps)\\n\\nhandoff = build_repair_handoff(\\n    root,\\n    scan,\\n    \"root_launcher_inventory\",\\n    level=\"guided\",\\n)\\nassert handoff.get(\"ok\") is False, handoff\\nassert handoff.get(\"implementation_authorized\") is False, handoff\\nassert \"engineer_command\" not in handoff, handoff\\nassert \"No repair is needed\" in str(handoff.get(\"message\") or \"\")\\n\\nfor report in (scan, index):\\n    safety = report.get(\"safety\") or {}\\n    assert safety.get(\"network_used\") is False, safety\\n    assert safety.get(\"commands_run\") is False, safety\\n    assert int(safety.get(\"files_written\") or 0) == 0, safety\\n    assert int(safety.get(\"repairs_applied\") or 0) == 0, safety\\n\\nprint(json.dumps({\\n    \"REPAIR_BAY_V2_5_LIVE_OK\": True,\\n    \"launchers\": index.get(\"summary\", {}).get(\"total\"),\\n    \"duplicate_groups\": len(scan_inventory.get(\"exact_duplicate_groups\") or []),\\n    \"raw_unknown\": len(scan_inventory.get(\"raw_unknown_items\") or []),\\n    \"unresolved_after_resolution\": len(unresolved),\\n    \"review_candidates\": len(candidates),\\n    \"launcher_finding_severity\": launcher_finding.get(\"severity\"),\\n    \"launcher_handoff_blocked\": True,\\n    \"launcher_files_changed\": 0,\\n}, indent=2))')"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-20T02:05:22.993708Z",
+      "name": "Run live healthy-launcher summary and no-handoff smoke test",
+      "returncode": 0,
+      "started_at": "2026-07-20T02:05:17.442576Z",
+      "stderr": "",
+      "stdout": "{\n  \"REPAIR_BAY_V2_5_LIVE_OK\": true,\n  \"launchers\": 115,\n  \"duplicate_groups\": 1,\n  \"raw_unknown\": 17,\n  \"unresolved_after_resolution\": 0,\n  \"review_candidates\": 0,\n  \"launcher_finding_severity\": \"informational\",\n  \"launcher_handoff_blocked\": true,\n  \"launcher_files_changed\": 0\n}\n",
+      "timed_out": false
+    }
+  ]
+}

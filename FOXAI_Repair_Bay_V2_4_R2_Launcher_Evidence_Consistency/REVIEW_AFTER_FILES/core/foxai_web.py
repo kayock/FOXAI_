@@ -2087,7 +2087,7 @@ function repairHealthMetric(label,value){return `<div class=repairHealthMetric><
 function repairPlainFinding(item){
  let id=String(item?.id||''),fallback={title:item?.title||'Item to review',explanation:item?.summary||'Repair Bay found something that deserves review.',action:item?.suggested_action||'Review the details before making any change.'};
  let known={
-  root_launcher_inventory:{title:'Launcher evidence needs review',explanation:'Repair Bay found at least one unresolved launcher item or evidence-backed low-confidence candidate. Nothing was changed.',action:'Review only the exact evidence shown in Launcher Index. Do not move, rename, archive, delete, or execute a launcher from this screen.'},
+  root_launcher_inventory:{title:'FOXAI has many launcher files',explanation:'Nothing is broken. FOXAI has accumulated many old, specialized, and testing launchers. The important launchers are protected and indexed.',action:'Keep using the approved front-door launchers. Review older scripts later through a separate approved plan.'},
   memory_pressure:{title:'FOXAI is using a lot of memory',explanation:'A large local AI model or another heavy program may be using most of the computer’s memory.',action:'Close an unneeded model or application before starting another heavy task.'},
   disk_space:{title:'The FOXAI drive is low on free space',explanation:'FOXAI may not have enough room for new models, images, backups, or updates.',action:'Review large files through an approved cleanup plan. Do not delete anything automatically.'},
   pending_reboot:{title:'Windows may need a normal restart',explanation:'Windows reported a confirmed update or servicing restart request.',action:'Save your work and restart normally when convenient. Repair Bay will not force a restart.'},
@@ -2103,14 +2103,13 @@ function repairPlainFinding(item){
  return known[id]||fallback;
 }
 function repairCalmViewModel(report){
- let counts=report?.summary?.counts||{},actionable=repairActionableFindings(report);
- let urgent=actionable.filter(item=>item?.severity==='urgent').length,recommended=actionable.filter(item=>item?.severity==='recommended').length;
- let attention=actionable.slice(0,3).map(item=>({...repairPlainFinding(item),severity:item.severity,id:item.id}));
+ let counts=report?.summary?.counts||{},urgent=Number(counts.urgent||0),recommended=Number(counts.recommended||0);
+ let attention=(report?.findings||[]).filter(item=>item?.severity==='urgent'||item?.severity==='recommended').slice(0,3).map(item=>({...repairPlainFinding(item),severity:item.severity,id:item.id}));
  let state=urgent?'urgent':recommended?'attention':'healthy';
  let badge=urgent?'URGENT':recommended?'NEEDS ATTENTION':'HEALTHY';
  let title=urgent?'This computer needs attention.':recommended===1?'Your computer looks healthy, with one item to review.':recommended>1?`Your computer looks healthy, with ${recommended} items to review.`:'Your computer looks healthy.';
- let message=urgent?'Repair Bay found a problem that should be reviewed before heavy work continues. Nothing was changed.':recommended?'Nothing appears broken. Repair Bay found a small number of items worth reviewing when convenient.':'No repairs are needed. Repair Bay found no urgent or recommended problems in the areas checked.';
- let next=attention.length?attention[0].action:'Continue using FOXAI normally.';
+ let message=urgent?'Repair Bay found a problem that should be reviewed before heavy work continues. Nothing was changed.':recommended?'Nothing appears broken. Repair Bay found a small number of items worth reviewing when convenient.':'No problems were found in the areas Repair Bay checked.';
+ let next=attention.length?attention[0].action:'No action is required. Continue using FOXAI normally.';
  let info=Number(counts.informational||0);
  let safety=`Read-only check complete • Network used: ${report?.safety?.network_used?'YES':'NO'} • Repairs applied: ${report?.safety?.repairs_applied||0}`+(info?` • ${info} informational note${info===1?'':'s'} available in details`:'');
  return {state,badge,title,message,next,attention,safety};
@@ -2182,16 +2181,7 @@ function preparedRepairMissionRouteGuard(text=''){
  };
 }
 /* REPAIR_BAY_PLANNING_ONLY_GUARD_V2_3_BROWSER_END */
-/* REPAIR_BAY_HEALTHY_LAUNCHER_CLASSIFICATION_V2_5_BROWSER_START */
-function repairFindingIsActionable(item,report){
- let severity=String(item?.severity||'').toLowerCase();
- if(severity!=='urgent'&&severity!=='recommended')return false;
- if(String(item?.id||'')!=='root_launcher_inventory')return true;
- let inventory=report?.evidence?.launcher_inventory||{};
- return Boolean((inventory.unresolved_items||[]).length||(inventory.obsolete_looking_candidates||[]).length);
-}
-function repairActionableFindings(report){return (report?.findings||[]).filter(item=>repairFindingIsActionable(item,report))}
-/* REPAIR_BAY_HEALTHY_LAUNCHER_CLASSIFICATION_V2_5_BROWSER_END */
+function repairActionableFindings(report){return (report?.findings||[]).filter(item=>item?.severity==='urgent'||item?.severity==='recommended')}
 function preparedRepairMissionIsValid(){return Boolean(preparedRepairMission&&String(preparedRepairMission.text||'').trim()&&preparedRepairMission.packet&&validRepairEngineerCommand(preparedRepairMission.packet))}
 function syncPreparedRepairMissionUI(){
  let ready=preparedRepairMissionIsValid(),advanced=q('repairHandoffOpenButton'),calmOpen=q('repairHandoffCalmOpenButton'),calmActions=q('repairHandoffCalmActions');
@@ -2226,7 +2216,7 @@ function setRepairAskEngineerState(report,state='ready'){
  if(state==='running'){button.disabled=true;button.textContent='Check Running…';button.title='Wait for the read-only check to finish.';return}
  if(!report){button.disabled=true;button.textContent='Run a Check First';button.title='Repair Bay needs a completed health scan before it can prepare a finding handoff.';return}
  let findings=repairActionableFindings(report);
- if(!findings.length){button.disabled=true;button.textContent='No Repairs Needed';button.title='The completed scan found no urgent or recommended repair item.';return}
+ if(!findings.length){button.disabled=true;button.textContent='No Repair Needed';button.title='The completed scan found no urgent or recommended repair item.';return}
  button.disabled=false;
  if(findings.length===1){button.textContent='Ask Engineer';button.title='Prepare the one actionable finding for review in Mission Console.'}
  else{button.textContent='Choose a Finding';button.title='Several items need review. Choose one item below before preparing a handoff.'}

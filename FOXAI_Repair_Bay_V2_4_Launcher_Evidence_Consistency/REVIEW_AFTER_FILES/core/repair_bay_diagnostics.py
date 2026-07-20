@@ -14,7 +14,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
-SCAN_VERSION = "1.5"
+SCAN_VERSION = "1.4"
 SEVERITIES = ("urgent", "recommended", "informational", "healthy")
 
 
@@ -833,14 +833,6 @@ def _launcher_inventory(root: Path, *, hash_limit_bytes: int = 4 * 1024 * 1024) 
     }
 
 
-def _launcher_inventory_needs_review(inventory: dict[str, Any]) -> bool:
-    """Return True only for evidence-backed launcher work, never quantity or duplicate count alone."""
-    return bool(
-        list(inventory.get("unresolved_items") or [])
-        or list(inventory.get("obsolete_looking_candidates") or [])
-    )
-
-
 def _launcher_inventory_evidence(inventory: dict[str, Any]) -> list[str]:
     counts = dict(inventory.get("category_counts") or {})
     protected = list((inventory.get("protected_baseline") or {}).get("root") or [])
@@ -1213,7 +1205,7 @@ def run_launcher_index(
     return {
         "ok": project_root.is_dir(),
         "version": SCAN_VERSION,
-        "title": "Repair Bay V1.5 — Healthy Launcher Classification",
+        "title": "Repair Bay V1.4 — Consistent Launcher Evidence",
         "created_at": _iso_now(),
         "root": str(project_root),
         "read_only": True,
@@ -1341,7 +1333,7 @@ def _repair_plan(findings: list[dict[str, Any]]) -> dict[str, Any]:
         "changes_applied": 0,
         "steps": steps,
         "message": (
-            "Review each proposed action separately. Repair Bay V1.5 does not apply repairs."
+            "Review each proposed action separately. Repair Bay V1.4 does not apply repairs."
             if steps
             else "No repair steps are proposed from this scan."
         ),
@@ -1415,7 +1407,7 @@ def run_repair_bay_scan(
         return {
             "ok": False,
             "version": SCAN_VERSION,
-            "title": "Repair Bay V1.5 — Healthy Launcher Classification",
+            "title": "Repair Bay V1.4 — Consistent Launcher Evidence",
             "created_at": _iso_now(),
             "mode": scan_mode,
             "root": str(project_root),
@@ -1829,7 +1821,7 @@ def run_repair_bay_scan(
         protected_count = len((launcher_inventory.get("protected_baseline") or {}).get("root") or [])
         candidate_count = len(launcher_inventory.get("obsolete_looking_candidates") or [])
         unresolved_count = len(launcher_inventory.get("unresolved_items") or [])
-        launcher_review = _launcher_inventory_needs_review(launcher_inventory)
+        launcher_review = launcher_count > 40 or duplicate_count > 0 or unresolved_count > 0
         raw_unknown_count = len(launcher_inventory.get("raw_unknown_items") or [])
         launcher_summary = (
             f"Mapped {launcher_count} root BAT file(s) from one finalized read-only dataset. "
@@ -1845,13 +1837,7 @@ def run_repair_bay_scan(
                 "recommended" if launcher_review else "informational",
                 launcher_summary,
                 evidence=_launcher_inventory_evidence(launcher_inventory),
-                suggested_action=(
-                    "Preserve the protected baseline. Review only the exact unresolved items or evidence-backed "
-                    "low-confidence candidates shown in Launcher Index. Do not move, rename, delete, archive, or execute scripts."
-                    if launcher_review
-                    else "No repair is needed. Continue using the approved front-door launchers. Exact duplicate-group "
-                    "details remain informational in Show scan details and Launcher Index."
-                ),
+                suggested_action="Preserve the protected baseline. Review exact duplicate members and their static evidence only; a filename marker alone never justifies cleanup. Do not move, rename, delete, archive, or execute scripts from this scan.",
                 category="organization",
             )
         )
@@ -1864,7 +1850,7 @@ def run_repair_bay_scan(
     report = {
         "ok": counts["urgent"] == 0,
         "version": SCAN_VERSION,
-        "title": "Repair Bay V1.5 — Healthy Launcher Classification",
+        "title": "Repair Bay V1.4 — Consistent Launcher Evidence",
         "created_at": _iso_now(),
         "mode": scan_mode,
         "root": str(project_root),

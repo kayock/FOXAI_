@@ -1,0 +1,109 @@
+{
+  "authorized": true,
+  "changes": [
+    {
+      "action": "write_file",
+      "after_sha256": "288732b71cbff82d116d2f84a2446038bab3a3da871c899008002fff6e79b5cf",
+      "after_size": 2216232,
+      "before_sha256": "cae27f0987b1b02be38dbc9a083debb7ff80064876eb1c3dceb9cfb74051c994",
+      "before_size": 2213271,
+      "relative_path": "core/foxai_web.py"
+    },
+    {
+      "action": "write_file",
+      "after_sha256": "2bab33717d684a84005171400868ab97b13d1adbeb1403647d36114f7e1215fe",
+      "after_size": 79445,
+      "before_sha256": "937f0d9383c65b99b99f0b1383c52ec949e9af45f1af09a735d7c984747cf2e2",
+      "before_size": 73501,
+      "relative_path": "core/repair_bay_diagnostics.py"
+    },
+    {
+      "action": "write_file",
+      "after_sha256": "9f60b9722df56b3b062778721ffe9a99bc18f43c911abe9022eb5ceeb819d795",
+      "after_size": 17787,
+      "before_sha256": "0ad39848bd920852b1a3e88bab59730469ab208ad71cc0910961b9fb92a147b7",
+      "before_size": 17583,
+      "relative_path": "core/repair_bay_handoff.py"
+    },
+    {
+      "action": "write_file",
+      "after_sha256": "c70a09714fb3e2ad8cbffb937600b27e1e9004a9ce2fe5c4dd220d1ebac581c0",
+      "after_size": 35237,
+      "before_sha256": "23fb3bd5f2a9139036f8e1e725a404631a7f3f233964b830fc08a2db7f467c0f",
+      "before_size": 32698,
+      "relative_path": "core/VERIFY_REPAIR_BAY_V1.py"
+    }
+  ],
+  "created_at": "2026-07-20T01:35:24.952749Z",
+  "evidence_is_tool_generated": true,
+  "failure": "Validation failed: Run live launcher evidence consistency and no-launcher-change smoke test (return code 1)",
+  "mission_id": "ENG-20260720-011047-2E4EE9",
+  "mission_title": "Repair Bay V2.4 \u2014 Launcher Evidence Consistency and Candidate Details",
+  "mission_type": "implement",
+  "no_deletions": true,
+  "no_renames": true,
+  "plan_path": "Z:\\FOXAI\\FOXAI_Repair_Bay_V2_4_Launcher_Evidence_Consistency\\REPAIR_BAY_V2_4_EXACT_PLAN.json",
+  "plan_sha256": "404df14ee0b65688ff8c2c283d845c4e1d50c75f9c9ea91572ce05b13386184d",
+  "project_root": "Z:\\FOXAI",
+  "result": "rolled_back",
+  "rolled_back": true,
+  "schema": "foxai.engineering.receipt.v1",
+  "snapshot_manifest": "Z:\\FOXAI\\System\\EngineeringWorkshop\\snapshots\\ENG-20260720-011047-2E4EE9\\snapshot_20260720T013521808471Z.manifest.json",
+  "snapshot_path": "Z:\\FOXAI\\System\\EngineeringWorkshop\\snapshots\\ENG-20260720-011047-2E4EE9\\snapshot_20260720T013521808471Z.zip",
+  "snapshot_sha256": "123673bac1ca8d3cc7ac6b8d7bcd100c8e7a0c2eebe02355099c1b6907122ef5",
+  "validations": [
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path;files=[Path(r'Z:\\FOXAI\\core\\foxai_web.py'),Path(r'Z:\\FOXAI\\core\\repair_bay_diagnostics.py'),Path(r'Z:\\FOXAI\\core\\repair_bay_handoff.py'),Path(r'Z:\\FOXAI\\core\\VERIFY_REPAIR_BAY_V1.py')];[compile(p.read_text(encoding='utf-8'),str(p),'exec') for p in files];print('REPAIR_BAY_V2_4_SOURCE_COMPILE_OK')"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-20T01:35:24.455270Z",
+      "name": "Compile Repair Bay V2.4 sources without writing bytecode",
+      "returncode": 0,
+      "started_at": "2026-07-20T01:35:21.900723Z",
+      "stderr": "",
+      "stdout": "REPAIR_BAY_V2_4_SOURCE_COMPILE_OK\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "Z:\\FOXAI\\core\\VERIFY_REPAIR_BAY_V1.py"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-20T01:35:24.876692Z",
+      "name": "Verify shared launcher evidence, exact candidate details, filters, handoff safety, and retained Repair Bay behavior",
+      "returncode": 0,
+      "started_at": "2026-07-20T01:35:24.455912Z",
+      "stderr": "",
+      "stdout": "{\n  \"ok\": true,\n  \"schema\": \"foxai.repair_bay.v2.verification\",\n  \"quick_checks\": 13,\n  \"full_checks\": 18,\n  \"launcher_contents_parsed\": 23,\n  \"launcher_relationships_verified\": 4,\n  \"protected_root_launchers_verified\": 12,\n  \"protected_study_launchers_verified\": 2,\n  \"receipt_backed_launchers_verified\": 3,\n  \"exact_duplicate_groups_verified\": 2,\n  \"archive_review_candidates_verified\": 2,\n  \"unresolved_items_verified\": 2,\n  \"archive_plan_proposal_only\": true,\n  \"launcher_index_verified\": true,\n  \"launcher_index_items_verified\": 23,\n  \"approved_front_doors_verified\": 4,\n  \"unknown_resolution_verified\": true,\n  \"search_and_filter_metadata_verified\": true,\n  \"webui_launcher_index_verified\": true,\n  \"calm_guided_default_verified\": true,\n  \"plain_english_attention_summary_verified\": true,\n  \"scan_details_progressive_disclosure_verified\": true,\n  \"self_repair_bay_advanced_verified\": true,\n  \"advanced_controls_closed_by_default_verified\": true,\n  \"guarded_repair_handoff_verified\": true,\n  \"handoff_readiness_guard_verified\": true,\n  \"reliable_mission_console_transfer_verified\": true,\n  \"planning_only_authorization_guard_verified\": true,\n  \"launcher_evidence_consistency_verified\": true,\n  \"duplicate_candidate_details_verified\": true,\n  \"filename_only_cleanup_blocked_verified\": true,\n  \"launcher_review_filters_verified\": true,\n  \"official_workshop_route_plan_verified\": true,\n  \"official_workshop_authorization_false_verified\": true,\n  \"prepared_handoff_session_state_verified\": true,\n  \"open_mission_console_button_verified\": true,\n  \"preparation_lock_cleared_before_open_verified\": true,\n  \"prepared_handoff_lifecycle_verified\": true,\n  \"pre_scan_handoff_disabled_verified\": true,\n  \"healthy_scan_no_repair_state_verified\": true,\n  \"single_finding_auto_attach_verified\": true,\n  \"multiple_findings_selection_required_verified\": true,\n  \"invalid_finding_fails_closed_verified\": true,\n  \"duplicate_handoff_open_guard_verified\": true,\n  \"blank_problem_guard_verified\": true,\n  \"supported_low_risk_planning_verified\": true,\n  \"unsupported_findings_advisory_verified\": true,\n  \"implementation_authorization_false_verified\": true,\n  \"mission_console_review_before_stage_verified\": true,\n  \"handoff_tree_unchanged\": true,\n  \"healthy_guidance_corrected\": true,\n  \"empty_init_recognized_as_valid\": true,\n  \"rename_only_restart_marker_informational\": true,\n  \"read_only_tree_unchanged\": true,\n  \"network_used\": false,\n  \"commands_run\": false,\n  \"files_written\": 0,\n  \"repairs_applied\": 0\n}\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "import hashlib,json,sys;from pathlib import Path;root=Path(r'Z:\\FOXAI');sys.path.insert(0,str(root));from core.repair_bay_diagnostics import run_launcher_index,run_repair_bay_scan;from core.repair_bay_handoff import build_repair_handoff;from Departments.Engineering.mission_router import classify_mission;before={p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in root.glob('*.bat') if p.is_file()};scan=run_repair_bay_scan(root,mode='full',context={'validation':'repair_bay_v2_4_live_consistency'});index=run_launcher_index(root,context={'validation':'repair_bay_v2_4_live_consistency'});after={p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in root.glob('*.bat') if p.is_file()};assert before==after,'Launcher files changed during read-only validation';a=(scan.get('evidence') or {}).get('launcher_inventory') or {};b=index.get('inventory') or {};assert (a.get('evidence_consistency') or {}).get('finalized') is True,a;assert (b.get('evidence_consistency') or {}).get('finalized') is True,b;assert a.get('unresolved_items')==b.get('unresolved_items'),(a.get('unresolved_items'),b.get('unresolved_items'));assert a.get('raw_unknown_items')==b.get('raw_unknown_items'),(a.get('raw_unknown_items'),b.get('raw_unknown_items'));assert a.get('exact_duplicate_groups')==b.get('exact_duplicate_groups');ac={str(x.get('name') or '') for x in a.get('obsolete_looking_candidates') or []};bc={str(x.get('name') or '') for x in b.get('obsolete_looking_candidates') or []};assert ac==bc,(ac,bc);protected={str(x.get('name') or '').casefold() for x in ((a.get('protected_baseline') or {}).get('root') or [])};assert all(str(x.get('name') or '').casefold() not in protected for x in a.get('obsolete_looking_candidates') or []);assert all('exact_duplicate_content' in set(x.get('candidate_basis') or []) for x in a.get('obsolete_looking_candidates') or []);assert all(x.get('filename_only_cleanup_allowed') is False for x in a.get('obsolete_looking_candidates') or []);finding=next(x for x in scan.get('findings') or [] if x.get('id')=='root_launcher_inventory');packet=build_repair_handoff(root,scan,'root_launcher_inventory',level='advanced');assert packet.get('ok') is True,packet;decision=classify_mission(packet.get('engineer_command') or '');assert decision.mission_type=='plan' and decision.authorized is False,decision;assert set(packet.get('affected_paths') or []).issubset(ac),packet;for report in (scan,index): s=report.get('safety') or {}; assert s.get('network_used') is False,s; assert s.get('commands_run') is False,s; assert int(s.get('files_written') or 0)==0,s; assert int(s.get('repairs_applied') or 0)==0,s;print(json.dumps({'REPAIR_BAY_V2_4_LIVE_OK':True,'launchers':index.get('summary',{}).get('total'),'raw_unknown':len(a.get('raw_unknown_items') or []),'unresolved_after_resolution':len(a.get('unresolved_items') or []),'duplicate_groups':len(a.get('exact_duplicate_groups') or []),'review_candidates':sorted(ac),'workshop_route':decision.mission_type,'implementation_authorized':decision.authorized},indent=2))"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-20T01:35:24.933679Z",
+      "name": "Run live launcher evidence consistency and no-launcher-change smoke test",
+      "returncode": 1,
+      "started_at": "2026-07-20T01:35:24.877086Z",
+      "stderr": "  File \"<string>\", line 1\n    import hashlib,json,sys;from pathlib import Path;root=Path(r'Z:\\FOXAI');sys.path.insert(0,str(root));from core.repair_bay_diagnostics import run_launcher_index,run_repair_bay_scan;from core.repair_bay_handoff import build_repair_handoff;from Departments.Engineering.mission_router import classify_mission;before={p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in root.glob('*.bat') if p.is_file()};scan=run_repair_bay_scan(root,mode='full',context={'validation':'repair_bay_v2_4_live_consistency'});index=run_launcher_index(root,context={'validation':'repair_bay_v2_4_live_consistency'});after={p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in root.glob('*.bat') if p.is_file()};assert before==after,'Launcher files changed during read-only validation';a=(scan.get('evidence') or {}).get('launcher_inventory') or {};b=index.get('inventory') or {};assert (a.get('evidence_consistency') or {}).get('finalized') is True,a;assert (b.get('evidence_consistency') or {}).get('finalized') is True,b;assert a.get('unresolved_items')==b.get('unresolved_items'),(a.get('unresolved_items'),b.get('unresolved_items'));assert a.get('raw_unknown_items')==b.get('raw_unknown_items'),(a.get('raw_unknown_items'),b.get('raw_unknown_items'));assert a.get('exact_duplicate_groups')==b.get('exact_duplicate_groups');ac={str(x.get('name') or '') for x in a.get('obsolete_looking_candidates') or []};bc={str(x.get('name') or '') for x in b.get('obsolete_looking_candidates') or []};assert ac==bc,(ac,bc);protected={str(x.get('name') or '').casefold() for x in ((a.get('protected_baseline') or {}).get('root') or [])};assert all(str(x.get('name') or '').casefold() not in protected for x in a.get('obsolete_looking_candidates') or []);assert all('exact_duplicate_content' in set(x.get('candidate_basis') or []) for x in a.get('obsolete_looking_candidates') or []);assert all(x.get('filename_only_cleanup_allowed') is False for x in a.get('obsolete_looking_candidates') or []);finding=next(x for x in scan.get('findings') or [] if x.get('id')=='root_launcher_inventory');packet=build_repair_handoff(root,scan,'root_launcher_inventory',level='advanced');assert packet.get('ok') is True,packet;decision=classify_mission(packet.get('engineer_command') or '');assert decision.mission_type=='plan' and decision.authorized is False,decision;assert set(packet.get('affected_paths') or []).issubset(ac),packet;for report in (scan,index): s=report.get('safety') or {}; assert s.get('network_used') is False,s; assert s.get('commands_run') is False,s; assert int(s.get('files_written') or 0)==0,s; assert int(s.get('repairs_applied') or 0)==0,s;print(json.dumps({'REPAIR_BAY_V2_4_LIVE_OK':True,'launchers':index.get('summary',{}).get('total'),'raw_unknown':len(a.get('raw_unknown_items') or []),'unresolved_after_resolution':len(a.get('unresolved_items') or []),'duplicate_groups':len(a.get('exact_duplicate_groups') or []),'review_candidates':sorted(ac),'workshop_route':decision.mission_type,'implementation_authorized':decision.authorized},indent=2))\n                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                ^^^\nSyntaxError: invalid syntax\n",
+      "stdout": "",
+      "timed_out": false
+    }
+  ]
+}

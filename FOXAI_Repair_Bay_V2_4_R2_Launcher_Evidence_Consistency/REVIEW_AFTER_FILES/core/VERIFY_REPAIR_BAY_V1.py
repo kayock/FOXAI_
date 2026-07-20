@@ -15,7 +15,7 @@ if str(PROJECT_ROOT) not in sys.path:
 from Departments.Engineering.mission_router import classify_mission as official_classify_mission
 
 import core.repair_bay_diagnostics as diagnostics
-from core.repair_bay_diagnostics import SEVERITIES, _launcher_inventory_needs_review, run_launcher_index, run_repair_bay_scan
+from core.repair_bay_diagnostics import SEVERITIES, run_launcher_index, run_repair_bay_scan
 from core.repair_bay_handoff import build_repair_handoff, predict_engineer_route
 
 
@@ -122,7 +122,7 @@ def map_item(inventory: dict, name: str) -> dict:
 
 def assert_report(report: dict, mode: str) -> None:
     assert report["mode"] == mode
-    assert report["version"] == "1.5"
+    assert report["version"] == "1.4"
     assert report["read_only"] is True
     assert report["safety"]["network_used"] is False
     assert report["safety"]["commands_run"] is False
@@ -231,18 +231,10 @@ def main() -> int:
         assert inventory["evidence_consistency"]["finalized"] is True
         assert inventory["evidence_consistency"]["unresolved_after_resolution_count"] == len(inventory["unresolved_items"])
         assert "raw_unknown_items" in inventory
-        assert _launcher_inventory_needs_review(inventory) is True
-        assert _launcher_inventory_needs_review({
-            "total": 115,
-            "exact_duplicate_groups": [{"files": ["Start FoxAI.bat", "start FoxAI 3 Alpha.bat"]}],
-            "raw_unknown_items": [f"RAW_{index}.bat" for index in range(17)],
-            "unresolved_items": [],
-            "obsolete_looking_candidates": [],
-        }) is False
 
         index_before = tree_snapshot(root)
         launcher_index = run_launcher_index(root, context={"test": True})
-        assert launcher_index["version"] == "1.5"
+        assert launcher_index["version"] == "1.4"
         assert launcher_index["read_only"] is True
         assert launcher_index["safety"]["batch_files_executed"] is False
         assert launcher_index["safety"]["network_used"] is False
@@ -437,47 +429,6 @@ def main() -> int:
     assert launcher_official.mission_type == "plan", launcher_official
     assert launcher_official.authorized is False, launcher_official
     assert launcher_handoff["route_guard"]["safe_for_repair_bay_send"] is True
-
-    healthy_launcher_report = {
-        "read_only": True,
-        "safety": {"network_used": False, "commands_run": False, "files_written": 0, "repairs_applied": 0},
-        "findings": [
-            {
-                "id": "root_launcher_inventory",
-                "title": "FOXAI launcher map and protected baseline",
-                "severity": "informational",
-                "summary": "115 launchers, one duplicate group, zero unresolved items, and zero review candidates.",
-                "suggested_action": "No repair is needed.",
-                "evidence": ["Exact duplicate group: Start FoxAI.bat | start FoxAI 3 Alpha.bat"],
-            }
-        ],
-        "evidence": {
-            "launcher_inventory": {
-                "total": 115,
-                "raw_unknown_items": [f"RAW_{index}.bat" for index in range(17)],
-                "unresolved_items": [],
-                "obsolete_looking_candidates": [],
-                "exact_duplicate_groups": [
-                    {"group_id": 1, "files": ["Start FoxAI.bat", "start FoxAI 3 Alpha.bat"]}
-                ],
-            }
-        },
-    }
-    healthy_launcher_handoff = build_repair_handoff(
-        root, healthy_launcher_report, "root_launcher_inventory", level="guided"
-    )
-    assert healthy_launcher_handoff["ok"] is False, healthy_launcher_handoff
-    assert healthy_launcher_handoff["implementation_authorized"] is False
-    assert "engineer_command" not in healthy_launcher_handoff
-    assert "No repair is needed" in healthy_launcher_handoff["message"]
-
-    recommended_without_evidence = json.loads(json.dumps(healthy_launcher_report))
-    recommended_without_evidence["findings"][0]["severity"] = "recommended"
-    recommended_without_evidence_handoff = build_repair_handoff(
-        root, recommended_without_evidence, "root_launcher_inventory", level="guided"
-    )
-    assert recommended_without_evidence_handoff["ok"] is False, recommended_without_evidence_handoff
-    assert "engineer_command" not in recommended_without_evidence_handoff
     assert handoff_before == tree_snapshot(root), "Guarded handoff modified fixture files."
 
     live_web = PROJECT_ROOT / "core" / "foxai_web.py"
@@ -518,6 +469,7 @@ def main() -> int:
         "REPAIR_BAY_HANDOFF_READINESS_GUARD_V2_1_BROWSER_START",
         "repairAskEngineerButton",
         "Run a Check First",
+        "No Repair Needed",
         "Choose a Finding",
         "handleRepairAskEngineer",
         "validRepairEngineerCommand",
@@ -532,10 +484,6 @@ def main() -> int:
         "Already prepared — Open Mission Console",
         "consumePreparedRepairMission",
         "REPAIR_BAY_PLANNING_ONLY_GUARD_V2_3_BROWSER_START",
-        "REPAIR_BAY_HEALTHY_LAUNCHER_CLASSIFICATION_V2_5_BROWSER_START",
-        "repairFindingIsActionable",
-        "No repairs are needed. Repair Bay found no urgent or recommended problems",
-        "No Repairs Needed",
         "repairPlanningRouteDecision",
         "preparedRepairMissionRouteGuard",
         "Expected Workshop route:",
@@ -612,15 +560,6 @@ def main() -> int:
     assert send_function.index("preparedRepairMissionRouteGuard(prompt)") < send_function.index("consumePreparedRepairMission(prompt)")
     assert "routeGuard.prepared&&!routeGuard.ok" in send_function
     assert "File-change permission remained NO" in send_function
-
-    v25_block = web_text.split("/* REPAIR_BAY_HEALTHY_LAUNCHER_CLASSIFICATION_V2_5_BROWSER_START */", 1)[1].split("/* REPAIR_BAY_HEALTHY_LAUNCHER_CLASSIFICATION_V2_5_BROWSER_END */", 1)[0]
-    assert "inventory.unresolved_items" in v25_block
-    assert "inventory.obsolete_looking_candidates" in v25_block
-    assert "exact_duplicate_groups" not in v25_block
-    assert "repairFindingIsActionable" in v25_block
-    calm_model = web_text.split("function repairCalmViewModel(report){", 1)[1].split("function renderRepairCalmView(report){", 1)[0]
-    assert "actionable=repairActionableFindings(report)" in calm_model
-    assert "No repairs are needed." in calm_model
 
     launcher_render = web_text.split("function renderRepairLauncherIndex(){", 1)[1].split("async function loadRepairLauncherIndex", 1)[0]
     assert "repairLauncherReview" in launcher_render
@@ -700,9 +639,6 @@ def main() -> int:
         "reliable_mission_console_transfer_verified": True,
         "planning_only_authorization_guard_verified": True,
         "launcher_evidence_consistency_verified": True,
-        "healthy_launcher_summary_classification_verified": True,
-        "duplicate_only_informational_verified": True,
-        "non_actionable_launcher_handoff_blocked_verified": True,
         "duplicate_candidate_details_verified": True,
         "filename_only_cleanup_blocked_verified": True,
         "launcher_review_filters_verified": True,

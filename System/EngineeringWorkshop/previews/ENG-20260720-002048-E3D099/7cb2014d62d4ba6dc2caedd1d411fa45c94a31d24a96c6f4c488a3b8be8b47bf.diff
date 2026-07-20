@@ -1,0 +1,386 @@
+--- a/core/foxai_web.py
++++ b/core/foxai_web.py
+@@ -2126,6 +2126,59 @@
+ /* REPAIR_BAY_HANDOFF_READINESS_GUARD_V2_1_BROWSER_START */
+ /* REPAIR_BAY_MISSION_TRANSFER_V2_2_BROWSER_START */
+ let repairHandoffBusy=false,lastRepairHandoffOpenedId='',preparedRepairMission=null;
++/* REPAIR_BAY_PLANNING_ONLY_GUARD_V2_3_BROWSER_START */
++function repairPlanningRouteDecision(text){
++ let value=String(text||'').trim();
++ let tests={
++  search:/\b(find|locate|search|where is|show references?|grep)\b/i,
++  diagnose:/\b(inspect|diagnose|analy[sz]e|why|determine|review)\b/i,
++  plan:/\b(plan|preview|propose|what would change|do not modify|read[- ]only)\b/i,
++  implement:/\b(build|implement|create|add|integrate|patch|update|deploy|install feature)\b/i,
++  repair:/\b(fix|repair|apply|proceed with the approved|execute the approved)\b/i,
++  authorization:/\b(authoriz(?:e|ed|ation)|approved|proceed|apply|implement|targeted source changes|do not stop at planning)\b/i
++ };
++ let scores={
++  search:tests.search.test(value)?35:0,
++  diagnose:tests.diagnose.test(value)?30:0,
++  plan:tests.plan.test(value)?45:0,
++  implement:tests.implement.test(value)?60:0,
++  repair:tests.repair.test(value)?55:0
++ };
++ let authorized=tests.authorization.test(value);
++ if(authorized&&scores.implement)scores.implement+=25;
++ if(authorized&&scores.repair)scores.repair+=20;
++ let route='unknown',best=-1;
++ for(let key of ['search','diagnose','plan','implement','repair']){
++  if(scores[key]>best){best=scores[key];route=key}
++ }
++ if(best<=0)route='unknown';
++ return {route,implementation_authorized:authorized,scores,safe:route==='plan'&&!authorized};
++}
++function repairPlanningRouteLabel(decision){
++ let route=String(decision?.route||'unknown').toUpperCase();
++ return `Expected Workshop route: ${route} • File-change permission: ${decision?.implementation_authorized?'YES — BLOCKED':'NO'}`;
++}
++function preparedRepairMissionRouteGuard(text=''){
++ if(!preparedRepairMissionIsValid())return {ok:true,prepared:false};
++ let candidate=String(text||'').trim();
++ if(candidate!==String(preparedRepairMission.text||'').trim())return {ok:true,prepared:false};
++ let decision=repairPlanningRouteDecision(candidate);
++ let packetGuard=preparedRepairMission.packet?.route_guard||{};
++ let packetSafe=preparedRepairMission.packet?.expected_workshop_route==='plan'
++  && preparedRepairMission.packet?.expected_implementation_authorized===false
++  && packetGuard?.route==='plan'
++  && packetGuard?.implementation_authorized===false
++  && packetGuard?.safe_for_repair_bay_send===true;
++ return {
++  ok:Boolean(decision.safe&&packetSafe),
++  prepared:true,
++  decision,
++  message:decision.safe&&packetSafe
++   ?'Repair Bay planning-only route verified.'
++   :`Send blocked. Repair Bay expected PLAN with file-change permission NO, but predicted ${String(decision.route||'unknown').toUpperCase()} with permission ${decision.implementation_authorized?'YES':'NO'}.`
++ };
++}
++/* REPAIR_BAY_PLANNING_ONLY_GUARD_V2_3_BROWSER_END */
+ function repairActionableFindings(report){return (report?.findings||[]).filter(item=>item?.severity==='urgent'||item?.severity==='recommended')}
+ function preparedRepairMissionIsValid(){return Boolean(preparedRepairMission&&String(preparedRepairMission.text||'').trim()&&preparedRepairMission.packet&&validRepairEngineerCommand(preparedRepairMission.packet))}
+ function syncPreparedRepairMissionUI(){
+@@ -2179,7 +2232,10 @@
+  if(!String(finding.id||'').trim()||!String(finding.title||'').trim())return false;
+  if(/Problem:\s*$/i.test(command))return false;
+  if(!/(Finding ID:|Title:)/i.test(command))return false;
+- return true;
++ let local=repairPlanningRouteDecision(command),guard=packet?.route_guard||{};
++ if(packet?.expected_workshop_route!=='plan'||packet?.expected_implementation_authorized!==false)return false;
++ if(guard?.route!=='plan'||guard?.implementation_authorized!==false||guard?.safe_for_repair_bay_send!==true)return false;
++ return local.safe===true;
+ }
+ async function handleRepairAskEngineer(){
+  if(repairHandoffBusy){toast('Engineer handoff preparation is already in progress.');return}
+@@ -2211,7 +2267,8 @@
+  let status=q('repairHandoffStatus'),preview=q('repairHandoffPreview'),calm=q('repairHandoffCalmStatus');
+  let eligible=Boolean(packet?.eligible),finding=packet?.finding||{},paths=packet?.affected_paths||[],evidence=packet?.technical_evidence||[];
+  let headline=eligible?'READY FOR ENGINEER PLAN REVIEW':'ADVISORY ONLY';
+- let text=`${headline}\nFinding: ${finding.title||finding.id||'Unknown'}\nSeverity: ${String(finding.severity||'').toUpperCase()}\nRepair kind: ${packet?.repair_label||'Advisory review only'}\nBackup required: ${packet?.backup_required?'YES':'NO'}\nAffected paths: ${paths.length?paths.join(' | '):'No bounded path resolved'}\n\n${packet?.plain_english_explanation||''}\n\nEvidence: ${evidence.length?evidence.slice(0,8).join(' | '):'No additional evidence'}\n\nNext: ${packet?.operator_next_step||''}`;
++ let route=repairPlanningRouteDecision(packet?.engineer_command||'');
++ let text=`${headline}\nFinding: ${finding.title||finding.id||'Unknown'}\nSeverity: ${String(finding.severity||'').toUpperCase()}\nRepair kind: ${packet?.repair_label||'Advisory review only'}\nBackup required: ${packet?.backup_required?'YES':'NO'}\n${repairPlanningRouteLabel(route)}\nAffected paths: ${paths.length?paths.join(' | '):'No bounded path resolved'}\n\n${packet?.plain_english_explanation||''}\n\nEvidence: ${evidence.length?evidence.slice(0,8).join(' | '):'No additional evidence'}\n\nNext: ${packet?.operator_next_step||''}`;
+  if(status)status.textContent=eligible?'Handoff prepared and stored. Open Mission Console to review it.':'Advisory handoff prepared and stored. Open Mission Console to review it.';
+  if(preview)preview.innerHTML=`<strong class="${eligible?'ready':'advisory'}">${esc(headline)}</strong>\n${esc(text)}`;
+  if(calm){calm.textContent='Engineer handoff prepared. Use Open Mission Console to review the exact request before sending it.';calm.classList.add('show')}
+@@ -2258,8 +2315,10 @@
+  if(!box){repairHandoffFailure('Mission Console input was unavailable. The prepared request remains stored.');return}
+  box.value=state.text;box.focus();box.setSelectionRange(box.value.length,box.value.length);
+  lastRepairHandoffOpenedId=String(state.handoff_id||'opened');
+- let calm=q('repairHandoffCalmStatus');if(calm){calm.textContent='Already prepared — the exact request is open in Mission Console for review.';calm.classList.add('show')}
+- toast(state.packet?.eligible?'Review the planning request, then press Send. No implementation is authorized.':'Review the advisory request, then press Send.');
++ let decision=repairPlanningRouteDecision(state.text);
++ let calm=q('repairHandoffCalmStatus');if(calm){calm.textContent=`Already prepared — the exact request is open in Mission Console for review.\n${repairPlanningRouteLabel(decision)}`;calm.classList.add('show')}
++ logline('sys','REPAIR BAY',`${repairPlanningRouteLabel(decision)}. Send remains manual.`);
++ toast(decision.safe?'Review the PLAN request, then press Send. File-change permission is NO.':'Route guard blocked this handoff.');
+ }
+ /* REPAIR_BAY_GUARDED_HANDOFF_V2_BROWSER_END */
+ /* REPAIR_BAY_MISSION_TRANSFER_V2_2_BROWSER_END */
+@@ -2433,8 +2492,15 @@
+  if((image||useActive)&&!activeVisionProfile()){let active=modelProfileById(activeProfileId);let message=active?`The active profile is ${active.label}, which is not a vision profile. Select and explicitly start Fast Vision or Quality Vision; no model switch occurred.`:'No verified vision profile is active. Select and explicitly start Fast Vision or Quality Vision; no model switch occurred.';logline('bad','SYSTEM',message);toast(message);return}
+  if((image||useActive)&&explicitEngineerMessage(text)){let message='Engineer image inspection is not enabled. Remove the image or use ordinary vision chat.';logline('bad','SYSTEM',message);toast(message);return}
+  let prompt=text||((image||useActive)?'Describe this image.':''),localImage=pendingMissionImage||activeMissionImage;
++ let routeGuard=preparedRepairMissionRouteGuard(prompt);
++ if(routeGuard.prepared&&!routeGuard.ok){
++  logline('bad','REPAIR BAY',routeGuard.message);
++  toast(routeGuard.message);
++  return;
++ }
++ if(routeGuard.prepared)logline('sys','REPAIR BAY',`${repairPlanningRouteLabel(routeGuard.decision)}. Sending planning request.`);
+  let consumedPreparedRepair=consumePreparedRepairMission(prompt);
+- let browserStarted=performance.now(),d=null;q('input').value='';logline('user','ERIC',prompt);if(consumedPreparedRepair)toast('Prepared Repair Bay handoff sent for Engineer planning review.');if(image)logMissionImage(localImage,'NEW IMAGE — becomes active for follow-ups');else if(useActive)logMissionImage(activeMissionImage,'USING ACTIVE IMAGE');think(true);
++ let browserStarted=performance.now(),d=null;q('input').value='';logline('user','ERIC',prompt);if(consumedPreparedRepair)toast('Prepared Repair Bay PLAN request sent. File-change permission remained NO.');if(image)logMissionImage(localImage,'NEW IMAGE — becomes active for follow-ups');else if(useActive)logMissionImage(activeMissionImage,'USING ACTIVE IMAGE');think(true);
+  try{d=explicitEngineerMessage(prompt)?await requestNonStreamingChat(prompt,null,false):await requestGuardedStreamChat(prompt,image,useActive)}catch(e){if(e?.name==='AbortError'){logline('bad','SYSTEM','Generation canceled. No partial assistant answer was archived. The active image remains available for retry.');d={ok:false,cancelled:true,timing:{}};await refreshActiveMissionImage()}else{logline('bad','ERROR',String(e));d={ok:false,timing:{}}}}finally{
+   chatStreamController=null;think(false);
+   if(d?.active_image?.attached){let meta=d.active_image,local=(pendingMissionImage&&pendingMissionImage.sha256===meta.sha256)?pendingMissionImage:(activeMissionImage&&activeMissionImage.sha256===meta.sha256?activeMissionImage:null),nextPreview=local?.preview_url||'';if(activeMissionImage?.preview_url&&activeMissionImage.preview_url!==nextPreview)revokeMissionPreview(activeMissionImage);activeMissionImage={...missionImageMetadata({name:meta.filename,type:meta.mime,size:meta.size_bytes,width:meta.width,height:meta.height,sha256:meta.sha256}),preview_url:nextPreview};if(pendingMissionImage?.sha256===meta.sha256){pendingMissionImage.data_url='';pendingMissionImage=null}renderMissionImage()}
+--- a/core/repair_bay_handoff.py
++++ b/core/repair_bay_handoff.py
+@@ -6,7 +6,7 @@
+ from pathlib import Path
+ from typing import Any, Iterable
+ 
+-SCHEMA = "foxai.repair_bay.guarded_handoff.v2"
++SCHEMA = "foxai.repair_bay.guarded_handoff.v2_3"
+ MAX_EVIDENCE_ITEMS = 12
+ MAX_AFFECTED_PATHS = 24
+ 
+@@ -189,33 +189,106 @@
+     return True, "This finding fits the initial bounded low-risk planning set.", profile
+ 
+ 
++_ROUTE_SEARCH = re.compile(r"\b(find|locate|search|where is|show references?|grep)\b", re.I)
++_ROUTE_DIAGNOSE = re.compile(r"\b(inspect|diagnose|analy[sz]e|why|determine|review)\b", re.I)
++_ROUTE_PLAN = re.compile(r"\b(plan|preview|propose|what would change|do not modify|read[- ]only)\b", re.I)
++_ROUTE_IMPLEMENT = re.compile(r"\b(build|implement|create|add|integrate|patch|update|deploy|install feature)\b", re.I)
++_ROUTE_REPAIR = re.compile(r"\b(fix|repair|apply|proceed with the approved|execute the approved)\b", re.I)
++_ROUTE_AUTH = re.compile(
++    r"\b(authoriz(?:e|ed|ation)|approved|proceed|apply|implement|targeted source changes|do not stop at planning)\b",
++    re.I,
++)
++
++_ROUTER_SAFE_REPLACEMENTS: tuple[tuple[re.Pattern[str], str], ...] = (
++    (re.compile(r"\bauthoriz(?:e|ed|ation)\b", re.I), "permission"),
++    (re.compile(r"\bapproved\b", re.I), "verified"),
++    (re.compile(r"\bproceed\b", re.I), "continue later"),
++    (re.compile(r"\bapply\b", re.I), "carry out"),
++    (re.compile(r"\bimplement(?:ation|ed|ing)?\b", re.I), "put into place"),
++    (re.compile(r"\bbuild\b", re.I), "assemble"),
++    (re.compile(r"\bcreate\b", re.I), "produce"),
++    (re.compile(r"\badd\b", re.I), "include"),
++    (re.compile(r"\bintegrate\b", re.I), "connect"),
++    (re.compile(r"\bpatch\b", re.I), "correction package"),
++    (re.compile(r"\bupdate\b", re.I), "refresh"),
++    (re.compile(r"\bdeploy\b", re.I), "release"),
++    (re.compile(r"\binstall feature\b", re.I), "enable capability"),
++    (re.compile(r"\bfix\b", re.I), "correction"),
++    (re.compile(r"\brepair\b", re.I), "remediation"),
++    (re.compile(r"\btargeted source changes\b", re.I), "bounded file edits"),
++    (re.compile(r"\bdo not stop at planning\b", re.I), "planning ends here"),
++)
++
++
++def predict_engineer_route(text: str) -> dict[str, Any]:
++    normalized = str(text or "").strip()
++    scores = {
++        "search": 35 if _ROUTE_SEARCH.search(normalized) else 0,
++        "diagnose": 30 if _ROUTE_DIAGNOSE.search(normalized) else 0,
++        "plan": 45 if _ROUTE_PLAN.search(normalized) else 0,
++        "implement": 60 if _ROUTE_IMPLEMENT.search(normalized) else 0,
++        "repair": 55 if _ROUTE_REPAIR.search(normalized) else 0,
++    }
++    authorized = bool(_ROUTE_AUTH.search(normalized))
++    if authorized and scores["implement"]:
++        scores["implement"] += 25
++    if authorized and scores["repair"]:
++        scores["repair"] += 20
++    if not any(scores.values()):
++        return {
++            "route": "unknown",
++            "implementation_authorized": authorized,
++            "scores": scores,
++            "safe_for_repair_bay_send": False,
++        }
++    route = max(("search", "diagnose", "plan", "implement", "repair"), key=lambda key: scores[key])
++    return {
++        "route": route,
++        "implementation_authorized": authorized,
++        "scores": scores,
++        "safe_for_repair_bay_send": route == "plan" and not authorized,
++    }
++
++
++def _router_safe(value: Any, limit: int) -> str:
++    text = _clean(value, limit)
++    for pattern, replacement in _ROUTER_SAFE_REPLACEMENTS:
++        text = pattern.sub(replacement, text)
++    return text
++
++
+ def _command_text(packet: dict[str, Any]) -> str:
+     finding = packet["finding"]
+     paths = packet.get("affected_paths") or []
+     evidence = packet.get("technical_evidence") or []
+-    if packet.get("eligible"):
+-        path_text = ", ".join(paths) if paths else "No path may be changed until Engineer resolves it from verified evidence."
+-        evidence_text = " | ".join(evidence[:6]) or "No additional evidence supplied."
+-        return (
+-            f"/engineer workshop begin Repair Bay Plan — {_safe_title(finding.get('title'))} :: "
+-            "Prepare a reviewable exact repair plan only. This authorizes read-only inspection and plan preparation, "
+-            "not implementation. Do not apply, move, rename, delete, install, restart, run repair commands, or use the network. "
+-            f"Finding ID: {_clean(finding.get('id'), 80)}. Severity: {_clean(finding.get('severity'), 30)}. "
+-            f"Plain explanation: {_clean(packet.get('plain_english_explanation'), 600)}. "
+-            f"Proposed action: {_clean(packet.get('proposed_action'), 600)}. "
+-            f"Affected FOXAI paths: {_clean(path_text, 1200)}. "
+-            f"Technical evidence: {_clean(evidence_text, 1400)}. "
+-            "The plan must use exact before hashes, a targeted snapshot, explicit later APPLY approval, validation, rollback protection, "
+-            "and a final receipt. Unsupported or uncertain paths must remain advisory."
+-        )
++    title = _router_safe(_safe_title(finding.get("title")), 120)
++    finding_id = _router_safe(finding.get("id"), 80)
++    severity = _router_safe(finding.get("severity"), 30)
++    explanation = _router_safe(packet.get("plain_english_explanation"), 650)
++    proposed = _router_safe(packet.get("proposed_action"), 650)
++    path_text = _router_safe(
++        ", ".join(paths) if paths else "No path is bounded yet; keep all paths advisory.",
++        1200,
++    )
++    evidence_text = _router_safe(
++        " | ".join(evidence[:6]) or "No additional evidence supplied.",
++        1400,
++    )
++    review_kind = "Planning Review" if packet.get("eligible") else "Advisory Planning Review"
+     return (
+-        f"/engineer Analyze this Repair Bay finding read-only and explain safe options. Do not prepare or apply a repair unless the "
+-        f"finding becomes clearly bounded by verified evidence. Finding ID: {_clean(finding.get('id'), 80)}. "
+-        f"Title: {_safe_title(finding.get('title'))}. Severity: {_clean(finding.get('severity'), 30)}. "
+-        f"Explanation: {_clean(packet.get('plain_english_explanation'), 700)}. "
+-        f"Evidence: {_clean(' | '.join(packet.get('technical_evidence') or []) or 'No additional evidence.', 1500)}"
++        f"/engineer workshop begin System Health {review_kind} — {title} :: "
++        "Read-only plan request. Inspect this finding and produce a proposed exact JSON plan draft for human review. "
++        "No file changes are permitted in this request. No file writes, moves, renames, deletions, package actions, "
++        "restarts, command execution, or network access. "
++        f"Finding ID: {finding_id}. Severity: {severity}. "
++        f"Plain explanation: {explanation}. "
++        f"Proposed next step: {proposed}. "
++        f"Affected FOXAI paths: {path_text}. "
++        f"Technical evidence: {evidence_text}. "
++        "The draft should list exact before hashes, a targeted snapshot approach, validation, rollback protection, "
++        "and a final receipt. A later separate operator decision is required before any file change. "
++        "Uncertain paths must remain advisory."
+     )
+-
+ 
+ def build_repair_handoff(
+     root: str | Path,
+@@ -273,7 +346,7 @@
+     packet: dict[str, Any] = {
+         "ok": True,
+         "schema": SCHEMA,
+-        "version": "2.0",
++        "version": "2.3",
+         "level": "advanced" if str(level).casefold() == "advanced" else "guided",
+         "read_only": True,
+         "eligible": eligible,
+@@ -318,6 +391,24 @@
+     }
+     packet["engineer_command"] = _command_text(packet)
+     packet["implementation_authorized"] = False
++    packet["expected_workshop_route"] = "plan"
++    packet["expected_implementation_authorized"] = False
++    packet["route_guard"] = predict_engineer_route(packet["engineer_command"])
++    if not packet["route_guard"].get("safe_for_repair_bay_send"):
++        return {
++            "ok": False,
++            "schema": SCHEMA,
++            "message": (
++                "The generated Engineer request did not satisfy the Repair Bay planning-only route guard. "
++                "Nothing was staged or changed."
++            ),
++            "finding": finding,
++            "read_only": True,
++            "changes_applied": 0,
++            "mission_staged": False,
++            "implementation_authorized": False,
++            "route_guard": packet["route_guard"],
++        }
+     packet["handoff_id"] = hashlib.sha256(
+         json.dumps(
+             {
+--- a/core/VERIFY_REPAIR_BAY_V1.py
++++ b/core/VERIFY_REPAIR_BAY_V1.py
+@@ -12,9 +12,11 @@
+ if str(PROJECT_ROOT) not in sys.path:
+     sys.path.insert(0, str(PROJECT_ROOT))
+ 
++from Departments.Engineering.mission_router import classify_mission as official_classify_mission
++
+ import core.repair_bay_diagnostics as diagnostics
+ from core.repair_bay_diagnostics import SEVERITIES, run_launcher_index, run_repair_bay_scan
+-from core.repair_bay_handoff import build_repair_handoff
++from core.repair_bay_handoff import build_repair_handoff, predict_engineer_route
+ 
+ 
+ def tree_snapshot(root: Path) -> dict[str, dict[str, int | str]]:
+@@ -323,9 +325,18 @@
+     assert supported["implementation_authorized"] is False
+     assert supported["changes_applied"] == 0
+     assert supported["mission_staged"] is False
+-    assert "/engineer workshop begin Repair Bay Plan" in supported["engineer_command"]
+-    assert "not implementation" in supported["engineer_command"]
+-    assert "Do not apply" in supported["engineer_command"]
++    assert "/engineer workshop begin System Health Planning Review" in supported["engineer_command"]
++    assert supported["expected_workshop_route"] == "plan"
++    assert supported["expected_implementation_authorized"] is False
++    assert supported["route_guard"]["route"] == "plan", supported["route_guard"]
++    assert supported["route_guard"]["implementation_authorized"] is False
++    assert supported["route_guard"]["safe_for_repair_bay_send"] is True
++    local_route = predict_engineer_route(supported["engineer_command"])
++    official_route = official_classify_mission(supported["engineer_command"])
++    assert local_route["route"] == "plan", local_route
++    assert local_route["implementation_authorized"] is False, local_route
++    assert official_route.mission_type == "plan", official_route
++    assert official_route.authorized is False, official_route
+     assert ":: APPLY" not in supported["engineer_command"]
+     assert "workshop apply" not in supported["engineer_command"].casefold()
+ 
+@@ -363,7 +374,10 @@
+     assert advisory["status"] == "advisory_only"
+     assert advisory["repair_kind"] is None
+     assert advisory["implementation_authorized"] is False
+-    assert advisory["engineer_command"].startswith("/engineer Analyze")
++    assert advisory["engineer_command"].startswith("/engineer workshop begin System Health Advisory Planning Review")
++    advisory_official = official_classify_mission(advisory["engineer_command"])
++    assert advisory_official.mission_type == "plan", advisory_official
++    assert advisory_official.authorized is False, advisory_official
+ 
+     launcher_report = {
+         "read_only": True,
+@@ -395,6 +409,10 @@
+     assert "OLD_UNUSED_COPY.bat" in launcher_handoff["affected_paths"]
+     assert "start FoxAI 3 Alpha.bat" in launcher_handoff["affected_paths"]
+     assert "PUSH_TO_GITHUB.bat" not in launcher_handoff["affected_paths"]
++    launcher_official = official_classify_mission(launcher_handoff["engineer_command"])
++    assert launcher_official.mission_type == "plan", launcher_official
++    assert launcher_official.authorized is False, launcher_official
++    assert launcher_handoff["route_guard"]["safe_for_repair_bay_send"] is True
+     assert handoff_before == tree_snapshot(root), "Guarded handoff modified fixture files."
+ 
+     live_web = PROJECT_ROOT / "core" / "foxai_web.py"
+@@ -449,6 +467,11 @@
+         "Cancel Handoff",
+         "Already prepared — Open Mission Console",
+         "consumePreparedRepairMission",
++        "REPAIR_BAY_PLANNING_ONLY_GUARD_V2_3_BROWSER_START",
++        "repairPlanningRouteDecision",
++        "preparedRepairMissionRouteGuard",
++        "Expected Workshop route:",
++        "File-change permission:",
+     ):
+         assert marker in web_text, marker
+ 
+@@ -505,6 +528,16 @@
+     assert "Mission Console input was unavailable. The prepared request remains stored." in transfer_block
+     assert "consumePreparedRepairMission" in web_text
+     assert "Prepared Engineer handoff cleared by Mission Console reset." in web_text
++
++    route_guard_block = web_text.split("/* REPAIR_BAY_PLANNING_ONLY_GUARD_V2_3_BROWSER_START */", 1)[1].split("/* REPAIR_BAY_PLANNING_ONLY_GUARD_V2_3_BROWSER_END */", 1)[0]
++    assert "route==='plan'&&!authorized" in route_guard_block
++    assert "preparedRepairMissionRouteGuard" in route_guard_block
++    assert "expected_workshop_route==='plan'" in route_guard_block
++    assert "expected_implementation_authorized===false" in route_guard_block
++    send_function = web_text.split("async function send(){", 1)[1].split("/* MISSION_IMAGE_CONTINUITY_REPAIR_PHASE1_BROWSER_END */", 1)[0]
++    assert send_function.index("preparedRepairMissionRouteGuard(prompt)") < send_function.index("consumePreparedRepairMission(prompt)")
++    assert "routeGuard.prepared&&!routeGuard.ok" in send_function
++    assert "File-change permission remained NO" in send_function
+ 
+     full_ids = {item["id"] for item in full["findings"]}
+     for required in {
+@@ -571,6 +604,9 @@
+         "guarded_repair_handoff_verified": True,
+         "handoff_readiness_guard_verified": True,
+         "reliable_mission_console_transfer_verified": True,
++        "planning_only_authorization_guard_verified": True,
++        "official_workshop_route_plan_verified": True,
++        "official_workshop_authorization_false_verified": True,
+         "prepared_handoff_session_state_verified": True,
+         "open_mission_console_button_verified": True,
+         "preparation_lock_cleared_before_open_verified": True,

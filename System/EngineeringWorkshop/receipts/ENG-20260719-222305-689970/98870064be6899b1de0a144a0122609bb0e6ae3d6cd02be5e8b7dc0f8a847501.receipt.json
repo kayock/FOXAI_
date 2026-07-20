@@ -1,0 +1,92 @@
+{
+  "authorized": true,
+  "changes": [
+    {
+      "action": "write_file",
+      "after_sha256": "68efe5ad80c7ea710d2d9c316c81ee4bd61dfff9ac539c82e94e4eb8c380fb22",
+      "after_size": 42739,
+      "before_sha256": "d238057e6dcd4b627cc5687d6278bebe86f14e2d0bee9734ab582a29e65754cb",
+      "before_size": 33612,
+      "relative_path": "core/repair_bay_diagnostics.py"
+    },
+    {
+      "action": "write_file",
+      "after_sha256": "fb14eec01f5429fe9742797c1306810e4265b1ab25d33b1ba0d4d6133beb50d4",
+      "after_size": 10457,
+      "before_sha256": "ca96a173457963bcf3dc183d08d80f9647f7d1e13cdf2c9f7ef6254d6ad41353",
+      "before_size": 5953,
+      "relative_path": "core/VERIFY_REPAIR_BAY_V1.py"
+    }
+  ],
+  "created_at": "2026-07-19T22:30:52.654865Z",
+  "evidence_is_tool_generated": true,
+  "failure": null,
+  "mission_id": "ENG-20260719-222305-689970",
+  "mission_title": "Repair Bay V1.1 \u2014 Diagnostic Accuracy and Launcher Inventory",
+  "mission_type": "implement",
+  "no_deletions": true,
+  "no_renames": true,
+  "plan_path": "Z:\\FOXAI\\FOXAI_Repair_Bay_V1_1_Diagnostic_Accuracy_Launcher_Inventory\\REPAIR_BAY_V1_1_EXACT_PLAN.json",
+  "plan_sha256": "98870064be6899b1de0a144a0122609bb0e6ae3d6cd02be5e8b7dc0f8a847501",
+  "project_root": "Z:\\FOXAI",
+  "result": "applied_verified",
+  "rolled_back": false,
+  "schema": "foxai.engineering.receipt.v1",
+  "snapshot_manifest": "Z:\\FOXAI\\System\\EngineeringWorkshop\\snapshots\\ENG-20260719-222305-689970\\snapshot_20260719T223046770399Z.manifest.json",
+  "snapshot_path": "Z:\\FOXAI\\System\\EngineeringWorkshop\\snapshots\\ENG-20260719-222305-689970\\snapshot_20260719T223046770399Z.zip",
+  "snapshot_sha256": "f3f963610296fbc8c2dbbb99b85ce0406a1dc8e17594f7cea26c226f53f01db5",
+  "validations": [
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-m",
+        "py_compile",
+        "core\\repair_bay_diagnostics.py",
+        "core\\VERIFY_REPAIR_BAY_V1.py"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-19T22:30:46.948868Z",
+      "name": "Compile Repair Bay V1.1 diagnostic and verifier",
+      "returncode": 0,
+      "started_at": "2026-07-19T22:30:46.805208Z",
+      "stderr": "",
+      "stdout": "",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "Z:\\FOXAI\\core\\VERIFY_REPAIR_BAY_V1.py"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-19T22:30:47.243485Z",
+      "name": "Verify diagnostic accuracy, read-only behavior, and launcher classification",
+      "returncode": 0,
+      "started_at": "2026-07-19T22:30:46.949218Z",
+      "stderr": "",
+      "stdout": "{\n  \"ok\": true,\n  \"schema\": \"foxai.repair_bay.v1_1.verification\",\n  \"quick_checks\": 13,\n  \"full_checks\": 18,\n  \"healthy_guidance_corrected\": true,\n  \"empty_init_recognized_as_valid\": true,\n  \"rename_only_restart_marker_informational\": true,\n  \"confirmed_update_restart_recommended\": true,\n  \"launcher_inventory_categories_verified\": true,\n  \"launcher_exact_duplicates_verified\": 1,\n  \"launcher_similar_families_verified\": 1,\n  \"broken_fixture_urgent\": 1,\n  \"broken_fixture_recommended\": 4,\n  \"read_only_tree_unchanged\": true,\n  \"network_used\": false,\n  \"commands_run\": false,\n  \"repairs_applied\": 0\n}\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "import json,sys;sys.path.insert(0,r'Z:\\FOXAI');from core.repair_bay_diagnostics import run_repair_bay_scan;r=run_repair_bay_scan(r'Z:\\FOXAI',mode='full',context={'validation':'v1_1_live_accuracy_smoke'});s=r.get('safety') or {};assert r.get('version')=='1.1',r.get('version');assert r.get('read_only') is True,r;assert s.get('network_used') is False,s;assert s.get('commands_run') is False,s;assert int(s.get('files_written') or 0)==0,s;assert int(s.get('repairs_applied') or 0)==0,s;assert all(f.get('suggested_action')=='No action required.' for f in r.get('findings',[]) if f.get('severity')=='healthy');zf=next(f for f in r['findings'] if f.get('id')=='zero_byte_live_files');assert not any('Suspicious: core/__init__.py' in x for x in zf.get('evidence',[])),zf;inv=(r.get('evidence') or {}).get('launcher_inventory') or {};assert int(inv.get('total') or 0)>=1,inv;rf=next((f for f in r['findings'] if f.get('id')=='pending_reboot'),None);pr=(r.get('evidence') or {}).get('pending_reboot') or {};assert rf is None or ((bool(pr.get('confirmed_signals')) and rf.get('severity')=='recommended') or (not bool(pr.get('confirmed_signals')) and bool(pr.get('advisory_signals')) and rf.get('severity')=='informational') or (not bool(pr.get('confirmed_signals')) and not bool(pr.get('advisory_signals')) and rf.get('severity')=='healthy'));print(json.dumps({'REPAIR_BAY_V1_1_LIVE_OK':True,'checks':(r.get('summary') or {}).get('checks'),'counts':(r.get('summary') or {}).get('counts'),'launcher_total':inv.get('total'),'restart_severity':None if rf is None else rf.get('severity')},indent=2))"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-19T22:30:52.654812Z",
+      "name": "Run live full-scan V1.1 accuracy and safety smoke test",
+      "returncode": 0,
+      "started_at": "2026-07-19T22:30:47.243838Z",
+      "stderr": "",
+      "stdout": "{\n  \"REPAIR_BAY_V1_1_LIVE_OK\": true,\n  \"checks\": 18,\n  \"counts\": {\n    \"urgent\": 0,\n    \"recommended\": 2,\n    \"informational\": 2,\n    \"healthy\": 14\n  },\n  \"launcher_total\": 115,\n  \"restart_severity\": \"informational\"\n}\n",
+      "timed_out": false
+    }
+  ]
+}

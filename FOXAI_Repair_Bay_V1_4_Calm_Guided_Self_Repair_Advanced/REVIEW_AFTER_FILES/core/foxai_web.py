@@ -1322,10 +1322,6 @@ td,th{border-bottom:1px solid #8f5cff18;padding:9px;text-align:left}
 /* REPAIR_BAY_CALM_GUIDED_V1_4_START */
 .repairCalmShell{margin-bottom:16px}.repairCalmCard{border:1px solid #42ff9e4d;background:radial-gradient(circle at 0 0,#42ff9e16,transparent 44%),linear-gradient(180deg,#131a1b,#0d1116);border-radius:22px;padding:22px}.repairCalmHead{display:flex;gap:12px;align-items:flex-start;flex-wrap:wrap}.repairCalmHead>div{flex:1;min-width:240px}.repairCalmHead h3{margin:0 0 7px;font-size:28px;color:#fff}.repairCalmHead p{margin:0;color:var(--m);font-size:15px;line-height:1.52;max-width:820px}.repairCalmBadge{display:inline-flex;align-items:center;justify-content:center;border:1px solid #42ff9e66;border-radius:999px;padding:6px 11px;font:800 11px Consolas,monospace;letter-spacing:.06em;color:#bfffe0;background:#42ff9e0b}.repairCalmBadge.attention{border-color:#ffd16677;color:#ffe3a1;background:#ffd1660b}.repairCalmBadge.urgent{border-color:#ff4d6d88;color:#ffb0bd;background:#ff4d6d0b}.repairCalmActions{display:flex;gap:9px;flex-wrap:wrap;margin:18px 0 12px}.repairCalmActions button:first-child{min-width:190px}.repairCalmAttention{display:grid;gap:10px;margin:14px 0}.repairCalmItem{border:1px solid #ffd16645;border-radius:15px;background:#ffd16608;padding:14px}.repairCalmItem.urgent{border-color:#ff4d6d55;background:#ff4d6d08}.repairCalmItem h4{margin:0 0 5px;font-size:17px}.repairCalmItem p{margin:0;color:#e9e3f5;line-height:1.48}.repairCalmItem .repairCalmItemAction{margin-top:8px;color:#f3dfaa;font-size:13px}.repairCalmEmpty{border:1px solid #42ff9e35;border-radius:15px;background:#42ff9e08;padding:14px;color:#d8ffea}.repairCalmNext{display:grid;grid-template-columns:150px 1fr;gap:10px;border-top:1px solid #42ff9e25;padding-top:13px;margin-top:13px}.repairCalmNext strong{color:#bfffe0}.repairCalmNext span{color:#f1edf6;line-height:1.45}.repairCalmSafety{margin-top:12px;color:var(--m);font-size:12px}.repairSimpleDetails,.repairAdvancedView{border:1px solid #8f5cff2f;border-radius:18px;background:#0b0d16;margin-bottom:16px;overflow:hidden}.repairSimpleDetails>summary,.repairAdvancedView>summary{cursor:pointer;list-style:none;padding:15px 18px;font-weight:900;color:#d8d1e8}.repairSimpleDetails>summary::-webkit-details-marker,.repairAdvancedView>summary::-webkit-details-marker{display:none}.repairSimpleDetails>summary:after,.repairAdvancedView>summary:after{content:'Show';float:right;color:var(--m);font:11px Consolas,monospace}.repairSimpleDetails[open]>summary:after,.repairAdvancedView[open]>summary:after{content:'Hide'}.repairSimpleBody,.repairAdvancedViewBody{padding:0 16px 16px}.repairGuidedIntro{color:var(--m);line-height:1.45;margin:0 0 14px}.repairAdvancedView .repairLauncherCard,.repairAdvancedView .repairStatusCard,.repairAdvancedView .repairSafetyNote,.repairAdvancedView .repairAdvancedTools{margin-top:14px}.repairAdvancedView .repairGuidedGrid{margin-top:14px}
 @media(max-width:700px){.repairCalmCard{padding:17px}.repairCalmHead h3{font-size:24px}.repairCalmNext{grid-template-columns:1fr}.repairCalmActions button{width:100%}}
-/* REPAIR_BAY_GUARDED_HANDOFF_V2_STYLE_START */
-.repairCalmItemButtons{display:flex;gap:8px;flex-wrap:wrap;margin-top:11px}.repairCalmItemButtons button{padding:8px 11px;font-size:12px}.repairHandoffCalmStatus{display:none;margin:12px 0 0;border:1px solid #8f5cff45;border-radius:13px;background:#8f5cff0a;padding:12px;color:#ddd5ee;white-space:pre-wrap}.repairHandoffCalmStatus.show{display:block}.repairHandoffCalmActions{display:flex;gap:9px;flex-wrap:wrap;margin-top:10px}.repairHandoffCalmActions[hidden]{display:none}.repairHandoffCard{border-color:#42ff9e38}.repairHandoffGrid{display:grid;grid-template-columns:minmax(220px,1fr) auto auto;gap:9px;align-items:end}.repairHandoffGrid label{display:grid;gap:6px;color:var(--m);font-size:12px}.repairHandoffGrid select{width:100%}.repairHandoffStatus{margin-top:12px;white-space:pre-wrap}.repairHandoffPreview{margin-top:12px;border:1px solid #8f5cff35;border-radius:14px;background:#090b12;padding:14px;white-space:pre-wrap;color:#e9e4f2;line-height:1.48}.repairHandoffPreview strong{color:#cdbdff}.repairHandoffPreview .ready{color:#bfffe0}.repairHandoffPreview .advisory{color:#ffe3a1}.repairFindingActions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.repairFindingActions button{padding:8px 11px;font-size:12px}
-@media(max-width:760px){.repairHandoffGrid{grid-template-columns:1fr}.repairHandoffGrid button{width:100%}}
-/* REPAIR_BAY_GUARDED_HANDOFF_V2_STYLE_END */
 /* REPAIR_BAY_CALM_GUIDED_V1_4_END */
 /* REPAIR_BAY_GUIDED_CLEANUP_V1_END */
 
@@ -1642,10 +1638,8 @@ A success message is shown only after a verified receipt</div></div></div></sect
 <div class=repairCalmShell>
 <div class=repairCalmCard>
 <div class=repairCalmHead><div><h3 id=repairCalmTitle>Ready for a safe check</h3><p id=repairCalmMessage>Repair Bay can check FOXAI and Windows without changing files, settings, services, models, or launchers.</p></div><span id=repairCalmBadge class=repairCalmBadge>READY</span></div>
-<div class=repairCalmActions><button onclick="runRepairHealthScan('quick')">Check My Computer</button><button onclick="runRepairHealthScan('full')">Run a Deeper Check</button><button id=repairAskEngineerButton onclick="handleRepairAskEngineer()" disabled>Run a Check First</button></div>
+<div class=repairCalmActions><button onclick="runRepairHealthScan('quick')">Check My Computer</button><button onclick="runRepairHealthScan('full')">Run a Deeper Check</button><button onclick="openGuidedEngineer()">Ask Engineer</button></div>
 <div id=repairCalmAttention class=repairCalmAttention><div class=repairCalmEmpty>No problems are being reported. Run a check when you are ready.</div></div>
-<div id=repairHandoffCalmStatus class=repairHandoffCalmStatus></div>
-<div id=repairHandoffCalmActions class=repairHandoffCalmActions hidden><button id=repairHandoffCalmOpenButton onclick="openRepairHandoffInMission()" disabled>Open Mission Console</button><button id=repairHandoffCalmCancelButton onclick="cancelPreparedRepairHandoff()">Cancel Handoff</button></div>
 <div class=repairCalmNext><strong>Best next step</strong><span id=repairCalmNextStep>Run the quick check. It normally takes only a few seconds and changes nothing.</span></div>
 <div id=repairCalmSafety class=repairCalmSafety>Nothing has been scanned or changed yet.</div>
 </div>
@@ -1668,24 +1662,12 @@ A success message is shown only after a verified receipt</div></div></div></sect
 </div>
 <div class=repairGuidedGrid>
 <div class="repairTaskCard check"><div class=repairTaskIcon>🩺</div><h3>Check FOXAI Status</h3><p>Refresh the current engine, model, library, project, and Creative Studio status without changing anything.</p><button onclick="refreshRepairBayStatus()">Run Read-Only Check</button></div>
-<div class="repairTaskCard engineer"><div class=repairTaskIcon>🧑‍🔧</div><h3>Explain a Different Problem</h3><p>Open Engineer manually for a problem that did not come from the health scan.</p><button onclick="openGuidedEngineer()">Describe a Problem Manually</button></div>
+<div class="repairTaskCard engineer"><div class=repairTaskIcon>🧑‍🔧</div><h3>Explain a Problem</h3><p>Open Engineer in read-only-first mode and describe what is wrong.</p><button onclick="openGuidedEngineer()">Ask Engineer</button></div>
 <div class="repairTaskCard scan"><div class=repairTaskIcon>🔎</div><h3>Scan a Project or Folder</h3><p>Inspect an approved location for missing files, broken imports, risky scripts, secrets, or structural problems.</p><button onclick="go('scanbridge')">Open Scan Bridge</button></div>
 <div class="repairTaskCard review"><div class=repairTaskIcon>📋</div><h3>Review Findings</h3><p>See repair-shop findings, recommendations, status, and supporting evidence.</p><button onclick="go('repairops')">Open Findings</button></div>
 <div class="repairTaskCard fix"><div class=repairTaskIcon>🛠️</div><h3>Review Repair Actions</h3><p>Review exact proposed actions with backup, approval, verification, and receipts.</p><button onclick="go('repairactions')">Open Repair Actions</button></div>
 <div class="repairTaskCard history"><div class=repairTaskIcon>📜</div><h3>Open Repair History</h3><p>Review prior actions and receipts.</p><button onclick="go('repairhistory')">Browse History</button></div>
 </div>
-<!-- REPAIR_BAY_GUARDED_HANDOFF_V2_HTML_START -->
-<div class="card wide repairHandoffCard">
-<div class=repairHealthHead><div><h3>Guarded Repair Handoff</h3><p>Select one finding and prepare a structured handoff for Engineer. Repair Bay itself cannot repair anything.</p></div><span class="pill ok">PLAN ONLY</span></div>
-<div class=repairHandoffGrid>
-<label>Finding to review<select id=repairHandoffFinding><option value="">Run a health scan first</option></select></label>
-<button onclick="prepareRepairHandoff('', 'advanced', false)">Prepare Exact Repair Plan</button>
-<button id=repairHandoffOpenButton onclick="openRepairHandoffInMission()" disabled>Open in Mission Console</button>
-</div>
-<div id=repairHandoffStatus class="status repairHandoffStatus">No handoff has been prepared. The first step is still a read-only health scan.</div>
-<div id=repairHandoffPreview class=repairHandoffPreview>Engineer receives the selected finding, evidence, affected paths, proposed action, backup requirement, and safety limits. Sending the handoff stages planning only; it never applies a repair.</div>
-</div>
-<!-- REPAIR_BAY_GUARDED_HANDOFF_V2_HTML_END -->
 <div class="card wide repairLauncherCard">
 <div class=repairHealthHead><div><h3>Launcher Index</h3><p>Search and filter every FOXAI root BAT file. The index reads launcher text only and never executes or changes a script.</p></div><span class="pill ok">READ ONLY</span></div>
 <div class=repairHealthActions><button onclick="loadRepairLauncherIndex(true)">Load Launcher Index</button><button onclick="clearRepairLauncherFilters()">Clear Filters</button></div>
@@ -2119,225 +2101,22 @@ function renderRepairCalmView(report){
  if(q('repairCalmNextStep'))q('repairCalmNextStep').textContent=model.next;
  if(q('repairCalmSafety'))q('repairCalmSafety').textContent=model.safety;
  if(badge){badge.textContent=model.badge;badge.className='repairCalmBadge '+(model.state==='attention'?'attention':model.state==='urgent'?'urgent':'')}
- if(attention)attention.innerHTML=model.attention.length?model.attention.map(item=>`<div class="repairCalmItem ${esc(item.severity||'')}"><h4>${esc(item.title)}</h4><p>${esc(item.explanation)}</p><div class=repairCalmItemAction><strong>Safe next step:</strong> ${esc(item.action)}</div><div class=repairCalmItemButtons><button onclick="prepareRepairHandoff('${js(item.id)}','guided',true)">Ask Engineer to Prepare a Fix</button></div></div>`).join(''):'<div class=repairCalmEmpty>No problems need your attention.</div>';
- setRepairAskEngineerState(report);
+ if(attention)attention.innerHTML=model.attention.length?model.attention.map(item=>`<div class="repairCalmItem ${esc(item.severity||'')}"><h4>${esc(item.title)}</h4><p>${esc(item.explanation)}</p><div class=repairCalmItemAction><strong>Safe next step:</strong> ${esc(item.action)}</div></div>`).join(''):'<div class=repairCalmEmpty>No problems need your attention.</div>';
 }
 /* REPAIR_BAY_CALM_GUIDED_V1_4_BROWSER_END */
-/* REPAIR_BAY_HANDOFF_READINESS_GUARD_V2_1_BROWSER_START */
-/* REPAIR_BAY_MISSION_TRANSFER_V2_2_BROWSER_START */
-let repairHandoffBusy=false,lastRepairHandoffOpenedId='',preparedRepairMission=null;
-/* REPAIR_BAY_PLANNING_ONLY_GUARD_V2_3_BROWSER_START */
-function repairPlanningRouteDecision(text){
- let value=String(text||'').trim();
- let tests={
-  search:/\b(find|locate|search|where is|show references?|grep)\b/i,
-  diagnose:/\b(inspect|diagnose|analy[sz]e|why|determine|review)\b/i,
-  plan:/\b(plan|preview|propose|what would change|do not modify|read[- ]only)\b/i,
-  implement:/\b(build|implement|create|add|integrate|patch|update|deploy|install feature)\b/i,
-  repair:/\b(fix|repair|apply|proceed with the approved|execute the approved)\b/i,
-  authorization:/\b(authoriz(?:e|ed|ation)|approved|proceed|apply|implement|targeted source changes|do not stop at planning)\b/i
- };
- let scores={
-  search:tests.search.test(value)?35:0,
-  diagnose:tests.diagnose.test(value)?30:0,
-  plan:tests.plan.test(value)?45:0,
-  implement:tests.implement.test(value)?60:0,
-  repair:tests.repair.test(value)?55:0
- };
- let authorized=tests.authorization.test(value);
- if(authorized&&scores.implement)scores.implement+=25;
- if(authorized&&scores.repair)scores.repair+=20;
- let route='unknown',best=-1;
- for(let key of ['search','diagnose','plan','implement','repair']){
-  if(scores[key]>best){best=scores[key];route=key}
- }
- if(best<=0)route='unknown';
- return {route,implementation_authorized:authorized,scores,safe:route==='plan'&&!authorized};
-}
-function repairPlanningRouteLabel(decision){
- let route=String(decision?.route||'unknown').toUpperCase();
- return `Expected Workshop route: ${route} • File-change permission: ${decision?.implementation_authorized?'YES — BLOCKED':'NO'}`;
-}
-function preparedRepairMissionRouteGuard(text=''){
- if(!preparedRepairMissionIsValid())return {ok:true,prepared:false};
- let candidate=String(text||'').trim();
- if(candidate!==String(preparedRepairMission.text||'').trim())return {ok:true,prepared:false};
- let decision=repairPlanningRouteDecision(candidate);
- let packetGuard=preparedRepairMission.packet?.route_guard||{};
- let packetSafe=preparedRepairMission.packet?.expected_workshop_route==='plan'
-  && preparedRepairMission.packet?.expected_implementation_authorized===false
-  && packetGuard?.route==='plan'
-  && packetGuard?.implementation_authorized===false
-  && packetGuard?.safe_for_repair_bay_send===true;
- return {
-  ok:Boolean(decision.safe&&packetSafe),
-  prepared:true,
-  decision,
-  message:decision.safe&&packetSafe
-   ?'Repair Bay planning-only route verified.'
-   :`Send blocked. Repair Bay expected PLAN with file-change permission NO, but predicted ${String(decision.route||'unknown').toUpperCase()} with permission ${decision.implementation_authorized?'YES':'NO'}.`
- };
-}
-/* REPAIR_BAY_PLANNING_ONLY_GUARD_V2_3_BROWSER_END */
-function repairActionableFindings(report){return (report?.findings||[]).filter(item=>item?.severity==='urgent'||item?.severity==='recommended')}
-function preparedRepairMissionIsValid(){return Boolean(preparedRepairMission&&String(preparedRepairMission.text||'').trim()&&preparedRepairMission.packet&&validRepairEngineerCommand(preparedRepairMission.packet))}
-function syncPreparedRepairMissionUI(){
- let ready=preparedRepairMissionIsValid(),advanced=q('repairHandoffOpenButton'),calmOpen=q('repairHandoffCalmOpenButton'),calmActions=q('repairHandoffCalmActions');
- if(advanced)advanced.disabled=!ready;
- if(calmOpen)calmOpen.disabled=!ready;
- if(calmActions)calmActions.hidden=!ready;
-}
-function storePreparedRepairMission(packet){
- if(!validRepairEngineerCommand(packet))return false;
- let text=String(packet.engineer_command||'').trim();
- if(!text)return false;
- preparedRepairMission={handoff_id:String(packet.handoff_id||''),finding_id:String(packet?.finding?.id||''),text,packet,prepared_at:new Date().toISOString()};
- lastRepairHandoff=packet;lastRepairHandoffOpenedId='';syncPreparedRepairMissionUI();return true;
-}
-function cancelPreparedRepairHandoff(message='Prepared Engineer handoff canceled.',clearMissionInput=true){
- let previous=preparedRepairMission,box=q('input');
- if(clearMissionInput&&previous&&box&&box.value===previous.text)box.value='';
- preparedRepairMission=null;lastRepairHandoff=null;lastRepairHandoffOpenedId='';syncPreparedRepairMissionUI();
- let status=q('repairHandoffStatus'),preview=q('repairHandoffPreview'),calm=q('repairHandoffCalmStatus');
- if(status)status.textContent=message;
- if(preview)preview.textContent='No Engineer handoff is currently prepared.';
- if(calm){calm.textContent=message;calm.classList.add('show')}
- toast(message);
-}
-function consumePreparedRepairMission(sentText=''){
- if(!preparedRepairMissionIsValid())return false;
- if(String(sentText||'').trim()!==String(preparedRepairMission.text||'').trim())return false;
- preparedRepairMission=null;lastRepairHandoff=null;lastRepairHandoffOpenedId='';syncPreparedRepairMissionUI();return true;
-}
-function setRepairAskEngineerState(report,state='ready'){
- let button=q('repairAskEngineerButton');if(!button)return;
- if(state==='running'){button.disabled=true;button.textContent='Check Running…';button.title='Wait for the read-only check to finish.';return}
- if(!report){button.disabled=true;button.textContent='Run a Check First';button.title='Repair Bay needs a completed health scan before it can prepare a finding handoff.';return}
- let findings=repairActionableFindings(report);
- if(!findings.length){button.disabled=true;button.textContent='No Repair Needed';button.title='The completed scan found no urgent or recommended repair item.';return}
- button.disabled=false;
- if(findings.length===1){button.textContent='Ask Engineer';button.title='Prepare the one actionable finding for review in Mission Console.'}
- else{button.textContent='Choose a Finding';button.title='Several items need review. Choose one item below before preparing a handoff.'}
-}
-function repairHandoffFailure(message){
- let status=q('repairHandoffStatus'),preview=q('repairHandoffPreview'),calm=q('repairHandoffCalmStatus');
- if(status)status.textContent=message;
- if(preview)preview.textContent=preparedRepairMissionIsValid()?'The previously prepared Engineer request remains available.':'No Engineer handoff was prepared. '+message;
- if(calm){calm.textContent=preparedRepairMissionIsValid()?message+' The previous request is still available through Open Mission Console.':message;calm.classList.add('show')}
- syncPreparedRepairMissionUI();toast(message);
-}
-function validRepairEngineerCommand(packet){
- let command=String(packet?.engineer_command||'').trim(),finding=packet?.finding||{};
- if(!command||command.length<120)return false;
- if(!String(finding.id||'').trim()||!String(finding.title||'').trim())return false;
- if(/Problem:\s*$/i.test(command))return false;
- if(!/(Finding ID:|Title:)/i.test(command))return false;
- let local=repairPlanningRouteDecision(command),guard=packet?.route_guard||{};
- if(packet?.expected_workshop_route!=='plan'||packet?.expected_implementation_authorized!==false)return false;
- if(guard?.route!=='plan'||guard?.implementation_authorized!==false||guard?.safe_for_repair_bay_send!==true)return false;
- return local.safe===true;
-}
-async function handleRepairAskEngineer(){
- if(repairHandoffBusy){toast('Engineer handoff preparation is already in progress.');return}
- if(!lastRepairHealthScan){repairHandoffFailure('Run a check first. No Engineer request was opened.');return}
- let findings=repairActionableFindings(lastRepairHealthScan);
- if(!findings.length){repairHandoffFailure('No repair is needed. The completed scan found no urgent or recommended item.');return}
- if(findings.length>1){
-  let attention=q('repairCalmAttention');if(attention)attention.scrollIntoView({behavior:'smooth',block:'center'});
-  repairHandoffFailure('Choose one finding below. Repair Bay will not guess which item you want Engineer to review.');return
- }
- await prepareRepairHandoff(findings[0].id,'guided',true);
-}
-/* REPAIR_BAY_HANDOFF_READINESS_GUARD_V2_1_BROWSER_END */
-/* REPAIR_BAY_GUARDED_HANDOFF_V2_BROWSER_START */
-let lastRepairHandoff=null;
-function repairReviewFindings(report){return repairActionableFindings(report)}
-function populateRepairHandoffFindings(report){
- let select=q('repairHandoffFinding');if(!select)return;
- let findings=repairReviewFindings(report),current=select.value;
- if(!findings.length){select.innerHTML='<option value="">No repair is needed</option>';select.disabled=true;return}
- select.disabled=false;
- let options=findings.map(item=>`<option value="${esc(item.id||'')}">[${esc(String(item.severity||'').toUpperCase())}] ${esc(item.title||item.id)}</option>`).join('');
- select.innerHTML=findings.length>1?'<option value="">Choose one finding…</option>'+options:options;
- if(current&&findings.some(item=>item.id===current))select.value=current;
- else if(findings.length===1)select.value=String(findings[0].id||'');
-}
-function renderRepairHandoff(packet){
- lastRepairHandoff=packet;
- let status=q('repairHandoffStatus'),preview=q('repairHandoffPreview'),calm=q('repairHandoffCalmStatus');
- let eligible=Boolean(packet?.eligible),finding=packet?.finding||{},paths=packet?.affected_paths||[],evidence=packet?.technical_evidence||[];
- let headline=eligible?'READY FOR ENGINEER PLAN REVIEW':'ADVISORY ONLY';
- let route=repairPlanningRouteDecision(packet?.engineer_command||'');
- let text=`${headline}\nFinding: ${finding.title||finding.id||'Unknown'}\nSeverity: ${String(finding.severity||'').toUpperCase()}\nRepair kind: ${packet?.repair_label||'Advisory review only'}\nBackup required: ${packet?.backup_required?'YES':'NO'}\n${repairPlanningRouteLabel(route)}\nAffected paths: ${paths.length?paths.join(' | '):'No bounded path resolved'}\n\n${packet?.plain_english_explanation||''}\n\nEvidence: ${evidence.length?evidence.slice(0,8).join(' | '):'No additional evidence'}\n\nNext: ${packet?.operator_next_step||''}`;
- if(status)status.textContent=eligible?'Handoff prepared and stored. Open Mission Console to review it.':'Advisory handoff prepared and stored. Open Mission Console to review it.';
- if(preview)preview.innerHTML=`<strong class="${eligible?'ready':'advisory'}">${esc(headline)}</strong>\n${esc(text)}`;
- if(calm){calm.textContent='Engineer handoff prepared. Use Open Mission Console to review the exact request before sending it.';calm.classList.add('show')}
- syncPreparedRepairMissionUI();
-}
-async function prepareRepairHandoff(findingId='',level='guided',openConsole=false){
- if(repairHandoffBusy){toast('Engineer handoff preparation is already in progress.');return}
- if(!lastRepairHealthScan){repairHandoffFailure('Run a check first. No Engineer request was opened.');return}
- let findings=repairReviewFindings(lastRepairHealthScan);
- if(!findings.length){repairHandoffFailure('No repair is needed. The completed scan found no urgent or recommended item.');return}
- let id=String(findingId||q('repairHandoffFinding')?.value||'').trim();
- if(!id&&findings.length===1)id=String(findings[0]?.id||'');
- if(!id){repairHandoffFailure('Choose one finding before asking Engineer. No request was opened.');return}
- let selected=findings.find(item=>String(item?.id||'')===id);
- if(!selected){repairHandoffFailure('The selected finding could not be resolved from the latest read-only scan. Run the check again.');return}
- if(preparedRepairMissionIsValid()&&preparedRepairMission.finding_id===id){
-  renderRepairHandoff(preparedRepairMission.packet);
-  let calm=q('repairHandoffCalmStatus');if(calm)calm.textContent='Already prepared — Open Mission Console to review the exact request.';
-  toast('Already prepared — Open Mission Console.');
-  if(openConsole)openRepairHandoffInMission();
-  return;
- }
- repairHandoffBusy=true;setRepairAskEngineerState(lastRepairHealthScan,'running');
- let status=q('repairHandoffStatus');if(status)status.textContent='Preparing a read-only Engineer handoff...';
- let packet=null,success=false;
- try{
-  packet=await api('/api/repair/handoff',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({finding_id:id,mode:lastRepairHealthScan.mode||'full',level})});
-  if(!packet?.ok)throw new Error(packet?.message||'Handoff could not be prepared.');
-  if(String(packet?.finding?.id||'')!==id)throw new Error('Engineer handoff failed closed because the returned finding did not match your selection.');
-  if(!validRepairEngineerCommand(packet))throw new Error('Engineer handoff failed closed because the planning request was incomplete. Mission Console was not opened.');
-  if(!storePreparedRepairMission(packet))throw new Error('Engineer handoff was valid but could not be stored in WebUI session state. Mission Console was not opened.');
-  renderRepairHandoff(packet);success=true;
- }catch(error){repairHandoffFailure(String(error?.message||error))}
- finally{repairHandoffBusy=false;setRepairAskEngineerState(lastRepairHealthScan);syncPreparedRepairMissionUI()}
- if(success&&openConsole)openRepairHandoffInMission();
- else if(success)toast(packet?.eligible?'Exact-plan handoff ready for review.':'Advisory handoff ready for review.');
-}
-function openRepairHandoffInMission(){
- if(repairHandoffBusy){toast('Engineer handoff preparation is still finishing.');return}
- if(!preparedRepairMissionIsValid()){repairHandoffFailure('No complete stored finding handoff is ready. Mission Console was not opened.');return}
- let state=preparedRepairMission;
- go('mission');
- let box=q('input');
- if(!box){repairHandoffFailure('Mission Console input was unavailable. The prepared request remains stored.');return}
- box.value=state.text;box.focus();box.setSelectionRange(box.value.length,box.value.length);
- lastRepairHandoffOpenedId=String(state.handoff_id||'opened');
- let decision=repairPlanningRouteDecision(state.text);
- let calm=q('repairHandoffCalmStatus');if(calm){calm.textContent=`Already prepared — the exact request is open in Mission Console for review.\n${repairPlanningRouteLabel(decision)}`;calm.classList.add('show')}
- logline('sys','REPAIR BAY',`${repairPlanningRouteLabel(decision)}. Send remains manual.`);
- toast(decision.safe?'Review the PLAN request, then press Send. File-change permission is NO.':'Route guard blocked this handoff.');
-}
-/* REPAIR_BAY_GUARDED_HANDOFF_V2_BROWSER_END */
-/* REPAIR_BAY_MISSION_TRANSFER_V2_2_BROWSER_END */
 function renderRepairHealthScan(report){
  lastRepairHealthScan=report;
  let status=q('repairHealthScanStatus'),summary=q('repairHealthSummary'),findings=q('repairHealthFindings'),plan=q('repairHealthPlan');
  if(!report?.summary){if(status)status.textContent=report?.message||'Health scan failed.';return}
  renderRepairCalmView(report);
- populateRepairHandoffFindings(report);
- if(preparedRepairMissionIsValid()){preparedRepairMission=null;lastRepairHandoff=null;lastRepairHandoffOpenedId='';syncPreparedRepairMissionUI()}
  let counts=report.summary.counts||{};
  if(status)status.textContent=`${report.summary.headline}\nMode: ${String(report.mode||'').toUpperCase()} • Checks: ${report.summary.checks||0} • Elapsed: ${report.elapsed_seconds||0}s\nRead-only: ${report.read_only?'YES':'NO'} • Network used: ${report.safety?.network_used?'YES':'NO'} • Repairs applied: ${report.safety?.repairs_applied||0}`;
  if(summary)summary.innerHTML=repairHealthMetric('Urgent',counts.urgent||0)+repairHealthMetric('Recommended',counts.recommended||0)+repairHealthMetric('Informational',counts.informational||0)+repairHealthMetric('Healthy',counts.healthy||0);
- if(findings)findings.innerHTML=(report.findings||[]).map(item=>{let proof=(item.evidence||[]).slice(0,12).join('\n')||'No extra evidence recorded.',review=item.severity==='urgent'||item.severity==='recommended';return `<div class=repairFinding><div class=repairFindingHead><h4>${esc(item.title||item.id)}</h4><span class="repairSeverity ${esc(item.severity||'informational')}">${esc(item.severity||'informational')}</span></div><p>${esc(item.summary||'')}</p><div class=repairEvidence>${esc(proof)}</div><div class=repairSuggested><strong>Suggested next step:</strong> ${esc(item.suggested_action||'No action required.')}</div>${review?`<div class=repairFindingActions><button onclick="prepareRepairHandoff('${js(item.id)}','advanced',false)">Prepare Engineer Handoff</button></div>`:''}</div>`}).join('')||'<div class=repairHealthEmpty>No findings were returned.</div>';
+ if(findings)findings.innerHTML=(report.findings||[]).map(item=>{let proof=(item.evidence||[]).slice(0,12).join('\n')||'No extra evidence recorded.';return `<div class=repairFinding><div class=repairFindingHead><h4>${esc(item.title||item.id)}</h4><span class="repairSeverity ${esc(item.severity||'informational')}">${esc(item.severity||'informational')}</span></div><p>${esc(item.summary||'')}</p><div class=repairEvidence>${esc(proof)}</div><div class=repairSuggested><strong>Suggested next step:</strong> ${esc(item.suggested_action||'No action required.')}</div></div>`}).join('')||'<div class=repairHealthEmpty>No findings were returned.</div>';
  let steps=report.proposed_repair_plan?.steps||[];
  if(plan)plan.textContent=steps.length?steps.map((step,index)=>`${index+1}. [${String(step.priority||'').toUpperCase()}] ${step.title}\n   Proposal: ${step.proposed_action}\n   Approval required: ${step.approval_required?'YES':'NO'} • Backup required: ${step.backup_required?'YES':'NO'} • Status: ${step.status}`).join('\n\n'):'No repair steps are proposed from this scan. Nothing was changed.';
 }
 async function runRepairHealthScan(mode){
- setRepairAskEngineerState(null,'running');lastRepairHandoff=null;lastRepairHandoffOpenedId='';
  let status=q('repairHealthScanStatus');if(status)status.textContent=`Running ${mode==='full'?'full':'quick'} read-only health scan...`;
  if(q('repairCalmTitle'))q('repairCalmTitle').textContent=mode==='full'?'Running a deeper check...':'Checking your computer...';
  if(q('repairCalmMessage'))q('repairCalmMessage').textContent='Repair Bay is checking read-only. Nothing is being repaired or changed.';
@@ -2466,7 +2245,7 @@ function renderMissionImage(){let box=q('imagePreview');if(!box)return;let image
 function clearMissionImageLocal(){revokeMissionPreview(pendingMissionImage);if(activeMissionImage?.preview_url!==pendingMissionImage?.preview_url)revokeMissionPreview(activeMissionImage);pendingMissionImage=null;activeMissionImage=null;let picker=q('imageFile');if(picker)picker.value='';renderMissionImage()}
 async function clearMissionImage(options={}){let remote=options.remote!==false,silent=Boolean(options.silent);if(remote){let d=await api('/api/chat/image/clear',{method:'POST',headers:{'Content-Type':'application/json'},body:'{}'});if(!d?.ok){if(!silent)logline('bad','SYSTEM',d?.message||'Active image could not be cleared.');return false}}clearMissionImageLocal();if(!silent)toast('Active mission image removed.');return true}
 async function refreshActiveMissionImage(){try{let d=await (await fetch('/api/chat/image/status')).json();if(!d?.ok)return false;let meta=d.active_image;if(meta?.attached){let local=(pendingMissionImage&&pendingMissionImage.sha256===meta.sha256)?pendingMissionImage:(activeMissionImage&&activeMissionImage.sha256===meta.sha256?activeMissionImage:null),nextPreview=local?.preview_url||'';if(activeMissionImage?.preview_url&&activeMissionImage.preview_url!==nextPreview)revokeMissionPreview(activeMissionImage);activeMissionImage={...missionImageMetadata({name:meta.filename,type:meta.mime,size:meta.size_bytes,width:meta.width,height:meta.height,sha256:meta.sha256}),preview_url:nextPreview};if(pendingMissionImage?.sha256===meta.sha256){pendingMissionImage.data_url='';pendingMissionImage=null}}else{revokeMissionPreview(activeMissionImage);activeMissionImage=null}renderMissionImage();return true}catch(e){return false}}
-async function resetMissionConsole(){let d=await api('/api/chat/reset');if(d?.ok){if(preparedRepairMissionIsValid())cancelPreparedRepairHandoff('Prepared Engineer handoff cleared by Mission Console reset.',true);clearMissionImageLocal();chat.innerHTML='Mission console reset.\n';logline('sys','SYSTEM',d.message||'Conversation reset.')}else logline('bad','SYSTEM',d?.message||'Reset failed.')}
+async function resetMissionConsole(){let d=await api('/api/chat/reset');if(d?.ok){clearMissionImageLocal();chat.innerHTML='Mission console reset.\n';logline('sys','SYSTEM',d.message||'Conversation reset.')}else logline('bad','SYSTEM',d?.message||'Reset failed.')}
 async function handleMissionImageFiles(files){let file=files&&files[0];if(!file)return;let previewUrl='';try{if(!['image/png','image/jpeg','image/webp'].includes(file.type))throw new Error('Choose a PNG, JPEG, or WebP image.');if(file.size<1||file.size>MISSION_IMAGE_MAX_BYTES)throw new Error('Image must be larger than 0 bytes and no more than 6 MB.');previewUrl=URL.createObjectURL(file);let buffer=await file.arrayBuffer(),dataUrl=await readFileDataUrl(file),dimensions=await readImageDimensions(previewUrl);if(dimensions.width<1||dimensions.height<1||dimensions.width>8192||dimensions.height>8192)throw new Error('Image dimensions must be between 1 and 8192 pixels.');revokeMissionPreview(pendingMissionImage);pendingMissionImage={name:file.name,type:file.type,size:file.size,width:dimensions.width,height:dimensions.height,sha256:await sha256Hex(buffer),data_url:dataUrl,preview_url:previewUrl};renderMissionImage();toast(`Image ready: ${file.name}. It will replace the active image only when sent.`)}catch(error){if(previewUrl.startsWith('blob:'))URL.revokeObjectURL(previewUrl);pendingMissionImage=null;renderMissionImage();toast(String(error?.message||error));logline('bad','SYSTEM',`Image attachment rejected: ${error?.message||error}`)}}
 function missionImagePayload(){if(!pendingMissionImage?.data_url)return null;let image=missionImageMetadata(pendingMissionImage);return {...image,data_url:pendingMissionImage.data_url}}
 function missionUsesActiveImage(){return !pendingMissionImage&&Boolean(activeMissionImage)}
@@ -2492,15 +2271,7 @@ async function send(){
  if((image||useActive)&&!activeVisionProfile()){let active=modelProfileById(activeProfileId);let message=active?`The active profile is ${active.label}, which is not a vision profile. Select and explicitly start Fast Vision or Quality Vision; no model switch occurred.`:'No verified vision profile is active. Select and explicitly start Fast Vision or Quality Vision; no model switch occurred.';logline('bad','SYSTEM',message);toast(message);return}
  if((image||useActive)&&explicitEngineerMessage(text)){let message='Engineer image inspection is not enabled. Remove the image or use ordinary vision chat.';logline('bad','SYSTEM',message);toast(message);return}
  let prompt=text||((image||useActive)?'Describe this image.':''),localImage=pendingMissionImage||activeMissionImage;
- let routeGuard=preparedRepairMissionRouteGuard(prompt);
- if(routeGuard.prepared&&!routeGuard.ok){
-  logline('bad','REPAIR BAY',routeGuard.message);
-  toast(routeGuard.message);
-  return;
- }
- if(routeGuard.prepared)logline('sys','REPAIR BAY',`${repairPlanningRouteLabel(routeGuard.decision)}. Sending planning request.`);
- let consumedPreparedRepair=consumePreparedRepairMission(prompt);
- let browserStarted=performance.now(),d=null;q('input').value='';logline('user','ERIC',prompt);if(consumedPreparedRepair)toast('Prepared Repair Bay PLAN request sent. File-change permission remained NO.');if(image)logMissionImage(localImage,'NEW IMAGE — becomes active for follow-ups');else if(useActive)logMissionImage(activeMissionImage,'USING ACTIVE IMAGE');think(true);
+ let browserStarted=performance.now(),d=null;q('input').value='';logline('user','ERIC',prompt);if(image)logMissionImage(localImage,'NEW IMAGE — becomes active for follow-ups');else if(useActive)logMissionImage(activeMissionImage,'USING ACTIVE IMAGE');think(true);
  try{d=explicitEngineerMessage(prompt)?await requestNonStreamingChat(prompt,null,false):await requestGuardedStreamChat(prompt,image,useActive)}catch(e){if(e?.name==='AbortError'){logline('bad','SYSTEM','Generation canceled. No partial assistant answer was archived. The active image remains available for retry.');d={ok:false,cancelled:true,timing:{}};await refreshActiveMissionImage()}else{logline('bad','ERROR',String(e));d={ok:false,timing:{}}}}finally{
   chatStreamController=null;think(false);
   if(d?.active_image?.attached){let meta=d.active_image,local=(pendingMissionImage&&pendingMissionImage.sha256===meta.sha256)?pendingMissionImage:(activeMissionImage&&activeMissionImage.sha256===meta.sha256?activeMissionImage:null),nextPreview=local?.preview_url||'';if(activeMissionImage?.preview_url&&activeMissionImage.preview_url!==nextPreview)revokeMissionPreview(activeMissionImage);activeMissionImage={...missionImageMetadata({name:meta.filename,type:meta.mime,size:meta.size_bytes,width:meta.width,height:meta.height,sha256:meta.sha256}),preview_url:nextPreview};if(pendingMissionImage?.sha256===meta.sha256){pendingMissionImage.data_url='';pendingMissionImage=null}renderMissionImage()}
@@ -12478,7 +12249,6 @@ class Handler(BaseHTTPRequestHandler):
         if path=='/api/command_center/dashboard_card': self.js(command_center_dashboard_card_report(d)); return
         if path=='/api/command_center/detail': self.js(command_center_detail_report(d)); return
         if path=='/api/command_center/foundation': self.js(command_center_foundation_report(d)); return
-        if path=='/api/repair/handoff': self.js(repair_bay_prepare_handoff(d)); return
         if path=='/api/repair/health_scan': self.js(repair_bay_health_scan(d)); return
         if path=='/api/repair/launcher_index': self.js(repair_bay_launcher_index(d)); return
         if path=='/api/repair/milestone_freeze': self.js(repair_shop_milestone_freeze_report(d)); return
@@ -14949,69 +14719,6 @@ def apply_manifest_repair(d):
         'validation':validation
     }
 
-
-
-def repair_bay_prepare_handoff(d=None):
-    request=d or {}
-    finding_id=str(request.get('finding_id') or '').strip()
-    level=str(request.get('level') or 'guided').strip().lower()
-    mode=str(request.get('mode') or 'full').strip().lower()
-    full_only={'full_python_syntax','configuration_json','zero_byte_live_files','log_growth','root_launcher_inventory'}
-    if finding_id in full_only:
-        mode='full'
-    if mode not in {'quick','full'}:
-        mode='full'
-    try:
-        from core.repair_bay_diagnostics import run_repair_bay_scan
-        from core.repair_bay_handoff import build_repair_handoff
-        report=run_repair_bay_scan(
-            ROOT,
-            mode=mode,
-            context={
-                'interface':'WebUI',
-                'active_project':active_project or '',
-                'operator':'local',
-                'purpose':'guarded_repair_handoff',
-            },
-        )
-        scan_safety=report.get('safety') or {}
-        if not report.get('read_only') or bool(scan_safety.get('network_used')) or bool(scan_safety.get('commands_run')) or int(scan_safety.get('files_written') or 0)!=0 or int(scan_safety.get('repairs_applied') or 0)!=0:
-            return {'ok':False,'message':'Guarded handoff blocked because the grounding scan did not verify read-only safety.','read_only':True,'changes_applied':0,'mission_staged':False}
-        packet=build_repair_handoff(ROOT,report,finding_id,level=level)
-        safety=packet.get('safety_limits') or {}
-        checks=[
-            {'id':'read_only','ok':bool(packet.get('read_only')),'message':'Handoff preparation was read-only.'},
-            {'id':'no_changes','ok':int(packet.get('changes_applied') or 0)==0,'message':'No repair or project change was applied.'},
-            {'id':'mission_not_staged','ok':not bool(packet.get('mission_staged')),'message':'Mission Console review is required before staging.'},
-            {'id':'implementation_not_authorized','ok':not bool(packet.get('implementation_authorized')),'message':'The handoff does not authorize implementation.'},
-            {'id':'no_network','ok':not bool(safety.get('network_allowed')),'message':'The proposed planning mission forbids network use.'},
-            {'id':'no_auto_apply','ok':not bool(safety.get('automatic_apply_allowed')),'message':'Automatic application is forbidden.'},
-        ]
-        verified=bool(packet.get('ok')) and all(item['ok'] for item in checks)
-        packet['receipt']=make_tool_receipt(
-            'repair_bay.guarded_handoff',
-            'verified' if verified else 'blocked',
-            checks=checks,
-            details={
-                'finding_id':(packet.get('finding') or {}).get('id'),
-                'eligible':bool(packet.get('eligible')),
-                'repair_kind':packet.get('repair_kind'),
-                'affected_paths':len(packet.get('affected_paths') or []),
-                'implementation_authorized':False,
-            },
-            actor='operator',
-        )
-        packet['claim_state']='verified' if verified else 'blocked'
-        return packet
-    except Exception as exc:
-        return {
-            'ok':False,
-            'message':f'Guarded repair handoff failed closed: {type(exc).__name__}: {exc}',
-            'read_only':True,
-            'changes_applied':0,
-            'mission_staged':False,
-            'implementation_authorized':False,
-        }
 
 
 def repair_bay_launcher_index(d=None):

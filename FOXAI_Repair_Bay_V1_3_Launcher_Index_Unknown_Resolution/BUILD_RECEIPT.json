@@ -1,0 +1,90 @@
+{
+  "schema": "foxai.repair_bay.v1_3.plan_build_receipt",
+  "mission_id": "ENG-20260719-225448-2AB493",
+  "result": "exact_plan_built_and_simulated",
+  "plan_sha256": "4d359aee9fb49095e3e115443acd2f604318c47a9fffbada22a1e7647c6e7537",
+  "changed_path_count": 3,
+  "changed_paths": [
+    "core/foxai_web.py",
+    "core/repair_bay_diagnostics.py",
+    "core/VERIFY_REPAIR_BAY_V1.py"
+  ],
+  "validation_count": 3,
+  "before_hashes": {
+    "core/foxai_web.py": "4db4f4da2cea7a369ed038283de442ab1fbf6aa5fce88258bd95a3d91fb1d5b9",
+    "core/repair_bay_diagnostics.py": "c42f6d829d8faa5227919c670652242a1a57cda6c89ee60997065e4990fba995",
+    "core/VERIFY_REPAIR_BAY_V1.py": "f98809a440a525db52d311261a9bbe64ebdfac01ed6ed63ba67f5092da01dd0b"
+  },
+  "after_hashes": {
+    "core/foxai_web.py": "8880a9f1629594f69e18e6ec12265a6c6a8a4d73bc2ff0646ae75bf5579835b9",
+    "core/repair_bay_diagnostics.py": "937f0d9383c65b99b99f0b1383c52ec949e9af45f1af09a735d7c984747cf2e2",
+    "core/VERIFY_REPAIR_BAY_V1.py": "0d4ffa66e427ed9ae877ce88b89adb5a0ae3b963f0a557fdd35cee1ac994555d"
+  },
+  "features_verified": {
+    "searchable_launcher_index": true,
+    "category_filter": true,
+    "protected_filter": true,
+    "entry_status_filter": true,
+    "resolution_filter": true,
+    "plain_english_purpose": true,
+    "purpose_confidence": true,
+    "parent_child_relationships": true,
+    "commands_and_references": true,
+    "receipt_evidence": true,
+    "exact_duplicate_membership": true,
+    "similar_name_membership": true,
+    "archive_review_reasoning": true,
+    "unresolved_reason": true,
+    "approved_front_doors": true,
+    "conservative_unknown_resolution": true
+  },
+  "tests": {
+    "workshop_plan_schema_and_before_hashes": "passed",
+    "workshop_preview": "passed — 3 changed paths",
+    "workshop_simulated_apply": "passed — 3 files",
+    "source_compilation_without_bytecode": "passed",
+    "independent_verifier": {
+      "ok": true,
+      "schema": "foxai.repair_bay.v1_3.verification",
+      "quick_checks": 12,
+      "full_checks": 17,
+      "launcher_contents_parsed": 23,
+      "launcher_relationships_verified": 4,
+      "protected_root_launchers_verified": 12,
+      "protected_study_launchers_verified": 2,
+      "receipt_backed_launchers_verified": 3,
+      "exact_duplicate_groups_verified": 2,
+      "archive_review_candidates_verified": 5,
+      "unresolved_items_verified": 5,
+      "archive_plan_proposal_only": true,
+      "launcher_index_verified": true,
+      "launcher_index_items_verified": 23,
+      "approved_front_doors_verified": 4,
+      "unknown_resolution_verified": true,
+      "search_and_filter_metadata_verified": true,
+      "webui_launcher_index_verified": true,
+      "healthy_guidance_corrected": true,
+      "empty_init_recognized_as_valid": true,
+      "rename_only_restart_marker_informational": true,
+      "read_only_tree_unchanged": true,
+      "network_used": false,
+      "commands_run": false,
+      "files_written": 0,
+      "repairs_applied": 0
+    },
+    "embedded_javascript_syntax": "passed with node --check",
+    "read_only_fixture_tree_unchanged": true
+  },
+  "safety": {
+    "batch_files_executed": false,
+    "network_used_during_analysis": false,
+    "commands_run_during_analysis": false,
+    "files_written_during_analysis": 0,
+    "repairs_applied": 0,
+    "launcher_modifications": 0,
+    "deletions": 0,
+    "moves": 0,
+    "renames": 0,
+    "archive_actions": 0
+  }
+}

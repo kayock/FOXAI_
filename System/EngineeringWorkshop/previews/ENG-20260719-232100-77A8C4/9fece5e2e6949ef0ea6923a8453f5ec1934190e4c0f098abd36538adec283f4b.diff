@@ -1,0 +1,665 @@
+--- a/core/foxai_web.py
++++ b/core/foxai_web.py
+@@ -1322,6 +1322,10 @@
+ /* REPAIR_BAY_CALM_GUIDED_V1_4_START */
+ .repairCalmShell{margin-bottom:16px}.repairCalmCard{border:1px solid #42ff9e4d;background:radial-gradient(circle at 0 0,#42ff9e16,transparent 44%),linear-gradient(180deg,#131a1b,#0d1116);border-radius:22px;padding:22px}.repairCalmHead{display:flex;gap:12px;align-items:flex-start;flex-wrap:wrap}.repairCalmHead>div{flex:1;min-width:240px}.repairCalmHead h3{margin:0 0 7px;font-size:28px;color:#fff}.repairCalmHead p{margin:0;color:var(--m);font-size:15px;line-height:1.52;max-width:820px}.repairCalmBadge{display:inline-flex;align-items:center;justify-content:center;border:1px solid #42ff9e66;border-radius:999px;padding:6px 11px;font:800 11px Consolas,monospace;letter-spacing:.06em;color:#bfffe0;background:#42ff9e0b}.repairCalmBadge.attention{border-color:#ffd16677;color:#ffe3a1;background:#ffd1660b}.repairCalmBadge.urgent{border-color:#ff4d6d88;color:#ffb0bd;background:#ff4d6d0b}.repairCalmActions{display:flex;gap:9px;flex-wrap:wrap;margin:18px 0 12px}.repairCalmActions button:first-child{min-width:190px}.repairCalmAttention{display:grid;gap:10px;margin:14px 0}.repairCalmItem{border:1px solid #ffd16645;border-radius:15px;background:#ffd16608;padding:14px}.repairCalmItem.urgent{border-color:#ff4d6d55;background:#ff4d6d08}.repairCalmItem h4{margin:0 0 5px;font-size:17px}.repairCalmItem p{margin:0;color:#e9e3f5;line-height:1.48}.repairCalmItem .repairCalmItemAction{margin-top:8px;color:#f3dfaa;font-size:13px}.repairCalmEmpty{border:1px solid #42ff9e35;border-radius:15px;background:#42ff9e08;padding:14px;color:#d8ffea}.repairCalmNext{display:grid;grid-template-columns:150px 1fr;gap:10px;border-top:1px solid #42ff9e25;padding-top:13px;margin-top:13px}.repairCalmNext strong{color:#bfffe0}.repairCalmNext span{color:#f1edf6;line-height:1.45}.repairCalmSafety{margin-top:12px;color:var(--m);font-size:12px}.repairSimpleDetails,.repairAdvancedView{border:1px solid #8f5cff2f;border-radius:18px;background:#0b0d16;margin-bottom:16px;overflow:hidden}.repairSimpleDetails>summary,.repairAdvancedView>summary{cursor:pointer;list-style:none;padding:15px 18px;font-weight:900;color:#d8d1e8}.repairSimpleDetails>summary::-webkit-details-marker,.repairAdvancedView>summary::-webkit-details-marker{display:none}.repairSimpleDetails>summary:after,.repairAdvancedView>summary:after{content:'Show';float:right;color:var(--m);font:11px Consolas,monospace}.repairSimpleDetails[open]>summary:after,.repairAdvancedView[open]>summary:after{content:'Hide'}.repairSimpleBody,.repairAdvancedViewBody{padding:0 16px 16px}.repairGuidedIntro{color:var(--m);line-height:1.45;margin:0 0 14px}.repairAdvancedView .repairLauncherCard,.repairAdvancedView .repairStatusCard,.repairAdvancedView .repairSafetyNote,.repairAdvancedView .repairAdvancedTools{margin-top:14px}.repairAdvancedView .repairGuidedGrid{margin-top:14px}
+ @media(max-width:700px){.repairCalmCard{padding:17px}.repairCalmHead h3{font-size:24px}.repairCalmNext{grid-template-columns:1fr}.repairCalmActions button{width:100%}}
++/* REPAIR_BAY_GUARDED_HANDOFF_V2_STYLE_START */
++.repairCalmItemButtons{display:flex;gap:8px;flex-wrap:wrap;margin-top:11px}.repairCalmItemButtons button{padding:8px 11px;font-size:12px}.repairHandoffCalmStatus{display:none;margin:12px 0 0;border:1px solid #8f5cff45;border-radius:13px;background:#8f5cff0a;padding:12px;color:#ddd5ee;white-space:pre-wrap}.repairHandoffCalmStatus.show{display:block}.repairHandoffCard{border-color:#42ff9e38}.repairHandoffGrid{display:grid;grid-template-columns:minmax(220px,1fr) auto auto;gap:9px;align-items:end}.repairHandoffGrid label{display:grid;gap:6px;color:var(--m);font-size:12px}.repairHandoffGrid select{width:100%}.repairHandoffStatus{margin-top:12px;white-space:pre-wrap}.repairHandoffPreview{margin-top:12px;border:1px solid #8f5cff35;border-radius:14px;background:#090b12;padding:14px;white-space:pre-wrap;color:#e9e4f2;line-height:1.48}.repairHandoffPreview strong{color:#cdbdff}.repairHandoffPreview .ready{color:#bfffe0}.repairHandoffPreview .advisory{color:#ffe3a1}.repairFindingActions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.repairFindingActions button{padding:8px 11px;font-size:12px}
++@media(max-width:760px){.repairHandoffGrid{grid-template-columns:1fr}.repairHandoffGrid button{width:100%}}
++/* REPAIR_BAY_GUARDED_HANDOFF_V2_STYLE_END */
+ /* REPAIR_BAY_CALM_GUIDED_V1_4_END */
+ /* REPAIR_BAY_GUIDED_CLEANUP_V1_END */
+ 
+@@ -1640,6 +1644,7 @@
+ <div class=repairCalmHead><div><h3 id=repairCalmTitle>Ready for a safe check</h3><p id=repairCalmMessage>Repair Bay can check FOXAI and Windows without changing files, settings, services, models, or launchers.</p></div><span id=repairCalmBadge class=repairCalmBadge>READY</span></div>
+ <div class=repairCalmActions><button onclick="runRepairHealthScan('quick')">Check My Computer</button><button onclick="runRepairHealthScan('full')">Run a Deeper Check</button><button onclick="openGuidedEngineer()">Ask Engineer</button></div>
+ <div id=repairCalmAttention class=repairCalmAttention><div class=repairCalmEmpty>No problems are being reported. Run a check when you are ready.</div></div>
++<div id=repairHandoffCalmStatus class=repairHandoffCalmStatus></div>
+ <div class=repairCalmNext><strong>Best next step</strong><span id=repairCalmNextStep>Run the quick check. It normally takes only a few seconds and changes nothing.</span></div>
+ <div id=repairCalmSafety class=repairCalmSafety>Nothing has been scanned or changed yet.</div>
+ </div>
+@@ -1668,6 +1673,18 @@
+ <div class="repairTaskCard fix"><div class=repairTaskIcon>🛠️</div><h3>Review Repair Actions</h3><p>Review exact proposed actions with backup, approval, verification, and receipts.</p><button onclick="go('repairactions')">Open Repair Actions</button></div>
+ <div class="repairTaskCard history"><div class=repairTaskIcon>📜</div><h3>Open Repair History</h3><p>Review prior actions and receipts.</p><button onclick="go('repairhistory')">Browse History</button></div>
+ </div>
++<!-- REPAIR_BAY_GUARDED_HANDOFF_V2_HTML_START -->
++<div class="card wide repairHandoffCard">
++<div class=repairHealthHead><div><h3>Guarded Repair Handoff</h3><p>Select one finding and prepare a structured handoff for Engineer. Repair Bay itself cannot repair anything.</p></div><span class="pill ok">PLAN ONLY</span></div>
++<div class=repairHandoffGrid>
++<label>Finding to review<select id=repairHandoffFinding><option value="">Run a health scan first</option></select></label>
++<button onclick="prepareRepairHandoff('', 'advanced', false)">Prepare Exact Repair Plan</button>
++<button id=repairHandoffOpenButton onclick="openRepairHandoffInMission()" disabled>Open in Mission Console</button>
++</div>
++<div id=repairHandoffStatus class="status repairHandoffStatus">No handoff has been prepared. The first step is still a read-only health scan.</div>
++<div id=repairHandoffPreview class=repairHandoffPreview>Engineer receives the selected finding, evidence, affected paths, proposed action, backup requirement, and safety limits. Sending the handoff stages planning only; it never applies a repair.</div>
++</div>
++<!-- REPAIR_BAY_GUARDED_HANDOFF_V2_HTML_END -->
+ <div class="card wide repairLauncherCard">
+ <div class=repairHealthHead><div><h3>Launcher Index</h3><p>Search and filter every FOXAI root BAT file. The index reads launcher text only and never executes or changes a script.</p></div><span class="pill ok">READ ONLY</span></div>
+ <div class=repairHealthActions><button onclick="loadRepairLauncherIndex(true)">Load Launcher Index</button><button onclick="clearRepairLauncherFilters()">Clear Filters</button></div>
+@@ -2101,18 +2118,61 @@
+  if(q('repairCalmNextStep'))q('repairCalmNextStep').textContent=model.next;
+  if(q('repairCalmSafety'))q('repairCalmSafety').textContent=model.safety;
+  if(badge){badge.textContent=model.badge;badge.className='repairCalmBadge '+(model.state==='attention'?'attention':model.state==='urgent'?'urgent':'')}
+- if(attention)attention.innerHTML=model.attention.length?model.attention.map(item=>`<div class="repairCalmItem ${esc(item.severity||'')}"><h4>${esc(item.title)}</h4><p>${esc(item.explanation)}</p><div class=repairCalmItemAction><strong>Safe next step:</strong> ${esc(item.action)}</div></div>`).join(''):'<div class=repairCalmEmpty>No problems need your attention.</div>';
++ if(attention)attention.innerHTML=model.attention.length?model.attention.map(item=>`<div class="repairCalmItem ${esc(item.severity||'')}"><h4>${esc(item.title)}</h4><p>${esc(item.explanation)}</p><div class=repairCalmItemAction><strong>Safe next step:</strong> ${esc(item.action)}</div><div class=repairCalmItemButtons><button onclick="prepareRepairHandoff('${js(item.id)}','guided',true)">Ask Engineer to Prepare a Fix</button></div></div>`).join(''):'<div class=repairCalmEmpty>No problems need your attention.</div>';
+ }
+ /* REPAIR_BAY_CALM_GUIDED_V1_4_BROWSER_END */
++/* REPAIR_BAY_GUARDED_HANDOFF_V2_BROWSER_START */
++let lastRepairHandoff=null;
++function repairReviewFindings(report){return (report?.findings||[]).filter(item=>item?.severity==='urgent'||item?.severity==='recommended')}
++function populateRepairHandoffFindings(report){
++ let select=q('repairHandoffFinding');if(!select)return;
++ let findings=repairReviewFindings(report),current=select.value;
++ select.innerHTML=findings.length?findings.map(item=>`<option value="${esc(item.id||'')}">[${esc(String(item.severity||'').toUpperCase())}] ${esc(item.title||item.id)}</option>`).join(''):'<option value="">No urgent or recommended findings</option>';
++ if(current&&findings.some(item=>item.id===current))select.value=current;
++}
++function renderRepairHandoff(packet){
++ lastRepairHandoff=packet;
++ let status=q('repairHandoffStatus'),preview=q('repairHandoffPreview'),open=q('repairHandoffOpenButton'),calm=q('repairHandoffCalmStatus');
++ let eligible=Boolean(packet?.eligible),finding=packet?.finding||{},paths=packet?.affected_paths||[],evidence=packet?.technical_evidence||[];
++ let headline=eligible?'READY FOR ENGINEER PLAN REVIEW':'ADVISORY ONLY';
++ let text=`${headline}\nFinding: ${finding.title||finding.id||'Unknown'}\nSeverity: ${String(finding.severity||'').toUpperCase()}\nRepair kind: ${packet?.repair_label||'Advisory review only'}\nBackup required: ${packet?.backup_required?'YES':'NO'}\nAffected paths: ${paths.length?paths.join(' | '):'No bounded path resolved'}\n\n${packet?.plain_english_explanation||''}\n\nEvidence: ${evidence.length?evidence.slice(0,8).join(' | '):'No additional evidence'}\n\nNext: ${packet?.operator_next_step||''}`;
++ if(status)status.textContent=eligible?'Handoff prepared read-only. Review it, then open Mission Console.':'This finding remains advisory because it is unsupported, too broad, or not bounded by verified paths.';
++ if(preview)preview.innerHTML=`<strong class="${eligible?'ready':'advisory'}">${esc(headline)}</strong>\n${esc(text)}`;
++ if(open)open.disabled=!packet?.engineer_command;
++ if(calm){calm.textContent=eligible?'Engineer handoff prepared. Mission Console will show the exact planning request before you send it.':'Engineer can explain this item, but Repair Bay did not authorize an exact repair plan.';calm.classList.add('show')}
++}
++async function prepareRepairHandoff(findingId='',level='guided',openConsole=false){
++ if(!lastRepairHealthScan){toast('Run a health scan first.');return}
++ let id=String(findingId||q('repairHandoffFinding')?.value||'').trim();
++ if(!id){let first=repairReviewFindings(lastRepairHealthScan)[0];id=String(first?.id||'')}
++ if(!id){toast('No urgent or recommended finding is available.');return}
++ let status=q('repairHandoffStatus');if(status)status.textContent='Preparing a read-only Engineer handoff...';
++ try{
++  let packet=await api('/api/repair/handoff',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({finding_id:id,mode:lastRepairHealthScan.mode||'full',level})});
++  if(!packet?.ok){if(status)status.textContent=packet?.message||'Handoff could not be prepared.';toast(packet?.message||'Handoff failed.');return}
++  renderRepairHandoff(packet);
++  if(openConsole)openRepairHandoffInMission();else toast(packet.eligible?'Exact-plan handoff ready for review.':'Finding remains advisory only.');
++ }catch(error){if(status)status.textContent='Handoff failed: '+error;toast('Handoff failed closed.')}
++}
++function openRepairHandoffInMission(){
++ let packet=lastRepairHandoff;
++ if(!packet?.engineer_command){toast('Prepare a handoff first.');return}
++ go('mission');
++ let box=q('input');if(box){box.value=packet.engineer_command;box.focus();box.setSelectionRange(box.value.length,box.value.length)}
++ toast(packet.eligible?'Review the planning request, then press Send. No implementation is authorized.':'Review the advisory request, then press Send.');
++}
++/* REPAIR_BAY_GUARDED_HANDOFF_V2_BROWSER_END */
+ function renderRepairHealthScan(report){
+  lastRepairHealthScan=report;
+  let status=q('repairHealthScanStatus'),summary=q('repairHealthSummary'),findings=q('repairHealthFindings'),plan=q('repairHealthPlan');
+  if(!report?.summary){if(status)status.textContent=report?.message||'Health scan failed.';return}
+  renderRepairCalmView(report);
++ populateRepairHandoffFindings(report);
++ lastRepairHandoff=null;if(q('repairHandoffOpenButton'))q('repairHandoffOpenButton').disabled=true;
+  let counts=report.summary.counts||{};
+  if(status)status.textContent=`${report.summary.headline}\nMode: ${String(report.mode||'').toUpperCase()} • Checks: ${report.summary.checks||0} • Elapsed: ${report.elapsed_seconds||0}s\nRead-only: ${report.read_only?'YES':'NO'} • Network used: ${report.safety?.network_used?'YES':'NO'} • Repairs applied: ${report.safety?.repairs_applied||0}`;
+  if(summary)summary.innerHTML=repairHealthMetric('Urgent',counts.urgent||0)+repairHealthMetric('Recommended',counts.recommended||0)+repairHealthMetric('Informational',counts.informational||0)+repairHealthMetric('Healthy',counts.healthy||0);
+- if(findings)findings.innerHTML=(report.findings||[]).map(item=>{let proof=(item.evidence||[]).slice(0,12).join('\n')||'No extra evidence recorded.';return `<div class=repairFinding><div class=repairFindingHead><h4>${esc(item.title||item.id)}</h4><span class="repairSeverity ${esc(item.severity||'informational')}">${esc(item.severity||'informational')}</span></div><p>${esc(item.summary||'')}</p><div class=repairEvidence>${esc(proof)}</div><div class=repairSuggested><strong>Suggested next step:</strong> ${esc(item.suggested_action||'No action required.')}</div></div>`}).join('')||'<div class=repairHealthEmpty>No findings were returned.</div>';
++ if(findings)findings.innerHTML=(report.findings||[]).map(item=>{let proof=(item.evidence||[]).slice(0,12).join('\n')||'No extra evidence recorded.',review=item.severity==='urgent'||item.severity==='recommended';return `<div class=repairFinding><div class=repairFindingHead><h4>${esc(item.title||item.id)}</h4><span class="repairSeverity ${esc(item.severity||'informational')}">${esc(item.severity||'informational')}</span></div><p>${esc(item.summary||'')}</p><div class=repairEvidence>${esc(proof)}</div><div class=repairSuggested><strong>Suggested next step:</strong> ${esc(item.suggested_action||'No action required.')}</div>${review?`<div class=repairFindingActions><button onclick="prepareRepairHandoff('${js(item.id)}','advanced',false)">Prepare Engineer Handoff</button></div>`:''}</div>`}).join('')||'<div class=repairHealthEmpty>No findings were returned.</div>';
+  let steps=report.proposed_repair_plan?.steps||[];
+  if(plan)plan.textContent=steps.length?steps.map((step,index)=>`${index+1}. [${String(step.priority||'').toUpperCase()}] ${step.title}\n   Proposal: ${step.proposed_action}\n   Approval required: ${step.approval_required?'YES':'NO'} • Backup required: ${step.backup_required?'YES':'NO'} • Status: ${step.status}`).join('\n\n'):'No repair steps are proposed from this scan. Nothing was changed.';
+ }
+@@ -12249,6 +12309,7 @@
+         if path=='/api/command_center/dashboard_card': self.js(command_center_dashboard_card_report(d)); return
+         if path=='/api/command_center/detail': self.js(command_center_detail_report(d)); return
+         if path=='/api/command_center/foundation': self.js(command_center_foundation_report(d)); return
++        if path=='/api/repair/handoff': self.js(repair_bay_prepare_handoff(d)); return
+         if path=='/api/repair/health_scan': self.js(repair_bay_health_scan(d)); return
+         if path=='/api/repair/launcher_index': self.js(repair_bay_launcher_index(d)); return
+         if path=='/api/repair/milestone_freeze': self.js(repair_shop_milestone_freeze_report(d)); return
+@@ -14719,6 +14780,69 @@
+         'validation':validation
+     }
+ 
++
++
++def repair_bay_prepare_handoff(d=None):
++    request=d or {}
++    finding_id=str(request.get('finding_id') or '').strip()
++    level=str(request.get('level') or 'guided').strip().lower()
++    mode=str(request.get('mode') or 'full').strip().lower()
++    full_only={'full_python_syntax','configuration_json','zero_byte_live_files','log_growth','root_launcher_inventory'}
++    if finding_id in full_only:
++        mode='full'
++    if mode not in {'quick','full'}:
++        mode='full'
++    try:
++        from core.repair_bay_diagnostics import run_repair_bay_scan
++        from core.repair_bay_handoff import build_repair_handoff
++        report=run_repair_bay_scan(
++            ROOT,
++            mode=mode,
++            context={
++                'interface':'WebUI',
++                'active_project':active_project or '',
++                'operator':'local',
++                'purpose':'guarded_repair_handoff',
++            },
++        )
++        scan_safety=report.get('safety') or {}
++        if not report.get('read_only') or bool(scan_safety.get('network_used')) or bool(scan_safety.get('commands_run')) or int(scan_safety.get('files_written') or 0)!=0 or int(scan_safety.get('repairs_applied') or 0)!=0:
++            return {'ok':False,'message':'Guarded handoff blocked because the grounding scan did not verify read-only safety.','read_only':True,'changes_applied':0,'mission_staged':False}
++        packet=build_repair_handoff(ROOT,report,finding_id,level=level)
++        safety=packet.get('safety_limits') or {}
++        checks=[
++            {'id':'read_only','ok':bool(packet.get('read_only')),'message':'Handoff preparation was read-only.'},
++            {'id':'no_changes','ok':int(packet.get('changes_applied') or 0)==0,'message':'No repair or project change was applied.'},
++            {'id':'mission_not_staged','ok':not bool(packet.get('mission_staged')),'message':'Mission Console review is required before staging.'},
++            {'id':'implementation_not_authorized','ok':not bool(packet.get('implementation_authorized')),'message':'The handoff does not authorize implementation.'},
++            {'id':'no_network','ok':not bool(safety.get('network_allowed')),'message':'The proposed planning mission forbids network use.'},
++            {'id':'no_auto_apply','ok':not bool(safety.get('automatic_apply_allowed')),'message':'Automatic application is forbidden.'},
++        ]
++        verified=bool(packet.get('ok')) and all(item['ok'] for item in checks)
++        packet['receipt']=make_tool_receipt(
++            'repair_bay.guarded_handoff',
++            'verified' if verified else 'blocked',
++            checks=checks,
++            details={
++                'finding_id':(packet.get('finding') or {}).get('id'),
++                'eligible':bool(packet.get('eligible')),
++                'repair_kind':packet.get('repair_kind'),
++                'affected_paths':len(packet.get('affected_paths') or []),
++                'implementation_authorized':False,
++            },
++            actor='operator',
++        )
++        packet['claim_state']='verified' if verified else 'blocked'
++        return packet
++    except Exception as exc:
++        return {
++            'ok':False,
++            'message':f'Guarded repair handoff failed closed: {type(exc).__name__}: {exc}',
++            'read_only':True,
++            'changes_applied':0,
++            'mission_staged':False,
++            'implementation_authorized':False,
++        }
+ 
+ 
+ def repair_bay_launcher_index(d=None):
+--- /dev/null
++++ b/core/repair_bay_handoff.py
+@@ -0,0 +1,321 @@
++from __future__ import annotations
++
++import hashlib
++import json
++import re
++from pathlib import Path
++from typing import Any, Iterable
++
++SCHEMA = "foxai.repair_bay.guarded_handoff.v2"
++MAX_EVIDENCE_ITEMS = 12
++MAX_AFFECTED_PATHS = 24
++
++SUPPORTED_FINDINGS: dict[str, dict[str, Any]] = {
++    "known_good_launchers": {
++        "repair_kind": "restore_known_good_launcher",
++        "label": "Restore one missing or empty known-good launcher",
++        "backup_required": True,
++        "path_required": True,
++    },
++    "essential_components": {
++        "repair_kind": "restore_known_good_component",
++        "label": "Restore one clearly identified missing FOXAI component",
++        "backup_required": True,
++        "path_required": True,
++    },
++    "key_source_syntax": {
++        "repair_kind": "correct_python_exact_diff",
++        "label": "Correct one damaged key Python file through an exact diff",
++        "backup_required": True,
++        "path_required": True,
++    },
++    "full_python_syntax": {
++        "repair_kind": "correct_python_exact_diff",
++        "label": "Correct damaged Python through exact per-file diffs",
++        "backup_required": True,
++        "path_required": True,
++    },
++    "configuration_json": {
++        "repair_kind": "correct_json_exact_diff",
++        "label": "Correct one invalid JSON configuration through an exact diff",
++        "backup_required": True,
++        "path_required": True,
++    },
++    "zero_byte_live_files": {
++        "repair_kind": "restore_empty_known_good_file",
++        "label": "Restore one suspicious empty live file from verified evidence",
++        "backup_required": True,
++        "path_required": True,
++    },
++    "log_growth": {
++        "repair_kind": "prepare_reversible_log_archive_plan",
++        "label": "Prepare a reversible log archive plan",
++        "backup_required": True,
++        "path_required": False,
++    },
++    "root_launcher_inventory": {
++        "repair_kind": "prepare_reversible_launcher_archive_plan",
++        "label": "Prepare a reversible launcher archive plan",
++        "backup_required": True,
++        "path_required": False,
++    },
++}
++
++PROTECTED_PARTS = {
++    ".ssh", ".gnupg", ".aws", ".azure", ".kube",
++    "credentials", "credential", "secrets", "secret", "vault", "keys", "key",
++}
++PATH_EXTENSIONS = (
++    "bat", "cmd", "ps1", "py", "json", "yaml", "yml", "toml", "ini", "cfg",
++    "conf", "txt", "md", "log", "sqlite", "sqlite3", "db", "exe", "dll", "zip",
++)
++PATH_RE = re.compile(
++    r"(?i)(?:(?:[A-Z]:[\\/])|(?:[A-Za-z0-9_.() -]+[\\/])+)[^<>\"|\r\n:*?]+\."
++    r"(?:" + "|".join(PATH_EXTENSIONS) + r")"
++)
++BARE_PATH_RE = re.compile(
++    r"(?i)(?<![A-Za-z0-9_.-])([A-Za-z0-9_.() -]+\.(?:"
++    + "|".join(PATH_EXTENSIONS)
++    + r"))(?![A-Za-z0-9_.-])"
++)
++
++
++def _clean(value: Any, limit: int = 1600) -> str:
++    text = " ".join(str(value or "").replace("\x00", " ").split())
++    return text[:limit]
++
++
++def _safe_title(value: Any) -> str:
++    text = _clean(value, 100)
++    text = re.sub(r"[^A-Za-z0-9 _().,'’&+\-—]", "", text).strip(" .-")
++    return text or "Repair Bay finding"
++
++
++def _inside_root(root: Path, candidate: Path) -> bool:
++    try:
++        resolved_root = root.resolve()
++        resolved = candidate.resolve(strict=False)
++        return resolved == resolved_root or resolved_root in resolved.parents
++    except Exception:
++        return False
++
++
++def _protected(relative: str) -> bool:
++    parts = {part.casefold() for part in re.split(r"[\\/]", relative) if part}
++    return bool(parts.intersection(PROTECTED_PARTS))
++
++
++def _normalize_candidate(root: Path, raw: str) -> str | None:
++    value = raw.strip().strip("'\"`()[]{}<>,;")
++    value = re.sub(r"\s+\((?:missing|empty|invalid|damaged)\)$", "", value, flags=re.I)
++    if not value:
++        return None
++    try:
++        path = Path(value)
++        if not path.is_absolute():
++            path = root / value.replace("\\", "/")
++        if not _inside_root(root, path):
++            return None
++        relative = str(path.resolve(strict=False).relative_to(root.resolve())).replace("\\", "/")
++    except Exception:
++        return None
++    if not relative or relative == "." or _protected(relative):
++        return None
++    return relative
++
++
++def _paths_from_text(root: Path, values: Iterable[Any]) -> list[str]:
++    result: list[str] = []
++    seen: set[str] = set()
++    root_text = str(root)
++    for value in values:
++        text = str(value or "")
++        candidates = [match.group(0) for match in PATH_RE.finditer(text)]
++        candidates.extend(match.group(1) for match in BARE_PATH_RE.finditer(text))
++        # Evidence sometimes contains a plain root-relative path with no extension.
++        if root_text and root_text in text:
++            tail = text[text.index(root_text):].split(" | ", 1)[0]
++            candidates.append(tail)
++        for candidate in candidates:
++            normalized = _normalize_candidate(root, candidate)
++            if normalized and normalized.casefold() not in seen:
++                seen.add(normalized.casefold())
++                result.append(normalized)
++                if len(result) >= MAX_AFFECTED_PATHS:
++                    return result
++    return result
++
++
++def _finding_paths(root: Path, report: dict[str, Any], finding: dict[str, Any]) -> list[str]:
++    finding_id = str(finding.get("id") or "")
++    evidence = list(finding.get("evidence") or [])
++    paths = _paths_from_text(root, evidence)
++
++    report_evidence = report.get("evidence") or {}
++    if finding_id == "root_launcher_inventory":
++        inventory = report_evidence.get("launcher_inventory") or {}
++        protected_names = {
++            str(item.get("name") or "").casefold()
++            for item in ((inventory.get("protected_baseline") or {}).get("root") or [])
++        }
++        for item in inventory.get("obsolete_looking_candidates") or []:
++            name = str(item.get("name") or "").strip()
++            if not name or name.casefold() in protected_names:
++                continue
++            normalized = _normalize_candidate(root, name)
++            if normalized and normalized not in paths:
++                paths.append(normalized)
++                if len(paths) >= MAX_AFFECTED_PATHS:
++                    break
++
++    if finding_id == "log_growth" and not paths:
++        logs = root / "Logs"
++        if logs.exists():
++            paths.append("Logs")
++
++    return paths[:MAX_AFFECTED_PATHS]
++
++
++def _support_decision(finding: dict[str, Any], paths: list[str]) -> tuple[bool, str, dict[str, Any] | None]:
++    finding_id = str(finding.get("id") or "")
++    severity = str(finding.get("severity") or "informational").casefold()
++    profile = SUPPORTED_FINDINGS.get(finding_id)
++    if severity not in {"urgent", "recommended"}:
++        return False, "Only urgent or recommended findings can request an exact repair plan.", profile
++    if profile is None:
++        return False, "This finding is advisory or too broad for the initial guarded repair set.", None
++    if profile.get("path_required") and not paths:
++        return False, "The finding does not identify a bounded FOXAI path clearly enough for an exact plan.", profile
++    return True, "This finding fits the initial bounded low-risk planning set.", profile
++
++
++def _command_text(packet: dict[str, Any]) -> str:
++    finding = packet["finding"]
++    paths = packet.get("affected_paths") or []
++    evidence = packet.get("technical_evidence") or []
++    if packet.get("eligible"):
++        path_text = ", ".join(paths) if paths else "No path may be changed until Engineer resolves it from verified evidence."
++        evidence_text = " | ".join(evidence[:6]) or "No additional evidence supplied."
++        return (
++            f"/engineer workshop begin Repair Bay Plan — {_safe_title(finding.get('title'))} :: "
++            "Prepare a reviewable exact repair plan only. This authorizes read-only inspection and plan preparation, "
++            "not implementation. Do not apply, move, rename, delete, install, restart, run repair commands, or use the network. "
++            f"Finding ID: {_clean(finding.get('id'), 80)}. Severity: {_clean(finding.get('severity'), 30)}. "
++            f"Plain explanation: {_clean(packet.get('plain_english_explanation'), 600)}. "
++            f"Proposed action: {_clean(packet.get('proposed_action'), 600)}. "
++            f"Affected FOXAI paths: {_clean(path_text, 1200)}. "
++            f"Technical evidence: {_clean(evidence_text, 1400)}. "
++            "The plan must use exact before hashes, a targeted snapshot, explicit later APPLY approval, validation, rollback protection, "
++            "and a final receipt. Unsupported or uncertain paths must remain advisory."
++        )
++    return (
++        f"/engineer Analyze this Repair Bay finding read-only and explain safe options. Do not prepare or apply a repair unless the "
++        f"finding becomes clearly bounded by verified evidence. Finding ID: {_clean(finding.get('id'), 80)}. "
++        f"Title: {_safe_title(finding.get('title'))}. Severity: {_clean(finding.get('severity'), 30)}. "
++        f"Explanation: {_clean(packet.get('plain_english_explanation'), 700)}. "
++        f"Evidence: {_clean(' | '.join(packet.get('technical_evidence') or []) or 'No additional evidence.', 1500)}"
++    )
++
++
++def build_repair_handoff(
++    root: str | Path,
++    report: dict[str, Any],
++    finding_id: str | None = None,
++    *,
++    level: str = "guided",
++) -> dict[str, Any]:
++    root_path = Path(root)
++    findings = list(report.get("findings") or [])
++    selected = None
++    requested = str(finding_id or "").strip()
++    if requested:
++        selected = next((item for item in findings if str(item.get("id") or "") == requested), None)
++    if selected is None:
++        selected = next(
++            (item for item in findings if str(item.get("severity") or "") == "urgent"),
++            None,
++        ) or next(
++            (item for item in findings if str(item.get("severity") or "") == "recommended"),
++            None,
++        )
++    if selected is None:
++        return {
++            "ok": False,
++            "schema": SCHEMA,
++            "message": "No urgent or recommended Repair Bay finding is available for handoff.",
++            "read_only": True,
++            "changes_applied": 0,
++            "mission_staged": False,
++        }
++
++    evidence = [_clean(item, 900) for item in list(selected.get("evidence") or [])[:MAX_EVIDENCE_ITEMS]]
++    paths = _finding_paths(root_path, report, selected)
++    eligible, reason, profile = _support_decision(selected, paths)
++    finding = {
++        "id": _clean(selected.get("id"), 100),
++        "title": _safe_title(selected.get("title") or selected.get("id")),
++        "severity": _clean(selected.get("severity"), 30).casefold(),
++    }
++    plain = _clean(selected.get("summary") or "Repair Bay found an item that deserves review.", 1200)
++    proposed = _clean(selected.get("suggested_action") or "Review the evidence before any change.", 1200)
++    packet: dict[str, Any] = {
++        "ok": True,
++        "schema": SCHEMA,
++        "version": "2.0",
++        "level": "advanced" if str(level).casefold() == "advanced" else "guided",
++        "read_only": True,
++        "eligible": eligible,
++        "status": "ready_for_engineer_review" if eligible else "advisory_only",
++        "eligibility_reason": reason,
++        "finding": finding,
++        "plain_english_explanation": plain,
++        "technical_evidence": evidence,
++        "affected_paths": paths,
++        "proposed_action": proposed,
++        "repair_kind": profile.get("repair_kind") if profile else None,
++        "repair_label": profile.get("label") if profile else "Advisory review only",
++        "backup_required": bool(profile and profile.get("backup_required")),
++        "safety_limits": {
++            "repair_bay_may_modify": False,
++            "mission_staged": False,
++            "exact_plan_created": False,
++            "network_allowed": False,
++            "commands_allowed": False,
++            "restart_allowed": False,
++            "install_allowed": False,
++            "delete_allowed": False,
++            "move_allowed": False,
++            "rename_allowed": False,
++            "automatic_apply_allowed": False,
++        },
++        "exact_plan_requirements": [
++            "Resolve every affected path from verified evidence.",
++            "Show exact before hashes and the complete proposed diff or move list.",
++            "Create a targeted snapshot before any later implementation.",
++            "Require a separate exact APPLY hash and explicit operator approval.",
++            "Validate the result and roll back automatically on failure.",
++            "Preserve a final receipt with before-and-after evidence.",
++        ],
++        "changes_applied": 0,
++        "mission_staged": False,
++        "operator_next_step": (
++            "Review the handoff in Mission Console and press Send to stage a planning mission."
++            if eligible
++            else "Review the advisory explanation in Mission Console; no exact repair plan is authorized."
++        ),
++    }
++    packet["engineer_command"] = _command_text(packet)
++    packet["implementation_authorized"] = False
++    packet["handoff_id"] = hashlib.sha256(
++        json.dumps(
++            {
++                "finding": finding,
++                "paths": paths,
++                "repair_kind": packet.get("repair_kind"),
++                "command": packet["engineer_command"],
++            },
++            ensure_ascii=False,
++            sort_keys=True,
++        ).encode("utf-8")
++    ).hexdigest()[:20]
++    return packet
+--- a/core/VERIFY_REPAIR_BAY_V1.py
++++ b/core/VERIFY_REPAIR_BAY_V1.py
+@@ -14,6 +14,7 @@
+ 
+ import core.repair_bay_diagnostics as diagnostics
+ from core.repair_bay_diagnostics import SEVERITIES, run_launcher_index, run_repair_bay_scan
++from core.repair_bay_handoff import build_repair_handoff
+ 
+ 
+ def tree_snapshot(root: Path) -> dict[str, dict[str, int | str]]:
+@@ -296,6 +297,93 @@
+     finally:
+         diagnostics._windows_pending_reboot = original_reboot
+ 
++    handoff_before = tree_snapshot(root)
++    supported_report = {
++        "read_only": True,
++        "safety": {"network_used": False, "commands_run": False, "files_written": 0, "repairs_applied": 0},
++        "findings": [
++            {
++                "id": "known_good_launchers",
++                "title": "Known-good launchers",
++                "severity": "recommended",
++                "summary": "A protected launcher is missing.",
++                "suggested_action": "Restore only the affected launcher from verified evidence.",
++                "evidence": ["Missing: START_FOXAI_WEB_WITH_COMFYUI.bat"],
++            }
++        ],
++        "evidence": {},
++    }
++    supported = build_repair_handoff(root, supported_report, "known_good_launchers", level="guided")
++    assert supported["ok"] is True
++    assert supported["eligible"] is True, supported
++    assert supported["status"] == "ready_for_engineer_review"
++    assert supported["repair_kind"] == "restore_known_good_launcher"
++    assert supported["affected_paths"] == ["START_FOXAI_WEB_WITH_COMFYUI.bat"], supported
++    assert supported["backup_required"] is True
++    assert supported["implementation_authorized"] is False
++    assert supported["changes_applied"] == 0
++    assert supported["mission_staged"] is False
++    assert "/engineer workshop begin Repair Bay Plan" in supported["engineer_command"]
++    assert "not implementation" in supported["engineer_command"]
++    assert "Do not apply" in supported["engineer_command"]
++    assert ":: APPLY" not in supported["engineer_command"]
++    assert "workshop apply" not in supported["engineer_command"].casefold()
++
++    advisory_report = {
++        "read_only": True,
++        "safety": {"network_used": False, "commands_run": False, "files_written": 0, "repairs_applied": 0},
++        "findings": [
++            {
++                "id": "bibliotheca_database",
++                "title": "Bibliotheca database integrity",
++                "severity": "urgent",
++                "summary": "The database needs specialist review.",
++                "suggested_action": "Preserve the database before recovery review.",
++                "evidence": ["KAYOCKS_STUDY_BIBLIOTHECA_V1/Data/bibliotheca.sqlite3"],
++            }
++        ],
++        "evidence": {},
++    }
++    advisory = build_repair_handoff(root, advisory_report, "bibliotheca_database", level="advanced")
++    assert advisory["ok"] is True
++    assert advisory["eligible"] is False
++    assert advisory["status"] == "advisory_only"
++    assert advisory["repair_kind"] is None
++    assert advisory["implementation_authorized"] is False
++    assert advisory["engineer_command"].startswith("/engineer Analyze")
++
++    launcher_report = {
++        "read_only": True,
++        "safety": {"network_used": False, "commands_run": False, "files_written": 0, "repairs_applied": 0},
++        "findings": [
++            {
++                "id": "root_launcher_inventory",
++                "title": "FOXAI launcher map and protected baseline",
++                "severity": "recommended",
++                "summary": "Two low-confidence legacy candidates deserve manual review.",
++                "suggested_action": "Prepare a reversible archive plan only.",
++                "evidence": [],
++            }
++        ],
++        "evidence": {
++            "launcher_inventory": {
++                "protected_baseline": {"root": [{"name": "PUSH_TO_GITHUB.bat"}]},
++                "obsolete_looking_candidates": [
++                    {"name": "OLD_UNUSED_COPY.bat"},
++                    {"name": "start FoxAI 3 Alpha.bat"},
++                    {"name": "PUSH_TO_GITHUB.bat"},
++                ],
++            }
++        },
++    }
++    launcher_handoff = build_repair_handoff(root, launcher_report, "root_launcher_inventory", level="advanced")
++    assert launcher_handoff["eligible"] is True, launcher_handoff
++    assert launcher_handoff["repair_kind"] == "prepare_reversible_launcher_archive_plan"
++    assert "OLD_UNUSED_COPY.bat" in launcher_handoff["affected_paths"]
++    assert "start FoxAI 3 Alpha.bat" in launcher_handoff["affected_paths"]
++    assert "PUSH_TO_GITHUB.bat" not in launcher_handoff["affected_paths"]
++    assert handoff_before == tree_snapshot(root), "Guarded handoff modified fixture files."
++
+     live_web = PROJECT_ROOT / "core" / "foxai_web.py"
+     assert live_web.is_file(), live_web
+     web_text = live_web.read_text(encoding="utf-8")
+@@ -322,6 +410,15 @@
+         "renderRepairCalmView",
+         "Nothing repairs itself silently",
+         "No repair actions are available from this screen",
++        "REPAIR_BAY_GUARDED_HANDOFF_V2_HTML_START",
++        "Guarded Repair Handoff",
++        "Ask Engineer to Prepare a Fix",
++        "Prepare Exact Repair Plan",
++        "openRepairHandoffInMission",
++        "/api/repair/handoff",
++        "def repair_bay_prepare_handoff",
++        "from core.repair_bay_handoff import build_repair_handoff",
++        "implementation_not_authorized",
+     ):
+         assert marker in web_text, marker
+ 
+@@ -334,6 +431,16 @@
+     assert "<summary>Self-Repair Bay — Advanced</summary>" in repair_section
+     assert "onclick=\"runRepairHealthScan('quick')\"" in repair_section
+     assert "onclick=\"runRepairHealthScan('full')\"" in repair_section
++    assert repair_section.index("repairHandoffCard") < repair_section.index("repairLauncherCard")
++    assert "Ask Engineer to Prepare a Fix" not in repair_section.split("repairCalmAttention", 1)[0]
++    assert "Prepare Exact Repair Plan" in repair_section
++    assert "Open in Mission Console" in repair_section
++    assert "Repair Bay itself cannot repair anything" in repair_section
++
++    handoff_function = web_text.split("function openRepairHandoffInMission()", 1)[1].split("/* REPAIR_BAY_GUARDED_HANDOFF_V2_BROWSER_END */", 1)[0]
++    assert "requestNonStreamingChat" not in handoff_function
++    assert "/api/chat/send" not in handoff_function
++    assert "q('input')" in handoff_function
+ 
+     full_ids = {item["id"] for item in full["findings"]}
+     for required in {
+@@ -370,7 +477,7 @@
+ 
+     result = {
+         "ok": True,
+-        "schema": "foxai.repair_bay.v1_4.verification",
++        "schema": "foxai.repair_bay.v2.verification",
+         "quick_checks": quick["summary"]["checks"],
+         "full_checks": full["summary"]["checks"],
+         "launcher_contents_parsed": len(inventory["items"]),
+@@ -397,6 +504,12 @@
+         "scan_details_progressive_disclosure_verified": True,
+         "self_repair_bay_advanced_verified": True,
+         "advanced_controls_closed_by_default_verified": True,
++        "guarded_repair_handoff_verified": True,
++        "supported_low_risk_planning_verified": True,
++        "unsupported_findings_advisory_verified": True,
++        "implementation_authorization_false_verified": True,
++        "mission_console_review_before_stage_verified": True,
++        "handoff_tree_unchanged": True,
+         "healthy_guidance_corrected": True,
+         "empty_init_recognized_as_valid": True,
+         "rename_only_restart_marker_informational": True,

@@ -1,0 +1,210 @@
+--- a/core/foxai_web.py
++++ b/core/foxai_web.py
+@@ -1318,6 +1318,11 @@
+ .repairLauncherCard{border-color:#8f5cff45;background:radial-gradient(circle at 100% 0,#8f5cff12,transparent 40%),linear-gradient(180deg,#131425,#0d1019)}.repairLauncherToolbar{display:grid;grid-template-columns:minmax(180px,1.5fr) repeat(4,minmax(125px,.8fr));gap:8px;margin:13px 0}.repairLauncherToolbar input,.repairLauncherToolbar select{width:100%;border:1px solid #8f5cff46;border-radius:10px;background:#080a12;color:#f2edff;padding:9px 10px}.repairLauncherMetrics{display:grid;grid-template-columns:repeat(5,minmax(105px,1fr));gap:8px;margin:12px 0}.repairLauncherFrontDoors{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:8px;margin:10px 0}.repairFrontDoor{border:1px solid #42ff9e43;border-radius:12px;background:#071510;padding:10px}.repairFrontDoor strong{display:block}.repairFrontDoor span{display:block;color:var(--m);font-size:11px;margin-top:4px}.repairLauncherList{display:grid;gap:9px}.repairLauncherItem{border:1px solid #8f5cff2f;border-radius:13px;background:#080a12;padding:11px}.repairLauncherItem summary{cursor:pointer;list-style:none}.repairLauncherItem summary::-webkit-details-marker{display:none}.repairLauncherRow{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.repairLauncherName{font:700 12px/1.35 Consolas,monospace;overflow-wrap:anywhere;margin-right:auto}.repairLauncherPurpose{color:#e9e3f5;margin:7px 0;line-height:1.4}.repairLauncherMeta{display:flex;gap:6px;flex-wrap:wrap}.repairLauncherTag{border:1px solid #8f5cff4f;border-radius:999px;padding:2px 7px;font:10px Consolas,monospace;color:#d9cfff}.repairLauncherTag.protected{border-color:#42ff9e66;color:#bfffe0}.repairLauncherTag.unresolved{border-color:#ffd16677;color:#ffe3a1}.repairLauncherTag.duplicate{border-color:#ff8ac777;color:#ffc9e7}.repairLauncherDetails{white-space:pre-wrap;font:11px/1.5 Consolas,monospace;color:var(--m);background:#05070d;border-radius:10px;padding:9px;margin-top:9px}.repairLauncherEmpty{color:var(--m);padding:13px;border:1px dashed #8f5cff45;border-radius:12px}@media(max-width:1050px){.repairLauncherToolbar{grid-template-columns:repeat(2,minmax(140px,1fr))}.repairLauncherMetrics{grid-template-columns:repeat(3,minmax(105px,1fr))}}@media(max-width:620px){.repairLauncherToolbar{grid-template-columns:1fr}.repairLauncherMetrics{grid-template-columns:repeat(2,minmax(105px,1fr))}}
+ @media(max-width:1180px){.repairGuidedGrid{grid-template-columns:repeat(2,minmax(240px,1fr))}.repairTrustStrip{grid-template-columns:repeat(2,minmax(200px,1fr))}}
+ @media(max-width:800px){.repairGuidedGrid,.repairTrustStrip{grid-template-columns:1fr}.repairStatusCard{grid-template-columns:1fr}.repairStatusActions{justify-content:flex-start}}
++
++/* REPAIR_BAY_CALM_GUIDED_V1_4_START */
++.repairCalmShell{margin-bottom:16px}.repairCalmCard{border:1px solid #42ff9e4d;background:radial-gradient(circle at 0 0,#42ff9e16,transparent 44%),linear-gradient(180deg,#131a1b,#0d1116);border-radius:22px;padding:22px}.repairCalmHead{display:flex;gap:12px;align-items:flex-start;flex-wrap:wrap}.repairCalmHead>div{flex:1;min-width:240px}.repairCalmHead h3{margin:0 0 7px;font-size:28px;color:#fff}.repairCalmHead p{margin:0;color:var(--m);font-size:15px;line-height:1.52;max-width:820px}.repairCalmBadge{display:inline-flex;align-items:center;justify-content:center;border:1px solid #42ff9e66;border-radius:999px;padding:6px 11px;font:800 11px Consolas,monospace;letter-spacing:.06em;color:#bfffe0;background:#42ff9e0b}.repairCalmBadge.attention{border-color:#ffd16677;color:#ffe3a1;background:#ffd1660b}.repairCalmBadge.urgent{border-color:#ff4d6d88;color:#ffb0bd;background:#ff4d6d0b}.repairCalmActions{display:flex;gap:9px;flex-wrap:wrap;margin:18px 0 12px}.repairCalmActions button:first-child{min-width:190px}.repairCalmAttention{display:grid;gap:10px;margin:14px 0}.repairCalmItem{border:1px solid #ffd16645;border-radius:15px;background:#ffd16608;padding:14px}.repairCalmItem.urgent{border-color:#ff4d6d55;background:#ff4d6d08}.repairCalmItem h4{margin:0 0 5px;font-size:17px}.repairCalmItem p{margin:0;color:#e9e3f5;line-height:1.48}.repairCalmItem .repairCalmItemAction{margin-top:8px;color:#f3dfaa;font-size:13px}.repairCalmEmpty{border:1px solid #42ff9e35;border-radius:15px;background:#42ff9e08;padding:14px;color:#d8ffea}.repairCalmNext{display:grid;grid-template-columns:150px 1fr;gap:10px;border-top:1px solid #42ff9e25;padding-top:13px;margin-top:13px}.repairCalmNext strong{color:#bfffe0}.repairCalmNext span{color:#f1edf6;line-height:1.45}.repairCalmSafety{margin-top:12px;color:var(--m);font-size:12px}.repairSimpleDetails,.repairAdvancedView{border:1px solid #8f5cff2f;border-radius:18px;background:#0b0d16;margin-bottom:16px;overflow:hidden}.repairSimpleDetails>summary,.repairAdvancedView>summary{cursor:pointer;list-style:none;padding:15px 18px;font-weight:900;color:#d8d1e8}.repairSimpleDetails>summary::-webkit-details-marker,.repairAdvancedView>summary::-webkit-details-marker{display:none}.repairSimpleDetails>summary:after,.repairAdvancedView>summary:after{content:'Show';float:right;color:var(--m);font:11px Consolas,monospace}.repairSimpleDetails[open]>summary:after,.repairAdvancedView[open]>summary:after{content:'Hide'}.repairSimpleBody,.repairAdvancedViewBody{padding:0 16px 16px}.repairGuidedIntro{color:var(--m);line-height:1.45;margin:0 0 14px}.repairAdvancedView .repairLauncherCard,.repairAdvancedView .repairStatusCard,.repairAdvancedView .repairSafetyNote,.repairAdvancedView .repairAdvancedTools{margin-top:14px}.repairAdvancedView .repairGuidedGrid{margin-top:14px}
++@media(max-width:700px){.repairCalmCard{padding:17px}.repairCalmHead h3{font-size:24px}.repairCalmNext{grid-template-columns:1fr}.repairCalmActions button{width:100%}}
++/* REPAIR_BAY_CALM_GUIDED_V1_4_END */
+ /* REPAIR_BAY_GUIDED_CLEANUP_V1_END */
+ 
+ /* KAYOCK_WRITER_GUIDED_CLEANUP_V1_START */
+@@ -1629,31 +1634,42 @@
+ A success message is shown only after a verified receipt</div></div></div></section>
+ 
+ <section id=repair class=page>
+-<div class=hero><h2>Repair Bay</h2><p>Start with the problem. FOXAI checks first, explains what it found, and changes nothing until you approve the exact repair.</p></div>
++<div class=hero><h2>Repair Bay</h2><p>One clear answer first. Technical evidence stays available when you need it.</p></div>
++<div class=repairCalmShell>
++<div class=repairCalmCard>
++<div class=repairCalmHead><div><h3 id=repairCalmTitle>Ready for a safe check</h3><p id=repairCalmMessage>Repair Bay can check FOXAI and Windows without changing files, settings, services, models, or launchers.</p></div><span id=repairCalmBadge class=repairCalmBadge>READY</span></div>
++<div class=repairCalmActions><button onclick="runRepairHealthScan('quick')">Check My Computer</button><button onclick="runRepairHealthScan('full')">Run a Deeper Check</button><button onclick="openGuidedEngineer()">Ask Engineer</button></div>
++<div id=repairCalmAttention class=repairCalmAttention><div class=repairCalmEmpty>No problems are being reported. Run a check when you are ready.</div></div>
++<div class=repairCalmNext><strong>Best next step</strong><span id=repairCalmNextStep>Run the quick check. It normally takes only a few seconds and changes nothing.</span></div>
++<div id=repairCalmSafety class=repairCalmSafety>Nothing has been scanned or changed yet.</div>
++</div>
++</div>
++<details class=repairSimpleDetails><summary>Show scan details</summary><div class=repairSimpleBody>
++<p class=repairGuidedIntro>These are the counts, individual checks, evidence, and proposal-only steps behind the plain-English summary.</p>
++<div class=repairHealthActions><button onclick="runRepairHealthScan('quick')">Quick Health Scan</button><button onclick="runRepairHealthScan('full')">Full Read-Only Scan</button><button onclick="sendRepairHealthScanToMission()">Send Findings to Mission</button></div>
++<div id=repairHealthScanStatus class=repairHealthScanStatus>No health scan has run yet.</div>
++<div id=repairHealthSummary class=repairHealthSummary></div>
++<div id=repairHealthFindings class=repairHealthFindings><div class=repairHealthEmpty>Run a check to view the complete technical report.</div></div>
++<details class=repairPlanDetails><summary>Proposed repair plan — review only</summary><div id=repairHealthPlan class=repairPlanBox>No proposed plan yet. Repair Bay does not apply repairs.</div></details>
++</div></details>
++<details class=repairAdvancedView><summary>Self-Repair Bay — Advanced</summary><div class=repairAdvancedViewBody>
++<p class=repairGuidedIntro>For experienced users: full evidence, launcher mapping, engineering tools, and proposal-only repair controls. Nothing repairs itself silently; any real change still requires an exact plan, snapshot, approval, validation, and receipt.</p>
+ <div class=repairTrustStrip>
+ <div class=repairTrustStep><strong>1. Check read-only</strong><span>Inspect status, files, projects, or the selected system area without changing it.</span></div>
+ <div class=repairTrustStep><strong>2. Explain findings</strong><span>Plain-language results first, with technical evidence available when needed.</span></div>
+-<div class=repairTrustStep><strong>3. Preview the repair</strong><span>Show the exact files, commands, backup, risk, and expected result before approval.</span></div>
++<div class=repairTrustStep><strong>3. Preview the repair</strong><span>Show exact files, commands, backup, risk, and expected result before approval.</span></div>
+ <div class=repairTrustStep><strong>4. Verify and receipt</strong><span>Apply only after approval, then confirm the result and preserve a before-and-after record.</span></div>
+ </div>
+ <div class=repairGuidedGrid>
+ <div class="repairTaskCard check"><div class=repairTaskIcon>🩺</div><h3>Check FOXAI Status</h3><p>Refresh the current engine, model, library, project, and Creative Studio status without changing anything.</p><button onclick="refreshRepairBayStatus()">Run Read-Only Check</button></div>
+-<div class="repairTaskCard engineer"><div class=repairTaskIcon>🧑‍🔧</div><h3>Explain a Problem</h3><p>Open Engineer in read-only-first mode. Describe what is wrong and get a diagnosis before discussing repairs.</p><button onclick="openGuidedEngineer()">Ask Engineer</button></div>
++<div class="repairTaskCard engineer"><div class=repairTaskIcon>🧑‍🔧</div><h3>Explain a Problem</h3><p>Open Engineer in read-only-first mode and describe what is wrong.</p><button onclick="openGuidedEngineer()">Ask Engineer</button></div>
+ <div class="repairTaskCard scan"><div class=repairTaskIcon>🔎</div><h3>Scan a Project or Folder</h3><p>Inspect an approved location for missing files, broken imports, risky scripts, secrets, or structural problems.</p><button onclick="go('scanbridge')">Open Scan Bridge</button></div>
+-<div class="repairTaskCard review"><div class=repairTaskIcon>📋</div><h3>Review Findings</h3><p>See repair-shop findings, recommendations, status, and supporting evidence before deciding what to do.</p><button onclick="go('repairops')">Open Findings</button></div>
+-<div class="repairTaskCard fix"><div class=repairTaskIcon>🛠️</div><h3>Fix Something Safely</h3><p>Review an exact repair action with backup, approval, verification, and a final receipt.</p><button onclick="go('repairactions')">Open Repair Actions</button></div>
+-<div class="repairTaskCard history"><div class=repairTaskIcon>📜</div><h3>Open Repair History</h3><p>Review prior actions and receipts so you can see what changed, when it changed, and whether it verified.</p><button onclick="go('repairhistory')">Browse History</button></div>
+-</div>
+-<div class="card wide repairHealthScanCard">
+-<div class=repairHealthHead><div><h3>Read-Only Health Scan</h3><p>Run a practical FOXAI and Windows diagnostic without changing files, settings, services, packages, models, or protected areas. Findings are ranked as Urgent, Recommended, Informational, or Healthy. Any repair steps remain proposals only.</p></div><span class="pill ok">NO CHANGES</span></div>
+-<div class=repairHealthActions><button onclick="runRepairHealthScan('quick')">Quick Health Scan</button><button onclick="runRepairHealthScan('full')">Full Read-Only Scan</button><button onclick="sendRepairHealthScanToMission()">Send Findings to Mission</button></div>
+-<div id=repairHealthScanStatus class=repairHealthScanStatus>No health scan has run yet.</div>
+-<div id=repairHealthSummary class=repairHealthSummary></div>
+-<div id=repairHealthFindings class=repairHealthFindings><div class=repairHealthEmpty>Run Quick Health Scan for essentials or Full Read-Only Scan for broader source, configuration, log, launcher, model, database, and recovery checks.</div></div>
+-<details class=repairPlanDetails><summary>Proposed repair plan — review only</summary><div id=repairHealthPlan class=repairPlanBox>No proposed plan yet. Repair Bay V1 never applies repairs.</div></details>
++<div class="repairTaskCard review"><div class=repairTaskIcon>📋</div><h3>Review Findings</h3><p>See repair-shop findings, recommendations, status, and supporting evidence.</p><button onclick="go('repairops')">Open Findings</button></div>
++<div class="repairTaskCard fix"><div class=repairTaskIcon>🛠️</div><h3>Review Repair Actions</h3><p>Review exact proposed actions with backup, approval, verification, and receipts.</p><button onclick="go('repairactions')">Open Repair Actions</button></div>
++<div class="repairTaskCard history"><div class=repairTaskIcon>📜</div><h3>Open Repair History</h3><p>Review prior actions and receipts.</p><button onclick="go('repairhistory')">Browse History</button></div>
+ </div>
+ <div class="card wide repairLauncherCard">
+-<div class=repairHealthHead><div><h3>Launcher Index</h3><p>Search and filter every FOXAI root BAT file by purpose, category, protection, relationships, referenced tools, receipt evidence, duplicate membership, and unresolved reason. This index reads launcher text only and never executes or changes a script.</p></div><span class="pill ok">READ ONLY</span></div>
++<div class=repairHealthHead><div><h3>Launcher Index</h3><p>Search and filter every FOXAI root BAT file. The index reads launcher text only and never executes or changes a script.</p></div><span class="pill ok">READ ONLY</span></div>
+ <div class=repairHealthActions><button onclick="loadRepairLauncherIndex(true)">Load Launcher Index</button><button onclick="clearRepairLauncherFilters()">Clear Filters</button></div>
+ <div id=repairLauncherStatus class=repairHealthScanStatus>Launcher Index has not been loaded yet.</div>
+ <div id=repairLauncherMetrics class=repairLauncherMetrics></div>
+@@ -1671,10 +1687,11 @@
+ <div><h3>Current Readiness</h3><p>This compact view shows whether the main FOXAI services are available. It is status only and performs no repair.</p><div id=repairGuidedStatus class=repairLiveStatus>Waiting for the next read-only status refresh...</div></div>
+ <div class=repairStatusActions><button onclick="refreshRepairBayStatus()">Refresh</button><button onclick="go('foxsentry')">Open Fox Sentry</button><button onclick="api('/api/open/config')">Open Config</button></div>
+ </div>
+-<div class="card wide repairSafetyNote"><strong>Approvals remain visible.</strong> Simplifying Repair Bay does not hide consequences. Any real repair must still show what will change, where the backup goes, what could fail, and the receipt that proves the result.</div>
++<div class="card wide repairSafetyNote"><strong>Approvals remain visible.</strong> Any real repair must still show what will change, where the backup goes, what could fail, and the receipt that proves the result.</div>
+ <details class="card wide repairAdvancedTools"><summary>Engineering and technical tools</summary><div class=repairAdvancedBody>
+ <div class=repairAdvancedGroup><h3>Inspection and readiness</h3><div class=repairAdvancedButtons><button onclick="go('extensions')">Extensions</button><button onclick="go('projectgen')">Project Docs</button><button onclick="go('buildverify')">Build Verify</button><button onclick="go('envverify')">Environment Verify</button><button onclick="go('portable')">Portable Readiness</button><button onclick="go('modelcheck')">Model Check</button></div></div>
+ <div class=repairAdvancedGroup><h3>Repair operations and records</h3><div class=repairAdvancedButtons><button onclick="go('repairdetail')">Action Detail</button><button onclick="go('repairtickets')">Repair Tickets</button><button onclick="go('repairticketdetail')">Ticket Detail</button><button onclick="go('ticketbridge')">Ticket Bridge</button><button onclick="go('repairsession')">Shop Session</button><button onclick="go('repairfreeze')">Milestone Freeze</button></div></div>
++</div></details>
+ </div></details>
+ </section>
+ 
+@@ -2046,10 +2063,52 @@
+ }
+ let lastRepairHealthScan=null;
+ function repairHealthMetric(label,value){return `<div class=repairHealthMetric><div class=label>${esc(label)}</div><div class=value>${esc(value)}</div></div>`}
++/* REPAIR_BAY_CALM_GUIDED_V1_4_BROWSER_START */
++function repairPlainFinding(item){
++ let id=String(item?.id||''),fallback={title:item?.title||'Item to review',explanation:item?.summary||'Repair Bay found something that deserves review.',action:item?.suggested_action||'Review the details before making any change.'};
++ let known={
++  root_launcher_inventory:{title:'FOXAI has many launcher files',explanation:'Nothing is broken. FOXAI has accumulated many old, specialized, and testing launchers. The important launchers are protected and indexed.',action:'Keep using the approved front-door launchers. Review older scripts later through a separate approved plan.'},
++  memory_pressure:{title:'FOXAI is using a lot of memory',explanation:'A large local AI model or another heavy program may be using most of the computer’s memory.',action:'Close an unneeded model or application before starting another heavy task.'},
++  disk_space:{title:'The FOXAI drive is low on free space',explanation:'FOXAI may not have enough room for new models, images, backups, or updates.',action:'Review large files through an approved cleanup plan. Do not delete anything automatically.'},
++  pending_reboot:{title:'Windows may need a normal restart',explanation:'Windows reported a confirmed update or servicing restart request.',action:'Save your work and restart normally when convenient. Repair Bay will not force a restart.'},
++  essential_components:{title:'An important FOXAI part is missing',explanation:'Repair Bay could not find one or more files FOXAI normally needs.',action:'Review the missing item and restore only that exact component from a verified source.'},
++  known_good_launchers:{title:'A main FOXAI launcher needs review',explanation:'One of the protected everyday launchers is missing or empty.',action:'Restore only the affected launcher from its known-good archived baseline.'},
++  key_source_syntax:{title:'A key FOXAI program file may be damaged',explanation:'One of the main Python files could not be read as valid program code.',action:'Compare only the affected file with the latest verified snapshot.'},
++  full_python_syntax:{title:'A FOXAI program file may be damaged',explanation:'One or more live Python files could not be read as valid program code.',action:'Review each affected file separately against a verified snapshot.'},
++  configuration_json:{title:'A FOXAI setting file needs review',explanation:'One or more configuration files could not be read correctly.',action:'Preserve the original and correct only the affected configuration after an exact preview.'},
++  zero_byte_live_files:{title:'An important file may be empty',explanation:'Repair Bay found an empty live file that is not a normal Python package marker.',action:'Confirm the exact path and restore only that file from a verified source.'},
++  bibliotheca_database:{title:'Kayock’s Study database needs review',explanation:'The Bibliotheca database did not pass its read-only integrity check.',action:'Stop Study, preserve the database files, and review the latest verified backup before any repair.'},
++  log_growth:{title:'FOXAI logs are taking unusual space',explanation:'One or more log files have grown large enough to deserve review.',action:'Review and archive logs only through a separate approved cleanup action.'}
++ };
++ return known[id]||fallback;
++}
++function repairCalmViewModel(report){
++ let counts=report?.summary?.counts||{},urgent=Number(counts.urgent||0),recommended=Number(counts.recommended||0);
++ let attention=(report?.findings||[]).filter(item=>item?.severity==='urgent'||item?.severity==='recommended').slice(0,3).map(item=>({...repairPlainFinding(item),severity:item.severity,id:item.id}));
++ let state=urgent?'urgent':recommended?'attention':'healthy';
++ let badge=urgent?'URGENT':recommended?'NEEDS ATTENTION':'HEALTHY';
++ let title=urgent?'This computer needs attention.':recommended===1?'Your computer looks healthy, with one item to review.':recommended>1?`Your computer looks healthy, with ${recommended} items to review.`:'Your computer looks healthy.';
++ let message=urgent?'Repair Bay found a problem that should be reviewed before heavy work continues. Nothing was changed.':recommended?'Nothing appears broken. Repair Bay found a small number of items worth reviewing when convenient.':'No problems were found in the areas Repair Bay checked.';
++ let next=attention.length?attention[0].action:'No action is required. Continue using FOXAI normally.';
++ let info=Number(counts.informational||0);
++ let safety=`Read-only check complete • Network used: ${report?.safety?.network_used?'YES':'NO'} • Repairs applied: ${report?.safety?.repairs_applied||0}`+(info?` • ${info} informational note${info===1?'':'s'} available in details`:'');
++ return {state,badge,title,message,next,attention,safety};
++}
++function renderRepairCalmView(report){
++ let model=repairCalmViewModel(report),badge=q('repairCalmBadge'),attention=q('repairCalmAttention');
++ if(q('repairCalmTitle'))q('repairCalmTitle').textContent=model.title;
++ if(q('repairCalmMessage'))q('repairCalmMessage').textContent=model.message;
++ if(q('repairCalmNextStep'))q('repairCalmNextStep').textContent=model.next;
++ if(q('repairCalmSafety'))q('repairCalmSafety').textContent=model.safety;
++ if(badge){badge.textContent=model.badge;badge.className='repairCalmBadge '+(model.state==='attention'?'attention':model.state==='urgent'?'urgent':'')}
++ if(attention)attention.innerHTML=model.attention.length?model.attention.map(item=>`<div class="repairCalmItem ${esc(item.severity||'')}"><h4>${esc(item.title)}</h4><p>${esc(item.explanation)}</p><div class=repairCalmItemAction><strong>Safe next step:</strong> ${esc(item.action)}</div></div>`).join(''):'<div class=repairCalmEmpty>No problems need your attention.</div>';
++}
++/* REPAIR_BAY_CALM_GUIDED_V1_4_BROWSER_END */
+ function renderRepairHealthScan(report){
+  lastRepairHealthScan=report;
+  let status=q('repairHealthScanStatus'),summary=q('repairHealthSummary'),findings=q('repairHealthFindings'),plan=q('repairHealthPlan');
+  if(!report?.summary){if(status)status.textContent=report?.message||'Health scan failed.';return}
++ renderRepairCalmView(report);
+  let counts=report.summary.counts||{};
+  if(status)status.textContent=`${report.summary.headline}\nMode: ${String(report.mode||'').toUpperCase()} • Checks: ${report.summary.checks||0} • Elapsed: ${report.elapsed_seconds||0}s\nRead-only: ${report.read_only?'YES':'NO'} • Network used: ${report.safety?.network_used?'YES':'NO'} • Repairs applied: ${report.safety?.repairs_applied||0}`;
+  if(summary)summary.innerHTML=repairHealthMetric('Urgent',counts.urgent||0)+repairHealthMetric('Recommended',counts.recommended||0)+repairHealthMetric('Informational',counts.informational||0)+repairHealthMetric('Healthy',counts.healthy||0);
+@@ -2059,6 +2118,9 @@
+ }
+ async function runRepairHealthScan(mode){
+  let status=q('repairHealthScanStatus');if(status)status.textContent=`Running ${mode==='full'?'full':'quick'} read-only health scan...`;
++ if(q('repairCalmTitle'))q('repairCalmTitle').textContent=mode==='full'?'Running a deeper check...':'Checking your computer...';
++ if(q('repairCalmMessage'))q('repairCalmMessage').textContent='Repair Bay is checking read-only. Nothing is being repaired or changed.';
++ if(q('repairCalmSafety'))q('repairCalmSafety').textContent='Check in progress • No repair actions are available from this screen.';
+  try{
+   let report=await api('/api/repair/health_scan',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({mode})});
+   if(!report?.summary){if(status)status.textContent=report?.message||'Health scan failed.';return}
+--- a/core/VERIFY_REPAIR_BAY_V1.py
++++ b/core/VERIFY_REPAIR_BAY_V1.py
+@@ -300,7 +300,7 @@
+     assert live_web.is_file(), live_web
+     web_text = live_web.read_text(encoding="utf-8")
+     for marker in (
+-        "Read-Only Health Scan",
++        "Quick Health Scan",
+         "runRepairHealthScan('quick')",
+         "/api/repair/health_scan",
+         "def repair_bay_health_scan",
+@@ -311,8 +311,29 @@
+         "/api/repair/launcher_index",
+         "def repair_bay_launcher_index",
+         "from core.repair_bay_diagnostics import run_launcher_index",
++        "REPAIR_BAY_CALM_GUIDED_V1_4_START",
++        "Ready for a safe check",
++        "Check My Computer",
++        "Run a Deeper Check",
++        "Show scan details",
++        "Self-Repair Bay — Advanced",
++        "repairPlainFinding",
++        "repairCalmViewModel",
++        "renderRepairCalmView",
++        "Nothing repairs itself silently",
++        "No repair actions are available from this screen",
+     ):
+         assert marker in web_text, marker
++
++    # Calm Repair Bay is the default; expert data stays inside closed details panels.
++    repair_section = web_text.split("<section id=repair class=page>", 1)[1].split("</section>", 1)[0]
++    assert repair_section.index("repairCalmShell") < repair_section.index("repairSimpleDetails")
++    assert repair_section.index("repairSimpleDetails") < repair_section.index("repairAdvancedView")
++    assert "<details class=repairSimpleDetails>" in repair_section
++    assert "<details class=repairAdvancedView>" in repair_section
++    assert "<summary>Self-Repair Bay — Advanced</summary>" in repair_section
++    assert "onclick=\"runRepairHealthScan('quick')\"" in repair_section
++    assert "onclick=\"runRepairHealthScan('full')\"" in repair_section
+ 
+     full_ids = {item["id"] for item in full["findings"]}
+     for required in {
+@@ -349,7 +370,7 @@
+ 
+     result = {
+         "ok": True,
+-        "schema": "foxai.repair_bay.v1_3.verification",
++        "schema": "foxai.repair_bay.v1_4.verification",
+         "quick_checks": quick["summary"]["checks"],
+         "full_checks": full["summary"]["checks"],
+         "launcher_contents_parsed": len(inventory["items"]),
+@@ -371,6 +392,11 @@
+         "unknown_resolution_verified": True,
+         "search_and_filter_metadata_verified": True,
+         "webui_launcher_index_verified": True,
++        "calm_guided_default_verified": True,
++        "plain_english_attention_summary_verified": True,
++        "scan_details_progressive_disclosure_verified": True,
++        "self_repair_bay_advanced_verified": True,
++        "advanced_controls_closed_by_default_verified": True,
+         "healthy_guidance_corrected": True,
+         "empty_init_recognized_as_valid": True,
+         "rename_only_restart_marker_informational": True,

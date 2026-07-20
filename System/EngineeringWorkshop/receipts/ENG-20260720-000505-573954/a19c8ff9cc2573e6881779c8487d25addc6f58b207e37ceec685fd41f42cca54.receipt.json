@@ -1,0 +1,93 @@
+{
+  "authorized": true,
+  "changes": [
+    {
+      "action": "write_file",
+      "after_sha256": "ef665f07616fbb4195150b3e71e63aaf13cda9e1f4831d9b6299659d498425b1",
+      "after_size": 2209673,
+      "before_sha256": "aa00f399cc452d487a1f4599d91fd4bf670a6025d0ac6ca4ea432c91a04a6204",
+      "before_size": 2206316,
+      "relative_path": "core/foxai_web.py"
+    },
+    {
+      "action": "write_file",
+      "after_sha256": "ad2e435196e99da0003c57451671d8a943365f6ebe6b943a9d4e69f5a293770b",
+      "after_size": 30111,
+      "before_sha256": "7db7cd437c4e063be3d7445ad37965ef85a8ef7af9acc27e6d6464ee46eb322d",
+      "before_size": 28605,
+      "relative_path": "core/VERIFY_REPAIR_BAY_V1.py"
+    }
+  ],
+  "created_at": "2026-07-20T00:14:33.325549Z",
+  "evidence_is_tool_generated": true,
+  "failure": null,
+  "mission_id": "ENG-20260720-000505-573954",
+  "mission_title": "Repair Bay V2.2 \u2014 Reliable Mission Console Transfer",
+  "mission_type": "repair",
+  "no_deletions": true,
+  "no_renames": true,
+  "plan_path": "Z:\\FOXAI\\FOXAI_Repair_Bay_V2_2_Reliable_Mission_Console_Transfer\\REPAIR_BAY_V2_2_EXACT_PLAN.json",
+  "plan_sha256": "a19c8ff9cc2573e6881779c8487d25addc6f58b207e37ceec685fd41f42cca54",
+  "project_root": "Z:\\FOXAI",
+  "result": "applied_verified",
+  "rolled_back": false,
+  "schema": "foxai.engineering.receipt.v1",
+  "snapshot_manifest": "Z:\\FOXAI\\System\\EngineeringWorkshop\\snapshots\\ENG-20260720-000505-573954\\snapshot_20260720T001427621069Z.manifest.json",
+  "snapshot_path": "Z:\\FOXAI\\System\\EngineeringWorkshop\\snapshots\\ENG-20260720-000505-573954\\snapshot_20260720T001427621069Z.zip",
+  "snapshot_sha256": "60d34e2faf420eef9112fb39868f9003d8ea6b8ca27c7087d945d058703ea762",
+  "validations": [
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path;files=[Path(r'Z:\\FOXAI\\core\\foxai_web.py'),Path(r'Z:\\FOXAI\\core\\repair_bay_handoff.py'),Path(r'Z:\\FOXAI\\core\\VERIFY_REPAIR_BAY_V1.py')];[compile(p.read_text(encoding='utf-8'),str(p),'exec') for p in files];print('REPAIR_BAY_V2_2_SOURCE_COMPILE_OK')"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-20T00:14:30.106677Z",
+      "name": "Compile Repair Bay V2.2 sources without writing bytecode",
+      "returncode": 0,
+      "started_at": "2026-07-20T00:14:27.696022Z",
+      "stderr": "",
+      "stdout": "REPAIR_BAY_V2_2_SOURCE_COMPILE_OK\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "Z:\\FOXAI\\core\\VERIFY_REPAIR_BAY_V1.py"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-20T00:14:30.437164Z",
+      "name": "Verify reliable transfer, stored handoff lifecycle, readiness guards, and retained Repair Bay behavior",
+      "returncode": 0,
+      "started_at": "2026-07-20T00:14:30.106988Z",
+      "stderr": "",
+      "stdout": "{\n  \"ok\": true,\n  \"schema\": \"foxai.repair_bay.v2.verification\",\n  \"quick_checks\": 13,\n  \"full_checks\": 18,\n  \"launcher_contents_parsed\": 23,\n  \"launcher_relationships_verified\": 4,\n  \"protected_root_launchers_verified\": 12,\n  \"protected_study_launchers_verified\": 2,\n  \"receipt_backed_launchers_verified\": 3,\n  \"exact_duplicate_groups_verified\": 2,\n  \"archive_review_candidates_verified\": 5,\n  \"unresolved_items_verified\": 5,\n  \"archive_plan_proposal_only\": true,\n  \"launcher_index_verified\": true,\n  \"launcher_index_items_verified\": 23,\n  \"approved_front_doors_verified\": 4,\n  \"unknown_resolution_verified\": true,\n  \"search_and_filter_metadata_verified\": true,\n  \"webui_launcher_index_verified\": true,\n  \"calm_guided_default_verified\": true,\n  \"plain_english_attention_summary_verified\": true,\n  \"scan_details_progressive_disclosure_verified\": true,\n  \"self_repair_bay_advanced_verified\": true,\n  \"advanced_controls_closed_by_default_verified\": true,\n  \"guarded_repair_handoff_verified\": true,\n  \"handoff_readiness_guard_verified\": true,\n  \"reliable_mission_console_transfer_verified\": true,\n  \"prepared_handoff_session_state_verified\": true,\n  \"open_mission_console_button_verified\": true,\n  \"preparation_lock_cleared_before_open_verified\": true,\n  \"prepared_handoff_lifecycle_verified\": true,\n  \"pre_scan_handoff_disabled_verified\": true,\n  \"healthy_scan_no_repair_state_verified\": true,\n  \"single_finding_auto_attach_verified\": true,\n  \"multiple_findings_selection_required_verified\": true,\n  \"invalid_finding_fails_closed_verified\": true,\n  \"duplicate_handoff_open_guard_verified\": true,\n  \"blank_problem_guard_verified\": true,\n  \"supported_low_risk_planning_verified\": true,\n  \"unsupported_findings_advisory_verified\": true,\n  \"implementation_authorization_false_verified\": true,\n  \"mission_console_review_before_stage_verified\": true,\n  \"handoff_tree_unchanged\": true,\n  \"healthy_guidance_corrected\": true,\n  \"empty_init_recognized_as_valid\": true,\n  \"rename_only_restart_marker_informational\": true,\n  \"read_only_tree_unchanged\": true,\n  \"network_used\": false,\n  \"commands_run\": false,\n  \"files_written\": 0,\n  \"repairs_applied\": 0\n}\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "import sys;from pathlib import Path;root=Path(r'Z:\\FOXAI');sys.path.insert(0,str(root));text=(root/'core'/'foxai_web.py').read_text(encoding='utf-8');markers=['REPAIR_BAY_MISSION_TRANSFER_V2_2_BROWSER_START','preparedRepairMission','storePreparedRepairMission','repairHandoffCalmOpenButton','Cancel Handoff','Already prepared \u2014 Open Mission Console','consumePreparedRepairMission','Prepared Engineer handoff cleared by Mission Console reset.'];assert all(m in text for m in markers),[m for m in markers if m not in text];block=text.split('REPAIR_BAY_MISSION_TRANSFER_V2_2_BROWSER_START',1)[1].split('REPAIR_BAY_MISSION_TRANSFER_V2_2_BROWSER_END',1)[0];assert block.index('finally{repairHandoffBusy=false')<block.index('if(success&&openConsole)openRepairHandoffInMission()');from core.repair_bay_diagnostics import run_repair_bay_scan;r=run_repair_bay_scan(root,mode='quick',context={'validation':'repair_bay_v2_2_live_transfer_smoke'});s=r.get('safety') or {};assert r.get('read_only') is True,r;assert s.get('network_used') is False,s;assert s.get('commands_run') is False,s;assert int(s.get('files_written') or 0)==0,s;assert int(s.get('repairs_applied') or 0)==0,s;print('REPAIR_BAY_V2_2_LIVE_TRANSFER_OK')"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-20T00:14:33.325496Z",
+      "name": "Run live V2.2 transfer-order and read-only safety smoke test",
+      "returncode": 0,
+      "started_at": "2026-07-20T00:14:30.437510Z",
+      "stderr": "",
+      "stdout": "REPAIR_BAY_V2_2_LIVE_TRANSFER_OK\n",
+      "timed_out": false
+    }
+  ]
+}

@@ -1,0 +1,101 @@
+{
+  "authorized": true,
+  "changes": [
+    {
+      "action": "write_file",
+      "after_sha256": "8880a9f1629594f69e18e6ec12265a6c6a8a4d73bc2ff0646ae75bf5579835b9",
+      "after_size": 2181018,
+      "before_sha256": "4db4f4da2cea7a369ed038283de442ab1fbf6aa5fce88258bd95a3d91fb1d5b9",
+      "before_size": 2167971,
+      "relative_path": "core/foxai_web.py"
+    },
+    {
+      "action": "write_file",
+      "after_sha256": "937f0d9383c65b99b99f0b1383c52ec949e9af45f1af09a735d7c984747cf2e2",
+      "after_size": 73501,
+      "before_sha256": "c42f6d829d8faa5227919c670652242a1a57cda6c89ee60997065e4990fba995",
+      "before_size": 60836,
+      "relative_path": "core/repair_bay_diagnostics.py"
+    },
+    {
+      "action": "write_file",
+      "after_sha256": "0d4ffa66e427ed9ae877ce88b89adb5a0ae3b963f0a557fdd35cee1ac994555d",
+      "after_size": 18745,
+      "before_sha256": "f98809a440a525db52d311261a9bbe64ebdfac01ed6ed63ba67f5092da01dd0b",
+      "before_size": 14222,
+      "relative_path": "core/VERIFY_REPAIR_BAY_V1.py"
+    }
+  ],
+  "created_at": "2026-07-19T23:03:30.078503Z",
+  "evidence_is_tool_generated": true,
+  "failure": null,
+  "mission_id": "ENG-20260719-225448-2AB493",
+  "mission_title": "Repair Bay V1.3 \u2014 Launcher Index and Unknown Resolution",
+  "mission_type": "implement",
+  "no_deletions": true,
+  "no_renames": true,
+  "plan_path": "Z:\\FOXAI\\FOXAI_Repair_Bay_V1_3_Launcher_Index_Unknown_Resolution\\REPAIR_BAY_V1_3_EXACT_PLAN.json",
+  "plan_sha256": "4d359aee9fb49095e3e115443acd2f604318c47a9fffbada22a1e7647c6e7537",
+  "project_root": "Z:\\FOXAI",
+  "result": "applied_verified",
+  "rolled_back": false,
+  "schema": "foxai.engineering.receipt.v1",
+  "snapshot_manifest": "Z:\\FOXAI\\System\\EngineeringWorkshop\\snapshots\\ENG-20260719-225448-2AB493\\snapshot_20260719T230327079666Z.manifest.json",
+  "snapshot_path": "Z:\\FOXAI\\System\\EngineeringWorkshop\\snapshots\\ENG-20260719-225448-2AB493\\snapshot_20260719T230327079666Z.zip",
+  "snapshot_sha256": "be23d57e74b62926b72c2cc133b04ef30918a8b7e6e5f6a03e9105d5c08c2ba0",
+  "validations": [
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path;files=[Path(r'Z:\\FOXAI\\core\\foxai_web.py'),Path(r'Z:\\FOXAI\\core\\repair_bay_diagnostics.py'),Path(r'Z:\\FOXAI\\core\\VERIFY_REPAIR_BAY_V1.py')];[compile(p.read_text(encoding='utf-8'),str(p),'exec') for p in files];print('REPAIR_BAY_V1_3_SOURCE_COMPILE_OK')"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-19T23:03:29.575785Z",
+      "name": "Compile Repair Bay V1.3 sources without writing bytecode",
+      "returncode": 0,
+      "started_at": "2026-07-19T23:03:27.155857Z",
+      "stderr": "",
+      "stdout": "REPAIR_BAY_V1_3_SOURCE_COMPILE_OK\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "Z:\\FOXAI\\core\\VERIFY_REPAIR_BAY_V1.py"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-19T23:03:29.878653Z",
+      "name": "Verify Launcher Index, filters, unknown resolution, protected baseline, and read-only behavior",
+      "returncode": 0,
+      "started_at": "2026-07-19T23:03:29.576107Z",
+      "stderr": "",
+      "stdout": "{\n  \"ok\": true,\n  \"schema\": \"foxai.repair_bay.v1_3.verification\",\n  \"quick_checks\": 13,\n  \"full_checks\": 18,\n  \"launcher_contents_parsed\": 23,\n  \"launcher_relationships_verified\": 4,\n  \"protected_root_launchers_verified\": 12,\n  \"protected_study_launchers_verified\": 2,\n  \"receipt_backed_launchers_verified\": 3,\n  \"exact_duplicate_groups_verified\": 2,\n  \"archive_review_candidates_verified\": 5,\n  \"unresolved_items_verified\": 5,\n  \"archive_plan_proposal_only\": true,\n  \"launcher_index_verified\": true,\n  \"launcher_index_items_verified\": 23,\n  \"approved_front_doors_verified\": 4,\n  \"unknown_resolution_verified\": true,\n  \"search_and_filter_metadata_verified\": true,\n  \"webui_launcher_index_verified\": true,\n  \"healthy_guidance_corrected\": true,\n  \"empty_init_recognized_as_valid\": true,\n  \"rename_only_restart_marker_informational\": true,\n  \"read_only_tree_unchanged\": true,\n  \"network_used\": false,\n  \"commands_run\": false,\n  \"files_written\": 0,\n  \"repairs_applied\": 0\n}\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "import json,sys;sys.path.insert(0,r'Z:\\FOXAI');from core.repair_bay_diagnostics import run_launcher_index;r=run_launcher_index(r'Z:\\FOXAI',context={'validation':'v1_3_live_launcher_index_smoke'});s=r.get('safety') or {};i=r.get('inventory') or {};items=i.get('items') or [];summary=r.get('summary') or {};assert r.get('version')=='1.3',r.get('version');assert r.get('read_only') is True,r;assert s.get('batch_files_executed') is False,s;assert s.get('network_used') is False,s;assert s.get('commands_run') is False,s;assert int(s.get('files_written') or 0)==0,s;assert int(s.get('moves') or 0)==0,s;assert int(s.get('renames') or 0)==0,s;assert int(s.get('deletions') or 0)==0,s;assert int(s.get('repairs_applied') or 0)==0,s;assert len(items)==int(summary.get('total') or 0),(len(items),summary);assert all('purpose_confidence' in item and 'resolution_state' in item and 'search_text' in item for item in items);front=i.get('approved_front_doors') or {};root_front={item.get('name'):item for item in (front.get('root') or [])};assert root_front.get('START_FOXAI_WEB_WITH_COMFYUI.bat',{}).get('present'),root_front;assert root_front.get('START_FOXAI_DESKTOP_TWO_WINDOW_RECOVERY.bat',{}).get('present'),root_front;external=front.get('external') or [];assert any(item.get('present') and 'START_KAYOCKS_STUDY.bat' in str(item.get('path')) for item in external),external;protected={item.get('name') for item in ((i.get('protected_baseline') or {}).get('root') or [])};candidates={item.get('name') for item in (i.get('obsolete_looking_candidates') or [])};assert not protected.intersection(candidates),(protected,candidates);archive=i.get('archive_plan') or {};assert archive.get('status')=='proposal_only',archive;assert int(archive.get('changes_applied') or 0)==0,archive;print(json.dumps({'REPAIR_BAY_V1_3_LIVE_OK':True,'total':summary.get('total'),'protected':summary.get('protected'),'front_doors':summary.get('approved_front_doors'),'resolved':summary.get('resolved'),'unresolved':summary.get('unresolved'),'relationships':summary.get('relationships'),'duplicates':summary.get('exact_duplicate_groups')},indent=2))"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-19T23:03:30.078405Z",
+      "name": "Run live Repair Bay V1.3 Launcher Index safety smoke test",
+      "returncode": 0,
+      "started_at": "2026-07-19T23:03:29.878995Z",
+      "stderr": "",
+      "stdout": "{\n  \"REPAIR_BAY_V1_3_LIVE_OK\": true,\n  \"total\": 115,\n  \"protected\": 23,\n  \"front_doors\": 4,\n  \"resolved\": 115,\n  \"unresolved\": 0,\n  \"relationships\": 11,\n  \"duplicates\": 1\n}\n",
+      "timed_out": false
+    }
+  ]
+}

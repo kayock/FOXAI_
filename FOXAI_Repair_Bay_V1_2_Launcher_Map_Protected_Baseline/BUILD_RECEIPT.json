@@ -1,0 +1,75 @@
+{
+  "schema": "foxai.repair_bay.v1_2.plan_build_receipt",
+  "mission_id": "ENG-20260719-223952-CF2EBB",
+  "result": "exact_plan_built_and_simulated",
+  "plan_sha256": "872b6865d8b33dd666447f87e63eade2e75c1d0a32aada5126b3f6981b11322d",
+  "changed_path_count": 2,
+  "changed_paths": [
+    "core/repair_bay_diagnostics.py",
+    "core/VERIFY_REPAIR_BAY_V1.py"
+  ],
+  "validation_count": 3,
+  "before_hashes": {
+    "core/repair_bay_diagnostics.py": "68efe5ad80c7ea710d2d9c316c81ee4bd61dfff9ac539c82e94e4eb8c380fb22",
+    "core/VERIFY_REPAIR_BAY_V1.py": "fb14eec01f5429fe9742797c1306810e4265b1ab25d33b1ba0d4d6133beb50d4"
+  },
+  "after_hashes": {
+    "core/repair_bay_diagnostics.py": "c42f6d829d8faa5227919c670652242a1a57cda6c89ee60997065e4990fba995",
+    "core/VERIFY_REPAIR_BAY_V1.py": "f98809a440a525db52d311261a9bbe64ebdfac01ed6ed63ba67f5092da01dd0b"
+  },
+  "features_verified": {
+    "batch_content_static_parsing": true,
+    "child_launcher_relationships": 4,
+    "protected_root_baseline": 12,
+    "protected_study_baseline": 2,
+    "receipt_evidence": 3,
+    "exact_duplicate_groups": 2,
+    "low_confidence_archive_review_candidates": 5,
+    "unresolved_items_preserved": 2,
+    "proposal_only_archive_sequence": true
+  },
+  "tests": {
+    "workshop_plan_schema_and_before_hashes": "passed",
+    "workshop_preview": "passed — 2 changed paths",
+    "workshop_simulated_apply": "passed — 2 files",
+    "source_compilation_without_bytecode": "passed",
+    "independent_verifier": {
+      "ok": true,
+      "schema": "foxai.repair_bay.v1_2.verification",
+      "quick_checks": 12,
+      "full_checks": 17,
+      "launcher_contents_parsed": 20,
+      "launcher_relationships_verified": 4,
+      "protected_root_launchers_verified": 12,
+      "protected_study_launchers_verified": 2,
+      "receipt_backed_launchers_verified": 3,
+      "exact_duplicate_groups_verified": 2,
+      "archive_review_candidates_verified": 5,
+      "unresolved_items_verified": 2,
+      "archive_plan_proposal_only": true,
+      "healthy_guidance_corrected": true,
+      "empty_init_recognized_as_valid": true,
+      "rename_only_restart_marker_informational": true,
+      "read_only_tree_unchanged": true,
+      "network_used": false,
+      "commands_run": false,
+      "files_written": 0,
+      "repairs_applied": 0
+    },
+    "read_only_fixture_tree_unchanged": true
+  },
+  "safety": {
+    "batch_files_executed": false,
+    "network_used_during_scan": false,
+    "commands_run_during_scan": false,
+    "files_written_during_scan": 0,
+    "repairs_applied": 0,
+    "packages_installed": false,
+    "deletions": 0,
+    "moves": 0,
+    "renames": 0,
+    "archive_actions": 0,
+    "whole_drive_scan": false,
+    "protected_content_scanned": false
+  }
+}

@@ -1,0 +1,93 @@
+{
+  "authorized": true,
+  "changes": [
+    {
+      "action": "write_file",
+      "after_sha256": "da04d9eb4ce75dc48f7d7988baadf56044e637f754c439952dbdeb3ad0516163",
+      "after_size": 2191112,
+      "before_sha256": "8880a9f1629594f69e18e6ec12265a6c6a8a4d73bc2ff0646ae75bf5579835b9",
+      "before_size": 2181018,
+      "relative_path": "core/foxai_web.py"
+    },
+    {
+      "action": "write_file",
+      "after_sha256": "d4ff56965c2b7dd73fc0a7adfa53fb83ebd18e52a4b1df518a335c9e6d16e0b9",
+      "after_size": 20164,
+      "before_sha256": "0d4ffa66e427ed9ae877ce88b89adb5a0ae3b963f0a557fdd35cee1ac994555d",
+      "before_size": 18745,
+      "relative_path": "core/VERIFY_REPAIR_BAY_V1.py"
+    }
+  ],
+  "created_at": "2026-07-19T23:17:29.073699Z",
+  "evidence_is_tool_generated": true,
+  "failure": null,
+  "mission_id": "ENG-20260719-230742-46DF78",
+  "mission_title": "Repair Bay V1.4 \u2014 Calm Guided View",
+  "mission_type": "implement",
+  "no_deletions": true,
+  "no_renames": true,
+  "plan_path": "Z:\\FOXAI\\FOXAI_Repair_Bay_V1_4_Calm_Guided_Self_Repair_Advanced\\REPAIR_BAY_V1_4_EXACT_PLAN.json",
+  "plan_sha256": "f6738798e4185a74f32cdee9416a819a208157810230ad47d915769bdaeede8e",
+  "project_root": "Z:\\FOXAI",
+  "result": "applied_verified",
+  "rolled_back": false,
+  "schema": "foxai.engineering.receipt.v1",
+  "snapshot_manifest": "Z:\\FOXAI\\System\\EngineeringWorkshop\\snapshots\\ENG-20260719-230742-46DF78\\snapshot_20260719T231723279234Z.manifest.json",
+  "snapshot_path": "Z:\\FOXAI\\System\\EngineeringWorkshop\\snapshots\\ENG-20260719-230742-46DF78\\snapshot_20260719T231723279234Z.zip",
+  "snapshot_sha256": "aec4859056738c30ae7fe34110bf37d2a9befccb87c4ac4a0cbe50d9b92a85af",
+  "validations": [
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path;files=[Path(r'Z:\\FOXAI\\core\\foxai_web.py'),Path(r'Z:\\FOXAI\\core\\VERIFY_REPAIR_BAY_V1.py')];[compile(p.read_text(encoding='utf-8'),str(p),'exec') for p in files];print('REPAIR_BAY_V1_4_SOURCE_COMPILE_OK')"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-19T23:17:25.807323Z",
+      "name": "Compile Repair Bay V1.4 WebUI and verifier without bytecode",
+      "returncode": 0,
+      "started_at": "2026-07-19T23:17:23.356649Z",
+      "stderr": "",
+      "stdout": "REPAIR_BAY_V1_4_SOURCE_COMPILE_OK\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "Z:\\FOXAI\\core\\VERIFY_REPAIR_BAY_V1.py"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-19T23:17:26.141225Z",
+      "name": "Verify calm default, progressive disclosure, advanced split, and retained read-only diagnostics",
+      "returncode": 0,
+      "started_at": "2026-07-19T23:17:25.807685Z",
+      "stderr": "",
+      "stdout": "{\n  \"ok\": true,\n  \"schema\": \"foxai.repair_bay.v1_4.verification\",\n  \"quick_checks\": 13,\n  \"full_checks\": 18,\n  \"launcher_contents_parsed\": 23,\n  \"launcher_relationships_verified\": 4,\n  \"protected_root_launchers_verified\": 12,\n  \"protected_study_launchers_verified\": 2,\n  \"receipt_backed_launchers_verified\": 3,\n  \"exact_duplicate_groups_verified\": 2,\n  \"archive_review_candidates_verified\": 5,\n  \"unresolved_items_verified\": 5,\n  \"archive_plan_proposal_only\": true,\n  \"launcher_index_verified\": true,\n  \"launcher_index_items_verified\": 23,\n  \"approved_front_doors_verified\": 4,\n  \"unknown_resolution_verified\": true,\n  \"search_and_filter_metadata_verified\": true,\n  \"webui_launcher_index_verified\": true,\n  \"calm_guided_default_verified\": true,\n  \"plain_english_attention_summary_verified\": true,\n  \"scan_details_progressive_disclosure_verified\": true,\n  \"self_repair_bay_advanced_verified\": true,\n  \"advanced_controls_closed_by_default_verified\": true,\n  \"healthy_guidance_corrected\": true,\n  \"empty_init_recognized_as_valid\": true,\n  \"rename_only_restart_marker_informational\": true,\n  \"read_only_tree_unchanged\": true,\n  \"network_used\": false,\n  \"commands_run\": false,\n  \"files_written\": 0,\n  \"repairs_applied\": 0\n}\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "import json,sys;from pathlib import Path;root=Path(r'Z:\\FOXAI');text=(root/'core'/'foxai_web.py').read_text(encoding='utf-8');markers=['REPAIR_BAY_CALM_GUIDED_V1_4_START','Ready for a safe check','Check My Computer','Run a Deeper Check','Show scan details','Self-Repair Bay \u2014 Advanced','repairCalmViewModel','renderRepairCalmView','Nothing repairs itself silently'];assert all(m in text for m in markers),[m for m in markers if m not in text];section=text.split('<section id=repair class=page>',1)[1].split('</section>',1)[0];assert section.index('repairCalmShell') < section.index('repairSimpleDetails') < section.index('repairAdvancedView');sys.path.insert(0,str(root));from core.repair_bay_diagnostics import run_repair_bay_scan;r=run_repair_bay_scan(root,mode='quick',context={'validation':'v1_4_calm_guided_live_smoke'});s=r.get('safety') or {};assert r.get('read_only') is True,r;assert s.get('network_used') is False,s;assert s.get('commands_run') is False,s;assert int(s.get('files_written') or 0)==0,s;assert int(s.get('repairs_applied') or 0)==0,s;print(json.dumps({'REPAIR_BAY_V1_4_LIVE_OK':True,'checks':(r.get('summary') or {}).get('checks'),'headline':(r.get('summary') or {}).get('headline'),'calm_default':True,'self_repair_advanced':True},indent=2))"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-19T23:17:29.073632Z",
+      "name": "Run live Repair Bay V1.4 calm-view and read-only safety smoke test",
+      "returncode": 0,
+      "started_at": "2026-07-19T23:17:26.141604Z",
+      "stderr": "",
+      "stdout": "{\n  \"REPAIR_BAY_V1_4_LIVE_OK\": true,\n  \"checks\": 13,\n  \"headline\": \"No urgent or recommended problems found. Informational notes are available.\",\n  \"calm_default\": true,\n  \"self_repair_advanced\": true\n}\n",
+      "timed_out": false
+    }
+  ]
+}

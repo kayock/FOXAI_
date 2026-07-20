@@ -1,0 +1,270 @@
+--- a/core/foxai_web.py
++++ b/core/foxai_web.py
+@@ -1642,7 +1642,7 @@
+ <div class=repairCalmShell>
+ <div class=repairCalmCard>
+ <div class=repairCalmHead><div><h3 id=repairCalmTitle>Ready for a safe check</h3><p id=repairCalmMessage>Repair Bay can check FOXAI and Windows without changing files, settings, services, models, or launchers.</p></div><span id=repairCalmBadge class=repairCalmBadge>READY</span></div>
+-<div class=repairCalmActions><button onclick="runRepairHealthScan('quick')">Check My Computer</button><button onclick="runRepairHealthScan('full')">Run a Deeper Check</button><button onclick="openGuidedEngineer()">Ask Engineer</button></div>
++<div class=repairCalmActions><button onclick="runRepairHealthScan('quick')">Check My Computer</button><button onclick="runRepairHealthScan('full')">Run a Deeper Check</button><button id=repairAskEngineerButton onclick="handleRepairAskEngineer()" disabled>Run a Check First</button></div>
+ <div id=repairCalmAttention class=repairCalmAttention><div class=repairCalmEmpty>No problems are being reported. Run a check when you are ready.</div></div>
+ <div id=repairHandoffCalmStatus class=repairHandoffCalmStatus></div>
+ <div class=repairCalmNext><strong>Best next step</strong><span id=repairCalmNextStep>Run the quick check. It normally takes only a few seconds and changes nothing.</span></div>
+@@ -1667,7 +1667,7 @@
+ </div>
+ <div class=repairGuidedGrid>
+ <div class="repairTaskCard check"><div class=repairTaskIcon>🩺</div><h3>Check FOXAI Status</h3><p>Refresh the current engine, model, library, project, and Creative Studio status without changing anything.</p><button onclick="refreshRepairBayStatus()">Run Read-Only Check</button></div>
+-<div class="repairTaskCard engineer"><div class=repairTaskIcon>🧑‍🔧</div><h3>Explain a Problem</h3><p>Open Engineer in read-only-first mode and describe what is wrong.</p><button onclick="openGuidedEngineer()">Ask Engineer</button></div>
++<div class="repairTaskCard engineer"><div class=repairTaskIcon>🧑‍🔧</div><h3>Explain a Different Problem</h3><p>Open Engineer manually for a problem that did not come from the health scan.</p><button onclick="openGuidedEngineer()">Describe a Problem Manually</button></div>
+ <div class="repairTaskCard scan"><div class=repairTaskIcon>🔎</div><h3>Scan a Project or Folder</h3><p>Inspect an approved location for missing files, broken imports, risky scripts, secrets, or structural problems.</p><button onclick="go('scanbridge')">Open Scan Bridge</button></div>
+ <div class="repairTaskCard review"><div class=repairTaskIcon>📋</div><h3>Review Findings</h3><p>See repair-shop findings, recommendations, status, and supporting evidence.</p><button onclick="go('repairops')">Open Findings</button></div>
+ <div class="repairTaskCard fix"><div class=repairTaskIcon>🛠️</div><h3>Review Repair Actions</h3><p>Review exact proposed actions with backup, approval, verification, and receipts.</p><button onclick="go('repairactions')">Open Repair Actions</button></div>
+@@ -2119,16 +2119,63 @@
+  if(q('repairCalmSafety'))q('repairCalmSafety').textContent=model.safety;
+  if(badge){badge.textContent=model.badge;badge.className='repairCalmBadge '+(model.state==='attention'?'attention':model.state==='urgent'?'urgent':'')}
+  if(attention)attention.innerHTML=model.attention.length?model.attention.map(item=>`<div class="repairCalmItem ${esc(item.severity||'')}"><h4>${esc(item.title)}</h4><p>${esc(item.explanation)}</p><div class=repairCalmItemAction><strong>Safe next step:</strong> ${esc(item.action)}</div><div class=repairCalmItemButtons><button onclick="prepareRepairHandoff('${js(item.id)}','guided',true)">Ask Engineer to Prepare a Fix</button></div></div>`).join(''):'<div class=repairCalmEmpty>No problems need your attention.</div>';
++ setRepairAskEngineerState(report);
+ }
+ /* REPAIR_BAY_CALM_GUIDED_V1_4_BROWSER_END */
++/* REPAIR_BAY_HANDOFF_READINESS_GUARD_V2_1_BROWSER_START */
++let repairHandoffBusy=false,lastRepairHandoffOpenedId='';
++function repairActionableFindings(report){return (report?.findings||[]).filter(item=>item?.severity==='urgent'||item?.severity==='recommended')}
++function setRepairAskEngineerState(report,state='ready'){
++ let button=q('repairAskEngineerButton');if(!button)return;
++ if(state==='running'){button.disabled=true;button.textContent='Check Running…';button.title='Wait for the read-only check to finish.';return}
++ if(!report){button.disabled=true;button.textContent='Run a Check First';button.title='Repair Bay needs a completed health scan before it can prepare a finding handoff.';return}
++ let findings=repairActionableFindings(report);
++ if(!findings.length){button.disabled=true;button.textContent='No Repair Needed';button.title='The completed scan found no urgent or recommended repair item.';return}
++ button.disabled=false;
++ if(findings.length===1){button.textContent='Ask Engineer';button.title='Prepare the one actionable finding for review in Mission Console.'}
++ else{button.textContent='Choose a Finding';button.title='Several items need review. Choose one item below before preparing a handoff.'}
++}
++function repairHandoffFailure(message){
++ lastRepairHandoff=null;lastRepairHandoffOpenedId='';
++ let status=q('repairHandoffStatus'),preview=q('repairHandoffPreview'),open=q('repairHandoffOpenButton'),calm=q('repairHandoffCalmStatus');
++ if(status)status.textContent=message;
++ if(preview)preview.textContent='No Engineer handoff was prepared. '+message;
++ if(open)open.disabled=true;
++ if(calm){calm.textContent=message;calm.classList.add('show')}
++ toast(message);
++}
++function validRepairEngineerCommand(packet){
++ let command=String(packet?.engineer_command||'').trim(),finding=packet?.finding||{};
++ if(!command||command.length<120)return false;
++ if(!String(finding.id||'').trim()||!String(finding.title||'').trim())return false;
++ if(/Problem:\\s*$/i.test(command))return false;
++ if(!/(Finding ID:|Title:)/i.test(command))return false;
++ return true;
++}
++async function handleRepairAskEngineer(){
++ if(repairHandoffBusy){toast('Engineer handoff preparation is already in progress.');return}
++ if(!lastRepairHealthScan){repairHandoffFailure('Run a check first. No Engineer request was opened.');return}
++ let findings=repairActionableFindings(lastRepairHealthScan);
++ if(!findings.length){repairHandoffFailure('No repair is needed. The completed scan found no urgent or recommended item.');return}
++ if(findings.length>1){
++  let attention=q('repairCalmAttention');if(attention)attention.scrollIntoView({behavior:'smooth',block:'center'});
++  repairHandoffFailure('Choose one finding below. Repair Bay will not guess which item you want Engineer to review.');return
++ }
++ await prepareRepairHandoff(findings[0].id,'guided',true);
++}
++/* REPAIR_BAY_HANDOFF_READINESS_GUARD_V2_1_BROWSER_END */
+ /* REPAIR_BAY_GUARDED_HANDOFF_V2_BROWSER_START */
+ let lastRepairHandoff=null;
+-function repairReviewFindings(report){return (report?.findings||[]).filter(item=>item?.severity==='urgent'||item?.severity==='recommended')}
++function repairReviewFindings(report){return repairActionableFindings(report)}
+ function populateRepairHandoffFindings(report){
+  let select=q('repairHandoffFinding');if(!select)return;
+  let findings=repairReviewFindings(report),current=select.value;
+- select.innerHTML=findings.length?findings.map(item=>`<option value="${esc(item.id||'')}">[${esc(String(item.severity||'').toUpperCase())}] ${esc(item.title||item.id)}</option>`).join(''):'<option value="">No urgent or recommended findings</option>';
++ if(!findings.length){select.innerHTML='<option value="">No repair is needed</option>';select.disabled=true;return}
++ select.disabled=false;
++ let options=findings.map(item=>`<option value="${esc(item.id||'')}">[${esc(String(item.severity||'').toUpperCase())}] ${esc(item.title||item.id)}</option>`).join('');
++ select.innerHTML=findings.length>1?'<option value="">Choose one finding…</option>'+options:options;
+  if(current&&findings.some(item=>item.id===current))select.value=current;
++ else if(findings.length===1)select.value=String(findings[0].id||'');
+ }
+ function renderRepairHandoff(packet){
+  lastRepairHandoff=packet;
+@@ -2138,27 +2185,41 @@
+  let text=`${headline}\nFinding: ${finding.title||finding.id||'Unknown'}\nSeverity: ${String(finding.severity||'').toUpperCase()}\nRepair kind: ${packet?.repair_label||'Advisory review only'}\nBackup required: ${packet?.backup_required?'YES':'NO'}\nAffected paths: ${paths.length?paths.join(' | '):'No bounded path resolved'}\n\n${packet?.plain_english_explanation||''}\n\nEvidence: ${evidence.length?evidence.slice(0,8).join(' | '):'No additional evidence'}\n\nNext: ${packet?.operator_next_step||''}`;
+  if(status)status.textContent=eligible?'Handoff prepared read-only. Review it, then open Mission Console.':'This finding remains advisory because it is unsupported, too broad, or not bounded by verified paths.';
+  if(preview)preview.innerHTML=`<strong class="${eligible?'ready':'advisory'}">${esc(headline)}</strong>\n${esc(text)}`;
+- if(open)open.disabled=!packet?.engineer_command;
++ if(open)open.disabled=!validRepairEngineerCommand(packet);
+  if(calm){calm.textContent=eligible?'Engineer handoff prepared. Mission Console will show the exact planning request before you send it.':'Engineer can explain this item, but Repair Bay did not authorize an exact repair plan.';calm.classList.add('show')}
+ }
+ async function prepareRepairHandoff(findingId='',level='guided',openConsole=false){
+- if(!lastRepairHealthScan){toast('Run a health scan first.');return}
++ if(repairHandoffBusy){toast('Engineer handoff preparation is already in progress.');return}
++ if(!lastRepairHealthScan){repairHandoffFailure('Run a check first. No Engineer request was opened.');return}
++ let findings=repairReviewFindings(lastRepairHealthScan);
++ if(!findings.length){repairHandoffFailure('No repair is needed. The completed scan found no urgent or recommended item.');return}
+  let id=String(findingId||q('repairHandoffFinding')?.value||'').trim();
+- if(!id){let first=repairReviewFindings(lastRepairHealthScan)[0];id=String(first?.id||'')}
+- if(!id){toast('No urgent or recommended finding is available.');return}
++ if(!id&&findings.length===1)id=String(findings[0]?.id||'');
++ if(!id){repairHandoffFailure('Choose one finding before asking Engineer. No request was opened.');return}
++ let selected=findings.find(item=>String(item?.id||'')===id);
++ if(!selected){repairHandoffFailure('The selected finding could not be resolved from the latest read-only scan. Run the check again.');return}
++ repairHandoffBusy=true;lastRepairHandoff=null;lastRepairHandoffOpenedId='';setRepairAskEngineerState(lastRepairHealthScan,'running');
+  let status=q('repairHandoffStatus');if(status)status.textContent='Preparing a read-only Engineer handoff...';
+  try{
+   let packet=await api('/api/repair/handoff',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({finding_id:id,mode:lastRepairHealthScan.mode||'full',level})});
+-  if(!packet?.ok){if(status)status.textContent=packet?.message||'Handoff could not be prepared.';toast(packet?.message||'Handoff failed.');return}
++  if(!packet?.ok){repairHandoffFailure(packet?.message||'Handoff could not be prepared.');return}
++  if(String(packet?.finding?.id||'')!==id){repairHandoffFailure('Engineer handoff failed closed because the returned finding did not match your selection.');return}
++  if(!validRepairEngineerCommand(packet)){repairHandoffFailure('Engineer handoff failed closed because the planning request was incomplete. Mission Console was not opened.');return}
+   renderRepairHandoff(packet);
+   if(openConsole)openRepairHandoffInMission();else toast(packet.eligible?'Exact-plan handoff ready for review.':'Finding remains advisory only.');
+- }catch(error){if(status)status.textContent='Handoff failed: '+error;toast('Handoff failed closed.')}
++ }catch(error){repairHandoffFailure('Handoff failed closed: '+error)}
++ finally{repairHandoffBusy=false;setRepairAskEngineerState(lastRepairHealthScan)}
+ }
+ function openRepairHandoffInMission(){
+  let packet=lastRepairHandoff;
+- if(!packet?.engineer_command){toast('Prepare a handoff first.');return}
++ if(repairHandoffBusy){toast('Wait for the handoff to finish preparing.');return}
++ if(!validRepairEngineerCommand(packet)){repairHandoffFailure('No complete finding handoff is ready. Mission Console was not opened.');return}
++ if(packet.handoff_id&&lastRepairHandoffOpenedId===packet.handoff_id){toast('This handoff is already open in Mission Console.');return}
+  go('mission');
+- let box=q('input');if(box){box.value=packet.engineer_command;box.focus();box.setSelectionRange(box.value.length,box.value.length)}
++ let box=q('input');
++ if(!box){repairHandoffFailure('Mission Console input was unavailable. No request was sent.');return}
++ box.value=packet.engineer_command;box.focus();box.setSelectionRange(box.value.length,box.value.length);
++ lastRepairHandoffOpenedId=String(packet.handoff_id||'opened');
+  toast(packet.eligible?'Review the planning request, then press Send. No implementation is authorized.':'Review the advisory request, then press Send.');
+ }
+ /* REPAIR_BAY_GUARDED_HANDOFF_V2_BROWSER_END */
+@@ -2168,7 +2229,7 @@
+  if(!report?.summary){if(status)status.textContent=report?.message||'Health scan failed.';return}
+  renderRepairCalmView(report);
+  populateRepairHandoffFindings(report);
+- lastRepairHandoff=null;if(q('repairHandoffOpenButton'))q('repairHandoffOpenButton').disabled=true;
++ lastRepairHandoff=null;lastRepairHandoffOpenedId='';if(q('repairHandoffOpenButton'))q('repairHandoffOpenButton').disabled=true;
+  let counts=report.summary.counts||{};
+  if(status)status.textContent=`${report.summary.headline}\nMode: ${String(report.mode||'').toUpperCase()} • Checks: ${report.summary.checks||0} • Elapsed: ${report.elapsed_seconds||0}s\nRead-only: ${report.read_only?'YES':'NO'} • Network used: ${report.safety?.network_used?'YES':'NO'} • Repairs applied: ${report.safety?.repairs_applied||0}`;
+  if(summary)summary.innerHTML=repairHealthMetric('Urgent',counts.urgent||0)+repairHealthMetric('Recommended',counts.recommended||0)+repairHealthMetric('Informational',counts.informational||0)+repairHealthMetric('Healthy',counts.healthy||0);
+@@ -2177,6 +2238,7 @@
+  if(plan)plan.textContent=steps.length?steps.map((step,index)=>`${index+1}. [${String(step.priority||'').toUpperCase()}] ${step.title}\n   Proposal: ${step.proposed_action}\n   Approval required: ${step.approval_required?'YES':'NO'} • Backup required: ${step.backup_required?'YES':'NO'} • Status: ${step.status}`).join('\n\n'):'No repair steps are proposed from this scan. Nothing was changed.';
+ }
+ async function runRepairHealthScan(mode){
++ setRepairAskEngineerState(null,'running');lastRepairHandoff=null;lastRepairHandoffOpenedId='';
+  let status=q('repairHealthScanStatus');if(status)status.textContent=`Running ${mode==='full'?'full':'quick'} read-only health scan...`;
+  if(q('repairCalmTitle'))q('repairCalmTitle').textContent=mode==='full'?'Running a deeper check...':'Checking your computer...';
+  if(q('repairCalmMessage'))q('repairCalmMessage').textContent='Repair Bay is checking read-only. Nothing is being repaired or changed.';
+--- a/core/repair_bay_handoff.py
++++ b/core/repair_bay_handoff.py
+@@ -230,7 +230,18 @@
+     requested = str(finding_id or "").strip()
+     if requested:
+         selected = next((item for item in findings if str(item.get("id") or "") == requested), None)
+-    if selected is None:
++        if selected is None:
++            return {
++                "ok": False,
++                "schema": SCHEMA,
++                "message": "The selected Repair Bay finding could not be resolved from the latest read-only scan.",
++                "requested_finding_id": _clean(requested, 100),
++                "read_only": True,
++                "changes_applied": 0,
++                "mission_staged": False,
++                "implementation_authorized": False,
++            }
++    else:
+         selected = next(
+             (item for item in findings if str(item.get("severity") or "") == "urgent"),
+             None,
+@@ -246,6 +257,7 @@
+             "read_only": True,
+             "changes_applied": 0,
+             "mission_staged": False,
++            "implementation_authorized": False,
+         }
+ 
+     evidence = [_clean(item, 900) for item in list(selected.get("evidence") or [])[:MAX_EVIDENCE_ITEMS]]
+--- a/core/VERIFY_REPAIR_BAY_V1.py
++++ b/core/VERIFY_REPAIR_BAY_V1.py
+@@ -329,6 +329,19 @@
+     assert ":: APPLY" not in supported["engineer_command"]
+     assert "workshop apply" not in supported["engineer_command"].casefold()
+ 
++
++    unresolved_selection = build_repair_handoff(
++        root,
++        supported_report,
++        "finding_that_is_not_in_the_latest_scan",
++        level="guided",
++    )
++    assert unresolved_selection["ok"] is False, unresolved_selection
++    assert unresolved_selection["requested_finding_id"] == "finding_that_is_not_in_the_latest_scan"
++    assert unresolved_selection["implementation_authorized"] is False
++    assert "engineer_command" not in unresolved_selection
++    assert "could not be resolved" in unresolved_selection["message"]
++
+     advisory_report = {
+         "read_only": True,
+         "safety": {"network_used": False, "commands_run": False, "files_written": 0, "repairs_applied": 0},
+@@ -419,6 +432,15 @@
+         "def repair_bay_prepare_handoff",
+         "from core.repair_bay_handoff import build_repair_handoff",
+         "implementation_not_authorized",
++        "REPAIR_BAY_HANDOFF_READINESS_GUARD_V2_1_BROWSER_START",
++        "repairAskEngineerButton",
++        "Run a Check First",
++        "No Repair Needed",
++        "Choose a Finding",
++        "handleRepairAskEngineer",
++        "validRepairEngineerCommand",
++        "repairHandoffFailure",
++        "This handoff is already open in Mission Console.",
+     ):
+         assert marker in web_text, marker
+ 
+@@ -436,11 +458,33 @@
+     assert "Prepare Exact Repair Plan" in repair_section
+     assert "Open in Mission Console" in repair_section
+     assert "Repair Bay itself cannot repair anything" in repair_section
++    assert 'id=repairAskEngineerButton' in repair_section
++    assert 'onclick="handleRepairAskEngineer()" disabled>Run a Check First</button>' in repair_section
++    assert 'onclick="openGuidedEngineer()">Ask Engineer</button>' not in repair_section
++    assert "Describe a Problem Manually" in repair_section
++
++    readiness_function = web_text.split("async function handleRepairAskEngineer()", 1)[1].split("/* REPAIR_BAY_HANDOFF_READINESS_GUARD_V2_1_BROWSER_END */", 1)[0]
++    assert "Run a check first" in readiness_function
++    assert "No repair is needed" in readiness_function
++    assert "findings.length>1" in readiness_function
++    assert "Choose one finding" in readiness_function
++    assert "prepareRepairHandoff(findings[0].id,'guided',true)" in readiness_function
++
++    prepare_function = web_text.split("async function prepareRepairHandoff", 1)[1].split("function openRepairHandoffInMission()", 1)[0]
++    assert "repairHandoffBusy" in prepare_function
++    assert "findings.length===1" in prepare_function
++    assert "Choose one finding before asking Engineer" in prepare_function
++    assert "returned finding did not match your selection" in prepare_function
++    assert "planning request was incomplete" in prepare_function
+ 
+     handoff_function = web_text.split("function openRepairHandoffInMission()", 1)[1].split("/* REPAIR_BAY_GUARDED_HANDOFF_V2_BROWSER_END */", 1)[0]
+     assert "requestNonStreamingChat" not in handoff_function
+     assert "/api/chat/send" not in handoff_function
+     assert "q('input')" in handoff_function
++    assert "validRepairEngineerCommand" in handoff_function
++    assert "lastRepairHandoffOpenedId" in handoff_function
++    assert "already open in Mission Console" in handoff_function
++    assert r"Problem:\\s*$" in web_text
+ 
+     full_ids = {item["id"] for item in full["findings"]}
+     for required in {
+@@ -505,6 +549,14 @@
+         "self_repair_bay_advanced_verified": True,
+         "advanced_controls_closed_by_default_verified": True,
+         "guarded_repair_handoff_verified": True,
++        "handoff_readiness_guard_verified": True,
++        "pre_scan_handoff_disabled_verified": True,
++        "healthy_scan_no_repair_state_verified": True,
++        "single_finding_auto_attach_verified": True,
++        "multiple_findings_selection_required_verified": True,
++        "invalid_finding_fails_closed_verified": True,
++        "duplicate_handoff_open_guard_verified": True,
++        "blank_problem_guard_verified": True,
+         "supported_low_risk_planning_verified": True,
+         "unsupported_findings_advisory_verified": True,
+         "implementation_authorization_false_verified": True,

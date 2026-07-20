@@ -2126,59 +2126,6 @@ function renderRepairCalmView(report){
 /* REPAIR_BAY_HANDOFF_READINESS_GUARD_V2_1_BROWSER_START */
 /* REPAIR_BAY_MISSION_TRANSFER_V2_2_BROWSER_START */
 let repairHandoffBusy=false,lastRepairHandoffOpenedId='',preparedRepairMission=null;
-/* REPAIR_BAY_PLANNING_ONLY_GUARD_V2_3_BROWSER_START */
-function repairPlanningRouteDecision(text){
- let value=String(text||'').trim();
- let tests={
-  search:/\b(find|locate|search|where is|show references?|grep)\b/i,
-  diagnose:/\b(inspect|diagnose|analy[sz]e|why|determine|review)\b/i,
-  plan:/\b(plan|preview|propose|what would change|do not modify|read[- ]only)\b/i,
-  implement:/\b(build|implement|create|add|integrate|patch|update|deploy|install feature)\b/i,
-  repair:/\b(fix|repair|apply|proceed with the approved|execute the approved)\b/i,
-  authorization:/\b(authoriz(?:e|ed|ation)|approved|proceed|apply|implement|targeted source changes|do not stop at planning)\b/i
- };
- let scores={
-  search:tests.search.test(value)?35:0,
-  diagnose:tests.diagnose.test(value)?30:0,
-  plan:tests.plan.test(value)?45:0,
-  implement:tests.implement.test(value)?60:0,
-  repair:tests.repair.test(value)?55:0
- };
- let authorized=tests.authorization.test(value);
- if(authorized&&scores.implement)scores.implement+=25;
- if(authorized&&scores.repair)scores.repair+=20;
- let route='unknown',best=-1;
- for(let key of ['search','diagnose','plan','implement','repair']){
-  if(scores[key]>best){best=scores[key];route=key}
- }
- if(best<=0)route='unknown';
- return {route,implementation_authorized:authorized,scores,safe:route==='plan'&&!authorized};
-}
-function repairPlanningRouteLabel(decision){
- let route=String(decision?.route||'unknown').toUpperCase();
- return `Expected Workshop route: ${route} • File-change permission: ${decision?.implementation_authorized?'YES — BLOCKED':'NO'}`;
-}
-function preparedRepairMissionRouteGuard(text=''){
- if(!preparedRepairMissionIsValid())return {ok:true,prepared:false};
- let candidate=String(text||'').trim();
- if(candidate!==String(preparedRepairMission.text||'').trim())return {ok:true,prepared:false};
- let decision=repairPlanningRouteDecision(candidate);
- let packetGuard=preparedRepairMission.packet?.route_guard||{};
- let packetSafe=preparedRepairMission.packet?.expected_workshop_route==='plan'
-  && preparedRepairMission.packet?.expected_implementation_authorized===false
-  && packetGuard?.route==='plan'
-  && packetGuard?.implementation_authorized===false
-  && packetGuard?.safe_for_repair_bay_send===true;
- return {
-  ok:Boolean(decision.safe&&packetSafe),
-  prepared:true,
-  decision,
-  message:decision.safe&&packetSafe
-   ?'Repair Bay planning-only route verified.'
-   :`Send blocked. Repair Bay expected PLAN with file-change permission NO, but predicted ${String(decision.route||'unknown').toUpperCase()} with permission ${decision.implementation_authorized?'YES':'NO'}.`
- };
-}
-/* REPAIR_BAY_PLANNING_ONLY_GUARD_V2_3_BROWSER_END */
 function repairActionableFindings(report){return (report?.findings||[]).filter(item=>item?.severity==='urgent'||item?.severity==='recommended')}
 function preparedRepairMissionIsValid(){return Boolean(preparedRepairMission&&String(preparedRepairMission.text||'').trim()&&preparedRepairMission.packet&&validRepairEngineerCommand(preparedRepairMission.packet))}
 function syncPreparedRepairMissionUI(){
@@ -2232,10 +2179,7 @@ function validRepairEngineerCommand(packet){
  if(!String(finding.id||'').trim()||!String(finding.title||'').trim())return false;
  if(/Problem:\s*$/i.test(command))return false;
  if(!/(Finding ID:|Title:)/i.test(command))return false;
- let local=repairPlanningRouteDecision(command),guard=packet?.route_guard||{};
- if(packet?.expected_workshop_route!=='plan'||packet?.expected_implementation_authorized!==false)return false;
- if(guard?.route!=='plan'||guard?.implementation_authorized!==false||guard?.safe_for_repair_bay_send!==true)return false;
- return local.safe===true;
+ return true;
 }
 async function handleRepairAskEngineer(){
  if(repairHandoffBusy){toast('Engineer handoff preparation is already in progress.');return}
@@ -2267,8 +2211,7 @@ function renderRepairHandoff(packet){
  let status=q('repairHandoffStatus'),preview=q('repairHandoffPreview'),calm=q('repairHandoffCalmStatus');
  let eligible=Boolean(packet?.eligible),finding=packet?.finding||{},paths=packet?.affected_paths||[],evidence=packet?.technical_evidence||[];
  let headline=eligible?'READY FOR ENGINEER PLAN REVIEW':'ADVISORY ONLY';
- let route=repairPlanningRouteDecision(packet?.engineer_command||'');
- let text=`${headline}\nFinding: ${finding.title||finding.id||'Unknown'}\nSeverity: ${String(finding.severity||'').toUpperCase()}\nRepair kind: ${packet?.repair_label||'Advisory review only'}\nBackup required: ${packet?.backup_required?'YES':'NO'}\n${repairPlanningRouteLabel(route)}\nAffected paths: ${paths.length?paths.join(' | '):'No bounded path resolved'}\n\n${packet?.plain_english_explanation||''}\n\nEvidence: ${evidence.length?evidence.slice(0,8).join(' | '):'No additional evidence'}\n\nNext: ${packet?.operator_next_step||''}`;
+ let text=`${headline}\nFinding: ${finding.title||finding.id||'Unknown'}\nSeverity: ${String(finding.severity||'').toUpperCase()}\nRepair kind: ${packet?.repair_label||'Advisory review only'}\nBackup required: ${packet?.backup_required?'YES':'NO'}\nAffected paths: ${paths.length?paths.join(' | '):'No bounded path resolved'}\n\n${packet?.plain_english_explanation||''}\n\nEvidence: ${evidence.length?evidence.slice(0,8).join(' | '):'No additional evidence'}\n\nNext: ${packet?.operator_next_step||''}`;
  if(status)status.textContent=eligible?'Handoff prepared and stored. Open Mission Console to review it.':'Advisory handoff prepared and stored. Open Mission Console to review it.';
  if(preview)preview.innerHTML=`<strong class="${eligible?'ready':'advisory'}">${esc(headline)}</strong>\n${esc(text)}`;
  if(calm){calm.textContent='Engineer handoff prepared. Use Open Mission Console to review the exact request before sending it.';calm.classList.add('show')}
@@ -2315,10 +2258,8 @@ function openRepairHandoffInMission(){
  if(!box){repairHandoffFailure('Mission Console input was unavailable. The prepared request remains stored.');return}
  box.value=state.text;box.focus();box.setSelectionRange(box.value.length,box.value.length);
  lastRepairHandoffOpenedId=String(state.handoff_id||'opened');
- let decision=repairPlanningRouteDecision(state.text);
- let calm=q('repairHandoffCalmStatus');if(calm){calm.textContent=`Already prepared — the exact request is open in Mission Console for review.\n${repairPlanningRouteLabel(decision)}`;calm.classList.add('show')}
- logline('sys','REPAIR BAY',`${repairPlanningRouteLabel(decision)}. Send remains manual.`);
- toast(decision.safe?'Review the PLAN request, then press Send. File-change permission is NO.':'Route guard blocked this handoff.');
+ let calm=q('repairHandoffCalmStatus');if(calm){calm.textContent='Already prepared — the exact request is open in Mission Console for review.';calm.classList.add('show')}
+ toast(state.packet?.eligible?'Review the planning request, then press Send. No implementation is authorized.':'Review the advisory request, then press Send.');
 }
 /* REPAIR_BAY_GUARDED_HANDOFF_V2_BROWSER_END */
 /* REPAIR_BAY_MISSION_TRANSFER_V2_2_BROWSER_END */
@@ -2492,15 +2433,8 @@ async function send(){
  if((image||useActive)&&!activeVisionProfile()){let active=modelProfileById(activeProfileId);let message=active?`The active profile is ${active.label}, which is not a vision profile. Select and explicitly start Fast Vision or Quality Vision; no model switch occurred.`:'No verified vision profile is active. Select and explicitly start Fast Vision or Quality Vision; no model switch occurred.';logline('bad','SYSTEM',message);toast(message);return}
  if((image||useActive)&&explicitEngineerMessage(text)){let message='Engineer image inspection is not enabled. Remove the image or use ordinary vision chat.';logline('bad','SYSTEM',message);toast(message);return}
  let prompt=text||((image||useActive)?'Describe this image.':''),localImage=pendingMissionImage||activeMissionImage;
- let routeGuard=preparedRepairMissionRouteGuard(prompt);
- if(routeGuard.prepared&&!routeGuard.ok){
-  logline('bad','REPAIR BAY',routeGuard.message);
-  toast(routeGuard.message);
-  return;
- }
- if(routeGuard.prepared)logline('sys','REPAIR BAY',`${repairPlanningRouteLabel(routeGuard.decision)}. Sending planning request.`);
  let consumedPreparedRepair=consumePreparedRepairMission(prompt);
- let browserStarted=performance.now(),d=null;q('input').value='';logline('user','ERIC',prompt);if(consumedPreparedRepair)toast('Prepared Repair Bay PLAN request sent. File-change permission remained NO.');if(image)logMissionImage(localImage,'NEW IMAGE — becomes active for follow-ups');else if(useActive)logMissionImage(activeMissionImage,'USING ACTIVE IMAGE');think(true);
+ let browserStarted=performance.now(),d=null;q('input').value='';logline('user','ERIC',prompt);if(consumedPreparedRepair)toast('Prepared Repair Bay handoff sent for Engineer planning review.');if(image)logMissionImage(localImage,'NEW IMAGE — becomes active for follow-ups');else if(useActive)logMissionImage(activeMissionImage,'USING ACTIVE IMAGE');think(true);
  try{d=explicitEngineerMessage(prompt)?await requestNonStreamingChat(prompt,null,false):await requestGuardedStreamChat(prompt,image,useActive)}catch(e){if(e?.name==='AbortError'){logline('bad','SYSTEM','Generation canceled. No partial assistant answer was archived. The active image remains available for retry.');d={ok:false,cancelled:true,timing:{}};await refreshActiveMissionImage()}else{logline('bad','ERROR',String(e));d={ok:false,timing:{}}}}finally{
   chatStreamController=null;think(false);
   if(d?.active_image?.attached){let meta=d.active_image,local=(pendingMissionImage&&pendingMissionImage.sha256===meta.sha256)?pendingMissionImage:(activeMissionImage&&activeMissionImage.sha256===meta.sha256?activeMissionImage:null),nextPreview=local?.preview_url||'';if(activeMissionImage?.preview_url&&activeMissionImage.preview_url!==nextPreview)revokeMissionPreview(activeMissionImage);activeMissionImage={...missionImageMetadata({name:meta.filename,type:meta.mime,size:meta.size_bytes,width:meta.width,height:meta.height,sha256:meta.sha256}),preview_url:nextPreview};if(pendingMissionImage?.sha256===meta.sha256){pendingMissionImage.data_url='';pendingMissionImage=null}renderMissionImage()}

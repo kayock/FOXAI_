@@ -1,0 +1,101 @@
+{
+  "authorized": true,
+  "changes": [
+    {
+      "action": "write_file",
+      "after_sha256": "4db4f4da2cea7a369ed038283de442ab1fbf6aa5fce88258bd95a3d91fb1d5b9",
+      "after_size": 2167971,
+      "before_sha256": "40421226137e455fd7fefb13d043a8d4b9b41230e2e9c338f9586735ec8e7383",
+      "before_size": 2157963,
+      "relative_path": "core/foxai_web.py"
+    },
+    {
+      "action": "write_file",
+      "after_sha256": "d238057e6dcd4b627cc5687d6278bebe86f14e2d0bee9734ab582a29e65754cb",
+      "after_size": 33612,
+      "before_sha256": null,
+      "before_size": null,
+      "relative_path": "core/repair_bay_diagnostics.py"
+    },
+    {
+      "action": "write_file",
+      "after_sha256": "ca96a173457963bcf3dc183d08d80f9647f7d1e13cdf2c9f7ef6254d6ad41353",
+      "after_size": 5953,
+      "before_sha256": null,
+      "before_size": null,
+      "relative_path": "core/VERIFY_REPAIR_BAY_V1.py"
+    }
+  ],
+  "created_at": "2026-07-19T22:01:23.780088Z",
+  "evidence_is_tool_generated": true,
+  "failure": null,
+  "mission_id": "ENG-20260719-214716-6576E8",
+  "mission_title": "Repair Bay V1 \u2014 Read-Only Scan and Diagnose",
+  "mission_type": "implement",
+  "no_deletions": true,
+  "no_renames": true,
+  "plan_path": "Z:\\FOXAI\\FOXAI_Repair_Bay_V1_Read_Only_Scan_Diagnose\\REPAIR_BAY_V1_EXACT_PLAN.json",
+  "plan_sha256": "7ad73d05a0002477eeff6b316f9e044128a1125f85dfd57a34051c1e203e1de6",
+  "project_root": "Z:\\FOXAI",
+  "result": "applied_verified",
+  "rolled_back": false,
+  "schema": "foxai.engineering.receipt.v1",
+  "snapshot_manifest": "Z:\\FOXAI\\System\\EngineeringWorkshop\\snapshots\\ENG-20260719-214716-6576E8\\snapshot_20260719T220116208182Z.manifest.json",
+  "snapshot_path": "Z:\\FOXAI\\System\\EngineeringWorkshop\\snapshots\\ENG-20260719-214716-6576E8\\snapshot_20260719T220116208182Z.zip",
+  "snapshot_sha256": "9a714bef2c6a5a7096e96000a28ae948d78c2a34dac9c4f1de02e4b9c7b616eb",
+  "validations": [
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-m",
+        "py_compile",
+        "core\\foxai_web.py",
+        "core\\repair_bay_diagnostics.py",
+        "core\\VERIFY_REPAIR_BAY_V1.py"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-19T22:01:18.919978Z",
+      "name": "Compile Repair Bay V1 Python sources",
+      "returncode": 0,
+      "started_at": "2026-07-19T22:01:16.299756Z",
+      "stderr": "",
+      "stdout": "",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "Z:\\FOXAI\\core\\VERIFY_REPAIR_BAY_V1.py"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-19T22:01:19.237817Z",
+      "name": "Verify read-only scanner, severity ranking, proposals, and WebUI integration",
+      "returncode": 0,
+      "started_at": "2026-07-19T22:01:18.920342Z",
+      "stderr": "",
+      "stdout": "{\n  \"ok\": true,\n  \"schema\": \"foxai.repair_bay.v1.verification\",\n  \"quick_checks\": 13,\n  \"full_checks\": 18,\n  \"broken_fixture_urgent\": 1,\n  \"broken_fixture_recommended\": 4,\n  \"read_only_tree_unchanged\": true,\n  \"network_used\": false,\n  \"commands_run\": false,\n  \"repairs_applied\": 0\n}\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "import json,sys;sys.path.insert(0,r'Z:\\FOXAI');from core.repair_bay_diagnostics import run_repair_bay_scan;r=run_repair_bay_scan(r'Z:\\FOXAI',mode='quick',context={'validation':'live_safety_smoke'});s=r.get('safety') or {};assert r.get('read_only') is True,r;assert s.get('network_used') is False,s;assert s.get('commands_run') is False,s;assert int(s.get('files_written') or 0)==0,s;assert int(s.get('repairs_applied') or 0)==0,s;print(json.dumps({'READ_ONLY_QUICK_SCAN_OK':True,'headline':(r.get('summary') or {}).get('headline'),'counts':(r.get('summary') or {}).get('counts')},indent=2))"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-19T22:01:23.780030Z",
+      "name": "Run live quick-scan safety smoke test with no repair threshold",
+      "returncode": 0,
+      "started_at": "2026-07-19T22:01:19.238218Z",
+      "stderr": "",
+      "stdout": "{\n  \"READ_ONLY_QUICK_SCAN_OK\": true,\n  \"headline\": \"No urgent problems found. 1 recommended item(s) deserve review.\",\n  \"counts\": {\n    \"urgent\": 0,\n    \"recommended\": 1,\n    \"informational\": 1,\n    \"healthy\": 11\n  }\n}\n",
+      "timed_out": false
+    }
+  ]
+}

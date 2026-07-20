@@ -1,0 +1,658 @@
+--- a/core/foxai_web.py
++++ b/core/foxai_web.py
+@@ -1315,6 +1315,7 @@
+ .repairAdvancedTools{padding:0;overflow:hidden}.repairAdvancedTools>summary{cursor:pointer;padding:16px 18px;font-weight:900;color:var(--m);list-style:none}.repairAdvancedTools>summary::-webkit-details-marker{display:none}.repairAdvancedTools>summary:after{content:'▸';float:right}.repairAdvancedTools[open]>summary:after{transform:rotate(90deg)}.repairAdvancedBody{padding:0 16px 16px}.repairAdvancedGroup{border:1px solid #8f5cff25;border-radius:14px;background:#090b14;padding:14px;margin-top:10px}.repairAdvancedGroup h3{margin:0 0 7px}.repairAdvancedButtons{display:flex;gap:7px;flex-wrap:wrap}
+ .repairSafetyNote{border-left:3px solid var(--w);padding:10px 12px;background:#ffd1660b;border-radius:0 12px 12px 0;color:#f6e5b5;font-size:12px;line-height:1.45}
+ .repairHealthScanCard{border-color:#23d7ff45;background:radial-gradient(circle at 0 0,#23d7ff12,transparent 42%),linear-gradient(180deg,#131825,#0d1019)}.repairHealthHead{display:flex;gap:12px;align-items:flex-start;flex-wrap:wrap}.repairHealthHead h3{margin:0 0 6px}.repairHealthHead p{margin:0;color:var(--m);line-height:1.45;max-width:820px}.repairHealthHead .pill{margin-left:auto}.repairHealthActions{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}.repairHealthScanStatus{border-left:3px solid var(--c);padding:10px 12px;background:#23d7ff09;border-radius:0 12px 12px 0;color:#d9f8ff;white-space:pre-wrap}.repairHealthSummary{display:grid;grid-template-columns:repeat(4,minmax(120px,1fr));gap:9px;margin:13px 0}.repairHealthMetric{border:1px solid #23d7ff2f;border-radius:13px;background:#07131a;padding:11px}.repairHealthMetric .label{font-size:11px;color:var(--m);text-transform:uppercase;letter-spacing:.06em}.repairHealthMetric .value{font-size:24px;font-weight:900;margin-top:3px}.repairHealthFindings{display:grid;gap:10px}.repairFinding{border:1px solid #8f5cff2f;border-radius:14px;background:#090b14;padding:13px}.repairFindingHead{display:flex;gap:9px;align-items:center;flex-wrap:wrap}.repairFindingHead h4{margin:0 auto 0 0}.repairSeverity{display:inline-block;border:1px solid #8f5cff55;border-radius:999px;padding:3px 8px;font:10px Consolas,monospace;font-weight:900;text-transform:uppercase}.repairSeverity.urgent{border-color:#ff4d6d88;color:#ff9bab}.repairSeverity.recommended{border-color:#ffd16688;color:#ffe3a1}.repairSeverity.informational{border-color:#23d7ff77;color:#c9f6ff}.repairSeverity.healthy{border-color:#42ff9e77;color:#bfffe0}.repairFinding p{margin:7px 0;color:#e9e3f5;line-height:1.42}.repairEvidence{white-space:pre-wrap;font:11px/1.45 Consolas,monospace;color:var(--m);background:#05070d;border-radius:10px;padding:9px}.repairSuggested{margin-top:8px;color:#f3dfaa;font-size:12px}.repairPlanBox{white-space:pre-wrap;font:12px/1.5 Consolas,monospace;color:#e9e3f5;background:#070913;border:1px solid #8f5cff28;border-radius:12px;padding:11px;margin-top:10px}.repairPlanDetails>summary{cursor:pointer;color:var(--p2);font-weight:900;margin-top:12px}.repairHealthEmpty{color:var(--m);padding:13px;border:1px dashed #23d7ff38;border-radius:13px}@media(max-width:800px){.repairHealthSummary{grid-template-columns:repeat(2,minmax(120px,1fr))}.repairHealthHead .pill{margin-left:0}}
++.repairLauncherCard{border-color:#8f5cff45;background:radial-gradient(circle at 100% 0,#8f5cff12,transparent 40%),linear-gradient(180deg,#131425,#0d1019)}.repairLauncherToolbar{display:grid;grid-template-columns:minmax(180px,1.5fr) repeat(4,minmax(125px,.8fr));gap:8px;margin:13px 0}.repairLauncherToolbar input,.repairLauncherToolbar select{width:100%;border:1px solid #8f5cff46;border-radius:10px;background:#080a12;color:#f2edff;padding:9px 10px}.repairLauncherMetrics{display:grid;grid-template-columns:repeat(5,minmax(105px,1fr));gap:8px;margin:12px 0}.repairLauncherFrontDoors{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:8px;margin:10px 0}.repairFrontDoor{border:1px solid #42ff9e43;border-radius:12px;background:#071510;padding:10px}.repairFrontDoor strong{display:block}.repairFrontDoor span{display:block;color:var(--m);font-size:11px;margin-top:4px}.repairLauncherList{display:grid;gap:9px}.repairLauncherItem{border:1px solid #8f5cff2f;border-radius:13px;background:#080a12;padding:11px}.repairLauncherItem summary{cursor:pointer;list-style:none}.repairLauncherItem summary::-webkit-details-marker{display:none}.repairLauncherRow{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.repairLauncherName{font:700 12px/1.35 Consolas,monospace;overflow-wrap:anywhere;margin-right:auto}.repairLauncherPurpose{color:#e9e3f5;margin:7px 0;line-height:1.4}.repairLauncherMeta{display:flex;gap:6px;flex-wrap:wrap}.repairLauncherTag{border:1px solid #8f5cff4f;border-radius:999px;padding:2px 7px;font:10px Consolas,monospace;color:#d9cfff}.repairLauncherTag.protected{border-color:#42ff9e66;color:#bfffe0}.repairLauncherTag.unresolved{border-color:#ffd16677;color:#ffe3a1}.repairLauncherTag.duplicate{border-color:#ff8ac777;color:#ffc9e7}.repairLauncherDetails{white-space:pre-wrap;font:11px/1.5 Consolas,monospace;color:var(--m);background:#05070d;border-radius:10px;padding:9px;margin-top:9px}.repairLauncherEmpty{color:var(--m);padding:13px;border:1px dashed #8f5cff45;border-radius:12px}@media(max-width:1050px){.repairLauncherToolbar{grid-template-columns:repeat(2,minmax(140px,1fr))}.repairLauncherMetrics{grid-template-columns:repeat(3,minmax(105px,1fr))}}@media(max-width:620px){.repairLauncherToolbar{grid-template-columns:1fr}.repairLauncherMetrics{grid-template-columns:repeat(2,minmax(105px,1fr))}}
+ @media(max-width:1180px){.repairGuidedGrid{grid-template-columns:repeat(2,minmax(240px,1fr))}.repairTrustStrip{grid-template-columns:repeat(2,minmax(200px,1fr))}}
+ @media(max-width:800px){.repairGuidedGrid,.repairTrustStrip{grid-template-columns:1fr}.repairStatusCard{grid-template-columns:1fr}.repairStatusActions{justify-content:flex-start}}
+ /* REPAIR_BAY_GUIDED_CLEANUP_V1_END */
+@@ -1650,6 +1651,21 @@
+ <div id=repairHealthSummary class=repairHealthSummary></div>
+ <div id=repairHealthFindings class=repairHealthFindings><div class=repairHealthEmpty>Run Quick Health Scan for essentials or Full Read-Only Scan for broader source, configuration, log, launcher, model, database, and recovery checks.</div></div>
+ <details class=repairPlanDetails><summary>Proposed repair plan — review only</summary><div id=repairHealthPlan class=repairPlanBox>No proposed plan yet. Repair Bay V1 never applies repairs.</div></details>
++</div>
++<div class="card wide repairLauncherCard">
++<div class=repairHealthHead><div><h3>Launcher Index</h3><p>Search and filter every FOXAI root BAT file by purpose, category, protection, relationships, referenced tools, receipt evidence, duplicate membership, and unresolved reason. This index reads launcher text only and never executes or changes a script.</p></div><span class="pill ok">READ ONLY</span></div>
++<div class=repairHealthActions><button onclick="loadRepairLauncherIndex(true)">Load Launcher Index</button><button onclick="clearRepairLauncherFilters()">Clear Filters</button></div>
++<div id=repairLauncherStatus class=repairHealthScanStatus>Launcher Index has not been loaded yet.</div>
++<div id=repairLauncherMetrics class=repairLauncherMetrics></div>
++<div id=repairLauncherFrontDoors class=repairLauncherFrontDoors></div>
++<div class=repairLauncherToolbar>
++<input id=repairLauncherSearch placeholder="Search launcher, purpose, command, child, caller..." oninput="renderRepairLauncherIndex()">
++<select id=repairLauncherCategory onchange="renderRepairLauncherIndex()"><option value=all>All categories</option></select>
++<select id=repairLauncherProtection onchange="renderRepairLauncherIndex()"><option value=all>Protected + unprotected</option><option value=protected>Protected only</option><option value=unprotected>Unprotected only</option></select>
++<select id=repairLauncherEntry onchange="renderRepairLauncherIndex()"><option value=all>All entry statuses</option></select>
++<select id=repairLauncherResolution onchange="renderRepairLauncherIndex()"><option value=all>Resolved + unresolved</option><option value=resolved>Resolved only</option><option value=unresolved>Unresolved only</option></select>
++</div>
++<div id=repairLauncherList class=repairLauncherList><div class=repairLauncherEmpty>Load the Launcher Index to inspect all launchers without executing or modifying them.</div></div>
+ </div>
+ <div class="card wide repairStatusCard">
+ <div><h3>Current Readiness</h3><p>This compact view shows whether the main FOXAI services are available. It is status only and performs no repair.</p><div id=repairGuidedStatus class=repairLiveStatus>Waiting for the next read-only status refresh...</div></div>
+@@ -2055,6 +2071,64 @@
+  go('mission');
+  q('input').value=`Please review this Repair Bay V1 read-only diagnostic.\n\nMode: ${r.mode}\nHeadline: ${r.summary?.headline}\nUrgent: ${c.urgent||0}\nRecommended: ${c.recommended||0}\nInformational: ${c.informational||0}\nHealthy: ${c.healthy||0}\nNetwork used: ${r.safety?.network_used}\nCommands run: ${r.safety?.commands_run}\nFiles written: ${r.safety?.files_written}\nRepairs applied: ${r.safety?.repairs_applied}\n\nFindings needing review:\n${findings.map(item=>`[${String(item.severity).toUpperCase()}] ${item.title}\n${item.summary}\nSuggested: ${item.suggested_action}\nEvidence: ${(item.evidence||[]).slice(0,8).join(' | ')}`).join('\n\n')||'None'}\n\nPlease explain the important findings in plain English, separate real risks from harmless information, and review the proposal only. Do not claim any repair was performed.`;
+  toast('Read-only health findings sent to Mission Console.');
++}
++
++let repairLauncherIndexReport=null;
++function launcherTag(text,kind=''){return `<span class="repairLauncherTag ${esc(kind)}">${esc(text)}</span>`}
++function fillLauncherSelect(id,values,label){let select=q(id);if(!select)return;let current=select.value||'all';select.innerHTML=`<option value=all>${esc(label)}</option>`+(values||[]).map(value=>`<option value="${esc(value)}">${esc(String(value).replaceAll('_',' '))}</option>`).join('');select.value=[...select.options].some(option=>option.value===current)?current:'all'}
++function renderRepairLauncherIndex(){
++ let report=repairLauncherIndexReport,inventory=report?.inventory||{},items=inventory.items||[],summary=report?.summary||{},status=q('repairLauncherStatus'),metrics=q('repairLauncherMetrics'),doors=q('repairLauncherFrontDoors'),list=q('repairLauncherList');
++ if(!report){if(status)status.textContent='Launcher Index has not been loaded yet.';return}
++ let query=String(q('repairLauncherSearch')?.value||'').trim().toLowerCase(),category=q('repairLauncherCategory')?.value||'all',protection=q('repairLauncherProtection')?.value||'all',entry=q('repairLauncherEntry')?.value||'all',resolution=q('repairLauncherResolution')?.value||'all';
++ let filtered=items.filter(item=>{
++  if(query&&!String(item.search_text||'').includes(query))return false;
++  if(category!=='all'&&item.category!==category)return false;
++  if(protection==='protected'&&!item.protected)return false;
++  if(protection==='unprotected'&&item.protected)return false;
++  if(entry!=='all'&&item.entry_point_status!==entry)return false;
++  if(resolution!=='all'&&item.resolution_state!==resolution)return false;
++  return true;
++ });
++ if(status)status.textContent=`Showing ${filtered.length} of ${summary.total||items.length} launcher(s). Read-only: ${report.read_only?'YES':'NO'} • BAT files executed: ${report.safety?.batch_files_executed?'YES':'NO'} • Changes applied: ${(report.safety?.moves||0)+(report.safety?.renames||0)+(report.safety?.deletions||0)+(report.safety?.repairs_applied||0)}`;
++ if(metrics)metrics.innerHTML=repairHealthMetric('Launchers',summary.total||0)+repairHealthMetric('Protected',summary.protected||0)+repairHealthMetric('Front doors',summary.approved_front_doors||0)+repairHealthMetric('Unresolved',summary.unresolved||0)+repairHealthMetric('Duplicate groups',summary.exact_duplicate_groups||0);
++ let front=[...(inventory.approved_front_doors?.root||[]),...(inventory.approved_front_doors?.external||[])].filter(item=>item.present);
++ if(doors)doors.innerHTML=front.map(item=>`<div class=repairFrontDoor><strong>${esc(item.label||item.name||item.path)}</strong><span>${esc(item.name||item.path||'')}</span><span>${esc(item.reason||'Approved protected launcher.')}</span><span>${esc(String(item.tier||'specialized').toUpperCase())}</span></div>`).join('');
++ if(list)list.innerHTML=filtered.map(item=>{
++  let tags=[launcherTag(item.category||'unknown'),launcherTag(item.entry_point_status||'unresolved',item.entry_point_status==='unresolved'?'unresolved':''),item.protected?launcherTag('PROTECTED','protected'):'',item.exact_duplicate_membership?.length?launcherTag('EXACT DUPLICATE','duplicate'):'',item.resolution_state==='unresolved'?launcherTag('NEEDS REVIEW','unresolved'):''].join('');
++  let detail=[
++   `Path: ${item.relative_path||item.name}`,
++   `Purpose confidence: ${item.purpose_confidence||'unknown'}`,
++   `Protected roles: ${(item.protected_roles||[]).join(', ')||'none'}`,
++   `Commands: ${(item.commands||[]).join(', ')||'none recognized'}`,
++   `Child launchers: ${(item.child_launchers||[]).join(', ')||'none'}`,
++   `Called by: ${(item.called_by||[]).join(', ')||'none'}`,
++   `Python scripts: ${(item.python_scripts||[]).join(', ')||'none'}`,
++   `PowerShell scripts: ${(item.powershell_scripts||[]).join(', ')||'none'}`,
++   `Executables: ${(item.executables||[]).join(', ')||'none'}`,
++   `Receipt evidence: ${(item.receipt_evidence||[]).join(' | ')||'none'}`,
++   `Exact duplicate group: ${(item.exact_duplicate_membership||[]).map(group=>group.files.join(' | ')).join(' ; ')||'none'}`,
++   `Similar-name family: ${(item.similar_name_membership||[]).map(group=>group.family+': '+group.files.join(' | ')).join(' ; ')||'none'}`,
++   `Archive review: ${item.archive_review?.status||'not proposed'}${(item.archive_review?.reasons||[]).length?' — '+item.archive_review.reasons.join(' '):''}`,
++   `Unresolved reason: ${item.unresolved_reason||'none'}`
++  ].join('\n');
++  return `<details class=repairLauncherItem><summary><div class=repairLauncherRow><span class=repairLauncherName>${esc(item.name)}</span>${tags}</div><div class=repairLauncherPurpose>${esc(item.purpose||'Purpose unresolved.')}</div></summary><div class=repairLauncherDetails>${esc(detail)}</div></details>`;
++ }).join('')||'<div class=repairLauncherEmpty>No launchers match the current filters.</div>';
++}
++async function loadRepairLauncherIndex(force=false){
++ if(repairLauncherIndexReport&&!force){renderRepairLauncherIndex();return}
++ let status=q('repairLauncherStatus');if(status)status.textContent='Reading launcher text, relationships, hashes, and receipt evidence without executing anything...';
++ try{
++  let report=await api('/api/repair/launcher_index',{method:'POST',headers:{'Content-Type':'application/json'},body:'{}'});
++  if(!report?.inventory){if(status)status.textContent=report?.message||'Launcher Index failed.';return}
++  repairLauncherIndexReport=report;
++  fillLauncherSelect('repairLauncherCategory',report.inventory.index_filters?.categories||[],'All categories');
++  fillLauncherSelect('repairLauncherEntry',report.inventory.index_filters?.entry_point_statuses||[],'All entry statuses');
++  renderRepairLauncherIndex();toast('Read-only Launcher Index loaded.');
++ }catch(error){if(status)status.textContent='Launcher Index failed: '+error}
++}
++function clearRepairLauncherFilters(){
++ ['repairLauncherSearch','repairLauncherCategory','repairLauncherProtection','repairLauncherEntry','repairLauncherResolution'].forEach(id=>{let el=q(id);if(!el)return;el.value=id==='repairLauncherSearch'?'':'all'});
++ renderRepairLauncherIndex();
+ }
+ /* REPAIR_BAY_GUIDED_CLEANUP_V1_BROWSER_END */
+ /* KAYOCKS_STUDY_INTEGRATION_V1_BROWSER_START */
+@@ -12114,6 +12188,7 @@
+         if path=='/api/command_center/detail': self.js(command_center_detail_report(d)); return
+         if path=='/api/command_center/foundation': self.js(command_center_foundation_report(d)); return
+         if path=='/api/repair/health_scan': self.js(repair_bay_health_scan(d)); return
++        if path=='/api/repair/launcher_index': self.js(repair_bay_launcher_index(d)); return
+         if path=='/api/repair/milestone_freeze': self.js(repair_shop_milestone_freeze_report(d)); return
+         if path=='/api/repair/session_report': self.js(repair_shop_session_report(d)); return
+         if path=='/api/repair/ticket_action_bridge': self.js(repair_ticket_action_bridge_report(d)); return
+@@ -14581,6 +14656,64 @@
+         },
+         'validation':validation
+     }
++
++
++
++def repair_bay_launcher_index(d=None):
++    request=d or {}
++    try:
++        from core.repair_bay_diagnostics import run_launcher_index
++        report=run_launcher_index(
++            ROOT,
++            context={
++                'interface':'WebUI',
++                'active_project':active_project or '',
++                'operator':'local',
++            },
++        )
++        safety=report.get('safety') or {}
++        checks=[
++            {'id':'read_only','ok':bool(report.get('read_only')),'message':'Launcher Index reported read-only operation.'},
++            {'id':'no_batch_execution','ok':not bool(safety.get('batch_files_executed')),'message':'No BAT file was executed.'},
++            {'id':'no_network','ok':not bool(safety.get('network_used')),'message':'No network access was used.'},
++            {'id':'no_commands','ok':not bool(safety.get('commands_run')),'message':'No subprocess or repair command was run.'},
++            {'id':'no_writes','ok':int(safety.get('files_written') or 0)==0,'message':'No files were written.'},
++            {'id':'no_moves','ok':int(safety.get('moves') or 0)==0,'message':'No launcher was moved.'},
++            {'id':'no_renames','ok':int(safety.get('renames') or 0)==0,'message':'No launcher was renamed.'},
++            {'id':'no_deletes','ok':int(safety.get('deletions') or 0)==0,'message':'No launcher was deleted.'},
++            {'id':'no_repairs','ok':int(safety.get('repairs_applied') or 0)==0,'message':'No repair was applied.'},
++        ]
++        verified=all(item['ok'] for item in checks)
++        report['receipt']=make_tool_receipt(
++            'repair_bay.launcher_index',
++            'verified' if verified else 'blocked',
++            checks=checks,
++            details={
++                'launchers':(report.get('summary') or {}).get('total'),
++                'protected':(report.get('summary') or {}).get('protected'),
++                'unresolved':(report.get('summary') or {}).get('unresolved'),
++                'proposal_only':True,
++            },
++            actor='operator',
++        )
++        report['claim_state']='verified' if verified else 'blocked'
++        return report
++    except Exception as exc:
++        return {
++            'ok':False,
++            'message':f'Launcher Index failed closed: {type(exc).__name__}: {exc}',
++            'read_only':True,
++            'safety':{
++                'batch_files_executed':False,
++                'network_used':False,
++                'commands_run':False,
++                'files_written':0,
++                'moves':0,
++                'renames':0,
++                'deletions':0,
++                'repairs_applied':0,
++            },
++        }
+ 
+ 
+ def repair_bay_health_scan(d=None):
+--- a/core/repair_bay_diagnostics.py
++++ b/core/repair_bay_diagnostics.py
+@@ -14,7 +14,7 @@
+ from pathlib import Path
+ from typing import Any
+ 
+-SCAN_VERSION = "1.2"
++SCAN_VERSION = "1.3"
+ SEVERITIES = ("urgent", "recommended", "informational", "healthy")
+ 
+ 
+@@ -828,6 +828,309 @@
+     lines.extend(list(inventory.get("unreadable") or [])[:10])
+     return lines
+ 
++
++def _launcher_index_resolution(item: dict[str, Any]) -> dict[str, Any]:
++    """Resolve only what static content supports; uncertain launchers remain unresolved."""
++    name = str(item.get("name") or "")
++    purpose = str(item.get("purpose") or "")
++    entry_status = str(item.get("entry_point_status") or "unresolved")
++    commands = [str(value) for value in (item.get("commands") or [])]
++    children = [str(value) for value in (item.get("child_launchers") or [])]
++    python_scripts = [str(value) for value in (item.get("python_scripts") or [])]
++    powershell_scripts = [str(value) for value in (item.get("powershell_scripts") or [])]
++    executables = [str(value) for value in (item.get("executables") or [])]
++    called_by = [str(value) for value in (item.get("called_by") or [])]
++    meaningful_lines = int(item.get("meaningful_lines") or 0)
++    signals: list[str] = []
++    confidence = "high" if item.get("protected") or item.get("receipt_evidence") else "medium"
++    unresolved_reason = ""
++
++    if children:
++        signals.append("References child launcher(s): " + ", ".join(children))
++    if python_scripts:
++        signals.append("References Python script(s): " + ", ".join(python_scripts))
++    if powershell_scripts:
++        signals.append("References PowerShell script(s): " + ", ".join(powershell_scripts))
++    if executables:
++        signals.append("References executable(s): " + ", ".join(executables))
++    if commands:
++        signals.append("Recognized command(s): " + ", ".join(commands))
++    if called_by:
++        signals.append("Called by: " + ", ".join(called_by))
++    if item.get("receipt_evidence"):
++        signals.append(
++            f"Named by {len(item.get('receipt_evidence') or [])} Engineering Workshop receipt(s)."
++        )
++
++    if entry_status != "unresolved":
++        return {
++            "purpose": purpose,
++            "purpose_confidence": confidence,
++            "entry_point_status": entry_status,
++            "resolution_state": "resolved",
++            "unresolved_reason": "",
++            "resolution_signals": signals,
++        }
++
++    confidence = "low"
++    resolved_status = "unresolved"
++    resolved_purpose = purpose
++
++    if called_by and children:
++        resolved_purpose = (
++            "Routes one launcher workflow into another and is statically referenced by a parent launcher."
++        )
++        resolved_status = "support_launcher"
++        confidence = "medium"
++    elif called_by:
++        resolved_purpose = "Serves as a support launcher that is statically referenced by another root BAT file."
++        resolved_status = "support_launcher"
++        confidence = "medium"
++    elif children:
++        resolved_purpose = "Acts as a launcher router for one or more child BAT workflows."
++        resolved_status = "likely_entry_point"
++        confidence = "medium"
++    elif python_scripts:
++        resolved_purpose = (
++            "Starts a Python-backed FOXAI utility: " + ", ".join(python_scripts[:4]) + "."
++        )
++        resolved_status = "utility_entry_point"
++        confidence = "medium"
++    elif powershell_scripts:
++        resolved_purpose = (
++            "Starts a PowerShell-backed FOXAI utility: " + ", ".join(powershell_scripts[:4]) + "."
++        )
++        resolved_status = "utility_entry_point"
++        confidence = "medium"
++    elif executables:
++        resolved_purpose = (
++            "Starts or controls executable component(s): " + ", ".join(executables[:4]) + "."
++        )
++        resolved_status = "utility_entry_point"
++        confidence = "medium"
++    elif "GIT" in commands:
++        resolved_purpose = "Runs a Git source-control utility."
++        resolved_status = "utility_entry_point"
++        confidence = "medium"
++    elif "TASKKILL" in commands:
++        resolved_purpose = "Runs a dedicated process-stop control."
++        resolved_status = "utility_entry_point"
++        confidence = "medium"
++    elif "EXPLORER" in commands:
++        resolved_purpose = "Opens a local FOXAI folder or resource in Windows Explorer."
++        resolved_status = "utility_entry_point"
++        confidence = "medium"
++    elif meaningful_lines == 0:
++        unresolved_reason = "The BAT file is empty, comment-only, or contains no statically meaningful command."
++    elif not signals:
++        unresolved_reason = "The filename and static text do not expose a reliable target, child launcher, or command."
++    else:
++        unresolved_reason = (
++            "Static signals exist, but they are too generic to assign a trustworthy purpose without execution."
++        )
++
++    return {
++        "purpose": resolved_purpose,
++        "purpose_confidence": confidence,
++        "entry_point_status": resolved_status,
++        "resolution_state": "resolved" if resolved_status != "unresolved" else "unresolved",
++        "unresolved_reason": unresolved_reason,
++        "resolution_signals": signals,
++    }
++
++
++def _approved_launcher_front_doors(
++    inventory: dict[str, Any],
++) -> dict[str, list[dict[str, Any]]]:
++    by_name = {
++        str(item.get("name") or "").casefold(): item
++        for item in (inventory.get("items") or [])
++    }
++    root_definitions = [
++        {
++            "name": "START_FOXAI_WEB_WITH_COMFYUI.bat",
++            "tier": "primary",
++            "label": "FOXAI WebUI + Creative Studio",
++            "reason": "Receipt-backed known-good combined launcher.",
++        },
++        {
++            "name": "START_FOXAI_DESKTOP_TWO_WINDOW_RECOVERY.bat",
++            "tier": "primary",
++            "label": "FOXAI Desktop Recovery",
++            "reason": "Receipt-backed known-good two-window Desktop recovery launcher.",
++        },
++        {
++            "name": "Launch FOXAI Workshop.bat",
++            "tier": "specialized",
++            "label": "Engineering Workshop",
++            "reason": "Protected Workshop entry point for guarded implementation work.",
++        },
++    ]
++    root_entries: list[dict[str, Any]] = []
++    for definition in root_definitions:
++        item = by_name.get(definition["name"].casefold())
++        root_entries.append(
++            {
++                **definition,
++                "present": item is not None,
++                "protected": bool((item or {}).get("protected")),
++                "sha256": str((item or {}).get("sha256") or ""),
++                "receipt_evidence": list((item or {}).get("receipt_evidence") or []),
++            }
++        )
++
++    external_by_role = {
++        str(item.get("role") or ""): item
++        for item in ((inventory.get("protected_baseline") or {}).get("external") or [])
++    }
++    study = external_by_role.get("kayocks_study_start") or {}
++    external_entries = [
++        {
++            "path": "KAYOCKS_STUDY_BIBLIOTHECA_V1/START_KAYOCKS_STUDY.bat",
++            "tier": "specialized",
++            "label": "Kayock's Study Standalone",
++            "reason": "Known-good standalone fallback for the Bibliotheca and Research Desk.",
++            "present": bool(study.get("present")),
++            "protected": True,
++            "sha256": str(study.get("sha256") or ""),
++        }
++    ]
++    return {"root": root_entries, "external": external_entries}
++
++
++def run_launcher_index(
++    root: str | Path,
++    *,
++    context: dict[str, Any] | None = None,
++) -> dict[str, Any]:
++    """Build a read-only searchable launcher index without executing or changing BAT files."""
++    started = time.perf_counter()
++    project_root = Path(root).expanduser().resolve()
++    inventory = _launcher_inventory(project_root)
++
++    duplicate_lookup: dict[str, list[dict[str, Any]]] = {}
++    for group_index, group in enumerate(inventory.get("exact_duplicate_groups") or [], start=1):
++        group_id = f"exact-{group_index}"
++        for name in group.get("files") or []:
++            duplicate_lookup.setdefault(str(name).casefold(), []).append(
++                {
++                    "group_id": group_id,
++                    "sha256": str(group.get("sha256") or ""),
++                    "files": list(group.get("files") or []),
++                }
++            )
++
++    similar_lookup: dict[str, list[dict[str, Any]]] = {}
++    for group_index, group in enumerate(inventory.get("similar_name_groups") or [], start=1):
++        group_id = f"similar-{group_index}"
++        for name in group.get("files") or []:
++            similar_lookup.setdefault(str(name).casefold(), []).append(
++                {
++                    "group_id": group_id,
++                    "family": str(group.get("family") or ""),
++                    "files": list(group.get("files") or []),
++                }
++            )
++
++    refined_unresolved: list[str] = []
++    enriched_items: list[dict[str, Any]] = []
++    for original in inventory.get("items") or []:
++        item = dict(original)
++        resolution = _launcher_index_resolution(item)
++        item.update(resolution)
++        item["exact_duplicate_membership"] = duplicate_lookup.get(
++            str(item.get("name") or "").casefold(), []
++        )
++        item["similar_name_membership"] = similar_lookup.get(
++            str(item.get("name") or "").casefold(), []
++        )
++        if item.get("resolution_state") == "unresolved":
++            refined_unresolved.append(str(item.get("name") or ""))
++        item["search_text"] = " ".join(
++            [
++                str(item.get("name") or ""),
++                str(item.get("purpose") or ""),
++                str(item.get("category") or ""),
++                str(item.get("entry_point_status") or ""),
++                " ".join(item.get("protected_roles") or []),
++                " ".join(item.get("commands") or []),
++                " ".join(item.get("child_launchers") or []),
++                " ".join(item.get("called_by") or []),
++                " ".join(item.get("python_scripts") or []),
++                " ".join(item.get("powershell_scripts") or []),
++                " ".join(item.get("executables") or []),
++                str(item.get("unresolved_reason") or ""),
++            ]
++        ).casefold()
++        enriched_items.append(item)
++
++    inventory["items"] = sorted(enriched_items, key=lambda item: str(item.get("name") or "").casefold())
++    inventory["unresolved_items"] = sorted(refined_unresolved, key=str.casefold)
++    inventory["approved_front_doors"] = _approved_launcher_front_doors(inventory)
++    inventory["index_filters"] = {
++        "categories": sorted(
++            {str(item.get("category") or "") for item in enriched_items if item.get("category")}
++        ),
++        "entry_point_statuses": sorted(
++            {
++                str(item.get("entry_point_status") or "")
++                for item in enriched_items
++                if item.get("entry_point_status")
++            }
++        ),
++        "protection": ["all", "protected", "unprotected"],
++        "resolution": ["all", "resolved", "unresolved"],
++    }
++
++    protected_count = sum(1 for item in enriched_items if item.get("protected"))
++    front_doors = inventory["approved_front_doors"]
++    front_door_count = sum(
++        1
++        for item in list(front_doors.get("root") or []) + list(front_doors.get("external") or [])
++        if item.get("present")
++    )
++    elapsed = round(time.perf_counter() - started, 3)
++    return {
++        "ok": project_root.is_dir(),
++        "version": SCAN_VERSION,
++        "title": "Repair Bay V1.3 — Launcher Index and Unknown Resolution",
++        "created_at": _iso_now(),
++        "root": str(project_root),
++        "read_only": True,
++        "elapsed_seconds": elapsed,
++        "summary": {
++            "total": int(inventory.get("total") or 0),
++            "protected": protected_count,
++            "approved_front_doors": front_door_count,
++            "resolved": len(enriched_items) - len(refined_unresolved),
++            "unresolved": len(refined_unresolved),
++            "exact_duplicate_groups": len(inventory.get("exact_duplicate_groups") or []),
++            "archive_review_candidates": len(inventory.get("obsolete_looking_candidates") or []),
++            "relationships": len(inventory.get("relationship_edges") or []),
++            "receipt_backed": len(inventory.get("receipt_backed") or []),
++        },
++        "inventory": inventory,
++        "context": dict(context or {}),
++        "safety": {
++            "batch_files_executed": False,
++            "network_used": False,
++            "commands_run": False,
++            "files_written": 0,
++            "moves": 0,
++            "renames": 0,
++            "deletions": 0,
++            "archives_created": 0,
++            "repairs_applied": 0,
++        },
++        "scope": {
++            "root_batch_files_only": True,
++            "static_text_analysis": True,
++            "receipt_text_search": True,
++            "protected_study_launchers_metadata_only": True,
++            "proposal_only": True,
++        },
++    }
++
+ def _log_snapshot(root: Path) -> dict[str, Any]:
+     logs = root / "Logs"
+     total = 0
+@@ -918,7 +1221,7 @@
+         "changes_applied": 0,
+         "steps": steps,
+         "message": (
+-            "Review each proposed action separately. Repair Bay V1.2 does not apply repairs."
++            "Review each proposed action separately. Repair Bay V1.3 does not apply repairs."
+             if steps
+             else "No repair steps are proposed from this scan."
+         ),
+@@ -992,7 +1295,7 @@
+         return {
+             "ok": False,
+             "version": SCAN_VERSION,
+-            "title": "Repair Bay V1.2 — Launcher Map and Protected Baseline",
++            "title": "Repair Bay V1.3 — Launcher Index and Unknown Resolution",
+             "created_at": _iso_now(),
+             "mode": scan_mode,
+             "root": str(project_root),
+@@ -1433,7 +1736,7 @@
+     report = {
+         "ok": counts["urgent"] == 0,
+         "version": SCAN_VERSION,
+-        "title": "Repair Bay V1.2 — Launcher Map and Protected Baseline",
++        "title": "Repair Bay V1.3 — Launcher Index and Unknown Resolution",
+         "created_at": _iso_now(),
+         "mode": scan_mode,
+         "root": str(project_root),
+--- a/core/VERIFY_REPAIR_BAY_V1.py
++++ b/core/VERIFY_REPAIR_BAY_V1.py
+@@ -13,7 +13,7 @@
+     sys.path.insert(0, str(PROJECT_ROOT))
+ 
+ import core.repair_bay_diagnostics as diagnostics
+-from core.repair_bay_diagnostics import SEVERITIES, run_repair_bay_scan
++from core.repair_bay_diagnostics import SEVERITIES, run_launcher_index, run_repair_bay_scan
+ 
+ 
+ def tree_snapshot(root: Path) -> dict[str, dict[str, int | str]]:
+@@ -76,6 +76,9 @@
+     write(root / "start FoxAI 3 Alpha.bat", "@echo off\necho alpha duplicate\n")
+     write(root / "OLD_UNUSED_COPY.bat", "@echo off\necho old utility\n")
+     write(root / "MYSTERY_THING.bat", "@echo off\necho mystery\n")
++    write(root / "BRIDGE_COMMAND.bat", '@echo off\n"%~dp0Runtime\\Desktop\\python\\python.exe" "%~dp0core\\bridge_command.py"\n')
++    write(root / "EVENT_BUS_DEMO.bat", '@echo off\n"%~dp0Runtime\\Desktop\\python\\python.exe" "%~dp0core\\event_bus_demo.py"\n')
++    write(root / "CAPTAINS_LOG_VIEW.bat", '@echo off\nexplorer "%~dp0Logs"\n')
+ 
+     write(root / "KAYOCKS_STUDY_BIBLIOTHECA_V1" / "START_KAYOCKS_STUDY.bat", "@echo off\n")
+     write(root / "KAYOCKS_STUDY_BIBLIOTHECA_V1" / "VERIFY_KAYOCKS_STUDY.bat", "@echo off\n")
+@@ -116,7 +119,7 @@
+ 
+ def assert_report(report: dict, mode: str) -> None:
+     assert report["mode"] == mode
+-    assert report["version"] == "1.2"
++    assert report["version"] == "1.3"
+     assert report["read_only"] is True
+     assert report["safety"]["network_used"] is False
+     assert report["safety"]["commands_run"] is False
+@@ -150,7 +153,7 @@
+ 
+ 
+ def main() -> int:
+-    root = Path(tempfile.mkdtemp(prefix="repair_bay_v1_2_"))
++    root = Path(tempfile.mkdtemp(prefix="repair_bay_v1_3_"))
+     build_fixture(root)
+     before = tree_snapshot(root)
+ 
+@@ -221,6 +224,61 @@
+         assert "OLD_UNUSED_COPY.bat" in candidates, candidates
+         assert not any(map_item(inventory, name)["protected"] for name in candidates)
+ 
++        index_before = tree_snapshot(root)
++        launcher_index = run_launcher_index(root, context={"test": True})
++        assert launcher_index["version"] == "1.3"
++        assert launcher_index["read_only"] is True
++        assert launcher_index["safety"]["batch_files_executed"] is False
++        assert launcher_index["safety"]["network_used"] is False
++        assert launcher_index["safety"]["commands_run"] is False
++        assert launcher_index["safety"]["files_written"] == 0
++        assert launcher_index["safety"]["moves"] == 0
++        assert launcher_index["safety"]["renames"] == 0
++        assert launcher_index["safety"]["deletions"] == 0
++        assert launcher_index["safety"]["repairs_applied"] == 0
++        assert index_before == tree_snapshot(root), "Launcher Index modified fixture files."
++
++        indexed_inventory = launcher_index["inventory"]
++        assert len(indexed_inventory["items"]) == indexed_inventory["total"]
++        assert indexed_inventory["index_filters"]["categories"]
++        assert indexed_inventory["index_filters"]["entry_point_statuses"]
++        indexed_web = map_item(indexed_inventory, "START_FOXAI_WEB_WITH_COMFYUI.bat")
++        indexed_mystery = map_item(indexed_inventory, "MYSTERY_THING.bat")
++        indexed_bridge = map_item(indexed_inventory, "BRIDGE_COMMAND.bat")
++        indexed_demo = map_item(indexed_inventory, "EVENT_BUS_DEMO.bat")
++        indexed_log = map_item(indexed_inventory, "CAPTAINS_LOG_VIEW.bat")
++        assert indexed_web["purpose_confidence"] == "high"
++        assert indexed_web["exact_duplicate_membership"] == []
++        assert indexed_mystery["resolution_state"] == "unresolved", indexed_mystery
++        assert indexed_mystery["unresolved_reason"], indexed_mystery
++        assert indexed_bridge["resolution_state"] == "resolved", indexed_bridge
++        assert indexed_bridge["entry_point_status"] == "utility_entry_point", indexed_bridge
++        assert "bridge_command.py" in " ".join(indexed_bridge["python_scripts"]).casefold()
++        assert indexed_demo["resolution_state"] == "resolved", indexed_demo
++        assert indexed_log["resolution_state"] == "resolved", indexed_log
++        assert indexed_log["entry_point_status"] == "utility_entry_point", indexed_log
++        assert indexed_web["search_text"]
++        assert any(item.get("exact_duplicate_membership") for item in indexed_inventory["items"])
++        assert any(item.get("similar_name_membership") for item in indexed_inventory["items"])
++        front = indexed_inventory["approved_front_doors"]
++        front_root = {item["name"]: item for item in front["root"]}
++        assert front_root["START_FOXAI_WEB_WITH_COMFYUI.bat"]["present"] is True
++        assert front_root["START_FOXAI_WEB_WITH_COMFYUI.bat"]["tier"] == "primary"
++        assert front_root["START_FOXAI_DESKTOP_TWO_WINDOW_RECOVERY.bat"]["present"] is True
++        assert front_root["Launch FOXAI Workshop.bat"]["present"] is True
++        assert front["external"][0]["present"] is True
++        protected_names = {
++            item["name"]
++            for item in indexed_inventory["protected_baseline"]["root"]
++        }
++        candidate_names = {
++            item["name"]
++            for item in indexed_inventory["obsolete_looking_candidates"]
++        }
++        assert not protected_names.intersection(candidate_names)
++        assert indexed_inventory["archive_plan"]["status"] == "proposal_only"
++        assert indexed_inventory["archive_plan"]["changes_applied"] == 0
++
+         diagnostics._windows_pending_reboot = lambda: reboot_fixture(
+             advisory=["Pending file rename operations"]
+         )
+@@ -247,6 +305,12 @@
+         "/api/repair/health_scan",
+         "def repair_bay_health_scan",
+         "from core.repair_bay_diagnostics import run_repair_bay_scan",
++        "Launcher Index",
++        "loadRepairLauncherIndex(true)",
++        "renderRepairLauncherIndex",
++        "/api/repair/launcher_index",
++        "def repair_bay_launcher_index",
++        "from core.repair_bay_diagnostics import run_launcher_index",
+     ):
+         assert marker in web_text, marker
+ 
+@@ -285,7 +349,7 @@
+ 
+     result = {
+         "ok": True,
+-        "schema": "foxai.repair_bay.v1_2.verification",
++        "schema": "foxai.repair_bay.v1_3.verification",
+         "quick_checks": quick["summary"]["checks"],
+         "full_checks": full["summary"]["checks"],
+         "launcher_contents_parsed": len(inventory["items"]),
+@@ -297,6 +361,16 @@
+         "archive_review_candidates_verified": len(inventory["obsolete_looking_candidates"]),
+         "unresolved_items_verified": len(inventory["unresolved_items"]),
+         "archive_plan_proposal_only": True,
++        "launcher_index_verified": True,
++        "launcher_index_items_verified": len(indexed_inventory["items"]),
++        "approved_front_doors_verified": sum(
++            1
++            for item in list(front["root"]) + list(front["external"])
++            if item.get("present")
++        ),
++        "unknown_resolution_verified": True,
++        "search_and_filter_metadata_verified": True,
++        "webui_launcher_index_verified": True,
+         "healthy_guidance_corrected": True,
+         "empty_init_recognized_as_valid": True,
+         "rename_only_restart_marker_informational": True,

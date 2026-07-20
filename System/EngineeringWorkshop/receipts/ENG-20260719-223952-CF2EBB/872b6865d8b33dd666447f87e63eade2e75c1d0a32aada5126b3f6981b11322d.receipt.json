@@ -1,0 +1,93 @@
+{
+  "authorized": true,
+  "changes": [
+    {
+      "action": "write_file",
+      "after_sha256": "c42f6d829d8faa5227919c670652242a1a57cda6c89ee60997065e4990fba995",
+      "after_size": 60836,
+      "before_sha256": "68efe5ad80c7ea710d2d9c316c81ee4bd61dfff9ac539c82e94e4eb8c380fb22",
+      "before_size": 42739,
+      "relative_path": "core/repair_bay_diagnostics.py"
+    },
+    {
+      "action": "write_file",
+      "after_sha256": "f98809a440a525db52d311261a9bbe64ebdfac01ed6ed63ba67f5092da01dd0b",
+      "after_size": 14222,
+      "before_sha256": "fb14eec01f5429fe9742797c1306810e4265b1ab25d33b1ba0d4d6133beb50d4",
+      "before_size": 10457,
+      "relative_path": "core/VERIFY_REPAIR_BAY_V1.py"
+    }
+  ],
+  "created_at": "2026-07-19T22:48:50.766352Z",
+  "evidence_is_tool_generated": true,
+  "failure": null,
+  "mission_id": "ENG-20260719-223952-CF2EBB",
+  "mission_title": "Repair Bay V1.2 \u2014 Launcher Map and Protected Baseline",
+  "mission_type": "implement",
+  "no_deletions": true,
+  "no_renames": true,
+  "plan_path": "Z:\\FOXAI\\FOXAI_Repair_Bay_V1_2_Launcher_Map_Protected_Baseline\\REPAIR_BAY_V1_2_EXACT_PLAN.json",
+  "plan_sha256": "872b6865d8b33dd666447f87e63eade2e75c1d0a32aada5126b3f6981b11322d",
+  "project_root": "Z:\\FOXAI",
+  "result": "applied_verified",
+  "rolled_back": false,
+  "schema": "foxai.engineering.receipt.v1",
+  "snapshot_manifest": "Z:\\FOXAI\\System\\EngineeringWorkshop\\snapshots\\ENG-20260719-223952-CF2EBB\\snapshot_20260719T224844805978Z.manifest.json",
+  "snapshot_path": "Z:\\FOXAI\\System\\EngineeringWorkshop\\snapshots\\ENG-20260719-223952-CF2EBB\\snapshot_20260719T224844805978Z.zip",
+  "snapshot_sha256": "cfe01e509cc0c6f5fd6994d6d9e70f142d2af106a9e3799b67045f53bee5b73f",
+  "validations": [
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path;files=[Path(r'Z:\\FOXAI\\core\\repair_bay_diagnostics.py'),Path(r'Z:\\FOXAI\\core\\VERIFY_REPAIR_BAY_V1.py')];[compile(p.read_text(encoding='utf-8'),str(p),'exec') for p in files];print('REPAIR_BAY_V1_2_SOURCE_COMPILE_OK')"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-19T22:48:44.917500Z",
+      "name": "Compile Repair Bay V1.2 sources without writing bytecode",
+      "returncode": 0,
+      "started_at": "2026-07-19T22:48:44.843225Z",
+      "stderr": "",
+      "stdout": "REPAIR_BAY_V1_2_SOURCE_COMPILE_OK\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "Z:\\FOXAI\\core\\VERIFY_REPAIR_BAY_V1.py"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-19T22:48:45.209029Z",
+      "name": "Verify launcher content map, relationships, protected baseline, and read-only behavior",
+      "returncode": 0,
+      "started_at": "2026-07-19T22:48:44.917813Z",
+      "stderr": "",
+      "stdout": "{\n  \"ok\": true,\n  \"schema\": \"foxai.repair_bay.v1_2.verification\",\n  \"quick_checks\": 13,\n  \"full_checks\": 18,\n  \"launcher_contents_parsed\": 20,\n  \"launcher_relationships_verified\": 4,\n  \"protected_root_launchers_verified\": 12,\n  \"protected_study_launchers_verified\": 2,\n  \"receipt_backed_launchers_verified\": 3,\n  \"exact_duplicate_groups_verified\": 2,\n  \"archive_review_candidates_verified\": 5,\n  \"unresolved_items_verified\": 2,\n  \"archive_plan_proposal_only\": true,\n  \"healthy_guidance_corrected\": true,\n  \"empty_init_recognized_as_valid\": true,\n  \"rename_only_restart_marker_informational\": true,\n  \"read_only_tree_unchanged\": true,\n  \"network_used\": false,\n  \"commands_run\": false,\n  \"files_written\": 0,\n  \"repairs_applied\": 0\n}\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "import json,sys;sys.path.insert(0,r'Z:\\FOXAI');from core.repair_bay_diagnostics import run_repair_bay_scan;r=run_repair_bay_scan(r'Z:\\FOXAI',mode='full',context={'validation':'v1_2_live_launcher_map_smoke'});s=r.get('safety') or {};assert r.get('version')=='1.2',r.get('version');assert r.get('read_only') is True,r;assert s.get('network_used') is False,s;assert s.get('commands_run') is False,s;assert int(s.get('files_written') or 0)==0,s;assert int(s.get('repairs_applied') or 0)==0,s;inv=(r.get('evidence') or {}).get('launcher_inventory') or {};assert int(inv.get('total') or 0)>=1,inv;items=inv.get('items') or [];assert len(items)==int(inv.get('total') or 0),(len(items),inv.get('total'));assert all('purpose' in item and 'entry_point_status' in item for item in items);baseline=inv.get('protected_baseline') or {};root_protected=baseline.get('root') or [];assert any(item.get('name')=='START_FOXAI_WEB_WITH_COMFYUI.bat' for item in root_protected),root_protected;assert any(item.get('name')=='START_FOXAI_DESKTOP_TWO_WINDOW_RECOVERY.bat' for item in root_protected),root_protected;external=baseline.get('external') or [];assert any(item.get('role')=='kayocks_study_start' and item.get('present') for item in external),external;archive=inv.get('archive_plan') or {};assert archive.get('status')=='proposal_only',archive;assert int(archive.get('changes_applied') or 0)==0,archive;assert archive.get('delete_allowed') is False,archive;assert archive.get('move_allowed') is False,archive;assert archive.get('rename_allowed') is False,archive;protected_names={item.get('name') for item in root_protected};candidate_names={item.get('name') for item in (inv.get('obsolete_looking_candidates') or [])};assert not protected_names.intersection(candidate_names),(protected_names,candidate_names);print(json.dumps({'REPAIR_BAY_V1_2_LIVE_OK':True,'checks':(r.get('summary') or {}).get('checks'),'launcher_total':inv.get('total'),'protected_root':len(root_protected),'relationships':len(inv.get('relationship_edges') or []),'receipt_backed':len(inv.get('receipt_backed') or []),'archive_candidates':len(inv.get('obsolete_looking_candidates') or []),'unresolved':len(inv.get('unresolved_items') or [])},indent=2))"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-19T22:48:50.766299Z",
+      "name": "Run live full-scan V1.2 launcher-map safety smoke test",
+      "returncode": 0,
+      "started_at": "2026-07-19T22:48:45.209351Z",
+      "stderr": "",
+      "stdout": "{\n  \"REPAIR_BAY_V1_2_LIVE_OK\": true,\n  \"checks\": 18,\n  \"launcher_total\": 115,\n  \"protected_root\": 23,\n  \"relationships\": 11,\n  \"receipt_backed\": 0,\n  \"archive_candidates\": 2,\n  \"unresolved\": 9\n}\n",
+      "timed_out": false
+    }
+  ]
+}

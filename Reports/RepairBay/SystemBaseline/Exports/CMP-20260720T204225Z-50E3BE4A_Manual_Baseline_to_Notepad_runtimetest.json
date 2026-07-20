@@ -1,0 +1,198 @@
+{
+  "schema": "foxai.repair_baseline.comparison.v1",
+  "comparison_id": "CMP-20260720T204225Z-50E3BE4A",
+  "created_at": "2026-07-20T20:42:25+00:00",
+  "before": {
+    "snapshot_id": "SNP-20260720T204045Z-25E672AD",
+    "name": "Manual Baseline",
+    "note": "",
+    "origin": "manual",
+    "session_id": "",
+    "created_at": "2026-07-20T20:40:45+00:00",
+    "machine_name": "DESKTOP-G9ERN9B",
+    "process_count": 60,
+    "service_count": 324,
+    "startup_count": 18,
+    "application_count": 290,
+    "listener_count": 42,
+    "available_memory_bytes": 37784506368,
+    "path": "",
+    "payload_sha256": "dcc1bc59f032b4f1c08944b6b2bcda2194cbbd9e0040e8e585ced82a087e3298"
+  },
+  "after": {
+    "snapshot_id": "SNP-20260720T204202Z-7496EC95",
+    "name": "Notepad runtimetest",
+    "note": "",
+    "origin": "after_manual",
+    "session_id": "",
+    "created_at": "2026-07-20T20:42:02+00:00",
+    "machine_name": "DESKTOP-G9ERN9B",
+    "process_count": 60,
+    "service_count": 324,
+    "startup_count": 18,
+    "application_count": 290,
+    "listener_count": 42,
+    "available_memory_bytes": 37808033792,
+    "path": "",
+    "payload_sha256": "0ef97e0eb1bf5a514b4378e8c1093a7db22623103685b29eb6355a59e2d25a55"
+  },
+  "summary": {
+    "total_changes": 8,
+    "by_action": {
+      "Added": 2,
+      "Removed": 1,
+      "Increased": 2,
+      "Decreased": 3
+    },
+    "by_classification": {
+      "Observation": 4,
+      "Runtime Noise": 4
+    },
+    "count_deltas": {
+      "applications": 0,
+      "services": 0,
+      "startup_entries": 0,
+      "scheduled_tasks": 0,
+      "listeners": 0,
+      "processes": 0
+    },
+    "resource_deltas": {
+      "memory_available_bytes_delta": 23527424,
+      "memory_committed_bytes_delta": -39247872,
+      "memory_cached_bytes_delta": 606208,
+      "disk_free_bytes_delta": {
+        "C:\\": -22638592,
+        "Z:\\": -786432
+      }
+    }
+  },
+  "changes": [
+    {
+      "category": "processes",
+      "action": "Added",
+      "name": "Notepad.exe",
+      "classification": "Observation",
+      "evidence": {
+        "before": null,
+        "after": {
+          "name": "Notepad.exe",
+          "process_id": 28396,
+          "executable_path": "C:\\Program Files\\WindowsApps\\Microsoft.WindowsNotepad_11.2605.34.0_x64__8wekyb3d8bbwe\\Notepad\\Notepad.exe",
+          "publisher": "CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US",
+          "signature_status": "Valid",
+          "working_set_bytes": 173596672,
+          "private_bytes": 107737088,
+          "cpu_time_seconds": 0.891,
+          "start_time": "07/20/2026 14:41:19",
+          "services": []
+        }
+      }
+    },
+    {
+      "category": "processes",
+      "action": "Added",
+      "name": "WRSA.exe",
+      "classification": "Observation",
+      "evidence": {
+        "before": null,
+        "after": {
+          "name": "WRSA.exe",
+          "process_id": 2644,
+          "executable_path": "",
+          "publisher": "",
+          "signature_status": "",
+          "working_set_bytes": 88084480,
+          "private_bytes": 340815872,
+          "cpu_time_seconds": 1653.828,
+          "start_time": "07/19/2026 16:14:21",
+          "services": [
+            "C",
+            "R",
+            "S",
+            "V",
+            "W"
+          ]
+        }
+      }
+    },
+    {
+      "category": "processes",
+      "action": "Removed",
+      "name": "RuntimeBroker.exe",
+      "classification": "Runtime Noise",
+      "evidence": {
+        "before": {
+          "name": "RuntimeBroker.exe",
+          "process_id": 2608,
+          "executable_path": "C:\\Windows\\System32\\RuntimeBroker.exe",
+          "publisher": "CN=Microsoft Windows, O=Microsoft Corporation, L=Redmond, S=Washington, C=US",
+          "signature_status": "Valid",
+          "working_set_bytes": 52441088,
+          "private_bytes": 8912896,
+          "cpu_time_seconds": 3.891,
+          "start_time": "07/19/2026 16:15:01",
+          "services": []
+        },
+        "after": null
+      }
+    },
+    {
+      "category": "resources",
+      "action": "Increased",
+      "name": "Available Bytes",
+      "classification": "Runtime Noise",
+      "evidence": {
+        "before": 37784506368,
+        "after": 37808033792,
+        "delta": 23527424
+      }
+    },
+    {
+      "category": "resources",
+      "action": "Decreased",
+      "name": "Committed Bytes",
+      "classification": "Runtime Noise",
+      "evidence": {
+        "before": 19661590528,
+        "after": 19622342656,
+        "delta": -39247872
+      }
+    },
+    {
+      "category": "resources",
+      "action": "Increased",
+      "name": "Cached Bytes",
+      "classification": "Runtime Noise",
+      "evidence": {
+        "before": 954281984,
+        "after": 954888192,
+        "delta": 606208
+      }
+    },
+    {
+      "category": "resources",
+      "action": "Decreased",
+      "name": "Free disk space C:\\",
+      "classification": "Observation",
+      "evidence": {
+        "before": 547745308672,
+        "after": 547722670080,
+        "delta": -22638592
+      }
+    },
+    {
+      "category": "resources",
+      "action": "Decreased",
+      "name": "Free disk space Z:\\",
+      "classification": "Observation",
+      "evidence": {
+        "before": 786542886912,
+        "after": 786542100480,
+        "delta": -786432
+      }
+    }
+  ],
+  "neutral_interpretation": true,
+  "system_modified": false,
+  "network_used": false
+}

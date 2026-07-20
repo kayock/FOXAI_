@@ -43,14 +43,11 @@ from research_desk import (
 )
 
 from external_library import (
-    acquire_playback_lease, assign_item_to_work, audiobook_state,
-    cancel_location_scan, catalog_item_open_route, connect_external_library_db,
-    heartbeat_playback_lease, launch_catalog_item, list_locations, list_works,
-    preview_location, register_location, release_playback_lease,
-    remove_location_from_catalog, resolve_audio_stream_item,
-    resolve_catalog_item_path, save_audiobook_order, save_audiobook_progress,
-    scan_status, set_location_enabled, start_location_scan,
-    verify_external_library_environment, work_detail,
+    assign_item_to_work, cancel_location_scan, connect_external_library_db,
+    launch_catalog_item, list_locations, list_works, preview_location,
+    register_location, remove_location_from_catalog, scan_status,
+    set_location_enabled, start_location_scan, verify_external_library_environment,
+    work_detail,
 )
 
 APP_NAME = "Kayock's Study"
@@ -64,7 +61,7 @@ LOCAL_MODEL_URL = "http://127.0.0.1:8080"
 LOW_TEXT_CHARS = 40
 MAX_ASK_SOURCES = 8
 MAX_SOURCE_CHARS = 18000
-APP_VERSION = "2C.1.1"
+APP_VERSION = "2C.1"
 REVIEW_RELATIVE_ROOT = Path("Needs Review") / "Bibliotheca Duplicate Review"
 
 _OCR_MARKERS = re.compile(
@@ -4051,15 +4048,14 @@ button:disabled{opacity:.5;cursor:not-allowed}
 .externalitem .controls{justify-content:flex-end}.externalitem select{min-width:190px}
 .confidence-confirmed{color:var(--green)}.confidence-probable{color:var(--cyan)}.confidence-needs_review{color:var(--gold)}
 #externalWorkDialog{width:min(1000px,94vw);max-height:90vh;overflow:auto;border:1px solid #9b6cff75;border-radius:22px;background:#0b0e18;color:var(--text);padding:22px;box-shadow:0 28px 90px #000c}
-.externaldetail{border:1px solid var(--line);border-radius:20px;background:#101522;padding:18px}.externaldetailhead{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;flex-wrap:wrap}.externaldetailmeta{display:flex;gap:7px;flex-wrap:wrap;margin-top:8px}.externalpath{word-break:break-all;color:#b8b0ca;font-family:ui-monospace,Consolas,monospace;font-size:12px}.workcard .viewtitle{margin-top:10px}.audiobooksummary{border:1px solid #36dbff35;border-radius:15px;padding:12px;background:#07101a;margin:10px 0}.audiobookqueue{display:grid;gap:7px;margin-top:10px}.audiobookpart{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:8px;align-items:center;border:1px solid #8f5cff25;border-radius:12px;padding:8px;background:#070a12}.audiobookpart.active{border-color:var(--cyan);background:#0a1720}.partnumber{min-width:34px;text-align:center;color:var(--cyan);font-weight:800}.partorder{display:flex;gap:4px}.partorder button{padding:5px 7px}.playerdock{position:fixed;left:max(270px,calc((100vw - 1450px)/2 + 270px));right:18px;bottom:12px;z-index:50;border:1px solid #36dbff70;border-radius:18px;background:#080d17f5;backdrop-filter:blur(10px);padding:12px;box-shadow:0 20px 55px #000b}.playerdock[hidden]{display:none}.playerhead{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center}.playercontrols{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-top:8px}.playercontrols button{padding:7px 10px}.playerseek{display:grid;grid-template-columns:auto minmax(120px,1fr) auto;gap:8px;align-items:center;margin-top:8px}.playerseek input{width:100%}.playerstatus{margin-top:7px;color:var(--muted);font-size:12px}.playerbookprogress{height:8px;border-radius:999px;background:#ffffff12;overflow:hidden;margin-top:7px}.playerbookprogress div{height:100%;background:linear-gradient(90deg,var(--violet),var(--cyan));width:0}.playeroptions{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:7px}.playeroptions label{font-size:12px;color:var(--muted)}.playeroptions select,.playeroptions input{margin-left:4px;width:auto}.relationconfirm{border-left:3px solid var(--gold);padding-left:9px}.detailnotice{border:1px solid #ffd16655;border-radius:12px;padding:9px;background:#261d08;color:#ffe6a0;margin-top:9px}
-@media(max-width:900px){.playerdock{left:12px;right:12px}.locationsgrid{grid-template-columns:1fr}.locationform,.worksbar{grid-template-columns:1fr}.locationstats{grid-template-columns:repeat(2,1fr)}.externalitem{grid-template-columns:1fr}}
+@media(max-width:900px){.locationsgrid{grid-template-columns:1fr}.locationform,.worksbar{grid-template-columns:1fr}.locationstats{grid-template-columns:repeat(2,1fr)}.externalitem{grid-template-columns:1fr}}
 
 </style>
 </head>
 <body>
 <div class="shell">
   <section class="hero">
-    <div class="eyebrow">Kayock's Study · Bibliotheca V2C.1.1</div>
+    <div class="eyebrow">Kayock's Study · Bibliotheca V2C.1</div>
     <h1>The Bibliotheca</h1>
     <div class="motto">Read. Research. Preserve. Discover.</div>
     <p class="muted">Browse your preserved collection visually, then open, search, or ask from the exact source.</p>
@@ -4110,8 +4106,8 @@ button:disabled{opacity:.5;cursor:not-allowed}
 
 
   <section id="libraryLocationsWorkspace" class="locationsworkspace" hidden aria-label="Read-only multi-drive library discovery">
-    <div class="locationsheading"><div><div class="eyebrow">V2C.1.1 · Unified titles and onboard listening</div><h2>Library Locations</h2><div class="muted">Catalog books, audiobooks, maps, and companion files where they already live. FOXAI never crawls every drive automatically.</div></div><button type="button" class="secondary" onclick="showLibraryHome()">Return to Library Home</button></div>
-    <div id="externalLocationsMain" class="locationsgrid">
+    <div class="locationsheading"><div><div class="eyebrow">V2C.1 · Explicit roots only</div><h2>Library Locations</h2><div class="muted">Catalog books, audiobooks, maps, and companion files where they already live. FOXAI never crawls every drive automatically.</div></div><button type="button" class="secondary" onclick="showLibraryHome()">Return to Library Home</button></div>
+    <div class="locationsgrid">
       <section class="locationscard">
         <h3>Approve One Folder</h3>
         <p class="small">Enter one exact folder path. Preview counts first; registration and hashing happen only after a separate action.</p>
@@ -4130,20 +4126,6 @@ button:disabled{opacity:.5;cursor:not-allowed}
         <div id="externalWorkGrid" class="workgrid"><div class="empty">Register and scan an approved folder to build unified titles.</div></div>
       </section>
     </div>
-    <section id="externalTitleWorkspace" class="externaldetail" hidden aria-label="Unified title details">
-      <div class="externaldetailhead"><button id="externalBackButton" type="button" class="secondary" onclick="backToExternalWorks()">Back to Unified Titles</button><button type="button" class="secondary" onclick="showLibraryHome()">Return to Library Home</button></div>
-      <div id="externalTitleBody"><div class="empty">Choose a unified title.</div></div>
-    </section>
-  </section>
-
-  <section id="audiobookPlayerDock" class="playerdock" hidden aria-label="Kayock's Study audiobook player">
-    <audio id="audiobookAudio" preload="metadata"></audio>
-    <div class="playerhead"><div><div class="eyebrow">Listen in FOXAI</div><b id="audiobookPlayerTitle">No audiobook loaded</b><div id="audiobookPlayerPart" class="small"></div></div><button type="button" class="secondary" onclick="closeAudiobookPlayer()">Close Player</button></div>
-    <div class="playercontrols"><button type="button" onclick="playerPreviousPart()">Previous Part</button><button type="button" onclick="playerSkip(-15)">−15 sec</button><button id="audiobookPlayPause" type="button" onclick="toggleAudiobookPlayback()">Play</button><button type="button" onclick="stopAudiobookPlayback()">Stop</button><button type="button" onclick="playerSkip(30)">+30 sec</button><button type="button" onclick="playerNextPart()">Next Part</button></div>
-    <div class="playerseek"><span id="audiobookElapsed">0:00</span><input id="audiobookSeek" type="range" min="0" max="0" step="0.1" value="0" aria-label="Audiobook position"><span id="audiobookRemaining">−0:00</span></div>
-    <div class="playerbookprogress"><div id="audiobookBookProgress"></div></div>
-    <div class="playeroptions"><label>Speed<select id="audiobookSpeed"><option value="0.75">0.75×</option><option value="1">1×</option><option value="1.25">1.25×</option><option value="1.5">1.5×</option><option value="1.75">1.75×</option><option value="2">2×</option></select></label><label>Volume <input id="audiobookVolume" type="range" min="0" max="1" step="0.05" value="1"></label><button type="button" class="secondary" onclick="rememberAudiobookPosition()">Remember This Position</button><button type="button" class="secondary" onclick="startAudiobookFromBeginning()">Start from Beginning</button><button type="button" class="secondary" onclick="openCurrentAudioExternally()">Open Externally</button></div>
-    <div id="audiobookPlayerStatus" class="playerstatus" aria-live="polite">Ready.</div>
   </section>
 
   <div id="advancedWorkspace" hidden>
@@ -4322,9 +4304,6 @@ let externalRoots=[];
 let externalWorks=[];
 let externalPreviewData=null;
 let externalScanWasRunning=false;
-let activeExternalWork=null;
-let externalReturnState={query:'',scrollY:0};
-let audiobookPlayer={workId:null,queue:[],currentIndex:0,work:null,ownerToken:(crypto.randomUUID?crypto.randomUUID():String(Date.now())+'-'+Math.random()),leaseTimer:null,lastAutoSave:0,loading:false,startWithoutSaving:false};
 let lastState={};
 let lastSearchResults=[];
 let lastSearchQuestion='';
@@ -4437,7 +4416,6 @@ function showLibraryLocations(){
   q('advancedWorkspace').hidden=true;
   q('advancedHeroTools').hidden=true;
   setWorkspaceButtons('locations');
-  q('externalLocationsMain').hidden=false;q('externalTitleWorkspace').hidden=true;
   refreshExternalLocations();
   refreshExternalWorks();
   q('libraryLocationsWorkspace').scrollIntoView({behavior:'smooth',block:'start'});
@@ -5327,110 +5305,29 @@ async function refreshExternalWorks(){
 function renderExternalWorks(){
   const query=String(q('externalWorkQuery')?.value||'').trim().toLowerCase();
   const items=externalWorks.filter(work=>!query||[work.title,work.author,work.series].some(value=>String(value||'').toLowerCase().includes(query)));
-  q('externalWorkGrid').innerHTML=items.length?items.map(work=>`<article class=workcard role=button tabindex=0 data-ext-work-id="${work.id}" aria-label=${JSON.stringify(`View ${work.title}`)}><div class=eyebrow>${esc(work.series||'Unified title')}</div><h3>${esc(work.title)}</h3><div class=small>${esc(work.author||'Author not identified')}</div><div class=workcounts><span class=pill>Read ${fmt(work.read_count)}</span><span class=pill>Listen ${fmt(work.listen_count)}</span><span class=pill>Extras ${fmt(work.companion_count)}</span><span class="pill ${work.online_count?'ok':'warn'}">${fmt(work.online_count)} online</span>${work.review_count?`<span class="pill warn">${fmt(work.review_count)} review</span>`:''}</div><button type=button class="secondary viewtitle" data-ext-view-title="${work.id}">View Title</button></article>`).join(''):'<div class=empty>No unified titles match this view.</div>';
+  q('externalWorkGrid').innerHTML=items.length?items.map(work=>`<button type=button class=workcard data-ext-work-id=${work.id}><div class=eyebrow>${esc(work.series||'Unified title')}</div><h3>${esc(work.title)}</h3><div class=small>${esc(work.author||'Author not identified')}</div><div class=workcounts><span class=pill>Read ${fmt(work.read_count)}</span><span class=pill>Listen ${fmt(work.listen_count)}</span><span class=pill>Extras ${fmt(work.companion_count)}</span><span class="pill ${work.online_count?'ok':'warn'}">${fmt(work.online_count)} online</span>${work.review_count?`<span class="pill warn">${fmt(work.review_count)} review</span>`:''}</div></button>`).join(''):'<div class=empty>No unified titles match this view.</div>';
 }
-function externalActionButtons(item,section){
-  if(item.availability!=='online')return '<button type=button disabled>Offline</button>';
-  const ext=String(item.extension||'').toLowerCase();
-  if(section==='listen')return `<button type=button data-audio-play-item="${item.id}">Listen in FOXAI</button><button type=button class=secondary data-ext-open-item="${item.id}">Open Externally</button>`;
-  if(ext==='.pdf'||['.jpg','.jpeg','.png','.webp','.tif','.tiff','.bmp'].includes(ext))return `<button type=button data-ext-view-file="${item.id}">Open in New Window</button><button type=button class=secondary data-ext-open-item="${item.id}">Open Externally</button>`;
-  if(ext==='.epub')return `<button type=button data-ext-study-route="${item.id}">Read in Kayock's Study</button><button type=button class=secondary data-ext-open-item="${item.id}">Open Externally</button>`;
-  return `<button type=button data-ext-open-item="${item.id}">Open Original</button>`;
-}
-function externalItemMarkup(item,section='locations'){
-  const allOptions=externalWorks.map(work=>`<option value="${work.id}" ${Number(work.id)===Number(item.work_id)?'selected':''}>${esc(work.title)}${work.author?` — ${esc(work.author)}`:''}</option>`).join('');
-  const duration=item.duration_seconds?` · ${formatDuration(item.duration_seconds)}`:'';
-  const duplicate=item.exact_duplicate_count>1?`<span class="pill warn">${item.exact_duplicate_count} exact copies</span>`:'';
-  return `<div class=externalitem data-external-item="${item.id}"><div><div><b>${esc(item.filename)}</b> <span class=pill>${esc(item.extension.toUpperCase())}</span> <span class="confidence-${esc(item.match_confidence)}">${esc(item.match_confidence.replace('_',' '))}</span> ${duplicate}</div><div class=small>${esc(item.root_label)} · ${bytesLabel(item.size_bytes)}${duration}</div><div class=externalpath>${esc(item.exact_path||((item.root_path||'')+'\\'+item.relative_path))}</div><div class=small>${esc(item.match_reason)}</div></div><div><div class=controls>${externalActionButtons(item,section)}</div><div class=relationconfirm><label class=small>Relationship<select id="externalAssign-${item.id}">${allOptions}</select></label><div class=controls><button type=button class=secondary data-ext-confirm-item="${item.id}">Confirm Here</button><button type=button class=secondary data-ext-assign-item="${item.id}">Assign</button><button type=button class=secondary data-ext-split-item="${item.id}">Split into New Title</button></div></div></div></div>`;
-}
-function audiobookDetailMarkup(audiobook){
-  if(!audiobook||!audiobook.available)return '<div class=small>No audiobook edition is cataloged.</div>';
-  const p=audiobook.progress||{};
-  const change=audiobook.playlist_changed_since_saved_position?'<div class=detailnotice>The audiobook part list changed since the saved position. FOXAI kept the matching saved part when possible.</div>':'';
-  const queue=audiobook.queue.map((item,index)=>`<div class="audiobookpart ${Number(p.item_id)===Number(item.id)?'active':''}" data-audio-part-id="${item.id}"><div class=partnumber>${index+1}</div><div><b>${esc(item.filename)}</b><div class=small>${esc(item.root_label)}${item.part_completed?' · completed':''}</div></div><div><div class=controls><button type=button data-audio-play-index="${index}">Play</button><button type=button class=secondary data-ext-open-item="${item.id}">External</button></div><div class=partorder><button type=button class=secondary data-audio-order-up="${index}" aria-label="Move part up">↑</button><button type=button class=secondary data-audio-order-down="${index}" aria-label="Move part down">↓</button></div></div></div>`).join('');
-  return `<div class=audiobooksummary><div class=titleline><div><b>${fmt(audiobook.part_count)}-part audiobook</b><div class=small>Order: ${esc(audiobook.ordering_method)}${audiobook.narrator?` · Narrator: ${esc(audiobook.narrator)}`:''}</div><div class=small>Saved at Part ${fmt(p.part_number||1)} · ${formatDuration(p.position_seconds||0)} · ${Number(p.playback_speed||1)}×</div></div><div class=controls><button type=button data-audio-continue>Continue Listening</button><button type=button class=secondary data-audio-start-beginning>Start from Beginning</button><button type=button class=secondary data-audio-save-order>Save Part Order</button></div></div>${change}<div id=externalAudiobookQueue class=audiobookqueue>${queue}</div></div>`;
-}
-function renderExternalTitle(work){
-  const section=(label,key,empty)=>`<section class=worksection><h3>${label}</h3>${(work.sections[key]||[]).map(item=>externalItemMarkup(item,key)).join('')||`<div class=small>${empty}</div>`}</section>`;
-  const audiobook=work.audiobook||{};
-  q('externalTitleBody').innerHTML=`<div class=externaldetailhead><div><div class=eyebrow>${esc(work.series||'Unified library title')}</div><h2>${esc(work.title)}</h2><div class=muted>${esc(work.author||'Author not identified')}${audiobook.narrator?` · Narrated by ${esc(audiobook.narrator)}`:''}</div><div class=externaldetailmeta><span class=pill>${fmt(work.items.length)} catalog files</span><span class=pill>${fmt((work.sections.listen||[]).length)} listen</span><span class=pill>${fmt((work.sections.read||[]).length)} read</span><span class=pill>${fmt((work.sections.companion||[]).length)} extras</span></div></div></div><section class=worksection><h3>Listen</h3>${audiobookDetailMarkup(audiobook)}</section>${section('Read','read','No readable edition is cataloged.')}${section('Maps & Extras','companion','No companion files are cataloged.')}<section class=worksection><h3>File Locations and Editions</h3>${(work.sections.locations||[]).map(item=>externalItemMarkup(item,'locations')).join('')}</section>`;
+function externalItemMarkup(item){
+  const allOptions=externalWorks.map(work=>`<option value=${work.id} ${Number(work.id)===Number(item.work_id)?'selected':''}>${esc(work.title)}${work.author?` — ${esc(work.author)}`:''}</option>`).join('');
+  const duration=item.duration_seconds?` · ${durationLabel(item.duration_seconds)}`:'';
+  return `<div class=externalitem><div><div><b>${esc(item.filename)}</b> <span class=pill>${esc(item.extension.toUpperCase())}</span> <span class="confidence-${esc(item.match_confidence)}">${esc(item.match_confidence.replace('_',' '))}</span></div><div class=small>${esc(item.root_label)} · ${bytesLabel(item.size_bytes)}${duration}</div><div class=path>${esc(item.relative_path)}</div><div class=small>${esc(item.match_reason)}</div></div><div><div class=controls><button type=button data-ext-open-item=${item.id} ${item.availability!=='online'?'disabled':''}>Open Original</button></div><label class=small>Correct relationship<select id="externalAssign-${item.id}">${allOptions}</select></label><div class=controls><button type=button class=secondary data-ext-assign-item=${item.id}>Assign</button><button type=button class=secondary data-ext-split-item=${item.id}>Split into New Title</button></div></div></div>`;
 }
 async function openExternalWork(id){
   try{
-    if(q('externalTitleWorkspace').hidden){externalReturnState={query:String(q('externalWorkQuery').value||''),scrollY:window.scrollY};}
-    const data=await api(`/api/external-library/work?id=${encodeURIComponent(id)}`);activeExternalWork=data.work;
-    q('externalLocationsMain').hidden=true;q('externalTitleWorkspace').hidden=false;renderExternalTitle(activeExternalWork);q('externalTitleWorkspace').scrollIntoView({behavior:'smooth',block:'start'});
-  }catch(error){q('externalWorkGrid').insertAdjacentHTML('afterbegin',`<div class="empty bad">${esc(error.message)}</div>`);}
+    const data=await api(`/api/external-library/work?id=${encodeURIComponent(id)}`);const work=data.work;
+    const section=(label,key,empty)=>`<section class=worksection><h3>${label}</h3>${(work.sections[key]||[]).map(externalItemMarkup).join('')||`<div class=small>${empty}</div>`}</section>`;
+    q('externalWorkBody').innerHTML=`<div class=eyebrow>${esc(work.series||'Unified library title')}</div><h2>${esc(work.title)}</h2><div class=muted>${esc(work.author||'Author not identified')}</div>${section('Read','read','No readable edition is cataloged.')}${section('Listen','listen','No audiobook edition is cataloged.')}${section('Maps & Extras','companion','No companion files are cataloged.')}<section class=worksection><h3>File Locations and Editions</h3>${(work.sections.locations||[]).map(externalItemMarkup).join('')}</section>`;
+    q('externalWorkDialog').showModal();
+  }catch(error){alert(error.message);}
 }
-function backToExternalWorks(){
-  q('externalTitleWorkspace').hidden=true;q('externalLocationsMain').hidden=false;activeExternalWork=null;
-  q('externalWorkQuery').value=externalReturnState.query||'';renderExternalWorks();setTimeout(()=>window.scrollTo({top:Number(externalReturnState.scrollY||0),behavior:'auto'}),20);
-}
-async function openExternalItem(id){try{const data=await api('/api/external-library/open',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id})});setPlayerStatus(data.message||'Opened externally.')}catch(error){setPlayerStatus(error.message,true)}}
-function viewExternalFile(id){window.open(`/external-library/file?id=${encodeURIComponent(id)}`,'_blank','noopener');}
-async function routeExternalStudyItem(id){
-  try{const data=await api('/api/external-library/route',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id})});if(data.internal_kind==='epub'){openEpubReader(Number(data.internal_id),'library');return;}if(data.url){window.open(data.url,'_blank','noopener');return;}await openExternalItem(id);}catch(error){setPlayerStatus(error.message,true)}
-}
-async function assignExternalItem(id,split=false,confirmHere=false){
+async function openExternalItem(id){try{const data=await api('/api/external-library/open',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id})});alert(data.message)}catch(error){alert(error.message)}}
+async function assignExternalItem(id,split=false){
   try{
-    if(!window.confirm(split?'Split this file into a new logical title?':'Change this relationship in the local catalog only?'))return;
-    const workId=confirmHere?Number(activeExternalWork.id):(split?null:Number(q(`externalAssign-${id}`).value||0));
+    const workId=split?null:Number(q(`externalAssign-${id}`).value||0);
     const data=await api('/api/external-library/assign',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({item_id:id,work_id:workId,split})});
-    await refreshExternalWorks();await openExternalWork(data.work_id);
-  }catch(error){setPlayerStatus(error.message,true)}
+    q('externalWorkDialog').close();await refreshExternalWorks();await openExternalWork(data.work_id);
+  }catch(error){alert(error.message);}
 }
-function formatDuration(seconds){const total=Math.max(0,Math.floor(Number(seconds)||0));const h=Math.floor(total/3600),m=Math.floor((total%3600)/60),s=total%60;return h?`${h}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`:`${m}:${String(s).padStart(2,'0')}`;}
-function audioElement(){return q('audiobookAudio')}
-function setPlayerStatus(message,error=false){const node=q('audiobookPlayerStatus');if(node){node.textContent=message;node.classList.toggle('bad',Boolean(error));}}
-function activeAudioItem(){return audiobookPlayer.queue[audiobookPlayer.currentIndex]||null;}
-function updatePlayerDisplay(){
-  const audio=audioElement(),item=activeAudioItem(),work=audiobookPlayer.work;if(!item||!work)return;
-  q('audiobookPlayerTitle').textContent=work.title;q('audiobookPlayerPart').textContent=`Part ${audiobookPlayer.currentIndex+1} of ${audiobookPlayer.queue.length} · ${item.filename}`;
-  const duration=Number.isFinite(audio.duration)?audio.duration:Number(item.duration_seconds||0);q('audiobookSeek').max=duration||0;q('audiobookSeek').value=Math.min(Number(audio.currentTime||0),duration||0);q('audiobookElapsed').textContent=formatDuration(audio.currentTime||0);q('audiobookRemaining').textContent='−'+formatDuration(Math.max(0,(duration||0)-(audio.currentTime||0)));
-  const partFraction=duration?Math.min(1,(audio.currentTime||0)/duration):0;const overall=(audiobookPlayer.currentIndex+partFraction)/Math.max(1,audiobookPlayer.queue.length);q('audiobookBookProgress').style.width=(overall*100).toFixed(2)+'%';q('audiobookPlayPause').textContent=audio.paused?'Play':'Pause';
-  document.querySelectorAll('[data-audio-part-id]').forEach(node=>node.classList.toggle('active',Number(node.dataset.audioPartId)===Number(item.id)));
-}
-async function acquireAudioLease(){
-  const data=await api('/api/external-library/playback/acquire',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({work_id:audiobookPlayer.workId,owner_token:audiobookPlayer.ownerToken})});
-  if(!data.ok)throw new Error(data.message||'Another FOXAI window owns audiobook playback.');
-  clearInterval(audiobookPlayer.leaseTimer);audiobookPlayer.leaseTimer=setInterval(()=>api('/api/external-library/playback/heartbeat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({work_id:audiobookPlayer.workId,owner_token:audiobookPlayer.ownerToken})}).catch(()=>{}),5000);
-}
-async function releaseAudioLease(){clearInterval(audiobookPlayer.leaseTimer);audiobookPlayer.leaseTimer=null;try{await api('/api/external-library/playback/release',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({owner_token:audiobookPlayer.ownerToken})})}catch(_error){}}
-async function loadAudiobook(work,index,position=0,{autoplay=false,startWithoutSaving=false}={}){
-  const audiobook=work.audiobook;if(!audiobook||!audiobook.queue.length)return;
-  audiobookPlayer.workId=work.id;audiobookPlayer.work=work;audiobookPlayer.queue=audiobook.queue;audiobookPlayer.currentIndex=Math.max(0,Math.min(Number(index)||0,audiobook.queue.length-1));audiobookPlayer.startWithoutSaving=Boolean(startWithoutSaving);
-  const item=activeAudioItem(),audio=audioElement();q('audiobookPlayerDock').hidden=false;q('audiobookSpeed').value=String(audiobook.progress?.playback_speed||1);audio.playbackRate=Number(q('audiobookSpeed').value);audio.src=item.stream_url;audio.load();
-  audio.addEventListener('loadedmetadata',()=>{try{audio.currentTime=Math.min(Math.max(0,Number(position)||0),Number.isFinite(audio.duration)?Math.max(0,audio.duration-.1):Number(position)||0)}catch(_error){}updatePlayerDisplay();if(autoplay)playAudiobook().catch(error=>setPlayerStatus(error.message,true));},{once:true});
-  setPlayerStatus(`Loaded Part ${audiobookPlayer.currentIndex+1} of ${audiobook.queue.length}. Playback will not start until you press Play.`);updatePlayerDisplay();
-}
-async function continueAudiobook(){if(!activeExternalWork)return;const p=activeExternalWork.audiobook.progress||{};await loadAudiobook(activeExternalWork,Number(p.part_index||0),Number(p.position_seconds||0));}
-async function startAudiobookFromBeginning(){const work=activeExternalWork||audiobookPlayer.work;if(!work)return;await loadAudiobook(work,0,0,{startWithoutSaving:true});setPlayerStatus('Started from the beginning without replacing your later saved position.');}
-async function playAudiobook(){await acquireAudioLease();try{await audioElement().play();setPlayerStatus('Playing inside Kayock’s Study.')}catch(error){await releaseAudioLease();throw error;}}
-async function toggleAudiobookPlayback(){const audio=audioElement();if(!activeAudioItem())return;if(audio.paused)await playAudiobook().catch(error=>setPlayerStatus(error.message,true));else{audio.pause();await saveAudiobookProgress(false);await releaseAudioLease();}}
-async function stopAudiobookPlayback(){const audio=audioElement();audio.pause();await saveAudiobookProgress(false);audio.currentTime=0;await releaseAudioLease();setPlayerStatus('Stopped. Your forward listening progress remains saved.');updatePlayerDisplay();}
-async function closeAudiobookPlayer(){audioElement().pause();await saveAudiobookProgress(false);await releaseAudioLease();q('audiobookPlayerDock').hidden=true;}
-function playerSkip(amount){const audio=audioElement();audio.currentTime=Math.max(0,Math.min(Number.isFinite(audio.duration)?audio.duration:10**9,(audio.currentTime||0)+Number(amount)));updatePlayerDisplay();}
-async function playerPreviousPart(){if(audiobookPlayer.currentIndex<=0)return;await saveAudiobookProgress(false);await loadAudiobook(audiobookPlayer.work,audiobookPlayer.currentIndex-1,0);}
-async function playerNextPart(){if(audiobookPlayer.currentIndex>=audiobookPlayer.queue.length-1)return;await saveAudiobookProgress(false);await loadAudiobook(audiobookPlayer.work,audiobookPlayer.currentIndex+1,0);}
-async function saveAudiobookProgress(force=false,completedItemId=null){
-  const item=activeAudioItem();if(!item||!audiobookPlayer.workId)return null;const audio=audioElement();
-  const data=await api('/api/external-library/audiobook/progress',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({work_id:audiobookPlayer.workId,item_id:item.id,position_seconds:audio.currentTime||0,playback_speed:audio.playbackRate||1,force:Boolean(force),completed_item_id:completedItemId})});
-  if(data.audiobook&&audiobookPlayer.work){audiobookPlayer.work.audiobook=data.audiobook;if(activeExternalWork&&Number(activeExternalWork.id)===Number(audiobookPlayer.workId)){activeExternalWork.audiobook=data.audiobook;}}
-  audiobookPlayer.lastAutoSave=Date.now();return data;
-}
-async function rememberAudiobookPosition(){audiobookPlayer.startWithoutSaving=false;await saveAudiobookProgress(true);setPlayerStatus('This exact audiobook part and second are now your remembered position.');}
-async function playAudioIndex(index){if(!activeExternalWork)return;await loadAudiobook(activeExternalWork,Number(index),0);await playAudiobook().catch(error=>setPlayerStatus(error.message,true));}
-async function playAudioItem(id){if(!activeExternalWork)return;const index=activeExternalWork.audiobook.queue.findIndex(item=>Number(item.id)===Number(id));if(index>=0)await playAudioIndex(index);}
-async function openCurrentAudioExternally(){const item=activeAudioItem();if(item)await openExternalItem(item.id);}
-function reorderAudioPart(index,direction){if(!activeExternalWork)return;const queue=activeExternalWork.audiobook.queue;const target=index+direction;if(target<0||target>=queue.length)return;[queue[index],queue[target]]=[queue[target],queue[index]];queue.forEach((item,i)=>{item.part_index=i;item.part_number=i+1});renderExternalTitle(activeExternalWork);}
-async function saveAudioOrder(){if(!activeExternalWork)return;const ids=activeExternalWork.audiobook.queue.map(item=>item.id);const data=await api('/api/external-library/audiobook/order',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({work_id:activeExternalWork.id,item_ids:ids})});activeExternalWork.audiobook=data.audiobook;renderExternalTitle(activeExternalWork);setPlayerStatus(data.message||'Part order saved.');}
-const audio=audioElement();
-audio.addEventListener('timeupdate',()=>{updatePlayerDisplay();if(!audio.paused&&!audiobookPlayer.startWithoutSaving&&Date.now()-audiobookPlayer.lastAutoSave>5000)saveAudiobookProgress(false).catch(()=>{});});
-audio.addEventListener('play',updatePlayerDisplay);audio.addEventListener('pause',updatePlayerDisplay);audio.addEventListener('error',()=>setPlayerStatus('This installed Chromium audio engine could not play the selected file. Use Open Externally for that format.',true));
-audio.addEventListener('ended',async()=>{const finished=activeAudioItem();if(!finished)return;if(audiobookPlayer.currentIndex<audiobookPlayer.queue.length-1){const next=audiobookPlayer.currentIndex+1;await loadAudiobook(audiobookPlayer.work,next,0);await saveAudiobookProgress(false,finished.id);await playAudiobook().catch(error=>setPlayerStatus(error.message,true));}else{await saveAudiobookProgress(true,finished.id);await releaseAudioLease();setPlayerStatus('Audiobook completed.');}});
-q('audiobookSeek').addEventListener('input',event=>{audio.currentTime=Number(event.target.value||0);updatePlayerDisplay();});q('audiobookSpeed').addEventListener('change',event=>{audio.playbackRate=Number(event.target.value||1);if(!audiobookPlayer.startWithoutSaving)saveAudiobookProgress(false).catch(()=>{});});q('audiobookVolume').addEventListener('input',event=>{audio.volume=Number(event.target.value||1);});
-window.addEventListener('beforeunload',()=>{if(activeAudioItem())fetch('/api/external-library/playback/release',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({owner_token:audiobookPlayer.ownerToken}),keepalive:true}).catch(()=>{});});
-
 
 document.addEventListener('click',event=>{
   const toc=event.target.closest('[data-reader-toc-index]');if(toc){loadReaderChapter(Number(toc.dataset.readerTocIndex),0,toc.dataset.readerTocFragment||'');return;}
@@ -5439,21 +5336,10 @@ document.addEventListener('click',event=>{
   const libraryItem=event.target.closest('[data-library-kind][data-library-id]');
   if(libraryItem){openLibraryItemDetail(libraryItem.dataset.libraryKind,Number(libraryItem.dataset.libraryId));return;}
   const externalRoot=event.target.closest('[data-ext-root-action]');if(externalRoot){externalRootAction(externalRoot.dataset.extRootAction,Number(externalRoot.dataset.rootId));return;}
-  const externalView=event.target.closest('[data-ext-view-title]');if(externalView){event.stopPropagation();openExternalWork(Number(externalView.dataset.extViewTitle));return;}
   const externalWork=event.target.closest('[data-ext-work-id]');if(externalWork){openExternalWork(Number(externalWork.dataset.extWorkId));return;}
-  const audioPlayIndex=event.target.closest('[data-audio-play-index]');if(audioPlayIndex){playAudioIndex(Number(audioPlayIndex.dataset.audioPlayIndex));return;}
-  const audioPlayItem=event.target.closest('[data-audio-play-item]');if(audioPlayItem){playAudioItem(Number(audioPlayItem.dataset.audioPlayItem));return;}
-  if(event.target.closest('[data-audio-continue]')){continueAudiobook();return;}
-  if(event.target.closest('[data-audio-start-beginning]')){startAudiobookFromBeginning();return;}
-  if(event.target.closest('[data-audio-save-order]')){saveAudioOrder();return;}
-  const orderUp=event.target.closest('[data-audio-order-up]');if(orderUp){reorderAudioPart(Number(orderUp.dataset.audioOrderUp),-1);return;}
-  const orderDown=event.target.closest('[data-audio-order-down]');if(orderDown){reorderAudioPart(Number(orderDown.dataset.audioOrderDown),1);return;}
-  const externalViewFile=event.target.closest('[data-ext-view-file]');if(externalViewFile){viewExternalFile(Number(externalViewFile.dataset.extViewFile));return;}
-  const studyRoute=event.target.closest('[data-ext-study-route]');if(studyRoute){routeExternalStudyItem(Number(studyRoute.dataset.extStudyRoute));return;}
   const externalOpen=event.target.closest('[data-ext-open-item]');if(externalOpen){openExternalItem(Number(externalOpen.dataset.extOpenItem));return;}
-  const externalConfirm=event.target.closest('[data-ext-confirm-item]');if(externalConfirm){assignExternalItem(Number(externalConfirm.dataset.extConfirmItem),false,true);return;}
-  const externalAssign=event.target.closest('[data-ext-assign-item]');if(externalAssign){assignExternalItem(Number(externalAssign.dataset.extAssignItem),false,false);return;}
-  const externalSplit=event.target.closest('[data-ext-split-item]');if(externalSplit){assignExternalItem(Number(externalSplit.dataset.extSplitItem),true,false);return;}
+  const externalAssign=event.target.closest('[data-ext-assign-item]');if(externalAssign){assignExternalItem(Number(externalAssign.dataset.extAssignItem),false);return;}
+  const externalSplit=event.target.closest('[data-ext-split-item]');if(externalSplit){assignExternalItem(Number(externalSplit.dataset.extSplitItem),true);return;}
   const scanAction=event.target.closest('[data-action="start-index"]');
   if(scanAction){startIndex();return;}
   const rating=event.target.closest('[data-rating-value]');
@@ -5461,7 +5347,6 @@ document.addEventListener('click',event=>{
   const detailAction=event.target.closest('[data-detail-action]');
   if(detailAction){handleDetailAction(detailAction.dataset.detailAction);}
 });
-document.addEventListener('keydown',event=>{const card=event.target.closest('[data-ext-work-id]');if(card&&(event.key==='Enter'||event.key===' ')){event.preventDefault();openExternalWork(Number(card.dataset.extWorkId));}});
 refreshAll().then(()=>{const room=new URLSearchParams(location.search).get('room');if(room==='research'){showAdvancedTools('researchDesk')}else if(room==='locations'){showLibraryLocations()}else{showLibraryHome()}}).catch(error=>{q('progressText').textContent=error.message;q('libraryBrowser').innerHTML=`<div class="libraryempty bad">${esc(error.message)}</div>`;});
 setInterval(refreshModelStatus,2500);
 setInterval(()=>{if(!q('libraryLocationsWorkspace').hidden)refreshExternalScanStatus();},1000);
@@ -5474,42 +5359,8 @@ document.addEventListener('visibilitychange',()=>{
 """
 
 
-def external_catalog_route(paths: AppPaths, item_id: int) -> dict:
-    base = catalog_item_open_route(paths, int(item_id))
-    target = resolve_catalog_item_path(paths, int(item_id))
-    extension = target.suffix.casefold()
-    if extension == ".epub" and epub_database_path(paths).is_file():
-        conn = connect_epub_db(paths)
-        try:
-            row = conn.execute("SELECT id,status,encrypted FROM ebooks WHERE path=?", (str(target),)).fetchone()
-        finally:
-            conn.close()
-        if row and str(row["status"] or "") == "ready" and not bool(row["encrypted"]):
-            base.update({"internal_kind": "epub", "internal_id": int(row["id"]), "route": "read_in_study"})
-    elif extension == ".pdf" and paths.database.is_file():
-        conn = connect_db(paths)
-        try:
-            row = conn.execute("SELECT id FROM documents WHERE path=?", (str(target),)).fetchone()
-        finally:
-            conn.close()
-        if row:
-            base.update({"internal_kind": "pdf", "internal_id": int(row["id"]), "url": f"/pdf?id={int(row['id'])}", "route": "view_in_study"})
-    return base
-
-
-def external_media_type(path: Path) -> str:
-    mapping = {
-        ".mp3": "audio/mpeg", ".m4b": "audio/mp4", ".flac": "audio/flac",
-        ".ogg": "audio/ogg", ".wav": "audio/wav", ".pdf": "application/pdf",
-        ".jpg": "image/jpeg", ".jpeg": "image/jpeg", ".png": "image/png",
-        ".webp": "image/webp", ".tif": "image/tiff", ".tiff": "image/tiff",
-        ".bmp": "image/bmp",
-    }
-    return mapping.get(path.suffix.casefold(), "application/octet-stream")
-
-
 class StudyHandler(BaseHTTPRequestHandler):
-    server_version = "KayocksStudy/2C.1.1"
+    server_version = "KayocksStudy/2C.1"
 
     @property
     def paths(self) -> AppPaths:
@@ -5539,60 +5390,6 @@ class StudyHandler(BaseHTTPRequestHandler):
         if not isinstance(payload, dict):
             raise ValueError("JSON object required.")
         return payload
-
-    def serve_catalog_file(self, item_id: int, *, audio_only: bool = False, head_only: bool = False) -> None:
-        try:
-            if audio_only:
-                target, _row = resolve_audio_stream_item(self.paths, int(item_id))
-            else:
-                target = resolve_catalog_item_path(self.paths, int(item_id))
-                if target.suffix.casefold() not in {".pdf",".jpg",".jpeg",".png",".webp",".tif",".tiff",".bmp"}:
-                    raise PermissionError("This file type is not available through the inline viewer endpoint.")
-            size = int(target.stat().st_size)
-            start, end = 0, max(0, size - 1)
-            status = 200
-            raw_range = str(self.headers.get("Range") or "").strip()
-            if raw_range:
-                match = re.fullmatch(r"bytes=(\d*)-(\d*)", raw_range)
-                if not match:
-                    self.send_response(416);self.send_header("Content-Range", f"bytes */{size}");self.end_headers();return
-                first, last = match.groups()
-                if not first and not last:
-                    self.send_response(416);self.send_header("Content-Range", f"bytes */{size}");self.end_headers();return
-                if first:
-                    start = int(first);end = int(last) if last else size - 1
-                else:
-                    suffix = int(last);start = max(0, size - suffix);end = size - 1
-                if start < 0 or start >= size or end < start:
-                    self.send_response(416);self.send_header("Content-Range", f"bytes */{size}");self.end_headers();return
-                end = min(end, size - 1);status = 206
-            length = max(0, end - start + 1)
-            self.send_response(status)
-            self.send_header("Content-Type", external_media_type(target))
-            self.send_header("Content-Length", str(length))
-            self.send_header("Accept-Ranges", "bytes")
-            self.send_header("Cache-Control", "private, no-store")
-            self.send_header("X-Content-Type-Options", "nosniff")
-            if status == 206:self.send_header("Content-Range", f"bytes {start}-{end}/{size}")
-            self.send_header("Content-Disposition", "inline; filename*=UTF-8''" + quote(target.name))
-            self.end_headers()
-            if head_only:return
-            with target.open("rb") as handle:
-                handle.seek(start);remaining = length
-                while remaining > 0:
-                    block = handle.read(min(1024 * 1024, remaining))
-                    if not block:break
-                    self.wfile.write(block);remaining -= len(block)
-        except (TypeError, ValueError, PermissionError, FileNotFoundError, OSError) as exc:
-            self.send_error(403, str(exc))
-
-    def do_HEAD(self) -> None:
-        parsed = urlparse(self.path);query = parse_qs(parsed.query)
-        if parsed.path in {"/external-library/media","/external-library/file"}:
-            try:item_id = int((query.get("id") or [""])[0])
-            except ValueError:self.send_error(400, "Invalid catalog item id");return
-            self.serve_catalog_file(item_id, audio_only=parsed.path.endswith("/media"), head_only=True);return
-        self.send_error(404)
 
     def do_GET(self) -> None:
         parsed = urlparse(self.path)
@@ -5626,16 +5423,6 @@ class StudyHandler(BaseHTTPRequestHandler):
         if parsed.path == "/api/external-library/scan-status":
             self.send_json(scan_status())
             return
-
-        if parsed.path == "/api/external-library/audiobook":
-            try:self.send_json(audiobook_state(self.paths, int((query.get("work_id") or [""])[0])))
-            except (TypeError, ValueError) as exc:self.send_json({"ok": False, "message": str(exc)}, 400)
-            return
-
-        if parsed.path in {"/external-library/media", "/external-library/file"}:
-            try:item_id = int((query.get("id") or [""])[0])
-            except ValueError:self.send_error(400, "Invalid catalog item id");return
-            self.serve_catalog_file(item_id, audio_only=parsed.path.endswith("/media"));return
 
         if parsed.path == "/api/research/status":
             summary = database_summary(self.paths)
@@ -5993,45 +5780,8 @@ class StudyHandler(BaseHTTPRequestHandler):
             try:
                 payload = self.read_json()
                 self.send_json(launch_catalog_item(self.paths, int(payload.get("id"))))
-            except (TypeError, ValueError, PermissionError, FileNotFoundError, OSError, RuntimeError) as exc:
+            except (TypeError, ValueError, PermissionError, OSError, RuntimeError) as exc:
                 self.send_json({"ok": False, "message": str(exc)}, 400)
-            return
-
-        if parsed.path == "/api/external-library/route":
-            try:
-                payload = self.read_json();self.send_json(external_catalog_route(self.paths, int(payload.get("id"))))
-            except (TypeError, ValueError, PermissionError, FileNotFoundError, OSError) as exc:self.send_json({"ok": False, "message": str(exc)}, 400)
-            return
-
-        if parsed.path == "/api/external-library/audiobook/order":
-            try:
-                payload = self.read_json();self.send_json(save_audiobook_order(self.paths, int(payload.get("work_id")), list(payload.get("item_ids") or [])))
-            except (TypeError, ValueError) as exc:self.send_json({"ok": False, "message": str(exc)}, 400)
-            return
-
-        if parsed.path == "/api/external-library/audiobook/progress":
-            try:
-                payload = self.read_json();completed = payload.get("completed_item_id")
-                self.send_json(save_audiobook_progress(self.paths, int(payload.get("work_id")), int(payload.get("item_id")), float(payload.get("position_seconds") or 0), float(payload.get("playback_speed") or 1), force=bool(payload.get("force")), completed_item_id=int(completed) if completed not in (None, "") else None))
-            except (TypeError, ValueError) as exc:self.send_json({"ok": False, "message": str(exc)}, 400)
-            return
-
-        if parsed.path == "/api/external-library/playback/acquire":
-            try:
-                payload = self.read_json();result = acquire_playback_lease(self.paths, int(payload.get("work_id")), str(payload.get("owner_token") or ""));self.send_json(result, 200 if result.get("ok") else 409)
-            except (TypeError, ValueError) as exc:self.send_json({"ok": False, "message": str(exc)}, 400)
-            return
-
-        if parsed.path == "/api/external-library/playback/heartbeat":
-            try:
-                payload = self.read_json();result = heartbeat_playback_lease(self.paths, int(payload.get("work_id")), str(payload.get("owner_token") or ""));self.send_json(result, 200 if result.get("ok") else 409)
-            except (TypeError, ValueError) as exc:self.send_json({"ok": False, "message": str(exc)}, 400)
-            return
-
-        if parsed.path == "/api/external-library/playback/release":
-            try:
-                payload = self.read_json();self.send_json(release_playback_lease(self.paths, str(payload.get("owner_token") or "")))
-            except (TypeError, ValueError) as exc:self.send_json({"ok": False, "message": str(exc)}, 400)
             return
 
         if parsed.path == "/api/research/enable":
@@ -6418,7 +6168,7 @@ def main() -> int:
     actual_port = server.server_address[1]
     url = f"http://{HOST}:{actual_port}"
     print("=" * 72)
-    print("KAYOCK'S STUDY — THE BIBLIOTHECA V2C.1.1")
+    print("KAYOCK'S STUDY — THE BIBLIOTHECA V2B.3")
     print("=" * 72)
     print("URL:", url)
     print("Library:", paths.library)

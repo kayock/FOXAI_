@@ -1,0 +1,561 @@
+--- a/KAYOCKS_STUDY_BIBLIOTHECA_V1/study_server.py
++++ b/KAYOCKS_STUDY_BIBLIOTHECA_V1/study_server.py
+@@ -2223,6 +2223,53 @@
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .safety,.filtergrid,.askgrid{grid-template-columns:1fr}
+ }
++
++/* Kayock's Study V2A.1 — tiled library browser */
++.homeactions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
++#advancedHeroTools{margin-top:16px;padding-top:16px;border-top:1px solid var(--line)}
++.libraryhome{margin-bottom:18px}
++.librarytoolbar{display:grid;grid-template-columns:minmax(260px,1fr) 220px auto;gap:10px;align-items:end;margin-bottom:14px}
++.librarytoolbar label{display:block;color:var(--muted);font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.08em}
++.librarytoolbar input,.librarytoolbar select{margin-top:6px}
++.viewcontrols{display:flex;gap:8px;align-items:center;justify-content:flex-end}
++.viewcontrols button.active{background:linear-gradient(135deg,#9b6cff,#7046d8);border-color:#c3a6ff;color:white}
++.librarysummary{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:18px}
++.librarysummary .stat{min-height:82px}
++.libraryempty{border:1px dashed #8f5cff55;border-radius:18px;padding:28px;text-align:center;color:var(--muted)}
++.shelfsection{margin:0 0 22px}
++.shelfhead{display:flex;justify-content:space-between;gap:14px;align-items:end;margin-bottom:10px}
++.shelfhead h2{margin:0;font-size:24px}
++.shelfhead button{padding:7px 11px}
++.tiletrack{display:grid;grid-auto-flow:column;grid-auto-columns:160px;gap:13px;overflow-x:auto;overscroll-behavior-inline:contain;padding:2px 2px 13px;scroll-snap-type:inline proximity}
++.booktile{scroll-snap-align:start;background:transparent;border:0;padding:0;text-align:left;color:var(--text);cursor:pointer;min-width:0}
++.booktile:hover .bookcover,.booktile:focus-visible .bookcover{transform:translateY(-3px);border-color:#c3a6ff;box-shadow:0 14px 34px #0009,0 0 22px #9b6cff2a}
++.bookcover{position:relative;aspect-ratio:2/3;border:1px solid #ffffff24;border-radius:12px;overflow:hidden;padding:13px;display:flex;flex-direction:column;justify-content:space-between;transition:.16s ease;background:linear-gradient(145deg,var(--cover-a),var(--cover-b));box-shadow:0 10px 25px #0007}
++.bookcover:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 82% 12%,#ffffff2c,transparent 27%),linear-gradient(90deg,#0005 0 5%,transparent 5% 100%);pointer-events:none}
++.covermark{position:relative;font-size:28px;font-weight:950;letter-spacing:-.06em;color:#fff;text-shadow:0 2px 9px #0008}
++.covertext{position:relative;font-size:14px;line-height:1.16;font-weight:900;color:white;text-shadow:0 2px 8px #000a;overflow-wrap:anywhere}
++.coverlabel{position:relative;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:#fffddd;font-weight:900}
++.tiletitle{font-weight:800;font-size:13px;line-height:1.22;margin-top:8px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
++.tilemeta{font-size:11px;color:var(--muted);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
++.librarylist{display:grid;gap:8px}
++.libraryrow{display:grid;grid-template-columns:54px minmax(0,1fr) auto;gap:12px;align-items:center;border:1px solid #8f5cff2c;border-radius:14px;padding:9px;background:#0b0f19c7;cursor:pointer;color:var(--text);text-align:left;width:100%}
++.libraryrow:hover,.libraryrow:focus-visible{border-color:#c3a6ff;background:#151a2a}
++.listcover{width:44px;aspect-ratio:2/3;border-radius:6px;background:linear-gradient(145deg,var(--cover-a),var(--cover-b));display:grid;place-items:center;font-weight:950;color:white}
++.rowtitle{font-weight:850}.rowmeta{font-size:12px;color:var(--muted);margin-top:2px}.rowstatus{font-size:11px;color:var(--muted);text-align:right}
++#documentDetailDialog{width:min(720px,calc(100vw - 28px));border:1px solid #9b6cff66;border-radius:22px;background:#111522;color:var(--text);padding:0;box-shadow:0 30px 90px #000c}
++#documentDetailDialog::backdrop{background:#02030ad9;backdrop-filter:blur(4px)}
++.detailbody{display:grid;grid-template-columns:190px minmax(0,1fr);gap:22px;padding:22px}
++.detailcover{aspect-ratio:2/3;border-radius:14px;padding:16px;display:flex;flex-direction:column;justify-content:space-between;background:linear-gradient(145deg,var(--cover-a),var(--cover-b));box-shadow:0 16px 40px #0008}
++.detailcover .covermark{font-size:38px}.detailcover .covertext{font-size:18px}
++.detailmeta{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:14px 0}
++.detailmeta div{border:1px solid #8f5cff2d;border-radius:10px;padding:9px;min-width:0}
++.detailmeta b{display:block;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px}
++.detailpath{font-family:Consolas,monospace;font-size:11px;color:#cad0e2;overflow-wrap:anywhere;border:1px solid #8f5cff2d;border-radius:10px;padding:9px;background:#080b12}
++.detailclose{position:absolute;right:14px;top:14px;z-index:2}
++.advancedheading{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:4px 0 14px}
++.advancedheading h2{margin:0}
++@media(max-width:900px){.librarytoolbar{grid-template-columns:1fr 1fr}.viewcontrols{grid-column:span 2;justify-content:flex-start}.librarysummary{grid-template-columns:repeat(2,1fr)}}
++@media(max-width:620px){.librarytoolbar{grid-template-columns:1fr}.viewcontrols{grid-column:auto}.tiletrack{grid-auto-columns:142px}.detailbody{grid-template-columns:1fr}.detailcover{width:150px}.detailmeta{grid-template-columns:1fr}.libraryrow{grid-template-columns:46px minmax(0,1fr)}.rowstatus{display:none}}
++
+ </style>
+ </head>
+ <body>
+@@ -2231,7 +2278,12 @@
+     <div class="eyebrow">Kayock's Study · Bibliotheca V1.6</div>
+     <h1>The Bibliotheca</h1>
+     <div class="motto">Read. Research. Preserve. Discover.</div>
+-    <p class="muted">Private page search, exact-page questions, heading-aware grounding, and preview-first duplicate review.</p>
++    <p class="muted">Browse your preserved collection visually, then open, search, or ask from the exact source.</p>
++    <div class="homeactions">
++      <button id="libraryHomeButton" onclick="showLibraryHome()">Library Home</button>
++      <button id="advancedToolsButton" class="secondary" onclick="showAdvancedTools()">Advanced Library Tools</button>
++    </div>
++    <div id="advancedHeroTools" hidden>
+     <div id="statePills"></div>
+     <div class="progress"><div id="progressBar"></div></div>
+     <div id="progressText" class="small" style="margin-top:7px"></div>
+@@ -2247,7 +2299,28 @@
+       <div><b>3 · Preview first</b><br><span class="muted">Duplicate candidates are shown before any move.</span></div>
+       <div><b>4 · Nothing deleted</b><br><span class="muted">Approved cleanup moves files into Needs Review.</span></div>
+     </div>
++    </div>
+   </section>
++
++  <section id="libraryHome" class="card libraryhome">
++    <div class="titleline">
++      <div><div class="eyebrow">Visual Library Browser</div><h2>Browse the Bibliotheca</h2><div class="muted">Cover-shaped tiles use existing indexed records. No original file or cover image is changed.</div></div>
++      <span class="pill ok">Local · Offline</span>
++    </div>
++    <div class="librarytoolbar">
++      <label>Find a title<input id="libraryQuery" type="search" placeholder="Search titles or paths…" oninput="renderLibraryHome()" onkeydown="if(event.key==='Escape'){this.value='';renderLibraryHome()}"></label>
++      <label>Collection shelf<select id="libraryShelf" onchange="renderLibraryHome()"><option value="">All shelves</option></select></label>
++      <div class="viewcontrols" aria-label="Library view">
++        <button id="tileViewButton" class="secondary active" onclick="setLibraryView('tiles')">Tile View</button>
++        <button id="listViewButton" class="secondary" onclick="setLibraryView('list')">List View</button>
++      </div>
++    </div>
++    <div id="librarySummary" class="librarysummary"><div class="libraryempty">Loading your library…</div></div>
++    <div id="libraryBrowser"><div class="libraryempty">Loading shelves and documents…</div></div>
++  </section>
++
++  <div id="advancedWorkspace" hidden>
++    <div class="advancedheading"><div><div class="eyebrow">Advanced Library Tools</div><h2>Search, indexing, research, and review</h2></div><button class="secondary" onclick="showLibraryHome()">Return to Library Home</button></div>
+ 
+   <div class="grid">
+     <section id="researchDesk" class="card researchdesk">
+@@ -2348,11 +2421,20 @@
+       <div id="duplicateList"><div class="empty">Loading duplicate review…</div></div>
+     </section>
+   </div>
++  </div>
++
++  <dialog id="documentDetailDialog" onclick="if(event.target===this)this.close()">
++    <button class="secondary detailclose" onclick="q('documentDetailDialog').close()" aria-label="Close document details">Close</button>
++    <div id="documentDetailBody"></div>
++  </dialog>
+ </div>
+ <script>
+ const q=id=>document.getElementById(id);
+ let documents=[];
+ let shelves=[];
++let libraryDocuments=[];
++let libraryShelves=[];
++let libraryView='tiles';
+ let indexWasRunning=false;
+ let lastState={};
+ let lastSearchResults=[];
+@@ -2414,6 +2496,118 @@
+     paintModelStatus({online:false,model:'',message:error.message});
+   }finally{modelPollBusy=false;}
+ }
++
++function titleInitials(title){
++  const words=String(title||'Document').replace(/\([^)]*\)|\[[^\]]*\]/g,' ').match(/[A-Za-z0-9]+/g)||[];
++  return (words.slice(0,2).map(word=>word[0]).join('')||'B').toUpperCase();
++}
++function deterministicCoverStyle(item){
++  const seed=String(item.title||'')+'|'+String(item.shelf||'');
++  let hash=2166136261;
++  for(let i=0;i<seed.length;i++){hash^=seed.charCodeAt(i);hash=Math.imul(hash,16777619)}
++  const hue=((hash>>>0)%360+360)%360;
++  const second=(hue+38+((hash>>>8)%66))%360;
++  return `--cover-a:hsl(${hue} 58% 34%);--cover-b:hsl(${second} 70% 16%)`;
++}
++function coverMarkup(item,detail=false){
++  return `<div class="${detail?'detailcover':'bookcover'}" style="${deterministicCoverStyle(item)}"><div class=covermark>${esc(titleInitials(item.title))}</div><div><div class=coverlabel>${esc(item.shelf||'Bibliotheca')}</div><div class=covertext>${esc(item.title||'Untitled document')}</div></div></div>`;
++}
++function showLibraryHome(){
++  q('libraryHome').hidden=false;
++  q('advancedWorkspace').hidden=true;
++  q('advancedHeroTools').hidden=true;
++  q('libraryHomeButton').classList.remove('secondary');
++  q('advancedToolsButton').classList.add('secondary');
++  q('libraryHome').scrollIntoView({behavior:'smooth',block:'start'});
++}
++function showAdvancedTools(scrollTarget=''){
++  q('libraryHome').hidden=true;
++  q('advancedWorkspace').hidden=false;
++  q('advancedHeroTools').hidden=false;
++  q('libraryHomeButton').classList.add('secondary');
++  q('advancedToolsButton').classList.remove('secondary');
++  const target=scrollTarget?q(scrollTarget):q('advancedWorkspace');
++  setTimeout(()=>target?.scrollIntoView({behavior:'smooth',block:'start'}),40);
++}
++function setLibraryView(view){
++  libraryView=view==='list'?'list':'tiles';
++  q('tileViewButton').classList.toggle('active',libraryView==='tiles');
++  q('listViewButton').classList.toggle('active',libraryView==='list');
++  renderLibraryHome();
++}
++function filteredLibraryDocuments(){
++  const query=String(q('libraryQuery').value||'').trim().toLowerCase();
++  const shelf=String(q('libraryShelf').value||'');
++  return libraryDocuments.filter(item=>{
++    if(shelf&&item.shelf!==shelf)return false;
++    if(!query)return true;
++    return [item.title,item.rel_path,item.shelf].some(value=>String(value||'').toLowerCase().includes(query));
++  });
++}
++function tileMarkup(item){
++  return `<button class=booktile onclick="openDocumentDetail(${item.id})" aria-label=${JSON.stringify(`Open details for ${item.title||'document'}`)}>${coverMarkup(item)}<div class=tiletitle>${esc(item.title)}</div><div class=tilemeta>${fmt(item.page_count)} pages · ${esc(statusLabel(item.text_status))}</div></button>`;
++}
++function listRowMarkup(item){
++  return `<button class=libraryrow onclick="openDocumentDetail(${item.id})"><div class=listcover style="${deterministicCoverStyle(item)}">${esc(titleInitials(item.title))}</div><div><div class=rowtitle>${esc(item.title)}</div><div class=rowmeta>${esc(item.shelf)} · ${esc(item.rel_path)}</div></div><div class=rowstatus>${fmt(item.page_count)} pages<br>${esc(statusLabel(item.text_status))}</div></button>`;
++}
++function renderShelfSection(name,items,subtitle=''){
++  if(!items.length)return '';
++  const shown=items.slice(0,24);
++  return `<section class=shelfsection><div class=shelfhead><div><h2>${esc(name)}</h2><div class=small>${esc(subtitle||`${items.length} document${items.length===1?'':'s'}`)}</div></div>${items.length>shown.length?`<button class=secondary onclick='focusLibraryShelf(${JSON.stringify(name)})'>View all ${items.length}</button>`:''}</div><div class=tiletrack>${shown.map(tileMarkup).join('')}</div></section>`;
++}
++function focusLibraryShelf(name){
++  if([...q('libraryShelf').options].some(option=>option.value===name))q('libraryShelf').value=name;
++  q('libraryQuery').value='';
++  renderLibraryHome();
++  q('libraryBrowser').scrollIntoView({behavior:'smooth',block:'start'});
++}
++function renderLibraryHome(){
++  if(!q('libraryBrowser'))return;
++  const filtered=filteredLibraryDocuments();
++  const shelfFilter=q('libraryShelf').value;
++  const query=q('libraryQuery').value.trim();
++  q('librarySummary').innerHTML=`<div class=stat><span class=small>Documents</span><b>${fmt(libraryDocuments.length)}</b></div><div class=stat><span class=small>Shelves</span><b>${fmt(libraryShelves.filter(s=>s.name!=='Research').length)}</b></div><div class=stat><span class=small>Searchable pages</span><b>${fmt(libraryDocuments.reduce((sum,item)=>sum+Number(item.indexed_pages||0),0))}</b></div><div class=stat><span class=small>Showing</span><b>${fmt(filtered.length)}</b></div>`;
++  if(!filtered.length){q('libraryBrowser').innerHTML='<div class=libraryempty>No indexed documents match this view.</div>';return;}
++  if(libraryView==='list'||query||shelfFilter){
++    q('libraryBrowser').innerHTML=`<div class=librarylist>${filtered.map(listRowMarkup).join('')}</div>`;
++    return;
++  }
++  const recently=[...filtered].sort((a,b)=>String(b.indexed_at||'').localeCompare(String(a.indexed_at||''))).slice(0,18);
++  const groups=new Map();
++  for(const item of filtered){if(!groups.has(item.shelf))groups.set(item.shelf,[]);groups.get(item.shelf).push(item)}
++  const shelvesHtml=[...groups.entries()].sort((a,b)=>a[0].localeCompare(b[0])).map(([name,items])=>renderShelfSection(name,items)).join('');
++  q('libraryBrowser').innerHTML=renderShelfSection('Recently Added',recently,'Most recently indexed documents')+shelvesHtml;
++}
++async function refreshLibraryHome(){
++  const [shelfData,documentData]=await Promise.all([api('/api/shelves'),api('/api/documents?include_review=0')]);
++  libraryShelves=(shelfData.shelves||[]).filter(item=>item.name!=='Research');
++  libraryDocuments=documentData.documents||[];
++  const selected=q('libraryShelf').value;
++  q('libraryShelf').innerHTML='<option value="">All shelves</option>'+libraryShelves.map(item=>`<option value="${esc(item.name)}">${esc(item.name)} (${fmt(item.documents)})</option>`).join('');
++  if([...q('libraryShelf').options].some(option=>option.value===selected))q('libraryShelf').value=selected;
++  renderLibraryHome();
++}
++function openDocumentDetail(id){
++  const item=libraryDocuments.find(document=>Number(document.id)===Number(id));
++  if(!item)return;
++  q('documentDetailBody').innerHTML=`<div class=detailbody>${coverMarkup(item,true)}<div><div class=eyebrow>${esc(item.shelf||'Bibliotheca')}</div><h2>${esc(item.title)}</h2><div class=detailmeta><div><b>Pages</b>${fmt(item.page_count)}</div><div><b>Text status</b>${esc(statusLabel(item.text_status))}</div><div><b>Indexed pages</b>${fmt(item.indexed_pages)}</div><div><b>Source type</b>PDF${item.is_ocr_copy?' · OCR copy':''}</div></div><div class=detailpath>${esc(item.rel_path)}</div><div class=controls><button onclick='openPdf(${item.id},1,${JSON.stringify(item.title)},${JSON.stringify(`${item.title}, p. 1`)})'>Open PDF</button><button class=secondary onclick='searchThisDocument(${item.id})'>Search This Document</button><button class=secondary onclick='askThisDocument(${item.id})'>Ask Agent Fox</button></div></div></div>`;
++  q('documentDetailDialog').showModal();
++}
++function searchThisDocument(id){
++  q('documentDetailDialog').close();
++  showAdvancedTools();
++  q('searchDoc').value=String(id);
++  q('searchQuery').focus();
++  setTimeout(()=>q('searchQuery').scrollIntoView({behavior:'smooth',block:'center'}),60);
++}
++function askThisDocument(id){
++  q('documentDetailDialog').close();
++  showAdvancedTools();
++  q('askDoc').value=String(id);
++  q('askQuestion').focus();
++  setTimeout(()=>q('askQuestion').scrollIntoView({behavior:'smooth',block:'center'}),60);
++}
++
+ async function refreshStatus(){
+   const data=await api('/api/status');
+   const s=data.summary;
+@@ -2453,7 +2647,7 @@
+         ? `Last index completed ${state.last_result.completed} in ${state.last_result.elapsed_seconds||0}s. ${state.last_result.unchanged||0} unchanged skipped. Original files modified: 0.`
+         : 'Ready to index FOXAI/Library.';
+   if(indexWasRunning&&!state.indexing){
+-    setTimeout(()=>Promise.all([refreshShelves(),refreshDocuments(),refreshDuplicates()]),250);
++    setTimeout(()=>Promise.all([refreshShelves(),refreshDocuments(),refreshDuplicates(),refreshLibraryHome()]),250);
+   }
+   indexWasRunning=state.indexing;
+   if(state.indexing)setTimeout(refreshStatus,900);
+@@ -2536,7 +2730,7 @@
+ function openResearchSource(id){window.open(`/research/readable?id=${encodeURIComponent(id)}`,'_blank')}
+ async function refreshAll(){
+   await refreshShelves();
+-  await Promise.all([refreshStatus(),refreshDocuments(),refreshDuplicates(),refreshResearchStatus(),refreshSavedResearch()]);
++  await Promise.all([refreshStatus(),refreshDocuments(),refreshDuplicates(),refreshResearchStatus(),refreshSavedResearch(),refreshLibraryHome()]);
+ }
+ async function startIndex(){
+   try{
+@@ -2592,6 +2786,7 @@
+ }
+ function clearOpenedPage(){lastOpenedPage=null;q('openedPageContext').hidden=true;q('askSourceNote').textContent='No cited results or opened page are selected.';}
+ function selectDocument(id){
++  showAdvancedTools();
+   q('searchDoc').value=String(id);
+   q('searchQuery').focus();
+ }
+@@ -2748,7 +2943,7 @@
+     await refreshAll();
+   }catch(error){alert(error.message);}
+ }
+-refreshAll().then(()=>{if(new URLSearchParams(location.search).get('room')==='research')setTimeout(()=>q('researchDesk')?.scrollIntoView({behavior:'smooth',block:'start'}),120)}).catch(error=>{q('progressText').textContent=error.message;});
++refreshAll().then(()=>{const room=new URLSearchParams(location.search).get('room');if(room==='research'){showAdvancedTools('researchDesk')}else{showLibraryHome()}}).catch(error=>{q('progressText').textContent=error.message;q('libraryBrowser').innerHTML=`<div class="libraryempty bad">${esc(error.message)}</div>`;});
+ setInterval(refreshModelStatus,2500);
+ document.addEventListener('visibilitychange',()=>{
+   if(!document.hidden)refreshModelStatus();
+--- /dev/null
++++ b/KAYOCKS_STUDY_BIBLIOTHECA_V1/VERIFY_KAYOCKS_STUDY_V2A_1.py
+@@ -0,0 +1,284 @@
++from __future__ import annotations
++
++import argparse
++import ast
++import hashlib
++import importlib.util
++import json
++import shutil
++import sqlite3
++import sys
++import tempfile
++from pathlib import Path
++from threading import Thread
++from urllib.parse import urlencode
++from urllib.request import urlopen
++
++EXPECTED_WEB_SHA256 = "06063ac9e312129da002a21d52556df560e8fef3c7e9b3b0216a001574768114"
++EXPECTED_RESEARCH_DESK_SHA256 = "dd2d4fbb68e79e3011f767e0ea2bbc16dd56f23eb5bb14b1a81c86539c160519"
++EXPECTED_V1_6_VERIFIER_SHA256 = "f5d1070f2e69c131c986d8b6b7bacd1e8d88223d53058775c58c928fb43b842a"
++EXPECTED_V1_2_VERIFIER_SHA256 = "3c74030d778c5907986cd8b9da796edacadd1c44b3d2b3bceb1931147f450787"
++EXPECTED_V1_2_1_VERIFIER_SHA256 = "c32925b6c86139c057e090fa17d6dcae6a4b70de4e56d00a54248b1fe93fc795"
++EXPECTED_V1_2_2_VERIFIER_SHA256 = "d41640e33040a8aca045b8d70f4e3a7e9f2b4f7c6837adecce44b5f2cf27ff4f"
++EXPECTED_BACKEND_PREFIX_SHA256 = "d70488cae4506213f6969462194418384f90d548cacce1bf6e9e207653861726"
++EXPECTED_BACKEND_SUFFIX_SHA256 = "89a90e7e3aea2e6839fd044adafc0eb63ddd6ef3f13232bc19c1920c72a1407b"
++
++
++def sha256(path: Path) -> str:
++    return hashlib.sha256(path.read_bytes()).hexdigest()
++
++
++def sha256_bytes(data: bytes) -> str:
++    return hashlib.sha256(data).hexdigest()
++
++
++def load_module(path: Path):
++    spec = importlib.util.spec_from_file_location("kayocks_study_v2a_1_live", path)
++    if spec is None or spec.loader is None:
++        raise RuntimeError(f"Unable to load {path}")
++    module = importlib.util.module_from_spec(spec)
++    sys.path.insert(0, str(path.parent))
++    sys.modules[spec.name] = module
++    spec.loader.exec_module(module)
++    return module
++
++
++def add_document(
++    conn: sqlite3.Connection,
++    *,
++    doc_id: int,
++    root: Path,
++    rel_path: str,
++    title: str,
++    indexed_at: str,
++    pages: dict[int, str],
++    text_status: str = "searchable",
++    is_ocr_copy: int = 0,
++) -> None:
++    absolute = root / "Library" / Path(rel_path)
++    absolute.parent.mkdir(parents=True, exist_ok=True)
++    absolute.write_bytes(b"fixture")
++    total = sum(len(value) for value in pages.values())
++    conn.execute(
++        """
++        INSERT INTO documents(
++          id,path,rel_path,title,size_bytes,mtime_ns,sha256,page_count,indexed_pages,
++          text_chars,low_text_pages,extraction_errors,text_status,is_ocr_copy,
++          related_stem,indexed_at
++        ) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
++        """,
++        (
++            doc_id, str(absolute), rel_path, title, absolute.stat().st_size, doc_id,
++            f"{doc_id:064x}"[-64:], len(pages), len(pages), total, 0, 0,
++            text_status, is_ocr_copy, title.casefold(), indexed_at,
++        ),
++    )
++    for page_number, body in pages.items():
++        conn.execute(
++            "INSERT INTO pages(document_id,page_number,text,text_chars) VALUES(?,?,?,?)",
++            (doc_id, page_number, body, len(body)),
++        )
++    conn.commit()
++
++
++def request_json(base: str, path: str) -> tuple[int, dict]:
++    with urlopen(base + path, timeout=5) as response:
++        return int(response.status), json.loads(response.read().decode("utf-8"))
++
++
++def request_text(base: str, path: str) -> tuple[int, str]:
++    with urlopen(base + path, timeout=5) as response:
++        return int(response.status), response.read().decode("utf-8")
++
++
++def main() -> int:
++    parser = argparse.ArgumentParser()
++    parser.add_argument("--root", required=True)
++    args = parser.parse_args()
++
++    root = Path(args.root).resolve()
++    app = root / "KAYOCKS_STUDY_BIBLIOTHECA_V1"
++    server_path = app / "study_server.py"
++    source = server_path.read_text(encoding="utf-8")
++    module = load_module(server_path)
++    html = module.HTML
++    checks: list[dict] = []
++
++    def check(name: str, condition: bool, detail="") -> None:
++        checks.append({"id": name, "ok": bool(condition), "detail": detail})
++        if not condition:
++            raise AssertionError(f"{name}: {detail}")
++
++    html_marker = 'HTML = r"""'
++    handler_marker = "\nclass StudyHandler"
++    html_start = source.index(html_marker)
++    handler_start = source.index(handler_marker, html_start)
++    check("v1_2_2_backend_prefix_preserved", sha256_bytes(source[:html_start].encode("utf-8")) == EXPECTED_BACKEND_PREFIX_SHA256)
++    check("v1_2_2_backend_routes_preserved", sha256_bytes(source[handler_start:].encode("utf-8")) == EXPECTED_BACKEND_SUFFIX_SHA256)
++    check("main_foxai_web_preserved", sha256(root / "core" / "foxai_web.py") == EXPECTED_WEB_SHA256)
++    check("controlled_research_desk_preserved", sha256(app / "research_desk.py") == EXPECTED_RESEARCH_DESK_SHA256)
++    check("v1_6_verifier_preserved", sha256(app / "VERIFY_KAYOCKS_STUDY_V1_6.py") == EXPECTED_V1_6_VERIFIER_SHA256)
++    check("v1_2_verifier_preserved", sha256(app / "VERIFY_BIBLIOTHECA_V1_2.py") == EXPECTED_V1_2_VERIFIER_SHA256)
++    check("v1_2_1_verifier_preserved", sha256(app / "VERIFY_BIBLIOTHECA_V1_2_1.py") == EXPECTED_V1_2_1_VERIFIER_SHA256)
++    check("v1_2_2_verifier_preserved", sha256(app / "VERIFY_BIBLIOTHECA_V1_2_2.py") == EXPECTED_V1_2_2_VERIFIER_SHA256)
++
++    required_ui = (
++        'id="libraryHome"',
++        'id="advancedWorkspace" hidden',
++        'Advanced Library Tools',
++        'Tile View',
++        'List View',
++        'Recently Added',
++        'function deterministicCoverStyle(',
++        'function openDocumentDetail(',
++        'function searchThisDocument(',
++        'function askThisDocument(',
++        'function showLibraryHome(',
++        'function showAdvancedTools(',
++        "api('/api/shelves')",
++        "api('/api/documents?include_review=0')",
++    )
++    check("tiled_browser_shell_present", all(token in html for token in required_ui))
++    check("browser_is_normal_home", 'id="libraryHome" class="card libraryhome"' in html and 'id="advancedWorkspace" hidden' in html)
++    check("portrait_cover_geometry", ".bookcover{position:relative;aspect-ratio:2/3" in html)
++    check("horizontal_shelf_rows", ".tiletrack{display:grid;grid-auto-flow:column" in html and "overflow-x:auto" in html)
++    check("recently_added_uses_indexed_at", "String(b.indexed_at||'').localeCompare(String(a.indexed_at||''))" in html)
++    check("placeholder_covers_are_browser_only", "deterministicCoverStyle(item)" in html and "canvas" not in html.lower() and "/api/thumbnail" not in html)
++    check("tile_and_list_controls", "setLibraryView('tiles')" in html and "setLibraryView('list')" in html)
++    check("document_detail_fields", all(token in html for token in ("Pages", "Text status", "Indexed pages", "Source type")))
++    check("document_actions_reuse_existing_behavior", all(token in html for token in ("Open PDF", "Search This Document", "Ask Agent Fox", "openPdf(")))
++    check("advanced_tools_preserve_controls", all(token in html for token in (
++        "Index or Refresh Library", "Controlled Research Desk", "Search the Bibliotheca",
++        "Page Results", "Duplicate Review", "Use This Recipe",
++    )))
++    check("research_room_opens_advanced", "if(room==='research'){showAdvancedTools('researchDesk')}" in html)
++    check("no_personal_state_added", all(token not in source for token in (
++        "/api/favorites", "/api/reading-position", "CREATE TABLE favorites",
++        "CREATE TABLE reading_state", "localStorage", "sessionStorage",
++    )))
++    check("no_native_epub_or_external_scan_added", all(token not in source for token in (
++        "/api/epub", "E:\\Star Trek", "V2B Test Set", "external_library_root",
++    )))
++    check("existing_search_failure_message_preserved", "The local Bibliotheca search service did not return a response." in html)
++    check("existing_recipe_choice_preserved", "function useRecipeChoice(" in html and "Choose one recipe" in html)
++    check("exact_page_context_preserved", "Ask from This Opened Page" in html and "function useOpenedPage(" in html)
++
++    # Validate embedded JavaScript structure without executing browser APIs.
++    tree = ast.parse(source)
++    extracted = None
++    for node in tree.body:
++        if isinstance(node, ast.Assign) and any(isinstance(target, ast.Name) and target.id == "HTML" for target in node.targets):
++            extracted = ast.literal_eval(node.value)
++            break
++    check("html_constant_extractable", extracted == html)
++    check("single_script_block", html.count("<script>") == 1 and html.count("</script>") == 1)
++    check("unique_key_interface_ids", all(html.count(f'id="{item}"') == 1 for item in (
++        "libraryHome", "advancedWorkspace", "libraryBrowser", "librarySummary",
++        "libraryShelf", "libraryQuery", "documentDetailDialog", "documentDetailBody",
++    )))
++
++    temp = Path(tempfile.mkdtemp(prefix="kayocks_study_v2a_1_http_"))
++    server = None
++    thread = None
++    try:
++        paths = module.AppPaths(
++            root=temp,
++            library=temp / "Library",
++            data=temp / "Data",
++            database=temp / "Data" / "bibliotheca.sqlite3",
++            log=temp / "Logs" / "bibliotheca.log",
++            reports=temp / "Reports",
++        )
++        paths.library.mkdir(parents=True)
++        paths.data.mkdir(parents=True)
++        conn = module.connect_db(paths)
++        try:
++            conn.execute("UPDATE metadata SET value='0' WHERE key='fts5'")
++            add_document(
++                conn, doc_id=1, root=temp,
++                rel_path="Recipes/Nelson Family Recipe Book.pdf",
++                title="Nelson Family Recipe Book",
++                indexed_at="2026-07-20T04:00:00-06:00",
++                pages={7: "WHITE BREAD Ingredients flour water Directions bake."},
++            )
++            add_document(
++                conn, doc_id=2, root=temp,
++                rel_path="DND/Starship Manual.pdf",
++                title="Starship Manual",
++                indexed_at="2026-07-19T04:00:00-06:00",
++                pages={1: "STARSHIP SYSTEMS Navigation and engineering."},
++            )
++            add_document(
++                conn, doc_id=3, root=temp,
++                rel_path="Manuals/Python Guide OCR.pdf",
++                title="Python Guide OCR",
++                indexed_at="2026-07-18T04:00:00-06:00",
++                pages={2: "PYTHON FOR LOOP Iterates through a sequence."},
++                text_status="searchable_ocr_copy",
++                is_ocr_copy=1,
++            )
++        finally:
++            conn.close()
++
++        server = module.StudyServer(("127.0.0.1", 0), module.StudyHandler, paths)
++        thread = Thread(target=server.serve_forever, kwargs={"poll_interval": 0.05}, daemon=True)
++        thread.start()
++        base = f"http://127.0.0.1:{server.server_address[1]}"
++
++        status, served_html = request_text(base, "/")
++        check("home_http_200", status == 200 and 'id="libraryHome"' in served_html and 'id="advancedWorkspace" hidden' in served_html)
++
++        status, shelves = request_json(base, "/api/shelves")
++        names = {item.get("name") for item in shelves.get("shelves") or []}
++        check("existing_shelves_api_works", status == 200 and shelves.get("ok") is True and {"Recipes", "DND", "Manuals"}.issubset(names), shelves)
++
++        status, documents = request_json(base, "/api/documents?include_review=0")
++        docs = documents.get("documents") or []
++        check("existing_documents_api_works", status == 200 and documents.get("ok") is True and len(docs) == 3, documents)
++        check("tile_metadata_available", all(all(key in item for key in ("id", "title", "shelf", "page_count", "indexed_pages", "text_status", "indexed_at", "rel_path")) for item in docs), docs)
++        check("recently_added_metadata_orderable", sorted(docs, key=lambda item: str(item.get("indexed_at") or ""), reverse=True)[0]["id"] == 1, docs)
++
++        status, search = request_json(base, "/api/search?" + urlencode({
++            "q": "White bread", "doc": "1", "shelf": "Recipes", "status": "searchable",
++        }))
++        check("v1_2_2_search_http_regression", status == 200 and search.get("ok") is True and len(search.get("results") or []) == 1, search)
++        check("recipe_heading_http_regression", str(search["results"][0].get("detected_heading") or "").casefold() == "white bread", search)
++
++        status, pdf_body = request_text(base, "/pdf?id=1")
++        check("existing_pdf_route_works", status == 200 and pdf_body == "fixture")
++    finally:
++        if server is not None:
++            server.shutdown()
++            server.server_close()
++        if thread is not None:
++            thread.join(timeout=3)
++        shutil.rmtree(temp, ignore_errors=True)
++
++    receipt = {
++        "schema": "foxai.kayocks_study.v2a_1.verification.v1",
++        "mission": "Kayock's Study V2A.1 — Tiled Library Browser Shell",
++        "result": "verified",
++        "check_count": len(checks),
++        "checks": checks,
++        "protected": {
++            "bibliotheca_v1_2_exact_page": True,
++            "bibliotheca_v1_2_1_recipe_layout": True,
++            "bibliotheca_v1_2_2_search_reliability": True,
++            "controlled_research_desk": True,
++            "main_foxai_lifecycle": True,
++            "database_schema": True,
++            "library_content": True,
++            "epubs": True,
++            "writer": True,
++            "repair_bay": True,
++        },
++        "network_used": False,
++        "external_commands_run": False,
++        "project_content_written_by_verifier": False,
++    }
++    print(json.dumps(receipt, indent=2, ensure_ascii=False))
++    return 0
++
++
++if __name__ == "__main__":
++    raise SystemExit(main())

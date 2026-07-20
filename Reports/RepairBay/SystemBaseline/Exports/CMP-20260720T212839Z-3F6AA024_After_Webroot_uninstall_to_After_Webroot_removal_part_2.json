@@ -1,0 +1,676 @@
+{
+  "schema": "foxai.repair_baseline.comparison.v1",
+  "comparison_id": "CMP-20260720T212839Z-3F6AA024",
+  "created_at": "2026-07-20T21:28:39+00:00",
+  "before": {
+    "snapshot_id": "SNP-20260720T211435Z-746CB906",
+    "name": "After Webroot uninstall",
+    "note": "",
+    "origin": "after_manual",
+    "session_id": "",
+    "created_at": "2026-07-20T21:14:35+00:00",
+    "machine_name": "DESKTOP-G9ERN9B",
+    "process_count": 60,
+    "service_count": 322,
+    "startup_count": 16,
+    "application_count": 284,
+    "listener_count": 39,
+    "available_memory_bytes": 36569661440,
+    "path": "",
+    "payload_sha256": "6a527d98de568a11a28fa80a532c776dd0be6af310481b8f788b797bb1b11225"
+  },
+  "after": {
+    "snapshot_id": "SNP-20260720T212813Z-FA4F34BE",
+    "name": "After Webroot removal  part 2",
+    "note": "removing webroot",
+    "origin": "after_manual",
+    "session_id": "",
+    "created_at": "2026-07-20T21:28:13+00:00",
+    "machine_name": "DESKTOP-G9ERN9B",
+    "process_count": 60,
+    "service_count": 323,
+    "startup_count": 16,
+    "application_count": 283,
+    "listener_count": 41,
+    "available_memory_bytes": 35996073984,
+    "path": "",
+    "payload_sha256": "98380d852b8709e7d2708737b57b6ceff31de9c02c533ae1387f3bbd7bafd0a5"
+  },
+  "summary": {
+    "total_changes": 39,
+    "by_action": {
+      "Added": 11,
+      "Removed": 7,
+      "Changed": 8,
+      "Stopped": 7,
+      "Disabled": 1,
+      "Decreased": 3,
+      "Increased": 2
+    },
+    "by_classification": {
+      "Significant Change": 10,
+      "Review Suggested": 16,
+      "Observation": 10,
+      "Runtime Noise": 3
+    },
+    "count_deltas": {
+      "applications": -1,
+      "services": 1,
+      "startup_entries": 0,
+      "scheduled_tasks": 0,
+      "listeners": 2,
+      "processes": 0
+    },
+    "resource_deltas": {
+      "memory_available_bytes_delta": -573587456,
+      "memory_committed_bytes_delta": 588214272,
+      "memory_cached_bytes_delta": 14102528,
+      "disk_free_bytes_delta": {
+        "C:\\": -562843648,
+        "Z:\\": -1310720
+      }
+    }
+  },
+  "changes": [
+    {
+      "category": "applications",
+      "action": "Added",
+      "name": "Intel(R) Chipset Device Software",
+      "classification": "Significant Change",
+      "evidence": {
+        "before": null,
+        "after": {
+          "name": "Intel(R) Chipset Device Software",
+          "version": "10.1.19468.8385",
+          "publisher": "Intel(R) Corporation",
+          "install_location": null
+        }
+      }
+    },
+    {
+      "category": "applications",
+      "action": "Removed",
+      "name": "Intel(R) Chipset Device Software",
+      "classification": "Significant Change",
+      "evidence": {
+        "before": {
+          "name": "Intel(R) Chipset Device Software",
+          "version": "10.1.19468.8385",
+          "publisher": "Intel Corporation",
+          "install_location": ""
+        },
+        "after": null
+      }
+    },
+    {
+      "category": "applications",
+      "action": "Removed",
+      "name": "Webroot SecureAnywhere",
+      "classification": "Significant Change",
+      "evidence": {
+        "before": {
+          "name": "Webroot SecureAnywhere",
+          "version": "9.0.45.63",
+          "publisher": "Webroot",
+          "install_location": "C:\\Program Files\\Webroot\\"
+        },
+        "after": null
+      }
+    },
+    {
+      "category": "applications",
+      "action": "Changed",
+      "name": "4K Video Downloader+",
+      "classification": "Review Suggested",
+      "evidence": {
+        "install_location": {
+          "before": "C:\\Program Files\\4KDownload\\4kvideodownloaderplus\\",
+          "after": null
+        }
+      }
+    },
+    {
+      "category": "applications",
+      "action": "Changed",
+      "name": "Dell SupportAssist OS Recovery Plugin for Dell Update",
+      "classification": "Review Suggested",
+      "evidence": {
+        "install_location": {
+          "before": null,
+          "after": "C:\\Program Files\\Dell\\SARemediation\\plugin\\"
+        }
+      }
+    },
+    {
+      "category": "applications",
+      "action": "Changed",
+      "name": "Dell SupportAssist Remediation",
+      "classification": "Review Suggested",
+      "evidence": {
+        "install_location": {
+          "before": null,
+          "after": "C:\\Program Files\\Dell\\SARemediation\\agent\\"
+        }
+      }
+    },
+    {
+      "category": "applications",
+      "action": "Changed",
+      "name": "Foxit PDF Reader",
+      "classification": "Review Suggested",
+      "evidence": {
+        "install_location": {
+          "before": null,
+          "after": "C:\\Program Files (x86)\\Foxit Software\\Foxit PDF Reader\\"
+        }
+      }
+    },
+    {
+      "category": "applications",
+      "action": "Changed",
+      "name": "UE Prerequisites (x64)",
+      "classification": "Review Suggested",
+      "evidence": {
+        "install_location": {
+          "before": "",
+          "after": null
+        }
+      }
+    },
+    {
+      "category": "services",
+      "action": "Added",
+      "name": "Microsoft Defender Core Service",
+      "classification": "Significant Change",
+      "evidence": {
+        "before": null,
+        "after": {
+          "name": "MDCoreSvc",
+          "display_name": "Microsoft Defender Core Service",
+          "state": "Running",
+          "start_type": "Auto",
+          "executable_path": "\"C:\\ProgramData\\Microsoft\\Windows Defender\\Platform\\4.18.26060.3008-0\\MpDefenderCoreService.exe\"",
+          "service_account_category": "system",
+          "process_id": 22728
+        }
+      }
+    },
+    {
+      "category": "services",
+      "action": "Stopped",
+      "name": "BitLocker Drive Encryption Service",
+      "classification": "Review Suggested",
+      "evidence": {
+        "state": {
+          "before": "Running",
+          "after": "Stopped"
+        }
+      }
+    },
+    {
+      "category": "services",
+      "action": "Stopped",
+      "name": "Client License Service (ClipSVC)",
+      "classification": "Review Suggested",
+      "evidence": {
+        "state": {
+          "before": "Running",
+          "after": "Stopped"
+        }
+      }
+    },
+    {
+      "category": "services",
+      "action": "Stopped",
+      "name": "Function Discovery Provider Host",
+      "classification": "Review Suggested",
+      "evidence": {
+        "state": {
+          "before": "Running",
+          "after": "Stopped"
+        }
+      }
+    },
+    {
+      "category": "services",
+      "action": "Stopped",
+      "name": "Windows Installer",
+      "classification": "Review Suggested",
+      "evidence": {
+        "state": {
+          "before": "Running",
+          "after": "Stopped"
+        }
+      }
+    },
+    {
+      "category": "services",
+      "action": "Stopped",
+      "name": "Printer Extensions and Notifications",
+      "classification": "Review Suggested",
+      "evidence": {
+        "state": {
+          "before": "Running",
+          "after": "Stopped"
+        }
+      }
+    },
+    {
+      "category": "services",
+      "action": "Changed",
+      "name": "Microsoft Defender Antivirus Network Inspection Service",
+      "classification": "Review Suggested",
+      "evidence": {
+        "executable_path": {
+          "before": "\"C:\\Program Files\\Windows Defender\\NisSrv.exe\"",
+          "after": "\"C:\\ProgramData\\Microsoft\\Windows Defender\\Platform\\4.18.26060.3008-0\\NisSrv.exe\""
+        }
+      }
+    },
+    {
+      "category": "services",
+      "action": "Changed",
+      "name": "Microsoft Defender Antivirus Service",
+      "classification": "Review Suggested",
+      "evidence": {
+        "executable_path": {
+          "before": "\"C:\\Program Files\\Windows Defender\\MsMpEng.exe\"",
+          "after": "\"C:\\ProgramData\\Microsoft\\Windows Defender\\Platform\\4.18.26060.3008-0\\MsMpEng.exe\""
+        }
+      }
+    },
+    {
+      "category": "services",
+      "action": "Stopped",
+      "name": "WMI Performance Adapter",
+      "classification": "Review Suggested",
+      "evidence": {
+        "state": {
+          "before": "Running",
+          "after": "Stopped"
+        }
+      }
+    },
+    {
+      "category": "services",
+      "action": "Disabled",
+      "name": "WRSVC",
+      "classification": "Review Suggested",
+      "evidence": {
+        "state": {
+          "before": "Running",
+          "after": "Stopped"
+        },
+        "start_type": {
+          "before": "Auto",
+          "after": "Disabled"
+        }
+      }
+    },
+    {
+      "category": "services",
+      "action": "Stopped",
+      "name": "Xbox Live Auth Manager",
+      "classification": "Review Suggested",
+      "evidence": {
+        "state": {
+          "before": "Running",
+          "after": "Stopped"
+        }
+      }
+    },
+    {
+      "category": "scheduled_tasks",
+      "action": "Added",
+      "name": "\\SoftLanding\\S-1-5-21-407754733-4278090185-2299335465-1001\\SoftLandingDeferralTask-{8e98b0a3-038c-49f5-b7ac-bd86565fb073}",
+      "classification": "Significant Change",
+      "evidence": {
+        "before": null,
+        "after": {
+          "path": "\\SoftLanding\\S-1-5-21-407754733-4278090185-2299335465-1001\\SoftLandingDeferralTask-{8e98b0a3-038c-49f5-b7ac-bd86565fb073}",
+          "state": "Ready",
+          "enabled": true
+        }
+      }
+    },
+    {
+      "category": "scheduled_tasks",
+      "action": "Added",
+      "name": "\\SoftLanding\\S-1-5-21-407754733-4278090185-2299335465-1001\\SoftLandingTriggerTask-128000000001615609-render-{de4f379d-fde2-4230-b024-6ddf9e21f628}",
+      "classification": "Significant Change",
+      "evidence": {
+        "before": null,
+        "after": {
+          "path": "\\SoftLanding\\S-1-5-21-407754733-4278090185-2299335465-1001\\SoftLandingTriggerTask-128000000001615609-render-{de4f379d-fde2-4230-b024-6ddf9e21f628}",
+          "state": "Disabled",
+          "enabled": false
+        }
+      }
+    },
+    {
+      "category": "scheduled_tasks",
+      "action": "Removed",
+      "name": "\\SoftLanding\\S-1-5-21-407754733-4278090185-2299335465-1001\\SoftLandingDeferralTask-{dd72f164-093c-4e0e-aedd-7378e3432692}",
+      "classification": "Significant Change",
+      "evidence": {
+        "before": {
+          "path": "\\SoftLanding\\S-1-5-21-407754733-4278090185-2299335465-1001\\SoftLandingDeferralTask-{dd72f164-093c-4e0e-aedd-7378e3432692}",
+          "state": "Ready",
+          "enabled": true
+        },
+        "after": null
+      }
+    },
+    {
+      "category": "scheduled_tasks",
+      "action": "Removed",
+      "name": "\\SoftLanding\\S-1-5-21-407754733-4278090185-2299335465-1001\\SoftLandingTriggerTask-128000000001615609-render-{c5eb7196-bf75-445e-9f3e-0dd0176d81a2}",
+      "classification": "Significant Change",
+      "evidence": {
+        "before": {
+          "path": "\\SoftLanding\\S-1-5-21-407754733-4278090185-2299335465-1001\\SoftLandingTriggerTask-128000000001615609-render-{c5eb7196-bf75-445e-9f3e-0dd0176d81a2}",
+          "state": "Disabled",
+          "enabled": false
+        },
+        "after": null
+      }
+    },
+    {
+      "category": "scheduled_tasks",
+      "action": "Changed",
+      "name": "\\Microsoft\\Windows\\WlanSvc\\CDSSync",
+      "classification": "Review Suggested",
+      "evidence": {
+        "state": {
+          "before": "Running",
+          "after": "Ready"
+        }
+      }
+    },
+    {
+      "category": "listeners",
+      "action": "Added",
+      "name": "49351",
+      "classification": "Significant Change",
+      "evidence": {
+        "before": null,
+        "after": {
+          "protocol": "TCP",
+          "local_address": "127.0.0.1",
+          "local_port": 49351,
+          "process_id": 12304,
+          "process_name": "esrv.exe",
+          "scope": "localhost"
+        }
+      }
+    },
+    {
+      "category": "listeners",
+      "action": "Added",
+      "name": "8188",
+      "classification": "Significant Change",
+      "evidence": {
+        "before": null,
+        "after": {
+          "protocol": "TCP",
+          "local_address": "127.0.0.1",
+          "local_port": 8188,
+          "process_id": 7332,
+          "process_name": "python.exe",
+          "scope": "localhost"
+        }
+      }
+    },
+    {
+      "category": "processes",
+      "action": "Added",
+      "name": "DellSupportAssistRemedationService.exe",
+      "classification": "Observation",
+      "evidence": {
+        "before": null,
+        "after": {
+          "name": "DellSupportAssistRemedationService.exe",
+          "process_id": 22756,
+          "executable_path": "",
+          "publisher": "",
+          "signature_status": "",
+          "working_set_bytes": 104136704,
+          "private_bytes": 70119424,
+          "cpu_time_seconds": 2.172,
+          "start_time": "07/20/2026 15:12:57",
+          "services": [
+            "A",
+            "D",
+            "R",
+            "S",
+            "a",
+            "d",
+            "e",
+            "i",
+            "l",
+            "m",
+            "n",
+            "o",
+            "p",
+            "r",
+            "s",
+            "t",
+            "u"
+          ]
+        }
+      }
+    },
+    {
+      "category": "processes",
+      "action": "Added",
+      "name": "esrv.exe",
+      "classification": "Observation",
+      "evidence": {
+        "before": null,
+        "after": {
+          "name": "esrv.exe",
+          "process_id": 12304,
+          "executable_path": "C:\\Program Files\\Intel\\SUR\\QUEENCREEK\\x64\\esrv.exe",
+          "publisher": "CN=Intel Corporation, O=Intel Corporation, S=California, C=US",
+          "signature_status": "Valid",
+          "working_set_bytes": 146710528,
+          "private_bytes": 139808768,
+          "cpu_time_seconds": 3.188,
+          "start_time": "07/20/2026 15:14:58",
+          "services": []
+        }
+      }
+    },
+    {
+      "category": "processes",
+      "action": "Added",
+      "name": "ShellExperienceHost.exe",
+      "classification": "Observation",
+      "evidence": {
+        "before": null,
+        "after": {
+          "name": "ShellExperienceHost.exe",
+          "process_id": 7596,
+          "executable_path": "C:\\WINDOWS\\SystemApps\\ShellExperienceHost_cw5n1h2txyewy\\ShellExperienceHost.exe",
+          "publisher": "CN=Microsoft Windows, O=Microsoft Corporation, L=Redmond, S=Washington, C=US",
+          "signature_status": "Valid",
+          "working_set_bytes": 110276608,
+          "private_bytes": 47632384,
+          "cpu_time_seconds": 0.453,
+          "start_time": "07/20/2026 15:23:08",
+          "services": []
+        }
+      }
+    },
+    {
+      "category": "processes",
+      "action": "Added",
+      "name": "ShellHost.exe",
+      "classification": "Observation",
+      "evidence": {
+        "before": null,
+        "after": {
+          "name": "ShellHost.exe",
+          "process_id": 7224,
+          "executable_path": "C:\\WINDOWS\\system32\\shellhost.exe",
+          "publisher": "CN=Microsoft Windows, O=Microsoft Corporation, L=Redmond, S=Washington, C=US",
+          "signature_status": "Valid",
+          "working_set_bytes": 147546112,
+          "private_bytes": 84217856,
+          "cpu_time_seconds": 0.672,
+          "start_time": "07/20/2026 15:15:45",
+          "services": []
+        }
+      }
+    },
+    {
+      "category": "processes",
+      "action": "Added",
+      "name": "svchost.exe",
+      "classification": "Observation",
+      "evidence": {
+        "before": null,
+        "after": {
+          "name": "svchost.exe",
+          "process_id": 10000,
+          "executable_path": "",
+          "publisher": "",
+          "signature_status": "",
+          "working_set_bytes": 84213760,
+          "private_bytes": 53751808,
+          "cpu_time_seconds": 1.641,
+          "start_time": "07/20/2026 15:10:56",
+          "services": [
+            "A",
+            "S",
+            "X",
+            "c",
+            "p",
+            "v"
+          ]
+        }
+      }
+    },
+    {
+      "category": "processes",
+      "action": "Removed",
+      "name": "PowerToys.ColorPickerUI.exe",
+      "classification": "Observation",
+      "evidence": {
+        "before": {
+          "name": "PowerToys.ColorPickerUI.exe",
+          "process_id": 19504,
+          "executable_path": "C:\\Program Files\\PowerToys\\PowerToys.ColorPickerUI.exe",
+          "publisher": "CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US",
+          "signature_status": "Valid",
+          "working_set_bytes": 79044608,
+          "private_bytes": 165199872,
+          "cpu_time_seconds": 1.656,
+          "start_time": "07/20/2026 15:11:18",
+          "services": []
+        },
+        "after": null
+      }
+    },
+    {
+      "category": "processes",
+      "action": "Removed",
+      "name": "PowerToys.PowerLauncher.exe",
+      "classification": "Observation",
+      "evidence": {
+        "before": {
+          "name": "PowerToys.PowerLauncher.exe",
+          "process_id": 19784,
+          "executable_path": "C:\\Program Files\\PowerToys\\PowerToys.PowerLauncher.exe",
+          "publisher": "CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US",
+          "signature_status": "Valid",
+          "working_set_bytes": 191303680,
+          "private_bytes": 224305152,
+          "cpu_time_seconds": 12.094,
+          "start_time": "07/20/2026 15:11:22",
+          "services": []
+        },
+        "after": null
+      }
+    },
+    {
+      "category": "processes",
+      "action": "Removed",
+      "name": "Widgets.exe",
+      "classification": "Observation",
+      "evidence": {
+        "before": {
+          "name": "Widgets.exe",
+          "process_id": 13492,
+          "executable_path": "C:\\Program Files\\WindowsApps\\MicrosoftWindows.Client.WebExperience_526.17301.40.0_x64__cw5n1h2txyewy\\Dashboard\\Widgets.exe",
+          "publisher": "CN=Microsoft Windows, O=Microsoft Corporation, L=Redmond, S=Washington, C=US",
+          "signature_status": "Valid",
+          "working_set_bytes": 77971456,
+          "private_bytes": 14278656,
+          "cpu_time_seconds": 1.562,
+          "start_time": "07/20/2026 15:10:59",
+          "services": []
+        },
+        "after": null
+      }
+    },
+    {
+      "category": "resources",
+      "action": "Decreased",
+      "name": "Available Bytes",
+      "classification": "Runtime Noise",
+      "evidence": {
+        "before": 36569661440,
+        "after": 35996073984,
+        "delta": -573587456
+      }
+    },
+    {
+      "category": "resources",
+      "action": "Increased",
+      "name": "Committed Bytes",
+      "classification": "Runtime Noise",
+      "evidence": {
+        "before": 15802802176,
+        "after": 16391016448,
+        "delta": 588214272
+      }
+    },
+    {
+      "category": "resources",
+      "action": "Increased",
+      "name": "Cached Bytes",
+      "classification": "Runtime Noise",
+      "evidence": {
+        "before": 342167552,
+        "after": 356270080,
+        "delta": 14102528
+      }
+    },
+    {
+      "category": "resources",
+      "action": "Decreased",
+      "name": "Free disk space C:\\",
+      "classification": "Observation",
+      "evidence": {
+        "before": 559158300672,
+        "after": 558595457024,
+        "delta": -562843648
+      }
+    },
+    {
+      "category": "resources",
+      "action": "Decreased",
+      "name": "Free disk space Z:\\",
+      "classification": "Observation",
+      "evidence": {
+        "before": 786540003328,
+        "after": 786538692608,
+        "delta": -1310720
+      }
+    }
+  ],
+  "neutral_interpretation": true,
+  "system_modified": false,
+  "network_used": false
+}

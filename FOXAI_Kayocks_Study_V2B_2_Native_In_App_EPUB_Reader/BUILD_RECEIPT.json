@@ -1,0 +1,119 @@
+{
+  "schema": "foxai.kayocks_study.v2b_2.plan_build_receipt.v1",
+  "mission_id": "ENG-20260720-165647-AE0874",
+  "result": "exact_plan_built_simulated_and_verified",
+  "plan_sha256": "c4b0b058c6d71fb55d88450914f742d8dc2126db2233df3b46c541d16933f4c4",
+  "changed_path_count": 2,
+  "changed_paths": [
+    "KAYOCKS_STUDY_BIBLIOTHECA_V1/study_server.py",
+    "KAYOCKS_STUDY_BIBLIOTHECA_V1/VERIFY_KAYOCKS_STUDY_V2B_2.py"
+  ],
+  "validation_count": 5,
+  "before_hashes": {
+    "KAYOCKS_STUDY_BIBLIOTHECA_V1/study_server.py": "6d0fc139938adf1a6d5edc4f5dc1ae2a93989ac618efcb041d327e2dff33168c",
+    "KAYOCKS_STUDY_BIBLIOTHECA_V1/VERIFY_KAYOCKS_STUDY_V2B_2.py": null
+  },
+  "after_hashes": {
+    "KAYOCKS_STUDY_BIBLIOTHECA_V1/study_server.py": "0eb319a36b8816df3ff824f493eb83305fe28aba76d8f067a4ce15644596bfc0",
+    "KAYOCKS_STUDY_BIBLIOTHECA_V1/VERIFY_KAYOCKS_STUDY_V2B_2.py": "ad0cf50e53b0d557693cdbaa18e94b27bf70e487f5878ce9e486c5efc9d2dc04"
+  },
+  "features_verified": {
+    "native_epub_reader": true,
+    "multi_chapter_spine": true,
+    "nested_table_of_contents": true,
+    "publisher_css": true,
+    "local_images": true,
+    "embedded_fonts": true,
+    "internal_links": true,
+    "scripts_blocked": true,
+    "event_handlers_blocked": true,
+    "forms_blocked": true,
+    "remote_resources_blocked": true,
+    "path_traversal_blocked": true,
+    "undeclared_asset_types_blocked": true,
+    "malformed_html_safe": true,
+    "encrypted_epub_refused": true,
+    "fixed_layout_refused": true,
+    "preferences_persist": true,
+    "reading_position_persists": true,
+    "bookmarks_create_and_remove": true,
+    "continue_reading_data": true,
+    "sidecar_state_only": true,
+    "thorium_detection": true,
+    "default_reader_fallback_label": true,
+    "exact_original_epub_handoff": true,
+    "pdf_documents_api_preserved": true,
+    "pdf_search_api_preserved": true,
+    "v2b_1_1_title_pages_preserved": true,
+    "voice_engine_inactive": true
+  },
+  "tests": {
+    "workshop_plan_schema_and_before_hash": "passed",
+    "workshop_preview": "passed — 2 changed paths",
+    "workshop_simulated_apply": "passed — 2 files",
+    "source_compilation_without_bytecode": "passed",
+    "embedded_javascript_syntax": "passed with node --check",
+    "environment_verification": {
+      "ok": true,
+      "checks": [
+        {
+          "id": "library_exists",
+          "ok": true,
+          "message": "/tmp/kayocks_study_v2b2_plan_sim_1nhz_6gh/Library"
+        },
+        {
+          "id": "pypdf_available",
+          "ok": true,
+          "message": "Bundled pypdf loaded."
+        },
+        {
+          "id": "sqlite_database",
+          "ok": true,
+          "message": "SQLite ready; FTS5=True."
+        },
+        {
+          "id": "epub_catalog",
+          "ok": true,
+          "message": "/tmp/kayocks_study_v2b2_plan_sim_1nhz_6gh/KAYOCKS_STUDY_BIBLIOTHECA_V1/Data/epub_catalog.sqlite3"
+        },
+        {
+          "id": "epub_reader_state",
+          "ok": true,
+          "message": "/tmp/kayocks_study_v2b2_plan_sim_1nhz_6gh/KAYOCKS_STUDY_BIBLIOTHECA_V1/Data/study_library_state.sqlite3"
+        }
+      ],
+      "root": "/tmp/kayocks_study_v2b2_plan_sim_1nhz_6gh",
+      "library": "/tmp/kayocks_study_v2b2_plan_sim_1nhz_6gh/Library",
+      "database": "/tmp/kayocks_study_v2b2_plan_sim_1nhz_6gh/KAYOCKS_STUDY_BIBLIOTHECA_V1/Data/bibliotheca.sqlite3",
+      "network_scope": "localhost_only",
+      "original_files_modified": 0
+    },
+    "v2b_2_fixture_and_loopback_verifier": {
+      "result": "verified",
+      "check_count": 60
+    },
+    "v1_2_and_v1_2_2": "included as exact live Workshop validations; their protected core/foxai_web.py baseline is verified on Z:\\FOXAI during apply"
+  },
+  "safety": {
+    "external_network_used": false,
+    "loopback_http_only": true,
+    "external_reader_launched_during_build": false,
+    "library_content_changed": 0,
+    "original_epubs_changed": 0,
+    "original_pdfs_changed": 0,
+    "bibliotheca_pdf_schema_changed": 0,
+    "epub_catalog_schema_changed": 0,
+    "external_drive_scanned": 0,
+    "reader_dependency_installed": 0,
+    "voice_engine_added": 0,
+    "writer_files_changed": 0,
+    "poetry_files_changed": 0,
+    "repair_bay_files_changed": 0,
+    "models_or_runtimes_changed": 0,
+    "moves": 0,
+    "renames": 0,
+    "original_deletions": 0,
+    "installations": 0,
+    "downloads": 0
+  }
+}

@@ -5,16 +5,13 @@ from dataclasses import dataclass
 from datetime import datetime
 import hashlib
 import html
-from html.parser import HTMLParser
 import json
-import mimetypes
 import os
 from pathlib import Path
 import posixpath
 import re
 import shutil
 import sqlite3
-import subprocess
 import sys
 from threading import RLock, Thread
 import time
@@ -42,17 +39,6 @@ from research_desk import (
     search_research, search_web as research_search_web, update_notes as update_research_notes,
 )
 
-from external_library import (
-    acquire_playback_lease, assign_item_to_work, audiobook_state,
-    cancel_location_scan, catalog_item_open_route, connect_external_library_db,
-    heartbeat_playback_lease, launch_catalog_item, list_locations, list_works,
-    preview_location, register_location, release_playback_lease,
-    remove_location_from_catalog, resolve_audio_stream_item,
-    resolve_catalog_item_path, save_audiobook_order, save_audiobook_progress,
-    scan_status, set_location_enabled, start_location_scan,
-    verify_external_library_environment, work_detail,
-)
-
 APP_NAME = "Kayock's Study"
 COLLECTION_NAME = "The Bibliotheca"
 MOTTO = "Read. Research. Preserve. Discover."
@@ -64,7 +50,7 @@ LOCAL_MODEL_URL = "http://127.0.0.1:8080"
 LOW_TEXT_CHARS = 40
 MAX_ASK_SOURCES = 8
 MAX_SOURCE_CHARS = 18000
-APP_VERSION = "2C.1.1"
+APP_VERSION = "2B.1.1"
 REVIEW_RELATIVE_ROOT = Path("Needs Review") / "Bibliotheca Duplicate Review"
 
 _OCR_MARKERS = re.compile(
@@ -273,42 +259,6 @@ def connect_library_state_db(paths: AppPaths) -> sqlite3.Connection:
             updated_at TEXT NOT NULL,
             PRIMARY KEY(source_kind, source_sha256)
         );
-        CREATE TABLE IF NOT EXISTS epub_reader_state(
-            source_sha256 TEXT PRIMARY KEY,
-            ebook_id INTEGER NOT NULL,
-            last_spine_index INTEGER NOT NULL DEFAULT 0,
-            last_fragment TEXT NOT NULL DEFAULT '',
-            scroll_ratio REAL NOT NULL DEFAULT 0.0,
-            preferences_json TEXT NOT NULL DEFAULT '{}',
-            last_opened_at TEXT NOT NULL,
-            updated_at TEXT NOT NULL
-        );
-        CREATE TABLE IF NOT EXISTS epub_bookmarks(
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            source_sha256 TEXT NOT NULL,
-            ebook_id INTEGER NOT NULL,
-            spine_index INTEGER NOT NULL,
-            fragment TEXT NOT NULL DEFAULT '',
-            scroll_ratio REAL NOT NULL DEFAULT 0.0,
-            label TEXT NOT NULL DEFAULT '',
-            created_at TEXT NOT NULL
-        );
-        CREATE TABLE IF NOT EXISTS epub_narration_state(
-            source_sha256 TEXT PRIMARY KEY,
-            ebook_id INTEGER NOT NULL,
-            voice_name TEXT NOT NULL DEFAULT '',
-            voice_lang TEXT NOT NULL DEFAULT '',
-            rate REAL NOT NULL DEFAULT 1.0,
-            pitch REAL NOT NULL DEFAULT 1.0,
-            volume REAL NOT NULL DEFAULT 1.0,
-            auto_advance INTEGER NOT NULL DEFAULT 0,
-            paragraph_index INTEGER NOT NULL DEFAULT 0,
-            updated_at TEXT NOT NULL
-        );
-        CREATE INDEX IF NOT EXISTS idx_epub_reader_last_opened
-            ON epub_reader_state(last_opened_at DESC);
-        CREATE INDEX IF NOT EXISTS idx_epub_bookmarks_source
-            ON epub_bookmarks(source_sha256, created_at DESC);
         """
     )
     conn.commit()
@@ -499,11 +449,9 @@ def epub_library_detail(paths: AppPaths, item_id: int) -> dict | None:
         "summary": state.get("custom_summary") or normalize_metadata_text(metadata.get("description") or ""),
         "subjects": list(metadata.get("subjects") or []),
         "rating": int(state.get("rating") or 0),
-        "open_guidance": "Read in Kayock's Study opens this reflowable EPUB inside the local Study reader. The external-reader action remains available for unusual books or personal preference.",
-        "voice_status": "Voice reading arrives in V2B.3. The future local voice will read sanitized chapter text without sending the book online.",
+        "open_guidance": "The built-in EPUB chapter reader arrives in V2B.2. For now, Open or Save Original EPUB lets Windows hand a preserved copy to your chosen EPUB reader.",
+        "voice_status": "The control is reserved now; it will use chapter text and an approved local voice after the reader is installed.",
         "original_epub_url": f"/epub/file?id={int(item['id'])}" if item.get("status") == "ready" else "",
-        "reader_available": bool(item.get("status") == "ready" and not item.get("encrypted")),
-        "external_reader": external_epub_reader_status(),
     })
     item.pop("path", None)
     item.pop("metadata_json", None)
@@ -538,943 +486,6 @@ def epub_file_record(paths: AppPaths, ebook_id: int) -> tuple[Path, str] | None:
         return None
     title = normalize_metadata_text(row["title"] or path.stem, limit=180) or path.stem
     return path, title
-
-
-
-
-EPUB_READER_MAX_ARCHIVE_BYTES = 512 * 1024 * 1024
-EPUB_READER_MAX_CHAPTER_BYTES = 8 * 1024 * 1024
-EPUB_READER_MAX_CSS_BYTES = 2 * 1024 * 1024
-EPUB_READER_MAX_ASSET_BYTES = 20 * 1024 * 1024
-EPUB_READER_MAX_COMPRESSION_RATIO = 250
-EPUB_READER_ALLOWED_FONTS = {"serif", "sans", "system"}
-EPUB_READER_ALLOWED_THEMES = {"light", "dark", "sepia"}
-EPUB_READER_IMAGE_MEDIA = {
-    "image/jpeg", "image/png", "image/gif", "image/webp", "image/svg+xml",
-}
-EPUB_READER_FONT_MEDIA = {
-    "font/woff", "font/woff2", "font/ttf", "font/otf",
-    "application/font-woff", "application/vnd.ms-opentype",
-    "application/x-font-ttf", "application/x-font-opentype",
-}
-
-
-def default_epub_reader_preferences() -> dict:
-    return {
-        "theme": "dark",
-        "font": "serif",
-        "text_size": 19,
-        "line_spacing": 1.65,
-        "content_width": 760,
-    }
-
-
-def normalize_epub_reader_preferences(value) -> dict:
-    raw = value if isinstance(value, dict) else {}
-    defaults = default_epub_reader_preferences()
-    theme = str(raw.get("theme") or defaults["theme"]).casefold()
-    font = str(raw.get("font") or defaults["font"]).casefold()
-    try:
-        text_size = int(raw.get("text_size", defaults["text_size"]))
-    except (TypeError, ValueError):
-        text_size = defaults["text_size"]
-    try:
-        line_spacing = float(raw.get("line_spacing", defaults["line_spacing"]))
-    except (TypeError, ValueError):
-        line_spacing = defaults["line_spacing"]
-    try:
-        content_width = int(raw.get("content_width", defaults["content_width"]))
-    except (TypeError, ValueError):
-        content_width = defaults["content_width"]
-    return {
-        "theme": theme if theme in EPUB_READER_ALLOWED_THEMES else defaults["theme"],
-        "font": font if font in EPUB_READER_ALLOWED_FONTS else defaults["font"],
-        "text_size": max(14, min(34, text_size)),
-        "line_spacing": round(max(1.2, min(2.4, line_spacing)), 2),
-        "content_width": max(520, min(1100, content_width)),
-    }
-
-
-def epub_reader_identity(paths: AppPaths, ebook_id: int) -> dict | None:
-    database = epub_database_path(paths)
-    if not database.is_file():
-        return None
-    conn = connect_epub_db(paths)
-    try:
-        row = conn.execute(
-            "SELECT id,path,rel_path,title,creator,status,encrypted,sha256,metadata_json FROM ebooks WHERE id=?",
-            (int(ebook_id),),
-        ).fetchone()
-    finally:
-        conn.close()
-    if not row or str(row["status"] or "") != "ready" or int(row["encrypted"] or 0):
-        return None
-    path = safe_library_file(paths, Path(row["path"]))
-    if not path or path.suffix.casefold() != ".epub":
-        return None
-    return {
-        "id": int(row["id"]),
-        "path": path,
-        "rel_path": str(row["rel_path"]),
-        "title": str(row["title"] or path.stem),
-        "creator": str(row["creator"] or ""),
-        "sha256": str(row["sha256"] or ""),
-        "metadata_json": str(row["metadata_json"] or "{}"),
-    }
-
-
-def epub_reader_state(paths: AppPaths, identity: dict) -> dict:
-    digest = str(identity.get("sha256") or "").casefold()
-    defaults = {
-        "ebook_id": int(identity.get("id") or 0),
-        "last_spine_index": 0,
-        "last_fragment": "",
-        "scroll_ratio": 0.0,
-        "preferences": default_epub_reader_preferences(),
-        "last_opened_at": "",
-        "updated_at": "",
-    }
-    if not digest:
-        return defaults
-    conn = connect_library_state_db(paths)
-    try:
-        row = conn.execute(
-            "SELECT * FROM epub_reader_state WHERE source_sha256=?",
-            (digest,),
-        ).fetchone()
-    finally:
-        conn.close()
-    if not row:
-        return defaults
-    try:
-        preferences = json.loads(row["preferences_json"] or "{}")
-    except (TypeError, ValueError, json.JSONDecodeError):
-        preferences = {}
-    return {
-        "ebook_id": int(identity.get("id") or row["ebook_id"] or 0),
-        "last_spine_index": max(0, int(row["last_spine_index"] or 0)),
-        "last_fragment": str(row["last_fragment"] or ""),
-        "scroll_ratio": max(0.0, min(1.0, float(row["scroll_ratio"] or 0.0))),
-        "preferences": normalize_epub_reader_preferences(preferences),
-        "last_opened_at": str(row["last_opened_at"] or ""),
-        "updated_at": str(row["updated_at"] or ""),
-    }
-
-
-def save_epub_reader_state(paths: AppPaths, identity: dict, payload: dict) -> dict:
-    digest = str(identity.get("sha256") or "").casefold()
-    if not digest:
-        raise ValueError("The selected EPUB does not have a stable identity.")
-    current = epub_reader_state(paths, identity)
-    try:
-        spine_index = int(payload.get("spine_index", current["last_spine_index"]))
-    except (TypeError, ValueError):
-        spine_index = current["last_spine_index"]
-    try:
-        scroll_ratio = float(payload.get("scroll_ratio", current["scroll_ratio"]))
-    except (TypeError, ValueError):
-        scroll_ratio = current["scroll_ratio"]
-    fragment = normalize_metadata_text(payload.get("fragment") or "", limit=240)
-    preferences = normalize_epub_reader_preferences(payload.get("preferences") or current["preferences"])
-    now = iso_now()
-    conn = connect_library_state_db(paths)
-    try:
-        conn.execute(
-            """
-            INSERT INTO epub_reader_state(
-                source_sha256,ebook_id,last_spine_index,last_fragment,scroll_ratio,
-                preferences_json,last_opened_at,updated_at
-            ) VALUES(?,?,?,?,?,?,?,?)
-            ON CONFLICT(source_sha256) DO UPDATE SET
-                ebook_id=excluded.ebook_id,
-                last_spine_index=excluded.last_spine_index,
-                last_fragment=excluded.last_fragment,
-                scroll_ratio=excluded.scroll_ratio,
-                preferences_json=excluded.preferences_json,
-                last_opened_at=excluded.last_opened_at,
-                updated_at=excluded.updated_at
-            """,
-            (
-                digest, int(identity["id"]), max(0, spine_index), fragment,
-                max(0.0, min(1.0, scroll_ratio)),
-                json.dumps(preferences, sort_keys=True), now, now,
-            ),
-        )
-        conn.commit()
-    finally:
-        conn.close()
-    return epub_reader_state(paths, identity)
-
-
-def list_epub_bookmarks(paths: AppPaths, identity: dict) -> list[dict]:
-    digest = str(identity.get("sha256") or "").casefold()
-    if not digest:
-        return []
-    conn = connect_library_state_db(paths)
-    try:
-        rows = conn.execute(
-            "SELECT id,ebook_id,spine_index,fragment,scroll_ratio,label,created_at FROM epub_bookmarks WHERE source_sha256=? ORDER BY created_at DESC,id DESC",
-            (digest,),
-        ).fetchall()
-    finally:
-        conn.close()
-    return [
-        {
-            "id": int(row["id"]),
-            "ebook_id": int(identity.get("id") or row["ebook_id"]),
-            "spine_index": max(0, int(row["spine_index"] or 0)),
-            "fragment": str(row["fragment"] or ""),
-            "scroll_ratio": max(0.0, min(1.0, float(row["scroll_ratio"] or 0.0))),
-            "label": str(row["label"] or "Bookmark"),
-            "created_at": str(row["created_at"] or ""),
-        }
-        for row in rows
-    ]
-
-
-def add_epub_bookmark(paths: AppPaths, identity: dict, payload: dict) -> dict:
-    digest = str(identity.get("sha256") or "").casefold()
-    if not digest:
-        raise ValueError("The selected EPUB does not have a stable identity.")
-    try:
-        spine_index = max(0, int(payload.get("spine_index") or 0))
-        scroll_ratio = max(0.0, min(1.0, float(payload.get("scroll_ratio") or 0.0)))
-    except (TypeError, ValueError) as exc:
-        raise ValueError("The bookmark position is invalid.") from exc
-    fragment = normalize_metadata_text(payload.get("fragment") or "", limit=240)
-    label = normalize_metadata_text(payload.get("label") or "Bookmark", limit=180) or "Bookmark"
-    created = iso_now()
-    conn = connect_library_state_db(paths)
-    try:
-        cursor = conn.execute(
-            "INSERT INTO epub_bookmarks(source_sha256,ebook_id,spine_index,fragment,scroll_ratio,label,created_at) VALUES(?,?,?,?,?,?,?)",
-            (digest, int(identity["id"]), spine_index, fragment, scroll_ratio, label, created),
-        )
-        bookmark_id = int(cursor.lastrowid)
-        conn.commit()
-    finally:
-        conn.close()
-    return {
-        "id": bookmark_id, "ebook_id": int(identity["id"]),
-        "spine_index": spine_index, "fragment": fragment,
-        "scroll_ratio": scroll_ratio, "label": label, "created_at": created,
-    }
-
-
-def remove_epub_bookmark(paths: AppPaths, identity: dict, bookmark_id: int) -> bool:
-    digest = str(identity.get("sha256") or "").casefold()
-    conn = connect_library_state_db(paths)
-    try:
-        cursor = conn.execute(
-            "DELETE FROM epub_bookmarks WHERE id=? AND source_sha256=?",
-            (int(bookmark_id), digest),
-        )
-        conn.commit()
-        return cursor.rowcount > 0
-    finally:
-        conn.close()
-
-
-def default_epub_narration_preferences() -> dict:
-    return {
-        "voice_name": "",
-        "voice_lang": "",
-        "rate": 1.0,
-        "pitch": 1.0,
-        "volume": 1.0,
-        "auto_advance": False,
-    }
-
-
-def normalize_epub_narration_preferences(value) -> dict:
-    raw = value if isinstance(value, dict) else {}
-    defaults = default_epub_narration_preferences()
-    voice_name = normalize_metadata_text(raw.get("voice_name") or "", limit=240)
-    voice_lang = normalize_metadata_text(raw.get("voice_lang") or "", limit=80)
-    try:
-        rate = float(raw.get("rate", defaults["rate"]))
-    except (TypeError, ValueError):
-        rate = defaults["rate"]
-    try:
-        pitch = float(raw.get("pitch", defaults["pitch"]))
-    except (TypeError, ValueError):
-        pitch = defaults["pitch"]
-    try:
-        volume = float(raw.get("volume", defaults["volume"]))
-    except (TypeError, ValueError):
-        volume = defaults["volume"]
-    return {
-        "voice_name": voice_name,
-        "voice_lang": voice_lang,
-        "rate": round(max(0.5, min(2.0, rate)), 2),
-        "pitch": round(max(0.5, min(2.0, pitch)), 2),
-        "volume": round(max(0.0, min(1.0, volume)), 2),
-        "auto_advance": bool(raw.get("auto_advance", defaults["auto_advance"])),
-    }
-
-
-def epub_narration_state(paths: AppPaths, identity: dict) -> dict:
-    digest = str(identity.get("sha256") or "").casefold()
-    defaults = {
-        "ebook_id": int(identity.get("id") or 0),
-        "preferences": default_epub_narration_preferences(),
-        "paragraph_index": 0,
-        "updated_at": "",
-    }
-    if not digest:
-        return defaults
-    conn = connect_library_state_db(paths)
-    try:
-        row = conn.execute(
-            "SELECT * FROM epub_narration_state WHERE source_sha256=?",
-            (digest,),
-        ).fetchone()
-    finally:
-        conn.close()
-    if not row:
-        return defaults
-    return {
-        "ebook_id": int(identity.get("id") or row["ebook_id"] or 0),
-        "preferences": normalize_epub_narration_preferences({
-            "voice_name": row["voice_name"],
-            "voice_lang": row["voice_lang"],
-            "rate": row["rate"],
-            "pitch": row["pitch"],
-            "volume": row["volume"],
-            "auto_advance": bool(row["auto_advance"]),
-        }),
-        "paragraph_index": max(0, int(row["paragraph_index"] or 0)),
-        "updated_at": str(row["updated_at"] or ""),
-    }
-
-
-def save_epub_narration_state(paths: AppPaths, identity: dict, payload: dict) -> dict:
-    digest = str(identity.get("sha256") or "").casefold()
-    if not digest:
-        raise ValueError("The selected EPUB does not have a stable identity.")
-    current = epub_narration_state(paths, identity)
-    preferences = normalize_epub_narration_preferences(
-        payload.get("preferences") or current["preferences"]
-    )
-    try:
-        paragraph_index = max(0, int(payload.get("paragraph_index", current["paragraph_index"])))
-    except (TypeError, ValueError):
-        paragraph_index = current["paragraph_index"]
-    now = iso_now()
-    conn = connect_library_state_db(paths)
-    try:
-        conn.execute(
-            """
-            INSERT INTO epub_narration_state(
-                source_sha256,ebook_id,voice_name,voice_lang,rate,pitch,volume,
-                auto_advance,paragraph_index,updated_at
-            ) VALUES(?,?,?,?,?,?,?,?,?,?)
-            ON CONFLICT(source_sha256) DO UPDATE SET
-                ebook_id=excluded.ebook_id,
-                voice_name=excluded.voice_name,
-                voice_lang=excluded.voice_lang,
-                rate=excluded.rate,
-                pitch=excluded.pitch,
-                volume=excluded.volume,
-                auto_advance=excluded.auto_advance,
-                paragraph_index=excluded.paragraph_index,
-                updated_at=excluded.updated_at
-            """,
-            (
-                digest, int(identity["id"]), preferences["voice_name"],
-                preferences["voice_lang"], preferences["rate"], preferences["pitch"],
-                preferences["volume"], 1 if preferences["auto_advance"] else 0,
-                paragraph_index, now,
-            ),
-        )
-        conn.commit()
-    finally:
-        conn.close()
-    return epub_narration_state(paths, identity)
-
-
-def continue_reading_ebooks(paths: AppPaths, *, limit: int = 18) -> list[dict]:
-    conn = connect_library_state_db(paths)
-    try:
-        states = conn.execute(
-            "SELECT source_sha256,last_spine_index,scroll_ratio,last_opened_at FROM epub_reader_state ORDER BY last_opened_at DESC LIMIT ?",
-            (max(1, min(100, int(limit))),),
-        ).fetchall()
-    finally:
-        conn.close()
-    if not states:
-        return []
-    by_digest = {str(item.get("sha256") or "").casefold(): item for item in list_ebooks(paths, status="ready")}
-    output = []
-    for row in states:
-        item = by_digest.get(str(row["source_sha256"] or "").casefold())
-        if not item:
-            continue
-        merged = dict(item)
-        merged.update({
-            "last_spine_index": int(row["last_spine_index"] or 0),
-            "reading_progress": max(0.0, min(1.0, float(row["scroll_ratio"] or 0.0))),
-            "last_opened_at": str(row["last_opened_at"] or ""),
-        })
-        output.append(merged)
-    return output
-
-
-def normalize_epub_member_request(value: str) -> tuple[str, str]:
-    raw = unquote(str(value or "")).replace("\\", "/").strip()
-    path_part, _, fragment = raw.partition("#")
-    path_part = path_part.split("?", 1)[0]
-    normalized = posixpath.normpath(path_part)
-    if (
-        not normalized or normalized in {".", ".."}
-        or normalized.startswith("../") or normalized.startswith("/")
-        or "\x00" in normalized
-    ):
-        raise ValueError("EPUB member path is unsafe.")
-    return normalized, normalize_metadata_text(fragment, limit=240)
-
-
-def read_epub_archive_member(archive: zipfile.ZipFile, member: str, *, max_bytes: int) -> tuple[bytes, zipfile.ZipInfo]:
-    normalized, _ = normalize_epub_member_request(member)
-    names = {name.casefold(): name for name in archive.namelist()}
-    actual = names.get(normalized.casefold())
-    if not actual:
-        raise FileNotFoundError("The requested EPUB member was not found.")
-    info = archive.getinfo(actual)
-    if info.file_size < 0 or info.file_size > int(max_bytes):
-        raise ValueError("The requested EPUB member exceeds the safe response-size limit.")
-    if info.compress_size > 0 and info.file_size / max(1, info.compress_size) > EPUB_READER_MAX_COMPRESSION_RATIO:
-        raise ValueError("The requested EPUB member has an unsafe compression ratio.")
-    raw = archive.read(actual)
-    if len(raw) != info.file_size or len(raw) > int(max_bytes):
-        raise ValueError("The requested EPUB member could not be read safely.")
-    return raw, info
-
-
-def epub_publication_package(paths: AppPaths, ebook_id: int) -> dict:
-    identity = epub_reader_identity(paths, ebook_id)
-    if not identity:
-        raise ValueError("This EPUB is protected, malformed, unsupported, or no longer available.")
-    with zipfile.ZipFile(identity["path"], "r") as archive:
-        infos = archive.infolist()
-        total_uncompressed = sum(max(0, int(info.file_size)) for info in infos)
-        if total_uncompressed > EPUB_READER_MAX_ARCHIVE_BYTES:
-            raise ValueError("This EPUB exceeds the reader's safe decompression limit.")
-        lower = {name.casefold(): name for name in archive.namelist()}
-        if "meta-inf/encryption.xml" in lower:
-            raise ValueError("Encrypted or protected EPUBs cannot be opened in the built-in reader.")
-        container_name = lower.get("meta-inf/container.xml")
-        if not container_name:
-            raise ValueError("META-INF/container.xml is missing.")
-        container_raw, _ = read_epub_archive_member(archive, container_name, max_bytes=512 * 1024)
-        container_root = ET.fromstring(container_raw)
-        opf_path = ""
-        for element in container_root.iter():
-            if xml_local_name(element.tag) == "rootfile":
-                opf_path = str(element.attrib.get("full-path") or "").strip()
-                if opf_path:
-                    break
-        opf_path, _ = normalize_epub_member_request(opf_path)
-        opf_raw, _ = read_epub_archive_member(archive, opf_path, max_bytes=2 * 1024 * 1024)
-        opf_root = ET.fromstring(opf_raw)
-
-        fixed_layout = False
-        for element in opf_root.iter():
-            if xml_local_name(element.tag) != "meta":
-                continue
-            prop = str(element.attrib.get("property") or element.attrib.get("name") or "").casefold()
-            value = normalize_metadata_text(" ".join(element.itertext()) or element.attrib.get("content") or "", limit=100)
-            if prop in {"rendition:layout", "layout"} and value.casefold() == "pre-paginated":
-                fixed_layout = True
-        if fixed_layout:
-            raise ValueError("Fixed-layout EPUBs are not supported by this reader phase. Use the installed EPUB reader fallback.")
-
-        manifest_by_id: dict[str, dict] = {}
-        manifest_by_member: dict[str, dict] = {}
-        nav_id = ""
-        ncx_id = ""
-        for element in opf_root.iter():
-            if xml_local_name(element.tag) != "item":
-                continue
-            item_id = str(element.attrib.get("id") or "").strip()
-            href = str(element.attrib.get("href") or "").strip()
-            if not item_id or not href:
-                continue
-            member = safe_epub_member(opf_path, href)
-            entry = {
-                "id": item_id,
-                "href": href,
-                "member": member,
-                "media_type": str(element.attrib.get("media-type") or "application/octet-stream").strip().casefold(),
-                "properties": str(element.attrib.get("properties") or "").split(),
-            }
-            manifest_by_id[item_id] = entry
-            manifest_by_member[member.casefold()] = entry
-            if "nav" in entry["properties"]:
-                nav_id = item_id
-            if entry["media_type"] == "application/x-dtbncx+xml":
-                ncx_id = item_id
-
-        spine: list[dict] = []
-        spine_element = next((element for element in opf_root.iter() if xml_local_name(element.tag) == "spine"), None)
-        if spine_element is not None:
-            toc_attr = str(spine_element.attrib.get("toc") or "").strip()
-            if toc_attr:
-                ncx_id = toc_attr
-            for element in spine_element:
-                if xml_local_name(element.tag) != "itemref":
-                    continue
-                idref = str(element.attrib.get("idref") or "").strip()
-                item = manifest_by_id.get(idref)
-                if not item:
-                    continue
-                if item["media_type"] not in {"application/xhtml+xml", "text/html"}:
-                    continue
-                spine.append({
-                    "index": len(spine), "idref": idref,
-                    "member": item["member"], "href": item["href"],
-                    "title": f"Chapter {len(spine) + 1}",
-                })
-        if not spine:
-            raise ValueError("The EPUB does not contain a readable reflowable spine.")
-        spine_index_by_member = {item["member"].casefold(): int(item["index"]) for item in spine}
-
-        def toc_target(href: str, base_member: str) -> dict:
-            raw_href = html.unescape(str(href or "")).strip()
-            path_part, _, fragment = raw_href.partition("#")
-            if not path_part:
-                member = base_member
-            else:
-                member = safe_epub_member(base_member, path_part)
-            return {
-                "member": member,
-                "fragment": normalize_metadata_text(fragment, limit=240),
-                "spine_index": spine_index_by_member.get(member.casefold(), -1),
-            }
-
-        def parse_nav_list(element: ET.Element, base_member: str) -> list[dict]:
-            nodes: list[dict] = []
-            for li in [child for child in list(element) if xml_local_name(child.tag) == "li"]:
-                anchor = next((child for child in list(li) if xml_local_name(child.tag) in {"a", "span"}), None)
-                label = normalize_metadata_text(" ".join(anchor.itertext()) if anchor is not None else "", limit=300)
-                href = str(anchor.attrib.get("href") or "") if anchor is not None else ""
-                target = toc_target(href, base_member) if href else {"member": "", "fragment": "", "spine_index": -1}
-                child_list = next((child for child in list(li) if xml_local_name(child.tag) in {"ol", "ul"}), None)
-                children = parse_nav_list(child_list, base_member) if child_list is not None else []
-                if label or children:
-                    nodes.append({"label": label or "Section", **target, "children": children})
-            return nodes
-
-        toc: list[dict] = []
-        if nav_id and nav_id in manifest_by_id:
-            nav_member = manifest_by_id[nav_id]["member"]
-            try:
-                nav_raw, _ = read_epub_archive_member(archive, nav_member, max_bytes=2 * 1024 * 1024)
-                nav_root = ET.fromstring(nav_raw)
-                nav_element = None
-                for element in nav_root.iter():
-                    if xml_local_name(element.tag) != "nav":
-                        continue
-                    nav_type = " ".join(str(value) for key, value in element.attrib.items() if key.endswith("type") or key == "type").casefold()
-                    if "toc" in nav_type:
-                        nav_element = element
-                        break
-                    if nav_element is None:
-                        nav_element = element
-                if nav_element is not None:
-                    list_element = next((element for element in nav_element.iter() if xml_local_name(element.tag) in {"ol", "ul"}), None)
-                    if list_element is not None:
-                        toc = parse_nav_list(list_element, nav_member)
-            except (ET.ParseError, OSError, KeyError, ValueError):
-                toc = []
-        if not toc and ncx_id and ncx_id in manifest_by_id:
-            ncx_member = manifest_by_id[ncx_id]["member"]
-            try:
-                ncx_raw, _ = read_epub_archive_member(archive, ncx_member, max_bytes=2 * 1024 * 1024)
-                ncx_root = ET.fromstring(ncx_raw)
-                def parse_navpoints(parent: ET.Element) -> list[dict]:
-                    output = []
-                    for point in [child for child in list(parent) if xml_local_name(child.tag) == "navpoint"]:
-                        label_element = next((element for element in point.iter() if xml_local_name(element.tag) == "text"), None)
-                        content_element = next((element for element in point.iter() if xml_local_name(element.tag) == "content"), None)
-                        label = normalize_metadata_text(" ".join(label_element.itertext()) if label_element is not None else "Section", limit=300)
-                        href = str(content_element.attrib.get("src") or "") if content_element is not None else ""
-                        output.append({"label": label or "Section", **toc_target(href, ncx_member), "children": parse_navpoints(point)})
-                    return output
-                nav_map = next((element for element in ncx_root.iter() if xml_local_name(element.tag) == "navmap"), None)
-                if nav_map is not None:
-                    toc = parse_navpoints(nav_map)
-            except (ET.ParseError, OSError, KeyError, ValueError):
-                toc = []
-
-        def assign_titles(nodes: list[dict]) -> None:
-            for node in nodes:
-                index = int(node.get("spine_index", -1))
-                if 0 <= index < len(spine) and node.get("label"):
-                    spine[index]["title"] = str(node["label"])
-                assign_titles(node.get("children") or [])
-        assign_titles(toc)
-
-        return {
-            "identity": {key: value for key, value in identity.items() if key not in {"path", "metadata_json"}},
-            "package_document": opf_path,
-            "manifest": list(manifest_by_id.values()),
-            "manifest_by_member": manifest_by_member,
-            "spine": spine,
-            "toc": toc,
-            "fixed_layout": False,
-        }
-
-
-def reader_asset_url(ebook_id: int, member: str) -> str:
-    return f"/epub/asset?id={int(ebook_id)}&path={quote(str(member), safe='')}"
-
-
-def sanitize_inline_style(value: str) -> str:
-    allowed = {
-        "color", "background-color", "text-align", "font-style", "font-weight",
-        "font-size", "line-height", "letter-spacing", "text-indent", "text-decoration",
-        "margin", "margin-left", "margin-right", "margin-top", "margin-bottom",
-        "padding", "padding-left", "padding-right", "padding-top", "padding-bottom",
-        "border", "border-left", "border-right", "border-top", "border-bottom",
-        "width", "max-width", "height", "vertical-align", "white-space",
-    }
-    output = []
-    for declaration in str(value or "").split(";"):
-        name, sep, raw_value = declaration.partition(":")
-        if not sep:
-            continue
-        prop = name.strip().casefold()
-        safe_value = raw_value.strip()
-        lowered = safe_value.casefold()
-        if prop not in allowed or any(token in lowered for token in ("url(", "expression(", "javascript:", "behavior:", "-moz-binding")):
-            continue
-        output.append(f"{prop}:{safe_value}")
-    return ";".join(output)
-
-
-def sanitize_epub_css(css_text: str, *, ebook_id: int, css_member: str) -> str:
-    css = re.sub(r"/\*.*?\*/", "", str(css_text or ""), flags=re.S)
-    css = re.sub(r"@import\s+[^;]+;", "", css, flags=re.I)
-    css = css.replace("</style", "<\\/style")
-    if any(token in css.casefold() for token in ("expression(", "behavior:", "-moz-binding", "javascript:")):
-        css = re.sub(r"[^{}]+\{[^{}]*(?:expression\(|behavior:|-moz-binding|javascript:)[^{}]*\}", "", css, flags=re.I)
-
-    def rewrite_url(match: re.Match) -> str:
-        raw = match.group(1).strip().strip('"\'')
-        lowered = raw.casefold()
-        if not raw or lowered.startswith(("http:", "https:", "//", "javascript:", "data:", "file:")):
-            return "url('')"
-        try:
-            member = safe_epub_member(css_member, raw.split("#", 1)[0].split("?", 1)[0])
-        except ValueError:
-            return "url('')"
-        return f"url('{reader_asset_url(ebook_id, member)}')"
-
-    css = re.sub(r"url\(([^)]+)\)", rewrite_url, css, flags=re.I)
-    return css[: EPUB_READER_MAX_CSS_BYTES]
-
-
-class EpubChapterSanitizer(HTMLParser):
-    allowed_tags = {
-        "main", "article", "section", "header", "footer", "aside", "nav",
-        "div", "span", "p", "h1", "h2", "h3", "h4", "h5", "h6", "br", "hr",
-        "em", "strong", "b", "i", "u", "s", "small", "sub", "sup", "mark",
-        "blockquote", "pre", "code", "ul", "ol", "li", "dl", "dt", "dd",
-        "figure", "figcaption", "img", "a", "table", "thead", "tbody", "tfoot",
-        "tr", "td", "th", "colgroup", "col", "svg", "g", "path", "circle", "ellipse",
-        "rect", "line", "polyline", "polygon", "text", "title", "desc",
-    }
-    void_tags = {"br", "hr", "img", "col", "path", "circle", "ellipse", "rect", "line", "polyline", "polygon"}
-    blocked_containers = {"script", "noscript", "iframe", "object", "embed", "form", "audio", "video", "canvas", "style"}
-    common_attrs = {"id", "class", "title", "lang", "dir", "role"}
-    safe_attrs = {
-        "img": {"src", "alt", "width", "height"},
-        "a": {"href", "title"},
-        "td": {"colspan", "rowspan"}, "th": {"colspan", "rowspan"},
-        "svg": {"viewbox", "width", "height", "preserveaspectratio"},
-        "path": {"d", "fill", "stroke", "stroke-width"},
-        "circle": {"cx", "cy", "r", "fill", "stroke"},
-        "ellipse": {"cx", "cy", "rx", "ry", "fill", "stroke"},
-        "rect": {"x", "y", "width", "height", "rx", "ry", "fill", "stroke"},
-        "line": {"x1", "y1", "x2", "y2", "stroke", "stroke-width"},
-        "polyline": {"points", "fill", "stroke"}, "polygon": {"points", "fill", "stroke"},
-    }
-
-    def __init__(self, *, ebook_id: int, chapter_member: str, spine_members: set[str]):
-        super().__init__(convert_charrefs=True)
-        self.ebook_id = int(ebook_id)
-        self.chapter_member = chapter_member
-        self.spine_members = {value.casefold() for value in spine_members}
-        self.output: list[str] = []
-        self.block_depth = 0
-        self.css_members: list[str] = []
-
-    def safe_href(self, href: str) -> tuple[str, list[tuple[str, str]]]:
-        raw = html.unescape(str(href or "")).strip()
-        lowered = raw.casefold()
-        if not raw or lowered.startswith(("http:", "https:", "//", "javascript:", "data:", "file:", "mailto:")):
-            return "", []
-        if raw.startswith("#"):
-            fragment = normalize_metadata_text(raw[1:], limit=240)
-            return f"#{html.escape(fragment, quote=True)}", [("data-reader-fragment", fragment)]
-        path_part, _, fragment = raw.partition("#")
-        try:
-            member = safe_epub_member(self.chapter_member, path_part)
-        except ValueError:
-            return "", []
-        if member.casefold() in self.spine_members:
-            return "#", [
-                ("data-reader-target-member", member),
-                ("data-reader-target-fragment", normalize_metadata_text(fragment, limit=240)),
-            ]
-        return "", []
-
-    def handle_starttag(self, tag: str, attrs) -> None:
-        tag = str(tag or "").casefold()
-        if tag in self.blocked_containers:
-            self.block_depth += 1
-            return
-        if self.block_depth:
-            return
-        attrs_dict = {str(key or "").casefold(): str(value or "") for key, value in attrs if key}
-        if tag == "link":
-            rel = attrs_dict.get("rel", "").casefold()
-            href = attrs_dict.get("href", "")
-            if "stylesheet" in rel and href:
-                try:
-                    member = safe_epub_member(self.chapter_member, href)
-                    if member not in self.css_members:
-                        self.css_members.append(member)
-                except ValueError:
-                    pass
-            return
-        if tag not in self.allowed_tags:
-            return
-        allowed = self.common_attrs | self.safe_attrs.get(tag, set()) | {"style"}
-        rendered: list[tuple[str, str]] = []
-        for name, value in attrs_dict.items():
-            if name.startswith("on") or name not in allowed:
-                continue
-            if name == "style":
-                value = sanitize_inline_style(value)
-                if not value:
-                    continue
-            elif tag == "img" and name == "src":
-                lowered = value.casefold().strip()
-                if lowered.startswith(("http:", "https:", "//", "javascript:", "data:", "file:")):
-                    continue
-                try:
-                    member = safe_epub_member(self.chapter_member, value)
-                except ValueError:
-                    continue
-                value = reader_asset_url(self.ebook_id, member)
-            elif tag == "a" and name == "href":
-                value, extras = self.safe_href(value)
-                rendered.extend(extras)
-                if not value:
-                    continue
-            elif name in {"fill", "stroke"} and "url(" in value.casefold():
-                continue
-            rendered.append((name, value))
-        attr_text = "".join(f' {name}="{html.escape(value, quote=True)}"' for name, value in rendered)
-        self.output.append(f"<{tag}{attr_text}>")
-
-    def handle_startendtag(self, tag: str, attrs) -> None:
-        tag = str(tag or "").casefold()
-        if tag in self.blocked_containers:
-            return
-        self.handle_starttag(tag, attrs)
-        if tag in self.allowed_tags and tag not in self.void_tags and not self.block_depth:
-            self.output.append(f"</{tag}>")
-
-    def handle_endtag(self, tag: str) -> None:
-        tag = str(tag or "").casefold()
-        if tag in self.blocked_containers:
-            if self.block_depth:
-                self.block_depth -= 1
-            return
-        if self.block_depth:
-            return
-        if tag in self.allowed_tags and tag not in self.void_tags:
-            self.output.append(f"</{tag}>")
-
-    def handle_data(self, data: str) -> None:
-        if not self.block_depth:
-            self.output.append(html.escape(str(data or "")))
-
-    def handle_comment(self, data: str) -> None:
-        return
-
-    def sanitized_html(self) -> str:
-        return "".join(self.output)
-
-
-def decode_epub_text(raw: bytes) -> str:
-    for encoding in ("utf-8-sig", "utf-8", "utf-16", "cp1252"):
-        try:
-            return raw.decode(encoding)
-        except UnicodeDecodeError:
-            continue
-    return raw.decode("utf-8", errors="replace")
-
-
-def epub_reader_chapter(paths: AppPaths, ebook_id: int, spine_index: int) -> dict:
-    publication = epub_publication_package(paths, ebook_id)
-    spine = publication["spine"]
-    index = int(spine_index)
-    if index < 0 or index >= len(spine):
-        raise ValueError("The requested chapter is outside this EPUB's spine.")
-    chapter = spine[index]
-    identity = epub_reader_identity(paths, ebook_id)
-    if not identity:
-        raise ValueError("The selected EPUB is unavailable.")
-    with zipfile.ZipFile(identity["path"], "r") as archive:
-        raw, _ = read_epub_archive_member(archive, chapter["member"], max_bytes=EPUB_READER_MAX_CHAPTER_BYTES)
-        text = decode_epub_text(raw)
-        inline_styles = re.findall(r"<style\b[^>]*>(.*?)</style\s*>", text, flags=re.I | re.S)
-        sanitizer = EpubChapterSanitizer(
-            ebook_id=ebook_id,
-            chapter_member=chapter["member"],
-            spine_members={item["member"] for item in spine},
-        )
-        sanitizer.feed(text)
-        sanitizer.close()
-        css_parts = [sanitize_epub_css(value, ebook_id=ebook_id, css_member=chapter["member"]) for value in inline_styles]
-        for css_member in sanitizer.css_members[:16]:
-            try:
-                css_raw, _ = read_epub_archive_member(archive, css_member, max_bytes=EPUB_READER_MAX_CSS_BYTES)
-                css_parts.append(sanitize_epub_css(decode_epub_text(css_raw), ebook_id=ebook_id, css_member=css_member))
-            except (FileNotFoundError, OSError, ValueError):
-                continue
-    return {
-        "ebook_id": int(ebook_id), "index": index,
-        "spine_count": len(spine), "title": chapter["title"],
-        "member": chapter["member"], "html": sanitizer.sanitized_html(),
-        "css": "\n".join(part for part in css_parts if part)[: EPUB_READER_MAX_CSS_BYTES],
-    }
-
-
-def sanitize_svg_asset(raw: bytes) -> bytes:
-    try:
-        root = ET.fromstring(raw)
-    except ET.ParseError as exc:
-        raise ValueError("The SVG asset is malformed.") from exc
-    blocked = {"script", "foreignobject", "iframe", "object", "embed", "audio", "video", "animate", "set"}
-    for parent in list(root.iter()):
-        for child in list(parent):
-            if xml_local_name(child.tag) in blocked:
-                parent.remove(child)
-        for name in list(parent.attrib):
-            local = xml_local_name(name)
-            value = str(parent.attrib.get(name) or "")
-            if local.startswith("on") or local in {"href", "src"} and value.casefold().startswith(("http:", "https:", "//", "javascript:", "data:", "file:")):
-                parent.attrib.pop(name, None)
-    return ET.tostring(root, encoding="utf-8", xml_declaration=True)
-
-
-def epub_reader_asset(paths: AppPaths, ebook_id: int, requested_member: str) -> tuple[bytes, str]:
-    publication = epub_publication_package(paths, ebook_id)
-    member, _ = normalize_epub_member_request(requested_member)
-    manifest_item = publication["manifest_by_member"].get(member.casefold())
-    if not manifest_item:
-        raise PermissionError("The requested asset is not declared in this EPUB's manifest.")
-    media_type = str(manifest_item.get("media_type") or "application/octet-stream").casefold()
-    if media_type not in EPUB_READER_IMAGE_MEDIA | EPUB_READER_FONT_MEDIA:
-        raise PermissionError("This EPUB asset type is not permitted by the built-in reader.")
-    identity = epub_reader_identity(paths, ebook_id)
-    if not identity:
-        raise ValueError("The selected EPUB is unavailable.")
-    with zipfile.ZipFile(identity["path"], "r") as archive:
-        raw, _ = read_epub_archive_member(archive, member, max_bytes=EPUB_READER_MAX_ASSET_BYTES)
-    if media_type == "image/svg+xml":
-        raw = sanitize_svg_asset(raw)
-    return raw, media_type
-
-
-def flatten_reader_toc(nodes: list[dict]) -> list[dict]:
-    output = []
-    for node in nodes:
-        output.append(node)
-        output.extend(flatten_reader_toc(node.get("children") or []))
-    return output
-
-
-def detect_thorium_reader() -> Path | None:
-    candidates: list[Path] = []
-    for key in ("LOCALAPPDATA", "PROGRAMFILES", "PROGRAMFILES(X86)"):
-        base = os.environ.get(key)
-        if not base:
-            continue
-        root = Path(base)
-        candidates.extend([
-            root / "Programs" / "Thorium" / "Thorium.exe",
-            root / "Programs" / "thorium" / "Thorium.exe",
-            root / "Thorium" / "Thorium.exe",
-            root / "EDRLab.ThoriumReader" / "Thorium.exe",
-        ])
-    found = shutil.which("Thorium.exe") or shutil.which("thorium")
-    if found:
-        candidates.insert(0, Path(found))
-    if os.name == "nt":
-        try:
-            import winreg
-            for hive in (winreg.HKEY_CURRENT_USER, winreg.HKEY_LOCAL_MACHINE):
-                for key_name in (
-                    r"Software\Classes\Applications\Thorium.exe\shell\open\command",
-                    r"Software\Classes\thorium\shell\open\command",
-                ):
-                    try:
-                        with winreg.OpenKey(hive, key_name) as handle:
-                            command = str(winreg.QueryValue(handle, None) or "")
-                        match = re.match(r'\s*"([^"]+\.exe)"|\s*([^\s]+\.exe)', command, flags=re.I)
-                        if match:
-                            candidates.append(Path(match.group(1) or match.group(2)))
-                    except OSError:
-                        continue
-        except (ImportError, OSError):
-            pass
-    seen = set()
-    for candidate in candidates:
-        key = str(candidate).casefold()
-        if key in seen:
-            continue
-        seen.add(key)
-        try:
-            if candidate.is_file():
-                return candidate.resolve()
-        except OSError:
-            continue
-    return None
-
-
-def external_epub_reader_status() -> dict:
-    thorium = detect_thorium_reader()
-    if thorium:
-        return {"available": True, "mode": "thorium", "label": "Open in Thorium", "detected": True}
-    return {
-        "available": os.name == "nt",
-        "mode": "default",
-        "label": "Open in Default EPUB Reader",
-        "detected": False,
-    }
-
-
-def launch_external_epub_reader(paths: AppPaths, ebook_id: int) -> dict:
-    identity = epub_reader_identity(paths, ebook_id)
-    if not identity:
-        raise ValueError("The selected EPUB is unavailable.")
-    status = external_epub_reader_status()
-    if status["mode"] == "thorium":
-        executable = detect_thorium_reader()
-        if not executable:
-            raise RuntimeError("Thorium was no longer available.")
-        subprocess.Popen([str(executable), str(identity["path"])], close_fds=True)
-    elif os.name == "nt" and hasattr(os, "startfile"):
-        os.startfile(str(identity["path"]))
-    else:
-        raise RuntimeError("No supported external EPUB handoff is available on this host.")
-    return {"ok": True, **status, "title": identity["title"]}
 
 
 def epub_database_path(paths: AppPaths) -> Path:
@@ -3845,7 +2856,7 @@ HTML = r"""<!doctype html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Kayock's Study — The Bibliotheca V2C.1</title>
+<title>Kayock's Study — The Bibliotheca V1.6</title>
 <style>
 :root{
   --violet:#9b6cff;--violet2:#c3a6ff;--cyan:#36dbff;--gold:#ffd166;
@@ -4003,69 +3014,20 @@ button:disabled{opacity:.5;cursor:not-allowed}
 .detailstatus{margin-top:7px;color:var(--muted);font-size:12px}
 .advancedheading{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:4px 0 14px}
 .advancedheading h2{margin:0}
-.readerworkspace{min-height:82vh;border:1px solid #8f5cff42;border-radius:20px;background:#080b12;padding:14px}
-.readertop{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;border-bottom:1px solid #8f5cff2d;padding-bottom:12px}
-.readertitle{min-width:220px;flex:1}.readertitle h2{margin:2px 0 0}.readerposition{color:var(--muted);font-size:13px}
-.readerlayout{display:grid;grid-template-columns:minmax(210px,280px) minmax(0,1fr);gap:14px;margin-top:14px}
-.readersidebar{border:1px solid #8f5cff2d;border-radius:14px;background:#0d111b;padding:12px;max-height:72vh;overflow:auto}
-.readersidebar h3{margin:4px 0 10px}.readertoc,.readerbookmarks{display:grid;gap:5px}
-.readertoc button,.readerbookmarks button{width:100%;text-align:left;background:#111827;border-color:#8f5cff2a;padding:8px 9px}
-.readertoc button.active{border-color:#9b6cff;background:#231b3d}.tocchildren{margin-left:13px;border-left:1px solid #8f5cff33;padding-left:7px}
-.readerbookmarkrow{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:5px}.readerbookmarkremove{padding:5px 8px;color:#ffb4b4}
-.readerpanel{min-width:0}.readercontrols{display:grid;grid-template-columns:repeat(5,minmax(105px,1fr));gap:8px;border:1px solid #8f5cff2d;border-radius:14px;background:#0d111b;padding:10px;margin-bottom:10px}
-.readercontrols label{font-size:12px;color:var(--muted)}.readercontrols select,.readercontrols input{margin-top:4px}
-.readerframewrap{border:1px solid #8f5cff42;border-radius:14px;overflow:hidden;background:#fff}
-#epubReaderFrame{display:block;width:100%;height:68vh;border:0;background:#fff}
-.readerfooter{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-top:10px}
-.readererror{padding:22px;color:#ffb4b4}.continuebadge{font-size:11px;color:#cbb7ff;margin-top:4px}
-.narrationpanel{border:1px solid #8f5cff42;border-radius:14px;background:#111522;padding:12px;margin-bottom:10px}
-.narrationhead{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}.narrationhead h3{margin:0}
-.narrationgrid{display:grid;grid-template-columns:minmax(210px,2fr) repeat(3,minmax(110px,1fr));gap:8px;margin-top:10px}.narrationgrid label{font-size:12px;color:var(--muted)}.narrationgrid select,.narrationgrid input{margin-top:4px}
-.narrationbuttons{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}.narrationstate{margin-top:9px;border-left:3px solid #9b6cff;padding:8px 10px;background:#0b0f19;color:#e7e2f6}
-.narrationhelp{font-size:12px;color:var(--muted);margin-top:8px}.narrationoffline{color:#ffc970}
-@media(max-width:980px){.narrationgrid{grid-template-columns:repeat(2,minmax(130px,1fr))}}
-@media(max-width:980px){.readerlayout{grid-template-columns:1fr}.readersidebar{max-height:260px}.readercontrols{grid-template-columns:repeat(2,minmax(120px,1fr))}}
 @media(max-width:900px){.librarytoolbar{grid-template-columns:1fr 1fr}.viewcontrols{grid-column:span 2;justify-content:flex-start}.librarysummary{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:620px){.librarytoolbar{grid-template-columns:1fr}.viewcontrols{grid-column:auto}.tiletrack{grid-auto-columns:142px}.detailbody{grid-template-columns:1fr}.detailcover{width:150px}.detailmeta{grid-template-columns:1fr}.libraryrow{grid-template-columns:46px minmax(0,1fr)}.rowstatus{display:none}}
-
-/* Kayock's Study V2C.1 — read-only multi-drive discovery */
-.locationsworkspace{margin-bottom:18px}
-.locationsheading{display:flex;justify-content:space-between;gap:14px;align-items:center;margin-bottom:14px}
-.locationsgrid{display:grid;grid-template-columns:minmax(300px,.85fr) minmax(0,1.15fr);gap:16px;align-items:start}
-.locationscard{border:1px solid var(--line);border-radius:20px;background:linear-gradient(180deg,#111522ef,#171c2bef);padding:18px;box-shadow:0 16px 45px #0005}
-.locationscard.full{grid-column:1/-1}
-.locationform{display:grid;grid-template-columns:minmax(0,1fr) minmax(180px,.35fr);gap:9px}
-.locationpreview,.scanstatusbox{border:1px solid #36dbff35;border-radius:15px;background:#07101a;padding:12px;margin-top:11px}
-.locationroot{border:1px solid #8f5cff2d;border-radius:16px;padding:13px;margin-top:10px;background:#080b14}
-.locationroot.offline{border-color:#ffd16655}.locationroot.disabled{opacity:.72}
-.locationstats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px;margin-top:9px}
-.locationstats div{border:1px solid #8f5cff22;border-radius:10px;padding:8px;background:#ffffff04}
-.locationstats b{display:block;color:#fff;font-size:17px}
-.worksbar{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:9px;align-items:end}
-.workgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:11px;margin-top:12px}
-.workcard{border:1px solid #8f5cff2d;border-radius:16px;background:#080b14;padding:13px;text-align:left;color:var(--text);cursor:pointer}
-.workcard:hover,.workcard:focus-visible{border-color:var(--cyan);transform:translateY(-1px)}
-.workcounts{display:flex;gap:5px;flex-wrap:wrap;margin-top:9px}.workcounts .pill{margin:0}
-.worksection{border-top:1px solid #8f5cff2d;padding-top:13px;margin-top:13px}
-.externalitem{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;border:1px solid #8f5cff25;border-radius:13px;padding:10px;margin-top:8px;background:#070a12}
-.externalitem .controls{justify-content:flex-end}.externalitem select{min-width:190px}
-.confidence-confirmed{color:var(--green)}.confidence-probable{color:var(--cyan)}.confidence-needs_review{color:var(--gold)}
-#externalWorkDialog{width:min(1000px,94vw);max-height:90vh;overflow:auto;border:1px solid #9b6cff75;border-radius:22px;background:#0b0e18;color:var(--text);padding:22px;box-shadow:0 28px 90px #000c}
-.externaldetail{border:1px solid var(--line);border-radius:20px;background:#101522;padding:18px}.externaldetailhead{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;flex-wrap:wrap}.externaldetailmeta{display:flex;gap:7px;flex-wrap:wrap;margin-top:8px}.externalpath{word-break:break-all;color:#b8b0ca;font-family:ui-monospace,Consolas,monospace;font-size:12px}.workcard .viewtitle{margin-top:10px}.audiobooksummary{border:1px solid #36dbff35;border-radius:15px;padding:12px;background:#07101a;margin:10px 0}.audiobookqueue{display:grid;gap:7px;margin-top:10px}.audiobookpart{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:8px;align-items:center;border:1px solid #8f5cff25;border-radius:12px;padding:8px;background:#070a12}.audiobookpart.active{border-color:var(--cyan);background:#0a1720}.partnumber{min-width:34px;text-align:center;color:var(--cyan);font-weight:800}.partorder{display:flex;gap:4px}.partorder button{padding:5px 7px}.playerdock{position:fixed;left:max(270px,calc((100vw - 1450px)/2 + 270px));right:18px;bottom:12px;z-index:50;border:1px solid #36dbff70;border-radius:18px;background:#080d17f5;backdrop-filter:blur(10px);padding:12px;box-shadow:0 20px 55px #000b}.playerdock[hidden]{display:none}.playerhead{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center}.playercontrols{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-top:8px}.playercontrols button{padding:7px 10px}.playerseek{display:grid;grid-template-columns:auto minmax(120px,1fr) auto;gap:8px;align-items:center;margin-top:8px}.playerseek input{width:100%}.playerstatus{margin-top:7px;color:var(--muted);font-size:12px}.playerbookprogress{height:8px;border-radius:999px;background:#ffffff12;overflow:hidden;margin-top:7px}.playerbookprogress div{height:100%;background:linear-gradient(90deg,var(--violet),var(--cyan));width:0}.playeroptions{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:7px}.playeroptions label{font-size:12px;color:var(--muted)}.playeroptions select,.playeroptions input{margin-left:4px;width:auto}.relationconfirm{border-left:3px solid var(--gold);padding-left:9px}.detailnotice{border:1px solid #ffd16655;border-radius:12px;padding:9px;background:#261d08;color:#ffe6a0;margin-top:9px}
-@media(max-width:900px){.playerdock{left:12px;right:12px}.locationsgrid{grid-template-columns:1fr}.locationform,.worksbar{grid-template-columns:1fr}.locationstats{grid-template-columns:repeat(2,1fr)}.externalitem{grid-template-columns:1fr}}
 
 </style>
 </head>
 <body>
 <div class="shell">
   <section class="hero">
-    <div class="eyebrow">Kayock's Study · Bibliotheca V2C.1.1</div>
+    <div class="eyebrow">Kayock's Study · Bibliotheca V2B.1.1</div>
     <h1>The Bibliotheca</h1>
     <div class="motto">Read. Research. Preserve. Discover.</div>
     <p class="muted">Browse your preserved collection visually, then open, search, or ask from the exact source.</p>
     <div class="homeactions">
       <button id="libraryHomeButton" onclick="showLibraryHome()">Library Home</button>
-      <button id="libraryLocationsButton" class="secondary" onclick="showLibraryLocations()">Library Locations</button>
       <button id="advancedToolsButton" class="secondary" onclick="showAdvancedTools()">Advanced Library Tools</button>
     </div>
     <div id="advancedHeroTools" hidden>
@@ -4106,44 +3068,6 @@ button:disabled{opacity:.5;cursor:not-allowed}
     </div>
     <div id="librarySummary" class="librarysummary"><div class="libraryempty">Loading your library…</div></div>
     <div id="libraryBrowser"><div class="libraryempty">Loading shelves and documents…</div></div>
-  </section>
-
-
-  <section id="libraryLocationsWorkspace" class="locationsworkspace" hidden aria-label="Read-only multi-drive library discovery">
-    <div class="locationsheading"><div><div class="eyebrow">V2C.1.1 · Unified titles and onboard listening</div><h2>Library Locations</h2><div class="muted">Catalog books, audiobooks, maps, and companion files where they already live. FOXAI never crawls every drive automatically.</div></div><button type="button" class="secondary" onclick="showLibraryHome()">Return to Library Home</button></div>
-    <div id="externalLocationsMain" class="locationsgrid">
-      <section class="locationscard">
-        <h3>Approve One Folder</h3>
-        <p class="small">Enter one exact folder path. Preview counts first; registration and hashing happen only after a separate action.</p>
-        <div class="locationform"><label>Exact folder path<input id="externalRootPath" placeholder="E:\\Audiobooks or K:\\Ebooks\\Star Trek"></label><label>Display label<input id="externalRootLabel" placeholder="Star Trek Archive"></label></div>
-        <div class="controls"><button id="externalPreviewButton" type="button" onclick="previewExternalLocation()">Preview Location</button><button id="externalRegisterButton" type="button" class="secondary" onclick="registerExternalLocation()" disabled>Register Approved Location</button></div>
-        <div id="externalPreview" class="locationpreview"><div class="small">No folder has been inspected. No drive enumeration or automatic crawling occurs.</div></div>
-      </section>
-      <section class="locationscard">
-        <div class="titleline"><div><h3>Registered Locations</h3><div class="small">Offline removable drives stay in the catalog and are marked Offline.</div></div><button class="secondary" type="button" onclick="refreshExternalLocations()">Refresh</button></div>
-        <div id="externalScanStatus" class="scanstatusbox"><div class="small">No external-library scan is running.</div></div>
-        <div id="externalRootList"><div class="empty">Loading registered locations…</div></div>
-      </section>
-      <section class="locationscard full">
-        <div class="worksbar"><label>Find a logical title<input id="externalWorkQuery" type="search" placeholder="Search books, authors, or series…" oninput="renderExternalWorks()"></label><div class="controls"><button class="secondary" type="button" onclick="refreshExternalWorks()">Refresh Unified Titles</button><button id="externalCancelScan" class="danger" type="button" onclick="cancelExternalScan()" disabled>Stop After Current File</button></div></div>
-        <div class="small">Each card may contain Read, Listen, Maps & Extras, editions, exact duplicates, and multiple file locations. Probable relationships remain reviewable.</div>
-        <div id="externalWorkGrid" class="workgrid"><div class="empty">Register and scan an approved folder to build unified titles.</div></div>
-      </section>
-    </div>
-    <section id="externalTitleWorkspace" class="externaldetail" hidden aria-label="Unified title details">
-      <div class="externaldetailhead"><button id="externalBackButton" type="button" class="secondary" onclick="backToExternalWorks()">Back to Unified Titles</button><button type="button" class="secondary" onclick="showLibraryHome()">Return to Library Home</button></div>
-      <div id="externalTitleBody"><div class="empty">Choose a unified title.</div></div>
-    </section>
-  </section>
-
-  <section id="audiobookPlayerDock" class="playerdock" hidden aria-label="Kayock's Study audiobook player">
-    <audio id="audiobookAudio" preload="metadata"></audio>
-    <div class="playerhead"><div><div class="eyebrow">Listen in FOXAI</div><b id="audiobookPlayerTitle">No audiobook loaded</b><div id="audiobookPlayerPart" class="small"></div></div><button type="button" class="secondary" onclick="closeAudiobookPlayer()">Close Player</button></div>
-    <div class="playercontrols"><button type="button" onclick="playerPreviousPart()">Previous Part</button><button type="button" onclick="playerSkip(-15)">−15 sec</button><button id="audiobookPlayPause" type="button" onclick="toggleAudiobookPlayback()">Play</button><button type="button" onclick="stopAudiobookPlayback()">Stop</button><button type="button" onclick="playerSkip(30)">+30 sec</button><button type="button" onclick="playerNextPart()">Next Part</button></div>
-    <div class="playerseek"><span id="audiobookElapsed">0:00</span><input id="audiobookSeek" type="range" min="0" max="0" step="0.1" value="0" aria-label="Audiobook position"><span id="audiobookRemaining">−0:00</span></div>
-    <div class="playerbookprogress"><div id="audiobookBookProgress"></div></div>
-    <div class="playeroptions"><label>Speed<select id="audiobookSpeed"><option value="0.75">0.75×</option><option value="1">1×</option><option value="1.25">1.25×</option><option value="1.5">1.5×</option><option value="1.75">1.75×</option><option value="2">2×</option></select></label><label>Volume <input id="audiobookVolume" type="range" min="0" max="1" step="0.05" value="1"></label><button type="button" class="secondary" onclick="rememberAudiobookPosition()">Remember This Position</button><button type="button" class="secondary" onclick="startAudiobookFromBeginning()">Start from Beginning</button><button type="button" class="secondary" onclick="openCurrentAudioExternally()">Open Externally</button></div>
-    <div id="audiobookPlayerStatus" class="playerstatus" aria-live="polite">Ready.</div>
   </section>
 
   <div id="advancedWorkspace" hidden>
@@ -4250,57 +3174,6 @@ button:disabled{opacity:.5;cursor:not-allowed}
   </div>
   </div>
 
-  <section id="epubReader" class="readerworkspace" hidden aria-label="Kayock's Study EPUB reader">
-    <div class="readertop">
-      <button id="readerBackButton" type="button" class="secondary">Back to Title Page</button>
-      <div class="readertitle"><div class="eyebrow">Native EPUB Reader · Local and Offline</div><h2 id="readerBookTitle">Opening book…</h2><div id="readerPosition" class="readerposition"></div></div>
-      <div class="controls"><button id="readerBookmarkButton" type="button" class="secondary">Add Bookmark</button><button id="readerControlsButton" type="button" class="secondary">Reading Controls</button></div>
-    </div>
-    <div class="readerlayout">
-      <aside class="readersidebar">
-        <h3>Table of Contents</h3><div id="readerToc" class="readertoc"><div class="small">Loading…</div></div>
-        <h3 style="margin-top:18px">Bookmarks</h3><div id="readerBookmarks" class="readerbookmarks"><div class="small">No bookmarks yet.</div></div>
-      </aside>
-      <div class="readerpanel">
-        <div id="readerControls" class="readercontrols" hidden>
-          <label>Theme<select id="readerTheme"><option value="dark">Dark</option><option value="light">Light</option><option value="sepia">Sepia</option></select></label>
-          <label>Font<select id="readerFont"><option value="serif">Book Serif</option><option value="sans">Clean Sans</option><option value="system">System</option></select></label>
-          <label>Text size<input id="readerTextSize" type="range" min="14" max="34" step="1"></label>
-          <label>Line spacing<input id="readerLineSpacing" type="range" min="1.2" max="2.4" step="0.05"></label>
-          <label>Reading width<input id="readerContentWidth" type="range" min="520" max="1100" step="20"></label>
-        </div>
-        <section id="readerNarrationPanel" class="narrationpanel" hidden aria-label="Local read-aloud controls">
-          <div class="narrationhead"><div><h3>Read This to Me</h3><div class="small">Confirmed local Windows/browser voices only · book text stays on this computer</div></div><span id="narrationLocalBadge" class="pill warn">Checking local voices…</span></div>
-          <div class="narrationgrid">
-            <label>Local voice<select id="narrationVoice"><option value="">Checking installed voices…</option></select></label>
-            <label>Speed<input id="narrationRate" type="range" min="0.5" max="2" step="0.05" value="1"></label>
-            <label>Pitch<input id="narrationPitch" type="range" min="0.5" max="2" step="0.05" value="1"></label>
-            <label>Volume<input id="narrationVolume" type="range" min="0" max="1" step="0.05" value="1"></label>
-          </div>
-          <label class="checkline"><input id="narrationAutoAdvance" type="checkbox"> Automatically continue into the next readable chapter</label>
-          <div class="narrationbuttons">
-            <button id="narrationPlay" type="button">Play</button><button id="narrationPause" type="button" class="secondary">Pause</button><button id="narrationResume" type="button" class="secondary">Resume</button><button id="narrationStop" type="button" class="danger">Stop</button>
-            <button id="narrationPreviousParagraph" type="button" class="secondary">Previous Paragraph</button><button id="narrationNextParagraph" type="button" class="secondary">Next Paragraph</button><button id="narrationRestartChapter" type="button" class="secondary">Restart Chapter</button><button id="narrationReadFromHere" type="button" class="secondary">Read from Here</button>
-            <button id="narrationRememberPosition" type="button" class="secondary">Remember This Position</button><button id="narrationTestVoice" type="button" class="secondary">Test Voice</button>
-          </div>
-          <div id="narrationStatus" class="narrationstate" aria-live="polite">Ready. Select a passage or press Play.</div>
-          <div class="narrationhelp">Click a paragraph, heading, quotation, list item, scene break, or useful image description to select it. Press Enter or Space while focused to select it with the keyboard.</div>
-        </section>
-        <div class="readerframewrap"><iframe id="epubReaderFrame" sandbox="allow-same-origin" title="EPUB chapter content"></iframe></div>
-        <div class="readerfooter">
-          <div class="controls"><button id="readerPrevious" type="button" class="secondary">Previous Chapter</button><button id="readerNext" type="button">Next Chapter</button></div>
-          <div class="controls"><button id="readerStartBeginning" type="button" class="secondary">Start from Beginning</button><button id="readerReadAloudButton" type="button" class="secondary">Read This to Me</button></div>
-        </div>
-        <div id="readerStatus" class="detailstatus" aria-live="polite"></div>
-      </div>
-    </div>
-  </section>
-
-  <dialog id="externalWorkDialog" onclick="if(event.target===this)this.close()">
-    <button class="secondary detailclose" type="button" onclick="q('externalWorkDialog').close()" aria-label="Close unified title details">Close</button>
-    <div id="externalWorkBody"></div>
-  </dialog>
-
   <dialog id="documentDetailDialog" onclick="if(event.target===this)this.close()">
     <button class="secondary detailclose" onclick="q('documentDetailDialog').close()" aria-label="Close document details">Close</button>
     <div id="documentDetailBody"></div>
@@ -4318,27 +3191,12 @@ let libraryView='tiles';
 let indexWasRunning=false;
 let scanStartPending=false;
 let activeLibraryDetail=null;
-let externalRoots=[];
-let externalWorks=[];
-let externalPreviewData=null;
-let externalScanWasRunning=false;
-let activeExternalWork=null;
-let externalReturnState={query:'',scrollY:0};
-let audiobookPlayer={workId:null,queue:[],currentIndex:0,work:null,ownerToken:(crypto.randomUUID?crypto.randomUUID():String(Date.now())+'-'+Math.random()),leaseTimer:null,lastAutoSave:0,loading:false,startWithoutSaving:false};
 let lastState={};
 let lastSearchResults=[];
 let lastSearchQuestion='';
 let lastOpenedPage=null;
 let modelOnline=false;
 let researchState={},activeResearchPreview=null;
-let continueReadingEbooks=[];
-let activeReader=null;
-let readerSaveTimer=null;
-let narrationSaveTimer=null;
-let localNarrationVoices=[];
-let narrationIsDrivingScroll=false;
-let narration={paragraphs:[],selectedIndex:0,paragraphIndex:0,chunkIndex:0,status:'ready',generation:0,pendingStart:false,chapterAutoAdvance:false};
-let readerPreviousMode='library';
 
 function esc(value){
   return String(value??'').replace(/[&<>"']/g,ch=>({
@@ -4418,36 +3276,20 @@ function coverMarkup(item,detail=false){
   const label=item.source_kind==='epub'?(item.collection||item.shelf||'EPUB'):(item.shelf||'Bibliotheca');
   return `<div class="${className}" style="${deterministicCoverStyle(item)}"><div class=covermark>${esc(titleInitials(item.title))}</div><div><div class=coverlabel>${esc(label)}</div><div class=covertext>${esc(item.title||'Untitled document')}</div></div></div>`;
 }
-function setWorkspaceButtons(active){
-  q('libraryHomeButton').classList.toggle('secondary',active!=='home');
-  q('libraryLocationsButton').classList.toggle('secondary',active!=='locations');
-  q('advancedToolsButton').classList.toggle('secondary',active!=='advanced');
-}
 function showLibraryHome(){
   q('libraryHome').hidden=false;
-  q('libraryLocationsWorkspace').hidden=true;
   q('advancedWorkspace').hidden=true;
   q('advancedHeroTools').hidden=true;
-  setWorkspaceButtons('home');
+  q('libraryHomeButton').classList.remove('secondary');
+  q('advancedToolsButton').classList.add('secondary');
   q('libraryHome').scrollIntoView({behavior:'smooth',block:'start'});
-}
-function showLibraryLocations(){
-  q('libraryHome').hidden=true;
-  q('libraryLocationsWorkspace').hidden=false;
-  q('advancedWorkspace').hidden=true;
-  q('advancedHeroTools').hidden=true;
-  setWorkspaceButtons('locations');
-  q('externalLocationsMain').hidden=false;q('externalTitleWorkspace').hidden=true;
-  refreshExternalLocations();
-  refreshExternalWorks();
-  q('libraryLocationsWorkspace').scrollIntoView({behavior:'smooth',block:'start'});
 }
 function showAdvancedTools(scrollTarget=''){
   q('libraryHome').hidden=true;
-  q('libraryLocationsWorkspace').hidden=true;
   q('advancedWorkspace').hidden=false;
   q('advancedHeroTools').hidden=false;
-  setWorkspaceButtons('advanced');
+  q('libraryHomeButton').classList.add('secondary');
+  q('advancedToolsButton').classList.remove('secondary');
   const target=scrollTarget?q(scrollTarget):q('advancedWorkspace');
   setTimeout(()=>target?.scrollIntoView({behavior:'smooth',block:'start'}),40);
 }
@@ -4511,17 +3353,15 @@ function renderLibraryHome(){
     return;
   }
   const recently=[...filtered].sort((a,b)=>String(b.indexed_at||'').localeCompare(String(a.indexed_at||''))).slice(0,18);
-  const continueItems=continueReadingEbooks.filter(item=>filtered.some(entry=>entry.source_kind==='epub'&&Number(entry.id)===Number(item.id)));
   const groups=new Map();
   for(const item of filtered){const group=item.source_kind==='epub'?(item.collection||item.shelf):item.shelf;if(!groups.has(group))groups.set(group,[]);groups.get(group).push(item)}
   const shelvesHtml=[...groups.entries()].sort((a,b)=>a[0].localeCompare(b[0])).map(([name,items])=>renderShelfSection(name,items)).join('');
-  q('libraryBrowser').innerHTML=(continueItems.length?renderShelfSection('Continue Reading',continueItems,'Resume books opened in Kayock’s Study'):'')+renderShelfSection('Recently Added',recently,'Most recently indexed documents')+shelvesHtml;
+  q('libraryBrowser').innerHTML=renderShelfSection('Recently Added',recently,'Most recently indexed documents')+shelvesHtml;
 }
 async function refreshLibraryHome(){
-  const [shelfData,documentData,ebookData,continueData]=await Promise.all([
-    api('/api/shelves'),api('/api/documents?include_review=0'),api('/api/ebooks'),api('/api/epub/continue-reading')
+  const [shelfData,documentData,ebookData]=await Promise.all([
+    api('/api/shelves'),api('/api/documents?include_review=0'),api('/api/ebooks')
   ]);
-  continueReadingEbooks=continueData.ebooks||[];
   const pdfDocuments=(documentData.documents||[]).map(item=>({...item,source_kind:'pdf'}));
   libraryEbooks=ebookData.ebooks||[];
   ebookSummary=ebookData.summary||{};
@@ -4556,11 +3396,10 @@ function renderLibraryItemDetail(item){
   const metadata=isEpub
     ? `<div><b>Author</b>${esc(item.creator||'Unknown')}</div><div><b>Format</b>${esc(item.format||'EPUB')}</div><div><b>Chapters</b>${fmt(item.chapter_count)}</div><div><b>Metadata status</b>${esc(ebookStatusLabel(item.status))}</div><div><b>Publisher</b>${esc(item.publisher||'Not listed')}</div><div><b>Published</b>${esc(item.published||'Not listed')}</div><div><b>Language</b>${esc(item.language||'Not listed')}</div><div><b>Navigation</b>${item.has_navigation?'Available':'Not declared'}</div>`
     : `<div><b>Author</b>${esc(item.author||'Not listed')}</div><div><b>Format</b>PDF${item.is_ocr_copy?' · OCR copy':''}</div><div><b>Pages</b>${fmt(item.page_count)}</div><div><b>Text status</b>${esc(statusLabel(item.text_status))}</div><div><b>Indexed pages</b>${fmt(item.indexed_pages)}</div><div><b>Publisher / creator</b>${esc(item.publisher||'Not listed')}</div><div><b>Published</b>${esc(item.published||'Not listed')}</div><div><b>Collection</b>${esc(item.shelf||'Bibliotheca')}</div>`;
-  const externalLabel=isEpub?esc((item.external_reader||{}).label||'Open in Default EPUB Reader'):'';
   const actions=isEpub
-    ? `<button type=button data-detail-action="read-epub">Read in Kayock's Study</button><button type=button class=secondary data-detail-action="open-epub-external">${externalLabel}</button><button type=button class=secondary data-detail-action="open-epub-original">Save Original EPUB</button>`
+    ? `<button type=button data-detail-action="open-epub-original">Open or Save Original EPUB</button>`
     : `<button type=button data-detail-action="open-pdf">Open PDF</button><button type=button class=secondary data-detail-action="search-document">Search This Document</button><button type=button class=secondary data-detail-action="ask-document">Ask Agent Fox</button>`;
-  q('documentDetailBody').innerHTML=`<div class=detailbody>${coverMarkup(item,true)}<div><div class=eyebrow>${esc(item.collection||item.shelf||'The Bibliotheca')}</div><h2>${esc(item.title)}</h2><div class=detailmeta>${metadata}</div><div class=detailsection><h3>Summary</h3><div class=summarytext>${esc(detailSummaryText(item))}</div></div><div class=detailsection><h3>My Rating</h3>${ratingStarsMarkup(item.rating)}</div><div class=detailpath>${esc(item.rel_path)}</div><div class=detailactions>${actions}<button type=button class=secondary data-detail-action="how-to-open">How to Open</button>${isEpub?'<button type=button class=secondary data-detail-action="read-aloud">Read This to Me</button>':'<button type=button class="secondary futurecontrol" disabled title="PDF voice reading is not enabled yet">Read This to Me · EPUB only</button>'}</div><div id=detailOpenHelp class=howto hidden>${esc(item.open_guidance||'Opening guidance is not available.')}</div><div id=detailReadNote class=howto hidden>${esc(item.voice_status||'Read-aloud is reserved for a later phase.')}</div>${isEpub?'<div class=reviewnote>The native reader supports chapters, table of contents, bookmarks, preferences, resume, and confirmed-local voice narration.</div>':''}</div></div>`;
+  q('documentDetailBody').innerHTML=`<div class=detailbody>${coverMarkup(item,true)}<div><div class=eyebrow>${esc(item.collection||item.shelf||'The Bibliotheca')}</div><h2>${esc(item.title)}</h2><div class=detailmeta>${metadata}</div><div class=detailsection><h3>Summary</h3><div class=summarytext>${esc(detailSummaryText(item))}</div></div><div class=detailsection><h3>My Rating</h3>${ratingStarsMarkup(item.rating)}</div><div class=detailpath>${esc(item.rel_path)}</div><div class=detailactions>${actions}<button type=button class=secondary data-detail-action="how-to-open">How to Open</button><button type=button class="secondary futurecontrol" data-detail-action="read-this-to-me">Read This to Me · Coming Soon</button></div><div id=detailOpenHelp class=howto hidden>${esc(item.open_guidance||'Opening guidance is not available.')}</div><div id=detailReadNote class=howto hidden>${esc(item.voice_status||'Read-aloud is reserved for a later phase.')}</div>${isEpub?'<div class=reviewnote>Chapter reading, search, citations, progress, and read-aloud arrive in V2B.2.</div>':''}</div></div>`;
 }
 async function openLibraryItemDetail(kind,id){
   const local=libraryDocuments.find(entry=>entry.source_kind===kind&&Number(entry.id)===Number(id));
@@ -4589,11 +3428,9 @@ function handleDetailAction(action){
   if(action==='open-pdf'){openPdf(item.id,1,item.title,`${item.title}, p. 1`);return;}
   if(action==='search-document'){searchThisDocument(item.id);return;}
   if(action==='ask-document'){askThisDocument(item.id);return;}
-  if(action==='read-epub'){openEpubReader(item.id);return;}
-  if(action==='read-aloud'){openEpubReader(item.id,false,true);return;}
-  if(action==='open-epub-external'){openExternalEpub(item.id);return;}
   if(action==='open-epub-original'&&item.original_epub_url){window.open(item.original_epub_url,'_blank','noopener');return;}
   if(action==='how-to-open'){const panel=q('detailOpenHelp');if(panel)panel.hidden=!panel.hidden;return;}
+  if(action==='read-this-to-me'){const panel=q('detailReadNote');if(panel)panel.hidden=!panel.hidden;}
 }
 function openDocumentDetail(id){openLibraryItemDetail('pdf',id)}
 function searchThisDocument(id){
@@ -4610,249 +3447,6 @@ function askThisDocument(id){
   q('askQuestion').focus();
   setTimeout(()=>q('askQuestion').scrollIntoView({behavior:'smooth',block:'center'}),60);
 }
-
-
-function readerFontStack(font){
-  return font==='sans'?'Arial,Helvetica,sans-serif':font==='system'?'system-ui,-apple-system,Segoe UI,sans-serif':'Georgia,Cambria,Times New Roman,serif';
-}
-function readerThemeValues(theme){
-  if(theme==='light')return {background:'#fbfbfa',text:'#202124,',link:'#5a35b5'};
-  if(theme==='sepia')return {background:'#f1e7cf',text:'#362f25',link:'#6547a8'};
-  return {background:'#10131a',text:'#e9edf5',link:'#c6a7ff'};
-}
-function readerBaseCss(preferences){
-  const theme=readerThemeValues(preferences.theme);
-  return `html{background:${theme.background};color:${theme.text};scroll-behavior:smooth}body{margin:0;background:${theme.background};color:${theme.text};font-family:${readerFontStack(preferences.font)};font-size:${Number(preferences.text_size||19)}px;line-height:${Number(preferences.line_spacing||1.65)};overflow-wrap:anywhere}.epub-reading-page{max-width:${Number(preferences.content_width||760)}px;margin:0 auto;padding:38px 34px 70px;box-sizing:border-box}img,svg{max-width:100%;height:auto}a{color:${theme.link}}table{max-width:100%;border-collapse:collapse}td,th{padding:.25em;border:1px solid #7775}blockquote{margin-left:1em;border-left:3px solid #7777;padding-left:1em}pre{white-space:pre-wrap}hr{border:0;border-top:1px solid #7777;margin:2em 0}.kayock-narration-unit{cursor:pointer;border-radius:.3em;transition:background .15s ease,outline-color .15s ease}.kayock-narration-unit:focus{outline:2px solid #a98aff;outline-offset:3px}.kayock-narration-selected{outline:2px dashed #a98aff;outline-offset:3px}.kayock-narration-active{background:rgba(155,108,255,.24);outline:2px solid rgba(185,141,255,.65);outline-offset:3px}::selection{background:rgba(255,214,92,.58);color:inherit}@media(max-width:620px){.epub-reading-page{padding:24px 18px 60px}}`;
-}
-function readerSrcdoc(chapter,preferences){
-  const base=readerBaseCss(preferences).replace(/<\/style/gi,'<\\/style');
-  const bookCss=String(chapter.css||'').replace(/<\/style/gi,'<\\/style');
-  return `<!doctype html><html><head><meta charset="utf-8"><meta name="referrer" content="no-referrer"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src http://127.0.0.1:* data:; font-src http://127.0.0.1:*; style-src 'unsafe-inline';"><style>${base}\n${bookCss}</style></head><body><main class="epub-reading-page">${chapter.html||''}</main></body></html>`;
-}
-function showReaderWorkspace(){
-  readerPreviousMode=q('advancedWorkspace').hidden?'library':'advanced';
-  q('documentDetailDialog').close();
-  q('libraryHome').hidden=true;q('libraryLocationsWorkspace').hidden=true;q('advancedWorkspace').hidden=true;q('advancedHeroTools').hidden=true;
-  q('epubReader').hidden=false;q('epubReader').scrollIntoView({block:'start'});
-}
-function hideReaderWorkspace(){q('epubReader').hidden=true;q('libraryHome').hidden=false;showLibraryHome();}
-function renderReaderTocNodes(nodes,depth=0){
-  if(!nodes||!nodes.length)return '';
-  return nodes.map(node=>{
-    const valid=Number(node.spine_index)>=0;
-    const button=valid?`<button type=button data-reader-toc-index="${Number(node.spine_index)}" data-reader-toc-fragment="${esc(node.fragment||'')}">${esc(node.label||'Section')}</button>`:`<div class=small>${esc(node.label||'Section')}</div>`;
-    const children=node.children&&node.children.length?`<div class=tocchildren>${renderReaderTocNodes(node.children,depth+1)}</div>`:'';
-    return `<div>${button}${children}</div>`;
-  }).join('');
-}
-function renderReaderToc(){
-  if(!activeReader)return;
-  const toc=activeReader.publication.toc||[];
-  q('readerToc').innerHTML=toc.length?renderReaderTocNodes(toc):activeReader.publication.spine.map(item=>`<button type=button data-reader-toc-index="${item.index}">${esc(item.title)}</button>`).join('');
-  q('readerToc').querySelectorAll('[data-reader-toc-index]').forEach(button=>button.classList.toggle('active',Number(button.dataset.readerTocIndex)===Number(activeReader.chapterIndex)));
-}
-function renderReaderBookmarks(){
-  const bookmarks=activeReader?.bookmarks||[];
-  q('readerBookmarks').innerHTML=bookmarks.length?bookmarks.map(bookmark=>`<div class=readerbookmarkrow><button type=button data-reader-bookmark-id="${bookmark.id}" data-reader-bookmark-index="${bookmark.spine_index}" data-reader-bookmark-ratio="${bookmark.scroll_ratio}" data-reader-bookmark-fragment="${esc(bookmark.fragment||'')}">${esc(bookmark.label||'Bookmark')}</button><button type=button class="readerbookmarkremove" data-reader-bookmark-remove="${bookmark.id}" aria-label="Remove bookmark">×</button></div>`).join(''):'<div class=small>No bookmarks yet.</div>';
-}
-function currentReaderScrollRatio(){
-  try{const win=q('epubReaderFrame').contentWindow;const doc=win.document.documentElement;const max=Math.max(1,doc.scrollHeight-win.innerHeight);return Math.max(0,Math.min(1,win.scrollY/max));}catch(_error){return Number(activeReader?.scrollRatio||0);}
-}
-function scheduleReaderStateSave(){
-  if(!activeReader||narrationIsDrivingScroll)return;
-  clearTimeout(readerSaveTimer);
-  readerSaveTimer=setTimeout(saveReaderState,350);
-}
-async function saveReaderState(){
-  if(!activeReader)return;
-  const payload={id:activeReader.id,spine_index:activeReader.chapterIndex,fragment:activeReader.fragment||'',scroll_ratio:currentReaderScrollRatio(),preferences:activeReader.preferences};
-  try{const data=await api('/api/epub/reader/state',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});activeReader.state=data.state;activeReader.scrollRatio=payload.scroll_ratio;}catch(error){q('readerStatus').textContent=error.message;}
-}
-function applyReaderPreferences(save=true){
-  if(!activeReader)return;
-  activeReader.preferences={theme:q('readerTheme').value,font:q('readerFont').value,text_size:Number(q('readerTextSize').value),line_spacing:Number(q('readerLineSpacing').value),content_width:Number(q('readerContentWidth').value)};
-  const frame=q('epubReaderFrame');
-  try{const doc=frame.contentDocument;const old=doc.getElementById('kayockReaderBaseStyle');if(old)old.textContent=readerBaseCss(activeReader.preferences);}catch(_error){}
-  if(save)scheduleReaderStateSave();
-}
-function syncReaderControls(){
-  const p=activeReader.preferences;q('readerTheme').value=p.theme;q('readerFont').value=p.font;q('readerTextSize').value=p.text_size;q('readerLineSpacing').value=p.line_spacing;q('readerContentWidth').value=p.content_width;
-}
-function bindReaderFrame(chapter,ratio=0,fragment=''){
-  const frame=q('epubReaderFrame');
-  frame.onload=()=>{
-    try{
-      const doc=frame.contentDocument;
-      const baseStyle=doc.createElement('style');baseStyle.id='kayockReaderBaseStyle';baseStyle.textContent=readerBaseCss(activeReader.preferences);doc.head.appendChild(baseStyle);
-      doc.addEventListener('click',event=>{
-        const link=event.target.closest('a[data-reader-target-member],a[data-reader-fragment]');if(!link)return;event.preventDefault();stopNarration();
-        const targetMember=link.dataset.readerTargetMember;const targetFragment=link.dataset.readerTargetFragment||link.dataset.readerFragment||'';
-        if(targetMember){const target=activeReader.publication.spine.find(item=>String(item.member).toLowerCase()===String(targetMember).toLowerCase());if(target)loadReaderChapter(target.index,0,targetFragment);}
-        else if(targetFragment){doc.getElementById(targetFragment)?.scrollIntoView({block:'start'});activeReader.fragment=targetFragment;scheduleReaderStateSave();}
-      });
-      frame.contentWindow.addEventListener('scroll',scheduleReaderStateSave,{passive:true});
-      prepareNarrationChapter(doc);
-      requestAnimationFrame(()=>{if(fragment&&doc.getElementById(fragment)){doc.getElementById(fragment).scrollIntoView({block:'start'});}else{const root=doc.documentElement;const max=Math.max(0,root.scrollHeight-frame.contentWindow.innerHeight);frame.contentWindow.scrollTo(0,max*Math.max(0,Math.min(1,Number(ratio||0))));}if(narration.pendingStart){narration.pendingStart=false;setTimeout(()=>startNarrationAt(0),120);}});
-    }catch(error){q('readerStatus').textContent=error.message;}
-  };
-  frame.srcdoc=readerSrcdoc(chapter,activeReader.preferences);
-}
-async function loadReaderChapter(index,ratio=0,fragment='',narrationDriven=false){
-  if(!activeReader)return;
-  const safeIndex=Math.max(0,Math.min(activeReader.publication.spine.length-1,Number(index||0)));
-  q('readerStatus').textContent='Loading chapter locally…';
-  try{
-    const data=await api(`/api/epub/chapter?id=${encodeURIComponent(activeReader.id)}&index=${safeIndex}`);
-    activeReader.chapterIndex=safeIndex;activeReader.fragment=fragment||'';activeReader.scrollRatio=Number(ratio||0);
-    q('readerBookTitle').textContent=activeReader.publication.title||activeReader.publication.identity.title;
-    q('readerPosition').textContent=`${data.chapter.title} · Chapter ${safeIndex+1} of ${data.chapter.spine_count}`;
-    q('readerPrevious').disabled=safeIndex<=0;q('readerNext').disabled=safeIndex>=data.chapter.spine_count-1;
-    renderReaderToc();bindReaderFrame(data.chapter,ratio,fragment);q('readerStatus').textContent='Local EPUB · original file unchanged';if(!narrationDriven)scheduleReaderStateSave();
-  }catch(error){q('readerStatus').textContent=error.message;q('epubReaderFrame').srcdoc=`<div class=readererror>${esc(error.message)}</div>`;}
-}
-async function openEpubReader(id,startBeginning=false,openNarration=false){
-  showReaderWorkspace();q('readerStatus').textContent='Opening EPUB safely…';
-  try{
-    const data=await api(`/api/epub/reader?id=${encodeURIComponent(id)}`);
-    activeReader={id:Number(id),publication:data.publication,state:data.state,narrationState:data.narration_state||{preferences:{},paragraph_index:0},bookmarks:data.bookmarks||[],preferences:data.state.preferences||{},chapterIndex:startBeginning?0:Number(data.state.last_spine_index||0),scrollRatio:startBeginning?0:Number(data.state.scroll_ratio||0),fragment:startBeginning?'':String(data.state.last_fragment||'')};
-    activeReader.publication.title=activeLibraryDetail?.title||data.publication.identity.title;
-    syncReaderControls();syncNarrationControls();renderReaderToc();renderReaderBookmarks();
-    await loadReaderChapter(activeReader.chapterIndex,activeReader.scrollRatio,activeReader.fragment);
-    if(openNarration){q('readerNarrationPanel').hidden=false;setNarrationStatus('ready','Choose a confirmed local voice, then press Play. Narration will not begin until you do.');}
-  }catch(error){q('readerBookTitle').textContent='Unable to open this EPUB';q('readerStatus').textContent=error.message;q('epubReaderFrame').srcdoc=`<div class=readererror>${esc(error.message)}</div>`;}
-}
-async function openExternalEpub(id){
-  try{const data=await api('/api/epub/open-external',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id:Number(id)})});const panel=q('detailOpenHelp');if(panel){panel.hidden=false;panel.textContent=`${data.label} launched for ${data.title}.`;}}catch(error){const panel=q('detailOpenHelp');if(panel){panel.hidden=false;panel.textContent=error.message;}}
-}
-async function addCurrentBookmark(){
-  if(!activeReader)return;const chapter=activeReader.publication.spine[activeReader.chapterIndex];
-  try{const data=await api('/api/epub/bookmark/add',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id:activeReader.id,spine_index:activeReader.chapterIndex,fragment:activeReader.fragment||'',scroll_ratio:currentReaderScrollRatio(),label:chapter.title})});activeReader.bookmarks=data.bookmarks||[];renderReaderBookmarks();q('readerStatus').textContent='Bookmark saved locally.';}catch(error){q('readerStatus').textContent=error.message;}
-}
-async function removeReaderBookmark(bookmarkId){
-  if(!activeReader)return;try{const data=await api('/api/epub/bookmark/remove',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id:activeReader.id,bookmark_id:Number(bookmarkId)})});activeReader.bookmarks=data.bookmarks||[];renderReaderBookmarks();}catch(error){q('readerStatus').textContent=error.message;}
-}
-
-function confirmedLocalVoices(voices){
-  return [...(voices||[])].filter(voice=>voice&&voice.localService===true).sort((a,b)=>`${a.lang||''} ${a.name||''}`.localeCompare(`${b.lang||''} ${b.name||''}`));
-}
-function splitNarrationText(value,maxLength=620){
-  const text=String(value||'').replace(/\s+/g,' ').trim();if(!text)return [];
-  const chunks=[];let start=0;
-  while(start<text.length){let end=Math.min(text.length,start+maxLength);if(end<text.length){const floor=start+Math.floor(maxLength*.52);let cut=-1;for(let i=end;i>=floor;i--){if(/[.!?;:]\s/.test(text.slice(i-1,i+1))){cut=i;break}}if(cut<0){cut=text.lastIndexOf(' ',end)}if(cut>start)end=cut;}
-    const chunk=text.slice(start,end).trim();if(chunk)chunks.push({text:chunk,start:text.indexOf(chunk,start)});start=Math.max(end,start+1);while(text[start]===' ')start++;
-  }
-  return chunks;
-}
-function usefulImageDescription(image){
-  const alt=String(image.getAttribute('alt')||'').replace(/\s+/g,' ').trim();if(!alt||alt.length<8)return '';
-  if(/^(cover|image|photo|illustration|decorative|ornament|spacer|logo|icon)$/i.test(alt))return '';
-  if(/\.(jpe?g|png|gif|webp|svg)$/i.test(alt))return '';
-  return `Image description: ${alt}`;
-}
-function prepareNarrationChapter(doc){
-  stopNarration(false);narration.paragraphs=[];
-  const candidates=[...doc.querySelectorAll('h1,h2,h3,h4,h5,h6,p,li,figcaption,hr,img[alt]')];
-  for(const element of candidates){
-    if(element.closest('nav,header,footer,aside,[hidden],[aria-hidden="true"]'))continue;
-    const style=doc.defaultView.getComputedStyle(element);if(style.display==='none'||style.visibility==='hidden')continue;
-    let text=element.tagName==='HR'?'Scene break.':element.tagName==='IMG'?usefulImageDescription(element):String(element.textContent||'').replace(/\s+/g,' ').trim();
-    if(!text)continue;
-    const chunks=splitNarrationText(text);if(!chunks.length)continue;
-    const index=narration.paragraphs.length;element.classList.add('kayock-narration-unit');element.dataset.narrationIndex=String(index);element.tabIndex=0;element.title='Select this passage for Read This to Me';
-    element.addEventListener('click',event=>{if(event.target.closest('a'))return;selectNarrationParagraph(index);});
-    element.addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();selectNarrationParagraph(index);}});
-    narration.paragraphs.push({element,text,chunks});
-  }
-  const saved=Math.max(0,Math.min(narration.paragraphs.length-1,Number(activeReader?.narrationState?.paragraph_index||0)));
-  narration.paragraphIndex=Number.isFinite(saved)?saved:0;narration.chunkIndex=0;selectNarrationParagraph(narration.paragraphIndex,false);
-  setNarrationStatus('ready',narration.paragraphs.length?`Ready · ${narration.paragraphs.length} readable passages in this chapter.`:'No readable narration passages were found in this chapter.');
-}
-function selectNarrationParagraph(index,announce=true){
-  if(!narration.paragraphs.length)return;
-  const safe=Math.max(0,Math.min(narration.paragraphs.length-1,Number(index||0)));narration.selectedIndex=safe;
-  for(const item of narration.paragraphs)item.element.classList.remove('kayock-narration-selected');
-  narration.paragraphs[safe].element.classList.add('kayock-narration-selected');
-  if(announce)setNarrationStatus(narration.status,`Selected passage ${safe+1} of ${narration.paragraphs.length}. Press Read from Here or Play.`);
-}
-function clearNarrationHighlights(){
-  for(const item of narration.paragraphs)item.element.classList.remove('kayock-narration-active');
-  try{q('epubReaderFrame').contentWindow.getSelection()?.removeAllRanges();}catch(_error){}
-}
-function highlightNarrationParagraph(index){
-  clearNarrationHighlights();const item=narration.paragraphs[index];if(!item)return;item.element.classList.add('kayock-narration-active');selectNarrationParagraph(index,false);
-  const rect=item.element.getBoundingClientRect();const height=q('epubReaderFrame').contentWindow.innerHeight;
-  if(rect.top<35||rect.bottom>height-35){narrationIsDrivingScroll=true;item.element.scrollIntoView({behavior:'smooth',block:'center'});setTimeout(()=>{narrationIsDrivingScroll=false;},800);}
-}
-function highlightNarrationBoundary(element,start,length){
-  try{
-    const doc=element.ownerDocument;const walker=doc.createTreeWalker(element,NodeFilter.SHOW_TEXT);const nodes=[];let node,total=0;while(node=walker.nextNode()){nodes.push({node,start:total,end:total+node.nodeValue.length});total+=node.nodeValue.length;}
-    const from=Math.max(0,Number(start||0)),to=Math.min(total,from+Math.max(1,Number(length||1)));const first=nodes.find(entry=>from>=entry.start&&from<=entry.end);const last=[...nodes].reverse().find(entry=>to>=entry.start&&to<=entry.end)||first;if(!first||!last)return;
-    const range=doc.createRange();range.setStart(first.node,Math.max(0,Math.min(first.node.nodeValue.length,from-first.start)));range.setEnd(last.node,Math.max(0,Math.min(last.node.nodeValue.length,to-last.start)));const selection=doc.defaultView.getSelection();selection.removeAllRanges();selection.addRange(range);
-  }catch(_error){}
-}
-function setNarrationStatus(state,message=''){
-  narration.status=state;const labels={ready:'Ready',speaking:'Speaking',paused:'Paused',completed:'Completed',unavailable:'No local voice available',error:'Narration error'};q('narrationStatus').textContent=`${labels[state]||state}${message?` · ${message}`:''}`;
-  q('narrationPause').disabled=state!=='speaking';q('narrationResume').disabled=state!=='paused';q('narrationStop').disabled=!['speaking','paused'].includes(state);
-}
-function currentNarrationPreferences(){
-  const voice=localNarrationVoices.find(item=>item.voiceURI===q('narrationVoice').value)||null;
-  return {voice_name:voice?.name||'',voice_lang:voice?.lang||'',rate:Number(q('narrationRate').value||1),pitch:Number(q('narrationPitch').value||1),volume:Number(q('narrationVolume').value||1),auto_advance:Boolean(q('narrationAutoAdvance').checked)};
-}
-function scheduleNarrationStateSave(){clearTimeout(narrationSaveTimer);narrationSaveTimer=setTimeout(saveNarrationState,300);}
-async function saveNarrationState(){
-  if(!activeReader)return;const payload={id:activeReader.id,preferences:currentNarrationPreferences(),paragraph_index:Math.max(0,Number(narration.paragraphIndex||narration.selectedIndex||0))};
-  try{const data=await api('/api/epub/narration/state',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});activeReader.narrationState=data.narration_state;}catch(error){setNarrationStatus('error',error.message);}
-}
-function refreshLocalNarrationVoices(){
-  if(!('speechSynthesis' in window)){localNarrationVoices=[];}else{localNarrationVoices=confirmedLocalVoices(window.speechSynthesis.getVoices());}
-  const select=q('narrationVoice');const saved=activeReader?.narrationState?.preferences||{};const previous=select.value;
-  select.innerHTML=localNarrationVoices.length?localNarrationVoices.map(voice=>`<option value="${esc(voice.voiceURI)}">${esc(voice.name)} · ${esc(voice.lang||'language unknown')} · Local</option>`).join(''):'<option value="">No confirmed local voice available</option>';
-  let chosen=localNarrationVoices.find(voice=>voice.voiceURI===previous)||localNarrationVoices.find(voice=>voice.name===saved.voice_name&&(!saved.voice_lang||voice.lang===saved.voice_lang))||localNarrationVoices[0];if(chosen)select.value=chosen.voiceURI;
-  const ready=Boolean(chosen);q('narrationLocalBadge').textContent=ready?`${localNarrationVoices.length} local voice${localNarrationVoices.length===1?'':'s'}`:'No confirmed local voice';q('narrationLocalBadge').className=`pill ${ready?'ok':'warn'}`;q('narrationPlay').disabled=!ready;q('narrationTestVoice').disabled=!ready;
-  if(!ready)setNarrationStatus('unavailable','Kayock’s Study will not use an online-only voice. Install or enable a local Windows voice, then reopen the reader.');
-  else if(saved.voice_name&&!localNarrationVoices.some(voice=>voice.name===saved.voice_name&&(!saved.voice_lang||voice.lang===saved.voice_lang)))setNarrationStatus('ready',`Saved voice “${saved.voice_name}” is unavailable here. Using ${chosen.name} locally instead.`);
-}
-function syncNarrationControls(){
-  const p=activeReader?.narrationState?.preferences||{};q('narrationRate').value=Number(p.rate||1);q('narrationPitch').value=Number(p.pitch||1);q('narrationVolume').value=Number(p.volume??1);q('narrationAutoAdvance').checked=Boolean(p.auto_advance);refreshLocalNarrationVoices();
-}
-function selectedNarrationVoice(){return localNarrationVoices.find(voice=>voice.voiceURI===q('narrationVoice').value)||null;}
-function stopNarration(updateStatus=true){
-  narration.generation++;try{window.speechSynthesis.cancel();}catch(_error){}clearNarrationHighlights();narration.chunkIndex=0;if(updateStatus&&q('narrationStatus'))setNarrationStatus('ready','Stopped. Select a passage or press Play.');scheduleNarrationStateSave();
-}
-function pauseNarration(){if(narration.status==='speaking'){window.speechSynthesis.pause();setNarrationStatus('paused',`Passage ${narration.paragraphIndex+1} of ${narration.paragraphs.length}.`);}}
-function resumeNarration(){if(narration.status==='paused'){window.speechSynthesis.resume();setNarrationStatus('speaking',`Passage ${narration.paragraphIndex+1} of ${narration.paragraphs.length}.`);}}
-function startNarrationAt(index,chunkIndex=0){
-  const voice=selectedNarrationVoice();if(!voice){setNarrationStatus('unavailable','No confirmed local voice is selected.');return;}if(!narration.paragraphs.length){setNarrationStatus('completed','No readable passages are available.');return;}
-  narration.generation++;window.speechSynthesis.cancel();narration.paragraphIndex=Math.max(0,Math.min(narration.paragraphs.length-1,Number(index||0)));narration.chunkIndex=Math.max(0,Number(chunkIndex||0));speakNarrationChunk(narration.generation);
-}
-function speakNarrationChunk(generation){
-  if(generation!==narration.generation)return;const item=narration.paragraphs[narration.paragraphIndex];const chunk=item?.chunks[narration.chunkIndex];const voice=selectedNarrationVoice();if(!item||!chunk||!voice)return;
-  highlightNarrationParagraph(narration.paragraphIndex);const utterance=new SpeechSynthesisUtterance(chunk.text);utterance.voice=voice;utterance.lang=voice.lang||activeReader?.publication?.identity?.language||'';utterance.rate=Number(q('narrationRate').value||1);utterance.pitch=Number(q('narrationPitch').value||1);utterance.volume=Number(q('narrationVolume').value||1);
-  utterance.onstart=()=>{if(generation===narration.generation){setNarrationStatus('speaking',`Passage ${narration.paragraphIndex+1} of ${narration.paragraphs.length} · ${voice.name} · local/offline`);scheduleNarrationStateSave();}};
-  utterance.onpause=()=>{if(generation===narration.generation)setNarrationStatus('paused',`Passage ${narration.paragraphIndex+1} of ${narration.paragraphs.length}.`);};
-  utterance.onresume=()=>{if(generation===narration.generation)setNarrationStatus('speaking',`Passage ${narration.paragraphIndex+1} of ${narration.paragraphs.length}.`);};
-  utterance.onboundary=event=>{if(generation!==narration.generation)return;if(event.name==='sentence'||event.name==='word')highlightNarrationBoundary(item.element,chunk.start+Number(event.charIndex||0),Number(event.charLength||1));};
-  utterance.onerror=event=>{if(generation===narration.generation&&event.error!=='canceled'&&event.error!=='interrupted')setNarrationStatus('error',String(event.error||'The local voice stopped unexpectedly.'));};
-  utterance.onend=()=>{if(generation!==narration.generation)return;advanceNarrationAfterChunk(generation);};
-  window.speechSynthesis.speak(utterance);
-}
-async function advanceNarrationAfterChunk(generation){
-  const item=narration.paragraphs[narration.paragraphIndex];if(!item||generation!==narration.generation)return;
-  if(narration.chunkIndex+1<item.chunks.length){narration.chunkIndex++;speakNarrationChunk(generation);return;}
-  if(narration.paragraphIndex+1<narration.paragraphs.length){narration.paragraphIndex++;narration.chunkIndex=0;speakNarrationChunk(generation);return;}
-  if(q('narrationAutoAdvance').checked&&activeReader&&activeReader.chapterIndex<activeReader.publication.spine.length-1){narration.pendingStart=true;narration.paragraphIndex=0;narration.chunkIndex=0;await loadReaderChapter(activeReader.chapterIndex+1,0,'',true);return;}
-  clearNarrationHighlights();setNarrationStatus('completed','End of chapter. Automatic chapter advancement is off or the book is complete.');scheduleNarrationStateSave();
-}
-function playNarration(){if(narration.status==='paused'){resumeNarration();return;}startNarrationAt(Number.isFinite(narration.selectedIndex)?narration.selectedIndex:narration.paragraphIndex,0);}
-function readNarrationFromHere(){startNarrationAt(narration.selectedIndex,0);}
-function previousNarrationParagraph(){startNarrationAt(Math.max(0,narration.paragraphIndex-1),0);}
-function nextNarrationParagraph(){startNarrationAt(Math.min(narration.paragraphs.length-1,narration.paragraphIndex+1),0);}
-function restartNarrationChapter(){startNarrationAt(0,0);}
-function toggleNarrationPanel(){q('readerNarrationPanel').hidden=!q('readerNarrationPanel').hidden;if(!q('readerNarrationPanel').hidden){refreshLocalNarrationVoices();setNarrationStatus(localNarrationVoices.length?'ready':'unavailable',localNarrationVoices.length?'Select a passage or press Play.':'No confirmed local voice is available.');}}
-function testNarrationVoice(){
-  const voice=selectedNarrationVoice();if(!voice)return;stopNarration(false);const utterance=new SpeechSynthesisUtterance("Kayock’s Study local voice test. Read, research, preserve, discover.");utterance.voice=voice;utterance.lang=voice.lang;utterance.rate=Number(q('narrationRate').value||1);utterance.pitch=Number(q('narrationPitch').value||1);utterance.volume=Number(q('narrationVolume').value||1);utterance.onstart=()=>setNarrationStatus('speaking',`Testing ${voice.name} · local/offline`);utterance.onend=()=>setNarrationStatus('ready','Voice test complete.');window.speechSynthesis.speak(utterance);
-}
-async function rememberNarrationPosition(){await saveReaderState();setNarrationStatus(narration.status,'Ordinary reading position updated to the currently visible location.');}
 
 function setScanButtonsBusy(busy){
   for(const id of ['homeScanButton','advancedScanButton']){const button=q(id);if(button)button.disabled=Boolean(busy);}
@@ -5229,231 +3823,9 @@ async function moveDuplicateGroup(groupId,documentIds){
     await refreshAll();
   }catch(error){alert(error.message);}
 }
-q('readerBackButton').addEventListener('click',async()=>{stopNarration();await saveReaderState();hideReaderWorkspace();if(activeLibraryDetail)openLibraryItemDetail('epub',activeLibraryDetail.id);refreshLibraryHome().catch(()=>{});});
-q('readerControlsButton').addEventListener('click',()=>{q('readerControls').hidden=!q('readerControls').hidden;});
-q('readerBookmarkButton').addEventListener('click',addCurrentBookmark);
-q('readerPrevious').addEventListener('click',()=>{stopNarration();loadReaderChapter(activeReader.chapterIndex-1,0,'');});
-q('readerNext').addEventListener('click',()=>{stopNarration();loadReaderChapter(activeReader.chapterIndex+1,0,'');});
-q('readerStartBeginning').addEventListener('click',()=>{stopNarration();loadReaderChapter(0,0,'');});
-for(const id of ['readerTheme','readerFont','readerTextSize','readerLineSpacing','readerContentWidth'])q(id).addEventListener('input',()=>applyReaderPreferences(true));
-q('readerReadAloudButton').addEventListener('click',toggleNarrationPanel);
-q('narrationPlay').addEventListener('click',playNarration);q('narrationPause').addEventListener('click',pauseNarration);q('narrationResume').addEventListener('click',resumeNarration);q('narrationStop').addEventListener('click',()=>stopNarration());
-q('narrationPreviousParagraph').addEventListener('click',previousNarrationParagraph);q('narrationNextParagraph').addEventListener('click',nextNarrationParagraph);q('narrationRestartChapter').addEventListener('click',restartNarrationChapter);q('narrationReadFromHere').addEventListener('click',readNarrationFromHere);q('narrationRememberPosition').addEventListener('click',rememberNarrationPosition);q('narrationTestVoice').addEventListener('click',testNarrationVoice);
-for(const id of ['narrationVoice','narrationRate','narrationPitch','narrationVolume','narrationAutoAdvance'])q(id).addEventListener('input',scheduleNarrationStateSave);
-if('speechSynthesis' in window){window.speechSynthesis.addEventListener?.('voiceschanged',refreshLocalNarrationVoices);setTimeout(refreshLocalNarrationVoices,50);setTimeout(refreshLocalNarrationVoices,700);}
-
-function bytesLabel(value){
-  let n=Number(value||0);const units=['B','KB','MB','GB','TB'];let i=0;
-  while(n>=1024&&i<units.length-1){n/=1024;i++}
-  return `${n.toFixed(i?1:0)} ${units[i]}`;
-}
-function durationLabel(value){
-  const seconds=Number(value||0);if(!seconds)return '';
-  const hours=Math.floor(seconds/3600),minutes=Math.floor((seconds%3600)/60);
-  return hours?`${hours}h ${minutes}m`:`${minutes}m`;
-}
-async function previewExternalLocation(pathValue=''){
-  const path=String(pathValue||q('externalRootPath').value||'').trim();
-  if(!path){q('externalPreview').innerHTML='<div class="bad">Enter one exact folder path.</div>';return;}
-  q('externalPreviewButton').disabled=true;q('externalRegisterButton').disabled=true;
-  q('externalPreview').innerHTML='<div class="small">Inspecting only the approved folder… no hashes or file changes.</div>';
-  try{
-    const data=await api('/api/external-library/preview',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({path})});
-    externalPreviewData=data.preview;
-    q('externalRootPath').value=data.preview.path;
-    if(!q('externalRootLabel').value)q('externalRootLabel').value=data.preview.label_suggestion||'';
-    const counts=Object.entries(data.preview.counts_by_extension||{}).map(([ext,count])=>`<span class=pill>${esc(ext.toUpperCase())} · ${fmt(count)}</span>`).join('');
-    q('externalPreview').innerHTML=`<div class=ok><b>Read-only preview ready</b></div><div class=small>${fmt(data.preview.supported_files)} supported files · ${bytesLabel(data.preview.total_bytes)} · estimated hashing ${bytesLabel(data.preview.estimated_hash_bytes)}</div><div>${counts||'<span class=muted>No supported formats found.</span>'}</div><div class=path>${esc(data.preview.path)}</div><div class=small>${esc(data.preview.message)}</div>`;
-    q('externalRegisterButton').disabled=false;
-  }catch(error){externalPreviewData=null;q('externalPreview').innerHTML=`<div class=bad>${esc(error.message)}</div>`}
-  finally{q('externalPreviewButton').disabled=false;}
-}
-async function registerExternalLocation(){
-  if(!externalPreviewData){await previewExternalLocation();if(!externalPreviewData)return;}
-  q('externalRegisterButton').disabled=true;
-  try{
-    await api('/api/external-library/register',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({path:q('externalRootPath').value,label:q('externalRootLabel').value})});
-    q('externalPreview').innerHTML='<div class=ok><b>Location registered.</b> Start its read-only catalog scan from Registered Locations.</div>';
-    externalPreviewData=null;q('externalRootPath').value='';q('externalRootLabel').value='';
-    await refreshExternalLocations();
-  }catch(error){alert(error.message);q('externalRegisterButton').disabled=false;}
-}
-function externalRootMarkup(root){
-  const state=root.availability==='online'?'ok':'warn';
-  const classes=['locationroot'];if(root.availability!=='online')classes.push('offline');if(!root.enabled)classes.push('disabled');
-  const roles=root.roles||{};
-  return `<article class="${classes.join(' ')}"><div class=titleline><div><b>${esc(root.label)}</b><div class=path>${esc(root.path)}</div></div><span class="pill ${state}">${esc(root.availability.toUpperCase())}${root.enabled?'':' · DISABLED'}</span></div><div class=locationstats><div><b>${fmt(root.catalog_files)}</b><span class=small>Catalog files</span></div><div><b>${fmt(roles.read||0)}</b><span class=small>Read</span></div><div><b>${fmt(roles.listen||0)}</b><span class=small>Listen</span></div><div><b>${fmt(roles.companion||0)}</b><span class=small>Maps & extras</span></div></div><div class=small>${root.last_scan_at?`Last scan ${esc(root.last_scan_at)}`:'Not scanned yet'}${root.last_error?` · ${esc(root.last_error)}`:''}</div><div class=controls><button type=button data-ext-root-action=preview data-root-id=${root.id}>Preview</button><button type=button data-ext-root-action=scan data-root-id=${root.id} ${(!root.enabled||root.availability!=='online')?'disabled':''}>Scan Catalog</button><button type=button class=secondary data-ext-root-action=toggle data-root-id=${root.id}>${root.enabled?'Disable':'Enable'}</button><button type=button class=danger data-ext-root-action=remove data-root-id=${root.id}>Remove from Catalog</button></div></article>`;
-}
-async function refreshExternalLocations(){
-  try{
-    const data=await api('/api/external-library/roots');externalRoots=data.roots||[];
-    q('externalRootList').innerHTML=externalRoots.length?externalRoots.map(externalRootMarkup).join(''):'<div class=empty>No external library locations are registered. FOXAI will not crawl drives on its own.</div>';
-    await refreshExternalScanStatus();
-  }catch(error){q('externalRootList').innerHTML=`<div class="empty bad">${esc(error.message)}</div>`;}
-}
-async function externalRootAction(action,id){
-  const root=externalRoots.find(item=>Number(item.id)===Number(id));if(!root)return;
-  try{
-    if(action==='preview'){q('externalRootPath').value=root.path;q('externalRootLabel').value=root.label;await previewExternalLocation(root.path);return;}
-    if(action==='scan'){await api('/api/external-library/scan',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id})});await refreshExternalScanStatus();return;}
-    if(action==='toggle'){await api('/api/external-library/root/enable',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id,enabled:!root.enabled})});await refreshExternalLocations();return;}
-    if(action==='remove'){
-      if(!confirm(`Remove ${root.label} from the FOXAI catalog only? Original files will remain untouched.`))return;
-      await api('/api/external-library/root/remove',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id})});
-      await Promise.all([refreshExternalLocations(),refreshExternalWorks()]);
-    }
-  }catch(error){alert(error.message);}
-}
-async function refreshExternalScanStatus(){
-  try{
-    const data=await api('/api/external-library/scan-status');
-    q('externalCancelScan').disabled=!data.running;
-    if(data.running){
-      const percent=data.total?Math.min(100,Math.round(100*data.scanned/data.total)):0;
-      q('externalScanStatus').innerHTML=`<b>Scanning ${esc(data.label||'approved location')}</b><div class=progress><div style="width:${percent}%"></div></div><div class=small>${fmt(data.scanned)} / ${fmt(data.total)} files · hashed ${bytesLabel(data.hashed_bytes)}${data.current_file?` · ${esc(data.current_file)}`:''}</div>`;
-    }else if(data.last_error){q('externalScanStatus').innerHTML=`<div class=bad><b>Scan stopped:</b> ${esc(data.last_error)}</div>`;}
-    else if(data.last_result&&Object.keys(data.last_result).length){
-      const result=data.last_result;q('externalScanStatus').innerHTML=`<div class=ok><b>${esc(result.message||'Scan complete.')}</b></div><div class=small>${fmt(result.supported_files)} files · ${fmt(result.changed_or_new)} new/changed · ${fmt(result.unchanged)} unchanged · ${fmt(result.catalog_entries_removed_for_missing_files)} missing entries removed from catalog</div>`;
-    }else q('externalScanStatus').innerHTML='<div class=small>No external-library scan is running.</div>';
-    if(externalScanWasRunning&&!data.running){await Promise.all([refreshExternalLocations(),refreshExternalWorks()]);}
-    externalScanWasRunning=Boolean(data.running);
-  }catch(error){q('externalScanStatus').innerHTML=`<div class=bad>${esc(error.message)}</div>`;}
-}
-async function cancelExternalScan(){try{await api('/api/external-library/scan/cancel',{method:'POST'});await refreshExternalScanStatus()}catch(error){alert(error.message)}}
-async function refreshExternalWorks(){
-  try{const data=await api('/api/external-library/works');externalWorks=data.works||[];renderExternalWorks();}
-  catch(error){q('externalWorkGrid').innerHTML=`<div class="empty bad">${esc(error.message)}</div>`;}
-}
-function renderExternalWorks(){
-  const query=String(q('externalWorkQuery')?.value||'').trim().toLowerCase();
-  const items=externalWorks.filter(work=>!query||[work.title,work.author,work.series].some(value=>String(value||'').toLowerCase().includes(query)));
-  q('externalWorkGrid').innerHTML=items.length?items.map(work=>`<article class=workcard role=button tabindex=0 data-ext-work-id="${work.id}" aria-label=${JSON.stringify(`View ${work.title}`)}><div class=eyebrow>${esc(work.series||'Unified title')}</div><h3>${esc(work.title)}</h3><div class=small>${esc(work.author||'Author not identified')}</div><div class=workcounts><span class=pill>Read ${fmt(work.read_count)}</span><span class=pill>Listen ${fmt(work.listen_count)}</span><span class=pill>Extras ${fmt(work.companion_count)}</span><span class="pill ${work.online_count?'ok':'warn'}">${fmt(work.online_count)} online</span>${work.review_count?`<span class="pill warn">${fmt(work.review_count)} review</span>`:''}</div><button type=button class="secondary viewtitle" data-ext-view-title="${work.id}">View Title</button></article>`).join(''):'<div class=empty>No unified titles match this view.</div>';
-}
-function externalActionButtons(item,section){
-  if(item.availability!=='online')return '<button type=button disabled>Offline</button>';
-  const ext=String(item.extension||'').toLowerCase();
-  if(section==='listen')return `<button type=button data-audio-play-item="${item.id}">Listen in FOXAI</button><button type=button class=secondary data-ext-open-item="${item.id}">Open Externally</button>`;
-  if(ext==='.pdf'||['.jpg','.jpeg','.png','.webp','.tif','.tiff','.bmp'].includes(ext))return `<button type=button data-ext-view-file="${item.id}">Open in New Window</button><button type=button class=secondary data-ext-open-item="${item.id}">Open Externally</button>`;
-  if(ext==='.epub')return `<button type=button data-ext-study-route="${item.id}">Read in Kayock's Study</button><button type=button class=secondary data-ext-open-item="${item.id}">Open Externally</button>`;
-  return `<button type=button data-ext-open-item="${item.id}">Open Original</button>`;
-}
-function externalItemMarkup(item,section='locations'){
-  const allOptions=externalWorks.map(work=>`<option value="${work.id}" ${Number(work.id)===Number(item.work_id)?'selected':''}>${esc(work.title)}${work.author?` — ${esc(work.author)}`:''}</option>`).join('');
-  const duration=item.duration_seconds?` · ${formatDuration(item.duration_seconds)}`:'';
-  const duplicate=item.exact_duplicate_count>1?`<span class="pill warn">${item.exact_duplicate_count} exact copies</span>`:'';
-  return `<div class=externalitem data-external-item="${item.id}"><div><div><b>${esc(item.filename)}</b> <span class=pill>${esc(item.extension.toUpperCase())}</span> <span class="confidence-${esc(item.match_confidence)}">${esc(item.match_confidence.replace('_',' '))}</span> ${duplicate}</div><div class=small>${esc(item.root_label)} · ${bytesLabel(item.size_bytes)}${duration}</div><div class=externalpath>${esc(item.exact_path||((item.root_path||'')+'\\'+item.relative_path))}</div><div class=small>${esc(item.match_reason)}</div></div><div><div class=controls>${externalActionButtons(item,section)}</div><div class=relationconfirm><label class=small>Relationship<select id="externalAssign-${item.id}">${allOptions}</select></label><div class=controls><button type=button class=secondary data-ext-confirm-item="${item.id}">Confirm Here</button><button type=button class=secondary data-ext-assign-item="${item.id}">Assign</button><button type=button class=secondary data-ext-split-item="${item.id}">Split into New Title</button></div></div></div></div>`;
-}
-function audiobookDetailMarkup(audiobook){
-  if(!audiobook||!audiobook.available)return '<div class=small>No audiobook edition is cataloged.</div>';
-  const p=audiobook.progress||{};
-  const change=audiobook.playlist_changed_since_saved_position?'<div class=detailnotice>The audiobook part list changed since the saved position. FOXAI kept the matching saved part when possible.</div>':'';
-  const queue=audiobook.queue.map((item,index)=>`<div class="audiobookpart ${Number(p.item_id)===Number(item.id)?'active':''}" data-audio-part-id="${item.id}"><div class=partnumber>${index+1}</div><div><b>${esc(item.filename)}</b><div class=small>${esc(item.root_label)}${item.part_completed?' · completed':''}</div></div><div><div class=controls><button type=button data-audio-play-index="${index}">Play</button><button type=button class=secondary data-ext-open-item="${item.id}">External</button></div><div class=partorder><button type=button class=secondary data-audio-order-up="${index}" aria-label="Move part up">↑</button><button type=button class=secondary data-audio-order-down="${index}" aria-label="Move part down">↓</button></div></div></div>`).join('');
-  return `<div class=audiobooksummary><div class=titleline><div><b>${fmt(audiobook.part_count)}-part audiobook</b><div class=small>Order: ${esc(audiobook.ordering_method)}${audiobook.narrator?` · Narrator: ${esc(audiobook.narrator)}`:''}</div><div class=small>Saved at Part ${fmt(p.part_number||1)} · ${formatDuration(p.position_seconds||0)} · ${Number(p.playback_speed||1)}×</div></div><div class=controls><button type=button data-audio-continue>Continue Listening</button><button type=button class=secondary data-audio-start-beginning>Start from Beginning</button><button type=button class=secondary data-audio-save-order>Save Part Order</button></div></div>${change}<div id=externalAudiobookQueue class=audiobookqueue>${queue}</div></div>`;
-}
-function renderExternalTitle(work){
-  const section=(label,key,empty)=>`<section class=worksection><h3>${label}</h3>${(work.sections[key]||[]).map(item=>externalItemMarkup(item,key)).join('')||`<div class=small>${empty}</div>`}</section>`;
-  const audiobook=work.audiobook||{};
-  q('externalTitleBody').innerHTML=`<div class=externaldetailhead><div><div class=eyebrow>${esc(work.series||'Unified library title')}</div><h2>${esc(work.title)}</h2><div class=muted>${esc(work.author||'Author not identified')}${audiobook.narrator?` · Narrated by ${esc(audiobook.narrator)}`:''}</div><div class=externaldetailmeta><span class=pill>${fmt(work.items.length)} catalog files</span><span class=pill>${fmt((work.sections.listen||[]).length)} listen</span><span class=pill>${fmt((work.sections.read||[]).length)} read</span><span class=pill>${fmt((work.sections.companion||[]).length)} extras</span></div></div></div><section class=worksection><h3>Listen</h3>${audiobookDetailMarkup(audiobook)}</section>${section('Read','read','No readable edition is cataloged.')}${section('Maps & Extras','companion','No companion files are cataloged.')}<section class=worksection><h3>File Locations and Editions</h3>${(work.sections.locations||[]).map(item=>externalItemMarkup(item,'locations')).join('')}</section>`;
-}
-async function openExternalWork(id){
-  try{
-    if(q('externalTitleWorkspace').hidden){externalReturnState={query:String(q('externalWorkQuery').value||''),scrollY:window.scrollY};}
-    const data=await api(`/api/external-library/work?id=${encodeURIComponent(id)}`);activeExternalWork=data.work;
-    q('externalLocationsMain').hidden=true;q('externalTitleWorkspace').hidden=false;renderExternalTitle(activeExternalWork);q('externalTitleWorkspace').scrollIntoView({behavior:'smooth',block:'start'});
-  }catch(error){q('externalWorkGrid').insertAdjacentHTML('afterbegin',`<div class="empty bad">${esc(error.message)}</div>`);}
-}
-function backToExternalWorks(){
-  q('externalTitleWorkspace').hidden=true;q('externalLocationsMain').hidden=false;activeExternalWork=null;
-  q('externalWorkQuery').value=externalReturnState.query||'';renderExternalWorks();setTimeout(()=>window.scrollTo({top:Number(externalReturnState.scrollY||0),behavior:'auto'}),20);
-}
-async function openExternalItem(id){try{const data=await api('/api/external-library/open',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id})});setPlayerStatus(data.message||'Opened externally.')}catch(error){setPlayerStatus(error.message,true)}}
-function viewExternalFile(id){window.open(`/external-library/file?id=${encodeURIComponent(id)}`,'_blank','noopener');}
-async function routeExternalStudyItem(id){
-  try{const data=await api('/api/external-library/route',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id})});if(data.internal_kind==='epub'){openEpubReader(Number(data.internal_id),'library');return;}if(data.url){window.open(data.url,'_blank','noopener');return;}await openExternalItem(id);}catch(error){setPlayerStatus(error.message,true)}
-}
-async function assignExternalItem(id,split=false,confirmHere=false){
-  try{
-    if(!window.confirm(split?'Split this file into a new logical title?':'Change this relationship in the local catalog only?'))return;
-    const workId=confirmHere?Number(activeExternalWork.id):(split?null:Number(q(`externalAssign-${id}`).value||0));
-    const data=await api('/api/external-library/assign',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({item_id:id,work_id:workId,split})});
-    await refreshExternalWorks();await openExternalWork(data.work_id);
-  }catch(error){setPlayerStatus(error.message,true)}
-}
-function formatDuration(seconds){const total=Math.max(0,Math.floor(Number(seconds)||0));const h=Math.floor(total/3600),m=Math.floor((total%3600)/60),s=total%60;return h?`${h}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`:`${m}:${String(s).padStart(2,'0')}`;}
-function audioElement(){return q('audiobookAudio')}
-function setPlayerStatus(message,error=false){const node=q('audiobookPlayerStatus');if(node){node.textContent=message;node.classList.toggle('bad',Boolean(error));}}
-function activeAudioItem(){return audiobookPlayer.queue[audiobookPlayer.currentIndex]||null;}
-function updatePlayerDisplay(){
-  const audio=audioElement(),item=activeAudioItem(),work=audiobookPlayer.work;if(!item||!work)return;
-  q('audiobookPlayerTitle').textContent=work.title;q('audiobookPlayerPart').textContent=`Part ${audiobookPlayer.currentIndex+1} of ${audiobookPlayer.queue.length} · ${item.filename}`;
-  const duration=Number.isFinite(audio.duration)?audio.duration:Number(item.duration_seconds||0);q('audiobookSeek').max=duration||0;q('audiobookSeek').value=Math.min(Number(audio.currentTime||0),duration||0);q('audiobookElapsed').textContent=formatDuration(audio.currentTime||0);q('audiobookRemaining').textContent='−'+formatDuration(Math.max(0,(duration||0)-(audio.currentTime||0)));
-  const partFraction=duration?Math.min(1,(audio.currentTime||0)/duration):0;const overall=(audiobookPlayer.currentIndex+partFraction)/Math.max(1,audiobookPlayer.queue.length);q('audiobookBookProgress').style.width=(overall*100).toFixed(2)+'%';q('audiobookPlayPause').textContent=audio.paused?'Play':'Pause';
-  document.querySelectorAll('[data-audio-part-id]').forEach(node=>node.classList.toggle('active',Number(node.dataset.audioPartId)===Number(item.id)));
-}
-async function acquireAudioLease(){
-  const data=await api('/api/external-library/playback/acquire',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({work_id:audiobookPlayer.workId,owner_token:audiobookPlayer.ownerToken})});
-  if(!data.ok)throw new Error(data.message||'Another FOXAI window owns audiobook playback.');
-  clearInterval(audiobookPlayer.leaseTimer);audiobookPlayer.leaseTimer=setInterval(()=>api('/api/external-library/playback/heartbeat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({work_id:audiobookPlayer.workId,owner_token:audiobookPlayer.ownerToken})}).catch(()=>{}),5000);
-}
-async function releaseAudioLease(){clearInterval(audiobookPlayer.leaseTimer);audiobookPlayer.leaseTimer=null;try{await api('/api/external-library/playback/release',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({owner_token:audiobookPlayer.ownerToken})})}catch(_error){}}
-async function loadAudiobook(work,index,position=0,{autoplay=false,startWithoutSaving=false}={}){
-  const audiobook=work.audiobook;if(!audiobook||!audiobook.queue.length)return;
-  audiobookPlayer.workId=work.id;audiobookPlayer.work=work;audiobookPlayer.queue=audiobook.queue;audiobookPlayer.currentIndex=Math.max(0,Math.min(Number(index)||0,audiobook.queue.length-1));audiobookPlayer.startWithoutSaving=Boolean(startWithoutSaving);
-  const item=activeAudioItem(),audio=audioElement();q('audiobookPlayerDock').hidden=false;q('audiobookSpeed').value=String(audiobook.progress?.playback_speed||1);audio.playbackRate=Number(q('audiobookSpeed').value);audio.src=item.stream_url;audio.load();
-  audio.addEventListener('loadedmetadata',()=>{try{audio.currentTime=Math.min(Math.max(0,Number(position)||0),Number.isFinite(audio.duration)?Math.max(0,audio.duration-.1):Number(position)||0)}catch(_error){}updatePlayerDisplay();if(autoplay)playAudiobook().catch(error=>setPlayerStatus(error.message,true));},{once:true});
-  setPlayerStatus(`Loaded Part ${audiobookPlayer.currentIndex+1} of ${audiobook.queue.length}. Playback will not start until you press Play.`);updatePlayerDisplay();
-}
-async function continueAudiobook(){if(!activeExternalWork)return;const p=activeExternalWork.audiobook.progress||{};await loadAudiobook(activeExternalWork,Number(p.part_index||0),Number(p.position_seconds||0));}
-async function startAudiobookFromBeginning(){const work=activeExternalWork||audiobookPlayer.work;if(!work)return;await loadAudiobook(work,0,0,{startWithoutSaving:true});setPlayerStatus('Started from the beginning without replacing your later saved position.');}
-async function playAudiobook(){await acquireAudioLease();try{await audioElement().play();setPlayerStatus('Playing inside Kayock’s Study.')}catch(error){await releaseAudioLease();throw error;}}
-async function toggleAudiobookPlayback(){const audio=audioElement();if(!activeAudioItem())return;if(audio.paused)await playAudiobook().catch(error=>setPlayerStatus(error.message,true));else{audio.pause();await saveAudiobookProgress(false);await releaseAudioLease();}}
-async function stopAudiobookPlayback(){const audio=audioElement();audio.pause();await saveAudiobookProgress(false);audio.currentTime=0;await releaseAudioLease();setPlayerStatus('Stopped. Your forward listening progress remains saved.');updatePlayerDisplay();}
-async function closeAudiobookPlayer(){audioElement().pause();await saveAudiobookProgress(false);await releaseAudioLease();q('audiobookPlayerDock').hidden=true;}
-function playerSkip(amount){const audio=audioElement();audio.currentTime=Math.max(0,Math.min(Number.isFinite(audio.duration)?audio.duration:10**9,(audio.currentTime||0)+Number(amount)));updatePlayerDisplay();}
-async function playerPreviousPart(){if(audiobookPlayer.currentIndex<=0)return;await saveAudiobookProgress(false);await loadAudiobook(audiobookPlayer.work,audiobookPlayer.currentIndex-1,0);}
-async function playerNextPart(){if(audiobookPlayer.currentIndex>=audiobookPlayer.queue.length-1)return;await saveAudiobookProgress(false);await loadAudiobook(audiobookPlayer.work,audiobookPlayer.currentIndex+1,0);}
-async function saveAudiobookProgress(force=false,completedItemId=null){
-  const item=activeAudioItem();if(!item||!audiobookPlayer.workId)return null;const audio=audioElement();
-  const data=await api('/api/external-library/audiobook/progress',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({work_id:audiobookPlayer.workId,item_id:item.id,position_seconds:audio.currentTime||0,playback_speed:audio.playbackRate||1,force:Boolean(force),completed_item_id:completedItemId})});
-  if(data.audiobook&&audiobookPlayer.work){audiobookPlayer.work.audiobook=data.audiobook;if(activeExternalWork&&Number(activeExternalWork.id)===Number(audiobookPlayer.workId)){activeExternalWork.audiobook=data.audiobook;}}
-  audiobookPlayer.lastAutoSave=Date.now();return data;
-}
-async function rememberAudiobookPosition(){audiobookPlayer.startWithoutSaving=false;await saveAudiobookProgress(true);setPlayerStatus('This exact audiobook part and second are now your remembered position.');}
-async function playAudioIndex(index){if(!activeExternalWork)return;await loadAudiobook(activeExternalWork,Number(index),0);await playAudiobook().catch(error=>setPlayerStatus(error.message,true));}
-async function playAudioItem(id){if(!activeExternalWork)return;const index=activeExternalWork.audiobook.queue.findIndex(item=>Number(item.id)===Number(id));if(index>=0)await playAudioIndex(index);}
-async function openCurrentAudioExternally(){const item=activeAudioItem();if(item)await openExternalItem(item.id);}
-function reorderAudioPart(index,direction){if(!activeExternalWork)return;const queue=activeExternalWork.audiobook.queue;const target=index+direction;if(target<0||target>=queue.length)return;[queue[index],queue[target]]=[queue[target],queue[index]];queue.forEach((item,i)=>{item.part_index=i;item.part_number=i+1});renderExternalTitle(activeExternalWork);}
-async function saveAudioOrder(){if(!activeExternalWork)return;const ids=activeExternalWork.audiobook.queue.map(item=>item.id);const data=await api('/api/external-library/audiobook/order',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({work_id:activeExternalWork.id,item_ids:ids})});activeExternalWork.audiobook=data.audiobook;renderExternalTitle(activeExternalWork);setPlayerStatus(data.message||'Part order saved.');}
-const audio=audioElement();
-audio.addEventListener('timeupdate',()=>{updatePlayerDisplay();if(!audio.paused&&!audiobookPlayer.startWithoutSaving&&Date.now()-audiobookPlayer.lastAutoSave>5000)saveAudiobookProgress(false).catch(()=>{});});
-audio.addEventListener('play',updatePlayerDisplay);audio.addEventListener('pause',updatePlayerDisplay);audio.addEventListener('error',()=>setPlayerStatus('This installed Chromium audio engine could not play the selected file. Use Open Externally for that format.',true));
-audio.addEventListener('ended',async()=>{const finished=activeAudioItem();if(!finished)return;if(audiobookPlayer.currentIndex<audiobookPlayer.queue.length-1){const next=audiobookPlayer.currentIndex+1;await loadAudiobook(audiobookPlayer.work,next,0);await saveAudiobookProgress(false,finished.id);await playAudiobook().catch(error=>setPlayerStatus(error.message,true));}else{await saveAudiobookProgress(true,finished.id);await releaseAudioLease();setPlayerStatus('Audiobook completed.');}});
-q('audiobookSeek').addEventListener('input',event=>{audio.currentTime=Number(event.target.value||0);updatePlayerDisplay();});q('audiobookSpeed').addEventListener('change',event=>{audio.playbackRate=Number(event.target.value||1);if(!audiobookPlayer.startWithoutSaving)saveAudiobookProgress(false).catch(()=>{});});q('audiobookVolume').addEventListener('input',event=>{audio.volume=Number(event.target.value||1);});
-window.addEventListener('beforeunload',()=>{if(activeAudioItem())fetch('/api/external-library/playback/release',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({owner_token:audiobookPlayer.ownerToken}),keepalive:true}).catch(()=>{});});
-
-
 document.addEventListener('click',event=>{
-  const toc=event.target.closest('[data-reader-toc-index]');if(toc){loadReaderChapter(Number(toc.dataset.readerTocIndex),0,toc.dataset.readerTocFragment||'');return;}
-  const bookmark=event.target.closest('[data-reader-bookmark-id]');if(bookmark){loadReaderChapter(Number(bookmark.dataset.readerBookmarkIndex),Number(bookmark.dataset.readerBookmarkRatio||0),bookmark.dataset.readerBookmarkFragment||'');return;}
-  const removeBookmark=event.target.closest('[data-reader-bookmark-remove]');if(removeBookmark){removeReaderBookmark(Number(removeBookmark.dataset.readerBookmarkRemove));return;}
   const libraryItem=event.target.closest('[data-library-kind][data-library-id]');
   if(libraryItem){openLibraryItemDetail(libraryItem.dataset.libraryKind,Number(libraryItem.dataset.libraryId));return;}
-  const externalRoot=event.target.closest('[data-ext-root-action]');if(externalRoot){externalRootAction(externalRoot.dataset.extRootAction,Number(externalRoot.dataset.rootId));return;}
-  const externalView=event.target.closest('[data-ext-view-title]');if(externalView){event.stopPropagation();openExternalWork(Number(externalView.dataset.extViewTitle));return;}
-  const externalWork=event.target.closest('[data-ext-work-id]');if(externalWork){openExternalWork(Number(externalWork.dataset.extWorkId));return;}
-  const audioPlayIndex=event.target.closest('[data-audio-play-index]');if(audioPlayIndex){playAudioIndex(Number(audioPlayIndex.dataset.audioPlayIndex));return;}
-  const audioPlayItem=event.target.closest('[data-audio-play-item]');if(audioPlayItem){playAudioItem(Number(audioPlayItem.dataset.audioPlayItem));return;}
-  if(event.target.closest('[data-audio-continue]')){continueAudiobook();return;}
-  if(event.target.closest('[data-audio-start-beginning]')){startAudiobookFromBeginning();return;}
-  if(event.target.closest('[data-audio-save-order]')){saveAudioOrder();return;}
-  const orderUp=event.target.closest('[data-audio-order-up]');if(orderUp){reorderAudioPart(Number(orderUp.dataset.audioOrderUp),-1);return;}
-  const orderDown=event.target.closest('[data-audio-order-down]');if(orderDown){reorderAudioPart(Number(orderDown.dataset.audioOrderDown),1);return;}
-  const externalViewFile=event.target.closest('[data-ext-view-file]');if(externalViewFile){viewExternalFile(Number(externalViewFile.dataset.extViewFile));return;}
-  const studyRoute=event.target.closest('[data-ext-study-route]');if(studyRoute){routeExternalStudyItem(Number(studyRoute.dataset.extStudyRoute));return;}
-  const externalOpen=event.target.closest('[data-ext-open-item]');if(externalOpen){openExternalItem(Number(externalOpen.dataset.extOpenItem));return;}
-  const externalConfirm=event.target.closest('[data-ext-confirm-item]');if(externalConfirm){assignExternalItem(Number(externalConfirm.dataset.extConfirmItem),false,true);return;}
-  const externalAssign=event.target.closest('[data-ext-assign-item]');if(externalAssign){assignExternalItem(Number(externalAssign.dataset.extAssignItem),false,false);return;}
-  const externalSplit=event.target.closest('[data-ext-split-item]');if(externalSplit){assignExternalItem(Number(externalSplit.dataset.extSplitItem),true,false);return;}
   const scanAction=event.target.closest('[data-action="start-index"]');
   if(scanAction){startIndex();return;}
   const rating=event.target.closest('[data-rating-value]');
@@ -5461,10 +3833,8 @@ document.addEventListener('click',event=>{
   const detailAction=event.target.closest('[data-detail-action]');
   if(detailAction){handleDetailAction(detailAction.dataset.detailAction);}
 });
-document.addEventListener('keydown',event=>{const card=event.target.closest('[data-ext-work-id]');if(card&&(event.key==='Enter'||event.key===' ')){event.preventDefault();openExternalWork(Number(card.dataset.extWorkId));}});
-refreshAll().then(()=>{const room=new URLSearchParams(location.search).get('room');if(room==='research'){showAdvancedTools('researchDesk')}else if(room==='locations'){showLibraryLocations()}else{showLibraryHome()}}).catch(error=>{q('progressText').textContent=error.message;q('libraryBrowser').innerHTML=`<div class="libraryempty bad">${esc(error.message)}</div>`;});
+refreshAll().then(()=>{const room=new URLSearchParams(location.search).get('room');if(room==='research'){showAdvancedTools('researchDesk')}else{showLibraryHome()}}).catch(error=>{q('progressText').textContent=error.message;q('libraryBrowser').innerHTML=`<div class="libraryempty bad">${esc(error.message)}</div>`;});
 setInterval(refreshModelStatus,2500);
-setInterval(()=>{if(!q('libraryLocationsWorkspace').hidden)refreshExternalScanStatus();},1000);
 document.addEventListener('visibilitychange',()=>{
   if(!document.hidden)refreshModelStatus();
 });
@@ -5474,42 +3844,8 @@ document.addEventListener('visibilitychange',()=>{
 """
 
 
-def external_catalog_route(paths: AppPaths, item_id: int) -> dict:
-    base = catalog_item_open_route(paths, int(item_id))
-    target = resolve_catalog_item_path(paths, int(item_id))
-    extension = target.suffix.casefold()
-    if extension == ".epub" and epub_database_path(paths).is_file():
-        conn = connect_epub_db(paths)
-        try:
-            row = conn.execute("SELECT id,status,encrypted FROM ebooks WHERE path=?", (str(target),)).fetchone()
-        finally:
-            conn.close()
-        if row and str(row["status"] or "") == "ready" and not bool(row["encrypted"]):
-            base.update({"internal_kind": "epub", "internal_id": int(row["id"]), "route": "read_in_study"})
-    elif extension == ".pdf" and paths.database.is_file():
-        conn = connect_db(paths)
-        try:
-            row = conn.execute("SELECT id FROM documents WHERE path=?", (str(target),)).fetchone()
-        finally:
-            conn.close()
-        if row:
-            base.update({"internal_kind": "pdf", "internal_id": int(row["id"]), "url": f"/pdf?id={int(row['id'])}", "route": "view_in_study"})
-    return base
-
-
-def external_media_type(path: Path) -> str:
-    mapping = {
-        ".mp3": "audio/mpeg", ".m4b": "audio/mp4", ".flac": "audio/flac",
-        ".ogg": "audio/ogg", ".wav": "audio/wav", ".pdf": "application/pdf",
-        ".jpg": "image/jpeg", ".jpeg": "image/jpeg", ".png": "image/png",
-        ".webp": "image/webp", ".tif": "image/tiff", ".tiff": "image/tiff",
-        ".bmp": "image/bmp",
-    }
-    return mapping.get(path.suffix.casefold(), "application/octet-stream")
-
-
 class StudyHandler(BaseHTTPRequestHandler):
-    server_version = "KayocksStudy/2C.1.1"
+    server_version = "KayocksStudy/2B.1.1"
 
     @property
     def paths(self) -> AppPaths:
@@ -5540,60 +3876,6 @@ class StudyHandler(BaseHTTPRequestHandler):
             raise ValueError("JSON object required.")
         return payload
 
-    def serve_catalog_file(self, item_id: int, *, audio_only: bool = False, head_only: bool = False) -> None:
-        try:
-            if audio_only:
-                target, _row = resolve_audio_stream_item(self.paths, int(item_id))
-            else:
-                target = resolve_catalog_item_path(self.paths, int(item_id))
-                if target.suffix.casefold() not in {".pdf",".jpg",".jpeg",".png",".webp",".tif",".tiff",".bmp"}:
-                    raise PermissionError("This file type is not available through the inline viewer endpoint.")
-            size = int(target.stat().st_size)
-            start, end = 0, max(0, size - 1)
-            status = 200
-            raw_range = str(self.headers.get("Range") or "").strip()
-            if raw_range:
-                match = re.fullmatch(r"bytes=(\d*)-(\d*)", raw_range)
-                if not match:
-                    self.send_response(416);self.send_header("Content-Range", f"bytes */{size}");self.end_headers();return
-                first, last = match.groups()
-                if not first and not last:
-                    self.send_response(416);self.send_header("Content-Range", f"bytes */{size}");self.end_headers();return
-                if first:
-                    start = int(first);end = int(last) if last else size - 1
-                else:
-                    suffix = int(last);start = max(0, size - suffix);end = size - 1
-                if start < 0 or start >= size or end < start:
-                    self.send_response(416);self.send_header("Content-Range", f"bytes */{size}");self.end_headers();return
-                end = min(end, size - 1);status = 206
-            length = max(0, end - start + 1)
-            self.send_response(status)
-            self.send_header("Content-Type", external_media_type(target))
-            self.send_header("Content-Length", str(length))
-            self.send_header("Accept-Ranges", "bytes")
-            self.send_header("Cache-Control", "private, no-store")
-            self.send_header("X-Content-Type-Options", "nosniff")
-            if status == 206:self.send_header("Content-Range", f"bytes {start}-{end}/{size}")
-            self.send_header("Content-Disposition", "inline; filename*=UTF-8''" + quote(target.name))
-            self.end_headers()
-            if head_only:return
-            with target.open("rb") as handle:
-                handle.seek(start);remaining = length
-                while remaining > 0:
-                    block = handle.read(min(1024 * 1024, remaining))
-                    if not block:break
-                    self.wfile.write(block);remaining -= len(block)
-        except (TypeError, ValueError, PermissionError, FileNotFoundError, OSError) as exc:
-            self.send_error(403, str(exc))
-
-    def do_HEAD(self) -> None:
-        parsed = urlparse(self.path);query = parse_qs(parsed.query)
-        if parsed.path in {"/external-library/media","/external-library/file"}:
-            try:item_id = int((query.get("id") or [""])[0])
-            except ValueError:self.send_error(400, "Invalid catalog item id");return
-            self.serve_catalog_file(item_id, audio_only=parsed.path.endswith("/media"), head_only=True);return
-        self.send_error(404)
-
     def do_GET(self) -> None:
         parsed = urlparse(self.path)
         query = parse_qs(parsed.query)
@@ -5607,35 +3889,6 @@ class StudyHandler(BaseHTTPRequestHandler):
             self.end_headers()
             self.wfile.write(body)
             return
-
-        if parsed.path == "/api/external-library/roots":
-            self.send_json(list_locations(self.paths))
-            return
-
-        if parsed.path == "/api/external-library/works":
-            self.send_json(list_works(self.paths, (query.get("q") or [""])[0]))
-            return
-
-        if parsed.path == "/api/external-library/work":
-            try:
-                self.send_json(work_detail(self.paths, int((query.get("id") or [""])[0])))
-            except (TypeError, ValueError) as exc:
-                self.send_json({"ok": False, "message": str(exc)}, 400)
-            return
-
-        if parsed.path == "/api/external-library/scan-status":
-            self.send_json(scan_status())
-            return
-
-        if parsed.path == "/api/external-library/audiobook":
-            try:self.send_json(audiobook_state(self.paths, int((query.get("work_id") or [""])[0])))
-            except (TypeError, ValueError) as exc:self.send_json({"ok": False, "message": str(exc)}, 400)
-            return
-
-        if parsed.path in {"/external-library/media", "/external-library/file"}:
-            try:item_id = int((query.get("id") or [""])[0])
-            except ValueError:self.send_error(400, "Invalid catalog item id");return
-            self.serve_catalog_file(item_id, audio_only=parsed.path.endswith("/media"));return
 
         if parsed.path == "/api/research/status":
             summary = database_summary(self.paths)
@@ -5770,63 +4023,6 @@ class StudyHandler(BaseHTTPRequestHandler):
             self.wfile.write(body)
             return
 
-        if parsed.path == "/api/epub/continue-reading":
-            self.send_json({"ok": True, "ebooks": continue_reading_ebooks(self.paths)})
-            return
-
-        if parsed.path == "/api/epub/reader":
-            raw_id = (query.get("id") or [""])[0]
-            try:
-                ebook_id = int(raw_id)
-                publication = epub_publication_package(self.paths, ebook_id)
-                identity = epub_reader_identity(self.paths, ebook_id)
-                if not identity:
-                    raise ValueError("The selected EPUB is unavailable.")
-                public_publication = {
-                    "identity": publication["identity"],
-                    "spine": publication["spine"],
-                    "toc": publication["toc"],
-                    "fixed_layout": publication["fixed_layout"],
-                }
-                self.send_json({
-                    "ok": True,
-                    "publication": public_publication,
-                    "state": epub_reader_state(self.paths, identity),
-                    "narration_state": epub_narration_state(self.paths, identity),
-                    "bookmarks": list_epub_bookmarks(self.paths, identity),
-                    "external_reader": external_epub_reader_status(),
-                })
-            except (TypeError, ValueError, zipfile.BadZipFile, ET.ParseError, OSError) as exc:
-                self.send_json({"ok": False, "message": str(exc)}, 400)
-            return
-
-        if parsed.path == "/api/epub/chapter":
-            raw_id = (query.get("id") or [""])[0]
-            raw_index = (query.get("index") or [""])[0]
-            try:
-                chapter = epub_reader_chapter(self.paths, int(raw_id), int(raw_index))
-                self.send_json({"ok": True, "chapter": chapter})
-            except (TypeError, ValueError, FileNotFoundError, PermissionError, zipfile.BadZipFile, ET.ParseError, OSError) as exc:
-                self.send_json({"ok": False, "message": str(exc)}, 400)
-            return
-
-        if parsed.path == "/epub/asset":
-            raw_id = (query.get("id") or [""])[0]
-            member = (query.get("path") or [""])[0]
-            try:
-                body, media_type = epub_reader_asset(self.paths, int(raw_id), member)
-            except (TypeError, ValueError, FileNotFoundError, PermissionError, zipfile.BadZipFile, ET.ParseError, OSError) as exc:
-                self.send_error(403, str(exc))
-                return
-            self.send_response(200)
-            self.send_header("Content-Type", media_type)
-            self.send_header("Content-Length", str(len(body)))
-            self.send_header("Cache-Control", "private, max-age=3600")
-            self.send_header("X-Content-Type-Options", "nosniff")
-            self.end_headers()
-            self.wfile.write(body)
-            return
-
         if parsed.path == "/api/library/item":
             kind = (query.get("kind") or [""])[0]
             raw_id = (query.get("id") or [""])[0]
@@ -5930,110 +4126,6 @@ class StudyHandler(BaseHTTPRequestHandler):
     def do_POST(self) -> None:
         parsed = urlparse(self.path)
 
-        if parsed.path == "/api/external-library/preview":
-            try:
-                payload = self.read_json()
-                self.send_json({"ok": True, "preview": preview_location(payload.get("path"))})
-            except (TypeError, ValueError, RuntimeError) as exc:
-                self.send_json({"ok": False, "message": str(exc)}, 400)
-            return
-
-        if parsed.path == "/api/external-library/register":
-            try:
-                payload = self.read_json()
-                self.send_json(register_location(self.paths, payload.get("path"), payload.get("label")))
-            except (TypeError, ValueError, RuntimeError) as exc:
-                self.send_json({"ok": False, "message": str(exc)}, 400)
-            return
-
-        if parsed.path == "/api/external-library/root/enable":
-            try:
-                payload = self.read_json()
-                self.send_json(set_location_enabled(self.paths, int(payload.get("id")), bool(payload.get("enabled"))))
-            except (TypeError, ValueError) as exc:
-                self.send_json({"ok": False, "message": str(exc)}, 400)
-            return
-
-        if parsed.path == "/api/external-library/root/remove":
-            try:
-                payload = self.read_json()
-                self.send_json(remove_location_from_catalog(self.paths, int(payload.get("id"))))
-            except (TypeError, ValueError, RuntimeError) as exc:
-                self.send_json({"ok": False, "message": str(exc)}, 400)
-            return
-
-        if parsed.path == "/api/external-library/scan":
-            try:
-                payload = self.read_json()
-                ok, message = start_location_scan(self.paths, int(payload.get("id")))
-                self.send_json({"ok": ok, "message": message}, 202 if ok else 409)
-            except (TypeError, ValueError) as exc:
-                self.send_json({"ok": False, "message": str(exc)}, 400)
-            return
-
-        if parsed.path == "/api/external-library/scan/cancel":
-            result = cancel_location_scan()
-            self.send_json(result, 200 if result.get("ok") else 409)
-            return
-
-        if parsed.path == "/api/external-library/assign":
-            try:
-                payload = self.read_json()
-                self.send_json(assign_item_to_work(
-                    self.paths,
-                    int(payload.get("item_id")),
-                    int(payload.get("work_id")) if payload.get("work_id") not in (None, "") else None,
-                    split=bool(payload.get("split")),
-                ))
-            except (TypeError, ValueError) as exc:
-                self.send_json({"ok": False, "message": str(exc)}, 400)
-            return
-
-        if parsed.path == "/api/external-library/open":
-            try:
-                payload = self.read_json()
-                self.send_json(launch_catalog_item(self.paths, int(payload.get("id"))))
-            except (TypeError, ValueError, PermissionError, FileNotFoundError, OSError, RuntimeError) as exc:
-                self.send_json({"ok": False, "message": str(exc)}, 400)
-            return
-
-        if parsed.path == "/api/external-library/route":
-            try:
-                payload = self.read_json();self.send_json(external_catalog_route(self.paths, int(payload.get("id"))))
-            except (TypeError, ValueError, PermissionError, FileNotFoundError, OSError) as exc:self.send_json({"ok": False, "message": str(exc)}, 400)
-            return
-
-        if parsed.path == "/api/external-library/audiobook/order":
-            try:
-                payload = self.read_json();self.send_json(save_audiobook_order(self.paths, int(payload.get("work_id")), list(payload.get("item_ids") or [])))
-            except (TypeError, ValueError) as exc:self.send_json({"ok": False, "message": str(exc)}, 400)
-            return
-
-        if parsed.path == "/api/external-library/audiobook/progress":
-            try:
-                payload = self.read_json();completed = payload.get("completed_item_id")
-                self.send_json(save_audiobook_progress(self.paths, int(payload.get("work_id")), int(payload.get("item_id")), float(payload.get("position_seconds") or 0), float(payload.get("playback_speed") or 1), force=bool(payload.get("force")), completed_item_id=int(completed) if completed not in (None, "") else None))
-            except (TypeError, ValueError) as exc:self.send_json({"ok": False, "message": str(exc)}, 400)
-            return
-
-        if parsed.path == "/api/external-library/playback/acquire":
-            try:
-                payload = self.read_json();result = acquire_playback_lease(self.paths, int(payload.get("work_id")), str(payload.get("owner_token") or ""));self.send_json(result, 200 if result.get("ok") else 409)
-            except (TypeError, ValueError) as exc:self.send_json({"ok": False, "message": str(exc)}, 400)
-            return
-
-        if parsed.path == "/api/external-library/playback/heartbeat":
-            try:
-                payload = self.read_json();result = heartbeat_playback_lease(self.paths, int(payload.get("work_id")), str(payload.get("owner_token") or ""));self.send_json(result, 200 if result.get("ok") else 409)
-            except (TypeError, ValueError) as exc:self.send_json({"ok": False, "message": str(exc)}, 400)
-            return
-
-        if parsed.path == "/api/external-library/playback/release":
-            try:
-                payload = self.read_json();self.send_json(release_playback_lease(self.paths, str(payload.get("owner_token") or "")))
-            except (TypeError, ValueError) as exc:self.send_json({"ok": False, "message": str(exc)}, 400)
-            return
-
         if parsed.path == "/api/research/enable":
             self.send_json({"ok": True, "session": RESEARCH_STATE.enable(), "message": "Online research is enabled for this Study session only."})
             return
@@ -6095,67 +4187,6 @@ class StudyHandler(BaseHTTPRequestHandler):
                 self.send_json(result)
             except Exception as exc:
                 self.send_json({"ok": False, "message": f"{type(exc).__name__}: {exc}"}, 400)
-            return
-
-        if parsed.path == "/api/epub/reader/state":
-            try:
-                payload = self.read_json()
-                identity = epub_reader_identity(self.paths, int(payload.get("id")))
-                if not identity:
-                    self.send_json({"ok": False, "message": "The selected EPUB is unavailable."}, 404)
-                    return
-                state = save_epub_reader_state(self.paths, identity, payload)
-                self.send_json({"ok": True, "state": state})
-            except (TypeError, ValueError) as exc:
-                self.send_json({"ok": False, "message": str(exc)}, 400)
-            return
-
-        if parsed.path == "/api/epub/narration/state":
-            try:
-                payload = self.read_json()
-                identity = epub_reader_identity(self.paths, int(payload.get("id")))
-                if not identity:
-                    self.send_json({"ok": False, "message": "The selected EPUB is unavailable."}, 404)
-                    return
-                state = save_epub_narration_state(self.paths, identity, payload)
-                self.send_json({"ok": True, "narration_state": state})
-            except (TypeError, ValueError) as exc:
-                self.send_json({"ok": False, "message": str(exc)}, 400)
-            return
-
-        if parsed.path == "/api/epub/bookmark/add":
-            try:
-                payload = self.read_json()
-                identity = epub_reader_identity(self.paths, int(payload.get("id")))
-                if not identity:
-                    self.send_json({"ok": False, "message": "The selected EPUB is unavailable."}, 404)
-                    return
-                bookmark = add_epub_bookmark(self.paths, identity, payload)
-                self.send_json({"ok": True, "bookmark": bookmark, "bookmarks": list_epub_bookmarks(self.paths, identity)})
-            except (TypeError, ValueError) as exc:
-                self.send_json({"ok": False, "message": str(exc)}, 400)
-            return
-
-        if parsed.path == "/api/epub/bookmark/remove":
-            try:
-                payload = self.read_json()
-                identity = epub_reader_identity(self.paths, int(payload.get("id")))
-                if not identity:
-                    self.send_json({"ok": False, "message": "The selected EPUB is unavailable."}, 404)
-                    return
-                removed = remove_epub_bookmark(self.paths, identity, int(payload.get("bookmark_id")))
-                self.send_json({"ok": True, "removed": removed, "bookmarks": list_epub_bookmarks(self.paths, identity)})
-            except (TypeError, ValueError) as exc:
-                self.send_json({"ok": False, "message": str(exc)}, 400)
-            return
-
-        if parsed.path == "/api/epub/open-external":
-            try:
-                payload = self.read_json()
-                result = launch_external_epub_reader(self.paths, int(payload.get("id")))
-                self.send_json(result)
-            except (TypeError, ValueError, RuntimeError, OSError) as exc:
-                self.send_json({"ok": False, "message": str(exc)}, 400)
             return
 
         if parsed.path == "/api/library/rating":
@@ -6351,19 +4382,6 @@ def verify_environment(paths: AppPaths) -> dict:
         checks.append({"id": "epub_catalog", "ok": True, "message": str(epub_database_path(paths))})
     except Exception as exc:
         checks.append({"id": "epub_catalog", "ok": False, "message": f"{type(exc).__name__}: {exc}"})
-    try:
-        state_conn = connect_library_state_db(paths)
-        state_tables = {row[0] for row in state_conn.execute("SELECT name FROM sqlite_master WHERE type='table'").fetchall()}
-        state_conn.close()
-        reader_ready = {"epub_reader_state", "epub_bookmarks", "epub_narration_state"}.issubset(state_tables)
-        checks.append({"id": "epub_reader_state", "ok": reader_ready, "message": str(library_state_database_path(paths))})
-    except Exception as exc:
-        checks.append({"id": "epub_reader_state", "ok": False, "message": f"{type(exc).__name__}: {exc}"})
-    try:
-        external = verify_external_library_environment(paths)
-        checks.append({"id": "external_library", "ok": bool(external.get("ok")), "message": external.get("database", "")})
-    except Exception as exc:
-        checks.append({"id": "external_library", "ok": False, "message": f"{type(exc).__name__}: {exc}"})
     return {
         "ok": all(item["ok"] for item in checks),
         "checks": checks,
@@ -6418,12 +4436,12 @@ def main() -> int:
     actual_port = server.server_address[1]
     url = f"http://{HOST}:{actual_port}"
     print("=" * 72)
-    print("KAYOCK'S STUDY — THE BIBLIOTHECA V2C.1.1")
+    print("KAYOCK'S STUDY — THE BIBLIOTHECA V2B.1")
     print("=" * 72)
     print("URL:", url)
     print("Library:", paths.library)
     print("Database:", paths.database)
-    print("Original PDFs and EPUBs are read-only.")
+    print("Original PDFs are read-only.")
     print("Network scope: localhost only.")
     print("Press Ctrl+C to stop.")
     print()

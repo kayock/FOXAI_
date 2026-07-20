@@ -1,0 +1,143 @@
+{
+  "authorized": true,
+  "changes": [
+    {
+      "action": "write_file",
+      "after_sha256": "0b20128bb67aa757e03162612a97b99383b41d0a3ce7a4eb35a493f26bcc1d48",
+      "after_size": 2236179,
+      "before_sha256": "06063ac9e312129da002a21d52556df560e8fef3c7e9b3b0216a001574768114",
+      "before_size": 2221671,
+      "relative_path": "core/foxai_web.py"
+    },
+    {
+      "action": "write_file",
+      "after_sha256": "e8359742895beebc50deb152fc2edd34a1b542a3e99f31f0c13d930e6ab2ea6c",
+      "after_size": 46126,
+      "before_sha256": null,
+      "before_size": null,
+      "relative_path": "core/repair_bay_baseline.py"
+    },
+    {
+      "action": "write_file",
+      "after_sha256": "944219126a8d8086cc010cffd145aa83bd4a1a6709675b82990a6de2b952195a",
+      "after_size": 16747,
+      "before_sha256": null,
+      "before_size": null,
+      "relative_path": "core/VERIFY_REPAIR_BAY_V3.py"
+    }
+  ],
+  "created_at": "2026-07-20T20:39:01.906882Z",
+  "evidence_is_tool_generated": true,
+  "failure": null,
+  "mission_id": "ENG-20260720-201421-7CA510",
+  "mission_title": "Repair Bay V3.0 \u2014 System Baseline and Change Comparison",
+  "mission_type": "implement",
+  "no_deletions": true,
+  "no_renames": true,
+  "plan_path": "Z:\\FOXAI\\RBV3\\plan.json",
+  "plan_sha256": "731ff83ad12a3e2b2c2fc7b2e1b2da30045cc058a1cc5a5519872f694e18d40f",
+  "project_root": "Z:\\FOXAI",
+  "result": "applied_verified",
+  "rolled_back": false,
+  "schema": "foxai.engineering.receipt.v1",
+  "snapshot_manifest": "Z:\\FOXAI\\System\\EngineeringWorkshop\\snapshots\\ENG-20260720-201421-7CA510\\snapshot_20260720T203833812389Z.manifest.json",
+  "snapshot_path": "Z:\\FOXAI\\System\\EngineeringWorkshop\\snapshots\\ENG-20260720-201421-7CA510\\snapshot_20260720T203833812389Z.zip",
+  "snapshot_sha256": "19839fef8d889d13476011aeefdff6b9ae87f1f459b593b86345d288869faba9",
+  "validations": [
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "exec('from pathlib import Path\\nfiles = [\\n    Path(r\"Z:\\\\FOXAI\\\\core\\\\foxai_web.py\"),\\n    Path(r\"Z:\\\\FOXAI\\\\core\\\\repair_bay_baseline.py\"),\\n    Path(r\"Z:\\\\FOXAI\\\\core\\\\repair_bay_diagnostics.py\"),\\n    Path(r\"Z:\\\\FOXAI\\\\core\\\\repair_bay_handoff.py\"),\\n    Path(r\"Z:\\\\FOXAI\\\\core\\\\VERIFY_REPAIR_BAY_V1.py\"),\\n    Path(r\"Z:\\\\FOXAI\\\\core\\\\VERIFY_REPAIR_BAY_V3.py\"),\\n]\\nfor path in files:\\n    compile(path.read_text(encoding=\"utf-8\"), str(path), \"exec\")\\nprint(\"REPAIR_BAY_V3_SOURCE_COMPILE_OK\")')"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-20T20:38:36.473445Z",
+      "name": "Compile Repair Bay V3 sources without writing bytecode",
+      "returncode": 0,
+      "started_at": "2026-07-20T20:38:33.897312Z",
+      "stderr": "",
+      "stdout": "REPAIR_BAY_V3_SOURCE_COMPILE_OK\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "Z:\\FOXAI\\core\\VERIFY_REPAIR_BAY_V1.py"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-20T20:38:36.955591Z",
+      "name": "Re-run complete Repair Bay V2.5 guarded-diagnostics and handoff regression",
+      "returncode": 0,
+      "started_at": "2026-07-20T20:38:36.473793Z",
+      "stderr": "",
+      "stdout": "{\n  \"ok\": true,\n  \"schema\": \"foxai.repair_bay.v2.verification\",\n  \"quick_checks\": 13,\n  \"full_checks\": 18,\n  \"launcher_contents_parsed\": 23,\n  \"launcher_relationships_verified\": 4,\n  \"protected_root_launchers_verified\": 12,\n  \"protected_study_launchers_verified\": 2,\n  \"receipt_backed_launchers_verified\": 3,\n  \"exact_duplicate_groups_verified\": 2,\n  \"archive_review_candidates_verified\": 2,\n  \"unresolved_items_verified\": 2,\n  \"archive_plan_proposal_only\": true,\n  \"launcher_index_verified\": true,\n  \"launcher_index_items_verified\": 23,\n  \"approved_front_doors_verified\": 4,\n  \"unknown_resolution_verified\": true,\n  \"search_and_filter_metadata_verified\": true,\n  \"webui_launcher_index_verified\": true,\n  \"calm_guided_default_verified\": true,\n  \"plain_english_attention_summary_verified\": true,\n  \"scan_details_progressive_disclosure_verified\": true,\n  \"self_repair_bay_advanced_verified\": true,\n  \"advanced_controls_closed_by_default_verified\": true,\n  \"guarded_repair_handoff_verified\": true,\n  \"handoff_readiness_guard_verified\": true,\n  \"reliable_mission_console_transfer_verified\": true,\n  \"planning_only_authorization_guard_verified\": true,\n  \"launcher_evidence_consistency_verified\": true,\n  \"healthy_launcher_summary_classification_verified\": true,\n  \"duplicate_only_informational_verified\": true,\n  \"non_actionable_launcher_handoff_blocked_verified\": true,\n  \"duplicate_candidate_details_verified\": true,\n  \"filename_only_cleanup_blocked_verified\": true,\n  \"launcher_review_filters_verified\": true,\n  \"official_workshop_route_plan_verified\": true,\n  \"official_workshop_authorization_false_verified\": true,\n  \"prepared_handoff_session_state_verified\": true,\n  \"open_mission_console_button_verified\": true,\n  \"preparation_lock_cleared_before_open_verified\": true,\n  \"prepared_handoff_lifecycle_verified\": true,\n  \"pre_scan_handoff_disabled_verified\": true,\n  \"healthy_scan_no_repair_state_verified\": true,\n  \"single_finding_auto_attach_verified\": true,\n  \"multiple_findings_selection_required_verified\": true,\n  \"invalid_finding_fails_closed_verified\": true,\n  \"duplicate_handoff_open_guard_verified\": true,\n  \"blank_problem_guard_verified\": true,\n  \"supported_low_risk_planning_verified\": true,\n  \"unsupported_findings_advisory_verified\": true,\n  \"implementation_authorization_false_verified\": true,\n  \"mission_console_review_before_stage_verified\": true,\n  \"handoff_tree_unchanged\": true,\n  \"healthy_guidance_corrected\": true,\n  \"empty_init_recognized_as_valid\": true,\n  \"rename_only_restart_marker_informational\": true,\n  \"read_only_tree_unchanged\": true,\n  \"network_used\": false,\n  \"commands_run\": false,\n  \"files_written\": 0,\n  \"repairs_applied\": 0\n}\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "Z:\\FOXAI\\core\\VERIFY_REPAIR_BAY_V3.py",
+        "--root",
+        "Z:\\FOXAI",
+        "--mode",
+        "deterministic"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-20T20:38:37.156479Z",
+      "name": "Run Repair Bay V3 deterministic baseline, comparison, session, export, and UI verification",
+      "returncode": 0,
+      "started_at": "2026-07-20T20:38:36.955959Z",
+      "stderr": "",
+      "stdout": "{\n  \"schema\": \"foxai.repair_bay.v3.combined_verification.v1\",\n  \"result\": \"passed\",\n  \"deterministic\": {\n    \"schema\": \"foxai.repair_bay.v3.verification.v1\",\n    \"result\": \"passed\",\n    \"check_count\": 53,\n    \"checks\": [\n      {\n        \"id\": \"snapshot_creation\",\n        \"ok\": true,\n        \"detail\": \"\"\n      },\n      {\n        \"id\": \"snapshot_naming\",\n        \"ok\": true,\n        \"detail\": \"\"\n      },\n      {\n        \"id\": \"historical_snapshot_preservation\",\n        \"ok\": true,\n        \"detail\": \"\"\n      },\n      {\n        \"id\": \"known_good_requires_confirmation\",\n        \"ok\": true,\n        \"detail\": \"\"\n      },\n      {\n        \"id\": \"known_good_explicit_selection\",\n        \"ok\": true,\n        \"detail\": \"\"\n      },\n      {\n        \"id\": \"known_good_persisted\",\n        \"ok\": true,\n        \"detail\": \"\"\n      },\n      {\n        \"id\": \"comparison_creation\",\n        \"ok\": true,\n        \"detail\": \"\"\n      },\n      {\n        \"id\": \"installed_application_addition\",\n        \"ok\": true,\n        \"detail\": \"\"\n      },\n      {\n        \"id\": \"service_state_or_start_type_change\",\n        \"ok\": true,\n        \"detail\": \"\"\n      },\n      {\n        \"id\": \"startup_entry_addition\",\n        \"ok\": true,\n        \"detail\": \"\"\n      },\n      {\n        \"id\": \"scheduled_task_summary_change\",\n        \"ok\": true,\n        \"detail\": \"\"\n      },\n      {\n        \"id\": \"new_listening_port\",\n        \"ok\": true,\n        \"detail\": \"\"\n      },\n      {\n        \"id\": \"process_identity_ignores_pid\",\n        \"ok\": true,\n        \"detail\": \"\"\n      },\n      {\n        \"id\": \"memory_and_disk_deltas\",\n        \"ok\": true,\n        \"detail\": \"\"\n      },\n      {\n        \"id\": \"neutral_classification\",\n        \"ok\": true,\n        \"detail\": \"\"\n      },\n      {\n        \"id\": \"transient_runtime_noise_handling\",\n        \"ok\": true,\n        \"detail\": \"\"\n      },\n      {\n        \"id\": \"available_memory_delta\",\n        \"ok\": true,\n        \"detail\": \"\"\n      },\n      {\n        \"id\": \"free_disk_delta\",\n        \"ok\": true,\n        \"detail\": \"\"\n      },\n      {\n        \"id\": \"secret_field_exclusion\",\n        \"ok\": true,\n        \"detail\": \"\"\n      },\n      {\n        \"id\": \"three_export_formats\",\n        \"ok\": true,\n        \"detail\": \"\"\n      },\n      {\n        \"id\": \"export_files_exist\",\n        \"ok\": true,\n        \"detail\": \"\"\n      },\n      {\n        \"id\": \"export_secret_exclusion\",\n        \"ok\": true,\n        \"detail\": \"\"\n      },\n      {\n        \"id\": \"change_session_before_flow\",\n        \"ok\": true,\n        \"detail\": \"\"\n      },\n      {\n        \"id\": \"change_session_after_flow\",\n        \"ok\": true,\n        \"detail\": \"\"\n      },\n      {\n        \"id\": \"change_session_receipt\",\n        \"ok\": true,\n        \"detail\": \"\"\n      },\n      {\n        \"id\": \"cancel_session_behavior\",\n        \"ok\": true,\n        \"detail\": \"\"\n      },\n      {\n        \"id\": \"close_without_after_behavior\",\n        \"ok\": true,\n        \"detail\": \"\"\n      },\n      {\n        \"id\": \"api_list_dispatch\",\n        \"ok\": true,\n        \"detail\": \"\"\n      },\n      {\n        \"id\": \"api_compare_dispatch\",\n        \"ok\": true,\n        \"detail\": \"\"\n      },\n      {\n        \"id\": \"api_known_good_fails_closed\",\n        \"ok\": true,\n        \"detail\": \"\"\n      },\n      {\n        \"id\": \"web_marker_76f5e943\",\n        \"ok\": true,\n        \"detail\": \"REPAIR_BAY_SYSTEM_BASELINE_V3_STYLE_START\"\n      },\n      {\n        \"id\": \"web_marker_12f756c9\",\n        \"ok\": true,\n        \"detail\": \"REPAIR_BAY_SYSTEM_BASELINE_V3_HTML_START\"\n      },\n      {\n        \"id\": \"web_marker_0be95a7e\",\n        \"ok\": true,\n        \"detail\": \"REPAIR_BAY_SYSTEM_BASELINE_V3_BROWSER_START\"\n      },\n      {\n        \"id\": \"web_marker_537d230a\",\n        \"ok\": true,\n        \"detail\": \"REPAIR_BAY_SYSTEM_BASELINE_V3_SERVER_START\"\n      },\n      {\n        \"id\": \"web_marker_a7c3072c\",\n        \"ok\": true,\n        \"detail\": \"System Baseline &amp; Change Comparison\"\n      },\n      {\n        \"id\": \"web_marker_d9bf3dbe\",\n        \"ok\": true,\n        \"detail\": \"Capture Baseline\"\n      },\n      {\n        \"id\": \"web_marker_cafca7cb\",\n        \"ok\": true,\n        \"detail\": \"Capture After Snapshot\"\n      },\n      {\n        \"id\": \"web_marker_d45a2497\",\n        \"ok\": true,\n        \"detail\": \"Compare Snapshots\"\n      },\n      {\n        \"id\": \"web_marker_3bb785ae\",\n        \"ok\": true,\n        \"detail\": \"/api/repair/baseline/list\"\n      },\n      {\n        \"id\": \"web_marker_f3140b67\",\n        \"ok\": true,\n        \"detail\": \"/api/repair/baseline/capture\"\n      },\n      {\n        \"id\": \"web_marker_ed407310\",\n        \"ok\": true,\n        \"detail\": \"/api/repair/baseline/compare\"\n      },\n      {\n        \"id\": \"web_marker_bd70c875\",\n        \"ok\": true,\n        \"detail\": \"/api/repair/baseline/export\"\n      },\n      {\n        \"id\": \"web_marker_34eedf90\",\n        \"ok\": true,\n        \"detail\": \"Begin Change Session\"\n      },\n      {\n        \"id\": \"web_marker_0afeae87\",\n        \"ok\": true,\n        \"detail\": \"Capture After + Compare\"\n      },\n      {\n        \"id\": \"web_marker_7d5d43a8\",\n        \"ok\": true,\n        \"detail\": \"Close Without After\"\n      },\n      {\n        \"id\": \"web_marker_6cf8d813\",\n        \"ok\": true,\n        \"detail\": \"Cancel Session\"\n      },\n      {\n        \"id\": \"web_marker_744b3e76\",\n        \"ok\": true,\n        \"detail\": \"repair_system_baseline_exports\"\n      },\n      {\n        \"id\": \"repair_bay_v2_5_preserved\",\n        \"ok\": true,\n        \"detail\": \"\"\n      },\n      {\n        \"id\": \"kayock_writer_v2_preserved\",\n        \"ok\": true,\n        \"detail\": \"\"\n      },\n      {\n        \"id\": \"baseline_ui_initialization\",\n        \"ok\": true,\n        \"detail\": \"\"\n      },\n      {\n        \"id\": \"dedicated_repair_bay_storage\",\n        \"ok\": true,\n        \"detail\": \"\"\n      },\n      {\n        \"id\": \"study_databases_untouched\",\n        \"ok\": true,\n        \"detail\": \"\"\n      },\n      {\n        \"id\": \"writer_files_untouched\",\n        \"ok\": true,\n        \"detail\": \"\"\n      }\n    ],\n    \"fixture_root\": \"C:\\\\Users\\\\kayoc\\\\AppData\\\\Local\\\\Temp\\\\repair_bay_v3_fixture_lbbcgm__\",\n    \"network_used\": false,\n    \"system_mutations\": 0,\n    \"repair_actions_applied\": 0\n  },\n  \"check_count\": 53,\n  \"network_used\": false,\n  \"system_mutations\": 0,\n  \"repair_actions_applied\": 0\n}\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "Z:\\FOXAI\\core\\VERIFY_REPAIR_BAY_V3.py",
+        "--root",
+        "Z:\\FOXAI",
+        "--mode",
+        "live"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-20T20:38:52.516501Z",
+      "name": "Run Repair Bay V3 live read-only Windows inventory verification",
+      "returncode": 0,
+      "started_at": "2026-07-20T20:38:37.156822Z",
+      "stderr": "",
+      "stdout": "{\n  \"schema\": \"foxai.repair_bay.v3.combined_verification.v1\",\n  \"result\": \"passed\",\n  \"live\": {\n    \"schema\": \"foxai.repair_bay.v3.live_verification.v1\",\n    \"result\": \"passed\",\n    \"check_count\": 13,\n    \"checks\": [\n      {\n        \"id\": \"live_collector_read_only\",\n        \"ok\": true,\n        \"detail\": \"\"\n      },\n      {\n        \"id\": \"live_collector_no_network\",\n        \"ok\": true,\n        \"detail\": \"\"\n      },\n      {\n        \"id\": \"live_collector_no_mutation_commands\",\n        \"ok\": true,\n        \"detail\": \"\"\n      },\n      {\n        \"id\": \"live_machine_summary\",\n        \"ok\": true,\n        \"detail\": \"\"\n      },\n      {\n        \"id\": \"live_resource_summary\",\n        \"ok\": true,\n        \"detail\": \"\"\n      },\n      {\n        \"id\": \"live_process_inventory\",\n        \"ok\": true,\n        \"detail\": \"\"\n      },\n      {\n        \"id\": \"live_service_inventory\",\n        \"ok\": true,\n        \"detail\": \"\"\n      },\n      {\n        \"id\": \"live_startup_inventory\",\n        \"ok\": true,\n        \"detail\": \"\"\n      },\n      {\n        \"id\": \"live_listener_inventory\",\n        \"ok\": true,\n        \"detail\": \"\"\n      },\n      {\n        \"id\": \"live_application_inventory\",\n        \"ok\": true,\n        \"detail\": \"\"\n      },\n      {\n        \"id\": \"live_secret_exclusion\",\n        \"ok\": true,\n        \"detail\": \"\"\n      },\n      {\n        \"id\": \"live_protected_sources_unchanged\",\n        \"ok\": true,\n        \"detail\": \"\"\n      },\n      {\n        \"id\": \"live_command_allowlist\",\n        \"ok\": true,\n        \"detail\": \"\"\n      }\n    ],\n    \"summary\": {\n      \"machine\": \"DESKTOP-G9ERN9B\",\n      \"processes\": 60,\n      \"services\": 324,\n      \"startup_entries\": 18,\n      \"listeners\": 44,\n      \"applications\": 290,\n      \"warnings\": []\n    },\n    \"network_used\": false,\n    \"system_mutations\": 0,\n    \"repair_actions_applied\": 0\n  },\n  \"check_count\": 13,\n  \"network_used\": false,\n  \"system_mutations\": 0,\n  \"repair_actions_applied\": 0\n}\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "exec('import hashlib\\nimport json\\nimport sys\\nfrom pathlib import Path\\n\\nroot = Path(r\"Z:\\\\FOXAI\")\\nsys.path.insert(0, str(root))\\n\\nfrom core.repair_bay_diagnostics import run_launcher_index, run_repair_bay_scan\\nfrom core.repair_bay_handoff import build_repair_handoff\\n\\nbefore = {\\n    path.name: hashlib.sha256(path.read_bytes()).hexdigest()\\n    for path in root.glob(\"*.bat\")\\n    if path.is_file()\\n}\\n\\nscan = run_repair_bay_scan(\\n    root,\\n    mode=\"full\",\\n    context={\"validation\": \"repair_bay_v2_5_live_healthy_launcher\"},\\n)\\nindex = run_launcher_index(\\n    root,\\n    context={\"validation\": \"repair_bay_v2_5_live_healthy_launcher\"},\\n)\\n\\nafter = {\\n    path.name: hashlib.sha256(path.read_bytes()).hexdigest()\\n    for path in root.glob(\"*.bat\")\\n    if path.is_file()\\n}\\nassert before == after, \"Launcher files changed during the read-only validation.\"\\n\\nscan_inventory = (scan.get(\"evidence\") or {}).get(\"launcher_inventory\") or {}\\nindex_inventory = index.get(\"inventory\") or {}\\nassert scan_inventory.get(\"unresolved_items\") == index_inventory.get(\"unresolved_items\")\\nassert scan_inventory.get(\"obsolete_looking_candidates\") == index_inventory.get(\"obsolete_looking_candidates\")\\nassert scan_inventory.get(\"exact_duplicate_groups\") == index_inventory.get(\"exact_duplicate_groups\")\\n\\nunresolved = list(scan_inventory.get(\"unresolved_items\") or [])\\ncandidates = list(scan_inventory.get(\"obsolete_looking_candidates\") or [])\\nassert not unresolved, unresolved\\nassert not candidates, candidates\\n\\nlauncher_finding = next(\\n    item\\n    for item in scan.get(\"findings\") or []\\n    if item.get(\"id\") == \"root_launcher_inventory\"\\n)\\nassert launcher_finding.get(\"severity\") == \"informational\", launcher_finding\\nassert \"No repair is needed\" in str(launcher_finding.get(\"suggested_action\") or \"\")\\n\\nplan_steps = (scan.get(\"proposed_repair_plan\") or {}).get(\"steps\") or []\\nassert not any(step.get(\"finding_id\") == \"root_launcher_inventory\" for step in plan_steps)\\n\\nhandoff = build_repair_handoff(\\n    root,\\n    scan,\\n    \"root_launcher_inventory\",\\n    level=\"guided\",\\n)\\nassert handoff.get(\"ok\") is False, handoff\\nassert handoff.get(\"implementation_authorized\") is False, handoff\\nassert \"engineer_command\" not in handoff, handoff\\nassert \"No repair is needed\" in str(handoff.get(\"message\") or \"\")\\n\\nfor report in (scan, index):\\n    safety = report.get(\"safety\") or {}\\n    assert safety.get(\"network_used\") is False, safety\\n    assert safety.get(\"commands_run\") is False, safety\\n    assert int(safety.get(\"files_written\") or 0) == 0, safety\\n    assert int(safety.get(\"repairs_applied\") or 0) == 0, safety\\n\\nprint(json.dumps({\\n    \"REPAIR_BAY_V2_5_LIVE_OK\": True,\\n    \"launchers\": index.get(\"summary\", {}).get(\"total\"),\\n    \"duplicate_groups\": len(scan_inventory.get(\"exact_duplicate_groups\") or []),\\n    \"raw_unknown\": len(scan_inventory.get(\"raw_unknown_items\") or []),\\n    \"unresolved_after_resolution\": len(unresolved),\\n    \"review_candidates\": len(candidates),\\n    \"launcher_finding_severity\": launcher_finding.get(\"severity\"),\\n    \"launcher_handoff_blocked\": True,\\n    \"launcher_files_changed\": 0,\\n}, indent=2))')"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-20T20:39:01.906813Z",
+      "name": "Run live healthy-launcher summary and no-handoff smoke test",
+      "returncode": 0,
+      "started_at": "2026-07-20T20:38:52.516858Z",
+      "stderr": "",
+      "stdout": "{\n  \"REPAIR_BAY_V2_5_LIVE_OK\": true,\n  \"launchers\": 115,\n  \"duplicate_groups\": 1,\n  \"raw_unknown\": 17,\n  \"unresolved_after_resolution\": 0,\n  \"review_candidates\": 0,\n  \"launcher_finding_severity\": \"informational\",\n  \"launcher_handoff_blocked\": true,\n  \"launcher_files_changed\": 0\n}\n",
+      "timed_out": false
+    }
+  ]
+}

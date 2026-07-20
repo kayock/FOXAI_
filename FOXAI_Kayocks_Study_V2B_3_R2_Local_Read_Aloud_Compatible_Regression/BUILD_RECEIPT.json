@@ -1,0 +1,101 @@
+{
+  "schema": "foxai.kayocks_study.v2b_3_r2.plan_build_receipt.v1",
+  "mission_id": "ENG-20260720-181903-DE1EBD",
+  "result": "exact_plan_built_simulated_and_all_five_validations_passed",
+  "plan_sha256": "ac753e13f781ae21b961154a86ee6c749513868de4418aa2ffd3cd79b01c5f82",
+  "changed_path_count": 3,
+  "changed_paths": [
+    "KAYOCKS_STUDY_BIBLIOTHECA_V1/study_server.py",
+    "KAYOCKS_STUDY_BIBLIOTHECA_V1/VERIFY_KAYOCKS_STUDY_V2B_3_READER_COMPAT.py",
+    "KAYOCKS_STUDY_BIBLIOTHECA_V1/VERIFY_KAYOCKS_STUDY_V2B_3.py"
+  ],
+  "validation_count": 5,
+  "baseline_guard": {
+    "restored_v2b_2_server_sha256": "0eb319a36b8816df3ff824f493eb83305fe28aba76d8f067a4ce15644596bfc0",
+    "historical_v2b_2_verifier_preserved": true,
+    "historical_v2b_2_verifier_run_against_v2b_3": false
+  },
+  "before_hashes": {
+    "KAYOCKS_STUDY_BIBLIOTHECA_V1/study_server.py": "0eb319a36b8816df3ff824f493eb83305fe28aba76d8f067a4ce15644596bfc0",
+    "KAYOCKS_STUDY_BIBLIOTHECA_V1/VERIFY_KAYOCKS_STUDY_V2B_3_READER_COMPAT.py": null,
+    "KAYOCKS_STUDY_BIBLIOTHECA_V1/VERIFY_KAYOCKS_STUDY_V2B_3.py": null
+  },
+  "after_hashes": {
+    "KAYOCKS_STUDY_BIBLIOTHECA_V1/study_server.py": "99b44d8852a1658092a94e8c79b080e0044f2c7970ab9aaa5a7378f5ae815ff4",
+    "KAYOCKS_STUDY_BIBLIOTHECA_V1/VERIFY_KAYOCKS_STUDY_V2B_3_READER_COMPAT.py": "c52aa474b65e1f7774540bf2f06ea43a8fe915fb322e6580aebaf21884d374b5",
+    "KAYOCKS_STUDY_BIBLIOTHECA_V1/VERIFY_KAYOCKS_STUDY_V2B_3.py": "76b862faceb556f0804ce35ff998c395072989db02f025e84321a7788e2c9079"
+  },
+  "tests": {
+    "workshop_plan_schema_and_before_hash": "passed",
+    "workshop_preview": "passed — 3 changed paths",
+    "workshop_simulated_apply": "passed — 3 files",
+    "source_compilation_without_bytecode": "passed",
+    "embedded_javascript_syntax": "passed with node --check",
+    "study_environment": {
+      "ok": true,
+      "checks": [
+        {
+          "id": "library_exists",
+          "ok": true,
+          "message": "/tmp/kayocks_study_v2b3_r2_plan_sim_44iwqx2y/Library"
+        },
+        {
+          "id": "pypdf_available",
+          "ok": true,
+          "message": "Bundled pypdf loaded."
+        },
+        {
+          "id": "sqlite_database",
+          "ok": true,
+          "message": "SQLite ready; FTS5=True."
+        },
+        {
+          "id": "epub_catalog",
+          "ok": true,
+          "message": "/tmp/kayocks_study_v2b3_r2_plan_sim_44iwqx2y/KAYOCKS_STUDY_BIBLIOTHECA_V1/Data/epub_catalog.sqlite3"
+        },
+        {
+          "id": "epub_reader_state",
+          "ok": true,
+          "message": "/tmp/kayocks_study_v2b3_r2_plan_sim_44iwqx2y/KAYOCKS_STUDY_BIBLIOTHECA_V1/Data/study_library_state.sqlite3"
+        }
+      ],
+      "root": "/tmp/kayocks_study_v2b3_r2_plan_sim_44iwqx2y",
+      "library": "/tmp/kayocks_study_v2b3_r2_plan_sim_44iwqx2y/Library",
+      "database": "/tmp/kayocks_study_v2b3_r2_plan_sim_44iwqx2y/KAYOCKS_STUDY_BIBLIOTHECA_V1/Data/bibliotheca.sqlite3",
+      "network_scope": "localhost_only",
+      "original_files_modified": 0
+    },
+    "bibliotheca_v1_2_2": {
+      "check_count": 24,
+      "all_passed": true
+    },
+    "v2b_3_reader_compat": {
+      "result": "verified",
+      "check_count": 60
+    },
+    "v2b_3_voice_and_highlighting": {
+      "result": "verified",
+      "check_count": 39,
+      "interactive_audio_note": "Actual audio output and installed Windows voice quality require Eric's final interactive browser test."
+    }
+  },
+  "safety": {
+    "confirmed_local_voices_only": true,
+    "online_only_voice_filter_tested": true,
+    "external_network_used": false,
+    "cloud_tts_used": false,
+    "voice_installed_or_downloaded": false,
+    "original_epubs_changed": 0,
+    "original_pdfs_changed": 0,
+    "bibliotheca_pdf_schema_changed": 0,
+    "epub_catalog_schema_changed": 0,
+    "external_drive_scanned": 0,
+    "library_content_changed": 0,
+    "moves": 0,
+    "renames": 0,
+    "original_deletions": 0,
+    "installations": 0,
+    "downloads": 0
+  }
+}

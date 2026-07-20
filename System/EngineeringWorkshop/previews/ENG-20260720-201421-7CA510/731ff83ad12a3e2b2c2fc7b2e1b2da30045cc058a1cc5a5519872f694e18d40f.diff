@@ -1,0 +1,1292 @@
+--- a/core/foxai_web.py
++++ b/core/foxai_web.py
+@@ -221,7 +221,7 @@
+             _web_engineer._active_airlock_context={}
+ 
+ 
+-FOLDERS={'root':ROOT,'models':ROOT/'Models','chat_models':ROOT/'Models'/'Chat','comfy_output':COMFY/'output','library':LIB,'projects':PROJECTS,'prompts':ROOT/'Prompts','novel_forge':ROOT/'NovelForge','novel_exports':ROOT/'NovelForge'/'Exports','logs':LOGS,'config':ROOT/'Config','reports':ROOT/'Reports','repair_reports':ROOT/'Reports'/'RepairActions','repair_ops_dashboard':ROOT/'Reports'/'RepairActions'/'OperationsDashboard','repair_action_details':ROOT/'Reports'/'RepairActions'/'ActionDetails','repair_tickets':ROOT/'Reports'/'RepairActions'/'Tickets','repair_ticket_details':ROOT/'Reports'/'RepairActions'/'TicketDetails','repair_ticket_bridges':ROOT/'Reports'/'RepairActions'/'TicketBridges','repair_session_reports':ROOT/'Reports'/'RepairActions'/'SessionReports','repair_milestone_freeze':ROOT/'Reports'/'RepairActions'/'MilestoneFreeze','command_center_reports':ROOT/'Reports'/'CommandCenter','command_center_detail_reports':ROOT/'Reports'/'CommandCenter'/'Details','command_center_card_reports':ROOT/'Reports'/'CommandCenter'/'DashboardCards','command_center_archive_reports':ROOT/'Reports'/'CommandCenter'/'Archive','command_center_milestone_freeze':ROOT/'Reports'/'CommandCenter'/'MilestoneFreeze','kayock_writer_reports':ROOT/'Reports'/'KayockWriter','kayock_writer_foundation_reports':ROOT/'Reports'/'KayockWriter'/'Foundation','kayock_writer_story_forge_reports':ROOT/'Reports'/'KayockWriter'/'StoryForge','kayock_writer_manifest_preview_reports':ROOT/'Reports'/'KayockWriter'/'ManifestPreview','kayock_writer_create_gate_reports':ROOT/'Reports'/'KayockWriter'/'CreateProjectGate','kayock_writer_create_action_reports':ROOT/'Reports'/'KayockWriter'/'CreateProjectAction','kayock_writer_project_dashboard_reports':ROOT/'Reports'/'KayockWriter'/'ProjectDashboard','kayock_writer_project_health_reports':ROOT/'Reports'/'KayockWriter'/'ProjectHealthCards','kayock_writer_chapter_planner_reports':ROOT/'Reports'/'KayockWriter'/'ChapterPlanner','kayock_writer_chapter_save_gate_reports':ROOT/'Reports'/'KayockWriter'/'ChapterSaveGate','kayock_writer_chapter_save_action_reports':ROOT/'Reports'/'KayockWriter'/'ChapterSaveAction','kayock_writer_saved_chapter_dashboard_reports':ROOT/'Reports'/'KayockWriter'/'SavedChapterDashboard','kayock_writer_chapter_editor_preview_reports':ROOT/'Reports'/'KayockWriter'/'ChapterEditorPreview','kayock_writer_chapter_edit_gate_reports':ROOT/'Reports'/'KayockWriter'/'ChapterEditGate','kayock_writer_chapter_edit_action_reports':ROOT/'Reports'/'KayockWriter'/'ChapterEditAction','kayock_writer_chapter_edit_audit_reports':ROOT/'Reports'/'KayockWriter'/'ChapterEditAudit','kayock_writer_chapter_draft_workspace_reports':ROOT/'Reports'/'KayockWriter'/'ChapterDraftWorkspace','kayock_writer_draft_save_gate_reports':ROOT/'Reports'/'KayockWriter'/'DraftSaveGate','kayock_writer_draft_save_action_reports':ROOT/'Reports'/'KayockWriter'/'DraftSaveAction','kayock_writer_draft_reader_reports':ROOT/'Reports'/'KayockWriter'/'DraftReader','kayock_writer_draft_version_history_reports':ROOT/'Reports'/'KayockWriter'/'DraftVersionHistory','kayock_writer_draft_continue_workspace_reports':ROOT/'Reports'/'KayockWriter'/'DraftContinueWorkspace','kayock_writer_continue_save_gate_reports':ROOT/'Reports'/'KayockWriter'/'ContinueSaveGate','kayock_writer_continue_save_action_reports':ROOT/'Reports'/'KayockWriter'/'ContinueSaveAction','kayock_writer_draft_refresh_reports':ROOT/'Reports'/'KayockWriter'/'DraftRefreshVerification','kayock_writer_draft_compare_reports':ROOT/'Reports'/'KayockWriter'/'DraftCompareView','kayock_writer_real_prose_gate_reports':ROOT/'Reports'/'KayockWriter'/'RealProseDraftGate','kayock_writer_real_prose_save_reports':ROOT/'Reports'/'KayockWriter'/'RealProseSaveAction','kayock_writer_real_prose_refresh_compare_reports':ROOT/'Reports'/'KayockWriter'/'RealProseRefreshCompare','kayock_writer_real_prose_editor_gate_reports':ROOT/'Reports'/'KayockWriter'/'RealProseEditorGate','kayock_writer_real_prose_edit_save_reports':ROOT/'Reports'/'KayockWriter'/'RealProseEditSaveAction','kayock_writer_real_prose_edit_refresh_compare_reports':ROOT/'Reports'/'KayockWriter'/'RealProseEditRefreshCompare','kayock_writer_chapter_prose_workspace_reports':ROOT/'Reports'/'KayockWriter'/'ChapterProseWorkspace','kayock_writer_chapter_prose_continue_gate_reports':ROOT/'Reports'/'KayockWriter'/'ChapterProseContinueGate','kayock_writer_chapter_prose_continue_save_reports':ROOT/'Reports'/'KayockWriter'/'ChapterProseContinueSaveAction','kayock_writer_chapter_prose_continue_refresh_compare_reports':ROOT/'Reports'/'KayockWriter'/'ChapterProseContinueRefreshCompare','kayock_writer_chapter_edit_backups':ROOT/'Backups'/'KayockWriter'/'ChapterEdits','kayock_writer_saved_chapter_health_reports':ROOT/'Reports'/'KayockWriter'/'SavedChapterHealth','kayock_writer_slipping_chapters_folder':ROOT/'Projects'/'KayockWriter'/'Slipping_into_Darkness'/'Chapters','kayock_writer_slipping_project_root':ROOT/'Projects'/'KayockWriter'/'Slipping_into_Darkness','env_reports':ROOT/'Reports'/'Environment','portable_reports':ROOT/'Reports'/'PortableReadiness','model_reports':ROOT/'Reports'/'Models','build_reports':ROOT/'Reports'/'BuildVerification','scan_reports':ROOT/'Reports'/'Scans','manifest_backups':ROOT/'Backups'/'Manifests','file_backups':ROOT/'Backups'/'GeneratedFiles','restore_staging':ROOT/'Reports'/'Backups'/'RestoreStaging','staging_inventory':ROOT/'Reports'/'Backups'/'StagingInventory','final_checklist':ROOT/'Reports'/'Backups'/'FinalChecklist','restore_live_backups':ROOT/'Backups'/'RestoreLiveTargets','restore_reports':ROOT/'Reports'/'Backups'/'RestoreActions','restore_audit':ROOT/'Reports'/'Backups'/'RestoreAudit','rollback_previews':ROOT/'Reports'/'Backups'/'RollbackPreviews','rollback_live_backups':ROOT/'Backups'/'RollbackLiveTargets','rollback_reports':ROOT/'Reports'/'Backups'/'RollbackActions','rollback_audit':ROOT/'Reports'/'Backups'/'RollbackAudit','recovery_timeline':ROOT/'Reports'/'Backups'/'RecoveryTimeline','extensions':ROOT/'Extensions','modules':ROOT/'Modules'}
++FOLDERS={'root':ROOT,'models':ROOT/'Models','chat_models':ROOT/'Models'/'Chat','comfy_output':COMFY/'output','library':LIB,'projects':PROJECTS,'prompts':ROOT/'Prompts','novel_forge':ROOT/'NovelForge','novel_exports':ROOT/'NovelForge'/'Exports','logs':LOGS,'config':ROOT/'Config','reports':ROOT/'Reports','repair_reports':ROOT/'Reports'/'RepairActions','repair_ops_dashboard':ROOT/'Reports'/'RepairActions'/'OperationsDashboard','repair_action_details':ROOT/'Reports'/'RepairActions'/'ActionDetails','repair_tickets':ROOT/'Reports'/'RepairActions'/'Tickets','repair_ticket_details':ROOT/'Reports'/'RepairActions'/'TicketDetails','repair_ticket_bridges':ROOT/'Reports'/'RepairActions'/'TicketBridges','repair_session_reports':ROOT/'Reports'/'RepairActions'/'SessionReports','repair_milestone_freeze':ROOT/'Reports'/'RepairActions'/'MilestoneFreeze','repair_system_baselines':ROOT/'Reports'/'RepairBay'/'SystemBaseline','repair_system_baseline_exports':ROOT/'Reports'/'RepairBay'/'SystemBaseline'/'Exports','command_center_reports':ROOT/'Reports'/'CommandCenter','command_center_detail_reports':ROOT/'Reports'/'CommandCenter'/'Details','command_center_card_reports':ROOT/'Reports'/'CommandCenter'/'DashboardCards','command_center_archive_reports':ROOT/'Reports'/'CommandCenter'/'Archive','command_center_milestone_freeze':ROOT/'Reports'/'CommandCenter'/'MilestoneFreeze','kayock_writer_reports':ROOT/'Reports'/'KayockWriter','kayock_writer_foundation_reports':ROOT/'Reports'/'KayockWriter'/'Foundation','kayock_writer_story_forge_reports':ROOT/'Reports'/'KayockWriter'/'StoryForge','kayock_writer_manifest_preview_reports':ROOT/'Reports'/'KayockWriter'/'ManifestPreview','kayock_writer_create_gate_reports':ROOT/'Reports'/'KayockWriter'/'CreateProjectGate','kayock_writer_create_action_reports':ROOT/'Reports'/'KayockWriter'/'CreateProjectAction','kayock_writer_project_dashboard_reports':ROOT/'Reports'/'KayockWriter'/'ProjectDashboard','kayock_writer_project_health_reports':ROOT/'Reports'/'KayockWriter'/'ProjectHealthCards','kayock_writer_chapter_planner_reports':ROOT/'Reports'/'KayockWriter'/'ChapterPlanner','kayock_writer_chapter_save_gate_reports':ROOT/'Reports'/'KayockWriter'/'ChapterSaveGate','kayock_writer_chapter_save_action_reports':ROOT/'Reports'/'KayockWriter'/'ChapterSaveAction','kayock_writer_saved_chapter_dashboard_reports':ROOT/'Reports'/'KayockWriter'/'SavedChapterDashboard','kayock_writer_chapter_editor_preview_reports':ROOT/'Reports'/'KayockWriter'/'ChapterEditorPreview','kayock_writer_chapter_edit_gate_reports':ROOT/'Reports'/'KayockWriter'/'ChapterEditGate','kayock_writer_chapter_edit_action_reports':ROOT/'Reports'/'KayockWriter'/'ChapterEditAction','kayock_writer_chapter_edit_audit_reports':ROOT/'Reports'/'KayockWriter'/'ChapterEditAudit','kayock_writer_chapter_draft_workspace_reports':ROOT/'Reports'/'KayockWriter'/'ChapterDraftWorkspace','kayock_writer_draft_save_gate_reports':ROOT/'Reports'/'KayockWriter'/'DraftSaveGate','kayock_writer_draft_save_action_reports':ROOT/'Reports'/'KayockWriter'/'DraftSaveAction','kayock_writer_draft_reader_reports':ROOT/'Reports'/'KayockWriter'/'DraftReader','kayock_writer_draft_version_history_reports':ROOT/'Reports'/'KayockWriter'/'DraftVersionHistory','kayock_writer_draft_continue_workspace_reports':ROOT/'Reports'/'KayockWriter'/'DraftContinueWorkspace','kayock_writer_continue_save_gate_reports':ROOT/'Reports'/'KayockWriter'/'ContinueSaveGate','kayock_writer_continue_save_action_reports':ROOT/'Reports'/'KayockWriter'/'ContinueSaveAction','kayock_writer_draft_refresh_reports':ROOT/'Reports'/'KayockWriter'/'DraftRefreshVerification','kayock_writer_draft_compare_reports':ROOT/'Reports'/'KayockWriter'/'DraftCompareView','kayock_writer_real_prose_gate_reports':ROOT/'Reports'/'KayockWriter'/'RealProseDraftGate','kayock_writer_real_prose_save_reports':ROOT/'Reports'/'KayockWriter'/'RealProseSaveAction','kayock_writer_real_prose_refresh_compare_reports':ROOT/'Reports'/'KayockWriter'/'RealProseRefreshCompare','kayock_writer_real_prose_editor_gate_reports':ROOT/'Reports'/'KayockWriter'/'RealProseEditorGate','kayock_writer_real_prose_edit_save_reports':ROOT/'Reports'/'KayockWriter'/'RealProseEditSaveAction','kayock_writer_real_prose_edit_refresh_compare_reports':ROOT/'Reports'/'KayockWriter'/'RealProseEditRefreshCompare','kayock_writer_chapter_prose_workspace_reports':ROOT/'Reports'/'KayockWriter'/'ChapterProseWorkspace','kayock_writer_chapter_prose_continue_gate_reports':ROOT/'Reports'/'KayockWriter'/'ChapterProseContinueGate','kayock_writer_chapter_prose_continue_save_reports':ROOT/'Reports'/'KayockWriter'/'ChapterProseContinueSaveAction','kayock_writer_chapter_prose_continue_refresh_compare_reports':ROOT/'Reports'/'KayockWriter'/'ChapterProseContinueRefreshCompare','kayock_writer_chapter_edit_backups':ROOT/'Backups'/'KayockWriter'/'ChapterEdits','kayock_writer_saved_chapter_health_reports':ROOT/'Reports'/'KayockWriter'/'SavedChapterHealth','kayock_writer_slipping_chapters_folder':ROOT/'Projects'/'KayockWriter'/'Slipping_into_Darkness'/'Chapters','kayock_writer_slipping_project_root':ROOT/'Projects'/'KayockWriter'/'Slipping_into_Darkness','env_reports':ROOT/'Reports'/'Environment','portable_reports':ROOT/'Reports'/'PortableReadiness','model_reports':ROOT/'Reports'/'Models','build_reports':ROOT/'Reports'/'BuildVerification','scan_reports':ROOT/'Reports'/'Scans','manifest_backups':ROOT/'Backups'/'Manifests','file_backups':ROOT/'Backups'/'GeneratedFiles','restore_staging':ROOT/'Reports'/'Backups'/'RestoreStaging','staging_inventory':ROOT/'Reports'/'Backups'/'StagingInventory','final_checklist':ROOT/'Reports'/'Backups'/'FinalChecklist','restore_live_backups':ROOT/'Backups'/'RestoreLiveTargets','restore_reports':ROOT/'Reports'/'Backups'/'RestoreActions','restore_audit':ROOT/'Reports'/'Backups'/'RestoreAudit','rollback_previews':ROOT/'Reports'/'Backups'/'RollbackPreviews','rollback_live_backups':ROOT/'Backups'/'RollbackLiveTargets','rollback_reports':ROOT/'Reports'/'Backups'/'RollbackActions','rollback_audit':ROOT/'Reports'/'Backups'/'RollbackAudit','recovery_timeline':ROOT/'Reports'/'Backups'/'RecoveryTimeline','extensions':ROOT/'Extensions','modules':ROOT/'Modules'}
+ FOLDERS['kayock_writer_poetry_drafts']=ROOT/'Projects'/'KayockWriter'/'Poetry'/'Drafts'
+ FOLDERS['kayock_writer_poetry_recordings']=ROOT/'Projects'/'KayockWriter'/'Poetry'/'Recordings'
+ FOLDERS['kayock_writer_poetry_legacy']=ROOT/'Projects'/'KayockWriter'/'Poetry'/'Legacy'
+@@ -1327,6 +1327,9 @@
+ @media(max-width:760px){.repairHandoffGrid{grid-template-columns:1fr}.repairHandoffGrid button{width:100%}}
+ /* REPAIR_BAY_GUARDED_HANDOFF_V2_STYLE_END */
+ /* REPAIR_BAY_CALM_GUIDED_V1_4_END */
++/* REPAIR_BAY_SYSTEM_BASELINE_V3_STYLE_START */
++.repairBaselinePanel{border:1px solid #42ff9e38;border-radius:20px;background:linear-gradient(180deg,#10171a,#0b1015);padding:18px;margin:0 0 16px}.repairBaselineHead{display:flex;gap:12px;align-items:flex-start;justify-content:space-between;flex-wrap:wrap}.repairBaselineHead h3{margin:0 0 5px;font-size:22px}.repairBaselineHead p{margin:0;color:var(--m);line-height:1.45;max-width:850px}.repairBaselineGrid{display:grid;grid-template-columns:repeat(2,minmax(220px,1fr));gap:11px;margin-top:15px}.repairBaselineGrid label{display:grid;gap:6px;color:var(--m);font-size:12px}.repairBaselineGrid .wide{grid-column:1/-1}.repairBaselineActions{display:flex;gap:8px;flex-wrap:wrap;margin:13px 0}.repairBaselineStatus{border:1px solid #8f5cff35;border-radius:13px;background:#8f5cff09;padding:12px;white-space:pre-wrap}.repairBaselineMetrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px;margin-top:12px}.repairBaselineMetric{border:1px solid #ffffff18;border-radius:12px;background:#090d12;padding:10px}.repairBaselineMetric span{display:block;color:var(--m);font-size:11px}.repairBaselineMetric b{display:block;margin-top:4px;font-size:18px}.repairBaselineChanges{display:grid;gap:8px;margin-top:12px}.repairBaselineChange{border:1px solid #ffffff18;border-radius:12px;background:#0b0f15;padding:11px}.repairBaselineChange summary{cursor:pointer;font-weight:800}.repairBaselineChange pre{margin:9px 0 0;max-height:280px;overflow:auto;white-space:pre-wrap}.repairBaselineSession{border-top:1px solid #42ff9e24;margin-top:15px;padding-top:15px}.repairBaselineSessionRow{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.repairBaselineSessionRow select{min-width:240px;flex:1}.repairBaselineSafe{font-size:12px;color:var(--m);margin-top:10px}.repairBaselinePanel.busy{opacity:.72;pointer-events:none}@media(max-width:760px){.repairBaselineGrid{grid-template-columns:1fr}.repairBaselineGrid .wide{grid-column:auto}.repairBaselineActions button{width:100%}}
++/* REPAIR_BAY_SYSTEM_BASELINE_V3_STYLE_END */
+ /* REPAIR_BAY_GUIDED_CLEANUP_V1_END */
+ 
+ /* KAYOCK_WRITER_GUIDED_CLEANUP_V1_START */
+@@ -1657,6 +1660,23 @@
+ <div id=repairCalmSafety class=repairCalmSafety>Nothing has been scanned or changed yet.</div>
+ </div>
+ </div>
++<!-- REPAIR_BAY_SYSTEM_BASELINE_V3_HTML_START -->
++<div id=repairBaselinePanel class=repairBaselinePanel>
++<div class=repairBaselineHead><div><h3>System Baseline &amp; Change Comparison</h3><p>Capture a trustworthy Before snapshot, make an external change yourself, then capture After and see exactly what changed. Repair Bay observes only; it does not install, stop, start, tune, or repair anything here.</p></div><span class="pill ok">READ ONLY</span></div>
++<div class=repairBaselineGrid>
++<label>Snapshot or change-session name<input id=repairBaselineName placeholder="Known-Good July 2026"></label>
++<label>Optional note<input id=repairBaselineNote placeholder="Before voice installation"></label>
++<label>Before snapshot<select id=repairBaselineBefore></select></label>
++<label>After snapshot<select id=repairBaselineAfter></select></label>
++</div>
++<div class=repairBaselineActions><button onclick="captureRepairBaseline('manual')">Capture Baseline</button><button onclick="captureRepairBaseline('after_manual')">Capture After Snapshot</button><button onclick="compareRepairBaselines()">Compare Snapshots</button><button onclick="markRepairBaselineKnownGood()">Mark Selected Before as Known-Good</button><button onclick="loadRepairBaselines()">Refresh</button><button onclick="api('/api/open/repair_system_baseline_exports')">Open Exports</button></div>
++<div id=repairBaselineStatus class=repairBaselineStatus>Loading saved snapshots…</div>
++<div id=repairBaselineMetrics class=repairBaselineMetrics></div>
++<div id=repairBaselineChanges class=repairBaselineChanges></div>
++<div class=repairBaselineSession><h4>Change Session</h4><p class=muted>Repair Bay captures Before, waits while you perform the external change, then captures After and creates one receipt.</p><div class=repairBaselineSessionRow><button onclick="beginRepairBaselineSession()">Begin Change Session</button><select id=repairBaselineSession></select><button onclick="finishRepairBaselineSession()">Capture After + Compare</button><button onclick="closeRepairBaselineSession(false)">Close Without After</button><button onclick="closeRepairBaselineSession(true)">Cancel Session</button></div></div>
++<div class=repairBaselineSafe>No passwords, environment variables, browser contents, clipboard data, authentication tokens, or full command-line arguments are captured. Exports stay local.</div>
++</div>
++<!-- REPAIR_BAY_SYSTEM_BASELINE_V3_HTML_END -->
+ <details class=repairSimpleDetails><summary>Show scan details</summary><div class=repairSimpleBody>
+ <p class=repairGuidedIntro>These are the counts, individual checks, evidence, and proposal-only steps behind the plain-English summary.</p>
+ <div class=repairHealthActions><button onclick="runRepairHealthScan('quick')">Quick Health Scan</button><button onclick="runRepairHealthScan('full')">Full Read-Only Scan</button><button onclick="sendRepairHealthScanToMission()">Send Findings to Mission</button></div>
+@@ -2488,6 +2508,23 @@
+  ['repairLauncherSearch','repairLauncherCategory','repairLauncherProtection','repairLauncherEntry','repairLauncherResolution','repairLauncherReview'].forEach(id=>{let el=q(id);if(!el)return;el.value=id==='repairLauncherSearch'?'':'all'});
+  renderRepairLauncherIndex();
+ }
++/* REPAIR_BAY_SYSTEM_BASELINE_V3_BROWSER_START */
++let repairBaselineState={snapshots:[],sessions:[],comparison:null,busy:false};
++function repairBaselineBytes(value){let n=Number(value||0),sign=n<0?'-':'';n=Math.abs(n);for(let unit of ['B','KB','MB','GB','TB']){if(n<1024||unit==='TB')return sign+(n>=10||unit==='B'?n.toFixed(0):n.toFixed(1))+' '+unit;n/=1024}return sign+n.toFixed(1)+' TB'}
++function repairBaselineBusy(on,message='Working…'){repairBaselineState.busy=!!on;let panel=q('repairBaselinePanel');if(panel)panel.classList.toggle('busy',!!on);if(on&&q('repairBaselineStatus'))q('repairBaselineStatus').textContent=message}
++function repairBaselineOptions(items,selected=''){return (items||[]).map(x=>`<option value="${esc(x.snapshot_id||'')}" ${(x.snapshot_id||'')===selected?'selected':''}>${esc(x.known_good?'★ '+(x.name||''):(x.name||''))} — ${esc(x.created_at||'')}</option>`).join('')}
++function renderRepairBaselineList(data){repairBaselineState.snapshots=data.snapshots||[];repairBaselineState.sessions=data.sessions||[];let before=q('repairBaselineBefore'),after=q('repairBaselineAfter'),session=q('repairBaselineSession');let priorBefore=before?.value||data.known_good_snapshot_id||'',priorAfter=after?.value||'';if(before)before.innerHTML=repairBaselineOptions(repairBaselineState.snapshots,priorBefore);if(after){after.innerHTML=repairBaselineOptions(repairBaselineState.snapshots,priorAfter);if(!priorAfter&&repairBaselineState.snapshots.length)after.value=repairBaselineState.snapshots[0].snapshot_id}let active=(repairBaselineState.sessions||[]).filter(x=>x.status==='waiting_for_after');if(session)session.innerHTML=active.length?active.map(x=>`<option value="${esc(x.session_id||'')}">${esc(x.name||'Change Session')} — waiting for After</option>`).join(''):'<option value="">No active change session</option>';let known=repairBaselineState.snapshots.find(x=>x.known_good);q('repairBaselineStatus').textContent=`${repairBaselineState.snapshots.length} snapshot(s) saved.${known?' Known-good: '+known.name+'.':''} System inspection remains read-only.`;q('repairBaselineMetrics').innerHTML=`<div class=repairBaselineMetric><span>Snapshots</span><b>${repairBaselineState.snapshots.length}</b></div><div class=repairBaselineMetric><span>Active sessions</span><b>${active.length}</b></div><div class=repairBaselineMetric><span>Known-good</span><b>${esc(known?.name||'Not selected')}</b></div>`}
++async function loadRepairBaselines(){try{let d=await api('/api/repair/baseline/list',{method:'POST',headers:{'Content-Type':'application/json'},body:'{}'});if(!d?.ok)throw new Error(d?.message||'Could not load snapshots.');renderRepairBaselineList(d)}catch(e){q('repairBaselineStatus').textContent='Could not load System Baseline: '+e.message}}
++async function captureRepairBaseline(origin){let name=(q('repairBaselineName')?.value||'').trim()||(origin==='after_manual'?'After Snapshot':'Manual Baseline'),note=(q('repairBaselineNote')?.value||'').trim();repairBaselineBusy(true,'Capturing read-only system snapshot…');try{let d=await api('/api/repair/baseline/capture',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name,note,origin})});if(!d?.ok)throw new Error(d?.message||'Snapshot failed.');repairBaselineBusy(false);q('repairBaselineStatus').textContent=d.message||'Snapshot captured.';await loadRepairBaselines();if(origin==='after_manual'&&q('repairBaselineAfter'))q('repairBaselineAfter').value=d.snapshot?.snapshot_id||'';else if(q('repairBaselineBefore'))q('repairBaselineBefore').value=d.snapshot?.snapshot_id||''}catch(e){repairBaselineBusy(false);q('repairBaselineStatus').textContent='Snapshot blocked: '+e.message}}
++function renderRepairBaselineComparison(d){let c=d.comparison||{},s=c.summary||{},actions=s.by_action||{},classes=s.by_classification||{},rd=s.resource_deltas||{};repairBaselineState.comparison=c;q('repairBaselineStatus').textContent=d.message||'Comparison complete.';q('repairBaselineMetrics').innerHTML=`<div class=repairBaselineMetric><span>Total changes</span><b>${s.total_changes||0}</b></div><div class=repairBaselineMetric><span>Added</span><b>${actions.Added||0}</b></div><div class=repairBaselineMetric><span>Removed</span><b>${actions.Removed||0}</b></div><div class=repairBaselineMetric><span>Changed</span><b>${actions.Changed||0}</b></div><div class=repairBaselineMetric><span>Review suggested</span><b>${classes['Review Suggested']||0}</b></div><div class=repairBaselineMetric><span>Runtime noise</span><b>${classes['Runtime Noise']||0}</b></div>`;let changes=c.changes||[];q('repairBaselineChanges').innerHTML=(changes.length?changes.slice(0,250).map(x=>`<details class=repairBaselineChange><summary>${esc(x.action||'Changed')} — ${esc(x.name||'Item')} <span class="pill ${x.classification==='Runtime Noise'?'warn':'ok'}">${esc(x.classification||'Observation')}</span></summary><div class=small>${esc(x.category||'')}</div><pre>${esc(JSON.stringify(x.evidence||{},null,2))}</pre></details>`).join(''):'<div class=repairCalmEmpty>No structural changes were found.</div>')+`<div class=repairBaselineActions><button onclick="exportRepairBaselineComparison()" ${c.comparison_id?'':'disabled'}>Export HTML + Markdown + JSON</button></div>`}
++async function compareRepairBaselines(){let before_id=q('repairBaselineBefore')?.value||'',after_id=q('repairBaselineAfter')?.value||'';if(!before_id||!after_id){q('repairBaselineStatus').textContent='Choose both a Before and After snapshot.';return}if(before_id===after_id){q('repairBaselineStatus').textContent='Before and After must be different snapshots.';return}repairBaselineBusy(true,'Comparing snapshots…');try{let d=await api('/api/repair/baseline/compare',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({before_id,after_id})});if(!d?.ok)throw new Error(d?.message||'Comparison failed.');repairBaselineBusy(false);renderRepairBaselineComparison(d)}catch(e){repairBaselineBusy(false);q('repairBaselineStatus').textContent='Comparison blocked: '+e.message}}
++async function markRepairBaselineKnownGood(){let snapshot_id=q('repairBaselineBefore')?.value||'';if(!snapshot_id){q('repairBaselineStatus').textContent='Choose the snapshot to mark known-good.';return}if(!confirm('Mark this snapshot as the known-good reference baseline? Historical snapshots will remain preserved.'))return;let d=await api('/api/repair/baseline/known_good',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({snapshot_id,confirm:true})});q('repairBaselineStatus').textContent=d?.message||'Known-good selection failed.';if(d?.ok)await loadRepairBaselines()}
++async function exportRepairBaselineComparison(){let comparison_id=repairBaselineState.comparison?.comparison_id||'';if(!comparison_id)return;let d=await api('/api/repair/baseline/export',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({comparison_id,formats:['html','markdown','json']})});q('repairBaselineStatus').textContent=d?.message||'Export failed.'}
++async function beginRepairBaselineSession(){let name=(q('repairBaselineName')?.value||'').trim()||'Change Session',note=(q('repairBaselineNote')?.value||'').trim();repairBaselineBusy(true,'Capturing the Before snapshot…');try{let d=await api('/api/repair/baseline/session_begin',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name,note})});if(!d?.ok)throw new Error(d?.message||'Session could not begin.');repairBaselineBusy(false);q('repairBaselineStatus').textContent=d.message;await loadRepairBaselines()}catch(e){repairBaselineBusy(false);q('repairBaselineStatus').textContent='Change Session blocked: '+e.message}}
++async function finishRepairBaselineSession(){let session_id=q('repairBaselineSession')?.value||'';if(!session_id){q('repairBaselineStatus').textContent='No active Change Session is selected.';return}repairBaselineBusy(true,'Capturing After and comparing…');try{let d=await api('/api/repair/baseline/session_after',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({session_id,note:(q('repairBaselineNote')?.value||'').trim()})});if(!d?.ok)throw new Error(d?.message||'After snapshot failed.');repairBaselineBusy(false);renderRepairBaselineComparison(d.comparison);await loadRepairBaselines()}catch(e){repairBaselineBusy(false);q('repairBaselineStatus').textContent='After snapshot blocked: '+e.message}}
++async function closeRepairBaselineSession(cancel){let session_id=q('repairBaselineSession')?.value||'';if(!session_id)return;let route=cancel?'/api/repair/baseline/session_cancel':'/api/repair/baseline/session_close';let d=await api(route,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({session_id})});q('repairBaselineStatus').textContent=d?.message||'Session update failed.';if(d?.ok)await loadRepairBaselines()}
++setTimeout(()=>{if(q('repairBaselinePanel'))loadRepairBaselines()},500);
++/* REPAIR_BAY_SYSTEM_BASELINE_V3_BROWSER_END */
+ /* REPAIR_BAY_GUIDED_CLEANUP_V1_BROWSER_END */
+ /* KAYOCKS_STUDY_INTEGRATION_V1_BROWSER_START */
+ const KAYOCKS_STUDY_URL='http://127.0.0.1:8777/';let kayocksStudyStarting=false;
+@@ -12553,6 +12590,8 @@
+         if path=='/api/command_center/dashboard_card': self.js(command_center_dashboard_card_report(d)); return
+         if path=='/api/command_center/detail': self.js(command_center_detail_report(d)); return
+         if path=='/api/command_center/foundation': self.js(command_center_foundation_report(d)); return
++        if path.startswith('/api/repair/baseline/'):
++            self.js(repair_bay_system_baseline(path,d)); return
+         if path=='/api/repair/handoff': self.js(repair_bay_prepare_handoff(d)); return
+         if path=='/api/repair/health_scan': self.js(repair_bay_health_scan(d)); return
+         if path=='/api/repair/launcher_index': self.js(repair_bay_launcher_index(d)); return
+@@ -15088,6 +15127,27 @@
+             'implementation_authorized':False,
+         }
+ 
++
++
++# REPAIR_BAY_SYSTEM_BASELINE_V3_SERVER_START
++def repair_bay_system_baseline(route,d=None):
++    try:
++        from core.repair_bay_baseline import api_dispatch
++        result=api_dispatch(ROOT,route,d or {})
++        if isinstance(result,dict):
++            result.setdefault('read_only_system',True)
++            result.setdefault('network_used',False)
++            result.setdefault('repair_actions_applied',0)
++        return result
++    except Exception as exc:
++        return {
++            'ok':False,
++            'message':f'System Baseline failed closed: {type(exc).__name__}: {exc}',
++            'read_only_system':True,
++            'network_used':False,
++            'repair_actions_applied':0,
++        }
++# REPAIR_BAY_SYSTEM_BASELINE_V3_SERVER_END
+ 
+ def repair_bay_launcher_index(d=None):
+     request=d or {}
+--- /dev/null
++++ b/core/repair_bay_baseline.py
+@@ -0,0 +1,916 @@
++from __future__ import annotations
++
++import base64
++import ctypes
++import hashlib
++import html
++import json
++import os
++import platform
++import re
++import shutil
++import socket
++import subprocess
++import tempfile
++import time
++import uuid
++from datetime import datetime, timezone
++from pathlib import Path
++from typing import Any, Callable, Iterable
++
++BASELINE_VERSION = "3.0"
++DATA_RELATIVE = Path("Reports") / "RepairBay" / "SystemBaseline"
++SNAPSHOT_DIR_NAME = "Snapshots"
++COMPARISON_DIR_NAME = "Comparisons"
++EXPORT_DIR_NAME = "Exports"
++STATE_FILE_NAME = "state.json"
++SESSIONS_FILE_NAME = "sessions.json"
++
++SENSITIVE_KEY_RE = re.compile(
++    r"(?i)(password|passwd|secret|token|cookie|authorization|clipboard|environment|command[_ -]?line|arguments?)"
++)
++RUNTIME_NOISE_NAMES = {
++    "chrome.exe", "msedge.exe", "firefox.exe", "opera.exe", "brave.exe",
++    "runtimebroker.exe", "conhost.exe", "dllhost.exe", "searchhost.exe",
++    "widgetservice.exe", "webviewhost.exe", "msedgewebview2.exe",
++}
++READ_ONLY_POWERSHELL_MARKERS = (
++    "get-ciminstance", "get-process", "get-nettcpconnection", "get-netudpendpoint",
++    "get-itemproperty", "get-childitem", "get-scheduledtask", "get-authenticodesignature",
++    "get-windowsoptionalfeature", "get-command", "get-item", "get-counter",
++)
++MUTATION_MARKERS = (
++    "set-", "new-", "remove-", "enable-", "disable-", "start-", "stop-",
++    "restart-", "install-", "uninstall-", "register-", "unregister-",
++    "clear-", "rename-", "move-", "copy-", "invoke-webrequest", "curl ", "wget ",
++)
++
++
++def _utc_now() -> str:
++    return datetime.now(timezone.utc).isoformat(timespec="seconds")
++
++
++def _slug(value: str, default: str = "snapshot") -> str:
++    text = re.sub(r"[^A-Za-z0-9._ -]+", "", str(value or "")).strip()
++    text = re.sub(r"\s+", "_", text)[:80]
++    return text or default
++
++
++def _sha256_bytes(data: bytes) -> str:
++    return hashlib.sha256(data).hexdigest()
++
++
++def _json_bytes(value: Any) -> bytes:
++    return json.dumps(value, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")
++
++
++def _atomic_json_write(path: Path, value: Any) -> None:
++    path.parent.mkdir(parents=True, exist_ok=True)
++    temp = path.with_suffix(path.suffix + ".tmp")
++    temp.write_text(json.dumps(value, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
++    os.replace(temp, path)
++
++
++def _read_json(path: Path, default: Any) -> Any:
++    try:
++        return json.loads(path.read_text(encoding="utf-8"))
++    except Exception:
++        return default
++
++
++def _data_paths(root: Path) -> dict[str, Path]:
++    base = Path(root) / DATA_RELATIVE
++    return {
++        "base": base,
++        "snapshots": base / SNAPSHOT_DIR_NAME,
++        "comparisons": base / COMPARISON_DIR_NAME,
++        "exports": base / EXPORT_DIR_NAME,
++        "state": base / STATE_FILE_NAME,
++        "sessions": base / SESSIONS_FILE_NAME,
++    }
++
++
++def _ensure_data_dirs(root: Path) -> dict[str, Path]:
++    paths = _data_paths(root)
++    for key in ("base", "snapshots", "comparisons", "exports"):
++        paths[key].mkdir(parents=True, exist_ok=True)
++    if not paths["state"].exists():
++        _atomic_json_write(paths["state"], {"schema": "foxai.repair_baseline.state.v1", "known_good_snapshot_id": ""})
++    if not paths["sessions"].exists():
++        _atomic_json_write(paths["sessions"], {"schema": "foxai.repair_baseline.sessions.v1", "sessions": []})
++    return paths
++
++
++def _safe_text(value: Any, limit: int = 1000) -> str:
++    text = str(value or "").replace("\x00", "").strip()
++    return text[:limit]
++
++
++def _safe_number(value: Any, default: float = 0.0) -> float:
++    try:
++        return float(value)
++    except Exception:
++        return default
++
++
++def _safe_int(value: Any, default: int = 0) -> int:
++    try:
++        return int(float(value))
++    except Exception:
++        return default
++
++
++def _sanitize_mapping(value: Any) -> Any:
++    if isinstance(value, dict):
++        clean: dict[str, Any] = {}
++        for key, item in value.items():
++            key_text = _safe_text(key, 160)
++            if SENSITIVE_KEY_RE.search(key_text):
++                continue
++            clean[key_text] = _sanitize_mapping(item)
++        return clean
++    if isinstance(value, list):
++        return [_sanitize_mapping(item) for item in value]
++    if isinstance(value, tuple):
++        return [_sanitize_mapping(item) for item in value]
++    if isinstance(value, str):
++        return _safe_text(value, 4000)
++    if isinstance(value, (bool, int, float)) or value is None:
++        return value
++    return _safe_text(value, 1000)
++
++
++def _run_read_only_powershell(script: str, timeout: int = 90) -> tuple[Any, dict[str, Any]]:
++    lower = script.casefold()
++    mutation_hits = sorted({marker for marker in MUTATION_MARKERS if marker in lower})
++    if mutation_hits:
++        raise ValueError("PowerShell collector contains prohibited mutation marker(s): " + ", ".join(mutation_hits))
++    encoded = base64.b64encode(script.encode("utf-16le")).decode("ascii")
++    command = [
++        "powershell.exe", "-NoLogo", "-NoProfile", "-NonInteractive",
++        "-ExecutionPolicy", "Bypass", "-EncodedCommand", encoded,
++    ]
++    receipt = {
++        "tool": "powershell.exe",
++        "read_only": True,
++        "network_used": False,
++        "timeout_seconds": timeout,
++        "allowed_markers_present": sorted({m for m in READ_ONLY_POWERSHELL_MARKERS if m in lower}),
++        "mutation_markers": [],
++    }
++    try:
++        completed = subprocess.run(
++            command,
++            capture_output=True,
++            text=True,
++            timeout=timeout,
++            check=False,
++            creationflags=(subprocess.CREATE_NO_WINDOW if os.name == "nt" else 0),
++        )
++    except FileNotFoundError:
++        receipt.update({"ok": False, "returncode": None, "message": "PowerShell was not found."})
++        return None, receipt
++    except subprocess.TimeoutExpired:
++        receipt.update({"ok": False, "returncode": None, "message": "Read-only PowerShell collector timed out."})
++        return None, receipt
++    stdout = (completed.stdout or "").strip().lstrip("\ufeff")
++    stderr = (completed.stderr or "").strip()
++    receipt.update({
++        "ok": completed.returncode == 0,
++        "returncode": completed.returncode,
++        "stderr": _safe_text(stderr, 1200),
++    })
++    if completed.returncode != 0 or not stdout:
++        return None, receipt
++    try:
++        return json.loads(stdout), receipt
++    except Exception as exc:
++        receipt.update({"ok": False, "message": f"Collector JSON could not be parsed: {type(exc).__name__}"})
++        return None, receipt
++
++
++def _memory_fallback() -> dict[str, Any]:
++    result = {"total_bytes": 0, "available_bytes": 0, "cached_bytes": None, "committed_bytes": None}
++    if os.name != "nt":
++        return result
++    try:
++        class MEMORYSTATUSEX(ctypes.Structure):
++            _fields_ = [
++                ("dwLength", ctypes.c_ulong), ("dwMemoryLoad", ctypes.c_ulong),
++                ("ullTotalPhys", ctypes.c_ulonglong), ("ullAvailPhys", ctypes.c_ulonglong),
++                ("ullTotalPageFile", ctypes.c_ulonglong), ("ullAvailPageFile", ctypes.c_ulonglong),
++                ("ullTotalVirtual", ctypes.c_ulonglong), ("ullAvailVirtual", ctypes.c_ulonglong),
++                ("ullAvailExtendedVirtual", ctypes.c_ulonglong),
++            ]
++        status = MEMORYSTATUSEX()
++        status.dwLength = ctypes.sizeof(status)
++        if ctypes.windll.kernel32.GlobalMemoryStatusEx(ctypes.byref(status)):
++            result.update({
++                "total_bytes": int(status.ullTotalPhys),
++                "available_bytes": int(status.ullAvailPhys),
++                "committed_bytes": int(status.ullTotalPageFile - status.ullAvailPageFile),
++            })
++    except Exception:
++        pass
++    return result
++
++
++def _uptime_seconds() -> int:
++    if os.name == "nt":
++        try:
++            return int(ctypes.windll.kernel32.GetTickCount64() // 1000)
++        except Exception:
++            return 0
++    try:
++        return int(float(Path("/proc/uptime").read_text().split()[0]))
++    except Exception:
++        return 0
++
++
++def _disk_inventory() -> list[dict[str, Any]]:
++    disks: list[dict[str, Any]] = []
++    if os.name == "nt":
++        try:
++            mask = int(ctypes.windll.kernel32.GetLogicalDrives())
++            get_type = ctypes.windll.kernel32.GetDriveTypeW
++            type_names = {2: "removable", 3: "fixed", 4: "network", 5: "optical", 6: "ramdisk"}
++            for index in range(26):
++                if not (mask & (1 << index)):
++                    continue
++                root = f"{chr(65 + index)}:\\"
++                drive_type = type_names.get(int(get_type(root)), "unknown")
++                if drive_type not in {"fixed", "removable"}:
++                    continue
++                try:
++                    usage = shutil.disk_usage(root)
++                    disks.append({
++                        "mount": root,
++                        "type": drive_type,
++                        "capacity_bytes": int(usage.total),
++                        "free_bytes": int(usage.free),
++                    })
++                except Exception as exc:
++                    disks.append({"mount": root, "type": drive_type, "capacity_bytes": 0, "free_bytes": 0, "error": type(exc).__name__})
++        except Exception:
++            pass
++    else:
++        try:
++            usage = shutil.disk_usage("/")
++            disks.append({"mount": "/", "type": "fixed", "capacity_bytes": usage.total, "free_bytes": usage.free})
++        except Exception:
++            pass
++    return disks
++
++
++def _windows_inventory_script() -> str:
++    # Read-only registry, CIM, process, networking, task, feature, and version inspection.
++    return r'''
++$ErrorActionPreference = 'SilentlyContinue'
++function Arr($x) { if ($null -eq $x) { return @() }; return @($x) }
++$services = Get-CimInstance Win32_Service | ForEach-Object {
++  [pscustomobject]@{
++    name=$_.Name; display_name=$_.DisplayName; state=$_.State; start_type=$_.StartMode;
++    executable_path=$_.PathName; service_account=$_.StartName; process_id=[int]$_.ProcessId
++  }
++}
++$serviceByPid = @{}
++foreach($s in $services){ if($s.process_id -gt 0){ if(-not $serviceByPid.ContainsKey($s.process_id)){ $serviceByPid[$s.process_id]=@() }; $serviceByPid[$s.process_id]+=$s.name } }
++$processes = Get-CimInstance Win32_Process | Sort-Object {[double]$_.WorkingSetSize} -Descending | Select-Object -First 60 | ForEach-Object {
++  $sigStatus=''; $publisher=''
++  if($_.ExecutablePath){
++    $sig = Get-AuthenticodeSignature -FilePath $_.ExecutablePath
++    if($sig){ $sigStatus=[string]$sig.Status; if($sig.SignerCertificate){$publisher=[string]$sig.SignerCertificate.Subject} }
++  }
++  [pscustomobject]@{
++    name=$_.Name; process_id=[int]$_.ProcessId; executable_path=$_.ExecutablePath;
++    working_set_bytes=[int64]$_.WorkingSetSize; private_bytes=[int64]$_.PrivatePageCount;
++    cpu_time_100ns=[int64]($_.KernelModeTime + $_.UserModeTime); start_time=[string]$_.CreationDate;
++    services=Arr($serviceByPid[[int]$_.ProcessId]); signature_status=$sigStatus; publisher=$publisher
++  }
++}
++$startup=@()
++$runLocations=@(
++  @{Scope='CurrentUser';Path='HKCU:\Software\Microsoft\Windows\CurrentVersion\Run'},
++  @{Scope='LocalMachine';Path='HKLM:\Software\Microsoft\Windows\CurrentVersion\Run'},
++  @{Scope='LocalMachine32';Path='HKLM:\Software\WOW6432Node\Microsoft\Windows\CurrentVersion\Run'}
++)
++foreach($loc in $runLocations){
++  $item=Get-ItemProperty -Path $loc.Path
++  if($item){ foreach($prop in $item.PSObject.Properties){ if($prop.Name -notmatch '^PS'){ $startup += [pscustomobject]@{source='registry_run';scope=$loc.Scope;name=$prop.Name;target=[string]$prop.Value;enabled=$true} } } }
++}
++$startupFolders=@(
++  @{Scope='CurrentUser';Path=[Environment]::GetFolderPath('Startup')},
++  @{Scope='AllUsers';Path=[Environment]::GetFolderPath('CommonStartup')}
++)
++foreach($folder in $startupFolders){ if(Test-Path $folder.Path){ Get-ChildItem -LiteralPath $folder.Path -File | ForEach-Object { $startup += [pscustomobject]@{source='startup_folder';scope=$folder.Scope;name=$_.Name;target=$_.FullName;enabled=$true} } } }
++$tasks=Get-ScheduledTask | ForEach-Object { [pscustomobject]@{path=($_.TaskPath + $_.TaskName);state=[string]$_.State;enabled=([string]$_.State -ne 'Disabled')} }
++$tcp=Get-NetTCPConnection -State Listen | ForEach-Object { [pscustomobject]@{protocol='TCP';local_address=$_.LocalAddress;local_port=[int]$_.LocalPort;process_id=[int]$_.OwningProcess} }
++$udp=Get-NetUDPEndpoint | ForEach-Object { [pscustomobject]@{protocol='UDP';local_address=$_.LocalAddress;local_port=[int]$_.LocalPort;process_id=[int]$_.OwningProcess} }
++$uninstall=@(
++  'HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\*',
++  'HKLM:\Software\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\*',
++  'HKCU:\Software\Microsoft\Windows\CurrentVersion\Uninstall\*'
++)
++$apps=Get-ItemProperty $uninstall | Where-Object {$_.DisplayName} | ForEach-Object { [pscustomobject]@{name=$_.DisplayName;version=$_.DisplayVersion;publisher=$_.Publisher;install_location=$_.InstallLocation} } | Sort-Object name,version -Unique
++$features=Get-WindowsOptionalFeature -Online | Where-Object {$_.State -eq 'Enabled'} | ForEach-Object { [pscustomobject]@{name=$_.FeatureName;state=[string]$_.State} }
++$commands=Get-Command python,python3,py,java,javac -All | ForEach-Object { $version=''; try {$version=$_.FileVersionInfo.FileVersion}catch{}; [pscustomobject]@{name=$_.Name;path=$_.Source;version=$version} } | Sort-Object path -Unique
++$browsers=@()
++foreach($path in @(
++  'C:\Program Files\Google\Chrome\Application\chrome.exe',
++  'C:\Program Files (x86)\Google\Chrome\Application\chrome.exe',
++  'C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe',
++  'C:\Program Files\Mozilla Firefox\firefox.exe'
++)){ if(Test-Path $path){ $item=Get-Item -LiteralPath $path; $browsers += [pscustomobject]@{name=$item.VersionInfo.ProductName;path=$path;version=$item.VersionInfo.ProductVersion} } }
++$gpu=Get-CimInstance Win32_VideoController | ForEach-Object { [pscustomobject]@{name=$_.Name;driver_version=$_.DriverVersion;status=$_.Status} }
++$audio=Get-CimInstance Win32_SoundDevice | ForEach-Object { [pscustomobject]@{name=$_.Name;manufacturer=$_.Manufacturer;status=$_.Status} }
++$osInfo=Get-CimInstance Win32_OperatingSystem
++$cpuUsage=$null; $cacheBytes=$null
++try{$cpuUsage=[math]::Round((Get-Counter '\Processor(_Total)\% Processor Time').CounterSamples.CookedValue,1)}catch{}
++try{$cacheBytes=[int64](Get-Counter '\Memory\Cache Bytes').CounterSamples.CookedValue}catch{}
++$cpuInfo=Get-CimInstance Win32_Processor | Select-Object -First 1
++$computer=Get-CimInstance Win32_ComputerSystem
++$result=[pscustomobject]@{
++  machine=[pscustomobject]@{computer_name=$env:COMPUTERNAME;os_caption=$osInfo.Caption;os_version=$osInfo.Version;architecture=$osInfo.OSArchitecture;cpu_model=$cpuInfo.Name;logical_processors=[int]$computer.NumberOfLogicalProcessors;last_boot_time=[string]$osInfo.LastBootUpTime}
++  memory=[pscustomobject]@{total_bytes=[int64]$osInfo.TotalVisibleMemorySize*1024;available_bytes=[int64]$osInfo.FreePhysicalMemory*1024;cached_bytes=$cacheBytes;committed_bytes=([int64]$osInfo.TotalVirtualMemorySize-[int64]$osInfo.FreeVirtualMemory)*1024}
++  cpu=[pscustomobject]@{utilization_percent=$cpuUsage}
++  processes=Arr($processes);services=Arr($services);startup_entries=Arr($startup);scheduled_tasks=Arr($tasks);listeners=Arr($tcp)+Arr($udp);applications=Arr($apps);optional_features=Arr($features);runtimes=Arr($commands);browsers=Arr($browsers);gpu_drivers=Arr($gpu);audio_drivers=Arr($audio)
++}
++$result | ConvertTo-Json -Depth 8 -Compress
++'''
++
++
++def _listener_scope(address: str) -> str:
++    address = str(address or "").strip().lower()
++    if address in {"127.0.0.1", "::1"}:
++        return "localhost"
++    if address in {"0.0.0.0", "::", "*"}:
++        return "all_interfaces"
++    return "local_network_or_specific_interface"
++
++
++def _normalize_windows_data(raw: Any) -> dict[str, Any]:
++    raw = raw if isinstance(raw, dict) else {}
++    processes = []
++    for item in raw.get("processes") or []:
++        if not isinstance(item, dict):
++            continue
++        processes.append({
++            "name": _safe_text(item.get("name"), 260),
++            "process_id": _safe_int(item.get("process_id")),
++            "executable_path": _safe_text(item.get("executable_path"), 1000),
++            "publisher": _safe_text(item.get("publisher"), 500),
++            "signature_status": _safe_text(item.get("signature_status"), 80),
++            "working_set_bytes": _safe_int(item.get("working_set_bytes")),
++            "private_bytes": _safe_int(item.get("private_bytes")),
++            "cpu_time_seconds": round(_safe_number(item.get("cpu_time_100ns")) / 10_000_000, 3),
++            "start_time": _safe_text(item.get("start_time"), 120),
++            "services": sorted({_safe_text(x, 260) for x in (item.get("services") or []) if _safe_text(x)}),
++        })
++    services = []
++    for item in raw.get("services") or []:
++        if not isinstance(item, dict):
++            continue
++        account = _safe_text(item.get("service_account"), 300)
++        account_category = "system" if account.casefold() in {"localsystem", "nt authority\\system", "localservice", "networkservice", "nt authority\\localservice", "nt authority\\networkservice"} else ("managed_or_user" if account else "unknown")
++        services.append({
++            "name": _safe_text(item.get("name"), 260),
++            "display_name": _safe_text(item.get("display_name"), 500),
++            "state": _safe_text(item.get("state"), 80),
++            "start_type": _safe_text(item.get("start_type"), 80),
++            "executable_path": _safe_text(item.get("executable_path"), 1000),
++            "service_account_category": account_category,
++            "process_id": _safe_int(item.get("process_id")),
++        })
++    listeners = []
++    process_by_pid = {p["process_id"]: p["name"] for p in processes if p["process_id"]}
++    for item in raw.get("listeners") or []:
++        if not isinstance(item, dict):
++            continue
++        pid = _safe_int(item.get("process_id"))
++        address = _safe_text(item.get("local_address"), 100)
++        listeners.append({
++            "protocol": _safe_text(item.get("protocol"), 10).upper(),
++            "local_address": address,
++            "local_port": _safe_int(item.get("local_port")),
++            "process_id": pid,
++            "process_name": process_by_pid.get(pid, ""),
++            "scope": _listener_scope(address),
++        })
++    return {
++        "machine": _sanitize_mapping(raw.get("machine") or {}),
++        "memory": _sanitize_mapping(raw.get("memory") or {}),
++        "cpu": _sanitize_mapping(raw.get("cpu") or {}),
++        "processes": processes,
++        "services": services,
++        "startup_entries": _sanitize_mapping(raw.get("startup_entries") or []),
++        "scheduled_tasks": _sanitize_mapping(raw.get("scheduled_tasks") or []),
++        "listeners": listeners,
++        "applications": _sanitize_mapping(raw.get("applications") or []),
++        "optional_features": _sanitize_mapping(raw.get("optional_features") or []),
++        "runtimes": _sanitize_mapping(raw.get("runtimes") or []),
++        "browsers": _sanitize_mapping(raw.get("browsers") or []),
++        "gpu_drivers": _sanitize_mapping(raw.get("gpu_drivers") or []),
++        "audio_drivers": _sanitize_mapping(raw.get("audio_drivers") or []),
++    }
++
++
++def collect_system_snapshot(*, collector: Callable[[], dict[str, Any]] | None = None) -> dict[str, Any]:
++    if collector is not None:
++        supplied = _sanitize_mapping(collector())
++        supplied.setdefault("collector", {})
++        supplied["collector"].update({"fixture": True, "read_only": True, "network_used": False, "mutation_commands": 0})
++        return supplied
++
++    receipts: list[dict[str, Any]] = []
++    warnings: list[str] = []
++    windows = {}
++    if os.name == "nt":
++        raw, receipt = _run_read_only_powershell(_windows_inventory_script(), timeout=120)
++        receipts.append(receipt)
++        if raw is not None:
++            windows = _normalize_windows_data(raw)
++        else:
++            warnings.append(receipt.get("message") or receipt.get("stderr") or "Some Windows inventory fields were unavailable.")
++    memory = windows.get("memory") or _memory_fallback()
++    machine = windows.get("machine") or {
++        "computer_name": socket.gethostname(),
++        "os_caption": platform.platform(),
++        "os_version": platform.version(),
++        "architecture": platform.machine(),
++        "cpu_model": platform.processor(),
++        "logical_processors": os.cpu_count() or 0,
++    }
++    machine["uptime_seconds"] = _uptime_seconds()
++    machine["python_platform"] = platform.platform()
++    result = {
++        "schema": "foxai.repair_baseline.snapshot_payload.v1",
++        "version": BASELINE_VERSION,
++        "captured_at": _utc_now(),
++        "machine": machine,
++        "resources": {
++            "memory": memory,
++            "cpu": {
++                "model": machine.get("cpu_model") or platform.processor(),
++                "logical_processors": _safe_int(machine.get("logical_processors"), os.cpu_count() or 0),
++                "utilization_percent": (windows.get("cpu") or {}).get("utilization_percent"),
++            },
++            "disks": _disk_inventory(),
++        },
++        "processes": windows.get("processes") or [],
++        "services": windows.get("services") or [],
++        "startup_entries": windows.get("startup_entries") or [],
++        "scheduled_tasks": windows.get("scheduled_tasks") or [],
++        "listeners": windows.get("listeners") or [],
++        "applications": windows.get("applications") or [],
++        "components": {
++            "optional_features": windows.get("optional_features") or [],
++            "runtimes": windows.get("runtimes") or [],
++            "browsers": windows.get("browsers") or [],
++            "gpu_drivers": windows.get("gpu_drivers") or [],
++            "audio_drivers": windows.get("audio_drivers") or [],
++        },
++        "collector": {
++            "read_only": True,
++            "network_used": False,
++            "commands": receipts,
++            "mutation_commands": 0,
++            "warnings": [w for w in warnings if w],
++            "secret_fields_excluded": True,
++        },
++    }
++    return _sanitize_mapping(result)
++
++
++def capture_snapshot(
++    root: Path,
++    *,
++    name: str,
++    note: str = "",
++    origin: str = "manual",
++    collector: Callable[[], dict[str, Any]] | None = None,
++    session_id: str = "",
++) -> dict[str, Any]:
++    paths = _ensure_data_dirs(Path(root))
++    payload = collect_system_snapshot(collector=collector)
++    snapshot_id = "SNP-" + datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ") + "-" + uuid.uuid4().hex[:8].upper()
++    snapshot = {
++        "schema": "foxai.repair_baseline.snapshot.v1",
++        "snapshot_id": snapshot_id,
++        "name": _safe_text(name, 160) or "Unnamed Snapshot",
++        "note": _safe_text(note, 2000),
++        "origin": _safe_text(origin, 80) or "manual",
++        "session_id": _safe_text(session_id, 80),
++        "created_at": _utc_now(),
++        "payload": payload,
++        "payload_sha256": _sha256_bytes(_json_bytes(payload)),
++        "read_only_capture": True,
++        "system_modified": False,
++        "network_used": False,
++    }
++    filename = f"{snapshot_id}_{_slug(snapshot['name'])}.json"
++    path = paths["snapshots"] / filename
++    _atomic_json_write(path, snapshot)
++    return {"ok": True, "message": f"Snapshot captured: {snapshot['name']}", "snapshot": _snapshot_summary(snapshot, path), "path": str(path)}
++
++
++def _snapshot_summary(snapshot: dict[str, Any], path: Path | None = None) -> dict[str, Any]:
++    payload = snapshot.get("payload") or {}
++    resources = payload.get("resources") or {}
++    return {
++        "snapshot_id": snapshot.get("snapshot_id", ""),
++        "name": snapshot.get("name", ""),
++        "note": snapshot.get("note", ""),
++        "origin": snapshot.get("origin", ""),
++        "session_id": snapshot.get("session_id", ""),
++        "created_at": snapshot.get("created_at", ""),
++        "machine_name": ((payload.get("machine") or {}).get("computer_name") or ""),
++        "process_count": len(payload.get("processes") or []),
++        "service_count": len(payload.get("services") or []),
++        "startup_count": len(payload.get("startup_entries") or []),
++        "application_count": len(payload.get("applications") or []),
++        "listener_count": len(payload.get("listeners") or []),
++        "available_memory_bytes": _safe_int((((resources.get("memory") or {}).get("available_bytes")))),
++        "path": str(path or ""),
++        "payload_sha256": snapshot.get("payload_sha256", ""),
++    }
++
++
++def list_snapshots(root: Path) -> dict[str, Any]:
++    paths = _ensure_data_dirs(Path(root))
++    state = _read_json(paths["state"], {})
++    items = []
++    for path in sorted(paths["snapshots"].glob("*.json"), reverse=True):
++        snapshot = _read_json(path, None)
++        if not isinstance(snapshot, dict) or not snapshot.get("snapshot_id"):
++            continue
++        summary = _snapshot_summary(snapshot, path)
++        summary["known_good"] = snapshot.get("snapshot_id") == state.get("known_good_snapshot_id")
++        items.append(summary)
++    sessions = _read_json(paths["sessions"], {"sessions": []}).get("sessions") or []
++    return {
++        "ok": True,
++        "snapshots": items,
++        "known_good_snapshot_id": state.get("known_good_snapshot_id", ""),
++        "sessions": sessions,
++        "data_path": str(paths["base"]),
++        "read_only_system": True,
++    }
++
++
++def _load_snapshot(root: Path, snapshot_id: str) -> tuple[dict[str, Any], Path]:
++    paths = _ensure_data_dirs(Path(root))
++    snapshot_id = _safe_text(snapshot_id, 100)
++    for path in paths["snapshots"].glob(f"{snapshot_id}_*.json"):
++        snapshot = _read_json(path, None)
++        if isinstance(snapshot, dict) and snapshot.get("snapshot_id") == snapshot_id:
++            return snapshot, path
++    raise FileNotFoundError(f"Snapshot was not found: {snapshot_id}")
++
++
++def mark_known_good(root: Path, snapshot_id: str, *, confirm: bool) -> dict[str, Any]:
++    if not confirm:
++        return {"ok": False, "message": "Explicit confirmation is required before changing the known-good baseline."}
++    snapshot, _ = _load_snapshot(root, snapshot_id)
++    paths = _ensure_data_dirs(Path(root))
++    state = _read_json(paths["state"], {})
++    state.update({
++        "schema": "foxai.repair_baseline.state.v1",
++        "known_good_snapshot_id": snapshot_id,
++        "known_good_name": snapshot.get("name", ""),
++        "updated_at": _utc_now(),
++    })
++    _atomic_json_write(paths["state"], state)
++    return {"ok": True, "message": f"Known-good baseline set to {snapshot.get('name') or snapshot_id}.", "state": state}
++
++
++def _identity(item: dict[str, Any], fields: Iterable[str]) -> str:
++    return "|".join(_safe_text(item.get(field), 1000).casefold() for field in fields)
++
++
++def _map_by(items: list[dict[str, Any]], fields: Iterable[str]) -> dict[str, dict[str, Any]]:
++    result = {}
++    for item in items:
++        if not isinstance(item, dict):
++            continue
++        key = _identity(item, fields)
++        if key.strip("|"):
++            result[key] = item
++    return result
++
++
++def _diff_items(
++    before: list[dict[str, Any]],
++    after: list[dict[str, Any]],
++    *,
++    identity_fields: tuple[str, ...],
++    compare_fields: tuple[str, ...],
++    category: str,
++) -> list[dict[str, Any]]:
++    bmap = _map_by(before, identity_fields)
++    amap = _map_by(after, identity_fields)
++    changes: list[dict[str, Any]] = []
++    for key in sorted(set(amap) - set(bmap)):
++        item = amap[key]
++        changes.append(_change(category, "Added", item, None, item))
++    for key in sorted(set(bmap) - set(amap)):
++        item = bmap[key]
++        changes.append(_change(category, "Removed", item, item, None))
++    for key in sorted(set(bmap) & set(amap)):
++        old, new = bmap[key], amap[key]
++        changed = {field: {"before": old.get(field), "after": new.get(field)} for field in compare_fields if old.get(field) != new.get(field)}
++        if changed:
++            changes.append(_change(category, "Changed", new, old, new, details=changed))
++    return changes
++
++
++def _change(category: str, action: str, item: dict[str, Any], before: Any, after: Any, details: Any = None) -> dict[str, Any]:
++    name = item.get("display_name") or item.get("name") or item.get("path") or item.get("local_port") or "Item"
++    classification = "Review Suggested"
++    evidence = details if details is not None else {"before": before, "after": after}
++    if category == "processes":
++        proc_name = _safe_text(item.get("name"), 260).casefold()
++        classification = "Runtime Noise" if proc_name in RUNTIME_NOISE_NAMES else "Observation"
++    elif category in {"resources"}:
++        classification = "Observation"
++    elif category in {"applications", "startup_entries", "listeners", "services", "scheduled_tasks", "components"}:
++        classification = "Significant Change" if action in {"Added", "Removed", "Enabled", "Disabled"} else "Review Suggested"
++    return {
++        "category": category,
++        "action": action,
++        "name": _safe_text(name, 500),
++        "classification": classification,
++        "evidence": _sanitize_mapping(evidence),
++    }
++
++
++def _resource_changes(before: dict[str, Any], after: dict[str, Any]) -> tuple[list[dict[str, Any]], dict[str, Any]]:
++    changes: list[dict[str, Any]] = []
++    deltas: dict[str, Any] = {}
++    bmem = (((before.get("resources") or {}).get("memory") or {}))
++    amem = (((after.get("resources") or {}).get("memory") or {}))
++    for key in ("available_bytes", "committed_bytes", "cached_bytes"):
++        bv, av = bmem.get(key), amem.get(key)
++        if bv is None or av is None:
++            continue
++        delta = _safe_int(av) - _safe_int(bv)
++        deltas[f"memory_{key}_delta"] = delta
++        if delta:
++            changes.append({
++                "category": "resources", "action": "Increased" if delta > 0 else "Decreased",
++                "name": key.replace("_", " ").title(), "classification": "Runtime Noise",
++                "evidence": {"before": bv, "after": av, "delta": delta},
++            })
++    bdisks = _map_by(((before.get("resources") or {}).get("disks") or []), ("mount",))
++    adisks = _map_by(((after.get("resources") or {}).get("disks") or []), ("mount",))
++    disk_deltas = {}
++    for key in sorted(set(bdisks) & set(adisks)):
++        delta = _safe_int(adisks[key].get("free_bytes")) - _safe_int(bdisks[key].get("free_bytes"))
++        if delta:
++            mount = adisks[key].get("mount")
++            disk_deltas[str(mount)] = delta
++            changes.append({
++                "category": "resources", "action": "Increased" if delta > 0 else "Decreased",
++                "name": f"Free disk space {mount}", "classification": "Observation",
++                "evidence": {"before": bdisks[key].get("free_bytes"), "after": adisks[key].get("free_bytes"), "delta": delta},
++            })
++    deltas["disk_free_bytes_delta"] = disk_deltas
++    return changes, deltas
++
++
++def compare_snapshots(root: Path, before_id: str, after_id: str, *, save: bool = True) -> dict[str, Any]:
++    before_doc, _ = _load_snapshot(root, before_id)
++    after_doc, _ = _load_snapshot(root, after_id)
++    before = before_doc.get("payload") or {}
++    after = after_doc.get("payload") or {}
++    changes: list[dict[str, Any]] = []
++    changes += _diff_items(before.get("applications") or [], after.get("applications") or [], identity_fields=("name", "version", "publisher"), compare_fields=("version", "publisher", "install_location"), category="applications")
++    changes += _diff_items(before.get("services") or [], after.get("services") or [], identity_fields=("name",), compare_fields=("state", "start_type", "executable_path", "service_account_category"), category="services")
++    # Add explicit Started/Stopped/Enabled/Disabled service semantics.
++    for change in changes:
++        if change["category"] != "services" or change["action"] != "Changed":
++            continue
++        fields = change.get("evidence") or {}
++        state = fields.get("state") or {}
++        start_type = fields.get("start_type") or {}
++        if state:
++            old, new = str(state.get("before", "")).casefold(), str(state.get("after", "")).casefold()
++            if old != "running" and new == "running": change["action"] = "Started"
++            elif old == "running" and new != "running": change["action"] = "Stopped"
++        if start_type:
++            old, new = str(start_type.get("before", "")).casefold(), str(start_type.get("after", "")).casefold()
++            if old == "disabled" and new != "disabled": change["action"] = "Enabled"
++            elif old != "disabled" and new == "disabled": change["action"] = "Disabled"
++    changes += _diff_items(before.get("startup_entries") or [], after.get("startup_entries") or [], identity_fields=("source", "scope", "name"), compare_fields=("target", "enabled"), category="startup_entries")
++    changes += _diff_items(before.get("scheduled_tasks") or [], after.get("scheduled_tasks") or [], identity_fields=("path",), compare_fields=("state", "enabled"), category="scheduled_tasks")
++    changes += _diff_items(before.get("listeners") or [], after.get("listeners") or [], identity_fields=("protocol", "local_address", "local_port", "process_name"), compare_fields=("scope",), category="listeners")
++    changes += _diff_items(before.get("processes") or [], after.get("processes") or [], identity_fields=("name", "executable_path"), compare_fields=("publisher", "signature_status", "services"), category="processes")
++    component_changes = []
++    for section in ("optional_features", "runtimes", "browsers", "gpu_drivers", "audio_drivers"):
++        component_changes += _diff_items(
++            ((before.get("components") or {}).get(section) or []),
++            ((after.get("components") or {}).get(section) or []),
++            identity_fields=("name", "path"), compare_fields=("version", "driver_version", "state", "status"),
++            category="components",
++        )
++    changes += component_changes
++    resource_changes, resource_deltas = _resource_changes(before, after)
++    changes += resource_changes
++    counts = {
++        "applications": len(after.get("applications") or []) - len(before.get("applications") or []),
++        "services": len(after.get("services") or []) - len(before.get("services") or []),
++        "startup_entries": len(after.get("startup_entries") or []) - len(before.get("startup_entries") or []),
++        "scheduled_tasks": len(after.get("scheduled_tasks") or []) - len(before.get("scheduled_tasks") or []),
++        "listeners": len(after.get("listeners") or []) - len(before.get("listeners") or []),
++        "processes": len(after.get("processes") or []) - len(before.get("processes") or []),
++    }
++    summary_by_action: dict[str, int] = {}
++    summary_by_classification: dict[str, int] = {}
++    for change in changes:
++        summary_by_action[change["action"]] = summary_by_action.get(change["action"], 0) + 1
++        summary_by_classification[change["classification"]] = summary_by_classification.get(change["classification"], 0) + 1
++    comparison_id = "CMP-" + datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ") + "-" + uuid.uuid4().hex[:8].upper()
++    comparison = {
++        "schema": "foxai.repair_baseline.comparison.v1",
++        "comparison_id": comparison_id,
++        "created_at": _utc_now(),
++        "before": _snapshot_summary(before_doc),
++        "after": _snapshot_summary(after_doc),
++        "summary": {
++            "total_changes": len(changes),
++            "by_action": summary_by_action,
++            "by_classification": summary_by_classification,
++            "count_deltas": counts,
++            "resource_deltas": resource_deltas,
++        },
++        "changes": changes,
++        "neutral_interpretation": True,
++        "system_modified": False,
++        "network_used": False,
++    }
++    path = None
++    if save:
++        paths = _ensure_data_dirs(Path(root))
++        path = paths["comparisons"] / f"{comparison_id}_{_slug(before_doc.get('name'))}_to_{_slug(after_doc.get('name'))}.json"
++        _atomic_json_write(path, comparison)
++    return {"ok": True, "message": _comparison_sentence(comparison), "comparison": comparison, "path": str(path or "")}
++
++
++def _comparison_sentence(comparison: dict[str, Any]) -> str:
++    actions = comparison.get("summary", {}).get("by_action", {})
++    pieces = []
++    for key in ("Added", "Removed", "Changed", "Started", "Stopped", "Enabled", "Disabled"):
++        count = int(actions.get(key, 0) or 0)
++        if count:
++            pieces.append(f"{count} {key.lower()}")
++    return (", ".join(pieces[:6]) + ".") if pieces else "No persistent structural changes were found; runtime observations may still be present."
++
++
++def export_comparison(root: Path, comparison_id: str, formats: list[str] | None = None) -> dict[str, Any]:
++    paths = _ensure_data_dirs(Path(root))
++    comparison = None
++    source_path = None
++    for path in paths["comparisons"].glob(f"{_safe_text(comparison_id, 100)}_*.json"):
++        candidate = _read_json(path, None)
++        if isinstance(candidate, dict) and candidate.get("comparison_id") == comparison_id:
++            comparison, source_path = candidate, path
++            break
++    if comparison is None:
++        raise FileNotFoundError(f"Comparison was not found: {comparison_id}")
++    requested = {str(x).strip().lower() for x in (formats or ["html", "markdown", "json"])}
++    created = []
++    stem = source_path.stem
++    if "json" in requested:
++        target = paths["exports"] / f"{stem}.json"
++        _atomic_json_write(target, comparison)
++        created.append(str(target))
++    if "markdown" in requested or "md" in requested:
++        target = paths["exports"] / f"{stem}.md"
++        target.write_text(_comparison_markdown(comparison), encoding="utf-8")
++        created.append(str(target))
++    if "html" in requested:
++        target = paths["exports"] / f"{stem}.html"
++        target.write_text(_comparison_html(comparison), encoding="utf-8")
++        created.append(str(target))
++    return {"ok": True, "message": f"Exported {len(created)} local comparison file(s).", "files": created, "network_used": False, "secret_fields_excluded": True}
++
++
++def _comparison_markdown(comparison: dict[str, Any]) -> str:
++    before, after = comparison.get("before") or {}, comparison.get("after") or {}
++    lines = [
++        "# Repair Bay System Change Comparison", "",
++        f"- Comparison: `{comparison.get('comparison_id','')}`",
++        f"- Before: **{before.get('name','')}** — {before.get('created_at','')}",
++        f"- After: **{after.get('name','')}** — {after.get('created_at','')}",
++        f"- Summary: { _comparison_sentence(comparison) }", "",
++        "## Changes", "",
++    ]
++    for item in comparison.get("changes") or []:
++        lines += [
++            f"### {item.get('action')} — {item.get('name')}",
++            f"- Category: {item.get('category')}",
++            f"- Classification: {item.get('classification')}",
++            "- Evidence:", "```json", json.dumps(item.get("evidence"), indent=2, ensure_ascii=False), "```", "",
++        ]
++    lines += ["---", "Local read-only report. Secret-bearing fields were excluded. No network transmission occurred.", ""]
++    return "\n".join(lines)
++
++
++def _comparison_html(comparison: dict[str, Any]) -> str:
++    rows = []
++    for item in comparison.get("changes") or []:
++        rows.append(
++            "<details><summary><b>" + html.escape(str(item.get("action"))) + "</b> — "
++            + html.escape(str(item.get("name"))) + " <small>" + html.escape(str(item.get("classification")))
++            + "</small></summary><pre>" + html.escape(json.dumps(item.get("evidence"), indent=2, ensure_ascii=False)) + "</pre></details>"
++        )
++    return """<!doctype html><meta charset=utf-8><title>Repair Bay Change Comparison</title>
++<style>body{font:16px system-ui;max-width:1100px;margin:40px auto;padding:0 20px;background:#11151a;color:#edf2f7}details{border:1px solid #46505c;border-radius:10px;padding:10px;margin:10px 0;background:#171d24}summary{cursor:pointer}pre{white-space:pre-wrap;background:#0d1117;padding:12px;border-radius:8px;overflow:auto}small{color:#b9c2cf}</style>
++<h1>Repair Bay System Change Comparison</h1><p>""" + html.escape(_comparison_sentence(comparison)) + "</p>" + "".join(rows) + "<p><small>Local read-only report. Secret-bearing fields were excluded. No network transmission occurred.</small></p>"
++
++
++def _load_sessions(root: Path) -> tuple[dict[str, Any], Path]:
++    paths = _ensure_data_dirs(Path(root))
++    doc = _read_json(paths["sessions"], {"schema": "foxai.repair_baseline.sessions.v1", "sessions": []})
++    if not isinstance(doc, dict):
++        doc = {"schema": "foxai.repair_baseline.sessions.v1", "sessions": []}
++    doc.setdefault("sessions", [])
++    return doc, paths["sessions"]
++
++
++def begin_change_session(root: Path, *, name: str, note: str = "", collector: Callable[[], dict[str, Any]] | None = None) -> dict[str, Any]:
++    session_id = "SES-" + datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ") + "-" + uuid.uuid4().hex[:8].upper()
++    before = capture_snapshot(root, name=f"Before — {name}", note=note, origin="change_session_before", collector=collector, session_id=session_id)
++    doc, path = _load_sessions(root)
++    session = {
++        "session_id": session_id, "name": _safe_text(name, 160) or "Change Session", "note": _safe_text(note, 2000),
++        "status": "waiting_for_after", "created_at": _utc_now(), "before_snapshot_id": before["snapshot"]["snapshot_id"],
++        "after_snapshot_id": "", "comparison_id": "", "external_change_performed_by_repair_bay": False,
++    }
++    doc["sessions"].append(session)
++    _atomic_json_write(path, doc)
++    return {"ok": True, "message": "Before snapshot captured. Perform the external change, then capture the After snapshot.", "session": session, "before": before}
++
++
++def capture_change_session_after(root: Path, session_id: str, *, note: str = "", collector: Callable[[], dict[str, Any]] | None = None) -> dict[str, Any]:
++    doc, path = _load_sessions(root)
++    session = next((x for x in doc["sessions"] if x.get("session_id") == session_id), None)
++    if not session:
++        raise FileNotFoundError(f"Change session was not found: {session_id}")
++    if session.get("status") != "waiting_for_after":
++        return {"ok": False, "message": "This change session is not waiting for an After snapshot.", "session": session}
++    after = capture_snapshot(root, name=f"After — {session.get('name')}", note=note, origin="change_session_after", collector=collector, session_id=session_id)
++    comparison_result = compare_snapshots(root, session["before_snapshot_id"], after["snapshot"]["snapshot_id"], save=True)
++    session.update({
++        "status": "completed", "completed_at": _utc_now(),
++        "after_snapshot_id": after["snapshot"]["snapshot_id"],
++        "comparison_id": comparison_result["comparison"]["comparison_id"],
++    })
++    _atomic_json_write(path, doc)
++    return {"ok": True, "message": "After snapshot captured and comparison receipt created.", "session": session, "after": after, "comparison": comparison_result}
++
++
++def close_change_session(root: Path, session_id: str, *, cancel: bool = False) -> dict[str, Any]:
++    doc, path = _load_sessions(root)
++    session = next((x for x in doc["sessions"] if x.get("session_id") == session_id), None)
++    if not session:
++        raise FileNotFoundError(f"Change session was not found: {session_id}")
++    if session.get("status") == "completed":
++        return {"ok": False, "message": "Completed sessions cannot be cancelled or closed without their After snapshot.", "session": session}
++    session.update({"status": "cancelled" if cancel else "closed_without_after", "closed_at": _utc_now()})
++    _atomic_json_write(path, doc)
++    return {"ok": True, "message": "Change session cancelled." if cancel else "Change session closed without an After snapshot.", "session": session}
++
++
++def api_dispatch(root: Path, route: str, data: dict[str, Any] | None = None) -> dict[str, Any]:
++    data = data if isinstance(data, dict) else {}
++    try:
++        if route == "/api/repair/baseline/list":
++            return list_snapshots(root)
++        if route == "/api/repair/baseline/capture":
++            return capture_snapshot(root, name=data.get("name") or "Manual Snapshot", note=data.get("note") or "", origin=data.get("origin") or "manual")
++        if route == "/api/repair/baseline/known_good":
++            return mark_known_good(root, data.get("snapshot_id") or "", confirm=bool(data.get("confirm")))
++        if route == "/api/repair/baseline/compare":
++            return compare_snapshots(root, data.get("before_id") or "", data.get("after_id") or "", save=True)
++        if route == "/api/repair/baseline/export":
++            return export_comparison(root, data.get("comparison_id") or "", data.get("formats") or ["html", "markdown", "json"])
++        if route == "/api/repair/baseline/session_begin":
++            return begin_change_session(root, name=data.get("name") or "Change Session", note=data.get("note") or "")
++        if route == "/api/repair/baseline/session_after":
++            return capture_change_session_after(root, data.get("session_id") or "", note=data.get("note") or "")
++        if route == "/api/repair/baseline/session_cancel":
++            return close_change_session(root, data.get("session_id") or "", cancel=True)
++        if route == "/api/repair/baseline/session_close":
++            return close_change_session(root, data.get("session_id") or "", cancel=False)
++        return {"ok": False, "message": "Unknown System Baseline action."}
++    except FileNotFoundError as exc:
++        return {"ok": False, "message": str(exc)}
++    except Exception as exc:
++        return {"ok": False, "message": f"System Baseline action failed: {type(exc).__name__}: {exc}"}
++
++
++__all__ = [
++    "BASELINE_VERSION", "DATA_RELATIVE", "collect_system_snapshot", "capture_snapshot",
++    "list_snapshots", "mark_known_good", "compare_snapshots", "export_comparison",
++    "begin_change_session", "capture_change_session_after", "close_change_session", "api_dispatch",
++]
+--- /dev/null
++++ b/core/VERIFY_REPAIR_BAY_V3.py
+@@ -0,0 +1,264 @@
++from __future__ import annotations
++
++import argparse
++import hashlib
++import json
++import os
++import shutil
++import sys
++import tempfile
++from pathlib import Path
++
++SCRIPT_DIR = Path(__file__).resolve().parent
++PROJECT_ROOT = SCRIPT_DIR.parent
++if str(PROJECT_ROOT) not in sys.path:
++    sys.path.insert(0, str(PROJECT_ROOT))
++
++from core.repair_bay_baseline import (
++    DATA_RELATIVE,
++    api_dispatch,
++    begin_change_session,
++    capture_change_session_after,
++    capture_snapshot,
++    close_change_session,
++    collect_system_snapshot,
++    compare_snapshots,
++    export_comparison,
++    list_snapshots,
++    mark_known_good,
++)
++
++
++def check(checks: list[dict], condition: bool, name: str, detail: str = "") -> None:
++    checks.append({"id": name, "ok": bool(condition), "detail": detail})
++    if not condition:
++        raise AssertionError(name + (": " + detail if detail else ""))
++
++
++def sha256(path: Path) -> str:
++    return hashlib.sha256(path.read_bytes()).hexdigest()
++
++
++def fixture_payload(stage: str) -> dict:
++    after = stage == "after"
++    return {
++        "schema": "foxai.repair_baseline.snapshot_payload.v1",
++        "version": "3.0",
++        "captured_at": "2026-07-20T20:30:00+00:00" if not after else "2026-07-20T20:40:00+00:00",
++        "machine": {
++            "computer_name": "DESKTOP-G9ERN9B", "os_caption": "Windows 11 Pro",
++            "os_version": "10.0.99999", "architecture": "64-bit", "cpu_model": "Intel Test CPU",
++            "logical_processors": 12, "uptime_seconds": 7200,
++        },
++        "resources": {
++            "memory": {
++                "total_bytes": 48 * 1024**3,
++                "available_bytes": (30 if not after else 29) * 1024**3,
++                "cached_bytes": (7 if not after else 8) * 1024**3,
++                "committed_bytes": (18 if not after else 19) * 1024**3,
++            },
++            "cpu": {"model": "Intel Test CPU", "logical_processors": 12, "utilization_percent": 11 if not after else 32},
++            "disks": [
++                {"mount": "C:\\", "type": "fixed", "capacity_bytes": 1_000_000_000_000, "free_bytes": 500_000_000_000 if not after else 499_380_000_000},
++            ],
++        },
++        "processes": [
++            {"name": "foxai.exe", "process_id": 100 if not after else 901, "executable_path": "Z:\\FOXAI\\foxai.exe", "publisher": "FOXAI", "signature_status": "Valid", "working_set_bytes": 100_000_000 if not after else 120_000_000, "private_bytes": 80_000_000, "cpu_time_seconds": 10, "start_time": "x", "services": []},
++            {"name": "chrome.exe", "process_id": 200 if not after else 902, "executable_path": "C:\\Chrome\\chrome.exe", "publisher": "Google", "signature_status": "Valid", "working_set_bytes": 500_000_000 if not after else 900_000_000, "private_bytes": 400_000_000, "cpu_time_seconds": 30, "start_time": "x", "services": []},
++        ] + ([{"name": "newhelper.exe", "process_id": 903, "executable_path": "C:\\Tools\\newhelper.exe", "publisher": "Example", "signature_status": "Valid", "working_set_bytes": 50_000_000, "private_bytes": 40_000_000, "cpu_time_seconds": 1, "start_time": "x", "services": []}] if after else []),
++        "services": [
++            {"name": "FoxService", "display_name": "FOXAI Service", "state": "Stopped" if not after else "Running", "start_type": "Manual" if not after else "Automatic", "executable_path": "Z:\\FOXAI\\service.exe", "service_account_category": "system", "process_id": 0 if not after else 903},
++        ],
++        "startup_entries": ([] if not after else [{"source": "registry_run", "scope": "CurrentUser", "name": "Example Startup", "target": "C:\\Example\\example.exe", "enabled": True}]),
++        "scheduled_tasks": [
++            {"path": "\\FOXAI\\ReadOnlyCheck", "state": "Ready", "enabled": True},
++        ] + ([{"path": "\\Example\\NewTask", "state": "Ready", "enabled": True}] if after else []),
++        "listeners": ([] if not after else [{"protocol": "TCP", "local_address": "127.0.0.1", "local_port": 9876, "process_id": 903, "process_name": "newhelper.exe", "scope": "localhost"}]),
++        "applications": [
++            {"name": "FOXAI", "version": "2.5", "publisher": "FOXAI", "install_location": "Z:\\FOXAI"},
++        ] + ([{"name": "Example Voice Pack", "version": "1.0", "publisher": "Example", "install_location": "C:\\Program Files\\Example"}] if after else []),
++        "components": {
++            "optional_features": [{"name": "LegacyComponents", "state": "Enabled"}],
++            "runtimes": [{"name": "python.exe", "path": "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe", "version": "3.14.6"}],
++            "browsers": [{"name": "Chrome", "path": "C:\\Chrome\\chrome.exe", "version": "150" if not after else "151"}],
++            "gpu_drivers": [{"name": "Intel UHD 770", "driver_version": "1.0", "status": "OK"}],
++            "audio_drivers": [{"name": "Audio Device", "manufacturer": "Example", "status": "OK"}],
++        },
++        "collector": {
++            "fixture": True, "read_only": True, "network_used": False,
++            "mutation_commands": 0, "warnings": [], "secret_fields_excluded": True,
++            "password": "must be removed", "command_line": "must be removed",
++        },
++    }
++
++
++def run_deterministic(root: Path, web_path: Path) -> dict:
++    checks: list[dict] = []
++    test_root = Path(tempfile.mkdtemp(prefix="repair_bay_v3_fixture_"))
++    try:
++        before_source = fixture_payload("before")
++        after_source = fixture_payload("after")
++        before = capture_snapshot(test_root, name="Before Voice Installation", note="Known clean state", collector=lambda: before_source)
++        after = capture_snapshot(test_root, name="After Voice Installation", note="Installed local voice pack", collector=lambda: after_source)
++        check(checks, before.get("ok") is True and after.get("ok") is True, "snapshot_creation")
++        check(checks, before["snapshot"]["name"] == "Before Voice Installation", "snapshot_naming")
++
++        listing = list_snapshots(test_root)
++        check(checks, len(listing["snapshots"]) == 2, "historical_snapshot_preservation")
++        blocked = mark_known_good(test_root, before["snapshot"]["snapshot_id"], confirm=False)
++        check(checks, blocked.get("ok") is False, "known_good_requires_confirmation")
++        selected = mark_known_good(test_root, before["snapshot"]["snapshot_id"], confirm=True)
++        check(checks, selected.get("ok") is True, "known_good_explicit_selection")
++        check(checks, list_snapshots(test_root)["known_good_snapshot_id"] == before["snapshot"]["snapshot_id"], "known_good_persisted")
++
++        compared = compare_snapshots(test_root, before["snapshot"]["snapshot_id"], after["snapshot"]["snapshot_id"], save=True)
++        comparison = compared["comparison"]
++        changes = comparison["changes"]
++        check(checks, comparison["summary"]["total_changes"] > 0, "comparison_creation")
++        check(checks, any(x["category"] == "applications" and x["action"] == "Added" for x in changes), "installed_application_addition")
++        check(checks, any(x["category"] == "services" and x["action"] in {"Started", "Enabled"} for x in changes), "service_state_or_start_type_change")
++        check(checks, any(x["category"] == "startup_entries" and x["action"] == "Added" for x in changes), "startup_entry_addition")
++        check(checks, any(x["category"] == "scheduled_tasks" and x["action"] == "Added" for x in changes), "scheduled_task_summary_change")
++        check(checks, any(x["category"] == "listeners" and x["action"] == "Added" for x in changes), "new_listening_port")
++        check(checks, not any(x["category"] == "processes" and x["name"] == "foxai.exe" and x["action"] in {"Added", "Removed"} for x in changes), "process_identity_ignores_pid")
++        check(checks, any(x["category"] == "resources" for x in changes), "memory_and_disk_deltas")
++        check(checks, all(x.get("classification") != "malicious" for x in changes), "neutral_classification")
++        check(checks, any(x["classification"] == "Runtime Noise" for x in changes), "transient_runtime_noise_handling")
++        check(checks, comparison["summary"]["resource_deltas"]["memory_available_bytes_delta"] == -1024**3, "available_memory_delta")
++        check(checks, comparison["summary"]["resource_deltas"]["disk_free_bytes_delta"]["C:\\"] == -620_000_000, "free_disk_delta")
++
++        snapshot_files = list((test_root / DATA_RELATIVE / "Snapshots").glob("*.json"))
++        raw_text = "\n".join(p.read_text(encoding="utf-8") for p in snapshot_files).casefold()
++        check(checks, '"password"' not in raw_text and '"command_line"' not in raw_text, "secret_field_exclusion")
++
++        exports = export_comparison(test_root, comparison["comparison_id"], ["html", "markdown", "json"])
++        check(checks, exports.get("ok") is True and len(exports["files"]) == 3, "three_export_formats")
++        check(checks, all(Path(p).is_file() for p in exports["files"]), "export_files_exist")
++        check(checks, all("password" not in Path(p).read_text(encoding="utf-8").casefold() for p in exports["files"]), "export_secret_exclusion")
++
++        session = begin_change_session(test_root, name="Voice Pack Session", collector=lambda: before_source)
++        check(checks, session.get("ok") is True and session["session"]["status"] == "waiting_for_after", "change_session_before_flow")
++        completed = capture_change_session_after(test_root, session["session"]["session_id"], collector=lambda: after_source)
++        check(checks, completed.get("ok") is True and completed["session"]["status"] == "completed", "change_session_after_flow")
++        check(checks, bool(completed["session"]["comparison_id"]), "change_session_receipt")
++
++        cancel_session = begin_change_session(test_root, name="Cancelled Session", collector=lambda: before_source)
++        cancelled = close_change_session(test_root, cancel_session["session"]["session_id"], cancel=True)
++        check(checks, cancelled.get("ok") is True and cancelled["session"]["status"] == "cancelled", "cancel_session_behavior")
++        close_session = begin_change_session(test_root, name="Close Session", collector=lambda: before_source)
++        closed = close_change_session(test_root, close_session["session"]["session_id"], cancel=False)
++        check(checks, closed.get("ok") is True and closed["session"]["status"] == "closed_without_after", "close_without_after_behavior")
++
++        api_list = api_dispatch(test_root, "/api/repair/baseline/list", {})
++        check(checks, api_list.get("ok") is True, "api_list_dispatch")
++        api_compare = api_dispatch(test_root, "/api/repair/baseline/compare", {"before_id": before["snapshot"]["snapshot_id"], "after_id": after["snapshot"]["snapshot_id"]})
++        check(checks, api_compare.get("ok") is True, "api_compare_dispatch")
++        check(checks, api_dispatch(test_root, "/api/repair/baseline/known_good", {"snapshot_id": after["snapshot"]["snapshot_id"], "confirm": False}).get("ok") is False, "api_known_good_fails_closed")
++
++        web_text = web_path.read_text(encoding="utf-8")
++        markers = [
++            "REPAIR_BAY_SYSTEM_BASELINE_V3_STYLE_START",
++            "REPAIR_BAY_SYSTEM_BASELINE_V3_HTML_START",
++            "REPAIR_BAY_SYSTEM_BASELINE_V3_BROWSER_START",
++            "REPAIR_BAY_SYSTEM_BASELINE_V3_SERVER_START",
++            "System Baseline &amp; Change Comparison",
++            "Capture Baseline", "Capture After Snapshot", "Compare Snapshots",
++            "/api/repair/baseline/list", "/api/repair/baseline/capture",
++            "/api/repair/baseline/compare", "/api/repair/baseline/export",
++            "Begin Change Session", "Capture After + Compare", "Close Without After", "Cancel Session",
++            "repair_system_baseline_exports",
++        ]
++        for marker in markers:
++            check(checks, marker in web_text, "web_marker_" + hashlib.sha256(marker.encode()).hexdigest()[:8], marker)
++        check(checks, "Quick Health Scan" in web_text and "Guarded Repair Handoff" in web_text, "repair_bay_v2_5_preserved")
++        check(checks, "KAYOCK_WRITER_CALM_GUIDED_V2_BROWSER_START" in web_text and "KAYOCK_WRITER_CALM_HOME_V1_JS_START" in web_text, "kayock_writer_v2_preserved")
++        check(checks, "setTimeout(()=>{if(q('repairBaselinePanel'))loadRepairBaselines()}" in web_text, "baseline_ui_initialization")
++
++        data_files = [p for p in test_root.rglob("*") if p.is_file()]
++        check(checks, all(DATA_RELATIVE in p.parents or p.name.startswith("VERIFY") is False for p in data_files), "dedicated_repair_bay_storage")
++        check(checks, not (test_root / "KAYOCKS_STUDY_BIBLIOTHECA_V1").exists(), "study_databases_untouched")
++        check(checks, not (test_root / "Projects" / "KayockWriter").exists(), "writer_files_untouched")
++
++        return {
++            "schema": "foxai.repair_bay.v3.verification.v1",
++            "result": "passed",
++            "check_count": len(checks),
++            "checks": checks,
++            "fixture_root": str(test_root),
++            "network_used": False,
++            "system_mutations": 0,
++            "repair_actions_applied": 0,
++        }
++    finally:
++        shutil.rmtree(test_root, ignore_errors=True)
++
++
++def run_live(root: Path) -> dict:
++    checks: list[dict] = []
++    protected = [
++        root / "core" / "foxai_web.py",
++        root / "core" / "repair_bay_diagnostics.py",
++        root / "core" / "repair_bay_handoff.py",
++    ]
++    before = {str(p): sha256(p) for p in protected if p.is_file()}
++    payload = collect_system_snapshot()
++    after = {str(p): sha256(p) for p in protected if p.is_file()}
++    check(checks, payload.get("collector", {}).get("read_only") is True, "live_collector_read_only")
++    check(checks, payload.get("collector", {}).get("network_used") is False, "live_collector_no_network")
++    check(checks, payload.get("collector", {}).get("mutation_commands") == 0, "live_collector_no_mutation_commands")
++    check(checks, isinstance(payload.get("machine"), dict), "live_machine_summary")
++    check(checks, isinstance(payload.get("resources"), dict), "live_resource_summary")
++    check(checks, isinstance(payload.get("processes"), list), "live_process_inventory")
++    check(checks, isinstance(payload.get("services"), list), "live_service_inventory")
++    check(checks, isinstance(payload.get("startup_entries"), list), "live_startup_inventory")
++    check(checks, isinstance(payload.get("listeners"), list), "live_listener_inventory")
++    check(checks, isinstance(payload.get("applications"), list), "live_application_inventory")
++    serialized = json.dumps(payload, ensure_ascii=False).casefold()
++    check(checks, '"password"' not in serialized and '"clipboard"' not in serialized and '"command_line"' not in serialized, "live_secret_exclusion")
++    check(checks, before == after, "live_protected_sources_unchanged")
++    commands = payload.get("collector", {}).get("commands") or []
++    check(checks, all(not command.get("mutation_markers") for command in commands), "live_command_allowlist")
++    return {
++        "schema": "foxai.repair_bay.v3.live_verification.v1",
++        "result": "passed",
++        "check_count": len(checks),
++        "checks": checks,
++        "summary": {
++            "machine": (payload.get("machine") or {}).get("computer_name", ""),
++            "processes": len(payload.get("processes") or []),
++            "services": len(payload.get("services") or []),
++            "startup_entries": len(payload.get("startup_entries") or []),
++            "listeners": len(payload.get("listeners") or []),
++            "applications": len(payload.get("applications") or []),
++            "warnings": payload.get("collector", {}).get("warnings") or [],
++        },
++        "network_used": False,
++        "system_mutations": 0,
++        "repair_actions_applied": 0,
++    }
++
++
++def main() -> int:
++    parser = argparse.ArgumentParser()
++    parser.add_argument("--root", default=str(PROJECT_ROOT))
++    parser.add_argument("--mode", choices=("deterministic", "live", "all"), default="all")
++    args = parser.parse_args()
++    root = Path(args.root).resolve()
++    web = root / "core" / "foxai_web.py"
++    output: dict[str, object] = {"schema": "foxai.repair_bay.v3.combined_verification.v1", "result": "passed"}
++    total = 0
++    if args.mode in {"deterministic", "all"}:
++        deterministic = run_deterministic(root, web)
++        output["deterministic"] = deterministic
++        total += int(deterministic["check_count"])
++    if args.mode in {"live", "all"}:
++        live = run_live(root)
++        output["live"] = live
++        total += int(live["check_count"])
++    output.update({"check_count": total, "network_used": False, "system_mutations": 0, "repair_actions_applied": 0})
++    print(json.dumps(output, indent=2, ensure_ascii=False))
++    return 0
++
++
++if __name__ == "__main__":
++    raise SystemExit(main())

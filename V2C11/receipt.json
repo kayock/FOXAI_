@@ -1,0 +1,127 @@
+{
+  "schema": "foxai.kayocks_study.v2c_1_1.plan_build_receipt.v1",
+  "mission_id": "ENG-20260720-193036-8688F6",
+  "result": "exact_plan_built_simulated_and_all_five_validations_passed",
+  "plan_sha256": "43288b74b87a0acd8589389dfb3705ce385bfdbcae8fcd9f365b99415acd2d2f",
+  "changed_path_count": 4,
+  "changed_paths": [
+    "KAYOCKS_STUDY_BIBLIOTHECA_V1/study_server.py",
+    "KAYOCKS_STUDY_BIBLIOTHECA_V1/external_library.py",
+    "KAYOCKS_STUDY_BIBLIOTHECA_V1/VERIFY_KAYOCKS_STUDY_V2C_1_1_READER_REGRESSION.py",
+    "KAYOCKS_STUDY_BIBLIOTHECA_V1/VERIFY_KAYOCKS_STUDY_V2C_1_1.py"
+  ],
+  "validation_count": 5,
+  "baseline_guard": {
+    "v2c_1_server_sha256": "1c9f6c4ad727418c35c9c68e18f14c5437110b2cb8ac9f6d0e5e4128383c6f92",
+    "v2c_1_external_library_sha256": "55decee8f86a8fa596672149e3bc4eafafac83ddc3db620926e043ae902abd1c"
+  },
+  "before_hashes": {
+    "KAYOCKS_STUDY_BIBLIOTHECA_V1/study_server.py": "1c9f6c4ad727418c35c9c68e18f14c5437110b2cb8ac9f6d0e5e4128383c6f92",
+    "KAYOCKS_STUDY_BIBLIOTHECA_V1/external_library.py": "55decee8f86a8fa596672149e3bc4eafafac83ddc3db620926e043ae902abd1c",
+    "KAYOCKS_STUDY_BIBLIOTHECA_V1/VERIFY_KAYOCKS_STUDY_V2C_1_1_READER_REGRESSION.py": null,
+    "KAYOCKS_STUDY_BIBLIOTHECA_V1/VERIFY_KAYOCKS_STUDY_V2C_1_1.py": null
+  },
+  "after_hashes": {
+    "KAYOCKS_STUDY_BIBLIOTHECA_V1/study_server.py": "cc9e2a3e2c47ff98eee5e42082d0c14d0f1f7206376a6eca532c92dc40530a84",
+    "KAYOCKS_STUDY_BIBLIOTHECA_V1/external_library.py": "dc976c9dde6e6fded93108b16d94f90bdcbfbdc308befe4aa9945ecc72a9daf5",
+    "KAYOCKS_STUDY_BIBLIOTHECA_V1/VERIFY_KAYOCKS_STUDY_V2C_1_1_READER_REGRESSION.py": "cc38a0997e9404ad738bb8512237f7555a717b2decda9c35d8254101b5624dc5",
+    "KAYOCKS_STUDY_BIBLIOTHECA_V1/VERIFY_KAYOCKS_STUDY_V2C_1_1.py": "d3a940d467f749a9a18a34cddafcb4ec62d8fc2f6f407daaca8d23e6768febaf"
+  },
+  "tests": {
+    "workshop_plan_schema_and_before_hashes": "passed",
+    "workshop_preview": "passed — 4 changed paths",
+    "workshop_simulated_apply": "passed — 4 files",
+    "source_compilation_without_bytecode": "passed",
+    "embedded_javascript_syntax": "passed with node --check",
+    "study_environment": {
+      "ok": true,
+      "checks": [
+        {
+          "id": "library_exists",
+          "ok": true,
+          "message": "/tmp/kayocks_study_v2c11_plan_sim_yfvqqwcl/Library"
+        },
+        {
+          "id": "pypdf_available",
+          "ok": true,
+          "message": "Bundled pypdf loaded."
+        },
+        {
+          "id": "sqlite_database",
+          "ok": true,
+          "message": "SQLite ready; FTS5=True."
+        },
+        {
+          "id": "epub_catalog",
+          "ok": true,
+          "message": "/tmp/kayocks_study_v2c11_plan_sim_yfvqqwcl/KAYOCKS_STUDY_BIBLIOTHECA_V1/Data/epub_catalog.sqlite3"
+        },
+        {
+          "id": "epub_reader_state",
+          "ok": true,
+          "message": "/tmp/kayocks_study_v2c11_plan_sim_yfvqqwcl/KAYOCKS_STUDY_BIBLIOTHECA_V1/Data/study_library_state.sqlite3"
+        },
+        {
+          "id": "external_library",
+          "ok": true,
+          "message": "/tmp/kayocks_study_v2c11_plan_sim_yfvqqwcl/KAYOCKS_STUDY_BIBLIOTHECA_V1/Data/external_library.sqlite3"
+        }
+      ],
+      "root": "/tmp/kayocks_study_v2c11_plan_sim_yfvqqwcl",
+      "library": "/tmp/kayocks_study_v2c11_plan_sim_yfvqqwcl/Library",
+      "database": "/tmp/kayocks_study_v2c11_plan_sim_yfvqqwcl/KAYOCKS_STUDY_BIBLIOTHECA_V1/Data/bibliotheca.sqlite3",
+      "network_scope": "localhost_only",
+      "original_files_modified": 0
+    },
+    "bibliotheca_v1_2_2": {
+      "check_count": 24,
+      "all_passed": true
+    },
+    "v2c_1_1_reader_narration_regression": {
+      "result": "verified",
+      "check_count": 60
+    },
+    "v2c_1_1_unified_titles_and_audiobooks": {
+      "result": "verified",
+      "check_count": 53
+    }
+  },
+  "features_verified": {
+    "card_mouse_keyboard_and_explicit_view": true,
+    "inline_title_details": true,
+    "search_and_scroll_restore": true,
+    "read_listen_extras_locations_sections": true,
+    "multifile_audiobook_grouping": true,
+    "manual_part_order": true,
+    "exact_part_and_second_resume": true,
+    "forward_only_autosave_guard": true,
+    "per_part_completion": true,
+    "automatic_next_part": true,
+    "persistent_onboard_player": true,
+    "http_range_seeking": true,
+    "duplicate_window_prevention": true,
+    "safe_pdf_and_image_viewing": true,
+    "epub_existing_reader_route_or_external_fallback": true,
+    "relationship_confirm_assign_split": true,
+    "existing_reader_and_local_narration_preserved": true
+  },
+  "safety": {
+    "external_network_used": false,
+    "loopback_http_only": true,
+    "forced_live_rescan": false,
+    "original_files_changed": 0,
+    "original_files_copied": 0,
+    "original_files_moved": 0,
+    "original_files_renamed": 0,
+    "original_files_deleted": 0,
+    "bibliotheca_pdf_schema_changed": 0,
+    "epub_catalog_schema_changed": 0,
+    "study_library_state_schema_changed": 0,
+    "automatic_drive_crawling": false,
+    "audio_autoplay": false,
+    "audio_conversion": false,
+    "drm_removal": false,
+    "installations": 0,
+    "downloads": 0
+  }
+}

@@ -1,0 +1,116 @@
+{
+  "authorized": true,
+  "changes": [
+    {
+      "action": "write_file",
+      "after_sha256": "99b44d8852a1658092a94e8c79b080e0044f2c7970ab9aaa5a7378f5ae815ff4",
+      "after_size": 288096,
+      "before_sha256": "0eb319a36b8816df3ff824f493eb83305fe28aba76d8f067a4ce15644596bfc0",
+      "before_size": 262431,
+      "relative_path": "KAYOCKS_STUDY_BIBLIOTHECA_V1/study_server.py"
+    },
+    {
+      "action": "write_file",
+      "after_sha256": "76b862faceb556f0804ce35ff998c395072989db02f025e84321a7788e2c9079",
+      "after_size": 11730,
+      "before_sha256": null,
+      "before_size": null,
+      "relative_path": "KAYOCKS_STUDY_BIBLIOTHECA_V1/VERIFY_KAYOCKS_STUDY_V2B_3.py"
+    }
+  ],
+  "created_at": "2026-07-20T18:08:51.853638Z",
+  "evidence_is_tool_generated": true,
+  "failure": "Validation failed: Re-run V2B.2 native EPUB reader and security verification (return code 1)",
+  "mission_id": "ENG-20260720-175733-312AD7",
+  "mission_title": "Kayock\u2019s Study V2B.3 \u2014 Local Read-Aloud and Synchronized Highlighting",
+  "mission_type": "implement",
+  "no_deletions": true,
+  "no_renames": true,
+  "plan_path": "Z:\\FOXAI\\FOXAI_Kayocks_Study_V2B_3_Local_Read_Aloud_Synchronized_Highlighting\\KAYOCKS_STUDY_V2B_3_EXACT_PLAN.json",
+  "plan_sha256": "f55f0ada13bf7c1ea28c7930cab9b193883a9337e77ce56eaab45df25476b806",
+  "project_root": "Z:\\FOXAI",
+  "result": "rolled_back",
+  "rolled_back": true,
+  "schema": "foxai.engineering.receipt.v1",
+  "snapshot_manifest": "Z:\\FOXAI\\System\\EngineeringWorkshop\\snapshots\\ENG-20260720-175733-312AD7\\snapshot_20260720T180850047845Z.manifest.json",
+  "snapshot_path": "Z:\\FOXAI\\System\\EngineeringWorkshop\\snapshots\\ENG-20260720-175733-312AD7\\snapshot_20260720T180850047845Z.zip",
+  "snapshot_sha256": "6740a7753fd16e4a63bcafa7fee7212551416973def6aed2f3d35130abab1b3f",
+  "validations": [
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "exec('from pathlib import Path\\nfiles = [\\n    Path(r\"Z:\\\\FOXAI\\\\KAYOCKS_STUDY_BIBLIOTHECA_V1\\\\study_server.py\"),\\n    Path(r\"Z:\\\\FOXAI\\\\KAYOCKS_STUDY_BIBLIOTHECA_V1\\\\VERIFY_KAYOCKS_STUDY_V2B_3.py\"),\\n]\\nfor path in files:\\n    compile(path.read_text(encoding=\"utf-8\"), str(path), \"exec\")\\nprint(\"KAYOCKS_STUDY_V2B_3_SOURCE_COMPILE_OK\")')"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-20T18:08:50.200316Z",
+      "name": "Compile V2B.3 server and verifier without bytecode",
+      "returncode": 0,
+      "started_at": "2026-07-20T18:08:50.088719Z",
+      "stderr": "",
+      "stdout": "KAYOCKS_STUDY_V2B_3_SOURCE_COMPILE_OK\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "Z:\\FOXAI\\KAYOCKS_STUDY_BIBLIOTHECA_V1\\study_server.py",
+        "--root",
+        "Z:\\FOXAI",
+        "--verify"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-20T18:08:50.724344Z",
+      "name": "Verify Study databases and local narration sidecar environment",
+      "returncode": 0,
+      "started_at": "2026-07-20T18:08:50.200697Z",
+      "stderr": "",
+      "stdout": "{\n  \"ok\": true,\n  \"checks\": [\n    {\n      \"id\": \"library_exists\",\n      \"ok\": true,\n      \"message\": \"Z:\\\\FOXAI\\\\Library\"\n    },\n    {\n      \"id\": \"pypdf_available\",\n      \"ok\": true,\n      \"message\": \"Bundled pypdf loaded.\"\n    },\n    {\n      \"id\": \"sqlite_database\",\n      \"ok\": true,\n      \"message\": \"SQLite ready; FTS5=True.\"\n    },\n    {\n      \"id\": \"epub_catalog\",\n      \"ok\": true,\n      \"message\": \"Z:\\\\FOXAI\\\\KAYOCKS_STUDY_BIBLIOTHECA_V1\\\\Data\\\\epub_catalog.sqlite3\"\n    },\n    {\n      \"id\": \"epub_reader_state\",\n      \"ok\": true,\n      \"message\": \"Z:\\\\FOXAI\\\\KAYOCKS_STUDY_BIBLIOTHECA_V1\\\\Data\\\\study_library_state.sqlite3\"\n    }\n  ],\n  \"root\": \"Z:\\\\FOXAI\",\n  \"library\": \"Z:\\\\FOXAI\\\\Library\",\n  \"database\": \"Z:\\\\FOXAI\\\\KAYOCKS_STUDY_BIBLIOTHECA_V1\\\\Data\\\\bibliotheca.sqlite3\",\n  \"network_scope\": \"localhost_only\",\n  \"original_files_modified\": 0\n}\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "Z:\\FOXAI\\KAYOCKS_STUDY_BIBLIOTHECA_V1\\VERIFY_BIBLIOTHECA_V1_2_2.py",
+        "--root",
+        "Z:\\FOXAI"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-20T18:08:51.365131Z",
+      "name": "Re-run Bibliotheca V1.2.2 live search API reliability verification",
+      "returncode": 0,
+      "started_at": "2026-07-20T18:08:50.724703Z",
+      "stderr": "",
+      "stdout": "{\n  \"schema\": \"foxai.bibliotheca.v1_2_2.verification.v1\",\n  \"mission\": \"Bibliotheca V1.2.2 \u2014 Search API Response Reliability\",\n  \"mode\": \"full\",\n  \"overall_result\": \"verified\",\n  \"check_count\": 24,\n  \"checks\": [\n    {\n      \"id\": \"main_foxai_web_preserved\",\n      \"ok\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"id\": \"controlled_research_desk_preserved\",\n      \"ok\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"id\": \"v1_6_verifier_preserved\",\n      \"ok\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"id\": \"v1_2_verifier_preserved\",\n      \"ok\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"id\": \"v1_2_1_verifier_preserved\",\n      \"ok\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"id\": \"safe_optional_serializer\",\n      \"ok\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"id\": \"search_endpoint_error_json\",\n      \"ok\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"id\": \"v1_2_1_layout_preserved\",\n      \"ok\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"id\": \"clear_search_failure_presentation\",\n      \"ok\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"id\": \"white_bread_http_200\",\n      \"ok\": true,\n      \"detail\": {\n        \"ok\": true,\n        \"query\": \"White bread\",\n        \"results\": [\n          {\n            \"source_kind\": \"pdf\",\n            \"document_id\": 1,\n            \"research_id\": null,\n            \"title\": \"(Book) - Cookbook - Nelson Family Recipe Book\",\n            \"rel_path\": \"Recipes/(Book) - Cookbook - Nelson Family Recipe Book.pdf\",\n            \"shelf\": \"Recipes\",\n            \"page_number\": 7,\n            \"segment_number\": 0,\n            \"section_heading\": null,\n            \"capture_date\": null,\n            \"original_url\": null,\n            \"snippet\": \"WHITE BREAD Ingredients 3 cups flour 1 cup water Directions Bake at 375 degrees for 20 minutes.\",\n            \"citation\": \"[(Book) - Cookbook - Nelson Family Recipe Book, p. 7]\",\n            \"text_status\": \"searchable\",\n            \"is_ocr_copy\": false,\n            \"detected_heading\": \"White bread\",\n            \"match_role\": \"title_exact\"\n          }\n        ]\n      }\n    },\n    {\n      \"id\": \"white_bread_all_public_fields\",\n      \"ok\": true,\n      \"detail\": {\n        \"source_kind\": \"pdf\",\n        \"document_id\": 1,\n        \"research_id\": null,\n        \"title\": \"(Book) - Cookbook - Nelson Family Recipe Book\",\n        \"rel_path\": \"Recipes/(Book) - Cookbook - Nelson Family Recipe Book.pdf\",\n        \"shelf\": \"Recipes\",\n        \"page_number\": 7,\n        \"segment_number\": 0,\n        \"section_heading\": null,\n        \"capture_date\": null,\n        \"original_url\": null,\n        \"snippet\": \"WHITE BREAD Ingredients 3 cups flour 1 cup water Directions Bake at 375 degrees for 20 minutes.\",\n        \"citation\": \"[(Book) - Cookbook - Nelson Family Recipe Book, p. 7]\",\n        \"text_status\": \"searchable\",\n        \"is_ocr_copy\": false,\n        \"detected_heading\": \"White bread\",\n        \"match_role\": \"title_exact\"\n      }\n    },\n    {\n      \"id\": \"pdf_research_only_fields_are_safe\",\n      \"ok\": true,\n      \"detail\": {\n        \"source_kind\": \"pdf\",\n        \"document_id\": 1,\n        \"research_id\": null,\n        \"title\": \"(Book) - Cookbook - Nelson Family Recipe Book\",\n        \"rel_path\": \"Recipes/(Book) - Cookbook - Nelson Family Recipe Book.pdf\",\n        \"shelf\": \"Recipes\",\n        \"page_number\": 7,\n        \"segment_number\": 0,\n        \"section_heading\": null,\n        \"capture_date\": null,\n        \"original_url\": null,\n        \"snippet\": \"WHITE BREAD Ingredients 3 cups flour 1 cup water Directions Bake at 375 degrees for 20 minutes.\",\n        \"citation\": \"[(Book) - Cookbook - Nelson Family Recipe Book, p. 7]\",\n        \"text_status\": \"searchable\",\n        \"is_ocr_copy\": false,\n        \"detected_heading\": \"White bread\",\n        \"match_role\": \"title_exact\"\n      }\n    },\n    {\n      \"id\": \"recipe_heading_and_role_available\",\n      \"ok\": true,\n      \"detail\": {\n        \"source_kind\": \"pdf\",\n        \"document_id\": 1,\n        \"research_id\": null,\n        \"title\": \"(Book) - Cookbook - Nelson Family Recipe Book\",\n        \"rel_path\": \"Recipes/(Book) - Cookbook - Nelson Family Recipe Book.pdf\",\n        \"shelf\": \"Recipes\",\n        \"page_number\": 7,\n        \"segment_number\": 0,\n        \"section_heading\": null,\n        \"capture_date\": null,\n        \"original_url\": null,\n        \"snippet\": \"WHITE BREAD Ingredients 3 cups flour 1 cup water Directions Bake at 375 degrees for 20 minutes.\",\n        \"citation\": \"[(Book) - Cookbook - Nelson Family Recipe Book, p. 7]\",\n        \"text_status\": \"searchable\",\n        \"is_ocr_copy\": false,\n        \"detected_heading\": \"White bread\",\n        \"match_role\": \"title_exact\"\n      }\n    },\n    {\n      \"id\": \"ordinary_pdf_http_200\",\n      \"ok\": true,\n      \"detail\": {\n        \"ok\": true,\n        \"query\": \"Python for loop\",\n        \"results\": [\n          {\n            \"source_kind\": \"pdf\",\n            \"document_id\": 2,\n            \"research_id\": null,\n            \"title\": \"Ordinary Python Manual\",\n            \"rel_path\": \"Programming/Ordinary Python Manual.pdf\",\n            \"shelf\": \"Programming\",\n            \"page_number\": 2,\n            \"segment_number\": 0,\n            \"section_heading\": null,\n            \"capture_date\": null,\n            \"original_url\": null,\n            \"snippet\": \"FOR LOOP GUIDE A Python for loop iterates over each item in a sequence.\",\n            \"citation\": \"[Ordinary Python Manual, p. 2]\",\n            \"text_status\": \"searchable\",\n            \"is_ocr_copy\": false,\n            \"detected_heading\": null,\n            \"match_role\": null\n          }\n        ]\n      }\n    },\n    {\n      \"id\": \"ordinary_pdf_optional_fields_safe\",\n      \"ok\": true,\n      \"detail\": {\n        \"ok\": true,\n        \"query\": \"Python for loop\",\n        \"results\": [\n          {\n            \"source_kind\": \"pdf\",\n            \"document_id\": 2,\n            \"research_id\": null,\n            \"title\": \"Ordinary Python Manual\",\n            \"rel_path\": \"Programming/Ordinary Python Manual.pdf\",\n            \"shelf\": \"Programming\",\n            \"page_number\": 2,\n            \"segment_number\": 0,\n            \"section_heading\": null,\n            \"capture_date\": null,\n            \"original_url\": null,\n            \"snippet\": \"FOR LOOP GUIDE A Python for loop iterates over each item in a sequence.\",\n            \"citation\": \"[Ordinary Python Manual, p. 2]\",\n            \"text_status\": \"searchable\",\n            \"is_ocr_copy\": false,\n            \"detected_heading\": null,\n            \"match_role\": null\n          }\n        ]\n      }\n    },\n    {\n      \"id\": \"ocr_recipe_http_200\",\n      \"ok\": true,\n      \"detail\": {\n        \"ok\": true,\n        \"query\": \"Sicilian Thick Crust\",\n        \"results\": [\n          {\n            \"source_kind\": \"pdf\",\n            \"document_id\": 3,\n            \"research_id\": null,\n            \"title\": \"Pizzeria Recipes OCR\",\n            \"rel_path\": \"Recipes/Pizzeria Recipes OCR.pdf\",\n            \"shelf\": \"Recipes\",\n            \"page_number\": 8,\n            \"segment_number\": 0,\n            \"section_heading\": null,\n            \"capture_date\": null,\n            \"original_url\": null,\n            \"snippet\": \"SICILIAN THICK CRUST Ingredients Flour yeast water Directions Bake until golden.\",\n            \"citation\": \"[Pizzeria Recipes OCR, p. 8]\",\n            \"text_status\": \"searchable_ocr_copy\",\n            \"is_ocr_copy\": true,\n            \"detected_heading\": \"Sicilian Thick Crust\",\n            \"match_role\": \"title_exact\"\n          }\n        ]\n      }\n    },\n    {\n      \"id\": \"ocr_recipe_heading_available\",\n      \"ok\": true,\n      \"detail\": {\n        \"ok\": true,\n        \"query\": \"Sicilian Thick Crust\",\n        \"results\": [\n          {\n            \"source_kind\": \"pdf\",\n            \"document_id\": 3,\n            \"research_id\": null,\n            \"title\": \"Pizzeria Recipes OCR\",\n            \"rel_path\": \"Recipes/Pizzeria Recipes OCR.pdf\",\n            \"shelf\": \"Recipes\",\n            \"page_number\": 8,\n            \"segment_number\": 0,\n            \"section_heading\": null,\n            \"capture_date\": null,\n            \"original_url\": null,\n            \"snippet\": \"SICILIAN THICK CRUST Ingredients Flour yeast water Directions Bake until golden.\",\n            \"citation\": \"[Pizzeria Recipes OCR, p. 8]\",\n            \"text_status\": \"searchable_ocr_copy\",\n            \"is_ocr_copy\": true,\n            \"detected_heading\": \"Sicilian Thick Crust\",\n            \"match_role\": \"title_exact\"\n          }\n        ]\n      }\n    },\n    {\n      \"id\": \"no_results_http_200\",\n      \"ok\": true,\n      \"detail\": {\n        \"ok\": true,\n        \"query\": \"moonstone apricot nonexistent\",\n        \"results\": []\n      }\n    },\n    {\n      \"id\": \"saved_research_http_200\",\n      \"ok\": true,\n      \"detail\": {\n        \"ok\": true,\n        \"query\": \"offline source\",\n        \"results\": [\n          {\n            \"source_kind\": \"research\",\n            \"document_id\": null,\n            \"research_id\": 1,\n            \"title\": \"Offline Preservation Source\",\n            \"rel_path\": \"C:\\\\Users\\\\kayoc\\\\AppData\\\\Local\\\\Temp\\\\bibliotheca_v1_2_2_http_t89h3h3u\\\\Research\\\\offline-source.txt\",\n            \"shelf\": \"Research\",\n            \"page_number\": 0,\n            \"segment_number\": 1,\n            \"section_heading\": \"Preservation Notes\",\n            \"capture_date\": \"2026-07-20\",\n            \"original_url\": \"https://example.invalid/offline\",\n            \"snippet\": \"Offline source explains preservation and citations.\",\n            \"citation\": \"[Offline Preservation Source, captured 2026-07-20, Preservation Notes, segment 1]\",\n            \"text_status\": \"research_capture\",\n            \"is_ocr_copy\": false,\n            \"detected_heading\": \"Preservation Notes\",\n            \"match_role\": \"research_segment\"\n          }\n        ]\n      }\n    },\n    {\n      \"id\": \"saved_research_optional_fields_present\",\n      \"ok\": true,\n      \"detail\": {\n        \"source_kind\": \"research\",\n        \"document_id\": null,\n        \"research_id\": 1,\n        \"title\": \"Offline Preservation Source\",\n        \"rel_path\": \"C:\\\\Users\\\\kayoc\\\\AppData\\\\Local\\\\Temp\\\\bibliotheca_v1_2_2_http_t89h3h3u\\\\Research\\\\offline-source.txt\",\n        \"shelf\": \"Research\",\n        \"page_number\": 0,\n        \"segment_number\": 1,\n        \"section_heading\": \"Preservation Notes\",\n        \"capture_date\": \"2026-07-20\",\n        \"original_url\": \"https://example.invalid/offline\",\n        \"snippet\": \"Offline source explains preservation and citations.\",\n        \"citation\": \"[Offline Preservation Source, captured 2026-07-20, Preservation Notes, segment 1]\",\n        \"text_status\": \"research_capture\",\n        \"is_ocr_copy\": false,\n        \"detected_heading\": \"Preservation Notes\",\n        \"match_role\": \"research_segment\"\n      }\n    },\n    {\n      \"id\": \"saved_research_role\",\n      \"ok\": true,\n      \"detail\": {\n        \"source_kind\": \"research\",\n        \"document_id\": null,\n        \"research_id\": 1,\n        \"title\": \"Offline Preservation Source\",\n        \"rel_path\": \"C:\\\\Users\\\\kayoc\\\\AppData\\\\Local\\\\Temp\\\\bibliotheca_v1_2_2_http_t89h3h3u\\\\Research\\\\offline-source.txt\",\n        \"shelf\": \"Research\",\n        \"page_number\": 0,\n        \"segment_number\": 1,\n        \"section_heading\": \"Preservation Notes\",\n        \"capture_date\": \"2026-07-20\",\n        \"original_url\": \"https://example.invalid/offline\",\n        \"snippet\": \"Offline source explains preservation and citations.\",\n        \"citation\": \"[Offline Preservation Source, captured 2026-07-20, Preservation Notes, segment 1]\",\n        \"text_status\": \"research_capture\",\n        \"is_ocr_copy\": false,\n        \"detected_heading\": \"Preservation Notes\",\n        \"match_role\": \"research_segment\"\n      }\n    },\n    {\n      \"id\": \"endpoint_failure_returns_json_500\",\n      \"ok\": true,\n      \"detail\": {\n        \"ok\": false,\n        \"error_code\": \"local_search_failed\",\n        \"message\": \"Local search could not complete. The technical error was recorded in the Bibliotheca log.\",\n        \"query\": \"forced failure\",\n        \"results\": []\n      }\n    },\n    {\n      \"id\": \"error_response_hides_private_path\",\n      \"ok\": true,\n      \"detail\": {\n        \"ok\": false,\n        \"error_code\": \"local_search_failed\",\n        \"message\": \"Local search could not complete. The technical error was recorded in the Bibliotheca log.\",\n        \"query\": \"forced failure\",\n        \"results\": []\n      }\n    },\n    {\n      \"id\": \"technical_exception_logged_locally\",\n      \"ok\": true,\n      \"detail\": \"[2026-07-20T12:08:51-06:00] \\\"GET /api/search?q=White+bread&doc=1&shelf=Recipes&status=searchable HTTP/1.1\\\" 200 -\\n[2026-07-20T12:08:51-06:00] \\\"GET /api/search?q=Python+for+loop&doc=2&shelf=Programming&status=searchable HTTP/1.1\\\" 200 -\\n[2026-07-20T12:08:51-06:00] \\\"GET /api/search?q=Sicilian+Thick+Crust&doc=3&shelf=Recipes&status=searchable_ocr_copy HTTP/1.1\\\" 200 -\\n[2026-07-20T12:08:51-06:00] \\\"GET /api/search?q=moonstone+apricot+nonexistent HTTP/1.1\\\" 200 -\\n[2026-07-20T12:08:51-06:00] \\\"GET /api/search?q=offline+source&shelf=Research&status=research_capture HTTP/1.1\\\" 200 -\\n[2026-07-20T12:08:51-06:00] Local search endpoint error: RuntimeError: forced failure at FOXAI_ROOT\\n[2026-07-20T12:08:51-06:00] \\\"GET /api/search?q=forced+failure HTTP/1.1\\\" 500 -\\n\"\n    }\n  ],\n  \"live_http\": {\n    \"loopback_only\": true,\n    \"white_bread\": \"HTTP 200 valid JSON\",\n    \"ordinary_pdf\": \"HTTP 200 valid JSON\",\n    \"ocr_recipe\": \"HTTP 200 valid JSON\",\n    \"saved_research\": \"HTTP 200 valid JSON\",\n    \"no_results\": \"HTTP 200 empty JSON result\",\n    \"forced_failure\": \"HTTP 500 controlled JSON error\"\n  },\n  \"protected\": {\n    \"v1_2_exact_page_and_recipe_logic\": true,\n    \"v1_2_1_layout\": true,\n    \"controlled_research_desk\": true,\n    \"main_foxai_web\": true,\n    \"writer_poetry_and_repair_bay\": true,\n    \"original_pdfs\": true,\n    \"database_content\": true,\n    \"saved_research\": true\n  },\n  \"external_network_used\": false,\n  \"loopback_http_test_used\": true,\n  \"project_content_written_by_verifier\": false\n}\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "Z:\\FOXAI\\KAYOCKS_STUDY_BIBLIOTHECA_V1\\VERIFY_KAYOCKS_STUDY_V2B_2.py",
+        "--root",
+        "Z:\\FOXAI"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-20T18:08:51.846366Z",
+      "name": "Re-run V2B.2 native EPUB reader and security verification",
+      "returncode": 1,
+      "started_at": "2026-07-20T18:08:51.365484Z",
+      "stderr": "Traceback (most recent call last):\n  File \"Z:\\FOXAI\\KAYOCKS_STUDY_BIBLIOTHECA_V1\\VERIFY_KAYOCKS_STUDY_V2B_2.py\", line 434, in <module>\n    raise SystemExit(main())\n                     ~~~~^^\n  File \"Z:\\FOXAI\\KAYOCKS_STUDY_BIBLIOTHECA_V1\\VERIFY_KAYOCKS_STUDY_V2B_2.py\", line 166, in main\n    check(\"version_2b_2\", module.APP_VERSION == \"2B.2\", module.APP_VERSION)\n    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"Z:\\FOXAI\\KAYOCKS_STUDY_BIBLIOTHECA_V1\\VERIFY_KAYOCKS_STUDY_V2B_2.py\", line 164, in check\n    raise AssertionError(f\"{name}: {detail}\")\nAssertionError: version_2b_2: 2B.3\n",
+      "stdout": "",
+      "timed_out": false
+    }
+  ]
+}

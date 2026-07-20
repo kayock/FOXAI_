@@ -1,0 +1,678 @@
+--- a/KAYOCKS_STUDY_BIBLIOTHECA_V1/study_server.py
++++ b/KAYOCKS_STUDY_BIBLIOTHECA_V1/study_server.py
+@@ -53,7 +53,7 @@
+ LOW_TEXT_CHARS = 40
+ MAX_ASK_SOURCES = 8
+ MAX_SOURCE_CHARS = 18000
+-APP_VERSION = "2B.2"
++APP_VERSION = "2B.3"
+ REVIEW_RELATIVE_ROOT = Path("Needs Review") / "Bibliotheca Duplicate Review"
+ 
+ _OCR_MARKERS = re.compile(
+@@ -281,6 +281,18 @@
+             scroll_ratio REAL NOT NULL DEFAULT 0.0,
+             label TEXT NOT NULL DEFAULT '',
+             created_at TEXT NOT NULL
++        );
++        CREATE TABLE IF NOT EXISTS epub_narration_state(
++            source_sha256 TEXT PRIMARY KEY,
++            ebook_id INTEGER NOT NULL,
++            voice_name TEXT NOT NULL DEFAULT '',
++            voice_lang TEXT NOT NULL DEFAULT '',
++            rate REAL NOT NULL DEFAULT 1.0,
++            pitch REAL NOT NULL DEFAULT 1.0,
++            volume REAL NOT NULL DEFAULT 1.0,
++            auto_advance INTEGER NOT NULL DEFAULT 0,
++            paragraph_index INTEGER NOT NULL DEFAULT 0,
++            updated_at TEXT NOT NULL
+         );
+         CREATE INDEX IF NOT EXISTS idx_epub_reader_last_opened
+             ON epub_reader_state(last_opened_at DESC);
+@@ -750,6 +762,124 @@
+         return cursor.rowcount > 0
+     finally:
+         conn.close()
++
++
++def default_epub_narration_preferences() -> dict:
++    return {
++        "voice_name": "",
++        "voice_lang": "",
++        "rate": 1.0,
++        "pitch": 1.0,
++        "volume": 1.0,
++        "auto_advance": False,
++    }
++
++
++def normalize_epub_narration_preferences(value) -> dict:
++    raw = value if isinstance(value, dict) else {}
++    defaults = default_epub_narration_preferences()
++    voice_name = normalize_metadata_text(raw.get("voice_name") or "", limit=240)
++    voice_lang = normalize_metadata_text(raw.get("voice_lang") or "", limit=80)
++    try:
++        rate = float(raw.get("rate", defaults["rate"]))
++    except (TypeError, ValueError):
++        rate = defaults["rate"]
++    try:
++        pitch = float(raw.get("pitch", defaults["pitch"]))
++    except (TypeError, ValueError):
++        pitch = defaults["pitch"]
++    try:
++        volume = float(raw.get("volume", defaults["volume"]))
++    except (TypeError, ValueError):
++        volume = defaults["volume"]
++    return {
++        "voice_name": voice_name,
++        "voice_lang": voice_lang,
++        "rate": round(max(0.5, min(2.0, rate)), 2),
++        "pitch": round(max(0.5, min(2.0, pitch)), 2),
++        "volume": round(max(0.0, min(1.0, volume)), 2),
++        "auto_advance": bool(raw.get("auto_advance", defaults["auto_advance"])),
++    }
++
++
++def epub_narration_state(paths: AppPaths, identity: dict) -> dict:
++    digest = str(identity.get("sha256") or "").casefold()
++    defaults = {
++        "ebook_id": int(identity.get("id") or 0),
++        "preferences": default_epub_narration_preferences(),
++        "paragraph_index": 0,
++        "updated_at": "",
++    }
++    if not digest:
++        return defaults
++    conn = connect_library_state_db(paths)
++    try:
++        row = conn.execute(
++            "SELECT * FROM epub_narration_state WHERE source_sha256=?",
++            (digest,),
++        ).fetchone()
++    finally:
++        conn.close()
++    if not row:
++        return defaults
++    return {
++        "ebook_id": int(identity.get("id") or row["ebook_id"] or 0),
++        "preferences": normalize_epub_narration_preferences({
++            "voice_name": row["voice_name"],
++            "voice_lang": row["voice_lang"],
++            "rate": row["rate"],
++            "pitch": row["pitch"],
++            "volume": row["volume"],
++            "auto_advance": bool(row["auto_advance"]),
++        }),
++        "paragraph_index": max(0, int(row["paragraph_index"] or 0)),
++        "updated_at": str(row["updated_at"] or ""),
++    }
++
++
++def save_epub_narration_state(paths: AppPaths, identity: dict, payload: dict) -> dict:
++    digest = str(identity.get("sha256") or "").casefold()
++    if not digest:
++        raise ValueError("The selected EPUB does not have a stable identity.")
++    current = epub_narration_state(paths, identity)
++    preferences = normalize_epub_narration_preferences(
++        payload.get("preferences") or current["preferences"]
++    )
++    try:
++        paragraph_index = max(0, int(payload.get("paragraph_index", current["paragraph_index"])))
++    except (TypeError, ValueError):
++        paragraph_index = current["paragraph_index"]
++    now = iso_now()
++    conn = connect_library_state_db(paths)
++    try:
++        conn.execute(
++            """
++            INSERT INTO epub_narration_state(
++                source_sha256,ebook_id,voice_name,voice_lang,rate,pitch,volume,
++                auto_advance,paragraph_index,updated_at
++            ) VALUES(?,?,?,?,?,?,?,?,?,?)
++            ON CONFLICT(source_sha256) DO UPDATE SET
++                ebook_id=excluded.ebook_id,
++                voice_name=excluded.voice_name,
++                voice_lang=excluded.voice_lang,
++                rate=excluded.rate,
++                pitch=excluded.pitch,
++                volume=excluded.volume,
++                auto_advance=excluded.auto_advance,
++                paragraph_index=excluded.paragraph_index,
++                updated_at=excluded.updated_at
++            """,
++            (
++                digest, int(identity["id"]), preferences["voice_name"],
++                preferences["voice_lang"], preferences["rate"], preferences["pitch"],
++                preferences["volume"], 1 if preferences["auto_advance"] else 0,
++                paragraph_index, now,
++            ),
++        )
++        conn.commit()
++    finally:
++        conn.close()
++    return epub_narration_state(paths, identity)
+ 
+ 
+ def continue_reading_ebooks(paths: AppPaths, *, limit: int = 18) -> list[dict]:
+@@ -3877,6 +4007,12 @@
+ #epubReaderFrame{display:block;width:100%;height:68vh;border:0;background:#fff}
+ .readerfooter{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-top:10px}
+ .readererror{padding:22px;color:#ffb4b4}.continuebadge{font-size:11px;color:#cbb7ff;margin-top:4px}
++.narrationpanel{border:1px solid #8f5cff42;border-radius:14px;background:#111522;padding:12px;margin-bottom:10px}
++.narrationhead{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}.narrationhead h3{margin:0}
++.narrationgrid{display:grid;grid-template-columns:minmax(210px,2fr) repeat(3,minmax(110px,1fr));gap:8px;margin-top:10px}.narrationgrid label{font-size:12px;color:var(--muted)}.narrationgrid select,.narrationgrid input{margin-top:4px}
++.narrationbuttons{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}.narrationstate{margin-top:9px;border-left:3px solid #9b6cff;padding:8px 10px;background:#0b0f19;color:#e7e2f6}
++.narrationhelp{font-size:12px;color:var(--muted);margin-top:8px}.narrationoffline{color:#ffc970}
++@media(max-width:980px){.narrationgrid{grid-template-columns:repeat(2,minmax(130px,1fr))}}
+ @media(max-width:980px){.readerlayout{grid-template-columns:1fr}.readersidebar{max-height:260px}.readercontrols{grid-template-columns:repeat(2,minmax(120px,1fr))}}
+ @media(max-width:900px){.librarytoolbar{grid-template-columns:1fr 1fr}.viewcontrols{grid-column:span 2;justify-content:flex-start}.librarysummary{grid-template-columns:repeat(2,1fr)}}
+ @media(max-width:620px){.librarytoolbar{grid-template-columns:1fr}.viewcontrols{grid-column:auto}.tiletrack{grid-auto-columns:142px}.detailbody{grid-template-columns:1fr}.detailcover{width:150px}.detailmeta{grid-template-columns:1fr}.libraryrow{grid-template-columns:46px minmax(0,1fr)}.rowstatus{display:none}}
+@@ -3886,7 +4022,7 @@
+ <body>
+ <div class="shell">
+   <section class="hero">
+-    <div class="eyebrow">Kayock's Study · Bibliotheca V2B.2</div>
++    <div class="eyebrow">Kayock's Study · Bibliotheca V2B.3</div>
+     <h1>The Bibliotheca</h1>
+     <div class="motto">Read. Research. Preserve. Discover.</div>
+     <p class="muted">Browse your preserved collection visually, then open, search, or ask from the exact source.</p>
+@@ -4057,10 +4193,27 @@
+           <label>Line spacing<input id="readerLineSpacing" type="range" min="1.2" max="2.4" step="0.05"></label>
+           <label>Reading width<input id="readerContentWidth" type="range" min="520" max="1100" step="20"></label>
+         </div>
++        <section id="readerNarrationPanel" class="narrationpanel" hidden aria-label="Local read-aloud controls">
++          <div class="narrationhead"><div><h3>Read This to Me</h3><div class="small">Confirmed local Windows/browser voices only · book text stays on this computer</div></div><span id="narrationLocalBadge" class="pill warn">Checking local voices…</span></div>
++          <div class="narrationgrid">
++            <label>Local voice<select id="narrationVoice"><option value="">Checking installed voices…</option></select></label>
++            <label>Speed<input id="narrationRate" type="range" min="0.5" max="2" step="0.05" value="1"></label>
++            <label>Pitch<input id="narrationPitch" type="range" min="0.5" max="2" step="0.05" value="1"></label>
++            <label>Volume<input id="narrationVolume" type="range" min="0" max="1" step="0.05" value="1"></label>
++          </div>
++          <label class="checkline"><input id="narrationAutoAdvance" type="checkbox"> Automatically continue into the next readable chapter</label>
++          <div class="narrationbuttons">
++            <button id="narrationPlay" type="button">Play</button><button id="narrationPause" type="button" class="secondary">Pause</button><button id="narrationResume" type="button" class="secondary">Resume</button><button id="narrationStop" type="button" class="danger">Stop</button>
++            <button id="narrationPreviousParagraph" type="button" class="secondary">Previous Paragraph</button><button id="narrationNextParagraph" type="button" class="secondary">Next Paragraph</button><button id="narrationRestartChapter" type="button" class="secondary">Restart Chapter</button><button id="narrationReadFromHere" type="button" class="secondary">Read from Here</button>
++            <button id="narrationRememberPosition" type="button" class="secondary">Remember This Position</button><button id="narrationTestVoice" type="button" class="secondary">Test Voice</button>
++          </div>
++          <div id="narrationStatus" class="narrationstate" aria-live="polite">Ready. Select a passage or press Play.</div>
++          <div class="narrationhelp">Click a paragraph, heading, quotation, list item, scene break, or useful image description to select it. Press Enter or Space while focused to select it with the keyboard.</div>
++        </section>
+         <div class="readerframewrap"><iframe id="epubReaderFrame" sandbox="allow-same-origin" title="EPUB chapter content"></iframe></div>
+         <div class="readerfooter">
+           <div class="controls"><button id="readerPrevious" type="button" class="secondary">Previous Chapter</button><button id="readerNext" type="button">Next Chapter</button></div>
+-          <div class="controls"><button id="readerStartBeginning" type="button" class="secondary">Start from Beginning</button><button type="button" class="secondary" disabled title="Voice reading arrives in V2B.3">Read This to Me · V2B.3</button></div>
++          <div class="controls"><button id="readerStartBeginning" type="button" class="secondary">Start from Beginning</button><button id="readerReadAloudButton" type="button" class="secondary">Read This to Me</button></div>
+         </div>
+         <div id="readerStatus" class="detailstatus" aria-live="polite"></div>
+       </div>
+@@ -4093,6 +4246,10 @@
+ let continueReadingEbooks=[];
+ let activeReader=null;
+ let readerSaveTimer=null;
++let narrationSaveTimer=null;
++let localNarrationVoices=[];
++let narrationIsDrivingScroll=false;
++let narration={paragraphs:[],selectedIndex:0,paragraphIndex:0,chunkIndex:0,status:'ready',generation:0,pendingStart:false,chapterAutoAdvance:false};
+ let readerPreviousMode='library';
+ 
+ function esc(value){
+@@ -4299,7 +4456,7 @@
+   const actions=isEpub
+     ? `<button type=button data-detail-action="read-epub">Read in Kayock's Study</button><button type=button class=secondary data-detail-action="open-epub-external">${externalLabel}</button><button type=button class=secondary data-detail-action="open-epub-original">Save Original EPUB</button>`
+     : `<button type=button data-detail-action="open-pdf">Open PDF</button><button type=button class=secondary data-detail-action="search-document">Search This Document</button><button type=button class=secondary data-detail-action="ask-document">Ask Agent Fox</button>`;
+-  q('documentDetailBody').innerHTML=`<div class=detailbody>${coverMarkup(item,true)}<div><div class=eyebrow>${esc(item.collection||item.shelf||'The Bibliotheca')}</div><h2>${esc(item.title)}</h2><div class=detailmeta>${metadata}</div><div class=detailsection><h3>Summary</h3><div class=summarytext>${esc(detailSummaryText(item))}</div></div><div class=detailsection><h3>My Rating</h3>${ratingStarsMarkup(item.rating)}</div><div class=detailpath>${esc(item.rel_path)}</div><div class=detailactions>${actions}<button type=button class=secondary data-detail-action="how-to-open">How to Open</button><button type=button class="secondary futurecontrol" disabled title="Voice reading arrives in V2B.3">Read This to Me · V2B.3</button></div><div id=detailOpenHelp class=howto hidden>${esc(item.open_guidance||'Opening guidance is not available.')}</div><div id=detailReadNote class=howto hidden>${esc(item.voice_status||'Read-aloud is reserved for a later phase.')}</div>${isEpub?'<div class=reviewnote>The native reader supports chapters, table of contents, bookmarks, preferences, and resume. Voice reading arrives in V2B.3.</div>':''}</div></div>`;
++  q('documentDetailBody').innerHTML=`<div class=detailbody>${coverMarkup(item,true)}<div><div class=eyebrow>${esc(item.collection||item.shelf||'The Bibliotheca')}</div><h2>${esc(item.title)}</h2><div class=detailmeta>${metadata}</div><div class=detailsection><h3>Summary</h3><div class=summarytext>${esc(detailSummaryText(item))}</div></div><div class=detailsection><h3>My Rating</h3>${ratingStarsMarkup(item.rating)}</div><div class=detailpath>${esc(item.rel_path)}</div><div class=detailactions>${actions}<button type=button class=secondary data-detail-action="how-to-open">How to Open</button>${isEpub?'<button type=button class=secondary data-detail-action="read-aloud">Read This to Me</button>':'<button type=button class="secondary futurecontrol" disabled title="PDF voice reading is not enabled yet">Read This to Me · EPUB only</button>'}</div><div id=detailOpenHelp class=howto hidden>${esc(item.open_guidance||'Opening guidance is not available.')}</div><div id=detailReadNote class=howto hidden>${esc(item.voice_status||'Read-aloud is reserved for a later phase.')}</div>${isEpub?'<div class=reviewnote>The native reader supports chapters, table of contents, bookmarks, preferences, resume, and confirmed-local voice narration.</div>':''}</div></div>`;
+ }
+ async function openLibraryItemDetail(kind,id){
+   const local=libraryDocuments.find(entry=>entry.source_kind===kind&&Number(entry.id)===Number(id));
+@@ -4329,6 +4486,7 @@
+   if(action==='search-document'){searchThisDocument(item.id);return;}
+   if(action==='ask-document'){askThisDocument(item.id);return;}
+   if(action==='read-epub'){openEpubReader(item.id);return;}
++  if(action==='read-aloud'){openEpubReader(item.id,false,true);return;}
+   if(action==='open-epub-external'){openExternalEpub(item.id);return;}
+   if(action==='open-epub-original'&&item.original_epub_url){window.open(item.original_epub_url,'_blank','noopener');return;}
+   if(action==='how-to-open'){const panel=q('detailOpenHelp');if(panel)panel.hidden=!panel.hidden;return;}
+@@ -4360,7 +4518,7 @@
+ }
+ function readerBaseCss(preferences){
+   const theme=readerThemeValues(preferences.theme);
+-  return `html{background:${theme.background};color:${theme.text};scroll-behavior:smooth}body{margin:0;background:${theme.background};color:${theme.text};font-family:${readerFontStack(preferences.font)};font-size:${Number(preferences.text_size||19)}px;line-height:${Number(preferences.line_spacing||1.65)};overflow-wrap:anywhere}.epub-reading-page{max-width:${Number(preferences.content_width||760)}px;margin:0 auto;padding:38px 34px 70px;box-sizing:border-box}img,svg{max-width:100%;height:auto}a{color:${theme.link}}table{max-width:100%;border-collapse:collapse}td,th{padding:.25em;border:1px solid #7775}blockquote{margin-left:1em;border-left:3px solid #7777;padding-left:1em}pre{white-space:pre-wrap}hr{border:0;border-top:1px solid #7777;margin:2em 0}@media(max-width:620px){.epub-reading-page{padding:24px 18px 60px}}`;
++  return `html{background:${theme.background};color:${theme.text};scroll-behavior:smooth}body{margin:0;background:${theme.background};color:${theme.text};font-family:${readerFontStack(preferences.font)};font-size:${Number(preferences.text_size||19)}px;line-height:${Number(preferences.line_spacing||1.65)};overflow-wrap:anywhere}.epub-reading-page{max-width:${Number(preferences.content_width||760)}px;margin:0 auto;padding:38px 34px 70px;box-sizing:border-box}img,svg{max-width:100%;height:auto}a{color:${theme.link}}table{max-width:100%;border-collapse:collapse}td,th{padding:.25em;border:1px solid #7775}blockquote{margin-left:1em;border-left:3px solid #7777;padding-left:1em}pre{white-space:pre-wrap}hr{border:0;border-top:1px solid #7777;margin:2em 0}.kayock-narration-unit{cursor:pointer;border-radius:.3em;transition:background .15s ease,outline-color .15s ease}.kayock-narration-unit:focus{outline:2px solid #a98aff;outline-offset:3px}.kayock-narration-selected{outline:2px dashed #a98aff;outline-offset:3px}.kayock-narration-active{background:rgba(155,108,255,.24);outline:2px solid rgba(185,141,255,.65);outline-offset:3px}::selection{background:rgba(255,214,92,.58);color:inherit}@media(max-width:620px){.epub-reading-page{padding:24px 18px 60px}}`;
+ }
+ function readerSrcdoc(chapter,preferences){
+   const base=readerBaseCss(preferences).replace(/<\/style/gi,'<\\/style');
+@@ -4397,7 +4555,7 @@
+   try{const win=q('epubReaderFrame').contentWindow;const doc=win.document.documentElement;const max=Math.max(1,doc.scrollHeight-win.innerHeight);return Math.max(0,Math.min(1,win.scrollY/max));}catch(_error){return Number(activeReader?.scrollRatio||0);}
+ }
+ function scheduleReaderStateSave(){
+-  if(!activeReader)return;
++  if(!activeReader||narrationIsDrivingScroll)return;
+   clearTimeout(readerSaveTimer);
+   readerSaveTimer=setTimeout(saveReaderState,350);
+ }
+@@ -4423,18 +4581,19 @@
+       const doc=frame.contentDocument;
+       const baseStyle=doc.createElement('style');baseStyle.id='kayockReaderBaseStyle';baseStyle.textContent=readerBaseCss(activeReader.preferences);doc.head.appendChild(baseStyle);
+       doc.addEventListener('click',event=>{
+-        const link=event.target.closest('a[data-reader-target-member],a[data-reader-fragment]');if(!link)return;event.preventDefault();
++        const link=event.target.closest('a[data-reader-target-member],a[data-reader-fragment]');if(!link)return;event.preventDefault();stopNarration();
+         const targetMember=link.dataset.readerTargetMember;const targetFragment=link.dataset.readerTargetFragment||link.dataset.readerFragment||'';
+         if(targetMember){const target=activeReader.publication.spine.find(item=>String(item.member).toLowerCase()===String(targetMember).toLowerCase());if(target)loadReaderChapter(target.index,0,targetFragment);}
+         else if(targetFragment){doc.getElementById(targetFragment)?.scrollIntoView({block:'start'});activeReader.fragment=targetFragment;scheduleReaderStateSave();}
+       });
+       frame.contentWindow.addEventListener('scroll',scheduleReaderStateSave,{passive:true});
+-      requestAnimationFrame(()=>{if(fragment&&doc.getElementById(fragment)){doc.getElementById(fragment).scrollIntoView({block:'start'});}else{const root=doc.documentElement;const max=Math.max(0,root.scrollHeight-frame.contentWindow.innerHeight);frame.contentWindow.scrollTo(0,max*Math.max(0,Math.min(1,Number(ratio||0))));}});
++      prepareNarrationChapter(doc);
++      requestAnimationFrame(()=>{if(fragment&&doc.getElementById(fragment)){doc.getElementById(fragment).scrollIntoView({block:'start'});}else{const root=doc.documentElement;const max=Math.max(0,root.scrollHeight-frame.contentWindow.innerHeight);frame.contentWindow.scrollTo(0,max*Math.max(0,Math.min(1,Number(ratio||0))));}if(narration.pendingStart){narration.pendingStart=false;setTimeout(()=>startNarrationAt(0),120);}});
+     }catch(error){q('readerStatus').textContent=error.message;}
+   };
+   frame.srcdoc=readerSrcdoc(chapter,activeReader.preferences);
+ }
+-async function loadReaderChapter(index,ratio=0,fragment=''){
++async function loadReaderChapter(index,ratio=0,fragment='',narrationDriven=false){
+   if(!activeReader)return;
+   const safeIndex=Math.max(0,Math.min(activeReader.publication.spine.length-1,Number(index||0)));
+   q('readerStatus').textContent='Loading chapter locally…';
+@@ -4444,17 +4603,18 @@
+     q('readerBookTitle').textContent=activeReader.publication.title||activeReader.publication.identity.title;
+     q('readerPosition').textContent=`${data.chapter.title} · Chapter ${safeIndex+1} of ${data.chapter.spine_count}`;
+     q('readerPrevious').disabled=safeIndex<=0;q('readerNext').disabled=safeIndex>=data.chapter.spine_count-1;
+-    renderReaderToc();bindReaderFrame(data.chapter,ratio,fragment);q('readerStatus').textContent='Local EPUB · original file unchanged';scheduleReaderStateSave();
++    renderReaderToc();bindReaderFrame(data.chapter,ratio,fragment);q('readerStatus').textContent='Local EPUB · original file unchanged';if(!narrationDriven)scheduleReaderStateSave();
+   }catch(error){q('readerStatus').textContent=error.message;q('epubReaderFrame').srcdoc=`<div class=readererror>${esc(error.message)}</div>`;}
+ }
+-async function openEpubReader(id,startBeginning=false){
++async function openEpubReader(id,startBeginning=false,openNarration=false){
+   showReaderWorkspace();q('readerStatus').textContent='Opening EPUB safely…';
+   try{
+     const data=await api(`/api/epub/reader?id=${encodeURIComponent(id)}`);
+-    activeReader={id:Number(id),publication:data.publication,state:data.state,bookmarks:data.bookmarks||[],preferences:data.state.preferences||{},chapterIndex:startBeginning?0:Number(data.state.last_spine_index||0),scrollRatio:startBeginning?0:Number(data.state.scroll_ratio||0),fragment:startBeginning?'':String(data.state.last_fragment||'')};
++    activeReader={id:Number(id),publication:data.publication,state:data.state,narrationState:data.narration_state||{preferences:{},paragraph_index:0},bookmarks:data.bookmarks||[],preferences:data.state.preferences||{},chapterIndex:startBeginning?0:Number(data.state.last_spine_index||0),scrollRatio:startBeginning?0:Number(data.state.scroll_ratio||0),fragment:startBeginning?'':String(data.state.last_fragment||'')};
+     activeReader.publication.title=activeLibraryDetail?.title||data.publication.identity.title;
+-    syncReaderControls();renderReaderToc();renderReaderBookmarks();
++    syncReaderControls();syncNarrationControls();renderReaderToc();renderReaderBookmarks();
+     await loadReaderChapter(activeReader.chapterIndex,activeReader.scrollRatio,activeReader.fragment);
++    if(openNarration){q('readerNarrationPanel').hidden=false;setNarrationStatus('ready','Choose a confirmed local voice, then press Play. Narration will not begin until you do.');}
+   }catch(error){q('readerBookTitle').textContent='Unable to open this EPUB';q('readerStatus').textContent=error.message;q('epubReaderFrame').srcdoc=`<div class=readererror>${esc(error.message)}</div>`;}
+ }
+ async function openExternalEpub(id){
+@@ -4467,6 +4627,128 @@
+ async function removeReaderBookmark(bookmarkId){
+   if(!activeReader)return;try{const data=await api('/api/epub/bookmark/remove',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id:activeReader.id,bookmark_id:Number(bookmarkId)})});activeReader.bookmarks=data.bookmarks||[];renderReaderBookmarks();}catch(error){q('readerStatus').textContent=error.message;}
+ }
++
++function confirmedLocalVoices(voices){
++  return [...(voices||[])].filter(voice=>voice&&voice.localService===true).sort((a,b)=>`${a.lang||''} ${a.name||''}`.localeCompare(`${b.lang||''} ${b.name||''}`));
++}
++function splitNarrationText(value,maxLength=620){
++  const text=String(value||'').replace(/\s+/g,' ').trim();if(!text)return [];
++  const chunks=[];let start=0;
++  while(start<text.length){let end=Math.min(text.length,start+maxLength);if(end<text.length){const floor=start+Math.floor(maxLength*.52);let cut=-1;for(let i=end;i>=floor;i--){if(/[.!?;:]\s/.test(text.slice(i-1,i+1))){cut=i;break}}if(cut<0){cut=text.lastIndexOf(' ',end)}if(cut>start)end=cut;}
++    const chunk=text.slice(start,end).trim();if(chunk)chunks.push({text:chunk,start:text.indexOf(chunk,start)});start=Math.max(end,start+1);while(text[start]===' ')start++;
++  }
++  return chunks;
++}
++function usefulImageDescription(image){
++  const alt=String(image.getAttribute('alt')||'').replace(/\s+/g,' ').trim();if(!alt||alt.length<8)return '';
++  if(/^(cover|image|photo|illustration|decorative|ornament|spacer|logo|icon)$/i.test(alt))return '';
++  if(/\.(jpe?g|png|gif|webp|svg)$/i.test(alt))return '';
++  return `Image description: ${alt}`;
++}
++function prepareNarrationChapter(doc){
++  stopNarration(false);narration.paragraphs=[];
++  const candidates=[...doc.querySelectorAll('h1,h2,h3,h4,h5,h6,p,li,figcaption,hr,img[alt]')];
++  for(const element of candidates){
++    if(element.closest('nav,header,footer,aside,[hidden],[aria-hidden="true"]'))continue;
++    const style=doc.defaultView.getComputedStyle(element);if(style.display==='none'||style.visibility==='hidden')continue;
++    let text=element.tagName==='HR'?'Scene break.':element.tagName==='IMG'?usefulImageDescription(element):String(element.textContent||'').replace(/\s+/g,' ').trim();
++    if(!text)continue;
++    const chunks=splitNarrationText(text);if(!chunks.length)continue;
++    const index=narration.paragraphs.length;element.classList.add('kayock-narration-unit');element.dataset.narrationIndex=String(index);element.tabIndex=0;element.title='Select this passage for Read This to Me';
++    element.addEventListener('click',event=>{if(event.target.closest('a'))return;selectNarrationParagraph(index);});
++    element.addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();selectNarrationParagraph(index);}});
++    narration.paragraphs.push({element,text,chunks});
++  }
++  const saved=Math.max(0,Math.min(narration.paragraphs.length-1,Number(activeReader?.narrationState?.paragraph_index||0)));
++  narration.paragraphIndex=Number.isFinite(saved)?saved:0;narration.chunkIndex=0;selectNarrationParagraph(narration.paragraphIndex,false);
++  setNarrationStatus('ready',narration.paragraphs.length?`Ready · ${narration.paragraphs.length} readable passages in this chapter.`:'No readable narration passages were found in this chapter.');
++}
++function selectNarrationParagraph(index,announce=true){
++  if(!narration.paragraphs.length)return;
++  const safe=Math.max(0,Math.min(narration.paragraphs.length-1,Number(index||0)));narration.selectedIndex=safe;
++  for(const item of narration.paragraphs)item.element.classList.remove('kayock-narration-selected');
++  narration.paragraphs[safe].element.classList.add('kayock-narration-selected');
++  if(announce)setNarrationStatus(narration.status,`Selected passage ${safe+1} of ${narration.paragraphs.length}. Press Read from Here or Play.`);
++}
++function clearNarrationHighlights(){
++  for(const item of narration.paragraphs)item.element.classList.remove('kayock-narration-active');
++  try{q('epubReaderFrame').contentWindow.getSelection()?.removeAllRanges();}catch(_error){}
++}
++function highlightNarrationParagraph(index){
++  clearNarrationHighlights();const item=narration.paragraphs[index];if(!item)return;item.element.classList.add('kayock-narration-active');selectNarrationParagraph(index,false);
++  const rect=item.element.getBoundingClientRect();const height=q('epubReaderFrame').contentWindow.innerHeight;
++  if(rect.top<35||rect.bottom>height-35){narrationIsDrivingScroll=true;item.element.scrollIntoView({behavior:'smooth',block:'center'});setTimeout(()=>{narrationIsDrivingScroll=false;},800);}
++}
++function highlightNarrationBoundary(element,start,length){
++  try{
++    const doc=element.ownerDocument;const walker=doc.createTreeWalker(element,NodeFilter.SHOW_TEXT);const nodes=[];let node,total=0;while(node=walker.nextNode()){nodes.push({node,start:total,end:total+node.nodeValue.length});total+=node.nodeValue.length;}
++    const from=Math.max(0,Number(start||0)),to=Math.min(total,from+Math.max(1,Number(length||1)));const first=nodes.find(entry=>from>=entry.start&&from<=entry.end);const last=[...nodes].reverse().find(entry=>to>=entry.start&&to<=entry.end)||first;if(!first||!last)return;
++    const range=doc.createRange();range.setStart(first.node,Math.max(0,Math.min(first.node.nodeValue.length,from-first.start)));range.setEnd(last.node,Math.max(0,Math.min(last.node.nodeValue.length,to-last.start)));const selection=doc.defaultView.getSelection();selection.removeAllRanges();selection.addRange(range);
++  }catch(_error){}
++}
++function setNarrationStatus(state,message=''){
++  narration.status=state;const labels={ready:'Ready',speaking:'Speaking',paused:'Paused',completed:'Completed',unavailable:'No local voice available',error:'Narration error'};q('narrationStatus').textContent=`${labels[state]||state}${message?` · ${message}`:''}`;
++  q('narrationPause').disabled=state!=='speaking';q('narrationResume').disabled=state!=='paused';q('narrationStop').disabled=!['speaking','paused'].includes(state);
++}
++function currentNarrationPreferences(){
++  const voice=localNarrationVoices.find(item=>item.voiceURI===q('narrationVoice').value)||null;
++  return {voice_name:voice?.name||'',voice_lang:voice?.lang||'',rate:Number(q('narrationRate').value||1),pitch:Number(q('narrationPitch').value||1),volume:Number(q('narrationVolume').value||1),auto_advance:Boolean(q('narrationAutoAdvance').checked)};
++}
++function scheduleNarrationStateSave(){clearTimeout(narrationSaveTimer);narrationSaveTimer=setTimeout(saveNarrationState,300);}
++async function saveNarrationState(){
++  if(!activeReader)return;const payload={id:activeReader.id,preferences:currentNarrationPreferences(),paragraph_index:Math.max(0,Number(narration.paragraphIndex||narration.selectedIndex||0))};
++  try{const data=await api('/api/epub/narration/state',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});activeReader.narrationState=data.narration_state;}catch(error){setNarrationStatus('error',error.message);}
++}
++function refreshLocalNarrationVoices(){
++  if(!('speechSynthesis' in window)){localNarrationVoices=[];}else{localNarrationVoices=confirmedLocalVoices(window.speechSynthesis.getVoices());}
++  const select=q('narrationVoice');const saved=activeReader?.narrationState?.preferences||{};const previous=select.value;
++  select.innerHTML=localNarrationVoices.length?localNarrationVoices.map(voice=>`<option value="${esc(voice.voiceURI)}">${esc(voice.name)} · ${esc(voice.lang||'language unknown')} · Local</option>`).join(''):'<option value="">No confirmed local voice available</option>';
++  let chosen=localNarrationVoices.find(voice=>voice.voiceURI===previous)||localNarrationVoices.find(voice=>voice.name===saved.voice_name&&(!saved.voice_lang||voice.lang===saved.voice_lang))||localNarrationVoices[0];if(chosen)select.value=chosen.voiceURI;
++  const ready=Boolean(chosen);q('narrationLocalBadge').textContent=ready?`${localNarrationVoices.length} local voice${localNarrationVoices.length===1?'':'s'}`:'No confirmed local voice';q('narrationLocalBadge').className=`pill ${ready?'ok':'warn'}`;q('narrationPlay').disabled=!ready;q('narrationTestVoice').disabled=!ready;
++  if(!ready)setNarrationStatus('unavailable','Kayock’s Study will not use an online-only voice. Install or enable a local Windows voice, then reopen the reader.');
++  else if(saved.voice_name&&!localNarrationVoices.some(voice=>voice.name===saved.voice_name&&(!saved.voice_lang||voice.lang===saved.voice_lang)))setNarrationStatus('ready',`Saved voice “${saved.voice_name}” is unavailable here. Using ${chosen.name} locally instead.`);
++}
++function syncNarrationControls(){
++  const p=activeReader?.narrationState?.preferences||{};q('narrationRate').value=Number(p.rate||1);q('narrationPitch').value=Number(p.pitch||1);q('narrationVolume').value=Number(p.volume??1);q('narrationAutoAdvance').checked=Boolean(p.auto_advance);refreshLocalNarrationVoices();
++}
++function selectedNarrationVoice(){return localNarrationVoices.find(voice=>voice.voiceURI===q('narrationVoice').value)||null;}
++function stopNarration(updateStatus=true){
++  narration.generation++;try{window.speechSynthesis.cancel();}catch(_error){}clearNarrationHighlights();narration.chunkIndex=0;if(updateStatus&&q('narrationStatus'))setNarrationStatus('ready','Stopped. Select a passage or press Play.');scheduleNarrationStateSave();
++}
++function pauseNarration(){if(narration.status==='speaking'){window.speechSynthesis.pause();setNarrationStatus('paused',`Passage ${narration.paragraphIndex+1} of ${narration.paragraphs.length}.`);}}
++function resumeNarration(){if(narration.status==='paused'){window.speechSynthesis.resume();setNarrationStatus('speaking',`Passage ${narration.paragraphIndex+1} of ${narration.paragraphs.length}.`);}}
++function startNarrationAt(index,chunkIndex=0){
++  const voice=selectedNarrationVoice();if(!voice){setNarrationStatus('unavailable','No confirmed local voice is selected.');return;}if(!narration.paragraphs.length){setNarrationStatus('completed','No readable passages are available.');return;}
++  narration.generation++;window.speechSynthesis.cancel();narration.paragraphIndex=Math.max(0,Math.min(narration.paragraphs.length-1,Number(index||0)));narration.chunkIndex=Math.max(0,Number(chunkIndex||0));speakNarrationChunk(narration.generation);
++}
++function speakNarrationChunk(generation){
++  if(generation!==narration.generation)return;const item=narration.paragraphs[narration.paragraphIndex];const chunk=item?.chunks[narration.chunkIndex];const voice=selectedNarrationVoice();if(!item||!chunk||!voice)return;
++  highlightNarrationParagraph(narration.paragraphIndex);const utterance=new SpeechSynthesisUtterance(chunk.text);utterance.voice=voice;utterance.lang=voice.lang||activeReader?.publication?.identity?.language||'';utterance.rate=Number(q('narrationRate').value||1);utterance.pitch=Number(q('narrationPitch').value||1);utterance.volume=Number(q('narrationVolume').value||1);
++  utterance.onstart=()=>{if(generation===narration.generation){setNarrationStatus('speaking',`Passage ${narration.paragraphIndex+1} of ${narration.paragraphs.length} · ${voice.name} · local/offline`);scheduleNarrationStateSave();}};
++  utterance.onpause=()=>{if(generation===narration.generation)setNarrationStatus('paused',`Passage ${narration.paragraphIndex+1} of ${narration.paragraphs.length}.`);};
++  utterance.onresume=()=>{if(generation===narration.generation)setNarrationStatus('speaking',`Passage ${narration.paragraphIndex+1} of ${narration.paragraphs.length}.`);};
++  utterance.onboundary=event=>{if(generation!==narration.generation)return;if(event.name==='sentence'||event.name==='word')highlightNarrationBoundary(item.element,chunk.start+Number(event.charIndex||0),Number(event.charLength||1));};
++  utterance.onerror=event=>{if(generation===narration.generation&&event.error!=='canceled'&&event.error!=='interrupted')setNarrationStatus('error',String(event.error||'The local voice stopped unexpectedly.'));};
++  utterance.onend=()=>{if(generation!==narration.generation)return;advanceNarrationAfterChunk(generation);};
++  window.speechSynthesis.speak(utterance);
++}
++async function advanceNarrationAfterChunk(generation){
++  const item=narration.paragraphs[narration.paragraphIndex];if(!item||generation!==narration.generation)return;
++  if(narration.chunkIndex+1<item.chunks.length){narration.chunkIndex++;speakNarrationChunk(generation);return;}
++  if(narration.paragraphIndex+1<narration.paragraphs.length){narration.paragraphIndex++;narration.chunkIndex=0;speakNarrationChunk(generation);return;}
++  if(q('narrationAutoAdvance').checked&&activeReader&&activeReader.chapterIndex<activeReader.publication.spine.length-1){narration.pendingStart=true;narration.paragraphIndex=0;narration.chunkIndex=0;await loadReaderChapter(activeReader.chapterIndex+1,0,'',true);return;}
++  clearNarrationHighlights();setNarrationStatus('completed','End of chapter. Automatic chapter advancement is off or the book is complete.');scheduleNarrationStateSave();
++}
++function playNarration(){if(narration.status==='paused'){resumeNarration();return;}startNarrationAt(Number.isFinite(narration.selectedIndex)?narration.selectedIndex:narration.paragraphIndex,0);}
++function readNarrationFromHere(){startNarrationAt(narration.selectedIndex,0);}
++function previousNarrationParagraph(){startNarrationAt(Math.max(0,narration.paragraphIndex-1),0);}
++function nextNarrationParagraph(){startNarrationAt(Math.min(narration.paragraphs.length-1,narration.paragraphIndex+1),0);}
++function restartNarrationChapter(){startNarrationAt(0,0);}
++function toggleNarrationPanel(){q('readerNarrationPanel').hidden=!q('readerNarrationPanel').hidden;if(!q('readerNarrationPanel').hidden){refreshLocalNarrationVoices();setNarrationStatus(localNarrationVoices.length?'ready':'unavailable',localNarrationVoices.length?'Select a passage or press Play.':'No confirmed local voice is available.');}}
++function testNarrationVoice(){
++  const voice=selectedNarrationVoice();if(!voice)return;stopNarration(false);const utterance=new SpeechSynthesisUtterance("Kayock’s Study local voice test. Read, research, preserve, discover.");utterance.voice=voice;utterance.lang=voice.lang;utterance.rate=Number(q('narrationRate').value||1);utterance.pitch=Number(q('narrationPitch').value||1);utterance.volume=Number(q('narrationVolume').value||1);utterance.onstart=()=>setNarrationStatus('speaking',`Testing ${voice.name} · local/offline`);utterance.onend=()=>setNarrationStatus('ready','Voice test complete.');window.speechSynthesis.speak(utterance);
++}
++async function rememberNarrationPosition(){await saveReaderState();setNarrationStatus(narration.status,'Ordinary reading position updated to the currently visible location.');}
+ 
+ function setScanButtonsBusy(busy){
+   for(const id of ['homeScanButton','advancedScanButton']){const button=q(id);if(button)button.disabled=Boolean(busy);}
+@@ -4843,13 +5125,18 @@
+     await refreshAll();
+   }catch(error){alert(error.message);}
+ }
+-q('readerBackButton').addEventListener('click',async()=>{await saveReaderState();hideReaderWorkspace();if(activeLibraryDetail)openLibraryItemDetail('epub',activeLibraryDetail.id);refreshLibraryHome().catch(()=>{});});
++q('readerBackButton').addEventListener('click',async()=>{stopNarration();await saveReaderState();hideReaderWorkspace();if(activeLibraryDetail)openLibraryItemDetail('epub',activeLibraryDetail.id);refreshLibraryHome().catch(()=>{});});
+ q('readerControlsButton').addEventListener('click',()=>{q('readerControls').hidden=!q('readerControls').hidden;});
+ q('readerBookmarkButton').addEventListener('click',addCurrentBookmark);
+-q('readerPrevious').addEventListener('click',()=>loadReaderChapter(activeReader.chapterIndex-1,0,''));
+-q('readerNext').addEventListener('click',()=>loadReaderChapter(activeReader.chapterIndex+1,0,''));
+-q('readerStartBeginning').addEventListener('click',()=>loadReaderChapter(0,0,''));
++q('readerPrevious').addEventListener('click',()=>{stopNarration();loadReaderChapter(activeReader.chapterIndex-1,0,'');});
++q('readerNext').addEventListener('click',()=>{stopNarration();loadReaderChapter(activeReader.chapterIndex+1,0,'');});
++q('readerStartBeginning').addEventListener('click',()=>{stopNarration();loadReaderChapter(0,0,'');});
+ for(const id of ['readerTheme','readerFont','readerTextSize','readerLineSpacing','readerContentWidth'])q(id).addEventListener('input',()=>applyReaderPreferences(true));
++q('readerReadAloudButton').addEventListener('click',toggleNarrationPanel);
++q('narrationPlay').addEventListener('click',playNarration);q('narrationPause').addEventListener('click',pauseNarration);q('narrationResume').addEventListener('click',resumeNarration);q('narrationStop').addEventListener('click',()=>stopNarration());
++q('narrationPreviousParagraph').addEventListener('click',previousNarrationParagraph);q('narrationNextParagraph').addEventListener('click',nextNarrationParagraph);q('narrationRestartChapter').addEventListener('click',restartNarrationChapter);q('narrationReadFromHere').addEventListener('click',readNarrationFromHere);q('narrationRememberPosition').addEventListener('click',rememberNarrationPosition);q('narrationTestVoice').addEventListener('click',testNarrationVoice);
++for(const id of ['narrationVoice','narrationRate','narrationPitch','narrationVolume','narrationAutoAdvance'])q(id).addEventListener('input',scheduleNarrationStateSave);
++if('speechSynthesis' in window){window.speechSynthesis.addEventListener?.('voiceschanged',refreshLocalNarrationVoices);setTimeout(refreshLocalNarrationVoices,50);setTimeout(refreshLocalNarrationVoices,700);}
+ document.addEventListener('click',event=>{
+   const toc=event.target.closest('[data-reader-toc-index]');if(toc){loadReaderChapter(Number(toc.dataset.readerTocIndex),0,toc.dataset.readerTocFragment||'');return;}
+   const bookmark=event.target.closest('[data-reader-bookmark-id]');if(bookmark){loadReaderChapter(Number(bookmark.dataset.readerBookmarkIndex),Number(bookmark.dataset.readerBookmarkRatio||0),bookmark.dataset.readerBookmarkFragment||'');return;}
+@@ -4875,7 +5162,7 @@
+ 
+ 
+ class StudyHandler(BaseHTTPRequestHandler):
+-    server_version = "KayocksStudy/2B.2"
++    server_version = "KayocksStudy/2B.3"
+ 
+     @property
+     def paths(self) -> AppPaths:
+@@ -5075,6 +5362,7 @@
+                     "ok": True,
+                     "publication": public_publication,
+                     "state": epub_reader_state(self.paths, identity),
++                    "narration_state": epub_narration_state(self.paths, identity),
+                     "bookmarks": list_epub_bookmarks(self.paths, identity),
+                     "external_reader": external_epub_reader_status(),
+                 })
+@@ -5288,6 +5576,19 @@
+                 self.send_json({"ok": False, "message": str(exc)}, 400)
+             return
+ 
++        if parsed.path == "/api/epub/narration/state":
++            try:
++                payload = self.read_json()
++                identity = epub_reader_identity(self.paths, int(payload.get("id")))
++                if not identity:
++                    self.send_json({"ok": False, "message": "The selected EPUB is unavailable."}, 404)
++                    return
++                state = save_epub_narration_state(self.paths, identity, payload)
++                self.send_json({"ok": True, "narration_state": state})
++            except (TypeError, ValueError) as exc:
++                self.send_json({"ok": False, "message": str(exc)}, 400)
++            return
++
+         if parsed.path == "/api/epub/bookmark/add":
+             try:
+                 payload = self.read_json()
+@@ -5520,7 +5821,7 @@
+         state_conn = connect_library_state_db(paths)
+         state_tables = {row[0] for row in state_conn.execute("SELECT name FROM sqlite_master WHERE type='table'").fetchall()}
+         state_conn.close()
+-        reader_ready = {"epub_reader_state", "epub_bookmarks"}.issubset(state_tables)
++        reader_ready = {"epub_reader_state", "epub_bookmarks", "epub_narration_state"}.issubset(state_tables)
+         checks.append({"id": "epub_reader_state", "ok": reader_ready, "message": str(library_state_database_path(paths))})
+     except Exception as exc:
+         checks.append({"id": "epub_reader_state", "ok": False, "message": f"{type(exc).__name__}: {exc}"})
+@@ -5578,7 +5879,7 @@
+     actual_port = server.server_address[1]
+     url = f"http://{HOST}:{actual_port}"
+     print("=" * 72)
+-    print("KAYOCK'S STUDY — THE BIBLIOTHECA V2B.2")
++    print("KAYOCK'S STUDY — THE BIBLIOTHECA V2B.3")
+     print("=" * 72)
+     print("URL:", url)
+     print("Library:", paths.library)
+--- /dev/null
++++ b/KAYOCKS_STUDY_BIBLIOTHECA_V1/VERIFY_KAYOCKS_STUDY_V2B_3.py
+@@ -0,0 +1,170 @@
++from __future__ import annotations
++import argparse, ast, hashlib, importlib.util, json, os, sqlite3, subprocess, sys, tempfile, zipfile
++from pathlib import Path
++from threading import Thread
++from urllib.request import Request, urlopen
++from urllib.error import HTTPError
++
++
++def sha256(path: Path) -> str:
++    return hashlib.sha256(path.read_bytes()).hexdigest()
++
++
++def load_module(path: Path):
++    spec = importlib.util.spec_from_file_location("kayocks_study_v2b3_live", path)
++    if spec is None or spec.loader is None:
++        raise RuntimeError(f"Unable to load {path}")
++    module = importlib.util.module_from_spec(spec)
++    sys.path.insert(0, str(path.parent))
++    sys.modules[spec.name] = module
++    spec.loader.exec_module(module)
++    return module
++
++
++def make_epub(path: Path) -> None:
++    path.parent.mkdir(parents=True, exist_ok=True)
++    container = '''<?xml version="1.0"?><container xmlns="urn:oasis:names:tc:opendocument:xmlns:container" version="1.0"><rootfiles><rootfile full-path="OEBPS/content.opf" media-type="application/oebps-package+xml"/></rootfiles></container>'''
++    package = '''<?xml version="1.0" encoding="UTF-8"?><package xmlns="http://www.idpf.org/2007/opf" version="3.0"><metadata xmlns:dc="http://purl.org/dc/elements/1.1/"><dc:identifier>urn:v2b3:test</dc:identifier><dc:title>Narration Fixture</dc:title><dc:creator>Local Voice Tester</dc:creator><dc:language>en-US</dc:language><dc:description>A fixture for local narration.</dc:description></metadata><manifest><item id="nav" href="nav.xhtml" media-type="application/xhtml+xml" properties="nav"/><item id="c1" href="chapter1.xhtml" media-type="application/xhtml+xml"/><item id="c2" href="chapter2.xhtml" media-type="application/xhtml+xml"/></manifest><spine><itemref idref="c1"/><itemref idref="c2"/></spine></package>'''
++    nav = '''<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops"><body><nav epub:type="toc"><ol><li><a href="chapter1.xhtml">One</a></li><li><a href="chapter2.xhtml">Two</a></li></ol></nav></body></html>'''
++    c1 = '''<html xmlns="http://www.w3.org/1999/xhtml"><head><title>One</title></head><body><h1>Chapter One</h1><p>First paragraph for narration.</p><blockquote>A meaningful quotation.</blockquote><hr/><p hidden="hidden">Hidden words must not be narrated.</p><img alt="A starship crossing a field of bright stars" src="missing.png"/></body></html>'''
++    c2 = '''<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Two</title></head><body><h1>Chapter Two</h1><p>Second chapter text.</p></body></html>'''
++    with zipfile.ZipFile(path, "w") as z:
++        z.writestr("mimetype", "application/epub+zip")
++        z.writestr("META-INF/container.xml", container)
++        z.writestr("OEBPS/content.opf", package)
++        z.writestr("OEBPS/nav.xhtml", nav)
++        z.writestr("OEBPS/chapter1.xhtml", c1)
++        z.writestr("OEBPS/chapter2.xhtml", c2)
++
++
++def request_json(base: str, path: str, *, method="GET", payload=None):
++    data = json.dumps(payload).encode() if payload is not None else None
++    headers = {"Content-Type": "application/json"} if payload is not None else {}
++    req = Request(base + path, data=data, headers=headers, method=method)
++    try:
++        with urlopen(req, timeout=10) as response:
++            return response.status, json.loads(response.read().decode())
++    except HTTPError as exc:
++        return exc.code, json.loads(exc.read().decode())
++
++
++def main() -> int:
++    parser = argparse.ArgumentParser()
++    parser.add_argument("--root", required=True)
++    args = parser.parse_args()
++    root = Path(args.root).resolve()
++    app = root / "KAYOCKS_STUDY_BIBLIOTHECA_V1"
++    server_path = app / "study_server.py"
++    source = server_path.read_text(encoding="utf-8")
++    module = load_module(server_path)
++    html = module.HTML
++    checks = []
++
++    def check(name, condition, detail=""):
++        checks.append({"id": name, "ok": bool(condition), "detail": detail})
++        if not condition:
++            raise AssertionError(f"{name}: {detail}")
++
++    check("version_2b_3", module.APP_VERSION == "2B.3", module.APP_VERSION)
++    check("speech_synthesis_local_only", "localService===true" in html and "confirmedLocalVoices" in html)
++    check("online_only_voice_excluded_message", "will not use an online-only voice" in html)
++    check("title_page_read_aloud", 'data-detail-action="read-aloud"' in html)
++    for token in ("narrationPlay", "narrationPause", "narrationResume", "narrationStop", "narrationPreviousParagraph", "narrationNextParagraph", "narrationRestartChapter", "narrationReadFromHere", "narrationRememberPosition", "narrationTestVoice"):
++        check(f"control_{token}", f'id="{token}"' in html)
++    check("paragraph_and_boundary_highlighting", "kayock-narration-active" in html and "highlightNarrationBoundary" in html)
++    check("keyboard_passage_selection", "event.key==='Enter'||event.key===' '" in html)
++    check("auto_advance_off_by_default", 'id="narrationAutoAdvance" type="checkbox"' in html)
++    check("ordinary_and_narration_positions_separate", "narrationIsDrivingScroll" in html and "Remember This Position" in html and "loadReaderChapter(activeReader.chapterIndex+1,0,'',true)" in html)
++    check("bounded_speech_units", "splitNarrationText(value,maxLength=620)" in html)
++    check("meaningful_elements_selected", "h1,h2,h3,h4,h5,h6,p,li,figcaption,hr,img[alt]" in html)
++    check("hidden_and_page_furniture_ignored", "nav,header,footer,aside,[hidden]" in html)
++    check("decorative_alt_filter", "usefulImageDescription" in html and "decorative|ornament|spacer" in html)
++    check("interface_only_test_phrase", "Kayock’s Study local voice test. Read, research, preserve, discover." in html)
++    check("no_cloud_tts_library", all(x not in source for x in ("edge_tts", "pyttsx3", "sapi.SpVoice", "api.openai.com/v1/audio")))
++    check("pdf_read_aloud_not_enabled", "Read This to Me · EPUB only" in html)
++    check("narration_sidecar_table", "CREATE TABLE IF NOT EXISTS epub_narration_state" in source)
++    check("narration_api", 'parsed.path == "/api/epub/narration/state"' in source)
++
++    tree = ast.parse(source)
++    extracted = None
++    for node in tree.body:
++        if isinstance(node, ast.Assign) and any(isinstance(t, ast.Name) and t.id == "HTML" for t in node.targets):
++            extracted = ast.literal_eval(node.value)
++            break
++    check("html_extractable", extracted == html)
++
++    # Deterministic JavaScript helper test using mocked local and online voices.
++    script = html.split("<script>", 1)[1].split("</script>", 1)[0]
++    def fn(name, next_name):
++        start = script.index(f"function {name}")
++        end = script.index(f"function {next_name}", start)
++        return script[start:end]
++    node_code = fn("confirmedLocalVoices", "splitNarrationText") + fn("splitNarrationText", "usefulImageDescription") + r'''
++const voices=[
++ {name:'Local One',lang:'en-US',localService:true},
++ {name:'Cloud One',lang:'en-US',localService:false},
++ {name:'Unknown One',lang:'en-US'}
++];
++const local=confirmedLocalVoices(voices);
++if(local.length!==1||local[0].name!=='Local One')throw new Error('online voice filtering failed');
++const chunks=splitNarrationText('One sentence. '.repeat(120),120);
++if(chunks.length<2||chunks.some(x=>x.text.length>120))throw new Error('bounded chunking failed');
++console.log(JSON.stringify({local:local.length,chunks:chunks.length}));
++'''
++    node_file = Path(tempfile.mkdtemp()) / "voice_logic.js"
++    node_file.write_text(node_code, encoding="utf-8")
++    node = subprocess.run(["node", str(node_file)], capture_output=True, text=True, timeout=60)
++    check("mocked_voice_filter_and_chunking", node.returncode == 0, node.stderr or node.stdout)
++
++    temp = Path(tempfile.mkdtemp(prefix="kayocks_v2b3_"))
++    server = None
++    try:
++        paths = module.AppPaths(
++            root=temp, library=temp/"Library", data=temp/"Data",
++            database=temp/"Data"/"bibliotheca.sqlite3", log=temp/"Logs"/"bibliotheca.log",
++            reports=temp/"Reports", epub_database=temp/"Data"/"epub_catalog.sqlite3",
++            epub_cache=temp/"Data"/"EPUB_Covers", library_state_database=temp/"Data"/"study_library_state.sqlite3",
++        )
++        paths.library.mkdir(parents=True); paths.data.mkdir(parents=True)
++        epub = paths.library / "Fiction" / "Star Trek" / "Narration Fixture.epub"
++        make_epub(epub)
++        original_hash = sha256(epub)
++        indexed = module.index_library(paths)
++        check("fixture_indexed", indexed.get("epubs_ready") == 1, indexed)
++        item = module.list_ebooks(paths, status="ready")[0]
++        identity = module.epub_reader_identity(paths, item["id"])
++        reader_before = module.epub_reader_state(paths, identity)
++        state = module.save_epub_narration_state(paths, identity, {
++            "preferences": {"voice_name":"Local One","voice_lang":"en-US","rate":1.25,"pitch":0.9,"volume":0.8,"auto_advance":True},
++            "paragraph_index": 4,
++        })
++        check("narration_preferences_persist", state["preferences"]["voice_name"] == "Local One" and state["preferences"]["rate"] == 1.25 and state["preferences"]["auto_advance"] is True, state)
++        check("narration_paragraph_persists", state["paragraph_index"] == 4, state)
++        check("reader_position_unchanged_by_narration", module.epub_reader_state(paths, identity) == reader_before)
++        check("original_epub_unchanged", sha256(epub) == original_hash)
++        main = module.connect_db(paths); main_tables={r[0] for r in main.execute("select name from sqlite_master where type='table'")}; main.close()
++        cat = module.connect_epub_db(paths); cat_tables={r[0] for r in cat.execute("select name from sqlite_master where type='table'")}; cat.close()
++        side = module.connect_library_state_db(paths); side_tables={r[0] for r in side.execute("select name from sqlite_master where type='table'")}; side.close()
++        check("narration_not_in_pdf_or_epub_databases", "epub_narration_state" not in main_tables and "epub_narration_state" not in cat_tables)
++        check("narration_only_in_state_sidecar", "epub_narration_state" in side_tables)
++
++        server = module.StudyServer(("127.0.0.1",0), module.StudyHandler, paths)
++        thread = Thread(target=server.serve_forever, kwargs={"poll_interval":0.05}, daemon=True); thread.start()
++        base=f"http://127.0.0.1:{server.server_address[1]}"
++        status, reader = request_json(base, f"/api/epub/reader?id={item['id']}")
++        check("reader_api_includes_narration_state", status == 200 and reader["narration_state"]["paragraph_index"] == 4, reader)
++        status, saved = request_json(base, "/api/epub/narration/state", method="POST", payload={"id":item["id"],"preferences":{"voice_name":"Local Two","voice_lang":"en-GB","rate":9,"pitch":-1,"volume":5,"auto_advance":False},"paragraph_index":2})
++        prefs=saved.get("narration_state",{}).get("preferences",{})
++        check("live_narration_api_clamps_values", status == 200 and prefs.get("rate") == 2.0 and prefs.get("pitch") == 0.5 and prefs.get("volume") == 1.0, saved)
++        status, docs = request_json(base, "/api/documents?include_review=0")
++        check("existing_pdf_api_unchanged", status == 200 and "documents" in docs, docs)
++    finally:
++        if server:
++            server.shutdown(); server.server_close()
++
++    result={"ok":all(c["ok"] for c in checks),"result":"verified","check_count":len(checks),"checks":checks,"interactive_audio_note":"Actual audio output and installed Windows voice quality require Eric's final interactive browser test.","external_network_used":False,"original_files_modified":0}
++    print(json.dumps(result, indent=2, ensure_ascii=False))
++    return 0
++
++if __name__ == "__main__":
++    raise SystemExit(main())

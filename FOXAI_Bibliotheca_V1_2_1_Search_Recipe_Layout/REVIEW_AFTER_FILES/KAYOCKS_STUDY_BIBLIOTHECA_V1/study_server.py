@@ -193,21 +193,6 @@ def log(paths: AppPaths, message: str) -> None:
         pass
 
 
-def safe_local_error(paths: AppPaths, exc: Exception) -> str:
-    value = str(exc or "").replace("\r", " ").replace("\n", " ").strip()
-    replacements = (
-        (str(paths.database), "BIBLIOTHECA_DB"),
-        (str(paths.library), "FOXAI_LIBRARY"),
-        (str(paths.root), "FOXAI_ROOT"),
-        (str(APP_DIR), "STUDY_APP"),
-    )
-    for private, label in replacements:
-        if private:
-            value = value.replace(private, label)
-    value = re.sub(r"\s+", " ", value)[:500]
-    return f"{type(exc).__name__}: {value or 'no detail'}"
-
-
 def safe_library_file(paths: AppPaths, value: Path) -> Path | None:
     try:
         resolved = value.resolve()
@@ -2383,9 +2368,7 @@ function statusClass(s){
 }
 async function api(path,options={}){
   const response=await fetch(path,options);
-  let data={};
-  try{data=await response.json();}
-  catch(_error){throw new Error(`The local Bibliotheca service returned an unreadable response (HTTP ${response.status}).`);}
+  const data=await response.json();
   if(!response.ok)throw new Error(data.message||`HTTP ${response.status}`);
   return data;
 }
@@ -2663,13 +2646,7 @@ async function runSearch(){
   }catch(error){
     lastSearchResults=[];
     q('useResultsButton').style.display='none';
-    q('askUseResults').checked=false;
-    const raw=String(error&&error.message||'');
-    const message=/failed to fetch/i.test(raw)
-      ? 'The local Bibliotheca search service did not return a response. Restart Kayock’s Study and try again.'
-      : (raw||'Local search could not complete. The technical error was recorded in the Bibliotheca log.');
-    q('askSourceNote').textContent='Local search did not complete; no cited results were selected.';
-    q('resultList').innerHTML=`<div class="empty bad">${esc(message)}</div>`;
+    q('resultList').innerHTML=`<div class="empty bad">${esc(error.message)}</div>`;
   }
 }
 function prepareAskFromResults(){
@@ -2919,45 +2896,23 @@ class StudyHandler(BaseHTTPRequestHandler):
                 document_id = int(raw_doc) if raw_doc else None
             except ValueError:
                 document_id = None
-            try:
-                results = search_pages(
-                    self.paths,
-                    text,
-                    document_id=document_id,
-                    shelf=shelf,
-                    status=status,
-                    limit=40,
-                )
-                public = []
-                for raw in results:
-                    item = dict(raw)
-                    if (
-                        item.get("source_kind") == "pdf"
-                        and str(item.get("shelf") or "").casefold() == "recipes"
-                    ):
-                        analysis = recipe_page_analysis(item.get("text") or "", text)
-                        item["detected_heading"] = analysis.get("detected_heading") or ""
-                        item["match_role"] = analysis.get("match_role") or "page_context"
-                    elif item.get("source_kind") == "research":
-                        item["detected_heading"] = item.get("section_heading") or ""
-                        item["match_role"] = "research_segment"
-                    public.append(public_source(item))
-                self.send_json({"ok": True, "query": text, "results": public})
-            except Exception as exc:
-                log(self.paths, "Local search endpoint error: " + safe_local_error(self.paths, exc))
-                self.send_json(
-                    {
-                        "ok": False,
-                        "error_code": "local_search_failed",
-                        "message": (
-                            "Local search could not complete. The technical error "
-                            "was recorded in the Bibliotheca log."
-                        ),
-                        "query": text,
-                        "results": [],
-                    },
-                    500,
-                )
+            results = search_pages(
+                self.paths,
+                text,
+                document_id=document_id,
+                shelf=shelf,
+                status=status,
+                limit=40,
+            )
+            public = [
+                {key: item[key] for key in (
+                    "source_kind","document_id","research_id","title","rel_path","shelf","page_number",
+                    "segment_number","section_heading","capture_date","original_url",
+                    "snippet","text_status","is_ocr_copy","citation"
+                )}
+                for item in results
+            ]
+            self.send_json({"ok": True, "query": text, "results": public})
             return
 
         if parsed.path == "/pdf":

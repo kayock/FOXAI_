@@ -1,0 +1,93 @@
+{
+  "authorized": true,
+  "changes": [
+    {
+      "action": "write_file",
+      "after_sha256": "06063ac9e312129da002a21d52556df560e8fef3c7e9b3b0216a001574768114",
+      "after_size": 2221671,
+      "before_sha256": "3fab4a1f6194347e8d77c7761d110d5be5e7201ff12692603dfac5cb466d6860",
+      "before_size": 2216812,
+      "relative_path": "core/foxai_web.py"
+    },
+    {
+      "action": "write_file",
+      "after_sha256": "5eb7bdaa8c409732b406cc01a16f7c4b03000839e26af133a7d84458d2d5e845",
+      "after_size": 7484,
+      "before_sha256": null,
+      "before_size": null,
+      "relative_path": "core/VERIFY_KAYOCK_WRITER_V2.py"
+    }
+  ],
+  "created_at": "2026-07-20T02:42:43.154250Z",
+  "evidence_is_tool_generated": true,
+  "failure": null,
+  "mission_id": "ENG-20260720-022624-D5C976",
+  "mission_title": "Kayock Writer V2 \u2014 Calm Guided Interface Cleanup",
+  "mission_type": "implement",
+  "no_deletions": true,
+  "no_renames": true,
+  "plan_path": "Z:\\FOXAI\\FOXAI_Kayock_Writer_V2_Calm_Guided_Interface\\KAYOCK_WRITER_V2_EXACT_PLAN.json",
+  "plan_sha256": "c7f3742aa49dea898b964aa3d075a1526bf41d564fa3852f881fad85b41b4437",
+  "project_root": "Z:\\FOXAI",
+  "result": "applied_verified",
+  "rolled_back": false,
+  "schema": "foxai.engineering.receipt.v1",
+  "snapshot_manifest": "Z:\\FOXAI\\System\\EngineeringWorkshop\\snapshots\\ENG-20260720-022624-D5C976\\snapshot_20260720T024230195424Z.manifest.json",
+  "snapshot_path": "Z:\\FOXAI\\System\\EngineeringWorkshop\\snapshots\\ENG-20260720-022624-D5C976\\snapshot_20260720T024230195424Z.zip",
+  "snapshot_sha256": "471c4a60c47fdc566cb96f2e3be923dcb3884c9f439318c0755dd1bfc44e9538",
+  "validations": [
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "exec('from pathlib import Path\\n\\nfiles = [\\n    Path(r\"Z:\\\\FOXAI\\\\core\\\\foxai_web.py\"),\\n    Path(r\"Z:\\\\FOXAI\\\\core\\\\VERIFY_KAYOCK_WRITER_V2.py\"),\\n]\\nfor path in files:\\n    compile(path.read_text(encoding=\"utf-8\"), str(path), \"exec\")\\nprint(\"KAYOCK_WRITER_V2_SOURCE_COMPILE_OK\")')"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-20T02:42:32.890900Z",
+      "name": "Compile Kayock Writer V2 interface and verifier without writing bytecode",
+      "returncode": 0,
+      "started_at": "2026-07-20T02:42:30.267770Z",
+      "stderr": "",
+      "stdout": "KAYOCK_WRITER_V2_SOURCE_COMPILE_OK\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "Z:\\FOXAI\\core\\VERIFY_KAYOCK_WRITER_V2.py"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-20T02:42:37.961195Z",
+      "name": "Verify calm task-first Writer home and protected creative workflows",
+      "returncode": 0,
+      "started_at": "2026-07-20T02:42:32.891272Z",
+      "stderr": "",
+      "stdout": "{\n  \"ok\": true,\n  \"schema\": \"foxai.kayock_writer.v2.verification\",\n  \"mode\": \"full\",\n  \"protected_workflows\": {\n    \"sections\": {\n      \"poetrystudio\": \"6984cf2610f85ea746d5c5c82138f63b2e11ee4d6e998b5e00d61450835a36c9\",\n      \"poemarchive\": \"f5909c771afb24fea17b5497a21e449b0e0b9134bac9acb1aede93b2a13622f0\",\n      \"storyforge\": \"245999aa7b7bc560f860a823a19abc76366004b25b9a83467241ce01c0dd31ad\",\n      \"worldbuilder\": \"056c1739ad9d299ce4c10d1b5f374ebac7669e31e600d13badb9aefd5dac43ca\"\n    },\n    \"poetry_js\": \"cbc61a33b492d99e6ed4af623d5dbedec94cb10ccae92baaa829a95e3678262c\",\n    \"model_registry\": \"d83dbe19abdeb9b9e7155213c7e1780d2564fbaadb321f81212eedc4282c51db\"\n  },\n  \"navigation\": {\n    \"uses_existing_nav_recents\": true,\n    \"writes_new_persistent_state\": false,\n    \"network_calls\": 0,\n    \"direct_writer_pages\": 6,\n    \"advanced_group_collapsed_by_default\": true\n  },\n  \"source_compiles\": true,\n  \"files_written\": 0,\n  \"network_used\": false,\n  \"creative_generation_changed\": false,\n  \"saved_content_changed\": false,\n  \"writer_home\": {\n    \"task_cards\": 5,\n    \"continue_area\": true,\n    \"advanced_collapsed\": true,\n    \"save_state_notice\": true\n  },\n  \"poetry_studio_core_preserved\": true,\n  \"poem_archive_preserved\": true,\n  \"story_forge_preserved\": true,\n  \"world_builder_preserved\": true,\n  \"voice_profiles_preserved\": true,\n  \"technical_foundation_auto_load_disabled\": true\n}\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "Z:\\FOXAI\\core\\VERIFY_KAYOCK_WRITER_V2.py",
+        "--focused"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-20T02:42:43.154177Z",
+      "name": "Recheck protected Poetry Studio, archive, voices, navigation, and recent-state boundary",
+      "returncode": 0,
+      "started_at": "2026-07-20T02:42:37.961550Z",
+      "stderr": "",
+      "stdout": "{\n  \"ok\": true,\n  \"schema\": \"foxai.kayock_writer.v2.verification\",\n  \"mode\": \"focused\",\n  \"protected_workflows\": {\n    \"sections\": {\n      \"poetrystudio\": \"6984cf2610f85ea746d5c5c82138f63b2e11ee4d6e998b5e00d61450835a36c9\",\n      \"poemarchive\": \"f5909c771afb24fea17b5497a21e449b0e0b9134bac9acb1aede93b2a13622f0\",\n      \"storyforge\": \"245999aa7b7bc560f860a823a19abc76366004b25b9a83467241ce01c0dd31ad\",\n      \"worldbuilder\": \"056c1739ad9d299ce4c10d1b5f374ebac7669e31e600d13badb9aefd5dac43ca\"\n    },\n    \"poetry_js\": \"cbc61a33b492d99e6ed4af623d5dbedec94cb10ccae92baaa829a95e3678262c\",\n    \"model_registry\": \"d83dbe19abdeb9b9e7155213c7e1780d2564fbaadb321f81212eedc4282c51db\"\n  },\n  \"navigation\": {\n    \"uses_existing_nav_recents\": true,\n    \"writes_new_persistent_state\": false,\n    \"network_calls\": 0,\n    \"direct_writer_pages\": 6,\n    \"advanced_group_collapsed_by_default\": true\n  },\n  \"source_compiles\": true,\n  \"files_written\": 0,\n  \"network_used\": false,\n  \"creative_generation_changed\": false,\n  \"saved_content_changed\": false\n}\n",
+      "timed_out": false
+    }
+  ]
+}

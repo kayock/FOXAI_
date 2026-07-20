@@ -1,0 +1,885 @@
+{
+  "schema": "foxai.bibliotheca.v1_2.plan_build_receipt",
+  "mission_id": "ENG-20260720-030921-2A5D34",
+  "result": "exact_plan_built_and_simulated",
+  "plan_sha256": "11c1f21f62c059a0c7939b7f4bc1d8da35fb2ec51a293be59ddb31379b1b2c6c",
+  "changed_path_count": 2,
+  "changed_paths": [
+    "KAYOCKS_STUDY_BIBLIOTHECA_V1/study_server.py",
+    "KAYOCKS_STUDY_BIBLIOTHECA_V1/VERIFY_BIBLIOTHECA_V1_2.py"
+  ],
+  "validation_count": 3,
+  "before_hashes": {
+    "KAYOCKS_STUDY_BIBLIOTHECA_V1/study_server.py": "7fdb6621fc0cd7822ca2169949b3791638cceb787d51d6f8689f4e050597b555",
+    "KAYOCKS_STUDY_BIBLIOTHECA_V1/VERIFY_BIBLIOTHECA_V1_2.py": null
+  },
+  "after_hashes": {
+    "KAYOCKS_STUDY_BIBLIOTHECA_V1/study_server.py": "e2cfdf8842e86a31ac3315d93dd6416ecd33159dbb1b9f532921c6ace132b1e2",
+    "KAYOCKS_STUDY_BIBLIOTHECA_V1/VERIFY_BIBLIOTHECA_V1_2.py": "3c74030d778c5907986cd8b9da796edacadd1c44b3d2b3bceb1931147f450787"
+  },
+  "protected_hashes": {
+    "core/foxai_web.py": "06063ac9e312129da002a21d52556df560e8fef3c7e9b3b0216a001574768114",
+    "KAYOCKS_STUDY_BIBLIOTHECA_V1/research_desk.py": "dd2d4fbb68e79e3011f767e0ea2bbc16dd56f23eb5bb14b1a81c86539c160519",
+    "KAYOCKS_STUDY_BIBLIOTHECA_V1/VERIFY_KAYOCKS_STUDY_V1_6.py": "f5d1070f2e69c131c986d8b6b7bacd1e8d88223d53058775c58c928fb43b842a"
+  },
+  "features_verified": {
+    "opened_pdf_page_context": true,
+    "automatic_cited_result_reuse": true,
+    "selected_document_exact_page": true,
+    "explicit_page_with_reused_citations": true,
+    "named_recipe_exact_page": true,
+    "nearby_recipe_heading": true,
+    "ingredient_phrase_not_title": true,
+    "multiple_recipe_warning": true,
+    "missing_recipe_fast_failure": true,
+    "missing_page_fast_failure": true,
+    "missing_citations_fast_failure": true
+  },
+  "tests": {
+    "workshop_plan_schema_and_before_hash": "passed",
+    "workshop_preview": "passed — 2 changed paths",
+    "workshop_simulated_apply": "passed — 2 files",
+    "source_compilation_without_bytecode": "passed",
+    "full_verifier": {
+      "schema": "foxai.bibliotheca.v1_2.verification.v1",
+      "mission": "Bibliotheca V1.2 — Exact Page and Recipe Intelligence",
+      "mode": "full",
+      "overall_result": "verified",
+      "checks": [
+        {
+          "id": "main_web_preserved",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "research_desk_preserved",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "existing_v1_6_verifier_preserved",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "localhost_only",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "opened_page_ui",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "automatic_cited_result_reuse_ui",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "named_recipe_subject_cleanup",
+          "ok": true,
+          "detail": "white bread"
+        },
+        {
+          "id": "quoted_recipe_subject",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "selected_document_exact_page",
+          "ok": true,
+          "detail": {
+            "sources": [
+              {
+                "document_id": 1,
+                "title": "Family Bread",
+                "rel_path": "Recipes/Family Bread.pdf",
+                "shelf": "Recipes",
+                "page_number": 7,
+                "snippet": "WHITE BREAD Ingredients 3 cups flour 1 cup water Directions Bake at 375° for 20 minutes.",
+                "text": "WHITE BREAD\nIngredients\n3 cups flour\n1 cup water\nDirections\nBake at 375° for 20 minutes.",
+                "text_status": "searchable",
+                "is_ocr_copy": false,
+                "citation": "[Family Bread, p. 7]",
+                "subject": "",
+                "detected_heading": "WHITE BREAD",
+                "headings": [
+                  "WHITE BREAD"
+                ],
+                "match_role": "page_context",
+                "subject_found": false,
+                "ingredient_only": false,
+                "subject_heading_recovered": false
+              }
+            ],
+            "selection_mode": "exact_page",
+            "requested_subject": "",
+            "exact_page": 7,
+            "grounding_warning": "",
+            "failure_code": "",
+            "recipe_match_count": 0
+          }
+        },
+        {
+          "id": "reuse_cited_results",
+          "ok": true,
+          "detail": {
+            "sources": [
+              {
+                "document_id": 4,
+                "title": "Field Manual",
+                "rel_path": "Manuals/Field Manual.pdf",
+                "shelf": "Manuals",
+                "page_number": 4,
+                "snippet": "Battery replacement procedure. Disconnect power before opening the case.",
+                "text": "Battery replacement procedure. Disconnect power before opening the case.",
+                "text_status": "searchable",
+                "is_ocr_copy": false,
+                "citation": "[Field Manual, p. 4]",
+                "detected_heading": "",
+                "match_role": "page_context"
+              }
+            ],
+            "selection_mode": "reused_citations",
+            "requested_subject": "these cited pages",
+            "exact_page": null,
+            "grounding_warning": "",
+            "failure_code": "",
+            "recipe_match_count": 0
+          }
+        },
+        {
+          "id": "reuse_citations_honors_explicit_page",
+          "ok": true,
+          "detail": {
+            "sources": [
+              {
+                "document_id": 1,
+                "title": "Family Bread",
+                "rel_path": "Recipes/Family Bread.pdf",
+                "shelf": "Recipes",
+                "page_number": 7,
+                "snippet": "WHITE BREAD Ingredients 3 cups flour 1 cup water Directions Bake at 375° for 20 minutes.",
+                "text": "WHITE BREAD\nIngredients\n3 cups flour\n1 cup water\nDirections\nBake at 375° for 20 minutes.",
+                "text_status": "searchable",
+                "is_ocr_copy": false,
+                "citation": "[Family Bread, p. 7]",
+                "subject": "",
+                "detected_heading": "WHITE BREAD",
+                "headings": [
+                  "WHITE BREAD"
+                ],
+                "match_role": "page_context",
+                "subject_found": false,
+                "ingredient_only": false,
+                "subject_heading_recovered": false
+              }
+            ],
+            "selection_mode": "reused_citations_exact_page",
+            "requested_subject": "",
+            "exact_page": 7,
+            "grounding_warning": "",
+            "failure_code": "",
+            "recipe_match_count": 0
+          }
+        },
+        {
+          "id": "named_recipe_exact_page",
+          "ok": true,
+          "detail": {
+            "sources": [
+              {
+                "document_id": 2,
+                "title": "Community Bread",
+                "rel_path": "Recipes/Community Bread.pdf",
+                "shelf": "Recipes",
+                "page_number": 7,
+                "snippet": "White Bread Ingredients 4 cups flour Directions Bake until golden.",
+                "text": "White Bread\nIngredients\n4 cups flour\nDirections\nBake until golden.",
+                "text_status": "searchable",
+                "is_ocr_copy": false,
+                "citation": "[Community Bread, p. 7]",
+                "subject": "white bread",
+                "detected_heading": "white bread",
+                "headings": [
+                  "White Bread"
+                ],
+                "match_role": "title_exact",
+                "subject_found": true,
+                "ingredient_only": false,
+                "subject_heading_recovered": true
+              },
+              {
+                "document_id": 1,
+                "title": "Family Bread",
+                "rel_path": "Recipes/Family Bread.pdf",
+                "shelf": "Recipes",
+                "page_number": 7,
+                "snippet": "WHITE BREAD Ingredients 3 cups flour 1 cup water Directions Bake at 375° for 20 minutes.",
+                "text": "WHITE BREAD\nIngredients\n3 cups flour\n1 cup water\nDirections\nBake at 375° for 20 minutes.",
+                "text_status": "searchable",
+                "is_ocr_copy": false,
+                "citation": "[Family Bread, p. 7]",
+                "subject": "white bread",
+                "detected_heading": "white bread",
+                "headings": [
+                  "WHITE BREAD"
+                ],
+                "match_role": "title_exact",
+                "subject_found": true,
+                "ingredient_only": false,
+                "subject_heading_recovered": true
+              }
+            ],
+            "selection_mode": "named_recipe_exact_page",
+            "requested_subject": "white bread",
+            "exact_page": 7,
+            "grounding_warning": "Multiple recipe matches were found: white bread — [Community Bread, p. 7]; white bread — [Family Bread, p. 7]. Choose one cited recipe or exact page before asking for combined instructions.",
+            "failure_code": "",
+            "recipe_match_count": 2
+          }
+        },
+        {
+          "id": "multiple_recipe_warning",
+          "ok": true,
+          "detail": {
+            "sources": [
+              {
+                "document_id": 2,
+                "title": "Community Bread",
+                "rel_path": "Recipes/Community Bread.pdf",
+                "shelf": "Recipes",
+                "page_number": 7,
+                "snippet": "White Bread Ingredients 4 cups flour Directions Bake until golden.",
+                "text": "White Bread\nIngredients\n4 cups flour\nDirections\nBake until golden.",
+                "text_status": "searchable",
+                "is_ocr_copy": false,
+                "citation": "[Community Bread, p. 7]",
+                "subject": "white bread",
+                "detected_heading": "white bread",
+                "headings": [
+                  "White Bread"
+                ],
+                "match_role": "title_exact",
+                "subject_found": true,
+                "ingredient_only": false,
+                "subject_heading_recovered": true
+              },
+              {
+                "document_id": 1,
+                "title": "Family Bread",
+                "rel_path": "Recipes/Family Bread.pdf",
+                "shelf": "Recipes",
+                "page_number": 7,
+                "snippet": "WHITE BREAD Ingredients 3 cups flour 1 cup water Directions Bake at 375° for 20 minutes.",
+                "text": "WHITE BREAD\nIngredients\n3 cups flour\n1 cup water\nDirections\nBake at 375° for 20 minutes.",
+                "text_status": "searchable",
+                "is_ocr_copy": false,
+                "citation": "[Family Bread, p. 7]",
+                "subject": "white bread",
+                "detected_heading": "white bread",
+                "headings": [
+                  "WHITE BREAD"
+                ],
+                "match_role": "title_exact",
+                "subject_found": true,
+                "ingredient_only": false,
+                "subject_heading_recovered": true
+              }
+            ],
+            "selection_mode": "named_recipe_exact_page",
+            "requested_subject": "white bread",
+            "exact_page": 7,
+            "grounding_warning": "Multiple recipe matches were found: white bread — [Community Bread, p. 7]; white bread — [Family Bread, p. 7]. Choose one cited recipe or exact page before asking for combined instructions.",
+            "failure_code": "",
+            "recipe_match_count": 2
+          }
+        },
+        {
+          "id": "named_recipe_selected_document",
+          "ok": true,
+          "detail": {
+            "sources": [
+              {
+                "document_id": 1,
+                "title": "Family Bread",
+                "rel_path": "Recipes/Family Bread.pdf",
+                "shelf": "Recipes",
+                "page_number": 7,
+                "snippet": "WHITE BREAD Ingredients 3 cups flour 1 cup water Directions Bake at 375° for 20 minutes.",
+                "text": "WHITE BREAD\nIngredients\n3 cups flour\n1 cup water\nDirections\nBake at 375° for 20 minutes.",
+                "text_status": "searchable",
+                "is_ocr_copy": false,
+                "citation": "[Family Bread, p. 7]",
+                "subject": "white bread",
+                "detected_heading": "white bread",
+                "headings": [
+                  "WHITE BREAD"
+                ],
+                "match_role": "title_exact",
+                "subject_found": true,
+                "ingredient_only": false,
+                "subject_heading_recovered": true
+              }
+            ],
+            "selection_mode": "exact_page",
+            "requested_subject": "white bread",
+            "exact_page": 7,
+            "grounding_warning": "",
+            "failure_code": "",
+            "recipe_match_count": 1
+          }
+        },
+        {
+          "id": "ingredient_not_title",
+          "ok": true,
+          "detail": {
+            "sources": [
+              {
+                "source_kind": "pdf",
+                "document_id": 3,
+                "research_id": null,
+                "title": "Desserts",
+                "rel_path": "Recipes/Desserts.pdf",
+                "shelf": "Recipes",
+                "page_number": 3,
+                "segment_number": 0,
+                "snippet": "CHOCOLATE CAKE Ingredients 2 cups white bread flour 1 cup sugar Directions Mix and bake.",
+                "text": "CHOCOLATE CAKE\nIngredients\n2 cups white bread flour\n1 cup sugar\nDirections\nMix and bake.",
+                "text_status": "searchable",
+                "is_ocr_copy": false,
+                "citation": "[Desserts, p. 3]",
+                "subject": "white bread flour",
+                "detected_heading": "CHOCOLATE CAKE",
+                "headings": [
+                  "CHOCOLATE CAKE"
+                ],
+                "match_role": "ingredient_only",
+                "subject_found": true,
+                "ingredient_only": true,
+                "subject_heading_recovered": false
+              }
+            ],
+            "selection_mode": "search",
+            "requested_subject": "white bread flour",
+            "exact_page": null,
+            "grounding_warning": "The words “white bread flour” were found in ingredient text, not as a recipe title. Nearby heading: CHOCOLATE CAKE.",
+            "failure_code": "",
+            "recipe_match_count": 1
+          }
+        },
+        {
+          "id": "missing_recipe_fails_fast",
+          "ok": true,
+          "detail": {
+            "sources": [],
+            "selection_mode": "recipe_heading_not_found",
+            "requested_subject": "moon bread",
+            "exact_page": null,
+            "grounding_warning": "No recipe title matching “moon bread” was found in the selected scope. Ingredient-only occurrences were deliberately withheld.",
+            "failure_code": "recipe_title_not_found",
+            "recipe_match_count": 0
+          }
+        },
+        {
+          "id": "missing_page_fails_fast",
+          "ok": true,
+          "detail": {
+            "sources": [],
+            "selection_mode": "named_recipe_exact_page",
+            "requested_subject": "white bread",
+            "exact_page": 99,
+            "grounding_warning": "Page 99 did not contain a matching cited source in the selected scope.",
+            "failure_code": "named_page_not_found",
+            "recipe_match_count": 0
+          }
+        },
+        {
+          "id": "missing_cited_results_fail_fast",
+          "ok": true,
+          "detail": {
+            "sources": [],
+            "selection_mode": "reused_citations",
+            "requested_subject": "these results",
+            "exact_page": null,
+            "grounding_warning": "",
+            "failure_code": "cited_results_unavailable",
+            "recipe_match_count": 0
+          }
+        },
+        {
+          "id": "nearby_heading_recognized",
+          "ok": true,
+          "detail": {
+            "subject": "white bread flour",
+            "detected_heading": "CHOCOLATE CAKE",
+            "headings": [
+              "CHOCOLATE CAKE"
+            ],
+            "match_role": "ingredient_only",
+            "subject_found": true,
+            "ingredient_only": true,
+            "subject_heading_recovered": false
+          }
+        },
+        {
+          "id": "ingredient_phrase_classified",
+          "ok": true,
+          "detail": {
+            "subject": "white bread flour",
+            "detected_heading": "CHOCOLATE CAKE",
+            "headings": [
+              "CHOCOLATE CAKE"
+            ],
+            "match_role": "ingredient_only",
+            "subject_found": true,
+            "ingredient_only": true,
+            "subject_heading_recovered": false
+          }
+        }
+      ],
+      "check_count": 20,
+      "protected": {
+        "main_foxai_web": true,
+        "controlled_research_desk": true,
+        "existing_v1_6_verifier": true,
+        "original_pdfs": true,
+        "database_content": true,
+        "writer": true,
+        "repair_bay": true
+      },
+      "network_used": false,
+      "external_commands_run": false,
+      "project_content_written": false
+    },
+    "focused_verifier": {
+      "schema": "foxai.bibliotheca.v1_2.verification.v1",
+      "mission": "Bibliotheca V1.2 — Exact Page and Recipe Intelligence",
+      "mode": "focused",
+      "overall_result": "verified",
+      "checks": [
+        {
+          "id": "main_web_preserved",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "research_desk_preserved",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "existing_v1_6_verifier_preserved",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "localhost_only",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "opened_page_ui",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "automatic_cited_result_reuse_ui",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "named_recipe_subject_cleanup",
+          "ok": true,
+          "detail": "white bread"
+        },
+        {
+          "id": "quoted_recipe_subject",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "selected_document_exact_page",
+          "ok": true,
+          "detail": {
+            "sources": [
+              {
+                "document_id": 1,
+                "title": "Family Bread",
+                "rel_path": "Recipes/Family Bread.pdf",
+                "shelf": "Recipes",
+                "page_number": 7,
+                "snippet": "WHITE BREAD Ingredients 3 cups flour 1 cup water Directions Bake at 375° for 20 minutes.",
+                "text": "WHITE BREAD\nIngredients\n3 cups flour\n1 cup water\nDirections\nBake at 375° for 20 minutes.",
+                "text_status": "searchable",
+                "is_ocr_copy": false,
+                "citation": "[Family Bread, p. 7]",
+                "subject": "",
+                "detected_heading": "WHITE BREAD",
+                "headings": [
+                  "WHITE BREAD"
+                ],
+                "match_role": "page_context",
+                "subject_found": false,
+                "ingredient_only": false,
+                "subject_heading_recovered": false
+              }
+            ],
+            "selection_mode": "exact_page",
+            "requested_subject": "",
+            "exact_page": 7,
+            "grounding_warning": "",
+            "failure_code": "",
+            "recipe_match_count": 0
+          }
+        },
+        {
+          "id": "reuse_cited_results",
+          "ok": true,
+          "detail": {
+            "sources": [
+              {
+                "document_id": 4,
+                "title": "Field Manual",
+                "rel_path": "Manuals/Field Manual.pdf",
+                "shelf": "Manuals",
+                "page_number": 4,
+                "snippet": "Battery replacement procedure. Disconnect power before opening the case.",
+                "text": "Battery replacement procedure. Disconnect power before opening the case.",
+                "text_status": "searchable",
+                "is_ocr_copy": false,
+                "citation": "[Field Manual, p. 4]",
+                "detected_heading": "",
+                "match_role": "page_context"
+              }
+            ],
+            "selection_mode": "reused_citations",
+            "requested_subject": "these cited pages",
+            "exact_page": null,
+            "grounding_warning": "",
+            "failure_code": "",
+            "recipe_match_count": 0
+          }
+        },
+        {
+          "id": "reuse_citations_honors_explicit_page",
+          "ok": true,
+          "detail": {
+            "sources": [
+              {
+                "document_id": 1,
+                "title": "Family Bread",
+                "rel_path": "Recipes/Family Bread.pdf",
+                "shelf": "Recipes",
+                "page_number": 7,
+                "snippet": "WHITE BREAD Ingredients 3 cups flour 1 cup water Directions Bake at 375° for 20 minutes.",
+                "text": "WHITE BREAD\nIngredients\n3 cups flour\n1 cup water\nDirections\nBake at 375° for 20 minutes.",
+                "text_status": "searchable",
+                "is_ocr_copy": false,
+                "citation": "[Family Bread, p. 7]",
+                "subject": "",
+                "detected_heading": "WHITE BREAD",
+                "headings": [
+                  "WHITE BREAD"
+                ],
+                "match_role": "page_context",
+                "subject_found": false,
+                "ingredient_only": false,
+                "subject_heading_recovered": false
+              }
+            ],
+            "selection_mode": "reused_citations_exact_page",
+            "requested_subject": "",
+            "exact_page": 7,
+            "grounding_warning": "",
+            "failure_code": "",
+            "recipe_match_count": 0
+          }
+        },
+        {
+          "id": "named_recipe_exact_page",
+          "ok": true,
+          "detail": {
+            "sources": [
+              {
+                "document_id": 2,
+                "title": "Community Bread",
+                "rel_path": "Recipes/Community Bread.pdf",
+                "shelf": "Recipes",
+                "page_number": 7,
+                "snippet": "White Bread Ingredients 4 cups flour Directions Bake until golden.",
+                "text": "White Bread\nIngredients\n4 cups flour\nDirections\nBake until golden.",
+                "text_status": "searchable",
+                "is_ocr_copy": false,
+                "citation": "[Community Bread, p. 7]",
+                "subject": "white bread",
+                "detected_heading": "white bread",
+                "headings": [
+                  "White Bread"
+                ],
+                "match_role": "title_exact",
+                "subject_found": true,
+                "ingredient_only": false,
+                "subject_heading_recovered": true
+              },
+              {
+                "document_id": 1,
+                "title": "Family Bread",
+                "rel_path": "Recipes/Family Bread.pdf",
+                "shelf": "Recipes",
+                "page_number": 7,
+                "snippet": "WHITE BREAD Ingredients 3 cups flour 1 cup water Directions Bake at 375° for 20 minutes.",
+                "text": "WHITE BREAD\nIngredients\n3 cups flour\n1 cup water\nDirections\nBake at 375° for 20 minutes.",
+                "text_status": "searchable",
+                "is_ocr_copy": false,
+                "citation": "[Family Bread, p. 7]",
+                "subject": "white bread",
+                "detected_heading": "white bread",
+                "headings": [
+                  "WHITE BREAD"
+                ],
+                "match_role": "title_exact",
+                "subject_found": true,
+                "ingredient_only": false,
+                "subject_heading_recovered": true
+              }
+            ],
+            "selection_mode": "named_recipe_exact_page",
+            "requested_subject": "white bread",
+            "exact_page": 7,
+            "grounding_warning": "Multiple recipe matches were found: white bread — [Community Bread, p. 7]; white bread — [Family Bread, p. 7]. Choose one cited recipe or exact page before asking for combined instructions.",
+            "failure_code": "",
+            "recipe_match_count": 2
+          }
+        },
+        {
+          "id": "multiple_recipe_warning",
+          "ok": true,
+          "detail": {
+            "sources": [
+              {
+                "document_id": 2,
+                "title": "Community Bread",
+                "rel_path": "Recipes/Community Bread.pdf",
+                "shelf": "Recipes",
+                "page_number": 7,
+                "snippet": "White Bread Ingredients 4 cups flour Directions Bake until golden.",
+                "text": "White Bread\nIngredients\n4 cups flour\nDirections\nBake until golden.",
+                "text_status": "searchable",
+                "is_ocr_copy": false,
+                "citation": "[Community Bread, p. 7]",
+                "subject": "white bread",
+                "detected_heading": "white bread",
+                "headings": [
+                  "White Bread"
+                ],
+                "match_role": "title_exact",
+                "subject_found": true,
+                "ingredient_only": false,
+                "subject_heading_recovered": true
+              },
+              {
+                "document_id": 1,
+                "title": "Family Bread",
+                "rel_path": "Recipes/Family Bread.pdf",
+                "shelf": "Recipes",
+                "page_number": 7,
+                "snippet": "WHITE BREAD Ingredients 3 cups flour 1 cup water Directions Bake at 375° for 20 minutes.",
+                "text": "WHITE BREAD\nIngredients\n3 cups flour\n1 cup water\nDirections\nBake at 375° for 20 minutes.",
+                "text_status": "searchable",
+                "is_ocr_copy": false,
+                "citation": "[Family Bread, p. 7]",
+                "subject": "white bread",
+                "detected_heading": "white bread",
+                "headings": [
+                  "WHITE BREAD"
+                ],
+                "match_role": "title_exact",
+                "subject_found": true,
+                "ingredient_only": false,
+                "subject_heading_recovered": true
+              }
+            ],
+            "selection_mode": "named_recipe_exact_page",
+            "requested_subject": "white bread",
+            "exact_page": 7,
+            "grounding_warning": "Multiple recipe matches were found: white bread — [Community Bread, p. 7]; white bread — [Family Bread, p. 7]. Choose one cited recipe or exact page before asking for combined instructions.",
+            "failure_code": "",
+            "recipe_match_count": 2
+          }
+        },
+        {
+          "id": "named_recipe_selected_document",
+          "ok": true,
+          "detail": {
+            "sources": [
+              {
+                "document_id": 1,
+                "title": "Family Bread",
+                "rel_path": "Recipes/Family Bread.pdf",
+                "shelf": "Recipes",
+                "page_number": 7,
+                "snippet": "WHITE BREAD Ingredients 3 cups flour 1 cup water Directions Bake at 375° for 20 minutes.",
+                "text": "WHITE BREAD\nIngredients\n3 cups flour\n1 cup water\nDirections\nBake at 375° for 20 minutes.",
+                "text_status": "searchable",
+                "is_ocr_copy": false,
+                "citation": "[Family Bread, p. 7]",
+                "subject": "white bread",
+                "detected_heading": "white bread",
+                "headings": [
+                  "WHITE BREAD"
+                ],
+                "match_role": "title_exact",
+                "subject_found": true,
+                "ingredient_only": false,
+                "subject_heading_recovered": true
+              }
+            ],
+            "selection_mode": "exact_page",
+            "requested_subject": "white bread",
+            "exact_page": 7,
+            "grounding_warning": "",
+            "failure_code": "",
+            "recipe_match_count": 1
+          }
+        },
+        {
+          "id": "ingredient_not_title",
+          "ok": true,
+          "detail": {
+            "sources": [
+              {
+                "source_kind": "pdf",
+                "document_id": 3,
+                "research_id": null,
+                "title": "Desserts",
+                "rel_path": "Recipes/Desserts.pdf",
+                "shelf": "Recipes",
+                "page_number": 3,
+                "segment_number": 0,
+                "snippet": "CHOCOLATE CAKE Ingredients 2 cups white bread flour 1 cup sugar Directions Mix and bake.",
+                "text": "CHOCOLATE CAKE\nIngredients\n2 cups white bread flour\n1 cup sugar\nDirections\nMix and bake.",
+                "text_status": "searchable",
+                "is_ocr_copy": false,
+                "citation": "[Desserts, p. 3]",
+                "subject": "white bread flour",
+                "detected_heading": "CHOCOLATE CAKE",
+                "headings": [
+                  "CHOCOLATE CAKE"
+                ],
+                "match_role": "ingredient_only",
+                "subject_found": true,
+                "ingredient_only": true,
+                "subject_heading_recovered": false
+              }
+            ],
+            "selection_mode": "search",
+            "requested_subject": "white bread flour",
+            "exact_page": null,
+            "grounding_warning": "The words “white bread flour” were found in ingredient text, not as a recipe title. Nearby heading: CHOCOLATE CAKE.",
+            "failure_code": "",
+            "recipe_match_count": 1
+          }
+        },
+        {
+          "id": "missing_recipe_fails_fast",
+          "ok": true,
+          "detail": {
+            "sources": [],
+            "selection_mode": "recipe_heading_not_found",
+            "requested_subject": "moon bread",
+            "exact_page": null,
+            "grounding_warning": "No recipe title matching “moon bread” was found in the selected scope. Ingredient-only occurrences were deliberately withheld.",
+            "failure_code": "recipe_title_not_found",
+            "recipe_match_count": 0
+          }
+        },
+        {
+          "id": "missing_page_fails_fast",
+          "ok": true,
+          "detail": {
+            "sources": [],
+            "selection_mode": "named_recipe_exact_page",
+            "requested_subject": "white bread",
+            "exact_page": 99,
+            "grounding_warning": "Page 99 did not contain a matching cited source in the selected scope.",
+            "failure_code": "named_page_not_found",
+            "recipe_match_count": 0
+          }
+        },
+        {
+          "id": "missing_cited_results_fail_fast",
+          "ok": true,
+          "detail": {
+            "sources": [],
+            "selection_mode": "reused_citations",
+            "requested_subject": "these results",
+            "exact_page": null,
+            "grounding_warning": "",
+            "failure_code": "cited_results_unavailable",
+            "recipe_match_count": 0
+          }
+        },
+        {
+          "id": "nearby_heading_recognized",
+          "ok": true,
+          "detail": {
+            "subject": "white bread flour",
+            "detected_heading": "CHOCOLATE CAKE",
+            "headings": [
+              "CHOCOLATE CAKE"
+            ],
+            "match_role": "ingredient_only",
+            "subject_found": true,
+            "ingredient_only": true,
+            "subject_heading_recovered": false
+          }
+        },
+        {
+          "id": "ingredient_phrase_classified",
+          "ok": true,
+          "detail": {
+            "subject": "white bread flour",
+            "detected_heading": "CHOCOLATE CAKE",
+            "headings": [
+              "CHOCOLATE CAKE"
+            ],
+            "match_role": "ingredient_only",
+            "subject_found": true,
+            "ingredient_only": true,
+            "subject_heading_recovered": false
+          }
+        }
+      ],
+      "check_count": 20,
+      "protected": {
+        "main_foxai_web": true,
+        "controlled_research_desk": true,
+        "existing_v1_6_verifier": true,
+        "original_pdfs": true,
+        "database_content": true,
+        "writer": true,
+        "repair_bay": true
+      },
+      "network_used": false,
+      "external_commands_run": false,
+      "project_content_written": false
+    },
+    "embedded_javascript_syntax": "passed with node --check"
+  },
+  "safety": {
+    "network_used": false,
+    "external_commands_run_by_study": 0,
+    "original_pdfs_changed": 0,
+    "database_content_changed": 0,
+    "saved_research_changed": 0,
+    "writer_files_changed": 0,
+    "repair_bay_files_changed": 0,
+    "moves": 0,
+    "renames": 0,
+    "deletions": 0,
+    "installations": 0,
+    "restarts": 0
+  }
+}

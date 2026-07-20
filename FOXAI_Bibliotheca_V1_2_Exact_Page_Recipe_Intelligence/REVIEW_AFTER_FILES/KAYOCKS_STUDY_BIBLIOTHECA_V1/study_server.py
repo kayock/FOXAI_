@@ -193,21 +193,6 @@ def log(paths: AppPaths, message: str) -> None:
         pass
 
 
-def safe_local_error(paths: AppPaths, exc: Exception) -> str:
-    value = str(exc or "").replace("\r", " ").replace("\n", " ").strip()
-    replacements = (
-        (str(paths.database), "BIBLIOTHECA_DB"),
-        (str(paths.library), "FOXAI_LIBRARY"),
-        (str(paths.root), "FOXAI_ROOT"),
-        (str(APP_DIR), "STUDY_APP"),
-    )
-    for private, label in replacements:
-        if private:
-            value = value.replace(private, label)
-    value = re.sub(r"\s+", " ", value)[:500]
-    return f"{type(exc).__name__}: {value or 'no detail'}"
-
-
 def safe_library_file(paths: AppPaths, value: Path) -> Path | None:
     try:
         resolved = value.resolve()
@@ -2159,14 +2144,14 @@ h2{margin:0 0 7px;color:var(--violet2)}
 h3{margin:0 0 7px;color:#eee7ff}
 .motto{font-size:18px;color:#d9d1ed}
 .small,.muted{color:var(--muted);font-size:13px}
-.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px;align-items:start}
+.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}
 .card{padding:18px}
 .stats{grid-column:span 12;display:grid;grid-template-columns:repeat(8,1fr);gap:10px}
 .stat{border:1px solid #8f5cff25;border-radius:17px;padding:13px;background:#ffffff05}
 .stat b{display:block;font-size:23px;color:#fff}
 .shelves{grid-column:span 12}
-.search{grid-column:span 7;align-self:start}.ask{grid-column:span 5;align-self:start}
-.documents{grid-column:span 12}
+.search{grid-column:span 7}.ask{grid-column:span 5}
+.documents{grid-column:span 5}.results{grid-column:span 7}
 .duplicates,.researchdesk{grid-column:span 12}
 input,select,textarea{
  width:100%;background:#080b14;color:var(--text);border:1px solid #3b315e;
@@ -2212,7 +2197,6 @@ button:disabled{opacity:.5;cursor:not-allowed}
 .move{border-left:3px solid var(--gold);padding-left:10px;margin:8px 0}
 .reviewnote{border:1px solid #ffd16642;background:#ffd16609;border-radius:14px;padding:11px;margin:10px 0}
 .openedpage{border:1px solid #58f5a54d;background:#58f5a50a;border-radius:14px;padding:11px;margin:10px 0}.openedpage b{color:#cffff0}.groundingnote{border:1px solid #36dbff42;background:#36dbff09;border-radius:14px;padding:10px;margin:9px 0}.groundingwarn{border-color:#ffd16666;background:#ffd1660c}.askgrid{grid-template-columns:repeat(4,1fr)}.checkline{display:flex;gap:9px;align-items:center;color:var(--muted);font-size:13px;margin:8px 0}.checkline input{width:auto}
-.searchresults{border-top:1px solid #8f5cff2f;margin-top:15px;padding-top:13px}.searchresults .titleline{align-items:center}.searchresults h3{margin:0}.recipechoices{border:1px solid #ffd16655;background:#ffd16608;border-radius:16px;padding:12px;margin:10px 0}.recipechoices h3{color:#ffe3a1}.recipechoice{border:1px solid #ffd16638;border-radius:13px;background:#080b14;padding:11px;margin-top:9px}.recipechoice .controls{margin-top:7px}.recipechoiceheading{color:#fff;font-weight:900}.recipechoicecitation{color:var(--cyan);font:12px Consolas,monospace;margin-top:4px}
 .researchstatus{display:flex;align-items:center;justify-content:space-between;gap:12px;border:1px solid #8f5cff35;border-radius:16px;padding:12px;background:#ffffff04;margin:10px 0}.researchgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.researchpreview{border:1px solid #36dbff35;border-radius:16px;padding:13px;background:#070b13;margin-top:12px}.researchmeta{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;font-size:12px}.researchmeta div{border:1px solid #8f5cff25;border-radius:10px;padding:8px;overflow-wrap:anywhere}.researchsaved{max-height:420px;overflow:auto}.researchresult{border-left:3px solid var(--cyan)}
 @media(max-width:1120px){
  .search,.ask,.documents,.results{grid-column:span 12}
@@ -2287,11 +2271,6 @@ button:disabled{opacity:.5;cursor:not-allowed}
         <button class="secondary" onclick="chooseShelf('Recipes')">Recipes Shelf</button>
         <button class="secondary" onclick="clearSearch()">Clear</button>
       </div>
-      <div class="searchresults">
-        <div class="titleline"><h3>Page Results</h3><span id="resultMeta" class="small"></span></div>
-        <div class="controls"><button id="useResultsButton" class="secondary" onclick="prepareAskFromResults()" style="display:none">Ask from These Cited Pages</button></div>
-        <div id="resultList" class="scroll"><div class="empty">Search results will appear here.</div></div>
-      </div>
     </section>
 
     <section class="card ask">
@@ -2333,6 +2312,13 @@ button:disabled{opacity:.5;cursor:not-allowed}
         </select>
       </div>
       <div id="documentList" class="scroll"></div>
+    </section>
+
+    <section class="card results">
+      <h2>Page Results</h2>
+      <div id="resultMeta" class="small"></div>
+      <div class="controls"><button id="useResultsButton" class="secondary" onclick="prepareAskFromResults()" style="display:none">Ask from These Cited Pages</button></div>
+      <div id="resultList" class="scroll"><div class="empty">Search results will appear here.</div></div>
     </section>
 
     <section class="card duplicates">
@@ -2383,9 +2369,7 @@ function statusClass(s){
 }
 async function api(path,options={}){
   const response=await fetch(path,options);
-  let data={};
-  try{data=await response.json();}
-  catch(_error){throw new Error(`The local Bibliotheca service returned an unreadable response (HTTP ${response.status}).`);}
+  const data=await response.json();
   if(!response.ok)throw new Error(data.message||`HTTP ${response.status}`);
   return data;
 }
@@ -2495,7 +2479,7 @@ async function refreshDocuments(){
       <div class=path>${esc(d.rel_path)}</div>
       <div class=small>${fmt(d.page_count)} pages · ${fmt(d.text_chars)} text characters</div>
       <div class=controls>
-        <button class=secondary onclick='openPdf(${d.id},1,${JSON.stringify(d.title)},${JSON.stringify(`${d.title}, p. 1`)})'>Open PDF</button>
+        <button class=secondary onclick="openPdf(${d.id},1)">Open PDF</button>
         <button class=secondary onclick="selectDocument(${d.id})">Search this</button>
       </div>
     </div>`).join(''):'<div class=empty>No documents match these filters.</div>';
@@ -2568,14 +2552,10 @@ function chooseShelf(name){
   q('searchQuery').focus();
 }
 function setOpenedPage(id,page,title='',citation=''){
-  const known=documents.find(item=>Number(item.id)===Number(id));
-  const selected=[...q('askDoc').options].find(option=>Number(option.value)===Number(id));
-  const resolvedTitle=String(title||known?.title||selected?.textContent||'Selected document');
-  const resolvedCitation=String(citation||`${resolvedTitle}, p. ${Number(page)}`);
-  lastOpenedPage={document_id:Number(id),page_number:Number(page),title:resolvedTitle,citation:resolvedCitation};
-  q('openedPageLabel').textContent=`${resolvedTitle}, page ${lastOpenedPage.page_number}`;
+  lastOpenedPage={document_id:Number(id),page_number:Number(page),title:String(title||''),citation:String(citation||'')};
+  q('openedPageLabel').textContent=lastOpenedPage.citation||`${lastOpenedPage.title||'PDF'}, page ${lastOpenedPage.page_number}`;
   q('openedPageContext').hidden=false;
-  q('askSourceNote').textContent=`Opened page ready: ${resolvedTitle}, page ${lastOpenedPage.page_number}.`;
+  q('askSourceNote').textContent='An opened PDF page is available for exact-page asking.';
 }
 function openPdf(id,page,title='',citation=''){
   setOpenedPage(id,page,title,citation);
@@ -2604,42 +2584,13 @@ function clearSearch(){
   q('askSourceNote').textContent=lastOpenedPage?'An opened PDF page is available for exact-page asking.':'No cited results or opened page are selected.';
   q('useResultsButton').style.display='none';
 }
-function recipeChoiceAction(item){
-  if(item.source_kind==='research'||String(item.shelf||'').toLowerCase()!=='recipes'||!item.document_id||!item.page_number)return '';
-  const heading=item.detected_heading||item.title||'Selected recipe';
-  return `<button onclick='useRecipeChoice(${item.document_id},${item.page_number},${JSON.stringify(item.title||'')},${JSON.stringify(item.citation||'')},${JSON.stringify(heading)})'>Use This Recipe</button>`;
-}
-function uniqueRecipeChoices(items){
-  const seen=new Set();
-  return (items||[]).filter(item=>{
-    if(String(item.shelf||'').toLowerCase()!=='recipes'||!item.document_id||!item.page_number)return false;
-    const key=`${item.document_id}:${item.page_number}:${String(item.detected_heading||item.title||'').toLowerCase()}`;
-    if(seen.has(key))return false;
-    seen.add(key);return true;
-  });
-}
-function renderRecipeChoices(items){
-  const choices=uniqueRecipeChoices(items);
-  if(choices.length<2)return '';
-  return `<div class=recipechoices><h3>Choose one recipe</h3><div class=small>Several cited recipes match. Select one exact recipe before asking again.</div>${choices.map(item=>`<div class=recipechoice><div class=recipechoiceheading>${esc(item.detected_heading||item.title||'Recipe')}</div><div class=small>${esc(item.title||'')} · page ${esc(item.page_number)}</div><div class=recipechoicecitation>${esc(item.citation||'')}</div><div class=controls>${recipeChoiceAction(item)}<button class=secondary onclick='openPdf(${item.document_id},${item.page_number},${JSON.stringify(item.title||'')},${JSON.stringify(item.citation||'')})'>Open Page</button></div></div>`).join('')}</div>`;
-}
-function useRecipeChoice(documentId,pageNumber,title='',citation='',heading=''){
-  setOpenedPage(documentId,pageNumber,title,citation);
-  q('askDoc').value=String(documentId);
-  q('askPage').value=String(pageNumber);
-  if([...q('askShelf').options].some(option=>option.value==='Recipes'))q('askShelf').value='Recipes';
-  q('askUseResults').checked=false;
-  q('askSourceNote').textContent=`Selected recipe: ${heading||title||'Recipe'} — ${citation||`${title}, p. ${pageNumber}`}.`;
-  q('askQuestion').focus();
-  q('askQuestion').scrollIntoView({behavior:'smooth',block:'center'});
-}
 function renderSources(items,target='resultList'){
   q(target).innerHTML=items.length?items.map(item=>{
     const research=item.source_kind==='research';
     const actions=research
       ? `<button class=secondary onclick="openResearchSource(${item.research_id})">Open saved research</button><button class=secondary onclick="askFromResearch(${item.research_id},${item.segment_number})">Ask from this segment</button>`
-      : `<button class=secondary onclick='openPdf(${item.document_id},${item.page_number},${JSON.stringify(item.title)},${JSON.stringify(item.citation)})'>Open page ${item.page_number}</button><button class=secondary onclick='askFromPage(${item.document_id},${item.page_number},${JSON.stringify(item.title)},${JSON.stringify(item.citation)})'>Ask from this page</button>${recipeChoiceAction(item)}`;
-    return `<div class=result><div class=titleline><b>${esc(item.detected_heading||item.title)}</b><span class="${statusClass(item.text_status)} small">${research?'Saved research':esc(statusLabel(item.text_status))}</span></div><div><span class=pill>${esc(item.shelf||'')}</span>${item.detected_heading?`<span class="pill ok">Recipe heading</span>`:''}</div><div class=small>${item.detected_heading?esc(item.title):''}</div><div class=path>${esc(item.rel_path)}</div><div class=snippet>${esc(item.snippet)}</div><div class=citation>${esc(item.citation)}</div><div class=controls>${actions}<button class=secondary onclick="navigator.clipboard.writeText(${JSON.stringify(item.citation)})">Copy citation</button></div></div>`;
+      : `<button class=secondary onclick='openPdf(${item.document_id},${item.page_number},${JSON.stringify(item.title)},${JSON.stringify(item.citation)})'>Open page ${item.page_number}</button><button class=secondary onclick='askFromPage(${item.document_id},${item.page_number},${JSON.stringify(item.title)},${JSON.stringify(item.citation)})'>Ask from this page</button>`;
+    return `<div class=result><div class=titleline><b>${esc(item.title)}</b><span class="${statusClass(item.text_status)} small">${research?'Saved research':esc(statusLabel(item.text_status))}</span></div><div><span class=pill>${esc(item.shelf||'')}</span>${item.detected_heading?`<span class="pill ok">Heading: ${esc(item.detected_heading)}</span>`:''}</div><div class=path>${esc(item.rel_path)}</div><div class=snippet>${esc(item.snippet)}</div><div class=citation>${esc(item.citation)}</div><div class=controls>${actions}<button class=secondary onclick="navigator.clipboard.writeText(${JSON.stringify(item.citation)})">Copy citation</button></div></div>`;
   }).join(''):'<div class=empty>No matching indexed pages or saved research segments were found.</div>';
 }
 function askFromResearch(researchId,segmentNumber){q('askDoc').value='';q('askPage').value='';lastSearchResults=[{research_id:researchId,segment_number:segmentNumber,source_kind:'research'}];q('askUseResults').checked=true;q('askQuestion').focus();q('askQuestion').scrollIntoView({behavior:'smooth',block:'center'})}
@@ -2663,13 +2614,7 @@ async function runSearch(){
   }catch(error){
     lastSearchResults=[];
     q('useResultsButton').style.display='none';
-    q('askUseResults').checked=false;
-    const raw=String(error&&error.message||'');
-    const message=/failed to fetch/i.test(raw)
-      ? 'The local Bibliotheca search service did not return a response. Restart Kayock’s Study and try again.'
-      : (raw||'Local search could not complete. The technical error was recorded in the Bibliotheca log.');
-    q('askSourceNote').textContent='Local search did not complete; no cited results were selected.';
-    q('resultList').innerHTML=`<div class="empty bad">${esc(message)}</div>`;
+    q('resultList').innerHTML=`<div class="empty bad">${esc(error.message)}</div>`;
   }
 }
 function prepareAskFromResults(){
@@ -2722,9 +2667,8 @@ async function askFox(){
     const mode=`<div class=groundingnote><b>Source selection:</b> ${esc(data.selection_mode||'search')}${data.exact_page?` · exact page ${esc(data.exact_page)}`:''}${data.recipe_match_count>1?` · ${esc(data.recipe_match_count)} recipe matches`:''}${data.failure_code?` · ${esc(data.failure_code)}`:''}</div>`;
     const citationWarning=data.citation_warning
       ? `<div class="groundingnote groundingwarn"><b>Citation notice:</b> ${esc(data.citation_warning)}</div>`:'';
-    const recipeChoices=data.recipe_match_count>1?renderRecipeChoices(data.sources||[]):'';
     q('answerArea').innerHTML=`
-      ${warning}${recipeChoices}${citationWarning}${mode}
+      ${warning}${citationWarning}${mode}
       <div class="answer ${data.ok?'':'warn'}">${esc(answer)}</div>
       <h3 style="margin-top:14px">Retrieved sources</h3>
       <div id=askSources></div>`;
@@ -2919,45 +2863,23 @@ class StudyHandler(BaseHTTPRequestHandler):
                 document_id = int(raw_doc) if raw_doc else None
             except ValueError:
                 document_id = None
-            try:
-                results = search_pages(
-                    self.paths,
-                    text,
-                    document_id=document_id,
-                    shelf=shelf,
-                    status=status,
-                    limit=40,
-                )
-                public = []
-                for raw in results:
-                    item = dict(raw)
-                    if (
-                        item.get("source_kind") == "pdf"
-                        and str(item.get("shelf") or "").casefold() == "recipes"
-                    ):
-                        analysis = recipe_page_analysis(item.get("text") or "", text)
-                        item["detected_heading"] = analysis.get("detected_heading") or ""
-                        item["match_role"] = analysis.get("match_role") or "page_context"
-                    elif item.get("source_kind") == "research":
-                        item["detected_heading"] = item.get("section_heading") or ""
-                        item["match_role"] = "research_segment"
-                    public.append(public_source(item))
-                self.send_json({"ok": True, "query": text, "results": public})
-            except Exception as exc:
-                log(self.paths, "Local search endpoint error: " + safe_local_error(self.paths, exc))
-                self.send_json(
-                    {
-                        "ok": False,
-                        "error_code": "local_search_failed",
-                        "message": (
-                            "Local search could not complete. The technical error "
-                            "was recorded in the Bibliotheca log."
-                        ),
-                        "query": text,
-                        "results": [],
-                    },
-                    500,
-                )
+            results = search_pages(
+                self.paths,
+                text,
+                document_id=document_id,
+                shelf=shelf,
+                status=status,
+                limit=40,
+            )
+            public = [
+                {key: item[key] for key in (
+                    "source_kind","document_id","research_id","title","rel_path","shelf","page_number",
+                    "segment_number","section_heading","capture_date","original_url",
+                    "snippet","text_status","is_ocr_copy","citation"
+                )}
+                for item in results
+            ]
+            self.send_json({"ok": True, "query": text, "results": public})
             return
 
         if parsed.path == "/pdf":

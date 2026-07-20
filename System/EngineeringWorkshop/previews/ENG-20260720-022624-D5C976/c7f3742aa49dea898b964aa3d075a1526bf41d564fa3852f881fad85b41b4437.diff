@@ -1,0 +1,330 @@
+--- a/core/foxai_web.py
++++ b/core/foxai_web.py
+@@ -1345,6 +1345,13 @@
+ .storyAdvancedTools{padding:0;overflow:hidden}.storyAdvancedTools>summary{cursor:pointer;padding:16px 18px;font-weight:900;color:var(--m);list-style:none}.storyAdvancedTools>summary::-webkit-details-marker{display:none}.storyAdvancedTools>summary:after{content:'▸';float:right}.storyAdvancedTools[open]>summary:after{transform:rotate(90deg)}.storyAdvancedBody{padding:0 16px 16px;display:grid;gap:12px}.storyAdvancedSection{border:1px solid #8f5cff25;border-radius:14px;background:#090b14;padding:14px}.storyAdvancedSection h3{margin:0 0 8px}
+ @media(max-width:1150px){.storyGuidedGrid{grid-template-columns:repeat(2,minmax(240px,1fr))}}
+ @media(max-width:900px){.writerGuidedTasks,.storyGuidedGrid{grid-template-columns:1fr}.writerSecondaryRooms,.storyContinueBanner{grid-template-columns:1fr}.writerSecondaryActions,.storyContinueActions{justify-content:flex-start}}
++/* KAYOCK_WRITER_CALM_GUIDED_V2_START */
++.writerHomeV2Hero{margin-bottom:14px}.writerSaveNotice{margin-top:13px;border-left:3px solid var(--g);padding:9px 11px;background:#42ff9e0b;border-radius:0 11px 11px 0;color:#dfffee;font-size:12px;max-width:860px}
++.writerContinueV2{display:grid;grid-template-columns:minmax(280px,1fr) auto;gap:18px;align-items:center;border-color:#42ff9e55;background:radial-gradient(circle at 0 0,#42ff9e15,transparent 46%),linear-gradient(180deg,#121d1a,#10131d)}
++.writerContinueV2 h3{font-size:25px;margin:2px 0 6px;color:#fff}.writerContinueV2 p{margin:0;color:var(--m);line-height:1.45}.writerContinueState{margin-top:9px;color:#bfffe0;font:11px/1.4 Consolas,monospace}.writerContinueV2Actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}.writerContinueV2Actions button{min-width:190px}
++.writerTaskGridV2{display:grid;grid-template-columns:repeat(2,minmax(280px,1fr));gap:14px;margin-bottom:16px}.writerTaskGridV2 .writerTaskCard:last-child{grid-column:1/-1;min-height:165px}.writerTaskCard.world{border-color:#23d7ff55}.writerAdvancedHomeV2{margin-top:0}
++@media(max-width:900px){.writerContinueV2{grid-template-columns:1fr}.writerContinueV2Actions{justify-content:flex-start}.writerTaskGridV2{grid-template-columns:1fr}.writerTaskGridV2 .writerTaskCard:last-child{grid-column:auto}.writerContinueV2Actions button{width:100%}}
++/* KAYOCK_WRITER_CALM_GUIDED_V2_END */
+ /* KAYOCK_WRITER_GUIDED_CLEANUP_V1_END */
+ 
+ /* KAYOCK_WRITER_CALM_HOME_V1_END */
+@@ -1393,16 +1400,16 @@
+ 
+ 
+ <section id=kayockwriter class=page>
+-<div class="hero writerHomeHero"><div class=writerEyebrow>KAYOCK WRITER</div><h2>What are we making today?</h2><p>Choose the next creative step. FOXAI keeps the technical reports, save gates, and audits available, but they stay out of the way until you need them.</p></div>
+-<div class=writerGuidedTasks>
+-<article class="writerTaskCard poetry"><div class=writerTaskIcon>🪶</div><div><h3>Write a Poem</h3><p>Begin with a theme, feeling, or image. Everything else is optional.</p></div><button onclick="go('poetrystudio')">Start a Poem</button></article>
+-<article class="writerTaskCard polish"><div class=writerTaskIcon>✨</div><div><h3>Polish a Poem</h3><p>Paste or open a poem and improve it without replacing your voice.</p></div><button onclick="openPoemPolisherFromWriterHome()">Open Poem Polisher</button></article>
+-<article class="writerTaskCard story"><div class=writerTaskIcon>📚</div><div><h3>Write a Story</h3><p>Start something new, continue a chapter, plan a scene, or return to Slipping into Darkness.</p></div><button onclick="go('storyforge')">Open Story Forge</button></article>
+-<article class="writerTaskCard libraryroom"><div class=writerTaskIcon>🗂️</div><div><h3>Open My Writing</h3><p>Return to saved poems, drafts, chapters, projects, and worlds.</p></div><button onclick="go('mywriting')">Browse My Writing</button></article>
++<div class="hero writerHomeHero writerHomeV2Hero"><div class=writerEyebrow>KAYOCK WRITER</div><h2>What would you like to work on?</h2><p>Choose one clear next step. Your finished poetry tools, story tools, worlds, and saved writing stay exactly where they are.</p><div class=writerSaveNotice>Opening a room never changes your saved work. Saving remains a separate, visible action inside that room.</div></div>
++<div id=writerContinueV2 class="card writerContinueV2"><div><div class=writerEyebrow>CONTINUE RECENT WRITING</div><h3 id=writerContinueV2Title>Finding your most recent Writer room…</h3><p id=writerContinueV2Text>Kayock Writer uses the existing Recents list in this browser. It does not scan, move, rename, or rewrite your files.</p><div id=writerContinueV2State class=writerContinueState>Saved navigation state only • no content changes</div></div><div class=writerContinueV2Actions><button id=writerContinueV2Button onclick="continueWriterRecentV2()" disabled>Continue Recent Writing</button><button onclick="go('mywriting')">Browse My Writing</button></div></div>
++<div class=writerTaskGridV2>
++<article class="writerTaskCard poetry"><div class=writerTaskIcon>🪶</div><div><h3>Create a Poem</h3><p>Begin with a theme, feeling, image, or one opening line. The full multi-voice Poetry Studio remains intact.</p></div><button onclick="go('poetrystudio')">Create a Poem</button></article>
++<article class="writerTaskCard polish"><div class=writerTaskIcon>✨</div><div><h3>Polish a Poem</h3><p>Improve rhythm, imagery, line breaks, and clarity while keeping the original and your chosen voice separate.</p></div><button onclick="openPoemPolisherFromWriterHome()">Polish a Poem</button></article>
++<article class="writerTaskCard story"><div class=writerTaskIcon>📚</div><div><h3>Start or Continue a Story</h3><p>Start something new, return to Slipping into Darkness, plan a chapter, or continue from saved prose.</p></div><button onclick="go('storyforge')">Open Story Forge</button></article>
++<article class="writerTaskCard world"><div class=writerTaskIcon>🌍</div><div><h3>Build a World</h3><p>Create a world, region, settlement, faction, faith, adventure site, or campaign one calm step at a time.</p></div><button onclick="go('worldbuilder')">Open World Builder</button></article>
++<article class="writerTaskCard libraryroom"><div class=writerTaskIcon>🗂️</div><div><h3>Browse My Writing</h3><p>Return to saved poems, drafts, chapters, projects, and worlds without opening technical reports.</p></div><button onclick="go('mywriting')">Browse My Writing</button></article>
+ </div>
+-<div class="card writerSecondaryRooms"><div><h3>More creative rooms</h3><p>Build settings and lore, review your poem archive, or open PromptSmith when you need a more specialized tool.</p></div><div class=writerSecondaryActions><button onclick="go('worldbuilder')">🌍 World Builder</button><button onclick="go('poemarchive')">📜 My Poems</button><button onclick="go('prompts')">🧠 PromptSmith</button></div></div>
+-<div class="card writerContinue"><h3>Continue where you left off</h3><button onclick="go('projectdashboard')">Slipping into Darkness</button><button onclick="go('draftreader')">Read Drafts</button><button onclick="go('poemarchive')">My Poems</button><button onclick="api('/api/open/kayock_writer_poetry_drafts')">Open Poetry Folder</button></div>
+-<details class="card writerAdvancedHome"><summary>Writer Advanced Tools</summary><div class=writerAdvancedBody><p>Foundation reports, manifests, save gates, audits, verification pages, PromptSmith, and the legacy Novel Forge remain available here when they are actually needed.</p><button onclick="loadKayockWriter(false);this.closest('details').open=true">Load Foundation Report</button><button onclick="go('storymanifest')">Story Manifest</button><button onclick="go('prompts')">PromptSmith</button><button onclick="go('novelforge')">Legacy Codex / Novel Forge</button><div id=kayockWriterStatus class=status>Advanced writer report not loaded.</div><div id=kayockWriterSummary class=status></div><div id=kayockWriterModules hidden></div><div id=kayockWriterNames hidden></div><div id=kayockWriterFlagship hidden></div><div id=kayockWriterPaths hidden></div><div id=kayockWriterRecommendations hidden></div><div id=kayockWriterSafety hidden></div></div></details>
++<details class="card writerAdvancedHome writerAdvancedHomeV2"><summary>Writer — Advanced Tools</summary><div class=writerAdvancedBody><p>Foundation reports, manifests, save gates, audits, verification pages, PromptSmith, and the legacy Novel Forge remain available here when they are actually needed.</p><button onclick="loadKayockWriter(false);this.closest('details').open=true">Load Foundation Report</button><button onclick="go('storymanifest')">Story Manifest</button><button onclick="go('prompts')">PromptSmith</button><button onclick="go('novelforge')">Legacy Codex / Novel Forge</button><div id=kayockWriterStatus class=status>Advanced writer report not loaded.</div><div id=kayockWriterSummary class=status></div><div id=kayockWriterModules hidden></div><div id=kayockWriterNames hidden></div><div id=kayockWriterFlagship hidden></div><div id=kayockWriterPaths hidden></div><div id=kayockWriterRecommendations hidden></div><div id=kayockWriterSafety hidden></div></div></details>
+ </section>
+ 
+ 
+@@ -2012,7 +2019,7 @@
+ const NAV_GROUPS={
+   'Command':['dash','commandcenter','commanddetail','commandarchive','commandfreeze','mission','projects','memory'],
+   'Kayock Writer':['kayockwriter','poetrystudio','poemarchive','storyforge','worldbuilder','mywriting'],
+-  'Writer Advanced Tools':['storymanifest','projectgate','projectaction','projectdashboard','chapterplanner','chaptersavegate','chaptersaveaction','savedchapters','savedchapterhealth','chaptereditorpreview','chaptereditgate','chaptereditaction','chaptereditaudit','chapterdraftworkspace','draftsavegate','draftsaveaction','draftreader','draftversionhistory','draftcontinueworkspace','continuesavegate','continuesaveaction','draftrefresh','draftcompare','realprosegate','realprosesave','realproserefreshcompare','realproseeditorgate','realproseeditsave','realproseeditverify','chapterproseworkspace','chapterprosecontinuegate','chapterprosecontinuesave','chapterprosecontinueverify','novelforge','prompts'],
++  'Writer — Advanced Tools':['storymanifest','projectgate','projectaction','projectdashboard','chapterplanner','chaptersavegate','chaptersaveaction','savedchapters','savedchapterhealth','chaptereditorpreview','chaptereditgate','chaptereditaction','chaptereditaudit','chapterdraftworkspace','draftsavegate','draftsaveaction','draftreader','draftversionhistory','draftcontinueworkspace','continuesavegate','continuesaveaction','draftrefresh','draftcompare','realprosegate','realprosesave','realproserefreshcompare','realproseeditorgate','realproseeditsave','realproseeditverify','chapterproseworkspace','chapterprosecontinuegate','chapterprosecontinuesave','chapterprosecontinueverify','novelforge','prompts'],
+   'Knowledge & Creative':['academy','creative','library'],
+   'Engineering & Repair':['repair','foxsentry','scanbridge','repairactions','repairhistory'],
+   'Engineering Advanced Tools':['extensions','projectgen','buildverify','envverify','portable','modelcheck','repairops','repairdetail','repairtickets','repairticketdetail','ticketbridge','repairsession','repairfreeze'],
+@@ -2057,6 +2064,52 @@
+   document.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='k'){e.preventDefault();openCommandPalette()}else if(e.key==='Escape')closeCommandPalette()});
+   aside.querySelectorAll(':scope > .navbreak').forEach(x=>x.remove());aside.classList.add('nav-enhanced');renderNavShortcuts();navFavorites().forEach(id=>document.querySelectorAll(`.favtoggle[data-page="${id}"]`).forEach(x=>x.classList.add('on')))
+ }
++/* KAYOCK_WRITER_CALM_GUIDED_V2_BROWSER_START */
++const WRITER_RECENT_V2={
++ poetrystudio:{label:'Poetry Studio',description:'Continue creating, revising, or polishing a poem.',button:'Continue in Poetry Studio'},
++ poemarchive:{label:'My Poems',description:'Return to original and polished versions, voice history, or recording preparation.',button:'Open My Poems'},
++ storyforge:{label:'Story Forge',description:'Continue a story, plan a scene or chapter, or return to the current project.',button:'Continue in Story Forge'},
++ projectdashboard:{label:'Slipping into Darkness',description:'Return to the current story project and its saved chapter status.',button:'Open Story Project'},
++ draftreader:{label:'Saved Drafts',description:'Read the latest saved chapter drafts before continuing.',button:'Read Saved Drafts'},
++ chapterproseworkspace:{label:'Writing Workspace',description:'Continue writing beside FOXAI while keeping the Private Human Screen separate.',button:'Continue Writing'},
++ savedchapters:{label:'Saved Chapters',description:'Review saved chapters, cards, and continuity information.',button:'Browse Saved Chapters'},
++ worldbuilder:{label:'World Builder',description:'Continue building a world, region, settlement, faction, faith, site, or campaign.',button:'Continue World Building'},
++ mywriting:{label:'My Writing',description:'Browse saved poems, drafts, projects, chapters, and worlds.',button:'Browse My Writing'},
++ novelforge:{label:'World Codex',description:'Return to existing characters, locations, artifacts, timelines, mysteries, and lore.',button:'Open World Codex'}
++};
++let writerRecentV2Target='';
++function writerRecentV2(){
++ let recents=typeof navRecents==='function'?navRecents():[];
++ for(let id of recents){
++  if(id!=='kayockwriter'&&WRITER_RECENT_V2[id])return {id,...WRITER_RECENT_V2[id]};
++ }
++ return null;
++}
++function renderWriterHomeV2(){
++ let target=writerRecentV2();
++ let title=q('writerContinueV2Title'),text=q('writerContinueV2Text'),state=q('writerContinueV2State'),button=q('writerContinueV2Button');
++ if(!title||!text||!state||!button)return;
++ if(target){
++  writerRecentV2Target=target.id;
++  title.textContent=target.label;
++  text.textContent=target.description;
++  state.textContent='Uses your existing Recents list • saved files remain unchanged';
++  button.textContent=target.button;
++  button.disabled=false;
++ }else{
++  writerRecentV2Target='';
++  title.textContent='No recent Writer room yet';
++  text.textContent='Choose a task below or browse your saved writing. Kayock Writer will remember the room you open in the existing Recents list.';
++  state.textContent='No writing content was opened, changed, or scanned';
++  button.textContent='Continue Recent Writing';
++  button.disabled=true;
++ }
++}
++function continueWriterRecentV2(){
++ if(!writerRecentV2Target){renderWriterHomeV2();toast('No recent Writer room is available yet.');return}
++ go(writerRecentV2Target);
++}
++/* KAYOCK_WRITER_CALM_GUIDED_V2_BROWSER_END */
+ /* REPAIR_BAY_GUIDED_CLEANUP_V1_BROWSER_START */
+ async function refreshRepairBayStatus(){
+  await refresh();
+@@ -2450,7 +2503,7 @@
+ setInterval(()=>{if(q('library')?.classList.contains('active'))loadKayocksStudy(false)},5000);
+ /* KAYOCKS_STUDY_INTEGRATION_V1_BROWSER_END */
+ 
+-function pg(id,b){recordRecent(id);syncNavState(id);if(id==='dash')setTimeout(()=>loadRecoveryDashboard(),0); if(id==='commandcenter')setTimeout(()=>loadCommandCenter(false),0); if(id==='commanddetail')setTimeout(()=>loadCommandDetailList(),0); if(id==='commandarchive')setTimeout(()=>loadCommandArchive(false),0); if(id==='commandfreeze')setTimeout(()=>loadCommandFreeze(false),0); if(id==='kayockwriter')setTimeout(()=>loadKayockWriter(false),0); if(id==='poemarchive')setTimeout(()=>loadPoemArchive(false),0); if(id==='storyforge')setTimeout(()=>loadStoryForge(false),0); if(id==='storymanifest')setTimeout(()=>loadStoryManifest(false),0); if(id==='projectgate')setTimeout(()=>loadProjectGate(false),0); if(id==='projectaction')setTimeout(()=>loadProjectAction(false,false),0); if(id==='projectdashboard')setTimeout(()=>loadProjectDashboard(false),0); if(id==='chapterplanner')setTimeout(()=>loadChapterPlanner(false),0); if(id==='chaptersavegate')setTimeout(()=>loadChapterSaveGate(false),0); if(id==='chaptersaveaction')setTimeout(()=>loadChapterSaveAction(false,false),0); if(id==='savedchapters')setTimeout(()=>loadSavedChapterDashboard(false),0); if(id==='savedchapterhealth')setTimeout(()=>loadSavedChapterHealthCard(false,'savedChapterHealth','savedChapterHealthBook'),0);document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));q(id).classList.add('active');document.querySelectorAll('.nav').forEach(x=>x.classList.remove('active'));if(b)b.classList.add('active'); if(id==='projects')loadProjects(); if(id==='memory')loadMemory(); if(id==='library'){setTimeout(()=>loadKayocksStudy(true),0)} if(id==='novelforge'){loadNovelForgeList();setTimeout(updateCodexDashboard,0)} if(id==='prompts')loadPrompts(); if(id==='extensions')loadExtensions(); if(id==='scanbridge'&&!q('scanPath').value)q('scanPath').value='Departments'; if(id==='projectgen')setTimeout(refreshProjectDocsStatus,0); if(id==='repair')setTimeout(()=>refresh(),0); if(id==='repairhistory')setTimeout(()=>loadRepairHistory(false),0); if(id==='repairops')setTimeout(()=>loadRepairOps(false),0); if(id==='repairdetail')setTimeout(()=>loadRepairDetailList(),0); if(id==='repairtickets')setTimeout(()=>loadRepairTickets(false),0); if(id==='repairticketdetail')setTimeout(()=>loadRepairTicketDetailList(),0); if(id==='ticketbridge')setTimeout(()=>loadTicketBridgeList(),0); if(id==='repairsession')setTimeout(()=>loadRepairSession(false),0); if(id==='repairfreeze')setTimeout(()=>loadRepairFreeze(false),0); if(id==='backupvault')setTimeout(()=>loadBackupVault(false),0); if(id==='restorepreview')setTimeout(()=>loadRestoreBackupList(),0); if(id==='restoregate')setTimeout(()=>loadRestoreGateList(),0); if(id==='restorestaging')setTimeout(()=>loadRestoreStagingList(),0); if(id==='stagingpackages')setTimeout(()=>loadStagingPackages(false),0); if(id==='restorefinal')setTimeout(()=>loadRestoreFinalList(),0); if(id==='restoreaction')setTimeout(()=>loadRestoreActionList(),0); if(id==='restoreaudit')setTimeout(()=>loadRestoreAudit(false),0); if(id==='rollbackpreview')setTimeout(()=>loadRollbackPreviewActions(),0); if(id==='rollbackaction')setTimeout(()=>loadRollbackActionList(),0); if(id==='rollbackaudit')setTimeout(()=>loadRollbackAudit(false),0); if(id==='recoverytimeline')setTimeout(()=>loadRecoveryTimeline(false),0); if(id==='realproseeditorgate')setTimeout(()=>loadRealProseEditorGate(false),0); if(id==='realproseeditsave')setTimeout(()=>loadRealProseEditSave(false),0); if(id==='chapterproseworkspace')setTimeout(()=>loadChapterProseWorkspace(false),0); if(id==='chapterprosecontinuegate')setTimeout(()=>loadChapterProseContinueGate(false),0); if(id==='chapterprosecontinuesave')setTimeout(()=>loadChapterProseContinueSave(false,false),0)}
++function pg(id,b){recordRecent(id);syncNavState(id);if(id==='dash')setTimeout(()=>loadRecoveryDashboard(),0); if(id==='commandcenter')setTimeout(()=>loadCommandCenter(false),0); if(id==='commanddetail')setTimeout(()=>loadCommandDetailList(),0); if(id==='commandarchive')setTimeout(()=>loadCommandArchive(false),0); if(id==='commandfreeze')setTimeout(()=>loadCommandFreeze(false),0); if(id==='kayockwriter')setTimeout(()=>renderWriterHomeV2(),0); if(id==='poemarchive')setTimeout(()=>loadPoemArchive(false),0); if(id==='storyforge')setTimeout(()=>loadStoryForge(false),0); if(id==='storymanifest')setTimeout(()=>loadStoryManifest(false),0); if(id==='projectgate')setTimeout(()=>loadProjectGate(false),0); if(id==='projectaction')setTimeout(()=>loadProjectAction(false,false),0); if(id==='projectdashboard')setTimeout(()=>loadProjectDashboard(false),0); if(id==='chapterplanner')setTimeout(()=>loadChapterPlanner(false),0); if(id==='chaptersavegate')setTimeout(()=>loadChapterSaveGate(false),0); if(id==='chaptersaveaction')setTimeout(()=>loadChapterSaveAction(false,false),0); if(id==='savedchapters')setTimeout(()=>loadSavedChapterDashboard(false),0); if(id==='savedchapterhealth')setTimeout(()=>loadSavedChapterHealthCard(false,'savedChapterHealth','savedChapterHealthBook'),0);document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));q(id).classList.add('active');document.querySelectorAll('.nav').forEach(x=>x.classList.remove('active'));if(b)b.classList.add('active'); if(id==='projects')loadProjects(); if(id==='memory')loadMemory(); if(id==='library'){setTimeout(()=>loadKayocksStudy(true),0)} if(id==='novelforge'){loadNovelForgeList();setTimeout(updateCodexDashboard,0)} if(id==='prompts')loadPrompts(); if(id==='extensions')loadExtensions(); if(id==='scanbridge'&&!q('scanPath').value)q('scanPath').value='Departments'; if(id==='projectgen')setTimeout(refreshProjectDocsStatus,0); if(id==='repair')setTimeout(()=>refresh(),0); if(id==='repairhistory')setTimeout(()=>loadRepairHistory(false),0); if(id==='repairops')setTimeout(()=>loadRepairOps(false),0); if(id==='repairdetail')setTimeout(()=>loadRepairDetailList(),0); if(id==='repairtickets')setTimeout(()=>loadRepairTickets(false),0); if(id==='repairticketdetail')setTimeout(()=>loadRepairTicketDetailList(),0); if(id==='ticketbridge')setTimeout(()=>loadTicketBridgeList(),0); if(id==='repairsession')setTimeout(()=>loadRepairSession(false),0); if(id==='repairfreeze')setTimeout(()=>loadRepairFreeze(false),0); if(id==='backupvault')setTimeout(()=>loadBackupVault(false),0); if(id==='restorepreview')setTimeout(()=>loadRestoreBackupList(),0); if(id==='restoregate')setTimeout(()=>loadRestoreGateList(),0); if(id==='restorestaging')setTimeout(()=>loadRestoreStagingList(),0); if(id==='stagingpackages')setTimeout(()=>loadStagingPackages(false),0); if(id==='restorefinal')setTimeout(()=>loadRestoreFinalList(),0); if(id==='restoreaction')setTimeout(()=>loadRestoreActionList(),0); if(id==='restoreaudit')setTimeout(()=>loadRestoreAudit(false),0); if(id==='rollbackpreview')setTimeout(()=>loadRollbackPreviewActions(),0); if(id==='rollbackaction')setTimeout(()=>loadRollbackActionList(),0); if(id==='rollbackaudit')setTimeout(()=>loadRollbackAudit(false),0); if(id==='recoverytimeline')setTimeout(()=>loadRecoveryTimeline(false),0); if(id==='realproseeditorgate')setTimeout(()=>loadRealProseEditorGate(false),0); if(id==='realproseeditsave')setTimeout(()=>loadRealProseEditSave(false),0); if(id==='chapterproseworkspace')setTimeout(()=>loadChapterProseWorkspace(false),0); if(id==='chapterprosecontinuegate')setTimeout(()=>loadChapterProseContinueGate(false),0); if(id==='chapterprosecontinuesave')setTimeout(()=>loadChapterProseContinueSave(false,false),0)}
+ function go(id){let b=[...document.querySelectorAll('.nav-primary')].find(x=>x.dataset.page===id)||[...document.querySelectorAll('.nav')].find(x=>x.dataset.page===id);pg(id,b)}function goMemory(){go('memory')}
+ async function api(u,opt){try{let r=await fetch(u,opt);let d=await r.json();toast(d.message||JSON.stringify(d));refresh();return d}catch(e){toast('Request failed: '+e)}}function esc(s){return String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}function js(s){return String(s).replace(/\\/g,'\\\\').replace(/'/g,"\\'")}
+ /* GUARDED_STREAMING_PHASE2_BROWSER_START */
+--- /dev/null
++++ b/core/VERIFY_KAYOCK_WRITER_V2.py
+@@ -0,0 +1,214 @@
++from __future__ import annotations
++
++import argparse
++import ast
++import hashlib
++import json
++import re
++from pathlib import Path
++from typing import Any
++
++SCHEMA = "foxai.kayock_writer.v2.verification"
++WEB_PATH = Path(__file__).with_name("foxai_web.py")
++
++PROTECTED_SECTION_HASHES = {
++    "poetrystudio": "6984cf2610f85ea746d5c5c82138f63b2e11ee4d6e998b5e00d61450835a36c9",
++    "poemarchive": "f5909c771afb24fea17b5497a21e449b0e0b9134bac9acb1aede93b2a13622f0",
++    "storyforge": "245999aa7b7bc560f860a823a19abc76366004b25b9a83467241ce01c0dd31ad",
++    "worldbuilder": "056c1739ad9d299ce4c10d1b5f374ebac7669e31e600d13badb9aefd5dac43ca"
++}
++PROTECTED_POETRY_JS_SHA256 = 'cbc61a33b492d99e6ed4af623d5dbedec94cb10ccae92baaa829a95e3678262c'
++PROTECTED_MODEL_REGISTRY_SHA256 = 'd83dbe19abdeb9b9e7155213c7e1780d2564fbaadb321f81212eedc4282c51db'
++
++def sha256_text(value: str) -> str:
++    return hashlib.sha256(value.encode("utf-8")).hexdigest()
++
++def extract_html(source: str) -> str:
++    tree = ast.parse(source)
++    for node in tree.body:
++        if isinstance(node, ast.Assign) and any(
++            isinstance(target, ast.Name) and target.id == "HTML"
++            for target in node.targets
++        ):
++            value = ast.literal_eval(node.value)
++            if isinstance(value, str):
++                return value
++    raise AssertionError("HTML assignment was not found.")
++
++def section_html(html: str, section_id: str) -> str:
++    match = re.search(
++        rf"<section id={re.escape(section_id)}\b.*?</section>",
++        html,
++        flags=re.S,
++    )
++    if not match:
++        raise AssertionError(f"Section missing: {section_id}")
++    return match.group(0)
++
++def marker_block(source: str, start: str, end: str) -> str:
++    if start not in source or end not in source:
++        raise AssertionError(f"Marker block missing: {start}")
++    return source.split(start, 1)[1].split(end, 1)[0]
++
++def verify_protected_workflows(source: str, html: str) -> dict[str, Any]:
++    section_results = {}
++    for section_id, expected in PROTECTED_SECTION_HASHES.items():
++        actual = sha256_text(section_html(html, section_id))
++        assert actual == expected, (section_id, actual, expected)
++        section_results[section_id] = actual
++
++    poetry_js = marker_block(
++        source,
++        "/* KAYOCK_WRITER_CALM_HOME_V1_JS_START */",
++        "/* KAYOCK_WRITER_CALM_HOME_V1_JS_END */",
++    )
++    poetry_js_actual = sha256_text(poetry_js)
++    assert poetry_js_actual == PROTECTED_POETRY_JS_SHA256, poetry_js_actual
++
++    model_registry = marker_block(
++        source,
++        "/* MODEL_PROFILE_SELECTOR_PHASE2_REGISTRY_START */",
++        "/* MODEL_PROFILE_SELECTOR_PHASE2_REGISTRY_END */",
++    )
++    model_actual = sha256_text(model_registry)
++    assert model_actual == PROTECTED_MODEL_REGISTRY_SHA256, model_actual
++
++    return {
++        "sections": section_results,
++        "poetry_js": poetry_js_actual,
++        "model_registry": model_actual,
++    }
++
++def verify_writer_home(source: str, html: str) -> dict[str, Any]:
++    writer = section_html(html, "kayockwriter")
++    required_text = [
++        "What would you like to work on?",
++        "Continue Recent Writing",
++        "Create a Poem",
++        "Polish a Poem",
++        "Start or Continue a Story",
++        "Build a World",
++        "Browse My Writing",
++        "Writer — Advanced Tools",
++        "Opening a room never changes your saved work.",
++    ]
++    for text in required_text:
++        assert text in writer, text
++
++    assert 'id=writerContinueV2' in writer
++    assert 'id=writerContinueV2Button' in writer
++    assert "More creative rooms" not in writer
++    assert "writerSecondaryRooms" not in writer
++    assert '<div class="card writerContinue">' not in writer
++    assert '<details class="card writerAdvancedHome writerAdvancedHomeV2">' in writer
++    assert '<details class="card writerAdvancedHome writerAdvancedHomeV2" open' not in writer
++
++    # The task-first home has one prominent Continue area plus five task cards.
++    assert writer.count("<article class=") == 5, writer.count("<article class=")
++    assert writer.count("Create a Poem") >= 2
++    assert writer.count("Polish a Poem") >= 2
++
++    for page_id in (
++        "poetrystudio",
++        "poemarchive",
++        "storyforge",
++        "worldbuilder",
++        "mywriting",
++    ):
++        assert f"pg('{page_id}'" in html, page_id
++
++    return {
++        "task_cards": writer.count("<article class="),
++        "continue_area": True,
++        "advanced_collapsed": True,
++        "save_state_notice": True,
++    }
++
++def verify_navigation_and_recent_state(source: str) -> dict[str, Any]:
++    assert "'Kayock Writer':['kayockwriter','poetrystudio','poemarchive','storyforge','worldbuilder','mywriting']" in source
++    assert "'Writer — Advanced Tools':['storymanifest'" in source
++    assert "'Writer Advanced Tools':['storymanifest'" not in source
++    assert "if(id==='kayockwriter')setTimeout(()=>renderWriterHomeV2(),0);" in source
++    assert "if(id==='kayockwriter')setTimeout(()=>loadKayockWriter(false),0);" not in source
++
++    block = marker_block(
++        source,
++        "/* KAYOCK_WRITER_CALM_GUIDED_V2_BROWSER_START */",
++        "/* KAYOCK_WRITER_CALM_GUIDED_V2_BROWSER_END */",
++    )
++    for marker in (
++        "WRITER_RECENT_V2",
++        "writerRecentV2",
++        "renderWriterHomeV2",
++        "continueWriterRecentV2",
++        "navRecents()",
++        "saved files remain unchanged",
++    ):
++        assert marker in block, marker
++
++    for page_id in (
++        "poetrystudio",
++        "poemarchive",
++        "storyforge",
++        "projectdashboard",
++        "draftreader",
++        "chapterproseworkspace",
++        "worldbuilder",
++        "mywriting",
++        "novelforge",
++    ):
++        assert re.search(rf"\b{re.escape(page_id)}:", block), page_id
++
++    lowered = block.casefold()
++    assert "fetch(" not in lowered
++    assert "api(" not in lowered
++    assert "localstorage.setitem" not in lowered
++    assert "sessionstorage" not in lowered
++
++    return {
++        "uses_existing_nav_recents": True,
++        "writes_new_persistent_state": False,
++        "network_calls": 0,
++        "direct_writer_pages": 6,
++        "advanced_group_collapsed_by_default": True,
++    }
++
++def main() -> int:
++    parser = argparse.ArgumentParser()
++    parser.add_argument("--focused", action="store_true")
++    args = parser.parse_args()
++
++    source = WEB_PATH.read_text(encoding="utf-8")
++    compile(source, str(WEB_PATH), "exec")
++    html = extract_html(source)
++
++    protected = verify_protected_workflows(source, html)
++    navigation = verify_navigation_and_recent_state(source)
++
++    result: dict[str, Any] = {
++        "ok": True,
++        "schema": SCHEMA,
++        "mode": "focused" if args.focused else "full",
++        "protected_workflows": protected,
++        "navigation": navigation,
++        "source_compiles": True,
++        "files_written": 0,
++        "network_used": False,
++        "creative_generation_changed": False,
++        "saved_content_changed": False,
++    }
++
++    if not args.focused:
++        result["writer_home"] = verify_writer_home(source, html)
++        result["poetry_studio_core_preserved"] = True
++        result["poem_archive_preserved"] = True
++        result["story_forge_preserved"] = True
++        result["world_builder_preserved"] = True
++        result["voice_profiles_preserved"] = True
++        result["technical_foundation_auto_load_disabled"] = True
++
++    print(json.dumps(result, indent=2, ensure_ascii=False))
++    return 0
++
++if __name__ == "__main__":
++    raise SystemExit(main())

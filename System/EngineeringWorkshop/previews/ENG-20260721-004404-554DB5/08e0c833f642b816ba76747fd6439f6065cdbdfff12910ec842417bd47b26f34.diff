@@ -1,0 +1,1078 @@
+--- a/core/foxai_web.py
++++ b/core/foxai_web.py
+@@ -605,13 +605,254 @@
+ }
+ 
+ 
++
++# FOXAI_SHORT_STORY_POLISHER_V1_PROFILE_START
++
++ERIC_SHORT_FICTION_PROFILE = {'id': 'eric_short_fiction',
++ 'name': 'Eric — Short Fiction',
++ 'author': 'Eric Z. Fox',
++ 'kind': 'read_only_source_derived_craft_fingerprint',
++ 'default_strength': 'Recognizably Eric — Prose',
++ 'originals_modified': False,
++ 'source_files_embedded': False,
++ 'source_files_moved': False,
++ 'source_titles': ['God and Fred English',
++                   'The Darkness',
++                   'You',
++                   'I Met Him Once',
++                   'Could It Get Worse?',
++                   'A Stiffy',
++                   'Something Vicious',
++                   'From Above',
++                   'When a Man Loves a Woman',
++                   'The Man Beneath His Feet',
++                   'Via Dolorosa',
++                   'The Last President'],
++ 'secondary_reference_titles': ['A Crusader Without a Crusade — long-form secondary reference',
++                                'Roanoke — Slipping into Darkness excerpt; secondary reference '
++                                'only'],
++ 'traits': ['ordinary people or familiar places interrupted by supernatural, cosmic, violent, or '
++            'morally impossible events',
++            'plainspoken narration that can pivot quickly into horror, grief, wonder, dark humor, '
++            'or philosophical argument',
++            'emotion stated directly rather than hidden behind detached literary distance',
++            'strong first-person or close-narrator presence, including confessions, testimony, '
++            'dialogue, and framed accounts',
++            'specific physical details used to make the strange feel immediate and bodily',
++            'religion, mortality, love, guilt, sacrifice, injustice, fate, and the unknowable '
++            'treated as lived pressures',
++            'short scenes that move efficiently toward a reversal, revelation, consequence, or '
++            'final sting',
++            'endings that reframe what came before through irony, horror, tenderness, '
++            'newspaper-like distance, or one last declaration',
++            'rough edges and unconventional phrasing preserved when they carry personality, '
++            'urgency, or spoken rhythm'],
++ 'strength_rules': {'light prose influence': 'Use only a light Eric prose influence: direct '
++                                             'feeling, one concrete strange detail, efficient '
++                                             'movement, and an ending with consequence. Preserve '
++                                             "the operator's own diction.",
++                    'recognizably eric — prose': 'Use a recognizable Eric short-fiction voice: '
++                                                 'plainspoken emotional urgency, ordinary life '
++                                                 'touching the supernatural or morally impossible, '
++                                                 'vivid bodily or environmental detail, dark humor '
++                                                 'or tenderness where natural, and an earned final '
++                                                 'turn.',
++                    'full eric story voice': 'Use the full source-derived craft fingerprint: '
++                                             'intimate or declarative narration, fast pressure, '
++                                             'religious or cosmic questions when relevant, '
++                                             'visceral detail, contradiction, dark humor, grief, '
++                                             'love, moral consequence, and a memorable final '
++                                             'sting. Do not copy source wording or plots.'},
++ 'originality_rules': ['Do not quote, paraphrase, continue, retell, or remix any source story.',
++                       'Do not reuse a source title, named character, exact situation, signature '
++                       'reveal, final line, or plot mechanism.',
++                       'Treat A Crusader Without a Crusade and Roanoke only as broad long-form '
++                       'secondary evidence; do not import their lore.',
++                       "The operator's submitted story, prompt facts, canon, characters, and "
++                       'intended ending remain the primary authority.',
++                       "Keep Eric's original desktop files read-only and external; no source text "
++                       'is embedded in this profile.']}
++
++SHORT_FICTION_ARCHETYPE_VOICE_PROFILES = {'robin_hood_merry_outlaw': {'id': 'robin_hood_merry_outlaw',
++                             'name': 'Robin Hood — The Merry Outlaw',
++                             'kind': 'public_domain_folklore_archetype',
++                             'author': 'Public-domain folklore tradition',
++                             'default_strength': 'The Greenwood Oath',
++                             'source_titles': ['Robin Hood ballad and folklore tradition'],
++                             'traits': ['cheerful defiance against unjust power, especially when hunger and '
++                                        'dignity are at stake',
++                                        'warm fellowship, teasing wit, practical courage, and loyalty to '
++                                        'ordinary people',
++                                        'clear moral contrast without making every wealthy person a '
++                                        'caricature',
++                                        'forest paths, market roads, hidden camps, shared meals, rain, oak, '
++                                        'bowstring, and disguise',
++                                        "quick dialogue, confident movement, and a storyteller's sense of "
++                                        'adventure',
++                                        'generosity presented as action, risk, and responsibility rather '
++                                        'than empty virtue',
++                                        'an ending that restores dignity, exposes hypocrisy, or turns '
++                                        "authority's rules against itself"],
++                             'strength_rules': {'greenwood whisper': 'Use a light folklore influence: humane '
++                                                                     'wit, grounded injustice, fellowship, '
++                                                                     'and one woodland or road image.',
++                                                'the greenwood oath': 'Balance merry confidence, social '
++                                                                      'conscience, clever action, loyal '
++                                                                      'companions, hunger, dignity, and an '
++                                                                      'earned reversal.',
++                                                'merry outlaw full force': 'Use full outlaw energy: bold '
++                                                                           'banter, disguise or strategy, '
++                                                                           'communal stakes, swift '
++                                                                           'adventure, moral clarity, and a '
++                                                                           'satisfying turn against abuse of '
++                                                                           'power.'},
++                             'originality_rules': ['Do not reproduce a ballad, film scene, television '
++                                                   'version, catchphrase, costume design, or copyrighted '
++                                                   'adaptation.',
++                                                   'Do not automatically use famous companion names, royal '
++                                                   'figures, tournaments, or signature rescues unless the '
++                                                   'operator requests them.',
++                                                   'Create a new conflict, setting details, dialogue, '
++                                                   'strategy, and ending.']},
++ 'zorro_masked_fox': {'id': 'zorro_masked_fox',
++                      'name': 'Zorro — The Masked Fox',
++                      'kind': 'public_domain_literary_archetype',
++                      'author': 'Public-domain masked-avenger tradition',
++                      'default_strength': "The Fox's Flourish",
++                      'source_titles': ['Early public-domain masked-fox literary tradition'],
++                      'traits': ['elegant resistance to corrupt authority through speed, wit, theater, and '
++                                 'precision',
++                                 'a public mask and private identity creating tension, sacrifice, and '
++                                 'dramatic irony',
++                                 'courtesy toward the vulnerable paired with mockery of bullies and '
++                                 'officials',
++                                 'moonlit courtyards, dust, horses, rooftops, blades, capes, bells, '
++                                 'balconies, and secret passages',
++                                 'economical action choreography that remains readable rather than becoming '
++                                 'a list of moves',
++                                 'victory through intelligence and timing more often than brute force',
++                                 'a final flourish, clue, mark, or disappearance that leaves injustice '
++                                 'embarrassed'],
++                      'strength_rules': {'masked shadow': 'Use a light masked-avenger influence: restraint, '
++                                                          'one clever reversal, precise movement, and quiet '
++                                                          'concern for the oppressed.',
++                                         "the fox's flourish": 'Balance elegant action, playful confidence, '
++                                                               'dual identity, social justice, and a '
++                                                               'theatrical but earned ending.',
++                                         'midnight fox full force': 'Use full swashbuckling energy: rapid '
++                                                                    'strategy, sharp dialogue, moonlit '
++                                                                    'movement, corrupt power exposed, and a '
++                                                                    'memorable disappearance or final '
++                                                                    'flourish.'},
++                      'originality_rules': ['Do not reproduce protected adaptation dialogue, visual '
++                                            'trademarks, scene choreography, supporting casts, or signature '
++                                            'branding.',
++                                            'Do not default to a famous hacienda, commandant, love interest, '
++                                            'costume description, or letter-marking scene.',
++                                            'Create an original masked defender, conflict, locale, action '
++                                            'sequence, and resolution when not using the named folklore '
++                                            'archetype directly.']},
++ 'dracula_ancient_count': {'id': 'dracula_ancient_count',
++                           'name': 'Dracula — The Ancient Count',
++                           'kind': 'public_domain_gothic_archetype',
++                           'author': 'Public-domain Dracula and vampire tradition',
++                           'default_strength': "The Count's Invitation",
++                           'source_titles': ['Dracula (1897)', 'Public-domain vampire folklore'],
++                           'traits': ['old-world courtesy that carries predation, command, loneliness, and '
++                                      'concealed threat',
++                                      'immortality measured through vanished empires, dead languages, '
++                                      'bloodlines, ruins, and remembered wars',
++                                      'formal diction sharpened by intimate sensory attention and sudden '
++                                      'cruelty',
++                                      'thresholds, invitations, moonlit stone, candlelight, wolves, storms, '
++                                      'mirrors, blood, and sealed rooms',
++                                      'seduction and terror kept psychologically legible rather than reduced '
++                                      'to decorative gothic language',
++                                      'a speaker who may admire humanity while treating it as prey, '
++                                      'inheritance, or forbidden companionship',
++                                      'an ending that closes a bargain, reveals the cost of welcome, or lets '
++                                      'ancient patience triumph'],
++                           'strength_rules': {'candlelit courtesy': 'Use a light ancient-vampire influence: '
++                                                                    'formal hospitality, restrained menace, '
++                                                                    'sensory detail, and a hint of long '
++                                                                    'memory.',
++                                              "the count's invitation": 'Balance aristocratic control, '
++                                                                        'predatory intimacy, history, '
++                                                                        'loneliness, threshold imagery, and '
++                                                                        'an ominous earned turn.',
++                                              'ancient hunger full force': 'Use full gothic intensity: '
++                                                                           'centuries of memory, elegant '
++                                                                           'threat, blood and invitation '
++                                                                           'symbolism, psychological '
++                                                                           'seduction, command, and a final '
++                                                                           'cost.'},
++                           'originality_rules': ['Do not copy or closely paraphrase Dracula, its letters, '
++                                                 'diary entries, famous speeches, scenes, or adaptation '
++                                                 'dialogue.',
++                                                 "Do not automatically reproduce the novel's plot, castle "
++                                                 'journey, supporting characters, or iconic transformation '
++                                                 'scenes.',
++                                                 'Create original circumstances, imagery, conflict, '
++                                                 'relationships, and ending.']},
++ 'sherlock_holmes_consulting_mind': {'id': 'sherlock_holmes_consulting_mind',
++                                     'name': 'Sherlock Holmes — The Consulting Mind',
++                                     'kind': 'public_domain_detective_archetype',
++                                     'author': 'Public-domain consulting-detective tradition',
++                                     'default_strength': 'The Consulting Method',
++                                     'source_titles': ['Public-domain Sherlock Holmes stories'],
++                                     'traits': ['close observation converted into testable inference rather '
++                                                'than unexplained genius',
++                                                'precise, economical diction with dry wit and impatience '
++                                                'toward lazy assumptions',
++                                                'small material clues—mud, ash, thread, ink, posture, '
++                                                'timing, weather, wear, and absence—carrying the case',
++                                                'a companion or client perspective that keeps deduction '
++                                                'human and understandable',
++                                                'hypotheses revised when evidence contradicts them',
++                                                'mystery structure built around motive, opportunity, method, '
++                                                'and the detail everyone dismissed',
++                                                'an ending that explains the chain of reasoning while '
++                                                'preserving one final human or moral complication'],
++                                     'strength_rules': {'observant glance': 'Use a light '
++                                                                            'consulting-detective influence: '
++                                                                            'two or three concrete '
++                                                                            'observations, cautious '
++                                                                            'inference, and restrained dry '
++                                                                            'wit.',
++                                                        'the consulting method': 'Balance readable '
++                                                                                 'deduction, physical '
++                                                                                 'evidence, competing '
++                                                                                 'hypotheses, character '
++                                                                                 'insight, and a clear but '
++                                                                                 'not effortless solution.',
++                                                        'the game in full force': 'Use full analytical '
++                                                                                  'energy: layered '
++                                                                                  'observations, disciplined '
++                                                                                  'elimination, rapid '
++                                                                                  'dialogue, intellectual '
++                                                                                  'tension, and an '
++                                                                                  'explanation that makes '
++                                                                                  'every clue feel fair.'},
++                                     'originality_rules': ['Do not reproduce a canonical case, client, '
++                                                           'villain, address, catchphrase, disguise, '
++                                                           'deduction sequence, or adaptation-specific '
++                                                           'behavior.',
++                                                           'Do not make deduction magical; show enough '
++                                                           'evidence for the reader to follow the reasoning.',
++                                                           'Create an original mystery, clues, suspects, '
++                                                           'motive, method, dialogue, and solution.']}}
++
++# FOXAI_SHORT_STORY_POLISHER_V1_PROFILE_END
++
+ # POETRY_VOICE_PACK_V1_START
+ 
+ ADDITIONAL_POETRY_VOICE_PROFILES = {'edgar_allan_poe_gothic_lyric': {'id': 'edgar_allan_poe_gothic_lyric', 'name': 'Edgar Allan Poe — Gothic Lyric', 'kind': 'public_domain_style_reference', 'author': 'Public-domain literary tradition', 'default_strength': 'Gothic Lyric', 'source_titles': ['The Raven', 'Annabel Lee', 'The Bells', 'Alone', 'The Haunted Palace'], 'traits': ['musical cadence shaped by internal rhyme, alliteration, and refrain', 'grief, memory, obsession, dream, dread, beauty, and mortality', 'ornate language balanced by a clear emotional center', 'gothic rooms, storms, bells, moonlight, shadows, tombs, and thresholds', 'a dramatic speaker whose certainty may be wounded or unreliable', 'sound patterns that intensify rather than merely decorate', 'an ending that closes like a door, tolling bell, or final revelation'], 'strength_rules': {'candlelit influence': 'Use a light gothic influence: musical phrasing, shadowed imagery, and restrained melancholy. Keep the language accessible.', 'gothic lyric': 'Use a clear gothic lyric voice: deliberate sound, internal rhyme when natural, haunted beauty, emotional obsession, and a memorable refrain or closing image.', 'midnight full force': 'Use full gothic intensity: incantatory cadence, layered sound, dramatic atmosphere, psychological dread, tragic beauty, and a powerful final turn. Avoid empty purple prose.'}, 'originality_rules': ['Do not reproduce or closely paraphrase a famous line, refrain, title, or plot.', 'Do not insert a raven, Lenore-like beloved, telltale heart, or other signature device unless the operator independently requests it.', 'Create a new speaker, situation, imagery sequence, rhyme design, and ending.']}, 'beneath_the_beats_west_coast_voice': {'id': 'beneath_the_beats_west_coast_voice', 'name': 'Beneath the Beats — West Coast Voice', 'kind': 'original_trait_composite', 'author': 'Original FOXAI craft profile', 'default_strength': 'Truth & Defiance', 'source_titles': [], 'traits': ['plainspoken emotional truth that sounds natural when read aloud', 'family, loyalty, abandonment, poverty, injustice, survival, responsibility, and hope', 'controlled anger beside vulnerability, humor, tenderness, and self-examination', 'strong internal rhyme, conversational cadence, and flexible line length', 'cinematic street-level scenes built from specific physical details', 'compact turns of phrase that carry consequence without decorative filler', 'a closing statement that feels earned rather than inspirational by default'], 'strength_rules': {'light west coast influence': 'Use a light spoken-word influence: direct language, natural cadence, one or two internal rhymes, and grounded emotional honesty.', 'truth & defiance': 'Balance vulnerability and resistance. Use conversational rhythm, internal rhyme, concrete social reality, loyalty, contradiction, and a forceful but human conclusion.', 'full spoken-word force': 'Use full performance energy: layered internal rhyme, sharp scene changes, controlled anger, dark humor, confession, social pressure, and lines designed to strike when spoken aloud.'}, 'originality_rules': ['Do not quote, remix, paraphrase, or continue any copyrighted poem or lyric.', 'Do not imitate or name a specific rapper, performer, song, album, persona, or signature phrase.', 'Use wholly original wording, scenes, rhyme patterns, arguments, and endings.']}, 'dust_and_duty_last_gunslinger': {'id': 'dust_and_duty_last_gunslinger', 'name': 'Dust and Duty — Last Gunslinger Voice', 'kind': 'original_fictional_archetype', 'author': 'Original FOXAI fictional archetype', 'default_strength': 'The Gunslinger’s Oath', 'source_titles': [], 'traits': ['spare deliberate language spoken by a traveler who has survived too much', 'duty, old promises, found family, sacrifice, guilt, endurance, and unfinished roads', 'old-west frontier imagery joined to fantasy ruins and failing science-fiction machinery', 'strange stars, empty stations, worn weapons, broken radios, dry towns, and impossible horizons', 'campfire stew in a blackened iron pot, tin cups, quiet fellowship, and making sure everyone eats', 'grief carried through action and silence rather than long explanation', 'small moments of tenderness from someone trained to keep walking'], 'strength_rules': {'quiet resolve': 'Use restrained frontier language, one strong image at a time, quiet loyalty, and grief shown through action.', 'the gunslinger’s oath': 'Balance old vows, frontier fantasy, ruined technology, found family, campfire fellowship, and the cost of completing the road.', 'last road, full force': 'Use the full dying-world atmosphere: severe cadence, strange stars, ancient duty, broken machines, remembered companions, hard choices, and tenderness hidden beneath iron resolve.'}, 'originality_rules': ['Do not use protected character names, place names, cosmology, catchphrases, artifacts, recipes, or franchise terminology.', 'Do not recreate a scene or plot from an existing western, fantasy, or science-fiction work.', 'Build a wholly original traveler, road, world, fellowship, meal, mission, and ending.']}, 'the_forsaken_flame_exiles_voice': {'id': 'the_forsaken_flame_exiles_voice', 'name': 'The Forsaken Flame — Exile’s Voice', 'kind': 'public_domain_character_tradition', 'author': 'Public-domain Frankenstein tradition', 'default_strength': 'Beautiful and Unwanted', 'source_titles': ['Frankenstein; or, The Modern Prometheus (1818)'], 'traits': ['eloquent intelligence formed in isolation and sharpened by rejection', 'a desperate wish to be seen, taught, loved, named, and answered', 'tender observation of ordinary human warmth from outside the window', 'abandonment, judgment, responsibility, identity, rage, remorse, and moral contradiction', 'beautiful formal language that can turn suddenly raw and accusatory', 'the question of whether cruelty is born, made, chosen, or imposed', 'fire as warmth, knowledge, creation, pain, destruction, and surviving light'], 'strength_rules': {'lonely wanderer': 'Use restrained eloquence, solitude, wonder, and a quiet wish for human recognition. Keep anger beneath the surface.', 'beautiful and unwanted': 'Balance intellectual beauty, tenderness, abandonment, accusation, self-questioning, and the pain of being judged before being known.', 'forsaken flame': 'Use full tragic intensity: formal eloquence, moral argument, longing, rage, remorse, fire imagery, creator-and-created tension, and an ending that leaves both speaker and listener implicated.'}, 'originality_rules': ['Do not copy or closely paraphrase passages from Frankenstein.', 'Do not simply retell the creature’s biography or reproduce its plot.', 'Create a new exile, circumstances, imagery sequence, conflict, and conclusion.']}}
+ 
+ POETRY_VOICE_PROFILES = {
+     "eric_poet_narrator": ERIC_POET_NARRATOR_PROFILE,
++    "eric_short_fiction": ERIC_SHORT_FICTION_PROFILE,
+     **ADDITIONAL_POETRY_VOICE_PROFILES,
++    **SHORT_FICTION_ARCHETYPE_VOICE_PROFILES,
+ }
+ 
+ POETRY_VOICE_NAME_TO_ID = {
+@@ -635,6 +876,7 @@
+ def _writer_additional_voice_prompt(
+     profile: dict,
+     strength: str,
++    writing_type: str = "poem",
+ ) -> str:
+     strength_rules = profile.get("strength_rules") or {}
+     strength_key = str(strength or "").strip().casefold()
+@@ -663,15 +905,25 @@
+         if titles else
+         "\nNo copyrighted source text is stored in this profile."
+     )
++    is_story = str(writing_type or "").strip().casefold() == "short_story"
++    work_kind = "short fiction" if is_story else "poetry"
++    format_rule = (
++        "Keep the result in readable prose paragraphs. Do not introduce verse, "
++        "rhyme, meter, stanza, refrain, or line-break requirements."
++        if is_story else
++        "Keep the result a new poem rather than a parody, pastiche exercise, or sequel."
++    )
+ 
+     return f"""
+-{profile.get("name","POETRY VOICE PROFILE").upper()}
++{profile.get("name","WRITER VOICE PROFILE").upper()}
+ Profile kind: {profile.get("kind","creative_profile")}
+ Strength: {strength or profile.get("default_strength","balanced")}
++Writing type: {work_kind}
+ 
+ Purpose:
+-Create wholly new poetry guided by broad craft traits. The operator’s theme,
+-emotion, imagery, opening line, and existing poem remain the primary authority.
++Create or revise wholly new {work_kind} guided by broad craft traits. The
++operator's theme, emotion, imagery, opening line, submitted text, and canon
++remain the primary authority.
+ 
+ Voice fingerprint:
+ {traits}
+@@ -682,8 +934,9 @@
+ Originality and boundary rules:
+ {originality}
+ - Never reproduce a recognizable passage from another work.
+-- Never allow the profile to override the operator’s meaning or lived experience.
+-- Keep the result a new poem rather than a parody, pastiche exercise, or sequel.
++- Never allow the profile to override the operator's meaning, lived experience,
++  characters, canon, point of view, or intended ending.
++- {format_rule}
+ {source_note}
+ """.strip()
+ 
+@@ -725,15 +978,68 @@
+ def build_writer_voice_prompt(
+     profile_id: str,
+     strength: str = "",
++    writing_type: str = "poem",
+ ) -> str:
+     profile = get_writer_voice_profile(profile_id)
+     if profile is None:
+         return ""
+ 
++    is_story = str(writing_type or "").strip().casefold() == "short_story"
++
++    if profile_id == "eric_short_fiction":
++        resolved_strength = strength or profile.get("default_strength") or "Recognizably Eric — Prose"
++        strength_key = str(resolved_strength).strip().casefold()
++        strength_rules = profile.get("strength_rules") or {}
++        strength_rule = strength_rules.get(
++            strength_key,
++            strength_rules.get(
++                "recognizably eric — prose",
++                "Use the source-derived prose traits with restraint and preserve the operator's story.",
++            ),
++        )
++        traits = "\n".join(f"- {item}" for item in profile.get("traits") or [])
++        core_sources = "\n".join(f"- {item}" for item in profile.get("source_titles") or [])
++        secondary_sources = "\n".join(
++            f"- {item}" for item in profile.get("secondary_reference_titles") or []
++        )
++        originality = "\n".join(
++            f"- {item}" for item in profile.get("originality_rules") or []
++        )
++        return f"""
++ERIC — SHORT FICTION VOICE PROFILE
++Author: Eric Z. Fox
++Strength: {resolved_strength}
++Profile kind: read-only source-derived craft fingerprint
++
++Purpose:
++Use broad craft tendencies derived from Eric's original prose to create or
++polish new short fiction. No original story text is embedded here. The current
++prompt or submitted story remains primary authority.
++
++Voice fingerprint:
++{traits}
++
++Strength instruction:
++{strength_rule}
++
++Core source titles used only to derive traits:
++{core_sources}
++
++Secondary long-form references:
++{secondary_sources}
++
++Non-copying and preservation rules:
++{originality}
++- Keep the result as prose short fiction, not poetry.
++- Never import a source story's wording, plot, character, lore, reveal, or ending.
++- Preserve rough or unconventional phrasing when it carries Eric's identity.
++""".strip()
++
+     if profile_id != "eric_poet_narrator":
+         return _writer_additional_voice_prompt(
+             profile,
+             strength or profile.get("default_strength") or "balanced",
++            writing_type=writing_type,
+         )
+ 
+     resolved_strength = strength or "Recognizably Eric"
+@@ -750,15 +1056,23 @@
+         )
+         for source in profile["sources"]
+     )
++    work_kind = "short fiction prose" if is_story else "poetry"
++    format_rule = (
++        "Translate only broad emotional and narrative tendencies into prose. "
++        "Do not force rhyme, stanzas, meter, or poetic line breaks."
++        if is_story else
++        "Keep the result a poem."
++    )
+ 
+     return f"""
+ ERIC — POET/NARRATOR VOICE PROFILE
+ Author: Eric Z. Fox
+ Strength: {resolved_strength}
++Writing type: {work_kind}
+ 
+ Purpose:
+ Use the protected poems below only as evidence of the writer's tendencies.
+-Create or revise new work in a compatible voice without reproducing a source.
++Create or revise new {work_kind} in a compatible voice without reproducing a source.
+ 
+ Voice fingerprint:
+ {traits}
+@@ -771,10 +1085,11 @@
+ - Never reuse six or more consecutive source words.
+ - Never reuse a source title, named character, signature image sequence,
+   historical sequence, rhyme pair, or closing line unless the operator
+-  supplied it in the current poem or opening line.
++  supplied it in the current work or opening line.
+ - Preserve rough or unconventional phrasing when it carries identity.
+ - New work must remain clearly new work, not a remix of a source poem.
+ - Do not correct or alter any source poem; they are read-only references.
++- {format_rule}
+ 
+ Protected read-only source poems:
+ {sources}
+@@ -1413,6 +1728,7 @@
+ <div class=writerTaskGridV2>
+ <article class="writerTaskCard poetry"><div class=writerTaskIcon>🪶</div><div><h3>Create a Poem</h3><p>Begin with a theme, feeling, image, or one opening line. The full multi-voice Poetry Studio remains intact.</p></div><button onclick="go('poetrystudio')">Create a Poem</button></article>
+ <article class="writerTaskCard polish"><div class=writerTaskIcon>✨</div><div><h3>Polish a Poem</h3><p>Improve rhythm, imagery, line breaks, and clarity while keeping the original and your chosen voice separate.</p></div><button onclick="openPoemPolisherFromWriterHome()">Polish a Poem</button></article>
++<article class="writerTaskCard polish"><div class=writerTaskIcon>📝</div><div><h3>Polish a Short Story</h3><p>Improve pacing, scene flow, dialogue, atmosphere, and clarity while preserving plot, characters, point of view, canon, and the intended ending.</p></div><button onclick="openShortStoryPolisherFromWriterHome()">Polish a Short Story</button></article>
+ <article class="writerTaskCard story"><div class=writerTaskIcon>📚</div><div><h3>Start or Continue a Story</h3><p>Start something new, return to Slipping into Darkness, plan a chapter, or continue from saved prose.</p></div><button onclick="go('storyforge')">Open Story Forge</button></article>
+ <article class="writerTaskCard world"><div class=writerTaskIcon>🌍</div><div><h3>Build a World</h3><p>Create a world, region, settlement, faction, faith, adventure site, or campaign one calm step at a time.</p></div><button onclick="go('worldbuilder')">Open World Builder</button></article>
+ <article class="writerTaskCard libraryroom"><div class=writerTaskIcon>🗂️</div><div><h3>Browse My Writing</h3><p>Return to saved poems, drafts, chapters, projects, and worlds without opening technical reports.</p></div><button onclick="go('mywriting')">Browse My Writing</button></article>
+@@ -1440,7 +1756,7 @@
+ <div class=writerField><label for=poemAudience>Intended audience</label><input id=poemAudience placeholder="For myself; for Akaysha; for Nevaeh; for anyone who has felt this"></div>
+ </div></details>
+ <details class="writerOptionalControls poemGuideDetails"><summary>Advanced craft choices — optional</summary><div class=poemGuideBody><p id=creatorAdvancedNote class=writerOptionalNote>These are creative preferences, not rigid technical rules. Natural choices remain the default.</p>
+-<div class=writerField><label for=poemVoice>Creative voice profile</label><select id=poemVoice onchange="updatePoetryVoiceControls()"><option>My natural voice</option><option>Eric — Poet/Narrator</option><option>Edgar Allan Poe — Gothic Lyric</option><option>Beneath the Beats — West Coast Voice</option><option>Dust and Duty — Last Gunslinger Voice</option><option>The Forsaken Flame — Exile’s Voice</option><option>Lyrical</option><option>Spare and direct</option><option>Narrative</option><option>Dark and mythic</option><option>Hopeful and intimate</option><option>Spoken-word energy</option></select></div>
++<div class=writerField><label for=poemVoice>Creative voice profile</label><select id=poemVoice onchange="updatePoetryVoiceControls()"><option>My natural voice</option><option>Eric — Poet/Narrator</option><option>Eric — Short Fiction</option><option>Edgar Allan Poe — Gothic Lyric</option><option>Beneath the Beats — West Coast Voice</option><option>Dust and Duty — Last Gunslinger Voice</option><option>The Forsaken Flame — Exile’s Voice</option><option>Robin Hood — The Merry Outlaw</option><option>Zorro — The Masked Fox</option><option>Dracula — The Ancient Count</option><option>Sherlock Holmes — The Consulting Mind</option><option>Lyrical</option><option>Spare and direct</option><option>Narrative</option><option>Dark and mythic</option><option>Hopeful and intimate</option><option>Spoken-word energy</option></select></div>
+ <div id=voiceProfileControls class=voiceProfileBox hidden><div id=voiceProfileHead class=voiceProfileHead>Poetry Voice Profile</div><div class=writerField><label for=poemVoiceStrength>Voice strength</label><select id=poemVoiceStrength></select></div><div id=voiceProfileSources class=voiceProfileSources></div><div id=voiceProfileBadges></div><div id=voiceProfileNotice class=voiceProfileNotice></div></div>
+ <div id=poemOnlyCraftControls>
+ <div class=poemGuideGrid><div class=writerField><label for=poemForm>Poetic form</label><select id=poemForm><option>Free verse</option><option>Rhymed</option><option>Sonnet</option><option>Haiku</option><option>Spoken word</option></select></div><div class=writerField><label for=poemLength id=creatorLengthLabel>Length</label><select id=poemLength><option>Short</option><option selected>Medium</option><option>Long</option></select></div></div>
+@@ -1460,7 +1776,7 @@
+ <div class=card><h3 id=creatorOutputTitle>Your Poem</h3><div class=writerField><label for=poemTitle>Title</label><input id=poemTitle placeholder="FOXAI will suggest a real title; you can edit it"></div><div class=writerField><label for=poemAuthor>Author</label><input id=poemAuthor value="Eric Z. Fox" placeholder="Author or pen name"></div><div class=writerField><label for=poemCopyright>Copyright notice</label><input id=poemCopyright value="Copyright © 2026 by Eric Z. Fox" placeholder="Optional copyright notice"></div><textarea id=poemResult class=poemOutput placeholder="Your poem will appear here and remain editable."></textarea><div id=poemProvenance class=poemProvenance><div class=poemProvenanceTitle>What belongs to whom</div><div class=poemProvenanceGrid><div class=poemProvenanceItem><b>Your guidance</b>No creator details entered yet.</div><div class=poemProvenanceItem><b>Draft text</b>No poem or short story created or opened yet.</div><div class=poemProvenanceItem><b>Applied revisions</b>None. Suggestions never apply themselves.</div><div class=poemProvenanceItem><b>Saved versions</b>None in this session. Saves create new Markdown files.</div></div></div><div class=poemActions><button id=tryAnotherPoemButton onclick="createPoem(true)">Try Another</button><button id=savePoemButton onclick="savePoemDraft()">Save Draft</button><button id=capturePoemSelectionButton onclick="capturePoemSelection()">Revise Selection / Stanza</button><button id=poemRhymeActionButton onclick="analyzePoemRhymeRhythm()">Check Rhyme &amp; Rhythm</button><button id=sendPoemPolisherButton onclick="sendPoemToPolisher()">Send to Poem Polisher</button><button id=poemArchiveButton onclick="go('poemarchive')">My Poems</button><button id=shortStoryFolderButton onclick="api('/api/open/kayock_writer_short_story_drafts')" hidden>Open Story Folder</button></div>
+ <details id=poemSelectionPanel class=selectionWorkshop><summary>Selected Lines / Stanza Workshop</summary><div class=selectionWorkshopBody><p class=selectionHint>Highlight lines in <b>Your Poem</b>, then press <b>Revise Selection / Stanza</b>. With no highlight, FOXAI captures the stanza containing the cursor. Only the captured passage can be replaced.</p><div class=selectionCapture><div><div class=writerField><label for=poemSelectionText>Captured passage</label><textarea id=poemSelectionText readonly placeholder="Your selected lines or current stanza will appear here."></textarea></div></div><div><div class=writerField><label for=poemSelectionFocus>What should improve?</label><select id=poemSelectionFocus><option selected>Keep meaning, improve the lines</option><option>Stronger imagery</option><option>Smoother rhyme and rhythm</option><option>More emotional impact</option><option>Clearer wording</option><option>Make it stranger and more memorable</option><option>Preserve voice with minimal changes</option></select></div><div class=writerField><label for=poemSelectionNote>Optional direction</label><textarea id=poemSelectionNote placeholder="Example: keep the final rhyme; make the second line less ordinary"></textarea></div><button id=revisePoemSelectionButton onclick="revisePoemSelection()" disabled>Create 3 Alternatives</button></div></div><div id=poemSelectionAlternatives class=selectionAltGrid></div><div id=poemSelectionStatus class="status selectionStatus"><span class=poemStateBadge>READY</span>Select lines or place the cursor inside a stanza.</div></div></details>
+ <details id=poemRhymeCoachPanel class=rhymeCoach><summary>Rhyme &amp; Rhythm Coach</summary><div class=rhymeCoachBody><p class=rhymeCoachIntro>Check stanza shape before rewriting anything. FOXAI estimates syllables, identifies spelling-based rhyme families, and shows where line lengths drift. Use your ear as the final judge.</p><div class=poemOpenNotice><b>Analysis and revision are separate.</b> Changing the target below does not alter the analysis. It changes the instruction used after you press <b>Revise This Stanza</b>.</div><div class=rhymeCoachControls><div class=writerField><label for=poemRhymeTarget>Revision target for the Workshop</label><select id=poemRhymeTarget onchange="updateRhymeTargetPreview()"><option value=auto selected>Natural rhyme — model chooses</option><option value=aabb>Couplets — AABB</option><option value=abab>Alternating — ABAB</option><option value=aaaa>Monorhyme — AAAA</option><option value=none>Rhythm only — do not force rhyme</option></select><div id=poemRhymeTargetPreview class=poemArchiveStatus>Natural rhyme will guide the next stanza revision. The current analysis will not change.</div></div><button onclick="analyzePoemRhymeRhythm()">Recheck Poem</button></div><div id=poemRhymeCoachResults class=rhymeCoachResults><div class=rhymeCoachEmpty>Create, paste, or reopen a poem, then press <b>Check Rhyme &amp; Rhythm</b>.</div></div><div id=poemRhymeCoachStatus class="status poemStatus"><span class=poemStateBadge>READY</span>No poem analyzed yet.</div><div class=rhymeDisclaimer>Syllable and rhyme results are approximate spelling-based guidance. English pronunciation, names, dialect, and performance can differ.</div></div></details>
+-<details id=poemPolisherPanel class=poemPolisher><summary>Poem Polisher</summary><div class=poemPolisherBody><p class=small>Polish rhythm, word choice, imagery, emotional impact, line breaks, and clarity without replacing the writer's voice.</p><textarea id=poemPolisherInput placeholder="Send a poem here from the creator, or paste one."></textarea><div class=writerField><label for=poemPolishFocus>Focus</label><select id=poemPolishFocus><option>Light touch</option><option selected>Balanced polish</option><option>Bold rewrite</option><option>Rhythm and line breaks</option><option>Imagery and emotional impact</option><option>Word choice and clarity</option><option>Preserve voice with minimal changes</option></select></div><button id=polishPoemButton onclick="polishPoem()">Polish Poem</button><textarea id=poemPolishedResult placeholder="The finished polished version will appear here."></textarea><div class=poemCompareActions><button id=keepOriginalPoemButton onclick="keepOriginalPoem()" disabled>Keep Original</button><button id=usePolishedPoemButton onclick="usePolishedPoem()" disabled>Use Polished Version</button><button id=saveBothPoemButton onclick="saveBothPoemVersions()" disabled>Save Both</button></div><div class=poemVersionNote>The original remains separate until you explicitly choose or save a version.</div><div id=poemPolishStatus class=status><span class=poemStateBadge>READY</span>Send a poem here when you want a second version.</div></div></details>
++<!-- FOXAI_SHORT_STORY_POLISHER_V1_HTML_START --><details id=poemPolisherPanel class=poemPolisher><summary id=poemPolisherSummary>Poem Polisher</summary><div class=poemPolisherBody><p id=poemPolisherDescription class=small>Polish rhythm, word choice, imagery, emotional impact, line breaks, and clarity without replacing the writer's voice.</p><textarea id=poemPolisherInput placeholder="Send a poem here from the creator, or paste one."></textarea><div class=writerField><label for=poemPolishFocus>Focus</label><select id=poemPolishFocus><option>Light touch</option><option selected>Balanced polish</option><option>Bold rewrite</option><option>Rhythm and line breaks</option><option>Imagery and emotional impact</option><option>Word choice and clarity</option><option>Preserve voice with minimal changes</option></select></div><button id=polishPoemButton onclick="polishPoem()">Polish Poem</button><textarea id=poemPolishedResult placeholder="The finished polished version will appear here."></textarea><div class=poemCompareActions><button id=keepOriginalPoemButton onclick="keepOriginalPoem()" disabled>Keep Original</button><button id=usePolishedPoemButton onclick="usePolishedPoem()" disabled>Use Polished Version</button><button id=saveBothPoemButton onclick="saveBothPoemVersions()" disabled>Save Both</button></div><div id=poemVersionNote class=poemVersionNote>The original remains separate until you explicitly choose or save a version.</div><div id=poemPolishStatus class=status><span class=poemStateBadge>READY</span>Send a poem here when you want a second version.</div></div></details><!-- FOXAI_SHORT_STORY_POLISHER_V1_HTML_END -->
+ </div></div></section>
+ 
+ <section id=worldbuilder class=page>
+@@ -9052,13 +9368,15 @@
+ let poemOpenedMode='';
+ /* FOXAI_POEM_CREATOR_GUIDED_V1_1_JS_START */
+ /* FOXAI_CREATOR_TYPE_1_2_JS_START */
++/* FOXAI_SHORT_STORY_POLISHER_V1_JS_START */
+ let poemAppliedRevisionCount=0;
+ let poemSavedVersionCount=0;
+ let poemOriginalCaptured=false;
++let poemPolisherWritingType='poem';
+ let poemSelectionState={base:'',start:0,end:0,selected:'',alternatives:[]};
+ let poemRhymeState={base:'',stanzas:[]};
+ 
+-const POETRY_VOICE_PROFILE_UI={"Eric — Poet/Narrator":{"id":"eric_poet_narrator","strengths":["Light Influence","Recognizably Eric","Strong Eric Voice"],"default_strength":"Recognizably Eric","source_label":"Read-only source profile built from:","badges":["Eternity","The City Of Sorrows","The Vampire Lestat","The Soliloquy of 2002"],"notice":"Inspired by the Eric — Poet/Narrator voice profile. New work; not copied from a source poem. Eric’s originals remain unchanged."},"Edgar Allan Poe — Gothic Lyric":{"id":"edgar_allan_poe_gothic_lyric","strengths":["Candlelit Influence","Gothic Lyric","Midnight Full Force"],"default_strength":"Gothic Lyric","source_label":"Public-domain literary foundation:","badges":["The Raven","Annabel Lee","The Bells","Alone","The Haunted Palace"],"notice":"Musical gothic poetry shaped by public-domain Poe traditions. FOXAI creates a new poem rather than reproducing famous lines, titles, refrains, or plots."},"Beneath the Beats — West Coast Voice":{"id":"beneath_the_beats_west_coast_voice","strengths":["Light West Coast Influence","Truth & Defiance","Full Spoken-Word Force"],"default_strength":"Truth & Defiance","source_label":"Original trait-based composite:","badges":["Emotional truth","Family & loyalty","Social conscience","Internal rhyme","Street-level cinema"],"notice":"Broad West Coast spoken-word craft only. No copyrighted lyrics are stored, quoted, remixed, paraphrased, or imitated."},"Dust and Duty — Last Gunslinger Voice":{"id":"dust_and_duty_last_gunslinger","strengths":["Quiet Resolve","The Gunslinger’s Oath","Last Road, Full Force"],"default_strength":"The Gunslinger’s Oath","source_label":"Original frontier-fantasy archetype:","badges":["Old West","Dying worlds","Ruined machines","Strange stars","Campfire stew","Found family"],"notice":"An original tragic frontier voice: dust, duty, strange technology, quiet grief, and meals shared beside the last fire. No protected characters, mythology, phrases, or franchise details are used."},"The Forsaken Flame — Exile’s Voice":{"id":"the_forsaken_flame_exiles_voice","strengths":["Lonely Wanderer","Beautiful and Unwanted","Forsaken Flame"],"default_strength":"Beautiful and Unwanted","source_label":"Public-domain literary foundation:","badges":["Frankenstein (1818)","Abandonment","Eloquent exile","Longing","Judgment","Terrible tenderness"],"notice":"Inspired by the public-domain Frankenstein tradition: intelligent, abandoned, eloquent, loving, and furious. New poems only; no copied passages or retelling of the novel."}};
++const POETRY_VOICE_PROFILE_UI={"Eric — Poet/Narrator":{"id":"eric_poet_narrator","modes":["poem","short_story"],"strengths":["Light Influence","Recognizably Eric","Strong Eric Voice"],"default_strength":"Recognizably Eric","source_label":"Read-only source profile built from:","badges":["Eternity","The City Of Sorrows","The Vampire Lestat","The Soliloquy of 2002"],"notice":"Inspired by the Eric — Poet/Narrator voice profile. New work; not copied from a source poem. Eric’s originals remain unchanged."},"Eric — Short Fiction":{"id":"eric_short_fiction","modes":["short_story"],"strengths":["Light Prose Influence","Recognizably Eric — Prose","Full Eric Story Voice"],"default_strength":"Recognizably Eric — Prose","source_label":"Read-only craft fingerprint derived from:","badges":["God and Fred English","The Darkness","You","I Met Him Once","Could It Get Worse?","A Stiffy","Something Vicious","From Above","When a Man Loves a Woman","The Man Beneath His Feet","Via Dolorosa","The Last President"],"notice":"Source-derived prose traits only. No original story text is embedded, moved, edited, or copied. A Crusader Without a Crusade and Roanoke remain secondary long-form references."},"Edgar Allan Poe — Gothic Lyric":{"id":"edgar_allan_poe_gothic_lyric","modes":["poem","short_story"],"strengths":["Candlelit Influence","Gothic Lyric","Midnight Full Force"],"default_strength":"Gothic Lyric","source_label":"Public-domain literary foundation:","badges":["The Raven","Annabel Lee","The Bells","Alone","The Haunted Palace"],"notice":"Musical gothic craft shaped by public-domain Poe traditions. FOXAI creates new work rather than reproducing famous lines, titles, refrains, or plots."},"Beneath the Beats — West Coast Voice":{"id":"beneath_the_beats_west_coast_voice","modes":["poem","short_story"],"strengths":["Light West Coast Influence","Truth & Defiance","Full Spoken-Word Force"],"default_strength":"Truth & Defiance","source_label":"Original trait-based composite:","badges":["Emotional truth","Family & loyalty","Social conscience","Internal rhyme","Street-level cinema"],"notice":"Broad West Coast spoken-word craft only. No copyrighted lyrics are stored, quoted, remixed, paraphrased, or imitated."},"Dust and Duty — Last Gunslinger Voice":{"id":"dust_and_duty_last_gunslinger","modes":["poem","short_story"],"strengths":["Quiet Resolve","The Gunslinger’s Oath","Last Road, Full Force"],"default_strength":"The Gunslinger’s Oath","source_label":"Original frontier-fantasy archetype:","badges":["Old West","Dying worlds","Ruined machines","Strange stars","Campfire stew","Found family"],"notice":"An original tragic frontier voice. No protected characters, mythology, phrases, or franchise details are used."},"The Forsaken Flame — Exile’s Voice":{"id":"the_forsaken_flame_exiles_voice","modes":["poem","short_story"],"strengths":["Lonely Wanderer","Beautiful and Unwanted","Forsaken Flame"],"default_strength":"Beautiful and Unwanted","source_label":"Public-domain literary foundation:","badges":["Frankenstein (1818)","Abandonment","Eloquent exile","Longing","Judgment","Terrible tenderness"],"notice":"Inspired by the public-domain Frankenstein tradition. New work only; no copied passages or retelling of the novel."},"Robin Hood — The Merry Outlaw":{"id":"robin_hood_merry_outlaw","modes":["poem","short_story"],"strengths":["Greenwood Whisper","The Greenwood Oath","Merry Outlaw Full Force"],"default_strength":"The Greenwood Oath","source_label":"Public-domain folklore archetype:","badges":["Merry defiance","Shared meals","Greenwood","Clever reversals","Dignity","Fellowship"],"notice":"Folklore-level Robin Hood craft: generosity, wit, fellowship, and resistance to injustice. No adaptation dialogue, scenes, or protected visual branding."},"Zorro — The Masked Fox":{"id":"zorro_masked_fox","modes":["poem","short_story"],"strengths":["Masked Shadow","The Fox's Flourish","Midnight Fox Full Force"],"default_strength":"The Fox's Flourish","source_label":"Public-domain masked-avenger archetype:","badges":["Dual identity","Elegant action","Moonlit roads","Dry wit","Justice","Theatrical timing"],"notice":"Broad public-domain masked-avenger craft only. No adaptation-specific dialogue, cast, choreography, visual trademarks, or branding is copied."},"Dracula — The Ancient Count":{"id":"dracula_ancient_count","modes":["poem","short_story"],"strengths":["Candlelit Courtesy","The Count's Invitation","Ancient Hunger Full Force"],"default_strength":"The Count's Invitation","source_label":"Public-domain gothic foundation:","badges":["Ancient memory","Invitation","Old-world courtesy","Predatory intimacy","Thresholds","Blood"],"notice":"Inspired by public-domain Dracula and vampire traditions. New circumstances and language only; no copied passages, scenes, or adaptation dialogue."},"Sherlock Holmes — The Consulting Mind":{"id":"sherlock_holmes_consulting_mind","modes":["poem","short_story"],"strengths":["Observant Glance","The Consulting Method","The Game in Full Force"],"default_strength":"The Consulting Method","source_label":"Public-domain consulting-detective foundation:","badges":["Observation","Fair clues","Dry wit","Competing hypotheses","Material evidence","Human motive"],"notice":"Public-domain consulting-detective craft only. FOXAI creates a new case and shows evidence rather than copying canonical deductions, clients, villains, or catchphrases."}};
+ 
+ function creatorWritingType(){
+     return (q('poemWritingType')?.value||'poem')==='short_story'?'short_story':'poem';
+@@ -9078,9 +9396,50 @@
+     if(mirror&&main)main.value=mirror.value||'Medium';
+ }
+ 
++function updatePolisherMode(){
++    let story=creatorWritingType()==='short_story';
++    let summary=q('poemPolisherSummary');
++    if(summary)summary.textContent=story?'Short Story Polisher':'Poem Polisher';
++    let description=q('poemPolisherDescription');
++    if(description)description.textContent=story
++        ?'Improve pacing, scene flow, dialogue, character voice, imagery, atmosphere, emotional impact, clarity, and word choice while preserving plot, characters, point of view, tense, canon, central meaning, and the intended ending.'
++        :"Polish rhythm, word choice, imagery, emotional impact, line breaks, and clarity without replacing the writer's voice.";
++    let input=q('poemPolisherInput');
++    if(input)input.placeholder=story?'Send a short story here from the creator, or paste one.':'Send a poem here from the creator, or paste one.';
++    let result=q('poemPolishedResult');
++    if(result)result.placeholder=story?'The finished polished short story will appear here.':'The finished polished version will appear here.';
++    let button=q('polishPoemButton');
++    if(button&&!poetryBusy)button.textContent=story?'Polish Short Story':'Polish Poem';
++    let send=q('sendPoemPolisherButton');
++    if(send)send.textContent=story?'Send to Short Story Polisher':'Send to Poem Polisher';
++    let note=q('poemVersionNote');
++    if(note)note.textContent=story
++        ?'The original story remains separate until you explicitly choose or save a version. Story Forge is not used or expanded by this tool.'
++        :'The original remains separate until you explicitly choose or save a version.';
++    let focus=q('poemPolishFocus');
++    if(focus){
++        let previous=focus.value||'';
++        let options=story
++            ?['Light cleanup','Balanced story polish','Pacing and scene flow','Dialogue and character voice','Imagery and atmosphere','Emotional impact','Clarity and word choice','Preserve voice with minimal changes','Deep polish — preserve story']
++            :['Light touch','Balanced polish','Bold rewrite','Rhythm and line breaks','Imagery and emotional impact','Word choice and clarity','Preserve voice with minimal changes'];
++        focus.innerHTML=options.map((item,index)=>`<option${index===1?' selected':''}>${esc(item)}</option>`).join('');
++        if(options.includes(previous))focus.value=previous;
++    }
++    if(!poemOriginalCaptured){
++        poetryStatus('poemPolishStatus','READY',story
++            ?'Send a short story here when you want a protected second version.'
++            :'Send a poem here when you want a second version.');
++    }
++}
++
+ function updateCreatorWritingType(){
+     let story=creatorWritingType()==='short_story';
++    let activeType=story?'short_story':'poem';
+     let typeLabel=story?'short story':'poem';
++    if(poemPolisherWritingType!==activeType){
++        resetPoemComparison();
++        poemPolisherWritingType=activeType;
++    }
+     let setText=(id,value)=>{let el=q(id);if(el)el.textContent=value};
+     setText('creatorCardTitle',story?'Short Story Creator':'Poem Creator');
+     q('creatorQuietHint').innerHTML=story
+@@ -9101,20 +9460,35 @@
+     setText('creatorOutputTitle',story?'Your Short Story':'Your Poem');
+     let output=q('poemResult');
+     if(output)output.placeholder=story?'Your short story will appear here and remain editable.':'Your poem will appear here and remain editable.';
+-    let poemOnlyIds=['capturePoemSelectionButton','poemRhymeActionButton','sendPoemPolisherButton','poemArchiveButton'];
+-    poemOnlyIds.forEach(id=>{let el=q(id);if(el)el.hidden=story});
++    ['capturePoemSelectionButton','poemRhymeActionButton','poemArchiveButton'].forEach(id=>{let el=q(id);if(el)el.hidden=story});
++    if(q('sendPoemPolisherButton'))q('sendPoemPolisherButton').hidden=false;
+     if(q('shortStoryFolderButton'))q('shortStoryFolderButton').hidden=!story;
+-    ['poemSelectionPanel','poemRhymeCoachPanel','poemPolisherPanel'].forEach(id=>{let el=q(id);if(el)el.hidden=story});
++    ['poemSelectionPanel','poemRhymeCoachPanel'].forEach(id=>{let el=q(id);if(el)el.hidden=story});
++    if(q('poemPolisherPanel'))q('poemPolisherPanel').hidden=false;
+     setText('creatorSafetyText',story
+-        ?'You keep control: edit the story directly, reject it, try another version, combine ideas, or save a new Markdown version. Nothing is silently overwritten.'
++        ?'You keep control: edit the story directly, reject it, try another version, combine ideas, polish it with protected story-preservation rules, or save a new Markdown version. Nothing is silently overwritten.'
+         :'You keep control: edit the draft directly, reject it, try another version, combine ideas, revise only selected lines, or save a new Markdown version. Nothing is silently overwritten.');
++    updatePoetryVoiceControls();
++    updatePolisherMode();
+     renderPoemGuidanceSummary();
+     renderPoemProvenance();
+     if(!poetryBusy)poetryStatus('poemStatus','READY',`Ready to create a ${typeLabel} with the active local model.`);
+ }
+ 
+ function updatePoetryVoiceControls(){
+-    let selected=q('poemVoice')?.value||'My natural voice';
++    let select=q('poemVoice');
++    let mode=creatorWritingType();
++    if(select){
++        Array.from(select.options).forEach(option=>{
++            let profile=POETRY_VOICE_PROFILE_UI[option.value]||null;
++            option.disabled=Boolean(profile?.modes&&!profile.modes.includes(mode));
++        });
++        let currentProfile=POETRY_VOICE_PROFILE_UI[select.value]||null;
++        if(currentProfile?.modes&&!currentProfile.modes.includes(mode)){
++            select.value='My natural voice';
++        }
++    }
++    let selected=select?.value||'My natural voice';
+     let profile=POETRY_VOICE_PROFILE_UI[selected]||null;
+     let box=q('voiceProfileControls');
+     if(!box)return;
+@@ -9126,8 +9500,8 @@
+     q('voiceProfileBadges').innerHTML=(profile.badges||[])
+         .map(item=>`<span class=voiceProfileBadge>${esc(item)}</span>`)
+         .join('');
+-    let modeNote=creatorWritingType()==='short_story'
+-        ?' For short stories, FOXAI translates these broad traits into original prose rather than verse.'
++    let modeNote=mode==='short_story'
++        ?' FOXAI applies these broad traits as original prose and keeps the submitted or prompted story facts primary.'
+         :'';
+     q('voiceProfileNotice').textContent=(profile.notice||'')+modeNote;
+ 
+@@ -9203,6 +9577,8 @@
+     let guidance=poetryGuidanceItems();
+     let content=(q('poemResult')?.value||'').trim();
+     let type=creatorTypeLabel();
++    let story=creatorWritingType()==='short_story';
++    let polisherName=story?'Short Story Polisher':'Poem Polisher';
+     let draft=`No ${type} created, pasted, or opened yet.`;
+     if(poemOpenedMode==='created'){
+         draft=`FOXAI-generated ${type} draft, fully editable by you. The suggested title is also editable.`;
+@@ -9220,9 +9596,9 @@
+         ?`${poemSavedVersionCount} new Markdown version${poemSavedVersionCount===1?'':'s'} saved in this session; no existing file overwritten.`
+         :'None in this session. Saves create new Markdown files.';
+     let captured=poemOriginalCaptured
+-        ?'A separate original is currently held in the Poem Polisher for comparison.'
+-        :'No original has been sent to the Poem Polisher yet.';
+-    let polisherRow=creatorWritingType()==='poem'?`<div class=poemProvenanceItem><b>Polisher original</b>${esc(captured)}</div>`:'';
++        ?`A separate original is currently held in the ${polisherName} for comparison.`
++        :`No original has been sent to the ${polisherName} yet.`;
++    let polisherRow=`<div class=poemProvenanceItem><b>Polisher original</b>${esc(captured)}</div>`;
+     box.innerHTML=`<div class=poemProvenanceTitle>What belongs to whom</div><div class=poemProvenanceGrid>
+         <div class=poemProvenanceItem><b>Your guidance</b>${guidance.length?esc(guidance.map(item=>item.label).join(', ')):'No creator guidance entered yet.'}</div>
+         <div class=poemProvenanceItem><b>Draft text</b>${esc(draft)}</div>
+@@ -9246,6 +9622,7 @@
+     renderPoemGuidanceSummary();
+     renderPoemProvenance();
+ }
++/* FOXAI_SHORT_STORY_POLISHER_V1_JS_END */
+ /* FOXAI_CREATOR_TYPE_1_2_JS_END */
+ /* FOXAI_POEM_CREATOR_GUIDED_V1_1_JS_END */
+ 
+@@ -9291,7 +9668,7 @@
+     ['keepOriginalPoemButton','usePolishedPoemButton','saveBothPoemButton'].forEach(id=>{let el=q(id);if(el)el.disabled=!compareReady});
+     ['poemWritingType','poemTheme','poemEmotion','poemImagery','poemSpeaker','poemMemory','poemAudience','poemVoice','poemVoiceStrength','poemForm','poemRhymePreference','poemRhythmPreference','poemLength','storyLengthMirror','poemCanon','poemOpening','poemPolisherInput','poemPolishFocus','poemSelectionFocus','poemSelectionNote'].forEach(id=>{let el=q(id);if(el)el.disabled=poetryBusy});
+     if(mode==='create'&&q('createPoemButton'))q('createPoemButton').textContent=busy?'Creating...':(creatorWritingType()==='short_story'?'Create Short Story':'Create Poem');
+-    if(mode==='polish'&&q('polishPoemButton'))q('polishPoemButton').textContent=busy?'Polishing...':'Polish Poem';
++    if(mode==='polish'&&q('polishPoemButton'))q('polishPoemButton').textContent=busy?'Polishing...':(creatorWritingType()==='short_story'?'Polish Short Story':'Polish Poem');
+ }
+ 
+ function resetPoemComparison(){
+@@ -9302,7 +9679,9 @@
+     if(q('poemPolisherInput'))q('poemPolisherInput').value='';
+     if(q('poemPolishedResult'))q('poemPolishedResult').value='';
+     ['keepOriginalPoemButton','usePolishedPoemButton','saveBothPoemButton'].forEach(id=>{let el=q(id);if(el)el.disabled=true});
+-    poetryStatus('poemPolishStatus','READY','Send a poem here when you want a second version.');
++    poetryStatus('poemPolishStatus','READY',creatorWritingType()==='short_story'
++        ?'Send a short story here when you want a protected second version.'
++        :'Send a poem here when you want a second version.');
+     renderPoemProvenance();
+ }
+ 
+@@ -9335,10 +9714,12 @@
+     }
+ }
+ 
+-async function savePoemVersion(poem,versionKind='draft',versionGroup=''){
++async function savePoemVersion(poem,versionKind='draft',versionGroup='',sourceMode='creator',polishFocus=''){
+     let title=resolvedPoemTitle(poem);
+     let settings=poetryPayload();
+-    return await api('/api/writer/poetry/save',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({title,poem,writing_type:settings.writing_type,settings,version_kind:versionKind,version_group:versionGroup})});
++    settings.source_mode=sourceMode;
++    settings.polish_focus=polishFocus;
++    return await api('/api/writer/poetry/save',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({title,poem,writing_type:settings.writing_type,settings,version_kind:versionKind,version_group:versionGroup,source_mode:sourceMode,polish_focus:polishFocus})});
+ }
+ 
+ async function savePoemDraft(){
+@@ -9349,7 +9730,13 @@
+     poetryStatus('poemStatus','SAVING',`Creating a new Markdown ${typeLabel} draft. Existing files will not be overwritten.`);
+     setPoetryBusy(true);
+     try{
+-        let d=await savePoemVersion(content,'draft','');
++        let fromPolisher=Boolean(poemOriginalCaptured)&&(
++            content===String(poemOriginalVersion||'').trim()
++            ||content===String(poemPolishedVersion||'').trim()
++        );
++        let sourceMode=fromPolisher?'polisher':'creator';
++        let polishFocus=fromPolisher?(q('poemPolishFocus')?.value||''):'';
++        let d=await savePoemVersion(content,'draft','',sourceMode,polishFocus);
+         if(d?.ok){
+             poemSavedVersionCount+=1;
+             renderPoemProvenance();
+@@ -9704,43 +10091,62 @@
+ }
+ 
+ function sendPoemToPolisher(){
+-    if(creatorWritingType()==='short_story'){toast('Poem Polisher is for poems. Story polishing remains in Story Forge.');return}
+     if(poetryBusy)return;
+-    let poem=(q('poemResult')?.value||'').trim();
+-    if(!poem){toast('Create or paste a poem first.');return}
+-    poemOriginalVersion=poem;
++    let story=creatorWritingType()==='short_story';
++    let typeLabel=story?'short story':'poem';
++    let work=(q('poemResult')?.value||'').trim();
++    if(!work){toast(`Create or paste a ${typeLabel} first.`);return}
++    poemOriginalVersion=work;
+     poemOriginalCaptured=true;
+-    poemOriginalTitle=resolvedPoemTitle(poem);
++    poemOriginalTitle=resolvedPoemTitle(work);
+     poemPolishedVersion='';
+-    q('poemPolisherInput').value=poem;
++    q('poemPolisherInput').value=work;
+     q('poemPolishedResult').value='';
+     ['keepOriginalPoemButton','usePolishedPoemButton','saveBothPoemButton'].forEach(id=>{let el=q(id);if(el)el.disabled=true});
+     renderPoemProvenance();
+-    poetryStatus('poemPolishStatus','READY','Original captured. Choose a focus and polish when ready.');
++    poetryStatus('poemPolishStatus','READY',story
++        ?'Original story captured. Choose a focus; plot, characters, point of view, canon, and intended ending are protected.'
++        :'Original captured. Choose a focus and polish when ready.');
+     q('poemPolisherPanel').open=true;
+     q('poemPolisherPanel').scrollIntoView({behavior:'smooth',block:'start'});
+ }
+ 
+ async function polishPoem(){
+     if(poetryBusy)return;
+-    let poem=(q('poemPolisherInput')?.value||'').trim();
+-    if(!poem){toast('Paste or send a poem first.');return}
+-    poemOriginalVersion=poem;
++    let story=creatorWritingType()==='short_story';
++    let typeLabel=story?'short story':'poem';
++    let work=(q('poemPolisherInput')?.value||'').trim();
++    if(!work){toast(`Paste or send a ${typeLabel} first.`);return}
++    poemOriginalVersion=work;
+     poemOriginalCaptured=true;
+-    poemOriginalTitle=resolvedPoemTitle(poem);
++    poemOriginalTitle=resolvedPoemTitle(work);
+     poemPolishedVersion='';
+     q('poemPolishedResult').value='';
+     renderPoemProvenance();
+-    poetryStatus('poemPolishStatus','POLISHING','The model is revising while preserving the writer voice...');
++    poetryStatus('poemPolishStatus','POLISHING',story
++        ?'The model is polishing prose while protecting the story you actually wrote...'
++        :'The model is revising while preserving the writer voice...');
+     setPoetryBusy(true,'polish');
+     try{
+         let settings=poetryPayload();
+-        let d=await api('/api/writer/poetry/polish',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({poem,focus:q('poemPolishFocus')?.value||'Balanced polish',voice:settings.voice,voice_strength:settings.voice_strength})});
++        let d=await api('/api/writer/poetry/polish',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
++            poem:work,
++            writing_type:settings.writing_type,
++            focus:q('poemPolishFocus')?.value||(story?'Balanced story polish':'Balanced polish'),
++            voice:settings.voice,
++            voice_strength:settings.voice_strength,
++            speaker:settings.speaker,
++            personal_memory:settings.personal_memory,
++            audience:settings.audience,
++            canon:settings.canon,
++            opening_line:settings.opening_line
++        })});
+         if(!d?.ok){poetryStatus('poemPolishStatus','ERROR',d?.message||'Polish failed.');return}
+         poemPolishedVersion=(d.poem||'').trim();
+         q('poemPolishedResult').value=poemPolishedVersion;
+-        let profileNote=d.voice_profile?` ${d.voice_profile} was used at ${d.voice_strength||'selected strength'} strength; protected source poems were not changed.`:'';
+-        poetryStatus('poemPolishStatus','READY TO COMPARE',`Original and polished versions are both available. Nothing has been replaced.${profileNote}`);
++        let profileNote=d.voice_profile?` ${d.voice_profile} was used at ${d.voice_strength||'selected strength'} strength; protected source material was not changed or copied.`:'';
++        let protectionNote=story?' Plot, characters, point of view, tense, canon, central meaning, and intended ending were instructed as protected.':'';
++        poetryStatus('poemPolishStatus','READY TO COMPARE',`Original and polished versions are both available. Nothing has been replaced.${protectionNote}${profileNote}`);
+     }finally{
+         setPoetryBusy(false,'polish');
+     }
+@@ -9748,27 +10154,35 @@
+ 
+ function keepOriginalPoem(){
+     if(poetryBusy||!poemOriginalVersion)return;
++    let story=creatorWritingType()==='short_story';
+     q('poemResult').value=poemOriginalVersion;
+     if(poemOriginalTitle)q('poemTitle').value=poemOriginalTitle;
+-    poetryStatus('poemStatus','ORIGINAL KEPT','The original remains the active poem. The polished version is still available below.');
++    poetryStatus('poemStatus','ORIGINAL KEPT',story
++        ?'The original remains the active short story. The polished version is still available below.'
++        :'The original remains the active poem. The polished version is still available below.');
+     q('poemResult').scrollIntoView({behavior:'smooth',block:'center'});
+ }
+ 
+ function usePolishedPoem(){
+     if(poetryBusy||!poemPolishedVersion){toast('No finished polished version is ready.');return}
++    let story=creatorWritingType()==='short_story';
+     q('poemResult').value=poemPolishedVersion;
+-    poetryStatus('poemStatus','POLISHED SELECTED','The polished version is now active. The original remains available in the Polisher until you create a new poem.');
++    poetryStatus('poemStatus','POLISHED SELECTED',story
++        ?'The polished story is now active. The original remains available in the Short Story Polisher until you start another comparison.'
++        :'The polished version is now active. The original remains available in the Polisher until you create a new poem.');
+     q('poemResult').scrollIntoView({behavior:'smooth',block:'center'});
+ }
+ 
+ async function saveBothPoemVersions(){
+     if(poetryBusy||!poemOriginalVersion||!poemPolishedVersion){toast('Finish a polish before saving both versions.');return}
+-    let group=`poetry-${Date.now()}`;
+-    poetryStatus('poemPolishStatus','SAVING BOTH','Saving separate original and polished Markdown files...');
++    let story=creatorWritingType()==='short_story';
++    let group=`${story?'short-story':'poetry'}-${Date.now()}`;
++    let focus=q('poemPolishFocus')?.value||'';
++    poetryStatus('poemPolishStatus','SAVING BOTH',`Saving separate original and polished ${story?'short-story':'poetry'} Markdown files...`);
+     setPoetryBusy(true);
+     try{
+-        let original=await savePoemVersion(poemOriginalVersion,'original',group);
+-        let polished=await savePoemVersion(poemPolishedVersion,'polished',group);
++        let original=await savePoemVersion(poemOriginalVersion,'original',group,'polisher',focus);
++        let polished=await savePoemVersion(poemPolishedVersion,'polished',group,'polisher',focus);
+         if(original?.ok&&polished?.ok){
+             poemSavedVersionCount+=2;
+             renderPoemProvenance();
+@@ -9801,6 +10215,19 @@
+ }
+ function openPoemPolisherFromWriterHome(){
+     setPoetryStudioField('poemWritingType','poem');
++    updateCreatorWritingType();
++    go('poetrystudio');
++    setTimeout(()=>{
++        let panel=q('poemPolisherPanel');
++        if(panel){
++            panel.open=true;
++            panel.scrollIntoView({behavior:'smooth',block:'start'});
++        }
++        q('poemPolisherInput')?.focus();
++    },80);
++}
++function openShortStoryPolisherFromWriterHome(){
++    setPoetryStudioField('poemWritingType','short_story');
+     updateCreatorWritingType();
+     go('poetrystudio');
+     setTimeout(()=>{
+@@ -24120,9 +24547,12 @@
+         )
+ 
+     voice_profile_id=_writer_voice_profile_id(voice)
++    if voice_profile_id=='eric_short_fiction' and not is_story:
++        voice_profile_id=''
+     voice_profile_prompt=build_writer_voice_prompt(
+         voice_profile_id,
+         voice_strength,
++        writing_type,
+     ) if voice_profile_id else ''
+ 
+     if is_story:
+@@ -24303,6 +24733,7 @@
+             if voice_profile_id else []
+         ),
+         'source_poems_modified':False,
++        'source_stories_modified':False,
+         'new_work_not_copied':bool(voice_profile_id),
+     })
+     return result
+@@ -24310,50 +24741,172 @@
+ # FOXAI_POEM_CREATOR_GUIDED_V1_1_BACKEND_END
+ 
+ 
++# FOXAI_SHORT_STORY_POLISHER_V1_BACKEND_START
+ def kayock_writer_poetry_polish(d=None):
+     d=d or {}
+-    poem=_writer_text(d.get('poem'),24000)
+-    focus=_writer_text(d.get('focus') or 'Balanced polish',160)
++    writing_type=_writer_text(d.get('writing_type') or 'poem',40).strip().casefold()
++    if writing_type not in {'poem','short_story'}:
++        writing_type='poem'
++    is_story=writing_type=='short_story'
++    work=_writer_text(d.get('poem'),48000 if is_story else 24000)
++    focus=_writer_text(
++        d.get('focus') or ('Balanced story polish' if is_story else 'Balanced polish'),
++        160,
++    )
+     voice=_writer_text(d.get('voice') or 'My natural voice',160)
+-    voice_strength=_writer_text(d.get('voice_strength') or 'Recognizably Eric',80)
+-    if not poem:
+-        return {'ok':False,'message':'There is no poem to polish.'}
++    voice_strength=_writer_text(
++        d.get('voice_strength') or (
++            'Recognizably Eric — Prose'
++            if voice.strip().casefold()=='eric — short fiction'.casefold() else
++            'Recognizably Eric'
++        ),
++        80,
++    )
++    speaker=_writer_text(d.get('speaker'),500)
++    personal_memory=_writer_text(d.get('personal_memory'),4000)
++    audience=_writer_text(d.get('audience'),500)
++    canon=_writer_text(d.get('canon'),6000)
++    opening=_writer_text(d.get('opening_line'),1000)
++    if not work:
++        return {
++            'ok':False,
++            'message':'There is no short story to polish.' if is_story else 'There is no poem to polish.',
++        }
++
+     focus_key=focus.strip().casefold()
+-    if focus_key=='light touch':
+-        change_rule='Make only one to three small edits unless a line is clearly broken.'
+-        temperature=0.30
+-    elif focus_key=='bold rewrite':
+-        change_rule='You may substantially recast weak lines, imagery, rhythm, and structure while preserving the poem\'s core meaning and recognizable voice.'
+-        temperature=0.62
+-    elif focus_key=='preserve voice with minimal changes':
+-        change_rule='Change as little as possible. Preserve unusual diction and rough edges that feel intentional.'
+-        temperature=0.28
++    if is_story:
++        if focus_key=='light cleanup':
++            change_rule=(
++                'Make only small corrections to clarity, grammar, paragraphing, and awkward repetition. '
++                'Do not recast scenes or alter the ending.'
++            )
++            temperature=0.24
++        elif focus_key=='pacing and scene flow':
++            change_rule=(
++                'Improve pacing, transitions, paragraph movement, scene emphasis, and sentence variety. '
++                'Do not add, remove, reorder, or replace story events.'
++            )
++            temperature=0.38
++        elif focus_key=='dialogue and character voice':
++            change_rule=(
++                'Improve dialogue clarity, rhythm, attribution, and character distinction without changing '
++                'what characters decide, know, reveal, or mean.'
++            )
++            temperature=0.38
++        elif focus_key=='imagery and atmosphere':
++            change_rule=(
++                'Strengthen concrete imagery, sensory detail, and atmosphere only where the existing story '
++                'supports it. Do not invent new setting facts or lore.'
++            )
++            temperature=0.42
++        elif focus_key=='emotional impact':
++            change_rule=(
++                'Strengthen emotional clarity, pressure, and consequence while preserving restraint, events, '
++                'relationships, and the writer\'s intended meaning.'
++            )
++            temperature=0.40
++        elif focus_key=='clarity and word choice':
++            change_rule=(
++                'Improve clarity, precision, paragraphing, and word choice while preserving distinctive '
++                'phrasing, spoken rhythm, and intentional rough edges.'
++            )
++            temperature=0.32
++        elif focus_key=='preserve voice with minimal changes':
++            change_rule=(
++                'Change as little as possible. Correct only clear obstacles to reading and preserve unusual '
++                'diction, syntax, humor, intensity, and rough edges that carry the writer\'s identity.'
++            )
++            temperature=0.22
++        elif focus_key=='deep polish — preserve story':
++            change_rule=(
++                'Perform a thorough prose polish across pacing, flow, dialogue, imagery, atmosphere, emotional '
++                'impact, clarity, and word choice, but do not alter any protected story fact, event, character, '
++                'point of view, tense, timeline, canon element, central meaning, or intended ending.'
++            )
++            temperature=0.48
++        else:
++            change_rule=(
++                'Make only changes that clearly improve the selected story-polish focus. Preserve strong '
++                'sentences, distinctive voice, and the complete identity of the submitted story.'
++            )
++            temperature=0.35
+     else:
+-        change_rule='Make only changes that clearly improve the selected focus; preserve strong lines and the poem\'s overall identity.'
+-        temperature=0.45
++        if focus_key=='light touch':
++            change_rule='Make only one to three small edits unless a line is clearly broken.'
++            temperature=0.30
++        elif focus_key=='bold rewrite':
++            change_rule='You may substantially recast weak lines, imagery, rhythm, and structure while preserving the poem\'s core meaning and recognizable voice.'
++            temperature=0.62
++        elif focus_key=='preserve voice with minimal changes':
++            change_rule='Change as little as possible. Preserve unusual diction and rough edges that feel intentional.'
++            temperature=0.28
++        else:
++            change_rule='Make only changes that clearly improve the selected focus; preserve strong lines and the poem\'s overall identity.'
++            temperature=0.45
++
+     voice_profile_id=_writer_voice_profile_id(voice)
++    if voice_profile_id=='eric_short_fiction' and not is_story:
++        voice_profile_id=''
+     voice_profile_prompt=build_writer_voice_prompt(
+         voice_profile_id,
+         voice_strength,
++        writing_type,
+     ) if voice_profile_id else ''
+-    system=(
+-        'You are FOXAI Poem Polisher. Return only the revised poem, with no critique or commentary. '
+-        'Preserve the writer\'s identity, meaning, strongest images, emotional intention, and unusual phrasing. '
+-        'Do not turn the poem into generic polished verse. '
+-        f'{change_rule} '
+-        'Do not imitate a living poet.'
+-    )
++
++    if is_story:
++        system=(
++            'You are FOXAI Short Story Polisher. Return only the complete revised short story in prose paragraphs, '
++            'with no title, critique, outline, labels, explanation, or commentary. The submitted story is the primary '
++            'authority. Preserve its plot, characters, names, relationships, point of view, tense, setting, timeline, '
++            'canon, central meaning, intended ending, and distinctive writer voice. Do not silently add a new character, '
++            'scene, event, subplot, relationship, lore fact, biography, twist, moral, epilogue, or sequel hook. Do not '
++            'remove an existing event merely to make the story smoother. Do not convert the work into poetry, a synopsis, '
++            'an outline, a chapter plan, or a Story Forge expansion. Improve only prose craft: pacing, scene flow, dialogue, '
++            'character voice, imagery, atmosphere, emotional impact, clarity, paragraphing, and word choice. Preserve '
++            'unconventional phrasing when it carries identity or intentional spoken rhythm. '
++            f'{change_rule} Do not imitate a living author.'
++        )
++        protected_guidance='\n'.join([
++            f'Narrator or character voice guidance: {speaker or "none supplied"}',
++            f'Personal memory or truth that remains authoritative: {personal_memory or "none supplied"}',
++            f'Intended audience: {audience or "open"}',
++            f'Canon or established project details that must remain true: {canon or "none supplied"}',
++            f'Opening line guidance: {opening or "none supplied"}',
++        ])
++        user=(
++            f'Polish focus: {focus}\n\n'
++            f'PROTECTED GUIDANCE:\n{protected_guidance}\n\n'
++            f'SUBMITTED SHORT STORY — PRIMARY AUTHORITY:\n{work}'
++        )
++        source_words=max(1,len(work.split()))
++        max_tokens=min(4000,max(1200,int(source_words*1.7)+450))
++    else:
++        system=(
++            'You are FOXAI Poem Polisher. Return only the revised poem, with no critique or commentary. '
++            'Preserve the writer\'s identity, meaning, strongest images, emotional intention, and unusual phrasing. '
++            'Do not turn the poem into generic polished verse. '
++            f'{change_rule} '
++            'Do not imitate a living poet.'
++        )
++        user=f'Polish focus: {focus}\n\nPOEM:\n{work}'
++        max_tokens=1700
++
+     if voice_profile_prompt:
+         system+='\n\n'+voice_profile_prompt
+         system+=(
+-            '\n\nFor polishing, the submitted poem remains the primary authority. '
+-            'The profile may strengthen compatible qualities but must not replace '
+-            'the poem with material from a source poem.'
++            '\n\nFor polishing, the submitted work remains the primary authority. '
++            'The profile may strengthen compatible craft qualities but must not replace '
++            'the work with source material, imported lore, a different plot, or a different ending.'
+         )
+-    user=f'Polish focus: {focus}\n\nPOEM:\n{poem}'
+-    result=_poetry_chat([{'role':'system','content':system},{'role':'user','content':user}],max_tokens=1700,temperature=temperature)
++
++    result=_poetry_chat(
++        [{'role':'system','content':system},{'role':'user','content':user}],
++        max_tokens=max_tokens,
++        temperature=temperature,
++    )
+     if result.get('ok'):
+-        result['message']='Polished version created.'
++        result['message']='Polished short story created.' if is_story else 'Polished version created.'
++        result['writing_type']=writing_type
+         result['focus']=focus
+         result['voice_profile']=_writer_voice_profile_name(voice_profile_id) if voice_profile_id else ''
+         result['voice_strength']=voice_strength if voice_profile_id else ''
+@@ -24362,8 +24915,13 @@
+             if voice_profile_id else []
+         )
+         result['source_poems_modified']=False
++        result['source_stories_modified']=False
+         result['new_work_not_copied']=bool(voice_profile_id)
++        result['story_facts_protected']=bool(is_story)
++        result['story_forge_used']=False
++        result['suggestions_applied_automatically']=False
+     return result
++# FOXAI_SHORT_STORY_POLISHER_V1_BACKEND_END
+ 
+ 
+ def _poetry_nonempty_lines(value):
+@@ -24720,6 +25278,7 @@
+ 
+ # FOXAI_POEM_CREATOR_GUIDED_V1_1_STORAGE_START
+ # FOXAI_CREATOR_TYPE_1_2_STORAGE_START
++# FOXAI_SHORT_STORY_POLISHER_V1_STORAGE_START
+ def kayock_writer_poetry_save(d=None):
+     d=d or {}
+     content=_writer_text(d.get('poem'),48000)
+@@ -24737,6 +25296,16 @@
+         40,
+     ).strip().casefold()
+     version_group=_writer_text(d.get('version_group'),120)
++    source_mode=_writer_text(
++        d.get('source_mode') or settings.get('source_mode') or 'creator',
++        40,
++    ).strip().casefold()
++    if source_mode not in {'creator','polisher'}:
++        source_mode='creator'
++    polish_focus=_writer_text(
++        d.get('polish_focus') or settings.get('polish_focus'),
++        160,
++    )
+     if version_kind not in {'draft','original','polished'}:
+         version_kind='draft'
+     if not content:
+@@ -24804,7 +25373,11 @@
+     }
+ 
+     source_label=(
+-        'Kayock Writer Poetry Studio — Short Story Creator'
++        (
++            'Kayock Writer Poetry Studio — Short Story Polisher'
++            if source_mode=='polisher' else
++            'Kayock Writer Poetry Studio — Short Story Creator'
++        )
+         if is_story else
+         'Kayock Writer Poetry Studio'
+     )
+@@ -24815,6 +25388,8 @@
+         f'copyright: {json.dumps(prompt_fields["copyright"],ensure_ascii=False)}',
+         f'created: {json.dumps(now())}',
+         f'source: {json.dumps(source_label,ensure_ascii=False)}',
++        f'source_mode: {json.dumps(source_mode)}',
++        f'polish_focus: {json.dumps(polish_focus,ensure_ascii=False)}',
+         f'content_type: {json.dumps(writing_type)}',
+         (
+             f'model: {json.dumps(Path(chat_model).name if chat_model else "",ensure_ascii=False)}'
+@@ -24882,10 +25457,14 @@
+         'writing_type':writing_type,
+         'version_kind':version_kind,
+         'version_group':version_group,
++        'source_mode':source_mode,
++        'source_label':source_label,
++        'polish_focus':polish_focus,
+         'overwritten':False,
+         'new_file':True,
+         'creator_guidance_preserved':True,
+     }
++# FOXAI_SHORT_STORY_POLISHER_V1_STORAGE_END
+ # FOXAI_CREATOR_TYPE_1_2_STORAGE_END
+ # FOXAI_POEM_CREATOR_GUIDED_V1_1_STORAGE_END
+ 

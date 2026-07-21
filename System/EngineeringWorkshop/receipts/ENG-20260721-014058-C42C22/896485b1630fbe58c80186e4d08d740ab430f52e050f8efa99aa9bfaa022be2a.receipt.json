@@ -1,0 +1,140 @@
+{
+  "authorized": true,
+  "changes": [
+    {
+      "action": "write_file",
+      "after_sha256": "cd10a9874a9f0c50dc14968f46c7d05867c72ffa51192b045e2d34b2e577dec6",
+      "after_size": 2318322,
+      "before_sha256": "b7227480da11ff6762c65a809cf1408df7e88f0a3830573c08898c213a8b01e7",
+      "before_size": 2308641,
+      "relative_path": "core/foxai_web.py"
+    }
+  ],
+  "created_at": "2026-07-21T01:46:55.902829Z",
+  "evidence_is_tool_generated": true,
+  "failure": null,
+  "mission_id": "ENG-20260721-014058-C42C22",
+  "mission_title": "Short Story Polisher 1.1 \u2014 Substantive Polish and Original Deduplication Repair",
+  "mission_type": "implement",
+  "no_deletions": true,
+  "no_renames": true,
+  "plan_path": "Z:\\FOXAI\\SHORT_STORY_POLISHER_1_1\\PLAN.json",
+  "plan_sha256": "896485b1630fbe58c80186e4d08d740ab430f52e050f8efa99aa9bfaa022be2a",
+  "project_root": "Z:\\FOXAI",
+  "result": "applied_verified",
+  "rolled_back": false,
+  "schema": "foxai.engineering.receipt.v1",
+  "snapshot_manifest": "Z:\\FOXAI\\System\\EngineeringWorkshop\\snapshots\\ENG-20260721-014058-C42C22\\snapshot_20260721T014644214563Z.manifest.json",
+  "snapshot_path": "Z:\\FOXAI\\System\\EngineeringWorkshop\\snapshots\\ENG-20260721-014058-C42C22\\snapshot_20260721T014644214563Z.zip",
+  "snapshot_sha256": "8b916674f5677a6ac962ecfc6bfa4a237092f082270bf2a2632771096003aefe",
+  "validations": [
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nimport hashlib\np=Path(r'Z:\\FOXAI\\core\\foxai_web.py')\nactual=hashlib.sha256(p.read_bytes()).hexdigest()\nexpected='cd10a9874a9f0c50dc14968f46c7d05867c72ffa51192b045e2d34b2e577dec6'\nassert actual==expected, f'installed hash mismatch: {actual}'\nprint('SHORT_STORY_POLISHER_1_1_EXACT_HASH_OK')\n"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-21T01:46:44.590090Z",
+      "name": "Verify exact installed payload SHA-256",
+      "returncode": 0,
+      "started_at": "2026-07-21T01:46:44.308295Z",
+      "stderr": "",
+      "stdout": "SHORT_STORY_POLISHER_1_1_EXACT_HASH_OK\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\np=Path(r'Z:\\FOXAI\\core\\foxai_web.py')\ns=p.read_text(encoding='utf-8')\ncompile(s,str(p),'exec')\nrequired=(\n    'FOXAI_SHORT_STORY_POLISHER_V1_1_BACKEND_START',\n    'FOXAI_SHORT_STORY_POLISHER_V1_1_BACKEND_END',\n    'FOXAI_SHORT_STORY_POLISHER_V1_1_STORAGE_START',\n    'FOXAI_SHORT_STORY_POLISHER_V1_1_STORAGE_END',\n    'FOXAI_SHORT_STORY_POLISHER_V1_1_JS_START',\n    'FOXAI_SHORT_STORY_POLISHER_V1_1_JS_END',\n    'story_change_metrics',\n    'story_change_is_substantive',\n    '_short_story_find_identical_saved',\n    'content_sha256:',\n    'reused canonical original',\n    'No polished version was accepted or made saveable',\n)\nmissing=[item for item in required if item not in s]\nassert not missing, 'missing 1.1 repair markers: '+', '.join(missing)\nprint('SHORT_STORY_POLISHER_1_1_PYTHON_AND_MARKERS_OK')\n"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-21T01:46:47.177071Z",
+      "name": "Verify Python syntax and Short Story Polisher 1.1 markers",
+      "returncode": 0,
+      "started_at": "2026-07-21T01:46:44.590555Z",
+      "stderr": "",
+      "stdout": "SHORT_STORY_POLISHER_1_1_PYTHON_AND_MARKERS_OK\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nimport ast, os, re, shutil, subprocess, sys, tempfile\np=Path(r'Z:\\FOXAI\\core\\foxai_web.py')\nsource=p.read_text(encoding='utf-8')\ntree=ast.parse(source)\nhtml_value=None\nfor item in tree.body:\n    if isinstance(item,(ast.Assign,ast.AnnAssign)):\n        targets=item.targets if isinstance(item,ast.Assign) else [item.target]\n        if any(isinstance(t,ast.Name) and t.id=='HTML' for t in targets):\n            html_value=ast.literal_eval(item.value)\n            break\nassert isinstance(html_value,str), 'HTML constant not found'\nblocks=re.findall(r'<script(?:\\s[^>]*)?>(.*?)</script>',html_value,flags=re.I|re.S)\nassert blocks, 'No embedded JavaScript blocks found'\nnode=shutil.which('node') or shutil.which('node.exe')\nif not node:\n    candidate=Path(os.environ.get('ProgramFiles',r'C:\\Program Files'))/'nodejs'/'node.exe'\n    if candidate.is_file():\n        node=str(candidate)\nassert node, 'Node.js was not found for embedded JavaScript verification'\ntemp_path=None\ntry:\n    with tempfile.NamedTemporaryFile('w',suffix='.js',encoding='utf-8',delete=False) as handle:\n        handle.write('\\n;\\n'.join(blocks))\n        temp_path=handle.name\n    result=subprocess.run([str(node),'--check',temp_path],capture_output=True,text=True,shell=False)\n    if result.stdout:\n        print(result.stdout)\n    if result.stderr:\n        print(result.stderr,file=sys.stderr)\n    assert result.returncode==0, f'Node syntax check failed with return code {result.returncode}'\nfinally:\n    if temp_path:\n        try:\n            Path(temp_path).unlink()\n        except FileNotFoundError:\n            pass\nprint('SHORT_STORY_POLISHER_1_1_EMBEDDED_JAVASCRIPT_OK')\n"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-21T01:46:50.067860Z",
+      "name": "Verify embedded interface JavaScript syntax with Node",
+      "returncode": 0,
+      "started_at": "2026-07-21T01:46:47.177381Z",
+      "stderr": "",
+      "stdout": "SHORT_STORY_POLISHER_1_1_EMBEDDED_JAVASCRIPT_OK\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nimport ast, re\np=Path(r'Z:\\FOXAI\\core\\foxai_web.py')\nsource=p.read_text(encoding='utf-8')\ntree=ast.parse(source)\nnode=next(n for n in tree.body if isinstance(n,ast.FunctionDef) and n.name=='kayock_writer_poetry_polish')\nns={\n    're':re,\n    '_writer_text':lambda value,limit: str(value or '')[:limit],\n    '_writer_voice_profile_id':lambda value:'',\n    'build_writer_voice_prompt':lambda *args:'',\n    '_writer_voice_profile_name':lambda value:'',\n    'get_writer_voice_profile':lambda value:{},\n}\nexec(compile(ast.Module(body=[node],type_ignores=[]),str(p),'exec'),ns)\noriginal=(\n    'The programmer watched the city from a narrow window. '\n    'He built the machine to restore balance. '\n    'He feared what it might become, but he pressed the final key anyway.'\n)\nresponses=iter([\n    {'ok':True,'poem':original},\n    {'ok':True,'poem':(\n        'The programmer watched the sleepless city through a narrow window. '\n        'He built the machine to restore a measure of balance. '\n        'Though he feared what it might become, he pressed the final key anyway.'\n    )},\n])\ncalls=[]\ndef chat(*args,**kwargs):\n    calls.append(1)\n    return next(responses)\nns['_poetry_chat']=chat\nresult=ns['kayock_writer_poetry_polish']({\n    'writing_type':'short_story',\n    'poem':original,\n    'focus':'Balanced story polish',\n    'voice':'My natural voice',\n})\nassert result.get('ok')\nassert result.get('polish_attempts')==2\nassert result.get('substantive_change') is True\nassert result.get('identical_output_rejected') is True\nassert int((result.get('change_metrics') or {}).get('changed_words') or 0)>=3\nassert len(calls)==2\nresponses=iter([\n    {'ok':True,'poem':original},\n    {'ok':True,'poem':original},\n])\ncalls.clear()\nns['_poetry_chat']=chat\nresult=ns['kayock_writer_poetry_polish']({\n    'writing_type':'short_story',\n    'poem':original,\n    'focus':'Deep polish \u2014 preserve story',\n    'voice':'My natural voice',\n})\nassert not result.get('ok')\nassert result.get('unchanged_output') is True\nassert result.get('polish_attempts')==2\nassert result.get('story_facts_protected') is True\nassert result.get('story_forge_used') is False\nassert len(calls)==2\nprint('SHORT_STORY_POLISHER_1_1_SUBSTANTIVE_RETRY_AND_REJECTION_OK')\n"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-21T01:46:52.930226Z",
+      "name": "Verify substantive-polish retry and unchanged-output rejection",
+      "returncode": 0,
+      "started_at": "2026-07-21T01:46:50.068174Z",
+      "stderr": "",
+      "stdout": "SHORT_STORY_POLISHER_1_1_SUBSTANTIVE_RETRY_AND_REJECTION_OK\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nfrom datetime import datetime\nimport ast, hashlib, json, re, tempfile\np=Path(r'Z:\\FOXAI\\core\\foxai_web.py')\nsource=p.read_text(encoding='utf-8')\ntree=ast.parse(source)\nwanted={\n    '_short_story_saved_body',\n    '_short_story_saved_meta',\n    '_short_story_find_identical_saved',\n    'kayock_writer_poetry_save',\n}\nnodes=[n for n in tree.body if isinstance(n,ast.FunctionDef) and n.name in wanted]\nassert {n.name for n in nodes}==wanted\nwith tempfile.TemporaryDirectory() as temp_dir:\n    root=Path(temp_dir)\n    folder=root/'Drafts'\n    ns={\n        'hashlib':hashlib,\n        'json':json,\n        're':re,\n        'Path':Path,\n        'datetime':datetime,\n        'ROOT':root,\n        'FOLDERS':{'kayock_writer_short_story_drafts':folder},\n        'chat_model':None,\n        '_writer_text':lambda value,limit: str(value or '')[:limit],\n        '_writer_voice_profile_id':lambda value:'',\n        'now':lambda:'2026-07-21T00:00:00',\n    }\n    exec(compile(ast.Module(body=nodes,type_ignores=[]),str(p),'exec'),ns)\n    base={\n        'writing_type':'short_story',\n        'title':'Validation Story',\n        'source_mode':'polisher',\n        'settings':{\n            'writing_type':'short_story',\n            'author':'Eric Z. Fox',\n            'copyright':'Copyright \u00a9 2026 by Eric Z. Fox',\n        },\n    }\n    original_1=ns['kayock_writer_poetry_save']({\n        **base,\n        'poem':'Canonical original body.',\n        'version_kind':'original',\n        'version_group':'group-one',\n    })\n    original_2=ns['kayock_writer_poetry_save']({\n        **base,\n        'poem':'Canonical original body.',\n        'version_kind':'original',\n        'version_group':'group-two',\n    })\n    polished_1=ns['kayock_writer_poetry_save']({\n        **base,\n        'poem':'Polished body with clearer movement.',\n        'version_kind':'polished',\n        'version_group':original_2.get('version_group'),\n    })\n    polished_2=ns['kayock_writer_poetry_save']({\n        **base,\n        'poem':'Polished body with clearer movement.',\n        'version_kind':'polished',\n        'version_group':'group-three',\n    })\n    assert original_1.get('new_file') is True\n    assert original_2.get('reused_existing') is True\n    assert original_2.get('version_group')=='group-one'\n    assert polished_1.get('new_file') is True\n    assert polished_2.get('reused_existing') is True\n    files=list(folder.glob('*.md'))\n    assert len(files)==2, f'expected two files, found {len(files)}'\n    assert all('content_sha256:' in item.read_text(encoding='utf-8') for item in files)\nprint('SHORT_STORY_POLISHER_1_1_CANONICAL_ORIGINAL_AND_REVISION_DEDUP_OK')\n"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-21T01:46:55.846016Z",
+      "name": "Verify canonical-original and polished-revision deduplication",
+      "returncode": 0,
+      "started_at": "2026-07-21T01:46:52.930539Z",
+      "stderr": "",
+      "stdout": "SHORT_STORY_POLISHER_1_1_CANONICAL_ORIGINAL_AND_REVISION_DEDUP_OK\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\np=Path(r'Z:\\FOXAI\\core\\foxai_web.py')\ns=p.read_text(encoding='utf-8')\nrequired=(\n    'FOXAI_CREATOR_TYPE_1_2_HTML_START',\n    'FOXAI_CREATOR_TYPE_1_2_JS_START',\n    'FOXAI_CREATOR_TYPE_1_2_BACKEND_START',\n    'FOXAI_CREATOR_TYPE_1_2_STORAGE_START',\n    'FOXAI_SHORT_STORY_POLISHER_V1_PROFILE_START',\n    'FOXAI_SHORT_STORY_POLISHER_V1_HTML_START',\n    'FOXAI_SHORT_STORY_POLISHER_V1_JS_START',\n    'FOXAI_SHORT_STORY_POLISHER_V1_BACKEND_START',\n    'FOXAI_SHORT_STORY_POLISHER_V1_STORAGE_START',\n    'ERIC_SHORT_FICTION_PROFILE',\n    'ERIC_POET_NARRATOR_PROFILE_V1_START',\n    'Eric \u2014 Short Fiction',\n    'Eric \u2014 Poet/Narrator',\n    'Robin Hood \u2014 The Merry Outlaw',\n    'Zorro \u2014 The Masked Fox',\n    'Dracula \u2014 The Ancient Count',\n    'Sherlock Holmes \u2014 The Consulting Mind',\n    'def kayock_writer_poetry_create',\n    'def kayock_writer_poetry_polish',\n    'def kayock_writer_poetry_revise_selection',\n    'def kayock_writer_poetry_archive',\n    'KAYOCK_WRITER_CALM_GUIDED_V2_BROWSER_START',\n    'KAYOCKS_STUDY_INTEGRATION_V1_HELPERS_START',\n    \"FOLDERS['kayock_writer_poetry_drafts']\",\n    \"FOLDERS['kayock_writer_poetry_recordings']\",\n    \"FOLDERS['kayock_writer_poetry_legacy']\",\n    \"FOLDERS['kayock_writer_short_story_drafts']\",\n    \"go('storyforge')\",\n    '/api/writer/poetry/create',\n    '/api/writer/poetry/polish',\n    '/api/writer/poetry/save',\n)\nmissing=[item for item in required if item not in s]\nassert not missing, 'protected feature anchors missing: '+', '.join(missing)\nassert \"writing_type='poem'\" in s\nassert \"writing_type=='short_story'\" in s\nassert 'Short Story Creator' in s\nassert 'Short Story Polisher' in s\nprint('SHORT_STORY_POLISHER_1_1_PROTECTED_FEATURES_OK')\n"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-21T01:46:55.902743Z",
+      "name": "Verify Poetry Studio, Story Forge, Writer, Study, archives, and voice profiles remain present",
+      "returncode": 0,
+      "started_at": "2026-07-21T01:46:55.846323Z",
+      "stderr": "",
+      "stdout": "SHORT_STORY_POLISHER_1_1_PROTECTED_FEATURES_OK\n",
+      "timed_out": false
+    }
+  ]
+}

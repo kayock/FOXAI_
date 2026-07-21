@@ -1,0 +1,86 @@
+{
+  "authorized": true,
+  "changes": [
+    {
+      "action": "write_file",
+      "after_sha256": "229d45ac0b7b10182bd4b6a45faf7e09deb8bd56e2da8ed002b8e502d762e086",
+      "after_size": 2255100,
+      "before_sha256": "0b20128bb67aa757e03162612a97b99383b41d0a3ce7a4eb35a493f26bcc1d48",
+      "before_size": 2236179,
+      "relative_path": "core/foxai_web.py"
+    }
+  ],
+  "created_at": "2026-07-20T22:58:33.136219Z",
+  "evidence_is_tool_generated": true,
+  "failure": null,
+  "mission_id": "ENG-20260720-223229-01ED0C",
+  "mission_title": "Poetry Studio V1.1 \u2014 Guided Poem Creator",
+  "mission_type": "implement",
+  "no_deletions": true,
+  "no_renames": true,
+  "plan_path": "Z:\\FOXAI\\FOXAI_POEM_CREATOR_GUIDED_V1_1\\POEM_CREATOR_GUIDED_V1_1_EXACT_PLAN.json",
+  "plan_sha256": "12cc1bcfe52c72d2388f7966c4b41579ea2494f7275d573a6967679f118a2df0",
+  "project_root": "Z:\\FOXAI",
+  "result": "applied_verified",
+  "rolled_back": false,
+  "schema": "foxai.engineering.receipt.v1",
+  "snapshot_manifest": "Z:\\FOXAI\\System\\EngineeringWorkshop\\snapshots\\ENG-20260720-223229-01ED0C\\snapshot_20260720T225826951397Z.manifest.json",
+  "snapshot_path": "Z:\\FOXAI\\System\\EngineeringWorkshop\\snapshots\\ENG-20260720-223229-01ED0C\\snapshot_20260720T225826951397Z.zip",
+  "snapshot_sha256": "917f4f0473136a9f4514df88e3bd2e740027c0c695e31db9dc281d2ae498ea11",
+  "validations": [
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nimport hashlib\np=Path(r\"Z:\\FOXAI\\core\\foxai_web.py\")\nb=p.read_bytes()\nactual=hashlib.sha256(b).hexdigest()\nexpected=\"229d45ac0b7b10182bd4b6a45faf7e09deb8bd56e2da8ed002b8e502d762e086\"\nassert actual==expected, f\"installed hash mismatch: {actual}\"\ns=b.decode(\"utf-8\")\ncompile(s,str(p),\"exec\")\nrequired=(\n\"FOXAI_POEM_CREATOR_GUIDED_V1_1_STYLE_START\",\n\"FOXAI_POEM_CREATOR_GUIDED_V1_1_HTML_START\",\n\"FOXAI_POEM_CREATOR_GUIDED_V1_1_JS_START\",\n\"FOXAI_POEM_CREATOR_GUIDED_V1_1_BACKEND_START\",\n\"FOXAI_POEM_CREATOR_GUIDED_V1_1_STORAGE_START\",\n)\nmissing=[x for x in required if x not in s]\nassert not missing, \"missing markers: \"+\", \".join(missing)\nprint(\"POEM_CREATOR_GUIDED_V1_1_PYTHON_AND_HASH_OK\")"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-20T22:58:29.676134Z",
+      "name": "Verify exact payload hash, Python syntax, and Guided V1.1 build markers",
+      "returncode": 0,
+      "started_at": "2026-07-20T22:58:27.038759Z",
+      "stderr": "",
+      "stdout": "POEM_CREATOR_GUIDED_V1_1_PYTHON_AND_HASH_OK\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nimport ast, os, re, shutil, subprocess, sys, tempfile\np=Path(r\"Z:\\FOXAI\\core\\foxai_web.py\")\nsource=p.read_text(encoding=\"utf-8\")\ntree=ast.parse(source)\nhtml_value=None\nfor node in tree.body:\n    if isinstance(node,(ast.Assign,ast.AnnAssign)):\n        targets=node.targets if isinstance(node,ast.Assign) else [node.target]\n        if any(isinstance(t,ast.Name) and t.id==\"HTML\" for t in targets):\n            html_value=ast.literal_eval(node.value)\n            break\nassert isinstance(html_value,str), \"HTML constant not found\"\nblocks=re.findall(r\"<script(?:\\s[^>]*)?>(.*?)</script>\",html_value,flags=re.I|re.S)\nassert blocks, \"No embedded JavaScript blocks found\"\nnode=shutil.which(\"node\") or shutil.which(\"node.exe\")\nif not node:\n    candidate=Path(os.environ.get(\"ProgramFiles\",r\"C:\\Program Files\"))/\"nodejs\"/\"node.exe\"\n    if candidate.is_file():\n        node=str(candidate)\nassert node, \"Node.js was not found for embedded JavaScript syntax verification\"\ntemp_path=None\ntry:\n    with tempfile.NamedTemporaryFile(\"w\",suffix=\".js\",encoding=\"utf-8\",delete=False) as handle:\n        handle.write(\"\\n;\\n\".join(blocks))\n        temp_path=handle.name\n    result=subprocess.run([str(node),\"--check\",temp_path],capture_output=True,text=True,shell=False)\n    if result.stdout:\n        print(result.stdout)\n    if result.stderr:\n        print(result.stderr,file=sys.stderr)\n    assert result.returncode==0, f\"Node syntax check failed with return code {result.returncode}\"\nfinally:\n    if temp_path:\n        Path(temp_path).unlink(missing_ok=True)\nprint(\"POEM_CREATOR_GUIDED_V1_1_EMBEDDED_JS_OK\")"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-20T22:58:33.084688Z",
+      "name": "Verify embedded Poetry Studio JavaScript syntax with Node",
+      "returncode": 0,
+      "started_at": "2026-07-20T22:58:29.676481Z",
+      "stderr": "",
+      "stdout": "POEM_CREATOR_GUIDED_V1_1_EMBEDDED_JS_OK\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\np=Path(r\"Z:\\FOXAI\\core\\foxai_web.py\")\ns=p.read_text(encoding=\"utf-8\")\nrequired=(\n\"def kayock_writer_poetry_create\",\n\"def kayock_writer_poetry_polish\",\n\"def kayock_writer_poetry_revise_selection\",\n\"def bibliotheca_status\",\n\"KAYOCK_WRITER_CALM_GUIDED_V2_BROWSER_START\",\n\"KAYOCKS_STUDY_INTEGRATION_V1_HELPERS_START\",\n\"ERIC_POET_NARRATOR_PROFILE_V1_START\",\n\"FOLDERS['kayock_writer_poetry_drafts']\",\n\"FOLDERS['kayock_writer_poetry_recordings']\",\n\"FOLDERS['kayock_writer_poetry_legacy']\",\n)\nmissing=[x for x in required if x not in s]\nassert not missing, \"protected integration anchors missing: \"+\", \".join(missing)\nassert s.count(\"FOXAI_POEM_CREATOR_GUIDED_V1_1\")>=10\nprint(\"POEM_CREATOR_GUIDED_V1_1_PROTECTED_ANCHORS_OK\")"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-20T22:58:33.136165Z",
+      "name": "Verify Poem Polisher, stanza workshop, voice, archive, Study, and Writer anchors remain present",
+      "returncode": 0,
+      "started_at": "2026-07-20T22:58:33.085010Z",
+      "stderr": "",
+      "stdout": "POEM_CREATOR_GUIDED_V1_1_PROTECTED_ANCHORS_OK\n",
+      "timed_out": false
+    }
+  ]
+}

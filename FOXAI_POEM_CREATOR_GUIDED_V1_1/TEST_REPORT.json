@@ -1,0 +1,77 @@
+{
+  "build_id": "FOXAI_POEM_CREATOR_GUIDED_V1_1",
+  "status": "package_ready",
+  "baseline": {
+    "filename": "foxai_web(14).py",
+    "size_bytes": 2236179,
+    "sha256": "0b20128bb67aa757e03162612a97b99383b41d0a3ce7a4eb35a493f26bcc1d48"
+  },
+  "payload": {
+    "filename": "payload/core/foxai_web.py",
+    "size_bytes": 2255100,
+    "sha256": "229d45ac0b7b10182bd4b6a45faf7e09deb8bd56e2da8ed002b8e502d762e086"
+  },
+  "tests": [
+    {
+      "id": "python_ast_parse",
+      "ok": true
+    },
+    {
+      "id": "python_py_compile",
+      "ok": true
+    },
+    {
+      "id": "javascript_node_check",
+      "ok": true,
+      "node": "v22.16.0"
+    },
+    {
+      "id": "creator_backend_stub_test",
+      "ok": true
+    },
+    {
+      "id": "creator_empty_seed_validation",
+      "ok": true
+    },
+    {
+      "id": "markdown_save_metadata_test",
+      "ok": true
+    },
+    {
+      "id": "payload_build_markers",
+      "ok": true,
+      "count": 10
+    },
+    {
+      "id": "exact_baseline_installer_gate",
+      "ok": true
+    },
+    {
+      "id": "verified_backup_and_rollback_scripts",
+      "ok": true
+    },
+    {
+      "id": "installer_simulation_apply",
+      "ok": true,
+      "installed_sha256": "229d45ac0b7b10182bd4b6a45faf7e09deb8bd56e2da8ed002b8e502d762e086"
+    },
+    {
+      "id": "installer_simulation_receipt",
+      "ok": true
+    },
+    {
+      "id": "rollback_simulation",
+      "ok": true,
+      "restored_sha256": "0b20128bb67aa757e03162612a97b99383b41d0a3ce7a4eb35a493f26bcc1d48"
+    }
+  ],
+  "scope": [
+    "core/foxai_web.py"
+  ],
+  "protected_content_modified": false,
+  "existing_poem_files_modified": false,
+  "notes": [
+    "No live USB file was modified in this environment.",
+    "Visual browser screenshot was not completed because sandbox Chromium did not exit cleanly; HTML structure and JavaScript syntax were validated statically."
+  ]
+}

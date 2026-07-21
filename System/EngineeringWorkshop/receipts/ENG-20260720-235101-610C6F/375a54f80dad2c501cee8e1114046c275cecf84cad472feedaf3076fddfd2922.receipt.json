@@ -1,0 +1,86 @@
+{
+  "authorized": true,
+  "changes": [
+    {
+      "action": "write_file",
+      "after_sha256": "d46254c1d3d3e8315dd8ddcf20aac7c05bc8be492dd71113b38860593f3d72ee",
+      "after_size": 2268483,
+      "before_sha256": "229d45ac0b7b10182bd4b6a45faf7e09deb8bd56e2da8ed002b8e502d762e086",
+      "before_size": 2255100,
+      "relative_path": "core/foxai_web.py"
+    }
+  ],
+  "created_at": "2026-07-21T00:02:06.079335Z",
+  "evidence_is_tool_generated": true,
+  "failure": null,
+  "mission_id": "ENG-20260720-235101-610C6F",
+  "mission_title": "Creator Type 1.2 \u2014 Poem and Short Story",
+  "mission_type": "implement",
+  "no_deletions": true,
+  "no_renames": true,
+  "plan_path": "Z:\\FOXAI\\CREATOR_1_2\\PLAN.json",
+  "plan_sha256": "375a54f80dad2c501cee8e1114046c275cecf84cad472feedaf3076fddfd2922",
+  "project_root": "Z:\\FOXAI",
+  "result": "applied_verified",
+  "rolled_back": false,
+  "schema": "foxai.engineering.receipt.v1",
+  "snapshot_manifest": "Z:\\FOXAI\\System\\EngineeringWorkshop\\snapshots\\ENG-20260720-235101-610C6F\\snapshot_20260721T000200538687Z.manifest.json",
+  "snapshot_path": "Z:\\FOXAI\\System\\EngineeringWorkshop\\snapshots\\ENG-20260720-235101-610C6F\\snapshot_20260721T000200538687Z.zip",
+  "snapshot_sha256": "2e5388dc54e22bfa2a6dc88a9691c7222002680fb4b7d269762dd8645a2edf96",
+  "validations": [
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nimport hashlib\np=Path('Z:\\\\FOXAI\\\\core\\\\foxai_web.py')\nb=p.read_bytes()\nactual=hashlib.sha256(b).hexdigest()\nexpected='d46254c1d3d3e8315dd8ddcf20aac7c05bc8be492dd71113b38860593f3d72ee'\nassert actual==expected, f\"installed hash mismatch: {actual}\"\ns=b.decode(\"utf-8\")\ncompile(s,str(p),\"exec\")\nrequired=(\n    \"FOXAI_CREATOR_TYPE_1_2_HTML_START\",\n    \"FOXAI_CREATOR_TYPE_1_2_JS_START\",\n    \"FOXAI_CREATOR_TYPE_1_2_TITLE_START\",\n    \"FOXAI_CREATOR_TYPE_1_2_BACKEND_START\",\n    \"FOXAI_CREATOR_TYPE_1_2_STORAGE_START\",\n    \"FOLDERS['kayock_writer_short_story_drafts']\",\n    \"id=poemWritingType\",\n    'value=short_story',\n    \"storyLengthMirror\",\n    \"shortStoryFolderButton\",\n    \"content_type:\",\n)\nmissing=[item for item in required if item not in s]\nassert not missing, \"missing Creator Type 1.2 markers: \"+\", \".join(missing)\nprint(\"CREATOR_TYPE_1_2_HASH_PYTHON_AND_FEATURE_MARKERS_OK\")"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-21T00:02:03.244024Z",
+      "name": "Verify exact payload hash, Python syntax, and Poem/Short Story feature markers",
+      "returncode": 0,
+      "started_at": "2026-07-21T00:02:00.631710Z",
+      "stderr": "",
+      "stdout": "CREATOR_TYPE_1_2_HASH_PYTHON_AND_FEATURE_MARKERS_OK\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nimport ast, os, re, shutil, subprocess, sys, tempfile\np=Path('Z:\\\\FOXAI\\\\core\\\\foxai_web.py')\nsource=p.read_text(encoding=\"utf-8\")\ntree=ast.parse(source)\nhtml_value=None\nfor item in tree.body:\n    if isinstance(item,(ast.Assign,ast.AnnAssign)):\n        targets=item.targets if isinstance(item,ast.Assign) else [item.target]\n        if any(isinstance(t,ast.Name) and t.id==\"HTML\" for t in targets):\n            html_value=ast.literal_eval(item.value)\n            break\nassert isinstance(html_value,str), \"HTML constant not found\"\nblocks=re.findall(r\"<script(?:\\s[^>]*)?>(.*?)</script>\",html_value,flags=re.I|re.S)\nassert blocks, \"No embedded JavaScript blocks found\"\nnode=shutil.which(\"node\") or shutil.which(\"node.exe\")\nif not node:\n    candidate=Path(os.environ.get(\"ProgramFiles\",r\"C:\\Program Files\"))/\"nodejs\"/\"node.exe\"\n    if candidate.is_file():\n        node=str(candidate)\nassert node, \"Node.js was not found for embedded JavaScript verification\"\ntemp_path=None\ntry:\n    with tempfile.NamedTemporaryFile(\"w\",suffix=\".js\",encoding=\"utf-8\",delete=False) as handle:\n        handle.write(\"\\n;\\n\".join(blocks))\n        temp_path=handle.name\n    result=subprocess.run([str(node),\"--check\",temp_path],capture_output=True,text=True,shell=False)\n    if result.stdout:\n        print(result.stdout)\n    if result.stderr:\n        print(result.stderr,file=sys.stderr)\n    assert result.returncode==0, f\"Node syntax check failed with return code {result.returncode}\"\nfinally:\n    if temp_path:\n        try:\n            Path(temp_path).unlink()\n        except FileNotFoundError:\n            pass\nprint(\"CREATOR_TYPE_1_2_EMBEDDED_JAVASCRIPT_OK\")"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-21T00:02:06.021779Z",
+      "name": "Verify embedded interface JavaScript syntax with Node",
+      "returncode": 0,
+      "started_at": "2026-07-21T00:02:03.244373Z",
+      "stderr": "",
+      "stdout": "CREATOR_TYPE_1_2_EMBEDDED_JAVASCRIPT_OK\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\np=Path('Z:\\\\FOXAI\\\\core\\\\foxai_web.py')\ns=p.read_text(encoding=\"utf-8\")\nrequired=(\n    \"def kayock_writer_poetry_create\",\n    \"def kayock_writer_poetry_polish\",\n    \"def kayock_writer_poetry_revise_selection\",\n    \"def kayock_writer_poetry_archive\",\n    \"KAYOCK_WRITER_CALM_GUIDED_V2_BROWSER_START\",\n    \"KAYOCKS_STUDY_INTEGRATION_V1_HELPERS_START\",\n    \"ERIC_POET_NARRATOR_PROFILE_V1_START\",\n    \"FOLDERS['kayock_writer_poetry_drafts']\",\n    \"FOLDERS['kayock_writer_poetry_recordings']\",\n    \"FOLDERS['kayock_writer_poetry_legacy']\",\n    \"FOLDERS['kayock_writer_short_story_drafts']\",\n)\nmissing=[item for item in required if item not in s]\nassert not missing, \"protected feature anchors missing: \"+\", \".join(missing)\nassert \"writing_type='poem'\" in s\nassert \"writing_type=='short_story'\" in s\nprint(\"CREATOR_TYPE_1_2_PROTECTED_FEATURES_AND_POEM_REGRESSION_ANCHORS_OK\")"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-21T00:02:06.079280Z",
+      "name": "Verify existing poetry, Writer, Study, voice, and archive anchors remain present",
+      "returncode": 0,
+      "started_at": "2026-07-21T00:02:06.022138Z",
+      "stderr": "",
+      "stdout": "CREATOR_TYPE_1_2_PROTECTED_FEATURES_AND_POEM_REGRESSION_ANCHORS_OK\n",
+      "timed_out": false
+    }
+  ]
+}

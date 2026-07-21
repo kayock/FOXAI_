@@ -1,0 +1,199 @@
+--- a/core/foxai_web.py
++++ b/core/foxai_web.py
+@@ -1730,20 +1730,22 @@
+ <section id=commandfreeze class=page><div class=hero><h2>Command Center Milestone Freeze</h2><p>Formal freeze report for the v10.10.x Command Center foundation: proven modules, advisories, safety contract, and readiness to move to the next milestone.</p></div><div class=grid><div class="card wide"><h3>Freeze Controls</h3><button onclick="loadCommandFreeze(false)">Load Freeze</button><button onclick="loadCommandFreeze(true)">Export Freeze Report</button><button onclick="api('/api/open/command_center_milestone_freeze')">Open Freeze Reports</button><button onclick="go('commandcenter')">Open Command Center</button><button onclick="go('commandarchive')">Open Command Archive</button><button onclick="sendCommandFreezeToMission()">Send Freeze to Mission</button><div id=commandFreezeStatus class=status>No Command Center freeze loaded yet.</div></div><div class="card wide"><h3>Freeze Summary</h3><div id=commandFreezeSummary class=status>No summary yet.</div></div><div class="card wide"><h3>Proven Modules</h3><div id=commandFreezeModules class=scanlist>No modules loaded yet.</div></div><div class="card wide"><h3>Advisories</h3><div id=commandFreezeAdvisories class=scanlist>No advisories loaded yet.</div></div><div class="card wide"><h3>Recommendations</h3><div id=commandFreezeRecommendations class=scanlist>No recommendations loaded yet.</div></div><div class="card wide"><h3>Problems / Review Items</h3><div id=commandFreezeProblems class=scanlist>No review items loaded yet.</div></div><div class="card wide"><h3>Safety Contract</h3><div id=commandFreezeSafety class=status>No safety contract loaded yet.</div></div></div></section>
+ 
+ 
++<!-- KAYOCK_WRITER_CALM_CLEANUP_V1_HTML_START -->
+ <section id=kayockwriter class=page>
+-<div class="hero writerHomeHero writerHomeV2Hero"><div class=writerEyebrow>KAYOCK WRITER</div><h2>What would you like to work on?</h2><p>Choose one clear next step. Your finished poetry tools, story tools, worlds, and saved writing stay exactly where they are.</p><div class=writerSaveNotice>Opening a room never changes your saved work. Saving remains a separate, visible action inside that room.</div></div>
+-<div id=writerContinueV2 class="card writerContinueV2"><div><div class=writerEyebrow>CONTINUE RECENT WRITING</div><h3 id=writerContinueV2Title>Finding your most recent Writer room…</h3><p id=writerContinueV2Text>Kayock Writer uses the existing Recents list in this browser. It does not scan, move, rename, or rewrite your files.</p><div id=writerContinueV2State class=writerContinueState>Saved navigation state only • no content changes</div></div><div class=writerContinueV2Actions><button id=writerContinueV2Button onclick="continueWriterRecentV2()" disabled>Continue Recent Writing</button><button onclick="go('mywriting')">Browse My Writing</button></div></div>
++<div class="hero writerHomeHero writerHomeV2Hero"><div class=writerEyebrow>KAYOCK WRITER</div><h2>What would you like to write?</h2><p>Choose one room and begin. Create, polish, weave, develop a longer story, build a world, or return to saved work.</p><div class=writerSaveNotice>Opening a room changes nothing. Your work changes only when you use a clearly labeled save action.</div></div>
++<div id=writerContinueV2 class="card writerContinueV2"><div><div class=writerEyebrow>CONTINUE WHERE YOU LEFT OFF</div><h3 id=writerContinueV2Title>Finding your last Writer task…</h3><p id=writerContinueV2Text>Kayock Writer remembers the last creative task used in this browser. It does not inspect or change your files.</p><div id=writerContinueV2State class=writerContinueState>Navigation memory only • saved work unchanged</div></div><div class=writerContinueV2Actions><button id=writerContinueV2Button onclick="continueWriterRecentV2()" disabled>Continue Writing</button><button onclick="openWriterRoomFromHome('mywriting','mywriting')">Browse My Writing</button></div></div>
+ <div class=writerTaskGridV2>
+-<article class="writerTaskCard poetry"><div class=writerTaskIcon>🪶</div><div><h3>Create a Poem</h3><p>Begin with a theme, feeling, image, or one opening line. The full multi-voice Poetry Studio remains intact.</p></div><button onclick="go('poetrystudio')">Create a Poem</button></article>
+-<article class="writerTaskCard polish"><div class=writerTaskIcon>✨</div><div><h3>Polish a Poem</h3><p>Improve rhythm, imagery, line breaks, and clarity while keeping the original and your chosen voice separate.</p></div><button onclick="openPoemPolisherFromWriterHome()">Polish a Poem</button></article>
+-<article class="writerTaskCard polish"><div class=writerTaskIcon>📝</div><div><h3>Polish a Short Story</h3><p>Improve pacing, scene flow, dialogue, atmosphere, and clarity while preserving plot, characters, point of view, canon, and the intended ending.</p></div><button onclick="openShortStoryPolisherFromWriterHome()">Polish a Short Story</button></article>
+-<article class="writerTaskCard weaver"><div class=writerTaskIcon>🧵</div><div><h3>The Weaver</h3><p>Open or paste several poems, stories, or scenes and braid them into a new clean work—including Twine-ready passages.</p></div><button onclick="go('weaver')">Open The Weaver</button></article>
+-<article class="writerTaskCard story"><div class=writerTaskIcon>📚</div><div><h3>Start or Continue a Story</h3><p>Start something new, return to Slipping into Darkness, plan a chapter, or continue from saved prose.</p></div><button onclick="go('storyforge')">Open Story Forge</button></article>
+-<article class="writerTaskCard world"><div class=writerTaskIcon>🌍</div><div><h3>Build a World</h3><p>Create a world, region, settlement, faction, faith, adventure site, or campaign one calm step at a time.</p></div><button onclick="go('worldbuilder')">Open World Builder</button></article>
+-<article class="writerTaskCard libraryroom"><div class=writerTaskIcon>🗂️</div><div><h3>Browse My Writing</h3><p>Return to saved poems, drafts, chapters, projects, and worlds without opening technical reports.</p></div><button onclick="go('mywriting')">Browse My Writing</button></article>
++<article class="writerTaskCard poetry"><div class=writerTaskIcon>🪶</div><div><h3>Create a Poem or Short Story</h3><p>Start with a theme, feeling, scene, or opening line. Poem remains the default; Short story is one simple choice inside.</p></div><button onclick="openWriterCreatorFromHome()">Open Creator</button></article>
++<article class="writerTaskCard polish"><div class=writerTaskIcon>✨</div><div><h3>Polish a Poem</h3><p>Strengthen rhythm, imagery, line breaks, and clarity while keeping the original separate.</p></div><button onclick="openPoemPolisherFromWriterHome()">Polish a Poem</button></article>
++<article class="writerTaskCard polish"><div class=writerTaskIcon>📝</div><div><h3>Polish a Short Story</h3><p>Improve grammar, structure, pacing, dialogue, and atmosphere without replacing the writer.</p></div><button onclick="openShortStoryPolisherFromWriterHome()">Polish a Short Story</button></article>
++<article class="writerTaskCard weaver"><div class=writerTaskIcon>🧵</div><div><h3>The Weaver</h3><p>Combine two to four poems, stories, or scenes into clean prose, poetry, or Twine-ready passages.</p></div><button onclick="openWriterRoomFromHome('weaver','weaver')">Open The Weaver</button></article>
++<article class="writerTaskCard story"><div class=writerTaskIcon>📚</div><div><h3>Story Forge</h3><p>Develop longer fiction, plan chapters and scenes, or continue Slipping into Darkness and other projects.</p></div><button onclick="openWriterRoomFromHome('storyforge','storyforge')">Open Story Forge</button></article>
++<article class="writerTaskCard world"><div class=writerTaskIcon>🌍</div><div><h3>World Builder</h3><p>Build a world, region, settlement, faction, faith, adventure site, or campaign one step at a time.</p></div><button onclick="openWriterRoomFromHome('worldbuilder','worldbuilder')">Open World Builder</button></article>
++<article class="writerTaskCard libraryroom"><div class=writerTaskIcon>🗂️</div><div><h3>My Writing</h3><p>Find saved poems, short stories, Weaver outputs, drafts, chapters, projects, and worlds.</p></div><button onclick="openWriterRoomFromHome('mywriting','mywriting')">Browse My Writing</button></article>
+ </div>
+-<details class="card writerAdvancedHome writerAdvancedHomeV2"><summary>Writer — Advanced Tools</summary><div class=writerAdvancedBody><p>Foundation reports, manifests, save gates, audits, verification pages, PromptSmith, and the legacy Novel Forge remain available here when they are actually needed.</p><button onclick="loadKayockWriter(false);this.closest('details').open=true">Load Foundation Report</button><button onclick="go('storymanifest')">Story Manifest</button><button onclick="go('prompts')">PromptSmith</button><button onclick="go('novelforge')">Legacy Codex / Novel Forge</button><div id=kayockWriterStatus class=status>Advanced writer report not loaded.</div><div id=kayockWriterSummary class=status></div><div id=kayockWriterModules hidden></div><div id=kayockWriterNames hidden></div><div id=kayockWriterFlagship hidden></div><div id=kayockWriterPaths hidden></div><div id=kayockWriterRecommendations hidden></div><div id=kayockWriterSafety hidden></div></div></details>
++<details class="card writerAdvancedHome writerAdvancedHomeV2"><summary>Advanced and Technical Writer Tools</summary><div class=writerAdvancedBody><p>Reports, manifests, save gates, audits, PromptSmith, and legacy tools stay folded away until you need them.</p><button onclick="loadKayockWriter(false);this.closest('details').open=true">Load Foundation Report</button><button onclick="go('storymanifest')">Story Manifest</button><button onclick="go('prompts')">PromptSmith</button><button onclick="go('novelforge')">Legacy Codex / Novel Forge</button><div id=kayockWriterStatus class=status>Advanced writer report not loaded.</div><div id=kayockWriterSummary class=status></div><div id=kayockWriterModules hidden></div><div id=kayockWriterNames hidden></div><div id=kayockWriterFlagship hidden></div><div id=kayockWriterPaths hidden></div><div id=kayockWriterRecommendations hidden></div><div id=kayockWriterSafety hidden></div></div></details>
+ </section>
++<!-- KAYOCK_WRITER_CALM_CLEANUP_V1_HTML_END -->
+ 
+ 
+ <!-- FOXAI_THE_WEAVER_V1_HTML_START -->
+@@ -2460,26 +2462,38 @@
+   aside.querySelectorAll(':scope > .navbreak').forEach(x=>x.remove());aside.classList.add('nav-enhanced');renderNavShortcuts();navFavorites().forEach(id=>document.querySelectorAll(`.favtoggle[data-page="${id}"]`).forEach(x=>x.classList.add('on')))
+ }
+ /* KAYOCK_WRITER_CALM_GUIDED_V2_BROWSER_START */
+-const WRITER_RECENT_V2={
+- poetrystudio:{label:'Poetry Studio',description:'Continue creating, revising, or polishing a poem.',button:'Continue in Poetry Studio'},
+- poemarchive:{label:'My Poems',description:'Return to original and polished versions, voice history, or recording preparation.',button:'Open My Poems'},
+- storyforge:{label:'Story Forge',description:'Continue a story, plan a scene or chapter, or return to the current project.',button:'Continue in Story Forge'},
+- projectdashboard:{label:'Slipping into Darkness',description:'Return to the current story project and its saved chapter status.',button:'Open Story Project'},
+- draftreader:{label:'Saved Drafts',description:'Read the latest saved chapter drafts before continuing.',button:'Read Saved Drafts'},
+- chapterproseworkspace:{label:'Writing Workspace',description:'Continue writing beside FOXAI while keeping the Private Human Screen separate.',button:'Continue Writing'},
+- savedchapters:{label:'Saved Chapters',description:'Review saved chapters, cards, and continuity information.',button:'Browse Saved Chapters'},
+- worldbuilder:{label:'World Builder',description:'Continue building a world, region, settlement, faction, faith, site, or campaign.',button:'Continue World Building'},
+- mywriting:{label:'My Writing',description:'Browse saved poems, drafts, projects, chapters, and worlds.',button:'Browse My Writing'},
+- novelforge:{label:'World Codex',description:'Return to existing characters, locations, artifacts, timelines, mysteries, and lore.',button:'Open World Codex'}
++/* KAYOCK_WRITER_CALM_CLEANUP_V1_JS_START */
++const WRITER_TASK_MEMORY_KEY='kayock.writer.last_task.v1';
++const WRITER_TASK_V1={
++ poem_creator:{label:'Poem Creator',description:'Continue creating a poem with the guided Poetry Studio controls.',button:'Continue Creating',page:'poetrystudio'},
++ short_story_creator:{label:'Short Story Creator',description:'Continue creating short fiction without entering long-form Story Forge.',button:'Continue Creating',page:'poetrystudio'},
++ poem_polisher:{label:'Poem Polisher',description:'Return to rhythm, imagery, line-break, and clarity polishing.',button:'Continue Polishing',page:'poetrystudio'},
++ short_story_polisher:{label:'Short Story Polisher',description:'Return to protected grammar, structure, pacing, and prose polishing.',button:'Continue Polishing',page:'poetrystudio'},
++ poetry_studio:{label:'Poetry Studio',description:'Return to the poem and short-story creative workspace.',button:'Open Poetry Studio',page:'poetrystudio'},
++ weaver:{label:'The Weaver',description:'Continue combining several sources into a clean new work.',button:'Continue Weaving',page:'weaver'},
++ poemarchive:{label:'My Poems',description:'Return to originals, polished versions, voice history, and recordings.',button:'Open My Poems',page:'poemarchive'},
++ storyforge:{label:'Story Forge',description:'Continue a longer story, scene, chapter, or current project.',button:'Continue in Story Forge',page:'storyforge'},
++ projectdashboard:{label:'Slipping into Darkness',description:'Return to the current story project and its saved chapter status.',button:'Open Story Project',page:'projectdashboard'},
++ draftreader:{label:'Saved Drafts',description:'Read saved chapter drafts before continuing.',button:'Read Saved Drafts',page:'draftreader'},
++ chapterproseworkspace:{label:'Writing Workspace',description:'Continue writing beside FOXAI with the Private Human Screen separate.',button:'Continue Writing',page:'chapterproseworkspace'},
++ savedchapters:{label:'Saved Chapters',description:'Review saved chapters, cards, and continuity information.',button:'Browse Saved Chapters',page:'savedchapters'},
++ worldbuilder:{label:'World Builder',description:'Continue building a world, region, settlement, faction, faith, site, or campaign.',button:'Continue World Building',page:'worldbuilder'},
++ mywriting:{label:'My Writing',description:'Browse saved poems, stories, Weaver outputs, drafts, projects, chapters, and worlds.',button:'Browse My Writing',page:'mywriting'},
++ novelforge:{label:'World Codex',description:'Return to characters, locations, artifacts, timelines, mysteries, and lore.',button:'Open World Codex',page:'novelforge'}
+ };
+ let writerRecentV2Target='';
+-function writerRecentV2(){
++function readWriterTask(){try{let id=localStorage.getItem(WRITER_TASK_MEMORY_KEY)||'';return WRITER_TASK_V1[id]?id:''}catch(e){return ''}}
++function rememberWriterTask(id){if(!WRITER_TASK_V1[id])return;try{localStorage.setItem(WRITER_TASK_MEMORY_KEY,id)}catch(e){}writerRecentV2Target=id}
++function writerRecentFallback(){
+  let recents=typeof navRecents==='function'?navRecents():[];
+  for(let id of recents){
+-  if(id!=='kayockwriter'&&WRITER_RECENT_V2[id])return {id,...WRITER_RECENT_V2[id]};
++  if(id==='kayockwriter')continue;
++  if(id==='poetrystudio')return 'poetry_studio';
++  if(WRITER_TASK_V1[id])return id;
+  }
+- return null;
+-}
++ return '';
++}
++function writerRecentV2(){let id=readWriterTask()||writerRecentFallback();return id?{id,...WRITER_TASK_V1[id]}:null}
+ function renderWriterHomeV2(){
+  let target=writerRecentV2();
+  let title=q('writerContinueV2Title'),text=q('writerContinueV2Text'),state=q('writerContinueV2State'),button=q('writerContinueV2Button');
+@@ -2488,22 +2502,37 @@
+   writerRecentV2Target=target.id;
+   title.textContent=target.label;
+   text.textContent=target.description;
+-  state.textContent='Uses your existing Recents list • saved files remain unchanged';
++  state.textContent='Last Writer task remembered in this browser • saved files unchanged';
+   button.textContent=target.button;
+   button.disabled=false;
+  }else{
+   writerRecentV2Target='';
+-  title.textContent='No recent Writer room yet';
+-  text.textContent='Choose a task below or browse your saved writing. Kayock Writer will remember the room you open in the existing Recents list.';
+-  state.textContent='No writing content was opened, changed, or scanned';
+-  button.textContent='Continue Recent Writing';
++  title.textContent='No recent Writer task yet';
++  text.textContent='Choose a room below. Kayock Writer will remember that creative task for next time.';
++  state.textContent='No writing content was opened, scanned, or changed';
++  button.textContent='Continue Writing';
+   button.disabled=true;
+  }
+ }
++function openWriterCreatorFromHome(type='poem'){
++ let story=type==='short_story';
++ rememberWriterTask(story?'short_story_creator':'poem_creator');
++ setPoetryStudioField('poemWritingType',story?'short_story':'poem');
++ updateCreatorWritingType();
++ go('poetrystudio');
++ setTimeout(()=>{q('creatorCardTitle')?.scrollIntoView({behavior:'smooth',block:'start'});q('poemTheme')?.focus()},80);
++}
++function openWriterRoomFromHome(task,page){rememberWriterTask(task);go(page)}
+ function continueWriterRecentV2(){
+- if(!writerRecentV2Target){renderWriterHomeV2();toast('No recent Writer room is available yet.');return}
+- go(writerRecentV2Target);
+-}
++ let task=writerRecentV2Target||readWriterTask()||writerRecentFallback();
++ if(!task||!WRITER_TASK_V1[task]){renderWriterHomeV2();toast('No recent Writer task is available yet.');return}
++ if(task==='poem_creator')return openWriterCreatorFromHome('poem');
++ if(task==='short_story_creator')return openWriterCreatorFromHome('short_story');
++ if(task==='poem_polisher')return openPoemPolisherFromWriterHome();
++ if(task==='short_story_polisher')return openShortStoryPolisherFromWriterHome();
++ rememberWriterTask(task);go(WRITER_TASK_V1[task].page);
++}
++/* KAYOCK_WRITER_CALM_CLEANUP_V1_JS_END */
+ /* KAYOCK_WRITER_CALM_GUIDED_V2_BROWSER_END */
+ /* REPAIR_BAY_GUIDED_CLEANUP_V1_BROWSER_START */
+ async function refreshRepairBayStatus(){
+@@ -9427,12 +9456,14 @@
+ }
+ function renderWeaverWarnings(result){let target=q('weaverWarnings');if(!target)return;let warnings=result?.warnings||[];let provenance=(result?.provenance||{}).sources||[];let lines=[];if(provenance.length){lines.push('Source provenance:',...provenance.map(item=>`• ${item.title} • ${item.words} words • ${item.sha256.slice(0,12)}…`))}if(warnings.length)lines.push('',...warnings.map(x=>'WARNING: '+x));target.textContent=lines.join('\n')||'No provenance or copying warnings.';target.classList.toggle('weaverWarning',Boolean(warnings.length));}
+ async function generateWeaverWork(){
++ rememberWriterTask('weaver');
+  if(weaverBusy)return;let sources=weaverSources();if(sources.length<2)return toast('Add at least two source works first.');
+  let body={sources,mode:q('weaverMode').value,output_type:q('weaverOutputType').value,voice:q('weaverVoice').value,length:q('weaverLength').value,direction:(q('weaverDirection').value||'').trim()};
+  weaverLastResult=null;setWeaverBusy(true,'Building a concise source map, then weaving a clean final work…');q('weaverSourceMap').textContent='Planning the source map…';q('weaverWarnings').textContent='Checking provenance and copying boundaries…';
+  try{let d=await api('/api/writer/weaver/generate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});if(!d?.ok){q('weaverStatus').textContent=d?.message||'The Weaver could not generate the work.';renderWeaverMap(d?.source_map);renderWeaverWarnings(d);return}weaverLastResult=d;q('weaverOutput').value=d.output||'';q('weaverTitle').value=d.title||'';renderWeaverMap(d.source_map);renderWeaverWarnings(d);q('weaverStatus').textContent=`Woven work ready • ${d.output_type_label||d.output_type} • ${d.word_count||0} words • sources preserved read-only.`;}catch(e){q('weaverStatus').textContent='The Weaver failed: '+e}finally{setWeaverBusy(false)}
+ }
+ async function saveWeaverWork(){
++ rememberWriterTask('weaver');
+  if(weaverBusy||!weaverLastResult)return toast('Create a woven work first.');let output=(q('weaverOutput').value||'').trim();if(!output)return toast('There is no woven output to save.');
+  let body={...weaverLastResult,title:(q('weaverTitle').value||weaverLastResult.title||'Woven Work').trim(),output};setWeaverBusy(true,'Saving a separate no-overwrite Weaver revision…');
+  try{let d=await api('/api/writer/weaver/save',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});q('weaverStatus').textContent=d?.message||'Save finished.';if(d?.ok)toast(d.message)}catch(e){q('weaverStatus').textContent='Weaver save failed: '+e}finally{setWeaverBusy(false)}
+@@ -9773,6 +9804,7 @@
+     if(poetryBusy)return;
+     let body=poetryPayload();
+     let story=body.writing_type==='short_story';
++    rememberWriterTask(story?'short_story_creator':'poem_creator');
+     let typeLabel=story?'short story':'poem';
+     body.variation=Boolean(variation);
+     poetryStatus('poemStatus','CREATING',variation?`The local model is creating a distinctly different ${typeLabel}...`:`The local model is drafting your ${typeLabel}...`);
+@@ -10199,6 +10231,7 @@
+ async function polishPoem(){
+     if(poetryBusy)return;
+     let story=creatorWritingType()==='short_story';
++    rememberWriterTask(story?'short_story_polisher':'poem_polisher');
+     let typeLabel=story?'short story':'poem';
+     let work=(q('poemPolisherInput')?.value||'').trim();
+     if(!work){toast(`Paste or send a ${typeLabel} first.`);return}
+@@ -10310,6 +10343,7 @@
+     outline:'Help me build a flexible story outline from premise through ending. Keep room for discovery and do not bury me in technical structure.'
+ };
+ function startStoryWriterTask(task){
++    rememberWriterTask('storyforge');
+     let request=STORY_WRITER_TASKS[task]||STORY_WRITER_TASKS.new;
+     go('mission');
+     let input=q('input');
+@@ -10319,6 +10353,7 @@
+     toast('Story Forge brief is ready in Mission Console.');
+ }
+ function openPoemPolisherFromWriterHome(){
++    rememberWriterTask('poem_polisher');
+     setPoetryStudioField('poemWritingType','poem');
+     updateCreatorWritingType();
+     go('poetrystudio');
+@@ -10332,6 +10367,7 @@
+     },80);
+ }
+ function openShortStoryPolisherFromWriterHome(){
++    rememberWriterTask('short_story_polisher');
+     setPoetryStudioField('poemWritingType','short_story');
+     updateCreatorWritingType();
+     go('poetrystudio');
+@@ -10347,7 +10383,7 @@
+ /* KAYOCK_WRITER_GUIDED_CLEANUP_V1_BROWSER_END */
+ 
+ const WORLD_BUILDER_TASKS={world:'Help me create the foundation of a new world: central idea, tone, major conflicts, magic, cultures, and what makes it distinctive.',region:'Help me build one region: terrain, borders, travel, cultures, settlements, dangers, landmarks, resources, and adventure hooks.',settlement:'Help me design a settlement: purpose, population, districts, leadership, useful locations, current problems, secrets, factions, and adventure hooks.',faction:'Help me create a faction: public goal, hidden goal, leadership, members, resources, methods, allies, rivals, internal divisions, symbols, and hooks.',deity:'Help me design a deity or religion: domain, myths, values, rituals, clergy, symbols, taboos, holy places, schisms, miracles, and conflicts.',dungeon:'Help me build a dungeon or adventure site: original purpose, history, present inhabitants, zones, hazards, clues, rewards, choices, and a memorable final area.',campaign:'Help me create a campaign: premise, player role, starting situation, major threats, factions, campaign arcs, milestones, secrets, and a strong session-one hook.'};
+-function startWorldBuilderTask(task){let request=WORLD_BUILDER_TASKS[task]||WORLD_BUILDER_TASKS.world,name=(q('worldBuilderName')?.value||'').trim()||'a new setting',style=q('worldBuilderStyle')?.value||'D&D fantasy';go('mission');q('input').value=`WORLD BUILDER — ${name}\nStyle: ${style}\n\n${request}\n\nGuide me calmly. Ask only one useful question at a time, explain unfamiliar terms in plain language, and keep a concise running summary I can later save into the Codex.`;q('input').focus();toast('World Builder brief is ready in Mission Console.')}
++function startWorldBuilderTask(task){rememberWriterTask('worldbuilder');let request=WORLD_BUILDER_TASKS[task]||WORLD_BUILDER_TASKS.world,name=(q('worldBuilderName')?.value||'').trim()||'a new setting',style=q('worldBuilderStyle')?.value||'D&D fantasy';go('mission');q('input').value=`WORLD BUILDER — ${name}\nStyle: ${style}\n\n${request}\n\nGuide me calmly. Ask only one useful question at a time, explain unfamiliar terms in plain language, and keep a concise running summary I can later save into the Codex.`;q('input').focus();toast('World Builder brief is ready in Mission Console.')}
+ 
+ let poemArchiveState={groups:[],selected:''};
+ 

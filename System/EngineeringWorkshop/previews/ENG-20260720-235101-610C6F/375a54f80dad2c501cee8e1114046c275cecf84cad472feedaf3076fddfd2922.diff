@@ -1,0 +1,933 @@
+--- a/core/foxai_web.py
++++ b/core/foxai_web.py
+@@ -225,6 +225,7 @@
+ FOLDERS['kayock_writer_poetry_drafts']=ROOT/'Projects'/'KayockWriter'/'Poetry'/'Drafts'
+ FOLDERS['kayock_writer_poetry_recordings']=ROOT/'Projects'/'KayockWriter'/'Poetry'/'Recordings'
+ FOLDERS['kayock_writer_poetry_legacy']=ROOT/'Projects'/'KayockWriter'/'Poetry'/'Legacy'
++FOLDERS['kayock_writer_short_story_drafts']=ROOT/'Projects'/'KayockWriter'/'ShortStories'/'Drafts'
+ OPSBRIDGE_OUTBOX=ROOT/'OpsBridge'/'outbox'; BRIDGE_FEED_FILE=OPSBRIDGE_OUTBOX/'bridge_feed.json'; BUILDER_REPORT_FILE=OPSBRIDGE_OUTBOX/'builder_report.json'
+ 
+ def log(s): LOGS.mkdir(exist_ok=True); LOG.open('a',encoding='utf-8').write(f"[{datetime.now():%F %T}] {s}\n")
+@@ -1421,36 +1422,42 @@
+ 
+ 
+ <section id=poetrystudio class=page>
+-<div class=hero><h2>Poetry Studio</h2><p>A calm poem creator. Fill only what helps; leave anything else blank.</p></div>
++<div class=hero><h2>Poetry Studio</h2><p>A calm creator for poems and short stories. Fill only what helps; leave anything else blank.</p></div>
+ <div class=writerWorkspace>
+ <!-- FOXAI_POEM_CREATOR_GUIDED_V1_1_HTML_START -->
+-<div class=card><h3>Poem Creator</h3>
+-<div class=writerQuietHint><b>Start simple.</b> A theme alone is enough. Open the other choices only when they help you say what you mean.</div>
++<!-- FOXAI_CREATOR_TYPE_1_2_HTML_START -->
++<div class=card><h3 id=creatorCardTitle>Poem Creator</h3>
++<div class=writerQuietHint id=creatorQuietHint><b>Start simple.</b> A theme alone is enough. Open the other choices only when they help you say what you mean.</div>
++<div class=writerField><label for=poemWritingType>Writing type</label><select id=poemWritingType onchange="updateCreatorWritingType()"><option value=poem selected>Poem</option><option value=short_story>Short story</option></select></div>
+ <div class=poemCreatorStep><div class=poemCreatorStepHead><span>1</span>Core idea</div>
+ <div class=writerField><label for=poemTheme>Theme</label><input id=poemTheme placeholder="memory, eternity, grief, wonder, home"></div>
+ <div class=writerField><label for=poemEmotion>Emotion <span class=small>— optional</span></label><input id=poemEmotion placeholder="haunted, hopeful, tender, furious, quietly joyful"></div>
+ <div class=writerField><label for=poemImagery>Scene or imagery <span class=small>— optional</span></label><textarea id=poemImagery placeholder="A porch light in falling snow; an empty city after midnight..."></textarea></div>
+ </div>
+-<details class="writerOptionalControls poemGuideDetails"><summary>Add personal meaning — optional</summary><div class=poemGuideBody><p class=writerOptionalNote>Use these when the poem belongs to a memory, a person, or a particular speaker. FOXAI should not invent personal facts you did not provide.</p>
++<details class="writerOptionalControls poemGuideDetails"><summary>Add personal meaning — optional</summary><div class=poemGuideBody><p id=creatorPersonalNote class=writerOptionalNote>Use these when the poem belongs to a memory, a person, or a particular speaker. FOXAI should not invent personal facts you did not provide.</p>
+ <div class=writerField><label for=poemSpeaker>Speaker or character voice</label><input id=poemSpeaker placeholder="Me now; my younger self; a father speaking to his daughters; an unnamed traveler"></div>
+-<div class=writerField><label for=poemMemory>Personal memory or truth</label><textarea id=poemMemory placeholder="A real detail, moment, promise, place, or feeling the poem should protect"></textarea></div>
++<div class=writerField><label for=poemMemory>Personal memory or truth</label><textarea id=poemMemory placeholder="A real detail, moment, promise, place, or feeling the writing should protect"></textarea></div>
+ <div class=writerField><label for=poemAudience>Intended audience</label><input id=poemAudience placeholder="For myself; for Akaysha; for Nevaeh; for anyone who has felt this"></div>
+ </div></details>
+-<details class="writerOptionalControls poemGuideDetails"><summary>Advanced craft choices — optional</summary><div class=poemGuideBody><p class=writerOptionalNote>These are creative preferences, not rigid technical rules. Natural choices remain the default.</p>
++<details class="writerOptionalControls poemGuideDetails"><summary>Advanced craft choices — optional</summary><div class=poemGuideBody><p id=creatorAdvancedNote class=writerOptionalNote>These are creative preferences, not rigid technical rules. Natural choices remain the default.</p>
+ <div class=writerField><label for=poemVoice>Creative voice profile</label><select id=poemVoice onchange="updatePoetryVoiceControls()"><option>My natural voice</option><option>Eric — Poet/Narrator</option><option>Edgar Allan Poe — Gothic Lyric</option><option>Beneath the Beats — West Coast Voice</option><option>Dust and Duty — Last Gunslinger Voice</option><option>The Forsaken Flame — Exile’s Voice</option><option>Lyrical</option><option>Spare and direct</option><option>Narrative</option><option>Dark and mythic</option><option>Hopeful and intimate</option><option>Spoken-word energy</option></select></div>
+ <div id=voiceProfileControls class=voiceProfileBox hidden><div id=voiceProfileHead class=voiceProfileHead>Poetry Voice Profile</div><div class=writerField><label for=poemVoiceStrength>Voice strength</label><select id=poemVoiceStrength></select></div><div id=voiceProfileSources class=voiceProfileSources></div><div id=voiceProfileBadges></div><div id=voiceProfileNotice class=voiceProfileNotice></div></div>
+-<div class=poemGuideGrid><div class=writerField><label for=poemForm>Poetic form</label><select id=poemForm><option>Free verse</option><option>Rhymed</option><option>Sonnet</option><option>Haiku</option><option>Spoken word</option></select></div><div class=writerField><label for=poemLength>Length</label><select id=poemLength><option>Short</option><option selected>Medium</option><option>Long</option></select></div></div>
++<div id=poemOnlyCraftControls>
++<div class=poemGuideGrid><div class=writerField><label for=poemForm>Poetic form</label><select id=poemForm><option>Free verse</option><option>Rhymed</option><option>Sonnet</option><option>Haiku</option><option>Spoken word</option></select></div><div class=writerField><label for=poemLength id=creatorLengthLabel>Length</label><select id=poemLength><option>Short</option><option selected>Medium</option><option>Long</option></select></div></div>
+ <div class=poemGuideGrid><div class=writerField><label for=poemRhymePreference>Rhyme preference</label><select id=poemRhymePreference><option selected>Natural — let the poem decide</option><option>No required rhyme</option><option>Couplets — AABB</option><option>Alternating — ABAB</option><option>Monorhyme — AAAA</option><option>Internal and slant rhyme</option></select></div><div class=writerField><label for=poemRhythmPreference>Rhythm preference</label><select id=poemRhythmPreference><option selected>Natural spoken cadence</option><option>Steady lyrical pulse</option><option>Loose conversational rhythm</option><option>Performance / spoken-word cadence</option><option>Formal meter where possible</option></select></div></div>
++</div>
++<div id=storyLengthControl class=writerField hidden><label for=storyLengthMirror>Story length</label><select id=storyLengthMirror onchange="syncCreatorLengthFromStory()"><option>Short</option><option selected>Medium</option><option>Long</option></select><div class=small>Short: roughly 300–600 words · Medium: 700–1,200 · Long: 1,300–2,000</div></div>
+ <div class=writerField><label for=poemCanon>Canon or established project details</label><textarea id=poemCanon placeholder="Names, facts, world details, promises, or continuity that must remain true"></textarea></div>
+ <div class=writerField><label for=poemOpening>Opening line</label><input id=poemOpening placeholder="Leave blank unless a line is already calling to you"></div>
+ </div></details>
+ <button id=createPoemButton onclick="createPoem(false)">Create Poem</button>
+ <div id=poemGuidanceSummary class=poemGuidanceSummary><b>Your guidance:</b> Add a theme, emotion, scene, memory, speaker, or opening line. Empty choices stay out of the poem.</div>
+-<div class=poemCreatorSafety>You keep control: edit the draft directly, reject it, try another version, combine ideas, revise only selected lines, or save a new Markdown version. Nothing is silently overwritten.</div>
++<div id=creatorSafetyText class=poemCreatorSafety>You keep control: edit the draft directly, reject it, try another version, combine ideas, revise only selected lines, or save a new Markdown version. Nothing is silently overwritten.</div>
+ <div id=poemStatus class="status poemStatus"><span class=poemStateBadge>READY</span>Start the local chat engine, then create when ready.</div>
+ </div>
++<!-- FOXAI_CREATOR_TYPE_1_2_HTML_END -->
+ <!-- FOXAI_POEM_CREATOR_GUIDED_V1_1_HTML_END -->
+-<div class=card><h3>Your Poem</h3><div class=writerField><label for=poemTitle>Title</label><input id=poemTitle placeholder="FOXAI will suggest a real title; you can edit it"></div><div class=writerField><label for=poemAuthor>Author</label><input id=poemAuthor value="Eric Z. Fox" placeholder="Author or pen name"></div><div class=writerField><label for=poemCopyright>Copyright notice</label><input id=poemCopyright value="Copyright © 2026 by Eric Z. Fox" placeholder="Optional copyright notice"></div><textarea id=poemResult class=poemOutput placeholder="Your poem will appear here and remain editable."></textarea><div id=poemProvenance class=poemProvenance><div class=poemProvenanceTitle>What belongs to whom</div><div class=poemProvenanceGrid><div class=poemProvenanceItem><b>Your guidance</b>No creator details entered yet.</div><div class=poemProvenanceItem><b>Draft text</b>No poem created or opened yet.</div><div class=poemProvenanceItem><b>Applied revisions</b>None. Suggestions never apply themselves.</div><div class=poemProvenanceItem><b>Saved versions</b>None in this session. Saves create new Markdown files.</div></div></div><div class=poemActions><button id=tryAnotherPoemButton onclick="createPoem(true)">Try Another</button><button id=savePoemButton onclick="savePoemDraft()">Save Draft</button><button id=capturePoemSelectionButton onclick="capturePoemSelection()">Revise Selection / Stanza</button><button onclick="analyzePoemRhymeRhythm()">Check Rhyme &amp; Rhythm</button><button id=sendPoemPolisherButton onclick="sendPoemToPolisher()">Send to Poem Polisher</button><button onclick="go('poemarchive')">My Poems</button></div>
++<div class=card><h3 id=creatorOutputTitle>Your Poem</h3><div class=writerField><label for=poemTitle>Title</label><input id=poemTitle placeholder="FOXAI will suggest a real title; you can edit it"></div><div class=writerField><label for=poemAuthor>Author</label><input id=poemAuthor value="Eric Z. Fox" placeholder="Author or pen name"></div><div class=writerField><label for=poemCopyright>Copyright notice</label><input id=poemCopyright value="Copyright © 2026 by Eric Z. Fox" placeholder="Optional copyright notice"></div><textarea id=poemResult class=poemOutput placeholder="Your poem will appear here and remain editable."></textarea><div id=poemProvenance class=poemProvenance><div class=poemProvenanceTitle>What belongs to whom</div><div class=poemProvenanceGrid><div class=poemProvenanceItem><b>Your guidance</b>No creator details entered yet.</div><div class=poemProvenanceItem><b>Draft text</b>No poem or short story created or opened yet.</div><div class=poemProvenanceItem><b>Applied revisions</b>None. Suggestions never apply themselves.</div><div class=poemProvenanceItem><b>Saved versions</b>None in this session. Saves create new Markdown files.</div></div></div><div class=poemActions><button id=tryAnotherPoemButton onclick="createPoem(true)">Try Another</button><button id=savePoemButton onclick="savePoemDraft()">Save Draft</button><button id=capturePoemSelectionButton onclick="capturePoemSelection()">Revise Selection / Stanza</button><button id=poemRhymeActionButton onclick="analyzePoemRhymeRhythm()">Check Rhyme &amp; Rhythm</button><button id=sendPoemPolisherButton onclick="sendPoemToPolisher()">Send to Poem Polisher</button><button id=poemArchiveButton onclick="go('poemarchive')">My Poems</button><button id=shortStoryFolderButton onclick="api('/api/open/kayock_writer_short_story_drafts')" hidden>Open Story Folder</button></div>
+ <details id=poemSelectionPanel class=selectionWorkshop><summary>Selected Lines / Stanza Workshop</summary><div class=selectionWorkshopBody><p class=selectionHint>Highlight lines in <b>Your Poem</b>, then press <b>Revise Selection / Stanza</b>. With no highlight, FOXAI captures the stanza containing the cursor. Only the captured passage can be replaced.</p><div class=selectionCapture><div><div class=writerField><label for=poemSelectionText>Captured passage</label><textarea id=poemSelectionText readonly placeholder="Your selected lines or current stanza will appear here."></textarea></div></div><div><div class=writerField><label for=poemSelectionFocus>What should improve?</label><select id=poemSelectionFocus><option selected>Keep meaning, improve the lines</option><option>Stronger imagery</option><option>Smoother rhyme and rhythm</option><option>More emotional impact</option><option>Clearer wording</option><option>Make it stranger and more memorable</option><option>Preserve voice with minimal changes</option></select></div><div class=writerField><label for=poemSelectionNote>Optional direction</label><textarea id=poemSelectionNote placeholder="Example: keep the final rhyme; make the second line less ordinary"></textarea></div><button id=revisePoemSelectionButton onclick="revisePoemSelection()" disabled>Create 3 Alternatives</button></div></div><div id=poemSelectionAlternatives class=selectionAltGrid></div><div id=poemSelectionStatus class="status selectionStatus"><span class=poemStateBadge>READY</span>Select lines or place the cursor inside a stanza.</div></div></details>
+ <details id=poemRhymeCoachPanel class=rhymeCoach><summary>Rhyme &amp; Rhythm Coach</summary><div class=rhymeCoachBody><p class=rhymeCoachIntro>Check stanza shape before rewriting anything. FOXAI estimates syllables, identifies spelling-based rhyme families, and shows where line lengths drift. Use your ear as the final judge.</p><div class=poemOpenNotice><b>Analysis and revision are separate.</b> Changing the target below does not alter the analysis. It changes the instruction used after you press <b>Revise This Stanza</b>.</div><div class=rhymeCoachControls><div class=writerField><label for=poemRhymeTarget>Revision target for the Workshop</label><select id=poemRhymeTarget onchange="updateRhymeTargetPreview()"><option value=auto selected>Natural rhyme — model chooses</option><option value=aabb>Couplets — AABB</option><option value=abab>Alternating — ABAB</option><option value=aaaa>Monorhyme — AAAA</option><option value=none>Rhythm only — do not force rhyme</option></select><div id=poemRhymeTargetPreview class=poemArchiveStatus>Natural rhyme will guide the next stanza revision. The current analysis will not change.</div></div><button onclick="analyzePoemRhymeRhythm()">Recheck Poem</button></div><div id=poemRhymeCoachResults class=rhymeCoachResults><div class=rhymeCoachEmpty>Create, paste, or reopen a poem, then press <b>Check Rhyme &amp; Rhythm</b>.</div></div><div id=poemRhymeCoachStatus class="status poemStatus"><span class=poemStateBadge>READY</span>No poem analyzed yet.</div><div class=rhymeDisclaimer>Syllable and rhyme results are approximate spelling-based guidance. English pronunciation, names, dialect, and performance can differ.</div></div></details>
+ <details id=poemPolisherPanel class=poemPolisher><summary>Poem Polisher</summary><div class=poemPolisherBody><p class=small>Polish rhythm, word choice, imagery, emotional impact, line breaks, and clarity without replacing the writer's voice.</p><textarea id=poemPolisherInput placeholder="Send a poem here from the creator, or paste one."></textarea><div class=writerField><label for=poemPolishFocus>Focus</label><select id=poemPolishFocus><option>Light touch</option><option selected>Balanced polish</option><option>Bold rewrite</option><option>Rhythm and line breaks</option><option>Imagery and emotional impact</option><option>Word choice and clarity</option><option>Preserve voice with minimal changes</option></select></div><button id=polishPoemButton onclick="polishPoem()">Polish Poem</button><textarea id=poemPolishedResult placeholder="The finished polished version will appear here."></textarea><div class=poemCompareActions><button id=keepOriginalPoemButton onclick="keepOriginalPoem()" disabled>Keep Original</button><button id=usePolishedPoemButton onclick="usePolishedPoem()" disabled>Use Polished Version</button><button id=saveBothPoemButton onclick="saveBothPoemVersions()" disabled>Save Both</button></div><div class=poemVersionNote>The original remains separate until you explicitly choose or save a version.</div><div id=poemPolishStatus class=status><span class=poemStateBadge>READY</span>Send a poem here when you want a second version.</div></div></details>
+@@ -9044,6 +9051,7 @@
+ let poemOpenedFrom='';
+ let poemOpenedMode='';
+ /* FOXAI_POEM_CREATOR_GUIDED_V1_1_JS_START */
++/* FOXAI_CREATOR_TYPE_1_2_JS_START */
+ let poemAppliedRevisionCount=0;
+ let poemSavedVersionCount=0;
+ let poemOriginalCaptured=false;
+@@ -9051,6 +9059,59 @@
+ let poemRhymeState={base:'',stanzas:[]};
+ 
+ const POETRY_VOICE_PROFILE_UI={"Eric — Poet/Narrator":{"id":"eric_poet_narrator","strengths":["Light Influence","Recognizably Eric","Strong Eric Voice"],"default_strength":"Recognizably Eric","source_label":"Read-only source profile built from:","badges":["Eternity","The City Of Sorrows","The Vampire Lestat","The Soliloquy of 2002"],"notice":"Inspired by the Eric — Poet/Narrator voice profile. New work; not copied from a source poem. Eric’s originals remain unchanged."},"Edgar Allan Poe — Gothic Lyric":{"id":"edgar_allan_poe_gothic_lyric","strengths":["Candlelit Influence","Gothic Lyric","Midnight Full Force"],"default_strength":"Gothic Lyric","source_label":"Public-domain literary foundation:","badges":["The Raven","Annabel Lee","The Bells","Alone","The Haunted Palace"],"notice":"Musical gothic poetry shaped by public-domain Poe traditions. FOXAI creates a new poem rather than reproducing famous lines, titles, refrains, or plots."},"Beneath the Beats — West Coast Voice":{"id":"beneath_the_beats_west_coast_voice","strengths":["Light West Coast Influence","Truth & Defiance","Full Spoken-Word Force"],"default_strength":"Truth & Defiance","source_label":"Original trait-based composite:","badges":["Emotional truth","Family & loyalty","Social conscience","Internal rhyme","Street-level cinema"],"notice":"Broad West Coast spoken-word craft only. No copyrighted lyrics are stored, quoted, remixed, paraphrased, or imitated."},"Dust and Duty — Last Gunslinger Voice":{"id":"dust_and_duty_last_gunslinger","strengths":["Quiet Resolve","The Gunslinger’s Oath","Last Road, Full Force"],"default_strength":"The Gunslinger’s Oath","source_label":"Original frontier-fantasy archetype:","badges":["Old West","Dying worlds","Ruined machines","Strange stars","Campfire stew","Found family"],"notice":"An original tragic frontier voice: dust, duty, strange technology, quiet grief, and meals shared beside the last fire. No protected characters, mythology, phrases, or franchise details are used."},"The Forsaken Flame — Exile’s Voice":{"id":"the_forsaken_flame_exiles_voice","strengths":["Lonely Wanderer","Beautiful and Unwanted","Forsaken Flame"],"default_strength":"Beautiful and Unwanted","source_label":"Public-domain literary foundation:","badges":["Frankenstein (1818)","Abandonment","Eloquent exile","Longing","Judgment","Terrible tenderness"],"notice":"Inspired by the public-domain Frankenstein tradition: intelligent, abandoned, eloquent, loving, and furious. New poems only; no copied passages or retelling of the novel."}};
++
++function creatorWritingType(){
++    return (q('poemWritingType')?.value||'poem')==='short_story'?'short_story':'poem';
++}
++
++function creatorTypeLabel(type=creatorWritingType()){
++    return type==='short_story'?'short story':'poem';
++}
++
++function creatorUntitledTitle(type=creatorWritingType()){
++    return type==='short_story'?'Untitled Short Story':'Untitled Poem';
++}
++
++function syncCreatorLengthFromStory(){
++    let mirror=q('storyLengthMirror');
++    let main=q('poemLength');
++    if(mirror&&main)main.value=mirror.value||'Medium';
++}
++
++function updateCreatorWritingType(){
++    let story=creatorWritingType()==='short_story';
++    let typeLabel=story?'short story':'poem';
++    let setText=(id,value)=>{let el=q(id);if(el)el.textContent=value};
++    setText('creatorCardTitle',story?'Short Story Creator':'Poem Creator');
++    q('creatorQuietHint').innerHTML=story
++        ?'<b>Start simple.</b> A theme or scene is enough. FOXAI will create one complete short story, while Story Forge remains available for chapters and larger projects.'
++        :'<b>Start simple.</b> A theme alone is enough. Open the other choices only when they help you say what you mean.';
++    setText('creatorPersonalNote',story
++        ?'Use these when the story belongs to a memory, a person, or a particular narrator. FOXAI should not invent personal facts you did not provide.'
++        :'Use these when the poem belongs to a memory, a person, or a particular speaker. FOXAI should not invent personal facts you did not provide.');
++    setText('creatorAdvancedNote',story
++        ?'Choose a voice, story length, canon, or opening line only when useful. Poem-only rhyme and form controls are hidden.'
++        :'These are creative preferences, not rigid technical rules. Natural choices remain the default.');
++    if(q('poemOnlyCraftControls'))q('poemOnlyCraftControls').hidden=story;
++    if(q('storyLengthControl'))q('storyLengthControl').hidden=!story;
++    if(story&&q('storyLengthMirror')&&q('poemLength'))q('storyLengthMirror').value=q('poemLength').value||'Medium';
++    setText('createPoemButton',story?'Create Short Story':'Create Poem');
++    setText('tryAnotherPoemButton',story?'Try Another Story':'Try Another');
++    setText('savePoemButton',story?'Save Story Draft':'Save Draft');
++    setText('creatorOutputTitle',story?'Your Short Story':'Your Poem');
++    let output=q('poemResult');
++    if(output)output.placeholder=story?'Your short story will appear here and remain editable.':'Your poem will appear here and remain editable.';
++    let poemOnlyIds=['capturePoemSelectionButton','poemRhymeActionButton','sendPoemPolisherButton','poemArchiveButton'];
++    poemOnlyIds.forEach(id=>{let el=q(id);if(el)el.hidden=story});
++    if(q('shortStoryFolderButton'))q('shortStoryFolderButton').hidden=!story;
++    ['poemSelectionPanel','poemRhymeCoachPanel','poemPolisherPanel'].forEach(id=>{let el=q(id);if(el)el.hidden=story});
++    setText('creatorSafetyText',story
++        ?'You keep control: edit the story directly, reject it, try another version, combine ideas, or save a new Markdown version. Nothing is silently overwritten.'
++        :'You keep control: edit the draft directly, reject it, try another version, combine ideas, revise only selected lines, or save a new Markdown version. Nothing is silently overwritten.');
++    renderPoemGuidanceSummary();
++    renderPoemProvenance();
++    if(!poetryBusy)poetryStatus('poemStatus','READY',`Ready to create a ${typeLabel} with the active local model.`);
++}
+ 
+ function updatePoetryVoiceControls(){
+     let selected=q('poemVoice')?.value||'My natural voice';
+@@ -9065,7 +9126,10 @@
+     q('voiceProfileBadges').innerHTML=(profile.badges||[])
+         .map(item=>`<span class=voiceProfileBadge>${esc(item)}</span>`)
+         .join('');
+-    q('voiceProfileNotice').textContent=profile.notice||'';
++    let modeNote=creatorWritingType()==='short_story'
++        ?' For short stories, FOXAI translates these broad traits into original prose rather than verse.'
++        :'';
++    q('voiceProfileNotice').textContent=(profile.notice||'')+modeNote;
+ 
+     let strength=q('poemVoiceStrength');
+     let previous=strength?.value||'';
+@@ -9081,6 +9145,7 @@
+ 
+ function poetryPayload(){
+     return {
++        writing_type:creatorWritingType(),
+         author:q('poemAuthor')?.value||'Eric Z. Fox',
+         copyright:q('poemCopyright')?.value||'',
+         theme:q('poemTheme')?.value||'',
+@@ -9105,6 +9170,7 @@
+ function poetryGuidanceItems(){
+     let p=poetryPayload();
+     return [
++        {label:'Writing type',value:p.writing_type==='short_story'?'Short story':'Poem'},
+         {label:'Theme',value:p.theme},
+         {label:'Emotion',value:p.emotion},
+         {label:'Scene / imagery',value:p.imagery},
+@@ -9120,12 +9186,14 @@
+     let box=q('poemGuidanceSummary');
+     if(!box)return;
+     let items=poetryGuidanceItems();
+-    if(!items.length){
+-        box.innerHTML='<b>Your guidance:</b> Add a theme, emotion, scene, memory, speaker, or opening line. Empty choices stay out of the poem.';
++    let type=creatorTypeLabel();
++    let realChoices=items.filter(item=>item.label!=='Writing type');
++    if(!realChoices.length){
++        box.innerHTML=`<b>Your guidance:</b> Add a theme, emotion, scene, memory, speaker, or opening line. Empty choices stay out of the ${type}.`;
+         renderPoemProvenance();
+         return;
+     }
+-    box.innerHTML=`<b>Your guidance:</b> ${items.map(item=>`<span class=poemGuidanceChip>${esc(item.label)}</span>`).join('')}<div class=small>${items.length} creator choice${items.length===1?'':'s'} will guide the next draft. Your opening line and personal facts remain yours.</div>`;
++    box.innerHTML=`<b>Your guidance:</b> ${items.map(item=>`<span class=poemGuidanceChip>${esc(item.label)}</span>`).join('')}<div class=small>${realChoices.length} creator choice${realChoices.length===1?'':'s'} will guide the next ${type}. Your opening line and personal facts remain yours.</div>`;
+     renderPoemProvenance();
+ }
+ 
+@@ -9133,15 +9201,16 @@
+     let box=q('poemProvenance');
+     if(!box)return;
+     let guidance=poetryGuidanceItems();
+-    let poem=(q('poemResult')?.value||'').trim();
+-    let draft='No poem created, pasted, or opened yet.';
++    let content=(q('poemResult')?.value||'').trim();
++    let type=creatorTypeLabel();
++    let draft=`No ${type} created, pasted, or opened yet.`;
+     if(poemOpenedMode==='created'){
+-        draft='FOXAI-generated draft, fully editable by you. The suggested title is also editable.';
++        draft=`FOXAI-generated ${type} draft, fully editable by you. The suggested title is also editable.`;
+     }else if(poemOpenedMode==='working_copy'){
+         draft=`Working copy opened from ${poemOpenedFrom||'a saved Markdown file'}; the archived source remains unchanged.`;
+     }else if(poemOpenedMode==='duplicate'){
+-        draft='New working copy based on a saved poem; the archived source remains unchanged.';
+-    }else if(poem){
++        draft=`New working copy based on saved writing; the archived source remains unchanged.`;
++    }else if(content){
+         draft='Writer-entered or pasted text. FOXAI has not claimed authorship of it.';
+     }
+     let revision=poemAppliedRevisionCount
+@@ -9153,12 +9222,13 @@
+     let captured=poemOriginalCaptured
+         ?'A separate original is currently held in the Poem Polisher for comparison.'
+         :'No original has been sent to the Poem Polisher yet.';
++    let polisherRow=creatorWritingType()==='poem'?`<div class=poemProvenanceItem><b>Polisher original</b>${esc(captured)}</div>`:'';
+     box.innerHTML=`<div class=poemProvenanceTitle>What belongs to whom</div><div class=poemProvenanceGrid>
+         <div class=poemProvenanceItem><b>Your guidance</b>${guidance.length?esc(guidance.map(item=>item.label).join(', ')):'No creator guidance entered yet.'}</div>
+         <div class=poemProvenanceItem><b>Draft text</b>${esc(draft)}</div>
+         <div class=poemProvenanceItem><b>Applied revisions</b>${esc(revision)}</div>
+         <div class=poemProvenanceItem><b>Saved versions</b>${esc(saved)}</div>
+-        <div class=poemProvenanceItem><b>Polisher original</b>${esc(captured)}</div>
++        ${polisherRow}
+     </div>`;
+ }
+ 
+@@ -9171,10 +9241,12 @@
+             el.addEventListener('change',renderPoemGuidanceSummary);
+         });
+     q('poemResult')?.addEventListener('input',renderPoemProvenance);
++    q('poemWritingType')?.addEventListener('change',updatePoetryVoiceControls);
++    updateCreatorWritingType();
+     renderPoemGuidanceSummary();
+     renderPoemProvenance();
+ }
+-
++/* FOXAI_CREATOR_TYPE_1_2_JS_END */
+ /* FOXAI_POEM_CREATOR_GUIDED_V1_1_JS_END */
+ 
+ function inferPoemTitle(poem){
+@@ -9182,7 +9254,7 @@
+         .split(/\r?\n/)
+         .map(line=>line.trim())
+         .filter(Boolean);
+-    if(!lines.length)return 'Untitled Poem';
++    if(!lines.length)return creatorUntitledTitle();
+     let first=lines[0]
+         .replace(/^#{1,6}\s*/,'')
+         .replace(/^["“]|["”]$/g,'')
+@@ -9194,16 +9266,16 @@
+         &&words.length<=12
+         &&!/[.!?,;:]$/.test(first)
+     );
+-    return looksLikeTitle?first:'Untitled Poem';
++    return looksLikeTitle?first:creatorUntitledTitle();
+ }
+ 
+ function resolvedPoemTitle(poem){
+     let current=(q('poemTitle')?.value||'').trim();
+-    if(!current||/^untitled poem$/i.test(current)){
++    if(!current||/^untitled (?:poem|short story)$/i.test(current)){
+         current=inferPoemTitle(poem);
+         if(q('poemTitle'))q('poemTitle').value=current;
+     }
+-    return current||'Untitled Poem';
++    return current||creatorUntitledTitle();
+ }
+ 
+ function poetryStatus(target,state,message){
+@@ -9214,11 +9286,11 @@
+ 
+ function setPoetryBusy(busy,mode=''){
+     poetryBusy=Boolean(busy);
+-    ['createPoemButton','tryAnotherPoemButton','savePoemButton','capturePoemSelectionButton','sendPoemPolisherButton','polishPoemButton','revisePoemSelectionButton'].forEach(id=>{let el=q(id);if(el)el.disabled=poetryBusy});
++    ['createPoemButton','tryAnotherPoemButton','savePoemButton','capturePoemSelectionButton','sendPoemPolisherButton','polishPoemButton','revisePoemSelectionButton','poemRhymeActionButton'].forEach(id=>{let el=q(id);if(el)el.disabled=poetryBusy});
+     let compareReady=!poetryBusy&&Boolean(poemOriginalVersion)&&Boolean(poemPolishedVersion);
+     ['keepOriginalPoemButton','usePolishedPoemButton','saveBothPoemButton'].forEach(id=>{let el=q(id);if(el)el.disabled=!compareReady});
+-    ['poemTheme','poemEmotion','poemImagery','poemSpeaker','poemMemory','poemAudience','poemVoice','poemVoiceStrength','poemForm','poemRhymePreference','poemRhythmPreference','poemLength','poemCanon','poemOpening','poemPolisherInput','poemPolishFocus','poemSelectionFocus','poemSelectionNote'].forEach(id=>{let el=q(id);if(el)el.disabled=poetryBusy});
+-    if(mode==='create'&&q('createPoemButton'))q('createPoemButton').textContent=busy?'Creating...':'Create Poem';
++    ['poemWritingType','poemTheme','poemEmotion','poemImagery','poemSpeaker','poemMemory','poemAudience','poemVoice','poemVoiceStrength','poemForm','poemRhymePreference','poemRhythmPreference','poemLength','storyLengthMirror','poemCanon','poemOpening','poemPolisherInput','poemPolishFocus','poemSelectionFocus','poemSelectionNote'].forEach(id=>{let el=q(id);if(el)el.disabled=poetryBusy});
++    if(mode==='create'&&q('createPoemButton'))q('createPoemButton').textContent=busy?'Creating...':(creatorWritingType()==='short_story'?'Create Short Story':'Create Poem');
+     if(mode==='polish'&&q('polishPoemButton'))q('polishPoemButton').textContent=busy?'Polishing...':'Polish Poem';
+ }
+ 
+@@ -9237,14 +9309,16 @@
+ async function createPoem(variation=false){
+     if(poetryBusy)return;
+     let body=poetryPayload();
++    let story=body.writing_type==='short_story';
++    let typeLabel=story?'short story':'poem';
+     body.variation=Boolean(variation);
+-    poetryStatus('poemStatus','CREATING',variation?'The local model is creating a distinctly different version...':'The local model is drafting your poem...');
++    poetryStatus('poemStatus','CREATING',variation?`The local model is creating a distinctly different ${typeLabel}...`:`The local model is drafting your ${typeLabel}...`);
+     setPoetryBusy(true,'create');
+     try{
+         let d=await api('/api/writer/poetry/create',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+-        if(!d?.ok){poetryStatus('poemStatus','ERROR',d?.message||'Poem creation failed.');return}
++        if(!d?.ok){poetryStatus('poemStatus','ERROR',d?.message||`${typeLabel} creation failed.`);return}
+         q('poemResult').value=d.poem||'';
+-        q('poemTitle').value=d.suggested_title||'Untitled Poem';
++        q('poemTitle').value=d.suggested_title||creatorUntitledTitle();
+         poemOpenedFrom='';
+         poemOpenedMode='created';
+         poemAppliedRevisionCount=0;
+@@ -9254,8 +9328,8 @@
+         resetPoemComparison();
+         renderPoemGuidanceSummary();
+         renderPoemProvenance();
+-        let profileNote=d.voice_profile?` Inspired by ${d.voice_profile} at ${d.voice_strength||'selected strength'} strength. New work; source poems unchanged.`:'';
+-        poetryStatus('poemStatus','READY TO EDIT',`Created with ${d.model_name||'the active local model'}. The title and poem remain editable.${profileNote}`);
++        let profileNote=d.voice_profile?` Guided by ${d.voice_profile} at ${d.voice_strength||'selected strength'} strength. New work; protected sources unchanged.`:'';
++        poetryStatus('poemStatus','READY TO EDIT',`Created with ${d.model_name||'the active local model'}. The title and ${typeLabel} remain editable.${profileNote}`);
+     }finally{
+         setPoetryBusy(false,'create');
+     }
+@@ -9263,17 +9337,19 @@
+ 
+ async function savePoemVersion(poem,versionKind='draft',versionGroup=''){
+     let title=resolvedPoemTitle(poem);
+-    return await api('/api/writer/poetry/save',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({title,poem,settings:poetryPayload(),version_kind:versionKind,version_group:versionGroup})});
++    let settings=poetryPayload();
++    return await api('/api/writer/poetry/save',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({title,poem,writing_type:settings.writing_type,settings,version_kind:versionKind,version_group:versionGroup})});
+ }
+ 
+ async function savePoemDraft(){
+     if(poetryBusy)return;
+-    let poem=(q('poemResult')?.value||'').trim();
+-    if(!poem){toast('There is no poem to save yet.');return}
+-    poetryStatus('poemStatus','SAVING','Creating a new Markdown draft. Existing files will not be overwritten.');
++    let content=(q('poemResult')?.value||'').trim();
++    let typeLabel=creatorTypeLabel();
++    if(!content){toast(`There is no ${typeLabel} to save yet.`);return}
++    poetryStatus('poemStatus','SAVING',`Creating a new Markdown ${typeLabel} draft. Existing files will not be overwritten.`);
+     setPoetryBusy(true);
+     try{
+-        let d=await savePoemVersion(poem,'draft','');
++        let d=await savePoemVersion(content,'draft','');
+         if(d?.ok){
+             poemSavedVersionCount+=1;
+             renderPoemProvenance();
+@@ -9433,6 +9509,7 @@
+ }
+ 
+ function analyzePoemRhymeRhythm(){
++    if(creatorWritingType()==='short_story'){toast('Rhyme & Rhythm Coach is for poems.');return}
+     if(poetryBusy)return;
+     let poem=q('poemResult')?.value||'';
+     if(!poem.trim()){toast('Create, paste, or reopen a poem first.');return}
+@@ -9526,6 +9603,7 @@
+ }
+ 
+ function capturePoemSelection(){
++    if(creatorWritingType()==='short_story'){toast('Selected Lines / Stanza Workshop is for poems.');return}
+     if(poetryBusy)return;
+     let editor=q('poemResult');
+     let poem=editor?.value||'';
+@@ -9626,6 +9704,7 @@
+ }
+ 
+ function sendPoemToPolisher(){
++    if(creatorWritingType()==='short_story'){toast('Poem Polisher is for poems. Story polishing remains in Story Forge.');return}
+     if(poetryBusy)return;
+     let poem=(q('poemResult')?.value||'').trim();
+     if(!poem){toast('Create or paste a poem first.');return}
+@@ -9721,6 +9800,8 @@
+     toast('Story Forge brief is ready in Mission Console.');
+ }
+ function openPoemPolisherFromWriterHome(){
++    setPoetryStudioField('poemWritingType','poem');
++    updateCreatorWritingType();
+     go('poetrystudio');
+     setTimeout(()=>{
+         let panel=q('poemPolisherPanel');
+@@ -9868,6 +9949,8 @@
+     let loadedTitle=data.title||'Untitled Poem';
+     if(duplicate)loadedTitle=`${loadedTitle} — New Work`;
+ 
++    setPoetryStudioField('poemWritingType','poem');
++    updateCreatorWritingType();
+     setPoetryStudioField('poemTitle',loadedTitle);
+     setPoetryStudioField('poemAuthor',data.author||'Eric Z. Fox');
+     setPoetryStudioField('poemCopyright',data.copyright||'');
+@@ -9972,6 +10055,7 @@
+ 
+ try{initializePoetryGuidanceTracking()}catch(e){}
+ try{updatePoetryVoiceControls()}catch(e){}
++try{updateCreatorWritingType()}catch(e){}
+ try{updateRhymeTargetPreview()}catch(e){}
+ /* KAYOCK_WRITER_CALM_HOME_V1_JS_END */
+ 
+@@ -23880,9 +23964,50 @@
+     return _poetry_fallback_title(theme,emotion,imagery)
+ 
+ 
++
++
++# FOXAI_CREATOR_TYPE_1_2_TITLE_START
++def _short_story_fallback_title(theme,emotion,imagery):
++    title=_poetry_fallback_title(theme,emotion,imagery)
++    return 'Untitled Short Story' if title=='Untitled Poem' else title
++
++
++def _short_story_generate_title(story,theme='',emotion='',imagery=''):
++    first_nonempty=next((line.strip() for line in story.splitlines() if line.strip()),'')
++    system=(
++        'You title short stories for FOXAI. Return only one concise original title of two to seven words. '
++        'Do not use quotation marks, markdown, labels, commentary, or terminal punctuation. '
++        'Do not simply repeat the opening sentence. Prefer a memorable image, conflict, mystery, or turn from the story.'
++    )
++    user='\n'.join([
++        f'Theme: {theme or "open"}',
++        f'Emotion: {emotion or "open"}',
++        f'Imagery: {imagery or "open"}',
++        '',
++        'SHORT STORY:',
++        story[:16000],
++    ])
++    result=_poetry_chat(
++        [{'role':'system','content':system},{'role':'user','content':user}],
++        max_tokens=48,
++        temperature=0.55,
++    )
++    if result.get('ok'):
++        candidate=_poetry_clean_title(result.get('poem'))
++        opening_sentence=re.split(r'(?<=[.!?])\s+',first_nonempty,1)[0].strip()
++        if candidate and candidate.casefold()!=opening_sentence.casefold():
++            return candidate
++    return _short_story_fallback_title(theme,emotion,imagery)
++# FOXAI_CREATOR_TYPE_1_2_TITLE_END
++
+ # FOXAI_POEM_CREATOR_GUIDED_V1_1_BACKEND_START
++# FOXAI_CREATOR_TYPE_1_2_BACKEND_START
+ def kayock_writer_poetry_create(d=None):
+     d=d or {}
++    writing_type=_writer_text(d.get('writing_type') or 'poem',40).strip().casefold()
++    if writing_type not in {'poem','short_story'}:
++        writing_type='poem'
++    is_story=writing_type=='short_story'
+     theme=_writer_text(d.get('theme'),300)
+     emotion=_writer_text(d.get('emotion'),300)
+     imagery=_writer_text(d.get('imagery'),2000)
+@@ -23902,7 +24027,7 @@
+     )
+     length=_writer_text(d.get('length') or 'Medium',40)
+     canon=_writer_text(d.get('canon'),5000)
+-    opening=_writer_text(d.get('opening_line'),500)
++    opening=_writer_text(d.get('opening_line'),1000)
+     variation=bool(d.get('variation'))
+ 
+     creative_seed_fields={
+@@ -23923,67 +24048,76 @@
+             ),
+         }
+ 
+-    length_guide={
+-        'short':'roughly 8 to 16 lines',
+-        'medium':'roughly 18 to 32 lines',
+-        'long':'roughly 35 to 60 lines',
+-    }.get(length.lower(),'roughly 18 to 32 lines')
+-
+-    rhyme_guide={
+-        'natural — let the poem decide':(
+-            'Use rhyme only where it strengthens the poem. Slant rhyme, internal '
+-            'rhyme, repeated sounds, or no end rhyme are all acceptable. Do not '
+-            'force a scheme.'
+-        ),
+-        'no required rhyme':(
+-            'Do not force end rhyme. Let image, meaning, line breaks, and cadence '
+-            'carry the poem.'
+-        ),
+-        'couplets — aabb':(
+-            'Prefer an AABB couplet pattern where it sounds natural. Meaning and '
+-            'the writer voice outrank perfect rhyme.'
+-        ),
+-        'alternating — abab':(
+-            'Prefer an ABAB alternating pattern where it sounds natural. Allow '
+-            'slant rhyme rather than distorting meaning.'
+-        ),
+-        'monorhyme — aaaa':(
+-            'Explore an AAAA monorhyme pattern carefully. Avoid repetitive filler '
+-            'and abandon exact rhyme when it harms the poem.'
+-        ),
+-        'internal and slant rhyme':(
+-            'Favor internal rhyme, near rhyme, assonance, consonance, and spoken '
+-            'sound over a rigid end-rhyme scheme.'
+-        ),
+-    }.get(
+-        rhyme_preference.strip().casefold(),
+-        'Treat the stated rhyme choice as a preference, not a rigid requirement.',
+-    )
+-
+-    rhythm_guide={
+-        'natural spoken cadence':(
+-            'Use a natural read-aloud cadence with line breaks that support breath '
+-            'and emphasis.'
+-        ),
+-        'steady lyrical pulse':(
+-            'Use a steady lyrical pulse while allowing meaningful variation.'
+-        ),
+-        'loose conversational rhythm':(
+-            'Use flexible conversational phrasing that still feels intentional '
+-            'when spoken aloud.'
+-        ),
+-        'performance / spoken-word cadence':(
+-            'Write for performance: strong breath points, momentum, emphasis, and '
+-            'memorable sound without turning every line into a slogan.'
+-        ),
+-        'formal meter where possible':(
+-            'Use a recognizable formal meter where practical, but do not damage '
+-            'meaning or natural speech merely to satisfy the count.'
+-        ),
+-    }.get(
+-        rhythm_preference.strip().casefold(),
+-        'Treat the stated rhythm choice as a flexible craft preference.',
+-    )
++    if is_story:
++        length_guide={
++            'short':'roughly 300 to 600 words',
++            'medium':'roughly 700 to 1,200 words',
++            'long':'roughly 1,300 to 2,000 words',
++        }.get(length.lower(),'roughly 700 to 1,200 words')
++        rhyme_guide='Not used in short-story mode.'
++        rhythm_guide='Use natural readable prose rhythm, varied sentence length, and clear paragraphing.'
++    else:
++        length_guide={
++            'short':'roughly 8 to 16 lines',
++            'medium':'roughly 18 to 32 lines',
++            'long':'roughly 35 to 60 lines',
++        }.get(length.lower(),'roughly 18 to 32 lines')
++
++        rhyme_guide={
++            'natural — let the poem decide':(
++                'Use rhyme only where it strengthens the poem. Slant rhyme, internal '
++                'rhyme, repeated sounds, or no end rhyme are all acceptable. Do not '
++                'force a scheme.'
++            ),
++            'no required rhyme':(
++                'Do not force end rhyme. Let image, meaning, line breaks, and cadence '
++                'carry the poem.'
++            ),
++            'couplets — aabb':(
++                'Prefer an AABB couplet pattern where it sounds natural. Meaning and '
++                'the writer voice outrank perfect rhyme.'
++            ),
++            'alternating — abab':(
++                'Prefer an ABAB alternating pattern where it sounds natural. Allow '
++                'slant rhyme rather than distorting meaning.'
++            ),
++            'monorhyme — aaaa':(
++                'Explore an AAAA monorhyme pattern carefully. Avoid repetitive filler '
++                'and abandon exact rhyme when it harms the poem.'
++            ),
++            'internal and slant rhyme':(
++                'Favor internal rhyme, near rhyme, assonance, consonance, and spoken '
++                'sound over a rigid end-rhyme scheme.'
++            ),
++        }.get(
++            rhyme_preference.strip().casefold(),
++            'Treat the stated rhyme choice as a preference, not a rigid requirement.',
++        )
++
++        rhythm_guide={
++            'natural spoken cadence':(
++                'Use a natural read-aloud cadence with line breaks that support breath '
++                'and emphasis.'
++            ),
++            'steady lyrical pulse':(
++                'Use a steady lyrical pulse while allowing meaningful variation.'
++            ),
++            'loose conversational rhythm':(
++                'Use flexible conversational phrasing that still feels intentional '
++                'when spoken aloud.'
++            ),
++            'performance / spoken-word cadence':(
++                'Write for performance: strong breath points, momentum, emphasis, and '
++                'memorable sound without turning every line into a slogan.'
++            ),
++            'formal meter where possible':(
++                'Use a recognizable formal meter where practical, but do not damage '
++                'meaning or natural speech merely to satisfy the count.'
++            ),
++        }.get(
++            rhythm_preference.strip().casefold(),
++            'Treat the stated rhythm choice as a flexible craft preference.',
++        )
+ 
+     voice_profile_id=_writer_voice_profile_id(voice)
+     voice_profile_prompt=build_writer_voice_prompt(
+@@ -23991,67 +24125,127 @@
+         voice_strength,
+     ) if voice_profile_id else ''
+ 
+-    system=(
+-        'You are FOXAI Poetry Studio, a respectful creative partner. Write one '
+-        'finished poem only. Do not explain the poem, announce the title, discuss '
+-        'your process, or add commentary outside the poem. Preserve the writer\'s '
+-        'requested voice and meaning. Prefer vivid, specific language over generic '
+-        'inspiration. Avoid clichés unless deliberately transformed. Follow the '
+-        'requested form honestly. If an opening line is supplied, use it exactly '
+-        'as the first line. Treat personal memories and canon as authoritative: '
+-        'do not invent extra biographical facts, relationships, events, names, or '
+-        'project lore. The intended audience should shape intimacy and clarity, '
+-        'not force a dedication or direct address unless appropriate. Rhyme and '
+-        'rhythm preferences must never override meaning, emotional truth, or the '
+-        'writer\'s identity. Do not imitate a living poet.'
+-    )
++    if is_story:
++        system=(
++            'You are FOXAI Short Story Creator, a respectful creative partner. Write one '
++            'complete original short story only. Return prose paragraphs without a title, '
++            'analysis, outline, labels, or commentary. Establish a specific scene, a clear '
++            'character perspective or narrator, meaningful pressure or desire, and an earned '
++            'turn, consequence, revelation, or ending. Preserve the writer\'s requested voice '
++            'and meaning. Prefer vivid concrete detail over generic inspiration. If an opening '
++            'line is supplied, use it exactly as the first sentence. Treat personal memories '
++            'and canon as authoritative: do not invent extra biographical facts, relationships, '
++            'events, names, or project lore. The intended audience should shape clarity and '
++            'intensity without forcing direct address. Do not imitate a living author.'
++        )
++    else:
++        system=(
++            'You are FOXAI Poetry Studio, a respectful creative partner. Write one '
++            'finished poem only. Do not explain the poem, announce the title, discuss '
++            'your process, or add commentary outside the poem. Preserve the writer\'s '
++            'requested voice and meaning. Prefer vivid, specific language over generic '
++            'inspiration. Avoid clichés unless deliberately transformed. Follow the '
++            'requested form honestly. If an opening line is supplied, use it exactly '
++            'as the first line. Treat personal memories and canon as authoritative: '
++            'do not invent extra biographical facts, relationships, events, names, or '
++            'project lore. The intended audience should shape intimacy and clarity, '
++            'not force a dedication or direct address unless appropriate. Rhyme and '
++            'rhythm preferences must never override meaning, emotional truth, or the '
++            'writer\'s identity. Do not imitate a living poet.'
++        )
+     if voice_profile_prompt:
+         system+='\n\n'+voice_profile_prompt
+-
+-    user='\n'.join([
+-        f'Theme: {theme or "open"}',
+-        f'Emotion: {emotion or "open"}',
+-        f'Scene or imagery: {imagery or "open"}',
+-        f'Speaker or character voice: {speaker or "open"}',
+-        f'Personal memory or truth: {personal_memory or "none supplied"}',
+-        f'Intended audience: {audience or "open"}',
+-        f'Creative voice profile: {voice}',
+-        f'Poetic form: {form}',
+-        f'Rhyme preference: {rhyme_preference}',
+-        f'Rhyme guidance: {rhyme_guide}',
+-        f'Rhythm preference: {rhythm_preference}',
+-        f'Rhythm guidance: {rhythm_guide}',
+-        f'Length: {length_guide}',
+-        f'Canon or established project details: {canon or "none supplied"}',
+-        f'Opening line: {opening or "none"}',
+-        (
+-            'Create a distinctly different variation from the previous attempt.'
+-            if variation else
+-            'Create the first strong version.'
+-        ),
+-    ])
+-
+-    max_tokens={
+-        'short':500,
+-        'medium':900,
+-        'long':1500,
+-    }.get(length.lower(),900)
++    if is_story and voice_profile_prompt:
++        system+=(
++            '\n\nSHORT STORY MODE OVERRIDE: Translate the profile\'s broad worldview, diction, '
++            'imagery, emotional tendencies, and cadence into wholly original prose. Any '
++            'profile wording that asks for poetry, rhyme, meter, stanzas, refrains, couplets, '
++            'or line breaks is craft background only and must not turn this response into verse.'
++        )
++
++    if is_story:
++        user='\n'.join([
++            f'Theme: {theme or "open"}',
++            f'Emotion: {emotion or "open"}',
++            f'Scene or imagery: {imagery or "open"}',
++            f'Narrator or character voice: {speaker or "open"}',
++            f'Personal memory or truth: {personal_memory or "none supplied"}',
++            f'Intended audience: {audience or "open"}',
++            f'Creative voice profile: {voice}',
++            f'Story length: {length_guide}',
++            f'Prose rhythm: {rhythm_guide}',
++            f'Canon or established project details: {canon or "none supplied"}',
++            f'Opening line: {opening or "none"}',
++            (
++                'Create a distinctly different short-story variation with a different '
++                'approach, scene movement, or ending while preserving supplied facts.'
++                if variation else
++                'Create the first strong complete short story.'
++            ),
++        ])
++        max_tokens={
++            'short':1000,
++            'medium':1900,
++            'long':3100,
++        }.get(length.lower(),1900)
++        temperature=0.88 if variation else 0.80
++    else:
++        user='\n'.join([
++            f'Theme: {theme or "open"}',
++            f'Emotion: {emotion or "open"}',
++            f'Scene or imagery: {imagery or "open"}',
++            f'Speaker or character voice: {speaker or "open"}',
++            f'Personal memory or truth: {personal_memory or "none supplied"}',
++            f'Intended audience: {audience or "open"}',
++            f'Creative voice profile: {voice}',
++            f'Poetic form: {form}',
++            f'Rhyme preference: {rhyme_preference}',
++            f'Rhyme guidance: {rhyme_guide}',
++            f'Rhythm preference: {rhythm_preference}',
++            f'Rhythm guidance: {rhythm_guide}',
++            f'Length: {length_guide}',
++            f'Canon or established project details: {canon or "none supplied"}',
++            f'Opening line: {opening or "none"}',
++            (
++                'Create a distinctly different variation from the previous attempt.'
++                if variation else
++                'Create the first strong version.'
++            ),
++        ])
++        max_tokens={
++            'short':500,
++            'medium':900,
++            'long':1500,
++        }.get(length.lower(),900)
++        temperature=0.9 if variation else 0.82
++
+     result=_poetry_chat(
+         [
+             {'role':'system','content':system},
+             {'role':'user','content':user},
+         ],
+         max_tokens=max_tokens,
+-        temperature=0.9 if variation else 0.82,
++        temperature=temperature,
+     )
+     if not result.get('ok'):
++        if is_story:
++            result['message']=str(result.get('message') or 'Short Story Creator failed.').replace('empty poem','empty short story').replace('Poetry Studio','Short Story Creator')
+         return result
+ 
+-    suggested=_poetry_generate_title(
+-        result['poem'],
+-        theme=theme,
+-        emotion=emotion,
+-        imagery=imagery,
++    suggested=(
++        _short_story_generate_title(
++            result['poem'],
++            theme=theme,
++            emotion=emotion,
++            imagery=imagery,
++        )
++        if is_story else
++        _poetry_generate_title(
++            result['poem'],
++            theme=theme,
++            emotion=emotion,
++            imagery=imagery,
++        )
+     )
+     provided_fields=[
+         key
+@@ -24068,10 +24262,12 @@
+         if value
+     ]
+     result.update({
+-        'message':'Poem created.',
++        'message':'Short story created.' if is_story else 'Poem created.',
++        'writing_type':writing_type,
+         'suggested_title':suggested,
+         'title_generated_separately':True,
+         'settings':{
++            'writing_type':writing_type,
+             'theme':theme,
+             'emotion':emotion,
+             'imagery':imagery,
+@@ -24080,19 +24276,20 @@
+             'audience':audience,
+             'voice':voice,
+             'voice_strength':voice_strength,
+-            'form':form,
+-            'rhyme_preference':rhyme_preference,
+-            'rhythm_preference':rhythm_preference,
++            'form':'' if is_story else form,
++            'rhyme_preference':'' if is_story else rhyme_preference,
++            'rhythm_preference':'Natural readable prose' if is_story else rhythm_preference,
+             'length':length,
+             'canon':canon,
+             'opening_line':opening,
+         },
+         'provenance':{
++            'writing_type':writing_type,
+             'user_guidance_fields':provided_fields,
+             'user_opening_line_preserved':bool(opening),
+             'personal_memory_treated_as_authoritative':bool(personal_memory),
+             'canon_treated_as_authoritative':bool(canon),
+-            'draft_source':'foxai_generated',
++            'draft_source':'foxai_generated_short_story' if is_story else 'foxai_generated_poem',
+             'suggestions_applied_automatically':False,
+             'saved_file_created':False,
+         },
+@@ -24109,7 +24306,7 @@
+         'new_work_not_copied':bool(voice_profile_id),
+     })
+     return result
+-
++# FOXAI_CREATOR_TYPE_1_2_BACKEND_END
+ # FOXAI_POEM_CREATOR_GUIDED_V1_1_BACKEND_END
+ 
+ 
+@@ -24522,11 +24719,19 @@
+ 
+ 
+ # FOXAI_POEM_CREATOR_GUIDED_V1_1_STORAGE_START
++# FOXAI_CREATOR_TYPE_1_2_STORAGE_START
+ def kayock_writer_poetry_save(d=None):
+     d=d or {}
+-    poem=_writer_text(d.get('poem'),32000)
++    content=_writer_text(d.get('poem'),48000)
+     title=_writer_text(d.get('title'),160)
+     settings=d.get('settings') if isinstance(d.get('settings'),dict) else {}
++    writing_type=_writer_text(
++        d.get('writing_type') or settings.get('writing_type') or 'poem',
++        40,
++    ).strip().casefold()
++    if writing_type not in {'poem','short_story'}:
++        writing_type='poem'
++    is_story=writing_type=='short_story'
+     version_kind=_writer_text(
+         d.get('version_kind') or 'draft',
+         40,
+@@ -24534,26 +24739,33 @@
+     version_group=_writer_text(d.get('version_group'),120)
+     if version_kind not in {'draft','original','polished'}:
+         version_kind='draft'
+-    if not poem:
+-        return {'ok':False,'message':'There is no poem to save.'}
+-
+-    folder=FOLDERS.get(
+-        'kayock_writer_poetry_drafts',
+-        ROOT/'Projects'/'KayockWriter'/'Poetry'/'Drafts',
+-    )
++    if not content:
++        return {'ok':False,'message':'There is no short story to save.' if is_story else 'There is no poem to save.'}
++
++    if is_story:
++        folder=FOLDERS.get(
++            'kayock_writer_short_story_drafts',
++            ROOT/'Projects'/'KayockWriter'/'ShortStories'/'Drafts',
++        )
++    else:
++        folder=FOLDERS.get(
++            'kayock_writer_poetry_drafts',
++            ROOT/'Projects'/'KayockWriter'/'Poetry'/'Drafts',
++        )
+     folder.mkdir(parents=True,exist_ok=True)
+     stamp=datetime.now().strftime('%Y%m%d_%H%M%S_%f')
+-    display_title=title or 'Untitled Poem'
++    display_title=title or ('Untitled Short Story' if is_story else 'Untitled Poem')
+     safe=(
+         re.sub(r'[^A-Za-z0-9 _.-]','',display_title)
+         .strip()
+         .replace(' ','_')[:70]
+-        or 'Untitled_Poem'
++        or ('Untitled_Short_Story' if is_story else 'Untitled_Poem')
+     )
+     kind_suffix='' if version_kind=='draft' else f'_{version_kind}'
+     path=folder/f'{safe}{kind_suffix}_{stamp}.md'
+ 
+     prompt_fields={
++        'writing_type':writing_type,
+         'theme':_writer_text(settings.get('theme'),300),
+         'emotion':_writer_text(settings.get('emotion'),300),
+         'imagery':_writer_text(settings.get('imagery'),4000),
+@@ -24568,14 +24780,15 @@
+             settings.get('voice_strength'),
+             80,
+         ),
+-        'form':_writer_text(settings.get('form'),80),
+-        'rhyme_preference':_writer_text(
++        'form':'' if is_story else _writer_text(settings.get('form'),80),
++        'rhyme_preference':'' if is_story else _writer_text(
+             settings.get('rhyme_preference'),
+             120,
+         ),
+-        'rhythm_preference':_writer_text(
+-            settings.get('rhythm_preference'),
+-            120,
++        'rhythm_preference':(
++            'Natural readable prose'
++            if is_story else
++            _writer_text(settings.get('rhythm_preference'),120)
+         ),
+         'length':_writer_text(settings.get('length'),80),
+         'canon':_writer_text(settings.get('canon'),6000),
+@@ -24590,13 +24803,19 @@
+         'copyright':_writer_text(settings.get('copyright'),240),
+     }
+ 
++    source_label=(
++        'Kayock Writer Poetry Studio — Short Story Creator'
++        if is_story else
++        'Kayock Writer Poetry Studio'
++    )
+     front=[
+         '---',
+         f'title: {json.dumps(display_title,ensure_ascii=False)}',
+         f'author: {json.dumps(prompt_fields["author"],ensure_ascii=False)}',
+         f'copyright: {json.dumps(prompt_fields["copyright"],ensure_ascii=False)}',
+         f'created: {json.dumps(now())}',
+-        'source: Kayock Writer Poetry Studio',
++        f'source: {json.dumps(source_label,ensure_ascii=False)}',
++        f'content_type: {json.dumps(writing_type)}',
+         (
+             f'model: {json.dumps(Path(chat_model).name if chat_model else "",ensure_ascii=False)}'
+         ),
+@@ -24651,21 +24870,23 @@
+         '',
+         f'# {display_title}',
+         '',
+-        poem,
++        content,
+         '',
+     ]
+     path.write_text('\n'.join(front),encoding='utf-8')
++    noun='Short story' if is_story else 'Poetry'
+     return {
+         'ok':True,
+-        'message':f'Poetry {version_kind} saved as {path.name}.',
++        'message':f'{noun} {version_kind} saved as {path.name}.',
+         'path':str(path),
++        'writing_type':writing_type,
+         'version_kind':version_kind,
+         'version_group':version_group,
+         'overwritten':False,
+         'new_file':True,
+         'creator_guidance_preserved':True,
+     }
+-
++# FOXAI_CREATOR_TYPE_1_2_STORAGE_END
+ # FOXAI_POEM_CREATOR_GUIDED_V1_1_STORAGE_END
+ 
+ 

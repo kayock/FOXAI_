@@ -1,0 +1,338 @@
+--- a/core/foxai_web.py
++++ b/core/foxai_web.py
+@@ -9373,6 +9373,9 @@
+ let poemSavedVersionCount=0;
+ let poemOriginalCaptured=false;
+ let poemPolisherWritingType='poem';
++/* FOXAI_SHORT_STORY_POLISHER_V1_1_JS_START */
++let poemPolisherVersionGroup='';
++/* FOXAI_SHORT_STORY_POLISHER_V1_1_JS_STATE_END */
+ let poemSelectionState={base:'',start:0,end:0,selected:'',alternatives:[]};
+ let poemRhymeState={base:'',stanzas:[]};
+ 
+@@ -9676,6 +9679,7 @@
+     poemPolishedVersion='';
+     poemOriginalTitle='';
+     poemOriginalCaptured=false;
++    poemPolisherVersionGroup='';
+     if(q('poemPolisherInput'))q('poemPolisherInput').value='';
+     if(q('poemPolishedResult'))q('poemPolishedResult').value='';
+     ['keepOriginalPoemButton','usePolishedPoemButton','saveBothPoemButton'].forEach(id=>{let el=q(id);if(el)el.disabled=true});
+@@ -9738,9 +9742,9 @@
+         let polishFocus=fromPolisher?(q('poemPolishFocus')?.value||''):'';
+         let d=await savePoemVersion(content,'draft','',sourceMode,polishFocus);
+         if(d?.ok){
+-            poemSavedVersionCount+=1;
++            poemSavedVersionCount+=(d.new_file?1:0);
+             renderPoemProvenance();
+-            poetryStatus('poemStatus','SAVED',d.path);
++            poetryStatus('poemStatus',d.reused_existing?'ALREADY SAVED':'SAVED',d.path);
+         }else poetryStatus('poemStatus','ERROR',d?.message||'Save failed.');
+     }finally{
+         setPoetryBusy(false);
+@@ -10100,6 +10104,7 @@
+     poemOriginalCaptured=true;
+     poemOriginalTitle=resolvedPoemTitle(work);
+     poemPolishedVersion='';
++    poemPolisherVersionGroup='';
+     q('poemPolisherInput').value=work;
+     q('poemPolishedResult').value='';
+     ['keepOriginalPoemButton','usePolishedPoemButton','saveBothPoemButton'].forEach(id=>{let el=q(id);if(el)el.disabled=true});
+@@ -10117,6 +10122,8 @@
+     let typeLabel=story?'short story':'poem';
+     let work=(q('poemPolisherInput')?.value||'').trim();
+     if(!work){toast(`Paste or send a ${typeLabel} first.`);return}
++    let priorOriginal=String(poemOriginalVersion||'').trim();
++    if(priorOriginal!==work)poemPolisherVersionGroup='';
+     poemOriginalVersion=work;
+     poemOriginalCaptured=true;
+     poemOriginalTitle=resolvedPoemTitle(work);
+@@ -10143,10 +10150,18 @@
+         })});
+         if(!d?.ok){poetryStatus('poemPolishStatus','ERROR',d?.message||'Polish failed.');return}
+         poemPolishedVersion=(d.poem||'').trim();
++        if(story&&String(poemPolishedVersion).replace(/\s+/g,' ').trim().toLowerCase()===String(poemOriginalVersion).replace(/\s+/g,' ').trim().toLowerCase()){
++            poemPolishedVersion='';
++            q('poemPolishedResult').value='';
++            poetryStatus('poemPolishStatus','NO CHANGE','The model returned the original story unchanged. No polished version was accepted or made saveable. Try again or choose a stronger focus.');
++            return;
++        }
+         q('poemPolishedResult').value=poemPolishedVersion;
+         let profileNote=d.voice_profile?` ${d.voice_profile} was used at ${d.voice_strength||'selected strength'} strength; protected source material was not changed or copied.`:'';
+-        let protectionNote=story?' Plot, characters, point of view, tense, canon, central meaning, and intended ending were instructed as protected.':'';
+-        poetryStatus('poemPolishStatus','READY TO COMPARE',`Original and polished versions are both available. Nothing has been replaced.${protectionNote}${profileNote}`);
++        let protectionNote=story?' Plot, characters, point of view, tense, canon, central meaning, and intended ending were protected.':'';
++        let retryNote=story&&Number(d.polish_attempts||1)>1?' The first unchanged attempt was rejected and FOXAI retried once with stronger prose-craft instructions.':'';
++        let changeNote=story&&d.change_metrics?` ${Number(d.change_metrics.changed_words||0)} word-level changes were detected.`:'';
++        poetryStatus('poemPolishStatus','READY TO COMPARE',`Original and polished versions are both available. Nothing has been replaced.${protectionNote}${retryNote}${changeNote}${profileNote}`);
+     }finally{
+         setPoetryBusy(false,'polish');
+     }
+@@ -10176,26 +10191,36 @@
+ async function saveBothPoemVersions(){
+     if(poetryBusy||!poemOriginalVersion||!poemPolishedVersion){toast('Finish a polish before saving both versions.');return}
+     let story=creatorWritingType()==='short_story';
+-    let group=`${story?'short-story':'poetry'}-${Date.now()}`;
++    let originalNormalized=String(poemOriginalVersion||'').replace(/\s+/g,' ').trim().toLowerCase();
++    let polishedNormalized=String(poemPolishedVersion||'').replace(/\s+/g,' ').trim().toLowerCase();
++    if(story&&originalNormalized===polishedNormalized){
++        poetryStatus('poemPolishStatus','NOT SAVED','The polished story is identical to the original. No duplicate files were created.');
++        return;
++    }
++    let group=poemPolisherVersionGroup||`${story?'short-story':'poetry'}-${Date.now()}`;
+     let focus=q('poemPolishFocus')?.value||'';
+-    poetryStatus('poemPolishStatus','SAVING BOTH',`Saving separate original and polished ${story?'short-story':'poetry'} Markdown files...`);
++    poetryStatus('poemPolishStatus','SAVING BOTH',`Saving one canonical original and a distinct polished ${story?'short-story':'poetry'} revision...`);
+     setPoetryBusy(true);
+     try{
+         let original=await savePoemVersion(poemOriginalVersion,'original',group,'polisher',focus);
++        if(original?.ok&&original.version_group)group=original.version_group;
++        poemPolisherVersionGroup=group;
+         let polished=await savePoemVersion(poemPolishedVersion,'polished',group,'polisher',focus);
++        let newFiles=(original?.ok&&original?.new_file?1:0)+(polished?.ok&&polished?.new_file?1:0);
++        poemSavedVersionCount+=newFiles;
++        renderPoemProvenance();
+         if(original?.ok&&polished?.ok){
+-            poemSavedVersionCount+=2;
+-            renderPoemProvenance();
+-            poetryStatus('poemPolishStatus','SAVED BOTH',`Original: ${original.path}\nPolished: ${polished.path}`);
++            let originalLabel=original.reused_existing?'reused canonical original':'saved new original';
++            let polishedLabel=polished.reused_existing?'reused existing identical polished revision':'saved new polished revision';
++            poetryStatus('poemPolishStatus','SAVED',`Original (${originalLabel}): ${original.path}\nPolished (${polishedLabel}): ${polished.path}`);
+         }else{
+-            poemSavedVersionCount+=(original?.ok?1:0)+(polished?.ok?1:0);
+-            renderPoemProvenance();
+             poetryStatus('poemPolishStatus','PARTIAL SAVE',`Original: ${original?.ok?original.path:(original?.message||'failed')}\nPolished: ${polished?.ok?polished.path:(polished?.message||'failed')}`);
+         }
+     }finally{
+         setPoetryBusy(false);
+     }
+ }
++/* FOXAI_SHORT_STORY_POLISHER_V1_1_JS_END */
+ 
+ /* KAYOCK_WRITER_GUIDED_CLEANUP_V1_BROWSER_START */
+ const STORY_WRITER_TASKS={
+@@ -24899,11 +24924,93 @@
+             'the work with source material, imported lore, a different plot, or a different ending.'
+         )
+ 
++    # FOXAI_SHORT_STORY_POLISHER_V1_1_BACKEND_START
++    def story_change_metrics(original,candidate):
++        import difflib
++        original_words=re.findall(r"[A-Za-z0-9'’_-]+",str(original or '').casefold())
++        candidate_words=re.findall(r"[A-Za-z0-9'’_-]+",str(candidate or '').casefold())
++        matcher=difflib.SequenceMatcher(None,original_words,candidate_words,autojunk=False)
++        changed_words=0
++        changed_blocks=0
++        for tag,i1,i2,j1,j2 in matcher.get_opcodes():
++            if tag=='equal':
++                continue
++            changed_blocks+=1
++            changed_words+=max(i2-i1,j2-j1)
++        exact=(
++            re.sub(r'\s+',' ',str(original or '')).strip().casefold()
++            ==re.sub(r'\s+',' ',str(candidate or '')).strip().casefold()
++        )
++        return {
++            'exact_match':exact,
++            'similarity':round(float(matcher.ratio()),6),
++            'changed_words':int(changed_words),
++            'changed_blocks':int(changed_blocks),
++            'original_words':len(original_words),
++            'candidate_words':len(candidate_words),
++        }
++
++    def story_change_is_substantive(metrics):
++        if metrics.get('exact_match'):
++            return False
++        if focus_key in {'light cleanup','preserve voice with minimal changes'}:
++            minimum=1
++        elif focus_key=='deep polish — preserve story':
++            minimum=6
++        else:
++            minimum=3
++        return bool(
++            int(metrics.get('changed_words') or 0)>=minimum
++            or float(metrics.get('similarity') or 1.0)<=0.992
++        )
++
+     result=_poetry_chat(
+         [{'role':'system','content':system},{'role':'user','content':user}],
+         max_tokens=max_tokens,
+         temperature=temperature,
+     )
++    polish_attempts=1
++    change_metrics=None
++    if is_story and result.get('ok'):
++        change_metrics=story_change_metrics(work,result.get('poem'))
++        if not story_change_is_substantive(change_metrics):
++            retry_system=(
++                system
++                +'\n\nThe prior attempt was rejected because it returned the source unchanged or nearly unchanged. '
++                'Produce a genuinely revised version now. Improve sentence rhythm, transitions, paragraph openings, '
++                'word precision, pacing, and concrete imagery where supported by the submitted story. Revise multiple '
++                'sentences, but preserve every protected story fact and the intended ending. Never return the source '
++                'verbatim and never explain the edits.'
++            )
++            retry_user=(
++                user
++                +'\n\nRETRY REQUIREMENT: Return a visibly polished complete story with several concrete prose improvements. '
++                'Do not add events or facts and do not return unchanged text.'
++            )
++            result=_poetry_chat(
++                [{'role':'system','content':retry_system},{'role':'user','content':retry_user}],
++                max_tokens=max_tokens,
++                temperature=min(0.68,max(0.46,temperature+0.12)),
++            )
++            polish_attempts=2
++            if result.get('ok'):
++                change_metrics=story_change_metrics(work,result.get('poem'))
++                if not story_change_is_substantive(change_metrics):
++                    return {
++                        'ok':False,
++                        'message':(
++                            'The model returned the original story without enough substantive change after two attempts. '
++                            'No polished version was accepted or made saveable. Try a different focus or model.'
++                        ),
++                        'writing_type':writing_type,
++                        'focus':focus,
++                        'unchanged_output':True,
++                        'polish_attempts':polish_attempts,
++                        'change_metrics':change_metrics,
++                        'source_stories_modified':False,
++                        'story_facts_protected':True,
++                        'story_forge_used':False,
++                    }
+     if result.get('ok'):
+         result['message']='Polished short story created.' if is_story else 'Polished version created.'
+         result['writing_type']=writing_type
+@@ -24920,7 +25027,13 @@
+         result['story_facts_protected']=bool(is_story)
+         result['story_forge_used']=False
+         result['suggestions_applied_automatically']=False
++        if is_story:
++            result['polish_attempts']=polish_attempts
++            result['change_metrics']=change_metrics or story_change_metrics(work,result.get('poem'))
++            result['substantive_change']=True
++            result['identical_output_rejected']=bool(polish_attempts>1)
+     return result
++    # FOXAI_SHORT_STORY_POLISHER_V1_1_BACKEND_END
+ # FOXAI_SHORT_STORY_POLISHER_V1_BACKEND_END
+ 
+ 
+@@ -25279,6 +25392,60 @@
+ # FOXAI_POEM_CREATOR_GUIDED_V1_1_STORAGE_START
+ # FOXAI_CREATOR_TYPE_1_2_STORAGE_START
+ # FOXAI_SHORT_STORY_POLISHER_V1_STORAGE_START
++# FOXAI_SHORT_STORY_POLISHER_V1_1_STORAGE_START
++def _short_story_saved_body(markdown_text):
++    text=str(markdown_text or '').replace('\r\n','\n')
++    if text.startswith('---\n'):
++        end=text.find('\n---\n',4)
++        if end>=0:
++            text=text[end+5:]
++    text=text.lstrip('\n')
++    lines=text.splitlines()
++    if lines and lines[0].lstrip().startswith('#'):
++        lines=lines[1:]
++    return '\n'.join(lines).strip()
++
++def _short_story_saved_meta(markdown_text,key):
++    text=str(markdown_text or '').replace('\r\n','\n')
++    if not text.startswith('---\n'):
++        return ''
++    end=text.find('\n---\n',4)
++    if end<0:
++        return ''
++    prefix=f'{key}:'
++    for line in text[4:end].splitlines():
++        if line.startswith(prefix):
++            raw=line[len(prefix):].strip()
++            try:
++                value=json.loads(raw)
++            except Exception:
++                value=raw.strip('\"')
++            return _writer_text(value,240)
++    return ''
++
++def _short_story_find_identical_saved(folder,content,version_kind):
++    wanted=hashlib.sha256(str(content or '').strip().encode('utf-8')).hexdigest()
++    if not folder.is_dir():
++        return None
++    for candidate in sorted(folder.glob('*.md'),key=lambda p:p.stat().st_mtime,reverse=True):
++        try:
++            text=candidate.read_text(encoding='utf-8')
++        except Exception:
++            continue
++        if _short_story_saved_meta(text,'content_type')!='short_story':
++            continue
++        if _short_story_saved_meta(text,'version')!=version_kind:
++            continue
++        saved_body=_short_story_saved_body(text)
++        saved_hash=hashlib.sha256(saved_body.encode('utf-8')).hexdigest()
++        if saved_hash==wanted:
++            return {
++                'path':candidate,
++                'version_group':_short_story_saved_meta(text,'version_group'),
++                'content_sha256':saved_hash,
++            }
++    return None
++
+ def kayock_writer_poetry_save(d=None):
+     d=d or {}
+     content=_writer_text(d.get('poem'),48000)
+@@ -25322,6 +25489,31 @@
+             ROOT/'Projects'/'KayockWriter'/'Poetry'/'Drafts',
+         )
+     folder.mkdir(parents=True,exist_ok=True)
++    content_sha256=hashlib.sha256(content.encode('utf-8')).hexdigest()
++    if is_story and source_mode=='polisher' and version_kind in {'original','polished'}:
++        existing=_short_story_find_identical_saved(folder,content,version_kind)
++        if existing:
++            existing_group=_writer_text(existing.get('version_group'),120)
++            return {
++                'ok':True,
++                'message':(
++                    'Canonical original already exists; no duplicate was created.'
++                    if version_kind=='original' else
++                    'An identical polished revision already exists; no duplicate was created.'
++                ),
++                'path':str(existing['path']),
++                'writing_type':writing_type,
++                'version_kind':version_kind,
++                'version_group':existing_group or version_group,
++                'source_mode':source_mode,
++                'polish_focus':polish_focus,
++                'content_sha256':existing.get('content_sha256') or content_sha256,
++                'overwritten':False,
++                'new_file':False,
++                'reused_existing':True,
++                'deduplicated':True,
++                'creator_guidance_preserved':True,
++            }
+     stamp=datetime.now().strftime('%Y%m%d_%H%M%S_%f')
+     display_title=title or ('Untitled Short Story' if is_story else 'Untitled Poem')
+     safe=(
+@@ -25396,6 +25588,7 @@
+         ),
+         f'version: {json.dumps(version_kind)}',
+         f'version_group: {json.dumps(version_group,ensure_ascii=False)}',
++        f'content_sha256: {json.dumps(content_sha256)}',
+         f'form: {json.dumps(prompt_fields["form"],ensure_ascii=False)}',
+         f'length: {json.dumps(prompt_fields["length"],ensure_ascii=False)}',
+         f'voice: {json.dumps(prompt_fields["voice"],ensure_ascii=False)}',
+@@ -25460,10 +25653,14 @@
+         'source_mode':source_mode,
+         'source_label':source_label,
+         'polish_focus':polish_focus,
++        'content_sha256':content_sha256,
+         'overwritten':False,
+         'new_file':True,
++        'reused_existing':False,
++        'deduplicated':False,
+         'creator_guidance_preserved':True,
+     }
++# FOXAI_SHORT_STORY_POLISHER_V1_1_STORAGE_END
+ # FOXAI_SHORT_STORY_POLISHER_V1_STORAGE_END
+ # FOXAI_CREATOR_TYPE_1_2_STORAGE_END
+ # FOXAI_POEM_CREATOR_GUIDED_V1_1_STORAGE_END

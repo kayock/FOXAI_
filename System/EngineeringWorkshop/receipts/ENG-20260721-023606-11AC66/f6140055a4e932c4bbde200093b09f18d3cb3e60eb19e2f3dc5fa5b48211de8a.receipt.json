@@ -1,0 +1,176 @@
+{
+  "authorized": true,
+  "changes": [
+    {
+      "action": "write_file",
+      "after_sha256": "7fba1af79392eb263a0bf324ef7f2b99236ff213c3f7fcbacd2c5135cec9a894",
+      "after_size": 2348878,
+      "before_sha256": "cd10a9874a9f0c50dc14968f46c7d05867c72ffa51192b045e2d34b2e577dec6",
+      "before_size": 2318322,
+      "relative_path": "core/foxai_web.py"
+    }
+  ],
+  "created_at": "2026-07-21T02:42:13.347813Z",
+  "evidence_is_tool_generated": true,
+  "failure": null,
+  "mission_id": "ENG-20260721-023606-11AC66",
+  "mission_title": "The Weaver 1.0 \u2014 Standalone Multi-Source Creative Weaving and Twine-Ready Output",
+  "mission_type": "implement",
+  "no_deletions": true,
+  "no_renames": true,
+  "plan_path": "Z:\\FOXAI\\THE_WEAVER_1_0\\PLAN.json",
+  "plan_sha256": "f6140055a4e932c4bbde200093b09f18d3cb3e60eb19e2f3dc5fa5b48211de8a",
+  "project_root": "Z:\\FOXAI",
+  "result": "applied_verified",
+  "rolled_back": false,
+  "schema": "foxai.engineering.receipt.v1",
+  "snapshot_manifest": "Z:\\FOXAI\\System\\EngineeringWorkshop\\snapshots\\ENG-20260721-023606-11AC66\\snapshot_20260721T024155686613Z.manifest.json",
+  "snapshot_path": "Z:\\FOXAI\\System\\EngineeringWorkshop\\snapshots\\ENG-20260721-023606-11AC66\\snapshot_20260721T024155686613Z.zip",
+  "snapshot_sha256": "4e23a24606c326241cb84f3aa82bfad6dddd82931d4ea7d978f8d23c936b9446",
+  "validations": [
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nimport hashlib\np=Path(r'Z:\\FOXAI\\core\\foxai_web.py')\nactual=hashlib.sha256(p.read_bytes()).hexdigest()\nexpected='7fba1af79392eb263a0bf324ef7f2b99236ff213c3f7fcbacd2c5135cec9a894'\nassert actual==expected, f'installed hash mismatch: {actual}'\nprint('THE_WEAVER_1_0_EXACT_HASH_OK')\n"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-21T02:41:56.057159Z",
+      "name": "Verify exact installed Weaver payload SHA-256",
+      "returncode": 0,
+      "started_at": "2026-07-21T02:41:55.769298Z",
+      "stderr": "",
+      "stdout": "THE_WEAVER_1_0_EXACT_HASH_OK\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\np=Path(r'Z:\\FOXAI\\core\\foxai_web.py')\ns=p.read_text(encoding='utf-8')\ncompile(s,str(p),'exec')\nrequired=(\n    'FOXAI_THE_WEAVER_V1_CSS_START',\n    'FOXAI_THE_WEAVER_V1_HTML_START',\n    'FOXAI_THE_WEAVER_V1_JS_START',\n    'FOXAI_THE_WEAVER_V1_BACKEND_START',\n    \"FOLDERS['kayock_writer_weaver_outputs']\",\n    \"go('weaver')\",\n    'Open The Weaver',\n    'accept=\".txt,.md,text/plain,text/markdown\"',\n    'new FileReader()',\n    'reader.readAsText(file)',\n    'The local file was read only and not changed.',\n    '/api/writer/weaver/generate',\n    '/api/writer/weaver/save',\n    '/api/open/kayock_writer_weaver_outputs',\n    'kayock_writer_weaver_generate',\n    'kayock_writer_weaver_save',\n    'Shared soul',\n    'Braided voices',\n    'Best threads',\n    'New tapestry',\n    'Twine-ready passages',\n)\nmissing=[item for item in required if item not in s]\nassert not missing, 'missing Weaver markers: '+', '.join(missing)\nprint('THE_WEAVER_1_0_PYTHON_LOCAL_FILE_AND_FEATURE_MARKERS_OK')\n"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-21T02:41:58.685675Z",
+      "name": "Verify Python syntax, standalone room, and local txt/md loading markers",
+      "returncode": 0,
+      "started_at": "2026-07-21T02:41:56.057534Z",
+      "stderr": "",
+      "stdout": "THE_WEAVER_1_0_PYTHON_LOCAL_FILE_AND_FEATURE_MARKERS_OK\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nimport ast, os, re, shutil, subprocess, sys, tempfile\np=Path(r'Z:\\FOXAI\\core\\foxai_web.py')\nsource=p.read_text(encoding='utf-8')\ntree=ast.parse(source)\nhtml_value=None\nfor item in tree.body:\n    if isinstance(item,(ast.Assign,ast.AnnAssign)):\n        targets=item.targets if isinstance(item,ast.Assign) else [item.target]\n        if any(isinstance(t,ast.Name) and t.id=='HTML' for t in targets):\n            html_value=ast.literal_eval(item.value)\n            break\nassert isinstance(html_value,str), 'HTML constant not found'\nblocks=re.findall(r'<script(?:\\s[^>]*)?>(.*?)</script>',html_value,flags=re.I|re.S)\nassert blocks, 'No embedded JavaScript blocks found'\nnode=shutil.which('node') or shutil.which('node.exe')\nif not node:\n    candidate=Path(os.environ.get('ProgramFiles',r'C:\\Program Files'))/'nodejs'/'node.exe'\n    if candidate.is_file():\n        node=str(candidate)\nassert node, 'Node.js was not found for embedded JavaScript verification'\ntemp_path=None\ntry:\n    with tempfile.NamedTemporaryFile('w',suffix='.js',encoding='utf-8',delete=False) as handle:\n        handle.write('\\n;\\n'.join(blocks))\n        temp_path=handle.name\n    result=subprocess.run([str(node),'--check',temp_path],capture_output=True,text=True,shell=False)\n    if result.stdout:\n        print(result.stdout)\n    if result.stderr:\n        print(result.stderr,file=sys.stderr)\n    assert result.returncode==0, f'Node syntax check failed with return code {result.returncode}'\nfinally:\n    if temp_path:\n        try:\n            Path(temp_path).unlink()\n        except FileNotFoundError:\n            pass\nprint('THE_WEAVER_1_0_EMBEDDED_JAVASCRIPT_OK')\n"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-21T02:42:01.588910Z",
+      "name": "Verify embedded interface JavaScript syntax with Node",
+      "returncode": 0,
+      "started_at": "2026-07-21T02:41:58.685997Z",
+      "stderr": "",
+      "stdout": "THE_WEAVER_1_0_EMBEDDED_JAVASCRIPT_OK\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nimport ast, hashlib, json, re\np=Path(r'Z:\\FOXAI\\core\\foxai_web.py')\nsource=p.read_text(encoding='utf-8')\ntree=ast.parse(source)\nwanted={\n    '_weaver_source_text',\n    '_weaver_clean_title',\n    '_weaver_parse_plan',\n    '_weaver_clean_output',\n    '_weaver_annotation_flags',\n    '_weaver_copy_metrics',\n    '_weaver_plan_prompt',\n    '_weaver_generation_prompt',\n    'kayock_writer_weaver_generate',\n}\nnodes=[n for n in tree.body if isinstance(n,ast.FunctionDef) and n.name in wanted]\nassert {n.name for n in nodes}==wanted\nns={\n    're':re,\n    'json':json,\n    'hashlib':hashlib,\n    '_writer_text':lambda value,limit: str(value or '')[:limit],\n    '_writer_voice_profile_id':lambda value:'',\n    'build_writer_voice_prompt':lambda *args:'',\n}\nexec(compile(ast.Module(body=nodes,type_ignores=[]),str(p),'exec'),ns)\nresponses=iter([\n    {'ok':True,'poem':json.dumps({\n        'suggested_title':'Threads of the Road',\n        'shared_threads':['memory','choice'],\n        'structure':'Start, turning point, choice, ending',\n        'source_roles':[{'title':'The Road','role':'memory'},{'title':'The Door','role':'choice'}],\n        'passage_plan':['Start','Crossroads','Home'],\n    })},\n    {'ok':True,'poem':'Source 1: [Note: draft]\\nThis output is contaminated.'},\n    {'ok':True,'poem':':: Start\\n\\nThe road remembers.\\n\\n[[Follow the light->Home]]\\n\\n:: Home\\n\\nThe door opens.'},\n])\ncalls=[]\ndef chat(*args,**kwargs):\n    calls.append((args,kwargs))\n    return next(responses)\nns['_poetry_chat']=chat\nresult=ns['kayock_writer_weaver_generate']({\n    'sources':[\n        {'title':'The Road','content':'The road remembers every footstep.'},\n        {'title':'The Door','content':'A door opens when the light returns.'},\n    ],\n    'mode':'shared_soul',\n    'output_type':'twine',\n    'voice':'My natural voice',\n    'length':'Short',\n    'direction':'Keep the road and door.',\n})\nassert result.get('ok')\nassert result.get('attempts')==2\nassert len(calls)==3, f'expected plan, draft, retry calls; got {len(calls)}'\nassert result.get('output','').startswith(':: Start\\n\\n')\nassert len(re.findall(r'(?m)^::\\s+.+$',result.get('output','')))>=2\nassert '[[Follow the light->Home]]' in result.get('output','')\nassert not ns['_weaver_annotation_flags'](result.get('output',''))\nassert result.get('source_map',{}).get('suggested_title')=='Threads of the Road'\nassert result.get('planning_summary_is_editorial_artifact') is True\nassert result.get('hidden_chain_of_thought_requested') is False\nassert result.get('source_files_modified') is False\nassert result.get('source_files_read_only') is True\nprovenance=(result.get('provenance') or {}).get('sources') or []\nassert len(provenance)==2\nassert all(len(item.get('sha256',''))==64 for item in provenance)\nprint('THE_WEAVER_1_0_TWO_STAGE_CLEAN_TWINE_RETRY_AND_PROVENANCE_OK')\n"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-21T02:42:04.513067Z",
+      "name": "Verify two-stage source mapping, contaminated-output retry, clean Twine formatting, and provenance hashes",
+      "returncode": 0,
+      "started_at": "2026-07-21T02:42:01.589361Z",
+      "stderr": "",
+      "stdout": "THE_WEAVER_1_0_TWO_STAGE_CLEAN_TWINE_RETRY_AND_PROVENANCE_OK\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nimport ast, hashlib, json, re\np=Path(r'Z:\\FOXAI\\core\\foxai_web.py')\nsource=p.read_text(encoding='utf-8')\ntree=ast.parse(source)\nwanted={\n    '_weaver_source_text',\n    '_weaver_clean_title',\n    '_weaver_parse_plan',\n    '_weaver_clean_output',\n    '_weaver_annotation_flags',\n    '_weaver_copy_metrics',\n    '_weaver_plan_prompt',\n    '_weaver_generation_prompt',\n    'kayock_writer_weaver_generate',\n}\nnodes=[n for n in tree.body if isinstance(n,ast.FunctionDef) and n.name in wanted]\nns={\n    're':re,\n    'json':json,\n    'hashlib':hashlib,\n    '_writer_text':lambda value,limit: str(value or '')[:limit],\n    '_writer_voice_profile_id':lambda value:'',\n    'build_writer_voice_prompt':lambda *args:'',\n}\nexec(compile(ast.Module(body=nodes,type_ignores=[]),str(p),'exec'),ns)\nresponses=iter([\n    {'ok':True,'poem':'{\"suggested_title\":\"Rejected Weave\",\"shared_threads\":[],\"structure\":\"test\",\"source_roles\":[],\"passage_plan\":[]}'},\n    {'ok':True,'poem':'Source 1: [Note: still contaminated]'},\n    {'ok':True,'poem':'Editor note: the following weave combines the sources.'},\n])\ndef chat(*args,**kwargs):\n    return next(responses)\nns['_poetry_chat']=chat\nresult=ns['kayock_writer_weaver_generate']({\n    'sources':[\n        {'title':'One','content':'First source text.'},\n        {'title':'Two','content':'Second source text.'},\n    ],\n    'mode':'new_tapestry',\n    'output_type':'clean_prose',\n    'voice':'My natural voice',\n    'length':'Short',\n})\nassert not result.get('ok')\nassert result.get('attempts')==2\nassert result.get('source_files_modified') is False\nassert 'No woven output was accepted or saved' in result.get('message','')\nprint('THE_WEAVER_1_0_DOUBLE_CONTAMINATION_REJECTION_OK')\n"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-21T02:42:07.413047Z",
+      "name": "Verify repeated contaminated output is rejected and remains unsaveable",
+      "returncode": 0,
+      "started_at": "2026-07-21T02:42:04.513376Z",
+      "stderr": "",
+      "stdout": "THE_WEAVER_1_0_DOUBLE_CONTAMINATION_REJECTION_OK\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nimport ast, hashlib, json, re\np=Path(r'Z:\\FOXAI\\core\\foxai_web.py')\nsource=p.read_text(encoding='utf-8')\ntree=ast.parse(source)\nwanted={\n    '_weaver_source_text',\n    '_weaver_clean_title',\n    '_weaver_parse_plan',\n    '_weaver_clean_output',\n    '_weaver_annotation_flags',\n    '_weaver_copy_metrics',\n    '_weaver_plan_prompt',\n    '_weaver_generation_prompt',\n    'kayock_writer_weaver_generate',\n}\nnodes=[n for n in tree.body if isinstance(n,ast.FunctionDef) and n.name in wanted]\nns={\n    're':re,\n    'json':json,\n    'hashlib':hashlib,\n    '_writer_text':lambda value,limit: str(value or '')[:limit],\n    '_writer_voice_profile_id':lambda value:'',\n    'build_writer_voice_prompt':lambda *args:'',\n}\nexec(compile(ast.Module(body=nodes,type_ignores=[]),str(p),'exec'),ns)\nlong_source=' '.join(f'word{i}' for i in range(1,81))\nresponses=iter([\n    {'ok':True,'poem':'{\"suggested_title\":\"Copy Boundary Test\",\"shared_threads\":[],\"structure\":\"test\",\"source_roles\":[],\"passage_plan\":[]}'},\n    {'ok':True,'poem':long_source+'\\n\\nA new ending.'},\n])\ndef chat(*args,**kwargs):\n    return next(responses)\nns['_poetry_chat']=chat\nresult=ns['kayock_writer_weaver_generate']({\n    'sources':[\n        {'title':'Long Source','content':long_source},\n        {'title':'Other Source','content':'A second distinct thread for the weave.'},\n    ],\n    'mode':'shared_soul',\n    'output_type':'clean_prose',\n    'voice':'My natural voice',\n    'length':'Short',\n})\nassert result.get('ok')\nassert result.get('warnings'), 'expected an excessive-copy warning'\nassert any('closely matches Long Source' in item for item in result.get('warnings',[]))\nmetric=next(item for item in result.get('copy_metrics',[]) if item.get('title')=='Long Source')\nassert metric.get('longest_verbatim_words',0)>=35\nprint('THE_WEAVER_1_0_EXCESSIVE_COPY_WARNING_OK')\n"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-21T02:42:10.340219Z",
+      "name": "Verify excessive verbatim-copy detection and warning",
+      "returncode": 0,
+      "started_at": "2026-07-21T02:42:07.413366Z",
+      "stderr": "",
+      "stdout": "THE_WEAVER_1_0_EXCESSIVE_COPY_WARNING_OK\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nfrom datetime import datetime\nimport ast, hashlib, json, re, tempfile, time\np=Path(r'Z:\\FOXAI\\core\\foxai_web.py')\nsource=p.read_text(encoding='utf-8')\ntree=ast.parse(source)\nwanted={\n    '_weaver_source_text',\n    '_weaver_clean_title',\n    'kayock_writer_weaver_save',\n}\nnodes=[n for n in tree.body if isinstance(n,ast.FunctionDef) and n.name in wanted]\nassert {n.name for n in nodes}==wanted\nwith tempfile.TemporaryDirectory() as temp_dir:\n    root=Path(temp_dir)\n    folder=root/'Outputs'\n    def jwrite(path,data):\n        path.parent.mkdir(parents=True,exist_ok=True)\n        path.write_text(json.dumps(data,indent=2),encoding='utf-8')\n    ns={\n        're':re,\n        'json':json,\n        'hashlib':hashlib,\n        'Path':Path,\n        'datetime':datetime,\n        'ROOT':root,\n        'FOLDERS':{'kayock_writer_weaver_outputs':folder},\n        'chat_model':None,\n        '_writer_text':lambda value,limit: str(value or '')[:limit],\n        'now':lambda:'2026-07-21T02:00:00',\n        'slug':lambda value: re.sub(r'[^A-Za-z0-9 _.-]','',value).strip().replace(' ','_')[:80] or 'New_Project',\n        'jwrite':jwrite,\n    }\n    exec(compile(ast.Module(body=nodes,type_ignores=[]),str(p),'exec'),ns)\n    provenance={'sources':[\n        {'title':'One','sha256':'a'*64,'words':10},\n        {'title':'Two','sha256':'b'*64,'words':12},\n    ]}\n    twine=':: Start\\n\\nThe door opens.\\n\\n[[Enter->Inside]]\\n\\n:: Inside\\n\\nThe room remembers.'\n    tw=ns['kayock_writer_weaver_save']({\n        'output':twine,\n        'output_type':'twine',\n        'title':'Twine Test',\n        'provenance':provenance,\n        'mode':'braided_voices',\n        'voice':'My natural voice',\n        'length':'Short',\n    })\n    assert tw.get('ok') and tw.get('no_overwrite') is True\n    created=[Path(item) for item in tw.get('created_files',[])]\n    assert len(created)==2\n    twee=next(item for item in created if item.suffix=='.twee')\n    sidecar=next(item for item in created if item.name.endswith('.weaver.json'))\n    twee_text=twee.read_text(encoding='utf-8')\n    assert twee_text.startswith(':: Start\\n\\n')\n    assert not twee_text.startswith('---')\n    assert 'source_provenance' not in twee_text\n    metadata=json.loads(sidecar.read_text(encoding='utf-8'))\n    assert metadata.get('source_provenance')==provenance['sources']\n    assert metadata.get('source_files_modified') is False\n    assert metadata.get('no_overwrite') is True\n    md1=ns['kayock_writer_weaver_save']({\n        'output':'First woven paragraph.',\n        'output_type':'clean_prose',\n        'title':'Markdown Test',\n        'provenance':provenance,\n        'mode':'shared_soul',\n        'voice':'My natural voice',\n        'length':'Short',\n    })\n    time.sleep(0.01)\n    md2=ns['kayock_writer_weaver_save']({\n        'output':'Second woven paragraph.',\n        'output_type':'clean_prose',\n        'title':'Markdown Test',\n        'provenance':provenance,\n        'mode':'shared_soul',\n        'voice':'My natural voice',\n        'length':'Short',\n    })\n    assert md1.get('ok') and md2.get('ok')\n    assert md1.get('created_files')[0]!=md2.get('created_files')[0]\n    markdown_files=list(folder.glob('Markdown_Test_*.md'))\n    assert len(markdown_files)==2\n    assert all('content_type: \"weaver_output\"' in item.read_text(encoding='utf-8') for item in markdown_files)\nprint('THE_WEAVER_1_0_TWEE_SIDECAR_MARKDOWN_AND_NO_OVERWRITE_SAVING_OK')\n"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-21T02:42:13.290580Z",
+      "name": "Verify no-overwrite Markdown saving and clean Twee plus provenance sidecar saving",
+      "returncode": 0,
+      "started_at": "2026-07-21T02:42:10.340544Z",
+      "stderr": "",
+      "stdout": "THE_WEAVER_1_0_TWEE_SIDECAR_MARKDOWN_AND_NO_OVERWRITE_SAVING_OK\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\np=Path(r'Z:\\FOXAI\\core\\foxai_web.py')\ns=p.read_text(encoding='utf-8')\nrequired=(\n    'FOXAI_CREATOR_TYPE_1_2_HTML_START',\n    'FOXAI_CREATOR_TYPE_1_2_JS_START',\n    'FOXAI_CREATOR_TYPE_1_2_BACKEND_START',\n    'FOXAI_CREATOR_TYPE_1_2_STORAGE_START',\n    'FOXAI_SHORT_STORY_POLISHER_V1_PROFILE_START',\n    'FOXAI_SHORT_STORY_POLISHER_V1_HTML_START',\n    'FOXAI_SHORT_STORY_POLISHER_V1_JS_START',\n    'FOXAI_SHORT_STORY_POLISHER_V1_BACKEND_START',\n    'FOXAI_SHORT_STORY_POLISHER_V1_STORAGE_START',\n    'FOXAI_SHORT_STORY_POLISHER_V1_1_BACKEND_START',\n    'FOXAI_SHORT_STORY_POLISHER_V1_1_STORAGE_START',\n    'FOXAI_SHORT_STORY_POLISHER_V1_1_JS_START',\n    'ERIC_SHORT_FICTION_PROFILE',\n    'ERIC_POET_NARRATOR_PROFILE_V1_START',\n    'Eric \u2014 Short Fiction',\n    'Eric \u2014 Poet/Narrator',\n    'Robin Hood \u2014 The Merry Outlaw',\n    'Zorro \u2014 The Masked Fox',\n    'Dracula \u2014 The Ancient Count',\n    'Sherlock Holmes \u2014 The Consulting Mind',\n    'def kayock_writer_poetry_create',\n    'def kayock_writer_poetry_polish',\n    'def kayock_writer_poetry_revise_selection',\n    'def kayock_writer_poetry_archive',\n    'KAYOCK_WRITER_CALM_GUIDED_V2_BROWSER_START',\n    'KAYOCKS_STUDY_INTEGRATION_V1_HELPERS_START',\n    \"FOLDERS['kayock_writer_poetry_drafts']\",\n    \"FOLDERS['kayock_writer_poetry_recordings']\",\n    \"FOLDERS['kayock_writer_poetry_legacy']\",\n    \"FOLDERS['kayock_writer_short_story_drafts']\",\n    \"go('storyforge')\",\n    '/api/writer/poetry/create',\n    '/api/writer/poetry/polish',\n    '/api/writer/poetry/save',\n)\nmissing=[item for item in required if item not in s]\nassert not missing, 'protected feature anchors missing: '+', '.join(missing)\nassert \"writing_type='poem'\" in s\nassert \"writing_type=='short_story'\" in s\nassert 'Short Story Creator' in s\nassert 'Short Story Polisher' in s\nassert 'The Weaver' in s\nprint('THE_WEAVER_1_0_PROTECTED_FEATURES_OK')\n"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-21T02:42:13.347735Z",
+      "name": "Verify Poetry Studio, Short Story Polisher 1.1, Story Forge, Writer, Study, archives, and voice profiles remain present",
+      "returncode": 0,
+      "started_at": "2026-07-21T02:42:13.290890Z",
+      "stderr": "",
+      "stdout": "THE_WEAVER_1_0_PROTECTED_FEATURES_OK\n",
+      "timed_out": false
+    }
+  ]
+}

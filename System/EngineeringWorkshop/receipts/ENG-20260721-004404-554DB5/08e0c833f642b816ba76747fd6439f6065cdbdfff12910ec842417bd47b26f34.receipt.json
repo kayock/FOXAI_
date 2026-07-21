@@ -1,0 +1,86 @@
+{
+  "authorized": true,
+  "changes": [
+    {
+      "action": "write_file",
+      "after_sha256": "b7227480da11ff6762c65a809cf1408df7e88f0a3830573c08898c213a8b01e7",
+      "after_size": 2308641,
+      "before_sha256": "d46254c1d3d3e8315dd8ddcf20aac7c05bc8be492dd71113b38860593f3d72ee",
+      "before_size": 2268483,
+      "relative_path": "core/foxai_web.py"
+    }
+  ],
+  "created_at": "2026-07-21T00:58:01.745632Z",
+  "evidence_is_tool_generated": true,
+  "failure": null,
+  "mission_id": "ENG-20260721-004404-554DB5",
+  "mission_title": "Short Story Polisher 1.0 \u2014 Eric Prose Voice and Four New Voices",
+  "mission_type": "implement",
+  "no_deletions": true,
+  "no_renames": true,
+  "plan_path": "Z:\\FOXAI\\SHORT_STORY_POLISHER_1_0\\PLAN.json",
+  "plan_sha256": "08e0c833f642b816ba76747fd6439f6065cdbdfff12910ec842417bd47b26f34",
+  "project_root": "Z:\\FOXAI",
+  "result": "applied_verified",
+  "rolled_back": false,
+  "schema": "foxai.engineering.receipt.v1",
+  "snapshot_manifest": "Z:\\FOXAI\\System\\EngineeringWorkshop\\snapshots\\ENG-20260721-004404-554DB5\\snapshot_20260721T005755109064Z.manifest.json",
+  "snapshot_path": "Z:\\FOXAI\\System\\EngineeringWorkshop\\snapshots\\ENG-20260721-004404-554DB5\\snapshot_20260721T005755109064Z.zip",
+  "snapshot_sha256": "f0539dfd5e80cd26411b93b4da446983741fce35957bbbbc1ad7e4d59e1025d7",
+  "validations": [
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nimport hashlib\np=Path('Z:\\\\FOXAI\\\\core\\\\foxai_web.py')\nb=p.read_bytes()\nexpected='b7227480da11ff6762c65a809cf1408df7e88f0a3830573c08898c213a8b01e7'\nactual=hashlib.sha256(b).hexdigest()\nassert actual==expected, f'installed hash mismatch: {actual}'\ns=b.decode('utf-8')\ncompile(s,str(p),'exec')\nrequired=(\n    'FOXAI_SHORT_STORY_POLISHER_V1_PROFILE_START',\n    'FOXAI_SHORT_STORY_POLISHER_V1_HTML_START',\n    'FOXAI_SHORT_STORY_POLISHER_V1_JS_START',\n    'FOXAI_SHORT_STORY_POLISHER_V1_BACKEND_START',\n    'FOXAI_SHORT_STORY_POLISHER_V1_STORAGE_START',\n    'ERIC_SHORT_FICTION_PROFILE',\n    'Eric \u2014 Short Fiction',\n    'Robin Hood \u2014 The Merry Outlaw',\n    'Zorro \u2014 The Masked Fox',\n    'Dracula \u2014 The Ancient Count',\n    'Sherlock Holmes \u2014 The Consulting Mind',\n    'openShortStoryPolisherFromWriterHome',\n    'story_facts_protected',\n    'Short Story Polisher',\n    'source_mode:',\n)\nmissing=[item for item in required if item not in s]\nassert not missing, 'missing Short Story Polisher markers: '+', '.join(missing)\nprint('SHORT_STORY_POLISHER_1_0_HASH_PYTHON_AND_FEATURE_MARKERS_OK')"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-21T00:57:58.077428Z",
+      "name": "Verify exact payload hash, Python syntax, and Short Story Polisher feature markers",
+      "returncode": 0,
+      "started_at": "2026-07-21T00:57:55.198913Z",
+      "stderr": "",
+      "stdout": "SHORT_STORY_POLISHER_1_0_HASH_PYTHON_AND_FEATURE_MARKERS_OK\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nimport ast, os, re, shutil, subprocess, sys, tempfile\np=Path('Z:\\\\FOXAI\\\\core\\\\foxai_web.py')\nsource=p.read_text(encoding='utf-8')\ntree=ast.parse(source)\nhtml_value=None\nfor item in tree.body:\n    if isinstance(item,(ast.Assign,ast.AnnAssign)):\n        targets=item.targets if isinstance(item,ast.Assign) else [item.target]\n        if any(isinstance(t,ast.Name) and t.id=='HTML' for t in targets):\n            html_value=ast.literal_eval(item.value)\n            break\nassert isinstance(html_value,str), 'HTML constant not found'\nblocks=re.findall(r'<script(?:\\s[^>]*)?>(.*?)</script>',html_value,flags=re.I|re.S)\nassert blocks, 'No embedded JavaScript blocks found'\nnode=shutil.which('node') or shutil.which('node.exe')\nif not node:\n    candidate=Path(os.environ.get('ProgramFiles',r'C:\\\\Program Files'))/'nodejs'/'node.exe'\n    if candidate.is_file(): node=str(candidate)\nassert node, 'Node.js was not found for embedded JavaScript verification'\ntemp_path=None\ntry:\n    with tempfile.NamedTemporaryFile('w',suffix='.js',encoding='utf-8',delete=False) as handle:\n        handle.write('\\n;\\n'.join(blocks))\n        temp_path=handle.name\n    result=subprocess.run([str(node),'--check',temp_path],capture_output=True,text=True,shell=False)\n    if result.stdout: print(result.stdout)\n    if result.stderr: print(result.stderr,file=sys.stderr)\n    assert result.returncode==0, f'Node syntax check failed with return code {result.returncode}'\nfinally:\n    if temp_path:\n        try: Path(temp_path).unlink()\n        except FileNotFoundError: pass\nprint('SHORT_STORY_POLISHER_1_0_EMBEDDED_JAVASCRIPT_OK')"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-21T00:58:01.686628Z",
+      "name": "Verify embedded interface JavaScript syntax with Node",
+      "returncode": 0,
+      "started_at": "2026-07-21T00:57:58.077767Z",
+      "stderr": "",
+      "stdout": "SHORT_STORY_POLISHER_1_0_EMBEDDED_JAVASCRIPT_OK\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\np=Path('Z:\\\\FOXAI\\\\core\\\\foxai_web.py')\ns=p.read_text(encoding='utf-8')\nrequired=(\n    'FOXAI_CREATOR_TYPE_1_2_HTML_START',\n    'FOXAI_CREATOR_TYPE_1_2_JS_START',\n    'FOXAI_CREATOR_TYPE_1_2_BACKEND_START',\n    'FOXAI_CREATOR_TYPE_1_2_STORAGE_START',\n    'def kayock_writer_poetry_create',\n    'def kayock_writer_poetry_polish',\n    'def kayock_writer_poetry_revise_selection',\n    'def kayock_writer_poetry_archive',\n    'KAYOCK_WRITER_CALM_GUIDED_V2_BROWSER_START',\n    'KAYOCKS_STUDY_INTEGRATION_V1_HELPERS_START',\n    'ERIC_POET_NARRATOR_PROFILE_V1_START',\n    \"FOLDERS['kayock_writer_poetry_drafts']\",\n    \"FOLDERS['kayock_writer_poetry_recordings']\",\n    \"FOLDERS['kayock_writer_poetry_legacy']\",\n    \"FOLDERS['kayock_writer_short_story_drafts']\",\n    \"go('storyforge')\",\n    '/api/writer/poetry/create',\n    '/api/writer/poetry/polish',\n    '/api/writer/poetry/save',\n)\nmissing=[item for item in required if item not in s]\nassert not missing, 'protected feature anchors missing: '+', '.join(missing)\nassert \"writing_type='poem'\" in s\nassert \"writing_type=='short_story'\" in s\nassert 'Short Story Creator' in s and 'Short Story Polisher' in s\nprint('SHORT_STORY_POLISHER_1_0_PROTECTED_FEATURES_OK')"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-21T00:58:01.745567Z",
+      "name": "Verify Creator 1.2, Poetry Studio, Story Forge, Writer, Study, archives, and runtime anchors remain present",
+      "returncode": 0,
+      "started_at": "2026-07-21T00:58:01.686956Z",
+      "stderr": "",
+      "stdout": "SHORT_STORY_POLISHER_1_0_PROTECTED_FEATURES_OK\n",
+      "timed_out": false
+    }
+  ]
+}

@@ -1,0 +1,140 @@
+{
+  "authorized": true,
+  "changes": [
+    {
+      "action": "write_file",
+      "after_sha256": "e4e9fd62e6c4736a18781c6b17184441e8852412867cc95dbca94e570921ba77",
+      "after_size": 2351757,
+      "before_sha256": "7fba1af79392eb263a0bf324ef7f2b99236ff213c3f7fcbacd2c5135cec9a894",
+      "before_size": 2348878,
+      "relative_path": "core/foxai_web.py"
+    }
+  ],
+  "created_at": "2026-07-21T03:49:31.989559Z",
+  "evidence_is_tool_generated": true,
+  "failure": null,
+  "mission_id": "ENG-20260721-033723-728C1D",
+  "mission_title": "Kayock Writer Calm Cleanup 1.0 \u2014 Bleach-Out and Exact Continue Task",
+  "mission_type": "implement",
+  "no_deletions": true,
+  "no_renames": true,
+  "plan_path": "Z:\\FOXAI\\KAYOCK_WRITER_CALM_CLEANUP_1_0_R2\\PLAN.json",
+  "plan_sha256": "3529f9acb8be73c42b16ba8e2511abe86c3d0a1577520ddac92dcb34bb3ff654",
+  "project_root": "Z:\\FOXAI",
+  "result": "applied_verified",
+  "rolled_back": false,
+  "schema": "foxai.engineering.receipt.v1",
+  "snapshot_manifest": "Z:\\FOXAI\\System\\EngineeringWorkshop\\snapshots\\ENG-20260721-033723-728C1D\\snapshot_20260721T034920595490Z.manifest.json",
+  "snapshot_path": "Z:\\FOXAI\\System\\EngineeringWorkshop\\snapshots\\ENG-20260721-033723-728C1D\\snapshot_20260721T034920595490Z.zip",
+  "snapshot_sha256": "2e708d25f8a5a878ef5b1245569be1798f91d6d7a3e2ebb4e1134de8599c1686",
+  "validations": [
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nimport hashlib\np=Path(r'Z:\\FOXAI\\core\\foxai_web.py')\nactual=hashlib.sha256(p.read_bytes()).hexdigest()\nexpected='e4e9fd62e6c4736a18781c6b17184441e8852412867cc95dbca94e570921ba77'\nassert actual==expected, f'installed hash mismatch: {actual}'\nprint('KAYOCK_WRITER_CALM_CLEANUP_1_0_EXACT_HASH_OK')\n"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-21T03:49:20.740484Z",
+      "name": "Verify exact installed Writer Calm Cleanup payload SHA-256",
+      "returncode": 0,
+      "started_at": "2026-07-21T03:49:20.659445Z",
+      "stderr": "",
+      "stdout": "KAYOCK_WRITER_CALM_CLEANUP_1_0_EXACT_HASH_OK\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\np=Path(r'Z:\\FOXAI\\core\\foxai_web.py')\ns=p.read_text(encoding='utf-8')\ncompile(s,str(p),'exec')\nrequired=(\n    'KAYOCK_WRITER_CALM_CLEANUP_V1_HTML_START',\n    'KAYOCK_WRITER_CALM_CLEANUP_V1_HTML_END',\n    'KAYOCK_WRITER_CALM_CLEANUP_V1_JS_START',\n    'KAYOCK_WRITER_CALM_CLEANUP_V1_JS_END',\n    \"const WRITER_TASK_MEMORY_KEY='kayock.writer.last_task.v1';\",\n    'function readWriterTask()',\n    'function rememberWriterTask(id)',\n    'function writerRecentFallback()',\n    'function writerRecentV2()',\n    'function openWriterCreatorFromHome',\n    'function openWriterRoomFromHome',\n    'function continueWriterRecentV2()',\n)\nmissing=[item for item in required if item not in s]\nassert not missing, 'missing cleanup markers: '+', '.join(missing)\nprint('KAYOCK_WRITER_CALM_CLEANUP_1_0_PYTHON_AND_MARKERS_OK')\n"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-21T03:49:23.420628Z",
+      "name": "Verify Python syntax and Writer cleanup markers",
+      "returncode": 0,
+      "started_at": "2026-07-21T03:49:20.740831Z",
+      "stderr": "",
+      "stdout": "KAYOCK_WRITER_CALM_CLEANUP_1_0_PYTHON_AND_MARKERS_OK\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nimport ast, os, re, shutil, subprocess, sys, tempfile\np=Path(r'Z:\\FOXAI\\core\\foxai_web.py')\nsource=p.read_text(encoding='utf-8')\ntree=ast.parse(source)\nhtml_value=None\nfor item in tree.body:\n    if isinstance(item,(ast.Assign,ast.AnnAssign)):\n        targets=item.targets if isinstance(item,ast.Assign) else [item.target]\n        if any(isinstance(t,ast.Name) and t.id=='HTML' for t in targets):\n            html_value=ast.literal_eval(item.value)\n            break\nassert isinstance(html_value,str), 'HTML constant not found'\nblocks=re.findall(r'<script(?:\\s[^>]*)?>(.*?)</script>',html_value,flags=re.I|re.S)\nassert blocks, 'No embedded JavaScript blocks found'\nnode=shutil.which('node') or shutil.which('node.exe')\nif not node:\n    candidate=Path(os.environ.get('ProgramFiles',r'C:\\Program Files'))/'nodejs'/'node.exe'\n    if candidate.is_file():\n        node=str(candidate)\nassert node, 'Node.js was not found for embedded JavaScript verification'\ntemp_path=None\ntry:\n    with tempfile.NamedTemporaryFile('w',suffix='.js',encoding='utf-8',delete=False) as handle:\n        handle.write('\\n;\\n'.join(blocks))\n        temp_path=handle.name\n    result=subprocess.run([str(node),'--check',temp_path],capture_output=True,text=True,shell=False)\n    if result.stdout:\n        print(result.stdout)\n    if result.stderr:\n        print(result.stderr,file=sys.stderr)\n    assert result.returncode==0, f'Node syntax check failed with return code {result.returncode}'\nfinally:\n    if temp_path:\n        try:\n            Path(temp_path).unlink()\n        except FileNotFoundError:\n            pass\nprint('KAYOCK_WRITER_CALM_CLEANUP_1_0_EMBEDDED_JAVASCRIPT_OK')\n"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-21T03:49:26.314346Z",
+      "name": "Verify embedded interface JavaScript syntax with Node",
+      "returncode": 0,
+      "started_at": "2026-07-21T03:49:23.420943Z",
+      "stderr": "",
+      "stdout": "KAYOCK_WRITER_CALM_CLEANUP_1_0_EMBEDDED_JAVASCRIPT_OK\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nimport ast, json, os, re, shutil, subprocess, sys, tempfile\np=Path(r'Z:\\FOXAI\\core\\foxai_web.py')\nsource=p.read_text(encoding='utf-8')\ntree=ast.parse(source)\nhtml_value=None\nfor item in tree.body:\n    if isinstance(item,(ast.Assign,ast.AnnAssign)):\n        targets=item.targets if isinstance(item,ast.Assign) else [item.target]\n        if any(isinstance(t,ast.Name) and t.id=='HTML' for t in targets):\n            html_value=ast.literal_eval(item.value)\n            break\nassert isinstance(html_value,str), 'HTML constant not found'\nblocks=re.findall(r'<script(?:\\s[^>]*)?>(.*?)</script>',html_value,flags=re.I|re.S)\njavascript='\\n;\\n'.join(blocks)\nstart=javascript.index('/* KAYOCK_WRITER_CALM_CLEANUP_V1_JS_START */')\nend=javascript.index('/* KAYOCK_WRITER_CALM_CLEANUP_V1_JS_END */',start)+len('/* KAYOCK_WRITER_CALM_CLEANUP_V1_JS_END */')\ncleanup_block=javascript[start:end]\nnode=shutil.which('node') or shutil.which('node.exe')\nif not node:\n    candidate=Path(os.environ.get('ProgramFiles',r'C:\\Program Files'))/'nodejs'/'node.exe'\n    if candidate.is_file():\n        node=str(candidate)\nassert node, 'Node.js was not found for Writer task-memory simulation'\ntest=r'''\nconst assert=require('assert');\nconst vm=require('vm');\nconst memory={};\nconst fields={};\nconst calls=[];\nconst context={\n console,\n localStorage:{\n  getItem:k=>Object.prototype.hasOwnProperty.call(memory,k)?memory[k]:null,\n  setItem:(k,v)=>{memory[k]=String(v)}\n },\n navRecents:()=>['kayockwriter','storyforge'],\n q:(id)=>({classList:{contains:()=>false},scrollIntoView:()=>{},focus:()=>{}}),\n go:(page)=>calls.push(['go',page]),\n toast:(msg)=>calls.push(['toast',msg]),\n setPoetryStudioField:(id,v)=>{fields[id]=v;calls.push(['field',id,v])},\n updateCreatorWritingType:()=>calls.push(['update']),\n openPoemPolisherFromWriterHome:()=>calls.push(['poem_polisher']),\n openShortStoryPolisherFromWriterHome:()=>calls.push(['short_story_polisher']),\n setTimeout:(fn)=>{fn();return 1}\n};\nvm.createContext(context);\nvm.runInContext(\n process.env.WRITER_CLEANUP_BLOCK+\n '\\n;globalThis.__api={readWriterTask,rememberWriterTask,writerRecentFallback,writerRecentV2,openWriterCreatorFromHome,continueWriterRecentV2,WRITER_TASK_MEMORY_KEY,WRITER_TASK_V1};',\n context\n);\nconst a=context.__api;\nfor(const id of [\n 'poem_creator','short_story_creator','poem_polisher','short_story_polisher',\n 'poetry_studio','weaver','poemarchive','storyforge','projectdashboard',\n 'draftreader','chapterproseworkspace','savedchapters','worldbuilder','mywriting','novelforge'\n]) assert.ok(a.WRITER_TASK_V1[id],id);\nassert.strictEqual(a.readWriterTask(),'');\nassert.strictEqual(a.writerRecentFallback(),'storyforge');\nassert.strictEqual(a.writerRecentV2().id,'storyforge');\na.rememberWriterTask('short_story_creator');\nassert.strictEqual(memory[a.WRITER_TASK_MEMORY_KEY],'short_story_creator');\nassert.strictEqual(a.writerRecentV2().label,'Short Story Creator');\ncalls.length=0;\na.openWriterCreatorFromHome('short_story');\nassert.strictEqual(fields.poemWritingType,'short_story');\nassert.deepStrictEqual(calls.slice(0,3),[\n ['field','poemWritingType','short_story'],['update'],['go','poetrystudio']\n]);\na.rememberWriterTask('poem_polisher');\ncalls.length=0;\na.continueWriterRecentV2();\nassert.deepStrictEqual(calls,[['poem_polisher']]);\na.rememberWriterTask('short_story_polisher');\ncalls.length=0;\na.continueWriterRecentV2();\nassert.deepStrictEqual(calls,[['short_story_polisher']]);\na.rememberWriterTask('weaver');\ncalls.length=0;\na.continueWriterRecentV2();\nassert.deepStrictEqual(calls,[['go','weaver']]);\na.rememberWriterTask('worldbuilder');\ncalls.length=0;\na.continueWriterRecentV2();\nassert.deepStrictEqual(calls,[['go','worldbuilder']]);\nconsole.log('KAYOCK_WRITER_CALM_CLEANUP_1_0_TASK_MEMORY_SIMULATION_OK');\n'''\ntemp_path=None\ntry:\n    with tempfile.NamedTemporaryFile('w',suffix='.js',encoding='utf-8',delete=False) as handle:\n        handle.write(test)\n        temp_path=handle.name\n    env=dict(os.environ)\n    env['WRITER_CLEANUP_BLOCK']=cleanup_block\n    result=subprocess.run([str(node),temp_path],capture_output=True,text=True,shell=False,env=env)\n    if result.stdout:\n        print(result.stdout)\n    if result.stderr:\n        print(result.stderr,file=sys.stderr)\n    assert result.returncode==0, f'Writer task-memory simulation failed with return code {result.returncode}'\nfinally:\n    if temp_path:\n        try:\n            Path(temp_path).unlink()\n        except FileNotFoundError:\n            pass\n"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-21T03:49:29.194740Z",
+      "name": "Simulate exact Writer task memory, Creator type restoration, Polisher restoration, and Recents fallback",
+      "returncode": 0,
+      "started_at": "2026-07-21T03:49:26.314743Z",
+      "stderr": "",
+      "stdout": "KAYOCK_WRITER_CALM_CLEANUP_1_0_TASK_MEMORY_SIMULATION_OK\n\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nimport ast\np=Path(r'Z:\\FOXAI\\core\\foxai_web.py')\nsource=p.read_text(encoding='utf-8')\ntree=ast.parse(source)\nhtml_value=None\nfor item in tree.body:\n    if isinstance(item,(ast.Assign,ast.AnnAssign)):\n        targets=item.targets if isinstance(item,ast.Assign) else [item.target]\n        if any(isinstance(t,ast.Name) and t.id=='HTML' for t in targets):\n            html_value=ast.literal_eval(item.value)\n            break\nassert isinstance(html_value,str), 'HTML constant not found'\nstart=html_value.index('<!-- KAYOCK_WRITER_CALM_CLEANUP_V1_HTML_START -->')\nend=html_value.index('<!-- KAYOCK_WRITER_CALM_CLEANUP_V1_HTML_END -->',start)\nhome=html_value[start:end]\nrequired_home=(\n    'What would you like to write?',\n    'CONTINUE WHERE YOU LEFT OFF',\n    'Create a Poem or Short Story',\n    'Poem remains the default; Short story is one simple choice inside.',\n    'Polish a Poem',\n    'Polish a Short Story',\n    'The Weaver',\n    'Story Forge',\n    'World Builder',\n    'My Writing',\n    'Advanced and Technical Writer Tools',\n    \"openWriterCreatorFromHome()\",\n    \"openWriterRoomFromHome('weaver','weaver')\",\n    \"openWriterRoomFromHome('storyforge','storyforge')\",\n    \"openWriterRoomFromHome('worldbuilder','worldbuilder')\",\n    \"openWriterRoomFromHome('mywriting','mywriting')\",\n)\nmissing=[item for item in required_home if item not in home]\nassert not missing, 'Writer home label/route markers missing: '+', '.join(missing)\nrequired_action_memory=(\n    \"rememberWriterTask(story?'short_story_creator':'poem_creator');\",\n    \"rememberWriterTask(story?'short_story_polisher':'poem_polisher');\",\n    \"rememberWriterTask('weaver');\",\n    \"rememberWriterTask('storyforge');\",\n    \"rememberWriterTask('worldbuilder');\",\n    \"rememberWriterTask('poem_polisher');\",\n    \"rememberWriterTask('short_story_polisher');\",\n)\nmissing=[item for item in required_action_memory if item not in html_value]\nassert not missing, 'exact creative-action memory hooks missing: '+', '.join(missing)\nassert 'localStorage' in html_value\nassert 'Navigation memory only' in home\nassert 'Opening a room changes nothing.' in home\nprint('KAYOCK_WRITER_CALM_CLEANUP_1_0_HOME_LABELS_ROUTES_AND_ACTION_MEMORY_OK')\n"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-21T03:49:31.925443Z",
+      "name": "Verify calm Writer home labels, routes, and creative-action memory hooks",
+      "returncode": 0,
+      "started_at": "2026-07-21T03:49:29.195046Z",
+      "stderr": "",
+      "stdout": "KAYOCK_WRITER_CALM_CLEANUP_1_0_HOME_LABELS_ROUTES_AND_ACTION_MEMORY_OK\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\np=Path(r'Z:\\FOXAI\\core\\foxai_web.py')\ns=p.read_text(encoding='utf-8')\nrequired=(\n    'FOXAI_THE_WEAVER_V1_CSS_START',\n    'FOXAI_THE_WEAVER_V1_HTML_START',\n    'FOXAI_THE_WEAVER_V1_JS_START',\n    'FOXAI_THE_WEAVER_V1_BACKEND_START',\n    'FOXAI_CREATOR_TYPE_1_2_HTML_START',\n    'FOXAI_CREATOR_TYPE_1_2_JS_START',\n    'FOXAI_CREATOR_TYPE_1_2_BACKEND_START',\n    'FOXAI_CREATOR_TYPE_1_2_STORAGE_START',\n    'FOXAI_SHORT_STORY_POLISHER_V1_PROFILE_START',\n    'FOXAI_SHORT_STORY_POLISHER_V1_HTML_START',\n    'FOXAI_SHORT_STORY_POLISHER_V1_JS_START',\n    'FOXAI_SHORT_STORY_POLISHER_V1_BACKEND_START',\n    'FOXAI_SHORT_STORY_POLISHER_V1_STORAGE_START',\n    'FOXAI_SHORT_STORY_POLISHER_V1_1_BACKEND_START',\n    'FOXAI_SHORT_STORY_POLISHER_V1_1_STORAGE_START',\n    'FOXAI_SHORT_STORY_POLISHER_V1_1_JS_START',\n    'ERIC_SHORT_FICTION_PROFILE',\n    'ERIC_POET_NARRATOR_PROFILE_V1_START',\n    'Eric \u2014 Short Fiction',\n    'Eric \u2014 Poet/Narrator',\n    'Robin Hood \u2014 The Merry Outlaw',\n    'Zorro \u2014 The Masked Fox',\n    'Dracula \u2014 The Ancient Count',\n    'Sherlock Holmes \u2014 The Consulting Mind',\n    'def kayock_writer_poetry_create',\n    'def kayock_writer_poetry_polish',\n    'def kayock_writer_poetry_revise_selection',\n    'def kayock_writer_poetry_archive',\n    'def kayock_writer_weaver_generate',\n    'def kayock_writer_weaver_save',\n    'KAYOCK_WRITER_CALM_GUIDED_V2_BROWSER_START',\n    'KAYOCKS_STUDY_INTEGRATION_V1_HELPERS_START',\n    \"FOLDERS['kayock_writer_poetry_drafts']\",\n    \"FOLDERS['kayock_writer_poetry_recordings']\",\n    \"FOLDERS['kayock_writer_poetry_legacy']\",\n    \"FOLDERS['kayock_writer_short_story_drafts']\",\n    \"FOLDERS['kayock_writer_weaver_outputs']\",\n    \"go('storyforge')\",\n    '/api/writer/poetry/create',\n    '/api/writer/poetry/polish',\n    '/api/writer/poetry/save',\n    '/api/writer/weaver/generate',\n    '/api/writer/weaver/save',\n    'Short Story Creator',\n    'Short Story Polisher',\n    'The Weaver',\n    'Story Forge',\n    'World Builder',\n    'My Poems',\n    'Selected Lines',\n    'Rhyme & Rhythm Coach',\n    'poemarchive',\n    'Mark as Legacy Work',\n    'For Akaysha',\n    'For Nevaeh',\n    'Original Reading',\n    'Polished Reading',\n    'Personal Message',\n)\nmissing=[item for item in required if item not in s]\nassert not missing, 'protected feature anchors missing: '+', '.join(missing)\nassert \"writing_type='poem'\" in s\nassert \"writing_type=='short_story'\" in s\nprint('KAYOCK_WRITER_CALM_CLEANUP_1_0_PROTECTED_FEATURES_OK')\n"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-21T03:49:31.989492Z",
+      "name": "Verify The Weaver, Poetry Studio, Short Story Polisher 1.1, Story Forge, World Builder, Study, voice profiles, and the actual Legacy Work archive controls remain present",
+      "returncode": 0,
+      "started_at": "2026-07-21T03:49:31.925774Z",
+      "stderr": "",
+      "stdout": "KAYOCK_WRITER_CALM_CLEANUP_1_0_PROTECTED_FEATURES_OK\n",
+      "timed_out": false
+    }
+  ]
+}

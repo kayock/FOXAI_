@@ -1,0 +1,473 @@
+--- a/core/foxai_web.py
++++ b/core/foxai_web.py
+@@ -226,6 +226,7 @@
+ FOLDERS['kayock_writer_poetry_recordings']=ROOT/'Projects'/'KayockWriter'/'Poetry'/'Recordings'
+ FOLDERS['kayock_writer_poetry_legacy']=ROOT/'Projects'/'KayockWriter'/'Poetry'/'Legacy'
+ FOLDERS['kayock_writer_short_story_drafts']=ROOT/'Projects'/'KayockWriter'/'ShortStories'/'Drafts'
++FOLDERS['kayock_writer_weaver_outputs']=ROOT/'Projects'/'KayockWriter'/'Weaver'/'Outputs'
+ OPSBRIDGE_OUTBOX=ROOT/'OpsBridge'/'outbox'; BRIDGE_FEED_FILE=OPSBRIDGE_OUTBOX/'bridge_feed.json'; BUILDER_REPORT_FILE=OPSBRIDGE_OUTBOX/'builder_report.json'
+ 
+ def log(s): LOGS.mkdir(exist_ok=True); LOG.open('a',encoding='utf-8').write(f"[{datetime.now():%F %T}] {s}\n")
+@@ -1677,6 +1678,13 @@
+ /* KAYOCK_WRITER_CALM_GUIDED_V2_END */
+ /* KAYOCK_WRITER_GUIDED_CLEANUP_V1_END */
+ 
++
++/* FOXAI_THE_WEAVER_V1_CSS_START */
++.weaverHero{background:radial-gradient(circle at 0 0,#42ff9e18,transparent 40%),radial-gradient(circle at 100% 0,#8f5cff18,transparent 38%),linear-gradient(180deg,#121a20,#11131f)}
++.weaverSourceGrid{display:grid;grid-template-columns:repeat(2,minmax(300px,1fr));gap:14px}.weaverSource{border:1px solid #42ff9e35;background:#07120f;border-radius:16px;padding:13px}.weaverSource h3{margin:0 0 9px;color:#dffff0}.weaverSource textarea{min-height:210px;font-family:Georgia,'Times New Roman',serif;line-height:1.48}.weaverSource input[type=file]{padding:9px;background:#081019}.weaverControls{display:grid;grid-template-columns:repeat(2,minmax(230px,1fr));gap:12px}.weaverOutput{min-height:520px;font-family:Georgia,'Times New Roman',serif;font-size:16px;line-height:1.56;white-space:pre-wrap}.weaverMap{white-space:pre-wrap;font:12px/1.5 Consolas,monospace;color:#dff8ee;background:#06100d;border:1px solid #42ff9e2f;border-radius:13px;padding:12px;min-height:120px}.weaverStatus{white-space:pre-wrap;font:12px/1.5 Consolas,monospace;border-left:3px solid var(--g);background:#42ff9e09;border-radius:0 12px 12px 0;padding:10px 12px;margin-top:10px}.weaverWarning{border-color:#ffd166!important;background:#ffd1660b!important}.writerTaskCard.weaver{border-color:#42ff9e66}.weaverHint{color:var(--m);font-size:12px;line-height:1.45}.weaverActions{display:flex;gap:8px;flex-wrap:wrap}.weaverActions button{min-width:150px}.weaverSourceBadge{display:inline-block;border:1px solid #42ff9e55;border-radius:999px;padding:3px 8px;color:#bfffe0;font:10px Consolas,monospace;margin-bottom:8px}
++@media(max-width:900px){.weaverSourceGrid,.weaverControls{grid-template-columns:1fr}.weaverOutput{min-height:380px}}
++/* FOXAI_THE_WEAVER_V1_CSS_END */
++
+ /* KAYOCK_WRITER_CALM_HOME_V1_END */
+ 
+ @media(max-width:900px){.app{grid-template-columns:1fr}aside{position:relative;height:auto}}
+@@ -1729,12 +1737,39 @@
+ <article class="writerTaskCard poetry"><div class=writerTaskIcon>🪶</div><div><h3>Create a Poem</h3><p>Begin with a theme, feeling, image, or one opening line. The full multi-voice Poetry Studio remains intact.</p></div><button onclick="go('poetrystudio')">Create a Poem</button></article>
+ <article class="writerTaskCard polish"><div class=writerTaskIcon>✨</div><div><h3>Polish a Poem</h3><p>Improve rhythm, imagery, line breaks, and clarity while keeping the original and your chosen voice separate.</p></div><button onclick="openPoemPolisherFromWriterHome()">Polish a Poem</button></article>
+ <article class="writerTaskCard polish"><div class=writerTaskIcon>📝</div><div><h3>Polish a Short Story</h3><p>Improve pacing, scene flow, dialogue, atmosphere, and clarity while preserving plot, characters, point of view, canon, and the intended ending.</p></div><button onclick="openShortStoryPolisherFromWriterHome()">Polish a Short Story</button></article>
++<article class="writerTaskCard weaver"><div class=writerTaskIcon>🧵</div><div><h3>The Weaver</h3><p>Open or paste several poems, stories, or scenes and braid them into a new clean work—including Twine-ready passages.</p></div><button onclick="go('weaver')">Open The Weaver</button></article>
+ <article class="writerTaskCard story"><div class=writerTaskIcon>📚</div><div><h3>Start or Continue a Story</h3><p>Start something new, return to Slipping into Darkness, plan a chapter, or continue from saved prose.</p></div><button onclick="go('storyforge')">Open Story Forge</button></article>
+ <article class="writerTaskCard world"><div class=writerTaskIcon>🌍</div><div><h3>Build a World</h3><p>Create a world, region, settlement, faction, faith, adventure site, or campaign one calm step at a time.</p></div><button onclick="go('worldbuilder')">Open World Builder</button></article>
+ <article class="writerTaskCard libraryroom"><div class=writerTaskIcon>🗂️</div><div><h3>Browse My Writing</h3><p>Return to saved poems, drafts, chapters, projects, and worlds without opening technical reports.</p></div><button onclick="go('mywriting')">Browse My Writing</button></article>
+ </div>
+ <details class="card writerAdvancedHome writerAdvancedHomeV2"><summary>Writer — Advanced Tools</summary><div class=writerAdvancedBody><p>Foundation reports, manifests, save gates, audits, verification pages, PromptSmith, and the legacy Novel Forge remain available here when they are actually needed.</p><button onclick="loadKayockWriter(false);this.closest('details').open=true">Load Foundation Report</button><button onclick="go('storymanifest')">Story Manifest</button><button onclick="go('prompts')">PromptSmith</button><button onclick="go('novelforge')">Legacy Codex / Novel Forge</button><div id=kayockWriterStatus class=status>Advanced writer report not loaded.</div><div id=kayockWriterSummary class=status></div><div id=kayockWriterModules hidden></div><div id=kayockWriterNames hidden></div><div id=kayockWriterFlagship hidden></div><div id=kayockWriterPaths hidden></div><div id=kayockWriterRecommendations hidden></div><div id=kayockWriterSafety hidden></div></div></details>
+ </section>
++
++
++<!-- FOXAI_THE_WEAVER_V1_HTML_START -->
++<section id=weaver class=page>
++<div class="hero weaverHero"><div class=writerEyebrow>KAYOCK WRITER • THE WEAVER</div><h2>Weave several works into something new</h2><p>Open local text or Markdown files, or paste directly. The sources stay read-only; the woven result saves separately.</p></div>
++<div class=card><div class=weaverControls>
++<div class=writerField><label for=weaverMode>Weave style</label><select id=weaverMode><option value=shared_soul selected>Shared soul — one work from the common theme</option><option value=braided_voices>Braided voices — alternate threads or perspectives</option><option value=best_threads>Best threads — combine selected lines and passages</option><option value=new_tapestry>New tapestry — an original work inspired by all sources</option></select></div>
++<div class=writerField><label for=weaverOutputType>Output format</label><select id=weaverOutputType onchange="updateWeaverFormatHelp()"><option value=poem>Poem</option><option value=short_story>Short story</option><option value=clean_prose selected>Clean prose</option><option value=twine>Twine-ready passages</option></select></div>
++<div class=writerField><label for=weaverVoice>Creative voice</label><select id=weaverVoice><option>My natural voice</option><option>Eric — Poet/Narrator</option><option>Eric — Short Fiction</option><option>Robin Hood — The Merry Outlaw</option><option>Zorro — The Masked Fox</option><option>Dracula — The Ancient Count</option><option>Sherlock Holmes — The Consulting Mind</option><option>Lyrical</option><option>Spare and direct</option><option>Dark and mythic</option><option>Hopeful and intimate</option></select></div>
++<div class=writerField><label for=weaverLength>Target length</label><select id=weaverLength><option>Short</option><option selected>Medium</option><option>Long</option></select></div>
++</div>
++<div class=writerField><label for=weaverDirection>What should the weave protect or accomplish? <span class=small>— optional</span></label><textarea id=weaverDirection placeholder="Keep the emotional turn from Source 1, the setting from Source 2, and the final image from Source 3..."></textarea></div>
++<div id=weaverFormatHelp class=writerQuietHint>Clean prose preserves intentional paragraphs and scene breaks. The finished work contains no source labels or editorial notes.</div>
++</div>
++<div class=weaverSourceGrid>
++<div class=weaverSource><span class=weaverSourceBadge>SOURCE 1 • REQUIRED</span><h3>First thread</h3><div class=writerField><label for=weaverSourceName1>Name</label><input id=weaverSourceName1 placeholder="Poem or story title"></div><div class=writerField><label for=weaverFile1>Open .txt or .md</label><input id=weaverFile1 type=file accept=".txt,.md,text/plain,text/markdown" onchange="loadWeaverFile(1,this)"></div><textarea id=weaverSourceText1 placeholder="Paste the first source here..."></textarea></div>
++<div class=weaverSource><span class=weaverSourceBadge>SOURCE 2 • REQUIRED</span><h3>Second thread</h3><div class=writerField><label for=weaverSourceName2>Name</label><input id=weaverSourceName2 placeholder="Poem or story title"></div><div class=writerField><label for=weaverFile2>Open .txt or .md</label><input id=weaverFile2 type=file accept=".txt,.md,text/plain,text/markdown" onchange="loadWeaverFile(2,this)"></div><textarea id=weaverSourceText2 placeholder="Paste the second source here..."></textarea></div>
++<div class=weaverSource><span class=weaverSourceBadge>SOURCE 3 • OPTIONAL</span><h3>Third thread</h3><div class=writerField><label for=weaverSourceName3>Name</label><input id=weaverSourceName3 placeholder="Poem or story title"></div><div class=writerField><label for=weaverFile3>Open .txt or .md</label><input id=weaverFile3 type=file accept=".txt,.md,text/plain,text/markdown" onchange="loadWeaverFile(3,this)"></div><textarea id=weaverSourceText3 placeholder="Paste an optional third source..."></textarea></div>
++<div class=weaverSource><span class=weaverSourceBadge>SOURCE 4 • OPTIONAL</span><h3>Fourth thread</h3><div class=writerField><label for=weaverSourceName4>Name</label><input id=weaverSourceName4 placeholder="Poem or story title"></div><div class=writerField><label for=weaverFile4>Open .txt or .md</label><input id=weaverFile4 type=file accept=".txt,.md,text/plain,text/markdown" onchange="loadWeaverFile(4,this)"></div><textarea id=weaverSourceText4 placeholder="Paste an optional fourth source..."></textarea></div>
++</div>
++<div class=writerWorkspace style="margin-top:16px">
++<div class=card><h3>Source map</h3><p class=weaverHint>The Weaver plans with concise source roles and structure. This map is shown here, but it is never inserted into the finished creative work.</p><div id=weaverSourceMap class=weaverMap>No source map yet.</div><div id=weaverWarnings class="weaverMap" style="margin-top:10px">No provenance or copying warnings yet.</div></div>
++<div class=card><h3>Woven result</h3><div class=writerField><label for=weaverTitle>Title</label><input id=weaverTitle placeholder="Generated title or your own title"></div><textarea id=weaverOutput class=weaverOutput placeholder="The clean woven work will appear here..."></textarea><div class=weaverActions><button id=weaverGenerateButton onclick="generateWeaverWork()">Weave the Sources</button><button id=weaverSaveButton onclick="saveWeaverWork()" disabled>Save Woven Work</button><button onclick="clearWeaverRoom()">Clear Room</button><button onclick="api('/api/open/kayock_writer_weaver_outputs')">Open Weaver Outputs</button></div><div id=weaverStatus class=weaverStatus>Ready. Add at least two sources.</div></div>
++</div>
++</section>
++<!-- FOXAI_THE_WEAVER_V1_HTML_END -->
+ 
+ 
+ <section id=poetrystudio class=page>
+@@ -9360,6 +9395,51 @@
+ 
+ 
+ /* KAYOCK_WRITER_CALM_HOME_V1_JS_START */
++
++/* FOXAI_THE_WEAVER_V1_JS_START */
++let weaverBusy=false;
++let weaverLastResult=null;
++function updateWeaverFormatHelp(){
++ let type=q('weaverOutputType')?.value||'clean_prose',target=q('weaverFormatHelp');if(!target)return;
++ let text={
++  poem:'Poem output preserves intentional line and stanza breaks. The finished poem contains no source labels or editorial notes.',
++  short_story:'Short-story output uses readable prose paragraphs and a complete earned ending. The sources remain unchanged.',
++  clean_prose:'Clean prose preserves intentional paragraphs and scene breaks. The finished work contains no source labels or editorial notes.',
++  twine:'Twine-ready output uses clean :: Passage Name blocks, blank-line separation, and optional [[Choice->Passage]] links so it can be pasted into a Twine passage map.'
++ }[type]||'';target.textContent=text;
++}
++function setWeaverBusy(busy,message){
++ weaverBusy=Boolean(busy);['weaverGenerateButton','weaverSaveButton','weaverMode','weaverOutputType','weaverVoice','weaverLength','weaverDirection','weaverTitle'].forEach(id=>{let el=q(id);if(el)el.disabled=weaverBusy||(id==='weaverSaveButton'&&!weaverLastResult)});
++ for(let i=1;i<=4;i++){['weaverSourceName','weaverFile','weaverSourceText'].forEach(base=>{let el=q(base+i);if(el)el.disabled=weaverBusy})}
++ if(message&&q('weaverStatus'))q('weaverStatus').textContent=message;
++}
++function weaverSources(){
++ let sources=[];for(let i=1;i<=4;i++){let content=(q('weaverSourceText'+i)?.value||'').trim();if(!content)continue;let title=(q('weaverSourceName'+i)?.value||'').trim()||`Source ${i}`;sources.push({title,content,slot:i})}return sources;
++}
++function loadWeaverFile(index,input){
++ let file=input?.files?.[0];if(!file)return;if(!/\.(txt|md)$/i.test(file.name)){input.value='';return toast('The Weaver opens .txt and .md files only.');}
++ if(file.size>500000){input.value='';return toast('That source is over 500 KB. Use a smaller text selection for this weave.');}
++ let reader=new FileReader();reader.onload=()=>{q('weaverSourceText'+index).value=String(reader.result||'');if(!(q('weaverSourceName'+index).value||'').trim())q('weaverSourceName'+index).value=file.name.replace(/\.(txt|md)$/i,'');q('weaverStatus').textContent=`Loaded ${file.name} into Source ${index}. The local file was read only and not changed.`};reader.onerror=()=>toast('The file could not be read.');reader.readAsText(file);
++}
++function renderWeaverMap(plan){
++ let target=q('weaverSourceMap');if(!target)return;if(!plan){target.textContent='No source map yet.';return}
++ let lines=[];if(plan.suggested_title)lines.push(`Suggested title: ${plan.suggested_title}`);if(plan.shared_threads?.length)lines.push(`Shared threads: ${plan.shared_threads.join(' • ')}`);if(plan.structure)lines.push(`Structure: ${plan.structure}`);if(plan.source_roles?.length){lines.push('',...plan.source_roles.map(item=>`${item.title||'Source'}: ${item.role||item.use||'contributing thread'}`))}if(plan.passage_plan?.length){lines.push('','Twine passage plan:',...plan.passage_plan.map(item=>`• ${typeof item==='string'?item:(item.name||'Passage')+': '+(item.purpose||'')}`))}target.textContent=lines.join('\n')||'Source map prepared.';
++}
++function renderWeaverWarnings(result){let target=q('weaverWarnings');if(!target)return;let warnings=result?.warnings||[];let provenance=(result?.provenance||{}).sources||[];let lines=[];if(provenance.length){lines.push('Source provenance:',...provenance.map(item=>`• ${item.title} • ${item.words} words • ${item.sha256.slice(0,12)}…`))}if(warnings.length)lines.push('',...warnings.map(x=>'WARNING: '+x));target.textContent=lines.join('\n')||'No provenance or copying warnings.';target.classList.toggle('weaverWarning',Boolean(warnings.length));}
++async function generateWeaverWork(){
++ if(weaverBusy)return;let sources=weaverSources();if(sources.length<2)return toast('Add at least two source works first.');
++ let body={sources,mode:q('weaverMode').value,output_type:q('weaverOutputType').value,voice:q('weaverVoice').value,length:q('weaverLength').value,direction:(q('weaverDirection').value||'').trim()};
++ weaverLastResult=null;setWeaverBusy(true,'Building a concise source map, then weaving a clean final work…');q('weaverSourceMap').textContent='Planning the source map…';q('weaverWarnings').textContent='Checking provenance and copying boundaries…';
++ try{let d=await api('/api/writer/weaver/generate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});if(!d?.ok){q('weaverStatus').textContent=d?.message||'The Weaver could not generate the work.';renderWeaverMap(d?.source_map);renderWeaverWarnings(d);return}weaverLastResult=d;q('weaverOutput').value=d.output||'';q('weaverTitle').value=d.title||'';renderWeaverMap(d.source_map);renderWeaverWarnings(d);q('weaverStatus').textContent=`Woven work ready • ${d.output_type_label||d.output_type} • ${d.word_count||0} words • sources preserved read-only.`;}catch(e){q('weaverStatus').textContent='The Weaver failed: '+e}finally{setWeaverBusy(false)}
++}
++async function saveWeaverWork(){
++ if(weaverBusy||!weaverLastResult)return toast('Create a woven work first.');let output=(q('weaverOutput').value||'').trim();if(!output)return toast('There is no woven output to save.');
++ let body={...weaverLastResult,title:(q('weaverTitle').value||weaverLastResult.title||'Woven Work').trim(),output};setWeaverBusy(true,'Saving a separate no-overwrite Weaver revision…');
++ try{let d=await api('/api/writer/weaver/save',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});q('weaverStatus').textContent=d?.message||'Save finished.';if(d?.ok)toast(d.message)}catch(e){q('weaverStatus').textContent='Weaver save failed: '+e}finally{setWeaverBusy(false)}
++}
++function clearWeaverRoom(){if(weaverBusy)return;for(let i=1;i<=4;i++){q('weaverSourceName'+i).value='';q('weaverSourceText'+i).value='';q('weaverFile'+i).value=''}q('weaverDirection').value='';q('weaverTitle').value='';q('weaverOutput').value='';q('weaverSourceMap').textContent='No source map yet.';q('weaverWarnings').textContent='No provenance or copying warnings yet.';q('weaverWarnings').classList.remove('weaverWarning');q('weaverStatus').textContent='Ready. Add at least two sources.';weaverLastResult=null;setWeaverBusy(false)}
++/* FOXAI_THE_WEAVER_V1_JS_END */
++
+ let poetryBusy=false;
+ let poemOriginalVersion='';
+ let poemPolishedVersion='';
+@@ -13225,6 +13305,8 @@
+         if path=='/api/security/trip_sentry_test': self.js(trip_sentry_test(d)); return
+         if path=='/api/generate/root_manifest/preview': self.js(project_manifest_preview(d)); return
+         if path=='/api/generate/department_readme/preview': self.js(department_readme_preview(d)); return
++        if path=='/api/writer/weaver/generate': self.js(kayock_writer_weaver_generate(d)); return
++        if path=='/api/writer/weaver/save': self.js(kayock_writer_weaver_save(d)); return
+         if path=='/api/writer/poetry/create': self.js(kayock_writer_poetry_create(d)); return
+         if path=='/api/writer/poetry/polish': self.js(kayock_writer_poetry_polish(d)); return
+         if path=='/api/writer/poetry/revise-selection': self.js(kayock_writer_poetry_revise_selection(d)); return
+@@ -25036,6 +25118,347 @@
+     # FOXAI_SHORT_STORY_POLISHER_V1_1_BACKEND_END
+ # FOXAI_SHORT_STORY_POLISHER_V1_BACKEND_END
+ 
++
++
++# FOXAI_THE_WEAVER_V1_BACKEND_START
++def _weaver_source_text(value,limit=22000):
++    text=str(value or '').replace('\x00','').strip()
++    return text[:max(1,int(limit))]
++
++
++def _weaver_clean_title(value,fallback='Woven Work'):
++    candidate=_writer_text(value,120)
++    candidate=re.sub(r'^\s*(?:title\s*[:\-]\s*)','',candidate,flags=re.IGNORECASE)
++    candidate=candidate.strip().strip('#*_`"“”\' ')
++    candidate=re.sub(r'\s+',' ',candidate)
++    candidate=re.sub(r'[.,;:!?—\-]+\s*$','',candidate).strip()
++    return (candidate[:80].strip() or fallback)
++
++
++def _weaver_parse_plan(value,sources,output_type):
++    raw=str(value or '').strip()
++    raw=re.sub(r'^```(?:json)?\s*','',raw,flags=re.IGNORECASE)
++    raw=re.sub(r'\s*```$','',raw)
++    start=raw.find('{'); end=raw.rfind('}')
++    if start>=0 and end>start:
++        raw=raw[start:end+1]
++    try:
++        data=json.loads(raw)
++        if isinstance(data,dict):
++            return data
++    except Exception:
++        pass
++    return {
++        'suggested_title':'Woven Work',
++        'shared_threads':[],
++        'structure':'A clean unified weave that gives each source a clear contribution.',
++        'source_roles':[{'title':item['title'],'role':'Contributes imagery, emotional movement, or narrative material.'} for item in sources],
++        'passage_plan':(['Start','Turning Point','Choice','Ending'] if output_type=='twine' else []),
++        'fallback_plan':True,
++    }
++
++
++def _weaver_clean_output(value,output_type):
++    text=str(value or '').replace('\x00','').strip()
++    text=re.sub(r'^```(?:twee|twine|markdown|md|text)?\s*','',text,flags=re.IGNORECASE)
++    text=re.sub(r'\s*```$','',text)
++    text=re.sub(r'^\s*(?:FINAL\s+(?:WOVEN\s+)?WORK|WOVEN\s+WORK|OUTPUT)\s*[:\-]\s*','',text,flags=re.IGNORECASE)
++    text=text.strip()
++    if output_type=='twine':
++        text=text.replace('\r\n','\n').replace('\r','\n')
++        text=re.sub(r'\n{3,}','\n\n',text)
++        text=re.sub(r'(?m)^[ \t]*::[ \t]*',':: ',text)
++        if not re.search(r'(?m)^::\s+Start\s*$',text,re.IGNORECASE):
++            first=re.search(r'(?m)^::\s+.+$',text)
++            if first:
++                text=text[:first.start()]+':: Start'+text[first.end():]
++            else:
++                text=':: Start\n\n'+text
++    return text.strip()
++
++
++def _weaver_annotation_flags(text):
++    value=str(text or '')
++    patterns={
++        'source_labels':r'(?im)^\s*(?:source|text|poem|story)\s*[1-4]\s*:',
++        'editorial_notes':r'(?im)^\s*(?:editor(?:ial)?\s+note|note to (?:writer|user)|annotation|analysis)\s*:',
++        'process_commentary':r'(?im)^\s*(?:here is|i have|i combined|the following)\b.{0,80}(?:weave|woven|sources|texts)',
++        'bracketed_notes':r'(?i)\[(?:note|source|annotation|editor|comment)\s*:',
++    }
++    return [name for name,pattern in patterns.items() if re.search(pattern,value)]
++
++
++def _weaver_copy_metrics(output,sources):
++    import difflib
++    output_words=re.findall(r"[A-Za-z0-9'’_-]+",str(output or '').casefold())
++    metrics=[]
++    for item in sources:
++        source_words=re.findall(r"[A-Za-z0-9'’_-]+",item['content'].casefold())
++        matcher=difflib.SequenceMatcher(None,source_words,output_words,autojunk=False)
++        match=matcher.find_longest_match(0,len(source_words),0,len(output_words))
++        denominator=max(1,min(len(source_words),len(output_words)))
++        metrics.append({
++            'title':item['title'],
++            'source_words':len(source_words),
++            'longest_verbatim_words':int(match.size),
++            'longest_verbatim_ratio':round(match.size/denominator,6),
++            'overall_similarity':round(matcher.ratio(),6),
++        })
++    return metrics
++
++
++def _weaver_plan_prompt(sources,mode,output_type,direction):
++    source_block='\n\n'.join(
++        f"SOURCE {index+1} — {item['title']}\n{item['content']}"
++        for index,item in enumerate(sources)
++    )
++    system=(
++        'You are FOXAI The Weaver planning stage. Create a concise editorial source map, not hidden reasoning. '
++        'Return valid JSON only with keys suggested_title, shared_threads, structure, source_roles, and passage_plan. '
++        'source_roles must be an array of objects with title and role. shared_threads must be short phrases. '
++        'passage_plan is required only for Twine output and should list passage names and purposes. '
++        'Do not quote long passages, do not write the final creative work, and do not include analysis or chain-of-thought.'
++    )
++    user=(
++        f'Weave mode: {mode}\nOutput type: {output_type}\nUser direction: {direction or "none"}\n\n'
++        f'{source_block}'
++    )
++    return system,user
++
++
++def _weaver_generation_prompt(sources,plan,mode,output_type,voice,length,direction):
++    labels={
++        'shared_soul':'Create one new unified work from the sources\' shared emotional or thematic soul.',
++        'braided_voices':'Braid the source threads or perspectives so each remains distinguishable but the result reads as one intentional work.',
++        'best_threads':'Use the strongest compatible lines, images, scenes, or passages, transforming and joining them into a coherent new whole.',
++        'new_tapestry':'Write a substantially new original work inspired by the sources rather than summarizing or mechanically combining them.',
++    }
++    formats={
++        'poem':'Return only a finished poem. Preserve intentional line and stanza breaks.',
++        'short_story':'Return only one complete short story in prose paragraphs with an earned ending.',
++        'clean_prose':'Return only clean literary prose with deliberate paragraph and scene breaks.',
++        'twine':(
++            'Return only valid Twee/Twine passage source. Begin with :: Start. Use :: Passage Name headings on their own lines, '
++            'blank lines between passages, and optional [[Choice->Passage]] links where choices genuinely help. Keep passage names concise. '
++            'Do not add YAML, code fences, explanations, source labels, or notes.'
++        ),
++    }
++    length_rules={
++        'short':'Keep the result compact: roughly 300–650 words, or 3–5 Twine passages.',
++        'long':'Develop the result fully: roughly 1,400–2,400 words, or 8–14 Twine passages.',
++    }
++    source_block='\n\n'.join(
++        f"SOURCE {index+1} — {item['title']}\n{item['content']}"
++        for index,item in enumerate(sources)
++    )
++    system=(
++        'You are FOXAI The Weaver, a creative synthesis tool. Return only the finished creative work. '
++        'Never include editorial annotations, source labels, bracketed notes, planning commentary, explanations, or model process. '
++        'Preserve the originals by creating a separate derivative work; never claim to have modified a source. '
++        'Honor supplied facts and intentional meanings, but do not copy long passages verbatim unless Best Threads explicitly calls for selected lines. '
++        'Do not imitate a living author. '+formats.get(output_type,formats['clean_prose'])
++    )
++    if voice and voice!='My natural voice':
++        profile_id=_writer_voice_profile_id(voice)
++        if profile_id:
++            system+='\n\n'+build_writer_voice_prompt(profile_id,'Recognizable influence','short_story' if output_type in {'short_story','clean_prose','twine'} else 'poem')
++        else:
++            system+=f'\n\nUse this broad creative voice preference without imitation: {voice}.'
++    plan_json=json.dumps(plan,ensure_ascii=False)
++    user='\n'.join([
++        f'Weave mode: {mode}',
++        f'Mode instruction: {labels.get(mode,labels["shared_soul"])}',
++        f'Output type: {output_type}',
++        f'Target length: {length}',
++        length_rules.get(str(length).strip().casefold(),'Use a medium length: roughly 700–1,300 words, or 5–8 Twine passages.'),
++        f'User direction: {direction or "none supplied"}',
++        f'Concise source map: {plan_json}',
++        '',
++        source_block,
++    ])
++    return system,user
++
++
++def kayock_writer_weaver_generate(d=None):
++    d=d or {}
++    raw_sources=d.get('sources') if isinstance(d.get('sources'),list) else []
++    sources=[]
++    total_chars=0
++    for index,item in enumerate(raw_sources[:4]):
++        if not isinstance(item,dict):
++            continue
++        content=_weaver_source_text(item.get('content'),22000)
++        if not content:
++            continue
++        title=_weaver_clean_title(item.get('title'),f'Source {index+1}')
++        total_chars+=len(content)
++        sources.append({
++            'title':title,
++            'content':content,
++            'sha256':hashlib.sha256(content.encode('utf-8')).hexdigest(),
++            'words':len(re.findall(r"[A-Za-z0-9'’_-]+",content)),
++        })
++    if len(sources)<2:
++        return {'ok':False,'message':'The Weaver needs at least two non-empty sources. No files were changed.'}
++    if total_chars>60000:
++        return {'ok':False,'message':'The combined sources are too large for Weaver 1.0. Use shorter selections totaling no more than 60,000 characters. No files were changed.'}
++    mode=_writer_text(d.get('mode'),40).casefold() or 'shared_soul'
++    if mode not in {'shared_soul','braided_voices','best_threads','new_tapestry'}:
++        mode='shared_soul'
++    output_type=_writer_text(d.get('output_type'),30).casefold() or 'clean_prose'
++    if output_type not in {'poem','short_story','clean_prose','twine'}:
++        output_type='clean_prose'
++    voice=_writer_text(d.get('voice'),100) or 'My natural voice'
++    length=_writer_text(d.get('length'),20) or 'Medium'
++    direction=_writer_text(d.get('direction'),3000)
++
++    plan_system,plan_user=_weaver_plan_prompt(sources,mode,output_type,direction)
++    plan_result=_poetry_chat(
++        [{'role':'system','content':plan_system},{'role':'user','content':plan_user}],
++        max_tokens=700,
++        temperature=0.35,
++    )
++    plan=_weaver_parse_plan(plan_result.get('poem') if plan_result.get('ok') else '',sources,output_type)
++
++    system,user=_weaver_generation_prompt(sources,plan,mode,output_type,voice,length,direction)
++    max_tokens={'short':1300,'medium':2600,'long':4200}.get(length.strip().casefold(),2600)
++    result=_poetry_chat(
++        [{'role':'system','content':system},{'role':'user','content':user}],
++        max_tokens=max_tokens,
++        temperature=0.76 if mode=='new_tapestry' else 0.68,
++    )
++    attempts=1
++    if not result.get('ok'):
++        result['source_files_modified']=False
++        return result
++    output=_weaver_clean_output(result.get('poem'),output_type)
++    flags=_weaver_annotation_flags(output)
++    twine_invalid=bool(output_type=='twine' and len(re.findall(r'(?m)^::\s+.+$',output))<2)
++    if flags or twine_invalid:
++        retry_system=system+(
++            '\n\nThe prior draft was rejected because it contained editorial contamination or invalid output formatting. '
++            'Return only the finished creative work. Remove every source label, note, explanation, annotation, and process statement. '
++            'For Twine, provide at least two clean :: Passage Name blocks beginning with :: Start.'
++        )
++        result=_poetry_chat(
++            [{'role':'system','content':retry_system},{'role':'user','content':user}],
++            max_tokens=max_tokens,
++            temperature=0.62,
++        )
++        attempts=2
++        if not result.get('ok'):
++            result['source_files_modified']=False
++            return result
++        output=_weaver_clean_output(result.get('poem'),output_type)
++        flags=_weaver_annotation_flags(output)
++        twine_invalid=bool(output_type=='twine' and len(re.findall(r'(?m)^::\s+.+$',output))<2)
++        if flags or twine_invalid:
++            return {
++                'ok':False,
++                'message':'The model did not return a clean Weaver result after two attempts. No woven output was accepted or saved.',
++                'annotation_flags':flags,
++                'twine_format_invalid':twine_invalid,
++                'source_map':plan,
++                'source_files_modified':False,
++                'attempts':attempts,
++            }
++
++    copy_metrics=_weaver_copy_metrics(output,sources)
++    warnings=[]
++    threshold=0.72 if mode=='best_threads' else 0.48
++    for metric in copy_metrics:
++        if metric['longest_verbatim_words']>=35 and metric['longest_verbatim_ratio']>=threshold:
++            warnings.append(
++                f"A long passage closely matches {metric['title']} ({metric['longest_verbatim_words']} consecutive words). Review before saving."
++            )
++    title=_weaver_clean_title(plan.get('suggested_title'),'Woven Work')
++    output_hash=hashlib.sha256(output.encode('utf-8')).hexdigest()
++    return {
++        'ok':True,
++        'message':'Woven work created.',
++        'title':title,
++        'output':output,
++        'output_type':output_type,
++        'output_type_label':{'poem':'Poem','short_story':'Short story','clean_prose':'Clean prose','twine':'Twine-ready passages'}[output_type],
++        'mode':mode,
++        'voice':voice,
++        'length':length,
++        'direction':direction,
++        'source_map':plan,
++        'provenance':{'sources':[{k:item[k] for k in ('title','sha256','words')} for item in sources]},
++        'copy_metrics':copy_metrics,
++        'warnings':warnings,
++        'word_count':len(re.findall(r"[A-Za-z0-9'’_-]+",output)),
++        'content_sha256':output_hash,
++        'attempts':attempts,
++        'source_files_modified':False,
++        'source_files_read_only':True,
++        'finished_output_contains_annotations':False,
++        'hidden_chain_of_thought_requested':False,
++        'planning_summary_is_editorial_artifact':True,
++        'story_forge_used':False,
++    }
++
++
++def kayock_writer_weaver_save(d=None):
++    d=d or {}
++    output=_weaver_source_text(d.get('output'),80000)
++    if not output:
++        return {'ok':False,'message':'There is no woven output to save.'}
++    output_type=_writer_text(d.get('output_type'),30).casefold() or 'clean_prose'
++    if output_type not in {'poem','short_story','clean_prose','twine'}:
++        output_type='clean_prose'
++    title=_weaver_clean_title(d.get('title'),'Woven Work')
++    folder=FOLDERS['kayock_writer_weaver_outputs']
++    folder.mkdir(parents=True,exist_ok=True)
++    stamp=datetime.now().strftime('%Y%m%d_%H%M%S_%f')
++    base=slug(title)[:70] or 'Woven_Work'
++    content_hash=hashlib.sha256(output.encode('utf-8')).hexdigest()
++    provenance=(d.get('provenance') or {}).get('sources') if isinstance(d.get('provenance'),dict) else []
++    if not isinstance(provenance,list):
++        provenance=[]
++    metadata={
++        'title':title,
++        'author':_writer_text(d.get('author'),120) or 'Eric Z. Fox',
++        'created':now(),
++        'source':'Kayock Writer — The Weaver',
++        'content_type':'weaver_output',
++        'weaver_output_type':output_type,
++        'weaver_mode':_writer_text(d.get('mode'),40),
++        'voice':_writer_text(d.get('voice'),100),
++        'length':_writer_text(d.get('length'),30),
++        'direction':_writer_text(d.get('direction'),3000),
++        'model':Path(chat_model).name if chat_model else 'active local model',
++        'content_sha256':content_hash,
++        'source_provenance':provenance,
++        'source_files_modified':False,
++        'source_files_read_only':True,
++        'no_overwrite':True,
++    }
++    created=[]
++    if output_type=='twine':
++        work_path=folder/f'{base}_{stamp}.twee'
++        meta_path=folder/f'{base}_{stamp}.weaver.json'
++        work_path.write_text(output.rstrip()+'\n',encoding='utf-8')
++        jwrite(meta_path,metadata)
++        created=[str(work_path),str(meta_path)]
++    else:
++        work_path=folder/f'{base}_{stamp}.md'
++        frontmatter='---\n'+\
++            '\n'.join(f'{key}: {json.dumps(value,ensure_ascii=False)}' for key,value in metadata.items())+\
++            '\n---\n\n'
++        work_path.write_text(frontmatter+f'# {title}\n\n'+output.rstrip()+'\n',encoding='utf-8')
++        created=[str(work_path)]
++    return {
++        'ok':True,
++        'message':f"Saved a separate no-overwrite Weaver revision: {Path(created[0]).name}",
++        'created_files':created,
++        'folder':str(folder),
++        'content_sha256':content_hash,
++        'source_files_modified':False,
++        'no_overwrite':True,
++    }
++# FOXAI_THE_WEAVER_V1_BACKEND_END
+ 
+ def _poetry_nonempty_lines(value):
+     return [

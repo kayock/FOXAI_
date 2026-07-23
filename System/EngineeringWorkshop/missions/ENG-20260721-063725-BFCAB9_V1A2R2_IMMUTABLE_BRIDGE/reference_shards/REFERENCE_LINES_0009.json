@@ -1,0 +1,7207 @@
+{
+  "record_count": 1200,
+  "records": [
+    {
+      "language": "python",
+      "line": 131,
+      "path": "core\\application_registry.py",
+      "text": "continue"
+    },
+    {
+      "language": "python",
+      "line": 132,
+      "path": "core\\application_registry.py",
+      "text": "entry_id = f\"fleet_{self._slug(key)}\""
+    },
+    {
+      "language": "python",
+      "line": 133,
+      "path": "core\\application_registry.py",
+      "text": "if entry_id in existing_ids:"
+    },
+    {
+      "language": "python",
+      "line": 134,
+      "path": "core\\application_registry.py",
+      "text": "continue"
+    },
+    {
+      "language": "python",
+      "line": 135,
+      "path": "core\\application_registry.py",
+      "text": "reserved = bool(raw.get(\"reserved\"))"
+    },
+    {
+      "language": "python",
+      "line": 136,
+      "path": "core\\application_registry.py",
+      "text": "merged.append({"
+    },
+    {
+      "language": "python",
+      "line": 137,
+      "path": "core\\application_registry.py",
+      "text": "\"id\": entry_id,"
+    },
+    {
+      "language": "python",
+      "line": 138,
+      "path": "core\\application_registry.py",
+      "text": "\"name\": str(raw.get(\"name\") or key),"
+    },
+    {
+      "language": "python",
+      "line": 139,
+      "path": "core\\application_registry.py",
+      "text": "\"kind\": str(raw.get(\"kind\") or \"extension\"),"
+    },
+    {
+      "language": "python",
+      "line": 140,
+      "path": "core\\application_registry.py",
+      "text": "\"department\": str(raw.get(\"department\") or \"Extensions\"),"
+    },
+    {
+      "language": "python",
+      "line": 141,
+      "path": "core\\application_registry.py",
+      "text": "\"category\": str(raw.get(\"category\") or \"Extension\"),"
+    },
+    {
+      "language": "python",
+      "line": 142,
+      "path": "core\\application_registry.py",
+      "text": "\"lifecycle\": \"planned\" if reserved else \"active\","
+    },
+    {
+      "language": "python",
+      "line": 143,
+      "path": "core\\application_registry.py",
+      "text": "\"health_mode\": \"fleet\","
+    },
+    {
+      "language": "python",
+      "line": 144,
+      "path": "core\\application_registry.py",
+      "text": "\"display_order\": 1000 + index,"
+    },
+    {
+      "language": "python",
+      "line": 145,
+      "path": "core\\application_registry.py",
+      "text": "\"security_role\": \"ordinary_extension\","
+    },
+    {
+      "language": "python",
+      "line": 146,
+      "path": "core\\application_registry.py",
+      "text": "\"source\": \"fleet\","
+    },
+    {
+      "language": "python",
+      "line": 147,
+      "path": "core\\application_registry.py",
+      "text": "\"installed\": bool(raw.get(\"installed\")),"
+    },
+    {
+      "language": "python",
+      "line": 148,
+      "path": "core\\application_registry.py",
+      "text": "\"reserved\": reserved,"
+    },
+    {
+      "language": "python",
+      "line": 149,
+      "path": "core\\application_registry.py",
+      "text": "\"service_state\": raw.get(\"service_state\"),"
+    },
+    {
+      "language": "python",
+      "line": 150,
+      "path": "core\\application_registry.py",
+      "text": "\"health_status\": raw.get(\"health_status\"),"
+    },
+    {
+      "language": "python",
+      "line": 151,
+      "path": "core\\application_registry.py",
+      "text": "\"health_message\": raw.get(\"health_message\"),"
+    },
+    {
+      "language": "python",
+      "line": 152,
+      "path": "core\\application_registry.py",
+      "text": "\"path\": raw.get(\"path\"),"
+    },
+    {
+      "language": "python",
+      "line": 153,
+      "path": "core\\application_registry.py",
+      "text": "\"callsign\": raw.get(\"callsign\"),"
+    },
+    {
+      "language": "python",
+      "line": 154,
+      "path": "core\\application_registry.py",
+      "text": "\"capabilities\": raw.get(\"capabilities\") or [],"
+    },
+    {
+      "language": "python",
+      "line": 155,
+      "path": "core\\application_registry.py",
+      "text": "})"
+    },
+    {
+      "language": "python",
+      "line": 156,
+      "path": "core\\application_registry.py",
+      "text": "return merged"
+    },
+    {
+      "language": "python",
+      "line": 158,
+      "path": "core\\application_registry.py",
+      "text": "def load_entries(self) -> list[dict[str, Any]]:"
+    },
+    {
+      "language": "python",
+      "line": 159,
+      "path": "core\\application_registry.py",
+      "text": "canonical, data = self._load_canonical()"
+    },
+    {
+      "language": "python",
+      "line": 160,
+      "path": "core\\application_registry.py",
+      "text": "fleet_settings = data.get(\"fleet_merge\") if isinstance(data.get(\"fleet_merge\"), dict) else {}"
+    },
+    {
+      "language": "python",
+      "line": 161,
+      "path": "core\\application_registry.py",
+      "text": "entries = canonical + self._load_fleet({item[\"id\"] for item in canonical}, bool(fleet_settings.get(\"enabled\", True)))"
+    },
+    {
+      "language": "python",
+      "line": 162,
+      "path": "core\\application_registry.py",
+      "text": "return sorted(entries, key=lambda item: (int(item.get(\"display_order\") or 9999), item[\"name\"].lower()))"
+    },
+    {
+      "language": "python",
+      "line": 164,
+      "path": "core\\application_registry.py",
+      "text": "@staticmethod"
+    },
+    {
+      "language": "python",
+      "line": 165,
+      "path": "core\\application_registry.py",
+      "text": "def _result(entry: dict[str, Any], status: str, message: str, *, latency_ms: float | None = None) -> dict[str, Any]:"
+    },
+    {
+      "language": "python",
+      "line": 166,
+      "path": "core\\application_registry.py",
+      "text": "state = status if status in NORMALIZED_STATES else \"UNKNOWN\""
+    },
+    {
+      "language": "python",
+      "line": 167,
+      "path": "core\\application_registry.py",
+      "text": "return {"
+    },
+    {
+      "language": "python",
+      "line": 168,
+      "path": "core\\application_registry.py",
+      "text": "\"id\": entry[\"id\"],"
+    },
+    {
+      "language": "python",
+      "line": 169,
+      "path": "core\\application_registry.py",
+      "text": "\"name\": entry[\"name\"],"
+    },
+    {
+      "language": "python",
+      "line": 170,
+      "path": "core\\application_registry.py",
+      "text": "\"kind\": entry.get(\"kind\", \"application\"),"
+    },
+    {
+      "language": "python",
+      "line": 171,
+      "path": "core\\application_registry.py",
+      "text": "\"department\": entry.get(\"department\", \"Unassigned\"),"
+    },
+    {
+      "language": "python",
+      "line": 172,
+      "path": "core\\application_registry.py",
+      "text": "\"category\": entry.get(\"category\"),"
+    },
+    {
+      "language": "python",
+      "line": 173,
+      "path": "core\\application_registry.py",
+      "text": "\"lifecycle\": entry.get(\"lifecycle\", \"active\"),"
+    },
+    {
+      "language": "python",
+      "line": 174,
+      "path": "core\\application_registry.py",
+      "text": "\"health_mode\": entry.get(\"health_mode\", \"path\"),"
+    },
+    {
+      "language": "python",
+      "line": 175,
+      "path": "core\\application_registry.py",
+      "text": "\"security_role\": entry.get(\"security_role\", \"ordinary_application\"),"
+    },
+    {
+      "language": "python",
+      "line": 176,
+      "path": "core\\application_registry.py",
+      "text": "\"source\": entry.get(\"source\", \"canonical\"),"
+    },
+    {
+      "language": "python",
+      "line": 177,
+      "path": "core\\application_registry.py",
+      "text": "\"status\": state,"
+    },
+    {
+      "language": "python",
+      "line": 178,
+      "path": "core\\application_registry.py",
+      "text": "\"healthy\": True if state in HEALTHY_STATES else False if state in ATTENTION_STATES else None,"
+    },
+    {
+      "language": "python",
+      "line": 179,
+      "path": "core\\application_registry.py",
+      "text": "\"message\": str(message),"
+    },
+    {
+      "language": "python",
+      "line": 180,
+      "path": "core\\application_registry.py",
+      "text": "\"latency_ms\": round(float(latency_ms), 1) if latency_ms is not None else None,"
+    },
+    {
+      "language": "python",
+      "line": 181,
+      "path": "core\\application_registry.py",
+      "text": "\"checked_at\": datetime.now(timezone.utc).isoformat(),"
+    },
+    {
+      "language": "python",
+      "line": 182,
+      "path": "core\\application_registry.py",
+      "text": "\"path\": entry.get(\"path\"),"
+    },
+    {
+      "language": "python",
+      "line": 183,
+      "path": "core\\application_registry.py",
+      "text": "\"url\": entry.get(\"url\"),"
+    },
+    {
+      "language": "python",
+      "line": 184,
+      "path": "core\\application_registry.py",
+      "text": "\"host\": entry.get(\"host\"),"
+    },
+    {
+      "language": "python",
+      "line": 185,
+      "path": "core\\application_registry.py",
+      "text": "\"port\": entry.get(\"port\"),"
+    },
+    {
+      "language": "python",
+      "line": 186,
+      "path": "core\\application_registry.py",
+      "text": "\"callsign\": entry.get(\"callsign\"),"
+    },
+    {
+      "language": "python",
+      "line": 187,
+      "path": "core\\application_registry.py",
+      "text": "\"capabilities\": entry.get(\"capabilities\") or [],"
+    },
+    {
+      "language": "python",
+      "line": 188,
+      "path": "core\\application_registry.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 190,
+      "path": "core\\application_registry.py",
+      "text": "def _required_path(self, entry: dict[str, Any]) -> dict[str, Any] | None:"
+    },
+    {
+      "language": "python",
+      "line": 191,
+      "path": "core\\application_registry.py",
+      "text": "path = self._resolve_path(entry.get(\"path\"))"
+    },
+    {
+      "language": "python",
+      "line": 192,
+      "path": "core\\application_registry.py",
+      "text": "if path is not None and not path.exists():"
+    },
+    {
+      "language": "python",
+      "line": 193,
+      "path": "core\\application_registry.py",
+      "text": "return self._result(entry, \"UNAVAILABLE\", f\"Required path is missing: {path}\")"
+    },
+    {
+      "language": "python",
+      "line": 194,
+      "path": "core\\application_registry.py",
+      "text": "return None"
+    },
+    {
+      "language": "python",
+      "line": 196,
+      "path": "core\\application_registry.py",
+      "text": "def _probe_path(self, entry: dict[str, Any]) -> dict[str, Any]:"
+    },
+    {
+      "language": "python",
+      "line": 197,
+      "path": "core\\application_registry.py",
+      "text": "path = self._resolve_path(entry.get(\"path\"))"
+    },
+    {
+      "language": "python",
+      "line": 198,
+      "path": "core\\application_registry.py",
+      "text": "if path is None:"
+    },
+    {
+      "language": "python",
+      "line": 199,
+      "path": "core\\application_registry.py",
+      "text": "return self._result(entry, \"UNKNOWN\", \"No passive path probe is configured.\")"
+    },
+    {
+      "language": "python",
+      "line": 200,
+      "path": "core\\application_registry.py",
+      "text": "if path.exists():"
+    },
+    {
+      "language": "python",
+      "line": 201,
+      "path": "core\\application_registry.py",
+      "text": "kind = \"folder\" if path.is_dir() else \"file\""
+    },
+    {
+      "language": "python",
+      "line": 202,
+      "path": "core\\application_registry.py",
+      "text": "return self._result(entry, \"READY\", f\"Required {kind} is present: {path}\")"
+    },
+    {
+      "language": "python",
+      "line": 203,
+      "path": "core\\application_registry.py",
+      "text": "return self._result(entry, \"UNAVAILABLE\", f\"Required path is missing: {path}\")"
+    },
+    {
+      "language": "python",
+      "line": 205,
+      "path": "core\\application_registry.py",
+      "text": "def _probe_process_self(self, entry: dict[str, Any]) -> dict[str, Any]:"
+    },
+    {
+      "language": "python",
+      "line": 206,
+      "path": "core\\application_registry.py",
+      "text": "failure = self._required_path(entry)"
+    },
+    {
+      "language": "python",
+      "line": 207,
+      "path": "core\\application_registry.py",
+      "text": "return failure or self._result(entry, \"ONLINE\", \"The FOXAI Desktop process is running this registry view.\")"
+    },
+    {
+      "language": "python",
+      "line": 209,
+      "path": "core\\application_registry.py",
+      "text": "def _probe_tcp(self, entry: dict[str, Any]) -> dict[str, Any]:"
+    },
+    {
+      "language": "python",
+      "line": 210,
+      "path": "core\\application_registry.py",
+      "text": "failure = self._required_path(entry)"
+    },
+    {
+      "language": "python",
+      "line": 211,
+      "path": "core\\application_registry.py",
+      "text": "if failure:"
+    },
+    {
+      "language": "python",
+      "line": 212,
+      "path": "core\\application_registry.py",
+      "text": "return failure"
+    },
+    {
+      "language": "python",
+      "line": 213,
+      "path": "core\\application_registry.py",
+      "text": "if not self.allow_network:"
+    },
+    {
+      "language": "python",
+      "line": 214,
+      "path": "core\\application_registry.py",
+      "text": "return self._result(entry, \"UNKNOWN\", \"Network probe disabled for validation.\")"
+    },
+    {
+      "language": "python",
+      "line": 215,
+      "path": "core\\application_registry.py",
+      "text": "host = str(entry.get(\"host\") or \"127.0.0.1\")"
+    },
+    {
+      "language": "python",
+      "line": 216,
+      "path": "core\\application_registry.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 217,
+      "path": "core\\application_registry.py",
+      "text": "port = int(entry.get(\"port\"))"
+    },
+    {
+      "language": "python",
+      "line": 218,
+      "path": "core\\application_registry.py",
+      "text": "except (TypeError, ValueError):"
+    },
+    {
+      "language": "python",
+      "line": 219,
+      "path": "core\\application_registry.py",
+      "text": "return self._result(entry, \"UNKNOWN\", \"TCP health probe has no valid port.\")"
+    },
+    {
+      "language": "python",
+      "line": 220,
+      "path": "core\\application_registry.py",
+      "text": "started = time.perf_counter()"
+    },
+    {
+      "language": "python",
+      "line": 221,
+      "path": "core\\application_registry.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 222,
+      "path": "core\\application_registry.py",
+      "text": "with socket.create_connection((host, port), timeout=self.timeout):"
+    },
+    {
+      "language": "python",
+      "line": 223,
+      "path": "core\\application_registry.py",
+      "text": "return self._result(entry, \"ONLINE\", f\"TCP endpoint is accepting connections at {host}:{port}.\", latency_ms=(time.perf_counter() - started) * 1000)"
+    },
+    {
+      "language": "python",
+      "line": 224,
+      "path": "core\\application_registry.py",
+      "text": "except OSError as exc:"
+    },
+    {
+      "language": "python",
+      "line": 225,
+      "path": "core\\application_registry.py",
+      "text": "return self._result(entry, \"OFFLINE\", f\"TCP endpoint is not responding at {host}:{port}: {exc}\", latency_ms=(time.perf_counter() - started) * 1000)"
+    },
+    {
+      "language": "python",
+      "line": 227,
+      "path": "core\\application_registry.py",
+      "text": "def _probe_http(self, entry: dict[str, Any]) -> dict[str, Any]:"
+    },
+    {
+      "language": "python",
+      "line": 228,
+      "path": "core\\application_registry.py",
+      "text": "failure = self._required_path(entry)"
+    },
+    {
+      "language": "python",
+      "line": 229,
+      "path": "core\\application_registry.py",
+      "text": "if failure:"
+    },
+    {
+      "language": "python",
+      "line": 230,
+      "path": "core\\application_registry.py",
+      "text": "return failure"
+    },
+    {
+      "language": "python",
+      "line": 231,
+      "path": "core\\application_registry.py",
+      "text": "if not self.allow_network:"
+    },
+    {
+      "language": "python",
+      "line": 232,
+      "path": "core\\application_registry.py",
+      "text": "return self._result(entry, \"UNKNOWN\", \"Network probe disabled for validation.\")"
+    },
+    {
+      "language": "python",
+      "line": 233,
+      "path": "core\\application_registry.py",
+      "text": "url = str(entry.get(\"url\") or \"\").strip()"
+    },
+    {
+      "language": "python",
+      "line": 234,
+      "path": "core\\application_registry.py",
+      "text": "if not url:"
+    },
+    {
+      "language": "python",
+      "line": 235,
+      "path": "core\\application_registry.py",
+      "text": "return self._result(entry, \"UNKNOWN\", \"HTTP health probe has no URL.\")"
+    },
+    {
+      "language": "python",
+      "line": 236,
+      "path": "core\\application_registry.py",
+      "text": "started = time.perf_counter()"
+    },
+    {
+      "language": "python",
+      "line": 237,
+      "path": "core\\application_registry.py",
+      "text": "request = urllib.request.Request(url, headers={\"User-Agent\": \"KayocktheOS-ApplicationRegistry/1\"})"
+    },
+    {
+      "language": "python",
+      "line": 238,
+      "path": "core\\application_registry.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 239,
+      "path": "core\\application_registry.py",
+      "text": "with urllib.request.urlopen(request, timeout=self.timeout) as response:"
+    },
+    {
+      "language": "python",
+      "line": 240,
+      "path": "core\\application_registry.py",
+      "text": "code = int(getattr(response, \"status\", 200))"
+    },
+    {
+      "language": "python",
+      "line": 241,
+      "path": "core\\application_registry.py",
+      "text": "return self._result(entry, \"ONLINE\" if code < 500 else \"DEGRADED\", f\"HTTP endpoint responded with status {code}: {url}\", latency_ms=(time.perf_counter() - started) * 1000)"
+    },
+    {
+      "language": "python",
+      "line": 242,
+      "path": "core\\application_registry.py",
+      "text": "except urllib.error.HTTPError as exc:"
+    },
+    {
+      "language": "python",
+      "line": 243,
+      "path": "core\\application_registry.py",
+      "text": "return self._result(entry, \"ONLINE\" if exc.code < 500 else \"DEGRADED\", f\"HTTP endpoint responded with status {exc.code}: {url}\", latency_ms=(time.perf_counter() - started) * 1000)"
+    },
+    {
+      "language": "python",
+      "line": 244,
+      "path": "core\\application_registry.py",
+      "text": "except (urllib.error.URLError, TimeoutError, OSError) as exc:"
+    },
+    {
+      "language": "python",
+      "line": 245,
+      "path": "core\\application_registry.py",
+      "text": "return self._result(entry, \"OFFLINE\", f\"HTTP endpoint is not responding: {url}: {exc}\", latency_ms=(time.perf_counter() - started) * 1000)"
+    },
+    {
+      "language": "python",
+      "line": 247,
+      "path": "core\\application_registry.py",
+      "text": "def _probe_fleet(self, entry: dict[str, Any]) -> dict[str, Any]:"
+    },
+    {
+      "language": "python",
+      "line": 248,
+      "path": "core\\application_registry.py",
+      "text": "if entry.get(\"lifecycle\") == \"planned\" or entry.get(\"reserved\"):"
+    },
+    {
+      "language": "python",
+      "line": 249,
+      "path": "core\\application_registry.py",
+      "text": "return self._result(entry, \"PLANNED\", \"Reserved extension is visible but not commissioned.\")"
+    },
+    {
+      "language": "python",
+      "line": 250,
+      "path": "core\\application_registry.py",
+      "text": "if not bool(entry.get(\"installed\")):"
+    },
+    {
+      "language": "python",
+      "line": 251,
+      "path": "core\\application_registry.py",
+      "text": "return self._result(entry, \"UNAVAILABLE\", \"Extension registry reports that this component is not installed.\")"
+    },
+    {
+      "language": "python",
+      "line": 252,
+      "path": "core\\application_registry.py",
+      "text": "path = self._resolve_path(entry.get(\"path\"))"
+    },
+    {
+      "language": "python",
+      "line": 253,
+      "path": "core\\application_registry.py",
+      "text": "if path is not None and not path.exists():"
+    },
+    {
+      "language": "python",
+      "line": 254,
+      "path": "core\\application_registry.py",
+      "text": "return self._result(entry, \"DEGRADED\", f\"Extension is registered as installed but its path is missing: {path}\")"
+    },
+    {
+      "language": "python",
+      "line": 255,
+      "path": "core\\application_registry.py",
+      "text": "health = str(entry.get(\"health_status\") or \"\").strip().lower()"
+    },
+    {
+      "language": "python",
+      "line": 256,
+      "path": "core\\application_registry.py",
+      "text": "service = str(entry.get(\"service_state\") or \"\").strip().lower()"
+    },
+    {
+      "language": "python",
+      "line": 257,
+      "path": "core\\application_registry.py",
+      "text": "message = str(entry.get(\"health_message\") or entry.get(\"service_state\") or \"Extension is registered as installed.\")"
+    },
+    {
+      "language": "python",
+      "line": 258,
+      "path": "core\\application_registry.py",
+      "text": "if health in {\"ready\", \"healthy\", \"online\", \"operational\"} or service in {\"operational\", \"ready\", \"enabled\", \"online\"}:"
+    },
+    {
+      "language": "python",
+      "line": 259,
+      "path": "core\\application_registry.py",
+      "text": "return self._result(entry, \"READY\", message)"
+    },
+    {
+      "language": "python",
+      "line": 260,
+      "path": "core\\application_registry.py",
+      "text": "if health in {\"degraded\", \"warning\", \"attention\"}:"
+    },
+    {
+      "language": "python",
+      "line": 261,
+      "path": "core\\application_registry.py",
+      "text": "return self._result(entry, \"DEGRADED\", message)"
+    },
+    {
+      "language": "python",
+      "line": 262,
+      "path": "core\\application_registry.py",
+      "text": "if health in {\"offline\", \"stopped\", \"unavailable\", \"error\", \"failed\"}:"
+    },
+    {
+      "language": "python",
+      "line": 263,
+      "path": "core\\application_registry.py",
+      "text": "return self._result(entry, \"OFFLINE\", message)"
+    },
+    {
+      "language": "python",
+      "line": 264,
+      "path": "core\\application_registry.py",
+      "text": "return self._result(entry, \"UNKNOWN\", message)"
+    },
+    {
+      "language": "python",
+      "line": 266,
+      "path": "core\\application_registry.py",
+      "text": "def assess(self, entry: dict[str, Any]) -> dict[str, Any]:"
+    },
+    {
+      "language": "python",
+      "line": 267,
+      "path": "core\\application_registry.py",
+      "text": "lifecycle = str(entry.get(\"lifecycle\") or \"active\").lower()"
+    },
+    {
+      "language": "python",
+      "line": 268,
+      "path": "core\\application_registry.py",
+      "text": "if lifecycle in {\"planned\", \"retired\"}:"
+    },
+    {
+      "language": "python",
+      "line": 269,
+      "path": "core\\application_registry.py",
+      "text": "return self._result(entry, \"PLANNED\", f\"{lifecycle.title()} application is visible and is not a failure.\")"
+    },
+    {
+      "language": "python",
+      "line": 270,
+      "path": "core\\application_registry.py",
+      "text": "mode = str(entry.get(\"health_mode\") or \"path\").lower()"
+    },
+    {
+      "language": "python",
+      "line": 271,
+      "path": "core\\application_registry.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 272,
+      "path": "core\\application_registry.py",
+      "text": "if mode in {\"path\", \"component\"}:"
+    },
+    {
+      "language": "python",
+      "line": 273,
+      "path": "core\\application_registry.py",
+      "text": "return self._probe_path(entry)"
+    },
+    {
+      "language": "python",
+      "line": 274,
+      "path": "core\\application_registry.py",
+      "text": "if mode == \"process_self\":"
+    },
+    {
+      "language": "python",
+      "line": 275,
+      "path": "core\\application_registry.py",
+      "text": "return self._probe_process_self(entry)"
+    },
+    {
+      "language": "python",
+      "line": 276,
+      "path": "core\\application_registry.py",
+      "text": "if mode == \"tcp\":"
+    },
+    {
+      "language": "python",
+      "line": 277,
+      "path": "core\\application_registry.py",
+      "text": "return self._probe_tcp(entry)"
+    },
+    {
+      "language": "python",
+      "line": 278,
+      "path": "core\\application_registry.py",
+      "text": "if mode == \"http\":"
+    },
+    {
+      "language": "python",
+      "line": 279,
+      "path": "core\\application_registry.py",
+      "text": "return self._probe_http(entry)"
+    },
+    {
+      "language": "python",
+      "line": 280,
+      "path": "core\\application_registry.py",
+      "text": "if mode == \"fleet\":"
+    },
+    {
+      "language": "python",
+      "line": 281,
+      "path": "core\\application_registry.py",
+      "text": "return self._probe_fleet(entry)"
+    },
+    {
+      "language": "python",
+      "line": 282,
+      "path": "core\\application_registry.py",
+      "text": "if mode == \"static\":"
+    },
+    {
+      "language": "python",
+      "line": 283,
+      "path": "core\\application_registry.py",
+      "text": "return self._result(entry, \"READY\", str(entry.get(\"health_message\") or \"Registered and ready.\"))"
+    },
+    {
+      "language": "python",
+      "line": 284,
+      "path": "core\\application_registry.py",
+      "text": "return self._result(entry, \"UNKNOWN\", f\"Unsupported passive health mode: {mode}\")"
+    },
+    {
+      "language": "python",
+      "line": 285,
+      "path": "core\\application_registry.py",
+      "text": "except Exception as exc:"
+    },
+    {
+      "language": "python",
+      "line": 286,
+      "path": "core\\application_registry.py",
+      "text": "return self._result(entry, \"UNKNOWN\", f\"Passive health check failed safely: {type(exc).__name__}: {exc}\")"
+    },
+    {
+      "language": "python",
+      "line": 288,
+      "path": "core\\application_registry.py",
+      "text": "def snapshot(self) -> dict[str, Any]:"
+    },
+    {
+      "language": "python",
+      "line": 289,
+      "path": "core\\application_registry.py",
+      "text": "entries = self.load_entries()"
+    },
+    {
+      "language": "python",
+      "line": 290,
+      "path": "core\\application_registry.py",
+      "text": "results: list[dict[str, Any]] = []"
+    },
+    {
+      "language": "python",
+      "line": 291,
+      "path": "core\\application_registry.py",
+      "text": "with ThreadPoolExecutor(max_workers=max(1, min(8, len(entries))), thread_name_prefix=\"kayock-health\") as executor:"
+    },
+    {
+      "language": "python",
+      "line": 292,
+      "path": "core\\application_registry.py",
+      "text": "futures = {executor.submit(self.assess, entry): entry for entry in entries}"
+    },
+    {
+      "language": "python",
+      "line": 293,
+      "path": "core\\application_registry.py",
+      "text": "for future in as_completed(futures):"
+    },
+    {
+      "language": "python",
+      "line": 294,
+      "path": "core\\application_registry.py",
+      "text": "entry = futures[future]"
+    },
+    {
+      "language": "python",
+      "line": 295,
+      "path": "core\\application_registry.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 296,
+      "path": "core\\application_registry.py",
+      "text": "results.append(future.result())"
+    },
+    {
+      "language": "python",
+      "line": 297,
+      "path": "core\\application_registry.py",
+      "text": "except Exception as exc:"
+    },
+    {
+      "language": "python",
+      "line": 298,
+      "path": "core\\application_registry.py",
+      "text": "results.append(self._result(entry, \"UNKNOWN\", f\"Passive worker failed safely: {type(exc).__name__}: {exc}\"))"
+    },
+    {
+      "language": "python",
+      "line": 299,
+      "path": "core\\application_registry.py",
+      "text": "order = {entry[\"id\"]: int(entry.get(\"display_order\") or 9999) for entry in entries}"
+    },
+    {
+      "language": "python",
+      "line": 300,
+      "path": "core\\application_registry.py",
+      "text": "results.sort(key=lambda item: (order.get(item[\"id\"], 9999), item[\"name\"].lower()))"
+    },
+    {
+      "language": "python",
+      "line": 301,
+      "path": "core\\application_registry.py",
+      "text": "counts = {state: 0 for state in NORMALIZED_STATES}"
+    },
+    {
+      "language": "python",
+      "line": 302,
+      "path": "core\\application_registry.py",
+      "text": "for result in results:"
+    },
+    {
+      "language": "python",
+      "line": 303,
+      "path": "core\\application_registry.py",
+      "text": "counts[result[\"status\"]] = counts.get(result[\"status\"], 0) + 1"
+    },
+    {
+      "language": "python",
+      "line": 304,
+      "path": "core\\application_registry.py",
+      "text": "return {"
+    },
+    {
+      "language": "python",
+      "line": 305,
+      "path": "core\\application_registry.py",
+      "text": "\"generated_at\": datetime.now(timezone.utc).isoformat(),"
+    },
+    {
+      "language": "python",
+      "line": 306,
+      "path": "core\\application_registry.py",
+      "text": "\"telemetry_only\": True,"
+    },
+    {
+      "language": "python",
+      "line": 307,
+      "path": "core\\application_registry.py",
+      "text": "\"incident_written\": False,"
+    },
+    {
+      "language": "python",
+      "line": 308,
+      "path": "core\\application_registry.py",
+      "text": "\"config_path\": str(self.config_path),"
+    },
+    {
+      "language": "python",
+      "line": 309,
+      "path": "core\\application_registry.py",
+      "text": "\"fleet_path\": str(self.fleet_path),"
+    },
+    {
+      "language": "python",
+      "line": 310,
+      "path": "core\\application_registry.py",
+      "text": "\"summary\": {"
+    },
+    {
+      "language": "python",
+      "line": 311,
+      "path": "core\\application_registry.py",
+      "text": "\"total\": len(results),"
+    },
+    {
+      "language": "python",
+      "line": 312,
+      "path": "core\\application_registry.py",
+      "text": "\"canonical\": sum(1 for item in results if item[\"source\"] == \"canonical\"),"
+    },
+    {
+      "language": "python",
+      "line": 313,
+      "path": "core\\application_registry.py",
+      "text": "\"fleet\": sum(1 for item in results if item[\"source\"] == \"fleet\"),"
+    },
+    {
+      "language": "python",
+      "line": 314,
+      "path": "core\\application_registry.py",
+      "text": "\"online\": counts.get(\"ONLINE\", 0),"
+    },
+    {
+      "language": "python",
+      "line": 315,
+      "path": "core\\application_registry.py",
+      "text": "\"ready\": counts.get(\"READY\", 0),"
+    },
+    {
+      "language": "python",
+      "line": 316,
+      "path": "core\\application_registry.py",
+      "text": "\"attention\": sum(counts.get(state, 0) for state in ATTENTION_STATES),"
+    },
+    {
+      "language": "python",
+      "line": 317,
+      "path": "core\\application_registry.py",
+      "text": "\"planned\": counts.get(\"PLANNED\", 0),"
+    },
+    {
+      "language": "python",
+      "line": 318,
+      "path": "core\\application_registry.py",
+      "text": "\"status_counts\": {state: counts.get(state, 0) for state in sorted(NORMALIZED_STATES)},"
+    },
+    {
+      "language": "python",
+      "line": 319,
+      "path": "core\\application_registry.py",
+      "text": "},"
+    },
+    {
+      "language": "python",
+      "line": 320,
+      "path": "core\\application_registry.py",
+      "text": "\"applications\": results,"
+    },
+    {
+      "language": "python",
+      "line": 321,
+      "path": "core\\application_registry.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 324,
+      "path": "core\\application_registry.py",
+      "text": "def get_application_health_snapshot("
+    },
+    {
+      "language": "python",
+      "line": 325,
+      "path": "core\\application_registry.py",
+      "text": "root: str | Path | None = None,"
+    },
+    {
+      "language": "python",
+      "line": 326,
+      "path": "core\\application_registry.py",
+      "text": "*,"
+    },
+    {
+      "language": "python",
+      "line": 327,
+      "path": "core\\application_registry.py",
+      "text": "timeout: float = 0.6,"
+    },
+    {
+      "language": "python",
+      "line": 328,
+      "path": "core\\application_registry.py",
+      "text": "allow_network: bool = True,"
+    },
+    {
+      "language": "python",
+      "line": 329,
+      "path": "core\\application_registry.py",
+      "text": ") -> dict[str, Any]:"
+    },
+    {
+      "language": "python",
+      "line": 330,
+      "path": "core\\application_registry.py",
+      "text": "\"\"\"Convenience wrapper for the Desktop telemetry panel.\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 331,
+      "path": "core\\application_registry.py",
+      "text": "return ApplicationRegistry(root=root, timeout=timeout, allow_network=allow_network).snapshot()"
+    },
+    {
+      "language": "python",
+      "line": 1,
+      "path": "core\\boot_manager.py",
+      "text": "from datetime import datetime"
+    },
+    {
+      "language": "python",
+      "line": 4,
+      "path": "core\\boot_manager.py",
+      "text": "class BootManager:"
+    },
+    {
+      "language": "python",
+      "line": 5,
+      "path": "core\\boot_manager.py",
+      "text": "\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 6,
+      "path": "core\\boot_manager.py",
+      "text": "Boot Manager RC1"
+    },
+    {
+      "language": "python",
+      "line": 8,
+      "path": "core\\boot_manager.py",
+      "text": "Performs a safe startup readiness inspection for FOXAI Kernel services."
+    },
+    {
+      "language": "python",
+      "line": 10,
+      "path": "core\\boot_manager.py",
+      "text": "RC1 is read-only:"
+    },
+    {
+      "language": "python",
+      "line": 11,
+      "path": "core\\boot_manager.py",
+      "text": "- checks that expected services exist"
+    },
+    {
+      "language": "python",
+      "line": 12,
+      "path": "core\\boot_manager.py",
+      "text": "- checks basic object construction"
+    },
+    {
+      "language": "python",
+      "line": 13,
+      "path": "core\\boot_manager.py",
+      "text": "- reports department presence"
+    },
+    {
+      "language": "python",
+      "line": 14,
+      "path": "core\\boot_manager.py",
+      "text": "- does not start or stop services"
+    },
+    {
+      "language": "python",
+      "line": 15,
+      "path": "core\\boot_manager.py",
+      "text": "\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 17,
+      "path": "core\\boot_manager.py",
+      "text": "def __init__(self, app=None, kernel=None):"
+    },
+    {
+      "language": "python",
+      "line": 18,
+      "path": "core\\boot_manager.py",
+      "text": "self.app = app"
+    },
+    {
+      "language": "python",
+      "line": 19,
+      "path": "core\\boot_manager.py",
+      "text": "self.kernel = kernel"
+    },
+    {
+      "language": "python",
+      "line": 21,
+      "path": "core\\boot_manager.py",
+      "text": "def check(self, name, ok, detail=\"\", action=\"\"):"
+    },
+    {
+      "language": "python",
+      "line": 22,
+      "path": "core\\boot_manager.py",
+      "text": "return {"
+    },
+    {
+      "language": "python",
+      "line": 23,
+      "path": "core\\boot_manager.py",
+      "text": "\"name\": name,"
+    },
+    {
+      "language": "python",
+      "line": 24,
+      "path": "core\\boot_manager.py",
+      "text": "\"ok\": bool(ok),"
+    },
+    {
+      "language": "python",
+      "line": 25,
+      "path": "core\\boot_manager.py",
+      "text": "\"detail\": detail,"
+    },
+    {
+      "language": "python",
+      "line": 26,
+      "path": "core\\boot_manager.py",
+      "text": "\"action\": action,"
+    },
+    {
+      "language": "python",
+      "line": 27,
+      "path": "core\\boot_manager.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 29,
+      "path": "core\\boot_manager.py",
+      "text": "def inspect(self):"
+    },
+    {
+      "language": "python",
+      "line": 30,
+      "path": "core\\boot_manager.py",
+      "text": "checks = []"
+    },
+    {
+      "language": "python",
+      "line": 32,
+      "path": "core\\boot_manager.py",
+      "text": "checks.append(self.check("
+    },
+    {
+      "language": "python",
+      "line": 33,
+      "path": "core\\boot_manager.py",
+      "text": "\"Brainstem\","
+    },
+    {
+      "language": "python",
+      "line": 34,
+      "path": "core\\boot_manager.py",
+      "text": "hasattr(self.app, \"brainstem\") if self.app else False,"
+    },
+    {
+      "language": "python",
+      "line": 35,
+      "path": "core\\boot_manager.py",
+      "text": "\"Workshop lifecycle manager detected.\" if self.app and hasattr(self.app, \"brainstem\") else \"Brainstem not attached to app.\","
+    },
+    {
+      "language": "python",
+      "line": 36,
+      "path": "core\\boot_manager.py",
+      "text": "\"Attach Brainstem during app startup.\""
+    },
+    {
+      "language": "python",
+      "line": 37,
+      "path": "core\\boot_manager.py",
+      "text": "))"
+    },
+    {
+      "language": "python",
+      "line": 39,
+      "path": "core\\boot_manager.py",
+      "text": "checks.append(self.check("
+    },
+    {
+      "language": "python",
+      "line": 40,
+      "path": "core\\boot_manager.py",
+      "text": "\"Workshop Bus\","
+    },
+    {
+      "language": "python",
+      "line": 41,
+      "path": "core\\boot_manager.py",
+      "text": "hasattr(self.kernel, \"bus\") if self.kernel else False,"
+    },
+    {
+      "language": "python",
+      "line": 42,
+      "path": "core\\boot_manager.py",
+      "text": "\"Workshop Bus available through Kernel.\" if self.kernel and hasattr(self.kernel, \"bus\") else \"Workshop Bus not available.\","
+    },
+    {
+      "language": "python",
+      "line": 43,
+      "path": "core\\boot_manager.py",
+      "text": "\"Initialize Kernel with Workshop Bus.\""
+    },
+    {
+      "language": "python",
+      "line": 44,
+      "path": "core\\boot_manager.py",
+      "text": "))"
+    },
+    {
+      "language": "python",
+      "line": 46,
+      "path": "core\\boot_manager.py",
+      "text": "checks.append(self.check("
+    },
+    {
+      "language": "python",
+      "line": 47,
+      "path": "core\\boot_manager.py",
+      "text": "\"Decision Layer\","
+    },
+    {
+      "language": "python",
+      "line": 48,
+      "path": "core\\boot_manager.py",
+      "text": "hasattr(self.kernel, \"decision_layer\") if self.kernel else False,"
+    },
+    {
+      "language": "python",
+      "line": 49,
+      "path": "core\\boot_manager.py",
+      "text": "\"Decision Layer available through Kernel.\" if self.kernel and hasattr(self.kernel, \"decision_layer\") else \"Decision Layer not available.\","
+    },
+    {
+      "language": "python",
+      "line": 50,
+      "path": "core\\boot_manager.py",
+      "text": "\"Install/initialize decision_layer.py.\""
+    },
+    {
+      "language": "python",
+      "line": 51,
+      "path": "core\\boot_manager.py",
+      "text": "))"
+    },
+    {
+      "language": "python",
+      "line": 53,
+      "path": "core\\boot_manager.py",
+      "text": "checks.append(self.check("
+    },
+    {
+      "language": "python",
+      "line": 54,
+      "path": "core\\boot_manager.py",
+      "text": "\"Confidence Engine\","
+    },
+    {
+      "language": "python",
+      "line": 55,
+      "path": "core\\boot_manager.py",
+      "text": "hasattr(self.kernel, \"confidence_engine\") if self.kernel else False,"
+    },
+    {
+      "language": "python",
+      "line": 56,
+      "path": "core\\boot_manager.py",
+      "text": "\"Confidence Engine available through Kernel.\" if self.kernel and hasattr(self.kernel, \"confidence_engine\") else \"Confidence Engine not available.\","
+    },
+    {
+      "language": "python",
+      "line": 57,
+      "path": "core\\boot_manager.py",
+      "text": "\"Install/initialize confidence_engine.py.\""
+    },
+    {
+      "language": "python",
+      "line": 58,
+      "path": "core\\boot_manager.py",
+      "text": "))"
+    },
+    {
+      "language": "python",
+      "line": 60,
+      "path": "core\\boot_manager.py",
+      "text": "checks.append(self.check("
+    },
+    {
+      "language": "python",
+      "line": 61,
+      "path": "core\\boot_manager.py",
+      "text": "\"Forge Journal\","
+    },
+    {
+      "language": "python",
+      "line": 62,
+      "path": "core\\boot_manager.py",
+      "text": "hasattr(self.kernel, \"forge_journal\") if self.kernel else False,"
+    },
+    {
+      "language": "python",
+      "line": 63,
+      "path": "core\\boot_manager.py",
+      "text": "\"Forge Journal available through Kernel.\" if self.kernel and hasattr(self.kernel, \"forge_journal\") else \"Forge Journal not available.\","
+    },
+    {
+      "language": "python",
+      "line": 64,
+      "path": "core\\boot_manager.py",
+      "text": "\"Install/initialize forge_journal.py.\""
+    },
+    {
+      "language": "python",
+      "line": 65,
+      "path": "core\\boot_manager.py",
+      "text": "))"
+    },
+    {
+      "language": "python",
+      "line": 67,
+      "path": "core\\boot_manager.py",
+      "text": "checks.append(self.check("
+    },
+    {
+      "language": "python",
+      "line": 68,
+      "path": "core\\boot_manager.py",
+      "text": "\"Project Memory\","
+    },
+    {
+      "language": "python",
+      "line": 69,
+      "path": "core\\boot_manager.py",
+      "text": "hasattr(self.kernel, \"project_memory\") if self.kernel else False,"
+    },
+    {
+      "language": "python",
+      "line": 70,
+      "path": "core\\boot_manager.py",
+      "text": "\"Project Memory available through Kernel.\" if self.kernel and hasattr(self.kernel, \"project_memory\") else \"Project Memory not available.\","
+    },
+    {
+      "language": "python",
+      "line": 71,
+      "path": "core\\boot_manager.py",
+      "text": "\"Install/initialize project_memory.py.\""
+    },
+    {
+      "language": "python",
+      "line": 72,
+      "path": "core\\boot_manager.py",
+      "text": "))"
+    },
+    {
+      "language": "python",
+      "line": 74,
+      "path": "core\\boot_manager.py",
+      "text": "checks.append(self.check("
+    },
+    {
+      "language": "python",
+      "line": 75,
+      "path": "core\\boot_manager.py",
+      "text": "\"SmartSearch\","
+    },
+    {
+      "language": "python",
+      "line": 76,
+      "path": "core\\boot_manager.py",
+      "text": "bool(getattr(self.kernel, \"smart_search\", None)) if self.kernel else False,"
+    },
+    {
+      "language": "python",
+      "line": 77,
+      "path": "core\\boot_manager.py",
+      "text": "\"SmartSearch available with project root.\" if self.kernel and getattr(self.kernel, \"smart_search\", None) else \"SmartSearch missing or no project root supplied.\","
+    },
+    {
+      "language": "python",
+      "line": 78,
+      "path": "core\\boot_manager.py",
+      "text": "\"Initialize Kernel with project root.\""
+    },
+    {
+      "language": "python",
+      "line": 79,
+      "path": "core\\boot_manager.py",
+      "text": "))"
+    },
+    {
+      "language": "python",
+      "line": 81,
+      "path": "core\\boot_manager.py",
+      "text": "departments = getattr(self.app, \"specialists\", {}) if self.app else {}"
+    },
+    {
+      "language": "python",
+      "line": 82,
+      "path": "core\\boot_manager.py",
+      "text": "checks.append(self.check("
+    },
+    {
+      "language": "python",
+      "line": 83,
+      "path": "core\\boot_manager.py",
+      "text": "\"Departments\","
+    },
+    {
+      "language": "python",
+      "line": 84,
+      "path": "core\\boot_manager.py",
+      "text": "bool(departments),"
+    },
+    {
+      "language": "python",
+      "line": 85,
+      "path": "core\\boot_manager.py",
+      "text": "f\"Departments loaded: {', '.join(departments.keys())}\" if departments else \"No departments loaded.\","
+    },
+    {
+      "language": "python",
+      "line": 86,
+      "path": "core\\boot_manager.py",
+      "text": "\"Load specialists during app startup.\""
+    },
+    {
+      "language": "python",
+      "line": 87,
+      "path": "core\\boot_manager.py",
+      "text": "))"
+    },
+    {
+      "language": "python",
+      "line": 89,
+      "path": "core\\boot_manager.py",
+      "text": "passed = sum(1 for item in checks if item[\"ok\"])"
+    },
+    {
+      "language": "python",
+      "line": 90,
+      "path": "core\\boot_manager.py",
+      "text": "total = len(checks)"
+    },
+    {
+      "language": "python",
+      "line": 92,
+      "path": "core\\boot_manager.py",
+      "text": "return {"
+    },
+    {
+      "language": "python",
+      "line": 93,
+      "path": "core\\boot_manager.py",
+      "text": "\"timestamp\": datetime.now().isoformat(timespec=\"seconds\"),"
+    },
+    {
+      "language": "python",
+      "line": 94,
+      "path": "core\\boot_manager.py",
+      "text": "\"passed\": passed,"
+    },
+    {
+      "language": "python",
+      "line": 95,
+      "path": "core\\boot_manager.py",
+      "text": "\"total\": total,"
+    },
+    {
+      "language": "python",
+      "line": 96,
+      "path": "core\\boot_manager.py",
+      "text": "\"ready\": passed == total,"
+    },
+    {
+      "language": "python",
+      "line": 97,
+      "path": "core\\boot_manager.py",
+      "text": "\"checks\": checks,"
+    },
+    {
+      "language": "python",
+      "line": 98,
+      "path": "core\\boot_manager.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 100,
+      "path": "core\\boot_manager.py",
+      "text": "def report(self):"
+    },
+    {
+      "language": "python",
+      "line": 101,
+      "path": "core\\boot_manager.py",
+      "text": "data = self.inspect()"
+    },
+    {
+      "language": "python",
+      "line": 103,
+      "path": "core\\boot_manager.py",
+      "text": "lines = ["
+    },
+    {
+      "language": "python",
+      "line": 104,
+      "path": "core\\boot_manager.py",
+      "text": "\"FOXAI BOOT MANAGER REPORT\","
+    },
+    {
+      "language": "python",
+      "line": 105,
+      "path": "core\\boot_manager.py",
+      "text": "\"\","
+    },
+    {
+      "language": "python",
+      "line": 106,
+      "path": "core\\boot_manager.py",
+      "text": "f\"Timestamp: {data['timestamp']}\","
+    },
+    {
+      "language": "python",
+      "line": 107,
+      "path": "core\\boot_manager.py",
+      "text": "f\"Readiness: {data['passed']}/{data['total']} checks passed\","
+    },
+    {
+      "language": "python",
+      "line": 108,
+      "path": "core\\boot_manager.py",
+      "text": "f\"Kernel Ready: {'YES' if data['ready'] else 'NO'}\","
+    },
+    {
+      "language": "python",
+      "line": 109,
+      "path": "core\\boot_manager.py",
+      "text": "\"\","
+    },
+    {
+      "language": "python",
+      "line": 110,
+      "path": "core\\boot_manager.py",
+      "text": "\"Boot Checks:\","
+    },
+    {
+      "language": "python",
+      "line": 111,
+      "path": "core\\boot_manager.py",
+      "text": "]"
+    },
+    {
+      "language": "python",
+      "line": 113,
+      "path": "core\\boot_manager.py",
+      "text": "for item in data[\"checks\"]:"
+    },
+    {
+      "language": "python",
+      "line": 114,
+      "path": "core\\boot_manager.py",
+      "text": "symbol = \"✓\" if item[\"ok\"] else \"⚠\""
+    },
+    {
+      "language": "python",
+      "line": 115,
+      "path": "core\\boot_manager.py",
+      "text": "lines.append(f\"{symbol} {item['name']}\")"
+    },
+    {
+      "language": "python",
+      "line": 116,
+      "path": "core\\boot_manager.py",
+      "text": "if item[\"detail\"]:"
+    },
+    {
+      "language": "python",
+      "line": 117,
+      "path": "core\\boot_manager.py",
+      "text": "lines.append(f\"  {item['detail']}\")"
+    },
+    {
+      "language": "python",
+      "line": 118,
+      "path": "core\\boot_manager.py",
+      "text": "if not item[\"ok\"] and item[\"action\"]:"
+    },
+    {
+      "language": "python",
+      "line": 119,
+      "path": "core\\boot_manager.py",
+      "text": "lines.append(f\"  Action: {item['action']}\")"
+    },
+    {
+      "language": "python",
+      "line": 120,
+      "path": "core\\boot_manager.py",
+      "text": "lines.append(\"\")"
+    },
+    {
+      "language": "python",
+      "line": 122,
+      "path": "core\\boot_manager.py",
+      "text": "lines.extend(["
+    },
+    {
+      "language": "python",
+      "line": 123,
+      "path": "core\\boot_manager.py",
+      "text": "\"Safety Status:\","
+    },
+    {
+      "language": "python",
+      "line": 124,
+      "path": "core\\boot_manager.py",
+      "text": "\"Boot Manager RC1 is read-only. It performs inspection only.\","
+    },
+    {
+      "language": "python",
+      "line": 125,
+      "path": "core\\boot_manager.py",
+      "text": "])"
+    },
+    {
+      "language": "python",
+      "line": 127,
+      "path": "core\\boot_manager.py",
+      "text": "return \"\\n\".join(lines)"
+    },
+    {
+      "language": "python",
+      "line": 1,
+      "path": "core\\brainstem.py",
+      "text": "import time"
+    },
+    {
+      "language": "python",
+      "line": 2,
+      "path": "core\\brainstem.py",
+      "text": "import requests"
+    },
+    {
+      "language": "python",
+      "line": 5,
+      "path": "core\\brainstem.py",
+      "text": "class Brainstem:"
+    },
+    {
+      "language": "python",
+      "line": 6,
+      "path": "core\\brainstem.py",
+      "text": "\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 7,
+      "path": "core\\brainstem.py",
+      "text": "Brainstem is FOXAI's central nervous system."
+    },
+    {
+      "language": "python",
+      "line": 9,
+      "path": "core\\brainstem.py",
+      "text": "It monitors the local neural engine and tracks the current Workshop state."
+    },
+    {
+      "language": "python",
+      "line": 10,
+      "path": "core\\brainstem.py",
+      "text": "\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 12,
+      "path": "core\\brainstem.py",
+      "text": "STATE_OFFLINE = \"OFFLINE\""
+    },
+    {
+      "language": "python",
+      "line": 13,
+      "path": "core\\brainstem.py",
+      "text": "STATE_STARTING = \"STARTING\""
+    },
+    {
+      "language": "python",
+      "line": 14,
+      "path": "core\\brainstem.py",
+      "text": "STATE_READY = \"READY\""
+    },
+    {
+      "language": "python",
+      "line": 15,
+      "path": "core\\brainstem.py",
+      "text": "STATE_BUSY = \"BUSY\""
+    },
+    {
+      "language": "python",
+      "line": 16,
+      "path": "core\\brainstem.py",
+      "text": "STATE_ERROR = \"ERROR\""
+    },
+    {
+      "language": "python",
+      "line": 18,
+      "path": "core\\brainstem.py",
+      "text": "def __init__(self, host=\"127.0.0.1\", port=\"8080\"):"
+    },
+    {
+      "language": "python",
+      "line": 19,
+      "path": "core\\brainstem.py",
+      "text": "self.host = host"
+    },
+    {
+      "language": "python",
+      "line": 20,
+      "path": "core\\brainstem.py",
+      "text": "self.port = port"
+    },
+    {
+      "language": "python",
+      "line": 21,
+      "path": "core\\brainstem.py",
+      "text": "self.base_url = f\"http://{host}:{port}\""
+    },
+    {
+      "language": "python",
+      "line": 23,
+      "path": "core\\brainstem.py",
+      "text": "self.state = self.STATE_OFFLINE"
+    },
+    {
+      "language": "python",
+      "line": 24,
+      "path": "core\\brainstem.py",
+      "text": "self.active_mission = None"
+    },
+    {
+      "language": "python",
+      "line": 25,
+      "path": "core\\brainstem.py",
+      "text": "self.active_specialist = None"
+    },
+    {
+      "language": "python",
+      "line": 26,
+      "path": "core\\brainstem.py",
+      "text": "self.mission_started_at = None"
+    },
+    {
+      "language": "python",
+      "line": 27,
+      "path": "core\\brainstem.py",
+      "text": "self.last_error = None"
+    },
+    {
+      "language": "python",
+      "line": 29,
+      "path": "core\\brainstem.py",
+      "text": "# -------------------------"
+    },
+    {
+      "language": "python",
+      "line": 30,
+      "path": "core\\brainstem.py",
+      "text": "# Neural engine health"
+    },
+    {
+      "language": "python",
+      "line": 31,
+      "path": "core\\brainstem.py",
+      "text": "# -------------------------"
+    },
+    {
+      "language": "python",
+      "line": 33,
+      "path": "core\\brainstem.py",
+      "text": "def health_url(self):"
+    },
+    {
+      "language": "python",
+      "line": 34,
+      "path": "core\\brainstem.py",
+      "text": "return f\"{self.base_url}/health\""
+    },
+    {
+      "language": "python",
+      "line": 36,
+      "path": "core\\brainstem.py",
+      "text": "def chat_url(self):"
+    },
+    {
+      "language": "python",
+      "line": 37,
+      "path": "core\\brainstem.py",
+      "text": "return f\"{self.base_url}/v1/chat/completions\""
+    },
+    {
+      "language": "python",
+      "line": 39,
+      "path": "core\\brainstem.py",
+      "text": "def is_server_alive(self, timeout=1):"
+    },
+    {
+      "language": "python",
+      "line": 40,
+      "path": "core\\brainstem.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 41,
+      "path": "core\\brainstem.py",
+      "text": "response = requests.get(self.health_url(), timeout=timeout)"
+    },
+    {
+      "language": "python",
+      "line": 42,
+      "path": "core\\brainstem.py",
+      "text": "return response.status_code == 200"
+    },
+    {
+      "language": "python",
+      "line": 43,
+      "path": "core\\brainstem.py",
+      "text": "except Exception:"
+    },
+    {
+      "language": "python",
+      "line": 44,
+      "path": "core\\brainstem.py",
+      "text": "return False"
+    },
+    {
+      "language": "python",
+      "line": 46,
+      "path": "core\\brainstem.py",
+      "text": "def wait_until_ready(self, seconds=90):"
+    },
+    {
+      "language": "python",
+      "line": 47,
+      "path": "core\\brainstem.py",
+      "text": "self.set_state(self.STATE_STARTING)"
+    },
+    {
+      "language": "python",
+      "line": 48,
+      "path": "core\\brainstem.py",
+      "text": "start = time.time()"
+    },
+    {
+      "language": "python",
+      "line": 50,
+      "path": "core\\brainstem.py",
+      "text": "while time.time() - start < seconds:"
+    },
+    {
+      "language": "python",
+      "line": 51,
+      "path": "core\\brainstem.py",
+      "text": "if self.is_server_alive():"
+    },
+    {
+      "language": "python",
+      "line": 52,
+      "path": "core\\brainstem.py",
+      "text": "self.set_state(self.STATE_READY)"
+    },
+    {
+      "language": "python",
+      "line": 53,
+      "path": "core\\brainstem.py",
+      "text": "return True"
+    },
+    {
+      "language": "python",
+      "line": 54,
+      "path": "core\\brainstem.py",
+      "text": "time.sleep(1)"
+    },
+    {
+      "language": "python",
+      "line": 56,
+      "path": "core\\brainstem.py",
+      "text": "self.set_error(\"Neural engine failed to respond before timeout.\")"
+    },
+    {
+      "language": "python",
+      "line": 57,
+      "path": "core\\brainstem.py",
+      "text": "return False"
+    },
+    {
+      "language": "python",
+      "line": 59,
+      "path": "core\\brainstem.py",
+      "text": "def test_chat(self):"
+    },
+    {
+      "language": "python",
+      "line": 60,
+      "path": "core\\brainstem.py",
+      "text": "payload = {"
+    },
+    {
+      "language": "python",
+      "line": 61,
+      "path": "core\\brainstem.py",
+      "text": "\"model\": \"local-model\","
+    },
+    {
+      "language": "python",
+      "line": 62,
+      "path": "core\\brainstem.py",
+      "text": "\"messages\": ["
+    },
+    {
+      "language": "python",
+      "line": 63,
+      "path": "core\\brainstem.py",
+      "text": "{\"role\": \"user\", \"content\": \"Reply with exactly: ONLINE\"}"
+    },
+    {
+      "language": "python",
+      "line": 64,
+      "path": "core\\brainstem.py",
+      "text": "],"
+    },
+    {
+      "language": "python",
+      "line": 65,
+      "path": "core\\brainstem.py",
+      "text": "\"temperature\": 0,"
+    },
+    {
+      "language": "python",
+      "line": 66,
+      "path": "core\\brainstem.py",
+      "text": "\"max_tokens\": 16,"
+    },
+    {
+      "language": "python",
+      "line": 67,
+      "path": "core\\brainstem.py",
+      "text": "\"stream\": False,"
+    },
+    {
+      "language": "python",
+      "line": 68,
+      "path": "core\\brainstem.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 70,
+      "path": "core\\brainstem.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 71,
+      "path": "core\\brainstem.py",
+      "text": "start = time.time()"
+    },
+    {
+      "language": "python",
+      "line": 72,
+      "path": "core\\brainstem.py",
+      "text": "response = requests.post(self.chat_url(), json=payload, timeout=60)"
+    },
+    {
+      "language": "python",
+      "line": 73,
+      "path": "core\\brainstem.py",
+      "text": "elapsed = round(time.time() - start, 2)"
+    },
+    {
+      "language": "python",
+      "line": 75,
+      "path": "core\\brainstem.py",
+      "text": "if response.status_code != 200:"
+    },
+    {
+      "language": "python",
+      "line": 76,
+      "path": "core\\brainstem.py",
+      "text": "self.set_error(f\"HTTP {response.status_code}\")"
+    },
+    {
+      "language": "python",
+      "line": 77,
+      "path": "core\\brainstem.py",
+      "text": "return False, f\"HTTP {response.status_code}\", elapsed"
+    },
+    {
+      "language": "python",
+      "line": 79,
+      "path": "core\\brainstem.py",
+      "text": "text = response.json()[\"choices\"][0][\"message\"][\"content\"].strip()"
+    },
+    {
+      "language": "python",
+      "line": 81,
+      "path": "core\\brainstem.py",
+      "text": "if not text:"
+    },
+    {
+      "language": "python",
+      "line": 82,
+      "path": "core\\brainstem.py",
+      "text": "self.set_error(\"Blank response\")"
+    },
+    {
+      "language": "python",
+      "line": 83,
+      "path": "core\\brainstem.py",
+      "text": "return False, \"Blank response\", elapsed"
+    },
+    {
+      "language": "python",
+      "line": 85,
+      "path": "core\\brainstem.py",
+      "text": "self.set_state(self.STATE_READY)"
+    },
+    {
+      "language": "python",
+      "line": 86,
+      "path": "core\\brainstem.py",
+      "text": "return True, text, elapsed"
+    },
+    {
+      "language": "python",
+      "line": 88,
+      "path": "core\\brainstem.py",
+      "text": "except Exception as error:"
+    },
+    {
+      "language": "python",
+      "line": 89,
+      "path": "core\\brainstem.py",
+      "text": "self.set_error(str(error))"
+    },
+    {
+      "language": "python",
+      "line": 90,
+      "path": "core\\brainstem.py",
+      "text": "return False, str(error), 0"
+    },
+    {
+      "language": "python",
+      "line": 92,
+      "path": "core\\brainstem.py",
+      "text": "# -------------------------"
+    },
+    {
+      "language": "python",
+      "line": 93,
+      "path": "core\\brainstem.py",
+      "text": "# Workshop state"
+    },
+    {
+      "language": "python",
+      "line": 94,
+      "path": "core\\brainstem.py",
+      "text": "# -------------------------"
+    },
+    {
+      "language": "python",
+      "line": 96,
+      "path": "core\\brainstem.py",
+      "text": "def set_state(self, state):"
+    },
+    {
+      "language": "python",
+      "line": 97,
+      "path": "core\\brainstem.py",
+      "text": "self.state = state"
+    },
+    {
+      "language": "python",
+      "line": 98,
+      "path": "core\\brainstem.py",
+      "text": "if state != self.STATE_ERROR:"
+    },
+    {
+      "language": "python",
+      "line": 99,
+      "path": "core\\brainstem.py",
+      "text": "self.last_error = None"
+    },
+    {
+      "language": "python",
+      "line": 101,
+      "path": "core\\brainstem.py",
+      "text": "def set_error(self, message):"
+    },
+    {
+      "language": "python",
+      "line": 102,
+      "path": "core\\brainstem.py",
+      "text": "self.state = self.STATE_ERROR"
+    },
+    {
+      "language": "python",
+      "line": 103,
+      "path": "core\\brainstem.py",
+      "text": "self.last_error = message"
+    },
+    {
+      "language": "python",
+      "line": 105,
+      "path": "core\\brainstem.py",
+      "text": "def is_ready(self):"
+    },
+    {
+      "language": "python",
+      "line": 106,
+      "path": "core\\brainstem.py",
+      "text": "return self.state == self.STATE_READY"
+    },
+    {
+      "language": "python",
+      "line": 108,
+      "path": "core\\brainstem.py",
+      "text": "def is_busy(self):"
+    },
+    {
+      "language": "python",
+      "line": 109,
+      "path": "core\\brainstem.py",
+      "text": "return self.state == self.STATE_BUSY"
+    },
+    {
+      "language": "python",
+      "line": 111,
+      "path": "core\\brainstem.py",
+      "text": "def begin_mission(self, mission=\"Unknown\", specialist=\"Unknown\"):"
+    },
+    {
+      "language": "python",
+      "line": 112,
+      "path": "core\\brainstem.py",
+      "text": "self.state = self.STATE_BUSY"
+    },
+    {
+      "language": "python",
+      "line": 113,
+      "path": "core\\brainstem.py",
+      "text": "self.active_mission = mission"
+    },
+    {
+      "language": "python",
+      "line": 114,
+      "path": "core\\brainstem.py",
+      "text": "self.active_specialist = specialist"
+    },
+    {
+      "language": "python",
+      "line": 115,
+      "path": "core\\brainstem.py",
+      "text": "self.mission_started_at = time.time()"
+    },
+    {
+      "language": "python",
+      "line": 116,
+      "path": "core\\brainstem.py",
+      "text": "self.last_error = None"
+    },
+    {
+      "language": "python",
+      "line": 118,
+      "path": "core\\brainstem.py",
+      "text": "def complete_mission(self):"
+    },
+    {
+      "language": "python",
+      "line": 119,
+      "path": "core\\brainstem.py",
+      "text": "self.state = self.STATE_READY"
+    },
+    {
+      "language": "python",
+      "line": 120,
+      "path": "core\\brainstem.py",
+      "text": "self.active_mission = None"
+    },
+    {
+      "language": "python",
+      "line": 121,
+      "path": "core\\brainstem.py",
+      "text": "self.active_specialist = None"
+    },
+    {
+      "language": "python",
+      "line": 122,
+      "path": "core\\brainstem.py",
+      "text": "self.mission_started_at = None"
+    },
+    {
+      "language": "python",
+      "line": 124,
+      "path": "core\\brainstem.py",
+      "text": "def fail_mission(self, error):"
+    },
+    {
+      "language": "python",
+      "line": 125,
+      "path": "core\\brainstem.py",
+      "text": "self.state = self.STATE_ERROR"
+    },
+    {
+      "language": "python",
+      "line": 126,
+      "path": "core\\brainstem.py",
+      "text": "self.last_error = str(error)"
+    },
+    {
+      "language": "python",
+      "line": 128,
+      "path": "core\\brainstem.py",
+      "text": "def elapsed_seconds(self):"
+    },
+    {
+      "language": "python",
+      "line": 129,
+      "path": "core\\brainstem.py",
+      "text": "if not self.mission_started_at:"
+    },
+    {
+      "language": "python",
+      "line": 130,
+      "path": "core\\brainstem.py",
+      "text": "return 0"
+    },
+    {
+      "language": "python",
+      "line": 131,
+      "path": "core\\brainstem.py",
+      "text": "return int(time.time() - self.mission_started_at)"
+    },
+    {
+      "language": "python",
+      "line": 133,
+      "path": "core\\brainstem.py",
+      "text": "def elapsed_label(self):"
+    },
+    {
+      "language": "python",
+      "line": 134,
+      "path": "core\\brainstem.py",
+      "text": "seconds = self.elapsed_seconds()"
+    },
+    {
+      "language": "python",
+      "line": 135,
+      "path": "core\\brainstem.py",
+      "text": "minutes = seconds // 60"
+    },
+    {
+      "language": "python",
+      "line": 136,
+      "path": "core\\brainstem.py",
+      "text": "remaining = seconds % 60"
+    },
+    {
+      "language": "python",
+      "line": 137,
+      "path": "core\\brainstem.py",
+      "text": "return f\"{minutes:02d}:{remaining:02d}\""
+    },
+    {
+      "language": "python",
+      "line": 139,
+      "path": "core\\brainstem.py",
+      "text": "def snapshot(self):"
+    },
+    {
+      "language": "python",
+      "line": 140,
+      "path": "core\\brainstem.py",
+      "text": "return {"
+    },
+    {
+      "language": "python",
+      "line": 141,
+      "path": "core\\brainstem.py",
+      "text": "\"state\": self.state,"
+    },
+    {
+      "language": "python",
+      "line": 142,
+      "path": "core\\brainstem.py",
+      "text": "\"busy\": self.is_busy(),"
+    },
+    {
+      "language": "python",
+      "line": 143,
+      "path": "core\\brainstem.py",
+      "text": "\"active_mission\": self.active_mission,"
+    },
+    {
+      "language": "python",
+      "line": 144,
+      "path": "core\\brainstem.py",
+      "text": "\"active_specialist\": self.active_specialist,"
+    },
+    {
+      "language": "python",
+      "line": 145,
+      "path": "core\\brainstem.py",
+      "text": "\"elapsed_seconds\": self.elapsed_seconds(),"
+    },
+    {
+      "language": "python",
+      "line": 146,
+      "path": "core\\brainstem.py",
+      "text": "\"elapsed_label\": self.elapsed_label(),"
+    },
+    {
+      "language": "python",
+      "line": 147,
+      "path": "core\\brainstem.py",
+      "text": "\"last_error\": self.last_error,"
+    },
+    {
+      "language": "python",
+      "line": 148,
+      "path": "core\\brainstem.py",
+      "text": "\"neural_engine_alive\": self.is_server_alive(),"
+    },
+    {
+      "language": "python",
+      "line": 149,
+      "path": "core\\brainstem.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 1,
+      "path": "core\\capability_graph.py",
+      "text": "class CapabilityGraph:"
+    },
+    {
+      "language": "python",
+      "line": 2,
+      "path": "core\\capability_graph.py",
+      "text": "\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 3,
+      "path": "core\\capability_graph.py",
+      "text": "Workshop Capability Graph (RC1)"
+    },
+    {
+      "language": "python",
+      "line": 5,
+      "path": "core\\capability_graph.py",
+      "text": "Maps departments to atomic capabilities."
+    },
+    {
+      "language": "python",
+      "line": 6,
+      "path": "core\\capability_graph.py",
+      "text": "Used by Decision Layer 3.0 to reason about skill requirements."
+    },
+    {
+      "language": "python",
+      "line": 7,
+      "path": "core\\capability_graph.py",
+      "text": "\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 9,
+      "path": "core\\capability_graph.py",
+      "text": "def __init__(self):"
+    },
+    {
+      "language": "python",
+      "line": 10,
+      "path": "core\\capability_graph.py",
+      "text": "self.capabilities = self._build()"
+    },
+    {
+      "language": "python",
+      "line": 12,
+      "path": "core\\capability_graph.py",
+      "text": "def _build(self):"
+    },
+    {
+      "language": "python",
+      "line": 13,
+      "path": "core\\capability_graph.py",
+      "text": "return {"
+    },
+    {
+      "language": "python",
+      "line": 14,
+      "path": "core\\capability_graph.py",
+      "text": "\"engineer\": ["
+    },
+    {
+      "language": "python",
+      "line": 15,
+      "path": "core\\capability_graph.py",
+      "text": "\"code_analysis\","
+    },
+    {
+      "language": "python",
+      "line": 16,
+      "path": "core\\capability_graph.py",
+      "text": "\"architecture_review\","
+    },
+    {
+      "language": "python",
+      "line": 17,
+      "path": "core\\capability_graph.py",
+      "text": "\"dependency_mapping\","
+    },
+    {
+      "language": "python",
+      "line": 18,
+      "path": "core\\capability_graph.py",
+      "text": "\"runtime_tracing\","
+    },
+    {
+      "language": "python",
+      "line": 19,
+      "path": "core\\capability_graph.py",
+      "text": "\"technical_debt_analysis\","
+    },
+    {
+      "language": "python",
+      "line": 20,
+      "path": "core\\capability_graph.py",
+      "text": "\"refactor_planning\","
+    },
+    {
+      "language": "python",
+      "line": 21,
+      "path": "core\\capability_graph.py",
+      "text": "],"
+    },
+    {
+      "language": "python",
+      "line": 22,
+      "path": "core\\capability_graph.py",
+      "text": "\"red_canvas\": ["
+    },
+    {
+      "language": "python",
+      "line": 23,
+      "path": "core\\capability_graph.py",
+      "text": "\"image_generation\","
+    },
+    {
+      "language": "python",
+      "line": 24,
+      "path": "core\\capability_graph.py",
+      "text": "\"prompt_enhancement\","
+    },
+    {
+      "language": "python",
+      "line": 25,
+      "path": "core\\capability_graph.py",
+      "text": "\"visual_composition\","
+    },
+    {
+      "language": "python",
+      "line": 26,
+      "path": "core\\capability_graph.py",
+      "text": "\"workflow_rendering\","
+    },
+    {
+      "language": "python",
+      "line": 27,
+      "path": "core\\capability_graph.py",
+      "text": "],"
+    },
+    {
+      "language": "python",
+      "line": 28,
+      "path": "core\\capability_graph.py",
+      "text": "\"promptsmith\": ["
+    },
+    {
+      "language": "python",
+      "line": 29,
+      "path": "core\\capability_graph.py",
+      "text": "\"prompt_optimization\","
+    },
+    {
+      "language": "python",
+      "line": 30,
+      "path": "core\\capability_graph.py",
+      "text": "\"semantic_refinement\","
+    },
+    {
+      "language": "python",
+      "line": 31,
+      "path": "core\\capability_graph.py",
+      "text": "\"style_shaping\","
+    },
+    {
+      "language": "python",
+      "line": 32,
+      "path": "core\\capability_graph.py",
+      "text": "],"
+    },
+    {
+      "language": "python",
+      "line": 33,
+      "path": "core\\capability_graph.py",
+      "text": "\"iron_library\": ["
+    },
+    {
+      "language": "python",
+      "line": 34,
+      "path": "core\\capability_graph.py",
+      "text": "\"document_search\","
+    },
+    {
+      "language": "python",
+      "line": 35,
+      "path": "core\\capability_graph.py",
+      "text": "\"knowledge_retrieval\","
+    },
+    {
+      "language": "python",
+      "line": 36,
+      "path": "core\\capability_graph.py",
+      "text": "\"local_index_query\","
+    },
+    {
+      "language": "python",
+      "line": 37,
+      "path": "core\\capability_graph.py",
+      "text": "],"
+    },
+    {
+      "language": "python",
+      "line": 38,
+      "path": "core\\capability_graph.py",
+      "text": "\"diagnostics\": ["
+    },
+    {
+      "language": "python",
+      "line": 39,
+      "path": "core\\capability_graph.py",
+      "text": "\"system_health\","
+    },
+    {
+      "language": "python",
+      "line": 40,
+      "path": "core\\capability_graph.py",
+      "text": "\"hardware_monitoring\","
+    },
+    {
+      "language": "python",
+      "line": 41,
+      "path": "core\\capability_graph.py",
+      "text": "\"performance_analysis\","
+    },
+    {
+      "language": "python",
+      "line": 42,
+      "path": "core\\capability_graph.py",
+      "text": "],"
+    },
+    {
+      "language": "python",
+      "line": 43,
+      "path": "core\\capability_graph.py",
+      "text": "\"soul_forge\": ["
+    },
+    {
+      "language": "python",
+      "line": 44,
+      "path": "core\\capability_graph.py",
+      "text": "\"identity_creation\","
+    },
+    {
+      "language": "python",
+      "line": 45,
+      "path": "core\\capability_graph.py",
+      "text": "\"theme_configuration\","
+    },
+    {
+      "language": "python",
+      "line": 46,
+      "path": "core\\capability_graph.py",
+      "text": "\"profile_building\","
+    },
+    {
+      "language": "python",
+      "line": 47,
+      "path": "core\\capability_graph.py",
+      "text": "],"
+    },
+    {
+      "language": "python",
+      "line": 48,
+      "path": "core\\capability_graph.py",
+      "text": "\"chat\": ["
+    },
+    {
+      "language": "python",
+      "line": 49,
+      "path": "core\\capability_graph.py",
+      "text": "\"conversation\","
+    },
+    {
+      "language": "python",
+      "line": 50,
+      "path": "core\\capability_graph.py",
+      "text": "\"general_reasoning\","
+    },
+    {
+      "language": "python",
+      "line": 51,
+      "path": "core\\capability_graph.py",
+      "text": "\"writing_assistance\","
+    },
+    {
+      "language": "python",
+      "line": 52,
+      "path": "core\\capability_graph.py",
+      "text": "],"
+    },
+    {
+      "language": "python",
+      "line": 53,
+      "path": "core\\capability_graph.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 55,
+      "path": "core\\capability_graph.py",
+      "text": "def get(self, department):"
+    },
+    {
+      "language": "python",
+      "line": 56,
+      "path": "core\\capability_graph.py",
+      "text": "return self.capabilities.get(department, [])"
+    },
+    {
+      "language": "python",
+      "line": 58,
+      "path": "core\\capability_graph.py",
+      "text": "def find_departments_for_capability(self, capability):"
+    },
+    {
+      "language": "python",
+      "line": 59,
+      "path": "core\\capability_graph.py",
+      "text": "matches = []"
+    },
+    {
+      "language": "python",
+      "line": 60,
+      "path": "core\\capability_graph.py",
+      "text": "for dept, caps in self.capabilities.items():"
+    },
+    {
+      "language": "python",
+      "line": 61,
+      "path": "core\\capability_graph.py",
+      "text": "if capability in caps:"
+    },
+    {
+      "language": "python",
+      "line": 62,
+      "path": "core\\capability_graph.py",
+      "text": "matches.append(dept)"
+    },
+    {
+      "language": "python",
+      "line": 63,
+      "path": "core\\capability_graph.py",
+      "text": "return matches"
+    },
+    {
+      "language": "python",
+      "line": 65,
+      "path": "core\\capability_graph.py",
+      "text": "def all(self):"
+    },
+    {
+      "language": "python",
+      "line": 66,
+      "path": "core\\capability_graph.py",
+      "text": "return self.capabilities"
+    },
+    {
+      "language": "python",
+      "line": 1,
+      "path": "core\\chat_agent.py",
+      "text": "import threading"
+    },
+    {
+      "language": "python",
+      "line": 4,
+      "path": "core\\chat_agent.py",
+      "text": "class ChatAgent:"
+    },
+    {
+      "language": "python",
+      "line": 5,
+      "path": "core\\chat_agent.py",
+      "text": "name = \"chat\""
+    },
+    {
+      "language": "python",
+      "line": 7,
+      "path": "core\\chat_agent.py",
+      "text": "def __init__(self, app):"
+    },
+    {
+      "language": "python",
+      "line": 8,
+      "path": "core\\chat_agent.py",
+      "text": "self.app = app"
+    },
+    {
+      "language": "python",
+      "line": 10,
+      "path": "core\\chat_agent.py",
+      "text": "def handle(self, text):"
+    },
+    {
+      "language": "python",
+      "line": 11,
+      "path": "core\\chat_agent.py",
+      "text": "if not self.app.server.is_running():"
+    },
+    {
+      "language": "python",
+      "line": 12,
+      "path": "core\\chat_agent.py",
+      "text": "self.app.add_chat(\"SYSTEM\", \"Start mission first.\")"
+    },
+    {
+      "language": "python",
+      "line": 13,
+      "path": "core\\chat_agent.py",
+      "text": "return \"break\""
+    },
+    {
+      "language": "python",
+      "line": 15,
+      "path": "core\\chat_agent.py",
+      "text": "self.app.input_box.delete(\"1.0\", \"end\")"
+    },
+    {
+      "language": "python",
+      "line": 16,
+      "path": "core\\chat_agent.py",
+      "text": "self.app.add_chat(\"ERIC\", text)"
+    },
+    {
+      "language": "python",
+      "line": 17,
+      "path": "core\\chat_agent.py",
+      "text": "self.app.messages.append({\"role\": \"user\", \"content\": text})"
+    },
+    {
+      "language": "python",
+      "line": 18,
+      "path": "core\\chat_agent.py",
+      "text": "self.app.mission_memory.save()"
+    },
+    {
+      "language": "python",
+      "line": 20,
+      "path": "core\\chat_agent.py",
+      "text": "threading.Thread(target=self.app.get_ai_response, daemon=True).start()"
+    },
+    {
+      "language": "python",
+      "line": 21,
+      "path": "core\\chat_agent.py",
+      "text": "return \"break\""
+    },
+    {
+      "language": "python",
+      "line": 1,
+      "path": "core\\chat_resilience.py",
+      "text": "import time"
+    },
+    {
+      "language": "python",
+      "line": 2,
+      "path": "core\\chat_resilience.py",
+      "text": "import requests"
+    },
+    {
+      "language": "python",
+      "line": 4,
+      "path": "core\\chat_resilience.py",
+      "text": "from core.workshop_config import get_config"
+    },
+    {
+      "language": "python",
+      "line": 7,
+      "path": "core\\chat_resilience.py",
+      "text": "class ChatTimeoutError(Exception):"
+    },
+    {
+      "language": "python",
+      "line": 8,
+      "path": "core\\chat_resilience.py",
+      "text": "\"\"\"Raised when the neural engine exceeds the configured timeout.\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 11,
+      "path": "core\\chat_resilience.py",
+      "text": "class ChatResilience:"
+    },
+    {
+      "language": "python",
+      "line": 12,
+      "path": "core\\chat_resilience.py",
+      "text": "\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 13,
+      "path": "core\\chat_resilience.py",
+      "text": "Shared helper for long-running chat requests."
+    },
+    {
+      "language": "python",
+      "line": 15,
+      "path": "core\\chat_resilience.py",
+      "text": "RC1 provides:"
+    },
+    {
+      "language": "python",
+      "line": 16,
+      "path": "core\\chat_resilience.py",
+      "text": "- centralized timeout lookup"
+    },
+    {
+      "language": "python",
+      "line": 17,
+      "path": "core\\chat_resilience.py",
+      "text": "- graceful timeout messages"
+    },
+    {
+      "language": "python",
+      "line": 18,
+      "path": "core\\chat_resilience.py",
+      "text": "- heartbeat text helpers"
+    },
+    {
+      "language": "python",
+      "line": 19,
+      "path": "core\\chat_resilience.py",
+      "text": "- safe requests.post wrapper"
+    },
+    {
+      "language": "python",
+      "line": 21,
+      "path": "core\\chat_resilience.py",
+      "text": "UI heartbeat wiring comes later."
+    },
+    {
+      "language": "python",
+      "line": 22,
+      "path": "core\\chat_resilience.py",
+      "text": "\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 24,
+      "path": "core\\chat_resilience.py",
+      "text": "def __init__(self, app=None):"
+    },
+    {
+      "language": "python",
+      "line": 25,
+      "path": "core\\chat_resilience.py",
+      "text": "self.app = app"
+    },
+    {
+      "language": "python",
+      "line": 26,
+      "path": "core\\chat_resilience.py",
+      "text": "self.config = get_config()"
+    },
+    {
+      "language": "python",
+      "line": 28,
+      "path": "core\\chat_resilience.py",
+      "text": "def timeout_for(self, mission_type=\"conversation\", long_think=False):"
+    },
+    {
+      "language": "python",
+      "line": 29,
+      "path": "core\\chat_resilience.py",
+      "text": "return self.config.timeout_for_mission("
+    },
+    {
+      "language": "python",
+      "line": 30,
+      "path": "core\\chat_resilience.py",
+      "text": "mission_type=mission_type,"
+    },
+    {
+      "language": "python",
+      "line": 31,
+      "path": "core\\chat_resilience.py",
+      "text": "long_think=long_think,"
+    },
+    {
+      "language": "python",
+      "line": 32,
+      "path": "core\\chat_resilience.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 34,
+      "path": "core\\chat_resilience.py",
+      "text": "def heartbeat_message(self, started_at, model_name=None, mission_type=\"conversation\"):"
+    },
+    {
+      "language": "python",
+      "line": 35,
+      "path": "core\\chat_resilience.py",
+      "text": "elapsed = int(time.time() - started_at)"
+    },
+    {
+      "language": "python",
+      "line": 36,
+      "path": "core\\chat_resilience.py",
+      "text": "minutes = elapsed // 60"
+    },
+    {
+      "language": "python",
+      "line": 37,
+      "path": "core\\chat_resilience.py",
+      "text": "seconds = elapsed % 60"
+    },
+    {
+      "language": "python",
+      "line": 39,
+      "path": "core\\chat_resilience.py",
+      "text": "lines = ["
+    },
+    {
+      "language": "python",
+      "line": 40,
+      "path": "core\\chat_resilience.py",
+      "text": "\"MISSION CONTROL\","
+    },
+    {
+      "language": "python",
+      "line": 41,
+      "path": "core\\chat_resilience.py",
+      "text": "\"\","
+    },
+    {
+      "language": "python",
+      "line": 42,
+      "path": "core\\chat_resilience.py",
+      "text": "\"Neural engine is still reasoning.\","
+    },
+    {
+      "language": "python",
+      "line": 43,
+      "path": "core\\chat_resilience.py",
+      "text": "\"\","
+    },
+    {
+      "language": "python",
+      "line": 44,
+      "path": "core\\chat_resilience.py",
+      "text": "f\"Elapsed: {minutes:02d}:{seconds:02d}\","
+    },
+    {
+      "language": "python",
+      "line": 45,
+      "path": "core\\chat_resilience.py",
+      "text": "f\"Mission Type: {mission_type}\","
+    },
+    {
+      "language": "python",
+      "line": 46,
+      "path": "core\\chat_resilience.py",
+      "text": "]"
+    },
+    {
+      "language": "python",
+      "line": 48,
+      "path": "core\\chat_resilience.py",
+      "text": "if model_name:"
+    },
+    {
+      "language": "python",
+      "line": 49,
+      "path": "core\\chat_resilience.py",
+      "text": "lines.append(f\"Model: {model_name}\")"
+    },
+    {
+      "language": "python",
+      "line": 51,
+      "path": "core\\chat_resilience.py",
+      "text": "lines.extend(["
+    },
+    {
+      "language": "python",
+      "line": 52,
+      "path": "core\\chat_resilience.py",
+      "text": "\"\","
+    },
+    {
+      "language": "python",
+      "line": 53,
+      "path": "core\\chat_resilience.py",
+      "text": "\"Status:\","
+    },
+    {
+      "language": "python",
+      "line": 54,
+      "path": "core\\chat_resilience.py",
+      "text": "\"Still working. No action required unless you want to cancel or retry.\","
+    },
+    {
+      "language": "python",
+      "line": 55,
+      "path": "core\\chat_resilience.py",
+      "text": "])"
+    },
+    {
+      "language": "python",
+      "line": 57,
+      "path": "core\\chat_resilience.py",
+      "text": "return \"\\n\".join(lines)"
+    },
+    {
+      "language": "python",
+      "line": 59,
+      "path": "core\\chat_resilience.py",
+      "text": "def timeout_message(self, timeout_seconds, mission_type=\"conversation\", model_name=None):"
+    },
+    {
+      "language": "python",
+      "line": 60,
+      "path": "core\\chat_resilience.py",
+      "text": "minutes = timeout_seconds // 60"
+    },
+    {
+      "language": "python",
+      "line": 61,
+      "path": "core\\chat_resilience.py",
+      "text": "seconds = timeout_seconds % 60"
+    },
+    {
+      "language": "python",
+      "line": 63,
+      "path": "core\\chat_resilience.py",
+      "text": "lines = ["
+    },
+    {
+      "language": "python",
+      "line": 64,
+      "path": "core\\chat_resilience.py",
+      "text": "\"MISSION CONTROL\","
+    },
+    {
+      "language": "python",
+      "line": 65,
+      "path": "core\\chat_resilience.py",
+      "text": "\"\","
+    },
+    {
+      "language": "python",
+      "line": 66,
+      "path": "core\\chat_resilience.py",
+      "text": "\"The neural engine exceeded the configured reasoning window.\","
+    },
+    {
+      "language": "python",
+      "line": 67,
+      "path": "core\\chat_resilience.py",
+      "text": "\"\","
+    },
+    {
+      "language": "python",
+      "line": 68,
+      "path": "core\\chat_resilience.py",
+      "text": "f\"Configured Timeout: {minutes:02d}:{seconds:02d}\","
+    },
+    {
+      "language": "python",
+      "line": 69,
+      "path": "core\\chat_resilience.py",
+      "text": "f\"Mission Type: {mission_type}\","
+    },
+    {
+      "language": "python",
+      "line": 70,
+      "path": "core\\chat_resilience.py",
+      "text": "]"
+    },
+    {
+      "language": "python",
+      "line": 72,
+      "path": "core\\chat_resilience.py",
+      "text": "if model_name:"
+    },
+    {
+      "language": "python",
+      "line": 73,
+      "path": "core\\chat_resilience.py",
+      "text": "lines.append(f\"Model: {model_name}\")"
+    },
+    {
+      "language": "python",
+      "line": 75,
+      "path": "core\\chat_resilience.py",
+      "text": "lines.extend(["
+    },
+    {
+      "language": "python",
+      "line": 76,
+      "path": "core\\chat_resilience.py",
+      "text": "\"\","
+    },
+    {
+      "language": "python",
+      "line": 77,
+      "path": "core\\chat_resilience.py",
+      "text": "\"What this usually means:\","
+    },
+    {
+      "language": "python",
+      "line": 78,
+      "path": "core\\chat_resilience.py",
+      "text": "\"• The model was working on a difficult request.\","
+    },
+    {
+      "language": "python",
+      "line": 79,
+      "path": "core\\chat_resilience.py",
+      "text": "\"• The response was too long for the current timeout.\","
+    },
+    {
+      "language": "python",
+      "line": 80,
+      "path": "core\\chat_resilience.py",
+      "text": "\"• The server stalled or stopped responding.\","
+    },
+    {
+      "language": "python",
+      "line": 81,
+      "path": "core\\chat_resilience.py",
+      "text": "\"\","
+    },
+    {
+      "language": "python",
+      "line": 82,
+      "path": "core\\chat_resilience.py",
+      "text": "\"Recommended actions:\","
+    },
+    {
+      "language": "python",
+      "line": 83,
+      "path": "core\\chat_resilience.py",
+      "text": "\"• Retry with a shorter request.\","
+    },
+    {
+      "language": "python",
+      "line": 84,
+      "path": "core\\chat_resilience.py",
+      "text": "\"• Use Long Think Mode.\","
+    },
+    {
+      "language": "python",
+      "line": 85,
+      "path": "core\\chat_resilience.py",
+      "text": "\"• Reduce max reply tokens.\","
+    },
+    {
+      "language": "python",
+      "line": 86,
+      "path": "core\\chat_resilience.py",
+      "text": "\"• Try a smaller or more specialized model.\","
+    },
+    {
+      "language": "python",
+      "line": 87,
+      "path": "core\\chat_resilience.py",
+      "text": "\"• Restart the neural engine if repeated timeouts occur.\","
+    },
+    {
+      "language": "python",
+      "line": 88,
+      "path": "core\\chat_resilience.py",
+      "text": "])"
+    },
+    {
+      "language": "python",
+      "line": 90,
+      "path": "core\\chat_resilience.py",
+      "text": "return \"\\n\".join(lines)"
+    },
+    {
+      "language": "python",
+      "line": 92,
+      "path": "core\\chat_resilience.py",
+      "text": "def post_json(self, url, payload, mission_type=\"conversation\", long_think=False, model_name=None):"
+    },
+    {
+      "language": "python",
+      "line": 93,
+      "path": "core\\chat_resilience.py",
+      "text": "timeout = self.timeout_for(mission_type=mission_type, long_think=long_think)"
+    },
+    {
+      "language": "python",
+      "line": 94,
+      "path": "core\\chat_resilience.py",
+      "text": "started_at = time.time()"
+    },
+    {
+      "language": "python",
+      "line": 96,
+      "path": "core\\chat_resilience.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 97,
+      "path": "core\\chat_resilience.py",
+      "text": "response = requests.post(url, json=payload, timeout=timeout)"
+    },
+    {
+      "language": "python",
+      "line": 98,
+      "path": "core\\chat_resilience.py",
+      "text": "response.raise_for_status()"
+    },
+    {
+      "language": "python",
+      "line": 99,
+      "path": "core\\chat_resilience.py",
+      "text": "return response"
+    },
+    {
+      "language": "python",
+      "line": 101,
+      "path": "core\\chat_resilience.py",
+      "text": "except requests.exceptions.ReadTimeout as error:"
+    },
+    {
+      "language": "python",
+      "line": 102,
+      "path": "core\\chat_resilience.py",
+      "text": "message = self.timeout_message("
+    },
+    {
+      "language": "python",
+      "line": 103,
+      "path": "core\\chat_resilience.py",
+      "text": "timeout_seconds=timeout,"
+    },
+    {
+      "language": "python",
+      "line": 104,
+      "path": "core\\chat_resilience.py",
+      "text": "mission_type=mission_type,"
+    },
+    {
+      "language": "python",
+      "line": 105,
+      "path": "core\\chat_resilience.py",
+      "text": "model_name=model_name,"
+    },
+    {
+      "language": "python",
+      "line": 106,
+      "path": "core\\chat_resilience.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 107,
+      "path": "core\\chat_resilience.py",
+      "text": "raise ChatTimeoutError(message) from error"
+    },
+    {
+      "language": "python",
+      "line": 109,
+      "path": "core\\chat_resilience.py",
+      "text": "except requests.exceptions.ConnectionError as error:"
+    },
+    {
+      "language": "python",
+      "line": 110,
+      "path": "core\\chat_resilience.py",
+      "text": "message = ("
+    },
+    {
+      "language": "python",
+      "line": 111,
+      "path": "core\\chat_resilience.py",
+      "text": "\"MISSION CONTROL\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 112,
+      "path": "core\\chat_resilience.py",
+      "text": "\"The neural engine connection was interrupted.\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 113,
+      "path": "core\\chat_resilience.py",
+      "text": "\"Recommended actions:\\n\""
+    },
+    {
+      "language": "python",
+      "line": 114,
+      "path": "core\\chat_resilience.py",
+      "text": "\"• Check whether llama-server is still running.\\n\""
+    },
+    {
+      "language": "python",
+      "line": 115,
+      "path": "core\\chat_resilience.py",
+      "text": "\"• Restart the neural engine.\\n\""
+    },
+    {
+      "language": "python",
+      "line": 116,
+      "path": "core\\chat_resilience.py",
+      "text": "\"• Retry the mission after the server reports READY.\""
+    },
+    {
+      "language": "python",
+      "line": 117,
+      "path": "core\\chat_resilience.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 118,
+      "path": "core\\chat_resilience.py",
+      "text": "raise ChatTimeoutError(message) from error"
+    },
+    {
+      "language": "python",
+      "line": 120,
+      "path": "core\\chat_resilience.py",
+      "text": "def should_heartbeat(self, started_at, last_heartbeat_at):"
+    },
+    {
+      "language": "python",
+      "line": 121,
+      "path": "core\\chat_resilience.py",
+      "text": "now = time.time()"
+    },
+    {
+      "language": "python",
+      "line": 122,
+      "path": "core\\chat_resilience.py",
+      "text": "interval = self.config.heartbeat_interval_seconds"
+    },
+    {
+      "language": "python",
+      "line": 124,
+      "path": "core\\chat_resilience.py",
+      "text": "return (now - last_heartbeat_at) >= interval"
+    },
+    {
+      "language": "python",
+      "line": 1,
+      "path": "core\\comfy_bridge.py",
+      "text": "import json"
+    },
+    {
+      "language": "python",
+      "line": 2,
+      "path": "core\\comfy_bridge.py",
+      "text": "import time"
+    },
+    {
+      "language": "python",
+      "line": 3,
+      "path": "core\\comfy_bridge.py",
+      "text": "import urllib.parse"
+    },
+    {
+      "language": "python",
+      "line": 4,
+      "path": "core\\comfy_bridge.py",
+      "text": "import urllib.request"
+    },
+    {
+      "language": "python",
+      "line": 5,
+      "path": "core\\comfy_bridge.py",
+      "text": "import urllib.error"
+    },
+    {
+      "language": "python",
+      "line": 6,
+      "path": "core\\comfy_bridge.py",
+      "text": "from uuid import uuid4"
+    },
+    {
+      "language": "python",
+      "line": 8,
+      "path": "core\\comfy_bridge.py",
+      "text": "from core.paths import RED_CANVAS"
+    },
+    {
+      "language": "python",
+      "line": 10,
+      "path": "core\\comfy_bridge.py",
+      "text": "COMFY_HOST = \"127.0.0.1\""
+    },
+    {
+      "language": "python",
+      "line": 11,
+      "path": "core\\comfy_bridge.py",
+      "text": "COMFY_PORT = 8188"
+    },
+    {
+      "language": "python",
+      "line": 12,
+      "path": "core\\comfy_bridge.py",
+      "text": "WORKFLOW_FILE = RED_CANVAS / \"workflow_api.json\""
+    },
+    {
+      "language": "python",
+      "line": 13,
+      "path": "core\\comfy_bridge.py",
+      "text": "OUTPUT_DIR = RED_CANVAS / \"Outputs\""
+    },
+    {
+      "language": "python",
+      "line": 16,
+      "path": "core\\comfy_bridge.py",
+      "text": "def comfy_url(path=\"\"):"
+    },
+    {
+      "language": "python",
+      "line": 17,
+      "path": "core\\comfy_bridge.py",
+      "text": "return f\"http://{COMFY_HOST}:{COMFY_PORT}{path}\""
+    },
+    {
+      "language": "python",
+      "line": 20,
+      "path": "core\\comfy_bridge.py",
+      "text": "def is_comfy_running():"
+    },
+    {
+      "language": "python",
+      "line": 21,
+      "path": "core\\comfy_bridge.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 22,
+      "path": "core\\comfy_bridge.py",
+      "text": "urllib.request.urlopen(comfy_url(\"/system_stats\"), timeout=2)"
+    },
+    {
+      "language": "python",
+      "line": 23,
+      "path": "core\\comfy_bridge.py",
+      "text": "return True"
+    },
+    {
+      "language": "python",
+      "line": 24,
+      "path": "core\\comfy_bridge.py",
+      "text": "except Exception:"
+    },
+    {
+      "language": "python",
+      "line": 25,
+      "path": "core\\comfy_bridge.py",
+      "text": "return False"
+    },
+    {
+      "language": "python",
+      "line": 28,
+      "path": "core\\comfy_bridge.py",
+      "text": "def load_workflow():"
+    },
+    {
+      "language": "python",
+      "line": 29,
+      "path": "core\\comfy_bridge.py",
+      "text": "if not WORKFLOW_FILE.exists():"
+    },
+    {
+      "language": "python",
+      "line": 30,
+      "path": "core\\comfy_bridge.py",
+      "text": "raise FileNotFoundError(f\"Missing workflow file: {WORKFLOW_FILE}\")"
+    },
+    {
+      "language": "python",
+      "line": 31,
+      "path": "core\\comfy_bridge.py",
+      "text": "with open(WORKFLOW_FILE, \"r\", encoding=\"utf-8\") as f:"
+    },
+    {
+      "language": "python",
+      "line": 32,
+      "path": "core\\comfy_bridge.py",
+      "text": "return json.load(f)"
+    },
+    {
+      "language": "python",
+      "line": 35,
+      "path": "core\\comfy_bridge.py",
+      "text": "def _nodes_by_type(workflow, class_type):"
+    },
+    {
+      "language": "python",
+      "line": 36,
+      "path": "core\\comfy_bridge.py",
+      "text": "return ["
+    },
+    {
+      "language": "python",
+      "line": 37,
+      "path": "core\\comfy_bridge.py",
+      "text": "(node_id, node)"
+    },
+    {
+      "language": "python",
+      "line": 38,
+      "path": "core\\comfy_bridge.py",
+      "text": "for node_id, node in workflow.items()"
+    },
+    {
+      "language": "python",
+      "line": 39,
+      "path": "core\\comfy_bridge.py",
+      "text": "if isinstance(node, dict) and node.get(\"class_type\") == class_type"
+    },
+    {
+      "language": "python",
+      "line": 40,
+      "path": "core\\comfy_bridge.py",
+      "text": "]"
+    },
+    {
+      "language": "python",
+      "line": 43,
+      "path": "core\\comfy_bridge.py",
+      "text": "def _set_input(node, key, value):"
+    },
+    {
+      "language": "python",
+      "line": 44,
+      "path": "core\\comfy_bridge.py",
+      "text": "node.setdefault(\"inputs\", {})[key] = value"
+    },
+    {
+      "language": "python",
+      "line": 47,
+      "path": "core\\comfy_bridge.py",
+      "text": "def prepare_workflow(prompt, negative=\"\", checkpoint=None, width=1024, height=1024, seed=None):"
+    },
+    {
+      "language": "python",
+      "line": 48,
+      "path": "core\\comfy_bridge.py",
+      "text": "workflow = load_workflow()"
+    },
+    {
+      "language": "python",
+      "line": 50,
+      "path": "core\\comfy_bridge.py",
+      "text": "if checkpoint:"
+    },
+    {
+      "language": "python",
+      "line": 51,
+      "path": "core\\comfy_bridge.py",
+      "text": "for _, node in _nodes_by_type(workflow, \"CheckpointLoaderSimple\"):"
+    },
+    {
+      "language": "python",
+      "line": 52,
+      "path": "core\\comfy_bridge.py",
+      "text": "_set_input(node, \"ckpt_name\", checkpoint)"
+    },
+    {
+      "language": "python",
+      "line": 54,
+      "path": "core\\comfy_bridge.py",
+      "text": "clip_nodes = _nodes_by_type(workflow, \"CLIPTextEncode\")"
+    },
+    {
+      "language": "python",
+      "line": 55,
+      "path": "core\\comfy_bridge.py",
+      "text": "if clip_nodes:"
+    },
+    {
+      "language": "python",
+      "line": 56,
+      "path": "core\\comfy_bridge.py",
+      "text": "_set_input(clip_nodes[0][1], \"text\", prompt)"
+    },
+    {
+      "language": "python",
+      "line": 57,
+      "path": "core\\comfy_bridge.py",
+      "text": "if len(clip_nodes) > 1:"
+    },
+    {
+      "language": "python",
+      "line": 58,
+      "path": "core\\comfy_bridge.py",
+      "text": "_set_input(clip_nodes[1][1], \"text\", negative)"
+    },
+    {
+      "language": "python",
+      "line": 60,
+      "path": "core\\comfy_bridge.py",
+      "text": "for _, node in _nodes_by_type(workflow, \"EmptyLatentImage\"):"
+    },
+    {
+      "language": "python",
+      "line": 61,
+      "path": "core\\comfy_bridge.py",
+      "text": "_set_input(node, \"width\", int(width))"
+    },
+    {
+      "language": "python",
+      "line": 62,
+      "path": "core\\comfy_bridge.py",
+      "text": "_set_input(node, \"height\", int(height))"
+    },
+    {
+      "language": "python",
+      "line": 64,
+      "path": "core\\comfy_bridge.py",
+      "text": "if seed:"
+    },
+    {
+      "language": "python",
+      "line": 65,
+      "path": "core\\comfy_bridge.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 66,
+      "path": "core\\comfy_bridge.py",
+      "text": "seed_value = int(seed)"
+    },
+    {
+      "language": "python",
+      "line": 67,
+      "path": "core\\comfy_bridge.py",
+      "text": "for _, node in _nodes_by_type(workflow, \"KSampler\"):"
+    },
+    {
+      "language": "python",
+      "line": 68,
+      "path": "core\\comfy_bridge.py",
+      "text": "_set_input(node, \"seed\", seed_value)"
+    },
+    {
+      "language": "python",
+      "line": 69,
+      "path": "core\\comfy_bridge.py",
+      "text": "except ValueError:"
+    },
+    {
+      "language": "python",
+      "line": 70,
+      "path": "core\\comfy_bridge.py",
+      "text": "pass"
+    },
+    {
+      "language": "python",
+      "line": 72,
+      "path": "core\\comfy_bridge.py",
+      "text": "RED_CANVAS.mkdir(parents=True, exist_ok=True)"
+    },
+    {
+      "language": "python",
+      "line": 73,
+      "path": "core\\comfy_bridge.py",
+      "text": "with open(RED_CANVAS / \"last_submitted_workflow.json\", \"w\", encoding=\"utf-8\") as f:"
+    },
+    {
+      "language": "python",
+      "line": 74,
+      "path": "core\\comfy_bridge.py",
+      "text": "json.dump(workflow, f, indent=2)"
+    },
+    {
+      "language": "python",
+      "line": 76,
+      "path": "core\\comfy_bridge.py",
+      "text": "return workflow"
+    },
+    {
+      "language": "python",
+      "line": 79,
+      "path": "core\\comfy_bridge.py",
+      "text": "def queue_prompt(workflow):"
+    },
+    {
+      "language": "python",
+      "line": 80,
+      "path": "core\\comfy_bridge.py",
+      "text": "data = json.dumps({\"prompt\": workflow, \"client_id\": str(uuid4())}).encode(\"utf-8\")"
+    },
+    {
+      "language": "python",
+      "line": 81,
+      "path": "core\\comfy_bridge.py",
+      "text": "req = urllib.request.Request("
+    },
+    {
+      "language": "python",
+      "line": 82,
+      "path": "core\\comfy_bridge.py",
+      "text": "comfy_url(\"/prompt\"),"
+    },
+    {
+      "language": "python",
+      "line": 83,
+      "path": "core\\comfy_bridge.py",
+      "text": "data=data,"
+    },
+    {
+      "language": "python",
+      "line": 84,
+      "path": "core\\comfy_bridge.py",
+      "text": "headers={\"Content-Type\": \"application/json\"}"
+    },
+    {
+      "language": "python",
+      "line": 85,
+      "path": "core\\comfy_bridge.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 87,
+      "path": "core\\comfy_bridge.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 88,
+      "path": "core\\comfy_bridge.py",
+      "text": "with urllib.request.urlopen(req, timeout=20) as response:"
+    },
+    {
+      "language": "python",
+      "line": 89,
+      "path": "core\\comfy_bridge.py",
+      "text": "return json.loads(response.read().decode(\"utf-8\"))"
+    },
+    {
+      "language": "python",
+      "line": 90,
+      "path": "core\\comfy_bridge.py",
+      "text": "except urllib.error.HTTPError as e:"
+    },
+    {
+      "language": "python",
+      "line": 91,
+      "path": "core\\comfy_bridge.py",
+      "text": "return {\"error\": e.read().decode(\"utf-8\")}"
+    },
+    {
+      "language": "python",
+      "line": 92,
+      "path": "core\\comfy_bridge.py",
+      "text": "except Exception as e:"
+    },
+    {
+      "language": "python",
+      "line": 93,
+      "path": "core\\comfy_bridge.py",
+      "text": "return {\"error\": str(e)}"
+    },
+    {
+      "language": "python",
+      "line": 96,
+      "path": "core\\comfy_bridge.py",
+      "text": "def get_history(prompt_id):"
+    },
+    {
+      "language": "python",
+      "line": 97,
+      "path": "core\\comfy_bridge.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 98,
+      "path": "core\\comfy_bridge.py",
+      "text": "with urllib.request.urlopen(comfy_url(f\"/history/{prompt_id}\"), timeout=10) as response:"
+    },
+    {
+      "language": "python",
+      "line": 99,
+      "path": "core\\comfy_bridge.py",
+      "text": "return json.loads(response.read().decode(\"utf-8\"))"
+    },
+    {
+      "language": "python",
+      "line": 100,
+      "path": "core\\comfy_bridge.py",
+      "text": "except Exception as e:"
+    },
+    {
+      "language": "python",
+      "line": 101,
+      "path": "core\\comfy_bridge.py",
+      "text": "return {\"error\": str(e)}"
+    },
+    {
+      "language": "python",
+      "line": 104,
+      "path": "core\\comfy_bridge.py",
+      "text": "def wait_for_images(prompt_id, max_wait=None, poll_seconds=2, on_status=None):"
+    },
+    {
+      "language": "python",
+      "line": 105,
+      "path": "core\\comfy_bridge.py",
+      "text": "\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 106,
+      "path": "core\\comfy_bridge.py",
+      "text": "Wait for ComfyUI to finish a prompt and return image metadata."
+    },
+    {
+      "language": "python",
+      "line": 108,
+      "path": "core\\comfy_bridge.py",
+      "text": "max_wait=None means no render timeout. This is intentional for CPU-only"
+    },
+    {
+      "language": "python",
+      "line": 109,
+      "path": "core\\comfy_bridge.py",
+      "text": "SDXL renders that can take 15-30+ minutes."
+    },
+    {
+      "language": "python",
+      "line": 110,
+      "path": "core\\comfy_bridge.py",
+      "text": "\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 111,
+      "path": "core\\comfy_bridge.py",
+      "text": "start = time.time()"
+    },
+    {
+      "language": "python",
+      "line": 112,
+      "path": "core\\comfy_bridge.py",
+      "text": "last_status_time = 0"
+    },
+    {
+      "language": "python",
+      "line": 114,
+      "path": "core\\comfy_bridge.py",
+      "text": "while True:"
+    },
+    {
+      "language": "python",
+      "line": 115,
+      "path": "core\\comfy_bridge.py",
+      "text": "elapsed = time.time() - start"
+    },
+    {
+      "language": "python",
+      "line": 117,
+      "path": "core\\comfy_bridge.py",
+      "text": "if max_wait is not None and elapsed > max_wait:"
+    },
+    {
+      "language": "python",
+      "line": 118,
+      "path": "core\\comfy_bridge.py",
+      "text": "raise TimeoutError("
+    },
+    {
+      "language": "python",
+      "line": 119,
+      "path": "core\\comfy_bridge.py",
+      "text": "f\"Timed out after {int(elapsed)} seconds waiting for ComfyUI image output.\""
+    },
+    {
+      "language": "python",
+      "line": 120,
+      "path": "core\\comfy_bridge.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 122,
+      "path": "core\\comfy_bridge.py",
+      "text": "history = get_history(prompt_id)"
+    },
+    {
+      "language": "python",
+      "line": 124,
+      "path": "core\\comfy_bridge.py",
+      "text": "if isinstance(history, dict) and \"error\" in history:"
+    },
+    {
+      "language": "python",
+      "line": 125,
+      "path": "core\\comfy_bridge.py",
+      "text": "if on_status and time.time() - last_status_time >= 10:"
+    },
+    {
+      "language": "python",
+      "line": 126,
+      "path": "core\\comfy_bridge.py",
+      "text": "on_status(f\"Waiting for ComfyUI history... elapsed {int(elapsed)}s\")"
+    },
+    {
+      "language": "python",
+      "line": 127,
+      "path": "core\\comfy_bridge.py",
+      "text": "last_status_time = time.time()"
+    },
+    {
+      "language": "python",
+      "line": 128,
+      "path": "core\\comfy_bridge.py",
+      "text": "time.sleep(poll_seconds)"
+    },
+    {
+      "language": "python",
+      "line": 129,
+      "path": "core\\comfy_bridge.py",
+      "text": "continue"
+    },
+    {
+      "language": "python",
+      "line": 131,
+      "path": "core\\comfy_bridge.py",
+      "text": "item = history.get(prompt_id) if isinstance(history, dict) else None"
+    },
+    {
+      "language": "python",
+      "line": 133,
+      "path": "core\\comfy_bridge.py",
+      "text": "if item:"
+    },
+    {
+      "language": "python",
+      "line": 134,
+      "path": "core\\comfy_bridge.py",
+      "text": "images = []"
+    },
+    {
+      "language": "python",
+      "line": 135,
+      "path": "core\\comfy_bridge.py",
+      "text": "for output in item.get(\"outputs\", {}).values():"
+    },
+    {
+      "language": "python",
+      "line": 136,
+      "path": "core\\comfy_bridge.py",
+      "text": "images.extend(output.get(\"images\", []))"
+    },
+    {
+      "language": "python",
+      "line": 138,
+      "path": "core\\comfy_bridge.py",
+      "text": "if images:"
+    },
+    {
+      "language": "python",
+      "line": 139,
+      "path": "core\\comfy_bridge.py",
+      "text": "if on_status:"
+    },
+    {
+      "language": "python",
+      "line": 140,
+      "path": "core\\comfy_bridge.py",
+      "text": "on_status(f\"ComfyUI render complete after {int(elapsed)}s.\")"
+    },
+    {
+      "language": "python",
+      "line": 141,
+      "path": "core\\comfy_bridge.py",
+      "text": "return images"
+    },
+    {
+      "language": "python",
+      "line": 143,
+      "path": "core\\comfy_bridge.py",
+      "text": "if on_status and time.time() - last_status_time >= 10:"
+    },
+    {
+      "language": "python",
+      "line": 144,
+      "path": "core\\comfy_bridge.py",
+      "text": "on_status(f\"ComfyUI is still rendering... elapsed {int(elapsed)}s\")"
+    },
+    {
+      "language": "python",
+      "line": 145,
+      "path": "core\\comfy_bridge.py",
+      "text": "last_status_time = time.time()"
+    },
+    {
+      "language": "python",
+      "line": 147,
+      "path": "core\\comfy_bridge.py",
+      "text": "time.sleep(poll_seconds)"
+    },
+    {
+      "language": "python",
+      "line": 150,
+      "path": "core\\comfy_bridge.py",
+      "text": "def download_image(image_info):"
+    },
+    {
+      "language": "python",
+      "line": 151,
+      "path": "core\\comfy_bridge.py",
+      "text": "OUTPUT_DIR.mkdir(parents=True, exist_ok=True)"
+    },
+    {
+      "language": "python",
+      "line": 153,
+      "path": "core\\comfy_bridge.py",
+      "text": "filename = image_info.get(\"filename\")"
+    },
+    {
+      "language": "python",
+      "line": 154,
+      "path": "core\\comfy_bridge.py",
+      "text": "subfolder = image_info.get(\"subfolder\", \"\")"
+    },
+    {
+      "language": "python",
+      "line": 155,
+      "path": "core\\comfy_bridge.py",
+      "text": "img_type = image_info.get(\"type\", \"output\")"
+    },
+    {
+      "language": "python",
+      "line": 157,
+      "path": "core\\comfy_bridge.py",
+      "text": "params = urllib.parse.urlencode({"
+    },
+    {
+      "language": "python",
+      "line": 158,
+      "path": "core\\comfy_bridge.py",
+      "text": "\"filename\": filename,"
+    },
+    {
+      "language": "python",
+      "line": 159,
+      "path": "core\\comfy_bridge.py",
+      "text": "\"subfolder\": subfolder,"
+    },
+    {
+      "language": "python",
+      "line": 160,
+      "path": "core\\comfy_bridge.py",
+      "text": "\"type\": img_type"
+    },
+    {
+      "language": "python",
+      "line": 161,
+      "path": "core\\comfy_bridge.py",
+      "text": "})"
+    },
+    {
+      "language": "python",
+      "line": 163,
+      "path": "core\\comfy_bridge.py",
+      "text": "destination = OUTPUT_DIR / filename"
+    },
+    {
+      "language": "python",
+      "line": 164,
+      "path": "core\\comfy_bridge.py",
+      "text": "urllib.request.urlretrieve(comfy_url(f\"/view?{params}\"), destination)"
+    },
+    {
+      "language": "python",
+      "line": 165,
+      "path": "core\\comfy_bridge.py",
+      "text": "return destination"
+    },
+    {
+      "language": "python",
+      "line": 168,
+      "path": "core\\comfy_bridge.py",
+      "text": "def generate_image("
+    },
+    {
+      "language": "python",
+      "line": 169,
+      "path": "core\\comfy_bridge.py",
+      "text": "prompt,"
+    },
+    {
+      "language": "python",
+      "line": 170,
+      "path": "core\\comfy_bridge.py",
+      "text": "negative=\"\","
+    },
+    {
+      "language": "python",
+      "line": 171,
+      "path": "core\\comfy_bridge.py",
+      "text": "checkpoint=None,"
+    },
+    {
+      "language": "python",
+      "line": 172,
+      "path": "core\\comfy_bridge.py",
+      "text": "width=1024,"
+    },
+    {
+      "language": "python",
+      "line": 173,
+      "path": "core\\comfy_bridge.py",
+      "text": "height=1024,"
+    },
+    {
+      "language": "python",
+      "line": 174,
+      "path": "core\\comfy_bridge.py",
+      "text": "seed=None,"
+    },
+    {
+      "language": "python",
+      "line": 175,
+      "path": "core\\comfy_bridge.py",
+      "text": "max_wait=None,"
+    },
+    {
+      "language": "python",
+      "line": 176,
+      "path": "core\\comfy_bridge.py",
+      "text": "on_status=None,"
+    },
+    {
+      "language": "python",
+      "line": 177,
+      "path": "core\\comfy_bridge.py",
+      "text": "):"
+    },
+    {
+      "language": "python",
+      "line": 178,
+      "path": "core\\comfy_bridge.py",
+      "text": "if not is_comfy_running():"
+    },
+    {
+      "language": "python",
+      "line": 179,
+      "path": "core\\comfy_bridge.py",
+      "text": "raise ConnectionError(\"ComfyUI is not running at http://127.0.0.1:8188\")"
+    },
+    {
+      "language": "python",
+      "line": 181,
+      "path": "core\\comfy_bridge.py",
+      "text": "workflow = prepare_workflow(prompt, negative, checkpoint, width, height, seed)"
+    },
+    {
+      "language": "python",
+      "line": 183,
+      "path": "core\\comfy_bridge.py",
+      "text": "if on_status:"
+    },
+    {
+      "language": "python",
+      "line": 184,
+      "path": "core\\comfy_bridge.py",
+      "text": "on_status(\"Sending workflow to ComfyUI...\")"
+    },
+    {
+      "language": "python",
+      "line": 186,
+      "path": "core\\comfy_bridge.py",
+      "text": "queued = queue_prompt(workflow)"
+    },
+    {
+      "language": "python",
+      "line": 188,
+      "path": "core\\comfy_bridge.py",
+      "text": "if \"error\" in queued:"
+    },
+    {
+      "language": "python",
+      "line": 189,
+      "path": "core\\comfy_bridge.py",
+      "text": "raise RuntimeError(queued[\"error\"])"
+    },
+    {
+      "language": "python",
+      "line": 191,
+      "path": "core\\comfy_bridge.py",
+      "text": "prompt_id = queued.get(\"prompt_id\")"
+    },
+    {
+      "language": "python",
+      "line": 192,
+      "path": "core\\comfy_bridge.py",
+      "text": "if not prompt_id:"
+    },
+    {
+      "language": "python",
+      "line": 193,
+      "path": "core\\comfy_bridge.py",
+      "text": "raise RuntimeError(f\"No prompt_id returned: {queued}\")"
+    },
+    {
+      "language": "python",
+      "line": 195,
+      "path": "core\\comfy_bridge.py",
+      "text": "if on_status:"
+    },
+    {
+      "language": "python",
+      "line": 196,
+      "path": "core\\comfy_bridge.py",
+      "text": "on_status(f\"ComfyUI accepted prompt_id: {prompt_id}\")"
+    },
+    {
+      "language": "python",
+      "line": 198,
+      "path": "core\\comfy_bridge.py",
+      "text": "images = wait_for_images("
+    },
+    {
+      "language": "python",
+      "line": 199,
+      "path": "core\\comfy_bridge.py",
+      "text": "prompt_id,"
+    },
+    {
+      "language": "python",
+      "line": 200,
+      "path": "core\\comfy_bridge.py",
+      "text": "max_wait=max_wait,"
+    },
+    {
+      "language": "python",
+      "line": 201,
+      "path": "core\\comfy_bridge.py",
+      "text": "poll_seconds=2,"
+    },
+    {
+      "language": "python",
+      "line": 202,
+      "path": "core\\comfy_bridge.py",
+      "text": "on_status=on_status,"
+    },
+    {
+      "language": "python",
+      "line": 203,
+      "path": "core\\comfy_bridge.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 205,
+      "path": "core\\comfy_bridge.py",
+      "text": "return [download_image(img) for img in images]"
+    },
+    {
+      "language": "python",
+      "line": 1,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "from __future__ import annotations"
+    },
+    {
+      "language": "python",
+      "line": 3,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "import json"
+    },
+    {
+      "language": "python",
+      "line": 4,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "import re"
+    },
+    {
+      "language": "python",
+      "line": 5,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "from datetime import datetime"
+    },
+    {
+      "language": "python",
+      "line": 6,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "from pathlib import Path"
+    },
+    {
+      "language": "python",
+      "line": 7,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "from urllib.request import urlopen"
+    },
+    {
+      "language": "python",
+      "line": 9,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 10,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "import psutil"
+    },
+    {
+      "language": "python",
+      "line": 11,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "except Exception:"
+    },
+    {
+      "language": "python",
+      "line": 12,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "psutil = None"
+    },
+    {
+      "language": "python",
+      "line": 15,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "_PROGRESS_RE = re.compile(r\"(?<!\\d)(100|[1-9]?\\d)\\s*%\")"
+    },
+    {
+      "language": "python",
+      "line": 16,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "_LOG_SUFFIXES = {\".log\", \".txt\", \".out\", \".err\"}"
+    },
+    {
+      "language": "python",
+      "line": 19,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "def _health(timeout: float = 0.35) -> tuple[bool, str]:"
+    },
+    {
+      "language": "python",
+      "line": 20,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 21,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "with urlopen("
+    },
+    {
+      "language": "python",
+      "line": 22,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "\"http://127.0.0.1:8188/system_stats\","
+    },
+    {
+      "language": "python",
+      "line": 23,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "timeout=timeout,"
+    },
+    {
+      "language": "python",
+      "line": 24,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": ") as response:"
+    },
+    {
+      "language": "python",
+      "line": 25,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "payload = response.read(1024 * 1024)"
+    },
+    {
+      "language": "python",
+      "line": 26,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "if payload:"
+    },
+    {
+      "language": "python",
+      "line": 27,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 28,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "json.loads(payload.decode(\"utf-8\", errors=\"replace\"))"
+    },
+    {
+      "language": "python",
+      "line": 29,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "except Exception:"
+    },
+    {
+      "language": "python",
+      "line": 30,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "pass"
+    },
+    {
+      "language": "python",
+      "line": 31,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "return True, \"ComfyUI health endpoint responded.\""
+    },
+    {
+      "language": "python",
+      "line": 32,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "except Exception:"
+    },
+    {
+      "language": "python",
+      "line": 33,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "return False, \"ComfyUI health endpoint is not ready yet.\""
+    },
+    {
+      "language": "python",
+      "line": 36,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "def _running_process(root: Path) -> tuple[bool, int | None]:"
+    },
+    {
+      "language": "python",
+      "line": 37,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "\"\"\"Detect a live ComfyUI process without trusting stale controller state.\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 38,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "if psutil is None:"
+    },
+    {
+      "language": "python",
+      "line": 39,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "return False, None"
+    },
+    {
+      "language": "python",
+      "line": 41,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "root_text = str(root).replace(\"/\", \"\\\\\").casefold()"
+    },
+    {
+      "language": "python",
+      "line": 42,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "launcher_marker = \"launch_comfyui_isolated.py\""
+    },
+    {
+      "language": "python",
+      "line": 43,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "main_marker = str(root / \"ComfyUI\" / \"main.py\").replace(\"/\", \"\\\\\").casefold()"
+    },
+    {
+      "language": "python",
+      "line": 45,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 46,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "processes = psutil.process_iter([\"pid\", \"cmdline\"])"
+    },
+    {
+      "language": "python",
+      "line": 47,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "except Exception:"
+    },
+    {
+      "language": "python",
+      "line": 48,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "return False, None"
+    },
+    {
+      "language": "python",
+      "line": 50,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "for process in processes:"
+    },
+    {
+      "language": "python",
+      "line": 51,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 52,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "command = process.info.get(\"cmdline\") or []"
+    },
+    {
+      "language": "python",
+      "line": 53,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "normalized = ("
+    },
+    {
+      "language": "python",
+      "line": 54,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "\" \".join(str(part) for part in command)"
+    },
+    {
+      "language": "python",
+      "line": 55,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": ".replace(\"/\", \"\\\\\")"
+    },
+    {
+      "language": "python",
+      "line": 56,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": ".casefold()"
+    },
+    {
+      "language": "python",
+      "line": 57,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 58,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "if not normalized:"
+    },
+    {
+      "language": "python",
+      "line": 59,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "continue"
+    },
+    {
+      "language": "python",
+      "line": 61,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "launcher_match = ("
+    },
+    {
+      "language": "python",
+      "line": 62,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "launcher_marker in normalized"
+    },
+    {
+      "language": "python",
+      "line": 63,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "and (root_text in normalized or \"8188\" in normalized)"
+    },
+    {
+      "language": "python",
+      "line": 64,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 65,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "main_match = main_marker in normalized"
+    },
+    {
+      "language": "python",
+      "line": 66,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "comfy_port_match = ("
+    },
+    {
+      "language": "python",
+      "line": 67,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "\"comfyui\" in normalized"
+    },
+    {
+      "language": "python",
+      "line": 68,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "and \"--port\" in normalized"
+    },
+    {
+      "language": "python",
+      "line": 69,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "and \"8188\" in normalized"
+    },
+    {
+      "language": "python",
+      "line": 70,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 71,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "if launcher_match or main_match or comfy_port_match:"
+    },
+    {
+      "language": "python",
+      "line": 72,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "return True, int(process.info.get(\"pid\") or process.pid)"
+    },
+    {
+      "language": "python",
+      "line": 73,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "except Exception:"
+    },
+    {
+      "language": "python",
+      "line": 74,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "continue"
+    },
+    {
+      "language": "python",
+      "line": 76,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "return False, None"
+    },
+    {
+      "language": "python",
+      "line": 79,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "def _candidate_logs(root: Path) -> list[Path]:"
+    },
+    {
+      "language": "python",
+      "line": 80,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "log_root = root / \"Runtime\" / \"ComfyUI\" / \"logs\""
+    },
+    {
+      "language": "python",
+      "line": 81,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "preferred = ["
+    },
+    {
+      "language": "python",
+      "line": 82,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "log_root / \"live\" / \"current.log\","
+    },
+    {
+      "language": "python",
+      "line": 83,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "log_root / \"current.log\","
+    },
+    {
+      "language": "python",
+      "line": 84,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "log_root / \"normal\" / \"current.log\","
+    },
+    {
+      "language": "python",
+      "line": 85,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "]"
+    },
+    {
+      "language": "python",
+      "line": 86,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "found = [path for path in preferred if path.is_file()]"
+    },
+    {
+      "language": "python",
+      "line": 87,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "if log_root.is_dir():"
+    },
+    {
+      "language": "python",
+      "line": 88,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 89,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "for path in log_root.rglob(\"*\"):"
+    },
+    {
+      "language": "python",
+      "line": 90,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "if ("
+    },
+    {
+      "language": "python",
+      "line": 91,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "path.is_file()"
+    },
+    {
+      "language": "python",
+      "line": 92,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "and path.suffix.lower() in _LOG_SUFFIXES"
+    },
+    {
+      "language": "python",
+      "line": 93,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "and path not in found"
+    },
+    {
+      "language": "python",
+      "line": 94,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "):"
+    },
+    {
+      "language": "python",
+      "line": 95,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "found.append(path)"
+    },
+    {
+      "language": "python",
+      "line": 96,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "except OSError:"
+    },
+    {
+      "language": "python",
+      "line": 97,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "pass"
+    },
+    {
+      "language": "python",
+      "line": 98,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "return found"
+    },
+    {
+      "language": "python",
+      "line": 101,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "def _latest_log(root: Path) -> Path | None:"
+    },
+    {
+      "language": "python",
+      "line": 102,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "candidates = _candidate_logs(root)"
+    },
+    {
+      "language": "python",
+      "line": 103,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "if not candidates:"
+    },
+    {
+      "language": "python",
+      "line": 104,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "return None"
+    },
+    {
+      "language": "python",
+      "line": 106,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "def modified(path: Path) -> int:"
+    },
+    {
+      "language": "python",
+      "line": 107,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 108,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "return path.stat().st_mtime_ns"
+    },
+    {
+      "language": "python",
+      "line": 109,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "except OSError:"
+    },
+    {
+      "language": "python",
+      "line": 110,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "return 0"
+    },
+    {
+      "language": "python",
+      "line": 112,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "return max(candidates, key=modified)"
+    },
+    {
+      "language": "python",
+      "line": 115,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "def _tail("
+    },
+    {
+      "language": "python",
+      "line": 116,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "path: Path,"
+    },
+    {
+      "language": "python",
+      "line": 117,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "max_bytes: int = 96 * 1024,"
+    },
+    {
+      "language": "python",
+      "line": 118,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "line_limit: int = 140,"
+    },
+    {
+      "language": "python",
+      "line": 119,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": ") -> str:"
+    },
+    {
+      "language": "python",
+      "line": 120,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 121,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "size = path.stat().st_size"
+    },
+    {
+      "language": "python",
+      "line": 122,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "with path.open(\"rb\") as handle:"
+    },
+    {
+      "language": "python",
+      "line": 123,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "if size > max_bytes:"
+    },
+    {
+      "language": "python",
+      "line": 124,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "handle.seek(-max_bytes, 2)"
+    },
+    {
+      "language": "python",
+      "line": 125,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "raw = handle.read()"
+    },
+    {
+      "language": "python",
+      "line": 126,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "except OSError as exc:"
+    },
+    {
+      "language": "python",
+      "line": 127,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "return f\"Unable to read log: {type(exc).__name__}: {exc}\""
+    },
+    {
+      "language": "python",
+      "line": 129,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "text = raw.decode(\"utf-8\", errors=\"replace\")"
+    },
+    {
+      "language": "python",
+      "line": 130,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "text = text.replace(\"\\r\\n\", \"\\n\").replace(\"\\r\", \"\\n\")"
+    },
+    {
+      "language": "python",
+      "line": 131,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "lines = [line.rstrip() for line in text.splitlines()]"
+    },
+    {
+      "language": "python",
+      "line": 132,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "return \"\\n\".join(lines[-max(10, int(line_limit)):]).strip()"
+    },
+    {
+      "language": "python",
+      "line": 135,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "def _progress(text: str) -> int | None:"
+    },
+    {
+      "language": "python",
+      "line": 136,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "values = ["
+    },
+    {
+      "language": "python",
+      "line": 137,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "int(match.group(1))"
+    },
+    {
+      "language": "python",
+      "line": 138,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "for match in _PROGRESS_RE.finditer(text or \"\")"
+    },
+    {
+      "language": "python",
+      "line": 139,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "]"
+    },
+    {
+      "language": "python",
+      "line": 140,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "return values[-1] if values else None"
+    },
+    {
+      "language": "python",
+      "line": 143,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "def comfy_operations_snapshot("
+    },
+    {
+      "language": "python",
+      "line": 144,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "root: str | Path,"
+    },
+    {
+      "language": "python",
+      "line": 145,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "line_limit: int = 140,"
+    },
+    {
+      "language": "python",
+      "line": 146,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": ") -> dict:"
+    },
+    {
+      "language": "python",
+      "line": 147,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "root_path = Path(root).resolve()"
+    },
+    {
+      "language": "python",
+      "line": 148,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "online, health_message = _health()"
+    },
+    {
+      "language": "python",
+      "line": 149,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "process_running, process_pid = _running_process(root_path)"
+    },
+    {
+      "language": "python",
+      "line": 150,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "log_path = _latest_log(root_path)"
+    },
+    {
+      "language": "python",
+      "line": 151,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "tail = _tail(log_path, line_limit=line_limit) if log_path else \"\""
+    },
+    {
+      "language": "python",
+      "line": 152,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "progress = _progress(tail)"
+    },
+    {
+      "language": "python",
+      "line": 154,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "if online and progress is not None and 0 < progress < 100:"
+    },
+    {
+      "language": "python",
+      "line": 155,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "state = \"GENERATING\""
+    },
+    {
+      "language": "python",
+      "line": 156,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "elif online and progress == 100:"
+    },
+    {
+      "language": "python",
+      "line": 157,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "state = \"COMPLETE\""
+    },
+    {
+      "language": "python",
+      "line": 158,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "elif online:"
+    },
+    {
+      "language": "python",
+      "line": 159,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "state = \"READY\""
+    },
+    {
+      "language": "python",
+      "line": 160,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "elif process_running:"
+    },
+    {
+      "language": "python",
+      "line": 161,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "state = \"STARTING\""
+    },
+    {
+      "language": "python",
+      "line": 162,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "health_message = ("
+    },
+    {
+      "language": "python",
+      "line": 163,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "\"ComfyUI is running and still loading. \""
+    },
+    {
+      "language": "python",
+      "line": 164,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "\"FOXAI will mark it online when port 8188 responds.\""
+    },
+    {
+      "language": "python",
+      "line": 165,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 166,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "else:"
+    },
+    {
+      "language": "python",
+      "line": 167,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "state = \"OFFLINE\""
+    },
+    {
+      "language": "python",
+      "line": 168,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "health_message = ("
+    },
+    {
+      "language": "python",
+      "line": 169,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "\"ComfyUI is stopped. Start it when you need Red Canvas.\""
+    },
+    {
+      "language": "python",
+      "line": 170,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 172,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "modified = None"
+    },
+    {
+      "language": "python",
+      "line": 173,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "if log_path is not None:"
+    },
+    {
+      "language": "python",
+      "line": 174,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 175,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "modified = datetime.fromtimestamp("
+    },
+    {
+      "language": "python",
+      "line": 176,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "log_path.stat().st_mtime"
+    },
+    {
+      "language": "python",
+      "line": 177,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": ").isoformat(timespec=\"seconds\")"
+    },
+    {
+      "language": "python",
+      "line": 178,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "except OSError:"
+    },
+    {
+      "language": "python",
+      "line": 179,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "modified = None"
+    },
+    {
+      "language": "python",
+      "line": 181,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "if online and not tail:"
+    },
+    {
+      "language": "python",
+      "line": 182,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "health_message = ("
+    },
+    {
+      "language": "python",
+      "line": 183,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "\"ComfyUI is online. No captured console log is available yet.\""
+    },
+    {
+      "language": "python",
+      "line": 184,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 186,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "return {"
+    },
+    {
+      "language": "python",
+      "line": 187,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "\"ok\": True,"
+    },
+    {
+      "language": "python",
+      "line": 188,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "\"online\": online,"
+    },
+    {
+      "language": "python",
+      "line": 189,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "\"process_running\": process_running,"
+    },
+    {
+      "language": "python",
+      "line": 190,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "\"process_pid\": process_pid,"
+    },
+    {
+      "language": "python",
+      "line": 191,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "\"state\": state,"
+    },
+    {
+      "language": "python",
+      "line": 192,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "\"progress_percent\": progress,"
+    },
+    {
+      "language": "python",
+      "line": 193,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "\"endpoint\": \"http://127.0.0.1:8188\","
+    },
+    {
+      "language": "python",
+      "line": 194,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "\"log_path\": str(log_path) if log_path else None,"
+    },
+    {
+      "language": "python",
+      "line": 195,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "\"log_modified\": modified,"
+    },
+    {
+      "language": "python",
+      "line": 196,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "\"tail\": tail,"
+    },
+    {
+      "language": "python",
+      "line": 197,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "\"message\": health_message,"
+    },
+    {
+      "language": "python",
+      "line": 198,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "\"read_only\": True,"
+    },
+    {
+      "language": "python",
+      "line": 199,
+      "path": "core\\comfy_ops_monitor.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 1,
+      "path": "core\\confidence_engine.py",
+      "text": "class ConfidenceEngine:"
+    },
+    {
+      "language": "python",
+      "line": 2,
+      "path": "core\\confidence_engine.py",
+      "text": "\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 3,
+      "path": "core\\confidence_engine.py",
+      "text": "Standard confidence and evidence reporting for FOXAI."
+    },
+    {
+      "language": "python",
+      "line": 5,
+      "path": "core\\confidence_engine.py",
+      "text": "This module does not verify truth by itself. It turns available evidence"
+    },
+    {
+      "language": "python",
+      "line": 6,
+      "path": "core\\confidence_engine.py",
+      "text": "signals into a consistent confidence card that every department can use."
+    },
+    {
+      "language": "python",
+      "line": 7,
+      "path": "core\\confidence_engine.py",
+      "text": "\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 9,
+      "path": "core\\confidence_engine.py",
+      "text": "EVIDENCE_WEIGHTS = {"
+    },
+    {
+      "language": "python",
+      "line": 10,
+      "path": "core\\confidence_engine.py",
+      "text": "\"direct_file_match\": 30,"
+    },
+    {
+      "language": "python",
+      "line": 11,
+      "path": "core\\confidence_engine.py",
+      "text": "\"project_index\": 20,"
+    },
+    {
+      "language": "python",
+      "line": 12,
+      "path": "core\\confidence_engine.py",
+      "text": "\"dependency_graph\": 20,"
+    },
+    {
+      "language": "python",
+      "line": 13,
+      "path": "core\\confidence_engine.py",
+      "text": "\"runtime_graph\": 25,"
+    },
+    {
+      "language": "python",
+      "line": 14,
+      "path": "core\\confidence_engine.py",
+      "text": "\"mission_flow\": 15,"
+    },
+    {
+      "language": "python",
+      "line": 15,
+      "path": "core\\confidence_engine.py",
+      "text": "\"technical_debt\": 15,"
+    },
+    {
+      "language": "python",
+      "line": 16,
+      "path": "core\\confidence_engine.py",
+      "text": "\"diagnostics\": 25,"
+    },
+    {
+      "language": "python",
+      "line": 17,
+      "path": "core\\confidence_engine.py",
+      "text": "\"user_observed\": 20,"
+    },
+    {
+      "language": "python",
+      "line": 18,
+      "path": "core\\confidence_engine.py",
+      "text": "\"inference\": 10,"
+    },
+    {
+      "language": "python",
+      "line": 19,
+      "path": "core\\confidence_engine.py",
+      "text": "\"general_reasoning\": 5,"
+    },
+    {
+      "language": "python",
+      "line": 20,
+      "path": "core\\confidence_engine.py",
+      "text": "\"speculation\": -25,"
+    },
+    {
+      "language": "python",
+      "line": 21,
+      "path": "core\\confidence_engine.py",
+      "text": "\"no_evidence\": -40,"
+    },
+    {
+      "language": "python",
+      "line": 22,
+      "path": "core\\confidence_engine.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 24,
+      "path": "core\\confidence_engine.py",
+      "text": "LABELS = ["
+    },
+    {
+      "language": "python",
+      "line": 25,
+      "path": "core\\confidence_engine.py",
+      "text": "(90, \"VERY HIGH\"),"
+    },
+    {
+      "language": "python",
+      "line": 26,
+      "path": "core\\confidence_engine.py",
+      "text": "(75, \"HIGH\"),"
+    },
+    {
+      "language": "python",
+      "line": 27,
+      "path": "core\\confidence_engine.py",
+      "text": "(55, \"MODERATE\"),"
+    },
+    {
+      "language": "python",
+      "line": 28,
+      "path": "core\\confidence_engine.py",
+      "text": "(35, \"LOW\"),"
+    },
+    {
+      "language": "python",
+      "line": 29,
+      "path": "core\\confidence_engine.py",
+      "text": "(0, \"VERY LOW\"),"
+    },
+    {
+      "language": "python",
+      "line": 30,
+      "path": "core\\confidence_engine.py",
+      "text": "]"
+    },
+    {
+      "language": "python",
+      "line": 32,
+      "path": "core\\confidence_engine.py",
+      "text": "def score(self, evidence=None, base=50, uncertainty=0):"
+    },
+    {
+      "language": "python",
+      "line": 33,
+      "path": "core\\confidence_engine.py",
+      "text": "evidence = evidence or []"
+    },
+    {
+      "language": "python",
+      "line": 34,
+      "path": "core\\confidence_engine.py",
+      "text": "total = base"
+    },
+    {
+      "language": "python",
+      "line": 36,
+      "path": "core\\confidence_engine.py",
+      "text": "for item in evidence:"
+    },
+    {
+      "language": "python",
+      "line": 37,
+      "path": "core\\confidence_engine.py",
+      "text": "if isinstance(item, str):"
+    },
+    {
+      "language": "python",
+      "line": 38,
+      "path": "core\\confidence_engine.py",
+      "text": "key = item"
+    },
+    {
+      "language": "python",
+      "line": 39,
+      "path": "core\\confidence_engine.py",
+      "text": "else:"
+    },
+    {
+      "language": "python",
+      "line": 40,
+      "path": "core\\confidence_engine.py",
+      "text": "key = item.get(\"type\", \"\")"
+    },
+    {
+      "language": "python",
+      "line": 42,
+      "path": "core\\confidence_engine.py",
+      "text": "total += self.EVIDENCE_WEIGHTS.get(key, 0)"
+    },
+    {
+      "language": "python",
+      "line": 44,
+      "path": "core\\confidence_engine.py",
+      "text": "total -= uncertainty"
+    },
+    {
+      "language": "python",
+      "line": 45,
+      "path": "core\\confidence_engine.py",
+      "text": "return max(0, min(100, int(total)))"
+    },
+    {
+      "language": "python",
+      "line": 47,
+      "path": "core\\confidence_engine.py",
+      "text": "def label(self, score):"
+    },
+    {
+      "language": "python",
+      "line": 48,
+      "path": "core\\confidence_engine.py",
+      "text": "for threshold, label in self.LABELS:"
+    },
+    {
+      "language": "python",
+      "line": 49,
+      "path": "core\\confidence_engine.py",
+      "text": "if score >= threshold:"
+    },
+    {
+      "language": "python",
+      "line": 50,
+      "path": "core\\confidence_engine.py",
+      "text": "return label"
+    },
+    {
+      "language": "python",
+      "line": 51,
+      "path": "core\\confidence_engine.py",
+      "text": "return \"VERY LOW\""
+    },
+    {
+      "language": "python",
+      "line": 53,
+      "path": "core\\confidence_engine.py",
+      "text": "def recommendation(self, score):"
+    },
+    {
+      "language": "python",
+      "line": 54,
+      "path": "core\\confidence_engine.py",
+      "text": "if score >= 90:"
+    },
+    {
+      "language": "python",
+      "line": 55,
+      "path": "core\\confidence_engine.py",
+      "text": "return \"Strong evidence. Safe to treat this as reliable.\""
+    },
+    {
+      "language": "python",
+      "line": 56,
+      "path": "core\\confidence_engine.py",
+      "text": "if score >= 75:"
+    },
+    {
+      "language": "python",
+      "line": 57,
+      "path": "core\\confidence_engine.py",
+      "text": "return \"Good evidence. Reasonable confidence, but review details before major changes.\""
+    },
+    {
+      "language": "python",
+      "line": 58,
+      "path": "core\\confidence_engine.py",
+      "text": "if score >= 55:"
+    },
+    {
+      "language": "python",
+      "line": 59,
+      "path": "core\\confidence_engine.py",
+      "text": "return \"Moderate confidence. Treat as likely, not certain.\""
+    },
+    {
+      "language": "python",
+      "line": 60,
+      "path": "core\\confidence_engine.py",
+      "text": "if score >= 35:"
+    },
+    {
+      "language": "python",
+      "line": 61,
+      "path": "core\\confidence_engine.py",
+      "text": "return \"Low confidence. Treat as a hypothesis and verify before acting.\""
+    },
+    {
+      "language": "python",
+      "line": 62,
+      "path": "core\\confidence_engine.py",
+      "text": "return \"Very low confidence. Do not rely on this without more evidence.\""
+    },
+    {
+      "language": "python",
+      "line": 64,
+      "path": "core\\confidence_engine.py",
+      "text": "def evidence_label(self, item):"
+    },
+    {
+      "language": "python",
+      "line": 65,
+      "path": "core\\confidence_engine.py",
+      "text": "labels = {"
+    },
+    {
+      "language": "python",
+      "line": 66,
+      "path": "core\\confidence_engine.py",
+      "text": "\"direct_file_match\": \"Direct File Match\","
+    },
+    {
+      "language": "python",
+      "line": 67,
+      "path": "core\\confidence_engine.py",
+      "text": "\"project_index\": \"Project Index\","
+    },
+    {
+      "language": "python",
+      "line": 68,
+      "path": "core\\confidence_engine.py",
+      "text": "\"dependency_graph\": \"Dependency Graph\","
+    },
+    {
+      "language": "python",
+      "line": 69,
+      "path": "core\\confidence_engine.py",
+      "text": "\"runtime_graph\": \"Runtime Graph\","
+    },
+    {
+      "language": "python",
+      "line": 70,
+      "path": "core\\confidence_engine.py",
+      "text": "\"mission_flow\": \"Mission Flow\","
+    },
+    {
+      "language": "python",
+      "line": 71,
+      "path": "core\\confidence_engine.py",
+      "text": "\"technical_debt\": \"Technical Debt Engine\","
+    },
+    {
+      "language": "python",
+      "line": 72,
+      "path": "core\\confidence_engine.py",
+      "text": "\"diagnostics\": \"Diagnostics\","
+    },
+    {
+      "language": "python",
+      "line": 73,
+      "path": "core\\confidence_engine.py",
+      "text": "\"user_observed\": \"User Observation\","
+    },
+    {
+      "language": "python",
+      "line": 74,
+      "path": "core\\confidence_engine.py",
+      "text": "\"inference\": \"Inference\","
+    },
+    {
+      "language": "python",
+      "line": 75,
+      "path": "core\\confidence_engine.py",
+      "text": "\"general_reasoning\": \"General Reasoning\","
+    },
+    {
+      "language": "python",
+      "line": 76,
+      "path": "core\\confidence_engine.py",
+      "text": "\"speculation\": \"Speculation\","
+    },
+    {
+      "language": "python",
+      "line": 77,
+      "path": "core\\confidence_engine.py",
+      "text": "\"no_evidence\": \"No Direct Evidence\","
+    },
+    {
+      "language": "python",
+      "line": 78,
+      "path": "core\\confidence_engine.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 80,
+      "path": "core\\confidence_engine.py",
+      "text": "if isinstance(item, str):"
+    },
+    {
+      "language": "python",
+      "line": 81,
+      "path": "core\\confidence_engine.py",
+      "text": "return labels.get(item, item)"
+    },
+    {
+      "language": "python",
+      "line": 83,
+      "path": "core\\confidence_engine.py",
+      "text": "kind = item.get(\"type\", \"unknown\")"
+    },
+    {
+      "language": "python",
+      "line": 84,
+      "path": "core\\confidence_engine.py",
+      "text": "detail = item.get(\"detail\", \"\")"
+    },
+    {
+      "language": "python",
+      "line": 85,
+      "path": "core\\confidence_engine.py",
+      "text": "base = labels.get(kind, kind)"
+    },
+    {
+      "language": "python",
+      "line": 87,
+      "path": "core\\confidence_engine.py",
+      "text": "return f\"{base}: {detail}\" if detail else base"
+    },
+    {
+      "language": "python",
+      "line": 89,
+      "path": "core\\confidence_engine.py",
+      "text": "def card(self, evidence=None, base=50, uncertainty=0, reason=\"\"):"
+    },
+    {
+      "language": "python",
+      "line": 90,
+      "path": "core\\confidence_engine.py",
+      "text": "evidence = evidence or []"
+    },
+    {
+      "language": "python",
+      "line": 91,
+      "path": "core\\confidence_engine.py",
+      "text": "score = self.score(evidence=evidence, base=base, uncertainty=uncertainty)"
+    },
+    {
+      "language": "python",
+      "line": 92,
+      "path": "core\\confidence_engine.py",
+      "text": "label = self.label(score)"
+    },
+    {
+      "language": "python",
+      "line": 94,
+      "path": "core\\confidence_engine.py",
+      "text": "lines = ["
+    },
+    {
+      "language": "python",
+      "line": 95,
+      "path": "core\\confidence_engine.py",
+      "text": "\"CONFIDENCE REPORT\","
+    },
+    {
+      "language": "python",
+      "line": 96,
+      "path": "core\\confidence_engine.py",
+      "text": "\"\","
+    },
+    {
+      "language": "python",
+      "line": 97,
+      "path": "core\\confidence_engine.py",
+      "text": "f\"Confidence: {score}% - {label}\","
+    },
+    {
+      "language": "python",
+      "line": 98,
+      "path": "core\\confidence_engine.py",
+      "text": "\"\","
+    },
+    {
+      "language": "python",
+      "line": 99,
+      "path": "core\\confidence_engine.py",
+      "text": "\"Evidence:\","
+    },
+    {
+      "language": "python",
+      "line": 100,
+      "path": "core\\confidence_engine.py",
+      "text": "]"
+    },
+    {
+      "language": "python",
+      "line": 102,
+      "path": "core\\confidence_engine.py",
+      "text": "if evidence:"
+    },
+    {
+      "language": "python",
+      "line": 103,
+      "path": "core\\confidence_engine.py",
+      "text": "for item in evidence:"
+    },
+    {
+      "language": "python",
+      "line": 104,
+      "path": "core\\confidence_engine.py",
+      "text": "lines.append(f\"✓ {self.evidence_label(item)}\")"
+    },
+    {
+      "language": "python",
+      "line": 105,
+      "path": "core\\confidence_engine.py",
+      "text": "else:"
+    },
+    {
+      "language": "python",
+      "line": 106,
+      "path": "core\\confidence_engine.py",
+      "text": "lines.append(\"— No direct evidence listed\")"
+    },
+    {
+      "language": "python",
+      "line": 108,
+      "path": "core\\confidence_engine.py",
+      "text": "if reason:"
+    },
+    {
+      "language": "python",
+      "line": 109,
+      "path": "core\\confidence_engine.py",
+      "text": "lines.extend(["
+    },
+    {
+      "language": "python",
+      "line": 110,
+      "path": "core\\confidence_engine.py",
+      "text": "\"\","
+    },
+    {
+      "language": "python",
+      "line": 111,
+      "path": "core\\confidence_engine.py",
+      "text": "\"Reason:\","
+    },
+    {
+      "language": "python",
+      "line": 112,
+      "path": "core\\confidence_engine.py",
+      "text": "reason,"
+    },
+    {
+      "language": "python",
+      "line": 113,
+      "path": "core\\confidence_engine.py",
+      "text": "])"
+    },
+    {
+      "language": "python",
+      "line": 115,
+      "path": "core\\confidence_engine.py",
+      "text": "lines.extend(["
+    },
+    {
+      "language": "python",
+      "line": 116,
+      "path": "core\\confidence_engine.py",
+      "text": "\"\","
+    },
+    {
+      "language": "python",
+      "line": 117,
+      "path": "core\\confidence_engine.py",
+      "text": "\"Recommendation:\","
+    },
+    {
+      "language": "python",
+      "line": 118,
+      "path": "core\\confidence_engine.py",
+      "text": "self.recommendation(score),"
+    },
+    {
+      "language": "python",
+      "line": 119,
+      "path": "core\\confidence_engine.py",
+      "text": "])"
+    },
+    {
+      "language": "python",
+      "line": 121,
+      "path": "core\\confidence_engine.py",
+      "text": "return \"\\n\".join(lines)"
+    },
+    {
+      "language": "python",
+      "line": 123,
+      "path": "core\\confidence_engine.py",
+      "text": "def compact(self, evidence=None, base=50, uncertainty=0):"
+    },
+    {
+      "language": "python",
+      "line": 124,
+      "path": "core\\confidence_engine.py",
+      "text": "evidence = evidence or []"
+    },
+    {
+      "language": "python",
+      "line": 125,
+      "path": "core\\confidence_engine.py",
+      "text": "score = self.score(evidence=evidence, base=base, uncertainty=uncertainty)"
+    },
+    {
+      "language": "python",
+      "line": 126,
+      "path": "core\\confidence_engine.py",
+      "text": "return f\"Confidence: {score}% - {self.label(score)}\""
+    },
+    {
+      "language": "python",
+      "line": 128,
+      "path": "core\\confidence_engine.py",
+      "text": "def workshop_evidence_table(self, used=None):"
+    },
+    {
+      "language": "python",
+      "line": 129,
+      "path": "core\\confidence_engine.py",
+      "text": "used = set(used or [])"
+    },
+    {
+      "language": "python",
+      "line": 131,
+      "path": "core\\confidence_engine.py",
+      "text": "rows = ["
+    },
+    {
+      "language": "python",
+      "line": 132,
+      "path": "core\\confidence_engine.py",
+      "text": "(\"Project Index\", \"project_index\"),"
+    },
+    {
+      "language": "python",
+      "line": 133,
+      "path": "core\\confidence_engine.py",
+      "text": "(\"Dependency Graph\", \"dependency_graph\"),"
+    },
+    {
+      "language": "python",
+      "line": 134,
+      "path": "core\\confidence_engine.py",
+      "text": "(\"Runtime Graph\", \"runtime_graph\"),"
+    },
+    {
+      "language": "python",
+      "line": 135,
+      "path": "core\\confidence_engine.py",
+      "text": "(\"Mission Flow\", \"mission_flow\"),"
+    },
+    {
+      "language": "python",
+      "line": 136,
+      "path": "core\\confidence_engine.py",
+      "text": "(\"Technical Debt\", \"technical_debt\"),"
+    },
+    {
+      "language": "python",
+      "line": 137,
+      "path": "core\\confidence_engine.py",
+      "text": "(\"Diagnostics\", \"diagnostics\"),"
+    },
+    {
+      "language": "python",
+      "line": 138,
+      "path": "core\\confidence_engine.py",
+      "text": "(\"Direct File Match\", \"direct_file_match\"),"
+    },
+    {
+      "language": "python",
+      "line": 139,
+      "path": "core\\confidence_engine.py",
+      "text": "]"
+    },
+    {
+      "language": "python",
+      "line": 141,
+      "path": "core\\confidence_engine.py",
+      "text": "lines = ["
+    },
+    {
+      "language": "python",
+      "line": 142,
+      "path": "core\\confidence_engine.py",
+      "text": "\"WORKSHOP EVIDENCE\","
+    },
+    {
+      "language": "python",
+      "line": 143,
+      "path": "core\\confidence_engine.py",
+      "text": "\"\","
+    },
+    {
+      "language": "python",
+      "line": 144,
+      "path": "core\\confidence_engine.py",
+      "text": "]"
+    },
+    {
+      "language": "python",
+      "line": 146,
+      "path": "core\\confidence_engine.py",
+      "text": "for label, key in rows:"
+    },
+    {
+      "language": "python",
+      "line": 147,
+      "path": "core\\confidence_engine.py",
+      "text": "mark = \"✓\" if key in used else \"—\""
+    },
+    {
+      "language": "python",
+      "line": 148,
+      "path": "core\\confidence_engine.py",
+      "text": "lines.append(f\"{label:<18} {mark}\")"
+    },
+    {
+      "language": "python",
+      "line": 150,
+      "path": "core\\confidence_engine.py",
+      "text": "return \"\\n\".join(lines)"
+    },
+    {
+      "language": "python",
+      "line": 1,
+      "path": "core\\decision_layer.py",
+      "text": "from core.department_registry import DepartmentRegistry"
+    },
+    {
+      "language": "python",
+      "line": 2,
+      "path": "core\\decision_layer.py",
+      "text": "from core.confidence_engine import ConfidenceEngine"
+    },
+    {
+      "language": "python",
+      "line": 3,
+      "path": "core\\decision_layer.py",
+      "text": "from core.execution_planner import ExecutionPlanner"
+    },
+    {
+      "language": "python",
+      "line": 6,
+      "path": "core\\decision_layer.py",
+      "text": "class DecisionLayer:"
+    },
+    {
+      "language": "python",
+      "line": 7,
+      "path": "core\\decision_layer.py",
+      "text": "\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 8,
+      "path": "core\\decision_layer.py",
+      "text": "Advisory decision layer for FOXAI."
+    },
+    {
+      "language": "python",
+      "line": 10,
+      "path": "core\\decision_layer.py",
+      "text": "v3 connects:"
+    },
+    {
+      "language": "python",
+      "line": 11,
+      "path": "core\\decision_layer.py",
+      "text": "- Department Registry"
+    },
+    {
+      "language": "python",
+      "line": 12,
+      "path": "core\\decision_layer.py",
+      "text": "- Confidence Engine"
+    },
+    {
+      "language": "python",
+      "line": 13,
+      "path": "core\\decision_layer.py",
+      "text": "- Capability Graph"
+    },
+    {
+      "language": "python",
+      "line": 14,
+      "path": "core\\decision_layer.py",
+      "text": "- Execution Planner"
+    },
+    {
+      "language": "python",
+      "line": 16,
+      "path": "core\\decision_layer.py",
+      "text": "Still advisory only. It does not switch models, launch departments,"
+    },
+    {
+      "language": "python",
+      "line": 17,
+      "path": "core\\decision_layer.py",
+      "text": "or modify files."
+    },
+    {
+      "language": "python",
+      "line": 18,
+      "path": "core\\decision_layer.py",
+      "text": "\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 20,
+      "path": "core\\decision_layer.py",
+      "text": "DEPARTMENT_ALIASES = {"
+    },
+    {
+      "language": "python",
+      "line": 21,
+      "path": "core\\decision_layer.py",
+      "text": "\"engineer\": [\"engineer\", \"engineering\", \"code\", \"debug\", \"architecture\", \"refactor\"],"
+    },
+    {
+      "language": "python",
+      "line": 22,
+      "path": "core\\decision_layer.py",
+      "text": "\"red_canvas\": [\"red canvas\", \"canvas\", \"image\", \"visual\", \"render\", \"picture\", \"draw\", \"promptsmith\", \"comfyui\", \"comfy\"],"
+    },
+    {
+      "language": "python",
+      "line": 23,
+      "path": "core\\decision_layer.py",
+      "text": "\"iron_library\": [\"iron library\", \"library\", \"research\", \"document\", \"documents\", \"search files\", \"local knowledge\"],"
+    },
+    {
+      "language": "python",
+      "line": 24,
+      "path": "core\\decision_layer.py",
+      "text": "\"diagnostics\": [\"diagnostics\", \"diagnostic\", \"health\", \"status\", \"hardware\", \"cpu\", \"ram\", \"workshop health\"],"
+    },
+    {
+      "language": "python",
+      "line": 25,
+      "path": "core\\decision_layer.py",
+      "text": "\"settings\": [\"settings\", \"configuration\", \"config\", \"profile\", \"theme\", \"model selection\"],"
+    },
+    {
+      "language": "python",
+      "line": 26,
+      "path": "core\\decision_layer.py",
+      "text": "\"soul_forge\": [\"soul forge\", \"identity\", \"branding\", \"first run\", \"forge\", \"kayock\"],"
+    },
+    {
+      "language": "python",
+      "line": 27,
+      "path": "core\\decision_layer.py",
+      "text": "\"chat\": [\"chat\", \"conversation\", \"general\", \"writing\", \"agent fox\"],"
+    },
+    {
+      "language": "python",
+      "line": 28,
+      "path": "core\\decision_layer.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 30,
+      "path": "core\\decision_layer.py",
+      "text": "MISSION_BY_DEPARTMENT = {"
+    },
+    {
+      "language": "python",
+      "line": 31,
+      "path": "core\\decision_layer.py",
+      "text": "\"engineer\": \"engineering\","
+    },
+    {
+      "language": "python",
+      "line": 32,
+      "path": "core\\decision_layer.py",
+      "text": "\"red_canvas\": \"creative\","
+    },
+    {
+      "language": "python",
+      "line": 33,
+      "path": "core\\decision_layer.py",
+      "text": "\"iron_library\": \"research\","
+    },
+    {
+      "language": "python",
+      "line": 34,
+      "path": "core\\decision_layer.py",
+      "text": "\"diagnostics\": \"diagnostics\","
+    },
+    {
+      "language": "python",
+      "line": 35,
+      "path": "core\\decision_layer.py",
+      "text": "\"settings\": \"configuration\","
+    },
+    {
+      "language": "python",
+      "line": 36,
+      "path": "core\\decision_layer.py",
+      "text": "\"soul_forge\": \"identity\","
+    },
+    {
+      "language": "python",
+      "line": 37,
+      "path": "core\\decision_layer.py",
+      "text": "\"chat\": \"conversation\","
+    },
+    {
+      "language": "python",
+      "line": 38,
+      "path": "core\\decision_layer.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 40,
+      "path": "core\\decision_layer.py",
+      "text": "def __init__(self):"
+    },
+    {
+      "language": "python",
+      "line": 41,
+      "path": "core\\decision_layer.py",
+      "text": "self.registry = DepartmentRegistry()"
+    },
+    {
+      "language": "python",
+      "line": 42,
+      "path": "core\\decision_layer.py",
+      "text": "self.confidence = ConfidenceEngine()"
+    },
+    {
+      "language": "python",
+      "line": 43,
+      "path": "core\\decision_layer.py",
+      "text": "self.planner = ExecutionPlanner()"
+    },
+    {
+      "language": "python",
+      "line": 45,
+      "path": "core\\decision_layer.py",
+      "text": "def normalize_query(self, query):"
+    },
+    {
+      "language": "python",
+      "line": 46,
+      "path": "core\\decision_layer.py",
+      "text": "return \" \".join((query or \"\").strip().split())"
+    },
+    {
+      "language": "python",
+      "line": 48,
+      "path": "core\\decision_layer.py",
+      "text": "def strip_command_prefix(self, query):"
+    },
+    {
+      "language": "python",
+      "line": 49,
+      "path": "core\\decision_layer.py",
+      "text": "text = self.normalize_query(query)"
+    },
+    {
+      "language": "python",
+      "line": 50,
+      "path": "core\\decision_layer.py",
+      "text": "lowered = text.lower()"
+    },
+    {
+      "language": "python",
+      "line": 52,
+      "path": "core\\decision_layer.py",
+      "text": "prefixes = ["
+    },
+    {
+      "language": "python",
+      "line": 53,
+      "path": "core\\decision_layer.py",
+      "text": "\"engineer,\","
+    },
+    {
+      "language": "python",
+      "line": 54,
+      "path": "core\\decision_layer.py",
+      "text": "\"engineer \","
+    },
+    {
+      "language": "python",
+      "line": 55,
+      "path": "core\\decision_layer.py",
+      "text": "\"agent fox,\","
+    },
+    {
+      "language": "python",
+      "line": 56,
+      "path": "core\\decision_layer.py",
+      "text": "\"fox,\","
+    },
+    {
+      "language": "python",
+      "line": 57,
+      "path": "core\\decision_layer.py",
+      "text": "\"please \","
+    },
+    {
+      "language": "python",
+      "line": 58,
+      "path": "core\\decision_layer.py",
+      "text": "]"
+    },
+    {
+      "language": "python",
+      "line": 60,
+      "path": "core\\decision_layer.py",
+      "text": "for prefix in prefixes:"
+    },
+    {
+      "language": "python",
+      "line": 61,
+      "path": "core\\decision_layer.py",
+      "text": "if lowered.startswith(prefix):"
+    },
+    {
+      "language": "python",
+      "line": 62,
+      "path": "core\\decision_layer.py",
+      "text": "return text[len(prefix):].strip()"
+    },
+    {
+      "language": "python",
+      "line": 64,
+      "path": "core\\decision_layer.py",
+      "text": "return text"
+    },
+    {
+      "language": "python",
+      "line": 66,
+      "path": "core\\decision_layer.py",
+      "text": "def extract_subject_text(self, query):"
+    },
+    {
+      "language": "python",
+      "line": 67,
+      "path": "core\\decision_layer.py",
+      "text": "text = self.strip_command_prefix(query)"
+    },
+    {
+      "language": "python",
+      "line": 68,
+      "path": "core\\decision_layer.py",
+      "text": "lowered = text.lower()"
+    },
+    {
+      "language": "python",
+      "line": 70,
+      "path": "core\\decision_layer.py",
+      "text": "markers = ["
+    },
+    {
+      "language": "python",
+      "line": 71,
+      "path": "core\\decision_layer.py",
+      "text": "\"decision report for \","
+    },
+    {
+      "language": "python",
+      "line": 72,
+      "path": "core\\decision_layer.py",
+      "text": "\"decision report about \","
+    },
+    {
+      "language": "python",
+      "line": 73,
+      "path": "core\\decision_layer.py",
+      "text": "\"model recommendation for \","
+    },
+    {
+      "language": "python",
+      "line": 74,
+      "path": "core\\decision_layer.py",
+      "text": "\"recommend model for \","
+    },
+    {
+      "language": "python",
+      "line": 75,
+      "path": "core\\decision_layer.py",
+      "text": "\"department recommendation for \","
+    },
+    {
+      "language": "python",
+      "line": 76,
+      "path": "core\\decision_layer.py",
+      "text": "\"execution plan for \","
+    },
+    {
+      "language": "python",
+      "line": 77,
+      "path": "core\\decision_layer.py",
+      "text": "\"plan for \","
+    },
+    {
+      "language": "python",
+      "line": 78,
+      "path": "core\\decision_layer.py",
+      "text": "\"report for \","
+    },
+    {
+      "language": "python",
+      "line": 79,
+      "path": "core\\decision_layer.py",
+      "text": "\"for \","
+    },
+    {
+      "language": "python",
+      "line": 80,
+      "path": "core\\decision_layer.py",
+      "text": "\"about \","
+    },
+    {
+      "language": "python",
+      "line": 81,
+      "path": "core\\decision_layer.py",
+      "text": "]"
+    },
+    {
+      "language": "python",
+      "line": 83,
+      "path": "core\\decision_layer.py",
+      "text": "for marker in markers:"
+    },
+    {
+      "language": "python",
+      "line": 84,
+      "path": "core\\decision_layer.py",
+      "text": "idx = lowered.find(marker)"
+    },
+    {
+      "language": "python",
+      "line": 85,
+      "path": "core\\decision_layer.py",
+      "text": "if idx >= 0:"
+    },
+    {
+      "language": "python",
+      "line": 86,
+      "path": "core\\decision_layer.py",
+      "text": "return text[idx + len(marker):].strip()"
+    },
+    {
+      "language": "python",
+      "line": 88,
+      "path": "core\\decision_layer.py",
+      "text": "return text"
+    },
+    {
+      "language": "python",
+      "line": 90,
+      "path": "core\\decision_layer.py",
+      "text": "def score_departments(self, query):"
+    },
+    {
+      "language": "python",
+      "line": 91,
+      "path": "core\\decision_layer.py",
+      "text": "subject = self.extract_subject_text(query)"
+    },
+    {
+      "language": "python",
+      "line": 92,
+      "path": "core\\decision_layer.py",
+      "text": "lowered = subject.lower()"
+    },
+    {
+      "language": "python",
+      "line": 94,
+      "path": "core\\decision_layer.py",
+      "text": "scores = {key: 0 for key in self.registry.all().keys()}"
+    },
+    {
+      "language": "python",
+      "line": 95,
+      "path": "core\\decision_layer.py",
+      "text": "evidence = {key: [] for key in self.registry.all().keys()}"
+    },
+    {
+      "language": "python",
+      "line": 97,
+      "path": "core\\decision_layer.py",
+      "text": "for key, aliases in self.DEPARTMENT_ALIASES.items():"
+    },
+    {
+      "language": "python",
+      "line": 98,
+      "path": "core\\decision_layer.py",
+      "text": "for alias in aliases:"
+    },
+    {
+      "language": "python",
+      "line": 99,
+      "path": "core\\decision_layer.py",
+      "text": "if alias in lowered:"
+    },
+    {
+      "language": "python",
+      "line": 100,
+      "path": "core\\decision_layer.py",
+      "text": "points = 50 if alias == lowered or alias in lowered else 30"
+    },
+    {
+      "language": "python",
+      "line": 101,
+      "path": "core\\decision_layer.py",
+      "text": "scores[key] += points"
+    },
+    {
+      "language": "python",
+      "line": 102,
+      "path": "core\\decision_layer.py",
+      "text": "evidence[key].append(f\"subject contains alias: {alias}\")"
+    },
+    {
+      "language": "python",
+      "line": 104,
+      "path": "core\\decision_layer.py",
+      "text": "for key, info in self.registry.all().items():"
+    },
+    {
+      "language": "python",
+      "line": 105,
+      "path": "core\\decision_layer.py",
+      "text": "for mission_type in info.get(\"mission_types\", []):"
+    },
+    {
+      "language": "python",
+      "line": 106,
+      "path": "core\\decision_layer.py",
+      "text": "if mission_type.lower() in lowered:"
+    },
+    {
+      "language": "python",
+      "line": 107,
+      "path": "core\\decision_layer.py",
+      "text": "scores[key] += 20"
+    },
+    {
+      "language": "python",
+      "line": 108,
+      "path": "core\\decision_layer.py",
+      "text": "evidence[key].append(f\"matches mission type: {mission_type}\")"
+    },
+    {
+      "language": "python",
+      "line": 110,
+      "path": "core\\decision_layer.py",
+      "text": "if max(scores.values()) == 0:"
+    },
+    {
+      "language": "python",
+      "line": 111,
+      "path": "core\\decision_layer.py",
+      "text": "fallback = self.classify_mission(subject)"
+    },
+    {
+      "language": "python",
+      "line": 112,
+      "path": "core\\decision_layer.py",
+      "text": "department = self.recommend_department(fallback)"
+    },
+    {
+      "language": "python",
+      "line": 113,
+      "path": "core\\decision_layer.py",
+      "text": "scores[department] += 15"
+    },
+    {
+      "language": "python",
+      "line": 114,
+      "path": "core\\decision_layer.py",
+      "text": "evidence[department].append(f\"fallback mission classification: {fallback}\")"
+    },
+    {
+      "language": "python",
+      "line": 116,
+      "path": "core\\decision_layer.py",
+      "text": "selected = max(scores, key=scores.get)"
+    },
+    {
+      "language": "python",
+      "line": 118,
+      "path": "core\\decision_layer.py",
+      "text": "return {"
+    },
+    {
+      "language": "python",
+      "line": 119,
+      "path": "core\\decision_layer.py",
+      "text": "\"subject\": subject,"
+    },
+    {
+      "language": "python",
+      "line": 120,
+      "path": "core\\decision_layer.py",
+      "text": "\"scores\": scores,"
+    },
+    {
+      "language": "python",
+      "line": 121,
+      "path": "core\\decision_layer.py",
+      "text": "\"evidence\": evidence,"
+    },
+    {
+      "language": "python",
+      "line": 122,
+      "path": "core\\decision_layer.py",
+      "text": "\"selected_department\": selected,"
+    },
+    {
+      "language": "python",
+      "line": 123,
+      "path": "core\\decision_layer.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 125,
+      "path": "core\\decision_layer.py",
+      "text": "def classify_mission(self, query):"
+    },
+    {
+      "language": "python",
+      "line": 126,
+      "path": "core\\decision_layer.py",
+      "text": "lowered = self.extract_subject_text(query).lower()"
+    },
+    {
+      "language": "python",
+      "line": 128,
+      "path": "core\\decision_layer.py",
+      "text": "if any(term in lowered for term in [\"code\", \"architecture\", \"debug\", \"refactor\", \"technical debt\"]):"
+    },
+    {
+      "language": "python",
+      "line": 129,
+      "path": "core\\decision_layer.py",
+      "text": "return \"engineering\""
+    },
+    {
+      "language": "python",
+      "line": 131,
+      "path": "core\\decision_layer.py",
+      "text": "if any(term in lowered for term in [\"draw\", \"image\", \"render\", \"red canvas\", \"promptsmith\", \"visual\", \"picture\", \"canvas\"]):"
+    },
+    {
+      "language": "python",
+      "line": 132,
+      "path": "core\\decision_layer.py",
+      "text": "return \"creative\""
+    },
+    {
+      "language": "python",
+      "line": 134,
+      "path": "core\\decision_layer.py",
+      "text": "if any(term in lowered for term in [\"library\", \"search documents\", \"research\", \"find in files\", \"iron library\"]):"
+    },
+    {
+      "language": "python",
+      "line": 135,
+      "path": "core\\decision_layer.py",
+      "text": "return \"research\""
+    },
+    {
+      "language": "python",
+      "line": 137,
+      "path": "core\\decision_layer.py",
+      "text": "if any(term in lowered for term in [\"diagnostics\", \"health\", \"status\", \"hardware\", \"cpu\", \"ram\"]):"
+    },
+    {
+      "language": "python",
+      "line": 138,
+      "path": "core\\decision_layer.py",
+      "text": "return \"diagnostics\""
+    },
+    {
+      "language": "python",
+      "line": 140,
+      "path": "core\\decision_layer.py",
+      "text": "if any(term in lowered for term in [\"settings\", \"theme\", \"profile\", \"identity\", \"name\", \"color\", \"soul forge\", \"forge\"]):"
+    },
+    {
+      "language": "python",
+      "line": 141,
+      "path": "core\\decision_layer.py",
+      "text": "return \"configuration\""
+    },
+    {
+      "language": "python",
+      "line": 143,
+      "path": "core\\decision_layer.py",
+      "text": "return \"conversation\""
+    },
+    {
+      "language": "python",
+      "line": 145,
+      "path": "core\\decision_layer.py",
+      "text": "def complexity(self, query, mission_type, plan=None):"
+    },
+    {
+      "language": "python",
+      "line": 146,
+      "path": "core\\decision_layer.py",
+      "text": "length = len(query)"
+    },
+    {
+      "language": "python",
+      "line": 147,
+      "path": "core\\decision_layer.py",
+      "text": "step_count = len(plan.get(\"steps\", [])) if isinstance(plan, dict) else 1"
+    },
+    {
+      "language": "python",
+      "line": 149,
+      "path": "core\\decision_layer.py",
+      "text": "if step_count >= 3:"
+    },
+    {
+      "language": "python",
+      "line": 150,
+      "path": "core\\decision_layer.py",
+      "text": "return \"High\""
+    },
+    {
+      "language": "python",
+      "line": 152,
+      "path": "core\\decision_layer.py",
+      "text": "if mission_type in [\"engineering\", \"creative\"] and length > 120:"
+    },
+    {
+      "language": "python",
+      "line": 153,
+      "path": "core\\decision_layer.py",
+      "text": "return \"High\""
+    },
+    {
+      "language": "python",
+      "line": 155,
+      "path": "core\\decision_layer.py",
+      "text": "if mission_type in [\"engineering\", \"diagnostics\", \"configuration\", \"identity\"]:"
+    },
+    {
+      "language": "python",
+      "line": 156,
+      "path": "core\\decision_layer.py",
+      "text": "return \"Medium\""
+    },
+    {
+      "language": "python",
+      "line": 158,
+      "path": "core\\decision_layer.py",
+      "text": "if length > 200:"
+    },
+    {
+      "language": "python",
+      "line": 159,
+      "path": "core\\decision_layer.py",
+      "text": "return \"Medium\""
+    },
+    {
+      "language": "python",
+      "line": 161,
+      "path": "core\\decision_layer.py",
+      "text": "return \"Low\""
+    },
+    {
+      "language": "python",
+      "line": 163,
+      "path": "core\\decision_layer.py",
+      "text": "def recommend_department(self, mission_type):"
+    },
+    {
+      "language": "python",
+      "line": 164,
+      "path": "core\\decision_layer.py",
+      "text": "mapping = {"
+    },
+    {
+      "language": "python",
+      "line": 165,
+      "path": "core\\decision_layer.py",
+      "text": "\"engineering\": \"engineer\","
+    },
+    {
+      "language": "python",
+      "line": 166,
+      "path": "core\\decision_layer.py",
+      "text": "\"creative\": \"red_canvas\","
+    },
+    {
+      "language": "python",
+      "line": 167,
+      "path": "core\\decision_layer.py",
+      "text": "\"research\": \"iron_library\","
+    },
+    {
+      "language": "python",
+      "line": 168,
+      "path": "core\\decision_layer.py",
+      "text": "\"diagnostics\": \"diagnostics\","
+    },
+    {
+      "language": "python",
+      "line": 169,
+      "path": "core\\decision_layer.py",
+      "text": "\"configuration\": \"settings\","
+    },
+    {
+      "language": "python",
+      "line": 170,
+      "path": "core\\decision_layer.py",
+      "text": "\"identity\": \"soul_forge\","
+    },
+    {
+      "language": "python",
+      "line": 171,
+      "path": "core\\decision_layer.py",
+      "text": "\"conversation\": \"chat\","
+    },
+    {
+      "language": "python",
+      "line": 172,
+      "path": "core\\decision_layer.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 174,
+      "path": "core\\decision_layer.py",
+      "text": "return mapping.get(mission_type, \"chat\")"
+    },
+    {
+      "language": "python",
+      "line": 176,
+      "path": "core\\decision_layer.py",
+      "text": "def recommend_model(self, mission_type, department_key=None, available_models=None):"
+    },
+    {
+      "language": "python",
+      "line": 177,
+      "path": "core\\decision_layer.py",
+      "text": "available_models = available_models or []"
+    },
+    {
+      "language": "python",
+      "line": 178,
+      "path": "core\\decision_layer.py",
+      "text": "names = [getattr(model, \"name\", str(model)) for model in available_models]"
+    },
+    {
+      "language": "python",
+      "line": 179,
+      "path": "core\\decision_layer.py",
+      "text": "lowered = [name.lower() for name in names]"
+    },
+    {
+      "language": "python",
+      "line": 181,
+      "path": "core\\decision_layer.py",
+      "text": "def find_contains(*needles):"
+    },
+    {
+      "language": "python",
+      "line": 182,
+      "path": "core\\decision_layer.py",
+      "text": "for i, name in enumerate(lowered):"
+    },
+    {
+      "language": "python",
+      "line": 183,
+      "path": "core\\decision_layer.py",
+      "text": "if all(needle.lower() in name for needle in needles):"
+    },
+    {
+      "language": "python",
+      "line": 184,
+      "path": "core\\decision_layer.py",
+      "text": "return names[i]"
+    },
+    {
+      "language": "python",
+      "line": 185,
+      "path": "core\\decision_layer.py",
+      "text": "return None"
+    },
+    {
+      "language": "python",
+      "line": 187,
+      "path": "core\\decision_layer.py",
+      "text": "if department_key == \"engineer\" or mission_type == \"engineering\":"
+    },
+    {
+      "language": "python",
+      "line": 188,
+      "path": "core\\decision_layer.py",
+      "text": "return find_contains(\"coder\") or find_contains(\"qwen\") or find_contains(\"deepseek\") or (names[0] if names else \"Qwen3-Coder recommended\")"
+    },
+    {
+      "language": "python",
+      "line": 190,
+      "path": "core\\decision_layer.py",
+      "text": "if department_key == \"red_canvas\" or mission_type == \"creative\":"
+    },
+    {
+      "language": "python",
+      "line": 191,
+      "path": "core\\decision_layer.py",
+      "text": "return find_contains(\"vl\") or find_contains(\"deepseek\") or find_contains(\"qwen\") or (names[0] if names else \"Qwen3VL or DeepSeek recommended\")"
+    },
+    {
+      "language": "python",
+      "line": 193,
+      "path": "core\\decision_layer.py",
+      "text": "if department_key == \"iron_library\" or mission_type == \"research\":"
+    },
+    {
+      "language": "python",
+      "line": 194,
+      "path": "core\\decision_layer.py",
+      "text": "return find_contains(\"coder\") or find_contains(\"deepseek\") or find_contains(\"qwen\") or (names[0] if names else \"Qwen or DeepSeek recommended\")"
+    },
+    {
+      "language": "python",
+      "line": 196,
+      "path": "core\\decision_layer.py",
+      "text": "if department_key == \"diagnostics\" or mission_type == \"diagnostics\":"
+    },
+    {
+      "language": "python",
+      "line": 197,
+      "path": "core\\decision_layer.py",
+      "text": "return \"No model required unless explanation is requested\""
+    },
+    {
+      "language": "python",
+      "line": 199,
+      "path": "core\\decision_layer.py",
+      "text": "if department_key in [\"settings\", \"soul_forge\"] or mission_type in [\"configuration\", \"identity\"]:"
+    },
+    {
+      "language": "python",
+      "line": 200,
+      "path": "core\\decision_layer.py",
+      "text": "return find_contains(\"coder\") or find_contains(\"qwen\") or (names[0] if names else \"Qwen3-Coder recommended\")"
+    },
+    {
+      "language": "python",
+      "line": 202,
+      "path": "core\\decision_layer.py",
+      "text": "return find_contains(\"deepseek\") or find_contains(\"qwen\") or (names[0] if names else \"General model recommended\")"
+    },
+    {
+      "language": "python",
+      "line": 204,
+      "path": "core\\decision_layer.py",
+      "text": "def recommend_settings(self, mission_type, department_key=None, hardware=None):"
+    },
+    {
+      "language": "python",
+      "line": 205,
+      "path": "core\\decision_layer.py",
+      "text": "hardware = hardware or {}"
+    },
+    {
+      "language": "python",
+      "line": 207,
+      "path": "core\\decision_layer.py",
+      "text": "settings = {"
+    },
+    {
+      "language": "python",
+      "line": 208,
+      "path": "core\\decision_layer.py",
+      "text": "\"temperature\": 0.7,"
+    },
+    {
+      "language": "python",
+      "line": 209,
+      "path": "core\\decision_layer.py",
+      "text": "\"context\": 8192,"
+    },
+    {
+      "language": "python",
+      "line": 210,
+      "path": "core\\decision_layer.py",
+      "text": "\"reply_tokens\": 2048,"
+    },
+    {
+      "language": "python",
+      "line": 211,
+      "path": "core\\decision_layer.py",
+      "text": "\"threads\": hardware.get(\"recommended_threads\", 10),"
+    },
+    {
+      "language": "python",
+      "line": 212,
+      "path": "core\\decision_layer.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 214,
+      "path": "core\\decision_layer.py",
+      "text": "if department_key == \"engineer\" or mission_type == \"engineering\":"
+    },
+    {
+      "language": "python",
+      "line": 215,
+      "path": "core\\decision_layer.py",
+      "text": "settings.update({"
+    },
+    {
+      "language": "python",
+      "line": 216,
+      "path": "core\\decision_layer.py",
+      "text": "\"temperature\": 0.2,"
+    }
+  ],
+  "schema": "foxai.agent_fox.technical_core.v1a2r2.immutable_static_bridge.v1",
+  "shard_number": 9
+}

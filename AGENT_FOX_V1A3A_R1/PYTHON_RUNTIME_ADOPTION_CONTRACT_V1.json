@@ -1,0 +1,43 @@
+{
+  "schema": "foxai.agent_fox.technical_core.v1a3a_r1.python_runtime_adoption_contract.v1",
+  "mission_title": "Agent Fox Technical Core V1A-3A-R1 — Python Site-Policy Validation Repair and Evidence Adoption",
+  "source_mission_id": "ENG-20260721-071125-0FB108",
+  "source_result": "python_runtime_identity_and_path_safety_map_complete",
+  "adoption_policy": {
+    "rerun_interpreter_probes": false,
+    "interpreter_child_process_count": 0,
+    "verify_source_output_hashes": true,
+    "verify_interpreter_and_control_file_hashes": true,
+    "verify_protected_known_good_hashes": true,
+    "modify_source_evidence": false
+  },
+  "successful_probe_required_flags": {
+    "isolated": 1,
+    "ignore_environment": 1,
+    "no_user_site": 1,
+    "dont_write_bytecode": 1
+  },
+  "site_policy": {
+    "default": "no_site must equal 1",
+    "allowed_exception": "no_site may equal 0 only when the matching verified underscore-PTH control file contains the exact noncomment line import site",
+    "exception_classification": "site_enabled_by_underscore_pth"
+  },
+  "portability_policy": {
+    "host_base_dependency": "A project-root executable whose verified base_prefix is outside Z:\\FOXAI is classified host_base_dependent.",
+    "active_conflict_claim": false
+  },
+  "safety": {
+    "network": false,
+    "package_installation": false,
+    "pip": false,
+    "pythonw_execution": false,
+    "foxai_source_execution": false,
+    "launcher_execution": false,
+    "model_loading": false,
+    "deletion": false,
+    "renaming": false,
+    "runtime_modification": false,
+    "configuration_change": false,
+    "output_ceiling_bytes": 67108864
+  }
+}

@@ -1,0 +1,183 @@
+{
+  "authorized": true,
+  "changes": [
+    {
+      "action": "write_file",
+      "after_sha256": "9c1331d04c5973944e1bab3a7177f3035803183236f144610fc6de957ea27b0c",
+      "after_size": 54068,
+      "before_sha256": null,
+      "before_size": null,
+      "relative_path": "System\\AgentFoxTechnicalCore\\static_code_launcher_bridge_v1.py"
+    },
+    {
+      "action": "write_file",
+      "after_sha256": "4c4c434ac1e5e51a776adb87d43eab352a7791a11a2fa219fb3fb3a71870f9e8",
+      "after_size": 2340,
+      "before_sha256": null,
+      "before_size": null,
+      "relative_path": "System\\AgentFoxTechnicalCore\\STATIC_CODE_LAUNCHER_CONTRACT_V1.json"
+    },
+    {
+      "action": "write_file",
+      "after_sha256": "5ce41008a8f77e0f6655db24438cd7c781db08766d58e824521c19a1111417ac",
+      "after_size": 1716,
+      "before_sha256": null,
+      "before_size": null,
+      "relative_path": "System\\AgentFoxTechnicalCore\\README_V1A2.md"
+    }
+  ],
+  "created_at": "2026-07-21T05:55:48.108468Z",
+  "evidence_is_tool_generated": true,
+  "failure": null,
+  "mission_id": "ENG-20260721-053749-E3BE2A",
+  "mission_title": "Agent Fox Technical Core V1A-2 \u2014 Static Code and Launcher Evidence Bridge",
+  "mission_type": "implement",
+  "no_deletions": true,
+  "no_renames": true,
+  "plan_path": "Z:\\FOXAI\\AGENT_FOX_V1A2\\PLAN.json",
+  "plan_sha256": "4a35a3072d86ebd08be5b1531ee80d0a320cd1902ca4fdc5a1dd1fb7395c2acf",
+  "project_root": "Z:\\FOXAI",
+  "result": "applied_verified",
+  "rolled_back": false,
+  "schema": "foxai.engineering.receipt.v1",
+  "snapshot_manifest": "Z:\\FOXAI\\System\\EngineeringWorkshop\\snapshots\\ENG-20260721-053749-E3BE2A\\snapshot_20260721T055529022879Z.manifest.json",
+  "snapshot_path": "Z:\\FOXAI\\System\\EngineeringWorkshop\\snapshots\\ENG-20260721-053749-E3BE2A\\snapshot_20260721T055529022879Z.zip",
+  "snapshot_sha256": "96a7f9893394aec0023134df75987c7e052cc8aa7b3dafcd205d587dab3e075e",
+  "validations": [
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nimport ast, hashlib, json\nroot=Path(r\"Z:\\FOXAI\")\ndrop=root/r\"AGENT_FOX_V1A2\"\ninstalled=root/r\"System\\AgentFoxTechnicalCore\"\nchecks=[\n    (drop/r\"static_code_launcher_bridge_v1.py\", installed/r\"static_code_launcher_bridge_v1.py\", \"9c1331d04c5973944e1bab3a7177f3035803183236f144610fc6de957ea27b0c\"),\n    (drop/r\"STATIC_CODE_LAUNCHER_CONTRACT_V1.json\", installed/r\"STATIC_CODE_LAUNCHER_CONTRACT_V1.json\", \"4c4c434ac1e5e51a776adb87d43eab352a7791a11a2fa219fb3fb3a71870f9e8\"),\n    (drop/r\"README_V1A2.md\", installed/r\"README_V1A2.md\", \"5ce41008a8f77e0f6655db24438cd7c781db08766d58e824521c19a1111417ac\"),\n]\nfor source,target,expected in checks:\n    assert source.is_file(), f\"missing package file: {source}\"\n    assert target.is_file(), f\"missing installed file: {target}\"\n    assert hashlib.sha256(source.read_bytes()).hexdigest()==expected, f\"package hash mismatch: {source}\"\n    assert hashlib.sha256(target.read_bytes()).hexdigest()==expected, f\"installed hash mismatch: {target}\"\nscript_path=installed/r\"static_code_launcher_bridge_v1.py\"\nscript=script_path.read_text(encoding=\"utf-8\")\ncompile(script,str(script_path),\"exec\")\ntree=ast.parse(script)\nimports=set()\nfor node in ast.walk(tree):\n    if isinstance(node,ast.Import):\n        imports.update(alias.name.split('.')[0] for alias in node.names)\n    elif isinstance(node,ast.ImportFrom) and node.module:\n        imports.add(node.module.split('.')[0])\nforbidden={\"subprocess\",\"socket\",\"urllib\",\"http\",\"ftplib\",\"requests\",\"pip\",\"ensurepip\",\"psutil\",\"winreg\",\"ctypes\",\"webbrowser\"}\nbad=sorted(imports & forbidden)\nassert not bad, \"forbidden imports: \"+\", \".join(bad)\nfor marker in (\"subprocess.run(\",\"subprocess.Popen(\",\"os.system(\",\"shell=True\",\"requests.\",\"urlopen(\",\"socket.\",\"pip install\",\"Path.unlink(\",\"shutil.rmtree(\",\"os.remove(\",\"os.rename(\",\"importlib.import_module(\",\"__import__(\", \"exec(\"):\n    assert marker not in script, \"forbidden operation marker: \"+marker\ncontract=json.loads((installed/r\"STATIC_CODE_LAUNCHER_CONTRACT_V1.json\").read_text(encoding=\"utf-8\"))\nassert contract.get(\"schema\")==\"foxai.agent_fox.technical_core.v1a2.static_bridge_contract.v1\"\nsafety=contract.get(\"safety\",{})\nassert safety.get(\"network_required\") is False\nassert safety.get(\"third_party_dependencies_required\") is False\nassert safety.get(\"subprocess_launches\") is False\nassert safety.get(\"foxai_imports_or_execution\") is False\nnormalized=root/r\"System\\EngineeringWorkshop\\missions\\ENG-20260721-051832-1CAA3F_V1A1_NORMALIZED\"\nreceipt=json.loads((normalized/r\"NORMALIZATION_RECEIPT.json\").read_text(encoding=\"utf-8\"))\nassert receipt.get(\"result\")==\"normalized_static_manifest_complete\"\nassert receipt.get(\"source_evidence_unchanged\") is True\nprint(\"AGENT_FOX_V1A2_INSTALL_PREFLIGHT_OK\")\n"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-21T05:55:29.147620Z",
+      "name": "Verify exact V1A-2 payloads, syntax, standard-library safety boundary, and V1A-1 prerequisite",
+      "returncode": 0,
+      "started_at": "2026-07-21T05:55:29.051962Z",
+      "stderr": "",
+      "stdout": "AGENT_FOX_V1A2_INSTALL_PREFLIGHT_OK\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\static_code_launcher_bridge_v1.py",
+        "--self-test"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-21T05:55:29.250771Z",
+      "name": "Run static parser, redaction, path-classification, and batch-expansion self-tests",
+      "returncode": 0,
+      "started_at": "2026-07-21T05:55:29.147989Z",
+      "stderr": "",
+      "stdout": "AGENT_FOX_V1A2_SELF_TEST_OK\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\static_code_launcher_bridge_v1.py",
+        "build",
+        "--project-root",
+        "Z:\\FOXAI",
+        "--normalized-dir",
+        "Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260721-051832-1CAA3F_V1A1_NORMALIZED",
+        "--output-dir",
+        "Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260721-053749-E3BE2A_V1A2_STATIC_BRIDGE",
+        "--mission-id",
+        "ENG-20260721-053749-E3BE2A"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-21T05:55:38.373154Z",
+      "name": "Build bounded static code, launcher, reference, coverage, and known-good indexes",
+      "returncode": 0,
+      "started_at": "2026-07-21T05:55:29.251126Z",
+      "stderr": "AI\\kobold_engine_adapter.py:145: SyntaxWarning: \"\\F\" is an invalid escape sequence. Such sequences will not work in the future. Did you mean \"\\\\F\"? A raw string is also an option.\n  echo Z:\\FOXAI\\Models\\Chat\nFoundry\\Patches\\apply_feature003d_first_contact_diagnostics.py:56: SyntaxWarning: \"\\R\" is an invalid escape sequence. Such sequences will not work in the future. Did you mean \"\\\\R\"? A raw string is also an option.\n  echo Foundry\\Reports\\FIRST_CONTACT_DIAGNOSTICS.md\nFoundry\\Patches\\apply_feature003e_runtime_fixer.py:89: SyntaxWarning: \"\\F\" is an invalid escape sequence. Such sequences will not work in the future. Did you mean \"\\\\F\"? A raw string is also an option.\n  Known-good path is `Z:\\FOXAI\\Engine\\llama-server.exe`.\nFoundry\\Patches\\apply_v0.3.0_project_unification.py:207: SyntaxWarning: \"\\.\" is an invalid escape sequence. Such sequences will not work in the future. Did you mean \"\\\\.\"? A raw string is also an option.\n  cd /d \"%~dp0..\\..\"\nFoundry\\Patches\\apply_v0.9.0_git_release_packager.py:77: SyntaxWarning: \"\\g\" is an invalid escape sequence. Such sequences will not work in the future. Did you mean \"\\\\g\"? A raw string is also an option.\n  Foundry\\git_baseline.bat\nFoundry\\Patches\\apply_v0.9.0_git_release_packager.py:101: SyntaxWarning: \"\\p\" is an invalid escape sequence. Such sequences will not work in the future. Did you mean \"\\\\p\"? A raw string is also an option.\n  python Foundry\\package_release.py\nFoundry\\Patches\\apply_v0.9.0_git_release_packager.py:154: SyntaxWarning: \"\\p\" is an invalid escape sequence. Such sequences will not work in the future. Did you mean \"\\\\p\"? A raw string is also an option.\n  Foundry\\package_release.bat\nFoundry\\Patches\\apply_v1.2.0_foxai_discovery.py:135: SyntaxWarning: \"\\F\" is an invalid escape sequence. Such sequences will not work in the future. Did you mean \"\\\\F\"? A raw string is also an option.\n  KayocktheOS should not duplicate large models. It discovers and orchestrates assets from `Z:\\FOXAI`.\n",
+      "stdout": "{\n  \"result\": \"static_code_and_launcher_bridge_complete\",\n  \"output_dir\": \"Z:\\\\FOXAI\\\\System\\\\EngineeringWorkshop\\\\missions\\\\ENG-20260721-053749-E3BE2A_V1A2_STATIC_BRIDGE\",\n  \"files\": [\n    \"KNOWN_GOOD_COMPARISON.json\",\n    \"QUERY_EXAMPLES.md\",\n    \"STATIC_BRIDGE_RECEIPT.json\",\n    \"STATIC_CODE_INDEX.json\",\n    \"STATIC_INDEX_COVERAGE.json\",\n    \"STATIC_LAUNCHER_INDEX.json\",\n    \"STATIC_REFERENCE_INDEX.json\"\n  ],\n  \"total_output_bytes\": 35791890,\n  \"network_used\": false,\n  \"foxai_source_or_launchers_executed\": false\n}\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\static_code_launcher_bridge_v1.py",
+        "build",
+        "--project-root",
+        "Z:\\FOXAI",
+        "--normalized-dir",
+        "Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260721-051832-1CAA3F_V1A1_NORMALIZED",
+        "--output-dir",
+        "Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260721-053749-E3BE2A_V1A2_STATIC_BRIDGE",
+        "--mission-id",
+        "ENG-20260721-053749-E3BE2A",
+        "--verify-existing"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-21T05:55:47.130019Z",
+      "name": "Repeat static build in verification mode and require byte-for-byte deterministic output",
+      "returncode": 0,
+      "started_at": "2026-07-21T05:55:38.373731Z",
+      "stderr": "AI\\kobold_engine_adapter.py:145: SyntaxWarning: \"\\F\" is an invalid escape sequence. Such sequences will not work in the future. Did you mean \"\\\\F\"? A raw string is also an option.\n  echo Z:\\FOXAI\\Models\\Chat\nFoundry\\Patches\\apply_feature003d_first_contact_diagnostics.py:56: SyntaxWarning: \"\\R\" is an invalid escape sequence. Such sequences will not work in the future. Did you mean \"\\\\R\"? A raw string is also an option.\n  echo Foundry\\Reports\\FIRST_CONTACT_DIAGNOSTICS.md\nFoundry\\Patches\\apply_feature003e_runtime_fixer.py:89: SyntaxWarning: \"\\F\" is an invalid escape sequence. Such sequences will not work in the future. Did you mean \"\\\\F\"? A raw string is also an option.\n  Known-good path is `Z:\\FOXAI\\Engine\\llama-server.exe`.\nFoundry\\Patches\\apply_v0.3.0_project_unification.py:207: SyntaxWarning: \"\\.\" is an invalid escape sequence. Such sequences will not work in the future. Did you mean \"\\\\.\"? A raw string is also an option.\n  cd /d \"%~dp0..\\..\"\nFoundry\\Patches\\apply_v0.9.0_git_release_packager.py:77: SyntaxWarning: \"\\g\" is an invalid escape sequence. Such sequences will not work in the future. Did you mean \"\\\\g\"? A raw string is also an option.\n  Foundry\\git_baseline.bat\nFoundry\\Patches\\apply_v0.9.0_git_release_packager.py:101: SyntaxWarning: \"\\p\" is an invalid escape sequence. Such sequences will not work in the future. Did you mean \"\\\\p\"? A raw string is also an option.\n  python Foundry\\package_release.py\nFoundry\\Patches\\apply_v0.9.0_git_release_packager.py:154: SyntaxWarning: \"\\p\" is an invalid escape sequence. Such sequences will not work in the future. Did you mean \"\\\\p\"? A raw string is also an option.\n  Foundry\\package_release.bat\nFoundry\\Patches\\apply_v1.2.0_foxai_discovery.py:135: SyntaxWarning: \"\\F\" is an invalid escape sequence. Such sequences will not work in the future. Did you mean \"\\\\F\"? A raw string is also an option.\n  KayocktheOS should not duplicate large models. It discovers and orchestrates assets from `Z:\\FOXAI`.\n",
+      "stdout": "AGENT_FOX_V1A2_DETERMINISM_VERIFIED\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nimport hashlib, json\nroot=Path(r\"Z:\\FOXAI\")\nout=root/r\"System\\EngineeringWorkshop\\missions\\ENG-20260721-053749-E3BE2A_V1A2_STATIC_BRIDGE\"\nrequired={\"STATIC_CODE_INDEX.json\",\"STATIC_LAUNCHER_INDEX.json\",\"STATIC_REFERENCE_INDEX.json\",\"KNOWN_GOOD_COMPARISON.json\",\"STATIC_INDEX_COVERAGE.json\",\"STATIC_BRIDGE_RECEIPT.json\",\"QUERY_EXAMPLES.md\"}\nactual={p.name for p in out.iterdir() if p.is_file()}\nassert required.issubset(actual), f\"missing outputs: {sorted(required-actual)}\"\nloaded={name:json.loads((out/name).read_text(encoding=\"utf-8\")) for name in required if name.endswith('.json')}\nreceipt=loaded[\"STATIC_BRIDGE_RECEIPT.json\"]\nassert receipt.get(\"result\")==\"static_code_and_launcher_bridge_complete\"\nassert receipt.get(\"mission_id\")==\"ENG-20260721-053749-E3BE2A\"\nassert receipt.get(\"network_used\") is False\nassert receipt.get(\"packages_installed\") is False\nassert receipt.get(\"foxai_source_imported_or_executed\") is False\nassert receipt.get(\"launchers_executed\") is False\nassert receipt.get(\"python_interpreters_discovered_or_probed_by_bridge\") is False\nassert receipt.get(\"models_loaded\") is False\nassert receipt.get(\"existing_foxai_source_modified\") is False\nassert receipt.get(\"known_good_candidates_all_match\") is True\nassert receipt.get(\"unresolved_launcher_targets_reported_as_confirmed_active\")==0\nfor item in receipt.get(\"core_outputs_before_receipt\",[]):\n    path=out/item[\"name\"]\n    assert path.is_file(), f\"receipt output missing: {path}\"\n    assert path.stat().st_size==item[\"size_bytes\"], f\"output size mismatch: {path}\"\n    assert hashlib.sha256(path.read_bytes()).hexdigest()==item[\"sha256\"], f\"output hash mismatch: {path}\"\ncode=loaded[\"STATIC_CODE_INDEX.json\"]\nassert code.get(\"source_imported_or_executed\") is False\nassert code.get(\"file_count\",0)>0\nrelative={str(item.get(\"relative_path\",'')).replace('/','\\\\').casefold() for item in code.get(\"files\",[])}\nassert r\"core\\foxai_web.py\".casefold() in relative\nassert r\"departments\\engineering\\source_locator.py\".casefold() in relative\nassert code.get(\"symbol_count\",0)>0\nlaunch=loaded[\"STATIC_LAUNCHER_INDEX.json\"]\nassert launch.get(\"source_launcher_record_count\")==536\nassert launch.get(\"record_count\")==536\nassert launch.get(\"launchers_executed\") is False\nassert launch.get(\"confirmed_active_or_executed_targets\")==0\nfor record in launch.get(\"records\",[]):\n    assert record.get(\"launcher_executed\") is False\n    for edge in record.get(\"edges\",[]):\n        assert edge.get(\"confirmed_active_or_executed\") is False\n        if edge.get(\"unresolved_variables\"):\n            assert edge.get(\"confirmation\")!=\"static_existing_target\"\nknown=loaded[\"KNOWN_GOOD_COMPARISON.json\"]\nassert known.get(\"record_count\")==6\nassert known.get(\"all_match\") is True\nassert all(item.get(\"status\")==\"match\" for item in known.get(\"records\",[]))\ncoverage=loaded[\"STATIC_INDEX_COVERAGE.json\"]\nassert coverage.get(\"network_used\") is False\nassert coverage.get(\"packages_installed\") is False\nassert coverage.get(\"foxai_source_imported_or_executed\") is False\nassert coverage.get(\"launchers_executed\") is False\nassert coverage.get(\"models_loaded\") is False\nassert coverage.get(\"source_files_indexed\",0)>0\nassert coverage.get(\"source_bytes_read\",0)<=coverage.get(\"source_read_ceiling_bytes\",0)+4*1024*1024\nreferences=loaded[\"STATIC_REFERENCE_INDEX.json\"]\nassert references.get(\"line_record_count\",0)<=60000\nassert isinstance(references.get(\"symbol_index\"),dict)\nassert isinstance(references.get(\"import_index\"),dict)\nassert isinstance(references.get(\"setting_index\"),dict)\nv1=root/r\"System\\EngineeringWorkshop\\missions\\ENG-20260721-051832-1CAA3F_V1A1_NORMALIZED\"\nv1_receipt=json.loads((v1/r\"NORMALIZATION_RECEIPT.json\").read_text(encoding=\"utf-8\"))\nfor item in v1_receipt.get(\"core_outputs_before_receipt\",[]):\n    path=v1/item[\"name\"]\n    assert path.is_file(), f\"V1A-1 source missing: {path}\"\n    assert path.stat().st_size==item[\"size_bytes\"]\n    assert hashlib.sha256(path.read_bytes()).hexdigest()==item[\"sha256\"], f\"V1A-1 source changed: {path}\"\ntotal=sum(p.stat().st_size for p in out.iterdir() if p.is_file())\nassert total<=64*1024*1024, f\"output ceiling exceeded: {total}\"\nprint(\"AGENT_FOX_V1A2_STATIC_BRIDGE_OUTPUTS_VERIFIED\")\n"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-21T05:55:47.631626Z",
+      "name": "Verify indexes, exact paths and line evidence, protected hashes, V1A-1 immutability, ceilings, and zero active-target overclaims",
+      "returncode": 0,
+      "started_at": "2026-07-21T05:55:47.130351Z",
+      "stderr": "",
+      "stdout": "AGENT_FOX_V1A2_STATIC_BRIDGE_OUTPUTS_VERIFIED\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\static_code_launcher_bridge_v1.py",
+        "query",
+        "--index-dir",
+        "Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260721-053749-E3BE2A_V1A2_STATIC_BRIDGE",
+        "--mode",
+        "trace-launcher",
+        "--path",
+        "START_FOXAI_WEB_WITH_COMFYUI.bat",
+        "--limit",
+        "25",
+        "--format",
+        "json"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-21T05:55:48.108401Z",
+      "name": "Exercise the read-only Trace This Launcher query interface on a known-good launcher",
+      "returncode": 0,
+      "started_at": "2026-07-21T05:55:47.631971Z",
+      "stderr": "",
+      "stdout": "{\n  \"execution_performed\": false,\n  \"finding\": \"static_launcher_trace\",\n  \"similarity_or_reference_is_not_runtime_proof\": true,\n  \"starting_path\": \"START_FOXAI_WEB_WITH_COMFYUI.bat\",\n  \"trace\": [\n    {\n      \"depth\": 0,\n      \"edges\": [\n        {\n          \"command\": \"if not exist \\\"%PYTHON%\\\" (\",\n          \"confirmation\": \"unresolved_or_unverified_target\",\n          \"confirmed_active_or_executed\": false,\n          \"exists\": false,\n          \"expanded_target\": \"if\",\n          \"kind\": \"command_reference\",\n          \"line\": 19,\n          \"raw_target\": \"if\",\n          \"relative_path\": \"if\",\n          \"resolved_path\": \"Z:\\\\FOXAI\\\\if\",\n          \"unresolved_variables\": [],\n          \"within_project_root\": true\n        },\n        {\n          \"command\": \"echo ERROR: Portable Python was not found:\",\n          \"confirmation\": \"unresolved_or_unverified_target\",\n          \"confirmed_active_or_executed\": false,\n          \"exists\": false,\n          \"expanded_target\": \"echo\",\n          \"kind\": \"command_reference\",\n          \"line\": 20,\n          \"raw_target\": \"echo\",\n          \"relative_path\": \"echo\",\n          \"resolved_path\": \"Z:\\\\FOXAI\\\\echo\",\n          \"unresolved_variables\": [],\n          \"within_project_root\": true\n        },\n        {\n          \"command\": \"echo %PYTHON%\",\n          \"confirmation\": \"unresolved_or_unverified_target\",\n          \"confirmed_active_or_executed\": false,\n          \"exists\": false,\n          \"expanded_target\": \"echo\",\n          \"kind\": \"command_reference\",\n          \"line\": 21,\n          \"raw_target\": \"echo\",\n          \"relative_path\": \"echo\",\n          \"resolved_path\": \"Z:\\\\FOXAI\\\\echo\",\n          \"unresolved_variables\": [],\n          \"within_project_root\": true\n        },\n        {\n          \"command\": \"\\\"%PYTHON%\\\" -I -B -S \\\"%QUIET_START%\\\" --root \\\"%FOXAI_ROOT%\\\" --source webui\",\n          \"confirmation\": \"unresolved_or_unverified_target\",\n          \"confirmed_active_or_executed\": false,\n          \"exists\": false,\n          \"expanded_target\": \"%FOXAI_ROOT%\\\\Runtime\\\\Desktop\\\\python\\\\python.exe\",\n          \"kind\": \"command_reference\",\n          \"line\": 38,\n          \"raw_target\": \"%PYTHON%\",\n          \"relative_path\": \"%FOXAI_ROOT%\\\\Runtime\\\\Desktop\\\\python\\\\python.exe\",\n          \"resolved_path\": \"Z:\\\\FOXAI\\\\%FOXAI_ROOT%\\\\Runtime\\\\Desktop\\\\python\\\\python.exe\",\n          \"unresolved_variables\": [\n            \"%FOXAI_ROOT%\"\n          ],\n          \"within_project_root\": true\n        },\n        {\n          \"command\": \"\\\"%WEB_URL%\\\"\",\n          \"confirmation\": \"unresolved_or_unverified_target\",\n          \"confirmed_active_or_executed\": false,\n          \"exists\": false,\n          \"expanded_target\": \"http:\\\\\\\\127.0.0.1:8765\",\n          \"kind\": \"start\",\n          \"line\": 52,\n          \"raw_target\": \"%WEB_URL%\",\n          \"relative_path\": \"http:\\\\127.0.0.1:8765\",\n          \"resolved_path\": \"Z:\\\\FOXAI\\\\http:\\\\127.0.0.1:8765\",\n          \"unresolved_variables\": [],\n          \"within_project_root\": true\n        },\n        {\n          \"command\": \"\\\"%ComSpec%\\\" /d /k call \\\"%WEB_LAUNCHER%\\\"\",\n          \"confirmation\": \"unresolved_or_unverified_target\",\n          \"confirmed_active_or_executed\": false,\n          \"exists\": false,\n          \"expanded_target\": \"%ComSpec%\",\n          \"kind\": \"start\",\n          \"line\": 58,\n          \"raw_target\": \"%ComSpec%\",\n          \"relative_path\": \"%ComSpec%\",\n          \"resolved_path\": \"Z:\\\\FOXAI\\\\%ComSpec%\",\n          \"unresolved_variables\": [\n            \"%ComSpec%\"\n          ],\n          \"within_project_root\": true\n        }\n      ],\n      \"parse_status\": \"static_text_parsed\",\n      \"path\": \"START_FOXAI_WEB_WITH_COMFYUI.bat\",\n      \"ports\": [\n        8765\n      ],\n      \"python_references\": [\n        {\n          \"confirmation\": \"unresolved_or_unverified_target\",\n          \"exists\": false,\n          \"expanded_target\": \"%FOXAI_ROOT%\\\\Runtime\\\\Desktop\\\\python\\\\python.exe\",\n          \"interpreter_executed\": false,\n          \"line\": 19,\n          \"raw\": \"%PYTHON%\",\n          \"raw_target\": \"%PYTHON%\",\n          \"relative_path\": \"%FOXAI_ROOT%\\\\Runtime\\\\Desktop\\\\python\\\\python.exe\",\n          \"resolved_path\": \"Z:\\\\FOXAI\\\\%FOXAI_ROOT%\\\\Runtime\\\\Desktop\\\\python\\\\python.exe\",\n          \"unresolved_variables\": [\n            \"%FOXAI_ROOT%\"\n          ],\n          \"within_project_root\": true\n        },\n        {\n          \"confirmation\": \"unresolved_or_unverified_target\",\n          \"exists\": false,\n          \"expanded_target\": \"Python\",\n          \"interpreter_executed\": false,\n          \"line\": 20,\n          \"raw\": \"Python\",\n          \"raw_target\": \"Python\",\n          \"relative_path\": \"Python\",\n          \"resolved_path\": \"Z:\\\\FOXAI\\\\Python\",\n          \"unresolved_variables\": [],\n          \"within_project_root\": true\n        },\n        {\n          \"confirmation\": \"unresolved_or_unverified_target\",\n          \"exists\": false,\n          \"expanded_target\": \"%FOXAI_ROOT%\\\\Runtime\\\\Desktop\\\\python\\\\python.exe\",\n          \"interpreter_executed\": false,\n          \"line\": 21,\n          \"raw\": \"%PYTHON%\",\n          \"raw_target\": \"%PYTHON%\",\n          \"relative_path\": \"%FOXAI_ROOT%\\\\Runtime\\\\Desktop\\\\python\\\\python.exe\",\n          \"resolved_path\": \"Z:\\\\FOXAI\\\\%FOXAI_ROOT%\\\\Runtime\\\\Desktop\\\\python\\\\python.exe\",\n          \"unresolved_variables\": [\n            \"%FOXAI_ROOT%\"\n          ],\n          \"within_project_root\": true\n        },\n        {\n          \"confirmation\": \"unresolved_or_unverified_target\",\n          \"exists\": false,\n          \"expanded_target\": \"%FOXAI_ROOT%\\\\Runtime\\\\Desktop\\\\python\\\\python.exe\",\n          \"interpreter_executed\": false,\n          \"line\": 38,\n          \"raw\": \"%PYTHON%\",\n          \"raw_target\": \"%PYTHON%\",\n          \"relative_path\": \"%FOXAI_ROOT%\\\\Runtime\\\\Desktop\\\\python\\\\python.exe\",\n          \"resolved_path\": \"Z:\\\\FOXAI\\\\%FOXAI_ROOT%\\\\Runtime\\\\Desktop\\\\python\\\\python.exe\",\n          \"unresolved_variables\": [\n            \"%FOXAI_ROOT%\"\n          ],\n          \"within_project_root\": true\n        }\n      ]\n    }\n  ]\n}\n",
+      "timed_out": false
+    }
+  ]
+}

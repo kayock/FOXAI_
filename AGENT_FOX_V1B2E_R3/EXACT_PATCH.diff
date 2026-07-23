@@ -1,0 +1,22 @@
+--- a/core/director.py
++++ b/core/director.py
+@@ -66,7 +66,6 @@
+     "investigate",
+     "investigation",
+     "investigation engine",
+-    "evidence",
+     "ranked evidence",
+     "recommendation",
+     "engineering assessment",
+--- a/ui/main_window.py
++++ b/ui/main_window.py
+@@ -2356,7 +2356,8 @@
+             if not answer:
+                 answer = "[BLANK RESPONSE]\nThe model returned no text. Try restarting the mission or lowering context/max tokens."
+ 
+-            answer = f"[Model: {model_used}]\n\n{answer}"
++            if not answer.lstrip().startswith("[Model:"):
++                answer = f"[Model: {model_used}]\n\n{answer}"
+             self.messages.append({"role": "assistant", "content": answer})
+             self.add_chat("AGENT FOX", answer)
+             self.mission_memory.save()

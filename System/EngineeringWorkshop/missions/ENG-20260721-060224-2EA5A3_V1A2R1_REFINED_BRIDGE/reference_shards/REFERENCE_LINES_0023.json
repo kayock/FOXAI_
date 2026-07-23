@@ -1,0 +1,7207 @@
+{
+  "record_count": 1200,
+  "records": [
+    {
+      "language": "python",
+      "line": 284,
+      "path": "core\\security_containment.py",
+      "text": "enforcer.enforce(subject, obj, normalized_action)"
+    },
+    {
+      "language": "python",
+      "line": 285,
+      "path": "core\\security_containment.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 286,
+      "path": "core\\security_containment.py",
+      "text": "return AuthorizationDecision("
+    },
+    {
+      "language": "python",
+      "line": 287,
+      "path": "core\\security_containment.py",
+      "text": "allowed,"
+    },
+    {
+      "language": "python",
+      "line": 288,
+      "path": "core\\security_containment.py",
+      "text": "subject,"
+    },
+    {
+      "language": "python",
+      "line": 289,
+      "path": "core\\security_containment.py",
+      "text": "obj,"
+    },
+    {
+      "language": "python",
+      "line": 290,
+      "path": "core\\security_containment.py",
+      "text": "normalized_action,"
+    },
+    {
+      "language": "python",
+      "line": 291,
+      "path": "core\\security_containment.py",
+      "text": "("
+    },
+    {
+      "language": "python",
+      "line": 292,
+      "path": "core\\security_containment.py",
+      "text": "\"Casbin policy allowed the request.\""
+    },
+    {
+      "language": "python",
+      "line": 293,
+      "path": "core\\security_containment.py",
+      "text": "if allowed"
+    },
+    {
+      "language": "python",
+      "line": 294,
+      "path": "core\\security_containment.py",
+      "text": "else \"Casbin policy denied the request.\""
+    },
+    {
+      "language": "python",
+      "line": 295,
+      "path": "core\\security_containment.py",
+      "text": "),"
+    },
+    {
+      "language": "python",
+      "line": 296,
+      "path": "core\\security_containment.py",
+      "text": "\"casbin\","
+    },
+    {
+      "language": "python",
+      "line": 297,
+      "path": "core\\security_containment.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 298,
+      "path": "core\\security_containment.py",
+      "text": "except Exception:"
+    },
+    {
+      "language": "python",
+      "line": 299,
+      "path": "core\\security_containment.py",
+      "text": "pass"
+    },
+    {
+      "language": "python",
+      "line": 301,
+      "path": "core\\security_containment.py",
+      "text": "if subject in OPERATOR_ACTORS:"
+    },
+    {
+      "language": "python",
+      "line": 302,
+      "path": "core\\security_containment.py",
+      "text": "if ("
+    },
+    {
+      "language": "python",
+      "line": 303,
+      "path": "core\\security_containment.py",
+      "text": "obj in {\"engineer\", \"engineering_airlock\"}"
+    },
+    {
+      "language": "python",
+      "line": 304,
+      "path": "core\\security_containment.py",
+      "text": "and normalized_action in {\"route\", \"inspect\", \"search\", \"preview\"}"
+    },
+    {
+      "language": "python",
+      "line": 305,
+      "path": "core\\security_containment.py",
+      "text": "):"
+    },
+    {
+      "language": "python",
+      "line": 306,
+      "path": "core\\security_containment.py",
+      "text": "return AuthorizationDecision("
+    },
+    {
+      "language": "python",
+      "line": 307,
+      "path": "core\\security_containment.py",
+      "text": "True,"
+    },
+    {
+      "language": "python",
+      "line": 308,
+      "path": "core\\security_containment.py",
+      "text": "subject,"
+    },
+    {
+      "language": "python",
+      "line": 309,
+      "path": "core\\security_containment.py",
+      "text": "obj,"
+    },
+    {
+      "language": "python",
+      "line": 310,
+      "path": "core\\security_containment.py",
+      "text": "normalized_action,"
+    },
+    {
+      "language": "python",
+      "line": 311,
+      "path": "core\\security_containment.py",
+      "text": "("
+    },
+    {
+      "language": "python",
+      "line": 312,
+      "path": "core\\security_containment.py",
+      "text": "\"Trusted operator may request scoped Engineering \""
+    },
+    {
+      "language": "python",
+      "line": 313,
+      "path": "core\\security_containment.py",
+      "text": "\"Airlock inspection.\""
+    },
+    {
+      "language": "python",
+      "line": 314,
+      "path": "core\\security_containment.py",
+      "text": "),"
+    },
+    {
+      "language": "python",
+      "line": 315,
+      "path": "core\\security_containment.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 316,
+      "path": "core\\security_containment.py",
+      "text": "if ("
+    },
+    {
+      "language": "python",
+      "line": 317,
+      "path": "core\\security_containment.py",
+      "text": "obj in {\"repair_bay\", \"repair_chamber\"}"
+    },
+    {
+      "language": "python",
+      "line": 318,
+      "path": "core\\security_containment.py",
+      "text": "and normalized_action == \"preview\""
+    },
+    {
+      "language": "python",
+      "line": 319,
+      "path": "core\\security_containment.py",
+      "text": "):"
+    },
+    {
+      "language": "python",
+      "line": 320,
+      "path": "core\\security_containment.py",
+      "text": "return AuthorizationDecision("
+    },
+    {
+      "language": "python",
+      "line": 321,
+      "path": "core\\security_containment.py",
+      "text": "True,"
+    },
+    {
+      "language": "python",
+      "line": 322,
+      "path": "core\\security_containment.py",
+      "text": "subject,"
+    },
+    {
+      "language": "python",
+      "line": 323,
+      "path": "core\\security_containment.py",
+      "text": "obj,"
+    },
+    {
+      "language": "python",
+      "line": 324,
+      "path": "core\\security_containment.py",
+      "text": "normalized_action,"
+    },
+    {
+      "language": "python",
+      "line": 325,
+      "path": "core\\security_containment.py",
+      "text": "\"Trusted operator may preview Repair Chamber actions.\","
+    },
+    {
+      "language": "python",
+      "line": 326,
+      "path": "core\\security_containment.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 328,
+      "path": "core\\security_containment.py",
+      "text": "if ("
+    },
+    {
+      "language": "python",
+      "line": 329,
+      "path": "core\\security_containment.py",
+      "text": "subject == \"engineer\""
+    },
+    {
+      "language": "python",
+      "line": 330,
+      "path": "core\\security_containment.py",
+      "text": "and obj in {\"engineer\", \"engineering_airlock\"}"
+    },
+    {
+      "language": "python",
+      "line": 331,
+      "path": "core\\security_containment.py",
+      "text": "and normalized_action in {\"inspect\", \"search\"}"
+    },
+    {
+      "language": "python",
+      "line": 332,
+      "path": "core\\security_containment.py",
+      "text": "):"
+    },
+    {
+      "language": "python",
+      "line": 333,
+      "path": "core\\security_containment.py",
+      "text": "return AuthorizationDecision("
+    },
+    {
+      "language": "python",
+      "line": 334,
+      "path": "core\\security_containment.py",
+      "text": "True,"
+    },
+    {
+      "language": "python",
+      "line": 335,
+      "path": "core\\security_containment.py",
+      "text": "subject,"
+    },
+    {
+      "language": "python",
+      "line": 336,
+      "path": "core\\security_containment.py",
+      "text": "obj,"
+    },
+    {
+      "language": "python",
+      "line": 337,
+      "path": "core\\security_containment.py",
+      "text": "normalized_action,"
+    },
+    {
+      "language": "python",
+      "line": 338,
+      "path": "core\\security_containment.py",
+      "text": "("
+    },
+    {
+      "language": "python",
+      "line": 339,
+      "path": "core\\security_containment.py",
+      "text": "\"Engineer may perform read-only inspection inside the \""
+    },
+    {
+      "language": "python",
+      "line": 340,
+      "path": "core\\security_containment.py",
+      "text": "\"Engineering Airlock.\""
+    },
+    {
+      "language": "python",
+      "line": 341,
+      "path": "core\\security_containment.py",
+      "text": "),"
+    },
+    {
+      "language": "python",
+      "line": 342,
+      "path": "core\\security_containment.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 344,
+      "path": "core\\security_containment.py",
+      "text": "return AuthorizationDecision("
+    },
+    {
+      "language": "python",
+      "line": 345,
+      "path": "core\\security_containment.py",
+      "text": "False,"
+    },
+    {
+      "language": "python",
+      "line": 346,
+      "path": "core\\security_containment.py",
+      "text": "subject,"
+    },
+    {
+      "language": "python",
+      "line": 347,
+      "path": "core\\security_containment.py",
+      "text": "obj,"
+    },
+    {
+      "language": "python",
+      "line": 348,
+      "path": "core\\security_containment.py",
+      "text": "normalized_action,"
+    },
+    {
+      "language": "python",
+      "line": 349,
+      "path": "core\\security_containment.py",
+      "text": "\"Default deny: privileged route lacks trusted operator authorization.\","
+    },
+    {
+      "language": "python",
+      "line": 350,
+      "path": "core\\security_containment.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 353,
+      "path": "core\\security_containment.py",
+      "text": "def authorize_repair_action("
+    },
+    {
+      "language": "python",
+      "line": 354,
+      "path": "core\\security_containment.py",
+      "text": "actor: str | None,"
+    },
+    {
+      "language": "python",
+      "line": 355,
+      "path": "core\\security_containment.py",
+      "text": "approval_source: str | None,"
+    },
+    {
+      "language": "python",
+      "line": 356,
+      "path": "core\\security_containment.py",
+      "text": "confirmation: str | None,"
+    },
+    {
+      "language": "python",
+      "line": 357,
+      "path": "core\\security_containment.py",
+      "text": "action_id: str,"
+    },
+    {
+      "language": "python",
+      "line": 358,
+      "path": "core\\security_containment.py",
+      "text": ") -> AuthorizationDecision:"
+    },
+    {
+      "language": "python",
+      "line": 359,
+      "path": "core\\security_containment.py",
+      "text": "\"\"\"Validate the exact trusted-UI approval phrase for one action ID.\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 360,
+      "path": "core\\security_containment.py",
+      "text": "subject = normalize_actor(actor)"
+    },
+    {
+      "language": "python",
+      "line": 361,
+      "path": "core\\security_containment.py",
+      "text": "normalized_action_id = (action_id or \"\").strip()"
+    },
+    {
+      "language": "python",
+      "line": 362,
+      "path": "core\\security_containment.py",
+      "text": "expected = f\"APPLY {normalized_action_id}\".strip().upper()"
+    },
+    {
+      "language": "python",
+      "line": 363,
+      "path": "core\\security_containment.py",
+      "text": "supplied = (confirmation or \"\").strip().upper()"
+    },
+    {
+      "language": "python",
+      "line": 364,
+      "path": "core\\security_containment.py",
+      "text": "source = (approval_source or \"\").strip().lower()"
+    },
+    {
+      "language": "python",
+      "line": 366,
+      "path": "core\\security_containment.py",
+      "text": "if subject not in OPERATOR_ACTORS:"
+    },
+    {
+      "language": "python",
+      "line": 367,
+      "path": "core\\security_containment.py",
+      "text": "return AuthorizationDecision("
+    },
+    {
+      "language": "python",
+      "line": 368,
+      "path": "core\\security_containment.py",
+      "text": "False,"
+    },
+    {
+      "language": "python",
+      "line": 369,
+      "path": "core\\security_containment.py",
+      "text": "subject,"
+    },
+    {
+      "language": "python",
+      "line": 370,
+      "path": "core\\security_containment.py",
+      "text": "\"repair_chamber\","
+    },
+    {
+      "language": "python",
+      "line": 371,
+      "path": "core\\security_containment.py",
+      "text": "\"apply\","
+    },
+    {
+      "language": "python",
+      "line": 372,
+      "path": "core\\security_containment.py",
+      "text": "\"Repair Chamber denied: caller is not the trusted operator.\","
+    },
+    {
+      "language": "python",
+      "line": 373,
+      "path": "core\\security_containment.py",
+      "text": "\"structured_approval_gate\","
+    },
+    {
+      "language": "python",
+      "line": 374,
+      "path": "core\\security_containment.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 376,
+      "path": "core\\security_containment.py",
+      "text": "if source != \"ui_operator\":"
+    },
+    {
+      "language": "python",
+      "line": 377,
+      "path": "core\\security_containment.py",
+      "text": "return AuthorizationDecision("
+    },
+    {
+      "language": "python",
+      "line": 378,
+      "path": "core\\security_containment.py",
+      "text": "False,"
+    },
+    {
+      "language": "python",
+      "line": 379,
+      "path": "core\\security_containment.py",
+      "text": "subject,"
+    },
+    {
+      "language": "python",
+      "line": 380,
+      "path": "core\\security_containment.py",
+      "text": "\"repair_chamber\","
+    },
+    {
+      "language": "python",
+      "line": 381,
+      "path": "core\\security_containment.py",
+      "text": "\"apply\","
+    },
+    {
+      "language": "python",
+      "line": 382,
+      "path": "core\\security_containment.py",
+      "text": "("
+    },
+    {
+      "language": "python",
+      "line": 383,
+      "path": "core\\security_containment.py",
+      "text": "\"Repair Chamber denied: approval did not originate from \""
+    },
+    {
+      "language": "python",
+      "line": 384,
+      "path": "core\\security_containment.py",
+      "text": "\"the operator UI gate.\""
+    },
+    {
+      "language": "python",
+      "line": 385,
+      "path": "core\\security_containment.py",
+      "text": "),"
+    },
+    {
+      "language": "python",
+      "line": 386,
+      "path": "core\\security_containment.py",
+      "text": "\"structured_approval_gate\","
+    },
+    {
+      "language": "python",
+      "line": 387,
+      "path": "core\\security_containment.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 389,
+      "path": "core\\security_containment.py",
+      "text": "if not normalized_action_id or supplied != expected:"
+    },
+    {
+      "language": "python",
+      "line": 390,
+      "path": "core\\security_containment.py",
+      "text": "return AuthorizationDecision("
+    },
+    {
+      "language": "python",
+      "line": 391,
+      "path": "core\\security_containment.py",
+      "text": "False,"
+    },
+    {
+      "language": "python",
+      "line": 392,
+      "path": "core\\security_containment.py",
+      "text": "subject,"
+    },
+    {
+      "language": "python",
+      "line": 393,
+      "path": "core\\security_containment.py",
+      "text": "\"repair_chamber\","
+    },
+    {
+      "language": "python",
+      "line": 394,
+      "path": "core\\security_containment.py",
+      "text": "\"apply\","
+    },
+    {
+      "language": "python",
+      "line": 395,
+      "path": "core\\security_containment.py",
+      "text": "("
+    },
+    {
+      "language": "python",
+      "line": 396,
+      "path": "core\\security_containment.py",
+      "text": "\"Repair Chamber denied: exact confirmation required: \""
+    },
+    {
+      "language": "python",
+      "line": 397,
+      "path": "core\\security_containment.py",
+      "text": "f\"{expected}\""
+    },
+    {
+      "language": "python",
+      "line": 398,
+      "path": "core\\security_containment.py",
+      "text": "),"
+    },
+    {
+      "language": "python",
+      "line": 399,
+      "path": "core\\security_containment.py",
+      "text": "\"structured_approval_gate\","
+    },
+    {
+      "language": "python",
+      "line": 400,
+      "path": "core\\security_containment.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 402,
+      "path": "core\\security_containment.py",
+      "text": "return AuthorizationDecision("
+    },
+    {
+      "language": "python",
+      "line": 403,
+      "path": "core\\security_containment.py",
+      "text": "True,"
+    },
+    {
+      "language": "python",
+      "line": 404,
+      "path": "core\\security_containment.py",
+      "text": "subject,"
+    },
+    {
+      "language": "python",
+      "line": 405,
+      "path": "core\\security_containment.py",
+      "text": "\"repair_chamber\","
+    },
+    {
+      "language": "python",
+      "line": 406,
+      "path": "core\\security_containment.py",
+      "text": "\"apply\","
+    },
+    {
+      "language": "python",
+      "line": 407,
+      "path": "core\\security_containment.py",
+      "text": "\"Exact operator approval phrase accepted.\","
+    },
+    {
+      "language": "python",
+      "line": 408,
+      "path": "core\\security_containment.py",
+      "text": "\"structured_approval_gate\","
+    },
+    {
+      "language": "python",
+      "line": 409,
+      "path": "core\\security_containment.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 412,
+      "path": "core\\security_containment.py",
+      "text": "def is_protected_path(path: str | Path, root: str | Path | None = None) -> bool:"
+    },
+    {
+      "language": "python",
+      "line": 413,
+      "path": "core\\security_containment.py",
+      "text": "p = Path(path)"
+    },
+    {
+      "language": "python",
+      "line": 414,
+      "path": "core\\security_containment.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 415,
+      "path": "core\\security_containment.py",
+      "text": "if root is not None:"
+    },
+    {
+      "language": "python",
+      "line": 416,
+      "path": "core\\security_containment.py",
+      "text": "p = p.resolve().relative_to(Path(root).resolve())"
+    },
+    {
+      "language": "python",
+      "line": 417,
+      "path": "core\\security_containment.py",
+      "text": "except Exception:"
+    },
+    {
+      "language": "python",
+      "line": 418,
+      "path": "core\\security_containment.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 419,
+      "path": "core\\security_containment.py",
+      "text": "p = p.resolve()"
+    },
+    {
+      "language": "python",
+      "line": 420,
+      "path": "core\\security_containment.py",
+      "text": "except Exception:"
+    },
+    {
+      "language": "python",
+      "line": 421,
+      "path": "core\\security_containment.py",
+      "text": "pass"
+    },
+    {
+      "language": "python",
+      "line": 422,
+      "path": "core\\security_containment.py",
+      "text": "parts = [part.casefold() for part in p.parts]"
+    },
+    {
+      "language": "python",
+      "line": 423,
+      "path": "core\\security_containment.py",
+      "text": "if any(part in PROTECTED_DIR_NAMES for part in parts):"
+    },
+    {
+      "language": "python",
+      "line": 424,
+      "path": "core\\security_containment.py",
+      "text": "return True"
+    },
+    {
+      "language": "python",
+      "line": 425,
+      "path": "core\\security_containment.py",
+      "text": "name = p.name.casefold()"
+    },
+    {
+      "language": "python",
+      "line": 426,
+      "path": "core\\security_containment.py",
+      "text": "if name in PROTECTED_FILE_NAMES or name.startswith(\".env.\"):"
+    },
+    {
+      "language": "python",
+      "line": 427,
+      "path": "core\\security_containment.py",
+      "text": "return True"
+    },
+    {
+      "language": "python",
+      "line": 428,
+      "path": "core\\security_containment.py",
+      "text": "if p.suffix.casefold() in PROTECTED_SUFFIXES:"
+    },
+    {
+      "language": "python",
+      "line": 429,
+      "path": "core\\security_containment.py",
+      "text": "return True"
+    },
+    {
+      "language": "python",
+      "line": 430,
+      "path": "core\\security_containment.py",
+      "text": "return False"
+    },
+    {
+      "language": "python",
+      "line": 433,
+      "path": "core\\security_containment.py",
+      "text": "def redact_secrets(text: str | None) -> tuple[str, int]:"
+    },
+    {
+      "language": "python",
+      "line": 434,
+      "path": "core\\security_containment.py",
+      "text": "value = text or \"\""
+    },
+    {
+      "language": "python",
+      "line": 435,
+      "path": "core\\security_containment.py",
+      "text": "count = 0"
+    },
+    {
+      "language": "python",
+      "line": 436,
+      "path": "core\\security_containment.py",
+      "text": "for pattern, replacement in _SECRET_PATTERNS:"
+    },
+    {
+      "language": "python",
+      "line": 437,
+      "path": "core\\security_containment.py",
+      "text": "value, found = pattern.subn(replacement, value)"
+    },
+    {
+      "language": "python",
+      "line": 438,
+      "path": "core\\security_containment.py",
+      "text": "count += found"
+    },
+    {
+      "language": "python",
+      "line": 439,
+      "path": "core\\security_containment.py",
+      "text": "return value, count"
+    },
+    {
+      "language": "python",
+      "line": 442,
+      "path": "core\\security_containment.py",
+      "text": "def redact_mapping(value: Any) -> tuple[Any, int]:"
+    },
+    {
+      "language": "python",
+      "line": 443,
+      "path": "core\\security_containment.py",
+      "text": "\"\"\"Recursively redact strings before data is shown to a model or UI.\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 444,
+      "path": "core\\security_containment.py",
+      "text": "if isinstance(value, str):"
+    },
+    {
+      "language": "python",
+      "line": 445,
+      "path": "core\\security_containment.py",
+      "text": "return redact_secrets(value)"
+    },
+    {
+      "language": "python",
+      "line": 446,
+      "path": "core\\security_containment.py",
+      "text": "if isinstance(value, list):"
+    },
+    {
+      "language": "python",
+      "line": 447,
+      "path": "core\\security_containment.py",
+      "text": "out = []"
+    },
+    {
+      "language": "python",
+      "line": 448,
+      "path": "core\\security_containment.py",
+      "text": "total = 0"
+    },
+    {
+      "language": "python",
+      "line": 449,
+      "path": "core\\security_containment.py",
+      "text": "for item in value:"
+    },
+    {
+      "language": "python",
+      "line": 450,
+      "path": "core\\security_containment.py",
+      "text": "clean, count = redact_mapping(item)"
+    },
+    {
+      "language": "python",
+      "line": 451,
+      "path": "core\\security_containment.py",
+      "text": "out.append(clean)"
+    },
+    {
+      "language": "python",
+      "line": 452,
+      "path": "core\\security_containment.py",
+      "text": "total += count"
+    },
+    {
+      "language": "python",
+      "line": 453,
+      "path": "core\\security_containment.py",
+      "text": "return out, total"
+    },
+    {
+      "language": "python",
+      "line": 454,
+      "path": "core\\security_containment.py",
+      "text": "if isinstance(value, tuple):"
+    },
+    {
+      "language": "python",
+      "line": 455,
+      "path": "core\\security_containment.py",
+      "text": "clean, total = redact_mapping(list(value))"
+    },
+    {
+      "language": "python",
+      "line": 456,
+      "path": "core\\security_containment.py",
+      "text": "return tuple(clean), total"
+    },
+    {
+      "language": "python",
+      "line": 457,
+      "path": "core\\security_containment.py",
+      "text": "if isinstance(value, dict):"
+    },
+    {
+      "language": "python",
+      "line": 458,
+      "path": "core\\security_containment.py",
+      "text": "out = {}"
+    },
+    {
+      "language": "python",
+      "line": 459,
+      "path": "core\\security_containment.py",
+      "text": "total = 0"
+    },
+    {
+      "language": "python",
+      "line": 460,
+      "path": "core\\security_containment.py",
+      "text": "for key, item in value.items():"
+    },
+    {
+      "language": "python",
+      "line": 461,
+      "path": "core\\security_containment.py",
+      "text": "clean, count = redact_mapping(item)"
+    },
+    {
+      "language": "python",
+      "line": 462,
+      "path": "core\\security_containment.py",
+      "text": "out[key] = clean"
+    },
+    {
+      "language": "python",
+      "line": 463,
+      "path": "core\\security_containment.py",
+      "text": "total += count"
+    },
+    {
+      "language": "python",
+      "line": 464,
+      "path": "core\\security_containment.py",
+      "text": "return out, total"
+    },
+    {
+      "language": "python",
+      "line": 465,
+      "path": "core\\security_containment.py",
+      "text": "return value, 0"
+    },
+    {
+      "language": "python",
+      "line": 469,
+      "path": "core\\security_containment.py",
+      "text": "@dataclass(frozen=True)"
+    },
+    {
+      "language": "python",
+      "line": 470,
+      "path": "core\\security_containment.py",
+      "text": "class AirlockAuditEvent:"
+    },
+    {
+      "language": "python",
+      "line": 471,
+      "path": "core\\security_containment.py",
+      "text": "event_id: str"
+    },
+    {
+      "language": "python",
+      "line": 472,
+      "path": "core\\security_containment.py",
+      "text": "correlation_id: str"
+    },
+    {
+      "language": "python",
+      "line": 473,
+      "path": "core\\security_containment.py",
+      "text": "mission_id: str"
+    },
+    {
+      "language": "python",
+      "line": 474,
+      "path": "core\\security_containment.py",
+      "text": "timestamp: str"
+    },
+    {
+      "language": "python",
+      "line": 475,
+      "path": "core\\security_containment.py",
+      "text": "actor: str"
+    },
+    {
+      "language": "python",
+      "line": 476,
+      "path": "core\\security_containment.py",
+      "text": "object: str"
+    },
+    {
+      "language": "python",
+      "line": 477,
+      "path": "core\\security_containment.py",
+      "text": "action: str"
+    },
+    {
+      "language": "python",
+      "line": 478,
+      "path": "core\\security_containment.py",
+      "text": "decision: str"
+    },
+    {
+      "language": "python",
+      "line": 479,
+      "path": "core\\security_containment.py",
+      "text": "reason: str"
+    },
+    {
+      "language": "python",
+      "line": 480,
+      "path": "core\\security_containment.py",
+      "text": "policy_source: str"
+    },
+    {
+      "language": "python",
+      "line": 481,
+      "path": "core\\security_containment.py",
+      "text": "approval_id: str"
+    },
+    {
+      "language": "python",
+      "line": 482,
+      "path": "core\\security_containment.py",
+      "text": "receipt_id: str"
+    },
+    {
+      "language": "python",
+      "line": 483,
+      "path": "core\\security_containment.py",
+      "text": "previous_hash: str"
+    },
+    {
+      "language": "python",
+      "line": 484,
+      "path": "core\\security_containment.py",
+      "text": "event_hash: str"
+    },
+    {
+      "language": "python",
+      "line": 485,
+      "path": "core\\security_containment.py",
+      "text": "severity: str = \"INFO\""
+    },
+    {
+      "language": "python",
+      "line": 486,
+      "path": "core\\security_containment.py",
+      "text": "incident_kind: str = \"approved_sensitive_operation\""
+    },
+    {
+      "language": "python",
+      "line": 487,
+      "path": "core\\security_containment.py",
+      "text": "attempt_count: int = 1"
+    },
+    {
+      "language": "python",
+      "line": 488,
+      "path": "core\\security_containment.py",
+      "text": "context_status: str = \"verified\""
+    },
+    {
+      "language": "python",
+      "line": 489,
+      "path": "core\\security_containment.py",
+      "text": "test_event: bool = False"
+    },
+    {
+      "language": "python",
+      "line": 491,
+      "path": "core\\security_containment.py",
+      "text": "def to_dict(self) -> dict[str, Any]:"
+    },
+    {
+      "language": "python",
+      "line": 492,
+      "path": "core\\security_containment.py",
+      "text": "return asdict(self)"
+    },
+    {
+      "language": "python",
+      "line": 495,
+      "path": "core\\security_containment.py",
+      "text": "def _canonical_json(value: Any) -> str:"
+    },
+    {
+      "language": "python",
+      "line": 496,
+      "path": "core\\security_containment.py",
+      "text": "return json.dumps("
+    },
+    {
+      "language": "python",
+      "line": 497,
+      "path": "core\\security_containment.py",
+      "text": "value,"
+    },
+    {
+      "language": "python",
+      "line": 498,
+      "path": "core\\security_containment.py",
+      "text": "sort_keys=True,"
+    },
+    {
+      "language": "python",
+      "line": 499,
+      "path": "core\\security_containment.py",
+      "text": "separators=(\",\", \":\"),"
+    },
+    {
+      "language": "python",
+      "line": 500,
+      "path": "core\\security_containment.py",
+      "text": "ensure_ascii=True,"
+    },
+    {
+      "language": "python",
+      "line": 501,
+      "path": "core\\security_containment.py",
+      "text": "default=str,"
+    },
+    {
+      "language": "python",
+      "line": 502,
+      "path": "core\\security_containment.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 505,
+      "path": "core\\security_containment.py",
+      "text": "def _new_airlock_id(prefix: str) -> str:"
+    },
+    {
+      "language": "python",
+      "line": 506,
+      "path": "core\\security_containment.py",
+      "text": "return f\"{prefix}_{secrets.token_hex(12)}\""
+    },
+    {
+      "language": "python",
+      "line": 509,
+      "path": "core\\security_containment.py",
+      "text": "def new_airlock_correlation_id() -> str:"
+    },
+    {
+      "language": "python",
+      "line": 510,
+      "path": "core\\security_containment.py",
+      "text": "return _new_airlock_id(\"corr\")"
+    },
+    {
+      "language": "python",
+      "line": 513,
+      "path": "core\\security_containment.py",
+      "text": "_AIRLOCK_INCIDENT_KINDS = {"
+    },
+    {
+      "language": "python",
+      "line": 514,
+      "path": "core\\security_containment.py",
+      "text": "\"approved_sensitive_operation\","
+    },
+    {
+      "language": "python",
+      "line": 515,
+      "path": "core\\security_containment.py",
+      "text": "\"authorization_denial\","
+    },
+    {
+      "language": "python",
+      "line": 516,
+      "path": "core\\security_containment.py",
+      "text": "\"protected_resource_denial\","
+    },
+    {
+      "language": "python",
+      "line": 517,
+      "path": "core\\security_containment.py",
+      "text": "\"context_mismatch\","
+    },
+    {
+      "language": "python",
+      "line": 518,
+      "path": "core\\security_containment.py",
+      "text": "\"unauthorized_mutation_attempt\","
+    },
+    {
+      "language": "python",
+      "line": 519,
+      "path": "core\\security_containment.py",
+      "text": "\"trip_sentry_test\","
+    },
+    {
+      "language": "python",
+      "line": 520,
+      "path": "core\\security_containment.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 522,
+      "path": "core\\security_containment.py",
+      "text": "_AIRLOCK_CONTEXT_STATUSES = {"
+    },
+    {
+      "language": "python",
+      "line": 523,
+      "path": "core\\security_containment.py",
+      "text": "\"verified\","
+    },
+    {
+      "language": "python",
+      "line": 524,
+      "path": "core\\security_containment.py",
+      "text": "\"not_supplied\","
+    },
+    {
+      "language": "python",
+      "line": 525,
+      "path": "core\\security_containment.py",
+      "text": "\"mismatch\","
+    },
+    {
+      "language": "python",
+      "line": 526,
+      "path": "core\\security_containment.py",
+      "text": "\"invalid\","
+    },
+    {
+      "language": "python",
+      "line": 527,
+      "path": "core\\security_containment.py",
+      "text": "\"failed_closed\","
+    },
+    {
+      "language": "python",
+      "line": 528,
+      "path": "core\\security_containment.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 531,
+      "path": "core\\security_containment.py",
+      "text": "def _normalize_airlock_incident_kind("
+    },
+    {
+      "language": "python",
+      "line": 532,
+      "path": "core\\security_containment.py",
+      "text": "decision: str,"
+    },
+    {
+      "language": "python",
+      "line": 533,
+      "path": "core\\security_containment.py",
+      "text": "action: str,"
+    },
+    {
+      "language": "python",
+      "line": 534,
+      "path": "core\\security_containment.py",
+      "text": "*,"
+    },
+    {
+      "language": "python",
+      "line": 535,
+      "path": "core\\security_containment.py",
+      "text": "test_event: bool = False,"
+    },
+    {
+      "language": "python",
+      "line": 536,
+      "path": "core\\security_containment.py",
+      "text": "incident_kind: str | None = None,"
+    },
+    {
+      "language": "python",
+      "line": 537,
+      "path": "core\\security_containment.py",
+      "text": ") -> str:"
+    },
+    {
+      "language": "python",
+      "line": 538,
+      "path": "core\\security_containment.py",
+      "text": "normalized_decision = (decision or \"deny\").strip().lower()"
+    },
+    {
+      "language": "python",
+      "line": 539,
+      "path": "core\\security_containment.py",
+      "text": "normalized_action = (action or \"\").strip().lower()"
+    },
+    {
+      "language": "python",
+      "line": 540,
+      "path": "core\\security_containment.py",
+      "text": "requested = (incident_kind or \"\").strip().lower()"
+    },
+    {
+      "language": "python",
+      "line": 541,
+      "path": "core\\security_containment.py",
+      "text": "if test_event or normalized_action == \"trip_sentry_test\":"
+    },
+    {
+      "language": "python",
+      "line": 542,
+      "path": "core\\security_containment.py",
+      "text": "return \"trip_sentry_test\""
+    },
+    {
+      "language": "python",
+      "line": 543,
+      "path": "core\\security_containment.py",
+      "text": "if requested in _AIRLOCK_INCIDENT_KINDS:"
+    },
+    {
+      "language": "python",
+      "line": 544,
+      "path": "core\\security_containment.py",
+      "text": "return requested"
+    },
+    {
+      "language": "python",
+      "line": 545,
+      "path": "core\\security_containment.py",
+      "text": "if normalized_decision == \"allow\":"
+    },
+    {
+      "language": "python",
+      "line": 546,
+      "path": "core\\security_containment.py",
+      "text": "return \"approved_sensitive_operation\""
+    },
+    {
+      "language": "python",
+      "line": 547,
+      "path": "core\\security_containment.py",
+      "text": "return \"authorization_denial\""
+    },
+    {
+      "language": "python",
+      "line": 550,
+      "path": "core\\security_containment.py",
+      "text": "def _normalize_airlock_context_status(value: str | None) -> str:"
+    },
+    {
+      "language": "python",
+      "line": 551,
+      "path": "core\\security_containment.py",
+      "text": "normalized = (value or \"verified\").strip().lower()"
+    },
+    {
+      "language": "python",
+      "line": 552,
+      "path": "core\\security_containment.py",
+      "text": "return ("
+    },
+    {
+      "language": "python",
+      "line": 553,
+      "path": "core\\security_containment.py",
+      "text": "normalized"
+    },
+    {
+      "language": "python",
+      "line": 554,
+      "path": "core\\security_containment.py",
+      "text": "if normalized in _AIRLOCK_CONTEXT_STATUSES"
+    },
+    {
+      "language": "python",
+      "line": 555,
+      "path": "core\\security_containment.py",
+      "text": "else \"invalid\""
+    },
+    {
+      "language": "python",
+      "line": 556,
+      "path": "core\\security_containment.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 559,
+      "path": "core\\security_containment.py",
+      "text": "def _airlock_event_severity("
+    },
+    {
+      "language": "python",
+      "line": 560,
+      "path": "core\\security_containment.py",
+      "text": "decision: str,"
+    },
+    {
+      "language": "python",
+      "line": 561,
+      "path": "core\\security_containment.py",
+      "text": "incident_kind: str,"
+    },
+    {
+      "language": "python",
+      "line": 562,
+      "path": "core\\security_containment.py",
+      "text": "attempt_count: int,"
+    },
+    {
+      "language": "python",
+      "line": 563,
+      "path": "core\\security_containment.py",
+      "text": ") -> str:"
+    },
+    {
+      "language": "python",
+      "line": 564,
+      "path": "core\\security_containment.py",
+      "text": "normalized_decision = (decision or \"deny\").strip().lower()"
+    },
+    {
+      "language": "python",
+      "line": 565,
+      "path": "core\\security_containment.py",
+      "text": "if incident_kind == \"trip_sentry_test\":"
+    },
+    {
+      "language": "python",
+      "line": 566,
+      "path": "core\\security_containment.py",
+      "text": "return \"TEST\""
+    },
+    {
+      "language": "python",
+      "line": 567,
+      "path": "core\\security_containment.py",
+      "text": "if incident_kind == \"unauthorized_mutation_attempt\":"
+    },
+    {
+      "language": "python",
+      "line": 568,
+      "path": "core\\security_containment.py",
+      "text": "return \"CRITICAL\""
+    },
+    {
+      "language": "python",
+      "line": 569,
+      "path": "core\\security_containment.py",
+      "text": "if incident_kind == \"context_mismatch\":"
+    },
+    {
+      "language": "python",
+      "line": 570,
+      "path": "core\\security_containment.py",
+      "text": "return \"WARNING\""
+    },
+    {
+      "language": "python",
+      "line": 571,
+      "path": "core\\security_containment.py",
+      "text": "if normalized_decision == \"deny\" and int(attempt_count or 1) > 1:"
+    },
+    {
+      "language": "python",
+      "line": 572,
+      "path": "core\\security_containment.py",
+      "text": "return \"WARNING\""
+    },
+    {
+      "language": "python",
+      "line": 573,
+      "path": "core\\security_containment.py",
+      "text": "if normalized_decision == \"deny\":"
+    },
+    {
+      "language": "python",
+      "line": 574,
+      "path": "core\\security_containment.py",
+      "text": "return \"NOTICE\""
+    },
+    {
+      "language": "python",
+      "line": 575,
+      "path": "core\\security_containment.py",
+      "text": "return \"INFO\""
+    },
+    {
+      "language": "python",
+      "line": 578,
+      "path": "core\\security_containment.py",
+      "text": "def _next_airlock_denial_attempt_count("
+    },
+    {
+      "language": "python",
+      "line": 579,
+      "path": "core\\security_containment.py",
+      "text": "path: Path,"
+    },
+    {
+      "language": "python",
+      "line": 580,
+      "path": "core\\security_containment.py",
+      "text": "*,"
+    },
+    {
+      "language": "python",
+      "line": 581,
+      "path": "core\\security_containment.py",
+      "text": "mission_id: str,"
+    },
+    {
+      "language": "python",
+      "line": 582,
+      "path": "core\\security_containment.py",
+      "text": "incident_kind: str,"
+    },
+    {
+      "language": "python",
+      "line": 583,
+      "path": "core\\security_containment.py",
+      "text": ") -> int:"
+    },
+    {
+      "language": "python",
+      "line": 584,
+      "path": "core\\security_containment.py",
+      "text": "normalized_mission = (mission_id or \"\").strip()"
+    },
+    {
+      "language": "python",
+      "line": 585,
+      "path": "core\\security_containment.py",
+      "text": "if not normalized_mission or not path.exists():"
+    },
+    {
+      "language": "python",
+      "line": 586,
+      "path": "core\\security_containment.py",
+      "text": "return 1"
+    },
+    {
+      "language": "python",
+      "line": 588,
+      "path": "core\\security_containment.py",
+      "text": "count = 0"
+    },
+    {
+      "language": "python",
+      "line": 589,
+      "path": "core\\security_containment.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 590,
+      "path": "core\\security_containment.py",
+      "text": "lines = path.read_text("
+    },
+    {
+      "language": "python",
+      "line": 591,
+      "path": "core\\security_containment.py",
+      "text": "encoding=\"utf-8\","
+    },
+    {
+      "language": "python",
+      "line": 592,
+      "path": "core\\security_containment.py",
+      "text": "errors=\"strict\","
+    },
+    {
+      "language": "python",
+      "line": 593,
+      "path": "core\\security_containment.py",
+      "text": ").splitlines()"
+    },
+    {
+      "language": "python",
+      "line": 594,
+      "path": "core\\security_containment.py",
+      "text": "except Exception:"
+    },
+    {
+      "language": "python",
+      "line": 595,
+      "path": "core\\security_containment.py",
+      "text": "return 1"
+    },
+    {
+      "language": "python",
+      "line": 597,
+      "path": "core\\security_containment.py",
+      "text": "for line in lines:"
+    },
+    {
+      "language": "python",
+      "line": 598,
+      "path": "core\\security_containment.py",
+      "text": "if not line.strip():"
+    },
+    {
+      "language": "python",
+      "line": 599,
+      "path": "core\\security_containment.py",
+      "text": "continue"
+    },
+    {
+      "language": "python",
+      "line": 600,
+      "path": "core\\security_containment.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 601,
+      "path": "core\\security_containment.py",
+      "text": "event = json.loads(line)"
+    },
+    {
+      "language": "python",
+      "line": 602,
+      "path": "core\\security_containment.py",
+      "text": "except Exception:"
+    },
+    {
+      "language": "python",
+      "line": 603,
+      "path": "core\\security_containment.py",
+      "text": "continue"
+    },
+    {
+      "language": "python",
+      "line": 604,
+      "path": "core\\security_containment.py",
+      "text": "if str(event.get(\"decision\") or \"\").lower() != \"deny\":"
+    },
+    {
+      "language": "python",
+      "line": 605,
+      "path": "core\\security_containment.py",
+      "text": "continue"
+    },
+    {
+      "language": "python",
+      "line": 606,
+      "path": "core\\security_containment.py",
+      "text": "if str(event.get(\"mission_id\") or \"\").strip() != normalized_mission:"
+    },
+    {
+      "language": "python",
+      "line": 607,
+      "path": "core\\security_containment.py",
+      "text": "continue"
+    },
+    {
+      "language": "python",
+      "line": 608,
+      "path": "core\\security_containment.py",
+      "text": "if str(event.get(\"incident_kind\") or \"\").strip().lower() != incident_kind:"
+    },
+    {
+      "language": "python",
+      "line": 609,
+      "path": "core\\security_containment.py",
+      "text": "continue"
+    },
+    {
+      "language": "python",
+      "line": 610,
+      "path": "core\\security_containment.py",
+      "text": "count += 1"
+    },
+    {
+      "language": "python",
+      "line": 611,
+      "path": "core\\security_containment.py",
+      "text": "return count + 1"
+    },
+    {
+      "language": "python",
+      "line": 614,
+      "path": "core\\security_containment.py",
+      "text": "def airlock_chain_alert(verification: dict[str, Any] | None) -> dict[str, Any]:"
+    },
+    {
+      "language": "python",
+      "line": 615,
+      "path": "core\\security_containment.py",
+      "text": "\"\"\"Return a synthetic viewer-only CRITICAL state for an invalid chain.\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 616,
+      "path": "core\\security_containment.py",
+      "text": "result = dict(verification or {})"
+    },
+    {
+      "language": "python",
+      "line": 617,
+      "path": "core\\security_containment.py",
+      "text": "if bool(result.get(\"valid\")):"
+    },
+    {
+      "language": "python",
+      "line": 618,
+      "path": "core\\security_containment.py",
+      "text": "return {"
+    },
+    {
+      "language": "python",
+      "line": 619,
+      "path": "core\\security_containment.py",
+      "text": "\"active\": False,"
+    },
+    {
+      "language": "python",
+      "line": 620,
+      "path": "core\\security_containment.py",
+      "text": "\"severity\": \"INFO\","
+    },
+    {
+      "language": "python",
+      "line": 621,
+      "path": "core\\security_containment.py",
+      "text": "\"incident_kind\": \"audit_chain_verified\","
+    },
+    {
+      "language": "python",
+      "line": 622,
+      "path": "core\\security_containment.py",
+      "text": "\"message\": \"The Fox Sentry audit chain is verified.\","
+    },
+    {
+      "language": "python",
+      "line": 623,
+      "path": "core\\security_containment.py",
+      "text": "\"failures\": [],"
+    },
+    {
+      "language": "python",
+      "line": 624,
+      "path": "core\\security_containment.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 625,
+      "path": "core\\security_containment.py",
+      "text": "failures = list(result.get(\"failures\") or [])"
+    },
+    {
+      "language": "python",
+      "line": 626,
+      "path": "core\\security_containment.py",
+      "text": "return {"
+    },
+    {
+      "language": "python",
+      "line": 627,
+      "path": "core\\security_containment.py",
+      "text": "\"active\": True,"
+    },
+    {
+      "language": "python",
+      "line": 628,
+      "path": "core\\security_containment.py",
+      "text": "\"severity\": \"CRITICAL\","
+    },
+    {
+      "language": "python",
+      "line": 629,
+      "path": "core\\security_containment.py",
+      "text": "\"incident_kind\": \"audit_chain_failure\","
+    },
+    {
+      "language": "python",
+      "line": 630,
+      "path": "core\\security_containment.py",
+      "text": "\"message\": ("
+    },
+    {
+      "language": "python",
+      "line": 631,
+      "path": "core\\security_containment.py",
+      "text": "\"Fox Sentry is fail-closed because the audit chain is invalid. \""
+    },
+    {
+      "language": "python",
+      "line": 632,
+      "path": "core\\security_containment.py",
+      "text": "\"No synthetic alert is appended to the untrusted chain.\""
+    },
+    {
+      "language": "python",
+      "line": 633,
+      "path": "core\\security_containment.py",
+      "text": "),"
+    },
+    {
+      "language": "python",
+      "line": 634,
+      "path": "core\\security_containment.py",
+      "text": "\"failures\": failures,"
+    },
+    {
+      "language": "python",
+      "line": 635,
+      "path": "core\\security_containment.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 637,
+      "path": "core\\security_containment.py",
+      "text": "def make_airlock_audit_event("
+    },
+    {
+      "language": "python",
+      "line": 638,
+      "path": "core\\security_containment.py",
+      "text": "*,"
+    },
+    {
+      "language": "python",
+      "line": 639,
+      "path": "core\\security_containment.py",
+      "text": "actor: str,"
+    },
+    {
+      "language": "python",
+      "line": 640,
+      "path": "core\\security_containment.py",
+      "text": "obj: str,"
+    },
+    {
+      "language": "python",
+      "line": 641,
+      "path": "core\\security_containment.py",
+      "text": "action: str,"
+    },
+    {
+      "language": "python",
+      "line": 642,
+      "path": "core\\security_containment.py",
+      "text": "decision: str,"
+    },
+    {
+      "language": "python",
+      "line": 643,
+      "path": "core\\security_containment.py",
+      "text": "reason: str,"
+    },
+    {
+      "language": "python",
+      "line": 644,
+      "path": "core\\security_containment.py",
+      "text": "policy_source: str,"
+    },
+    {
+      "language": "python",
+      "line": 645,
+      "path": "core\\security_containment.py",
+      "text": "correlation_id: str | None = None,"
+    },
+    {
+      "language": "python",
+      "line": 646,
+      "path": "core\\security_containment.py",
+      "text": "mission_id: str | None = None,"
+    },
+    {
+      "language": "python",
+      "line": 647,
+      "path": "core\\security_containment.py",
+      "text": "approval_id: str | None = None,"
+    },
+    {
+      "language": "python",
+      "line": 648,
+      "path": "core\\security_containment.py",
+      "text": "receipt_id: str | None = None,"
+    },
+    {
+      "language": "python",
+      "line": 649,
+      "path": "core\\security_containment.py",
+      "text": "previous_hash: str | None = None,"
+    },
+    {
+      "language": "python",
+      "line": 650,
+      "path": "core\\security_containment.py",
+      "text": "test_event: bool = False,"
+    },
+    {
+      "language": "python",
+      "line": 651,
+      "path": "core\\security_containment.py",
+      "text": "incident_kind: str | None = None,"
+    },
+    {
+      "language": "python",
+      "line": 652,
+      "path": "core\\security_containment.py",
+      "text": "attempt_count: int = 1,"
+    },
+    {
+      "language": "python",
+      "line": 653,
+      "path": "core\\security_containment.py",
+      "text": "context_status: str | None = None,"
+    },
+    {
+      "language": "python",
+      "line": 654,
+      "path": "core\\security_containment.py",
+      "text": "event_id: str | None = None,"
+    },
+    {
+      "language": "python",
+      "line": 655,
+      "path": "core\\security_containment.py",
+      "text": "timestamp: str | None = None,"
+    },
+    {
+      "language": "python",
+      "line": 656,
+      "path": "core\\security_containment.py",
+      "text": ") -> AirlockAuditEvent:"
+    },
+    {
+      "language": "python",
+      "line": 657,
+      "path": "core\\security_containment.py",
+      "text": "\"\"\"Create one redacted, deterministically classified audit event.\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 658,
+      "path": "core\\security_containment.py",
+      "text": "clean_object, _ = redact_secrets(obj or \"\")"
+    },
+    {
+      "language": "python",
+      "line": 659,
+      "path": "core\\security_containment.py",
+      "text": "clean_reason, _ = redact_secrets(reason or \"\")"
+    },
+    {
+      "language": "python",
+      "line": 660,
+      "path": "core\\security_containment.py",
+      "text": "normalized_decision = (decision or \"deny\").strip().lower()"
+    },
+    {
+      "language": "python",
+      "line": 661,
+      "path": "core\\security_containment.py",
+      "text": "if normalized_decision not in {\"allow\", \"deny\"}:"
+    },
+    {
+      "language": "python",
+      "line": 662,
+      "path": "core\\security_containment.py",
+      "text": "normalized_decision = \"deny\""
+    },
+    {
+      "language": "python",
+      "line": 663,
+      "path": "core\\security_containment.py",
+      "text": "normalized_attempt = max(1, int(attempt_count or 1))"
+    },
+    {
+      "language": "python",
+      "line": 664,
+      "path": "core\\security_containment.py",
+      "text": "normalized_kind = _normalize_airlock_incident_kind("
+    },
+    {
+      "language": "python",
+      "line": 665,
+      "path": "core\\security_containment.py",
+      "text": "normalized_decision,"
+    },
+    {
+      "language": "python",
+      "line": 666,
+      "path": "core\\security_containment.py",
+      "text": "action,"
+    },
+    {
+      "language": "python",
+      "line": 667,
+      "path": "core\\security_containment.py",
+      "text": "test_event=test_event,"
+    },
+    {
+      "language": "python",
+      "line": 668,
+      "path": "core\\security_containment.py",
+      "text": "incident_kind=incident_kind,"
+    },
+    {
+      "language": "python",
+      "line": 669,
+      "path": "core\\security_containment.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 671,
+      "path": "core\\security_containment.py",
+      "text": "payload = {"
+    },
+    {
+      "language": "python",
+      "line": 672,
+      "path": "core\\security_containment.py",
+      "text": "\"event_id\": event_id or _new_airlock_id(\"evt\"),"
+    },
+    {
+      "language": "python",
+      "line": 673,
+      "path": "core\\security_containment.py",
+      "text": "\"correlation_id\": correlation_id or new_airlock_correlation_id(),"
+    },
+    {
+      "language": "python",
+      "line": 674,
+      "path": "core\\security_containment.py",
+      "text": "\"mission_id\": (mission_id or \"\").strip(),"
+    },
+    {
+      "language": "python",
+      "line": 675,
+      "path": "core\\security_containment.py",
+      "text": "\"timestamp\": timestamp"
+    },
+    {
+      "language": "python",
+      "line": 676,
+      "path": "core\\security_containment.py",
+      "text": "or datetime.now(timezone.utc).isoformat(timespec=\"seconds\"),"
+    },
+    {
+      "language": "python",
+      "line": 677,
+      "path": "core\\security_containment.py",
+      "text": "\"actor\": normalize_actor(actor),"
+    },
+    {
+      "language": "python",
+      "line": 678,
+      "path": "core\\security_containment.py",
+      "text": "\"object\": clean_object,"
+    },
+    {
+      "language": "python",
+      "line": 679,
+      "path": "core\\security_containment.py",
+      "text": "\"action\": (action or \"\").strip().lower(),"
+    },
+    {
+      "language": "python",
+      "line": 680,
+      "path": "core\\security_containment.py",
+      "text": "\"decision\": normalized_decision,"
+    },
+    {
+      "language": "python",
+      "line": 681,
+      "path": "core\\security_containment.py",
+      "text": "\"reason\": clean_reason,"
+    },
+    {
+      "language": "python",
+      "line": 682,
+      "path": "core\\security_containment.py",
+      "text": "\"policy_source\": (policy_source or \"\").strip(),"
+    },
+    {
+      "language": "python",
+      "line": 683,
+      "path": "core\\security_containment.py",
+      "text": "\"approval_id\": (approval_id or \"\").strip(),"
+    },
+    {
+      "language": "python",
+      "line": 684,
+      "path": "core\\security_containment.py",
+      "text": "\"receipt_id\": (receipt_id or \"\").strip(),"
+    },
+    {
+      "language": "python",
+      "line": 685,
+      "path": "core\\security_containment.py",
+      "text": "\"previous_hash\": (previous_hash or \"\").strip(),"
+    },
+    {
+      "language": "python",
+      "line": 686,
+      "path": "core\\security_containment.py",
+      "text": "\"severity\": _airlock_event_severity("
+    },
+    {
+      "language": "python",
+      "line": 687,
+      "path": "core\\security_containment.py",
+      "text": "normalized_decision,"
+    },
+    {
+      "language": "python",
+      "line": 688,
+      "path": "core\\security_containment.py",
+      "text": "normalized_kind,"
+    },
+    {
+      "language": "python",
+      "line": 689,
+      "path": "core\\security_containment.py",
+      "text": "normalized_attempt,"
+    },
+    {
+      "language": "python",
+      "line": 690,
+      "path": "core\\security_containment.py",
+      "text": "),"
+    },
+    {
+      "language": "python",
+      "line": 691,
+      "path": "core\\security_containment.py",
+      "text": "\"incident_kind\": normalized_kind,"
+    },
+    {
+      "language": "python",
+      "line": 692,
+      "path": "core\\security_containment.py",
+      "text": "\"attempt_count\": normalized_attempt,"
+    },
+    {
+      "language": "python",
+      "line": 693,
+      "path": "core\\security_containment.py",
+      "text": "\"context_status\": _normalize_airlock_context_status(context_status),"
+    },
+    {
+      "language": "python",
+      "line": 694,
+      "path": "core\\security_containment.py",
+      "text": "\"test_event\": bool(test_event),"
+    },
+    {
+      "language": "python",
+      "line": 695,
+      "path": "core\\security_containment.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 696,
+      "path": "core\\security_containment.py",
+      "text": "payload[\"event_hash\"] = sha256("
+    },
+    {
+      "language": "python",
+      "line": 697,
+      "path": "core\\security_containment.py",
+      "text": "_canonical_json(payload).encode(\"utf-8\")"
+    },
+    {
+      "language": "python",
+      "line": 698,
+      "path": "core\\security_containment.py",
+      "text": ").hexdigest()"
+    },
+    {
+      "language": "python",
+      "line": 699,
+      "path": "core\\security_containment.py",
+      "text": "return AirlockAuditEvent(**payload)"
+    },
+    {
+      "language": "python",
+      "line": 702,
+      "path": "core\\security_containment.py",
+      "text": "def verify_airlock_audit_log("
+    },
+    {
+      "language": "python",
+      "line": 703,
+      "path": "core\\security_containment.py",
+      "text": "log_path: str | Path,"
+    },
+    {
+      "language": "python",
+      "line": 704,
+      "path": "core\\security_containment.py",
+      "text": ") -> dict[str, Any]:"
+    },
+    {
+      "language": "python",
+      "line": 705,
+      "path": "core\\security_containment.py",
+      "text": "\"\"\"Verify JSONL parsing, event hashes, and the previous-hash chain.\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 706,
+      "path": "core\\security_containment.py",
+      "text": "path = Path(log_path)"
+    },
+    {
+      "language": "python",
+      "line": 707,
+      "path": "core\\security_containment.py",
+      "text": "if not path.exists():"
+    },
+    {
+      "language": "python",
+      "line": 708,
+      "path": "core\\security_containment.py",
+      "text": "return {"
+    },
+    {
+      "language": "python",
+      "line": 709,
+      "path": "core\\security_containment.py",
+      "text": "\"valid\": True,"
+    },
+    {
+      "language": "python",
+      "line": 710,
+      "path": "core\\security_containment.py",
+      "text": "\"event_count\": 0,"
+    },
+    {
+      "language": "python",
+      "line": 711,
+      "path": "core\\security_containment.py",
+      "text": "\"final_hash\": \"\","
+    },
+    {
+      "language": "python",
+      "line": 712,
+      "path": "core\\security_containment.py",
+      "text": "\"failures\": [],"
+    },
+    {
+      "language": "python",
+      "line": 713,
+      "path": "core\\security_containment.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 715,
+      "path": "core\\security_containment.py",
+      "text": "failures: list[dict[str, Any]] = []"
+    },
+    {
+      "language": "python",
+      "line": 716,
+      "path": "core\\security_containment.py",
+      "text": "previous_hash = \"\""
+    },
+    {
+      "language": "python",
+      "line": 717,
+      "path": "core\\security_containment.py",
+      "text": "event_count = 0"
+    },
+    {
+      "language": "python",
+      "line": 719,
+      "path": "core\\security_containment.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 720,
+      "path": "core\\security_containment.py",
+      "text": "lines = path.read_text("
+    },
+    {
+      "language": "python",
+      "line": 721,
+      "path": "core\\security_containment.py",
+      "text": "encoding=\"utf-8\","
+    },
+    {
+      "language": "python",
+      "line": 722,
+      "path": "core\\security_containment.py",
+      "text": "errors=\"strict\","
+    },
+    {
+      "language": "python",
+      "line": 723,
+      "path": "core\\security_containment.py",
+      "text": ").splitlines()"
+    },
+    {
+      "language": "python",
+      "line": 724,
+      "path": "core\\security_containment.py",
+      "text": "except Exception as exc:"
+    },
+    {
+      "language": "python",
+      "line": 725,
+      "path": "core\\security_containment.py",
+      "text": "return {"
+    },
+    {
+      "language": "python",
+      "line": 726,
+      "path": "core\\security_containment.py",
+      "text": "\"valid\": False,"
+    },
+    {
+      "language": "python",
+      "line": 727,
+      "path": "core\\security_containment.py",
+      "text": "\"event_count\": 0,"
+    },
+    {
+      "language": "python",
+      "line": 728,
+      "path": "core\\security_containment.py",
+      "text": "\"final_hash\": \"\","
+    },
+    {
+      "language": "python",
+      "line": 729,
+      "path": "core\\security_containment.py",
+      "text": "\"failures\": ["
+    },
+    {
+      "language": "python",
+      "line": 730,
+      "path": "core\\security_containment.py",
+      "text": "{"
+    },
+    {
+      "language": "python",
+      "line": 731,
+      "path": "core\\security_containment.py",
+      "text": "\"line\": 0,"
+    },
+    {
+      "language": "python",
+      "line": 732,
+      "path": "core\\security_containment.py",
+      "text": "\"reason\": f\"{type(exc).__name__}: {exc}\","
+    },
+    {
+      "language": "python",
+      "line": 733,
+      "path": "core\\security_containment.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 734,
+      "path": "core\\security_containment.py",
+      "text": "],"
+    },
+    {
+      "language": "python",
+      "line": 735,
+      "path": "core\\security_containment.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 737,
+      "path": "core\\security_containment.py",
+      "text": "for line_number, line in enumerate(lines, start=1):"
+    },
+    {
+      "language": "python",
+      "line": 738,
+      "path": "core\\security_containment.py",
+      "text": "if not line.strip():"
+    },
+    {
+      "language": "python",
+      "line": 739,
+      "path": "core\\security_containment.py",
+      "text": "continue"
+    },
+    {
+      "language": "python",
+      "line": 741,
+      "path": "core\\security_containment.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 742,
+      "path": "core\\security_containment.py",
+      "text": "event = json.loads(line)"
+    },
+    {
+      "language": "python",
+      "line": 743,
+      "path": "core\\security_containment.py",
+      "text": "except Exception as exc:"
+    },
+    {
+      "language": "python",
+      "line": 744,
+      "path": "core\\security_containment.py",
+      "text": "failures.append("
+    },
+    {
+      "language": "python",
+      "line": 745,
+      "path": "core\\security_containment.py",
+      "text": "{"
+    },
+    {
+      "language": "python",
+      "line": 746,
+      "path": "core\\security_containment.py",
+      "text": "\"line\": line_number,"
+    },
+    {
+      "language": "python",
+      "line": 747,
+      "path": "core\\security_containment.py",
+      "text": "\"reason\": f\"Invalid JSON: {type(exc).__name__}: {exc}\","
+    },
+    {
+      "language": "python",
+      "line": 748,
+      "path": "core\\security_containment.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 749,
+      "path": "core\\security_containment.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 750,
+      "path": "core\\security_containment.py",
+      "text": "continue"
+    },
+    {
+      "language": "python",
+      "line": 752,
+      "path": "core\\security_containment.py",
+      "text": "supplied_hash = str(event.get(\"event_hash\") or \"\")"
+    },
+    {
+      "language": "python",
+      "line": 753,
+      "path": "core\\security_containment.py",
+      "text": "supplied_previous = str(event.get(\"previous_hash\") or \"\")"
+    },
+    {
+      "language": "python",
+      "line": 754,
+      "path": "core\\security_containment.py",
+      "text": "payload = dict(event)"
+    },
+    {
+      "language": "python",
+      "line": 755,
+      "path": "core\\security_containment.py",
+      "text": "payload.pop(\"event_hash\", None)"
+    },
+    {
+      "language": "python",
+      "line": 756,
+      "path": "core\\security_containment.py",
+      "text": "calculated_hash = sha256("
+    },
+    {
+      "language": "python",
+      "line": 757,
+      "path": "core\\security_containment.py",
+      "text": "_canonical_json(payload).encode(\"utf-8\")"
+    },
+    {
+      "language": "python",
+      "line": 758,
+      "path": "core\\security_containment.py",
+      "text": ").hexdigest()"
+    },
+    {
+      "language": "python",
+      "line": 760,
+      "path": "core\\security_containment.py",
+      "text": "if supplied_previous != previous_hash:"
+    },
+    {
+      "language": "python",
+      "line": 761,
+      "path": "core\\security_containment.py",
+      "text": "failures.append("
+    },
+    {
+      "language": "python",
+      "line": 762,
+      "path": "core\\security_containment.py",
+      "text": "{"
+    },
+    {
+      "language": "python",
+      "line": 763,
+      "path": "core\\security_containment.py",
+      "text": "\"line\": line_number,"
+    },
+    {
+      "language": "python",
+      "line": 764,
+      "path": "core\\security_containment.py",
+      "text": "\"reason\": \"Previous-hash chain mismatch.\","
+    },
+    {
+      "language": "python",
+      "line": 765,
+      "path": "core\\security_containment.py",
+      "text": "\"expected\": previous_hash,"
+    },
+    {
+      "language": "python",
+      "line": 766,
+      "path": "core\\security_containment.py",
+      "text": "\"actual\": supplied_previous,"
+    },
+    {
+      "language": "python",
+      "line": 767,
+      "path": "core\\security_containment.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 768,
+      "path": "core\\security_containment.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 770,
+      "path": "core\\security_containment.py",
+      "text": "if supplied_hash != calculated_hash:"
+    },
+    {
+      "language": "python",
+      "line": 771,
+      "path": "core\\security_containment.py",
+      "text": "failures.append("
+    },
+    {
+      "language": "python",
+      "line": 772,
+      "path": "core\\security_containment.py",
+      "text": "{"
+    },
+    {
+      "language": "python",
+      "line": 773,
+      "path": "core\\security_containment.py",
+      "text": "\"line\": line_number,"
+    },
+    {
+      "language": "python",
+      "line": 774,
+      "path": "core\\security_containment.py",
+      "text": "\"reason\": \"Event hash mismatch.\","
+    },
+    {
+      "language": "python",
+      "line": 775,
+      "path": "core\\security_containment.py",
+      "text": "\"expected\": calculated_hash,"
+    },
+    {
+      "language": "python",
+      "line": 776,
+      "path": "core\\security_containment.py",
+      "text": "\"actual\": supplied_hash,"
+    },
+    {
+      "language": "python",
+      "line": 777,
+      "path": "core\\security_containment.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 778,
+      "path": "core\\security_containment.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 780,
+      "path": "core\\security_containment.py",
+      "text": "previous_hash = supplied_hash"
+    },
+    {
+      "language": "python",
+      "line": 781,
+      "path": "core\\security_containment.py",
+      "text": "event_count += 1"
+    },
+    {
+      "language": "python",
+      "line": 783,
+      "path": "core\\security_containment.py",
+      "text": "return {"
+    },
+    {
+      "language": "python",
+      "line": 784,
+      "path": "core\\security_containment.py",
+      "text": "\"valid\": not failures,"
+    },
+    {
+      "language": "python",
+      "line": 785,
+      "path": "core\\security_containment.py",
+      "text": "\"event_count\": event_count,"
+    },
+    {
+      "language": "python",
+      "line": 786,
+      "path": "core\\security_containment.py",
+      "text": "\"final_hash\": previous_hash,"
+    },
+    {
+      "language": "python",
+      "line": 787,
+      "path": "core\\security_containment.py",
+      "text": "\"failures\": failures,"
+    },
+    {
+      "language": "python",
+      "line": 788,
+      "path": "core\\security_containment.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 791,
+      "path": "core\\security_containment.py",
+      "text": "def make_tool_receipt("
+    },
+    {
+      "language": "python",
+      "line": 792,
+      "path": "core\\security_containment.py",
+      "text": "action: str,"
+    },
+    {
+      "language": "python",
+      "line": 793,
+      "path": "core\\security_containment.py",
+      "text": "state: str,"
+    },
+    {
+      "language": "python",
+      "line": 794,
+      "path": "core\\security_containment.py",
+      "text": "*,"
+    },
+    {
+      "language": "python",
+      "line": 795,
+      "path": "core\\security_containment.py",
+      "text": "checks: Iterable[dict[str, Any]] | None = None,"
+    },
+    {
+      "language": "python",
+      "line": 796,
+      "path": "core\\security_containment.py",
+      "text": "details: dict[str, Any] | None = None,"
+    },
+    {
+      "language": "python",
+      "line": 797,
+      "path": "core\\security_containment.py",
+      "text": "actor: str = \"system\","
+    },
+    {
+      "language": "python",
+      "line": 798,
+      "path": "core\\security_containment.py",
+      "text": "correlation_id: str | None = None,"
+    },
+    {
+      "language": "python",
+      "line": 799,
+      "path": "core\\security_containment.py",
+      "text": "mission_id: str | None = None,"
+    },
+    {
+      "language": "python",
+      "line": 800,
+      "path": "core\\security_containment.py",
+      "text": "approval_id: str | None = None,"
+    },
+    {
+      "language": "python",
+      "line": 801,
+      "path": "core\\security_containment.py",
+      "text": ") -> dict[str, Any]:"
+    },
+    {
+      "language": "python",
+      "line": 802,
+      "path": "core\\security_containment.py",
+      "text": "allowed_states = {\"verified\", \"requested\", \"unverified\", \"failed\", \"denied\", \"rolled_back\"}"
+    },
+    {
+      "language": "python",
+      "line": 803,
+      "path": "core\\security_containment.py",
+      "text": "state = state if state in allowed_states else \"unverified\""
+    },
+    {
+      "language": "python",
+      "line": 804,
+      "path": "core\\security_containment.py",
+      "text": "check_list = list(checks or [])"
+    },
+    {
+      "language": "python",
+      "line": 805,
+      "path": "core\\security_containment.py",
+      "text": "checks_pass = bool(check_list) and all(bool(item.get(\"ok\")) for item in check_list)"
+    },
+    {
+      "language": "python",
+      "line": 806,
+      "path": "core\\security_containment.py",
+      "text": "if state == \"verified\" and not checks_pass:"
+    },
+    {
+      "language": "python",
+      "line": 807,
+      "path": "core\\security_containment.py",
+      "text": "state = \"unverified\""
+    },
+    {
+      "language": "python",
+      "line": 808,
+      "path": "core\\security_containment.py",
+      "text": "payload = {"
+    },
+    {
+      "language": "python",
+      "line": 809,
+      "path": "core\\security_containment.py",
+      "text": "\"action\": action,"
+    },
+    {
+      "language": "python",
+      "line": 810,
+      "path": "core\\security_containment.py",
+      "text": "\"state\": state,"
+    },
+    {
+      "language": "python",
+      "line": 811,
+      "path": "core\\security_containment.py",
+      "text": "\"verified\": state == \"verified\","
+    },
+    {
+      "language": "python",
+      "line": 812,
+      "path": "core\\security_containment.py",
+      "text": "\"actor\": normalize_actor(actor),"
+    },
+    {
+      "language": "python",
+      "line": 813,
+      "path": "core\\security_containment.py",
+      "text": "\"created\": datetime.now(timezone.utc).isoformat(timespec=\"seconds\"),"
+    },
+    {
+      "language": "python",
+      "line": 814,
+      "path": "core\\security_containment.py",
+      "text": "\"checks\": check_list,"
+    },
+    {
+      "language": "python",
+      "line": 815,
+      "path": "core\\security_containment.py",
+      "text": "\"details\": details or {},"
+    },
+    {
+      "language": "python",
+      "line": 816,
+      "path": "core\\security_containment.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 817,
+      "path": "core\\security_containment.py",
+      "text": "if correlation_id:"
+    },
+    {
+      "language": "python",
+      "line": 818,
+      "path": "core\\security_containment.py",
+      "text": "payload[\"correlation_id\"] = correlation_id"
+    },
+    {
+      "language": "python",
+      "line": 819,
+      "path": "core\\security_containment.py",
+      "text": "if mission_id:"
+    },
+    {
+      "language": "python",
+      "line": 820,
+      "path": "core\\security_containment.py",
+      "text": "payload[\"mission_id\"] = mission_id"
+    },
+    {
+      "language": "python",
+      "line": 821,
+      "path": "core\\security_containment.py",
+      "text": "if approval_id:"
+    },
+    {
+      "language": "python",
+      "line": 822,
+      "path": "core\\security_containment.py",
+      "text": "payload[\"approval_id\"] = approval_id"
+    },
+    {
+      "language": "python",
+      "line": 823,
+      "path": "core\\security_containment.py",
+      "text": "digest_source = json.dumps(payload, sort_keys=True, ensure_ascii=True, default=str).encode(\"utf-8\")"
+    },
+    {
+      "language": "python",
+      "line": 824,
+      "path": "core\\security_containment.py",
+      "text": "payload[\"receipt_id\"] = sha256(digest_source).hexdigest()[:24]"
+    },
+    {
+      "language": "python",
+      "line": 825,
+      "path": "core\\security_containment.py",
+      "text": "return payload"
+    },
+    {
+      "language": "python",
+      "line": 829,
+      "path": "core\\security_containment.py",
+      "text": "def append_airlock_audit_event("
+    },
+    {
+      "language": "python",
+      "line": 830,
+      "path": "core\\security_containment.py",
+      "text": "*,"
+    },
+    {
+      "language": "python",
+      "line": 831,
+      "path": "core\\security_containment.py",
+      "text": "actor: str,"
+    },
+    {
+      "language": "python",
+      "line": 832,
+      "path": "core\\security_containment.py",
+      "text": "obj: str,"
+    },
+    {
+      "language": "python",
+      "line": 833,
+      "path": "core\\security_containment.py",
+      "text": "action: str,"
+    },
+    {
+      "language": "python",
+      "line": 834,
+      "path": "core\\security_containment.py",
+      "text": "decision: str,"
+    },
+    {
+      "language": "python",
+      "line": 835,
+      "path": "core\\security_containment.py",
+      "text": "reason: str,"
+    },
+    {
+      "language": "python",
+      "line": 836,
+      "path": "core\\security_containment.py",
+      "text": "policy_source: str,"
+    },
+    {
+      "language": "python",
+      "line": 837,
+      "path": "core\\security_containment.py",
+      "text": "correlation_id: str | None = None,"
+    },
+    {
+      "language": "python",
+      "line": 838,
+      "path": "core\\security_containment.py",
+      "text": "mission_id: str | None = None,"
+    },
+    {
+      "language": "python",
+      "line": 839,
+      "path": "core\\security_containment.py",
+      "text": "approval_id: str | None = None,"
+    },
+    {
+      "language": "python",
+      "line": 840,
+      "path": "core\\security_containment.py",
+      "text": "receipt_id: str | None = None,"
+    },
+    {
+      "language": "python",
+      "line": 841,
+      "path": "core\\security_containment.py",
+      "text": "test_event: bool = False,"
+    },
+    {
+      "language": "python",
+      "line": 842,
+      "path": "core\\security_containment.py",
+      "text": "incident_kind: str | None = None,"
+    },
+    {
+      "language": "python",
+      "line": 843,
+      "path": "core\\security_containment.py",
+      "text": "context_status: str | None = None,"
+    },
+    {
+      "language": "python",
+      "line": 844,
+      "path": "core\\security_containment.py",
+      "text": "root: str | Path | None = None,"
+    },
+    {
+      "language": "python",
+      "line": 845,
+      "path": "core\\security_containment.py",
+      "text": "log_path: str | Path | None = None,"
+    },
+    {
+      "language": "python",
+      "line": 846,
+      "path": "core\\security_containment.py",
+      "text": ") -> dict[str, Any]:"
+    },
+    {
+      "language": "python",
+      "line": 847,
+      "path": "core\\security_containment.py",
+      "text": "\"\"\"Append one classified event under a verified cross-process chain lock.\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 848,
+      "path": "core\\security_containment.py",
+      "text": "if log_path is not None:"
+    },
+    {
+      "language": "python",
+      "line": 849,
+      "path": "core\\security_containment.py",
+      "text": "path = Path(log_path)"
+    },
+    {
+      "language": "python",
+      "line": 850,
+      "path": "core\\security_containment.py",
+      "text": "else:"
+    },
+    {
+      "language": "python",
+      "line": 851,
+      "path": "core\\security_containment.py",
+      "text": "project_root = ("
+    },
+    {
+      "language": "python",
+      "line": 852,
+      "path": "core\\security_containment.py",
+      "text": "Path(root)"
+    },
+    {
+      "language": "python",
+      "line": 853,
+      "path": "core\\security_containment.py",
+      "text": "if root is not None"
+    },
+    {
+      "language": "python",
+      "line": 854,
+      "path": "core\\security_containment.py",
+      "text": "else Path(__file__).resolve().parents[1]"
+    },
+    {
+      "language": "python",
+      "line": 855,
+      "path": "core\\security_containment.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 856,
+      "path": "core\\security_containment.py",
+      "text": "path = project_root / AIRLOCK_AUDIT_RELATIVE_PATH"
+    },
+    {
+      "language": "python",
+      "line": 858,
+      "path": "core\\security_containment.py",
+      "text": "event = None"
+    },
+    {
+      "language": "python",
+      "line": 859,
+      "path": "core\\security_containment.py",
+      "text": "lock_details: dict[str, Any] = {}"
+    },
+    {
+      "language": "python",
+      "line": 861,
+      "path": "core\\security_containment.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 862,
+      "path": "core\\security_containment.py",
+      "text": "with _airlock_audit_lock(path) as acquired_lock:"
+    },
+    {
+      "language": "python",
+      "line": 863,
+      "path": "core\\security_containment.py",
+      "text": "lock_details = dict(acquired_lock)"
+    },
+    {
+      "language": "python",
+      "line": 864,
+      "path": "core\\security_containment.py",
+      "text": "before = verify_airlock_audit_log(path)"
+    },
+    {
+      "language": "python",
+      "line": 865,
+      "path": "core\\security_containment.py",
+      "text": "if not before[\"valid\"]:"
+    },
+    {
+      "language": "python",
+      "line": 866,
+      "path": "core\\security_containment.py",
+      "text": "return make_tool_receipt("
+    },
+    {
+      "language": "python",
+      "line": 867,
+      "path": "core\\security_containment.py",
+      "text": "\"append_airlock_audit_event\","
+    },
+    {
+      "language": "python",
+      "line": 868,
+      "path": "core\\security_containment.py",
+      "text": "\"failed\","
+    },
+    {
+      "language": "python",
+      "line": 869,
+      "path": "core\\security_containment.py",
+      "text": "actor=actor,"
+    },
+    {
+      "language": "python",
+      "line": 870,
+      "path": "core\\security_containment.py",
+      "text": "correlation_id=correlation_id,"
+    },
+    {
+      "language": "python",
+      "line": 871,
+      "path": "core\\security_containment.py",
+      "text": "mission_id=mission_id,"
+    },
+    {
+      "language": "python",
+      "line": 872,
+      "path": "core\\security_containment.py",
+      "text": "approval_id=approval_id,"
+    },
+    {
+      "language": "python",
+      "line": 873,
+      "path": "core\\security_containment.py",
+      "text": "checks=[{"
+    },
+    {
+      "language": "python",
+      "line": 874,
+      "path": "core\\security_containment.py",
+      "text": "\"id\": \"existing_chain_valid\","
+    },
+    {
+      "language": "python",
+      "line": 875,
+      "path": "core\\security_containment.py",
+      "text": "\"ok\": False,"
+    },
+    {
+      "language": "python",
+      "line": 876,
+      "path": "core\\security_containment.py",
+      "text": "\"detail\": before,"
+    },
+    {
+      "language": "python",
+      "line": 877,
+      "path": "core\\security_containment.py",
+      "text": "}],"
+    },
+    {
+      "language": "python",
+      "line": 878,
+      "path": "core\\security_containment.py",
+      "text": "details={"
+    },
+    {
+      "language": "python",
+      "line": 879,
+      "path": "core\\security_containment.py",
+      "text": "\"log_path\": str(path),"
+    },
+    {
+      "language": "python",
+      "line": 880,
+      "path": "core\\security_containment.py",
+      "text": "\"lock\": lock_details,"
+    },
+    {
+      "language": "python",
+      "line": 881,
+      "path": "core\\security_containment.py",
+      "text": "\"reason\": ("
+    },
+    {
+      "language": "python",
+      "line": 882,
+      "path": "core\\security_containment.py",
+      "text": "\"Audit append refused because the existing \""
+    },
+    {
+      "language": "python",
+      "line": 883,
+      "path": "core\\security_containment.py",
+      "text": "\"chain did not verify.\""
+    },
+    {
+      "language": "python",
+      "line": 884,
+      "path": "core\\security_containment.py",
+      "text": "),"
+    },
+    {
+      "language": "python",
+      "line": 885,
+      "path": "core\\security_containment.py",
+      "text": "\"chain_alert\": airlock_chain_alert(before),"
+    },
+    {
+      "language": "python",
+      "line": 886,
+      "path": "core\\security_containment.py",
+      "text": "},"
+    },
+    {
+      "language": "python",
+      "line": 887,
+      "path": "core\\security_containment.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 889,
+      "path": "core\\security_containment.py",
+      "text": "normalized_kind = _normalize_airlock_incident_kind("
+    },
+    {
+      "language": "python",
+      "line": 890,
+      "path": "core\\security_containment.py",
+      "text": "decision,"
+    },
+    {
+      "language": "python",
+      "line": 891,
+      "path": "core\\security_containment.py",
+      "text": "action,"
+    },
+    {
+      "language": "python",
+      "line": 892,
+      "path": "core\\security_containment.py",
+      "text": "test_event=test_event,"
+    },
+    {
+      "language": "python",
+      "line": 893,
+      "path": "core\\security_containment.py",
+      "text": "incident_kind=incident_kind,"
+    },
+    {
+      "language": "python",
+      "line": 894,
+      "path": "core\\security_containment.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 895,
+      "path": "core\\security_containment.py",
+      "text": "attempt_count = ("
+    },
+    {
+      "language": "python",
+      "line": 896,
+      "path": "core\\security_containment.py",
+      "text": "_next_airlock_denial_attempt_count("
+    },
+    {
+      "language": "python",
+      "line": 897,
+      "path": "core\\security_containment.py",
+      "text": "path,"
+    },
+    {
+      "language": "python",
+      "line": 898,
+      "path": "core\\security_containment.py",
+      "text": "mission_id=(mission_id or \"\"),"
+    },
+    {
+      "language": "python",
+      "line": 899,
+      "path": "core\\security_containment.py",
+      "text": "incident_kind=normalized_kind,"
+    },
+    {
+      "language": "python",
+      "line": 900,
+      "path": "core\\security_containment.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 901,
+      "path": "core\\security_containment.py",
+      "text": "if (decision or \"\").strip().lower() == \"deny\""
+    },
+    {
+      "language": "python",
+      "line": 902,
+      "path": "core\\security_containment.py",
+      "text": "else 1"
+    },
+    {
+      "language": "python",
+      "line": 903,
+      "path": "core\\security_containment.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 904,
+      "path": "core\\security_containment.py",
+      "text": "event = make_airlock_audit_event("
+    },
+    {
+      "language": "python",
+      "line": 905,
+      "path": "core\\security_containment.py",
+      "text": "actor=actor,"
+    },
+    {
+      "language": "python",
+      "line": 906,
+      "path": "core\\security_containment.py",
+      "text": "obj=obj,"
+    },
+    {
+      "language": "python",
+      "line": 907,
+      "path": "core\\security_containment.py",
+      "text": "action=action,"
+    },
+    {
+      "language": "python",
+      "line": 908,
+      "path": "core\\security_containment.py",
+      "text": "decision=decision,"
+    },
+    {
+      "language": "python",
+      "line": 909,
+      "path": "core\\security_containment.py",
+      "text": "reason=reason,"
+    },
+    {
+      "language": "python",
+      "line": 910,
+      "path": "core\\security_containment.py",
+      "text": "policy_source=policy_source,"
+    },
+    {
+      "language": "python",
+      "line": 911,
+      "path": "core\\security_containment.py",
+      "text": "correlation_id=correlation_id,"
+    },
+    {
+      "language": "python",
+      "line": 912,
+      "path": "core\\security_containment.py",
+      "text": "mission_id=mission_id,"
+    },
+    {
+      "language": "python",
+      "line": 913,
+      "path": "core\\security_containment.py",
+      "text": "approval_id=approval_id,"
+    },
+    {
+      "language": "python",
+      "line": 914,
+      "path": "core\\security_containment.py",
+      "text": "receipt_id=receipt_id,"
+    },
+    {
+      "language": "python",
+      "line": 915,
+      "path": "core\\security_containment.py",
+      "text": "previous_hash=before[\"final_hash\"],"
+    },
+    {
+      "language": "python",
+      "line": 916,
+      "path": "core\\security_containment.py",
+      "text": "test_event=test_event,"
+    },
+    {
+      "language": "python",
+      "line": 917,
+      "path": "core\\security_containment.py",
+      "text": "incident_kind=normalized_kind,"
+    },
+    {
+      "language": "python",
+      "line": 918,
+      "path": "core\\security_containment.py",
+      "text": "attempt_count=attempt_count,"
+    },
+    {
+      "language": "python",
+      "line": 919,
+      "path": "core\\security_containment.py",
+      "text": "context_status=context_status,"
+    },
+    {
+      "language": "python",
+      "line": 920,
+      "path": "core\\security_containment.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 922,
+      "path": "core\\security_containment.py",
+      "text": "path.parent.mkdir(parents=True, exist_ok=True)"
+    },
+    {
+      "language": "python",
+      "line": 923,
+      "path": "core\\security_containment.py",
+      "text": "with path.open(\"a\", encoding=\"utf-8\", newline=\"\\n\") as handle:"
+    },
+    {
+      "language": "python",
+      "line": 924,
+      "path": "core\\security_containment.py",
+      "text": "handle.write(_canonical_json(event.to_dict()) + \"\\n\")"
+    },
+    {
+      "language": "python",
+      "line": 925,
+      "path": "core\\security_containment.py",
+      "text": "handle.flush()"
+    },
+    {
+      "language": "python",
+      "line": 926,
+      "path": "core\\security_containment.py",
+      "text": "os.fsync(handle.fileno())"
+    },
+    {
+      "language": "python",
+      "line": 928,
+      "path": "core\\security_containment.py",
+      "text": "after = verify_airlock_audit_log(path)"
+    },
+    {
+      "language": "python",
+      "line": 929,
+      "path": "core\\security_containment.py",
+      "text": "event_written = ("
+    },
+    {
+      "language": "python",
+      "line": 930,
+      "path": "core\\security_containment.py",
+      "text": "after[\"valid\"]"
+    },
+    {
+      "language": "python",
+      "line": 931,
+      "path": "core\\security_containment.py",
+      "text": "and after[\"event_count\"] == before[\"event_count\"] + 1"
+    },
+    {
+      "language": "python",
+      "line": 932,
+      "path": "core\\security_containment.py",
+      "text": "and after[\"final_hash\"] == event.event_hash"
+    },
+    {
+      "language": "python",
+      "line": 933,
+      "path": "core\\security_containment.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 935,
+      "path": "core\\security_containment.py",
+      "text": "return make_tool_receipt("
+    },
+    {
+      "language": "python",
+      "line": 936,
+      "path": "core\\security_containment.py",
+      "text": "\"append_airlock_audit_event\","
+    },
+    {
+      "language": "python",
+      "line": 937,
+      "path": "core\\security_containment.py",
+      "text": "\"verified\" if event_written else \"failed\","
+    },
+    {
+      "language": "python",
+      "line": 938,
+      "path": "core\\security_containment.py",
+      "text": "actor=actor,"
+    },
+    {
+      "language": "python",
+      "line": 939,
+      "path": "core\\security_containment.py",
+      "text": "correlation_id=event.correlation_id,"
+    },
+    {
+      "language": "python",
+      "line": 940,
+      "path": "core\\security_containment.py",
+      "text": "mission_id=mission_id,"
+    },
+    {
+      "language": "python",
+      "line": 941,
+      "path": "core\\security_containment.py",
+      "text": "approval_id=approval_id,"
+    },
+    {
+      "language": "python",
+      "line": 942,
+      "path": "core\\security_containment.py",
+      "text": "checks=["
+    },
+    {
+      "language": "python",
+      "line": 943,
+      "path": "core\\security_containment.py",
+      "text": "{\"id\": \"shared_audit_lock_acquired\", \"ok\": True, \"detail\": lock_details},"
+    },
+    {
+      "language": "python",
+      "line": 944,
+      "path": "core\\security_containment.py",
+      "text": "{\"id\": \"existing_chain_valid\", \"ok\": before[\"valid\"]},"
+    },
+    {
+      "language": "python",
+      "line": 945,
+      "path": "core\\security_containment.py",
+      "text": "{"
+    },
+    {
+      "language": "python",
+      "line": 946,
+      "path": "core\\security_containment.py",
+      "text": "\"id\": \"event_count_incremented\","
+    },
+    {
+      "language": "python",
+      "line": 947,
+      "path": "core\\security_containment.py",
+      "text": "\"ok\": after[\"event_count\"] == before[\"event_count\"] + 1,"
+    },
+    {
+      "language": "python",
+      "line": 948,
+      "path": "core\\security_containment.py",
+      "text": "},"
+    },
+    {
+      "language": "python",
+      "line": 949,
+      "path": "core\\security_containment.py",
+      "text": "{"
+    },
+    {
+      "language": "python",
+      "line": 950,
+      "path": "core\\security_containment.py",
+      "text": "\"id\": \"final_hash_matches_event\","
+    },
+    {
+      "language": "python",
+      "line": 951,
+      "path": "core\\security_containment.py",
+      "text": "\"ok\": after[\"final_hash\"] == event.event_hash,"
+    },
+    {
+      "language": "python",
+      "line": 952,
+      "path": "core\\security_containment.py",
+      "text": "},"
+    },
+    {
+      "language": "python",
+      "line": 953,
+      "path": "core\\security_containment.py",
+      "text": "{"
+    },
+    {
+      "language": "python",
+      "line": 954,
+      "path": "core\\security_containment.py",
+      "text": "\"id\": \"full_chain_valid\","
+    },
+    {
+      "language": "python",
+      "line": 955,
+      "path": "core\\security_containment.py",
+      "text": "\"ok\": after[\"valid\"],"
+    },
+    {
+      "language": "python",
+      "line": 956,
+      "path": "core\\security_containment.py",
+      "text": "\"detail\": after,"
+    },
+    {
+      "language": "python",
+      "line": 957,
+      "path": "core\\security_containment.py",
+      "text": "},"
+    },
+    {
+      "language": "python",
+      "line": 958,
+      "path": "core\\security_containment.py",
+      "text": "],"
+    },
+    {
+      "language": "python",
+      "line": 959,
+      "path": "core\\security_containment.py",
+      "text": "details={"
+    },
+    {
+      "language": "python",
+      "line": 960,
+      "path": "core\\security_containment.py",
+      "text": "\"log_path\": str(path),"
+    },
+    {
+      "language": "python",
+      "line": 961,
+      "path": "core\\security_containment.py",
+      "text": "\"lock\": lock_details,"
+    },
+    {
+      "language": "python",
+      "line": 962,
+      "path": "core\\security_containment.py",
+      "text": "\"event\": event.to_dict(),"
+    },
+    {
+      "language": "python",
+      "line": 963,
+      "path": "core\\security_containment.py",
+      "text": "},"
+    },
+    {
+      "language": "python",
+      "line": 964,
+      "path": "core\\security_containment.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 965,
+      "path": "core\\security_containment.py",
+      "text": "except Exception as exc:"
+    },
+    {
+      "language": "python",
+      "line": 966,
+      "path": "core\\security_containment.py",
+      "text": "return make_tool_receipt("
+    },
+    {
+      "language": "python",
+      "line": 967,
+      "path": "core\\security_containment.py",
+      "text": "\"append_airlock_audit_event\","
+    },
+    {
+      "language": "python",
+      "line": 968,
+      "path": "core\\security_containment.py",
+      "text": "\"failed\","
+    },
+    {
+      "language": "python",
+      "line": 969,
+      "path": "core\\security_containment.py",
+      "text": "actor=actor,"
+    },
+    {
+      "language": "python",
+      "line": 970,
+      "path": "core\\security_containment.py",
+      "text": "correlation_id=("
+    },
+    {
+      "language": "python",
+      "line": 971,
+      "path": "core\\security_containment.py",
+      "text": "event.correlation_id if event is not None else correlation_id"
+    },
+    {
+      "language": "python",
+      "line": 972,
+      "path": "core\\security_containment.py",
+      "text": "),"
+    },
+    {
+      "language": "python",
+      "line": 973,
+      "path": "core\\security_containment.py",
+      "text": "mission_id=mission_id,"
+    },
+    {
+      "language": "python",
+      "line": 974,
+      "path": "core\\security_containment.py",
+      "text": "approval_id=approval_id,"
+    },
+    {
+      "language": "python",
+      "line": 975,
+      "path": "core\\security_containment.py",
+      "text": "checks=[{"
+    },
+    {
+      "language": "python",
+      "line": 976,
+      "path": "core\\security_containment.py",
+      "text": "\"id\": \"audit_append_completed\","
+    },
+    {
+      "language": "python",
+      "line": 977,
+      "path": "core\\security_containment.py",
+      "text": "\"ok\": False,"
+    },
+    {
+      "language": "python",
+      "line": 978,
+      "path": "core\\security_containment.py",
+      "text": "\"detail\": f\"{type(exc).__name__}: {exc}\","
+    },
+    {
+      "language": "python",
+      "line": 979,
+      "path": "core\\security_containment.py",
+      "text": "}],"
+    },
+    {
+      "language": "python",
+      "line": 980,
+      "path": "core\\security_containment.py",
+      "text": "details={"
+    },
+    {
+      "language": "python",
+      "line": 981,
+      "path": "core\\security_containment.py",
+      "text": "\"log_path\": str(path),"
+    },
+    {
+      "language": "python",
+      "line": 982,
+      "path": "core\\security_containment.py",
+      "text": "\"lock\": lock_details,"
+    },
+    {
+      "language": "python",
+      "line": 983,
+      "path": "core\\security_containment.py",
+      "text": "\"event\": event.to_dict() if event is not None else None,"
+    },
+    {
+      "language": "python",
+      "line": 984,
+      "path": "core\\security_containment.py",
+      "text": "},"
+    },
+    {
+      "language": "python",
+      "line": 985,
+      "path": "core\\security_containment.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 988,
+      "path": "core\\security_containment.py",
+      "text": "def record_authorization_decision("
+    },
+    {
+      "language": "python",
+      "line": 989,
+      "path": "core\\security_containment.py",
+      "text": "decision: AuthorizationDecision,"
+    },
+    {
+      "language": "python",
+      "line": 990,
+      "path": "core\\security_containment.py",
+      "text": "*,"
+    },
+    {
+      "language": "python",
+      "line": 991,
+      "path": "core\\security_containment.py",
+      "text": "correlation_id: str | None = None,"
+    },
+    {
+      "language": "python",
+      "line": 992,
+      "path": "core\\security_containment.py",
+      "text": "mission_id: str | None = None,"
+    },
+    {
+      "language": "python",
+      "line": 993,
+      "path": "core\\security_containment.py",
+      "text": "approval_id: str | None = None,"
+    },
+    {
+      "language": "python",
+      "line": 994,
+      "path": "core\\security_containment.py",
+      "text": "receipt_id: str | None = None,"
+    },
+    {
+      "language": "python",
+      "line": 995,
+      "path": "core\\security_containment.py",
+      "text": "test_event: bool = False,"
+    },
+    {
+      "language": "python",
+      "line": 996,
+      "path": "core\\security_containment.py",
+      "text": "incident_kind: str | None = None,"
+    },
+    {
+      "language": "python",
+      "line": 997,
+      "path": "core\\security_containment.py",
+      "text": "context_status: str | None = None,"
+    },
+    {
+      "language": "python",
+      "line": 998,
+      "path": "core\\security_containment.py",
+      "text": "root: str | Path | None = None,"
+    },
+    {
+      "language": "python",
+      "line": 999,
+      "path": "core\\security_containment.py",
+      "text": "log_path: str | Path | None = None,"
+    },
+    {
+      "language": "python",
+      "line": 1000,
+      "path": "core\\security_containment.py",
+      "text": ") -> dict[str, Any]:"
+    },
+    {
+      "language": "python",
+      "line": 1001,
+      "path": "core\\security_containment.py",
+      "text": "return append_airlock_audit_event("
+    },
+    {
+      "language": "python",
+      "line": 1002,
+      "path": "core\\security_containment.py",
+      "text": "actor=decision.actor,"
+    },
+    {
+      "language": "python",
+      "line": 1003,
+      "path": "core\\security_containment.py",
+      "text": "obj=decision.object,"
+    },
+    {
+      "language": "python",
+      "line": 1004,
+      "path": "core\\security_containment.py",
+      "text": "action=decision.action,"
+    },
+    {
+      "language": "python",
+      "line": 1005,
+      "path": "core\\security_containment.py",
+      "text": "decision=\"allow\" if decision.allowed else \"deny\","
+    },
+    {
+      "language": "python",
+      "line": 1006,
+      "path": "core\\security_containment.py",
+      "text": "reason=decision.reason,"
+    },
+    {
+      "language": "python",
+      "line": 1007,
+      "path": "core\\security_containment.py",
+      "text": "policy_source=decision.policy_source,"
+    },
+    {
+      "language": "python",
+      "line": 1008,
+      "path": "core\\security_containment.py",
+      "text": "correlation_id=correlation_id,"
+    },
+    {
+      "language": "python",
+      "line": 1009,
+      "path": "core\\security_containment.py",
+      "text": "mission_id=mission_id,"
+    },
+    {
+      "language": "python",
+      "line": 1010,
+      "path": "core\\security_containment.py",
+      "text": "approval_id=approval_id,"
+    },
+    {
+      "language": "python",
+      "line": 1011,
+      "path": "core\\security_containment.py",
+      "text": "receipt_id=receipt_id,"
+    },
+    {
+      "language": "python",
+      "line": 1012,
+      "path": "core\\security_containment.py",
+      "text": "test_event=test_event,"
+    },
+    {
+      "language": "python",
+      "line": 1013,
+      "path": "core\\security_containment.py",
+      "text": "incident_kind=incident_kind,"
+    },
+    {
+      "language": "python",
+      "line": 1014,
+      "path": "core\\security_containment.py",
+      "text": "context_status=context_status,"
+    },
+    {
+      "language": "python",
+      "line": 1015,
+      "path": "core\\security_containment.py",
+      "text": "root=root,"
+    },
+    {
+      "language": "python",
+      "line": 1016,
+      "path": "core\\security_containment.py",
+      "text": "log_path=log_path,"
+    },
+    {
+      "language": "python",
+      "line": 1017,
+      "path": "core\\security_containment.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1020,
+      "path": "core\\security_containment.py",
+      "text": "def validate_airlock_route_receipt("
+    },
+    {
+      "language": "python",
+      "line": 1021,
+      "path": "core\\security_containment.py",
+      "text": "route_audit_receipt: Any,"
+    },
+    {
+      "language": "python",
+      "line": 1022,
+      "path": "core\\security_containment.py",
+      "text": "*,"
+    },
+    {
+      "language": "python",
+      "line": 1023,
+      "path": "core\\security_containment.py",
+      "text": "expected_actor: str,"
+    },
+    {
+      "language": "python",
+      "line": 1024,
+      "path": "core\\security_containment.py",
+      "text": "expected_object: str,"
+    },
+    {
+      "language": "python",
+      "line": 1025,
+      "path": "core\\security_containment.py",
+      "text": "expected_action: str,"
+    },
+    {
+      "language": "python",
+      "line": 1026,
+      "path": "core\\security_containment.py",
+      "text": "correlation_id: str,"
+    },
+    {
+      "language": "python",
+      "line": 1027,
+      "path": "core\\security_containment.py",
+      "text": "mission_id: str,"
+    },
+    {
+      "language": "python",
+      "line": 1028,
+      "path": "core\\security_containment.py",
+      "text": ") -> dict[str, Any]:"
+    },
+    {
+      "language": "python",
+      "line": 1029,
+      "path": "core\\security_containment.py",
+      "text": "\"\"\"Validate that one forwarded route receipt matches trusted context.\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 1030,
+      "path": "core\\security_containment.py",
+      "text": "receipt = route_audit_receipt if isinstance(route_audit_receipt, dict) else {}"
+    },
+    {
+      "language": "python",
+      "line": 1031,
+      "path": "core\\security_containment.py",
+      "text": "event = (receipt.get(\"details\") or {}).get(\"event\")"
+    },
+    {
+      "language": "python",
+      "line": 1032,
+      "path": "core\\security_containment.py",
+      "text": "event = event if isinstance(event, dict) else {}"
+    },
+    {
+      "language": "python",
+      "line": 1033,
+      "path": "core\\security_containment.py",
+      "text": "receipt_checks = receipt.get(\"checks\")"
+    },
+    {
+      "language": "python",
+      "line": 1034,
+      "path": "core\\security_containment.py",
+      "text": "receipt_checks = receipt_checks if isinstance(receipt_checks, list) else []"
+    },
+    {
+      "language": "python",
+      "line": 1036,
+      "path": "core\\security_containment.py",
+      "text": "normalized_actor = normalize_actor(expected_actor)"
+    },
+    {
+      "language": "python",
+      "line": 1037,
+      "path": "core\\security_containment.py",
+      "text": "normalized_object = (expected_object or \"\").strip().lower()"
+    },
+    {
+      "language": "python",
+      "line": 1038,
+      "path": "core\\security_containment.py",
+      "text": "normalized_action = (expected_action or \"\").strip().lower()"
+    },
+    {
+      "language": "python",
+      "line": 1039,
+      "path": "core\\security_containment.py",
+      "text": "normalized_correlation = (correlation_id or \"\").strip()"
+    },
+    {
+      "language": "python",
+      "line": 1040,
+      "path": "core\\security_containment.py",
+      "text": "normalized_mission = (mission_id or \"\").strip()"
+    },
+    {
+      "language": "python",
+      "line": 1042,
+      "path": "core\\security_containment.py",
+      "text": "checks = ["
+    },
+    {
+      "language": "python",
+      "line": 1043,
+      "path": "core\\security_containment.py",
+      "text": "{\"id\": \"route_receipt_is_mapping\", \"ok\": isinstance(route_audit_receipt, dict)},"
+    },
+    {
+      "language": "python",
+      "line": 1044,
+      "path": "core\\security_containment.py",
+      "text": "{\"id\": \"route_receipt_verified\", \"ok\": receipt.get(\"verified\") is True and receipt.get(\"state\") == \"verified\"},"
+    },
+    {
+      "language": "python",
+      "line": 1045,
+      "path": "core\\security_containment.py",
+      "text": "{\"id\": \"route_receipt_action\", \"ok\": receipt.get(\"action\") == \"append_airlock_audit_event\"},"
+    },
+    {
+      "language": "python",
+      "line": 1046,
+      "path": "core\\security_containment.py",
+      "text": "{\"id\": \"route_receipt_id_present\", \"ok\": bool(str(receipt.get(\"receipt_id\") or \"\").strip())},"
+    },
+    {
+      "language": "python",
+      "line": 1047,
+      "path": "core\\security_containment.py",
+      "text": "{\"id\": \"route_event_present\", \"ok\": bool(event)},"
+    },
+    {
+      "language": "python",
+      "line": 1048,
+      "path": "core\\security_containment.py",
+      "text": "{\"id\": \"expected_correlation_present\", \"ok\": bool(normalized_correlation)},"
+    },
+    {
+      "language": "python",
+      "line": 1049,
+      "path": "core\\security_containment.py",
+      "text": "{\"id\": \"expected_mission_present\", \"ok\": bool(normalized_mission)},"
+    },
+    {
+      "language": "python",
+      "line": 1050,
+      "path": "core\\security_containment.py",
+      "text": "{\"id\": \"route_decision_allow\", \"ok\": str(event.get(\"decision\") or \"\").lower() == \"allow\"},"
+    },
+    {
+      "language": "python",
+      "line": 1051,
+      "path": "core\\security_containment.py",
+      "text": "{\"id\": \"route_actor_matches\", \"ok\": normalize_actor(event.get(\"actor\")) == normalized_actor},"
+    },
+    {
+      "language": "python",
+      "line": 1052,
+      "path": "core\\security_containment.py",
+      "text": "{\"id\": \"route_object_matches\", \"ok\": str(event.get(\"object\") or \"\").lower() == normalized_object},"
+    },
+    {
+      "language": "python",
+      "line": 1053,
+      "path": "core\\security_containment.py",
+      "text": "{\"id\": \"route_action_matches\", \"ok\": str(event.get(\"action\") or \"\").lower() == normalized_action},"
+    },
+    {
+      "language": "python",
+      "line": 1054,
+      "path": "core\\security_containment.py",
+      "text": "{\"id\": \"route_correlation_matches\", \"ok\": str(event.get(\"correlation_id\") or \"\").strip() == normalized_correlation},"
+    },
+    {
+      "language": "python",
+      "line": 1055,
+      "path": "core\\security_containment.py",
+      "text": "{\"id\": \"route_mission_matches\", \"ok\": str(event.get(\"mission_id\") or \"\").strip() == normalized_mission},"
+    },
+    {
+      "language": "python",
+      "line": 1056,
+      "path": "core\\security_containment.py",
+      "text": "{\"id\": \"route_event_hash_present\", \"ok\": bool(str(event.get(\"event_hash\") or \"\").strip())},"
+    },
+    {
+      "language": "python",
+      "line": 1057,
+      "path": "core\\security_containment.py",
+      "text": "{\"id\": \"route_receipt_checks_pass\", \"ok\": bool(receipt_checks) and all(isinstance(item, dict) and bool(item.get(\"ok\")) for item in receipt_checks)},"
+    },
+    {
+      "language": "python",
+      "line": 1058,
+      "path": "core\\security_containment.py",
+      "text": "]"
+    },
+    {
+      "language": "python",
+      "line": 1059,
+      "path": "core\\security_containment.py",
+      "text": "valid = all(bool(item.get(\"ok\")) for item in checks)"
+    },
+    {
+      "language": "python",
+      "line": 1060,
+      "path": "core\\security_containment.py",
+      "text": "failed_ids = [item[\"id\"] for item in checks if not item[\"ok\"]]"
+    },
+    {
+      "language": "python",
+      "line": 1061,
+      "path": "core\\security_containment.py",
+      "text": "reason = ("
+    },
+    {
+      "language": "python",
+      "line": 1062,
+      "path": "core\\security_containment.py",
+      "text": "\"Forwarded Engineering Airlock route receipt verified.\""
+    },
+    {
+      "language": "python",
+      "line": 1063,
+      "path": "core\\security_containment.py",
+      "text": "if valid"
+    },
+    {
+      "language": "python",
+      "line": 1064,
+      "path": "core\\security_containment.py",
+      "text": "else \"Forwarded route context failed validation: \" + \", \".join(failed_ids)"
+    },
+    {
+      "language": "python",
+      "line": 1065,
+      "path": "core\\security_containment.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1066,
+      "path": "core\\security_containment.py",
+      "text": "return make_tool_receipt("
+    },
+    {
+      "language": "python",
+      "line": 1067,
+      "path": "core\\security_containment.py",
+      "text": "\"validate_airlock_route_receipt\","
+    },
+    {
+      "language": "python",
+      "line": 1068,
+      "path": "core\\security_containment.py",
+      "text": "\"verified\" if valid else \"denied\","
+    },
+    {
+      "language": "python",
+      "line": 1069,
+      "path": "core\\security_containment.py",
+      "text": "actor=expected_actor,"
+    },
+    {
+      "language": "python",
+      "line": 1070,
+      "path": "core\\security_containment.py",
+      "text": "correlation_id=correlation_id,"
+    },
+    {
+      "language": "python",
+      "line": 1071,
+      "path": "core\\security_containment.py",
+      "text": "mission_id=mission_id,"
+    },
+    {
+      "language": "python",
+      "line": 1072,
+      "path": "core\\security_containment.py",
+      "text": "checks=checks,"
+    },
+    {
+      "language": "python",
+      "line": 1073,
+      "path": "core\\security_containment.py",
+      "text": "details={"
+    },
+    {
+      "language": "python",
+      "line": 1074,
+      "path": "core\\security_containment.py",
+      "text": "\"reason\": reason,"
+    },
+    {
+      "language": "python",
+      "line": 1075,
+      "path": "core\\security_containment.py",
+      "text": "\"route_receipt_id\": str(receipt.get(\"receipt_id\") or \"\"),"
+    },
+    {
+      "language": "python",
+      "line": 1076,
+      "path": "core\\security_containment.py",
+      "text": "\"context_status\": \"verified\" if valid else \"mismatch\","
+    },
+    {
+      "language": "python",
+      "line": 1077,
+      "path": "core\\security_containment.py",
+      "text": "\"failed_check_ids\": failed_ids,"
+    },
+    {
+      "language": "python",
+      "line": 1078,
+      "path": "core\\security_containment.py",
+      "text": "},"
+    },
+    {
+      "language": "python",
+      "line": 1079,
+      "path": "core\\security_containment.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1082,
+      "path": "core\\security_containment.py",
+      "text": "def record_boundary_denial("
+    },
+    {
+      "language": "python",
+      "line": 1083,
+      "path": "core\\security_containment.py",
+      "text": "*,"
+    },
+    {
+      "language": "python",
+      "line": 1084,
+      "path": "core\\security_containment.py",
+      "text": "actor: str,"
+    },
+    {
+      "language": "python",
+      "line": 1085,
+      "path": "core\\security_containment.py",
+      "text": "obj: str,"
+    },
+    {
+      "language": "python",
+      "line": 1086,
+      "path": "core\\security_containment.py",
+      "text": "action: str,"
+    },
+    {
+      "language": "python",
+      "line": 1087,
+      "path": "core\\security_containment.py",
+      "text": "reason: str,"
+    },
+    {
+      "language": "python",
+      "line": 1088,
+      "path": "core\\security_containment.py",
+      "text": "incident_kind: str,"
+    },
+    {
+      "language": "python",
+      "line": 1089,
+      "path": "core\\security_containment.py",
+      "text": "correlation_id: str | None = None,"
+    },
+    {
+      "language": "python",
+      "line": 1090,
+      "path": "core\\security_containment.py",
+      "text": "mission_id: str | None = None,"
+    },
+    {
+      "language": "python",
+      "line": 1091,
+      "path": "core\\security_containment.py",
+      "text": "approval_id: str | None = None,"
+    },
+    {
+      "language": "python",
+      "line": 1092,
+      "path": "core\\security_containment.py",
+      "text": "receipt_id: str | None = None,"
+    },
+    {
+      "language": "python",
+      "line": 1093,
+      "path": "core\\security_containment.py",
+      "text": "context_status: str | None = None,"
+    },
+    {
+      "language": "python",
+      "line": 1094,
+      "path": "core\\security_containment.py",
+      "text": "root: str | Path | None = None,"
+    },
+    {
+      "language": "python",
+      "line": 1095,
+      "path": "core\\security_containment.py",
+      "text": "log_path: str | Path | None = None,"
+    },
+    {
+      "language": "python",
+      "line": 1096,
+      "path": "core\\security_containment.py",
+      "text": ") -> dict[str, Any]:"
+    },
+    {
+      "language": "python",
+      "line": 1097,
+      "path": "core\\security_containment.py",
+      "text": "\"\"\"Append one deterministic DENY boundary event through the verified chain.\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 1098,
+      "path": "core\\security_containment.py",
+      "text": "decision = AuthorizationDecision("
+    },
+    {
+      "language": "python",
+      "line": 1099,
+      "path": "core\\security_containment.py",
+      "text": "False,"
+    },
+    {
+      "language": "python",
+      "line": 1100,
+      "path": "core\\security_containment.py",
+      "text": "normalize_actor(actor),"
+    },
+    {
+      "language": "python",
+      "line": 1101,
+      "path": "core\\security_containment.py",
+      "text": "(obj or \"engineering_airlock\").strip().lower(),"
+    },
+    {
+      "language": "python",
+      "line": 1102,
+      "path": "core\\security_containment.py",
+      "text": "(action or \"boundary\").strip().lower(),"
+    },
+    {
+      "language": "python",
+      "line": 1103,
+      "path": "core\\security_containment.py",
+      "text": "reason,"
+    },
+    {
+      "language": "python",
+      "line": 1104,
+      "path": "core\\security_containment.py",
+      "text": "\"boundary_watch\","
+    },
+    {
+      "language": "python",
+      "line": 1105,
+      "path": "core\\security_containment.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1106,
+      "path": "core\\security_containment.py",
+      "text": "return record_authorization_decision("
+    },
+    {
+      "language": "python",
+      "line": 1107,
+      "path": "core\\security_containment.py",
+      "text": "decision,"
+    },
+    {
+      "language": "python",
+      "line": 1108,
+      "path": "core\\security_containment.py",
+      "text": "correlation_id=correlation_id,"
+    },
+    {
+      "language": "python",
+      "line": 1109,
+      "path": "core\\security_containment.py",
+      "text": "mission_id=mission_id,"
+    },
+    {
+      "language": "python",
+      "line": 1110,
+      "path": "core\\security_containment.py",
+      "text": "approval_id=approval_id,"
+    },
+    {
+      "language": "python",
+      "line": 1111,
+      "path": "core\\security_containment.py",
+      "text": "receipt_id=receipt_id,"
+    },
+    {
+      "language": "python",
+      "line": 1112,
+      "path": "core\\security_containment.py",
+      "text": "incident_kind=incident_kind,"
+    },
+    {
+      "language": "python",
+      "line": 1113,
+      "path": "core\\security_containment.py",
+      "text": "context_status=context_status,"
+    },
+    {
+      "language": "python",
+      "line": 1114,
+      "path": "core\\security_containment.py",
+      "text": "root=root,"
+    },
+    {
+      "language": "python",
+      "line": 1115,
+      "path": "core\\security_containment.py",
+      "text": "log_path=log_path,"
+    },
+    {
+      "language": "python",
+      "line": 1116,
+      "path": "core\\security_containment.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1118,
+      "path": "core\\security_containment.py",
+      "text": "def record_trip_sentry_test_event("
+    },
+    {
+      "language": "python",
+      "line": 1119,
+      "path": "core\\security_containment.py",
+      "text": "*,"
+    },
+    {
+      "language": "python",
+      "line": 1120,
+      "path": "core\\security_containment.py",
+      "text": "correlation_id: str | None = None,"
+    },
+    {
+      "language": "python",
+      "line": 1121,
+      "path": "core\\security_containment.py",
+      "text": "mission_id: str | None = None,"
+    },
+    {
+      "language": "python",
+      "line": 1122,
+      "path": "core\\security_containment.py",
+      "text": "root: str | Path | None = None,"
+    },
+    {
+      "language": "python",
+      "line": 1123,
+      "path": "core\\security_containment.py",
+      "text": "log_path: str | Path | None = None,"
+    },
+    {
+      "language": "python",
+      "line": 1124,
+      "path": "core\\security_containment.py",
+      "text": ") -> dict[str, Any]:"
+    },
+    {
+      "language": "python",
+      "line": 1125,
+      "path": "core\\security_containment.py",
+      "text": "\"\"\"Record a harmless, operator-initiated TEST denial event.\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 1126,
+      "path": "core\\security_containment.py",
+      "text": "decision = AuthorizationDecision("
+    },
+    {
+      "language": "python",
+      "line": 1127,
+      "path": "core\\security_containment.py",
+      "text": "False,"
+    },
+    {
+      "language": "python",
+      "line": 1128,
+      "path": "core\\security_containment.py",
+      "text": "\"ui_operator\","
+    },
+    {
+      "language": "python",
+      "line": 1129,
+      "path": "core\\security_containment.py",
+      "text": "\"engineering_airlock\","
+    },
+    {
+      "language": "python",
+      "line": 1130,
+      "path": "core\\security_containment.py",
+      "text": "\"trip_sentry_test\","
+    },
+    {
+      "language": "python",
+      "line": 1131,
+      "path": "core\\security_containment.py",
+      "text": "("
+    },
+    {
+      "language": "python",
+      "line": 1132,
+      "path": "core\\security_containment.py",
+      "text": "\"TEST incident: operator deliberately exercised the Fox \""
+    },
+    {
+      "language": "python",
+      "line": 1133,
+      "path": "core\\security_containment.py",
+      "text": "\"Sentry audit and alert path. No access or mutation occurred.\""
+    },
+    {
+      "language": "python",
+      "line": 1134,
+      "path": "core\\security_containment.py",
+      "text": "),"
+    },
+    {
+      "language": "python",
+      "line": 1135,
+      "path": "core\\security_containment.py",
+      "text": "\"trip_sentry_test\","
+    },
+    {
+      "language": "python",
+      "line": 1136,
+      "path": "core\\security_containment.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1137,
+      "path": "core\\security_containment.py",
+      "text": "return record_authorization_decision("
+    },
+    {
+      "language": "python",
+      "line": 1138,
+      "path": "core\\security_containment.py",
+      "text": "decision,"
+    },
+    {
+      "language": "python",
+      "line": 1139,
+      "path": "core\\security_containment.py",
+      "text": "correlation_id=correlation_id,"
+    },
+    {
+      "language": "python",
+      "line": 1140,
+      "path": "core\\security_containment.py",
+      "text": "mission_id=mission_id,"
+    },
+    {
+      "language": "python",
+      "line": 1141,
+      "path": "core\\security_containment.py",
+      "text": "test_event=True,"
+    },
+    {
+      "language": "python",
+      "line": 1142,
+      "path": "core\\security_containment.py",
+      "text": "root=root,"
+    },
+    {
+      "language": "python",
+      "line": 1143,
+      "path": "core\\security_containment.py",
+      "text": "log_path=log_path,"
+    },
+    {
+      "language": "python",
+      "line": 1144,
+      "path": "core\\security_containment.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1146,
+      "path": "core\\security_containment.py",
+      "text": "def guard_model_action_claims(text: str | None) -> dict[str, Any]:"
+    },
+    {
+      "language": "python",
+      "line": 1147,
+      "path": "core\\security_containment.py",
+      "text": "value = text or \"\""
+    },
+    {
+      "language": "python",
+      "line": 1148,
+      "path": "core\\security_containment.py",
+      "text": "flagged = bool(_ACTION_CLAIM.search(value))"
+    },
+    {
+      "language": "python",
+      "line": 1149,
+      "path": "core\\security_containment.py",
+      "text": "if flagged:"
+    },
+    {
+      "language": "python",
+      "line": 1150,
+      "path": "core\\security_containment.py",
+      "text": "value = ("
+    },
+    {
+      "language": "python",
+      "line": 1151,
+      "path": "core\\security_containment.py",
+      "text": "\"[UNVERIFIED ACTION CLAIM — no external tool receipt was supplied. \""
+    },
+    {
+      "language": "python",
+      "line": 1152,
+      "path": "core\\security_containment.py",
+      "text": "\"Treat the following as model text, not proof that an action occurred.]\\n\\n\" + value"
+    },
+    {
+      "language": "python",
+      "line": 1153,
+      "path": "core\\security_containment.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1154,
+      "path": "core\\security_containment.py",
+      "text": "return {"
+    },
+    {
+      "language": "python",
+      "line": 1155,
+      "path": "core\\security_containment.py",
+      "text": "\"text\": value,"
+    },
+    {
+      "language": "python",
+      "line": 1156,
+      "path": "core\\security_containment.py",
+      "text": "\"flagged\": flagged,"
+    },
+    {
+      "language": "python",
+      "line": 1157,
+      "path": "core\\security_containment.py",
+      "text": "\"external_action_verified\": False,"
+    },
+    {
+      "language": "python",
+      "line": 1158,
+      "path": "core\\security_containment.py",
+      "text": "\"reason\": \"Model output cannot prove an external action without a verified tool receipt.\","
+    },
+    {
+      "language": "python",
+      "line": 1159,
+      "path": "core\\security_containment.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 1,
+      "path": "core\\server.py",
+      "text": "from __future__ import annotations"
+    },
+    {
+      "language": "python",
+      "line": 3,
+      "path": "core\\server.py",
+      "text": "from contextlib import contextmanager"
+    },
+    {
+      "language": "python",
+      "line": 4,
+      "path": "core\\server.py",
+      "text": "from dataclasses import asdict, dataclass, field"
+    },
+    {
+      "language": "python",
+      "line": 5,
+      "path": "core\\server.py",
+      "text": "from datetime import datetime, timezone"
+    },
+    {
+      "language": "python",
+      "line": 6,
+      "path": "core\\server.py",
+      "text": "import json"
+    },
+    {
+      "language": "python",
+      "line": 7,
+      "path": "core\\server.py",
+      "text": "import os"
+    },
+    {
+      "language": "python",
+      "line": 8,
+      "path": "core\\server.py",
+      "text": "from pathlib import Path"
+    },
+    {
+      "language": "python",
+      "line": 9,
+      "path": "core\\server.py",
+      "text": "import socket"
+    },
+    {
+      "language": "python",
+      "line": 10,
+      "path": "core\\server.py",
+      "text": "import subprocess"
+    },
+    {
+      "language": "python",
+      "line": 11,
+      "path": "core\\server.py",
+      "text": "import tempfile"
+    },
+    {
+      "language": "python",
+      "line": 12,
+      "path": "core\\server.py",
+      "text": "import time"
+    },
+    {
+      "language": "python",
+      "line": 13,
+      "path": "core\\server.py",
+      "text": "import urllib.request"
+    },
+    {
+      "language": "python",
+      "line": 15,
+      "path": "core\\server.py",
+      "text": "from core.paths import ENGINE"
+    },
+    {
+      "language": "python",
+      "line": 18,
+      "path": "core\\server.py",
+      "text": "RUNTIME_DIR = ENGINE.parent.parent / \"Logs\""
+    },
+    {
+      "language": "python",
+      "line": 19,
+      "path": "core\\server.py",
+      "text": "DEFAULT_STATE_FILE = RUNTIME_DIR / \"shared_llama_runtime.json\""
+    },
+    {
+      "language": "python",
+      "line": 20,
+      "path": "core\\server.py",
+      "text": "DEFAULT_LOCK_FILE = RUNTIME_DIR / \"shared_llama_runtime.lock\""
+    },
+    {
+      "language": "python",
+      "line": 23,
+      "path": "core\\server.py",
+      "text": "@dataclass"
+    },
+    {
+      "language": "python",
+      "line": 24,
+      "path": "core\\server.py",
+      "text": "class RuntimeResult:"
+    },
+    {
+      "language": "python",
+      "line": 25,
+      "path": "core\\server.py",
+      "text": "ok: bool"
+    },
+    {
+      "language": "python",
+      "line": 26,
+      "path": "core\\server.py",
+      "text": "action: str"
+    },
+    {
+      "language": "python",
+      "line": 27,
+      "path": "core\\server.py",
+      "text": "message: str"
+    },
+    {
+      "language": "python",
+      "line": 28,
+      "path": "core\\server.py",
+      "text": "model_name: str | None = None"
+    },
+    {
+      "language": "python",
+      "line": 29,
+      "path": "core\\server.py",
+      "text": "pid: int | None = None"
+    },
+    {
+      "language": "python",
+      "line": 30,
+      "path": "core\\server.py",
+      "text": "owned: bool = False"
+    },
+    {
+      "language": "python",
+      "line": 31,
+      "path": "core\\server.py",
+      "text": "details: dict = field(default_factory=dict)"
+    },
+    {
+      "language": "python",
+      "line": 33,
+      "path": "core\\server.py",
+      "text": "def __bool__(self):"
+    },
+    {
+      "language": "python",
+      "line": 34,
+      "path": "core\\server.py",
+      "text": "return self.ok"
+    },
+    {
+      "language": "python",
+      "line": 36,
+      "path": "core\\server.py",
+      "text": "def to_dict(self):"
+    },
+    {
+      "language": "python",
+      "line": 37,
+      "path": "core\\server.py",
+      "text": "return asdict(self)"
+    },
+    {
+      "language": "python",
+      "line": 40,
+      "path": "core\\server.py",
+      "text": "class LlamaServer:"
+    },
+    {
+      "language": "python",
+      "line": 41,
+      "path": "core\\server.py",
+      "text": "\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 42,
+      "path": "core\\server.py",
+      "text": "Shared llama-server coordinator for FOXAI frontends."
+    },
+    {
+      "language": "python",
+      "line": 44,
+      "path": "core\\server.py",
+      "text": "A healthy FOXAI-managed runtime is identified by a small state file plus"
+    },
+    {
+      "language": "python",
+      "line": 45,
+      "path": "core\\server.py",
+      "text": "the live health endpoint. Each frontend registers its own process as a"
+    },
+    {
+      "language": "python",
+      "line": 46,
+      "path": "core\\server.py",
+      "text": "client. A frontend may detach without terminating the server while"
+    },
+    {
+      "language": "python",
+      "line": 47,
+      "path": "core\\server.py",
+      "text": "another live client is still using it."
+    },
+    {
+      "language": "python",
+      "line": 48,
+      "path": "core\\server.py",
+      "text": "\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 50,
+      "path": "core\\server.py",
+      "text": "def __init__("
+    },
+    {
+      "language": "python",
+      "line": 51,
+      "path": "core\\server.py",
+      "text": "self,"
+    },
+    {
+      "language": "python",
+      "line": 52,
+      "path": "core\\server.py",
+      "text": "interface_name=\"Desktop\","
+    },
+    {
+      "language": "python",
+      "line": 53,
+      "path": "core\\server.py",
+      "text": "*,"
+    },
+    {
+      "language": "python",
+      "line": 54,
+      "path": "core\\server.py",
+      "text": "state_file=None,"
+    },
+    {
+      "language": "python",
+      "line": 55,
+      "path": "core\\server.py",
+      "text": "new_console=False,"
+    },
+    {
+      "language": "python",
+      "line": 56,
+      "path": "core\\server.py",
+      "text": "):"
+    },
+    {
+      "language": "python",
+      "line": 57,
+      "path": "core\\server.py",
+      "text": "self.interface_name = str(interface_name or \"FOXAI\")"
+    },
+    {
+      "language": "python",
+      "line": 58,
+      "path": "core\\server.py",
+      "text": "self.process = None"
+    },
+    {
+      "language": "python",
+      "line": 59,
+      "path": "core\\server.py",
+      "text": "self.model = None"
+    },
+    {
+      "language": "python",
+      "line": 60,
+      "path": "core\\server.py",
+      "text": "self.host = \"127.0.0.1\""
+    },
+    {
+      "language": "python",
+      "line": 61,
+      "path": "core\\server.py",
+      "text": "self.port = \"8080\""
+    },
+    {
+      "language": "python",
+      "line": 62,
+      "path": "core\\server.py",
+      "text": "self.state_file = Path(state_file) if state_file else DEFAULT_STATE_FILE"
+    },
+    {
+      "language": "python",
+      "line": 63,
+      "path": "core\\server.py",
+      "text": "self.lock_file = ("
+    },
+    {
+      "language": "python",
+      "line": 64,
+      "path": "core\\server.py",
+      "text": "self.state_file.with_suffix(\".lock\")"
+    },
+    {
+      "language": "python",
+      "line": 65,
+      "path": "core\\server.py",
+      "text": "if state_file"
+    },
+    {
+      "language": "python",
+      "line": 66,
+      "path": "core\\server.py",
+      "text": "else DEFAULT_LOCK_FILE"
+    },
+    {
+      "language": "python",
+      "line": 67,
+      "path": "core\\server.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 68,
+      "path": "core\\server.py",
+      "text": "self.new_console = bool(new_console)"
+    },
+    {
+      "language": "python",
+      "line": 69,
+      "path": "core\\server.py",
+      "text": "self.last_result = RuntimeResult("
+    },
+    {
+      "language": "python",
+      "line": 70,
+      "path": "core\\server.py",
+      "text": "False,"
+    },
+    {
+      "language": "python",
+      "line": 71,
+      "path": "core\\server.py",
+      "text": "\"offline\","
+    },
+    {
+      "language": "python",
+      "line": 72,
+      "path": "core\\server.py",
+      "text": "\"Shared neural runtime is offline.\","
+    },
+    {
+      "language": "python",
+      "line": 73,
+      "path": "core\\server.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 75,
+      "path": "core\\server.py",
+      "text": "# -------------------------"
+    },
+    {
+      "language": "python",
+      "line": 76,
+      "path": "core\\server.py",
+      "text": "# Public runtime interface"
+    },
+    {
+      "language": "python",
+      "line": 77,
+      "path": "core\\server.py",
+      "text": "# -------------------------"
+    },
+    {
+      "language": "python",
+      "line": 79,
+      "path": "core\\server.py",
+      "text": "def ensure_running("
+    },
+    {
+      "language": "python",
+      "line": 80,
+      "path": "core\\server.py",
+      "text": "self,"
+    },
+    {
+      "language": "python",
+      "line": 81,
+      "path": "core\\server.py",
+      "text": "model,"
+    },
+    {
+      "language": "python",
+      "line": 82,
+      "path": "core\\server.py",
+      "text": "host=\"127.0.0.1\","
+    },
+    {
+      "language": "python",
+      "line": 83,
+      "path": "core\\server.py",
+      "text": "port=\"8080\","
+    },
+    {
+      "language": "python",
+      "line": 84,
+      "path": "core\\server.py",
+      "text": "context=\"8192\","
+    },
+    {
+      "language": "python",
+      "line": 85,
+      "path": "core\\server.py",
+      "text": "threads=\"12\","
+    },
+    {
+      "language": "python",
+      "line": 86,
+      "path": "core\\server.py",
+      "text": "reasoning_mode=\"current\","
+    },
+    {
+      "language": "python",
+      "line": 87,
+      "path": "core\\server.py",
+      "text": "reasoning_budget=None,"
+    },
+    {
+      "language": "python",
+      "line": 88,
+      "path": "core\\server.py",
+      "text": "require_verified_settings=False,"
+    },
+    {
+      "language": "python",
+      "line": 89,
+      "path": "core\\server.py",
+      "text": "projector=None,"
+    },
+    {
+      "language": "python",
+      "line": 90,
+      "path": "core\\server.py",
+      "text": "):"
+    },
+    {
+      "language": "python",
+      "line": 91,
+      "path": "core\\server.py",
+      "text": "target = self._target("
+    },
+    {
+      "language": "python",
+      "line": 92,
+      "path": "core\\server.py",
+      "text": "model,"
+    },
+    {
+      "language": "python",
+      "line": 93,
+      "path": "core\\server.py",
+      "text": "host,"
+    },
+    {
+      "language": "python",
+      "line": 94,
+      "path": "core\\server.py",
+      "text": "port,"
+    },
+    {
+      "language": "python",
+      "line": 95,
+      "path": "core\\server.py",
+      "text": "context,"
+    },
+    {
+      "language": "python",
+      "line": 96,
+      "path": "core\\server.py",
+      "text": "threads,"
+    },
+    {
+      "language": "python",
+      "line": 97,
+      "path": "core\\server.py",
+      "text": "reasoning_mode,"
+    },
+    {
+      "language": "python",
+      "line": 98,
+      "path": "core\\server.py",
+      "text": "reasoning_budget,"
+    },
+    {
+      "language": "python",
+      "line": 99,
+      "path": "core\\server.py",
+      "text": "require_verified_settings,"
+    },
+    {
+      "language": "python",
+      "line": 100,
+      "path": "core\\server.py",
+      "text": "projector,"
+    },
+    {
+      "language": "python",
+      "line": 101,
+      "path": "core\\server.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 102,
+      "path": "core\\server.py",
+      "text": "self.model = Path(model)"
+    },
+    {
+      "language": "python",
+      "line": 103,
+      "path": "core\\server.py",
+      "text": "self.host = target[\"host\"]"
+    },
+    {
+      "language": "python",
+      "line": 104,
+      "path": "core\\server.py",
+      "text": "self.port = target[\"port\"]"
+    },
+    {
+      "language": "python",
+      "line": 106,
+      "path": "core\\server.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 107,
+      "path": "core\\server.py",
+      "text": "with self._runtime_lock():"
+    },
+    {
+      "language": "python",
+      "line": 108,
+      "path": "core\\server.py",
+      "text": "state = self._prune_clients(self._read_state())"
+    },
+    {
+      "language": "python",
+      "line": 109,
+      "path": "core\\server.py",
+      "text": "healthy = self._health_ok(target[\"host\"], target[\"port\"])"
+    },
+    {
+      "language": "python",
+      "line": 110,
+      "path": "core\\server.py",
+      "text": "port_open = self._port_open(target[\"host\"], target[\"port\"])"
+    },
+    {
+      "language": "python",
+      "line": 112,
+      "path": "core\\server.py",
+      "text": "if healthy:"
+    },
+    {
+      "language": "python",
+      "line": 113,
+      "path": "core\\server.py",
+      "text": "result = self._attach_to_healthy_runtime(state, target)"
+    },
+    {
+      "language": "python",
+      "line": 114,
+      "path": "core\\server.py",
+      "text": "self.last_result = result"
+    },
+    {
+      "language": "python",
+      "line": 115,
+      "path": "core\\server.py",
+      "text": "return result"
+    },
+    {
+      "language": "python",
+      "line": 117,
+      "path": "core\\server.py",
+      "text": "if state and self._same_endpoint(state, target):"
+    },
+    {
+      "language": "python",
+      "line": 118,
+      "path": "core\\server.py",
+      "text": "state_pid = self._int_or_none(state.get(\"server_pid\"))"
+    },
+    {
+      "language": "python",
+      "line": 119,
+      "path": "core\\server.py",
+      "text": "state_active = ("
+    },
+    {
+      "language": "python",
+      "line": 120,
+      "path": "core\\server.py",
+      "text": "(state_pid is not None and self._pid_exists(state_pid))"
+    },
+    {
+      "language": "python",
+      "line": 121,
+      "path": "core\\server.py",
+      "text": "or port_open"
+    },
+    {
+      "language": "python",
+      "line": 122,
+      "path": "core\\server.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 124,
+      "path": "core\\server.py",
+      "text": "if state_active:"
+    },
+    {
+      "language": "python",
+      "line": 125,
+      "path": "core\\server.py",
+      "text": "if not self._same_model(state, target):"
+    },
+    {
+      "language": "python",
+      "line": 126,
+      "path": "core\\server.py",
+      "text": "result = self._conflict_result("
+    },
+    {
+      "language": "python",
+      "line": 127,
+      "path": "core\\server.py",
+      "text": "target,"
+    },
+    {
+      "language": "python",
+      "line": 128,
+      "path": "core\\server.py",
+      "text": "state,"
+    },
+    {
+      "language": "python",
+      "line": 129,
+      "path": "core\\server.py",
+      "text": "\"A different shared model or runtime profile \""
+    },
+    {
+      "language": "python",
+      "line": 130,
+      "path": "core\\server.py",
+      "text": "\"is already starting on this endpoint.\","
+    },
+    {
+      "language": "python",
+      "line": 131,
+      "path": "core\\server.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 132,
+      "path": "core\\server.py",
+      "text": "self.last_result = result"
+    },
+    {
+      "language": "python",
+      "line": 133,
+      "path": "core\\server.py",
+      "text": "return result"
+    },
+    {
+      "language": "python",
+      "line": 135,
+      "path": "core\\server.py",
+      "text": "state = self._register_client(state)"
+    },
+    {
+      "language": "python",
+      "line": 136,
+      "path": "core\\server.py",
+      "text": "state[\"status\"] = \"starting\""
+    },
+    {
+      "language": "python",
+      "line": 137,
+      "path": "core\\server.py",
+      "text": "state[\"updated_at\"] = self._now()"
+    },
+    {
+      "language": "python",
+      "line": 138,
+      "path": "core\\server.py",
+      "text": "self._write_state(state)"
+    },
+    {
+      "language": "python",
+      "line": 139,
+      "path": "core\\server.py",
+      "text": "result = RuntimeResult("
+    },
+    {
+      "language": "python",
+      "line": 140,
+      "path": "core\\server.py",
+      "text": "True,"
+    },
+    {
+      "language": "python",
+      "line": 141,
+      "path": "core\\server.py",
+      "text": "\"waiting\","
+    },
+    {
+      "language": "python",
+      "line": 142,
+      "path": "core\\server.py",
+      "text": "\"Compatible shared neural runtime is already \""
+    },
+    {
+      "language": "python",
+      "line": 143,
+      "path": "core\\server.py",
+      "text": "\"starting. No duplicate server was launched.\","
+    },
+    {
+      "language": "python",
+      "line": 144,
+      "path": "core\\server.py",
+      "text": "target[\"model_name\"],"
+    },
+    {
+      "language": "python",
+      "line": 145,
+      "path": "core\\server.py",
+      "text": "state_pid,"
+    },
+    {
+      "language": "python",
+      "line": 146,
+      "path": "core\\server.py",
+      "text": "False,"
+    },
+    {
+      "language": "python",
+      "line": 147,
+      "path": "core\\server.py",
+      "text": "{"
+    },
+    {
+      "language": "python",
+      "line": 148,
+      "path": "core\\server.py",
+      "text": "\"host\": target[\"host\"],"
+    },
+    {
+      "language": "python",
+      "line": 149,
+      "path": "core\\server.py",
+      "text": "\"port\": target[\"port\"],"
+    },
+    {
+      "language": "python",
+      "line": 150,
+      "path": "core\\server.py",
+      "text": "\"requested_context\": target[\"context\"],"
+    },
+    {
+      "language": "python",
+      "line": 151,
+      "path": "core\\server.py",
+      "text": "\"requested_threads\": target[\"threads\"],"
+    },
+    {
+      "language": "python",
+      "line": 152,
+      "path": "core\\server.py",
+      "text": "\"requested_projector\": target[\"projector_name\"],"
+    },
+    {
+      "language": "python",
+      "line": 153,
+      "path": "core\\server.py",
+      "text": "\"active_context\": state.get(\"context\"),"
+    },
+    {
+      "language": "python",
+      "line": 154,
+      "path": "core\\server.py",
+      "text": "\"active_projector\": state.get(\"projector_name\"),"
+    },
+    {
+      "language": "python",
+      "line": 155,
+      "path": "core\\server.py",
+      "text": "\"active_threads\": state.get(\"threads\"),"
+    },
+    {
+      "language": "python",
+      "line": 156,
+      "path": "core\\server.py",
+      "text": "\"requested_reasoning_mode\": target[\"reasoning_mode\"],"
+    },
+    {
+      "language": "python",
+      "line": 157,
+      "path": "core\\server.py",
+      "text": "\"requested_reasoning_budget\": target[\"reasoning_budget\"],"
+    },
+    {
+      "language": "python",
+      "line": 158,
+      "path": "core\\server.py",
+      "text": "\"active_reasoning_mode\": self._state_reasoning_mode(state),"
+    },
+    {
+      "language": "python",
+      "line": 159,
+      "path": "core\\server.py",
+      "text": "\"active_reasoning_budget\": self._state_reasoning_budget(state),"
+    },
+    {
+      "language": "python",
+      "line": 160,
+      "path": "core\\server.py",
+      "text": "},"
+    },
+    {
+      "language": "python",
+      "line": 161,
+      "path": "core\\server.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 162,
+      "path": "core\\server.py",
+      "text": "self.last_result = result"
+    },
+    {
+      "language": "python",
+      "line": 163,
+      "path": "core\\server.py",
+      "text": "return result"
+    },
+    {
+      "language": "python",
+      "line": 165,
+      "path": "core\\server.py",
+      "text": "self._clear_state()"
+    },
+    {
+      "language": "python",
+      "line": 167,
+      "path": "core\\server.py",
+      "text": "if port_open:"
+    },
+    {
+      "language": "python",
+      "line": 168,
+      "path": "core\\server.py",
+      "text": "result = RuntimeResult("
+    },
+    {
+      "language": "python",
+      "line": 169,
+      "path": "core\\server.py",
+      "text": "False,"
+    },
+    {
+      "language": "python",
+      "line": 170,
+      "path": "core\\server.py",
+      "text": "\"conflict\","
+    },
+    {
+      "language": "python",
+      "line": 171,
+      "path": "core\\server.py",
+      "text": "\"Port \""
+    },
+    {
+      "language": "python",
+      "line": 172,
+      "path": "core\\server.py",
+      "text": "f\"{target['port']} is already occupied by an \""
+    },
+    {
+      "language": "python",
+      "line": 173,
+      "path": "core\\server.py",
+      "text": "\"unverified or still-starting process. FOXAI did \""
+    },
+    {
+      "language": "python",
+      "line": 174,
+      "path": "core\\server.py",
+      "text": "\"not launch a duplicate neural server.\","
+    },
+    {
+      "language": "python",
+      "line": 175,
+      "path": "core\\server.py",
+      "text": "target[\"model_name\"],"
+    },
+    {
+      "language": "python",
+      "line": 176,
+      "path": "core\\server.py",
+      "text": "details={"
+    },
+    {
+      "language": "python",
+      "line": 177,
+      "path": "core\\server.py",
+      "text": "\"host\": target[\"host\"],"
+    },
+    {
+      "language": "python",
+      "line": 178,
+      "path": "core\\server.py",
+      "text": "\"port\": target[\"port\"],"
+    },
+    {
+      "language": "python",
+      "line": 179,
+      "path": "core\\server.py",
+      "text": "},"
+    },
+    {
+      "language": "python",
+      "line": 180,
+      "path": "core\\server.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 181,
+      "path": "core\\server.py",
+      "text": "self.last_result = result"
+    },
+    {
+      "language": "python",
+      "line": 182,
+      "path": "core\\server.py",
+      "text": "return result"
+    },
+    {
+      "language": "python",
+      "line": 184,
+      "path": "core\\server.py",
+      "text": "if not ENGINE.exists():"
+    },
+    {
+      "language": "python",
+      "line": 185,
+      "path": "core\\server.py",
+      "text": "raise FileNotFoundError("
+    },
+    {
+      "language": "python",
+      "line": 186,
+      "path": "core\\server.py",
+      "text": "f\"Missing llama-server.exe at: {ENGINE}\""
+    },
+    {
+      "language": "python",
+      "line": 187,
+      "path": "core\\server.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 189,
+      "path": "core\\server.py",
+      "text": "process = self._launch_process(target)"
+    },
+    {
+      "language": "python",
+      "line": 190,
+      "path": "core\\server.py",
+      "text": "self.process = process"
+    },
+    {
+      "language": "python",
+      "line": 192,
+      "path": "core\\server.py",
+      "text": "state = {"
+    },
+    {
+      "language": "python",
+      "line": 193,
+      "path": "core\\server.py",
+      "text": "\"version\": 1,"
+    },
+    {
+      "language": "python",
+      "line": 194,
+      "path": "core\\server.py",
+      "text": "\"status\": \"starting\","
+    },
+    {
+      "language": "python",
+      "line": 195,
+      "path": "core\\server.py",
+      "text": "\"engine_path\": str(ENGINE.resolve()),"
+    },
+    {
+      "language": "python",
+      "line": 196,
+      "path": "core\\server.py",
+      "text": "\"server_pid\": getattr(process, \"pid\", None),"
+    },
+    {
+      "language": "python",
+      "line": 197,
+      "path": "core\\server.py",
+      "text": "\"owner_interface\": self.interface_name,"
+    },
+    {
+      "language": "python",
+      "line": 198,
+      "path": "core\\server.py",
+      "text": "\"owner_process_pid\": os.getpid(),"
+    },
+    {
+      "language": "python",
+      "line": 199,
+      "path": "core\\server.py",
+      "text": "\"host\": target[\"host\"],"
+    },
+    {
+      "language": "python",
+      "line": 200,
+      "path": "core\\server.py",
+      "text": "\"port\": target[\"port\"],"
+    },
+    {
+      "language": "python",
+      "line": 201,
+      "path": "core\\server.py",
+      "text": "\"model_path\": target[\"model_path\"],"
+    },
+    {
+      "language": "python",
+      "line": 202,
+      "path": "core\\server.py",
+      "text": "\"model_name\": target[\"model_name\"],"
+    },
+    {
+      "language": "python",
+      "line": 203,
+      "path": "core\\server.py",
+      "text": "\"projector_path\": target[\"projector_path\"],"
+    },
+    {
+      "language": "python",
+      "line": 204,
+      "path": "core\\server.py",
+      "text": "\"projector_name\": target[\"projector_name\"],"
+    },
+    {
+      "language": "python",
+      "line": 205,
+      "path": "core\\server.py",
+      "text": "\"context\": target[\"context\"],"
+    },
+    {
+      "language": "python",
+      "line": 206,
+      "path": "core\\server.py",
+      "text": "\"threads\": target[\"threads\"],"
+    },
+    {
+      "language": "python",
+      "line": 207,
+      "path": "core\\server.py",
+      "text": "\"reasoning_mode\": target[\"reasoning_mode\"],"
+    },
+    {
+      "language": "python",
+      "line": 208,
+      "path": "core\\server.py",
+      "text": "\"reasoning_budget\": target[\"reasoning_budget\"],"
+    },
+    {
+      "language": "python",
+      "line": 209,
+      "path": "core\\server.py",
+      "text": "\"launched_at\": self._now(),"
+    },
+    {
+      "language": "python",
+      "line": 210,
+      "path": "core\\server.py",
+      "text": "\"updated_at\": self._now(),"
+    },
+    {
+      "language": "python",
+      "line": 211,
+      "path": "core\\server.py",
+      "text": "\"clients\": {},"
+    },
+    {
+      "language": "python",
+      "line": 212,
+      "path": "core\\server.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 213,
+      "path": "core\\server.py",
+      "text": "state = self._register_client(state)"
+    },
+    {
+      "language": "python",
+      "line": 214,
+      "path": "core\\server.py",
+      "text": "self._write_state(state)"
+    },
+    {
+      "language": "python",
+      "line": 216,
+      "path": "core\\server.py",
+      "text": "result = RuntimeResult("
+    },
+    {
+      "language": "python",
+      "line": 217,
+      "path": "core\\server.py",
+      "text": "True,"
+    },
+    {
+      "language": "python",
+      "line": 218,
+      "path": "core\\server.py",
+      "text": "\"launched\","
+    },
+    {
+      "language": "python",
+      "line": 219,
+      "path": "core\\server.py",
+      "text": "f\"Shared neural runtime launch requested for \""
+    },
+    {
+      "language": "python",
+      "line": 220,
+      "path": "core\\server.py",
+      "text": "f\"{target['model_name']}.\","
+    },
+    {
+      "language": "python",
+      "line": 221,
+      "path": "core\\server.py",
+      "text": "target[\"model_name\"],"
+    },
+    {
+      "language": "python",
+      "line": 222,
+      "path": "core\\server.py",
+      "text": "getattr(process, \"pid\", None),"
+    },
+    {
+      "language": "python",
+      "line": 223,
+      "path": "core\\server.py",
+      "text": "True,"
+    },
+    {
+      "language": "python",
+      "line": 224,
+      "path": "core\\server.py",
+      "text": "{"
+    },
+    {
+      "language": "python",
+      "line": 225,
+      "path": "core\\server.py",
+      "text": "\"host\": target[\"host\"],"
+    },
+    {
+      "language": "python",
+      "line": 226,
+      "path": "core\\server.py",
+      "text": "\"port\": target[\"port\"],"
+    },
+    {
+      "language": "python",
+      "line": 227,
+      "path": "core\\server.py",
+      "text": "\"context\": target[\"context\"],"
+    },
+    {
+      "language": "python",
+      "line": 228,
+      "path": "core\\server.py",
+      "text": "\"threads\": target[\"threads\"],"
+    },
+    {
+      "language": "python",
+      "line": 229,
+      "path": "core\\server.py",
+      "text": "\"projector_path\": target[\"projector_path\"],"
+    },
+    {
+      "language": "python",
+      "line": 230,
+      "path": "core\\server.py",
+      "text": "\"projector_name\": target[\"projector_name\"],"
+    },
+    {
+      "language": "python",
+      "line": 231,
+      "path": "core\\server.py",
+      "text": "\"reasoning_mode\": target[\"reasoning_mode\"],"
+    },
+    {
+      "language": "python",
+      "line": 232,
+      "path": "core\\server.py",
+      "text": "\"reasoning_budget\": target[\"reasoning_budget\"],"
+    },
+    {
+      "language": "python",
+      "line": 233,
+      "path": "core\\server.py",
+      "text": "\"settings_verified\": target[\"require_verified_settings\"],"
+    },
+    {
+      "language": "python",
+      "line": 234,
+      "path": "core\\server.py",
+      "text": "},"
+    },
+    {
+      "language": "python",
+      "line": 235,
+      "path": "core\\server.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 236,
+      "path": "core\\server.py",
+      "text": "self.last_result = result"
+    },
+    {
+      "language": "python",
+      "line": 237,
+      "path": "core\\server.py",
+      "text": "return result"
+    },
+    {
+      "language": "python",
+      "line": 239,
+      "path": "core\\server.py",
+      "text": "except TimeoutError as exc:"
+    },
+    {
+      "language": "python",
+      "line": 240,
+      "path": "core\\server.py",
+      "text": "result = RuntimeResult("
+    },
+    {
+      "language": "python",
+      "line": 241,
+      "path": "core\\server.py",
+      "text": "False,"
+    },
+    {
+      "language": "python",
+      "line": 242,
+      "path": "core\\server.py",
+      "text": "\"busy\","
+    },
+    {
+      "language": "python",
+      "line": 243,
+      "path": "core\\server.py",
+      "text": "str(exc),"
+    },
+    {
+      "language": "python",
+      "line": 244,
+      "path": "core\\server.py",
+      "text": "target[\"model_name\"],"
+    },
+    {
+      "language": "python",
+      "line": 245,
+      "path": "core\\server.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 246,
+      "path": "core\\server.py",
+      "text": "self.last_result = result"
+    },
+    {
+      "language": "python",
+      "line": 247,
+      "path": "core\\server.py",
+      "text": "return result"
+    },
+    {
+      "language": "python",
+      "line": 248,
+      "path": "core\\server.py",
+      "text": "except Exception as exc:"
+    },
+    {
+      "language": "python",
+      "line": 249,
+      "path": "core\\server.py",
+      "text": "result = RuntimeResult("
+    },
+    {
+      "language": "python",
+      "line": 250,
+      "path": "core\\server.py",
+      "text": "False,"
+    },
+    {
+      "language": "python",
+      "line": 251,
+      "path": "core\\server.py",
+      "text": "\"failed\","
+    },
+    {
+      "language": "python",
+      "line": 252,
+      "path": "core\\server.py",
+      "text": "f\"Shared neural runtime error: {exc}\","
+    },
+    {
+      "language": "python",
+      "line": 253,
+      "path": "core\\server.py",
+      "text": "target[\"model_name\"],"
+    },
+    {
+      "language": "python",
+      "line": 254,
+      "path": "core\\server.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 255,
+      "path": "core\\server.py",
+      "text": "self.last_result = result"
+    },
+    {
+      "language": "python",
+      "line": 256,
+      "path": "core\\server.py",
+      "text": "return result"
+    },
+    {
+      "language": "python",
+      "line": 258,
+      "path": "core\\server.py",
+      "text": "def start("
+    },
+    {
+      "language": "python",
+      "line": 259,
+      "path": "core\\server.py",
+      "text": "self,"
+    },
+    {
+      "language": "python",
+      "line": 260,
+      "path": "core\\server.py",
+      "text": "model,"
+    },
+    {
+      "language": "python",
+      "line": 261,
+      "path": "core\\server.py",
+      "text": "host=\"127.0.0.1\","
+    },
+    {
+      "language": "python",
+      "line": 262,
+      "path": "core\\server.py",
+      "text": "port=\"8080\","
+    },
+    {
+      "language": "python",
+      "line": 263,
+      "path": "core\\server.py",
+      "text": "context=\"8192\","
+    },
+    {
+      "language": "python",
+      "line": 264,
+      "path": "core\\server.py",
+      "text": "threads=\"12\","
+    },
+    {
+      "language": "python",
+      "line": 265,
+      "path": "core\\server.py",
+      "text": "reasoning_mode=\"current\","
+    },
+    {
+      "language": "python",
+      "line": 266,
+      "path": "core\\server.py",
+      "text": "reasoning_budget=None,"
+    },
+    {
+      "language": "python",
+      "line": 267,
+      "path": "core\\server.py",
+      "text": "require_verified_settings=False,"
+    },
+    {
+      "language": "python",
+      "line": 268,
+      "path": "core\\server.py",
+      "text": "projector=None,"
+    },
+    {
+      "language": "python",
+      "line": 269,
+      "path": "core\\server.py",
+      "text": "):"
+    },
+    {
+      "language": "python",
+      "line": 270,
+      "path": "core\\server.py",
+      "text": "\"\"\"Compatibility wrapper. Prefer ensure_running().\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 271,
+      "path": "core\\server.py",
+      "text": "return bool("
+    },
+    {
+      "language": "python",
+      "line": 272,
+      "path": "core\\server.py",
+      "text": "self.ensure_running("
+    },
+    {
+      "language": "python",
+      "line": 273,
+      "path": "core\\server.py",
+      "text": "model,"
+    },
+    {
+      "language": "python",
+      "line": 274,
+      "path": "core\\server.py",
+      "text": "host=host,"
+    },
+    {
+      "language": "python",
+      "line": 275,
+      "path": "core\\server.py",
+      "text": "port=port,"
+    },
+    {
+      "language": "python",
+      "line": 276,
+      "path": "core\\server.py",
+      "text": "context=context,"
+    },
+    {
+      "language": "python",
+      "line": 277,
+      "path": "core\\server.py",
+      "text": "threads=threads,"
+    },
+    {
+      "language": "python",
+      "line": 278,
+      "path": "core\\server.py",
+      "text": "projector=projector,"
+    },
+    {
+      "language": "python",
+      "line": 279,
+      "path": "core\\server.py",
+      "text": "reasoning_mode=reasoning_mode,"
+    },
+    {
+      "language": "python",
+      "line": 280,
+      "path": "core\\server.py",
+      "text": "reasoning_budget=reasoning_budget,"
+    },
+    {
+      "language": "python",
+      "line": 281,
+      "path": "core\\server.py",
+      "text": "require_verified_settings=require_verified_settings,"
+    },
+    {
+      "language": "python",
+      "line": 282,
+      "path": "core\\server.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 283,
+      "path": "core\\server.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 285,
+      "path": "core\\server.py",
+      "text": "def wait_until_ready(self, timeout=90, poll_interval=1.0):"
+    },
+    {
+      "language": "python",
+      "line": 286,
+      "path": "core\\server.py",
+      "text": "deadline = time.monotonic() + max(0, float(timeout))"
+    },
+    {
+      "language": "python",
+      "line": 288,
+      "path": "core\\server.py",
+      "text": "while time.monotonic() <= deadline:"
+    },
+    {
+      "language": "python",
+      "line": 289,
+      "path": "core\\server.py",
+      "text": "if self._health_ok(self.host, self.port):"
+    },
+    {
+      "language": "python",
+      "line": 290,
+      "path": "core\\server.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 291,
+      "path": "core\\server.py",
+      "text": "with self._runtime_lock():"
+    },
+    {
+      "language": "python",
+      "line": 292,
+      "path": "core\\server.py",
+      "text": "state = self._prune_clients(self._read_state())"
+    },
+    {
+      "language": "python",
+      "line": 293,
+      "path": "core\\server.py",
+      "text": "if state:"
+    },
+    {
+      "language": "python",
+      "line": 294,
+      "path": "core\\server.py",
+      "text": "state[\"status\"] = \"ready\""
+    },
+    {
+      "language": "python",
+      "line": 295,
+      "path": "core\\server.py",
+      "text": "state[\"updated_at\"] = self._now()"
+    },
+    {
+      "language": "python",
+      "line": 296,
+      "path": "core\\server.py",
+      "text": "state = self._register_client(state)"
+    },
+    {
+      "language": "python",
+      "line": 297,
+      "path": "core\\server.py",
+      "text": "self._write_state(state)"
+    },
+    {
+      "language": "python",
+      "line": 298,
+      "path": "core\\server.py",
+      "text": "except Exception:"
+    },
+    {
+      "language": "python",
+      "line": 299,
+      "path": "core\\server.py",
+      "text": "pass"
+    },
+    {
+      "language": "python",
+      "line": 301,
+      "path": "core\\server.py",
+      "text": "result = RuntimeResult("
+    },
+    {
+      "language": "python",
+      "line": 302,
+      "path": "core\\server.py",
+      "text": "True,"
+    },
+    {
+      "language": "python",
+      "line": 303,
+      "path": "core\\server.py",
+      "text": "\"ready\","
+    },
+    {
+      "language": "python",
+      "line": 304,
+      "path": "core\\server.py",
+      "text": "\"Shared neural runtime is healthy and ready.\","
+    },
+    {
+      "language": "python",
+      "line": 305,
+      "path": "core\\server.py",
+      "text": "self.model.name if self.model else None,"
+    },
+    {
+      "language": "python",
+      "line": 306,
+      "path": "core\\server.py",
+      "text": "self._current_server_pid(),"
+    },
+    {
+      "language": "python",
+      "line": 307,
+      "path": "core\\server.py",
+      "text": "self.owns_process(),"
+    },
+    {
+      "language": "python",
+      "line": 308,
+      "path": "core\\server.py",
+      "text": "{"
+    },
+    {
+      "language": "python",
+      "line": 309,
+      "path": "core\\server.py",
+      "text": "\"host\": self.host,"
+    },
+    {
+      "language": "python",
+      "line": 310,
+      "path": "core\\server.py",
+      "text": "\"port\": self.port,"
+    },
+    {
+      "language": "python",
+      "line": 311,
+      "path": "core\\server.py",
+      "text": "},"
+    },
+    {
+      "language": "python",
+      "line": 312,
+      "path": "core\\server.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 313,
+      "path": "core\\server.py",
+      "text": "self.last_result = result"
+    },
+    {
+      "language": "python",
+      "line": 314,
+      "path": "core\\server.py",
+      "text": "return result"
+    },
+    {
+      "language": "python",
+      "line": 316,
+      "path": "core\\server.py",
+      "text": "if self.process is not None and self.process.poll() is not None:"
+    },
+    {
+      "language": "python",
+      "line": 317,
+      "path": "core\\server.py",
+      "text": "result = RuntimeResult("
+    },
+    {
+      "language": "python",
+      "line": 318,
+      "path": "core\\server.py",
+      "text": "False,"
+    },
+    {
+      "language": "python",
+      "line": 319,
+      "path": "core\\server.py",
+      "text": "\"failed\","
+    },
+    {
+      "language": "python",
+      "line": 320,
+      "path": "core\\server.py",
+      "text": "\"The neural server process exited before its health \""
+    },
+    {
+      "language": "python",
+      "line": 321,
+      "path": "core\\server.py",
+      "text": "\"endpoint became ready.\","
+    },
+    {
+      "language": "python",
+      "line": 322,
+      "path": "core\\server.py",
+      "text": "self.model.name if self.model else None,"
+    },
+    {
+      "language": "python",
+      "line": 323,
+      "path": "core\\server.py",
+      "text": "getattr(self.process, \"pid\", None),"
+    },
+    {
+      "language": "python",
+      "line": 324,
+      "path": "core\\server.py",
+      "text": "True,"
+    },
+    {
+      "language": "python",
+      "line": 325,
+      "path": "core\\server.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 326,
+      "path": "core\\server.py",
+      "text": "self.last_result = result"
+    },
+    {
+      "language": "python",
+      "line": 327,
+      "path": "core\\server.py",
+      "text": "return result"
+    },
+    {
+      "language": "python",
+      "line": 329,
+      "path": "core\\server.py",
+      "text": "time.sleep(max(0.05, float(poll_interval)))"
+    },
+    {
+      "language": "python",
+      "line": 331,
+      "path": "core\\server.py",
+      "text": "result = RuntimeResult("
+    },
+    {
+      "language": "python",
+      "line": 332,
+      "path": "core\\server.py",
+      "text": "False,"
+    },
+    {
+      "language": "python",
+      "line": 333,
+      "path": "core\\server.py",
+      "text": "\"timeout\","
+    },
+    {
+      "language": "python",
+      "line": 334,
+      "path": "core\\server.py",
+      "text": "f\"Shared neural runtime did not become healthy within \""
+    },
+    {
+      "language": "python",
+      "line": 335,
+      "path": "core\\server.py",
+      "text": "f\"{int(timeout)} seconds.\","
+    },
+    {
+      "language": "python",
+      "line": 336,
+      "path": "core\\server.py",
+      "text": "self.model.name if self.model else None,"
+    },
+    {
+      "language": "python",
+      "line": 337,
+      "path": "core\\server.py",
+      "text": "self._current_server_pid(),"
+    },
+    {
+      "language": "python",
+      "line": 338,
+      "path": "core\\server.py",
+      "text": "self.owns_process(),"
+    },
+    {
+      "language": "python",
+      "line": 339,
+      "path": "core\\server.py",
+      "text": "{"
+    },
+    {
+      "language": "python",
+      "line": 340,
+      "path": "core\\server.py",
+      "text": "\"host\": self.host,"
+    },
+    {
+      "language": "python",
+      "line": 341,
+      "path": "core\\server.py",
+      "text": "\"port\": self.port,"
+    },
+    {
+      "language": "python",
+      "line": 342,
+      "path": "core\\server.py",
+      "text": "},"
+    },
+    {
+      "language": "python",
+      "line": 343,
+      "path": "core\\server.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 344,
+      "path": "core\\server.py",
+      "text": "self.last_result = result"
+    },
+    {
+      "language": "python",
+      "line": 345,
+      "path": "core\\server.py",
+      "text": "return result"
+    },
+    {
+      "language": "python",
+      "line": 347,
+      "path": "core\\server.py",
+      "text": "def stop(self):"
+    },
+    {
+      "language": "python",
+      "line": 348,
+      "path": "core\\server.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 349,
+      "path": "core\\server.py",
+      "text": "with self._runtime_lock():"
+    },
+    {
+      "language": "python",
+      "line": 350,
+      "path": "core\\server.py",
+      "text": "state = self._prune_clients(self._read_state())"
+    },
+    {
+      "language": "python",
+      "line": 351,
+      "path": "core\\server.py",
+      "text": "if state:"
+    },
+    {
+      "language": "python",
+      "line": 352,
+      "path": "core\\server.py",
+      "text": "state = self._unregister_client(state)"
+    },
+    {
+      "language": "python",
+      "line": 353,
+      "path": "core\\server.py",
+      "text": "remaining = list((state.get(\"clients\") or {}).values())"
+    },
+    {
+      "language": "python",
+      "line": 355,
+      "path": "core\\server.py",
+      "text": "if remaining:"
+    },
+    {
+      "language": "python",
+      "line": 356,
+      "path": "core\\server.py",
+      "text": "state[\"updated_at\"] = self._now()"
+    },
+    {
+      "language": "python",
+      "line": 357,
+      "path": "core\\server.py",
+      "text": "self._write_state(state)"
+    },
+    {
+      "language": "python",
+      "line": 358,
+      "path": "core\\server.py",
+      "text": "result = RuntimeResult("
+    },
+    {
+      "language": "python",
+      "line": 359,
+      "path": "core\\server.py",
+      "text": "True,"
+    },
+    {
+      "language": "python",
+      "line": 360,
+      "path": "core\\server.py",
+      "text": "\"detached\","
+    },
+    {
+      "language": "python",
+      "line": 361,
+      "path": "core\\server.py",
+      "text": "\"This interface detached from the shared neural \""
+    },
+    {
+      "language": "python",
+      "line": 362,
+      "path": "core\\server.py",
+      "text": "\"runtime. The server remains online for another \""
+    },
+    {
+      "language": "python",
+      "line": 363,
+      "path": "core\\server.py",
+      "text": "\"active FOXAI interface.\","
+    },
+    {
+      "language": "python",
+      "line": 364,
+      "path": "core\\server.py",
+      "text": "state.get(\"model_name\"),"
+    },
+    {
+      "language": "python",
+      "line": 365,
+      "path": "core\\server.py",
+      "text": "self._int_or_none(state.get(\"server_pid\")),"
+    },
+    {
+      "language": "python",
+      "line": 366,
+      "path": "core\\server.py",
+      "text": "False,"
+    },
+    {
+      "language": "python",
+      "line": 367,
+      "path": "core\\server.py",
+      "text": "{\"remaining_clients\": remaining},"
+    },
+    {
+      "language": "python",
+      "line": 368,
+      "path": "core\\server.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 369,
+      "path": "core\\server.py",
+      "text": "self.last_result = result"
+    },
+    {
+      "language": "python",
+      "line": 370,
+      "path": "core\\server.py",
+      "text": "return result"
+    },
+    {
+      "language": "python",
+      "line": 372,
+      "path": "core\\server.py",
+      "text": "pid = self._int_or_none(state.get(\"server_pid\"))"
+    },
+    {
+      "language": "python",
+      "line": 373,
+      "path": "core\\server.py",
+      "text": "terminated = self._terminate_managed_process(state)"
+    },
+    {
+      "language": "python",
+      "line": 375,
+      "path": "core\\server.py",
+      "text": "if not terminated and self._health_ok("
+    },
+    {
+      "language": "python",
+      "line": 376,
+      "path": "core\\server.py",
+      "text": "state.get(\"host\", self.host),"
+    },
+    {
+      "language": "python",
+      "line": 377,
+      "path": "core\\server.py",
+      "text": "state.get(\"port\", self.port),"
+    },
+    {
+      "language": "python",
+      "line": 378,
+      "path": "core\\server.py",
+      "text": "):"
+    },
+    {
+      "language": "python",
+      "line": 379,
+      "path": "core\\server.py",
+      "text": "self._write_state(state)"
+    },
+    {
+      "language": "python",
+      "line": 380,
+      "path": "core\\server.py",
+      "text": "result = RuntimeResult("
+    },
+    {
+      "language": "python",
+      "line": 381,
+      "path": "core\\server.py",
+      "text": "False,"
+    },
+    {
+      "language": "python",
+      "line": 382,
+      "path": "core\\server.py",
+      "text": "\"refused\","
+    },
+    {
+      "language": "python",
+      "line": 383,
+      "path": "core\\server.py",
+      "text": "\"No other FOXAI clients remain, but the running \""
+    },
+    {
+      "language": "python",
+      "line": 384,
+      "path": "core\\server.py",
+      "text": "\"process could not be safely verified for \""
+    },
+    {
+      "language": "python",
+      "line": 385,
+      "path": "core\\server.py",
+      "text": "\"termination. It was left online.\","
+    },
+    {
+      "language": "python",
+      "line": 386,
+      "path": "core\\server.py",
+      "text": "state.get(\"model_name\"),"
+    },
+    {
+      "language": "python",
+      "line": 387,
+      "path": "core\\server.py",
+      "text": "pid,"
+    },
+    {
+      "language": "python",
+      "line": 388,
+      "path": "core\\server.py",
+      "text": "False,"
+    },
+    {
+      "language": "python",
+      "line": 389,
+      "path": "core\\server.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 390,
+      "path": "core\\server.py",
+      "text": "self.last_result = result"
+    },
+    {
+      "language": "python",
+      "line": 391,
+      "path": "core\\server.py",
+      "text": "return result"
+    },
+    {
+      "language": "python",
+      "line": 393,
+      "path": "core\\server.py",
+      "text": "self._wait_for_process_exit(pid, timeout=5)"
+    },
+    {
+      "language": "python",
+      "line": 394,
+      "path": "core\\server.py",
+      "text": "self._clear_state()"
+    },
+    {
+      "language": "python",
+      "line": 395,
+      "path": "core\\server.py",
+      "text": "self.process = None"
+    },
+    {
+      "language": "python",
+      "line": 396,
+      "path": "core\\server.py",
+      "text": "result = RuntimeResult("
+    },
+    {
+      "language": "python",
+      "line": 397,
+      "path": "core\\server.py",
+      "text": "True,"
+    },
+    {
+      "language": "python",
+      "line": 398,
+      "path": "core\\server.py",
+      "text": "\"stopped\","
+    },
+    {
+      "language": "python",
+      "line": 399,
+      "path": "core\\server.py",
+      "text": "\"Shared neural runtime stopped.\","
+    },
+    {
+      "language": "python",
+      "line": 400,
+      "path": "core\\server.py",
+      "text": "state.get(\"model_name\"),"
+    },
+    {
+      "language": "python",
+      "line": 401,
+      "path": "core\\server.py",
+      "text": "pid,"
+    },
+    {
+      "language": "python",
+      "line": 402,
+      "path": "core\\server.py",
+      "text": "True,"
+    },
+    {
+      "language": "python",
+      "line": 403,
+      "path": "core\\server.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 404,
+      "path": "core\\server.py",
+      "text": "self.last_result = result"
+    },
+    {
+      "language": "python",
+      "line": 405,
+      "path": "core\\server.py",
+      "text": "return result"
+    },
+    {
+      "language": "python",
+      "line": 407,
+      "path": "core\\server.py",
+      "text": "if self.process is not None and self.process.poll() is None:"
+    },
+    {
+      "language": "python",
+      "line": 408,
+      "path": "core\\server.py",
+      "text": "pid = getattr(self.process, \"pid\", None)"
+    },
+    {
+      "language": "python",
+      "line": 409,
+      "path": "core\\server.py",
+      "text": "self.process.terminate()"
+    },
+    {
+      "language": "python",
+      "line": 410,
+      "path": "core\\server.py",
+      "text": "self._wait_for_process_exit(pid, timeout=5)"
+    },
+    {
+      "language": "python",
+      "line": 411,
+      "path": "core\\server.py",
+      "text": "self.process = None"
+    },
+    {
+      "language": "python",
+      "line": 412,
+      "path": "core\\server.py",
+      "text": "result = RuntimeResult("
+    },
+    {
+      "language": "python",
+      "line": 413,
+      "path": "core\\server.py",
+      "text": "True,"
+    },
+    {
+      "language": "python",
+      "line": 414,
+      "path": "core\\server.py",
+      "text": "\"stopped\","
+    },
+    {
+      "language": "python",
+      "line": 415,
+      "path": "core\\server.py",
+      "text": "\"Neural runtime owned by this interface stopped.\","
+    },
+    {
+      "language": "python",
+      "line": 416,
+      "path": "core\\server.py",
+      "text": "self.model.name if self.model else None,"
+    },
+    {
+      "language": "python",
+      "line": 417,
+      "path": "core\\server.py",
+      "text": "pid,"
+    },
+    {
+      "language": "python",
+      "line": 418,
+      "path": "core\\server.py",
+      "text": "True,"
+    },
+    {
+      "language": "python",
+      "line": 419,
+      "path": "core\\server.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 420,
+      "path": "core\\server.py",
+      "text": "self.last_result = result"
+    },
+    {
+      "language": "python",
+      "line": 421,
+      "path": "core\\server.py",
+      "text": "return result"
+    },
+    {
+      "language": "python",
+      "line": 423,
+      "path": "core\\server.py",
+      "text": "result = RuntimeResult("
+    },
+    {
+      "language": "python",
+      "line": 424,
+      "path": "core\\server.py",
+      "text": "True,"
+    },
+    {
+      "language": "python",
+      "line": 425,
+      "path": "core\\server.py",
+      "text": "\"offline\","
+    },
+    {
+      "language": "python",
+      "line": 426,
+      "path": "core\\server.py",
+      "text": "\"No shared neural runtime is registered.\","
+    },
+    {
+      "language": "python",
+      "line": 427,
+      "path": "core\\server.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 428,
+      "path": "core\\server.py",
+      "text": "self.last_result = result"
+    },
+    {
+      "language": "python",
+      "line": 429,
+      "path": "core\\server.py",
+      "text": "return result"
+    },
+    {
+      "language": "python",
+      "line": 431,
+      "path": "core\\server.py",
+      "text": "except Exception as exc:"
+    },
+    {
+      "language": "python",
+      "line": 432,
+      "path": "core\\server.py",
+      "text": "result = RuntimeResult("
+    },
+    {
+      "language": "python",
+      "line": 433,
+      "path": "core\\server.py",
+      "text": "False,"
+    },
+    {
+      "language": "python",
+      "line": 434,
+      "path": "core\\server.py",
+      "text": "\"failed\","
+    },
+    {
+      "language": "python",
+      "line": 435,
+      "path": "core\\server.py",
+      "text": "f\"Shared neural runtime stop error: {exc}\","
+    },
+    {
+      "language": "python",
+      "line": 436,
+      "path": "core\\server.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 437,
+      "path": "core\\server.py",
+      "text": "self.last_result = result"
+    },
+    {
+      "language": "python",
+      "line": 438,
+      "path": "core\\server.py",
+      "text": "return result"
+    },
+    {
+      "language": "python",
+      "line": 440,
+      "path": "core\\server.py",
+      "text": "def release(self):"
+    }
+  ],
+  "schema": "foxai.agent_fox.technical_core.v1a2r1.refined_static_bridge.v1",
+  "shard_number": 23
+}

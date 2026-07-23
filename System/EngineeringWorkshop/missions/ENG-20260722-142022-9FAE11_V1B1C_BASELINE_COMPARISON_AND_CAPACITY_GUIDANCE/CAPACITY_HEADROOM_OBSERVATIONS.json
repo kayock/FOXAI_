@@ -1,0 +1,86 @@
+{
+  "availability_status": "available",
+  "diagnosis_issued": false,
+  "generated_at": "2026-07-22T14:09:53.010861Z",
+  "known_limitations": [
+    {
+      "availability_status": "not_evaluated",
+      "collection_timestamp": "2026-07-22T14:09:53.010861Z",
+      "derivation_method": "Preserved qualification limitation: no reliable non-invasive generation-activity signal was available.",
+      "limitation_id": "LIMIT-6771874AA7E2903E",
+      "source_file": "NORMAL_LOADED_QUALIFICATION.json",
+      "source_mission": "ENG-20260722-140518-F13169",
+      "statement": "The loaded capture does not establish capacity during active image generation."
+    },
+    {
+      "availability_status": "not_evaluated",
+      "collection_timestamp": "2026-07-22T14:09:53.010861Z",
+      "derivation_method": "Scope boundary of two point-in-time captures.",
+      "limitation_id": "LIMIT-94FBD287CD2F3224",
+      "source_file": "NORMAL_LOADED_RESOURCE_SNAPSHOT.json",
+      "source_mission": "ENG-20260722-140518-F13169",
+      "statement": "The evidence does not establish capacity for longer model contexts, multiple simultaneous large models, additional applications, or future workload changes."
+    }
+  ],
+  "mission_id": "ENG-20260722-142022-9FAE11",
+  "observations": [
+    {
+      "availability_status": "available",
+      "bounded_interpretation": "Approximately 8.38 GB of physical RAM remained available at the qualified normal-loaded capture.",
+      "collection_timestamp": "2026-07-22T14:09:53.010861Z",
+      "derivation_method": "direct captured value",
+      "human_binary": "7.80 GiB",
+      "human_decimal": "8.38 GB",
+      "observation": "normal_loaded_available_physical_memory",
+      "observation_id": "HEADROOM-FFCC7431EC72F11A",
+      "source_file": "NORMAL_LOADED_RESOURCE_SNAPSHOT.json",
+      "source_mission": "ENG-20260722-140518-F13169",
+      "value_bytes": 8379232256
+    },
+    {
+      "availability_status": "available",
+      "bounded_interpretation": "This is point-in-time physical-memory headroom, not a stress-test result.",
+      "collection_timestamp": "2026-07-22T14:09:53.010861Z",
+      "derivation_method": "100 - memory_load_percent",
+      "observation": "normal_loaded_physical_memory_headroom_percent",
+      "observation_id": "HEADROOM-A74B0BBDCDA044EA",
+      "source_file": "NORMAL_LOADED_RESOURCE_SNAPSHOT.json",
+      "source_mission": "ENG-20260722-140518-F13169",
+      "value_percent": 16.36
+    },
+    {
+      "availability_status": "available",
+      "bounded_interpretation": "The qualified capture remained below the captured commit limit.",
+      "collection_timestamp": "2026-07-22T14:09:53.010861Z",
+      "derivation_method": "commit_limit_bytes - committed_bytes",
+      "human_binary": "24.82 GiB",
+      "human_decimal": "26.66 GB",
+      "observation": "normal_loaded_commit_headroom",
+      "observation_id": "HEADROOM-3A89510E9B26043E",
+      "source_file": "NORMAL_LOADED_RESOURCE_SNAPSHOT.json",
+      "source_mission": "ENG-20260722-140518-F13169",
+      "value_bytes": 26655019008
+    },
+    {
+      "availability_status": "available",
+      "bounded_interpretation": "The loaded 30B model runtime was the dominant measured consumer; WebUI, Desktop, and idle ComfyUI were comparatively smaller.",
+      "collection_timestamp": "2026-07-22T14:09:53.010861Z",
+      "component": "shared_model_runtime",
+      "derivation_method": "largest FOXAI workspace working_set_bytes in loaded process evidence",
+      "human_binary": "27.82 GiB",
+      "human_decimal": "29.88 GB",
+      "observation": "dominant_measured_loaded_component",
+      "observation_id": "HEADROOM-10DC31EC5CCCEE48",
+      "source_file": "NORMAL_LOADED_PROCESS_SUMMARY.json",
+      "source_mission": "ENG-20260722-140518-F13169",
+      "working_set_bytes": 29876736000
+    }
+  ],
+  "recommendations_issued": false,
+  "schema": "foxai.agent_fox.technical_core.v1b1c.capacity_headroom_observations.v1",
+  "source_missions": [
+    "ENG-20260722-062243-69C555",
+    "ENG-20260722-140518-F13169"
+  ],
+  "status": "bounded_observations_only"
+}

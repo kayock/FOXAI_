@@ -1,0 +1,150 @@
+{
+  "authorized": true,
+  "changes": [
+    {
+      "action": "write_file",
+      "after_sha256": "db2651c8e657df18e465d38dff9e641d2cd000173e434419299c5cfae09861ac",
+      "after_size": 52575,
+      "before_sha256": null,
+      "before_size": null,
+      "relative_path": "System\\AgentFoxTechnicalCore\\python_runtime_identity_map_v1.py"
+    },
+    {
+      "action": "write_file",
+      "after_sha256": "aa8d7b440d46faf0e4da686f59ab5db2c74a6882aac68186e4aa702d55067c6d",
+      "after_size": 2441,
+      "before_sha256": null,
+      "before_size": null,
+      "relative_path": "System\\AgentFoxTechnicalCore\\PYTHON_RUNTIME_CONTRACT_V1.json"
+    },
+    {
+      "action": "write_file",
+      "after_sha256": "bbc2ce0e725fc0e498ce4ee9da3d3dd77c7eacaab3b6599837009d51b52b9db0",
+      "after_size": 868,
+      "before_sha256": null,
+      "before_size": null,
+      "relative_path": "System\\AgentFoxTechnicalCore\\README_V1A3A.md"
+    }
+  ],
+  "created_at": "2026-07-21T14:36:09.330353Z",
+  "evidence_is_tool_generated": true,
+  "failure": "Validation failed: Verify no more than four exact allowlisted sequential isolated interpreter child probes (return code 1)",
+  "mission_id": "ENG-20260721-071125-0FB108",
+  "mission_title": "Agent Fox Technical Core V1A-3A \u2014 Python Runtime Identity and Path Safety Map",
+  "mission_type": "implement",
+  "no_deletions": true,
+  "no_renames": true,
+  "plan_path": "Z:\\FOXAI\\AGENT_FOX_V1A3A\\PLAN.json",
+  "plan_sha256": "915bbc53753d23c1329d4105987434e8ed4733537bb9e0866649156f5dca3ed3",
+  "project_root": "Z:\\FOXAI",
+  "result": "rolled_back",
+  "rolled_back": true,
+  "schema": "foxai.engineering.receipt.v1",
+  "snapshot_manifest": "Z:\\FOXAI\\System\\EngineeringWorkshop\\snapshots\\ENG-20260721-071125-0FB108\\snapshot_20260721T143601853916Z.manifest.json",
+  "snapshot_path": "Z:\\FOXAI\\System\\EngineeringWorkshop\\snapshots\\ENG-20260721-071125-0FB108\\snapshot_20260721T143601853916Z.zip",
+  "snapshot_sha256": "8b9ee098f647cf9e866a8acfab3e41fe6bdb7a6861e2a5fe62fa7779d89c6384",
+  "validations": [
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nimport ast, hashlib, json\nroot=Path(r\"Z:\\FOXAI\")\ndrop=root/r\"AGENT_FOX_V1A3A\"\ninstalled=root/r\"System\\AgentFoxTechnicalCore\"\nchecks=[\n    (drop/r\"python_runtime_identity_map_v1.py\", installed/r\"python_runtime_identity_map_v1.py\", \"db2651c8e657df18e465d38dff9e641d2cd000173e434419299c5cfae09861ac\"),\n    (drop/r\"PYTHON_RUNTIME_CONTRACT_V1.json\", installed/r\"PYTHON_RUNTIME_CONTRACT_V1.json\", \"aa8d7b440d46faf0e4da686f59ab5db2c74a6882aac68186e4aa702d55067c6d\"),\n    (drop/r\"README_V1A3A.md\", installed/r\"README_V1A3A.md\", \"bbc2ce0e725fc0e498ce4ee9da3d3dd77c7eacaab3b6599837009d51b52b9db0\"),\n]\nfor source,target,expected in checks:\n    assert source.is_file(), f\"missing package file: {source}\"\n    assert target.is_file(), f\"missing installed file: {target}\"\n    assert hashlib.sha256(source.read_bytes()).hexdigest()==expected, f\"package hash mismatch: {source}\"\n    assert hashlib.sha256(target.read_bytes()).hexdigest()==expected, f\"installed hash mismatch: {target}\"\nscript_path=installed/r\"python_runtime_identity_map_v1.py\"\nscript=script_path.read_text(encoding=\"utf-8\")\ncompile(script,str(script_path),\"exec\")\ntree=ast.parse(script)\nimports=set()\nfor node in ast.walk(tree):\n    if isinstance(node,ast.Import): imports.update(alias.name.split('.')[0] for alias in node.names)\n    elif isinstance(node,ast.ImportFrom) and node.module: imports.add(node.module.split('.')[0])\nforbidden={\"socket\",\"urllib\",\"http\",\"ftplib\",\"requests\",\"pip\",\"ensurepip\",\"psutil\",\"winreg\",\"ctypes\",\"webbrowser\",\"importlib\"}\nassert not sorted(imports & forbidden), sorted(imports & forbidden)\nassert \"subprocess.Popen(\" not in script\nassert \"shell=True\" not in script\nassert \"pip install\" not in script.casefold()\nassert \"pythonw.exe\", \"-I\" not in script\ncontract=json.loads((installed/r\"PYTHON_RUNTIME_CONTRACT_V1.json\").read_text(encoding=\"utf-8\"))\nassert contract.get(\"schema\")==\"foxai.agent_fox.technical_core.v1a3a.python_runtime_contract.v1\"\nallow=contract.get(\"exact_probe_allowlist\",[])\nassert len(allow)==4\nexpected=[r\"Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe\",r\"Z:\\FOXAI\\env\\python\\python.exe\",r\"Z:\\FOXAI\\.venv\\Scripts\\python.exe\",r\"C:\\Python314\\python.exe\"]\nassert [x.get(\"path\") for x in allow]==expected\npolicy=contract.get(\"probe_policy\",{})\nassert policy.get(\"maximum_child_processes\")==4\nassert policy.get(\"maximum_concurrent_processes\")==1\nassert policy.get(\"flags\")==[\"-I\",\"-B\",\"-S\",\"-c\"]\nassert policy.get(\"timeout_seconds\")==15\nassert policy.get(\"shell\") is False\nassert policy.get(\"pythonw_execution\") is False\nfor path,result,mission in [\n    (root/r\"System\\EngineeringWorkshop\\missions\\ENG-20260721-051832-1CAA3F_V1A1_NORMALIZED\\NORMALIZATION_RECEIPT.json\",\"normalized_static_manifest_complete\",\"ENG-20260721-051832-1CAA3F\"),\n    (root/r\"System\\EngineeringWorkshop\\missions\\ENG-20260721-063725-BFCAB9_V1A2R2_IMMUTABLE_BRIDGE\\REFINED_BRIDGE_RECEIPT.json\",\"immutable_input_determinism_repair_complete\",\"ENG-20260721-063725-BFCAB9\"),\n]:\n    data=json.loads(path.read_text(encoding=\"utf-8\"))\n    assert data.get(\"result\")==result and data.get(\"mission_id\")==mission,(path,data.get(\"result\"),data.get(\"mission_id\"))\nprint(\"AGENT_FOX_V1A3A_INSTALL_PREFLIGHT_OK\")\n"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-21T14:36:02.282861Z",
+      "name": "Verify exact V1A-3A payloads, syntax, exact probe allowlist, safety contract, and prerequisite receipts",
+      "returncode": 0,
+      "started_at": "2026-07-21T14:36:01.901737Z",
+      "stderr": "",
+      "stdout": "AGENT_FOX_V1A3A_INSTALL_PREFLIGHT_OK\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\python_runtime_identity_map_v1.py",
+        "self-test"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-21T14:36:02.500162Z",
+      "name": "Run in-memory V1A-3A path, metadata, probe-output, flag, duplicate-candidate, and allowlist self-tests",
+      "returncode": 0,
+      "started_at": "2026-07-21T14:36:02.283226Z",
+      "stderr": "",
+      "stdout": "AGENT_FOX_V1A3A_SELF_TEST_OK\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\python_runtime_identity_map_v1.py",
+        "build",
+        "--project-root",
+        "Z:\\FOXAI",
+        "--v1a1-dir",
+        "Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260721-051832-1CAA3F_V1A1_NORMALIZED",
+        "--v1a2r2-dir",
+        "Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260721-063725-BFCAB9_V1A2R2_IMMUTABLE_BRIDGE",
+        "--output-dir",
+        "Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260721-071125-0FB108_V1A3A_PYTHON_RUNTIME_MAP",
+        "--mission-id",
+        "ENG-20260721-071125-0FB108"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-21T14:36:09.052867Z",
+      "name": "Build bounded Python runtime identity, launcher mapping, static package, duplicate-candidate, and path-boundary evidence",
+      "returncode": 0,
+      "started_at": "2026-07-21T14:36:02.500540Z",
+      "stderr": "",
+      "stdout": "{\"output_dir\": \"Z:\\\\FOXAI\\\\System\\\\EngineeringWorkshop\\\\missions\\\\ENG-20260721-071125-0FB108_V1A3A_PYTHON_RUNTIME_MAP\", \"probe_process_count\": 4, \"result\": \"python_runtime_identity_and_path_safety_map_complete\"}\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\python_runtime_identity_map_v1.py",
+        "validate-output",
+        "--index-dir",
+        "Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260721-071125-0FB108_V1A3A_PYTHON_RUNTIME_MAP"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-21T14:36:09.248506Z",
+      "name": "Run built-in exact-probe, safety, hash, count, sequence, and 64 MiB output validator",
+      "returncode": 0,
+      "started_at": "2026-07-21T14:36:09.053268Z",
+      "stderr": "",
+      "stdout": "AGENT_FOX_V1A3A_OUTPUT_VALID\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path, PureWindowsPath\nimport json\nout=Path(r\"Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260721-071125-0FB108_V1A3A_PYTHON_RUNTIME_MAP\")\nprobes=json.loads((out/r\"ISOLATED_RUNTIME_PROBES.json\").read_text(encoding=\"utf-8\"))\nallow={r\"Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe\".casefold(),r\"Z:\\FOXAI\\env\\python\\python.exe\".casefold(),r\"Z:\\FOXAI\\.venv\\Scripts\\python.exe\".casefold(),r\"C:\\Python314\\python.exe\".casefold()}\nassert probes.get(\"process_count\",99)<=4\nassert probes.get(\"max_concurrent_processes\",99)<=1\nassert probes.get(\"sequential_only\") is True\nassert probes.get(\"shell_invocation\") is False\nassert probes.get(\"pythonw_executed\") is False\nassert probes.get(\"pip_invoked\") is False\nassert probes.get(\"foxai_source_imported_or_executed\") is False\nassert probes.get(\"third_party_modules_imported\") is False\nattempted=[x for x in probes.get(\"records\",[]) if x.get(\"attempted\")]\nassert len(attempted)==probes.get(\"process_count\")\nassert [x.get(\"sequence\") for x in attempted]==list(range(1,len(attempted)+1))\nassert len({str(x.get(\"executable\",\"\")).casefold() for x in attempted})==len(attempted)\nfor row in attempted:\n    exe=str(row.get(\"executable\",\"\")).casefold()\n    assert exe in allow,exe\n    assert PureWindowsPath(row.get(\"executable\",\"\")).name.casefold()==\"python.exe\"\n    assert row.get(\"argv_prefix\",[])[1:5]==[\"-I\",\"-B\",\"-S\",\"-c\"]\n    assert row.get(\"shell\") is False\n    if row.get(\"status\")==\"probe_succeeded\":\n        result=row.get(\"result\",{})\n        flags=result.get(\"flags\",{})\n        assert flags.get(\"isolated\")==1\n        assert flags.get(\"no_site\")==1\n        assert flags.get(\"ignore_environment\")==1\n        assert flags.get(\"dont_write_bytecode\")==1\nfor row in probes.get(\"records\",[]):\n    assert row.get(\"status\") in {\"probe_succeeded\",\"nonzero_exit\",\"timeout\",\"missing_executable\",\"launch_error\",\"malformed_output\",\"blocked_not_allowlisted\"}\nprint(\"AGENT_FOX_V1A3A_EXACT_PROBES_VERIFIED\")\n"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-21T14:36:09.322474Z",
+      "name": "Verify no more than four exact allowlisted sequential isolated interpreter child probes",
+      "returncode": 1,
+      "started_at": "2026-07-21T14:36:09.249011Z",
+      "stderr": "Traceback (most recent call last):\n  File \"<string>\", line 28, in <module>\n    assert flags.get(\"no_site\")==1\n           ^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n",
+      "stdout": "",
+      "timed_out": false
+    }
+  ]
+}

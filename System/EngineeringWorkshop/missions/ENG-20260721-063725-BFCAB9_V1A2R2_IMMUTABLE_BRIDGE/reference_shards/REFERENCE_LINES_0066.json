@@ -1,0 +1,4447 @@
+{
+  "record_count": 740,
+  "records": [
+    {
+      "language": "python",
+      "line": 1632,
+      "path": "ui\\main_window.py",
+      "text": "\"Try:\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1633,
+      "path": "ui\\main_window.py",
+      "text": "\"• review your own code\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1634,
+      "path": "ui\\main_window.py",
+      "text": "\"• explain the architecture\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1635,
+      "path": "ui\\main_window.py",
+      "text": "\"• find where Red Canvas is handled\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1636,
+      "path": "ui\\main_window.py",
+      "text": "\"• search for diagnostics\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1637,
+      "path": "ui\\main_window.py",
+      "text": "\"• where is the timeout defined\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1638,
+      "path": "ui\\main_window.py",
+      "text": "\"Safety rule: Engineer does not modify files in this version.\""
+    },
+    {
+      "language": "python",
+      "line": 1639,
+      "path": "ui\\main_window.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1641,
+      "path": "ui\\main_window.py",
+      "text": "ctk.CTkLabel(frame, text=intro, justify=\"left\", font=(\"Consolas\", 13)).pack(anchor=\"w\", padx=15, pady=(15, 10))"
+    },
+    {
+      "language": "python",
+      "line": 1643,
+      "path": "ui\\main_window.py",
+      "text": "input_row = ctk.CTkFrame(frame)"
+    },
+    {
+      "language": "python",
+      "line": 1644,
+      "path": "ui\\main_window.py",
+      "text": "input_row.pack(fill=\"x\", padx=15, pady=10)"
+    },
+    {
+      "language": "python",
+      "line": 1646,
+      "path": "ui\\main_window.py",
+      "text": "self.engineer_query = ctk.CTkEntry(input_row, placeholder_text=\"Ask Engineer about the FOXAI codebase...\", font=(\"Consolas\", 13))"
+    },
+    {
+      "language": "python",
+      "line": 1647,
+      "path": "ui\\main_window.py",
+      "text": "self.engineer_query.pack(side=\"left\", fill=\"x\", expand=True, padx=(0, 10), pady=10)"
+    },
+    {
+      "language": "python",
+      "line": 1649,
+      "path": "ui\\main_window.py",
+      "text": "self.engineer_run_button = ctk.CTkButton(input_row, text=\"RUN ANALYSIS\", command=self.run_engineer_query, width=150)"
+    },
+    {
+      "language": "python",
+      "line": 1650,
+      "path": "ui\\main_window.py",
+      "text": "self.engineer_run_button.pack(side=\"right\", padx=(10, 0), pady=10)"
+    },
+    {
+      "language": "python",
+      "line": 1652,
+      "path": "ui\\main_window.py",
+      "text": "self.engineer_box = ctk.CTkTextbox(frame, wrap=\"word\", font=(\"Consolas\", 12))"
+    },
+    {
+      "language": "python",
+      "line": 1653,
+      "path": "ui\\main_window.py",
+      "text": "self.engineer_box.pack(fill=\"both\", expand=True, padx=15, pady=(5, 15))"
+    },
+    {
+      "language": "python",
+      "line": 1654,
+      "path": "ui\\main_window.py",
+      "text": "self.engineer_box.insert(\"end\", \"ENGINEER ONLINE\\n\\nAwaiting analysis request.\")"
+    },
+    {
+      "language": "python",
+      "line": 1655,
+      "path": "ui\\main_window.py",
+      "text": "self.apply_workshop_state()"
+    },
+    {
+      "language": "python",
+      "line": 1656,
+      "path": "ui\\main_window.py",
+      "text": "self.make_status_bar()"
+    },
+    {
+      "language": "python",
+      "line": 1658,
+      "path": "ui\\main_window.py",
+      "text": "def run_engineer_query(self):"
+    },
+    {
+      "language": "python",
+      "line": 1659,
+      "path": "ui\\main_window.py",
+      "text": "if self.brainstem.is_busy():"
+    },
+    {
+      "language": "python",
+      "line": 1660,
+      "path": "ui\\main_window.py",
+      "text": "self.mission_status(\"MISSION LOCK ACTIVE\\n\\nEngineer cannot start while another mission is active.\")"
+    },
+    {
+      "language": "python",
+      "line": 1661,
+      "path": "ui\\main_window.py",
+      "text": "return"
+    },
+    {
+      "language": "python",
+      "line": 1663,
+      "path": "ui\\main_window.py",
+      "text": "query = self.engineer_query.get().strip()"
+    },
+    {
+      "language": "python",
+      "line": 1664,
+      "path": "ui\\main_window.py",
+      "text": "if not query:"
+    },
+    {
+      "language": "python",
+      "line": 1665,
+      "path": "ui\\main_window.py",
+      "text": "return"
+    },
+    {
+      "language": "python",
+      "line": 1667,
+      "path": "ui\\main_window.py",
+      "text": "self.begin_workshop_mission(\"Engineering\", \"Engineer\")"
+    },
+    {
+      "language": "python",
+      "line": 1668,
+      "path": "ui\\main_window.py",
+      "text": "self.mission_status(\"Engineer mission detected.\\n\\nReading project files in read-only mode.\")"
+    },
+    {
+      "language": "python",
+      "line": 1670,
+      "path": "ui\\main_window.py",
+      "text": "result = self.specialists[\"engineer\"].handle(query)"
+    },
+    {
+      "language": "python",
+      "line": 1672,
+      "path": "ui\\main_window.py",
+      "text": "if hasattr(self, \"engineer_box\") and self.engineer_box.winfo_exists():"
+    },
+    {
+      "language": "python",
+      "line": 1673,
+      "path": "ui\\main_window.py",
+      "text": "self.engineer_box.delete(\"1.0\", \"end\")"
+    },
+    {
+      "language": "python",
+      "line": 1674,
+      "path": "ui\\main_window.py",
+      "text": "# The full report is already in Mission Control; show a concise confirmation here."
+    },
+    {
+      "language": "python",
+      "line": 1675,
+      "path": "ui\\main_window.py",
+      "text": "self.engineer_box.insert(\"end\", \"Analysis complete.\\n\\nReport sent to Mission Control.\")"
+    },
+    {
+      "language": "python",
+      "line": 1677,
+      "path": "ui\\main_window.py",
+      "text": "return result"
+    },
+    {
+      "language": "python",
+      "line": 1679,
+      "path": "ui\\main_window.py",
+      "text": "def show_iron_library(self):"
+    },
+    {
+      "language": "python",
+      "line": 1680,
+      "path": "ui\\main_window.py",
+      "text": "ensure_library()"
+    },
+    {
+      "language": "python",
+      "line": 1681,
+      "path": "ui\\main_window.py",
+      "text": "self.clear_content()"
+    },
+    {
+      "language": "python",
+      "line": 1682,
+      "path": "ui\\main_window.py",
+      "text": "self.make_title(\"IRON LIBRARY // LOCAL DOCUMENT INTELLIGENCE\")"
+    },
+    {
+      "language": "python",
+      "line": 1683,
+      "path": "ui\\main_window.py",
+      "text": "frame = ctk.CTkFrame(self.content)"
+    },
+    {
+      "language": "python",
+      "line": 1684,
+      "path": "ui\\main_window.py",
+      "text": "frame.pack(fill=\"both\", expand=True, padx=20, pady=20)"
+    },
+    {
+      "language": "python",
+      "line": 1685,
+      "path": "ui\\main_window.py",
+      "text": "top = ctk.CTkFrame(frame)"
+    },
+    {
+      "language": "python",
+      "line": 1686,
+      "path": "ui\\main_window.py",
+      "text": "top.pack(fill=\"x\", padx=10, pady=10)"
+    },
+    {
+      "language": "python",
+      "line": 1687,
+      "path": "ui\\main_window.py",
+      "text": "self.library_search = ctk.CTkEntry(top, placeholder_text=\"Search local TXT/MD/code files...\", font=(\"Consolas\", 13))"
+    },
+    {
+      "language": "python",
+      "line": 1688,
+      "path": "ui\\main_window.py",
+      "text": "self.library_search.pack(side=\"left\", fill=\"x\", expand=True, padx=10, pady=10)"
+    },
+    {
+      "language": "python",
+      "line": 1689,
+      "path": "ui\\main_window.py",
+      "text": "ctk.CTkButton(top, text=\"SEARCH\", command=self.run_library_search, width=120).pack(side=\"right\", padx=10, pady=10)"
+    },
+    {
+      "language": "python",
+      "line": 1690,
+      "path": "ui\\main_window.py",
+      "text": "self.library_box = ctk.CTkTextbox(frame, wrap=\"word\", font=(\"Consolas\", 13))"
+    },
+    {
+      "language": "python",
+      "line": 1691,
+      "path": "ui\\main_window.py",
+      "text": "self.library_box.pack(fill=\"both\", expand=True, padx=10, pady=10)"
+    },
+    {
+      "language": "python",
+      "line": 1692,
+      "path": "ui\\main_window.py",
+      "text": "docs = list_documents()"
+    },
+    {
+      "language": "python",
+      "line": 1693,
+      "path": "ui\\main_window.py",
+      "text": "self.library_box.insert(\"end\", \"IRON LIBRARY ONLINE\\n\\n\")"
+    },
+    {
+      "language": "python",
+      "line": 1694,
+      "path": "ui\\main_window.py",
+      "text": "self.library_box.insert(\"end\", f\"Documents detected: {len(docs)}\\n\\n\")"
+    },
+    {
+      "language": "python",
+      "line": 1695,
+      "path": "ui\\main_window.py",
+      "text": "self.library_box.insert(\"end\", \"Drop files into Library/Physics, Library/DnD, Library/Programming, Library/Manuals, or Library/Research.\\n\")"
+    },
+    {
+      "language": "python",
+      "line": 1696,
+      "path": "ui\\main_window.py",
+      "text": "self.library_box.insert(\"end\", \"Current support: TXT, MD, PY, JSON, INI, BAT, PS1. PDF support coming later.\\n\")"
+    },
+    {
+      "language": "python",
+      "line": 1697,
+      "path": "ui\\main_window.py",
+      "text": "self.make_status_bar()"
+    },
+    {
+      "language": "python",
+      "line": 1699,
+      "path": "ui\\main_window.py",
+      "text": "def run_library_search(self):"
+    },
+    {
+      "language": "python",
+      "line": 1700,
+      "path": "ui\\main_window.py",
+      "text": "query = self.library_search.get().strip()"
+    },
+    {
+      "language": "python",
+      "line": 1701,
+      "path": "ui\\main_window.py",
+      "text": "results = search_documents(query)"
+    },
+    {
+      "language": "python",
+      "line": 1702,
+      "path": "ui\\main_window.py",
+      "text": "self.library_box.delete(\"1.0\", \"end\")"
+    },
+    {
+      "language": "python",
+      "line": 1703,
+      "path": "ui\\main_window.py",
+      "text": "self.library_box.insert(\"end\", f\"SEARCH: {query}\\nRESULTS: {len(results)}\\n\\n\")"
+    },
+    {
+      "language": "python",
+      "line": 1704,
+      "path": "ui\\main_window.py",
+      "text": "for path, snippet in results[:20]:"
+    },
+    {
+      "language": "python",
+      "line": 1705,
+      "path": "ui\\main_window.py",
+      "text": "self.library_box.insert(\"end\", f\"--- {path.name} ---\\n{path}\\n\\n{snippet}\\n\\n\")"
+    },
+    {
+      "language": "python",
+      "line": 1708,
+      "path": "ui\\main_window.py",
+      "text": "def _health_color(self, score):"
+    },
+    {
+      "language": "python",
+      "line": 1709,
+      "path": "ui\\main_window.py",
+      "text": "if score >= 90:"
+    },
+    {
+      "language": "python",
+      "line": 1710,
+      "path": "ui\\main_window.py",
+      "text": "return \"#00ff66\""
+    },
+    {
+      "language": "python",
+      "line": 1711,
+      "path": "ui\\main_window.py",
+      "text": "if score >= 75:"
+    },
+    {
+      "language": "python",
+      "line": 1712,
+      "path": "ui\\main_window.py",
+      "text": "return \"#ccff00\""
+    },
+    {
+      "language": "python",
+      "line": 1713,
+      "path": "ui\\main_window.py",
+      "text": "if score >= 50:"
+    },
+    {
+      "language": "python",
+      "line": 1714,
+      "path": "ui\\main_window.py",
+      "text": "return \"#ffaa00\""
+    },
+    {
+      "language": "python",
+      "line": 1715,
+      "path": "ui\\main_window.py",
+      "text": "return \"#ff0033\""
+    },
+    {
+      "language": "python",
+      "line": 1717,
+      "path": "ui\\main_window.py",
+      "text": "def _check_symbol(self, ok):"
+    },
+    {
+      "language": "python",
+      "line": 1718,
+      "path": "ui\\main_window.py",
+      "text": "return \"✓\" if ok else \"⚠\""
+    },
+    {
+      "language": "python",
+      "line": 1720,
+      "path": "ui\\main_window.py",
+      "text": "def _format_check_line(self, check):"
+    },
+    {
+      "language": "python",
+      "line": 1721,
+      "path": "ui\\main_window.py",
+      "text": "symbol = self._check_symbol(check.get(\"ok\"))"
+    },
+    {
+      "language": "python",
+      "line": 1722,
+      "path": "ui\\main_window.py",
+      "text": "name = check.get(\"name\", \"Unknown\")"
+    },
+    {
+      "language": "python",
+      "line": 1723,
+      "path": "ui\\main_window.py",
+      "text": "status = check.get(\"status\", \"UNKNOWN\")"
+    },
+    {
+      "language": "python",
+      "line": 1724,
+      "path": "ui\\main_window.py",
+      "text": "detail = check.get(\"detail\", \"\")"
+    },
+    {
+      "language": "python",
+      "line": 1725,
+      "path": "ui\\main_window.py",
+      "text": "impact = check.get(\"impact\", \"\")"
+    },
+    {
+      "language": "python",
+      "line": 1726,
+      "path": "ui\\main_window.py",
+      "text": "action = check.get(\"action\", \"\")"
+    },
+    {
+      "language": "python",
+      "line": 1728,
+      "path": "ui\\main_window.py",
+      "text": "line = f\"{symbol} {name}: {status}\""
+    },
+    {
+      "language": "python",
+      "line": 1729,
+      "path": "ui\\main_window.py",
+      "text": "if detail:"
+    },
+    {
+      "language": "python",
+      "line": 1730,
+      "path": "ui\\main_window.py",
+      "text": "line += f\"\\n    {detail}\""
+    },
+    {
+      "language": "python",
+      "line": 1731,
+      "path": "ui\\main_window.py",
+      "text": "if impact:"
+    },
+    {
+      "language": "python",
+      "line": 1732,
+      "path": "ui\\main_window.py",
+      "text": "line += f\"\\n    Impact: {impact}\""
+    },
+    {
+      "language": "python",
+      "line": 1733,
+      "path": "ui\\main_window.py",
+      "text": "if action:"
+    },
+    {
+      "language": "python",
+      "line": 1734,
+      "path": "ui\\main_window.py",
+      "text": "line += f\"\\n    Action: {action}\""
+    },
+    {
+      "language": "python",
+      "line": 1735,
+      "path": "ui\\main_window.py",
+      "text": "return line"
+    },
+    {
+      "language": "python",
+      "line": 1737,
+      "path": "ui\\main_window.py",
+      "text": "def show_diagnostics(self):"
+    },
+    {
+      "language": "python",
+      "line": 1738,
+      "path": "ui\\main_window.py",
+      "text": "self.clear_content()"
+    },
+    {
+      "language": "python",
+      "line": 1739,
+      "path": "ui\\main_window.py",
+      "text": "self.make_title(\"DIAGNOSTICS // WORKSHOP HEALTH\")"
+    },
+    {
+      "language": "python",
+      "line": 1741,
+      "path": "ui\\main_window.py",
+      "text": "data = diagnostics.run_full_inspection(self)"
+    },
+    {
+      "language": "python",
+      "line": 1742,
+      "path": "ui\\main_window.py",
+      "text": "summary = data[\"summary\"]"
+    },
+    {
+      "language": "python",
+      "line": 1743,
+      "path": "ui\\main_window.py",
+      "text": "hardware = data[\"hardware\"]"
+    },
+    {
+      "language": "python",
+      "line": 1744,
+      "path": "ui\\main_window.py",
+      "text": "neural = data[\"neural\"]"
+    },
+    {
+      "language": "python",
+      "line": 1745,
+      "path": "ui\\main_window.py",
+      "text": "creative = data[\"creative\"]"
+    },
+    {
+      "language": "python",
+      "line": 1746,
+      "path": "ui\\main_window.py",
+      "text": "library = data[\"library\"]"
+    },
+    {
+      "language": "python",
+      "line": 1747,
+      "path": "ui\\main_window.py",
+      "text": "advisor = data[\"advisor\"]"
+    },
+    {
+      "language": "python",
+      "line": 1748,
+      "path": "ui\\main_window.py",
+      "text": "workshop = data[\"workshop\"]"
+    },
+    {
+      "language": "python",
+      "line": 1750,
+      "path": "ui\\main_window.py",
+      "text": "outer = ctk.CTkScrollableFrame(self.content)"
+    },
+    {
+      "language": "python",
+      "line": 1751,
+      "path": "ui\\main_window.py",
+      "text": "outer.pack(fill=\"both\", expand=True, padx=20, pady=15)"
+    },
+    {
+      "language": "python",
+      "line": 1753,
+      "path": "ui\\main_window.py",
+      "text": "health_frame = ctk.CTkFrame(outer)"
+    },
+    {
+      "language": "python",
+      "line": 1754,
+      "path": "ui\\main_window.py",
+      "text": "health_frame.pack(fill=\"x\", padx=10, pady=(10, 15))"
+    },
+    {
+      "language": "python",
+      "line": 1756,
+      "path": "ui\\main_window.py",
+      "text": "score = summary[\"health_score\"]"
+    },
+    {
+      "language": "python",
+      "line": 1757,
+      "path": "ui\\main_window.py",
+      "text": "label = summary[\"health_label\"]"
+    },
+    {
+      "language": "python",
+      "line": 1759,
+      "path": "ui\\main_window.py",
+      "text": "ctk.CTkLabel("
+    },
+    {
+      "language": "python",
+      "line": 1760,
+      "path": "ui\\main_window.py",
+      "text": "health_frame,"
+    },
+    {
+      "language": "python",
+      "line": 1761,
+      "path": "ui\\main_window.py",
+      "text": "text=\"WORKSHOP HEALTH\","
+    },
+    {
+      "language": "python",
+      "line": 1762,
+      "path": "ui\\main_window.py",
+      "text": "font=(\"Consolas\", 16, \"bold\")"
+    },
+    {
+      "language": "python",
+      "line": 1763,
+      "path": "ui\\main_window.py",
+      "text": ").pack(pady=(16, 4))"
+    },
+    {
+      "language": "python",
+      "line": 1765,
+      "path": "ui\\main_window.py",
+      "text": "ctk.CTkLabel("
+    },
+    {
+      "language": "python",
+      "line": 1766,
+      "path": "ui\\main_window.py",
+      "text": "health_frame,"
+    },
+    {
+      "language": "python",
+      "line": 1767,
+      "path": "ui\\main_window.py",
+      "text": "text=f\"{score}%\","
+    },
+    {
+      "language": "python",
+      "line": 1768,
+      "path": "ui\\main_window.py",
+      "text": "text_color=self._health_color(score),"
+    },
+    {
+      "language": "python",
+      "line": 1769,
+      "path": "ui\\main_window.py",
+      "text": "font=(\"Consolas\", 46, \"bold\")"
+    },
+    {
+      "language": "python",
+      "line": 1770,
+      "path": "ui\\main_window.py",
+      "text": ").pack(pady=(0, 0))"
+    },
+    {
+      "language": "python",
+      "line": 1772,
+      "path": "ui\\main_window.py",
+      "text": "ctk.CTkLabel("
+    },
+    {
+      "language": "python",
+      "line": 1773,
+      "path": "ui\\main_window.py",
+      "text": "health_frame,"
+    },
+    {
+      "language": "python",
+      "line": 1774,
+      "path": "ui\\main_window.py",
+      "text": "text=f\"{label}  |  {summary['checks_passed']}/{summary['checks_total']} checks passed\","
+    },
+    {
+      "language": "python",
+      "line": 1775,
+      "path": "ui\\main_window.py",
+      "text": "font=(\"Consolas\", 14)"
+    },
+    {
+      "language": "python",
+      "line": 1776,
+      "path": "ui\\main_window.py",
+      "text": ").pack(pady=(0, 16))"
+    },
+    {
+      "language": "python",
+      "line": 1778,
+      "path": "ui\\main_window.py",
+      "text": "grid = ctk.CTkFrame(outer)"
+    },
+    {
+      "language": "python",
+      "line": 1779,
+      "path": "ui\\main_window.py",
+      "text": "grid.pack(fill=\"x\", padx=10, pady=10)"
+    },
+    {
+      "language": "python",
+      "line": 1780,
+      "path": "ui\\main_window.py",
+      "text": "grid.grid_columnconfigure(0, weight=1)"
+    },
+    {
+      "language": "python",
+      "line": 1781,
+      "path": "ui\\main_window.py",
+      "text": "grid.grid_columnconfigure(1, weight=1)"
+    },
+    {
+      "language": "python",
+      "line": 1783,
+      "path": "ui\\main_window.py",
+      "text": "def card(row, col, title, body):"
+    },
+    {
+      "language": "python",
+      "line": 1784,
+      "path": "ui\\main_window.py",
+      "text": "panel = ctk.CTkFrame(grid)"
+    },
+    {
+      "language": "python",
+      "line": 1785,
+      "path": "ui\\main_window.py",
+      "text": "panel.grid(row=row, column=col, sticky=\"nsew\", padx=8, pady=8)"
+    },
+    {
+      "language": "python",
+      "line": 1786,
+      "path": "ui\\main_window.py",
+      "text": "ctk.CTkLabel(panel, text=title, font=(\"Consolas\", 14, \"bold\")).pack(anchor=\"w\", padx=14, pady=(12, 4))"
+    },
+    {
+      "language": "python",
+      "line": 1787,
+      "path": "ui\\main_window.py",
+      "text": "ctk.CTkLabel(panel, text=body, font=(\"Consolas\", 12), justify=\"left\").pack(anchor=\"w\", padx=14, pady=(0, 14))"
+    },
+    {
+      "language": "python",
+      "line": 1788,
+      "path": "ui\\main_window.py",
+      "text": "return panel"
+    },
+    {
+      "language": "python",
+      "line": 1790,
+      "path": "ui\\main_window.py",
+      "text": "brain = workshop[\"brainstem\"]"
+    },
+    {
+      "language": "python",
+      "line": 1791,
+      "path": "ui\\main_window.py",
+      "text": "card("
+    },
+    {
+      "language": "python",
+      "line": 1792,
+      "path": "ui\\main_window.py",
+      "text": "0,"
+    },
+    {
+      "language": "python",
+      "line": 1793,
+      "path": "ui\\main_window.py",
+      "text": "0,"
+    },
+    {
+      "language": "python",
+      "line": 1794,
+      "path": "ui\\main_window.py",
+      "text": "\"BRAINSTEM\","
+    },
+    {
+      "language": "python",
+      "line": 1795,
+      "path": "ui\\main_window.py",
+      "text": "f\"State: {brain.get('state')}\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1796,
+      "path": "ui\\main_window.py",
+      "text": "f\"Busy: {brain.get('busy')}\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1797,
+      "path": "ui\\main_window.py",
+      "text": "f\"Mission: {brain.get('active_mission') or 'Idle'}\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1798,
+      "path": "ui\\main_window.py",
+      "text": "f\"Specialist: {brain.get('active_specialist') or 'None'}\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1799,
+      "path": "ui\\main_window.py",
+      "text": "f\"Elapsed: {brain.get('elapsed_label')}\""
+    },
+    {
+      "language": "python",
+      "line": 1800,
+      "path": "ui\\main_window.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1802,
+      "path": "ui\\main_window.py",
+      "text": "card("
+    },
+    {
+      "language": "python",
+      "line": 1803,
+      "path": "ui\\main_window.py",
+      "text": "0,"
+    },
+    {
+      "language": "python",
+      "line": 1804,
+      "path": "ui\\main_window.py",
+      "text": "1,"
+    },
+    {
+      "language": "python",
+      "line": 1805,
+      "path": "ui\\main_window.py",
+      "text": "\"HARDWARE\","
+    },
+    {
+      "language": "python",
+      "line": 1806,
+      "path": "ui\\main_window.py",
+      "text": "f\"CPU: {hardware['cpu_percent']:.0f}%\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1807,
+      "path": "ui\\main_window.py",
+      "text": "f\"RAM: {hardware['ram_used_gb']} / {hardware['ram_total_gb']} GB ({hardware['ram_percent']}%)\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1808,
+      "path": "ui\\main_window.py",
+      "text": "f\"Disk Free: {hardware['disk_free_gb']} GB\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1809,
+      "path": "ui\\main_window.py",
+      "text": "f\"Uptime: {hardware['uptime']}\""
+    },
+    {
+      "language": "python",
+      "line": 1810,
+      "path": "ui\\main_window.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1812,
+      "path": "ui\\main_window.py",
+      "text": "card("
+    },
+    {
+      "language": "python",
+      "line": 1813,
+      "path": "ui\\main_window.py",
+      "text": "1,"
+    },
+    {
+      "language": "python",
+      "line": 1814,
+      "path": "ui\\main_window.py",
+      "text": "0,"
+    },
+    {
+      "language": "python",
+      "line": 1815,
+      "path": "ui\\main_window.py",
+      "text": "\"NEURAL ENGINE\","
+    },
+    {
+      "language": "python",
+      "line": 1816,
+      "path": "ui\\main_window.py",
+      "text": "f\"Selected Model: {neural.get('selected_model') or 'None'}\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1817,
+      "path": "ui\\main_window.py",
+      "text": "f\"Models Found: {neural['model_count']}\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1818,
+      "path": "ui\\main_window.py",
+      "text": "f\"Server Alive: {neural['server_alive']}\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1819,
+      "path": "ui\\main_window.py",
+      "text": "f\"Brainstem State: {neural['brainstem_state']}\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1820,
+      "path": "ui\\main_window.py",
+      "text": "f\"Host: {self.host}:{self.port}\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1821,
+      "path": "ui\\main_window.py",
+      "text": "f\"Threads: {self.threads}\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1822,
+      "path": "ui\\main_window.py",
+      "text": "f\"Context: {self.context}\""
+    },
+    {
+      "language": "python",
+      "line": 1823,
+      "path": "ui\\main_window.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1825,
+      "path": "ui\\main_window.py",
+      "text": "card("
+    },
+    {
+      "language": "python",
+      "line": 1826,
+      "path": "ui\\main_window.py",
+      "text": "1,"
+    },
+    {
+      "language": "python",
+      "line": 1827,
+      "path": "ui\\main_window.py",
+      "text": "1,"
+    },
+    {
+      "language": "python",
+      "line": 1828,
+      "path": "ui\\main_window.py",
+      "text": "\"RED CANVAS\","
+    },
+    {
+      "language": "python",
+      "line": 1829,
+      "path": "ui\\main_window.py",
+      "text": "f\"ComfyUI Online: {creative['comfy_online']}\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1830,
+      "path": "ui\\main_window.py",
+      "text": "f\"Checkpoints: {creative['checkpoint_count']}\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1831,
+      "path": "ui\\main_window.py",
+      "text": "f\"Workflow Found: {creative['workflow_exists']}\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1832,
+      "path": "ui\\main_window.py",
+      "text": "f\"Output Folder: {creative['output_dir_exists']}\""
+    },
+    {
+      "language": "python",
+      "line": 1833,
+      "path": "ui\\main_window.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1835,
+      "path": "ui\\main_window.py",
+      "text": "card("
+    },
+    {
+      "language": "python",
+      "line": 1836,
+      "path": "ui\\main_window.py",
+      "text": "2,"
+    },
+    {
+      "language": "python",
+      "line": 1837,
+      "path": "ui\\main_window.py",
+      "text": "0,"
+    },
+    {
+      "language": "python",
+      "line": 1838,
+      "path": "ui\\main_window.py",
+      "text": "\"IRON LIBRARY\","
+    },
+    {
+      "language": "python",
+      "line": 1839,
+      "path": "ui\\main_window.py",
+      "text": "f\"Documents Detected: {library['document_count']}\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1840,
+      "path": "ui\\main_window.py",
+      "text": "\"Search Engine: Ready\""
+    },
+    {
+      "language": "python",
+      "line": 1841,
+      "path": "ui\\main_window.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1843,
+      "path": "ui\\main_window.py",
+      "text": "card("
+    },
+    {
+      "language": "python",
+      "line": 1844,
+      "path": "ui\\main_window.py",
+      "text": "2,"
+    },
+    {
+      "language": "python",
+      "line": 1845,
+      "path": "ui\\main_window.py",
+      "text": "1,"
+    },
+    {
+      "language": "python",
+      "line": 1846,
+      "path": "ui\\main_window.py",
+      "text": "\"WORKSHOP ADVISOR\","
+    },
+    {
+      "language": "python",
+      "line": 1847,
+      "path": "ui\\main_window.py",
+      "text": "f\"Recommended Model:\\n{advisor.get('recommended_model') or 'None'}\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1848,
+      "path": "ui\\main_window.py",
+      "text": "f\"Recommended Threads: {advisor['recommended_threads']}\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1849,
+      "path": "ui\\main_window.py",
+      "text": "f\"Context: {advisor['recommended_context']}\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1850,
+      "path": "ui\\main_window.py",
+      "text": "f\"Reply Tokens: {advisor['recommended_reply_tokens']}\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1851,
+      "path": "ui\\main_window.py",
+      "text": "f\"Reason:\\n{advisor['reason']}\""
+    },
+    {
+      "language": "python",
+      "line": 1852,
+      "path": "ui\\main_window.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1854,
+      "path": "ui\\main_window.py",
+      "text": "checks_frame = ctk.CTkFrame(outer)"
+    },
+    {
+      "language": "python",
+      "line": 1855,
+      "path": "ui\\main_window.py",
+      "text": "checks_frame.pack(fill=\"both\", expand=True, padx=10, pady=(15, 10))"
+    },
+    {
+      "language": "python",
+      "line": 1857,
+      "path": "ui\\main_window.py",
+      "text": "ctk.CTkLabel("
+    },
+    {
+      "language": "python",
+      "line": 1858,
+      "path": "ui\\main_window.py",
+      "text": "checks_frame,"
+    },
+    {
+      "language": "python",
+      "line": 1859,
+      "path": "ui\\main_window.py",
+      "text": "text=\"FULL INSPECTION REPORT\","
+    },
+    {
+      "language": "python",
+      "line": 1860,
+      "path": "ui\\main_window.py",
+      "text": "font=(\"Consolas\", 15, \"bold\")"
+    },
+    {
+      "language": "python",
+      "line": 1861,
+      "path": "ui\\main_window.py",
+      "text": ").pack(anchor=\"w\", padx=14, pady=(12, 4))"
+    },
+    {
+      "language": "python",
+      "line": 1863,
+      "path": "ui\\main_window.py",
+      "text": "report_box = ctk.CTkTextbox(checks_frame, wrap=\"word\", font=(\"Consolas\", 12), height=260)"
+    },
+    {
+      "language": "python",
+      "line": 1864,
+      "path": "ui\\main_window.py",
+      "text": "report_box.pack(fill=\"both\", expand=True, padx=14, pady=(0, 14))"
+    },
+    {
+      "language": "python",
+      "line": 1866,
+      "path": "ui\\main_window.py",
+      "text": "report_box.insert(\"end\", \"WORKSHOP CHECKS\\n\\n\")"
+    },
+    {
+      "language": "python",
+      "line": 1867,
+      "path": "ui\\main_window.py",
+      "text": "for section_name in [\"workshop\", \"neural\", \"creative\", \"library\"]:"
+    },
+    {
+      "language": "python",
+      "line": 1868,
+      "path": "ui\\main_window.py",
+      "text": "report_box.insert(\"end\", f\"--- {section_name.upper()} ---\\n\")"
+    },
+    {
+      "language": "python",
+      "line": 1869,
+      "path": "ui\\main_window.py",
+      "text": "for check in data[section_name].get(\"checks\", []):"
+    },
+    {
+      "language": "python",
+      "line": 1870,
+      "path": "ui\\main_window.py",
+      "text": "report_box.insert(\"end\", self._format_check_line(check) + \"\\n\\n\")"
+    },
+    {
+      "language": "python",
+      "line": 1872,
+      "path": "ui\\main_window.py",
+      "text": "report_box.configure(state=\"disabled\")"
+    },
+    {
+      "language": "python",
+      "line": 1874,
+      "path": "ui\\main_window.py",
+      "text": "actions = ctk.CTkFrame(outer)"
+    },
+    {
+      "language": "python",
+      "line": 1875,
+      "path": "ui\\main_window.py",
+      "text": "actions.pack(fill=\"x\", padx=10, pady=(0, 15))"
+    },
+    {
+      "language": "python",
+      "line": 1876,
+      "path": "ui\\main_window.py",
+      "text": "ctk.CTkButton(actions, text=\"RUN FULL INSPECTION\", command=self.show_diagnostics, width=220).pack(side=\"left\", padx=10, pady=10)"
+    },
+    {
+      "language": "python",
+      "line": 1877,
+      "path": "ui\\main_window.py",
+      "text": "ctk.CTkButton(actions, text=\"SEND REPORT TO MISSION CONTROL\", command=self.send_diagnostics_to_mission_control, width=280).pack(side=\"left\", padx=10, pady=10)"
+    },
+    {
+      "language": "python",
+      "line": 1879,
+      "path": "ui\\main_window.py",
+      "text": "self.make_status_bar()"
+    },
+    {
+      "language": "python",
+      "line": 1881,
+      "path": "ui\\main_window.py",
+      "text": "def send_diagnostics_to_mission_control(self):"
+    },
+    {
+      "language": "python",
+      "line": 1882,
+      "path": "ui\\main_window.py",
+      "text": "data = diagnostics.run_full_inspection(self)"
+    },
+    {
+      "language": "python",
+      "line": 1883,
+      "path": "ui\\main_window.py",
+      "text": "summary = data[\"summary\"]"
+    },
+    {
+      "language": "python",
+      "line": 1884,
+      "path": "ui\\main_window.py",
+      "text": "advisor = data[\"advisor\"]"
+    },
+    {
+      "language": "python",
+      "line": 1885,
+      "path": "ui\\main_window.py",
+      "text": "neural = data[\"neural\"]"
+    },
+    {
+      "language": "python",
+      "line": 1886,
+      "path": "ui\\main_window.py",
+      "text": "creative = data[\"creative\"]"
+    },
+    {
+      "language": "python",
+      "line": 1888,
+      "path": "ui\\main_window.py",
+      "text": "self.show_mission_console()"
+    },
+    {
+      "language": "python",
+      "line": 1889,
+      "path": "ui\\main_window.py",
+      "text": "self.mission_status("
+    },
+    {
+      "language": "python",
+      "line": 1890,
+      "path": "ui\\main_window.py",
+      "text": "\"WORKSHOP DIAGNOSTICS REPORT\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1891,
+      "path": "ui\\main_window.py",
+      "text": "f\"Health: {summary['health_score']}% - {summary['health_label']}\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1892,
+      "path": "ui\\main_window.py",
+      "text": "f\"Checks Passed: {summary['checks_passed']}/{summary['checks_total']}\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1893,
+      "path": "ui\\main_window.py",
+      "text": "f\"Neural Engine Online: {neural['server_alive']}\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1894,
+      "path": "ui\\main_window.py",
+      "text": "f\"ComfyUI Online: {creative['comfy_online']}\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1895,
+      "path": "ui\\main_window.py",
+      "text": "\"Workshop Advisor Recommendation:\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1896,
+      "path": "ui\\main_window.py",
+      "text": "f\"Model: {advisor.get('recommended_model') or 'None'}\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1897,
+      "path": "ui\\main_window.py",
+      "text": "f\"Threads: {advisor['recommended_threads']}\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1898,
+      "path": "ui\\main_window.py",
+      "text": "f\"Context: {advisor['recommended_context']}\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1899,
+      "path": "ui\\main_window.py",
+      "text": "f\"Reply Tokens: {advisor['recommended_reply_tokens']}\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1900,
+      "path": "ui\\main_window.py",
+      "text": "f\"Reason: {advisor['reason']}\""
+    },
+    {
+      "language": "python",
+      "line": 1901,
+      "path": "ui\\main_window.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1903,
+      "path": "ui\\main_window.py",
+      "text": "def show_archive(self):"
+    },
+    {
+      "language": "python",
+      "line": 1904,
+      "path": "ui\\main_window.py",
+      "text": "self.clear_content()"
+    },
+    {
+      "language": "python",
+      "line": 1905,
+      "path": "ui\\main_window.py",
+      "text": "self.make_title(\"MISSION ARCHIVE\")"
+    },
+    {
+      "language": "python",
+      "line": 1906,
+      "path": "ui\\main_window.py",
+      "text": "box = ctk.CTkTextbox(self.content, wrap=\"word\", font=(\"Consolas\", 13))"
+    },
+    {
+      "language": "python",
+      "line": 1907,
+      "path": "ui\\main_window.py",
+      "text": "box.pack(fill=\"both\", expand=True, padx=20, pady=20)"
+    },
+    {
+      "language": "python",
+      "line": 1908,
+      "path": "ui\\main_window.py",
+      "text": "box.insert(\"end\", \"Mission Archive browser coming soon.\\n\\nCurrent archives are saved in Mission Archive/Chats.\")"
+    },
+    {
+      "language": "python",
+      "line": 1909,
+      "path": "ui\\main_window.py",
+      "text": "self.make_status_bar()"
+    },
+    {
+      "language": "python",
+      "line": 1911,
+      "path": "ui\\main_window.py",
+      "text": "def show_arsenal(self):"
+    },
+    {
+      "language": "python",
+      "line": 1912,
+      "path": "ui\\main_window.py",
+      "text": "self.clear_content()"
+    },
+    {
+      "language": "python",
+      "line": 1913,
+      "path": "ui\\main_window.py",
+      "text": "self.make_title(\"ARSENAL // SYSTEM CONFIGURATION\")"
+    },
+    {
+      "language": "python",
+      "line": 1914,
+      "path": "ui\\main_window.py",
+      "text": "box = ctk.CTkTextbox(self.content, wrap=\"word\", font=(\"Consolas\", 13))"
+    },
+    {
+      "language": "python",
+      "line": 1915,
+      "path": "ui\\main_window.py",
+      "text": "box.pack(fill=\"both\", expand=True, padx=20, pady=20)"
+    },
+    {
+      "language": "python",
+      "line": 1916,
+      "path": "ui\\main_window.py",
+      "text": "box.insert(\"end\", f\"Host: {self.host}\\nPort: {self.port}\\nThreads: {self.threads}\\nContext: {self.context}\\n\\n\")"
+    },
+    {
+      "language": "python",
+      "line": 1917,
+      "path": "ui\\main_window.py",
+      "text": "box.insert(\"end\", self.chat_resilience.config.report() + \"\\n\\n\")"
+    },
+    {
+      "language": "python",
+      "line": 1918,
+      "path": "ui\\main_window.py",
+      "text": "box.insert(\"end\", f\"Language models detected: {len(self.models)}\\nComfyUI: {'ONLINE' if is_comfy_running() else 'OFFLINE'}\")"
+    },
+    {
+      "language": "python",
+      "line": 1919,
+      "path": "ui\\main_window.py",
+      "text": "self.make_status_bar()"
+    },
+    {
+      "language": "python",
+      "line": 1921,
+      "path": "ui\\main_window.py",
+      "text": "def add_chat(self, role, text, force_console=True):"
+    },
+    {
+      "language": "python",
+      "line": 1922,
+      "path": "ui\\main_window.py",
+      "text": "if force_console and (not hasattr(self, \"chat_box\") or not self.chat_box.winfo_exists()):"
+    },
+    {
+      "language": "python",
+      "line": 1923,
+      "path": "ui\\main_window.py",
+      "text": "self.show_mission_console()"
+    },
+    {
+      "language": "python",
+      "line": 1925,
+      "path": "ui\\main_window.py",
+      "text": "if hasattr(self, \"chat_box\") and self.chat_box.winfo_exists():"
+    },
+    {
+      "language": "python",
+      "line": 1926,
+      "path": "ui\\main_window.py",
+      "text": "self.chat_box.configure(state=\"normal\")"
+    },
+    {
+      "language": "python",
+      "line": 1927,
+      "path": "ui\\main_window.py",
+      "text": "self.chat_box.insert(\"end\", f\"\\n[{role}]\\n{text}\\n\")"
+    },
+    {
+      "language": "python",
+      "line": 1928,
+      "path": "ui\\main_window.py",
+      "text": "self.chat_box.see(\"end\")"
+    },
+    {
+      "language": "python",
+      "line": 1929,
+      "path": "ui\\main_window.py",
+      "text": "self.chat_box.configure(state=\"disabled\")"
+    },
+    {
+      "language": "python",
+      "line": 1931,
+      "path": "ui\\main_window.py",
+      "text": "self.mission_memory.add(role, text)"
+    },
+    {
+      "language": "python",
+      "line": 1933,
+      "path": "ui\\main_window.py",
+      "text": "def mission_status(self, text):"
+    },
+    {
+      "language": "python",
+      "line": 1934,
+      "path": "ui\\main_window.py",
+      "text": "self.add_chat(\"MISSION CONTROL\", text, force_console=False)"
+    },
+    {
+      "language": "python",
+      "line": 1936,
+      "path": "ui\\main_window.py",
+      "text": "def start_mission_animation(self, label=\"Processing mission\"):"
+    },
+    {
+      "language": "python",
+      "line": 1937,
+      "path": "ui\\main_window.py",
+      "text": "self.stop_mission_animation(final_status=self.status.get())"
+    },
+    {
+      "language": "python",
+      "line": 1938,
+      "path": "ui\\main_window.py",
+      "text": "self.mission_animation_step = 0"
+    },
+    {
+      "language": "python",
+      "line": 1940,
+      "path": "ui\\main_window.py",
+      "text": "def animate():"
+    },
+    {
+      "language": "python",
+      "line": 1941,
+      "path": "ui\\main_window.py",
+      "text": "if self._closing:"
+    },
+    {
+      "language": "python",
+      "line": 1942,
+      "path": "ui\\main_window.py",
+      "text": "return"
+    },
+    {
+      "language": "python",
+      "line": 1944,
+      "path": "ui\\main_window.py",
+      "text": "dots = \".\" * ((self.mission_animation_step % 3) + 1)"
+    },
+    {
+      "language": "python",
+      "line": 1945,
+      "path": "ui\\main_window.py",
+      "text": "self.status.set(\"MISSION\")"
+    },
+    {
+      "language": "python",
+      "line": 1946,
+      "path": "ui\\main_window.py",
+      "text": "self.mission_animation_step += 1"
+    },
+    {
+      "language": "python",
+      "line": 1948,
+      "path": "ui\\main_window.py",
+      "text": "if hasattr(self, \"stats\"):"
+    },
+    {
+      "language": "python",
+      "line": 1949,
+      "path": "ui\\main_window.py",
+      "text": "ram = psutil.virtual_memory()"
+    },
+    {
+      "language": "python",
+      "line": 1950,
+      "path": "ui\\main_window.py",
+      "text": "self.stats.set("
+    },
+    {
+      "language": "python",
+      "line": 1951,
+      "path": "ui\\main_window.py",
+      "text": "f\"CPU {psutil.cpu_percent():.0f}%  |  RAM {ram.used / (1024 ** 3):.1f}/{ram.total / (1024 ** 3):.1f} GB  |  STATUS {label}{dots}\""
+    },
+    {
+      "language": "python",
+      "line": 1952,
+      "path": "ui\\main_window.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1954,
+      "path": "ui\\main_window.py",
+      "text": "self.mission_animation_job = self.after(500, animate)"
+    },
+    {
+      "language": "python",
+      "line": 1956,
+      "path": "ui\\main_window.py",
+      "text": "animate()"
+    },
+    {
+      "language": "python",
+      "line": 1958,
+      "path": "ui\\main_window.py",
+      "text": "def stop_mission_animation(self, final_status=\"ONLINE\"):"
+    },
+    {
+      "language": "python",
+      "line": 1959,
+      "path": "ui\\main_window.py",
+      "text": "if self.mission_animation_job:"
+    },
+    {
+      "language": "python",
+      "line": 1960,
+      "path": "ui\\main_window.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 1961,
+      "path": "ui\\main_window.py",
+      "text": "self.after_cancel(self.mission_animation_job)"
+    },
+    {
+      "language": "python",
+      "line": 1962,
+      "path": "ui\\main_window.py",
+      "text": "except Exception:"
+    },
+    {
+      "language": "python",
+      "line": 1963,
+      "path": "ui\\main_window.py",
+      "text": "pass"
+    },
+    {
+      "language": "python",
+      "line": 1964,
+      "path": "ui\\main_window.py",
+      "text": "self.mission_animation_job = None"
+    },
+    {
+      "language": "python",
+      "line": 1966,
+      "path": "ui\\main_window.py",
+      "text": "self.status.set(final_status)"
+    },
+    {
+      "language": "python",
+      "line": 1969,
+      "path": "ui\\main_window.py",
+      "text": "def set_control_state(self, widget_name, state):"
+    },
+    {
+      "language": "python",
+      "line": 1970,
+      "path": "ui\\main_window.py",
+      "text": "widget = getattr(self, widget_name, None)"
+    },
+    {
+      "language": "python",
+      "line": 1971,
+      "path": "ui\\main_window.py",
+      "text": "if widget and widget.winfo_exists():"
+    },
+    {
+      "language": "python",
+      "line": 1972,
+      "path": "ui\\main_window.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 1973,
+      "path": "ui\\main_window.py",
+      "text": "widget.configure(state=state)"
+    },
+    {
+      "language": "python",
+      "line": 1974,
+      "path": "ui\\main_window.py",
+      "text": "except Exception:"
+    },
+    {
+      "language": "python",
+      "line": 1975,
+      "path": "ui\\main_window.py",
+      "text": "pass"
+    },
+    {
+      "language": "python",
+      "line": 1977,
+      "path": "ui\\main_window.py",
+      "text": "def apply_workshop_state(self):"
+    },
+    {
+      "language": "python",
+      "line": 1978,
+      "path": "ui\\main_window.py",
+      "text": "busy = self.brainstem.is_busy() if hasattr(self, \"brainstem\") else False"
+    },
+    {
+      "language": "python",
+      "line": 1979,
+      "path": "ui\\main_window.py",
+      "text": "locked = \"disabled\" if busy else \"normal\""
+    },
+    {
+      "language": "python",
+      "line": 1981,
+      "path": "ui\\main_window.py",
+      "text": "for name in ["
+    },
+    {
+      "language": "python",
+      "line": 1982,
+      "path": "ui\\main_window.py",
+      "text": "\"send_button\","
+    },
+    {
+      "language": "python",
+      "line": 1983,
+      "path": "ui\\main_window.py",
+      "text": "\"generate_button\","
+    },
+    {
+      "language": "python",
+      "line": 1984,
+      "path": "ui\\main_window.py",
+      "text": "\"promptsmith_button\","
+    },
+    {
+      "language": "python",
+      "line": 1985,
+      "path": "ui\\main_window.py",
+      "text": "\"save_prompt_button\","
+    },
+    {
+      "language": "python",
+      "line": 1986,
+      "path": "ui\\main_window.py",
+      "text": "\"library_button\","
+    },
+    {
+      "language": "python",
+      "line": 1987,
+      "path": "ui\\main_window.py",
+      "text": "\"red_canvas_button\","
+    },
+    {
+      "language": "python",
+      "line": 1988,
+      "path": "ui\\main_window.py",
+      "text": "\"arsenal_button\","
+    },
+    {
+      "language": "python",
+      "line": 1989,
+      "path": "ui\\main_window.py",
+      "text": "\"archive_button\","
+    },
+    {
+      "language": "python",
+      "line": 1990,
+      "path": "ui\\main_window.py",
+      "text": "\"diagnostics_button\","
+    },
+    {
+      "language": "python",
+      "line": 1991,
+      "path": "ui\\main_window.py",
+      "text": "\"engineer_button\","
+    },
+    {
+      "language": "python",
+      "line": 1992,
+      "path": "ui\\main_window.py",
+      "text": "]:"
+    },
+    {
+      "language": "python",
+      "line": 1993,
+      "path": "ui\\main_window.py",
+      "text": "self.set_control_state(name, locked)"
+    },
+    {
+      "language": "python",
+      "line": 1995,
+      "path": "ui\\main_window.py",
+      "text": "self.set_control_state(\"console_button\", \"normal\")"
+    },
+    {
+      "language": "python",
+      "line": 1996,
+      "path": "ui\\main_window.py",
+      "text": "self.set_control_state(\"dashboard_button\", \"normal\")"
+    },
+    {
+      "language": "python",
+      "line": 1997,
+      "path": "ui\\main_window.py",
+      "text": "self.set_control_state(\"diagnostics_button\", \"normal\")"
+    },
+    {
+      "language": "python",
+      "line": 1998,
+      "path": "ui\\main_window.py",
+      "text": "self.set_control_state(\"end_button\", \"normal\")"
+    },
+    {
+      "language": "python",
+      "line": 1999,
+      "path": "ui\\main_window.py",
+      "text": "self.set_control_state(\"save_button\", \"normal\")"
+    },
+    {
+      "language": "python",
+      "line": 2000,
+      "path": "ui\\main_window.py",
+      "text": "self.set_control_state(\"start_button\", \"disabled\" if busy else \"normal\")"
+    },
+    {
+      "language": "python",
+      "line": 2002,
+      "path": "ui\\main_window.py",
+      "text": "def begin_workshop_mission(self, mission_type, specialist):"
+    },
+    {
+      "language": "python",
+      "line": 2003,
+      "path": "ui\\main_window.py",
+      "text": "self.brainstem.begin_mission(mission_type, specialist)"
+    },
+    {
+      "language": "python",
+      "line": 2004,
+      "path": "ui\\main_window.py",
+      "text": "self.status.set(\"MISSION\")"
+    },
+    {
+      "language": "python",
+      "line": 2005,
+      "path": "ui\\main_window.py",
+      "text": "self.apply_workshop_state()"
+    },
+    {
+      "language": "python",
+      "line": 2007,
+      "path": "ui\\main_window.py",
+      "text": "def complete_workshop_mission(self, final_status=\"ONLINE\"):"
+    },
+    {
+      "language": "python",
+      "line": 2008,
+      "path": "ui\\main_window.py",
+      "text": "self.brainstem.complete_mission()"
+    },
+    {
+      "language": "python",
+      "line": 2009,
+      "path": "ui\\main_window.py",
+      "text": "self.status.set(final_status)"
+    },
+    {
+      "language": "python",
+      "line": 2010,
+      "path": "ui\\main_window.py",
+      "text": "self.apply_workshop_state()"
+    },
+    {
+      "language": "python",
+      "line": 2012,
+      "path": "ui\\main_window.py",
+      "text": "def fail_workshop_mission(self, error_text):"
+    },
+    {
+      "language": "python",
+      "line": 2013,
+      "path": "ui\\main_window.py",
+      "text": "self.brainstem.fail_mission(str(error_text))"
+    },
+    {
+      "language": "python",
+      "line": 2014,
+      "path": "ui\\main_window.py",
+      "text": "self.status.set(\"ERROR\")"
+    },
+    {
+      "language": "python",
+      "line": 2015,
+      "path": "ui\\main_window.py",
+      "text": "self.apply_workshop_state()"
+    },
+    {
+      "language": "python",
+      "line": 2017,
+      "path": "ui\\main_window.py",
+      "text": "def format_director_analysis(self, mission):"
+    },
+    {
+      "language": "python",
+      "line": 2018,
+      "path": "ui\\main_window.py",
+      "text": "agent = mission.get(\"agent\", \"chat\")"
+    },
+    {
+      "language": "python",
+      "line": 2019,
+      "path": "ui\\main_window.py",
+      "text": "scores = mission.get(\"scores\", {})"
+    },
+    {
+      "language": "python",
+      "line": 2020,
+      "path": "ui\\main_window.py",
+      "text": "reasons = mission.get(\"reasons\", [])"
+    },
+    {
+      "language": "python",
+      "line": 2022,
+      "path": "ui\\main_window.py",
+      "text": "department_names = {"
+    },
+    {
+      "language": "python",
+      "line": 2023,
+      "path": "ui\\main_window.py",
+      "text": "\"chat\": \"Agent Fox\","
+    },
+    {
+      "language": "python",
+      "line": 2024,
+      "path": "ui\\main_window.py",
+      "text": "\"red_canvas\": \"Red Canvas\","
+    },
+    {
+      "language": "python",
+      "line": 2025,
+      "path": "ui\\main_window.py",
+      "text": "\"iron_library\": \"Iron Library\","
+    },
+    {
+      "language": "python",
+      "line": 2026,
+      "path": "ui\\main_window.py",
+      "text": "\"engineer\": \"Engineer\","
+    },
+    {
+      "language": "python",
+      "line": 2027,
+      "path": "ui\\main_window.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 2029,
+      "path": "ui\\main_window.py",
+      "text": "mission_names = {"
+    },
+    {
+      "language": "python",
+      "line": 2030,
+      "path": "ui\\main_window.py",
+      "text": "\"chat\": \"Conversation\","
+    },
+    {
+      "language": "python",
+      "line": 2031,
+      "path": "ui\\main_window.py",
+      "text": "\"red_canvas\": \"Creative\","
+    },
+    {
+      "language": "python",
+      "line": 2032,
+      "path": "ui\\main_window.py",
+      "text": "\"iron_library\": \"Research\","
+    },
+    {
+      "language": "python",
+      "line": 2033,
+      "path": "ui\\main_window.py",
+      "text": "\"engineer\": \"Engineering\","
+    },
+    {
+      "language": "python",
+      "line": 2034,
+      "path": "ui\\main_window.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 2036,
+      "path": "ui\\main_window.py",
+      "text": "selected_score = scores.get(agent, 0)"
+    },
+    {
+      "language": "python",
+      "line": 2037,
+      "path": "ui\\main_window.py",
+      "text": "evidence = \"\\n\".join(f\"✓ {reason}\" for reason in reasons[:8]) if reasons else \"✓ default routing\""
+    },
+    {
+      "language": "python",
+      "line": 2039,
+      "path": "ui\\main_window.py",
+      "text": "return ("
+    },
+    {
+      "language": "python",
+      "line": 2040,
+      "path": "ui\\main_window.py",
+      "text": "\"DIRECTOR ANALYSIS\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 2041,
+      "path": "ui\\main_window.py",
+      "text": "f\"Mission Type:\\n{mission_names.get(agent, agent.title())}\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 2042,
+      "path": "ui\\main_window.py",
+      "text": "f\"Confidence Score:\\n{selected_score}\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 2043,
+      "path": "ui\\main_window.py",
+      "text": "f\"Evidence:\\n{evidence}\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 2044,
+      "path": "ui\\main_window.py",
+      "text": "f\"Selected Department:\\n{department_names.get(agent, agent.title())}\""
+    },
+    {
+      "language": "python",
+      "line": 2045,
+      "path": "ui\\main_window.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 2047,
+      "path": "ui\\main_window.py",
+      "text": "def start_ai(self):"
+    },
+    {
+      "language": "python",
+      "line": 2048,
+      "path": "ui\\main_window.py",
+      "text": "model_name = self.model_menu.get()"
+    },
+    {
+      "language": "python",
+      "line": 2049,
+      "path": "ui\\main_window.py",
+      "text": "model = next((m for m in self.models if m.name == model_name), None)"
+    },
+    {
+      "language": "python",
+      "line": 2050,
+      "path": "ui\\main_window.py",
+      "text": "if not model:"
+    },
+    {
+      "language": "python",
+      "line": 2051,
+      "path": "ui\\main_window.py",
+      "text": "self.add_chat(\"SYSTEM\", \"No neural engine selected.\")"
+    },
+    {
+      "language": "python",
+      "line": 2052,
+      "path": "ui\\main_window.py",
+      "text": "return"
+    },
+    {
+      "language": "python",
+      "line": 2053,
+      "path": "ui\\main_window.py",
+      "text": "self.messages = []"
+    },
+    {
+      "language": "python",
+      "line": 2054,
+      "path": "ui\\main_window.py",
+      "text": "agent_name = self.agent_menu.get()"
+    },
+    {
+      "language": "python",
+      "line": 2055,
+      "path": "ui\\main_window.py",
+      "text": "agent_file = None"
+    },
+    {
+      "language": "python",
+      "line": 2057,
+      "path": "ui\\main_window.py",
+      "text": "if agent_name != \"🦊 Agent Fox\":"
+    },
+    {
+      "language": "python",
+      "line": 2058,
+      "path": "ui\\main_window.py",
+      "text": "agent_file = next("
+    },
+    {
+      "language": "python",
+      "line": 2059,
+      "path": "ui\\main_window.py",
+      "text": "(a for a in self.agents if display_name(a) == agent_name or a.name == agent_name),"
+    },
+    {
+      "language": "python",
+      "line": 2060,
+      "path": "ui\\main_window.py",
+      "text": "None"
+    },
+    {
+      "language": "python",
+      "line": 2061,
+      "path": "ui\\main_window.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 2062,
+      "path": "ui\\main_window.py",
+      "text": "prompt = load_agent_prompt(agent_file)"
+    },
+    {
+      "language": "python",
+      "line": 2063,
+      "path": "ui\\main_window.py",
+      "text": "memory_context = ("
+    },
+    {
+      "language": "python",
+      "line": 2064,
+      "path": "ui\\main_window.py",
+      "text": "f\"Operator name: {self.operator.get('operator_name', 'Eric Fox')}\\n\""
+    },
+    {
+      "language": "python",
+      "line": 2065,
+      "path": "ui\\main_window.py",
+      "text": "f\"Assistant name: {self.operator.get('assistant_name', 'Agent Fox')}\\n\""
+    },
+    {
+      "language": "python",
+      "line": 2066,
+      "path": "ui\\main_window.py",
+      "text": "f\"Current mission: {self.operator.get('current_mission', 'Operation Red Bridge')}\\n\""
+    },
+    {
+      "language": "python",
+      "line": 2067,
+      "path": "ui\\main_window.py",
+      "text": "f\"Project goal: {self.operator.get('project_goal', '')}\\n\""
+    },
+    {
+      "language": "python",
+      "line": 2068,
+      "path": "ui\\main_window.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 2069,
+      "path": "ui\\main_window.py",
+      "text": "self.messages.append({\"role\": \"system\", \"content\": prompt + \"\\n\\n\" + memory_context})"
+    },
+    {
+      "language": "python",
+      "line": 2071,
+      "path": "ui\\main_window.py",
+      "text": "result = self.server.ensure_running("
+    },
+    {
+      "language": "python",
+      "line": 2072,
+      "path": "ui\\main_window.py",
+      "text": "model,"
+    },
+    {
+      "language": "python",
+      "line": 2073,
+      "path": "ui\\main_window.py",
+      "text": "host=self.host,"
+    },
+    {
+      "language": "python",
+      "line": 2074,
+      "path": "ui\\main_window.py",
+      "text": "port=self.port,"
+    },
+    {
+      "language": "python",
+      "line": 2075,
+      "path": "ui\\main_window.py",
+      "text": "context=self.context,"
+    },
+    {
+      "language": "python",
+      "line": 2076,
+      "path": "ui\\main_window.py",
+      "text": "threads=self.threads,"
+    },
+    {
+      "language": "python",
+      "line": 2077,
+      "path": "ui\\main_window.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 2078,
+      "path": "ui\\main_window.py",
+      "text": "if not result.ok:"
+    },
+    {
+      "language": "python",
+      "line": 2079,
+      "path": "ui\\main_window.py",
+      "text": "self.status.set(\"ERROR\")"
+    },
+    {
+      "language": "python",
+      "line": 2080,
+      "path": "ui\\main_window.py",
+      "text": "self.apply_workshop_state()"
+    },
+    {
+      "language": "python",
+      "line": 2081,
+      "path": "ui\\main_window.py",
+      "text": "self.add_chat(\"SYSTEM\", result.message)"
+    },
+    {
+      "language": "python",
+      "line": 2082,
+      "path": "ui\\main_window.py",
+      "text": "return"
+    },
+    {
+      "language": "python",
+      "line": 2084,
+      "path": "ui\\main_window.py",
+      "text": "self.brainstem.set_state(self.brainstem.STATE_STARTING)"
+    },
+    {
+      "language": "python",
+      "line": 2085,
+      "path": "ui\\main_window.py",
+      "text": "self.status.set(\"BOOTING\")"
+    },
+    {
+      "language": "python",
+      "line": 2086,
+      "path": "ui\\main_window.py",
+      "text": "self.apply_workshop_state()"
+    },
+    {
+      "language": "python",
+      "line": 2088,
+      "path": "ui\\main_window.py",
+      "text": "if result.action == \"attached\":"
+    },
+    {
+      "language": "python",
+      "line": 2089,
+      "path": "ui\\main_window.py",
+      "text": "self.add_chat("
+    },
+    {
+      "language": "python",
+      "line": 2090,
+      "path": "ui\\main_window.py",
+      "text": "\"SYSTEM\","
+    },
+    {
+      "language": "python",
+      "line": 2091,
+      "path": "ui\\main_window.py",
+      "text": "f\"Attaching to shared neural engine: {model.name}\","
+    },
+    {
+      "language": "python",
+      "line": 2092,
+      "path": "ui\\main_window.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 2093,
+      "path": "ui\\main_window.py",
+      "text": "elif result.action == \"waiting\":"
+    },
+    {
+      "language": "python",
+      "line": 2094,
+      "path": "ui\\main_window.py",
+      "text": "self.add_chat("
+    },
+    {
+      "language": "python",
+      "line": 2095,
+      "path": "ui\\main_window.py",
+      "text": "\"SYSTEM\","
+    },
+    {
+      "language": "python",
+      "line": 2096,
+      "path": "ui\\main_window.py",
+      "text": "f\"Shared neural engine is already starting: {model.name}\","
+    },
+    {
+      "language": "python",
+      "line": 2097,
+      "path": "ui\\main_window.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 2098,
+      "path": "ui\\main_window.py",
+      "text": "else:"
+    },
+    {
+      "language": "python",
+      "line": 2099,
+      "path": "ui\\main_window.py",
+      "text": "self.add_chat(\"SYSTEM\", f\"Initializing neural engine: {model.name}\")"
+    },
+    {
+      "language": "python",
+      "line": 2101,
+      "path": "ui\\main_window.py",
+      "text": "threading.Thread(target=self.wait_for_server, daemon=True).start()"
+    },
+    {
+      "language": "python",
+      "line": 2103,
+      "path": "ui\\main_window.py",
+      "text": "def wait_for_server(self):"
+    },
+    {
+      "language": "python",
+      "line": 2104,
+      "path": "ui\\main_window.py",
+      "text": "ready = self.server.wait_until_ready(timeout=90)"
+    },
+    {
+      "language": "python",
+      "line": 2105,
+      "path": "ui\\main_window.py",
+      "text": "if ready.ok:"
+    },
+    {
+      "language": "python",
+      "line": 2106,
+      "path": "ui\\main_window.py",
+      "text": "self.brainstem.set_state(self.brainstem.STATE_READY)"
+    },
+    {
+      "language": "python",
+      "line": 2107,
+      "path": "ui\\main_window.py",
+      "text": "self.status.set(\"ONLINE\")"
+    },
+    {
+      "language": "python",
+      "line": 2108,
+      "path": "ui\\main_window.py",
+      "text": "self.after(0, self.apply_workshop_state)"
+    },
+    {
+      "language": "python",
+      "line": 2109,
+      "path": "ui\\main_window.py",
+      "text": "name = self.operator.get(\"operator_name\", \"Operator\")"
+    },
+    {
+      "language": "python",
+      "line": 2110,
+      "path": "ui\\main_window.py",
+      "text": "mission = self.operator.get(\"current_mission\", \"No active mission\")"
+    },
+    {
+      "language": "python",
+      "line": 2111,
+      "path": "ui\\main_window.py",
+      "text": "self.add_chat("
+    },
+    {
+      "language": "python",
+      "line": 2112,
+      "path": "ui\\main_window.py",
+      "text": "\"AGENT FOX\","
+    },
+    {
+      "language": "python",
+      "line": 2113,
+      "path": "ui\\main_window.py",
+      "text": "f\"Good morning, {name}.\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 2114,
+      "path": "ui\\main_window.py",
+      "text": "\"All systems operational.\\n\""
+    },
+    {
+      "language": "python",
+      "line": 2115,
+      "path": "ui\\main_window.py",
+      "text": "\"Shared neural engine online.\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 2116,
+      "path": "ui\\main_window.py",
+      "text": "f\"Mission:\\n{mission}\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 2117,
+      "path": "ui\\main_window.py",
+      "text": "\"Awaiting your orders.\","
+    },
+    {
+      "language": "python",
+      "line": 2118,
+      "path": "ui\\main_window.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 2119,
+      "path": "ui\\main_window.py",
+      "text": "return"
+    },
+    {
+      "language": "python",
+      "line": 2121,
+      "path": "ui\\main_window.py",
+      "text": "self.brainstem.set_error(ready.message)"
+    },
+    {
+      "language": "python",
+      "line": 2122,
+      "path": "ui\\main_window.py",
+      "text": "self.status.set(\"ERROR\")"
+    },
+    {
+      "language": "python",
+      "line": 2123,
+      "path": "ui\\main_window.py",
+      "text": "self.after(0, self.apply_workshop_state)"
+    },
+    {
+      "language": "python",
+      "line": 2124,
+      "path": "ui\\main_window.py",
+      "text": "self.add_chat(\"SYSTEM\", ready.message)"
+    },
+    {
+      "language": "python",
+      "line": 2126,
+      "path": "ui\\main_window.py",
+      "text": "def stop_ai(self):"
+    },
+    {
+      "language": "python",
+      "line": 2127,
+      "path": "ui\\main_window.py",
+      "text": "self.stop_chat_heartbeat()"
+    },
+    {
+      "language": "python",
+      "line": 2128,
+      "path": "ui\\main_window.py",
+      "text": "result = self.server.stop()"
+    },
+    {
+      "language": "python",
+      "line": 2129,
+      "path": "ui\\main_window.py",
+      "text": "self.brainstem.set_state(self.brainstem.STATE_OFFLINE)"
+    },
+    {
+      "language": "python",
+      "line": 2130,
+      "path": "ui\\main_window.py",
+      "text": "self.status.set(\"OFFLINE\" if result.ok else \"ERROR\")"
+    },
+    {
+      "language": "python",
+      "line": 2131,
+      "path": "ui\\main_window.py",
+      "text": "self.apply_workshop_state()"
+    },
+    {
+      "language": "python",
+      "line": 2132,
+      "path": "ui\\main_window.py",
+      "text": "self.add_chat(\"SYSTEM\", result.message)"
+    },
+    {
+      "language": "python",
+      "line": 2133,
+      "path": "ui\\main_window.py",
+      "text": "self.add_chat(\"SYSTEM\", \"Mission ended.\")"
+    },
+    {
+      "language": "python",
+      "line": 2134,
+      "path": "ui\\main_window.py",
+      "text": "self.save_mission()"
+    },
+    {
+      "language": "python",
+      "line": 2136,
+      "path": "ui\\main_window.py",
+      "text": "def save_mission(self):"
+    },
+    {
+      "language": "python",
+      "line": 2137,
+      "path": "ui\\main_window.py",
+      "text": "path = self.mission_memory.save()"
+    },
+    {
+      "language": "python",
+      "line": 2138,
+      "path": "ui\\main_window.py",
+      "text": "if path:"
+    },
+    {
+      "language": "python",
+      "line": 2139,
+      "path": "ui\\main_window.py",
+      "text": "self.status.set(\"ARCHIVED\")"
+    },
+    {
+      "language": "python",
+      "line": 2140,
+      "path": "ui\\main_window.py",
+      "text": "self.add_chat(\"SYSTEM\", f\"Mission archived:\\n{path}\")"
+    },
+    {
+      "language": "python",
+      "line": 2146,
+      "path": "ui\\main_window.py",
+      "text": "def send_message(self, event=None):"
+    },
+    {
+      "language": "python",
+      "line": 2147,
+      "path": "ui\\main_window.py",
+      "text": "if self.brainstem.is_busy():"
+    },
+    {
+      "language": "python",
+      "line": 2148,
+      "path": "ui\\main_window.py",
+      "text": "self.mission_status("
+    },
+    {
+      "language": "python",
+      "line": 2149,
+      "path": "ui\\main_window.py",
+      "text": "\"MISSION LOCK ACTIVE\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 2150,
+      "path": "ui\\main_window.py",
+      "text": "f\"Current Specialist: {self.brainstem.active_specialist}\\n\""
+    },
+    {
+      "language": "python",
+      "line": 2151,
+      "path": "ui\\main_window.py",
+      "text": "f\"Elapsed: {self.brainstem.elapsed_label()}\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 2152,
+      "path": "ui\\main_window.py",
+      "text": "\"Please wait for the active mission to complete.\""
+    },
+    {
+      "language": "python",
+      "line": 2153,
+      "path": "ui\\main_window.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 2154,
+      "path": "ui\\main_window.py",
+      "text": "return \"break\""
+    },
+    {
+      "language": "python",
+      "line": 2156,
+      "path": "ui\\main_window.py",
+      "text": "text = self.input_box.get(\"1.0\", \"end\").strip()"
+    },
+    {
+      "language": "python",
+      "line": 2158,
+      "path": "ui\\main_window.py",
+      "text": "if not text:"
+    },
+    {
+      "language": "python",
+      "line": 2159,
+      "path": "ui\\main_window.py",
+      "text": "return \"break\""
+    },
+    {
+      "language": "python",
+      "line": 2161,
+      "path": "ui\\main_window.py",
+      "text": "self.mission_status(\"Receiving request...\\n\\nDirector analyzing mission parameters.\")"
+    },
+    {
+      "language": "python",
+      "line": 2162,
+      "path": "ui\\main_window.py",
+      "text": "self.start_mission_animation(\"Director analyzing\")"
+    },
+    {
+      "language": "python",
+      "line": 2164,
+      "path": "ui\\main_window.py",
+      "text": "desktop_mission_id = f\"desktop_mission_{uuid4().hex}\""
+    },
+    {
+      "language": "python",
+      "line": 2165,
+      "path": "ui\\main_window.py",
+      "text": "mission = direct(text, mission_id=desktop_mission_id)"
+    },
+    {
+      "language": "python",
+      "line": 2166,
+      "path": "ui\\main_window.py",
+      "text": "agent = mission[\"agent\"]"
+    },
+    {
+      "language": "python",
+      "line": 2167,
+      "path": "ui\\main_window.py",
+      "text": "payload = mission[\"payload\"]"
+    },
+    {
+      "language": "python",
+      "line": 2168,
+      "path": "ui\\main_window.py",
+      "text": "correlation_id = mission.get(\"correlation_id\")"
+    },
+    {
+      "language": "python",
+      "line": 2169,
+      "path": "ui\\main_window.py",
+      "text": "mission_id = mission.get(\"mission_id\")"
+    },
+    {
+      "language": "python",
+      "line": 2170,
+      "path": "ui\\main_window.py",
+      "text": "route_audit_receipt = mission.get(\"audit_receipt\")"
+    },
+    {
+      "language": "python",
+      "line": 2172,
+      "path": "ui\\main_window.py",
+      "text": "self.mission_status(self.format_director_analysis(mission))"
+    },
+    {
+      "language": "python",
+      "line": 2174,
+      "path": "ui\\main_window.py",
+      "text": "if agent in self.specialists:"
+    },
+    {
+      "language": "python",
+      "line": 2175,
+      "path": "ui\\main_window.py",
+      "text": "if agent == \"red_canvas\":"
+    },
+    {
+      "language": "python",
+      "line": 2176,
+      "path": "ui\\main_window.py",
+      "text": "self.begin_workshop_mission(\"Creative\", \"Red Canvas\")"
+    },
+    {
+      "language": "python",
+      "line": 2177,
+      "path": "ui\\main_window.py",
+      "text": "self.mission_status(\"Red Canvas mission detected.\\n\\nDeploying PromptSmith and image bridge.\")"
+    },
+    {
+      "language": "python",
+      "line": 2178,
+      "path": "ui\\main_window.py",
+      "text": "return self.specialists[agent].handle(text, payload)"
+    },
+    {
+      "language": "python",
+      "line": 2180,
+      "path": "ui\\main_window.py",
+      "text": "if agent == \"engineer\":"
+    },
+    {
+      "language": "python",
+      "line": 2181,
+      "path": "ui\\main_window.py",
+      "text": "self.begin_workshop_mission(\"Engineering\", \"Engineer\")"
+    },
+    {
+      "language": "python",
+      "line": 2182,
+      "path": "ui\\main_window.py",
+      "text": "self.mission_status(\"Engineer mission detected.\\n\\nReading project files in read-only mode.\")"
+    },
+    {
+      "language": "python",
+      "line": 2183,
+      "path": "ui\\main_window.py",
+      "text": "return self.specialists[agent].handle("
+    },
+    {
+      "language": "python",
+      "line": 2184,
+      "path": "ui\\main_window.py",
+      "text": "payload,"
+    },
+    {
+      "language": "python",
+      "line": 2185,
+      "path": "ui\\main_window.py",
+      "text": "caller=\"operator\","
+    },
+    {
+      "language": "python",
+      "line": 2186,
+      "path": "ui\\main_window.py",
+      "text": "correlation_id=correlation_id,"
+    },
+    {
+      "language": "python",
+      "line": 2187,
+      "path": "ui\\main_window.py",
+      "text": "mission_id=mission_id,"
+    },
+    {
+      "language": "python",
+      "line": 2188,
+      "path": "ui\\main_window.py",
+      "text": "route_audit_receipt=route_audit_receipt,"
+    },
+    {
+      "language": "python",
+      "line": 2189,
+      "path": "ui\\main_window.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 2191,
+      "path": "ui\\main_window.py",
+      "text": "if agent == \"iron_library\":"
+    },
+    {
+      "language": "python",
+      "line": 2192,
+      "path": "ui\\main_window.py",
+      "text": "self.begin_workshop_mission(\"Research\", \"Iron Library\")"
+    },
+    {
+      "language": "python",
+      "line": 2193,
+      "path": "ui\\main_window.py",
+      "text": "self.mission_status(\"Iron Library mission detected.\\n\\nSearching local files and project knowledge.\")"
+    },
+    {
+      "language": "python",
+      "line": 2194,
+      "path": "ui\\main_window.py",
+      "text": "result = self.specialists[agent].handle(payload)"
+    },
+    {
+      "language": "python",
+      "line": 2195,
+      "path": "ui\\main_window.py",
+      "text": "self.complete_workshop_mission(\"ONLINE\")"
+    },
+    {
+      "language": "python",
+      "line": 2196,
+      "path": "ui\\main_window.py",
+      "text": "return result"
+    },
+    {
+      "language": "python",
+      "line": 2198,
+      "path": "ui\\main_window.py",
+      "text": "self.begin_workshop_mission(\"Conversation\", \"Agent Fox\")"
+    },
+    {
+      "language": "python",
+      "line": 2199,
+      "path": "ui\\main_window.py",
+      "text": "self.mission_status(\"Chat mission detected.\\n\\nRouting to selected neural specialist.\")"
+    },
+    {
+      "language": "python",
+      "line": 2200,
+      "path": "ui\\main_window.py",
+      "text": "result = self.specialists[agent].handle(payload)"
+    },
+    {
+      "language": "python",
+      "line": 2201,
+      "path": "ui\\main_window.py",
+      "text": "self.status.set(\"THINKING\")"
+    },
+    {
+      "language": "python",
+      "line": 2202,
+      "path": "ui\\main_window.py",
+      "text": "return result"
+    },
+    {
+      "language": "python",
+      "line": 2204,
+      "path": "ui\\main_window.py",
+      "text": "self.fail_workshop_mission(f\"No specialist found for mission agent: {agent}\")"
+    },
+    {
+      "language": "python",
+      "line": 2205,
+      "path": "ui\\main_window.py",
+      "text": "self.add_chat(\"SYSTEM\", f\"No specialist found for mission agent: {agent}\")"
+    },
+    {
+      "language": "python",
+      "line": 2206,
+      "path": "ui\\main_window.py",
+      "text": "return \"break\""
+    },
+    {
+      "language": "python",
+      "line": 2208,
+      "path": "ui\\main_window.py",
+      "text": "def route_image_request(self, original_text, image_prompt):"
+    },
+    {
+      "language": "python",
+      "line": 2209,
+      "path": "ui\\main_window.py",
+      "text": "self.add_chat(\"ERIC\", original_text)"
+    },
+    {
+      "language": "python",
+      "line": 2210,
+      "path": "ui\\main_window.py",
+      "text": "self.add_chat("
+    },
+    {
+      "language": "python",
+      "line": 2211,
+      "path": "ui\\main_window.py",
+      "text": "\"DIRECTOR\","
+    },
+    {
+      "language": "python",
+      "line": 2212,
+      "path": "ui\\main_window.py",
+      "text": "\"🎨 Image request detected.\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 2213,
+      "path": "ui\\main_window.py",
+      "text": "\"Routing to Red Canvas...\\n\""
+    },
+    {
+      "language": "python",
+      "line": 2214,
+      "path": "ui\\main_window.py",
+      "text": "\"Running PromptSmith...\\n\""
+    },
+    {
+      "language": "python",
+      "line": 2215,
+      "path": "ui\\main_window.py",
+      "text": "\"Starting render...\""
+    },
+    {
+      "language": "python",
+      "line": 2216,
+      "path": "ui\\main_window.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 2217,
+      "path": "ui\\main_window.py",
+      "text": "self.mission_status(\"Red Canvas online.\\n\\nPromptSmith preparing visual mission packet.\")"
+    },
+    {
+      "language": "python",
+      "line": 2219,
+      "path": "ui\\main_window.py",
+      "text": "self.show_red_canvas()"
+    },
+    {
+      "language": "python",
+      "line": 2220,
+      "path": "ui\\main_window.py",
+      "text": "self.canvas_prompt.delete(\"1.0\", \"end\")"
+    },
+    {
+      "language": "python",
+      "line": 2221,
+      "path": "ui\\main_window.py",
+      "text": "self.canvas_prompt.insert(\"1.0\", image_prompt)"
+    },
+    {
+      "language": "python",
+      "line": 2222,
+      "path": "ui\\main_window.py",
+      "text": "self.run_promptsmith()"
+    },
+    {
+      "language": "python",
+      "line": 2223,
+      "path": "ui\\main_window.py",
+      "text": "self.mission_status(\"PromptSmith complete.\\n\\nSending render request to ComfyUI.\")"
+    },
+    {
+      "language": "python",
+      "line": 2224,
+      "path": "ui\\main_window.py",
+      "text": "self.generate_red_canvas()"
+    },
+    {
+      "language": "python",
+      "line": 2227,
+      "path": "ui\\main_window.py",
+      "text": "def start_chat_heartbeat(self, model_name=None, mission_type=\"conversation\"):"
+    },
+    {
+      "language": "python",
+      "line": 2228,
+      "path": "ui\\main_window.py",
+      "text": "self.stop_chat_heartbeat()"
+    },
+    {
+      "language": "python",
+      "line": 2229,
+      "path": "ui\\main_window.py",
+      "text": "self.chat_heartbeat_started_at = time.time()"
+    },
+    {
+      "language": "python",
+      "line": 2230,
+      "path": "ui\\main_window.py",
+      "text": "self.chat_heartbeat_count = 0"
+    },
+    {
+      "language": "python",
+      "line": 2232,
+      "path": "ui\\main_window.py",
+      "text": "def heartbeat():"
+    },
+    {
+      "language": "python",
+      "line": 2233,
+      "path": "ui\\main_window.py",
+      "text": "if self._closing:"
+    },
+    {
+      "language": "python",
+      "line": 2234,
+      "path": "ui\\main_window.py",
+      "text": "return"
+    },
+    {
+      "language": "python",
+      "line": 2236,
+      "path": "ui\\main_window.py",
+      "text": "if not self.brainstem.is_busy() and self.brainstem.state != getattr(self.brainstem, \"STATE_LONG_THINK\", \"LONG_THINK\"):"
+    },
+    {
+      "language": "python",
+      "line": 2237,
+      "path": "ui\\main_window.py",
+      "text": "return"
+    },
+    {
+      "language": "python",
+      "line": 2239,
+      "path": "ui\\main_window.py",
+      "text": "elapsed = int(time.time() - self.chat_heartbeat_started_at)"
+    },
+    {
+      "language": "python",
+      "line": 2240,
+      "path": "ui\\main_window.py",
+      "text": "timeout = self.chat_resilience.timeout_for(mission_type=mission_type)"
+    },
+    {
+      "language": "python",
+      "line": 2242,
+      "path": "ui\\main_window.py",
+      "text": "if elapsed >= self.long_think_after_seconds and self.brainstem.state != getattr(self.brainstem, \"STATE_LONG_THINK\", \"LONG_THINK\"):"
+    },
+    {
+      "language": "python",
+      "line": 2243,
+      "path": "ui\\main_window.py",
+      "text": "if hasattr(self.brainstem, \"enter_long_think\"):"
+    },
+    {
+      "language": "python",
+      "line": 2244,
+      "path": "ui\\main_window.py",
+      "text": "self.brainstem.enter_long_think(timeout_seconds=timeout)"
+    },
+    {
+      "language": "python",
+      "line": 2245,
+      "path": "ui\\main_window.py",
+      "text": "self.status.set(\"LONG_THINK\")"
+    },
+    {
+      "language": "python",
+      "line": 2246,
+      "path": "ui\\main_window.py",
+      "text": "self.mission_status("
+    },
+    {
+      "language": "python",
+      "line": 2247,
+      "path": "ui\\main_window.py",
+      "text": "\"LONG THINK MODE ENGAGED\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 2248,
+      "path": "ui\\main_window.py",
+      "text": "\"The neural engine is still reasoning through a complex request.\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 2249,
+      "path": "ui\\main_window.py",
+      "text": "f\"Elapsed: {self.brainstem.elapsed_label()}\\n\""
+    },
+    {
+      "language": "python",
+      "line": 2250,
+      "path": "ui\\main_window.py",
+      "text": "f\"Model: {model_name or self.model_menu.get()}\\n\""
+    },
+    {
+      "language": "python",
+      "line": 2251,
+      "path": "ui\\main_window.py",
+      "text": "f\"Configured Timeout: {timeout} seconds\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 2252,
+      "path": "ui\\main_window.py",
+      "text": "\"No fault detected. Continue waiting unless you want to end the mission.\""
+    },
+    {
+      "language": "python",
+      "line": 2253,
+      "path": "ui\\main_window.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 2255,
+      "path": "ui\\main_window.py",
+      "text": "if hasattr(self.brainstem, \"touch_heartbeat\"):"
+    },
+    {
+      "language": "python",
+      "line": 2256,
+      "path": "ui\\main_window.py",
+      "text": "self.brainstem.touch_heartbeat()"
+    },
+    {
+      "language": "python",
+      "line": 2258,
+      "path": "ui\\main_window.py",
+      "text": "if elapsed >= self.long_think_after_seconds:"
+    },
+    {
+      "language": "python",
+      "line": 2259,
+      "path": "ui\\main_window.py",
+      "text": "self.chat_heartbeat_count += 1"
+    },
+    {
+      "language": "python",
+      "line": 2261,
+      "path": "ui\\main_window.py",
+      "text": "messages = ["
+    },
+    {
+      "language": "python",
+      "line": 2262,
+      "path": "ui\\main_window.py",
+      "text": "\"Neural engine continues reasoning.\","
+    },
+    {
+      "language": "python",
+      "line": 2263,
+      "path": "ui\\main_window.py",
+      "text": "\"Complex request still in progress.\","
+    },
+    {
+      "language": "python",
+      "line": 2264,
+      "path": "ui\\main_window.py",
+      "text": "\"No fault detected. Reasoning continues.\","
+    },
+    {
+      "language": "python",
+      "line": 2265,
+      "path": "ui\\main_window.py",
+      "text": "\"Large-context mission still active.\","
+    },
+    {
+      "language": "python",
+      "line": 2266,
+      "path": "ui\\main_window.py",
+      "text": "\"Workshop heartbeat confirmed.\","
+    },
+    {
+      "language": "python",
+      "line": 2267,
+      "path": "ui\\main_window.py",
+      "text": "]"
+    },
+    {
+      "language": "python",
+      "line": 2268,
+      "path": "ui\\main_window.py",
+      "text": "note = messages[self.chat_heartbeat_count % len(messages)]"
+    },
+    {
+      "language": "python",
+      "line": 2270,
+      "path": "ui\\main_window.py",
+      "text": "self.mission_status("
+    },
+    {
+      "language": "python",
+      "line": 2271,
+      "path": "ui\\main_window.py",
+      "text": "\"MISSION HEARTBEAT\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 2272,
+      "path": "ui\\main_window.py",
+      "text": "f\"{note}\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 2273,
+      "path": "ui\\main_window.py",
+      "text": "f\"Elapsed: {self.brainstem.elapsed_label()}\\n\""
+    },
+    {
+      "language": "python",
+      "line": 2274,
+      "path": "ui\\main_window.py",
+      "text": "f\"Heartbeat: {self.chat_heartbeat_count}\\n\""
+    },
+    {
+      "language": "python",
+      "line": 2275,
+      "path": "ui\\main_window.py",
+      "text": "f\"Model: {model_name or self.model_menu.get()}\\n\""
+    },
+    {
+      "language": "python",
+      "line": 2276,
+      "path": "ui\\main_window.py",
+      "text": "f\"State: {self.brainstem.state}\""
+    },
+    {
+      "language": "python",
+      "line": 2277,
+      "path": "ui\\main_window.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 2279,
+      "path": "ui\\main_window.py",
+      "text": "self.chat_heartbeat_job = self.after("
+    },
+    {
+      "language": "python",
+      "line": 2280,
+      "path": "ui\\main_window.py",
+      "text": "self.chat_resilience.config.heartbeat_interval_seconds * 1000,"
+    },
+    {
+      "language": "python",
+      "line": 2281,
+      "path": "ui\\main_window.py",
+      "text": "heartbeat"
+    },
+    {
+      "language": "python",
+      "line": 2282,
+      "path": "ui\\main_window.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 2284,
+      "path": "ui\\main_window.py",
+      "text": "self.chat_heartbeat_job = self.after("
+    },
+    {
+      "language": "python",
+      "line": 2285,
+      "path": "ui\\main_window.py",
+      "text": "self.chat_resilience.config.heartbeat_interval_seconds * 1000,"
+    },
+    {
+      "language": "python",
+      "line": 2286,
+      "path": "ui\\main_window.py",
+      "text": "heartbeat"
+    },
+    {
+      "language": "python",
+      "line": 2287,
+      "path": "ui\\main_window.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 2289,
+      "path": "ui\\main_window.py",
+      "text": "def stop_chat_heartbeat(self):"
+    },
+    {
+      "language": "python",
+      "line": 2290,
+      "path": "ui\\main_window.py",
+      "text": "if self.chat_heartbeat_job:"
+    },
+    {
+      "language": "python",
+      "line": 2291,
+      "path": "ui\\main_window.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 2292,
+      "path": "ui\\main_window.py",
+      "text": "self.after_cancel(self.chat_heartbeat_job)"
+    },
+    {
+      "language": "python",
+      "line": 2293,
+      "path": "ui\\main_window.py",
+      "text": "except Exception:"
+    },
+    {
+      "language": "python",
+      "line": 2294,
+      "path": "ui\\main_window.py",
+      "text": "pass"
+    },
+    {
+      "language": "python",
+      "line": 2295,
+      "path": "ui\\main_window.py",
+      "text": "self.chat_heartbeat_job = None"
+    },
+    {
+      "language": "python",
+      "line": 2297,
+      "path": "ui\\main_window.py",
+      "text": "self.chat_heartbeat_started_at = None"
+    },
+    {
+      "language": "python",
+      "line": 2298,
+      "path": "ui\\main_window.py",
+      "text": "self.chat_heartbeat_count = 0"
+    },
+    {
+      "language": "python",
+      "line": 2300,
+      "path": "ui\\main_window.py",
+      "text": "def get_ai_response(self):"
+    },
+    {
+      "language": "python",
+      "line": 2301,
+      "path": "ui\\main_window.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 2302,
+      "path": "ui\\main_window.py",
+      "text": "self.status.set(\"THINKING\")"
+    },
+    {
+      "language": "python",
+      "line": 2303,
+      "path": "ui\\main_window.py",
+      "text": "model_used = self.model_menu.get()"
+    },
+    {
+      "language": "python",
+      "line": 2305,
+      "path": "ui\\main_window.py",
+      "text": "payload = {"
+    },
+    {
+      "language": "python",
+      "line": 2306,
+      "path": "ui\\main_window.py",
+      "text": "\"model\": \"local-model\","
+    },
+    {
+      "language": "python",
+      "line": 2307,
+      "path": "ui\\main_window.py",
+      "text": "\"messages\": self.messages,"
+    },
+    {
+      "language": "python",
+      "line": 2308,
+      "path": "ui\\main_window.py",
+      "text": "\"temperature\": 0.7,"
+    },
+    {
+      "language": "python",
+      "line": 2309,
+      "path": "ui\\main_window.py",
+      "text": "\"max_tokens\": 2048,"
+    },
+    {
+      "language": "python",
+      "line": 2310,
+      "path": "ui\\main_window.py",
+      "text": "\"stream\": False"
+    },
+    {
+      "language": "python",
+      "line": 2311,
+      "path": "ui\\main_window.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 2313,
+      "path": "ui\\main_window.py",
+      "text": "self.after(0, lambda: self.start_chat_heartbeat(model_name=model_used, mission_type=\"conversation\"))"
+    },
+    {
+      "language": "python",
+      "line": 2315,
+      "path": "ui\\main_window.py",
+      "text": "response = self.chat_resilience.post_json("
+    },
+    {
+      "language": "python",
+      "line": 2316,
+      "path": "ui\\main_window.py",
+      "text": "self.api_url,"
+    },
+    {
+      "language": "python",
+      "line": 2317,
+      "path": "ui\\main_window.py",
+      "text": "payload,"
+    },
+    {
+      "language": "python",
+      "line": 2318,
+      "path": "ui\\main_window.py",
+      "text": "mission_type=\"conversation\","
+    },
+    {
+      "language": "python",
+      "line": 2319,
+      "path": "ui\\main_window.py",
+      "text": "long_think=False,"
+    },
+    {
+      "language": "python",
+      "line": 2320,
+      "path": "ui\\main_window.py",
+      "text": "model_name=model_used,"
+    },
+    {
+      "language": "python",
+      "line": 2321,
+      "path": "ui\\main_window.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 2323,
+      "path": "ui\\main_window.py",
+      "text": "answer = response.json()[\"choices\"][0][\"message\"][\"content\"].strip()"
+    },
+    {
+      "language": "python",
+      "line": 2325,
+      "path": "ui\\main_window.py",
+      "text": "if not answer:"
+    },
+    {
+      "language": "python",
+      "line": 2326,
+      "path": "ui\\main_window.py",
+      "text": "answer = \"[BLANK RESPONSE]\\nThe model returned no text. Try restarting the mission or lowering context/max tokens.\""
+    },
+    {
+      "language": "python",
+      "line": 2328,
+      "path": "ui\\main_window.py",
+      "text": "answer = f\"[Model: {model_used}]\\n\\n{answer}\""
+    },
+    {
+      "language": "python",
+      "line": 2329,
+      "path": "ui\\main_window.py",
+      "text": "self.messages.append({\"role\": \"assistant\", \"content\": answer})"
+    },
+    {
+      "language": "python",
+      "line": 2330,
+      "path": "ui\\main_window.py",
+      "text": "self.add_chat(\"AGENT FOX\", answer)"
+    },
+    {
+      "language": "python",
+      "line": 2331,
+      "path": "ui\\main_window.py",
+      "text": "self.mission_memory.save()"
+    },
+    {
+      "language": "python",
+      "line": 2332,
+      "path": "ui\\main_window.py",
+      "text": "self.after(0, self.stop_chat_heartbeat)"
+    },
+    {
+      "language": "python",
+      "line": 2333,
+      "path": "ui\\main_window.py",
+      "text": "self.stop_mission_animation(\"ONLINE\")"
+    },
+    {
+      "language": "python",
+      "line": 2334,
+      "path": "ui\\main_window.py",
+      "text": "self.complete_workshop_mission(\"ONLINE\")"
+    },
+    {
+      "language": "python",
+      "line": 2336,
+      "path": "ui\\main_window.py",
+      "text": "except ChatTimeoutError as e:"
+    },
+    {
+      "language": "python",
+      "line": 2337,
+      "path": "ui\\main_window.py",
+      "text": "self.after(0, self.stop_chat_heartbeat)"
+    },
+    {
+      "language": "python",
+      "line": 2338,
+      "path": "ui\\main_window.py",
+      "text": "self.stop_mission_animation(\"ERROR\")"
+    },
+    {
+      "language": "python",
+      "line": 2339,
+      "path": "ui\\main_window.py",
+      "text": "self.fail_workshop_mission(str(e))"
+    },
+    {
+      "language": "python",
+      "line": 2340,
+      "path": "ui\\main_window.py",
+      "text": "self.add_chat(\"MISSION CONTROL\", str(e))"
+    },
+    {
+      "language": "python",
+      "line": 2342,
+      "path": "ui\\main_window.py",
+      "text": "except Exception as e:"
+    },
+    {
+      "language": "python",
+      "line": 2343,
+      "path": "ui\\main_window.py",
+      "text": "self.after(0, self.stop_chat_heartbeat)"
+    },
+    {
+      "language": "python",
+      "line": 2344,
+      "path": "ui\\main_window.py",
+      "text": "self.stop_mission_animation(\"ERROR\")"
+    },
+    {
+      "language": "python",
+      "line": 2345,
+      "path": "ui\\main_window.py",
+      "text": "self.fail_workshop_mission(str(e))"
+    },
+    {
+      "language": "python",
+      "line": 2346,
+      "path": "ui\\main_window.py",
+      "text": "self.add_chat("
+    },
+    {
+      "language": "python",
+      "line": 2347,
+      "path": "ui\\main_window.py",
+      "text": "\"MISSION CONTROL\","
+    },
+    {
+      "language": "python",
+      "line": 2348,
+      "path": "ui\\main_window.py",
+      "text": "\"The neural engine returned an unexpected error.\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 2349,
+      "path": "ui\\main_window.py",
+      "text": "f\"Details:\\n{e}\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 2350,
+      "path": "ui\\main_window.py",
+      "text": "\"Recommended actions:\\n\""
+    },
+    {
+      "language": "python",
+      "line": 2351,
+      "path": "ui\\main_window.py",
+      "text": "\"• Retry the request.\\n\""
+    },
+    {
+      "language": "python",
+      "line": 2352,
+      "path": "ui\\main_window.py",
+      "text": "\"• Restart the neural engine if the error repeats.\\n\""
+    },
+    {
+      "language": "python",
+      "line": 2353,
+      "path": "ui\\main_window.py",
+      "text": "\"• Try a smaller model or shorter response.\""
+    },
+    {
+      "language": "python",
+      "line": 2354,
+      "path": "ui\\main_window.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 2356,
+      "path": "ui\\main_window.py",
+      "text": "def update_stats(self):"
+    },
+    {
+      "language": "python",
+      "line": 2357,
+      "path": "ui\\main_window.py",
+      "text": "if self._closing:"
+    },
+    {
+      "language": "python",
+      "line": 2358,
+      "path": "ui\\main_window.py",
+      "text": "return"
+    },
+    {
+      "language": "python",
+      "line": 2360,
+      "path": "ui\\main_window.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 2361,
+      "path": "ui\\main_window.py",
+      "text": "cpu = psutil.cpu_percent()"
+    },
+    {
+      "language": "python",
+      "line": 2362,
+      "path": "ui\\main_window.py",
+      "text": "ram = psutil.virtual_memory()"
+    },
+    {
+      "language": "python",
+      "line": 2363,
+      "path": "ui\\main_window.py",
+      "text": "current_status = self.status.get()"
+    },
+    {
+      "language": "python",
+      "line": 2364,
+      "path": "ui\\main_window.py",
+      "text": "if hasattr(self, \"status_led\") and self.status_led.winfo_exists():"
+    },
+    {
+      "language": "python",
+      "line": 2365,
+      "path": "ui\\main_window.py",
+      "text": "colors = {"
+    },
+    {
+      "language": "python",
+      "line": 2366,
+      "path": "ui\\main_window.py",
+      "text": "\"ONLINE\": \"#00ff66\","
+    },
+    {
+      "language": "python",
+      "line": 2367,
+      "path": "ui\\main_window.py",
+      "text": "\"THINKING\": \"#ffff00\","
+    },
+    {
+      "language": "python",
+      "line": 2368,
+      "path": "ui\\main_window.py",
+      "text": "\"ERROR\": \"#ff0033\","
+    },
+    {
+      "language": "python",
+      "line": 2369,
+      "path": "ui\\main_window.py",
+      "text": "\"BOOTING\": \"#00ccff\","
+    },
+    {
+      "language": "python",
+      "line": 2370,
+      "path": "ui\\main_window.py",
+      "text": "\"ARCHIVED\": \"#00ccff\","
+    },
+    {
+      "language": "python",
+      "line": 2371,
+      "path": "ui\\main_window.py",
+      "text": "\"RENDERING\": \"#ff0033\","
+    },
+    {
+      "language": "python",
+      "line": 2372,
+      "path": "ui\\main_window.py",
+      "text": "\"PROMPTSMITH\": \"#ff00ff\","
+    },
+    {
+      "language": "python",
+      "line": 2373,
+      "path": "ui\\main_window.py",
+      "text": "\"MISSION\": \"#00ccff\","
+    },
+    {
+      "language": "python",
+      "line": 2374,
+      "path": "ui\\main_window.py",
+      "text": "\"LONG_THINK\": \"#ffcc00\","
+    },
+    {
+      "language": "python",
+      "line": 2375,
+      "path": "ui\\main_window.py",
+      "text": "\"OFFLINE\": \"#666666\""
+    },
+    {
+      "language": "python",
+      "line": 2376,
+      "path": "ui\\main_window.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 2377,
+      "path": "ui\\main_window.py",
+      "text": "self.status_led.configure(text_color=colors.get(current_status, \"#666666\"))"
+    },
+    {
+      "language": "python",
+      "line": 2378,
+      "path": "ui\\main_window.py",
+      "text": "if hasattr(self, \"brainstem\") and self.brainstem.is_busy():"
+    },
+    {
+      "language": "python",
+      "line": 2379,
+      "path": "ui\\main_window.py",
+      "text": "self.stats.set("
+    },
+    {
+      "language": "python",
+      "line": 2380,
+      "path": "ui\\main_window.py",
+      "text": "f\"CPU {cpu:.0f}%  |  RAM {ram.used / (1024 ** 3):.1f}/{ram.total / (1024 ** 3):.1f} GB  |  \""
+    },
+    {
+      "language": "python",
+      "line": 2381,
+      "path": "ui\\main_window.py",
+      "text": "f\"MISSION {self.brainstem.active_specialist}  |  ELAPSED {self.brainstem.elapsed_label()}\""
+    },
+    {
+      "language": "python",
+      "line": 2382,
+      "path": "ui\\main_window.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 2383,
+      "path": "ui\\main_window.py",
+      "text": "else:"
+    },
+    {
+      "language": "python",
+      "line": 2384,
+      "path": "ui\\main_window.py",
+      "text": "self.stats.set("
+    },
+    {
+      "language": "python",
+      "line": 2385,
+      "path": "ui\\main_window.py",
+      "text": "f\"CPU {cpu:.0f}%  |  RAM {ram.used / (1024 ** 3):.1f}/{ram.total / (1024 ** 3):.1f} GB  |  STATUS {current_status}\""
+    },
+    {
+      "language": "python",
+      "line": 2386,
+      "path": "ui\\main_window.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 2387,
+      "path": "ui\\main_window.py",
+      "text": "self.after(1000, self.update_stats)"
+    },
+    {
+      "language": "python",
+      "line": 2388,
+      "path": "ui\\main_window.py",
+      "text": "except Exception:"
+    },
+    {
+      "language": "python",
+      "line": 2389,
+      "path": "ui\\main_window.py",
+      "text": "return"
+    },
+    {
+      "language": "python",
+      "line": 2391,
+      "path": "ui\\main_window.py",
+      "text": "def on_close(self):"
+    },
+    {
+      "language": "python",
+      "line": 2392,
+      "path": "ui\\main_window.py",
+      "text": "self._closing = True"
+    },
+    {
+      "language": "python",
+      "line": 2393,
+      "path": "ui\\main_window.py",
+      "text": "if self.comfy_ops_refresh_job is not None:"
+    },
+    {
+      "language": "python",
+      "line": 2394,
+      "path": "ui\\main_window.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 2395,
+      "path": "ui\\main_window.py",
+      "text": "self.after_cancel(self.comfy_ops_refresh_job)"
+    },
+    {
+      "language": "python",
+      "line": 2396,
+      "path": "ui\\main_window.py",
+      "text": "except Exception:"
+    },
+    {
+      "language": "python",
+      "line": 2397,
+      "path": "ui\\main_window.py",
+      "text": "pass"
+    },
+    {
+      "language": "python",
+      "line": 2398,
+      "path": "ui\\main_window.py",
+      "text": "self.comfy_ops_refresh_job = None"
+    },
+    {
+      "language": "python",
+      "line": 2399,
+      "path": "ui\\main_window.py",
+      "text": "self._cancel_red_canvas_progress_tracking()"
+    },
+    {
+      "language": "python",
+      "line": 2400,
+      "path": "ui\\main_window.py",
+      "text": "self.stop_chat_heartbeat()"
+    },
+    {
+      "language": "python",
+      "line": 2401,
+      "path": "ui\\main_window.py",
+      "text": "self.stop_mission_animation(\"OFFLINE\")"
+    },
+    {
+      "language": "python",
+      "line": 2402,
+      "path": "ui\\main_window.py",
+      "text": "self.server.release()"
+    },
+    {
+      "language": "python",
+      "line": 2403,
+      "path": "ui\\main_window.py",
+      "text": "self.mission_memory.save()"
+    },
+    {
+      "language": "python",
+      "line": 2404,
+      "path": "ui\\main_window.py",
+      "text": "self.destroy()"
+    },
+    {
+      "language": "python",
+      "line": 1,
+      "path": "ui\\splash.py",
+      "text": "import time"
+    },
+    {
+      "language": "python",
+      "line": 2,
+      "path": "ui\\splash.py",
+      "text": "from pathlib import Path"
+    },
+    {
+      "language": "python",
+      "line": 3,
+      "path": "ui\\splash.py",
+      "text": "import customtkinter as ctk"
+    },
+    {
+      "language": "python",
+      "line": 4,
+      "path": "ui\\splash.py",
+      "text": "from PIL import Image"
+    },
+    {
+      "language": "python",
+      "line": 6,
+      "path": "ui\\splash.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 7,
+      "path": "ui\\splash.py",
+      "text": "from .foxai_theme import configure_ctk_identity, apply_foxai_theme, color"
+    },
+    {
+      "language": "python",
+      "line": 8,
+      "path": "ui\\splash.py",
+      "text": "except Exception:"
+    },
+    {
+      "language": "python",
+      "line": 9,
+      "path": "ui\\splash.py",
+      "text": "from ui.foxai_theme import configure_ctk_identity, apply_foxai_theme, color"
+    },
+    {
+      "language": "python",
+      "line": 11,
+      "path": "ui\\splash.py",
+      "text": "ctk.set_appearance_mode(\"dark\")"
+    },
+    {
+      "language": "python",
+      "line": 12,
+      "path": "ui\\splash.py",
+      "text": "configure_ctk_identity()"
+    },
+    {
+      "language": "python",
+      "line": 14,
+      "path": "ui\\splash.py",
+      "text": "def show_splash():"
+    },
+    {
+      "language": "python",
+      "line": 15,
+      "path": "ui\\splash.py",
+      "text": "splash = ctk.CTk()"
+    },
+    {
+      "language": "python",
+      "line": 16,
+      "path": "ui\\splash.py",
+      "text": "splash.title(\"FOXAI Boot\")"
+    },
+    {
+      "language": "python",
+      "line": 17,
+      "path": "ui\\splash.py",
+      "text": "splash.geometry(\"620x620\")"
+    },
+    {
+      "language": "python",
+      "line": 18,
+      "path": "ui\\splash.py",
+      "text": "splash.resizable(False, False)"
+    },
+    {
+      "language": "python",
+      "line": 20,
+      "path": "ui\\splash.py",
+      "text": "base = Path(__file__).resolve().parent.parent"
+    },
+    {
+      "language": "python",
+      "line": 21,
+      "path": "ui\\splash.py",
+      "text": "logo_path = base / \"assets\" / \"foxai_logo.png\""
+    },
+    {
+      "language": "python",
+      "line": 22,
+      "path": "ui\\splash.py",
+      "text": "icon_path = base / \"assets\" / \"foxai.ico\""
+    },
+    {
+      "language": "python",
+      "line": 23,
+      "path": "ui\\splash.py",
+      "text": "if icon_path.exists():"
+    },
+    {
+      "language": "python",
+      "line": 24,
+      "path": "ui\\splash.py",
+      "text": "splash.iconbitmap(str(icon_path))"
+    },
+    {
+      "language": "python",
+      "line": 26,
+      "path": "ui\\splash.py",
+      "text": "frame = ctk.CTkFrame(splash)"
+    },
+    {
+      "language": "python",
+      "line": 27,
+      "path": "ui\\splash.py",
+      "text": "frame.pack(fill=\"both\", expand=True, padx=18, pady=18)"
+    },
+    {
+      "language": "python",
+      "line": 28,
+      "path": "ui\\splash.py",
+      "text": "apply_foxai_theme(splash)"
+    },
+    {
+      "language": "python",
+      "line": 30,
+      "path": "ui\\splash.py",
+      "text": "if logo_path.exists():"
+    },
+    {
+      "language": "python",
+      "line": 31,
+      "path": "ui\\splash.py",
+      "text": "logo = ctk.CTkImage(light_image=Image.open(logo_path), dark_image=Image.open(logo_path), size=(175, 175))"
+    },
+    {
+      "language": "python",
+      "line": 32,
+      "path": "ui\\splash.py",
+      "text": "logo_label = ctk.CTkLabel(frame, image=logo, text=\"\")"
+    },
+    {
+      "language": "python",
+      "line": 33,
+      "path": "ui\\splash.py",
+      "text": "logo_label.image = logo"
+    },
+    {
+      "language": "python",
+      "line": 34,
+      "path": "ui\\splash.py",
+      "text": "logo_label.pack(pady=(15, 5))"
+    },
+    {
+      "language": "python",
+      "line": 36,
+      "path": "ui\\splash.py",
+      "text": "ctk.CTkLabel(frame, text=\"FOXAI COMMAND OS\", font=(\"Consolas\", 32, \"bold\"), text_color=color(\"purple_soft\")).pack(pady=(5, 0))"
+    },
+    {
+      "language": "python",
+      "line": 37,
+      "path": "ui\\splash.py",
+      "text": "ctk.CTkLabel(frame, text=\"Ultimate Edifier Platform // Local Runtime\", font=(\"Consolas\", 14), text_color=color(\"muted\")).pack(pady=(0, 15))"
+    },
+    {
+      "language": "python",
+      "line": 39,
+      "path": "ui\\splash.py",
+      "text": "terminal = ctk.CTkTextbox(frame, width=520, height=240, font=(\"Consolas\", 13))"
+    },
+    {
+      "language": "python",
+      "line": 40,
+      "path": "ui\\splash.py",
+      "text": "terminal.pack(padx=15, pady=10)"
+    },
+    {
+      "language": "python",
+      "line": 41,
+      "path": "ui\\splash.py",
+      "text": "terminal.configure(state=\"disabled\")"
+    },
+    {
+      "language": "python",
+      "line": 42,
+      "path": "ui\\splash.py",
+      "text": "progress = ctk.CTkProgressBar(frame, width=520)"
+    },
+    {
+      "language": "python",
+      "line": 43,
+      "path": "ui\\splash.py",
+      "text": "progress.pack(pady=(8, 10))"
+    },
+    {
+      "language": "python",
+      "line": 44,
+      "path": "ui\\splash.py",
+      "text": "progress.set(0)"
+    },
+    {
+      "language": "python",
+      "line": 46,
+      "path": "ui\\splash.py",
+      "text": "steps = ["
+    },
+    {
+      "language": "python",
+      "line": 47,
+      "path": "ui\\splash.py",
+      "text": "\"FOXAI BIOS v0.4.0-alpha\","
+    },
+    {
+      "language": "python",
+      "line": 48,
+      "path": "ui\\splash.py",
+      "text": "\"Memory.................OK\","
+    },
+    {
+      "language": "python",
+      "line": 49,
+      "path": "ui\\splash.py",
+      "text": "\"Operator Profile.......OK\","
+    },
+    {
+      "language": "python",
+      "line": 50,
+      "path": "ui\\splash.py",
+      "text": "\"Agent Fox..............LOADED\","
+    },
+    {
+      "language": "python",
+      "line": 51,
+      "path": "ui\\splash.py",
+      "text": "\"Mission Archive........ONLINE\","
+    },
+    {
+      "language": "python",
+      "line": 52,
+      "path": "ui\\splash.py",
+      "text": "\"Neural Engines.........SCANNED\","
+    },
+    {
+      "language": "python",
+      "line": 53,
+      "path": "ui\\splash.py",
+      "text": "\"Red Canvas.............STANDBY\","
+    },
+    {
+      "language": "python",
+      "line": 54,
+      "path": "ui\\splash.py",
+      "text": "\"Iron Library...........ONLINE\","
+    },
+    {
+      "language": "python",
+      "line": 55,
+      "path": "ui\\splash.py",
+      "text": "\"Security Mode..........LOCAL ONLY\","
+    },
+    {
+      "language": "python",
+      "line": 56,
+      "path": "ui\\splash.py",
+      "text": "\"Network................OFFLINE\","
+    },
+    {
+      "language": "python",
+      "line": 57,
+      "path": "ui\\splash.py",
+      "text": "\"Command Bridge.........READY\","
+    },
+    {
+      "language": "python",
+      "line": 58,
+      "path": "ui\\splash.py",
+      "text": "\"Launching FOXAI Bridge...\""
+    },
+    {
+      "language": "python",
+      "line": 59,
+      "path": "ui\\splash.py",
+      "text": "]"
+    },
+    {
+      "language": "python",
+      "line": 60,
+      "path": "ui\\splash.py",
+      "text": "for i, step in enumerate(steps, start=1):"
+    },
+    {
+      "language": "python",
+      "line": 61,
+      "path": "ui\\splash.py",
+      "text": "terminal.configure(state=\"normal\")"
+    },
+    {
+      "language": "python",
+      "line": 62,
+      "path": "ui\\splash.py",
+      "text": "terminal.insert(\"end\", f\"> {step}\\n\")"
+    },
+    {
+      "language": "python",
+      "line": 63,
+      "path": "ui\\splash.py",
+      "text": "terminal.see(\"end\")"
+    },
+    {
+      "language": "python",
+      "line": 64,
+      "path": "ui\\splash.py",
+      "text": "terminal.configure(state=\"disabled\")"
+    },
+    {
+      "language": "python",
+      "line": 65,
+      "path": "ui\\splash.py",
+      "text": "progress.set(i / len(steps))"
+    },
+    {
+      "language": "python",
+      "line": 66,
+      "path": "ui\\splash.py",
+      "text": "splash.update()"
+    },
+    {
+      "language": "python",
+      "line": 67,
+      "path": "ui\\splash.py",
+      "text": "time.sleep(0.22)"
+    },
+    {
+      "language": "python",
+      "line": 68,
+      "path": "ui\\splash.py",
+      "text": "time.sleep(0.35)"
+    },
+    {
+      "language": "python",
+      "line": 69,
+      "path": "ui\\splash.py",
+      "text": "splash.destroy()"
+    },
+    {
+      "language": "batch",
+      "line": 1,
+      "path": "VERIFY_COMFYUI_KNOWN_GOOD.bat",
+      "text": "@echo off"
+    },
+    {
+      "language": "batch",
+      "line": 2,
+      "path": "VERIFY_COMFYUI_KNOWN_GOOD.bat",
+      "text": "setlocal EnableExtensions"
+    },
+    {
+      "language": "batch",
+      "line": 3,
+      "path": "VERIFY_COMFYUI_KNOWN_GOOD.bat",
+      "text": "set \"ROOT=%~dp0\""
+    },
+    {
+      "language": "batch",
+      "line": 4,
+      "path": "VERIFY_COMFYUI_KNOWN_GOOD.bat",
+      "text": "if \"%ROOT:~-1%\"==\"\\\" set \"ROOT=%ROOT:~0,-1%\""
+    },
+    {
+      "language": "batch",
+      "line": 5,
+      "path": "VERIFY_COMFYUI_KNOWN_GOOD.bat",
+      "text": "set \"PY=%ROOT%\\Runtime\\Desktop\\python\\python.exe\""
+    },
+    {
+      "language": "batch",
+      "line": 6,
+      "path": "VERIFY_COMFYUI_KNOWN_GOOD.bat",
+      "text": "set \"VERIFY=%ROOT%\\System\\Portability\\verify_comfyui_known_good.py\""
+    },
+    {
+      "language": "batch",
+      "line": 7,
+      "path": "VERIFY_COMFYUI_KNOWN_GOOD.bat",
+      "text": "if not exist \"%PY%\" ("
+    },
+    {
+      "language": "batch",
+      "line": 8,
+      "path": "VERIFY_COMFYUI_KNOWN_GOOD.bat",
+      "text": "echo [FAILED] Portable Python is missing: %PY%"
+    },
+    {
+      "language": "batch",
+      "line": 9,
+      "path": "VERIFY_COMFYUI_KNOWN_GOOD.bat",
+      "text": "pause"
+    },
+    {
+      "language": "batch",
+      "line": 10,
+      "path": "VERIFY_COMFYUI_KNOWN_GOOD.bat",
+      "text": "exit /b 19"
+    },
+    {
+      "language": "batch",
+      "line": 11,
+      "path": "VERIFY_COMFYUI_KNOWN_GOOD.bat",
+      "text": ")"
+    },
+    {
+      "language": "batch",
+      "line": 12,
+      "path": "VERIFY_COMFYUI_KNOWN_GOOD.bat",
+      "text": "if not exist \"%VERIFY%\" ("
+    },
+    {
+      "language": "batch",
+      "line": 13,
+      "path": "VERIFY_COMFYUI_KNOWN_GOOD.bat",
+      "text": "echo [FAILED] Known-good verifier is missing: %VERIFY%"
+    },
+    {
+      "language": "batch",
+      "line": 14,
+      "path": "VERIFY_COMFYUI_KNOWN_GOOD.bat",
+      "text": "pause"
+    },
+    {
+      "language": "batch",
+      "line": 15,
+      "path": "VERIFY_COMFYUI_KNOWN_GOOD.bat",
+      "text": "exit /b 19"
+    },
+    {
+      "language": "batch",
+      "line": 16,
+      "path": "VERIFY_COMFYUI_KNOWN_GOOD.bat",
+      "text": ")"
+    },
+    {
+      "language": "batch",
+      "line": 17,
+      "path": "VERIFY_COMFYUI_KNOWN_GOOD.bat",
+      "text": "\"%PY%\" -I -B -S \"%VERIFY%\" --root \"%ROOT%\""
+    },
+    {
+      "language": "batch",
+      "line": 18,
+      "path": "VERIFY_COMFYUI_KNOWN_GOOD.bat",
+      "text": "set \"RC=%ERRORLEVEL%\""
+    },
+    {
+      "language": "batch",
+      "line": 19,
+      "path": "VERIFY_COMFYUI_KNOWN_GOOD.bat",
+      "text": "echo."
+    },
+    {
+      "language": "batch",
+      "line": 20,
+      "path": "VERIFY_COMFYUI_KNOWN_GOOD.bat",
+      "text": "if \"%RC%\"==\"0\" ("
+    },
+    {
+      "language": "batch",
+      "line": 21,
+      "path": "VERIFY_COMFYUI_KNOWN_GOOD.bat",
+      "text": "echo [COMPLETE] Current known-good baseline verification passed."
+    },
+    {
+      "language": "batch",
+      "line": 22,
+      "path": "VERIFY_COMFYUI_KNOWN_GOOD.bat",
+      "text": ") else ("
+    },
+    {
+      "language": "batch",
+      "line": 23,
+      "path": "VERIFY_COMFYUI_KNOWN_GOOD.bat",
+      "text": "echo [STOPPED] Verification failed closed with exit code %RC%."
+    },
+    {
+      "language": "batch",
+      "line": 24,
+      "path": "VERIFY_COMFYUI_KNOWN_GOOD.bat",
+      "text": ")"
+    },
+    {
+      "language": "batch",
+      "line": 25,
+      "path": "VERIFY_COMFYUI_KNOWN_GOOD.bat",
+      "text": "pause"
+    },
+    {
+      "language": "batch",
+      "line": 26,
+      "path": "VERIFY_COMFYUI_KNOWN_GOOD.bat",
+      "text": "exit /b %RC%"
+    },
+    {
+      "language": "batch",
+      "line": 1,
+      "path": "VERIFY_PORTABLE_PYTHON.bat",
+      "text": "@echo off"
+    },
+    {
+      "language": "batch",
+      "line": 2,
+      "path": "VERIFY_PORTABLE_PYTHON.bat",
+      "text": "cd /d \"%~dp0\""
+    },
+    {
+      "language": "batch",
+      "line": 3,
+      "path": "VERIFY_PORTABLE_PYTHON.bat",
+      "text": "\"%~dp0env\\python\\python.exe\" -c \"import sys,json,os,pathlib,http.server,urllib.parse,datetime,subprocess,py_compile,shutil,importlib.util; print('PORTABLE PYTHON OK'); print(sys.version); print(sys.executable)\""
+    },
+    {
+      "language": "batch",
+      "line": 4,
+      "path": "VERIFY_PORTABLE_PYTHON.bat",
+      "text": "pause"
+    }
+  ],
+  "schema": "foxai.agent_fox.technical_core.v1a2r2.immutable_static_bridge.v1",
+  "shard_number": 66
+}

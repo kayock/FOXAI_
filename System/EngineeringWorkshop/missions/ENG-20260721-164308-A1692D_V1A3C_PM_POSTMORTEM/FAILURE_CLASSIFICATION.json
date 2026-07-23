@@ -1,0 +1,63 @@
+{
+  "classification": "storage_or_usb_transport_event_evidence_found",
+  "confidence": "high",
+  "confirmed_findings": [
+    {
+      "evidence_class": "authoritative_receipt",
+      "finding": "Engineering validation 3 failed and the Workshop rolled the mission back.",
+      "support": {
+        "authorized": true,
+        "failure": "Validation failed: Build six protected static dependency closures from verified immutable evidence (return code 1)",
+        "mission_id": "ENG-20260721-161617-AA7BE6",
+        "plan_sha256": "6769cd4e02414c8f888ee4930f90669aeb20a1c1d4e1b4c23fd217df74e374ea",
+        "result": "rolled_back",
+        "rolled_back": true,
+        "snapshot_path": "Z:\\FOXAI\\System\\EngineeringWorkshop\\snapshots\\ENG-20260721-161617-AA7BE6\\snapshot_20260721T163112524509Z.zip",
+        "snapshot_sha256": "3a952af86a03beb3173fcc43367107beb0694f3e79982d36b5a15f593279b1e2",
+        "source_path": "Z:\\FOXAI\\System\\EngineeringWorkshop\\receipts\\ENG-20260721-161617-AA7BE6\\6769cd4e02414c8f888ee4930f90669aeb20a1c1d4e1b4c23fd217df74e374ea.receipt.json",
+        "source_sha256": "9cf7361ea9eb3574a61b8ce86cafd6fd4a335990868148886e4e89cdb032d05f"
+      }
+    },
+    {
+      "evidence_class": "authoritative_receipt",
+      "finding": "The failed build produced no accepted V1A-3C output folder.",
+      "support": {
+        "discovered_files": []
+      }
+    },
+    {
+      "evidence_class": "current_observation",
+      "finding": "Z:\\FOXAI is currently accessible after reboot.",
+      "support": {
+        "foxai_path": "Z:\\FOXAI",
+        "foxai_path_accessible": true,
+        "project_root_exists": true,
+        "project_root_is_directory": true
+      }
+    },
+    {
+      "event_count": 4,
+      "evidence_class": "windows_application_event",
+      "finding": "Relevant Python application event evidence exists near the failed validation."
+    },
+    {
+      "event_count": 12,
+      "evidence_class": "windows_system_event",
+      "finding": "Relevant storage, filesystem, or USB event evidence exists near the failed validation."
+    }
+  ],
+  "existing_foxai_files_modified": false,
+  "likely_explanation": "The Workshop receipt proves the build validation failed and rollback completed. The machine-event evidence determines whether a Python application failure or storage/USB transport event is additionally supported.",
+  "missing_evidence": [],
+  "network_used": false,
+  "python_event_count": 4,
+  "recommendation": "Do not rerun the monolithic V1A-3C closure build. Keep V1A-3B as the verified baseline and redesign dependency closure work as small per-context missions with strict memory and output budgets.",
+  "repair_commands_run": false,
+  "risk": "low_after_successful_rollback_and_normal_post_reboot_operation",
+  "schema": "foxai.agent_fox.technical_core.v1a3c_pm.failure_postmortem.v1",
+  "storage_or_usb_event_count": 12,
+  "user_reported_observation": {
+    "evidence_class": "user_reported_not_machine_confirmed",
+    "observation": "Python closed and the USB drive temporarily disappeared during validation 3."
+  }
+}

@@ -1,0 +1,72 @@
+{
+  "claim_boundaries": {
+    "duplicate_module_is_candidate_not_active_conflict_proof": true,
+    "missing_or_failed_probe_is_not_guessed": true,
+    "package_version_difference_is_candidate_not_active_conflict_proof": true,
+    "static_launcher_reference_does_not_prove_active_runtime": true
+  },
+  "exact_probe_allowlist": [
+    {
+      "path": "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+      "runtime_id": "portable_desktop"
+    },
+    {
+      "path": "Z:\\FOXAI\\env\\python\\python.exe",
+      "runtime_id": "portable_env"
+    },
+    {
+      "path": "Z:\\FOXAI\\.venv\\Scripts\\python.exe",
+      "runtime_id": "project_venv"
+    },
+    {
+      "path": "C:\\Python314\\python.exe",
+      "runtime_id": "host_python314"
+    }
+  ],
+  "mission_id": "ENG-20260721-071125-0FB108",
+  "probe_policy": {
+    "each_existing_allowlisted_interpreter_attempted_at_most_once": true,
+    "flags": [
+      "-I",
+      "-B",
+      "-S",
+      "-c"
+    ],
+    "maximum_child_processes": 4,
+    "maximum_concurrent_processes": 1,
+    "nonzero_timeout_missing_access_or_malformed_results_are_evidence": true,
+    "pip_invocation": false,
+    "pythonw_execution": false,
+    "shell": false,
+    "standard_library_only": true,
+    "timeout_seconds": 15,
+    "unlisted_interpreter_search_or_execution": false
+  },
+  "purpose": "Bounded identity, path, package-metadata, launcher-runtime, and conflict-candidate evidence for exact allowlisted Python runtimes without executing FOXAI source or importing third-party packages.",
+  "safety": {
+    "deletion_or_renaming": false,
+    "elevation": false,
+    "existing_foxai_source_modified": false,
+    "foxai_source_imports_or_execution": false,
+    "launcher_execution": false,
+    "model_loading": false,
+    "network_required": false,
+    "output_ceiling_bytes": 67108864,
+    "package_installation": false,
+    "pip_invocation": false,
+    "third_party_dependencies_required": false
+  },
+  "schema": "foxai.agent_fox.technical_core.v1a3a.python_runtime_contract.v1",
+  "static_inspection": {
+    "direct_top_level_modules_and_packages": true,
+    "dist_info_and_egg_info_metadata": true,
+    "pth_files": true,
+    "pth_import_lines_flagged_but_not_executed": true,
+    "pythonw_exe": true,
+    "pyvenv_cfg": true,
+    "record_names": true,
+    "top_level_txt": true,
+    "underscore_pth": true
+  },
+  "title": "Agent Fox Technical Core V1A-3A \u2014 Python Runtime Identity and Path Safety Map"
+}

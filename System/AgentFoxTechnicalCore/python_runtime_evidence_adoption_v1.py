@@ -1,0 +1,676 @@
+from __future__ import annotations
+
+import argparse
+import hashlib
+import json
+from pathlib import Path, PureWindowsPath
+from typing import Any, Iterable
+
+SCHEMA = "foxai.agent_fox.technical_core.v1a3a_r1.python_runtime_adoption.v1"
+SOURCE_MISSION_ID = "ENG-20260721-071125-0FB108"
+SOURCE_RESULT = "python_runtime_identity_and_path_safety_map_complete"
+OUTPUT_CEILING = 64 * 1024 * 1024
+
+SOURCE_CORE_FILES = (
+    "PYTHON_INTERPRETER_INVENTORY.json",
+    "ISOLATED_RUNTIME_PROBES.json",
+    "LAUNCHER_RUNTIME_MAP.json",
+    "STATIC_PACKAGE_INVENTORY.json",
+    "DUPLICATE_MODULE_CANDIDATES.json",
+    "PYTHON_PATH_BOUNDARY_REPORT.json",
+    "PYTHON_RUNTIME_COVERAGE.json",
+)
+
+ADOPTED_COPY_FILES = (
+    "LAUNCHER_RUNTIME_MAP.json",
+    "STATIC_PACKAGE_INVENTORY.json",
+    "DUPLICATE_MODULE_CANDIDATES.json",
+)
+
+DERIVED_OUTPUTS = (
+    "PYTHON_RUNTIME_MAP_CORRECTED.json",
+    "PROBE_POLICY_REPORT.json",
+    "INTERPRETER_CONTROL_FILE_REPORT.json",
+    "LAUNCHER_RUNTIME_MAP.json",
+    "STATIC_PACKAGE_INVENTORY.json",
+    "DUPLICATE_MODULE_CANDIDATES.json",
+    "PYTHON_PATH_BOUNDARY_REPORT.json",
+    "PYTHON_RUNTIME_COVERAGE.json",
+    "SOURCE_EVIDENCE_ADOPTION_MANIFEST.json",
+)
+
+
+def canonical_json_bytes(obj: Any) -> bytes:
+    return (json.dumps(obj, indent=2, sort_keys=True, ensure_ascii=False) + "\n").encode("utf-8")
+
+
+def read_json(path: Path) -> Any:
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
+def write_json(path: Path, obj: Any) -> None:
+    path.write_bytes(canonical_json_bytes(obj))
+
+
+def sha256_file(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
+def file_record(path: Path) -> dict[str, Any]:
+    return {
+        "name": path.name,
+        "size_bytes": path.stat().st_size,
+        "sha256": sha256_file(path),
+    }
+
+
+def within_windows_root(path_text: str, root_text: str = r"Z:\FOXAI") -> bool:
+    p = path_text.replace("/", "\\").rstrip("\\").casefold()
+    r = root_text.replace("/", "\\").rstrip("\\").casefold()
+    return p == r or p.startswith(r + "\\")
+
+
+def map_recorded_path(
+    recorded: str,
+    project_root: Path,
+    host_python_root: Path | None,
+) -> Path:
+    normalized = recorded.replace("/", "\\")
+    lower = normalized.casefold()
+    project_prefix = r"z:\foxai"
+    host_prefix = r"c:\python314"
+    if lower == project_prefix or lower.startswith(project_prefix + "\\"):
+        rel = PureWindowsPath(normalized).relative_to(PureWindowsPath(r"Z:\FOXAI")).parts
+        return project_root.joinpath(*rel)
+    if host_python_root is not None and (lower == host_prefix or lower.startswith(host_prefix + "\\")):
+        rel = PureWindowsPath(normalized).relative_to(PureWindowsPath(r"C:\Python314")).parts
+        return host_python_root.joinpath(*rel)
+    return Path(recorded)
+
+
+def source_receipt_records(receipt: dict[str, Any]) -> dict[str, dict[str, Any]]:
+    return {str(item["name"]): item for item in receipt.get("core_outputs_before_receipt", [])}
+
+
+def verify_source_evidence(source_dir: Path) -> list[dict[str, Any]]:
+    receipt_path = source_dir / "PYTHON_RUNTIME_RECEIPT.json"
+    if not receipt_path.is_file():
+        raise ValueError(f"Missing source receipt: {receipt_path}")
+    receipt = read_json(receipt_path)
+    if receipt.get("mission_id") != SOURCE_MISSION_ID:
+        raise ValueError(f"Unexpected source mission: {receipt.get('mission_id')}")
+    if receipt.get("result") != SOURCE_RESULT:
+        raise ValueError(f"Unexpected source result: {receipt.get('result')}")
+    records = source_receipt_records(receipt)
+    verified: list[dict[str, Any]] = []
+    for name in SOURCE_CORE_FILES:
+        expected = records.get(name)
+        if not expected:
+            raise ValueError(f"Source receipt does not record {name}")
+        path = source_dir / name
+        if not path.is_file():
+            raise ValueError(f"Missing source output: {path}")
+        actual = file_record(path)
+        if actual["size_bytes"] != int(expected["size_bytes"]):
+            raise ValueError(f"Source size mismatch: {name}")
+        if actual["sha256"] != str(expected["sha256"]):
+            raise ValueError(f"Source hash mismatch: {name}")
+        verified.append({
+            "name": name,
+            "size_bytes": actual["size_bytes"],
+            "sha256": actual["sha256"],
+            "source_mission_id": SOURCE_MISSION_ID,
+            "adoption_status": "verified_exact_source_output",
+        })
+    verified.append({
+        **file_record(receipt_path),
+        "source_mission_id": SOURCE_MISSION_ID,
+        "adoption_status": "verified_source_receipt",
+    })
+    return verified
+
+
+def flatten_control_files(inventory_record: dict[str, Any]) -> Iterable[dict[str, Any]]:
+    controls = inventory_record.get("control_files", {})
+    for key in ("pythonw_aliases", "pyvenv_cfg", "underscore_pth_files"):
+        for item in controls.get(key, []):
+            yield item
+
+
+def hash_check_record(
+    recorded: dict[str, Any],
+    project_root: Path,
+    host_python_root: Path | None,
+    kind: str,
+) -> dict[str, Any]:
+    recorded_path = str(recorded.get("path", ""))
+    current = map_recorded_path(recorded_path, project_root, host_python_root)
+    expected_hash = str(recorded.get("sha256", ""))
+    expected_size = int(recorded.get("size_bytes", -1))
+    result: dict[str, Any] = {
+        "kind": kind,
+        "recorded_path": recorded_path,
+        "current_path": str(current),
+        "expected_sha256": expected_hash,
+        "expected_size_bytes": expected_size,
+        "exists": current.is_file(),
+        "status": "missing",
+    }
+    if current.is_file():
+        result["actual_size_bytes"] = current.stat().st_size
+        result["actual_sha256"] = sha256_file(current)
+        result["status"] = (
+            "unchanged"
+            if result["actual_size_bytes"] == expected_size and result["actual_sha256"] == expected_hash
+            else "changed"
+        )
+    return result
+
+
+def verify_interpreters_and_controls(
+    inventory: dict[str, Any],
+    project_root: Path,
+    host_python_root: Path | None,
+) -> list[dict[str, Any]]:
+    checks: list[dict[str, Any]] = []
+    for record in inventory.get("records", []):
+        checks.append(hash_check_record(record, project_root, host_python_root, "python_executable"))
+        for control in flatten_control_files(record):
+            checks.append(hash_check_record(control, project_root, host_python_root, str(control.get("kind", "control_file"))))
+    bad = [row for row in checks if row["status"] != "unchanged"]
+    if bad:
+        raise ValueError(f"Interpreter or control-file drift detected: {bad[:3]}")
+    return checks
+
+
+def verify_known_good(
+    v1a2r2_dir: Path,
+    project_root: Path,
+    host_python_root: Path | None,
+) -> list[dict[str, Any]]:
+    path = v1a2r2_dir / "KNOWN_GOOD_COMPARISON.json"
+    data = read_json(path)
+    checks: list[dict[str, Any]] = []
+    for record in data.get("records", []):
+        expected = {
+            "path": record.get("path"),
+            "sha256": record.get("expected_sha256"),
+            "size_bytes": record.get("size_bytes"),
+        }
+        checks.append(hash_check_record(expected, project_root, host_python_root, "protected_known_good"))
+    bad = [row for row in checks if row["status"] != "unchanged"]
+    if bad:
+        raise ValueError(f"Protected known-good drift detected: {bad[:3]}")
+    return checks
+
+
+def exact_import_site_evidence(inventory_record: dict[str, Any]) -> list[dict[str, Any]]:
+    evidence: list[dict[str, Any]] = []
+    for pth in inventory_record.get("control_files", {}).get("underscore_pth_files", []):
+        for line in pth.get("nonblank_noncomment_lines", []):
+            if str(line.get("text", "")).strip().casefold() == "import site":
+                evidence.append({
+                    "path": pth.get("path"),
+                    "line_number": int(line.get("line", 0)),
+                    "line_text": "import site",
+                    "sha256": pth.get("sha256"),
+                    "size_bytes": pth.get("size_bytes"),
+                    "executed_by_adoption_mission": False,
+                })
+    return evidence
+
+
+def find_inventory_record(inventory: dict[str, Any], executable: str) -> dict[str, Any]:
+    key = executable.replace("/", "\\").casefold()
+    for record in inventory.get("records", []):
+        if str(record.get("path", "")).replace("/", "\\").casefold() == key:
+            return record
+    raise ValueError(f"Probe executable not present in inventory: {executable}")
+
+
+def classify_probe_policy(
+    probe: dict[str, Any], inventory_record: dict[str, Any], project_root_text: str
+) -> dict[str, Any]:
+    if probe.get("status") != "probe_succeeded":
+        return {
+            "executable": probe.get("executable"),
+            "probe_status": probe.get("status"),
+            "policy_status": "source_probe_not_successful",
+            "adopted": True,
+        }
+    result = probe.get("result", {})
+    flags = result.get("flags", {})
+    required = {
+        "isolated": 1,
+        "ignore_environment": 1,
+        "no_user_site": 1,
+        "dont_write_bytecode": 1,
+    }
+    failures = {name: {"expected": expected, "actual": flags.get(name)} for name, expected in required.items() if flags.get(name) != expected}
+    if failures:
+        raise ValueError(f"Required isolated probe flags failed for {probe.get('executable')}: {failures}")
+
+    no_site = flags.get("no_site")
+    import_site = exact_import_site_evidence(inventory_record)
+    if no_site == 1:
+        site_policy = "site_disabled_by_probe_flag"
+        site_policy_evidence: list[dict[str, Any]] = []
+    elif no_site == 0 and import_site:
+        site_policy = "site_enabled_by_underscore_pth"
+        site_policy_evidence = import_site
+    else:
+        raise ValueError(
+            f"Unsupported site policy for {probe.get('executable')}: no_site={no_site}, import_site={bool(import_site)}"
+        )
+
+    base_prefix = str(result.get("base_prefix", ""))
+    exec_path = str(probe.get("executable", ""))
+    host_base_dependent = within_windows_root(exec_path, project_root_text) and not within_windows_root(base_prefix, project_root_text)
+    portability = "host_base_dependent" if host_base_dependent else (
+        "project_root_runtime" if within_windows_root(exec_path, project_root_text) else "host_runtime"
+    )
+    return {
+        "executable": exec_path,
+        "runtime_id": inventory_record.get("runtime_id"),
+        "owner": inventory_record.get("owner"),
+        "probe_status": "probe_succeeded",
+        "probe_evidence_adopted_from_mission": SOURCE_MISSION_ID,
+        "probe_rerun": False,
+        "required_flags": required,
+        "observed_flags": flags,
+        "site_policy": site_policy,
+        "site_policy_evidence": site_policy_evidence,
+        "prefix": result.get("prefix"),
+        "base_prefix": base_prefix,
+        "exec_prefix": result.get("exec_prefix"),
+        "base_exec_prefix": result.get("base_exec_prefix"),
+        "sys_path": result.get("sys_path", []),
+        "portability_classification": portability,
+        "host_base_dependent": host_base_dependent,
+        "active_package_borrowing_proven": False,
+        "classification_note": (
+            "Host base dependency is portability evidence. It is not proof that a current FOXAI launcher actively uses this runtime or that an active package conflict exists."
+            if host_base_dependent
+            else "Identity evidence only; runtime activation by a current launcher is not proven by this adoption step."
+        ),
+    }
+
+
+def build_corrected_runtime_map(
+    inventory: dict[str, Any], probes: dict[str, Any], project_root_text: str
+) -> tuple[dict[str, Any], dict[str, Any]]:
+    if probes.get("process_count", 99) > 4 or probes.get("max_concurrent_processes", 99) > 1:
+        raise ValueError("Source probe process boundary was not safe")
+    for key in (
+        "shell_invocation",
+        "pythonw_executed",
+        "pip_invoked",
+        "foxai_source_imported_or_executed",
+        "third_party_modules_imported",
+    ):
+        if probes.get(key) is not False:
+            raise ValueError(f"Unsafe source probe evidence: {key}={probes.get(key)}")
+    if probes.get("sequential_only") is not True:
+        raise ValueError("Source probes were not sequential")
+
+    records: list[dict[str, Any]] = []
+    for probe in probes.get("records", []):
+        inv = find_inventory_record(inventory, str(probe.get("executable", "")))
+        records.append(classify_probe_policy(probe, inv, project_root_text))
+    corrected = {
+        "schema": SCHEMA,
+        "result": "corrected_python_runtime_identity_map_adopted",
+        "source_mission_id": SOURCE_MISSION_ID,
+        "source_probe_process_count": probes.get("process_count"),
+        "source_max_concurrent_processes": probes.get("max_concurrent_processes"),
+        "adoption_mission_interpreter_child_process_count": 0,
+        "probe_rerun": False,
+        "record_count": len(records),
+        "records": records,
+        "active_conflict_proven": False,
+    }
+    policy = {
+        "schema": SCHEMA,
+        "policy_kind": "corrected_site_policy_and_isolated_probe_validation",
+        "source_mission_id": SOURCE_MISSION_ID,
+        "required_success_flags": {
+            "isolated": 1,
+            "ignore_environment": 1,
+            "no_user_site": 1,
+            "dont_write_bytecode": 1,
+        },
+        "site_policy_rule": (
+            "no_site may be zero only when the matching verified underscore-PTH file contains an exact noncomment 'import site' line"
+        ),
+        "source_probe_processes": probes.get("process_count"),
+        "adoption_mission_interpreter_child_processes": 0,
+        "records": [
+            {
+                "executable": row["executable"],
+                "site_policy": row["site_policy"],
+                "site_policy_evidence": row["site_policy_evidence"],
+                "required_flags_satisfied": True,
+                "probe_rerun": False,
+            }
+            for row in records
+        ],
+    }
+    return corrected, policy
+
+
+def build_control_report(
+    inventory: dict[str, Any], hash_checks: list[dict[str, Any]]
+) -> dict[str, Any]:
+    by_path = {row["recorded_path"].replace("/", "\\").casefold(): row for row in hash_checks}
+    records: list[dict[str, Any]] = []
+    for inv in inventory.get("records", []):
+        controls: list[dict[str, Any]] = []
+        for item in flatten_control_files(inv):
+            key = str(item.get("path", "")).replace("/", "\\").casefold()
+            controls.append({
+                "kind": item.get("kind"),
+                "path": item.get("path"),
+                "sha256": item.get("sha256"),
+                "size_bytes": item.get("size_bytes"),
+                "hash_check_status": by_path.get(key, {}).get("status"),
+                "nonblank_noncomment_lines": item.get("nonblank_noncomment_lines", []),
+                "executed_by_adoption_mission": False,
+            })
+        records.append({
+            "executable": inv.get("path"),
+            "runtime_id": inv.get("runtime_id"),
+            "controls": controls,
+        })
+    return {
+        "schema": SCHEMA,
+        "report_kind": "interpreter_and_control_file_hash_only_verification",
+        "source_mission_id": SOURCE_MISSION_ID,
+        "all_unchanged": all(row["status"] == "unchanged" for row in hash_checks),
+        "hash_check_count": len(hash_checks),
+        "records": records,
+    }
+
+
+def build_path_boundary_report(
+    source_report: dict[str, Any], corrected_map: dict[str, Any]
+) -> dict[str, Any]:
+    host_bound = [
+        {
+            "executable": row["executable"],
+            "base_prefix": row["base_prefix"],
+            "classification": "host_base_dependent",
+            "active_conflict_proven": False,
+        }
+        for row in corrected_map["records"]
+        if row.get("host_base_dependent")
+    ]
+    result = dict(source_report)
+    result.update({
+        "schema": SCHEMA,
+        "source_schema": source_report.get("schema"),
+        "source_mission_id": SOURCE_MISSION_ID,
+        "correction_kind": "site_policy_validation_and_host_base_portability_classification",
+        "host_base_dependent_runtimes": host_bound,
+        "host_base_dependent_runtime_count": len(host_bound),
+        "active_conflict_or_borrowing_proven": False,
+        "probe_rerun": False,
+    })
+    return result
+
+
+def output_total_bytes(output_dir: Path) -> int:
+    return sum(path.stat().st_size for path in output_dir.rglob("*") if path.is_file())
+
+
+def adopt(
+    project_root: Path,
+    source_dir: Path,
+    v1a2r2_dir: Path,
+    output_dir: Path,
+    mission_id: str,
+    host_python_root: Path | None,
+) -> None:
+    output_dir.mkdir(parents=True, exist_ok=False)
+    source_verified = verify_source_evidence(source_dir)
+    inventory = read_json(source_dir / "PYTHON_INTERPRETER_INVENTORY.json")
+    probes = read_json(source_dir / "ISOLATED_RUNTIME_PROBES.json")
+    interpreter_checks = verify_interpreters_and_controls(inventory, project_root, host_python_root)
+    protected_checks = verify_known_good(v1a2r2_dir, project_root, host_python_root)
+
+    corrected, policy = build_corrected_runtime_map(inventory, probes, r"Z:\FOXAI")
+    controls = build_control_report(inventory, interpreter_checks)
+    source_boundary = read_json(source_dir / "PYTHON_PATH_BOUNDARY_REPORT.json")
+    boundary = build_path_boundary_report(source_boundary, corrected)
+
+    write_json(output_dir / "PYTHON_RUNTIME_MAP_CORRECTED.json", corrected)
+    write_json(output_dir / "PROBE_POLICY_REPORT.json", policy)
+    write_json(output_dir / "INTERPRETER_CONTROL_FILE_REPORT.json", controls)
+
+    for name in ADOPTED_COPY_FILES:
+        (output_dir / name).write_bytes((source_dir / name).read_bytes())
+    write_json(output_dir / "PYTHON_PATH_BOUNDARY_REPORT.json", boundary)
+
+    adoption_manifest = {
+        "schema": SCHEMA,
+        "manifest_kind": "exact_source_evidence_adoption_and_hash_only_live_control_verification",
+        "mission_id": mission_id,
+        "source_mission_id": SOURCE_MISSION_ID,
+        "source_outputs": source_verified,
+        "interpreter_and_control_file_hash_checks": interpreter_checks,
+        "protected_known_good_hash_checks": protected_checks,
+        "source_evidence_modified": False,
+        "interpreter_child_process_count": 0,
+        "probe_rerun": False,
+    }
+    write_json(output_dir / "SOURCE_EVIDENCE_ADOPTION_MANIFEST.json", adoption_manifest)
+
+    source_coverage = read_json(source_dir / "PYTHON_RUNTIME_COVERAGE.json")
+    coverage = {
+        "schema": SCHEMA,
+        "mission_id": mission_id,
+        "result": "python_runtime_evidence_adoption_complete",
+        "source_mission_id": SOURCE_MISSION_ID,
+        "source_launcher_record_count": source_coverage.get("source_launcher_record_count"),
+        "source_package_record_count": source_coverage.get("package_record_count"),
+        "source_duplicate_module_candidate_count": source_coverage.get("duplicate_module_candidate_count"),
+        "corrected_runtime_record_count": corrected.get("record_count"),
+        "site_enabled_by_underscore_pth_count": sum(
+            1 for row in corrected["records"] if row.get("site_policy") == "site_enabled_by_underscore_pth"
+        ),
+        "host_base_dependent_runtime_count": sum(
+            1 for row in corrected["records"] if row.get("host_base_dependent")
+        ),
+        "interpreter_and_control_hash_check_count": len(interpreter_checks),
+        "protected_known_good_hash_check_count": len(protected_checks),
+        "interpreter_child_process_count": 0,
+        "network_used": False,
+        "packages_installed": False,
+        "pip_invoked": False,
+        "models_loaded": False,
+        "foxai_source_imported_or_executed": False,
+        "launchers_executed": False,
+        "pythonw_executed": False,
+        "source_evidence_modified": False,
+        "active_conflict_proven": False,
+        "missing_evidence": source_coverage.get("missing_evidence", []),
+    }
+    write_json(output_dir / "PYTHON_RUNTIME_COVERAGE.json", coverage)
+
+    pre_receipt = [file_record(output_dir / name) for name in DERIVED_OUTPUTS]
+    if output_total_bytes(output_dir) > OUTPUT_CEILING:
+        raise ValueError("Output ceiling exceeded before receipt")
+    receipt = {
+        "schema": SCHEMA,
+        "mission_id": mission_id,
+        "result": "python_site_policy_validation_repaired_and_evidence_adopted",
+        "source_mission_id": SOURCE_MISSION_ID,
+        "source_result": SOURCE_RESULT,
+        "core_outputs_before_receipt": pre_receipt,
+        "source_outputs_verified_exact": True,
+        "interpreter_and_control_files_unchanged": True,
+        "protected_known_good_files_unchanged": True,
+        "interpreter_child_process_count": 0,
+        "probe_rerun": False,
+        "network_used": False,
+        "packages_installed": False,
+        "pip_invoked": False,
+        "models_loaded": False,
+        "foxai_source_imported_or_executed": False,
+        "launchers_executed": False,
+        "pythonw_executed": False,
+        "existing_foxai_source_modified": False,
+        "active_conflict_proven": False,
+        "output_bytes_before_receipt": output_total_bytes(output_dir),
+        "output_ceiling_bytes": OUTPUT_CEILING,
+    }
+    write_json(output_dir / "PYTHON_RUNTIME_CORRECTION_RECEIPT.json", receipt)
+    if output_total_bytes(output_dir) > OUTPUT_CEILING:
+        raise ValueError("Output ceiling exceeded")
+
+
+def validate_output(index_dir: Path) -> None:
+    receipt = read_json(index_dir / "PYTHON_RUNTIME_CORRECTION_RECEIPT.json")
+    if receipt.get("result") != "python_site_policy_validation_repaired_and_evidence_adopted":
+        raise ValueError("Unexpected correction receipt result")
+    if receipt.get("interpreter_child_process_count") != 0 or receipt.get("probe_rerun") is not False:
+        raise ValueError("Interpreter probes were rerun")
+    for key in (
+        "network_used",
+        "packages_installed",
+        "pip_invoked",
+        "models_loaded",
+        "foxai_source_imported_or_executed",
+        "launchers_executed",
+        "pythonw_executed",
+        "existing_foxai_source_modified",
+        "active_conflict_proven",
+    ):
+        if receipt.get(key) is not False:
+            raise ValueError(f"Unsafe receipt flag: {key}")
+    for expected in receipt.get("core_outputs_before_receipt", []):
+        path = index_dir / expected["name"]
+        if file_record(path) != {
+            "name": expected["name"],
+            "size_bytes": expected["size_bytes"],
+            "sha256": expected["sha256"],
+        }:
+            raise ValueError(f"Output mismatch: {path}")
+    corrected = read_json(index_dir / "PYTHON_RUNTIME_MAP_CORRECTED.json")
+    if corrected.get("adoption_mission_interpreter_child_process_count") != 0:
+        raise ValueError("Incorrect adoption process count")
+    env_rows = [row for row in corrected.get("records", []) if str(row.get("executable", "")).casefold() == r"z:\foxai\env\python\python.exe".casefold()]
+    if len(env_rows) != 1 or env_rows[0].get("site_policy") != "site_enabled_by_underscore_pth":
+        raise ValueError("Portable env site policy was not corrected")
+    venv_rows = [row for row in corrected.get("records", []) if str(row.get("executable", "")).casefold() == r"z:\foxai\.venv\scripts\python.exe".casefold()]
+    if len(venv_rows) != 1 or venv_rows[0].get("portability_classification") != "host_base_dependent":
+        raise ValueError("Project .venv host-base classification missing")
+    manifest = read_json(index_dir / "SOURCE_EVIDENCE_ADOPTION_MANIFEST.json")
+    if any(row.get("status") != "unchanged" for row in manifest.get("interpreter_and_control_file_hash_checks", [])):
+        raise ValueError("Interpreter/control drift recorded")
+    if any(row.get("status") != "unchanged" for row in manifest.get("protected_known_good_hash_checks", [])):
+        raise ValueError("Protected known-good drift recorded")
+    if output_total_bytes(index_dir) > OUTPUT_CEILING:
+        raise ValueError("Output ceiling exceeded")
+
+
+def self_test() -> None:
+    assert within_windows_root(r"Z:\FOXAI\env\python\python.exe")
+    assert not within_windows_root(r"C:\Python314\python.exe")
+    inv = {
+        "runtime_id": "portable_env",
+        "owner": "test",
+        "path": r"Z:\FOXAI\env\python\python.exe",
+        "control_files": {
+            "underscore_pth_files": [{
+                "path": r"Z:\FOXAI\env\python\python314._pth",
+                "sha256": "a" * 64,
+                "size_bytes": 12,
+                "nonblank_noncomment_lines": [
+                    {"line": 1, "text": "python314.zip"},
+                    {"line": 2, "text": "import site"},
+                ],
+            }],
+            "pythonw_aliases": [],
+            "pyvenv_cfg": [],
+        },
+    }
+    probe = {
+        "executable": inv["path"],
+        "status": "probe_succeeded",
+        "result": {
+            "flags": {
+                "isolated": 1,
+                "ignore_environment": 1,
+                "no_user_site": 1,
+                "dont_write_bytecode": 1,
+                "no_site": 0,
+            },
+            "prefix": r"Z:\FOXAI\env\python",
+            "base_prefix": r"Z:\FOXAI\env\python",
+            "exec_prefix": r"Z:\FOXAI\env\python",
+            "base_exec_prefix": r"Z:\FOXAI\env\python",
+            "sys_path": [],
+        },
+    }
+    result = classify_probe_policy(probe, inv, r"Z:\FOXAI")
+    assert result["site_policy"] == "site_enabled_by_underscore_pth"
+    assert result["site_policy_evidence"][0]["line_number"] == 2
+    host_probe = json.loads(json.dumps(probe))
+    host_probe["executable"] = r"Z:\FOXAI\.venv\Scripts\python.exe"
+    host_probe["result"]["flags"]["no_site"] = 1
+    host_probe["result"]["base_prefix"] = r"C:\Users\example\Python314"
+    host_inv = dict(inv)
+    host_inv["path"] = host_probe["executable"]
+    host_inv["runtime_id"] = "project_venv"
+    host_inv["control_files"] = {"underscore_pth_files": [], "pythonw_aliases": [], "pyvenv_cfg": []}
+    host_result = classify_probe_policy(host_probe, host_inv, r"Z:\FOXAI")
+    assert host_result["host_base_dependent"] is True
+    assert host_result["active_package_borrowing_proven"] is False
+    print("AGENT_FOX_V1A3A_R1_SELF_TEST_OK")
+
+
+def parser() -> argparse.ArgumentParser:
+    p = argparse.ArgumentParser(description="Adopt and correct verified V1A-3A runtime evidence without rerunning interpreters")
+    sub = p.add_subparsers(dest="command", required=True)
+    sub.add_parser("self-test")
+    adopt_cmd = sub.add_parser("adopt")
+    adopt_cmd.add_argument("--project-root", required=True)
+    adopt_cmd.add_argument("--source-dir", required=True)
+    adopt_cmd.add_argument("--v1a2r2-dir", required=True)
+    adopt_cmd.add_argument("--output-dir", required=True)
+    adopt_cmd.add_argument("--mission-id", required=True)
+    adopt_cmd.add_argument("--host-python-root")
+    validate = sub.add_parser("validate-output")
+    validate.add_argument("--index-dir", required=True)
+    return p
+
+
+def main() -> int:
+    args = parser().parse_args()
+    if args.command == "self-test":
+        self_test()
+        return 0
+    if args.command == "adopt":
+        adopt(
+            Path(args.project_root),
+            Path(args.source_dir),
+            Path(args.v1a2r2_dir),
+            Path(args.output_dir),
+            args.mission_id,
+            Path(args.host_python_root) if args.host_python_root else None,
+        )
+        print("AGENT_FOX_V1A3A_R1_EVIDENCE_ADOPTION_COMPLETE")
+        return 0
+    if args.command == "validate-output":
+        validate_output(Path(args.index_dir))
+        print("AGENT_FOX_V1A3A_R1_OUTPUT_VALIDATED")
+        return 0
+    raise ValueError(args.command)
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

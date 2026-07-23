@@ -1,0 +1,15 @@
+--- a/System/AgentFoxTechnicalCore/webui_self_knowledge_integration_v1.py
++++ b/System/AgentFoxTechnicalCore/webui_self_knowledge_integration_v1.py
+@@ -15,8 +15,10 @@
+     if route not in ROUTES: return {"intercepted":False,"diagnostic":None}
+     try: body=json.loads(raw_body.decode("utf-8")) if raw_body else {}
+     except Exception: return {"intercepted":False,"diagnostic":"request body was not valid JSON"}
+-    message=str(body.get("message") or "").strip()
+-    if not message: return {"intercepted":False,"diagnostic":None}
++    message=str(body.get("message") or "")
++    if not message.strip(): return {"intercepted":False,"diagnostic":None}
++    if message.startswith("/"): return {"intercepted":False,"diagnostic":"slash command bypassed self-knowledge interception"}
++    message=message.strip()
+     try: result=_load_adapter(adapter_path).route_message(message,"webui")
+     except Exception: return {"intercepted":False,"diagnostic":"self-knowledge adapter unavailable before recognition"}
+     if not _valid(result):

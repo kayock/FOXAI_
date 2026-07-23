@@ -1,0 +1,84 @@
+{
+  "authorized": true,
+  "changes": [
+    {
+      "action": "replace_text",
+      "after_sha256": "5c0687748ac46d5c23e954a6cba1c530257b4ed609af9e19845dc3f778cac05e",
+      "after_size": 67888,
+      "before_sha256": "1563a0f3275eb7516006c8f608ef595f693a85fcb9cba60f2610ca053b25f275",
+      "before_size": 62045,
+      "relative_path": "System/AgentFoxTechnicalCore/self_knowledge_chat_adapter_v1.py"
+    },
+    {
+      "action": "write_file",
+      "after_sha256": "708fcdbc0b4e7227e53e87a029f94373c55263be85a3c40bd4743f4a75697735",
+      "after_size": 2014,
+      "before_sha256": null,
+      "before_size": null,
+      "relative_path": "System/AgentFoxTechnicalCore/CURRENT_STATE_SHARED_ROUTER_INTEGRATION_CONTRACT_V1.json"
+    },
+    {
+      "action": "write_file",
+      "after_sha256": "8682449c246b7a3f8f8dbb9ff410312132c7f08839eb762e5d5ec86200fe9170",
+      "after_size": 1152,
+      "before_sha256": null,
+      "before_size": null,
+      "relative_path": "System/AgentFoxTechnicalCore/README_V1B3C.md"
+    }
+  ],
+  "created_at": "2026-07-23T03:52:39.674688Z",
+  "evidence_is_tool_generated": true,
+  "failure": "Validation failed: Verify R2 classification-only interception, canonical adapter envelope, and preserved slash, historical, architecture, advisory, repair, and ordinary routes (return code 1)",
+  "mission_id": "ENG-20260723-031118-BF49AE",
+  "mission_title": "Agent Fox Technical Core V1B-3C Classification-Only Shared-Router Integration",
+  "mission_type": "implement",
+  "no_deletions": true,
+  "no_renames": true,
+  "plan_path": "Z:\\FOXAI\\AGENT_FOX_V1B3C_R2\\PLAN.json",
+  "plan_sha256": "fd53d4b6a51c17bcfff57987eb52aa48e1059d3b12da28db1b0766d54e501f21",
+  "project_root": "Z:\\FOXAI",
+  "result": "rolled_back",
+  "rolled_back": true,
+  "schema": "foxai.engineering.receipt.v1",
+  "snapshot_manifest": "Z:\\FOXAI\\System\\EngineeringWorkshop\\snapshots\\ENG-20260723-031118-BF49AE\\snapshot_20260723T035239457115Z.manifest.json",
+  "snapshot_path": "Z:\\FOXAI\\System\\EngineeringWorkshop\\snapshots\\ENG-20260723-031118-BF49AE\\snapshot_20260723T035239457115Z.zip",
+  "snapshot_sha256": "eecca73a874bbe538d01af79674515c2e24b21f93fe4b570b89de27b3c4ec897",
+  "validations": [
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nimport hashlib\nsource=Path(r\"Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\self_knowledge_chat_adapter_v1.py\")\nraw=source.read_bytes()\ntext=raw.decode(\"utf-8\")\ncompile(text,str(source),\"exec\")\nbegin=\"    # FOXAI_CURRENT_STATE_CLASSIFICATION_V1B3C_BEGIN\\n\"\nend=\"    # FOXAI_CURRENT_STATE_CLASSIFICATION_V1B3C_END\\n\"\nassert text.count(begin)==1 and text.count(end)==1\nold='    if normalized_message.lstrip().startswith(\"/\"):\\n        return _pass_through_result(normalized_surface, slash_rid, \"SK-PASS-SLASH-COMMAND\")\\n    try:\\n        normalized_selectors = _normalize_selectors(selectors)'\nnew='    if normalized_message.lstrip().startswith(\"/\"):\\n        return _pass_through_result(normalized_surface, slash_rid, \"SK-PASS-SLASH-COMMAND\")\\n\\n    # FOXAI_CURRENT_STATE_CLASSIFICATION_V1B3C_BEGIN\\n    _v1b3c_packet = None\\n    try:\\n        import importlib.util as _v1b3c_importlib_util\\n        import sys as _v1b3c_sys\\n\\n        _v1b3c_module = globals().get(\"_FOXAI_V1B3C_BROKER_MODULE\")\\n        if _v1b3c_module is None:\\n            _v1b3c_path = Path(__file__).resolve().with_name(\"current_state_request_broker_v1.py\")\\n            _v1b3c_spec = _v1b3c_importlib_util.spec_from_file_location(\\n                \"foxai_current_state_request_broker_v1\",\\n                _v1b3c_path,\\n            )\\n            if _v1b3c_spec is None or _v1b3c_spec.loader is None:\\n                raise RuntimeError(\"current_state_broker_loader_unavailable\")\\n            _v1b3c_module = _v1b3c_importlib_util.module_from_spec(_v1b3c_spec)\\n            _v1b3c_sys.modules[_v1b3c_spec.name] = _v1b3c_module\\n            try:\\n                _v1b3c_spec.loader.exec_module(_v1b3c_module)\\n            except Exception:\\n                _v1b3c_sys.modules.pop(_v1b3c_spec.name, None)\\n                raise\\n            globals()[\"_FOXAI_V1B3C_BROKER_MODULE\"] = _v1b3c_module\\n\\n        _v1b3c_packet = _v1b3c_module.broker_request(\\n            normalized_message,\\n            authorization=None,\\n            providers={},\\n            request_context={\\n                \"surface\": normalized_surface,\\n                \"request_id\": slash_rid,\\n                \"integration_mode\": \"classification_only\",\\n            },\\n        )\\n    except Exception:\\n        _v1b3c_packet = None\\n\\n    if isinstance(_v1b3c_packet, dict):\\n        _v1b3c_status = str(_v1b3c_packet.get(\"status\") or \"\")\\n        _v1b3c_intercept_statuses = {\\n            \"authorization_required\",\\n            \"provider_unavailable\",\\n            \"unsupported_live_category\",\\n            \"provider_scope_mismatch\",\\n            \"provider_error_safe_passthrough\",\\n        }\\n        _v1b3c_intercept = _v1b3c_status in _v1b3c_intercept_statuses\\n        if _v1b3c_status == \"unsupported_live_category\":\\n            _v1b3c_text = normalized_message.casefold()\\n            _v1b3c_strong_live_cues = (\\n                \"right now\",\\n                \"at this moment\",\\n                \" is running\",\\n                \" are running\",\\n                \" is open\",\\n                \" are open\",\\n                \" is connected\",\\n                \" are connected\",\\n                \" is listening\",\\n                \" are listening\",\\n            )\\n            _v1b3c_intercept = any(cue in _v1b3c_text for cue in _v1b3c_strong_live_cues)\\n\\n        if _v1b3c_intercept:\\n            _v1b3c_category = str(_v1b3c_packet.get(\"category\") or \"unspecified\")\\n            _v1b3c_lead = {\\n                \"authorization_required\": (\\n                    \"This is a current-state request, but explicit read-only authorization \"\\n                    \"is required before a future approved provider may be used.\"\\n                ),\\n                \"provider_unavailable\": (\\n                    \"This is a current-state request, but no bounded approved read-only \"\\n                    \"provider is available for the requested category.\"\\n                ),\\n                \"unsupported_live_category\": (\\n                    \"This is a current-state request, but its live evidence category is not \"\\n                    \"supported by the approved broker contract.\"\\n                ),\\n                \"provider_scope_mismatch\": (\\n                    \"This current-state request is outside the approved provider or category scope.\"\\n                ),\\n                \"provider_error_safe_passthrough\": (\\n                    \"The current-state provider path failed safely and supplied no live evidence.\"\\n                ),\\n            }[_v1b3c_status]\\n            _v1b3c_answer = (\\n                \"CURRENT-STATE CLASSIFICATION ONLY\\\\n\\\\n\"\\n                + _v1b3c_lead\\n                + \"\\\\n\\\\nCategory: \"\\n                + _v1b3c_category\\n                + \"\\\\nStatus: \"\\n                + _v1b3c_status\\n                + \"\\\\n\\\\nV1B-3C connected no live provider and performed no live inspection, \"\\n                \"scan, model call, diagnosis, repair, optimization, or recommendation. \"\\n                \"No current-state measurement is claimed.\"\\n            )\\n            _v1b3c_answer_packet = dict(_v1b3c_packet)\\n            _v1b3c_answer_packet.update(\\n                {\\n                    \"integration_id\": \"classification_only_shared_router_v1b3c\",\\n                    \"integration_mode\": \"classification_only\",\\n                    \"answer_text\": _v1b3c_answer,\\n                    \"authorization_supplied\": False,\\n                    \"provider_registry_supplied\": False,\\n                    \"provider_invoked\": False,\\n                    \"live_inspection_performed\": False,\\n                    \"live_scan_performed\": False,\\n                    \"model_call_performed\": False,\\n                    \"diagnosis_performed\": False,\\n                    \"repair_performed\": False,\\n                    \"optimization_performed\": False,\\n                    \"recommendation_performed\": False,\\n                    \"current_state_claimed\": False,\\n                }\\n            )\\n            _v1b3c_result = _pass_through_result(\\n                normalized_surface,\\n                slash_rid,\\n                \"V1B-3C classification-only current-state boundary\",\\n            )\\n            _v1b3c_result.update(\\n                {\\n                    \"handled\": True,\\n                    \"status\": _v1b3c_status,\\n                    \"model_bypass\": True,\\n                    \"ordinary_chat_pass_through\": False,\\n                    \"answer_text\": _v1b3c_answer,\\n                    \"answer_packet\": _v1b3c_answer_packet,\\n                    \"diagnostic\": \"V1B-3C classification-only current-state boundary\",\\n                }\\n            )\\n            return _v1b3c_result\\n    # FOXAI_CURRENT_STATE_CLASSIFICATION_V1B3C_END\\n\\n    try:\\n        normalized_selectors = _normalize_selectors(selectors)'\nassert text.count(new)==1\nassert \"ADAPTER_ID\" not in new\nassert \"ADAPTER_VERSION\" not in new\nassert \"SCHEMA_PREFIX\" not in new\nassert \"_v1b3c_result = _pass_through_result(\" in new\nbase=text.replace(new,old,1).encode(\"utf-8\")\nassert len(base)==62045,len(base)\nassert hashlib.sha256(base).hexdigest()==\"1563a0f3275eb7516006c8f608ef595f693a85fcb9cba60f2610ca053b25f275\"\nbroker=Path(r\"Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\current_state_request_broker_v1.py\").read_bytes()\nassert len(broker)==23308\nassert hashlib.sha256(broker).hexdigest()==\"9ae4812e63d080e533bec97c6fd7d870bea04f96a1eba7ab578bc441a065a676\"\nsupport={\n r\"Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\CURRENT_STATE_SHARED_ROUTER_INTEGRATION_CONTRACT_V1.json\":\"708fcdbc0b4e7227e53e87a029f94373c55263be85a3c40bd4743f4a75697735\",\n r\"Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\README_V1B3C.md\":\"8682449c246b7a3f8f8dbb9ff410312132c7f08839eb762e5d5ec86200fe9170\",\n}\nfor name,digest in support.items():\n data=Path(name).read_bytes()\n assert hashlib.sha256(data).hexdigest()==digest,name\nprint(\"AGENT_FOX_V1B3C_R2_EXACT_PATCH_AND_SUPPORT_OK\")\n"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-23T03:52:39.556333Z",
+      "name": "Verify exact R2 shared-adapter patch, preimage reconstruction, canonical envelope builder, broker hash, and support files",
+      "returncode": 0,
+      "started_at": "2026-07-23T03:52:39.472885Z",
+      "stderr": "",
+      "stdout": "AGENT_FOX_V1B3C_R2_EXACT_PATCH_AND_SUPPORT_OK\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nimport importlib.util,sys\npath=Path(r\"Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\self_knowledge_chat_adapter_v1.py\")\nspec=importlib.util.spec_from_file_location(\"foxai_v1b3c_adapter_test\",path); assert spec and spec.loader\nmodule=importlib.util.module_from_spec(spec); sys.modules[spec.name]=module; spec.loader.exec_module(module)\ndef route(message,surface=\"webui\",rid=\"V1B3C-TEST\"):\n return module.route_message(message,surface,rid,{})\ndef integrated(result,status):\n assert result[\"handled\"] is True\n assert isinstance(result.get(\"schema\"),str) and result[\"schema\"]\n assert isinstance(result.get(\"adapter_id\"),str) and result[\"adapter_id\"]\n assert isinstance(result.get(\"adapter_version\"),str) and result[\"adapter_version\"]\n assert result[\"status\"]==status\n assert result[\"model_bypass\"] is True\n assert result[\"ordinary_chat_pass_through\"] is False\n packet=result[\"answer_packet\"]\n assert packet[\"integration_id\"]==\"classification_only_shared_router_v1b3c\"\n assert packet[\"integration_mode\"]==\"classification_only\"\n assert packet[\"execution_performed\"] is False\n assert packet[\"provider_invoked\"] is False\n assert packet[\"live_inspection_performed\"] is False\n assert packet[\"live_scan_performed\"] is False\n assert packet[\"current_state_claimed\"] is False\n assert \"CURRENT-STATE CLASSIFICATION ONLY\" in result[\"answer_text\"]\n assert \"No current-state measurement is claimed\" in result[\"answer_text\"]\nfor surface in (\"webui\",\"desktop\"):\n integrated(route(\"How much memory is available right now?\",surface),\"authorization_required\")\n integrated(route(\"Which services are running right now?\",surface),\"authorization_required\")\n integrated(route(\"What is my battery health right now?\",surface),\"unsupported_live_category\")\n slash=route(\"/engineer workshop status\",surface)\n assert slash[\"status\"]==\"pass_through\" and slash[\"ordinary_chat_pass_through\"] is True\n assert not slash.get(\"answer_packet\")\n historical=route(\"What did the saved resource report say about RAM?\",surface)\n assert (historical.get(\"answer_packet\") or {}).get(\"integration_id\")!=\"classification_only_shared_router_v1b3c\"\n architecture=route(\"Which Python currently runs Workshop Main?\",surface)\n assert (architecture.get(\"answer_packet\") or {}).get(\"integration_id\")!=\"classification_only_shared_router_v1b3c\"\n unrelated=route(\"Write a poem about foxes.\",surface)\n assert (unrelated.get(\"answer_packet\") or {}).get(\"integration_id\")!=\"classification_only_shared_router_v1b3c\"\n advisory=route(\"Is Chrome using too much memory right now?\",surface)\n assert (advisory.get(\"answer_packet\") or {}).get(\"integration_id\")!=\"classification_only_shared_router_v1b3c\"\n repair=route(\"Fix whatever process is using my RAM right now.\",surface)\n assert (repair.get(\"answer_packet\") or {}).get(\"integration_id\")!=\"classification_only_shared_router_v1b3c\"\nprint(\"AGENT_FOX_V1B3C_CLASSIFICATION_ROUTES_OK\")"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-23T03:52:39.670060Z",
+      "name": "Verify R2 classification-only interception, canonical adapter envelope, and preserved slash, historical, architecture, advisory, repair, and ordinary routes",
+      "returncode": 1,
+      "started_at": "2026-07-23T03:52:39.556749Z",
+      "stderr": "Traceback (most recent call last):\n  File \"<string>\", line 27, in <module>\n    integrated(route(\"How much memory is available right now?\",surface),\"authorization_required\")\n    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"<string>\", line 10, in integrated\n    assert isinstance(result.get(\"schema\"),str) and result[\"schema\"]\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n",
+      "stdout": "",
+      "timed_out": false
+    }
+  ]
+}

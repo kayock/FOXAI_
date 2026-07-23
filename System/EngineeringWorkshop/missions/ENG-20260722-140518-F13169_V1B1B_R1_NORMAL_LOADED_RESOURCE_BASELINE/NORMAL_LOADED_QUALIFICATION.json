@@ -1,0 +1,107 @@
+{
+  "automatic_process_changes_performed": false,
+  "blocker_count": 0,
+  "blockers": [],
+  "collected_at": "2026-07-22T14:09:53.010861Z",
+  "collection_method": "bounded process and known-listener presence evaluation",
+  "collector_ancestor_pids": [
+    25444,
+    15440,
+    13124
+  ],
+  "comparison_evidence_written_only_after_qualification": true,
+  "criteria": {
+    "collector_must_not_start_or_stop_components": true,
+    "comfyui_loopback_listener_required_present": true,
+    "engineering_workshop_required": true,
+    "foxai_desktop_required_present": true,
+    "model_runtime_or_loopback_listener_required_present": true,
+    "webui_loopback_listener_required": true
+  },
+  "current_collector_pid": 26608,
+  "desktop_process_pids": [
+    14420
+  ],
+  "image_generation_activity": {
+    "active_generation_detected": null,
+    "availability_status": "not_evaluated",
+    "collected_at": "2026-07-22T14:09:53.010861Z",
+    "collection_method": "single read-only process/listener snapshot",
+    "reason": "No reliable non-invasive activity signal was available without connecting to ComfyUI or reading live workflow state.",
+    "user_precondition": "Apply only after ComfyUI is idle and no image generation is executing."
+  },
+  "known_port_evidence": {
+    "8080": [
+      {
+        "availability_status": "available",
+        "collected_at": "2026-07-22T14:09:53.010861Z",
+        "collection_method": "Get-NetTCPConnection local listener enumeration",
+        "listener_id": "LISTENER-59A7867607E822E6",
+        "local_address": "127.0.0.1",
+        "local_port": 8080,
+        "loopback_only": true,
+        "owning_pid": 9824,
+        "owning_process_foxai_workspace": true,
+        "owning_process_name": "llama-server.exe",
+        "protocol": "TCP",
+        "remote_connection_attempted": false
+      }
+    ],
+    "8188": [
+      {
+        "availability_status": "available",
+        "collected_at": "2026-07-22T14:09:53.010861Z",
+        "collection_method": "Get-NetTCPConnection local listener enumeration",
+        "listener_id": "LISTENER-AB11B69586649051",
+        "local_address": "127.0.0.1",
+        "local_port": 8188,
+        "loopback_only": true,
+        "owning_pid": 6204,
+        "owning_process_foxai_workspace": true,
+        "owning_process_name": "python.exe",
+        "protocol": "TCP",
+        "remote_connection_attempted": false
+      }
+    ],
+    "8765": [
+      {
+        "availability_status": "available",
+        "collected_at": "2026-07-22T14:09:53.010861Z",
+        "collection_method": "Get-NetTCPConnection local listener enumeration",
+        "listener_id": "LISTENER-67220AC97905BF85",
+        "local_address": "127.0.0.1",
+        "local_port": 8765,
+        "loopback_only": true,
+        "owning_pid": 25444,
+        "owning_process_foxai_workspace": true,
+        "owning_process_name": "python.exe",
+        "protocol": "TCP",
+        "remote_connection_attempted": false
+      }
+    ]
+  },
+  "known_port_listener_pids": {
+    "8080": [
+      9824
+    ],
+    "8188": [
+      6204
+    ],
+    "8765": [
+      25444
+    ]
+  },
+  "mission_id": "ENG-20260722-140518-F13169",
+  "model_process_pids": [
+    9824
+  ],
+  "qualification_id": "QUALIFICATION-7F7827698E211F10",
+  "required_presence_confirmed": {
+    "comfyui_loopback_listener": true,
+    "foxai_desktop": true,
+    "model_runtime_or_loopback_listener": true,
+    "webui_loopback_listener": true
+  },
+  "schema": "foxai.agent_fox.technical_core.v1b1b.normal_loaded_qualification.v1",
+  "status": "qualified_normal_loaded"
+}

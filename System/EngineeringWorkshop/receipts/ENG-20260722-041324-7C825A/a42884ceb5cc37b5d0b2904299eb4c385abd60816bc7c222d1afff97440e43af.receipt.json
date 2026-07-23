@@ -1,0 +1,208 @@
+{
+  "authorized": true,
+  "changes": [
+    {
+      "action": "write_file",
+      "after_sha256": "e420706136b4902d82d8dbf1fecc64ae70fb8bc639106db41033545f8c196c30",
+      "after_size": 32524,
+      "before_sha256": null,
+      "before_size": null,
+      "relative_path": "System/AgentFoxTechnicalCore/desktop_self_knowledge_integration_v1.py"
+    },
+    {
+      "action": "write_file",
+      "after_sha256": "51603dbe60da228666b39ce88a4c47651bd3fd54e771278926ebaef38a2f0f7a",
+      "after_size": 1148,
+      "before_sha256": null,
+      "before_size": null,
+      "relative_path": "System/AgentFoxTechnicalCore/DESKTOP_SELF_KNOWLEDGE_INTEGRATION_CONTRACT_V1.json"
+    },
+    {
+      "action": "write_file",
+      "after_sha256": "1151d297dd8c85fbc79c4a1548c5d7cffc3e10908cacdd451d3e8681201d5946",
+      "after_size": 422,
+      "before_sha256": null,
+      "before_size": null,
+      "relative_path": "System/AgentFoxTechnicalCore/README_V1A3I.md"
+    },
+    {
+      "action": "replace_text",
+      "after_sha256": "a9c5bb86878e5f0cd27d221dbb32688b337e6026073a4b66d83339e0aef294a3",
+      "after_size": 99077,
+      "before_sha256": "cd20a1785a574eae44e290c1af1c1da7ac2bb66559f7d9ce8e93a9b2d6516b36",
+      "before_size": 96883,
+      "relative_path": "ui/main_window.py"
+    }
+  ],
+  "created_at": "2026-07-22T04:19:48.360464Z",
+  "evidence_is_tool_generated": true,
+  "failure": null,
+  "mission_id": "ENG-20260722-041324-7C825A",
+  "mission_title": "Agent Fox Technical Core V1A-3I-R2 \u2014 Snapshot Manifest Size Field Repair",
+  "mission_type": "implement",
+  "no_deletions": true,
+  "no_renames": true,
+  "plan_path": "Z:\\FOXAI\\AGENT_FOX_V1A3I_R2\\PLAN.json",
+  "plan_sha256": "a42884ceb5cc37b5d0b2904299eb4c385abd60816bc7c222d1afff97440e43af",
+  "project_root": "Z:\\FOXAI",
+  "result": "applied_verified",
+  "rolled_back": false,
+  "schema": "foxai.engineering.receipt.v1",
+  "snapshot_manifest": "Z:\\FOXAI\\System\\EngineeringWorkshop\\snapshots\\ENG-20260722-041324-7C825A\\snapshot_20260722T041947349117Z.manifest.json",
+  "snapshot_path": "Z:\\FOXAI\\System\\EngineeringWorkshop\\snapshots\\ENG-20260722-041324-7C825A\\snapshot_20260722T041947349117Z.zip",
+  "snapshot_sha256": "047a02f2b11aaa79acedf0bdd6c3f0807ffb11685e5440e83278afb21aa22b86",
+  "validations": [
+    {
+      "argv": [
+        "Z:/FOXAI/Runtime/Desktop/python/python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nimport hashlib,json\nsource=Path(r\"Z:\\FOXAI\\ui\\main_window.py\"); raw=source.read_bytes(); text=raw.decode(\"utf-8\"); compile(text,str(source),\"exec\")\nassert len(raw)==99077 and hashlib.sha256(raw).hexdigest()==\"a9c5bb86878e5f0cd27d221dbb32688b337e6026073a4b66d83339e0aef294a3\"\nbegin=b\"        # FOXAI_SELF_KNOWLEDGE_DESKTOP_V1A3I_BEGIN\\n\"; end=b\"        # FOXAI_SELF_KNOWLEDGE_DESKTOP_V1A3I_END\\n\"\nassert raw.count(begin)==1 and raw.count(end)==1\nstart=raw.index(begin); finish=raw.index(end,start)+len(end); seam=raw[start:finish]\nassert len(seam)==2194 and hashlib.sha256(seam).hexdigest()==\"0dd2a54415e29ca4b0cf6edc1d8ee8c00a870dd9359066b9295d486cea78aa6e\"\nbase=raw[:start]+raw[finish:]\nassert len(base)==96883 and hashlib.sha256(base).hexdigest()==\"cd20a1785a574eae44e290c1af1c1da7ac2bb66559f7d9ce8e93a9b2d6516b36\"\nchecks={\n r\"Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\desktop_self_knowledge_integration_v1.py\":(32524,\"e420706136b4902d82d8dbf1fecc64ae70fb8bc639106db41033545f8c196c30\"),\n r\"Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\DESKTOP_SELF_KNOWLEDGE_INTEGRATION_CONTRACT_V1.json\":(1148,\"51603dbe60da228666b39ce88a4c47651bd3fd54e771278926ebaef38a2f0f7a\"),\n r\"Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\README_V1A3I.md\":(422,\"1151d297dd8c85fbc79c4a1548c5d7cffc3e10908cacdd451d3e8681201d5946\"),\n r\"Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\self_knowledge_chat_adapter_v1.py\":(None,\"a80a9047e0eebd9ac87fe4d656c565bc6534563bb3c97e1ad9b59823a36804f7\"),\n r\"Z:\\FOXAI\\core\\foxai_web.py\":(None,\"d7bf0a2042d55ef7f0a5869556015e42c7427e7ff88636b28e1795f3adf7b952\"),\n}\nfor name,(size,digest) in checks.items():\n p=Path(name); data=p.read_bytes(); assert size is None or len(data)==size,(name,len(data)); assert hashlib.sha256(data).hexdigest()==digest,name\nsnapshot=Path(r\"Z:\\FOXAI\\System\\EngineeringWorkshop\\snapshots\\ENG-20260722-041324-7C825A\"); manifests=sorted(snapshot.glob(\"snapshot_*.manifest.json\")); assert manifests\nmanifest=json.loads(manifests[-1].read_text(encoding=\"utf-8\")); expected=[\"System/AgentFoxTechnicalCore/DESKTOP_SELF_KNOWLEDGE_INTEGRATION_CONTRACT_V1.json\",\"System/AgentFoxTechnicalCore/README_V1A3I.md\",\"System/AgentFoxTechnicalCore/desktop_self_knowledge_integration_v1.py\",\"ui/main_window.py\"]\nassert sorted(row[\"relative_path\"] for row in manifest[\"entries\"])==expected\nsource_entry=next(row for row in manifest[\"entries\"] if row[\"relative_path\"]==\"ui/main_window.py\")\nassert source_entry[\"existed\"] is True and source_entry[\"sha256\"]==\"cd20a1785a574eae44e290c1af1c1da7ac2bb66559f7d9ce8e93a9b2d6516b36\" and source_entry[\"size\"]==96883\nsupport_paths=set(expected)-{\"ui/main_window.py\"}\nfor relative_path in sorted(support_paths):\n entry=next(row for row in manifest[\"entries\"] if row[\"relative_path\"]==relative_path)\n assert entry[\"existed\"] is False and entry.get(\"sha256\") is None and entry.get(\"size\") is None, entry\nassert \"size_bytes\" not in source_entry\nprint(\"AGENT_FOX_V1A3I_R2_PRECONDITIONS_AND_PATCH_OK\")"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-22T04:19:47.496123Z",
+      "name": "Verify corrected Desktop postimage, exact preimage reconstruction, support hashes, adapter, WebUI isolation, and snapshot size schema",
+      "returncode": 0,
+      "started_at": "2026-07-22T04:19:47.377981Z",
+      "stderr": "",
+      "stdout": "AGENT_FOX_V1A3I_R2_PRECONDITIONS_AND_PATCH_OK\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:/FOXAI/Runtime/Desktop/python/python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "Z:/FOXAI/System/AgentFoxTechnicalCore/desktop_self_knowledge_integration_v1.py",
+        "self-test"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-22T04:19:47.578745Z",
+      "name": "Run isolated Desktop translation component self-test",
+      "returncode": 0,
+      "started_at": "2026-07-22T04:19:47.496675Z",
+      "stderr": "",
+      "stdout": "{\"output_count\": 8, \"status\": \"ok\", \"supported_intent_count\": 11, \"surface\": \"desktop\"}\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:/FOXAI/Runtime/Desktop/python/python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "Z:/FOXAI/System/AgentFoxTechnicalCore/desktop_self_knowledge_integration_v1.py",
+        "build-evidence",
+        "--desktop-source",
+        "Z:/FOXAI/ui/main_window.py",
+        "--output-dir",
+        "Z:/FOXAI/System/EngineeringWorkshop/missions/ENG-20260722-041324-7C825A_V1A3I_DESKTOP_SELF_KNOWLEDGE_INTEGRATION",
+        "--mission-id",
+        "ENG-20260722-041324-7C825A"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-22T04:19:48.067101Z",
+      "name": "Execute exact inserted Desktop seam and build the deterministic 36-case evidence set",
+      "returncode": 0,
+      "started_at": "2026-07-22T04:19:47.579142Z",
+      "stderr": "",
+      "stdout": "{\"answer_packet_leaks\": 0, \"canonical_json_writer\": \"utf8_lf_only_path_write_bytes\", \"comfyui_launched\": false, \"core_outputs_before_receipt\": [{\"name\": \"DESKTOP_SELF_KNOWLEDGE_INTEGRATION_CONTRACT.json\", \"sha256\": \"dfdb0e75ea855c22e72784f87f98fc3ccb7508298fa8dbeecac6c884778c8c8b\", \"size_bytes\": 359}, {\"name\": \"DESKTOP_CHAT_ROUTE_PATCH_MAP.json\", \"sha256\": \"112e38b508f4e1e0b0c6744453f901a6fde100fd431da9bda780eaaf0923cd7e\", \"size_bytes\": 922}, {\"name\": \"DESKTOP_RESPONSE_COMPATIBILITY.json\", \"sha256\": \"81921a51ae3faf1c8ce91679dd360121d7556ba3a6fa22bb098247bc64801f70\", \"size_bytes\": 490}, {\"name\": \"DESKTOP_INTEGRATION_TEST_MATRIX.json\", \"sha256\": \"e77e877c0d99c6cd4e9cb2883cf5b9faaff3d9029b3704e7652510e38896f98b\", \"size_bytes\": 7934}, {\"name\": \"DESKTOP_MODEL_BYPASS_EVIDENCE.json\", \"sha256\": \"3fb2b56dbae6fe60e0ad32ac7e67fe29b5e81f6aae837fc6279f6af7258248ac\", \"size_bytes\": 3528}, {\"name\": \"DESKTOP_ORDINARY_CHAT_PRESERVATION.json\", \"sha256\": \"38b1f52481a146a7da30967f8e324556bc08c41b743ae5cfa1de93294b5692f6\", \"size_bytes\": 493}, {\"name\": \"DESKTOP_INTEGRATION_COVERAGE.json\", \"sha256\": \"8487ae15f29287131ed987b798afe2d7f85302706fc825bf987e045f850dfc37\", \"size_bytes\": 834}], \"deterministic_rebuild_match\": true, \"exact_output_count_including_receipt\": 8, \"existing_live_source_files_modified\": 1, \"generated_evidence_carriage_return_bytes\": 0, \"k_accessed\": false, \"mission_id\": \"ENG-20260722-041324-7C825A\", \"model_calls_for_handled\": 0, \"models_loaded\": false, \"network_used\": false, \"packages_installed\": false, \"provider_calls_for_handled\": 0, \"registry_reads_for_unsupported_chat\": 0, \"schema\": \"foxai.agent_fox.technical_core.v1a3i.receipt.v1\", \"seam_sha256\": \"0dd2a54415e29ca4b0cf6edc1d8ee8c00a870dd9359066b9295d486cea78aa6e\", \"source_sha256_after\": \"a9c5bb86878e5f0cd27d221dbb32688b337e6026073a4b66d83339e0aef294a3\", \"source_sha256_before\": \"cd20a1785a574eae44e290c1af1c1da7ac2bb66559f7d9ce8e93a9b2d6516b36\", \"status\": \"built_and_verified\", \"supported_intent_count\": 11, \"surface\": \"desktop\", \"test_count\": 36, \"webui_source_modified\": false}\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:/FOXAI/Runtime/Desktop/python/python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "Z:/FOXAI/System/AgentFoxTechnicalCore/desktop_self_knowledge_integration_v1.py",
+        "validate-output",
+        "--output-dir",
+        "Z:/FOXAI/System/EngineeringWorkshop/missions/ENG-20260722-041324-7C825A_V1A3I_DESKTOP_SELF_KNOWLEDGE_INTEGRATION"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-22T04:19:48.152439Z",
+      "name": "Validate exact eight LF-only evidence outputs and recorded hashes",
+      "returncode": 0,
+      "started_at": "2026-07-22T04:19:48.067496Z",
+      "stderr": "",
+      "stdout": "{\"exact_output_count\": 8, \"status\": \"verified\", \"test_count\": 36, \"total_bytes\": 16870}\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:/FOXAI/Runtime/Desktop/python/python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nimport ast,hashlib,json\nsource=Path(r\"Z:\\FOXAI\\ui\\main_window.py\"); raw=source.read_bytes(); tree=ast.parse(raw.decode(\"utf-8\"))\nassert len(raw)==99077 and hashlib.sha256(raw).hexdigest()==\"a9c5bb86878e5f0cd27d221dbb32688b337e6026073a4b66d83339e0aef294a3\"\nbegin=b\"        # FOXAI_SELF_KNOWLEDGE_DESKTOP_V1A3I_BEGIN\\n\"; end=b\"        # FOXAI_SELF_KNOWLEDGE_DESKTOP_V1A3I_END\\n\"; start=raw.index(begin); finish=raw.index(end,start)+len(end)\nassert raw.count(begin)==1 and raw.count(end)==1\nassert hashlib.sha256(raw[start:finish]).hexdigest()==\"0dd2a54415e29ca4b0cf6edc1d8ee8c00a870dd9359066b9295d486cea78aa6e\"\nbase=raw[:start]+raw[finish:]; assert hashlib.sha256(base).hexdigest()==\"cd20a1785a574eae44e290c1af1c1da7ac2bb66559f7d9ce8e93a9b2d6516b36\" and len(base)==96883\nfuncs=[n for n in ast.walk(tree) if isinstance(n,(ast.FunctionDef,ast.AsyncFunctionDef)) and n.name==\"send_message\"]\nassert len(funcs)==1 and funcs[0].lineno==2146\nassert raw[:start].count(b\"\\n\")+1 > 2146 and raw[:start].count(b\"\\n\")+1 < 2206\nassert raw[finish:finish+27]==b\"        self.mission_status\"\nprint(\"AGENT_FOX_V1A3I_R2_EXACT_SEAM_AND_SOURCE_STRUCTURE_OK\")"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-22T04:19:48.235419Z",
+      "name": "Verify corrected seam boundary, exact source syntax, one marker pair, and byte-perfect preimage reconstruction",
+      "returncode": 0,
+      "started_at": "2026-07-22T04:19:48.152825Z",
+      "stderr": "",
+      "stdout": "AGENT_FOX_V1A3I_R2_EXACT_SEAM_AND_SOURCE_STRUCTURE_OK\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:/FOXAI/Runtime/Desktop/python/python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nimport json\nout=Path(r\"Z:/FOXAI/System/EngineeringWorkshop/missions/ENG-20260722-041324-7C825A_V1A3I_DESKTOP_SELF_KNOWLEDGE_INTEGRATION\")\nmatrix=json.loads((out/\"DESKTOP_INTEGRATION_TEST_MATRIX.json\").read_text(encoding=\"utf-8\")); bypass=json.loads((out/\"DESKTOP_MODEL_BYPASS_EVIDENCE.json\").read_text(encoding=\"utf-8\")); preservation=json.loads((out/\"DESKTOP_ORDINARY_CHAT_PRESERVATION.json\").read_text(encoding=\"utf-8\")); coverage=json.loads((out/\"DESKTOP_INTEGRATION_COVERAGE.json\").read_text(encoding=\"utf-8\")); patch=json.loads((out/\"DESKTOP_CHAT_ROUTE_PATCH_MAP.json\").read_text(encoding=\"utf-8\"))\nassert patch[\"post_sha256\"]==\"a9c5bb86878e5f0cd27d221dbb32688b337e6026073a4b66d83339e0aef294a3\" and patch[\"post_size_bytes\"]==99077\nassert patch[\"reconstructed_pre_sha256\"]==\"cd20a1785a574eae44e290c1af1c1da7ac2bb66559f7d9ce8e93a9b2d6516b36\" and patch[\"reconstructed_pre_size_bytes\"]==96883\nassert matrix[\"test_count\"]==36 and matrix[\"all_passed\"] is True\nassert matrix[\"counts\"]=={\"adapter_unavailable_count\":2,\"ambiguous_count\":4,\"empty_count\":1,\"evidence_corruption_count\":1,\"malformed_count\":1,\"ordinary_count\":12,\"recognized_count\":11,\"unsupported_technical_count\":4}\nfor key in (\"director_calls_for_handled\",\"specialist_calls_for_handled\",\"get_ai_response_calls_for_handled\",\"model_thread_calls_for_handled\",\"provider_calls_for_handled\",\"model_calls_for_handled\"):\n assert bypass[key]==0\nassert preservation[\"original_route_exactly_once\"] is True and preservation[\"registry_reads_for_unsupported_chat\"]==0\nassert coverage[\"workshop_python_alias_resolved\"] is False and coverage[\"pythonw_identity_directly_probed\"] is False and coverage[\"runtime_facts_inferred_across_contexts\"] is False\nprint(\"AGENT_FOX_V1A3I_R2_ROUTING_AND_SAFETY_TESTS_OK\")"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-22T04:19:48.274471Z",
+      "name": "Validate all 36 routing cases, model bypass, pass-through, and uncertainty preservation",
+      "returncode": 0,
+      "started_at": "2026-07-22T04:19:48.235779Z",
+      "stderr": "",
+      "stdout": "AGENT_FOX_V1A3I_R2_ROUTING_AND_SAFETY_TESTS_OK\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:/FOXAI/Runtime/Desktop/python/python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nimport hashlib,json\nweb=Path(r\"Z:\\FOXAI\\core\\foxai_web.py\"); assert hashlib.sha256(web.read_bytes()).hexdigest()==\"d7bf0a2042d55ef7f0a5869556015e42c7427e7ff88636b28e1795f3adf7b952\"\nfor rel in (\"core/chat_agent.py\",\"foxai.py\"):\n assert rel not in [\"System/AgentFoxTechnicalCore/desktop_self_knowledge_integration_v1.py\",\"System/AgentFoxTechnicalCore/DESKTOP_SELF_KNOWLEDGE_INTEGRATION_CONTRACT_V1.json\",\"System/AgentFoxTechnicalCore/README_V1A3I.md\",\"ui/main_window.py\"]\nsnapshot=Path(r\"Z:\\FOXAI\\System\\EngineeringWorkshop\\snapshots\\ENG-20260722-041324-7C825A\"); manifest=json.loads(sorted(snapshot.glob(\"snapshot_*.manifest.json\"))[-1].read_text(encoding=\"utf-8\")); paths={row[\"relative_path\"] for row in manifest[\"entries\"]}\nassert paths=={\"System/AgentFoxTechnicalCore/desktop_self_knowledge_integration_v1.py\",\"System/AgentFoxTechnicalCore/DESKTOP_SELF_KNOWLEDGE_INTEGRATION_CONTRACT_V1.json\",\"System/AgentFoxTechnicalCore/README_V1A3I.md\",\"ui/main_window.py\"}\nprint(\"AGENT_FOX_V1A3I_WEBUI_AND_OTHER_SOURCE_ISOLATION_OK\")"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-22T04:19:48.320704Z",
+      "name": "Prove verified WebUI and unrelated Desktop sources remained outside the change set",
+      "returncode": 0,
+      "started_at": "2026-07-22T04:19:48.274876Z",
+      "stderr": "",
+      "stdout": "AGENT_FOX_V1A3I_WEBUI_AND_OTHER_SOURCE_ISOLATION_OK\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:/FOXAI/Runtime/Desktop/python/python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nimport json\nout=Path(r\"Z:/FOXAI/System/EngineeringWorkshop/missions/ENG-20260722-041324-7C825A_V1A3I_DESKTOP_SELF_KNOWLEDGE_INTEGRATION\"); names=set(['DESKTOP_SELF_KNOWLEDGE_INTEGRATION_CONTRACT.json', 'DESKTOP_CHAT_ROUTE_PATCH_MAP.json', 'DESKTOP_RESPONSE_COMPATIBILITY.json', 'DESKTOP_INTEGRATION_TEST_MATRIX.json', 'DESKTOP_MODEL_BYPASS_EVIDENCE.json', 'DESKTOP_ORDINARY_CHAT_PRESERVATION.json', 'DESKTOP_INTEGRATION_COVERAGE.json', 'DESKTOP_INTEGRATION_RECEIPT.json']); actual={p.name for p in out.iterdir() if p.is_file()}; assert actual==names\nassert sum(p.stat().st_size for p in out.iterdir())<8388608\nfor p in out.iterdir(): assert b\"\\r\" not in p.read_bytes()\nreceipt=json.loads((out/\"DESKTOP_INTEGRATION_RECEIPT.json\").read_text(encoding=\"utf-8\")); coverage=json.loads((out/\"DESKTOP_INTEGRATION_COVERAGE.json\").read_text(encoding=\"utf-8\"))\nmission_plan=json.loads(Path(r\"Z:\\FOXAI\\AGENT_FOX_V1A3I_R2\\PLAN.json\").read_text(encoding=\"utf-8\")); assert mission_plan[\"safety\"][\"prior_failure_classification\"]==\"snapshot_manifest_size_field_name_mismatch\" and mission_plan[\"safety\"][\"snapshot_manifest_size_field\"]==\"size\" and mission_plan[\"safety\"][\"snapshot_manifest_size_bytes_field_required\"] is False and mission_plan[\"safety\"][\"integration_behavior_changed\"] is False\nassert receipt[\"test_count\"]==36 and receipt[\"exact_output_count_including_receipt\"]==8\nassert receipt[\"existing_live_source_files_modified\"]==1 and receipt[\"webui_source_modified\"] is False\nfor key in (\"network_used\",\"packages_installed\",\"models_loaded\",\"comfyui_launched\",\"k_accessed\"):\n assert receipt[key] is False and coverage[key] is False\nprint(\"AGENT_FOX_V1A3I_R2_EXACT_OUTPUTS_AND_BOUNDARIES_OK\")"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-22T04:19:48.360385Z",
+      "name": "Validate exact output count, byte canonicalization, size ceiling, and safety boundaries",
+      "returncode": 0,
+      "started_at": "2026-07-22T04:19:48.321079Z",
+      "stderr": "",
+      "stdout": "AGENT_FOX_V1A3I_R2_EXACT_OUTPUTS_AND_BOUNDARIES_OK\n",
+      "timed_out": false
+    }
+  ]
+}

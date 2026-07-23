@@ -1,0 +1,1012 @@
+from __future__ import annotations
+
+import argparse
+import ast
+import hashlib
+import json
+import re
+import sys
+from pathlib import Path, PureWindowsPath
+from typing import Any, Iterable
+
+SCHEMA_PREFIX = "foxai.agent_fox.technical_core.v1a3f"
+SOURCE_BUFFER_CEILING = 8 * 1024 * 1024
+OUTPUT_CEILING = 8 * 1024 * 1024
+EXPECTED_OUTPUTS = (
+    "SELF_KNOWLEDGE_INTEGRATION_SEAMS.json",
+    "CHAT_SURFACE_ROUTE_MAP.json",
+    "MODEL_DISPATCH_BOUNDARIES.json",
+    "PROPOSED_SELF_KNOWLEDGE_ADAPTER_CONTRACT.json",
+    "PATCH_CANDIDATES.json",
+    "INTEGRATION_TEST_MATRIX.json",
+    "INTEGRATION_PREFLIGHT_COVERAGE.json",
+    "INTEGRATION_PREFLIGHT_RECEIPT.json",
+)
+CORE_OUTPUTS = EXPECTED_OUTPUTS[:-1]
+EXPECTED_INTENT_COUNT = 11
+EXPECTED_SURFACES = ("webui", "desktop")
+EXPECTED_RECEIPTS = {
+    "v1a3e": {
+        "mission_id": "ENG-20260722-001310-533BE2",
+        "name": "SELF_KNOWLEDGE_BRIDGE_RECEIPT.json",
+        "sha256": "8cdb826c5c2a722eb9a9459abcb3acd36267bb90264874ce6d9908f405177a78",
+    },
+    "v1a3d": {
+        "mission_id": "ENG-20260721-235244-7594A9",
+        "name": "PROTECTED_CONTEXT_REGISTRY_RECEIPT.json",
+        "sha256": "bf8bea034ae7bd47c6c8af730ef5312e5c5fa5b4b57cf804fc64dd0f18c98a4e",
+    },
+    "web": {
+        "mission_id": "ENG-20260721-220855-64D244",
+        "name": "WEB_PORTABLE_CLOSURE_RECEIPT.json",
+        "sha256": "e3554842be841806447c0934728554d93346d8b53a99bfd37d1312b73e87d8b2",
+        "closure": "WEB_PORTABLE_FIRST_PARTY_CLOSURE.json",
+    },
+    "workshop": {
+        "mission_id": "ENG-20260721-232230-72B494",
+        "name": "WORKSHOP_MAIN_CLOSURE_RECEIPT.json",
+        "sha256": "e08b259f16aee4dd2041c313343905ceb6634788beda12648aeac37a4aa8a2dc",
+        "closure": "WORKSHOP_MAIN_FIRST_PARTY_CLOSURE.json",
+    },
+    "desktop": {
+        "mission_id": "ENG-20260721-234311-5F92E4",
+        "name": "DESKTOP_RECOVERY_GUI_CLOSURE_RECEIPT.json",
+        "sha256": "3d0ecabad4f3422abcff268b2498094ccc021f2831a2b6c972e47848bf970896",
+        "closure": "DESKTOP_RECOVERY_GUI_FIRST_PARTY_CLOSURE.json",
+    },
+}
+
+ROLE_SPECS = {
+    "user_message_ingress": {
+        "names": {"send_message", "handle", "do_POST", "post", "requestNonStreamingChat", "requestStreamingChat"},
+        "tokens": {"message", "input_box", "/api/chat/send", "/api/chat/stream", "use_active_image"},
+    },
+    "command_or_intent_normalization": {
+        "names": {"send_message", "direct", "analyze", "route", "normalize"},
+        "tokens": {"strip", "director", "mission", "agent", "payload", "correlation_id"},
+    },
+    "agent_request_routing": {
+        "names": {"send_message", "handle", "do_POST", "route"},
+        "tokens": {"specialists", "agent", "payload", "chat", "engineer", "red_canvas"},
+    },
+    "provider_or_model_dispatch": {
+        "names": {"get_ai_response", "iter_chat_stream", "post", "post_json", "handle"},
+        "tokens": {"CHAT_API", "api_url", "chat/completions", "post_json", "iter_chat_stream", "messages"},
+    },
+    "response_construction": {
+        "names": {"get_ai_response", "guarded_stream_piece", "do_POST", "handle"},
+        "tokens": {"answer", "speaker", "choices", "content", "guard_model_action_claims"},
+    },
+    "streaming_or_display": {
+        "names": {"iter_chat_stream", "guarded_stream_piece", "add_chat", "logline", "get_ai_response"},
+        "tokens": {"stream", "chat_box", "add_chat", "yield", "text/event-stream"},
+    },
+    "clarification_handling": {
+        "names": {"do_POST", "send_message", "handle"},
+        "tokens": {"clarification", "ambiguous", "409", "MissionRequestError", "message"},
+    },
+    "error_handling": {
+        "names": {"get_ai_response", "post_json", "do_POST", "handle"},
+        "tokens": {"except", "error", "timeout", "MissionRequestError", "ChatTimeoutError"},
+    },
+    "ordinary_chat_fallback": {
+        "names": {"send_message", "handle", "do_POST", "requestStreamingChat"},
+        "tokens": {"fallback", "/api/chat/send", "specialists", "get_ai_response", "pass_through"},
+    },
+}
+
+SURFACE_HINTS = {
+    "webui": {
+        "primary": {"core\\foxai_web.py"},
+        "support": {"core\\chat_resilience.py", "core\\server.py"},
+    },
+    "desktop": {
+        "primary": {"foxai.py", "ui\\main_window.py", "core\\chat_agent.py"},
+        "support": {"core\\chat_resilience.py", "core\\brainstem.py", "core\\server.py"},
+    },
+}
+
+
+def canonical_json_bytes(value: Any) -> bytes:
+    return (json.dumps(value, indent=2, sort_keys=True, ensure_ascii=False) + "\n").encode("utf-8")
+
+
+def sha256_bytes(data: bytes) -> str:
+    return hashlib.sha256(data).hexdigest()
+
+
+def sha256_file(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
+def read_json(path: Path) -> Any:
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
+def win_path(value: str) -> str:
+    return str(PureWindowsPath(value))
+
+
+def relative_key(value: str) -> str:
+    p = PureWindowsPath(value)
+    parts = list(p.parts)
+    if len(parts) >= 2 and parts[0].endswith("\\"):
+        parts = parts[1:]
+    if parts and parts[0].endswith(":\\"):
+        parts = parts[1:]
+    if len(parts) >= 2 and parts[0].casefold() == "z:\\" and parts[1].casefold() == "foxai":
+        parts = parts[2:]
+    text = str(PureWindowsPath(*parts)) if parts else str(p)
+    marker = "foxai\\"
+    lower = text.casefold()
+    idx = lower.find(marker)
+    if idx >= 0:
+        text = text[idx + len(marker):]
+    return text.lstrip("\\/")
+
+
+def verify_receipt_directory(directory: Path, spec: dict[str, Any]) -> dict[str, Any]:
+    receipt_path = directory / spec["name"]
+    assert receipt_path.is_file(), receipt_path
+    actual_receipt_hash = sha256_file(receipt_path)
+    assert actual_receipt_hash == spec["sha256"], (receipt_path, actual_receipt_hash)
+    receipt = read_json(receipt_path)
+    assert receipt.get("mission_id") == spec["mission_id"], receipt.get("mission_id")
+    verified = []
+    for row in receipt.get("core_outputs_before_receipt", []):
+        name = row["name"]
+        path = directory / name
+        assert path.is_file(), path
+        data = path.read_bytes()
+        assert len(data) == int(row["size_bytes"]), (path, len(data), row["size_bytes"])
+        actual = sha256_bytes(data)
+        assert actual == row["sha256"], (path, actual, row["sha256"])
+        verified.append({"name": name, "sha256": actual, "size_bytes": len(data)})
+    return {
+        "mission_id": spec["mission_id"],
+        "directory": win_path(str(directory)),
+        "receipt_filename": spec["name"],
+        "receipt_sha256": actual_receipt_hash,
+        "verified_outputs": verified,
+        "receipt": receipt,
+    }
+
+
+def verify_all_inputs(args: argparse.Namespace) -> dict[str, Any]:
+    dirs = {
+        "v1a3e": Path(args.v1a3e_dir),
+        "v1a3d": Path(args.v1a3d_dir),
+        "web": Path(args.web_closure_dir),
+        "workshop": Path(args.workshop_main_dir),
+        "desktop": Path(args.desktop_gui_dir),
+    }
+    verified = {key: verify_receipt_directory(dirs[key], EXPECTED_RECEIPTS[key]) for key in dirs}
+    v1a3e_receipt = verified["v1a3e"]["receipt"]
+    assert v1a3e_receipt.get("supported_intent_count") == EXPECTED_INTENT_COUNT
+    assert v1a3e_receipt.get("source_registry_hashes_verified") is True
+    assert v1a3e_receipt.get("unresolved_state_preserved") is True
+    v1a3d_receipt = verified["v1a3d"]["receipt"]
+    assert v1a3d_receipt.get("protected_context_count") == 6
+    assert v1a3d_receipt.get("source_receipts_and_hashes_verified") is True
+    for key in ("web", "workshop", "desktop"):
+        receipt = verified[key]["receipt"]
+        assert receipt.get("imports_or_source_executed") is False
+        assert receipt.get("maximum_reads_per_source_file") == 1
+        assert receipt.get("source_buffer_ceiling_bytes") == SOURCE_BUFFER_CEILING
+    intent_catalog = read_json(dirs["v1a3e"] / "SELF_KNOWLEDGE_INTENT_CATALOG.json")
+    intents = extract_intents(intent_catalog)
+    assert len(intents) == EXPECTED_INTENT_COUNT, intents
+    return {
+        "directories": dirs,
+        "verified": verified,
+        "intent_catalog": intent_catalog,
+        "intents": intents,
+    }
+
+
+def extract_intents(catalog: Any) -> list[str]:
+    candidates: list[str] = []
+    if isinstance(catalog, dict):
+        for key in ("intents", "supported_intents", "intent_families"):
+            rows = catalog.get(key)
+            if isinstance(rows, list):
+                for row in rows:
+                    if isinstance(row, str):
+                        candidates.append(row)
+                    elif isinstance(row, dict):
+                        value = row.get("intent") or row.get("id") or row.get("name")
+                        if isinstance(value, str):
+                            candidates.append(value)
+    unique = []
+    seen = set()
+    for item in candidates:
+        normalized = item.strip()
+        if normalized and normalized not in seen:
+            unique.append(normalized)
+            seen.add(normalized)
+    return unique
+
+
+def load_closure(directory: Path, key: str) -> dict[str, Any]:
+    name = EXPECTED_RECEIPTS[key]["closure"]
+    data = read_json(directory / name)
+    assert isinstance(data.get("nodes"), list)
+    assert isinstance(data.get("edges"), list)
+    return data
+
+
+def build_source_manifest(inputs: dict[str, Any]) -> dict[str, Any]:
+    dirs = inputs["directories"]
+    closures = {
+        "web": load_closure(dirs["web"], "web"),
+        "workshop": load_closure(dirs["workshop"], "workshop"),
+        "desktop": load_closure(dirs["desktop"], "desktop"),
+    }
+    merged: dict[str, dict[str, Any]] = {}
+    memberships: dict[str, list[str]] = {}
+    for key, closure in closures.items():
+        for node in closure["nodes"]:
+            rel = relative_key(node.get("relative_path") or node["path"])
+            record = {
+                "relative_path": rel,
+                "path": win_path(node["path"]),
+                "expected_sha256": node["expected_sha256"],
+                "expected_size_bytes": int(node["expected_size_bytes"]),
+            }
+            if rel in merged:
+                prior = merged[rel]
+                assert prior["expected_sha256"] == record["expected_sha256"], rel
+                assert prior["expected_size_bytes"] == record["expected_size_bytes"], rel
+            else:
+                merged[rel] = record
+            memberships.setdefault(rel, []).append(key)
+    required = {"core\\foxai_web.py", "foxai.py", "ui\\main_window.py", "core\\chat_agent.py"}
+    assert required.issubset(set(merged)), sorted(required - set(merged))
+    return {
+        "closures": closures,
+        "sources": [
+            {**merged[key], "closure_memberships": sorted(set(memberships[key]))}
+            for key in sorted(merged, key=str.casefold)
+        ],
+        "unique_source_count": len(merged),
+        "closure_counts": {key: int(value["node_count"]) for key, value in closures.items()},
+    }
+
+
+class FunctionCollector(ast.NodeVisitor):
+    def __init__(self, relative_path: str, lines: list[str]):
+        self.relative_path = relative_path
+        self.lines = lines
+        self.stack: list[str] = []
+        self.functions: list[dict[str, Any]] = []
+
+    def visit_ClassDef(self, node: ast.ClassDef) -> Any:
+        self.stack.append(node.name)
+        self.generic_visit(node)
+        self.stack.pop()
+
+    def visit_FunctionDef(self, node: ast.FunctionDef) -> Any:
+        self._capture(node)
+
+    def visit_AsyncFunctionDef(self, node: ast.AsyncFunctionDef) -> Any:
+        self._capture(node)
+
+    def _capture(self, node: ast.FunctionDef | ast.AsyncFunctionDef) -> None:
+        qualified = ".".join(self.stack + [node.name])
+        calls = []
+        strings = []
+        dict_keys = []
+        exception_handlers = 0
+        for child in ast.walk(node):
+            if isinstance(child, ast.Call):
+                name = dotted_name(child.func)
+                if name:
+                    calls.append({"name": name, "line": int(getattr(child, "lineno", node.lineno))})
+            elif isinstance(child, ast.Constant) and isinstance(child.value, str):
+                value = child.value
+                if len(value) <= 300:
+                    strings.append({"value": value, "line": int(getattr(child, "lineno", node.lineno))})
+            elif isinstance(child, ast.Dict):
+                for key in child.keys:
+                    if isinstance(key, ast.Constant) and isinstance(key.value, str):
+                        dict_keys.append({"value": key.value, "line": int(getattr(key, "lineno", node.lineno))})
+            elif isinstance(child, ast.ExceptHandler):
+                exception_handlers += 1
+        start = int(node.lineno)
+        end = int(getattr(node, "end_lineno", start))
+        statement = self.lines[start - 1].strip() if 0 < start <= len(self.lines) else node.name
+        record = {
+            "relative_path": self.relative_path,
+            "qualified_name": qualified,
+            "function_name": node.name,
+            "start_line": start,
+            "end_line": end,
+            "statement_locator": {
+                "line": start,
+                "statement_kind": type(node).__name__,
+                "statement_sha256": sha256_bytes(statement.encode("utf-8")),
+            },
+            "calls": sorted(calls, key=lambda x: (x["line"], x["name"])),
+            "string_literals": sorted(strings, key=lambda x: (x["line"], x["value"])),
+            "dict_keys": sorted(dict_keys, key=lambda x: (x["line"], x["value"])),
+            "exception_handler_count": exception_handlers,
+        }
+        self.functions.append(record)
+        self.stack.append(node.name)
+        self.generic_visit(node)
+        self.stack.pop()
+
+
+def dotted_name(node: ast.AST) -> str:
+    if isinstance(node, ast.Name):
+        return node.id
+    if isinstance(node, ast.Attribute):
+        left = dotted_name(node.value)
+        return f"{left}.{node.attr}" if left else node.attr
+    return ""
+
+
+def analyze_one_source(project_root: Path, node: dict[str, Any]) -> dict[str, Any]:
+    rel = node["relative_path"]
+    path = project_root / Path(*PureWindowsPath(rel).parts)
+    assert path.is_file(), path
+    data = path.read_bytes()
+    size = len(data)
+    assert size <= SOURCE_BUFFER_CEILING, (path, size)
+    assert size == node["expected_size_bytes"], (path, size, node["expected_size_bytes"])
+    actual_hash = sha256_bytes(data)
+    assert actual_hash == node["expected_sha256"], (path, actual_hash, node["expected_sha256"])
+    text = data.decode("utf-8-sig")
+    lines = text.splitlines()
+    syntax_error = None
+    functions: list[dict[str, Any]] = []
+    module_calls: list[dict[str, Any]] = []
+    module_strings: list[dict[str, Any]] = []
+    try:
+        tree = ast.parse(text, filename=str(path))
+        collector = FunctionCollector(rel, lines)
+        collector.visit(tree)
+        functions = collector.functions
+        for child in tree.body:
+            if isinstance(child, ast.Expr) and isinstance(child.value, ast.Call):
+                name = dotted_name(child.value.func)
+                module_calls.append({"name": name, "line": int(child.lineno)})
+            for nested in ast.walk(child):
+                if isinstance(nested, ast.Constant) and isinstance(nested.value, str):
+                    if len(nested.value) <= 300:
+                        module_strings.append({"value": nested.value, "line": int(getattr(nested, "lineno", 1))})
+    except SyntaxError as exc:
+        syntax_error = {"message": str(exc), "line": int(exc.lineno or 0)}
+    del text
+    del data
+    return {
+        "relative_path": rel,
+        "source_path": win_path(str(path)),
+        "source_sha256": actual_hash,
+        "source_size_bytes": size,
+        "line_count": len(lines),
+        "closure_memberships": node["closure_memberships"],
+        "functions": functions,
+        "module_calls": module_calls,
+        "module_strings": module_strings,
+        "syntax_error": syntax_error,
+    }
+
+
+def score_function(record: dict[str, Any], role: str) -> tuple[int, list[str]]:
+    spec = ROLE_SPECS[role]
+    name = record["function_name"]
+    haystack = {name, record["qualified_name"]}
+    haystack.update(call["name"] for call in record["calls"])
+    haystack.update(item["value"] for item in record["string_literals"])
+    haystack.update(item["value"] for item in record["dict_keys"])
+    text = "\n".join(haystack).casefold()
+    matched = []
+    score = 0
+    for candidate in spec["names"]:
+        if candidate.casefold() in text:
+            score += 6 if name.casefold() == candidate.casefold() else 3
+            matched.append(candidate)
+    for token in spec["tokens"]:
+        if token.casefold() in text:
+            score += 2
+            matched.append(token)
+    if role == "error_handling" and record["exception_handler_count"]:
+        score += min(record["exception_handler_count"], 3) * 2
+        matched.append("exception_handler")
+    return score, sorted(set(matched), key=str.casefold)
+
+
+def surface_for_path(relative_path: str) -> list[str]:
+    result = []
+    for surface, groups in SURFACE_HINTS.items():
+        if relative_path in groups["primary"] or relative_path in groups["support"]:
+            result.append(surface)
+    return result
+
+
+def make_provenance(source: dict[str, Any], function: dict[str, Any] | None = None) -> dict[str, Any]:
+    value = {
+        "source_path": source["source_path"],
+        "source_relative_path": source["relative_path"],
+        "source_sha256": source["source_sha256"],
+        "source_size_bytes": source["source_size_bytes"],
+        "closure_memberships": source["closure_memberships"],
+    }
+    if function:
+        value.update({
+            "qualified_name": function["qualified_name"],
+            "start_line": function["start_line"],
+            "end_line": function["end_line"],
+            "statement_locator": function["statement_locator"],
+        })
+    return value
+
+
+def identify_seams(source_analyses: list[dict[str, Any]]) -> dict[str, Any]:
+    candidates: dict[str, dict[str, list[dict[str, Any]]]] = {
+        surface: {role: [] for role in ROLE_SPECS} for surface in EXPECTED_SURFACES
+    }
+    for source in source_analyses:
+        surfaces = surface_for_path(source["relative_path"])
+        if not surfaces:
+            continue
+        for function in source["functions"]:
+            for role in ROLE_SPECS:
+                score, matched = score_function(function, role)
+                if score <= 0:
+                    continue
+                record = {
+                    "classification": "confirmed_static_candidate",
+                    "role": role,
+                    "score": score,
+                    "matched_static_signals": matched,
+                    "provenance": make_provenance(source, function),
+                    "source_execution_proven": False,
+                    "dynamic_behavior_proven": False,
+                }
+                for surface in surfaces:
+                    candidates[surface][role].append(record)
+    for surface in candidates:
+        for role in candidates[surface]:
+            rows = candidates[surface][role]
+            rows.sort(key=lambda row: (-row["score"], row["provenance"]["source_relative_path"].casefold(), row["provenance"]["start_line"]))
+            candidates[surface][role] = rows[:6]
+    return candidates
+
+
+def find_function(source_analyses: list[dict[str, Any]], relative_path: str, names: Iterable[str]) -> dict[str, Any] | None:
+    names_cf = {name.casefold() for name in names}
+    for source in source_analyses:
+        if source["relative_path"].casefold() != relative_path.casefold():
+            continue
+        exact = [f for f in source["functions"] if f["function_name"].casefold() in names_cf]
+        if exact:
+            exact.sort(key=lambda f: (f["start_line"], f["qualified_name"]))
+            return {"source": source, "function": exact[0]}
+    return None
+
+
+def build_route_map(source_analyses: list[dict[str, Any]], seams: dict[str, Any]) -> dict[str, Any]:
+    web_ingress = seams["webui"]["user_message_ingress"][:2]
+    web_dispatch = seams["webui"]["provider_or_model_dispatch"][:3]
+    web_display = seams["webui"]["streaming_or_display"][:3]
+    desktop_send = find_function(source_analyses, "ui\\main_window.py", {"send_message"})
+    desktop_handle = find_function(source_analyses, "core\\chat_agent.py", {"handle"})
+    desktop_dispatch = find_function(source_analyses, "ui\\main_window.py", {"get_ai_response"})
+    desktop_display = find_function(source_analyses, "ui\\main_window.py", {"add_chat"})
+    desktop_entry = next(source for source in source_analyses if source["relative_path"].casefold() == "foxai.py")
+
+    def prov(found: dict[str, Any] | None) -> dict[str, Any] | None:
+        return make_provenance(found["source"], found["function"]) if found else None
+
+    return {
+        "schema": f"{SCHEMA_PREFIX}.chat_surface_route_map.v1",
+        "surfaces": [
+            {
+                "surface": "webui",
+                "entry_script": "Z:\\FOXAI\\core\\foxai_web.py",
+                "entry_script_provenance": make_provenance(next(s for s in source_analyses if s["relative_path"].casefold() == "core\\foxai_web.py")),
+                "route_stages": [
+                    {"stage": "user_message_ingress", "evidence": web_ingress, "status": "static_candidates_identified"},
+                    {"stage": "self_knowledge_adapter", "status": "proposed_not_integrated", "placement_rule": "after request message normalization and before CHAT_API or iter_chat_stream dispatch"},
+                    {"stage": "provider_or_model_dispatch", "evidence": web_dispatch, "status": "static_candidates_identified"},
+                    {"stage": "streaming_or_display", "evidence": web_display, "status": "static_candidates_identified"},
+                ],
+                "recognized_request_rule": "return deterministic V1A-3E answer packet and bypass model dispatch",
+                "ambiguous_request_rule": "return V1A-3E clarification packet and bypass model dispatch",
+                "unrecognized_request_rule": "preserve current chat route unchanged",
+            },
+            {
+                "surface": "desktop",
+                "entry_script": "Z:\\FOXAI\\foxai.py",
+                "entry_script_provenance": make_provenance(desktop_entry),
+                "route_stages": [
+                    {"stage": "user_message_ingress", "evidence": prov(desktop_send), "status": "confirmed_static_function" if desktop_send else "unresolved"},
+                    {"stage": "director_and_specialist_routing", "evidence": prov(desktop_send), "status": "confirmed_static_function" if desktop_send else "unresolved"},
+                    {"stage": "chat_specialist_handle", "evidence": prov(desktop_handle), "status": "confirmed_static_function" if desktop_handle else "unresolved"},
+                    {"stage": "self_knowledge_adapter", "status": "proposed_not_integrated", "placement_rule": "after stripped non-empty message capture and before director/specialist/model dispatch"},
+                    {"stage": "provider_or_model_dispatch", "evidence": prov(desktop_dispatch), "status": "confirmed_static_function" if desktop_dispatch else "unresolved"},
+                    {"stage": "display", "evidence": prov(desktop_display), "status": "confirmed_static_function" if desktop_display else "unresolved"},
+                ],
+                "recognized_request_rule": "display deterministic V1A-3E answer packet and do not start model-response thread",
+                "ambiguous_request_rule": "display V1A-3E clarification packet and do not start model-response thread",
+                "unrecognized_request_rule": "preserve current director, specialist, ChatAgent, and model route unchanged",
+            },
+        ],
+        "shared_adapter_feasibility": {
+            "classification": "candidate_supported_by_static_shapes",
+            "one_shared_read_only_adapter_possible": True,
+            "reason": "Both surfaces reduce user input to text before model dispatch and can consume a deterministic handled/pass-through result.",
+            "dynamic_confirmation_required": True,
+        },
+    }
+
+
+def build_model_boundaries(source_analyses: list[dict[str, Any]], seams: dict[str, Any]) -> dict[str, Any]:
+    boundaries = []
+    for surface in EXPECTED_SURFACES:
+        for role in ("provider_or_model_dispatch", "response_construction", "streaming_or_display", "error_handling"):
+            for row in seams[surface][role][:4]:
+                boundaries.append({
+                    "surface": surface,
+                    "boundary_role": role,
+                    "classification": row["classification"],
+                    "provenance": row["provenance"],
+                    "matched_static_signals": row["matched_static_signals"],
+                    "integration_rule": "adapter decision must occur before this boundary" if role == "provider_or_model_dispatch" else "existing behavior remains unchanged for pass-through requests",
+                })
+    return {
+        "schema": f"{SCHEMA_PREFIX}.model_dispatch_boundaries.v1",
+        "boundaries": boundaries,
+        "recognized_request_model_bypass": True,
+        "ambiguous_request_model_bypass": True,
+        "unrecognized_request_pass_through": True,
+        "model_or_provider_called_by_preflight": False,
+        "dynamic_dispatch_behavior_proven": False,
+    }
+
+
+def build_adapter_contract(intents: list[str]) -> dict[str, Any]:
+    return {
+        "schema": f"{SCHEMA_PREFIX}.proposed_self_knowledge_adapter_contract.v1",
+        "status": "proposal_only_not_integrated",
+        "proposed_module": "Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\self_knowledge_chat_adapter_v1.py",
+        "supported_intents": intents,
+        "supported_intent_count": len(intents),
+        "request_shape": {
+            "surface": "webui|desktop",
+            "message": "non-empty user text",
+            "request_id": "surface-generated deterministic identifier",
+            "optional_selectors": ["context", "contexts", "launcher", "fact_locator"],
+        },
+        "result_shape": {
+            "handled": "boolean",
+            "status": "answered|clarification_required|pass_through|evidence_error",
+            "answer_text": "string or null",
+            "answer_packet": "V1A-3E packet or null",
+            "model_bypass": "boolean",
+            "ordinary_chat_pass_through": "boolean",
+            "diagnostic": "bounded non-secret diagnostic or null",
+        },
+        "routing_rules": [
+            {"condition": "recognized exact self-knowledge request", "result": "answered", "handled": True, "model_bypass": True, "ordinary_chat_pass_through": False},
+            {"condition": "ambiguous self-knowledge request", "result": "clarification_required", "handled": True, "model_bypass": True, "ordinary_chat_pass_through": False},
+            {"condition": "unrecognized ordinary chat", "result": "pass_through", "handled": False, "model_bypass": False, "ordinary_chat_pass_through": True},
+            {"condition": "evidence verification fails after self-knowledge recognition", "result": "evidence_error", "handled": True, "model_bypass": True, "ordinary_chat_pass_through": False},
+            {"condition": "adapter unavailable before recognition", "result": "pass_through with local diagnostic", "handled": False, "model_bypass": False, "ordinary_chat_pass_through": True},
+        ],
+        "safety": {
+            "workshop_python_alias_resolved": False,
+            "pythonw_identity_directly_probed": False,
+            "runtime_facts_inferred_across_contexts": False,
+            "unresolved_candidate_promoted_to_confirmed": False,
+            "model_call_used_for_self_knowledge": False,
+        },
+    }
+
+
+def build_patch_candidates(source_analyses: list[dict[str, Any]], route_map: dict[str, Any]) -> dict[str, Any]:
+    by_rel = {source["relative_path"].casefold(): source for source in source_analyses}
+    candidates = []
+    for rel, surface, preferred_names, risk in (
+        ("core\\foxai_web.py", "webui", {"do_POST", "handle_post", "post"}, "medium"),
+        ("ui\\main_window.py", "desktop", {"send_message"}, "medium"),
+        ("core\\chat_agent.py", "desktop", {"handle"}, "medium_alternative"),
+        ("foxai.py", "desktop", {"main"}, "not_recommended_entry_only"),
+    ):
+        source = by_rel[rel.casefold()]
+        functions = [f for f in source["functions"] if f["function_name"] in preferred_names]
+        functions.sort(key=lambda f: (f["start_line"], f["qualified_name"]))
+        locator = make_provenance(source, functions[0]) if functions else make_provenance(source)
+        safely_patchable = bool(functions) and rel != "foxai.py"
+        candidates.append({
+            "surface": surface,
+            "source_relative_path": rel,
+            "source_path": source["source_path"],
+            "source_sha256": source["source_sha256"],
+            "source_size_bytes": source["source_size_bytes"],
+            "locator": locator,
+            "classification": "candidate_patch_seam" if safely_patchable else "evidence_only_not_safely_patchable_yet",
+            "safely_patchable_with_current_static_evidence": safely_patchable,
+            "risk": risk,
+            "proposed_change": (
+                "invoke one shared adapter after text normalization and before existing model dispatch"
+                if safely_patchable else "no direct patch proposed"
+            ),
+            "ordinary_chat_preservation": "adapter pass_through result must execute the existing route unchanged",
+            "rollback_boundary": "one source file plus new isolated adapter module; snapshot before change",
+            "dynamic_test_required_before_live_integration": True,
+        })
+    assert all((not row["safely_patchable_with_current_static_evidence"]) or (row["source_sha256"] and row["locator"].get("start_line")) for row in candidates)
+    return {
+        "schema": f"{SCHEMA_PREFIX}.patch_candidates.v1",
+        "candidates": candidates,
+        "new_module_candidate": {
+            "path": "Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\self_knowledge_chat_adapter_v1.py",
+            "classification": "new_isolated_file_candidate",
+            "existing_source_modified": False,
+        },
+        "live_patch_performed": False,
+    }
+
+
+def build_test_matrix(intents: list[str]) -> dict[str, Any]:
+    tests = []
+    number = 1
+    for surface in EXPECTED_SURFACES:
+        for intent in intents:
+            tests.append({
+                "test_id": f"SK-{number:03d}",
+                "surface": surface,
+                "intent": intent,
+                "request_class": "recognized",
+                "expected_adapter_status": "answered",
+                "expected_model_call_count": 0,
+                "expected_existing_route_used": False,
+                "expected_provenance": "claim-level provenance retained",
+            })
+            number += 1
+        tests.extend([
+            {
+                "test_id": f"SK-{number:03d}", "surface": surface, "intent": None,
+                "request_class": "ambiguous_self_knowledge", "expected_adapter_status": "clarification_required",
+                "expected_model_call_count": 0, "expected_existing_route_used": False,
+                "expected_provenance": "clarification packet may contain bounded catalog provenance",
+            },
+            {
+                "test_id": f"SK-{number + 1:03d}", "surface": surface, "intent": None,
+                "request_class": "unrecognized_ordinary_chat", "expected_adapter_status": "pass_through",
+                "expected_model_call_count": "unchanged_existing_behavior", "expected_existing_route_used": True,
+                "expected_provenance": "not applicable",
+            },
+            {
+                "test_id": f"SK-{number + 2:03d}", "surface": surface, "intent": "summarize_context",
+                "request_class": "recognized_with_evidence_hash_failure", "expected_adapter_status": "evidence_error",
+                "expected_model_call_count": 0, "expected_existing_route_used": False,
+                "expected_provenance": "error cites failed local evidence identifier without inventing facts",
+            },
+        ])
+        number += 3
+    return {
+        "schema": f"{SCHEMA_PREFIX}.integration_test_matrix.v1",
+        "test_count": len(tests),
+        "surfaces": list(EXPECTED_SURFACES),
+        "supported_intent_count": len(intents),
+        "tests": tests,
+        "live_tests_executed": False,
+    }
+
+
+def core_build(mission_id: str, inputs: dict[str, Any], project_root: Path) -> tuple[dict[str, bytes], dict[str, Any]]:
+    manifest = build_source_manifest(inputs)
+    source_analyses = []
+    source_read_count = 0
+    peak_source_bytes = 0
+    syntax_errors = []
+    for node in manifest["sources"]:
+        analysis = analyze_one_source(project_root, node)
+        source_read_count += 1
+        peak_source_bytes = max(peak_source_bytes, analysis["source_size_bytes"])
+        if analysis["syntax_error"]:
+            syntax_errors.append({"relative_path": analysis["relative_path"], "error": analysis["syntax_error"]})
+        source_analyses.append(analysis)
+    seams = identify_seams(source_analyses)
+    route_map = build_route_map(source_analyses, seams)
+    boundaries = build_model_boundaries(source_analyses, seams)
+    adapter = build_adapter_contract(inputs["intents"])
+    patches = build_patch_candidates(source_analyses, route_map)
+    tests = build_test_matrix(inputs["intents"])
+
+    seam_records = []
+    for surface in EXPECTED_SURFACES:
+        for role in ROLE_SPECS:
+            rows = seams[surface][role]
+            seam_records.append({
+                "surface": surface,
+                "role": role,
+                "status": "static_candidates_identified" if rows else "unresolved_static_seam",
+                "candidates": rows,
+                "proposed_adapter_call_location": (
+                    "after normalized user text and before provider/model dispatch"
+                    if role in {"user_message_ingress", "command_or_intent_normalization", "agent_request_routing"}
+                    else None
+                ),
+                "ordinary_chat_preservation_rule": "unrecognized requests must use the existing route unchanged",
+                "failure_behavior": "recognized requests with failed evidence verification return evidence_error without a model call",
+            })
+    seams_output = {
+        "schema": f"{SCHEMA_PREFIX}.self_knowledge_integration_seams.v1",
+        "mission_id": mission_id,
+        "seams": seam_records,
+        "confirmed_static_facts_distinguished_from_candidates": True,
+        "dynamic_behavior_proven": False,
+        "live_patch_performed": False,
+    }
+
+    coverage = {
+        "schema": f"{SCHEMA_PREFIX}.integration_preflight_coverage.v1",
+        "mission_id": mission_id,
+        "verified_input_missions": [EXPECTED_RECEIPTS[key]["mission_id"] for key in ("v1a3e", "v1a3d", "web", "workshop", "desktop")],
+        "verified_receipt_count": 5,
+        "deduplicated_first_party_source_count": manifest["unique_source_count"],
+        "closure_source_counts": manifest["closure_counts"],
+        "source_files_read_count": source_read_count,
+        "maximum_reads_per_source_file": 1,
+        "peak_source_bytes_in_memory": peak_source_bytes,
+        "source_buffer_ceiling_bytes": SOURCE_BUFFER_CEILING,
+        "syntax_error_count": len(syntax_errors),
+        "syntax_errors": syntax_errors,
+        "surfaces_represented": list(EXPECTED_SURFACES),
+        "supported_intent_count": len(inputs["intents"]),
+        "recognized_request_model_bypass_specified": True,
+        "ambiguous_request_clarification_specified": True,
+        "unrecognized_request_pass_through_specified": True,
+        "source_execution_count": 0,
+        "imported_foxai_module_count": 0,
+        "interpreter_child_processes": 0,
+        "shell_child_processes": 0,
+        "network_used": False,
+        "packages_installed": False,
+        "models_loaded": False,
+        "existing_foxai_source_modified": False,
+        "rollback_t7_k_accessed": False,
+    }
+
+    values = {
+        CORE_OUTPUTS[0]: seams_output,
+        CORE_OUTPUTS[1]: route_map,
+        CORE_OUTPUTS[2]: boundaries,
+        CORE_OUTPUTS[3]: adapter,
+        CORE_OUTPUTS[4]: patches,
+        CORE_OUTPUTS[5]: tests,
+        CORE_OUTPUTS[6]: coverage,
+    }
+    core_bytes = {name: canonical_json_bytes(values[name]) for name in CORE_OUTPUTS}
+    total_before_receipt = sum(len(data) for data in core_bytes.values())
+    receipt = {
+        "schema": f"{SCHEMA_PREFIX}.integration_preflight_receipt.v1",
+        "mission_id": mission_id,
+        "result": "live_chat_self_knowledge_integration_seam_preflight_complete",
+        "core_outputs_before_receipt": [
+            {"name": name, "size_bytes": len(core_bytes[name]), "sha256": sha256_bytes(core_bytes[name])}
+            for name in CORE_OUTPUTS
+        ],
+        "exact_output_count_including_receipt": len(EXPECTED_OUTPUTS),
+        "verified_receipt_count": 5,
+        "deduplicated_first_party_source_count": manifest["unique_source_count"],
+        "source_files_read_count": source_read_count,
+        "maximum_reads_per_source_file": 1,
+        "peak_source_bytes_in_memory": peak_source_bytes,
+        "source_buffer_ceiling_bytes": SOURCE_BUFFER_CEILING,
+        "supported_intent_count": len(inputs["intents"]),
+        "surfaces_represented": list(EXPECTED_SURFACES),
+        "recognized_request_model_bypass_specified": True,
+        "ambiguous_request_clarification_specified": True,
+        "unrecognized_request_pass_through_specified": True,
+        "patchable_candidates_have_exact_hash_and_locator": all(
+            (not row["safely_patchable_with_current_static_evidence"])
+            or (row["source_sha256"] and row["locator"].get("start_line"))
+            for row in patches["candidates"]
+        ),
+        "internal_deterministic_rebuild_match": True,
+        "source_execution_count": 0,
+        "imported_foxai_module_count": 0,
+        "interpreter_child_processes": 0,
+        "shell_child_processes": 0,
+        "network_used": False,
+        "packages_installed": False,
+        "models_loaded": False,
+        "existing_foxai_source_modified": False,
+        "live_patch_performed": False,
+        "rollback_t7_k_accessed": False,
+    }
+    receipt_bytes = canonical_json_bytes(receipt)
+    outputs = {**core_bytes, EXPECTED_OUTPUTS[-1]: receipt_bytes}
+    total = sum(len(data) for data in outputs.values())
+    assert total < OUTPUT_CEILING, total
+    metrics = {
+        "output_count": len(outputs),
+        "total_output_bytes": total,
+        "deduplicated_source_count": manifest["unique_source_count"],
+        "source_files_read_count": source_read_count,
+        "peak_source_bytes": peak_source_bytes,
+        "supported_intent_count": len(inputs["intents"]),
+        "integration_test_count": tests["test_count"],
+        "patch_candidate_count": len(patches["candidates"]),
+    }
+    return outputs, metrics
+
+
+def write_build(args: argparse.Namespace) -> dict[str, Any]:
+    inputs = verify_all_inputs(args)
+    project_root = Path(args.project_root)
+    outputs_a, metrics_a = core_build(args.mission_id, inputs, project_root)
+    outputs_b = {name: canonical_json_bytes(json.loads(data.decode("utf-8"))) for name, data in outputs_a.items()}
+    assert outputs_a == outputs_b
+    output_dir = Path(args.output_dir)
+    output_dir.mkdir(parents=True, exist_ok=False)
+    for name in EXPECTED_OUTPUTS:
+        (output_dir / name).write_bytes(outputs_a[name])
+    return {
+        "status": "built",
+        "output_dir": win_path(str(output_dir)),
+        "internal_deterministic_rebuild_match": True,
+        **metrics_a,
+    }
+
+
+def validate_output(index_dir: Path) -> dict[str, Any]:
+    actual_names = sorted(path.name for path in index_dir.iterdir() if path.is_file())
+    assert actual_names == sorted(EXPECTED_OUTPUTS), actual_names
+    receipt = read_json(index_dir / EXPECTED_OUTPUTS[-1])
+    assert receipt["exact_output_count_including_receipt"] == 8
+    assert receipt["supported_intent_count"] == EXPECTED_INTENT_COUNT
+    assert set(receipt["surfaces_represented"]) == set(EXPECTED_SURFACES)
+    assert receipt["recognized_request_model_bypass_specified"] is True
+    assert receipt["ambiguous_request_clarification_specified"] is True
+    assert receipt["unrecognized_request_pass_through_specified"] is True
+    assert receipt["patchable_candidates_have_exact_hash_and_locator"] is True
+    assert receipt["internal_deterministic_rebuild_match"] is True
+    assert receipt["maximum_reads_per_source_file"] == 1
+    assert receipt["source_buffer_ceiling_bytes"] == SOURCE_BUFFER_CEILING
+    assert receipt["source_execution_count"] == 0
+    assert receipt["imported_foxai_module_count"] == 0
+    assert receipt["interpreter_child_processes"] == 0
+    assert receipt["shell_child_processes"] == 0
+    assert receipt["network_used"] is False
+    assert receipt["packages_installed"] is False
+    assert receipt["models_loaded"] is False
+    assert receipt["existing_foxai_source_modified"] is False
+    for row in receipt["core_outputs_before_receipt"]:
+        data = (index_dir / row["name"]).read_bytes()
+        assert len(data) == row["size_bytes"]
+        assert sha256_bytes(data) == row["sha256"]
+    tests = read_json(index_dir / "INTEGRATION_TEST_MATRIX.json")
+    assert tests["supported_intent_count"] == EXPECTED_INTENT_COUNT
+    assert set(tests["surfaces"]) == set(EXPECTED_SURFACES)
+    assert tests["test_count"] >= 28
+    patches = read_json(index_dir / "PATCH_CANDIDATES.json")
+    for row in patches["candidates"]:
+        if row["safely_patchable_with_current_static_evidence"]:
+            assert row["source_sha256"]
+            assert row["locator"]["start_line"] > 0
+            assert row["locator"]["statement_locator"]["statement_sha256"]
+    total = sum(path.stat().st_size for path in index_dir.iterdir() if path.is_file())
+    assert total < OUTPUT_CEILING
+    return {
+        "status": "validated",
+        "output_count": len(actual_names),
+        "total_output_bytes": total,
+        "deduplicated_first_party_source_count": receipt["deduplicated_first_party_source_count"],
+        "integration_test_count": tests["test_count"],
+    }
+
+
+def topology_summary(args: argparse.Namespace) -> dict[str, Any]:
+    inputs = verify_all_inputs(args)
+    manifest = build_source_manifest(inputs)
+    return {
+        "status": "verified",
+        "verified_receipt_count": 5,
+        "supported_intent_count": len(inputs["intents"]),
+        "deduplicated_first_party_source_count": manifest["unique_source_count"],
+        "closure_source_counts": manifest["closure_counts"],
+        "required_sources_present": ["core\\foxai_web.py", "foxai.py", "ui\\main_window.py", "core\\chat_agent.py"],
+    }
+
+
+def self_test() -> dict[str, Any]:
+    web_source = '''\nclass Handler:\n    def do_POST(self):\n        message = "message"\n        if self.path == "/api/chat/send":\n            return post(CHAT_API, {"messages": [message]})\n\ndef iter_chat_stream(payload):\n    yield payload\n'''
+    desktop_source = '''\nclass FoxAIApp:\n    def send_message(self):\n        text = self.input_box.get().strip()\n        mission = direct(text)\n        return self.specialists[mission["agent"]].handle(mission["payload"])\n    def get_ai_response(self):\n        response = self.chat_resilience.post_json(self.api_url, {"messages": self.messages})\n        answer = response.json()["choices"][0]["message"]["content"]\n        self.add_chat("AGENT FOX", answer)\n    def add_chat(self, role, text):\n        self.chat_box.insert("end", text)\n'''
+    analyses = []
+    for rel, text in (("core\\foxai_web.py", web_source), ("ui\\main_window.py", desktop_source)):
+        tree = ast.parse(text)
+        lines = text.splitlines()
+        collector = FunctionCollector(rel, lines)
+        collector.visit(tree)
+        analyses.append({
+            "relative_path": rel,
+            "source_path": f"Z:\\FOXAI\\{rel}",
+            "source_sha256": sha256_bytes(text.encode()),
+            "source_size_bytes": len(text.encode()),
+            "closure_memberships": ["fixture"],
+            "functions": collector.functions,
+            "module_calls": [],
+            "module_strings": [],
+            "syntax_error": None,
+        })
+    seams = identify_seams(analyses)
+    assert seams["webui"]["provider_or_model_dispatch"]
+    assert seams["desktop"]["user_message_ingress"]
+    assert seams["desktop"]["provider_or_model_dispatch"]
+    intents = [f"intent_{index}" for index in range(11)]
+    contract = build_adapter_contract(intents)
+    assert contract["supported_intent_count"] == 11
+    tests = build_test_matrix(intents)
+    assert tests["test_count"] == 28
+    assert all(row["expected_model_call_count"] == 0 for row in tests["tests"] if row["request_class"].startswith("recognized"))
+    return {
+        "status": "self_test_ok",
+        "role_count": len(ROLE_SPECS),
+        "supported_intent_count": len(intents),
+        "integration_test_count": tests["test_count"],
+        "recognized_model_bypass": True,
+        "ambiguous_clarification": True,
+        "unrecognized_pass_through": True,
+    }
+
+
+def add_input_args(parser: argparse.ArgumentParser) -> None:
+    parser.add_argument("--v1a3e-dir", required=True)
+    parser.add_argument("--v1a3d-dir", required=True)
+    parser.add_argument("--web-closure-dir", required=True)
+    parser.add_argument("--workshop-main-dir", required=True)
+    parser.add_argument("--desktop-gui-dir", required=True)
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser()
+    sub = parser.add_subparsers(dest="command", required=True)
+    sub.add_parser("self-test")
+    verify = sub.add_parser("verify-inputs")
+    add_input_args(verify)
+    topology = sub.add_parser("verify-topology")
+    add_input_args(topology)
+    build = sub.add_parser("build")
+    add_input_args(build)
+    build.add_argument("--project-root", required=True)
+    build.add_argument("--output-dir", required=True)
+    build.add_argument("--mission-id", required=True)
+    validate = sub.add_parser("validate-output")
+    validate.add_argument("--index-dir", required=True)
+    args = parser.parse_args()
+
+    if args.command == "self-test":
+        result = self_test()
+    elif args.command == "verify-inputs":
+        inputs = verify_all_inputs(args)
+        result = {
+            "status": "verified",
+            "verified_receipt_count": 5,
+            "supported_intent_count": len(inputs["intents"]),
+            "source_missions": [EXPECTED_RECEIPTS[key]["mission_id"] for key in ("v1a3e", "v1a3d", "web", "workshop", "desktop")],
+        }
+    elif args.command == "verify-topology":
+        result = topology_summary(args)
+    elif args.command == "build":
+        result = write_build(args)
+    elif args.command == "validate-output":
+        result = validate_output(Path(args.index_dir))
+    else:
+        raise AssertionError(args.command)
+    print(json.dumps(result, sort_keys=True))
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

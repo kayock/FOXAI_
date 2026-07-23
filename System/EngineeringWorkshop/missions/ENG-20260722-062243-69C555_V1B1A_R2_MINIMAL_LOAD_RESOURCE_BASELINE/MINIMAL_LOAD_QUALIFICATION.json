@@ -1,0 +1,55 @@
+{
+  "allowed_process_pids": [
+    13124,
+    15440,
+    18788,
+    25444
+  ],
+  "automatic_process_changes_performed": false,
+  "blocker_count": 0,
+  "blockers": [],
+  "collected_at": "2026-07-22T06:41:46.756975Z",
+  "collection_method": "bounded process and known-listener evaluation",
+  "comparison_evidence_written_only_after_qualification": true,
+  "criteria": {
+    "comfyui_required_absent": true,
+    "engineering_workshop_allowed": true,
+    "foxai_desktop_required_absent": true,
+    "llama_server_required_absent": true,
+    "other_foxai_workload_required_absent": true,
+    "webui_command_surface_allowed": true
+  },
+  "current_collector_pid": 18788,
+  "known_port_evidence": {
+    "8080": [],
+    "8188": [],
+    "8765": [
+      {
+        "availability_status": "available",
+        "collected_at": "2026-07-22T06:41:46.756975Z",
+        "collection_method": "Get-NetTCPConnection local listener enumeration",
+        "listener_id": "LISTENER-67220AC97905BF85",
+        "local_address": "127.0.0.1",
+        "local_port": 8765,
+        "loopback_only": true,
+        "owning_pid": 25444,
+        "owning_process_foxai_workspace": true,
+        "owning_process_name": "python.exe",
+        "protocol": "TCP",
+        "remote_connection_attempted": false
+      }
+    ]
+  },
+  "mission_id": "ENG-20260722-062243-69C555",
+  "qualification_id": "QUALIFICATION-764E663D026F30A5",
+  "required_absence_confirmed": {
+    "comfyui": true,
+    "foxai_desktop": true,
+    "llama_server": true
+  },
+  "schema": "foxai.agent_fox.technical_core.v1b1a.minimal_load_qualification.v1",
+  "status": "qualified_minimal_load",
+  "webui_listener_pids": [
+    25444
+  ]
+}

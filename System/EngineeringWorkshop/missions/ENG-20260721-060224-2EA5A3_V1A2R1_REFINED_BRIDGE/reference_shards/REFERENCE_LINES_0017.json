@@ -1,0 +1,7207 @@
+{
+  "record_count": 1200,
+  "records": [
+    {
+      "language": "python",
+      "line": 4951,
+      "path": "core\\foxai_web.py",
+      "text": "let extensions=items.filter(x=>String(x.kind||'').toLowerCase()==='extension').length;"
+    },
+    {
+      "language": "python",
+      "line": 4952,
+      "path": "core\\foxai_web.py",
+      "text": "let systems=items.filter(x=>String(x.kind||'').toLowerCase()==='system').length;"
+    },
+    {
+      "language": "python",
+      "line": 4953,
+      "path": "core\\foxai_web.py",
+      "text": "let hint=problems?`Needs attention: ${problems} manifest problem(s). Use Validate, Suggest Fix, then Apply Suggested Fix if the suggestion looks right.`:'All discovered module manifests look valid.';"
+    },
+    {
+      "language": "python",
+      "line": 4954,
+      "path": "core\\foxai_web.py",
+      "text": "let hintClass=problems?'modhint modwarn':'modhint modok';"
+    },
+    {
+      "language": "python",
+      "line": 4955,
+      "path": "core\\foxai_web.py",
+      "text": "q('extDashboard').innerHTML=`<div class=moddash>"
+    },
+    {
+      "language": "python",
+      "line": 4956,
+      "path": "core\\foxai_web.py",
+      "text": "<div class=modbox><div class=label>Manifest Records</div><div class=value>${total}</div></div>"
+    },
+    {
+      "language": "python",
+      "line": 4957,
+      "path": "core\\foxai_web.py",
+      "text": "<div class=modbox><div class=label>Manifest Enabled</div><div class=value>${enabled}</div></div>"
+    },
+    {
+      "language": "python",
+      "line": 4958,
+      "path": "core\\foxai_web.py",
+      "text": "<div class=modbox><div class=label>Manifest Disabled</div><div class=value>${disabled}</div></div>"
+    },
+    {
+      "language": "python",
+      "line": 4959,
+      "path": "core\\foxai_web.py",
+      "text": "<div class=modbox><div class=label>Manifest Valid</div><div class=value>${valid}</div></div>"
+    },
+    {
+      "language": "python",
+      "line": 4960,
+      "path": "core\\foxai_web.py",
+      "text": "<div class=modbox><div class=label>Problems</div><div class=value>${problems}</div></div>"
+    },
+    {
+      "language": "python",
+      "line": 4961,
+      "path": "core\\foxai_web.py",
+      "text": "<div class=modbox><div class=label>Departments</div><div class=value>${departments}</div></div>"
+    },
+    {
+      "language": "python",
+      "line": 4962,
+      "path": "core\\foxai_web.py",
+      "text": "<div class=modbox><div class=label>Extensions</div><div class=value>${extensions}</div></div>"
+    },
+    {
+      "language": "python",
+      "line": 4963,
+      "path": "core\\foxai_web.py",
+      "text": "<div class=modbox><div class=label>System</div><div class=value>${systems}</div></div>"
+    },
+    {
+      "language": "python",
+      "line": 4964,
+      "path": "core\\foxai_web.py",
+      "text": "</div><div class=\"${hintClass}\"><div class=time>Module Readiness</div>${esc(hint)}${window.extLastReport?`<br><br>Last report: ${esc(window.extLastReport)}`:''}</div>`;"
+    },
+    {
+      "language": "python",
+      "line": 4965,
+      "path": "core\\foxai_web.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 4967,
+      "path": "core\\foxai_web.py",
+      "text": "async function applyManifestFix(manifest,suggested){"
+    },
+    {
+      "language": "python",
+      "line": 4968,
+      "path": "core\\foxai_web.py",
+      "text": "let ok=confirm('Apply this manifest repair now? A backup will be created first.');"
+    },
+    {
+      "language": "python",
+      "line": 4969,
+      "path": "core\\foxai_web.py",
+      "text": "if(!ok)return;"
+    },
+    {
+      "language": "python",
+      "line": 4970,
+      "path": "core\\foxai_web.py",
+      "text": "q('extRepair').textContent='Applying manifest repair safely...';"
+    },
+    {
+      "language": "python",
+      "line": 4971,
+      "path": "core\\foxai_web.py",
+      "text": "let d=await api('/api/extensions/apply_repair',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({manifest,suggested})});"
+    },
+    {
+      "language": "python",
+      "line": 4972,
+      "path": "core\\foxai_web.py",
+      "text": "if(d?.ok){"
+    },
+    {
+      "language": "python",
+      "line": 4973,
+      "path": "core\\foxai_web.py",
+      "text": "q('extRepair').innerHTML=`<b>${esc(d.message)}</b>"
+    },
+    {
+      "language": "python",
+      "line": 4974,
+      "path": "core\\foxai_web.py",
+      "text": "<div class=repairbox>Manifest: ${esc(d.manifest)}"
+    },
+    {
+      "language": "python",
+      "line": 4975,
+      "path": "core\\foxai_web.py",
+      "text": "Backup: ${esc(d.backup)}"
+    },
+    {
+      "language": "python",
+      "line": 4977,
+      "path": "core\\foxai_web.py",
+      "text": "Before:"
+    },
+    {
+      "language": "python",
+      "line": 4978,
+      "path": "core\\foxai_web.py",
+      "text": "Status: ${esc(d.before.status)}"
+    },
+    {
+      "language": "python",
+      "line": 4979,
+      "path": "core\\foxai_web.py",
+      "text": "Version: ${esc(d.before.version)}"
+    },
+    {
+      "language": "python",
+      "line": 4980,
+      "path": "core\\foxai_web.py",
+      "text": "Missing: ${esc((d.before.missing||[]).join(', ')||'None')}"
+    },
+    {
+      "language": "python",
+      "line": 4982,
+      "path": "core\\foxai_web.py",
+      "text": "After:"
+    },
+    {
+      "language": "python",
+      "line": 4983,
+      "path": "core\\foxai_web.py",
+      "text": "Status: ${esc(d.after.status)}"
+    },
+    {
+      "language": "python",
+      "line": 4984,
+      "path": "core\\foxai_web.py",
+      "text": "Version: ${esc(d.after.version)}"
+    },
+    {
+      "language": "python",
+      "line": 4985,
+      "path": "core\\foxai_web.py",
+      "text": "Missing: ${esc((d.after.missing||[]).join(', ')||'None')}"
+    },
+    {
+      "language": "python",
+      "line": 4987,
+      "path": "core\\foxai_web.py",
+      "text": "Validation:"
+    },
+    {
+      "language": "python",
+      "line": 4988,
+      "path": "core\\foxai_web.py",
+      "text": "Checked: ${esc(d.validation.checked)}"
+    },
+    {
+      "language": "python",
+      "line": 4989,
+      "path": "core\\foxai_web.py",
+      "text": "Valid: ${esc(d.validation.valid)}"
+    },
+    {
+      "language": "python",
+      "line": 4990,
+      "path": "core\\foxai_web.py",
+      "text": "Problems: ${esc((d.validation.problems||[]).length)}</div>"
+    },
+    {
+      "language": "python",
+      "line": 4991,
+      "path": "core\\foxai_web.py",
+      "text": "<button onclick=\"loadExtensions()\">Refresh Modules</button>"
+    },
+    {
+      "language": "python",
+      "line": 4992,
+      "path": "core\\foxai_web.py",
+      "text": "<button onclick=\"validateExtensions()\">Validate Again</button>"
+    },
+    {
+      "language": "python",
+      "line": 4993,
+      "path": "core\\foxai_web.py",
+      "text": "<button onclick=\"exportExtensionReport()\">Export New Report</button>`;"
+    },
+    {
+      "language": "python",
+      "line": 4994,
+      "path": "core\\foxai_web.py",
+      "text": "toast('Manifest repair applied safely.');"
+    },
+    {
+      "language": "python",
+      "line": 4995,
+      "path": "core\\foxai_web.py",
+      "text": "loadExtensions();"
+    },
+    {
+      "language": "python",
+      "line": 4996,
+      "path": "core\\foxai_web.py",
+      "text": "}else{"
+    },
+    {
+      "language": "python",
+      "line": 4997,
+      "path": "core\\foxai_web.py",
+      "text": "q('extRepair').textContent=d?.message||'Manifest repair failed.';"
+    },
+    {
+      "language": "python",
+      "line": 4998,
+      "path": "core\\foxai_web.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 4999,
+      "path": "core\\foxai_web.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 5001,
+      "path": "core\\foxai_web.py",
+      "text": "function copyManifestSuggestion(txt){"
+    },
+    {
+      "language": "python",
+      "line": 5002,
+      "path": "core\\foxai_web.py",
+      "text": "navigator.clipboard.writeText(txt);"
+    },
+    {
+      "language": "python",
+      "line": 5003,
+      "path": "core\\foxai_web.py",
+      "text": "toast('Suggested manifest copied.');"
+    },
+    {
+      "language": "python",
+      "line": 5004,
+      "path": "core\\foxai_web.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 5005,
+      "path": "core\\foxai_web.py",
+      "text": "function sendManifestSuggestionToMission(manifest,suggested){"
+    },
+    {
+      "language": "python",
+      "line": 5006,
+      "path": "core\\foxai_web.py",
+      "text": "go('mission');"
+    },
+    {
+      "language": "python",
+      "line": 5007,
+      "path": "core\\foxai_web.py",
+      "text": "q('input').value=`Please review this Kayock manifest repair suggestion before I apply it manually."
+    },
+    {
+      "language": "python",
+      "line": 5009,
+      "path": "core\\foxai_web.py",
+      "text": "Manifest:"
+    },
+    {
+      "language": "python",
+      "line": 5010,
+      "path": "core\\foxai_web.py",
+      "text": "${manifest}"
+    },
+    {
+      "language": "python",
+      "line": 5012,
+      "path": "core\\foxai_web.py",
+      "text": "Suggested manifest:"
+    },
+    {
+      "language": "python",
+      "line": 5013,
+      "path": "core\\foxai_web.py",
+      "text": "${suggested}"
+    },
+    {
+      "language": "python",
+      "line": 5015,
+      "path": "core\\foxai_web.py",
+      "text": "Check if this is safe and whether any fields should be changed.`;"
+    },
+    {
+      "language": "python",
+      "line": 5016,
+      "path": "core\\foxai_web.py",
+      "text": "toast('Manifest repair suggestion sent to Mission Console input.');"
+    },
+    {
+      "language": "python",
+      "line": 5017,
+      "path": "core\\foxai_web.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 5020,
+      "path": "core\\foxai_web.py",
+      "text": "let lastScanReport=null;"
+    },
+    {
+      "language": "python",
+      "line": 5043,
+      "path": "core\\foxai_web.py",
+      "text": "let lastRecoveryDashboard=null;"
+    },
+    {
+      "language": "python",
+      "line": 5044,
+      "path": "core\\foxai_web.py",
+      "text": "async function loadRecoveryDashboard(){"
+    },
+    {
+      "language": "python",
+      "line": 5045,
+      "path": "core\\foxai_web.py",
+      "text": "if(!q('recoveryDashCard'))return;"
+    },
+    {
+      "language": "python",
+      "line": 5046,
+      "path": "core\\foxai_web.py",
+      "text": "q('recoveryDashCard').textContent='Loading recovery health...';"
+    },
+    {
+      "language": "python",
+      "line": 5047,
+      "path": "core\\foxai_web.py",
+      "text": "let d=await api('/api/backups/recovery_dashboard',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({limit:1000})});"
+    },
+    {
+      "language": "python",
+      "line": 5048,
+      "path": "core\\foxai_web.py",
+      "text": "if(!d?.ok){"
+    },
+    {
+      "language": "python",
+      "line": 5049,
+      "path": "core\\foxai_web.py",
+      "text": "q('recoveryDashCard').textContent=d?.message||'Recovery dashboard unavailable.';"
+    },
+    {
+      "language": "python",
+      "line": 5050,
+      "path": "core\\foxai_web.py",
+      "text": "return;"
+    },
+    {
+      "language": "python",
+      "line": 5051,
+      "path": "core\\foxai_web.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 5052,
+      "path": "core\\foxai_web.py",
+      "text": "lastRecoveryDashboard=d;"
+    },
+    {
+      "language": "python",
+      "line": 5053,
+      "path": "core\\foxai_web.py",
+      "text": "let s=d.summary||{};"
+    },
+    {
+      "language": "python",
+      "line": 5054,
+      "path": "core\\foxai_web.py",
+      "text": "let cls=d.healthy?'healthy':'warn';"
+    },
+    {
+      "language": "python",
+      "line": 5055,
+      "path": "core\\foxai_web.py",
+      "text": "q('recoveryDashCard').innerHTML=`<div class=\"recoveryHealthBadge ${cls}\">Recovery Foundation: ${esc(d.health_label||'UNKNOWN')}</div>"
+    },
+    {
+      "language": "python",
+      "line": 5056,
+      "path": "core\\foxai_web.py",
+      "text": "<div>Current chain: <b>${esc(d.current_chain||'unknown')}</b></div>"
+    },
+    {
+      "language": "python",
+      "line": 5057,
+      "path": "core\\foxai_web.py",
+      "text": "<div class=recoveryMiniGrid>"
+    },
+    {
+      "language": "python",
+      "line": 5058,
+      "path": "core\\foxai_web.py",
+      "text": "<div class=recoveryMini><div class=label>Restore Actions</div><div class=value>${s.restore_actions||0}</div></div>"
+    },
+    {
+      "language": "python",
+      "line": 5059,
+      "path": "core\\foxai_web.py",
+      "text": "<div class=recoveryMini><div class=label>Rollback Actions</div><div class=value>${s.rollback_actions||0}</div></div>"
+    },
+    {
+      "language": "python",
+      "line": 5060,
+      "path": "core\\foxai_web.py",
+      "text": "<div class=recoveryMini><div class=label>Attention</div><div class=value>${s.attention_events||0}</div></div>"
+    },
+    {
+      "language": "python",
+      "line": 5061,
+      "path": "core\\foxai_web.py",
+      "text": "<div class=recoveryMini><div class=label>Errors</div><div class=value>${s.errors||0}</div></div>"
+    },
+    {
+      "language": "python",
+      "line": 5062,
+      "path": "core\\foxai_web.py",
+      "text": "<div class=recoveryMini><div class=label>Superseded</div><div class=value>${s.superseded_events||0}</div></div>"
+    },
+    {
+      "language": "python",
+      "line": 5063,
+      "path": "core\\foxai_web.py",
+      "text": "<div class=recoveryMini><div class=label>Events</div><div class=value>${s.events||0}</div></div>"
+    },
+    {
+      "language": "python",
+      "line": 5064,
+      "path": "core\\foxai_web.py",
+      "text": "</div>"
+    },
+    {
+      "language": "python",
+      "line": 5065,
+      "path": "core\\foxai_web.py",
+      "text": "<div class=recoveryPath>Latest: ${esc(s.latest_event||'none')} ${s.latest_created?('• '+esc(s.latest_created)) : ''}</div>"
+    },
+    {
+      "language": "python",
+      "line": 5066,
+      "path": "core\\foxai_web.py",
+      "text": "<div class=recoveryPath>Restore audit OK: ${s.restore_audit_ok} • Rollback audit OK: ${s.rollback_audit_ok}</div>`;"
+    },
+    {
+      "language": "python",
+      "line": 5067,
+      "path": "core\\foxai_web.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 5068,
+      "path": "core\\foxai_web.py",
+      "text": "function sendRecoveryDashboardToMission(){"
+    },
+    {
+      "language": "python",
+      "line": 5069,
+      "path": "core\\foxai_web.py",
+      "text": "if(!lastRecoveryDashboard){"
+    },
+    {
+      "language": "python",
+      "line": 5070,
+      "path": "core\\foxai_web.py",
+      "text": "toast('Load recovery health first.');"
+    },
+    {
+      "language": "python",
+      "line": 5071,
+      "path": "core\\foxai_web.py",
+      "text": "return;"
+    },
+    {
+      "language": "python",
+      "line": 5072,
+      "path": "core\\foxai_web.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 5073,
+      "path": "core\\foxai_web.py",
+      "text": "let s=lastRecoveryDashboard.summary||{};"
+    },
+    {
+      "language": "python",
+      "line": 5074,
+      "path": "core\\foxai_web.py",
+      "text": "go('mission');"
+    },
+    {
+      "language": "python",
+      "line": 5075,
+      "path": "core\\foxai_web.py",
+      "text": "q('input').value=`Please review this Kayock Recovery Foundation dashboard summary."
+    },
+    {
+      "language": "python",
+      "line": 5077,
+      "path": "core\\foxai_web.py",
+      "text": "Health:"
+    },
+    {
+      "language": "python",
+      "line": 5078,
+      "path": "core\\foxai_web.py",
+      "text": "${lastRecoveryDashboard.health_label}"
+    },
+    {
+      "language": "python",
+      "line": 5080,
+      "path": "core\\foxai_web.py",
+      "text": "Current chain:"
+    },
+    {
+      "language": "python",
+      "line": 5081,
+      "path": "core\\foxai_web.py",
+      "text": "${lastRecoveryDashboard.current_chain}"
+    },
+    {
+      "language": "python",
+      "line": 5083,
+      "path": "core\\foxai_web.py",
+      "text": "Summary:"
+    },
+    {
+      "language": "python",
+      "line": 5084,
+      "path": "core\\foxai_web.py",
+      "text": "Events: ${s.events}"
+    },
+    {
+      "language": "python",
+      "line": 5085,
+      "path": "core\\foxai_web.py",
+      "text": "Targets/chains: ${s.targets}"
+    },
+    {
+      "language": "python",
+      "line": 5086,
+      "path": "core\\foxai_web.py",
+      "text": "Restore actions: ${s.restore_actions}"
+    },
+    {
+      "language": "python",
+      "line": 5087,
+      "path": "core\\foxai_web.py",
+      "text": "Rollback actions: ${s.rollback_actions}"
+    },
+    {
+      "language": "python",
+      "line": 5088,
+      "path": "core\\foxai_web.py",
+      "text": "Backup/staging events: ${s.backup_events}"
+    },
+    {
+      "language": "python",
+      "line": 5089,
+      "path": "core\\foxai_web.py",
+      "text": "Evidence reports: ${s.evidence_reports}"
+    },
+    {
+      "language": "python",
+      "line": 5090,
+      "path": "core\\foxai_web.py",
+      "text": "Intact events: ${s.intact_events}"
+    },
+    {
+      "language": "python",
+      "line": 5091,
+      "path": "core\\foxai_web.py",
+      "text": "Superseded-by-rollback events: ${s.superseded_events}"
+    },
+    {
+      "language": "python",
+      "line": 5092,
+      "path": "core\\foxai_web.py",
+      "text": "Attention events: ${s.attention_events}"
+    },
+    {
+      "language": "python",
+      "line": 5093,
+      "path": "core\\foxai_web.py",
+      "text": "Errors: ${s.errors}"
+    },
+    {
+      "language": "python",
+      "line": 5094,
+      "path": "core\\foxai_web.py",
+      "text": "Latest event: ${s.latest_event}"
+    },
+    {
+      "language": "python",
+      "line": 5095,
+      "path": "core\\foxai_web.py",
+      "text": "Latest created: ${s.latest_created}"
+    },
+    {
+      "language": "python",
+      "line": 5096,
+      "path": "core\\foxai_web.py",
+      "text": "Restore audit OK: ${s.restore_audit_ok}"
+    },
+    {
+      "language": "python",
+      "line": 5097,
+      "path": "core\\foxai_web.py",
+      "text": "Rollback audit OK: ${s.rollback_audit_ok}"
+    },
+    {
+      "language": "python",
+      "line": 5099,
+      "path": "core\\foxai_web.py",
+      "text": "Chains:"
+    },
+    {
+      "language": "python",
+      "line": 5100,
+      "path": "core\\foxai_web.py",
+      "text": "${(lastRecoveryDashboard.chains||[]).map(c=>`${c.target}"
+    },
+    {
+      "language": "python",
+      "line": 5101,
+      "path": "core\\foxai_web.py",
+      "text": "Events: ${c.event_count}"
+    },
+    {
+      "language": "python",
+      "line": 5102,
+      "path": "core\\foxai_web.py",
+      "text": "Restores: ${c.restore_actions}"
+    },
+    {
+      "language": "python",
+      "line": 5103,
+      "path": "core\\foxai_web.py",
+      "text": "Rollbacks: ${c.rollback_actions}"
+    },
+    {
+      "language": "python",
+      "line": 5104,
+      "path": "core\\foxai_web.py",
+      "text": "Backups: ${c.backup_events}"
+    },
+    {
+      "language": "python",
+      "line": 5105,
+      "path": "core\\foxai_web.py",
+      "text": "Evidence: ${c.evidence_reports}"
+    },
+    {
+      "language": "python",
+      "line": 5106,
+      "path": "core\\foxai_web.py",
+      "text": "Intact: ${c.intact_events}"
+    },
+    {
+      "language": "python",
+      "line": 5107,
+      "path": "core\\foxai_web.py",
+      "text": "Superseded: ${c.superseded_events||0}"
+    },
+    {
+      "language": "python",
+      "line": 5108,
+      "path": "core\\foxai_web.py",
+      "text": "Attention: ${c.attention_events}"
+    },
+    {
+      "language": "python",
+      "line": 5109,
+      "path": "core\\foxai_web.py",
+      "text": "Latest: ${c.latest_created}`).join('\\n\\n')}"
+    },
+    {
+      "language": "python",
+      "line": 5111,
+      "path": "core\\foxai_web.py",
+      "text": "Safety:"
+    },
+    {
+      "language": "python",
+      "line": 5112,
+      "path": "core\\foxai_web.py",
+      "text": "Read-only dashboard."
+    },
+    {
+      "language": "python",
+      "line": 5113,
+      "path": "core\\foxai_web.py",
+      "text": "No restore."
+    },
+    {
+      "language": "python",
+      "line": 5114,
+      "path": "core\\foxai_web.py",
+      "text": "No rollback."
+    },
+    {
+      "language": "python",
+      "line": 5115,
+      "path": "core\\foxai_web.py",
+      "text": "No overwrite."
+    },
+    {
+      "language": "python",
+      "line": 5116,
+      "path": "core\\foxai_web.py",
+      "text": "No copy-back."
+    },
+    {
+      "language": "python",
+      "line": 5117,
+      "path": "core\\foxai_web.py",
+      "text": "No delete."
+    },
+    {
+      "language": "python",
+      "line": 5118,
+      "path": "core\\foxai_web.py",
+      "text": "No install."
+    },
+    {
+      "language": "python",
+      "line": 5119,
+      "path": "core\\foxai_web.py",
+      "text": "No model cleanup."
+    },
+    {
+      "language": "python",
+      "line": 5121,
+      "path": "core\\foxai_web.py",
+      "text": "Please determine:"
+    },
+    {
+      "language": "python",
+      "line": 5122,
+      "path": "core\\foxai_web.py",
+      "text": "1. Whether Recovery Foundation should be marked healthy"
+    },
+    {
+      "language": "python",
+      "line": 5123,
+      "path": "core\\foxai_web.py",
+      "text": "2. Whether the Command Bridge card is accurate"
+    },
+    {
+      "language": "python",
+      "line": 5124,
+      "path": "core\\foxai_web.py",
+      "text": "3. Whether v10.8.x can be frozen as the Recovery Foundation milestone"
+    },
+    {
+      "language": "python",
+      "line": 5125,
+      "path": "core\\foxai_web.py",
+      "text": "4. Whether the next build should move to a new milestone area.`;"
+    },
+    {
+      "language": "python",
+      "line": 5126,
+      "path": "core\\foxai_web.py",
+      "text": "toast('Recovery dashboard sent to Mission Console.');"
+    },
+    {
+      "language": "python",
+      "line": 5127,
+      "path": "core\\foxai_web.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 5129,
+      "path": "core\\foxai_web.py",
+      "text": "let lastRecoveryTimeline=null;"
+    },
+    {
+      "language": "python",
+      "line": 5130,
+      "path": "core\\foxai_web.py",
+      "text": "function timelineBadge(status){"
+    },
+    {
+      "language": "python",
+      "line": 5131,
+      "path": "core\\foxai_web.py",
+      "text": "status=(status||'other').toLowerCase();"
+    },
+    {
+      "language": "python",
+      "line": 5132,
+      "path": "core\\foxai_web.py",
+      "text": "let cls=(status==='intact'||status==='attention'||status==='evidence'||status==='superseded_by_rollback')?status:'other';"
+    },
+    {
+      "language": "python",
+      "line": 5133,
+      "path": "core\\foxai_web.py",
+      "text": "return `<span class=\"tlbadge ${cls}\">${esc(status.toUpperCase())}</span>`;"
+    },
+    {
+      "language": "python",
+      "line": 5134,
+      "path": "core\\foxai_web.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 5135,
+      "path": "core\\foxai_web.py",
+      "text": "async function loadRecoveryTimeline(doExport=false){"
+    },
+    {
+      "language": "python",
+      "line": 5136,
+      "path": "core\\foxai_web.py",
+      "text": "let query=q('recoveryTimelineFilter').value||'';"
+    },
+    {
+      "language": "python",
+      "line": 5137,
+      "path": "core\\foxai_web.py",
+      "text": "let limit=parseInt(q('recoveryTimelineLimit').value||'1000');"
+    },
+    {
+      "language": "python",
+      "line": 5138,
+      "path": "core\\foxai_web.py",
+      "text": "q('recoveryTimelineStatus').textContent='Loading recovery timeline...';"
+    },
+    {
+      "language": "python",
+      "line": 5139,
+      "path": "core\\foxai_web.py",
+      "text": "let d=await api('/api/backups/recovery_timeline',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({query,limit,export:doExport})});"
+    },
+    {
+      "language": "python",
+      "line": 5140,
+      "path": "core\\foxai_web.py",
+      "text": "if(!d?.ok){"
+    },
+    {
+      "language": "python",
+      "line": 5141,
+      "path": "core\\foxai_web.py",
+      "text": "q('recoveryTimelineStatus').textContent=d?.message||'Could not load recovery timeline.';"
+    },
+    {
+      "language": "python",
+      "line": 5142,
+      "path": "core\\foxai_web.py",
+      "text": "return;"
+    },
+    {
+      "language": "python",
+      "line": 5143,
+      "path": "core\\foxai_web.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 5144,
+      "path": "core\\foxai_web.py",
+      "text": "lastRecoveryTimeline=d;"
+    },
+    {
+      "language": "python",
+      "line": 5145,
+      "path": "core\\foxai_web.py",
+      "text": "let s=d.summary||{};"
+    },
+    {
+      "language": "python",
+      "line": 5146,
+      "path": "core\\foxai_web.py",
+      "text": "q('recoveryTimelineStatus').textContent=`Recovery timeline loaded."
+    },
+    {
+      "language": "python",
+      "line": 5147,
+      "path": "core\\foxai_web.py",
+      "text": "Events: ${s.events||0}"
+    },
+    {
+      "language": "python",
+      "line": 5148,
+      "path": "core\\foxai_web.py",
+      "text": "Targets/chains: ${s.targets||0}"
+    },
+    {
+      "language": "python",
+      "line": 5149,
+      "path": "core\\foxai_web.py",
+      "text": "Restore actions: ${s.restore_actions||0}"
+    },
+    {
+      "language": "python",
+      "line": 5150,
+      "path": "core\\foxai_web.py",
+      "text": "Rollback actions: ${s.rollback_actions||0}"
+    },
+    {
+      "language": "python",
+      "line": 5151,
+      "path": "core\\foxai_web.py",
+      "text": "Backup/staging events: ${s.backup_events||0}"
+    },
+    {
+      "language": "python",
+      "line": 5152,
+      "path": "core\\foxai_web.py",
+      "text": "Evidence reports: ${s.evidence_reports||0}"
+    },
+    {
+      "language": "python",
+      "line": 5153,
+      "path": "core\\foxai_web.py",
+      "text": "Intact events: ${s.intact_events||0}"
+    },
+    {
+      "language": "python",
+      "line": 5154,
+      "path": "core\\foxai_web.py",
+      "text": "Attention events: ${s.attention_events||0}"
+    },
+    {
+      "language": "python",
+      "line": 5155,
+      "path": "core\\foxai_web.py",
+      "text": "Superseded-by-rollback events: ${s.superseded_events||0}"
+    },
+    {
+      "language": "python",
+      "line": 5156,
+      "path": "core\\foxai_web.py",
+      "text": "Errors: ${s.errors||0}"
+    },
+    {
+      "language": "python",
+      "line": 5157,
+      "path": "core\\foxai_web.py",
+      "text": "${d.exported?`Markdown: ${d.exported.markdown}"
+    },
+    {
+      "language": "python",
+      "line": 5158,
+      "path": "core\\foxai_web.py",
+      "text": "JSON: ${d.exported.json}`:''}`;"
+    },
+    {
+      "language": "python",
+      "line": 5159,
+      "path": "core\\foxai_web.py",
+      "text": "q('recoveryTimelineDashboard').innerHTML=`<div class=historygrid>"
+    },
+    {
+      "language": "python",
+      "line": 5160,
+      "path": "core\\foxai_web.py",
+      "text": "<div class=vaultmetric><div class=label>Events</div><div class=value>${s.events||0}</div></div>"
+    },
+    {
+      "language": "python",
+      "line": 5161,
+      "path": "core\\foxai_web.py",
+      "text": "<div class=vaultmetric><div class=label>Chains</div><div class=value>${s.targets||0}</div></div>"
+    },
+    {
+      "language": "python",
+      "line": 5162,
+      "path": "core\\foxai_web.py",
+      "text": "<div class=vaultmetric><div class=label>Restores</div><div class=value>${s.restore_actions||0}</div></div>"
+    },
+    {
+      "language": "python",
+      "line": 5163,
+      "path": "core\\foxai_web.py",
+      "text": "<div class=vaultmetric><div class=label>Rollbacks</div><div class=value>${s.rollback_actions||0}</div></div>"
+    },
+    {
+      "language": "python",
+      "line": 5164,
+      "path": "core\\foxai_web.py",
+      "text": "<div class=vaultmetric><div class=label>Backups</div><div class=value>${s.backup_events||0}</div></div>"
+    },
+    {
+      "language": "python",
+      "line": 5165,
+      "path": "core\\foxai_web.py",
+      "text": "<div class=vaultmetric><div class=label>Evidence</div><div class=value>${s.evidence_reports||0}</div></div>"
+    },
+    {
+      "language": "python",
+      "line": 5166,
+      "path": "core\\foxai_web.py",
+      "text": "<div class=vaultmetric><div class=label>Attention</div><div class=value>${s.attention_events||0}</div></div>"
+    },
+    {
+      "language": "python",
+      "line": 5167,
+      "path": "core\\foxai_web.py",
+      "text": "<div class=vaultmetric><div class=label>Superseded</div><div class=value>${s.superseded_events||0}</div></div>"
+    },
+    {
+      "language": "python",
+      "line": 5168,
+      "path": "core\\foxai_web.py",
+      "text": "<div class=vaultmetric><div class=label>Errors</div><div class=value>${s.errors||0}</div></div>"
+    },
+    {
+      "language": "python",
+      "line": 5169,
+      "path": "core\\foxai_web.py",
+      "text": "</div><div class=status>Latest event: ${esc(s.latest_event||'none')} | ${esc(s.latest_created||'')}</div>`;"
+    },
+    {
+      "language": "python",
+      "line": 5170,
+      "path": "core\\foxai_web.py",
+      "text": "q('recoveryTimelineChains').innerHTML=(d.chains||[]).map(c=>`<div class=\"histrow ${c.attention_events?'info':'ok'}\"><b>${esc(c.target)}</b>"
+    },
+    {
+      "language": "python",
+      "line": 5171,
+      "path": "core\\foxai_web.py",
+      "text": "<div>Events: ${c.event_count} | Restores: ${c.restore_actions} | Rollbacks: ${c.rollback_actions} | Backups: ${c.backup_events} | Evidence: ${c.evidence_reports}</div>"
+    },
+    {
+      "language": "python",
+      "line": 5172,
+      "path": "core\\foxai_web.py",
+      "text": "<div>Intact: ${c.intact_events} | Superseded: ${c.superseded_events||0} | Attention: ${c.attention_events} | Latest: ${esc(c.latest_created||'')}</div>"
+    },
+    {
+      "language": "python",
+      "line": 5173,
+      "path": "core\\foxai_web.py",
+      "text": "</div>`).join('')||'No recovery chains found.';"
+    },
+    {
+      "language": "python",
+      "line": 5174,
+      "path": "core\\foxai_web.py",
+      "text": "q('recoveryTimelineKinds').innerHTML=(d.kind_counts||[]).map(k=>`<div class=\"histrow info\"><b>${esc(k.kind)}</b><div>Count: ${k.count}</div></div>`).join('')||'No event type summary.';"
+    },
+    {
+      "language": "python",
+      "line": 5175,
+      "path": "core\\foxai_web.py",
+      "text": "q('recoveryTimelineEvents').innerHTML=(d.events||[]).map(e=>{"
+    },
+    {
+      "language": "python",
+      "line": 5176,
+      "path": "core\\foxai_web.py",
+      "text": "let h=e.hashes||{};"
+    },
+    {
+      "language": "python",
+      "line": 5177,
+      "path": "core\\foxai_web.py",
+      "text": "let p=e.paths||{};"
+    },
+    {
+      "language": "python",
+      "line": 5178,
+      "path": "core\\foxai_web.py",
+      "text": "let failed=(e.checks||[]).filter(c=>!c.ok);"
+    },
+    {
+      "language": "python",
+      "line": 5179,
+      "path": "core\\foxai_web.py",
+      "text": "return `<div class=\"histrow timelineEvent ${e.status==='intact'?'ok':'info'}\"><b>${esc(e.created||'unknown time')} — ${esc(e.kind)} — ${esc(e.title)}</b>${timelineBadge(e.status)}"
+    },
+    {
+      "language": "python",
+      "line": 5180,
+      "path": "core\\foxai_web.py",
+      "text": "<div>${esc(e.summary||'')}</div>"
+    },
+    {
+      "language": "python",
+      "line": 5181,
+      "path": "core\\foxai_web.py",
+      "text": "<div class=vaultpath>Target: ${esc(e.target||'')}</div>"
+    },
+    {
+      "language": "python",
+      "line": 5182,
+      "path": "core\\foxai_web.py",
+      "text": "<div class=vaultpath>Source: ${esc(e.source||'')}</div>"
+    },
+    {
+      "language": "python",
+      "line": 5183,
+      "path": "core\\foxai_web.py",
+      "text": "${Object.keys(p).map(k=>`<div class=vaultpath>${esc(k)}: ${esc(p[k]||'')}</div>`).join('')}"
+    },
+    {
+      "language": "python",
+      "line": 5184,
+      "path": "core\\foxai_web.py",
+      "text": "${Object.keys(h).map(k=>`<div class=timelineHash>${esc(k)}: ${esc(h[k]||'')}</div>`).join('')}"
+    },
+    {
+      "language": "python",
+      "line": 5185,
+      "path": "core\\foxai_web.py",
+      "text": "<details><summary>Checks: ${(e.checks||[]).length} | Failed: ${failed.map(c=>c.id).join(', ')||'none'}</summary>${(e.checks||[]).map(c=>`<div class=packagefile>${c.ok?'PASS':'FAIL'} — ${esc(c.id)} — ${esc(c.message)} — ${esc(c.path||'')}</div>`).join('')}</details>"
+    },
+    {
+      "language": "python",
+      "line": 5186,
+      "path": "core\\foxai_web.py",
+      "text": "</div>`;"
+    },
+    {
+      "language": "python",
+      "line": 5187,
+      "path": "core\\foxai_web.py",
+      "text": "}).join('')||'No timeline events found.';"
+    },
+    {
+      "language": "python",
+      "line": 5188,
+      "path": "core\\foxai_web.py",
+      "text": "toast('Recovery timeline loaded.');"
+    },
+    {
+      "language": "python",
+      "line": 5189,
+      "path": "core\\foxai_web.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 5190,
+      "path": "core\\foxai_web.py",
+      "text": "function sendRecoveryTimelineToMission(){"
+    },
+    {
+      "language": "python",
+      "line": 5191,
+      "path": "core\\foxai_web.py",
+      "text": "if(!lastRecoveryTimeline){"
+    },
+    {
+      "language": "python",
+      "line": 5192,
+      "path": "core\\foxai_web.py",
+      "text": "toast('Load recovery timeline first.');"
+    },
+    {
+      "language": "python",
+      "line": 5193,
+      "path": "core\\foxai_web.py",
+      "text": "return;"
+    },
+    {
+      "language": "python",
+      "line": 5194,
+      "path": "core\\foxai_web.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 5195,
+      "path": "core\\foxai_web.py",
+      "text": "let s=lastRecoveryTimeline.summary||{};"
+    },
+    {
+      "language": "python",
+      "line": 5196,
+      "path": "core\\foxai_web.py",
+      "text": "go('mission');"
+    },
+    {
+      "language": "python",
+      "line": 5197,
+      "path": "core\\foxai_web.py",
+      "text": "q('input').value=`Please review this Kayock Recovery Timeline."
+    },
+    {
+      "language": "python",
+      "line": 5199,
+      "path": "core\\foxai_web.py",
+      "text": "This is a read-only timeline review. No restore or rollback action is requested."
+    },
+    {
+      "language": "python",
+      "line": 5201,
+      "path": "core\\foxai_web.py",
+      "text": "Summary:"
+    },
+    {
+      "language": "python",
+      "line": 5202,
+      "path": "core\\foxai_web.py",
+      "text": "Events: ${s.events}"
+    },
+    {
+      "language": "python",
+      "line": 5203,
+      "path": "core\\foxai_web.py",
+      "text": "Targets/chains: ${s.targets}"
+    },
+    {
+      "language": "python",
+      "line": 5204,
+      "path": "core\\foxai_web.py",
+      "text": "Restore actions: ${s.restore_actions}"
+    },
+    {
+      "language": "python",
+      "line": 5205,
+      "path": "core\\foxai_web.py",
+      "text": "Rollback actions: ${s.rollback_actions}"
+    },
+    {
+      "language": "python",
+      "line": 5206,
+      "path": "core\\foxai_web.py",
+      "text": "Backup/staging events: ${s.backup_events}"
+    },
+    {
+      "language": "python",
+      "line": 5207,
+      "path": "core\\foxai_web.py",
+      "text": "Evidence reports: ${s.evidence_reports}"
+    },
+    {
+      "language": "python",
+      "line": 5208,
+      "path": "core\\foxai_web.py",
+      "text": "Intact events: ${s.intact_events}"
+    },
+    {
+      "language": "python",
+      "line": 5209,
+      "path": "core\\foxai_web.py",
+      "text": "Attention events: ${s.attention_events}"
+    },
+    {
+      "language": "python",
+      "line": 5210,
+      "path": "core\\foxai_web.py",
+      "text": "Superseded-by-rollback events: ${s.superseded_events||0}"
+    },
+    {
+      "language": "python",
+      "line": 5211,
+      "path": "core\\foxai_web.py",
+      "text": "Errors: ${s.errors}"
+    },
+    {
+      "language": "python",
+      "line": 5212,
+      "path": "core\\foxai_web.py",
+      "text": "Latest event: ${s.latest_event}"
+    },
+    {
+      "language": "python",
+      "line": 5213,
+      "path": "core\\foxai_web.py",
+      "text": "Latest created: ${s.latest_created}"
+    },
+    {
+      "language": "python",
+      "line": 5215,
+      "path": "core\\foxai_web.py",
+      "text": "Exported Timeline:"
+    },
+    {
+      "language": "python",
+      "line": 5216,
+      "path": "core\\foxai_web.py",
+      "text": "${lastRecoveryTimeline.exported?.markdown||'No exported timeline path'}"
+    },
+    {
+      "language": "python",
+      "line": 5218,
+      "path": "core\\foxai_web.py",
+      "text": "Chains:"
+    },
+    {
+      "language": "python",
+      "line": 5219,
+      "path": "core\\foxai_web.py",
+      "text": "${(lastRecoveryTimeline.chains||[]).map(c=>`${c.target}"
+    },
+    {
+      "language": "python",
+      "line": 5220,
+      "path": "core\\foxai_web.py",
+      "text": "Events: ${c.event_count}"
+    },
+    {
+      "language": "python",
+      "line": 5221,
+      "path": "core\\foxai_web.py",
+      "text": "Restores: ${c.restore_actions}"
+    },
+    {
+      "language": "python",
+      "line": 5222,
+      "path": "core\\foxai_web.py",
+      "text": "Rollbacks: ${c.rollback_actions}"
+    },
+    {
+      "language": "python",
+      "line": 5223,
+      "path": "core\\foxai_web.py",
+      "text": "Backups: ${c.backup_events}"
+    },
+    {
+      "language": "python",
+      "line": 5224,
+      "path": "core\\foxai_web.py",
+      "text": "Evidence: ${c.evidence_reports}"
+    },
+    {
+      "language": "python",
+      "line": 5225,
+      "path": "core\\foxai_web.py",
+      "text": "Intact: ${c.intact_events}"
+    },
+    {
+      "language": "python",
+      "line": 5226,
+      "path": "core\\foxai_web.py",
+      "text": "Superseded: ${c.superseded_events||0}"
+    },
+    {
+      "language": "python",
+      "line": 5227,
+      "path": "core\\foxai_web.py",
+      "text": "Attention: ${c.attention_events}"
+    },
+    {
+      "language": "python",
+      "line": 5228,
+      "path": "core\\foxai_web.py",
+      "text": "Latest: ${c.latest_created}`).join('\\n\\n')}"
+    },
+    {
+      "language": "python",
+      "line": 5230,
+      "path": "core\\foxai_web.py",
+      "text": "Events:"
+    },
+    {
+      "language": "python",
+      "line": 5231,
+      "path": "core\\foxai_web.py",
+      "text": "${(lastRecoveryTimeline.events||[]).map(e=>`${e.created} — ${e.kind} — ${e.title}"
+    },
+    {
+      "language": "python",
+      "line": 5232,
+      "path": "core\\foxai_web.py",
+      "text": "Status: ${e.status}"
+    },
+    {
+      "language": "python",
+      "line": 5233,
+      "path": "core\\foxai_web.py",
+      "text": "Target: ${e.target}"
+    },
+    {
+      "language": "python",
+      "line": 5234,
+      "path": "core\\foxai_web.py",
+      "text": "Summary: ${e.summary}"
+    },
+    {
+      "language": "python",
+      "line": 5235,
+      "path": "core\\foxai_web.py",
+      "text": "Source: ${e.source}"
+    },
+    {
+      "language": "python",
+      "line": 5236,
+      "path": "core\\foxai_web.py",
+      "text": "Paths: ${JSON.stringify(e.paths||{})}"
+    },
+    {
+      "language": "python",
+      "line": 5237,
+      "path": "core\\foxai_web.py",
+      "text": "Hashes: ${JSON.stringify(e.hashes||{})}`).join('\\n\\n')}"
+    },
+    {
+      "language": "python",
+      "line": 5239,
+      "path": "core\\foxai_web.py",
+      "text": "Safety:"
+    },
+    {
+      "language": "python",
+      "line": 5240,
+      "path": "core\\foxai_web.py",
+      "text": "Read-only timeline."
+    },
+    {
+      "language": "python",
+      "line": 5241,
+      "path": "core\\foxai_web.py",
+      "text": "No restore."
+    },
+    {
+      "language": "python",
+      "line": 5242,
+      "path": "core\\foxai_web.py",
+      "text": "No rollback."
+    },
+    {
+      "language": "python",
+      "line": 5243,
+      "path": "core\\foxai_web.py",
+      "text": "No overwrite."
+    },
+    {
+      "language": "python",
+      "line": 5244,
+      "path": "core\\foxai_web.py",
+      "text": "No copy-back."
+    },
+    {
+      "language": "python",
+      "line": 5245,
+      "path": "core\\foxai_web.py",
+      "text": "No delete."
+    },
+    {
+      "language": "python",
+      "line": 5246,
+      "path": "core\\foxai_web.py",
+      "text": "No install."
+    },
+    {
+      "language": "python",
+      "line": 5247,
+      "path": "core\\foxai_web.py",
+      "text": "No model cleanup."
+    },
+    {
+      "language": "python",
+      "line": 5249,
+      "path": "core\\foxai_web.py",
+      "text": "Please determine:"
+    },
+    {
+      "language": "python",
+      "line": 5250,
+      "path": "core\\foxai_web.py",
+      "text": "1. Whether the recovery chain is complete and understandable"
+    },
+    {
+      "language": "python",
+      "line": 5251,
+      "path": "core\\foxai_web.py",
+      "text": "2. Whether restore and rollback actions remain auditable together"
+    },
+    {
+      "language": "python",
+      "line": 5252,
+      "path": "core\\foxai_web.py",
+      "text": "3. Whether any attention or error item should block future recovery actions"
+    },
+    {
+      "language": "python",
+      "line": 5253,
+      "path": "core\\foxai_web.py",
+      "text": "4. Whether the next build should add a Recovery Dashboard summary card on Command Bridge"
+    },
+    {
+      "language": "python",
+      "line": 5254,
+      "path": "core\\foxai_web.py",
+      "text": "5. Whether we should freeze v10.8.x as the Recovery Foundation milestone.`;"
+    },
+    {
+      "language": "python",
+      "line": 5255,
+      "path": "core\\foxai_web.py",
+      "text": "toast('Recovery timeline sent to Mission Console.');"
+    },
+    {
+      "language": "python",
+      "line": 5256,
+      "path": "core\\foxai_web.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 5258,
+      "path": "core\\foxai_web.py",
+      "text": "let lastRollbackAudit=null;"
+    },
+    {
+      "language": "python",
+      "line": 5259,
+      "path": "core\\foxai_web.py",
+      "text": "function rollbackAuditBadge(status){"
+    },
+    {
+      "language": "python",
+      "line": 5260,
+      "path": "core\\foxai_web.py",
+      "text": "status=(status||'attention').toLowerCase();"
+    },
+    {
+      "language": "python",
+      "line": 5261,
+      "path": "core\\foxai_web.py",
+      "text": "return `<span class=\"rbauditbadge ${status}\">${esc(status.toUpperCase())}</span>`;"
+    },
+    {
+      "language": "python",
+      "line": 5262,
+      "path": "core\\foxai_web.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 5263,
+      "path": "core\\foxai_web.py",
+      "text": "async function loadRollbackAudit(doExport=false){"
+    },
+    {
+      "language": "python",
+      "line": 5264,
+      "path": "core\\foxai_web.py",
+      "text": "let query=q('rollbackAuditFilter').value||'';"
+    },
+    {
+      "language": "python",
+      "line": 5265,
+      "path": "core\\foxai_web.py",
+      "text": "let limit=parseInt(q('rollbackAuditLimit').value||'1000');"
+    },
+    {
+      "language": "python",
+      "line": 5266,
+      "path": "core\\foxai_web.py",
+      "text": "q('rollbackAuditStatus').textContent='Loading rollback audit...';"
+    },
+    {
+      "language": "python",
+      "line": 5267,
+      "path": "core\\foxai_web.py",
+      "text": "let d=await api('/api/backups/rollback_audit',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({query,limit,export:doExport})});"
+    },
+    {
+      "language": "python",
+      "line": 5268,
+      "path": "core\\foxai_web.py",
+      "text": "if(!d?.ok){"
+    },
+    {
+      "language": "python",
+      "line": 5269,
+      "path": "core\\foxai_web.py",
+      "text": "q('rollbackAuditStatus').textContent=d?.message||'Could not load rollback audit.';"
+    },
+    {
+      "language": "python",
+      "line": 5270,
+      "path": "core\\foxai_web.py",
+      "text": "return;"
+    },
+    {
+      "language": "python",
+      "line": 5271,
+      "path": "core\\foxai_web.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 5272,
+      "path": "core\\foxai_web.py",
+      "text": "lastRollbackAudit=d;"
+    },
+    {
+      "language": "python",
+      "line": 5273,
+      "path": "core\\foxai_web.py",
+      "text": "let s=d.summary||{};"
+    },
+    {
+      "language": "python",
+      "line": 5274,
+      "path": "core\\foxai_web.py",
+      "text": "q('rollbackAuditStatus').textContent=`Rollback audit loaded."
+    },
+    {
+      "language": "python",
+      "line": 5275,
+      "path": "core\\foxai_web.py",
+      "text": "Actions: ${s.actions||0}"
+    },
+    {
+      "language": "python",
+      "line": 5276,
+      "path": "core\\foxai_web.py",
+      "text": "Intact: ${s.intact||0}"
+    },
+    {
+      "language": "python",
+      "line": 5277,
+      "path": "core\\foxai_web.py",
+      "text": "Attention: ${s.attention||0}"
+    },
+    {
+      "language": "python",
+      "line": 5278,
+      "path": "core\\foxai_web.py",
+      "text": "Verified: ${s.verified||0}"
+    },
+    {
+      "language": "python",
+      "line": 5279,
+      "path": "core\\foxai_web.py",
+      "text": "Rollback sources present: ${s.rollback_sources_present||0}"
+    },
+    {
+      "language": "python",
+      "line": 5280,
+      "path": "core\\foxai_web.py",
+      "text": "Rollback source hashes intact: ${s.rollback_source_hashes_intact||0}"
+    },
+    {
+      "language": "python",
+      "line": 5281,
+      "path": "core\\foxai_web.py",
+      "text": "Pre-rollback backups present: ${s.pre_rollback_backups_present||0}"
+    },
+    {
+      "language": "python",
+      "line": 5282,
+      "path": "core\\foxai_web.py",
+      "text": "Targets still rolled back: ${s.targets_still_rolled_back||0}"
+    },
+    {
+      "language": "python",
+      "line": 5283,
+      "path": "core\\foxai_web.py",
+      "text": "Errors: ${s.errors||0}"
+    },
+    {
+      "language": "python",
+      "line": 5284,
+      "path": "core\\foxai_web.py",
+      "text": "${d.exported?`Markdown: ${d.exported.markdown}"
+    },
+    {
+      "language": "python",
+      "line": 5285,
+      "path": "core\\foxai_web.py",
+      "text": "JSON: ${d.exported.json}`:''}`;"
+    },
+    {
+      "language": "python",
+      "line": 5286,
+      "path": "core\\foxai_web.py",
+      "text": "q('rollbackAuditDashboard').innerHTML=`<div class=historygrid>"
+    },
+    {
+      "language": "python",
+      "line": 5287,
+      "path": "core\\foxai_web.py",
+      "text": "<div class=vaultmetric><div class=label>Actions</div><div class=value>${s.actions||0}</div></div>"
+    },
+    {
+      "language": "python",
+      "line": 5288,
+      "path": "core\\foxai_web.py",
+      "text": "<div class=vaultmetric><div class=label>Intact</div><div class=value>${s.intact||0}</div></div>"
+    },
+    {
+      "language": "python",
+      "line": 5289,
+      "path": "core\\foxai_web.py",
+      "text": "<div class=vaultmetric><div class=label>Attention</div><div class=value>${s.attention||0}</div></div>"
+    },
+    {
+      "language": "python",
+      "line": 5290,
+      "path": "core\\foxai_web.py",
+      "text": "<div class=vaultmetric><div class=label>Verified</div><div class=value>${s.verified||0}</div></div>"
+    },
+    {
+      "language": "python",
+      "line": 5291,
+      "path": "core\\foxai_web.py",
+      "text": "<div class=vaultmetric><div class=label>Sources</div><div class=value>${s.rollback_sources_present||0}</div></div>"
+    },
+    {
+      "language": "python",
+      "line": 5292,
+      "path": "core\\foxai_web.py",
+      "text": "<div class=vaultmetric><div class=label>Source Hash OK</div><div class=value>${s.rollback_source_hashes_intact||0}</div></div>"
+    },
+    {
+      "language": "python",
+      "line": 5293,
+      "path": "core\\foxai_web.py",
+      "text": "<div class=vaultmetric><div class=label>Targets Rolled Back</div><div class=value>${s.targets_still_rolled_back||0}</div></div>"
+    },
+    {
+      "language": "python",
+      "line": 5294,
+      "path": "core\\foxai_web.py",
+      "text": "<div class=vaultmetric><div class=label>Errors</div><div class=value>${s.errors||0}</div></div>"
+    },
+    {
+      "language": "python",
+      "line": 5295,
+      "path": "core\\foxai_web.py",
+      "text": "</div><div class=status>Latest action: ${esc(s.latest_action||'none')} | ${esc(s.latest_created||'')}</div>`;"
+    },
+    {
+      "language": "python",
+      "line": 5296,
+      "path": "core\\foxai_web.py",
+      "text": "q('rollbackAuditStatusList').innerHTML=(d.by_status||[]).map(x=>`<div class=\"histrow info\"><b>${esc(x.status)}</b><div>Count: ${x.count}</div></div>`).join('')||'No status summary.';"
+    },
+    {
+      "language": "python",
+      "line": 5297,
+      "path": "core\\foxai_web.py",
+      "text": "q('rollbackAuditTargetList').innerHTML=(d.by_target||[]).map(x=>`<div class=\"histrow info\"><b>${esc(x.target)}</b><div>Count: ${x.count} | Intact: ${x.intact} | Attention: ${x.attention}</div></div>`).join('')||'No target summary.';"
+    },
+    {
+      "language": "python",
+      "line": 5298,
+      "path": "core\\foxai_web.py",
+      "text": "q('rollbackAuditList').innerHTML=(d.actions||[]).map(a=>`<div class=\"histrow ${a.status==='intact'?'ok':'info'}\"><b>${esc(a.name)}</b>${rollbackAuditBadge(a.status)}"
+    },
+    {
+      "language": "python",
+      "line": 5299,
+      "path": "core\\foxai_web.py",
+      "text": "<div>Created: ${esc(a.created||'')} | Verification: ${a.verification_ok} (${a.verification_passed}/${a.verification_checked})</div>"
+    },
+    {
+      "language": "python",
+      "line": 5300,
+      "path": "core\\foxai_web.py",
+      "text": "<div>Target still matches rollback hash: ${a.target_current_matches_rollback_hash} | Rollback source hash intact: ${a.rollback_source_backup_hash_intact}</div>"
+    },
+    {
+      "language": "python",
+      "line": 5301,
+      "path": "core\\foxai_web.py",
+      "text": "<div class=vaultpath>Target: ${esc(a.target||'')}</div>"
+    },
+    {
+      "language": "python",
+      "line": 5302,
+      "path": "core\\foxai_web.py",
+      "text": "<div class=vaultpath>Rollback source backup: ${esc(a.rollback_source_backup||'')}</div>"
+    },
+    {
+      "language": "python",
+      "line": 5303,
+      "path": "core\\foxai_web.py",
+      "text": "<div class=vaultpath>Pre-rollback current target backup: ${esc(a.pre_rollback_current_target_backup||'')}</div>"
+    },
+    {
+      "language": "python",
+      "line": 5304,
+      "path": "core\\foxai_web.py",
+      "text": "<div class=vaultpath>Original restore action: ${esc(a.restore_action||'')}</div>"
+    },
+    {
+      "language": "python",
+      "line": 5305,
+      "path": "core\\foxai_web.py",
+      "text": "<div class=vaultpath>Rollback report: ${esc(a.rollback_report_markdown||a.rollback_report_json||'')}</div>"
+    },
+    {
+      "language": "python",
+      "line": 5306,
+      "path": "core\\foxai_web.py",
+      "text": "<div class=vaultpath>Repair log: ${esc(a.repair_action_log_markdown||a.repair_action_log_json||'')}</div>"
+    },
+    {
+      "language": "python",
+      "line": 5307,
+      "path": "core\\foxai_web.py",
+      "text": "<div class=rbauditHash>target_before_rollback: ${esc((a.hashes||{}).target_before_rollback||'')}</div>"
+    },
+    {
+      "language": "python",
+      "line": 5308,
+      "path": "core\\foxai_web.py",
+      "text": "<div class=rbauditHash>pre_rollback_backup: ${esc((a.hashes||{}).pre_rollback_current_target_backup||'')}</div>"
+    },
+    {
+      "language": "python",
+      "line": 5309,
+      "path": "core\\foxai_web.py",
+      "text": "<div class=rbauditHash>rollback_source: ${esc((a.hashes||{}).rollback_source_backup||'')}</div>"
+    },
+    {
+      "language": "python",
+      "line": 5310,
+      "path": "core\\foxai_web.py",
+      "text": "<div class=rbauditHash>target_after_rollback: ${esc((a.hashes||{}).target_after_rollback||'')}</div>"
+    },
+    {
+      "language": "python",
+      "line": 5311,
+      "path": "core\\foxai_web.py",
+      "text": "<div class=rbauditHash>target_current: ${esc(a.target_current_hash||'')}</div>"
+    },
+    {
+      "language": "python",
+      "line": 5312,
+      "path": "core\\foxai_web.py",
+      "text": "<details><summary>Checks (${(a.checks||[]).length}) / Failed: ${(a.failed_checks||[]).join(', ')||'none'}</summary>${(a.checks||[]).map(c=>`<div class=packagefile>${c.ok?'PASS':'FAIL'} — ${esc(c.id)} — ${esc(c.message)} — ${esc(c.path||'')}</div>`).join('')}</details>"
+    },
+    {
+      "language": "python",
+      "line": 5313,
+      "path": "core\\foxai_web.py",
+      "text": "</div>`).join('')||'No rollback actions found.';"
+    },
+    {
+      "language": "python",
+      "line": 5314,
+      "path": "core\\foxai_web.py",
+      "text": "toast('Rollback audit loaded.');"
+    },
+    {
+      "language": "python",
+      "line": 5315,
+      "path": "core\\foxai_web.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 5316,
+      "path": "core\\foxai_web.py",
+      "text": "function sendRollbackAuditToMission(){"
+    },
+    {
+      "language": "python",
+      "line": 5317,
+      "path": "core\\foxai_web.py",
+      "text": "if(!lastRollbackAudit){"
+    },
+    {
+      "language": "python",
+      "line": 5318,
+      "path": "core\\foxai_web.py",
+      "text": "toast('Load rollback audit first.');"
+    },
+    {
+      "language": "python",
+      "line": 5319,
+      "path": "core\\foxai_web.py",
+      "text": "return;"
+    },
+    {
+      "language": "python",
+      "line": 5320,
+      "path": "core\\foxai_web.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 5321,
+      "path": "core\\foxai_web.py",
+      "text": "let s=lastRollbackAudit.summary||{};"
+    },
+    {
+      "language": "python",
+      "line": 5322,
+      "path": "core\\foxai_web.py",
+      "text": "go('mission');"
+    },
+    {
+      "language": "python",
+      "line": 5323,
+      "path": "core\\foxai_web.py",
+      "text": "q('input').value=`Please review this Kayock Rollback Audit Inventory."
+    },
+    {
+      "language": "python",
+      "line": 5325,
+      "path": "core\\foxai_web.py",
+      "text": "This is a read-only audit review. No rollback or restore action is requested."
+    },
+    {
+      "language": "python",
+      "line": 5327,
+      "path": "core\\foxai_web.py",
+      "text": "Summary:"
+    },
+    {
+      "language": "python",
+      "line": 5328,
+      "path": "core\\foxai_web.py",
+      "text": "Actions: ${s.actions}"
+    },
+    {
+      "language": "python",
+      "line": 5329,
+      "path": "core\\foxai_web.py",
+      "text": "Intact: ${s.intact}"
+    },
+    {
+      "language": "python",
+      "line": 5330,
+      "path": "core\\foxai_web.py",
+      "text": "Attention: ${s.attention}"
+    },
+    {
+      "language": "python",
+      "line": 5331,
+      "path": "core\\foxai_web.py",
+      "text": "Verified: ${s.verified}"
+    },
+    {
+      "language": "python",
+      "line": 5332,
+      "path": "core\\foxai_web.py",
+      "text": "Rollback sources present: ${s.rollback_sources_present}"
+    },
+    {
+      "language": "python",
+      "line": 5333,
+      "path": "core\\foxai_web.py",
+      "text": "Rollback source hashes intact: ${s.rollback_source_hashes_intact}"
+    },
+    {
+      "language": "python",
+      "line": 5334,
+      "path": "core\\foxai_web.py",
+      "text": "Pre-rollback backups present: ${s.pre_rollback_backups_present}"
+    },
+    {
+      "language": "python",
+      "line": 5335,
+      "path": "core\\foxai_web.py",
+      "text": "Pre-rollback backup hashes intact: ${s.pre_rollback_backup_hashes_intact}"
+    },
+    {
+      "language": "python",
+      "line": 5336,
+      "path": "core\\foxai_web.py",
+      "text": "Targets still rolled back: ${s.targets_still_rolled_back}"
+    },
+    {
+      "language": "python",
+      "line": 5337,
+      "path": "core\\foxai_web.py",
+      "text": "Restore action reports present: ${s.restore_action_reports_present}"
+    },
+    {
+      "language": "python",
+      "line": 5338,
+      "path": "core\\foxai_web.py",
+      "text": "Repair logs present: ${s.repair_logs_present}"
+    },
+    {
+      "language": "python",
+      "line": 5339,
+      "path": "core\\foxai_web.py",
+      "text": "Errors: ${s.errors}"
+    },
+    {
+      "language": "python",
+      "line": 5340,
+      "path": "core\\foxai_web.py",
+      "text": "Latest action: ${s.latest_action}"
+    },
+    {
+      "language": "python",
+      "line": 5341,
+      "path": "core\\foxai_web.py",
+      "text": "Latest created: ${s.latest_created}"
+    },
+    {
+      "language": "python",
+      "line": 5343,
+      "path": "core\\foxai_web.py",
+      "text": "Exported Audit:"
+    },
+    {
+      "language": "python",
+      "line": 5344,
+      "path": "core\\foxai_web.py",
+      "text": "${lastRollbackAudit.exported?.markdown||'No exported rollback audit path'}"
+    },
+    {
+      "language": "python",
+      "line": 5346,
+      "path": "core\\foxai_web.py",
+      "text": "Actions:"
+    },
+    {
+      "language": "python",
+      "line": 5347,
+      "path": "core\\foxai_web.py",
+      "text": "${(lastRollbackAudit.actions||[]).map(a=>`${a.status.toUpperCase()} — ${a.name}"
+    },
+    {
+      "language": "python",
+      "line": 5348,
+      "path": "core\\foxai_web.py",
+      "text": "Created: ${a.created}"
+    },
+    {
+      "language": "python",
+      "line": 5349,
+      "path": "core\\foxai_web.py",
+      "text": "Original restore action: ${a.restore_action}"
+    },
+    {
+      "language": "python",
+      "line": 5350,
+      "path": "core\\foxai_web.py",
+      "text": "Target: ${a.target}"
+    },
+    {
+      "language": "python",
+      "line": 5351,
+      "path": "core\\foxai_web.py",
+      "text": "Rollback source backup: ${a.rollback_source_backup}"
+    },
+    {
+      "language": "python",
+      "line": 5352,
+      "path": "core\\foxai_web.py",
+      "text": "Pre-rollback current target backup: ${a.pre_rollback_current_target_backup}"
+    },
+    {
+      "language": "python",
+      "line": 5353,
+      "path": "core\\foxai_web.py",
+      "text": "Verification OK: ${a.verification_ok}"
+    },
+    {
+      "language": "python",
+      "line": 5354,
+      "path": "core\\foxai_web.py",
+      "text": "Verification message: ${a.verification_message}"
+    },
+    {
+      "language": "python",
+      "line": 5355,
+      "path": "core\\foxai_web.py",
+      "text": "Target still matches rollback hash: ${a.target_current_matches_rollback_hash}"
+    },
+    {
+      "language": "python",
+      "line": 5356,
+      "path": "core\\foxai_web.py",
+      "text": "Rollback source hash intact: ${a.rollback_source_backup_hash_intact}"
+    },
+    {
+      "language": "python",
+      "line": 5357,
+      "path": "core\\foxai_web.py",
+      "text": "Pre-rollback backup hash intact: ${a.pre_rollback_current_target_backup_hash_intact}"
+    },
+    {
+      "language": "python",
+      "line": 5358,
+      "path": "core\\foxai_web.py",
+      "text": "Target before rollback: ${(a.hashes||{}).target_before_rollback}"
+    },
+    {
+      "language": "python",
+      "line": 5359,
+      "path": "core\\foxai_web.py",
+      "text": "Pre-rollback backup: ${(a.hashes||{}).pre_rollback_current_target_backup}"
+    },
+    {
+      "language": "python",
+      "line": 5360,
+      "path": "core\\foxai_web.py",
+      "text": "Rollback source: ${(a.hashes||{}).rollback_source_backup}"
+    },
+    {
+      "language": "python",
+      "line": 5361,
+      "path": "core\\foxai_web.py",
+      "text": "Target after rollback: ${(a.hashes||{}).target_after_rollback}"
+    },
+    {
+      "language": "python",
+      "line": 5362,
+      "path": "core\\foxai_web.py",
+      "text": "Target current: ${a.target_current_hash}"
+    },
+    {
+      "language": "python",
+      "line": 5363,
+      "path": "core\\foxai_web.py",
+      "text": "Failed checks: ${(a.failed_checks||[]).join(', ')||'none'}"
+    },
+    {
+      "language": "python",
+      "line": 5364,
+      "path": "core\\foxai_web.py",
+      "text": "Rollback report: ${a.rollback_report_markdown||a.rollback_report_json}"
+    },
+    {
+      "language": "python",
+      "line": 5365,
+      "path": "core\\foxai_web.py",
+      "text": "Repair log: ${a.repair_action_log_markdown||a.repair_action_log_json}`).join('\\n\\n')}"
+    },
+    {
+      "language": "python",
+      "line": 5367,
+      "path": "core\\foxai_web.py",
+      "text": "Safety:"
+    },
+    {
+      "language": "python",
+      "line": 5368,
+      "path": "core\\foxai_web.py",
+      "text": "Read-only viewer."
+    },
+    {
+      "language": "python",
+      "line": 5369,
+      "path": "core\\foxai_web.py",
+      "text": "No rollback."
+    },
+    {
+      "language": "python",
+      "line": 5370,
+      "path": "core\\foxai_web.py",
+      "text": "No restore."
+    },
+    {
+      "language": "python",
+      "line": 5371,
+      "path": "core\\foxai_web.py",
+      "text": "No overwrite."
+    },
+    {
+      "language": "python",
+      "line": 5372,
+      "path": "core\\foxai_web.py",
+      "text": "No copy-back."
+    },
+    {
+      "language": "python",
+      "line": 5373,
+      "path": "core\\foxai_web.py",
+      "text": "No delete."
+    },
+    {
+      "language": "python",
+      "line": 5374,
+      "path": "core\\foxai_web.py",
+      "text": "No install."
+    },
+    {
+      "language": "python",
+      "line": 5375,
+      "path": "core\\foxai_web.py",
+      "text": "No model cleanup."
+    },
+    {
+      "language": "python",
+      "line": 5377,
+      "path": "core\\foxai_web.py",
+      "text": "Please determine:"
+    },
+    {
+      "language": "python",
+      "line": 5378,
+      "path": "core\\foxai_web.py",
+      "text": "1. Whether the completed rollback action remains auditable"
+    },
+    {
+      "language": "python",
+      "line": 5379,
+      "path": "core\\foxai_web.py",
+      "text": "2. Whether the rollback source backup is intact"
+    },
+    {
+      "language": "python",
+      "line": 5380,
+      "path": "core\\foxai_web.py",
+      "text": "3. Whether the pre-rollback backup is intact"
+    },
+    {
+      "language": "python",
+      "line": 5381,
+      "path": "core\\foxai_web.py",
+      "text": "4. Whether the target still matches the rollback result"
+    },
+    {
+      "language": "python",
+      "line": 5382,
+      "path": "core\\foxai_web.py",
+      "text": "5. Whether any attention item should block future rollback/restore actions.`;"
+    },
+    {
+      "language": "python",
+      "line": 5383,
+      "path": "core\\foxai_web.py",
+      "text": "toast('Rollback audit sent to Mission Console.');"
+    },
+    {
+      "language": "python",
+      "line": 5384,
+      "path": "core\\foxai_web.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 5386,
+      "path": "core\\foxai_web.py",
+      "text": "let lastRollbackAction=null;"
+    },
+    {
+      "language": "python",
+      "line": 5387,
+      "path": "core\\foxai_web.py",
+      "text": "let lastRollbackPreflight=null;"
+    },
+    {
+      "language": "python",
+      "line": 5388,
+      "path": "core\\foxai_web.py",
+      "text": "async function loadRollbackActionList(){"
+    },
+    {
+      "language": "python",
+      "line": 5389,
+      "path": "core\\foxai_web.py",
+      "text": "q('rollbackActionStatus').textContent='Loading restore actions...';"
+    },
+    {
+      "language": "python",
+      "line": 5390,
+      "path": "core\\foxai_web.py",
+      "text": "let d=await api('/api/backups/restore_audit',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({limit:1000})});"
+    },
+    {
+      "language": "python",
+      "line": 5391,
+      "path": "core\\foxai_web.py",
+      "text": "if(!d?.ok){"
+    },
+    {
+      "language": "python",
+      "line": 5392,
+      "path": "core\\foxai_web.py",
+      "text": "q('rollbackActionStatus').textContent=d?.message||'Could not load restore actions.';"
+    },
+    {
+      "language": "python",
+      "line": 5393,
+      "path": "core\\foxai_web.py",
+      "text": "return;"
+    },
+    {
+      "language": "python",
+      "line": 5394,
+      "path": "core\\foxai_web.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 5395,
+      "path": "core\\foxai_web.py",
+      "text": "let sel=q('rollbackActionSelect');"
+    },
+    {
+      "language": "python",
+      "line": 5396,
+      "path": "core\\foxai_web.py",
+      "text": "sel.innerHTML=(d.actions||[]).map(a=>`<option value=\"${esc(a.restore_report_json||a.pre_restore_live_backup||a.name)}\">${esc(a.name)} → ${esc(a.target||'unknown target')}</option>`).join('');"
+    },
+    {
+      "language": "python",
+      "line": 5397,
+      "path": "core\\foxai_web.py",
+      "text": "if((d.actions||[]).length){"
+    },
+    {
+      "language": "python",
+      "line": 5398,
+      "path": "core\\foxai_web.py",
+      "text": "q('rollbackActionPath').value=d.actions[0].restore_report_json||d.actions[0].pre_restore_live_backup||d.actions[0].name;"
+    },
+    {
+      "language": "python",
+      "line": 5399,
+      "path": "core\\foxai_web.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 5400,
+      "path": "core\\foxai_web.py",
+      "text": "q('rollbackActionStatus').textContent=`Loaded ${d.actions?.length||0} restore action(s). Run rollback preflight first.`;"
+    },
+    {
+      "language": "python",
+      "line": 5401,
+      "path": "core\\foxai_web.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 5402,
+      "path": "core\\foxai_web.py",
+      "text": "async function preflightRollbackAction(){"
+    },
+    {
+      "language": "python",
+      "line": 5403,
+      "path": "core\\foxai_web.py",
+      "text": "let path=q('rollbackActionPath').value||q('rollbackActionSelect').value||'';"
+    },
+    {
+      "language": "python",
+      "line": 5404,
+      "path": "core\\foxai_web.py",
+      "text": "if(!path){"
+    },
+    {
+      "language": "python",
+      "line": 5405,
+      "path": "core\\foxai_web.py",
+      "text": "q('rollbackActionStatus').textContent='Select a restore action first.';"
+    },
+    {
+      "language": "python",
+      "line": 5406,
+      "path": "core\\foxai_web.py",
+      "text": "return;"
+    },
+    {
+      "language": "python",
+      "line": 5407,
+      "path": "core\\foxai_web.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 5408,
+      "path": "core\\foxai_web.py",
+      "text": "q('rollbackActionStatus').textContent='Running rollback preflight...';"
+    },
+    {
+      "language": "python",
+      "line": 5409,
+      "path": "core\\foxai_web.py",
+      "text": "let d=await api('/api/backups/rollback_preview',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action_report:path,export:true})});"
+    },
+    {
+      "language": "python",
+      "line": 5410,
+      "path": "core\\foxai_web.py",
+      "text": "lastRollbackPreflight=d;"
+    },
+    {
+      "language": "python",
+      "line": 5411,
+      "path": "core\\foxai_web.py",
+      "text": "q('rollbackActionResult').textContent=JSON.stringify(d,null,2);"
+    },
+    {
+      "language": "python",
+      "line": 5412,
+      "path": "core\\foxai_web.py",
+      "text": "if(!d?.ok){"
+    },
+    {
+      "language": "python",
+      "line": 5413,
+      "path": "core\\foxai_web.py",
+      "text": "q('rollbackActionStatus').textContent=d?.message||'Rollback preflight failed.';"
+    },
+    {
+      "language": "python",
+      "line": 5414,
+      "path": "core\\foxai_web.py",
+      "text": "return;"
+    },
+    {
+      "language": "python",
+      "line": 5415,
+      "path": "core\\foxai_web.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 5416,
+      "path": "core\\foxai_web.py",
+      "text": "q('rollbackActionConfirm').value='';"
+    },
+    {
+      "language": "python",
+      "line": 5417,
+      "path": "core\\foxai_web.py",
+      "text": "q('rollbackActionConfirm').placeholder=d.future_rollback_phrase||'Exact rollback phrase unavailable';"
+    },
+    {
+      "language": "python",
+      "line": 5418,
+      "path": "core\\foxai_web.py",
+      "text": "let s=d.summary||{};"
+    },
+    {
+      "language": "python",
+      "line": 5419,
+      "path": "core\\foxai_web.py",
+      "text": "q('rollbackActionStatus').textContent=`Rollback preflight complete."
+    },
+    {
+      "language": "python",
+      "line": 5420,
+      "path": "core\\foxai_web.py",
+      "text": "Candidate status: ${s.candidate_status}"
+    },
+    {
+      "language": "python",
+      "line": 5421,
+      "path": "core\\foxai_web.py",
+      "text": "Hard blocks excluding rollback lock: ${s.hard_blocks}"
+    },
+    {
+      "language": "python",
+      "line": 5422,
+      "path": "core\\foxai_web.py",
+      "text": "Would overwrite: ${s.would_overwrite}"
+    },
+    {
+      "language": "python",
+      "line": 5423,
+      "path": "core\\foxai_web.py",
+      "text": "Future rollback phrase required:"
+    },
+    {
+      "language": "python",
+      "line": 5424,
+      "path": "core\\foxai_web.py",
+      "text": "${d.future_rollback_phrase}`;"
+    },
+    {
+      "language": "python",
+      "line": 5425,
+      "path": "core\\foxai_web.py",
+      "text": "q('rollbackActionChecks').innerHTML=(d.checks||[]).map(c=>`<div class=\"histrow ${c.status==='pass'?'ok':(c.status==='block'?'fail':'info')}\"><b>${esc(c.id)}</b>${rollbackBadge(c.status)}<div>${esc(c.message||'')}</div><div class=vaultpath>${esc(c.detail||'')}</div></div>`).join('');"
+    },
+    {
+      "language": "python",
+      "line": 5426,
+      "path": "core\\foxai_web.py",
+      "text": "toast('Rollback preflight complete.');"
+    },
+    {
+      "language": "python",
+      "line": 5427,
+      "path": "core\\foxai_web.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 5428,
+      "path": "core\\foxai_web.py",
+      "text": "async function runSingleFileRollback(){"
+    },
+    {
+      "language": "python",
+      "line": 5429,
+      "path": "core\\foxai_web.py",
+      "text": "let path=q('rollbackActionPath').value||q('rollbackActionSelect').value||'';"
+    },
+    {
+      "language": "python",
+      "line": 5430,
+      "path": "core\\foxai_web.py",
+      "text": "let confirm=q('rollbackActionConfirm').value||'';"
+    },
+    {
+      "language": "python",
+      "line": 5431,
+      "path": "core\\foxai_web.py",
+      "text": "if(!path){"
+    },
+    {
+      "language": "python",
+      "line": 5432,
+      "path": "core\\foxai_web.py",
+      "text": "q('rollbackActionStatus').textContent='Select a restore action first.';"
+    },
+    {
+      "language": "python",
+      "line": 5433,
+      "path": "core\\foxai_web.py",
+      "text": "return;"
+    },
+    {
+      "language": "python",
+      "line": 5434,
+      "path": "core\\foxai_web.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 5435,
+      "path": "core\\foxai_web.py",
+      "text": "if(!lastRollbackPreflight || (lastRollbackPreflight.summary||{}).restore_action!==((lastRollbackPreflight.restore_action||{}).name||'')){"
+    },
+    {
+      "language": "python",
+      "line": 5436,
+      "path": "core\\foxai_web.py",
+      "text": "// Keep this lenient; backend re-runs the preview."
+    },
+    {
+      "language": "python",
+      "line": 5437,
+      "path": "core\\foxai_web.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 5438,
+      "path": "core\\foxai_web.py",
+      "text": "if(!lastRollbackPreflight){"
+    },
+    {
+      "language": "python",
+      "line": 5439,
+      "path": "core\\foxai_web.py",
+      "text": "q('rollbackActionStatus').textContent='Run rollback preflight first.';"
+    },
+    {
+      "language": "python",
+      "line": 5440,
+      "path": "core\\foxai_web.py",
+      "text": "return;"
+    },
+    {
+      "language": "python",
+      "line": 5441,
+      "path": "core\\foxai_web.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 5442,
+      "path": "core\\foxai_web.py",
+      "text": "if(confirm!==lastRollbackPreflight.future_rollback_phrase){"
+    },
+    {
+      "language": "python",
+      "line": 5443,
+      "path": "core\\foxai_web.py",
+      "text": "q('rollbackActionStatus').textContent='Exact rollback phrase does not match the preflight phrase.';"
+    },
+    {
+      "language": "python",
+      "line": 5444,
+      "path": "core\\foxai_web.py",
+      "text": "return;"
+    },
+    {
+      "language": "python",
+      "line": 5445,
+      "path": "core\\foxai_web.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 5446,
+      "path": "core\\foxai_web.py",
+      "text": "if(!window.confirm('This will overwrite the original target with the pre-restore backup after backing up the current target. Continue?')){"
+    },
+    {
+      "language": "python",
+      "line": 5447,
+      "path": "core\\foxai_web.py",
+      "text": "q('rollbackActionStatus').textContent='Rollback cancelled.';"
+    },
+    {
+      "language": "python",
+      "line": 5448,
+      "path": "core\\foxai_web.py",
+      "text": "return;"
+    },
+    {
+      "language": "python",
+      "line": 5449,
+      "path": "core\\foxai_web.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 5450,
+      "path": "core\\foxai_web.py",
+      "text": "if(!window.confirm('Final confirmation: run the live single-file rollback action now?')){"
+    },
+    {
+      "language": "python",
+      "line": 5451,
+      "path": "core\\foxai_web.py",
+      "text": "q('rollbackActionStatus').textContent='Rollback cancelled at final confirmation.';"
+    },
+    {
+      "language": "python",
+      "line": 5452,
+      "path": "core\\foxai_web.py",
+      "text": "return;"
+    },
+    {
+      "language": "python",
+      "line": 5453,
+      "path": "core\\foxai_web.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 5454,
+      "path": "core\\foxai_web.py",
+      "text": "q('rollbackActionStatus').textContent='Running single-file rollback...';"
+    },
+    {
+      "language": "python",
+      "line": 5455,
+      "path": "core\\foxai_web.py",
+      "text": "let d=await api('/api/backups/single_file_rollback',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action_report:path,confirm})});"
+    },
+    {
+      "language": "python",
+      "line": 5456,
+      "path": "core\\foxai_web.py",
+      "text": "lastRollbackAction=d;"
+    },
+    {
+      "language": "python",
+      "line": 5457,
+      "path": "core\\foxai_web.py",
+      "text": "q('rollbackActionResult').textContent=JSON.stringify(d,null,2);"
+    },
+    {
+      "language": "python",
+      "line": 5458,
+      "path": "core\\foxai_web.py",
+      "text": "let v=d?.verification||{};"
+    },
+    {
+      "language": "python",
+      "line": 5459,
+      "path": "core\\foxai_web.py",
+      "text": "q('rollbackActionChecks').innerHTML=(v.checks||[]).map(c=>`<div class=\"histrow ${c.ok?'ok':'fail'}\"><b>${esc(c.id)}</b>${rollbackBadge(c.ok?'pass':'block')}<div>${esc(c.message||'')}</div><div class=vaultpath>${esc(c.path||'')}</div></div>`).join('')||'No verification checks.';"
+    },
+    {
+      "language": "python",
+      "line": 5460,
+      "path": "core\\foxai_web.py",
+      "text": "if(d?.ok){"
+    },
+    {
+      "language": "python",
+      "line": 5461,
+      "path": "core\\foxai_web.py",
+      "text": "q('rollbackActionStatus').textContent=`Single-file rollback complete and verified."
+    },
+    {
+      "language": "python",
+      "line": 5462,
+      "path": "core\\foxai_web.py",
+      "text": "Target: ${d.target}"
+    },
+    {
+      "language": "python",
+      "line": 5463,
+      "path": "core\\foxai_web.py",
+      "text": "Pre-rollback current-target backup: ${d.pre_rollback_current_target_backup}"
+    },
+    {
+      "language": "python",
+      "line": 5464,
+      "path": "core\\foxai_web.py",
+      "text": "Report: ${d.exported?.markdown||''}"
+    },
+    {
+      "language": "python",
+      "line": 5465,
+      "path": "core\\foxai_web.py",
+      "text": "Repair log: ${d.repair_action_log?.markdown||''}`;"
+    },
+    {
+      "language": "python",
+      "line": 5466,
+      "path": "core\\foxai_web.py",
+      "text": "toast('Single-file rollback complete and verified.');"
+    },
+    {
+      "language": "python",
+      "line": 5467,
+      "path": "core\\foxai_web.py",
+      "text": "}else{"
+    },
+    {
+      "language": "python",
+      "line": 5468,
+      "path": "core\\foxai_web.py",
+      "text": "q('rollbackActionStatus').textContent=d?.message||'Rollback failed or was blocked.';"
+    },
+    {
+      "language": "python",
+      "line": 5469,
+      "path": "core\\foxai_web.py",
+      "text": "toast('Rollback failed or blocked.');"
+    },
+    {
+      "language": "python",
+      "line": 5470,
+      "path": "core\\foxai_web.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 5471,
+      "path": "core\\foxai_web.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 5472,
+      "path": "core\\foxai_web.py",
+      "text": "function sendRollbackActionToMission(){"
+    },
+    {
+      "language": "python",
+      "line": 5473,
+      "path": "core\\foxai_web.py",
+      "text": "if(!lastRollbackAction){"
+    },
+    {
+      "language": "python",
+      "line": 5474,
+      "path": "core\\foxai_web.py",
+      "text": "toast('Run a rollback action first.');"
+    },
+    {
+      "language": "python",
+      "line": 5475,
+      "path": "core\\foxai_web.py",
+      "text": "return;"
+    },
+    {
+      "language": "python",
+      "line": 5476,
+      "path": "core\\foxai_web.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 5477,
+      "path": "core\\foxai_web.py",
+      "text": "go('mission');"
+    },
+    {
+      "language": "python",
+      "line": 5478,
+      "path": "core\\foxai_web.py",
+      "text": "let v=lastRollbackAction.verification||{};"
+    },
+    {
+      "language": "python",
+      "line": 5479,
+      "path": "core\\foxai_web.py",
+      "text": "let h=lastRollbackAction.hashes||{};"
+    },
+    {
+      "language": "python",
+      "line": 1,
+      "path": "core\\heuristics.py",
+      "text": "from __future__ import annotations"
+    },
+    {
+      "language": "python",
+      "line": 3,
+      "path": "core\\heuristics.py",
+      "text": "from dataclasses import dataclass, field"
+    },
+    {
+      "language": "python",
+      "line": 4,
+      "path": "core\\heuristics.py",
+      "text": "from typing import Any, Dict, List"
+    },
+    {
+      "language": "python",
+      "line": 7,
+      "path": "core\\heuristics.py",
+      "text": "@dataclass(frozen=True)"
+    },
+    {
+      "language": "python",
+      "line": 8,
+      "path": "core\\heuristics.py",
+      "text": "class HeuristicMatch:"
+    },
+    {
+      "language": "python",
+      "line": 9,
+      "path": "core\\heuristics.py",
+      "text": "\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 10,
+      "path": "core\\heuristics.py",
+      "text": "A matched engineering heuristic."
+    },
+    {
+      "language": "python",
+      "line": 11,
+      "path": "core\\heuristics.py",
+      "text": "\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 12,
+      "path": "core\\heuristics.py",
+      "text": "name: str"
+    },
+    {
+      "language": "python",
+      "line": 13,
+      "path": "core\\heuristics.py",
+      "text": "finding: str"
+    },
+    {
+      "language": "python",
+      "line": 14,
+      "path": "core\\heuristics.py",
+      "text": "confidence: int"
+    },
+    {
+      "language": "python",
+      "line": 15,
+      "path": "core\\heuristics.py",
+      "text": "reasoning: List[str] = field(default_factory=list)"
+    },
+    {
+      "language": "python",
+      "line": 16,
+      "path": "core\\heuristics.py",
+      "text": "suggested_actions: List[str] = field(default_factory=list)"
+    },
+    {
+      "language": "python",
+      "line": 17,
+      "path": "core\\heuristics.py",
+      "text": "alternatives: List[str] = field(default_factory=list)"
+    },
+    {
+      "language": "python",
+      "line": 18,
+      "path": "core\\heuristics.py",
+      "text": "risk: str = \"low\""
+    },
+    {
+      "language": "python",
+      "line": 19,
+      "path": "core\\heuristics.py",
+      "text": "impact: str = \"maintainability\""
+    },
+    {
+      "language": "python",
+      "line": 20,
+      "path": "core\\heuristics.py",
+      "text": "metadata: Dict[str, Any] = field(default_factory=dict)"
+    },
+    {
+      "language": "python",
+      "line": 23,
+      "path": "core\\heuristics.py",
+      "text": "class Heuristic:"
+    },
+    {
+      "language": "python",
+      "line": 24,
+      "path": "core\\heuristics.py",
+      "text": "\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 25,
+      "path": "core\\heuristics.py",
+      "text": "Base heuristic contract."
+    },
+    {
+      "language": "python",
+      "line": 26,
+      "path": "core\\heuristics.py",
+      "text": "\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 28,
+      "path": "core\\heuristics.py",
+      "text": "name = \"Base Heuristic\""
+    },
+    {
+      "language": "python",
+      "line": 30,
+      "path": "core\\heuristics.py",
+      "text": "def match(self, mission: Any, ranked_evidence: List[Any]) -> HeuristicMatch | None:"
+    },
+    {
+      "language": "python",
+      "line": 31,
+      "path": "core\\heuristics.py",
+      "text": "raise NotImplementedError"
+    },
+    {
+      "language": "python",
+      "line": 34,
+      "path": "core\\heuristics.py",
+      "text": "class HardcodedTimeoutHeuristic(Heuristic):"
+    },
+    {
+      "language": "python",
+      "line": 35,
+      "path": "core\\heuristics.py",
+      "text": "\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 36,
+      "path": "core\\heuristics.py",
+      "text": "Detects hardcoded timeout values in evidence snippets."
+    },
+    {
+      "language": "python",
+      "line": 37,
+      "path": "core\\heuristics.py",
+      "text": "\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 39,
+      "path": "core\\heuristics.py",
+      "text": "name = \"Hardcoded Timeout\""
+    },
+    {
+      "language": "python",
+      "line": 41,
+      "path": "core\\heuristics.py",
+      "text": "def match(self, mission: Any, ranked_evidence: List[Any]) -> HeuristicMatch | None:"
+    },
+    {
+      "language": "python",
+      "line": 42,
+      "path": "core\\heuristics.py",
+      "text": "hits = []"
+    },
+    {
+      "language": "python",
+      "line": 44,
+      "path": "core\\heuristics.py",
+      "text": "for ranked in ranked_evidence:"
+    },
+    {
+      "language": "python",
+      "line": 45,
+      "path": "core\\heuristics.py",
+      "text": "evidence = getattr(ranked, \"evidence\", ranked)"
+    },
+    {
+      "language": "python",
+      "line": 46,
+      "path": "core\\heuristics.py",
+      "text": "snippet = getattr(evidence, \"snippet\", \"\") or \"\""
+    },
+    {
+      "language": "python",
+      "line": 47,
+      "path": "core\\heuristics.py",
+      "text": "path = getattr(evidence, \"path\", \"\") or \"\""
+    },
+    {
+      "language": "python",
+      "line": 49,
+      "path": "core\\heuristics.py",
+      "text": "if \"timeout=300\" in snippet.replace(\" \", \"\") or \"timeout = 300\" in snippet:"
+    },
+    {
+      "language": "python",
+      "line": 50,
+      "path": "core\\heuristics.py",
+      "text": "hits.append(path or \"unknown source\")"
+    },
+    {
+      "language": "python",
+      "line": 52,
+      "path": "core\\heuristics.py",
+      "text": "if not hits:"
+    },
+    {
+      "language": "python",
+      "line": 53,
+      "path": "core\\heuristics.py",
+      "text": "return None"
+    },
+    {
+      "language": "python",
+      "line": 55,
+      "path": "core\\heuristics.py",
+      "text": "unique_hits = list(dict.fromkeys(hits))"
+    },
+    {
+      "language": "python",
+      "line": 57,
+      "path": "core\\heuristics.py",
+      "text": "return HeuristicMatch("
+    },
+    {
+      "language": "python",
+      "line": 58,
+      "path": "core\\heuristics.py",
+      "text": "name=self.name,"
+    },
+    {
+      "language": "python",
+      "line": 59,
+      "path": "core\\heuristics.py",
+      "text": "finding=\"HTTP timeout appears to be hardcoded.\","
+    },
+    {
+      "language": "python",
+      "line": 60,
+      "path": "core\\heuristics.py",
+      "text": "confidence=90,"
+    },
+    {
+      "language": "python",
+      "line": 61,
+      "path": "core\\heuristics.py",
+      "text": "reasoning=["
+    },
+    {
+      "language": "python",
+      "line": 62,
+      "path": "core\\heuristics.py",
+      "text": "\"A literal timeout value was found in source evidence.\","
+    },
+    {
+      "language": "python",
+      "line": 63,
+      "path": "core\\heuristics.py",
+      "text": "\"Hardcoded operational values are harder to tune across machines and models.\","
+    },
+    {
+      "language": "python",
+      "line": 64,
+      "path": "core\\heuristics.py",
+      "text": "f\"Detected in {len(unique_hits)} evidence source(s).\","
+    },
+    {
+      "language": "python",
+      "line": 65,
+      "path": "core\\heuristics.py",
+      "text": "],"
+    },
+    {
+      "language": "python",
+      "line": 66,
+      "path": "core\\heuristics.py",
+      "text": "suggested_actions=["
+    },
+    {
+      "language": "python",
+      "line": 67,
+      "path": "core\\heuristics.py",
+      "text": "\"Move the timeout value into configuration.\","
+    },
+    {
+      "language": "python",
+      "line": 68,
+      "path": "core\\heuristics.py",
+      "text": "\"Add a named setting such as request_timeout_seconds.\","
+    },
+    {
+      "language": "python",
+      "line": 69,
+      "path": "core\\heuristics.py",
+      "text": "\"Allow a safe default while permitting machine-specific overrides.\","
+    },
+    {
+      "language": "python",
+      "line": 70,
+      "path": "core\\heuristics.py",
+      "text": "],"
+    },
+    {
+      "language": "python",
+      "line": 71,
+      "path": "core\\heuristics.py",
+      "text": "alternatives=["
+    },
+    {
+      "language": "python",
+      "line": 72,
+      "path": "core\\heuristics.py",
+      "text": "\"Use an environment variable for quick overrides.\","
+    },
+    {
+      "language": "python",
+      "line": 73,
+      "path": "core\\heuristics.py",
+      "text": "\"Use a command-line argument for developer testing.\","
+    },
+    {
+      "language": "python",
+      "line": 74,
+      "path": "core\\heuristics.py",
+      "text": "],"
+    },
+    {
+      "language": "python",
+      "line": 75,
+      "path": "core\\heuristics.py",
+      "text": "risk=\"low\","
+    },
+    {
+      "language": "python",
+      "line": 76,
+      "path": "core\\heuristics.py",
+      "text": "impact=\"maintainability and portability\","
+    },
+    {
+      "language": "python",
+      "line": 77,
+      "path": "core\\heuristics.py",
+      "text": "metadata={\"hits\": unique_hits},"
+    },
+    {
+      "language": "python",
+      "line": 78,
+      "path": "core\\heuristics.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 81,
+      "path": "core\\heuristics.py",
+      "text": "class KernelComponentHeuristic(Heuristic):"
+    },
+    {
+      "language": "python",
+      "line": 82,
+      "path": "core\\heuristics.py",
+      "text": "\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 83,
+      "path": "core\\heuristics.py",
+      "text": "Recognizes investigation/kernel component evidence."
+    },
+    {
+      "language": "python",
+      "line": 84,
+      "path": "core\\heuristics.py",
+      "text": "\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 86,
+      "path": "core\\heuristics.py",
+      "text": "name = \"Kernel Component Evidence\""
+    },
+    {
+      "language": "python",
+      "line": 88,
+      "path": "core\\heuristics.py",
+      "text": "def match(self, mission: Any, ranked_evidence: List[Any]) -> HeuristicMatch | None:"
+    },
+    {
+      "language": "python",
+      "line": 89,
+      "path": "core\\heuristics.py",
+      "text": "query = (getattr(mission, \"query\", \"\") or \"\").lower()"
+    },
+    {
+      "language": "python",
+      "line": 91,
+      "path": "core\\heuristics.py",
+      "text": "if \"investigation engine\" not in query and \"investigation_engine\" not in query:"
+    },
+    {
+      "language": "python",
+      "line": 92,
+      "path": "core\\heuristics.py",
+      "text": "return None"
+    },
+    {
+      "language": "python",
+      "line": 94,
+      "path": "core\\heuristics.py",
+      "text": "paths = []"
+    },
+    {
+      "language": "python",
+      "line": 95,
+      "path": "core\\heuristics.py",
+      "text": "for ranked in ranked_evidence:"
+    },
+    {
+      "language": "python",
+      "line": 96,
+      "path": "core\\heuristics.py",
+      "text": "evidence = getattr(ranked, \"evidence\", ranked)"
+    },
+    {
+      "language": "python",
+      "line": 97,
+      "path": "core\\heuristics.py",
+      "text": "path = getattr(evidence, \"path\", \"\") or \"\""
+    },
+    {
+      "language": "python",
+      "line": 98,
+      "path": "core\\heuristics.py",
+      "text": "if \"investigation\" in path.lower() or \"engineer_agent\" in path.lower() or \"engineer_intent\" in path.lower():"
+    },
+    {
+      "language": "python",
+      "line": 99,
+      "path": "core\\heuristics.py",
+      "text": "paths.append(path)"
+    },
+    {
+      "language": "python",
+      "line": 101,
+      "path": "core\\heuristics.py",
+      "text": "if not paths:"
+    },
+    {
+      "language": "python",
+      "line": 102,
+      "path": "core\\heuristics.py",
+      "text": "return None"
+    },
+    {
+      "language": "python",
+      "line": 104,
+      "path": "core\\heuristics.py",
+      "text": "return HeuristicMatch("
+    },
+    {
+      "language": "python",
+      "line": 105,
+      "path": "core\\heuristics.py",
+      "text": "name=self.name,"
+    },
+    {
+      "language": "python",
+      "line": 106,
+      "path": "core\\heuristics.py",
+      "text": "finding=\"Investigation Engine integration evidence was found.\","
+    },
+    {
+      "language": "python",
+      "line": 107,
+      "path": "core\\heuristics.py",
+      "text": "confidence=82,"
+    },
+    {
+      "language": "python",
+      "line": 108,
+      "path": "core\\heuristics.py",
+      "text": "reasoning=["
+    },
+    {
+      "language": "python",
+      "line": 109,
+      "path": "core\\heuristics.py",
+      "text": "\"Evidence references Investigation Engine related code paths.\","
+    },
+    {
+      "language": "python",
+      "line": 110,
+      "path": "core\\heuristics.py",
+      "text": "\"The feature appears to be connected through Engineer-facing integration points.\","
+    },
+    {
+      "language": "python",
+      "line": 111,
+      "path": "core\\heuristics.py",
+      "text": "],"
+    },
+    {
+      "language": "python",
+      "line": 112,
+      "path": "core\\heuristics.py",
+      "text": "suggested_actions=["
+    },
+    {
+      "language": "python",
+      "line": 113,
+      "path": "core\\heuristics.py",
+      "text": "\"Expose Investigation Engine through the Kernel facade.\","
+    },
+    {
+      "language": "python",
+      "line": 114,
+      "path": "core\\heuristics.py",
+      "text": "\"Move SourceCodeDriver out of Engineer once the interface stabilizes.\","
+    },
+    {
+      "language": "python",
+      "line": 115,
+      "path": "core\\heuristics.py",
+      "text": "\"Add a small command or test that verifies mission-to-result flow.\","
+    },
+    {
+      "language": "python",
+      "line": 116,
+      "path": "core\\heuristics.py",
+      "text": "],"
+    },
+    {
+      "language": "python",
+      "line": 117,
+      "path": "core\\heuristics.py",
+      "text": "alternatives=["
+    },
+    {
+      "language": "python",
+      "line": 118,
+      "path": "core\\heuristics.py",
+      "text": "\"Keep SourceCodeDriver inside Engineer temporarily during RC testing.\","
+    },
+    {
+      "language": "python",
+      "line": 119,
+      "path": "core\\heuristics.py",
+      "text": "],"
+    },
+    {
+      "language": "python",
+      "line": 120,
+      "path": "core\\heuristics.py",
+      "text": "risk=\"medium\","
+    },
+    {
+      "language": "python",
+      "line": 121,
+      "path": "core\\heuristics.py",
+      "text": "impact=\"kernel architecture\","
+    },
+    {
+      "language": "python",
+      "line": 122,
+      "path": "core\\heuristics.py",
+      "text": "metadata={\"paths\": list(dict.fromkeys(paths))},"
+    },
+    {
+      "language": "python",
+      "line": 123,
+      "path": "core\\heuristics.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 126,
+      "path": "core\\heuristics.py",
+      "text": "class ContextMenuHeuristic(Heuristic):"
+    },
+    {
+      "language": "python",
+      "line": 127,
+      "path": "core\\heuristics.py",
+      "text": "\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 128,
+      "path": "core\\heuristics.py",
+      "text": "Interprets evidence related to right-click/context-menu behavior."
+    },
+    {
+      "language": "python",
+      "line": 129,
+      "path": "core\\heuristics.py",
+      "text": "\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 131,
+      "path": "core\\heuristics.py",
+      "text": "name = \"Context Menu\""
+    },
+    {
+      "language": "python",
+      "line": 133,
+      "path": "core\\heuristics.py",
+      "text": "KEYWORDS = ("
+    },
+    {
+      "language": "python",
+      "line": 134,
+      "path": "core\\heuristics.py",
+      "text": "\"<Button-3>\","
+    },
+    {
+      "language": "python",
+      "line": 135,
+      "path": "core\\heuristics.py",
+      "text": "\"<ButtonRelease-3>\","
+    },
+    {
+      "language": "python",
+      "line": 136,
+      "path": "core\\heuristics.py",
+      "text": "\"tk.Menu\","
+    },
+    {
+      "language": "python",
+      "line": 137,
+      "path": "core\\heuristics.py",
+      "text": "\"context menu\","
+    },
+    {
+      "language": "python",
+      "line": 138,
+      "path": "core\\heuristics.py",
+      "text": "\"right click\","
+    },
+    {
+      "language": "python",
+      "line": 139,
+      "path": "core\\heuristics.py",
+      "text": "\"right-click\","
+    },
+    {
+      "language": "python",
+      "line": 140,
+      "path": "core\\heuristics.py",
+      "text": "\"event_generate\","
+    },
+    {
+      "language": "python",
+      "line": 141,
+      "path": "core\\heuristics.py",
+      "text": "\"CTkTextbox\","
+    },
+    {
+      "language": "python",
+      "line": 142,
+      "path": "core\\heuristics.py",
+      "text": "\"input_box\","
+    },
+    {
+      "language": "python",
+      "line": 143,
+      "path": "core\\heuristics.py",
+      "text": "\"chat_box\","
+    },
+    {
+      "language": "python",
+      "line": 144,
+      "path": "core\\heuristics.py",
+      "text": "\"popup menu\","
+    },
+    {
+      "language": "python",
+      "line": 145,
+      "path": "core\\heuristics.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 147,
+      "path": "core\\heuristics.py",
+      "text": "def match(self, mission: Any, ranked_evidence: List[Any]) -> HeuristicMatch | None:"
+    },
+    {
+      "language": "python",
+      "line": 148,
+      "path": "core\\heuristics.py",
+      "text": "query = (getattr(mission, \"query\", \"\") or \"\").lower()"
+    },
+    {
+      "language": "python",
+      "line": 150,
+      "path": "core\\heuristics.py",
+      "text": "if not any(term in query for term in ("
+    },
+    {
+      "language": "python",
+      "line": 151,
+      "path": "core\\heuristics.py",
+      "text": "\"right click\","
+    },
+    {
+      "language": "python",
+      "line": 152,
+      "path": "core\\heuristics.py",
+      "text": "\"right-click\","
+    },
+    {
+      "language": "python",
+      "line": 153,
+      "path": "core\\heuristics.py",
+      "text": "\"context menu\","
+    },
+    {
+      "language": "python",
+      "line": 154,
+      "path": "core\\heuristics.py",
+      "text": "\"button-3\","
+    },
+    {
+      "language": "python",
+      "line": 155,
+      "path": "core\\heuristics.py",
+      "text": "\"popup menu\","
+    },
+    {
+      "language": "python",
+      "line": 156,
+      "path": "core\\heuristics.py",
+      "text": "\"menu not appearing\","
+    },
+    {
+      "language": "python",
+      "line": 157,
+      "path": "core\\heuristics.py",
+      "text": ")):"
+    },
+    {
+      "language": "python",
+      "line": 158,
+      "path": "core\\heuristics.py",
+      "text": "return None"
+    },
+    {
+      "language": "python",
+      "line": 160,
+      "path": "core\\heuristics.py",
+      "text": "hits = []"
+    },
+    {
+      "language": "python",
+      "line": 162,
+      "path": "core\\heuristics.py",
+      "text": "for ranked in ranked_evidence:"
+    },
+    {
+      "language": "python",
+      "line": 163,
+      "path": "core\\heuristics.py",
+      "text": "evidence = getattr(ranked, \"evidence\", ranked)"
+    },
+    {
+      "language": "python",
+      "line": 164,
+      "path": "core\\heuristics.py",
+      "text": "text = ("
+    },
+    {
+      "language": "python",
+      "line": 165,
+      "path": "core\\heuristics.py",
+      "text": "(getattr(evidence, \"snippet\", \"\") or \"\") + \"\\n\" +"
+    },
+    {
+      "language": "python",
+      "line": 166,
+      "path": "core\\heuristics.py",
+      "text": "(getattr(evidence, \"path\", \"\") or \"\")"
+    },
+    {
+      "language": "python",
+      "line": 167,
+      "path": "core\\heuristics.py",
+      "text": ").lower()"
+    },
+    {
+      "language": "python",
+      "line": 169,
+      "path": "core\\heuristics.py",
+      "text": "if any(keyword.lower() in text for keyword in self.KEYWORDS):"
+    },
+    {
+      "language": "python",
+      "line": 170,
+      "path": "core\\heuristics.py",
+      "text": "hits.append(getattr(evidence, \"path\", \"unknown source\"))"
+    },
+    {
+      "language": "python",
+      "line": 172,
+      "path": "core\\heuristics.py",
+      "text": "if not hits:"
+    },
+    {
+      "language": "python",
+      "line": 173,
+      "path": "core\\heuristics.py",
+      "text": "return HeuristicMatch("
+    },
+    {
+      "language": "python",
+      "line": 174,
+      "path": "core\\heuristics.py",
+      "text": "name=self.name,"
+    },
+    {
+      "language": "python",
+      "line": 175,
+      "path": "core\\heuristics.py",
+      "text": "finding=\"Context-menu evidence was not found in live source.\","
+    },
+    {
+      "language": "python",
+      "line": 176,
+      "path": "core\\heuristics.py",
+      "text": "confidence=45,"
+    },
+    {
+      "language": "python",
+      "line": 177,
+      "path": "core\\heuristics.py",
+      "text": "reasoning=["
+    },
+    {
+      "language": "python",
+      "line": 178,
+      "path": "core\\heuristics.py",
+      "text": "\"The mission asks about right-click/context-menu behavior.\","
+    },
+    {
+      "language": "python",
+      "line": 179,
+      "path": "core\\heuristics.py",
+      "text": "\"The selected driver ran, but no strong implementation evidence matched.\","
+    },
+    {
+      "language": "python",
+      "line": 180,
+      "path": "core\\heuristics.py",
+      "text": "\"This usually means the feature is missing, not wired, or named differently.\","
+    },
+    {
+      "language": "python",
+      "line": 181,
+      "path": "core\\heuristics.py",
+      "text": "],"
+    },
+    {
+      "language": "python",
+      "line": 182,
+      "path": "core\\heuristics.py",
+      "text": "suggested_actions=["
+    },
+    {
+      "language": "python",
+      "line": 183,
+      "path": "core\\heuristics.py",
+      "text": "\"Search active UI files for text widget creation.\","
+    },
+    {
+      "language": "python",
+      "line": 184,
+      "path": "core\\heuristics.py",
+      "text": "\"Add a reusable context-menu helper if no implementation exists.\","
+    },
+    {
+      "language": "python",
+      "line": 185,
+      "path": "core\\heuristics.py",
+      "text": "\"Bind the helper to input/chat text widgets.\","
+    },
+    {
+      "language": "python",
+      "line": 186,
+      "path": "core\\heuristics.py",
+      "text": "],"
+    },
+    {
+      "language": "python",
+      "line": 187,
+      "path": "core\\heuristics.py",
+      "text": "alternatives=["
+    },
+    {
+      "language": "python",
+      "line": 188,
+      "path": "core\\heuristics.py",
+      "text": "\"Run a broader UI investigation.\","
+    },
+    {
+      "language": "python",
+      "line": 189,
+      "path": "core\\heuristics.py",
+      "text": "\"Inspect main_window.py manually for textbox widgets.\","
+    },
+    {
+      "language": "python",
+      "line": 190,
+      "path": "core\\heuristics.py",
+      "text": "],"
+    },
+    {
+      "language": "python",
+      "line": 191,
+      "path": "core\\heuristics.py",
+      "text": "risk=\"medium\","
+    },
+    {
+      "language": "python",
+      "line": 192,
+      "path": "core\\heuristics.py",
+      "text": "impact=\"ui usability\","
+    },
+    {
+      "language": "python",
+      "line": 193,
+      "path": "core\\heuristics.py",
+      "text": "metadata={\"matched_paths\": []},"
+    },
+    {
+      "language": "python",
+      "line": 194,
+      "path": "core\\heuristics.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 196,
+      "path": "core\\heuristics.py",
+      "text": "unique_hits = list(dict.fromkeys(hits))"
+    },
+    {
+      "language": "python",
+      "line": 198,
+      "path": "core\\heuristics.py",
+      "text": "return HeuristicMatch("
+    },
+    {
+      "language": "python",
+      "line": 199,
+      "path": "core\\heuristics.py",
+      "text": "name=self.name,"
+    },
+    {
+      "language": "python",
+      "line": 200,
+      "path": "core\\heuristics.py",
+      "text": "finding=\"Context-menu implementation evidence was located.\","
+    },
+    {
+      "language": "python",
+      "line": 201,
+      "path": "core\\heuristics.py",
+      "text": "confidence=88,"
+    },
+    {
+      "language": "python",
+      "line": 202,
+      "path": "core\\heuristics.py",
+      "text": "reasoning=["
+    },
+    {
+      "language": "python",
+      "line": 203,
+      "path": "core\\heuristics.py",
+      "text": "\"Evidence contains Tk/CustomTkinter context-menu patterns.\","
+    },
+    {
+      "language": "python",
+      "line": 204,
+      "path": "core\\heuristics.py",
+      "text": "\"The query matches right-click/context-menu behavior.\","
+    },
+    {
+      "language": "python",
+      "line": 205,
+      "path": "core\\heuristics.py",
+      "text": "f\"{len(unique_hits)} relevant source file(s) matched.\","
+    },
+    {
+      "language": "python",
+      "line": 206,
+      "path": "core\\heuristics.py",
+      "text": "],"
+    },
+    {
+      "language": "python",
+      "line": 207,
+      "path": "core\\heuristics.py",
+      "text": "suggested_actions=["
+    },
+    {
+      "language": "python",
+      "line": 208,
+      "path": "core\\heuristics.py",
+      "text": "\"Verify the target widget binds <Button-3> or the platform equivalent.\","
+    },
+    {
+      "language": "python",
+      "line": 209,
+      "path": "core\\heuristics.py",
+      "text": "\"Ensure the tk.Menu object is created before binding.\","
+    },
+    {
+      "language": "python",
+      "line": 210,
+      "path": "core\\heuristics.py",
+      "text": "\"Confirm the widget receives focus before showing the popup menu.\","
+    },
+    {
+      "language": "python",
+      "line": 211,
+      "path": "core\\heuristics.py",
+      "text": "\"Test Windows and Linux mouse-button mappings.\","
+    },
+    {
+      "language": "python",
+      "line": 212,
+      "path": "core\\heuristics.py",
+      "text": "],"
+    },
+    {
+      "language": "python",
+      "line": 213,
+      "path": "core\\heuristics.py",
+      "text": "alternatives=["
+    },
+    {
+      "language": "python",
+      "line": 214,
+      "path": "core\\heuristics.py",
+      "text": "\"Centralize context-menu creation in one reusable helper.\","
+    },
+    {
+      "language": "python",
+      "line": 215,
+      "path": "core\\heuristics.py",
+      "text": "\"Create a ContextMenu service shared by chat, input, and editor widgets.\","
+    },
+    {
+      "language": "python",
+      "line": 216,
+      "path": "core\\heuristics.py",
+      "text": "],"
+    },
+    {
+      "language": "python",
+      "line": 217,
+      "path": "core\\heuristics.py",
+      "text": "risk=\"low\","
+    },
+    {
+      "language": "python",
+      "line": 218,
+      "path": "core\\heuristics.py",
+      "text": "impact=\"ui reliability\","
+    },
+    {
+      "language": "python",
+      "line": 219,
+      "path": "core\\heuristics.py",
+      "text": "metadata={\"matched_paths\": unique_hits},"
+    },
+    {
+      "language": "python",
+      "line": 220,
+      "path": "core\\heuristics.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 223,
+      "path": "core\\heuristics.py",
+      "text": "class GenericEvidenceHeuristic(Heuristic):"
+    },
+    {
+      "language": "python",
+      "line": 224,
+      "path": "core\\heuristics.py",
+      "text": "\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 225,
+      "path": "core\\heuristics.py",
+      "text": "Fallback when evidence exists but no specific heuristic matches."
+    },
+    {
+      "language": "python",
+      "line": 226,
+      "path": "core\\heuristics.py",
+      "text": "\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 228,
+      "path": "core\\heuristics.py",
+      "text": "name = \"Generic Evidence Review\""
+    },
+    {
+      "language": "python",
+      "line": 230,
+      "path": "core\\heuristics.py",
+      "text": "def match(self, mission: Any, ranked_evidence: List[Any]) -> HeuristicMatch | None:"
+    },
+    {
+      "language": "python",
+      "line": 231,
+      "path": "core\\heuristics.py",
+      "text": "if not ranked_evidence:"
+    },
+    {
+      "language": "python",
+      "line": 232,
+      "path": "core\\heuristics.py",
+      "text": "return HeuristicMatch("
+    },
+    {
+      "language": "python",
+      "line": 233,
+      "path": "core\\heuristics.py",
+      "text": "name=self.name,"
+    },
+    {
+      "language": "python",
+      "line": 234,
+      "path": "core\\heuristics.py",
+      "text": "finding=\"No evidence was collected.\","
+    },
+    {
+      "language": "python",
+      "line": 235,
+      "path": "core\\heuristics.py",
+      "text": "confidence=20,"
+    },
+    {
+      "language": "python",
+      "line": 236,
+      "path": "core\\heuristics.py",
+      "text": "reasoning=["
+    },
+    {
+      "language": "python",
+      "line": 237,
+      "path": "core\\heuristics.py",
+      "text": "\"The investigation pipeline ran, but no evidence items were available.\","
+    },
+    {
+      "language": "python",
+      "line": 238,
+      "path": "core\\heuristics.py",
+      "text": "],"
+    },
+    {
+      "language": "python",
+      "line": 239,
+      "path": "core\\heuristics.py",
+      "text": "suggested_actions=["
+    },
+    {
+      "language": "python",
+      "line": 240,
+      "path": "core\\heuristics.py",
+      "text": "\"Add or enable an evidence driver.\","
+    },
+    {
+      "language": "python",
+      "line": 241,
+      "path": "core\\heuristics.py",
+      "text": "\"Try a more specific investigation query.\","
+    },
+    {
+      "language": "python",
+      "line": 242,
+      "path": "core\\heuristics.py",
+      "text": "],"
+    },
+    {
+      "language": "python",
+      "line": 243,
+      "path": "core\\heuristics.py",
+      "text": "alternatives=["
+    },
+    {
+      "language": "python",
+      "line": 244,
+      "path": "core\\heuristics.py",
+      "text": "\"Run SmartSearch manually as a fallback.\","
+    },
+    {
+      "language": "python",
+      "line": 245,
+      "path": "core\\heuristics.py",
+      "text": "],"
+    },
+    {
+      "language": "python",
+      "line": 246,
+      "path": "core\\heuristics.py",
+      "text": "risk=\"unknown\","
+    },
+    {
+      "language": "python",
+      "line": 247,
+      "path": "core\\heuristics.py",
+      "text": "impact=\"insufficient evidence\","
+    },
+    {
+      "language": "python",
+      "line": 248,
+      "path": "core\\heuristics.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 250,
+      "path": "core\\heuristics.py",
+      "text": "return HeuristicMatch("
+    },
+    {
+      "language": "python",
+      "line": 251,
+      "path": "core\\heuristics.py",
+      "text": "name=self.name,"
+    },
+    {
+      "language": "python",
+      "line": 252,
+      "path": "core\\heuristics.py",
+      "text": "finding=\"Evidence was collected, but no specific engineering heuristic matched.\","
+    },
+    {
+      "language": "python",
+      "line": 253,
+      "path": "core\\heuristics.py",
+      "text": "confidence=55,"
+    },
+    {
+      "language": "python",
+      "line": 254,
+      "path": "core\\heuristics.py",
+      "text": "reasoning=["
+    },
+    {
+      "language": "python",
+      "line": 255,
+      "path": "core\\heuristics.py",
+      "text": "\"Ranked evidence exists.\","
+    },
+    {
+      "language": "python",
+      "line": 256,
+      "path": "core\\heuristics.py",
+      "text": "\"No specialized recommendation rule matched this investigation yet.\","
+    },
+    {
+      "language": "python",
+      "line": 257,
+      "path": "core\\heuristics.py",
+      "text": "],"
+    },
+    {
+      "language": "python",
+      "line": 258,
+      "path": "core\\heuristics.py",
+      "text": "suggested_actions=["
+    },
+    {
+      "language": "python",
+      "line": 259,
+      "path": "core\\heuristics.py",
+      "text": "\"Review the top-ranked evidence.\","
+    },
+    {
+      "language": "python",
+      "line": 260,
+      "path": "core\\heuristics.py",
+      "text": "\"Add a domain-specific heuristic if this investigation type is common.\","
+    },
+    {
+      "language": "python",
+      "line": 261,
+      "path": "core\\heuristics.py",
+      "text": "],"
+    },
+    {
+      "language": "python",
+      "line": 262,
+      "path": "core\\heuristics.py",
+      "text": "alternatives=["
+    },
+    {
+      "language": "python",
+      "line": 263,
+      "path": "core\\heuristics.py",
+      "text": "\"Ask Engineer for a deeper architecture review.\","
+    },
+    {
+      "language": "python",
+      "line": 264,
+      "path": "core\\heuristics.py",
+      "text": "],"
+    },
+    {
+      "language": "python",
+      "line": 265,
+      "path": "core\\heuristics.py",
+      "text": "risk=\"medium\","
+    },
+    {
+      "language": "python",
+      "line": 266,
+      "path": "core\\heuristics.py",
+      "text": "impact=\"requires human review\","
+    },
+    {
+      "language": "python",
+      "line": 267,
+      "path": "core\\heuristics.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 270,
+      "path": "core\\heuristics.py",
+      "text": "DEFAULT_HEURISTICS = ["
+    },
+    {
+      "language": "python",
+      "line": 271,
+      "path": "core\\heuristics.py",
+      "text": "HardcodedTimeoutHeuristic(),"
+    },
+    {
+      "language": "python",
+      "line": 272,
+      "path": "core\\heuristics.py",
+      "text": "KernelComponentHeuristic(),"
+    },
+    {
+      "language": "python",
+      "line": 273,
+      "path": "core\\heuristics.py",
+      "text": "ContextMenuHeuristic(),"
+    },
+    {
+      "language": "python",
+      "line": 274,
+      "path": "core\\heuristics.py",
+      "text": "GenericEvidenceHeuristic(),"
+    },
+    {
+      "language": "python",
+      "line": 275,
+      "path": "core\\heuristics.py",
+      "text": "]"
+    },
+    {
+      "language": "python",
+      "line": 1,
+      "path": "core\\heuristics\\context_menu_heuristic.py",
+      "text": "from __future__ import annotations"
+    },
+    {
+      "language": "python",
+      "line": 3,
+      "path": "core\\heuristics\\context_menu_heuristic.py",
+      "text": "from typing import Any, List"
+    },
+    {
+      "language": "python",
+      "line": 5,
+      "path": "core\\heuristics\\context_menu_heuristic.py",
+      "text": "from core.heuristics import Heuristic, HeuristicMatch"
+    },
+    {
+      "language": "python",
+      "line": 8,
+      "path": "core\\heuristics\\context_menu_heuristic.py",
+      "text": "class ContextMenuHeuristic(Heuristic):"
+    },
+    {
+      "language": "python",
+      "line": 9,
+      "path": "core\\heuristics\\context_menu_heuristic.py",
+      "text": "\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 10,
+      "path": "core\\heuristics\\context_menu_heuristic.py",
+      "text": "ContextMenuHeuristic RC1"
+    },
+    {
+      "language": "python",
+      "line": 12,
+      "path": "core\\heuristics\\context_menu_heuristic.py",
+      "text": "Interprets evidence related to right-click/context menu problems."
+    },
+    {
+      "language": "python",
+      "line": 13,
+      "path": "core\\heuristics\\context_menu_heuristic.py",
+      "text": "\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 15,
+      "path": "core\\heuristics\\context_menu_heuristic.py",
+      "text": "name = \"Context Menu\""
+    },
+    {
+      "language": "python",
+      "line": 17,
+      "path": "core\\heuristics\\context_menu_heuristic.py",
+      "text": "KEYWORDS = ("
+    },
+    {
+      "language": "python",
+      "line": 18,
+      "path": "core\\heuristics\\context_menu_heuristic.py",
+      "text": "\"<Button-3>\","
+    },
+    {
+      "language": "python",
+      "line": 19,
+      "path": "core\\heuristics\\context_menu_heuristic.py",
+      "text": "\"<ButtonRelease-3>\","
+    },
+    {
+      "language": "python",
+      "line": 20,
+      "path": "core\\heuristics\\context_menu_heuristic.py",
+      "text": "\"tk.Menu\","
+    },
+    {
+      "language": "python",
+      "line": 21,
+      "path": "core\\heuristics\\context_menu_heuristic.py",
+      "text": "\"context menu\","
+    },
+    {
+      "language": "python",
+      "line": 22,
+      "path": "core\\heuristics\\context_menu_heuristic.py",
+      "text": "\"right click\","
+    },
+    {
+      "language": "python",
+      "line": 23,
+      "path": "core\\heuristics\\context_menu_heuristic.py",
+      "text": "\"right-click\","
+    },
+    {
+      "language": "python",
+      "line": 24,
+      "path": "core\\heuristics\\context_menu_heuristic.py",
+      "text": "\"event_generate\","
+    },
+    {
+      "language": "python",
+      "line": 25,
+      "path": "core\\heuristics\\context_menu_heuristic.py",
+      "text": "\"CTkTextbox\","
+    },
+    {
+      "language": "python",
+      "line": 26,
+      "path": "core\\heuristics\\context_menu_heuristic.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 28,
+      "path": "core\\heuristics\\context_menu_heuristic.py",
+      "text": "def match(self, mission: Any, ranked_evidence: List[Any]) -> HeuristicMatch | None:"
+    },
+    {
+      "language": "python",
+      "line": 29,
+      "path": "core\\heuristics\\context_menu_heuristic.py",
+      "text": "query = (getattr(mission, \"query\", \"\") or \"\").lower()"
+    },
+    {
+      "language": "python",
+      "line": 31,
+      "path": "core\\heuristics\\context_menu_heuristic.py",
+      "text": "if not any(k in query for k in ("
+    },
+    {
+      "language": "python",
+      "line": 32,
+      "path": "core\\heuristics\\context_menu_heuristic.py",
+      "text": "\"right click\","
+    },
+    {
+      "language": "python",
+      "line": 33,
+      "path": "core\\heuristics\\context_menu_heuristic.py",
+      "text": "\"right-click\","
+    },
+    {
+      "language": "python",
+      "line": 34,
+      "path": "core\\heuristics\\context_menu_heuristic.py",
+      "text": "\"context menu\","
+    },
+    {
+      "language": "python",
+      "line": 35,
+      "path": "core\\heuristics\\context_menu_heuristic.py",
+      "text": "\"button-3\","
+    },
+    {
+      "language": "python",
+      "line": 36,
+      "path": "core\\heuristics\\context_menu_heuristic.py",
+      "text": "\"popup menu\","
+    },
+    {
+      "language": "python",
+      "line": 37,
+      "path": "core\\heuristics\\context_menu_heuristic.py",
+      "text": ")):"
+    },
+    {
+      "language": "python",
+      "line": 38,
+      "path": "core\\heuristics\\context_menu_heuristic.py",
+      "text": "return None"
+    },
+    {
+      "language": "python",
+      "line": 40,
+      "path": "core\\heuristics\\context_menu_heuristic.py",
+      "text": "hits = []"
+    },
+    {
+      "language": "python",
+      "line": 42,
+      "path": "core\\heuristics\\context_menu_heuristic.py",
+      "text": "for ranked in ranked_evidence:"
+    },
+    {
+      "language": "python",
+      "line": 43,
+      "path": "core\\heuristics\\context_menu_heuristic.py",
+      "text": "evidence = getattr(ranked, \"evidence\", ranked)"
+    },
+    {
+      "language": "python",
+      "line": 44,
+      "path": "core\\heuristics\\context_menu_heuristic.py",
+      "text": "text = ("
+    },
+    {
+      "language": "python",
+      "line": 45,
+      "path": "core\\heuristics\\context_menu_heuristic.py",
+      "text": "(getattr(evidence, \"snippet\", \"\") or \"\") + \"\\n\" +"
+    },
+    {
+      "language": "python",
+      "line": 46,
+      "path": "core\\heuristics\\context_menu_heuristic.py",
+      "text": "(getattr(evidence, \"path\", \"\") or \"\")"
+    },
+    {
+      "language": "python",
+      "line": 47,
+      "path": "core\\heuristics\\context_menu_heuristic.py",
+      "text": ").lower()"
+    },
+    {
+      "language": "python",
+      "line": 49,
+      "path": "core\\heuristics\\context_menu_heuristic.py",
+      "text": "if any(k.lower() in text for k in self.KEYWORDS):"
+    },
+    {
+      "language": "python",
+      "line": 50,
+      "path": "core\\heuristics\\context_menu_heuristic.py",
+      "text": "hits.append(getattr(evidence, \"path\", \"unknown\"))"
+    },
+    {
+      "language": "python",
+      "line": 52,
+      "path": "core\\heuristics\\context_menu_heuristic.py",
+      "text": "if not hits:"
+    },
+    {
+      "language": "python",
+      "line": 53,
+      "path": "core\\heuristics\\context_menu_heuristic.py",
+      "text": "return None"
+    },
+    {
+      "language": "python",
+      "line": 55,
+      "path": "core\\heuristics\\context_menu_heuristic.py",
+      "text": "return HeuristicMatch("
+    },
+    {
+      "language": "python",
+      "line": 56,
+      "path": "core\\heuristics\\context_menu_heuristic.py",
+      "text": "name=self.name,"
+    },
+    {
+      "language": "python",
+      "line": 57,
+      "path": "core\\heuristics\\context_menu_heuristic.py",
+      "text": "finding=\"Context-menu implementation was located.\","
+    },
+    {
+      "language": "python",
+      "line": 58,
+      "path": "core\\heuristics\\context_menu_heuristic.py",
+      "text": "confidence=92,"
+    },
+    {
+      "language": "python",
+      "line": 59,
+      "path": "core\\heuristics\\context_menu_heuristic.py",
+      "text": "reasoning=["
+    },
+    {
+      "language": "python",
+      "line": 60,
+      "path": "core\\heuristics\\context_menu_heuristic.py",
+      "text": "\"Evidence contains common Tk/CustomTkinter context-menu patterns.\","
+    },
+    {
+      "language": "python",
+      "line": 61,
+      "path": "core\\heuristics\\context_menu_heuristic.py",
+      "text": "\"Live project source ranked highest.\","
+    },
+    {
+      "language": "python",
+      "line": 62,
+      "path": "core\\heuristics\\context_menu_heuristic.py",
+      "text": "f\"{len(hits)} relevant source file(s) matched.\""
+    },
+    {
+      "language": "python",
+      "line": 63,
+      "path": "core\\heuristics\\context_menu_heuristic.py",
+      "text": "],"
+    },
+    {
+      "language": "python",
+      "line": 64,
+      "path": "core\\heuristics\\context_menu_heuristic.py",
+      "text": "suggested_actions=["
+    },
+    {
+      "language": "python",
+      "line": 65,
+      "path": "core\\heuristics\\context_menu_heuristic.py",
+      "text": "\"Verify the widget binds <Button-3> (or platform equivalent).\","
+    },
+    {
+      "language": "python",
+      "line": 66,
+      "path": "core\\heuristics\\context_menu_heuristic.py",
+      "text": "\"Ensure the tk.Menu object is created before binding.\","
+    },
+    {
+      "language": "python",
+      "line": 67,
+      "path": "core\\heuristics\\context_menu_heuristic.py",
+      "text": "\"Confirm the target widget receives focus before popup().\","
+    },
+    {
+      "language": "python",
+      "line": 68,
+      "path": "core\\heuristics\\context_menu_heuristic.py",
+      "text": "\"Test Windows and Linux mouse-button mappings.\""
+    },
+    {
+      "language": "python",
+      "line": 69,
+      "path": "core\\heuristics\\context_menu_heuristic.py",
+      "text": "],"
+    },
+    {
+      "language": "python",
+      "line": 70,
+      "path": "core\\heuristics\\context_menu_heuristic.py",
+      "text": "alternatives=["
+    },
+    {
+      "language": "python",
+      "line": 71,
+      "path": "core\\heuristics\\context_menu_heuristic.py",
+      "text": "\"Centralize context-menu creation in one helper.\","
+    },
+    {
+      "language": "python",
+      "line": 72,
+      "path": "core\\heuristics\\context_menu_heuristic.py",
+      "text": "\"Create a reusable ContextMenu service.\""
+    },
+    {
+      "language": "python",
+      "line": 73,
+      "path": "core\\heuristics\\context_menu_heuristic.py",
+      "text": "],"
+    },
+    {
+      "language": "python",
+      "line": 74,
+      "path": "core\\heuristics\\context_menu_heuristic.py",
+      "text": "risk=\"low\","
+    },
+    {
+      "language": "python",
+      "line": 75,
+      "path": "core\\heuristics\\context_menu_heuristic.py",
+      "text": "impact=\"ui reliability\","
+    },
+    {
+      "language": "python",
+      "line": 76,
+      "path": "core\\heuristics\\context_menu_heuristic.py",
+      "text": "metadata={\"matched_paths\": hits},"
+    },
+    {
+      "language": "python",
+      "line": 77,
+      "path": "core\\heuristics\\context_menu_heuristic.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1,
+      "path": "core\\image_models.py",
+      "text": "from core.paths import BASE"
+    },
+    {
+      "language": "python",
+      "line": 3,
+      "path": "core\\image_models.py",
+      "text": "CHECKPOINT_DIR = BASE / \"ComfyUI\" / \"models\" / \"checkpoints\""
+    },
+    {
+      "language": "python",
+      "line": 5,
+      "path": "core\\image_models.py",
+      "text": "def find_checkpoints():"
+    },
+    {
+      "language": "python",
+      "line": 6,
+      "path": "core\\image_models.py",
+      "text": "if not CHECKPOINT_DIR.exists():"
+    },
+    {
+      "language": "python",
+      "line": 7,
+      "path": "core\\image_models.py",
+      "text": "return [\"Use workflow default\"]"
+    },
+    {
+      "language": "python",
+      "line": 9,
+      "path": "core\\image_models.py",
+      "text": "models = sorted("
+    },
+    {
+      "language": "python",
+      "line": 10,
+      "path": "core\\image_models.py",
+      "text": "p.name for p in CHECKPOINT_DIR.glob(\"*.safetensors\")"
+    },
+    {
+      "language": "python",
+      "line": 11,
+      "path": "core\\image_models.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 13,
+      "path": "core\\image_models.py",
+      "text": "return [\"Use workflow default\"] + models"
+    },
+    {
+      "language": "python",
+      "line": 1,
+      "path": "core\\investigation_engine.py",
+      "text": "from __future__ import annotations"
+    },
+    {
+      "language": "python",
+      "line": 3,
+      "path": "core\\investigation_engine.py",
+      "text": "from abc import ABC, abstractmethod"
+    },
+    {
+      "language": "python",
+      "line": 4,
+      "path": "core\\investigation_engine.py",
+      "text": "from dataclasses import dataclass, field"
+    },
+    {
+      "language": "python",
+      "line": 5,
+      "path": "core\\investigation_engine.py",
+      "text": "from datetime import datetime"
+    },
+    {
+      "language": "python",
+      "line": 6,
+      "path": "core\\investigation_engine.py",
+      "text": "from time import perf_counter"
+    },
+    {
+      "language": "python",
+      "line": 7,
+      "path": "core\\investigation_engine.py",
+      "text": "from typing import Any, Dict, List, Optional"
+    },
+    {
+      "language": "python",
+      "line": 8,
+      "path": "core\\investigation_engine.py",
+      "text": "from uuid import uuid4"
+    },
+    {
+      "language": "python",
+      "line": 11,
+      "path": "core\\investigation_engine.py",
+      "text": "@dataclass(frozen=True)"
+    },
+    {
+      "language": "python",
+      "line": 12,
+      "path": "core\\investigation_engine.py",
+      "text": "class Mission:"
+    },
+    {
+      "language": "python",
+      "line": 13,
+      "path": "core\\investigation_engine.py",
+      "text": "\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 14,
+      "path": "core\\investigation_engine.py",
+      "text": "A structured investigation request."
+    },
+    {
+      "language": "python",
+      "line": 16,
+      "path": "core\\investigation_engine.py",
+      "text": "Departments create Missions instead of passing raw strings into the"
+    },
+    {
+      "language": "python",
+      "line": 17,
+      "path": "core\\investigation_engine.py",
+      "text": "Investigation Engine."
+    },
+    {
+      "language": "python",
+      "line": 18,
+      "path": "core\\investigation_engine.py",
+      "text": "\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 19,
+      "path": "core\\investigation_engine.py",
+      "text": "id: str"
+    },
+    {
+      "language": "python",
+      "line": 20,
+      "path": "core\\investigation_engine.py",
+      "text": "department: str"
+    },
+    {
+      "language": "python",
+      "line": 21,
+      "path": "core\\investigation_engine.py",
+      "text": "intent: str"
+    },
+    {
+      "language": "python",
+      "line": 22,
+      "path": "core\\investigation_engine.py",
+      "text": "query: str"
+    },
+    {
+      "language": "python",
+      "line": 23,
+      "path": "core\\investigation_engine.py",
+      "text": "priority: str = \"normal\""
+    },
+    {
+      "language": "python",
+      "line": 24,
+      "path": "core\\investigation_engine.py",
+      "text": "requested_drivers: List[str] = field(default_factory=list)"
+    },
+    {
+      "language": "python",
+      "line": 25,
+      "path": "core\\investigation_engine.py",
+      "text": "metadata: Dict[str, Any] = field(default_factory=dict)"
+    },
+    {
+      "language": "python",
+      "line": 26,
+      "path": "core\\investigation_engine.py",
+      "text": "timestamp: str = field(default_factory=lambda: datetime.now().isoformat(timespec=\"seconds\"))"
+    },
+    {
+      "language": "python",
+      "line": 28,
+      "path": "core\\investigation_engine.py",
+      "text": "@classmethod"
+    },
+    {
+      "language": "python",
+      "line": 29,
+      "path": "core\\investigation_engine.py",
+      "text": "def create("
+    },
+    {
+      "language": "python",
+      "line": 30,
+      "path": "core\\investigation_engine.py",
+      "text": "cls,"
+    },
+    {
+      "language": "python",
+      "line": 31,
+      "path": "core\\investigation_engine.py",
+      "text": "department: str,"
+    },
+    {
+      "language": "python",
+      "line": 32,
+      "path": "core\\investigation_engine.py",
+      "text": "intent: str,"
+    },
+    {
+      "language": "python",
+      "line": 33,
+      "path": "core\\investigation_engine.py",
+      "text": "query: str,"
+    },
+    {
+      "language": "python",
+      "line": 34,
+      "path": "core\\investigation_engine.py",
+      "text": "priority: str = \"normal\","
+    },
+    {
+      "language": "python",
+      "line": 35,
+      "path": "core\\investigation_engine.py",
+      "text": "requested_drivers: Optional[List[str]] = None,"
+    },
+    {
+      "language": "python",
+      "line": 36,
+      "path": "core\\investigation_engine.py",
+      "text": "metadata: Optional[Dict[str, Any]] = None,"
+    },
+    {
+      "language": "python",
+      "line": 37,
+      "path": "core\\investigation_engine.py",
+      "text": ") -> \"Mission\":"
+    },
+    {
+      "language": "python",
+      "line": 38,
+      "path": "core\\investigation_engine.py",
+      "text": "return cls("
+    },
+    {
+      "language": "python",
+      "line": 39,
+      "path": "core\\investigation_engine.py",
+      "text": "id=f\"INV-{datetime.now().strftime('%Y%m%d')}-{uuid4().hex[:8]}\","
+    },
+    {
+      "language": "python",
+      "line": 40,
+      "path": "core\\investigation_engine.py",
+      "text": "department=department,"
+    },
+    {
+      "language": "python",
+      "line": 41,
+      "path": "core\\investigation_engine.py",
+      "text": "intent=intent,"
+    },
+    {
+      "language": "python",
+      "line": 42,
+      "path": "core\\investigation_engine.py",
+      "text": "query=query,"
+    },
+    {
+      "language": "python",
+      "line": 43,
+      "path": "core\\investigation_engine.py",
+      "text": "priority=priority,"
+    },
+    {
+      "language": "python",
+      "line": 44,
+      "path": "core\\investigation_engine.py",
+      "text": "requested_drivers=requested_drivers or [],"
+    },
+    {
+      "language": "python",
+      "line": 45,
+      "path": "core\\investigation_engine.py",
+      "text": "metadata=metadata or {},"
+    },
+    {
+      "language": "python",
+      "line": 46,
+      "path": "core\\investigation_engine.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 49,
+      "path": "core\\investigation_engine.py",
+      "text": "@dataclass(frozen=True)"
+    },
+    {
+      "language": "python",
+      "line": 50,
+      "path": "core\\investigation_engine.py",
+      "text": "class Evidence:"
+    },
+    {
+      "language": "python",
+      "line": 51,
+      "path": "core\\investigation_engine.py",
+      "text": "\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 52,
+      "path": "core\\investigation_engine.py",
+      "text": "A single piece of structured evidence."
+    },
+    {
+      "language": "python",
+      "line": 53,
+      "path": "core\\investigation_engine.py",
+      "text": "\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 54,
+      "path": "core\\investigation_engine.py",
+      "text": "source: str"
+    },
+    {
+      "language": "python",
+      "line": 55,
+      "path": "core\\investigation_engine.py",
+      "text": "category: str"
+    },
+    {
+      "language": "python",
+      "line": 56,
+      "path": "core\\investigation_engine.py",
+      "text": "path: str = \"\""
+    },
+    {
+      "language": "python",
+      "line": 57,
+      "path": "core\\investigation_engine.py",
+      "text": "snippet: str = \"\""
+    },
+    {
+      "language": "python",
+      "line": 58,
+      "path": "core\\investigation_engine.py",
+      "text": "confidence: int = 0"
+    },
+    {
+      "language": "python",
+      "line": 59,
+      "path": "core\\investigation_engine.py",
+      "text": "weight: int = 0"
+    },
+    {
+      "language": "python",
+      "line": 60,
+      "path": "core\\investigation_engine.py",
+      "text": "timestamp: str = field(default_factory=lambda: datetime.now().isoformat(timespec=\"seconds\"))"
+    },
+    {
+      "language": "python",
+      "line": 61,
+      "path": "core\\investigation_engine.py",
+      "text": "metadata: Dict[str, Any] = field(default_factory=dict)"
+    },
+    {
+      "language": "python",
+      "line": 64,
+      "path": "core\\investigation_engine.py",
+      "text": "@dataclass(frozen=True)"
+    },
+    {
+      "language": "python",
+      "line": 65,
+      "path": "core\\investigation_engine.py",
+      "text": "class EvidenceGap:"
+    },
+    {
+      "language": "python",
+      "line": 66,
+      "path": "core\\investigation_engine.py",
+      "text": "\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 67,
+      "path": "core\\investigation_engine.py",
+      "text": "Expected evidence that was not found or not checked."
+    },
+    {
+      "language": "python",
+      "line": 68,
+      "path": "core\\investigation_engine.py",
+      "text": "\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 69,
+      "path": "core\\investigation_engine.py",
+      "text": "expected: str"
+    },
+    {
+      "language": "python",
+      "line": 70,
+      "path": "core\\investigation_engine.py",
+      "text": "reason: str"
+    },
+    {
+      "language": "python",
+      "line": 71,
+      "path": "core\\investigation_engine.py",
+      "text": "impact: str = \"unknown\""
+    },
+    {
+      "language": "python",
+      "line": 72,
+      "path": "core\\investigation_engine.py",
+      "text": "suggested_driver: str = \"\""
+    },
+    {
+      "language": "python",
+      "line": 75,
+      "path": "core\\investigation_engine.py",
+      "text": "@dataclass(frozen=True)"
+    },
+    {
+      "language": "python",
+      "line": 76,
+      "path": "core\\investigation_engine.py",
+      "text": "class ConfidenceReport:"
+    },
+    {
+      "language": "python",
+      "line": 77,
+      "path": "core\\investigation_engine.py",
+      "text": "\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 78,
+      "path": "core\\investigation_engine.py",
+      "text": "Explainable confidence summary for an investigation."
+    },
+    {
+      "language": "python",
+      "line": 79,
+      "path": "core\\investigation_engine.py",
+      "text": "\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 80,
+      "path": "core\\investigation_engine.py",
+      "text": "evidence_quality: int = 0"
+    },
+    {
+      "language": "python",
+      "line": 81,
+      "path": "core\\investigation_engine.py",
+      "text": "coverage: int = 0"
+    },
+    {
+      "language": "python",
+      "line": 82,
+      "path": "core\\investigation_engine.py",
+      "text": "agreement: int = 0"
+    },
+    {
+      "language": "python",
+      "line": 83,
+      "path": "core\\investigation_engine.py",
+      "text": "overall: int = 0"
+    },
+    {
+      "language": "python",
+      "line": 84,
+      "path": "core\\investigation_engine.py",
+      "text": "notes: List[str] = field(default_factory=list)"
+    },
+    {
+      "language": "python",
+      "line": 87,
+      "path": "core\\investigation_engine.py",
+      "text": "@dataclass(frozen=True)"
+    },
+    {
+      "language": "python",
+      "line": 88,
+      "path": "core\\investigation_engine.py",
+      "text": "class InvestigationResult:"
+    },
+    {
+      "language": "python",
+      "line": 89,
+      "path": "core\\investigation_engine.py",
+      "text": "\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 90,
+      "path": "core\\investigation_engine.py",
+      "text": "Final structured result returned by the Investigation Engine."
+    },
+    {
+      "language": "python",
+      "line": 91,
+      "path": "core\\investigation_engine.py",
+      "text": "\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 92,
+      "path": "core\\investigation_engine.py",
+      "text": "mission: Mission"
+    },
+    {
+      "language": "python",
+      "line": 93,
+      "path": "core\\investigation_engine.py",
+      "text": "evidence: List[Evidence]"
+    },
+    {
+      "language": "python",
+      "line": 94,
+      "path": "core\\investigation_engine.py",
+      "text": "gaps: List[EvidenceGap]"
+    },
+    {
+      "language": "python",
+      "line": 95,
+      "path": "core\\investigation_engine.py",
+      "text": "confidence: ConfidenceReport"
+    },
+    {
+      "language": "python",
+      "line": 96,
+      "path": "core\\investigation_engine.py",
+      "text": "recommendation: str"
+    },
+    {
+      "language": "python",
+      "line": 97,
+      "path": "core\\investigation_engine.py",
+      "text": "risk: str"
+    },
+    {
+      "language": "python",
+      "line": 98,
+      "path": "core\\investigation_engine.py",
+      "text": "alternatives: List[str]"
+    },
+    {
+      "language": "python",
+      "line": 99,
+      "path": "core\\investigation_engine.py",
+      "text": "next_step: str"
+    },
+    {
+      "language": "python",
+      "line": 100,
+      "path": "core\\investigation_engine.py",
+      "text": "timeline: List[str]"
+    },
+    {
+      "language": "python",
+      "line": 101,
+      "path": "core\\investigation_engine.py",
+      "text": "duration: float"
+    },
+    {
+      "language": "python",
+      "line": 102,
+      "path": "core\\investigation_engine.py",
+      "text": "metadata: Dict[str, Any] = field(default_factory=dict)"
+    },
+    {
+      "language": "python",
+      "line": 105,
+      "path": "core\\investigation_engine.py",
+      "text": "class EvidenceDriver(ABC):"
+    },
+    {
+      "language": "python",
+      "line": 106,
+      "path": "core\\investigation_engine.py",
+      "text": "\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 107,
+      "path": "core\\investigation_engine.py",
+      "text": "Abstract evidence driver contract."
+    },
+    {
+      "language": "python",
+      "line": 109,
+      "path": "core\\investigation_engine.py",
+      "text": "Future drivers may inspect source code, configuration, project memory,"
+    },
+    {
+      "language": "python",
+      "line": 110,
+      "path": "core\\investigation_engine.py",
+      "text": "mission history, Windows logs, images, video, or other evidence sources."
+    },
+    {
+      "language": "python",
+      "line": 111,
+      "path": "core\\investigation_engine.py",
+      "text": "\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 113,
+      "path": "core\\investigation_engine.py",
+      "text": "name = \"EvidenceDriver\""
+    },
+    {
+      "language": "python",
+      "line": 115,
+      "path": "core\\investigation_engine.py",
+      "text": "@abstractmethod"
+    },
+    {
+      "language": "python",
+      "line": 116,
+      "path": "core\\investigation_engine.py",
+      "text": "def collect(self, mission: Mission) -> List[Evidence]:"
+    },
+    {
+      "language": "python",
+      "line": 117,
+      "path": "core\\investigation_engine.py",
+      "text": "\"\"\"Collect evidence for a Mission.\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 118,
+      "path": "core\\investigation_engine.py",
+      "text": "raise NotImplementedError"
+    },
+    {
+      "language": "python",
+      "line": 121,
+      "path": "core\\investigation_engine.py",
+      "text": "class InvestigationEngine:"
+    },
+    {
+      "language": "python",
+      "line": 122,
+      "path": "core\\investigation_engine.py",
+      "text": "\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 123,
+      "path": "core\\investigation_engine.py",
+      "text": "FOXAI Investigation Engine RC1"
+    },
+    {
+      "language": "python",
+      "line": 125,
+      "path": "core\\investigation_engine.py",
+      "text": "Kernel-grade reasoning pipeline skeleton."
+    },
+    {
+      "language": "python",
+      "line": 127,
+      "path": "core\\investigation_engine.py",
+      "text": "RC1 intentionally contains no SmartSearch integration, filesystem scanning,"
+    },
+    {
+      "language": "python",
+      "line": 128,
+      "path": "core\\investigation_engine.py",
+      "text": "AI calls, web access, Windows APIs, threading, async, or caching."
+    },
+    {
+      "language": "python",
+      "line": 129,
+      "path": "core\\investigation_engine.py",
+      "text": "\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 131,
+      "path": "core\\investigation_engine.py",
+      "text": "def __init__(self, kernel=None, drivers: Optional[List[EvidenceDriver]] = None):"
+    },
+    {
+      "language": "python",
+      "line": 132,
+      "path": "core\\investigation_engine.py",
+      "text": "self.kernel = kernel"
+    },
+    {
+      "language": "python",
+      "line": 133,
+      "path": "core\\investigation_engine.py",
+      "text": "self.drivers = drivers or []"
+    },
+    {
+      "language": "python",
+      "line": 135,
+      "path": "core\\investigation_engine.py",
+      "text": "def investigate(self, mission: Mission) -> InvestigationResult:"
+    },
+    {
+      "language": "python",
+      "line": 136,
+      "path": "core\\investigation_engine.py",
+      "text": "\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 137,
+      "path": "core\\investigation_engine.py",
+      "text": "Run the investigation pipeline and return an InvestigationResult."
+    },
+    {
+      "language": "python",
+      "line": 138,
+      "path": "core\\investigation_engine.py",
+      "text": "\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 139,
+      "path": "core\\investigation_engine.py",
+      "text": "started = perf_counter()"
+    },
+    {
+      "language": "python",
+      "line": 140,
+      "path": "core\\investigation_engine.py",
+      "text": "timeline: List[str] = []"
+    },
+    {
+      "language": "python",
+      "line": 142,
+      "path": "core\\investigation_engine.py",
+      "text": "self._publish(\"MISSION_STARTED\", {"
+    },
+    {
+      "language": "python",
+      "line": 143,
+      "path": "core\\investigation_engine.py",
+      "text": "\"mission_id\": mission.id,"
+    },
+    {
+      "language": "python",
+      "line": 144,
+      "path": "core\\investigation_engine.py",
+      "text": "\"department\": mission.department,"
+    },
+    {
+      "language": "python",
+      "line": 145,
+      "path": "core\\investigation_engine.py",
+      "text": "\"intent\": mission.intent,"
+    },
+    {
+      "language": "python",
+      "line": 146,
+      "path": "core\\investigation_engine.py",
+      "text": "})"
+    },
+    {
+      "language": "python",
+      "line": 148,
+      "path": "core\\investigation_engine.py",
+      "text": "timeline.append(self._stamp(\"Mission received\"))"
+    },
+    {
+      "language": "python",
+      "line": 150,
+      "path": "core\\investigation_engine.py",
+      "text": "plan = self._plan(mission, timeline)"
+    },
+    {
+      "language": "python",
+      "line": 151,
+      "path": "core\\investigation_engine.py",
+      "text": "evidence = self._collect(mission, plan, timeline)"
+    },
+    {
+      "language": "python",
+      "line": 152,
+      "path": "core\\investigation_engine.py",
+      "text": "gaps = self._analyze_gaps(mission, plan, evidence, timeline)"
+    },
+    {
+      "language": "python",
+      "line": 153,
+      "path": "core\\investigation_engine.py",
+      "text": "confidence = self._build_confidence(mission, evidence, gaps, timeline)"
+    },
+    {
+      "language": "python",
+      "line": 154,
+      "path": "core\\investigation_engine.py",
+      "text": "recommendation, risk, alternatives, next_step = self._build_recommendation("
+    },
+    {
+      "language": "python",
+      "line": 155,
+      "path": "core\\investigation_engine.py",
+      "text": "mission,"
+    },
+    {
+      "language": "python",
+      "line": 156,
+      "path": "core\\investigation_engine.py",
+      "text": "evidence,"
+    },
+    {
+      "language": "python",
+      "line": 157,
+      "path": "core\\investigation_engine.py",
+      "text": "gaps,"
+    },
+    {
+      "language": "python",
+      "line": 158,
+      "path": "core\\investigation_engine.py",
+      "text": "confidence,"
+    },
+    {
+      "language": "python",
+      "line": 159,
+      "path": "core\\investigation_engine.py",
+      "text": "timeline,"
+    },
+    {
+      "language": "python",
+      "line": 160,
+      "path": "core\\investigation_engine.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 162,
+      "path": "core\\investigation_engine.py",
+      "text": "result = self._build_result("
+    },
+    {
+      "language": "python",
+      "line": 163,
+      "path": "core\\investigation_engine.py",
+      "text": "mission=mission,"
+    },
+    {
+      "language": "python",
+      "line": 164,
+      "path": "core\\investigation_engine.py",
+      "text": "evidence=evidence,"
+    },
+    {
+      "language": "python",
+      "line": 165,
+      "path": "core\\investigation_engine.py",
+      "text": "gaps=gaps,"
+    },
+    {
+      "language": "python",
+      "line": 166,
+      "path": "core\\investigation_engine.py",
+      "text": "confidence=confidence,"
+    },
+    {
+      "language": "python",
+      "line": 167,
+      "path": "core\\investigation_engine.py",
+      "text": "recommendation=recommendation,"
+    },
+    {
+      "language": "python",
+      "line": 168,
+      "path": "core\\investigation_engine.py",
+      "text": "risk=risk,"
+    },
+    {
+      "language": "python",
+      "line": 169,
+      "path": "core\\investigation_engine.py",
+      "text": "alternatives=alternatives,"
+    },
+    {
+      "language": "python",
+      "line": 170,
+      "path": "core\\investigation_engine.py",
+      "text": "next_step=next_step,"
+    },
+    {
+      "language": "python",
+      "line": 171,
+      "path": "core\\investigation_engine.py",
+      "text": "timeline=timeline,"
+    },
+    {
+      "language": "python",
+      "line": 172,
+      "path": "core\\investigation_engine.py",
+      "text": "duration=perf_counter() - started,"
+    },
+    {
+      "language": "python",
+      "line": 173,
+      "path": "core\\investigation_engine.py",
+      "text": "metadata={\"plan\": plan},"
+    },
+    {
+      "language": "python",
+      "line": 174,
+      "path": "core\\investigation_engine.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 176,
+      "path": "core\\investigation_engine.py",
+      "text": "self._publish(\"MISSION_COMPLETED\", {"
+    },
+    {
+      "language": "python",
+      "line": 177,
+      "path": "core\\investigation_engine.py",
+      "text": "\"mission_id\": mission.id,"
+    },
+    {
+      "language": "python",
+      "line": 178,
+      "path": "core\\investigation_engine.py",
+      "text": "\"department\": mission.department,"
+    },
+    {
+      "language": "python",
+      "line": 179,
+      "path": "core\\investigation_engine.py",
+      "text": "\"intent\": mission.intent,"
+    },
+    {
+      "language": "python",
+      "line": 180,
+      "path": "core\\investigation_engine.py",
+      "text": "\"duration\": result.duration,"
+    },
+    {
+      "language": "python",
+      "line": 181,
+      "path": "core\\investigation_engine.py",
+      "text": "})"
+    },
+    {
+      "language": "python",
+      "line": 183,
+      "path": "core\\investigation_engine.py",
+      "text": "return result"
+    },
+    {
+      "language": "python",
+      "line": 185,
+      "path": "core\\investigation_engine.py",
+      "text": "def _plan(self, mission: Mission, timeline: List[str]) -> Dict[str, Any]:"
+    },
+    {
+      "language": "python",
+      "line": 186,
+      "path": "core\\investigation_engine.py",
+      "text": "timeline.append(self._stamp(\"Plan created\"))"
+    },
+    {
+      "language": "python",
+      "line": 188,
+      "path": "core\\investigation_engine.py",
+      "text": "return {"
+    },
+    {
+      "language": "python",
+      "line": 189,
+      "path": "core\\investigation_engine.py",
+      "text": "\"requested_drivers\": mission.requested_drivers,"
+    },
+    {
+      "language": "python",
+      "line": 190,
+      "path": "core\\investigation_engine.py",
+      "text": "\"driver_count\": len(self.drivers),"
+    },
+    {
+      "language": "python",
+      "line": 191,
+      "path": "core\\investigation_engine.py",
+      "text": "\"rc1_scope\": \"skeleton_only\","
+    },
+    {
+      "language": "python",
+      "line": 192,
+      "path": "core\\investigation_engine.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 194,
+      "path": "core\\investigation_engine.py",
+      "text": "def _collect("
+    },
+    {
+      "language": "python",
+      "line": 195,
+      "path": "core\\investigation_engine.py",
+      "text": "self,"
+    },
+    {
+      "language": "python",
+      "line": 196,
+      "path": "core\\investigation_engine.py",
+      "text": "mission: Mission,"
+    },
+    {
+      "language": "python",
+      "line": 197,
+      "path": "core\\investigation_engine.py",
+      "text": "plan: Dict[str, Any],"
+    },
+    {
+      "language": "python",
+      "line": 198,
+      "path": "core\\investigation_engine.py",
+      "text": "timeline: List[str],"
+    },
+    {
+      "language": "python",
+      "line": 199,
+      "path": "core\\investigation_engine.py",
+      "text": ") -> List[Evidence]:"
+    },
+    {
+      "language": "python",
+      "line": 200,
+      "path": "core\\investigation_engine.py",
+      "text": "timeline.append(self._stamp(\"Evidence collection started\"))"
+    },
+    {
+      "language": "python",
+      "line": 202,
+      "path": "core\\investigation_engine.py",
+      "text": "evidence: List[Evidence] = []"
+    },
+    {
+      "language": "python",
+      "line": 204,
+      "path": "core\\investigation_engine.py",
+      "text": "for driver in self.drivers:"
+    },
+    {
+      "language": "python",
+      "line": 205,
+      "path": "core\\investigation_engine.py",
+      "text": "collected = driver.collect(mission)"
+    },
+    {
+      "language": "python",
+      "line": 206,
+      "path": "core\\investigation_engine.py",
+      "text": "evidence.extend(collected)"
+    },
+    {
+      "language": "python",
+      "line": 208,
+      "path": "core\\investigation_engine.py",
+      "text": "timeline.append(self._stamp(f\"Evidence collection completed: {len(evidence)} items\"))"
+    },
+    {
+      "language": "python",
+      "line": 209,
+      "path": "core\\investigation_engine.py",
+      "text": "return evidence"
+    },
+    {
+      "language": "python",
+      "line": 211,
+      "path": "core\\investigation_engine.py",
+      "text": "def _analyze_gaps("
+    },
+    {
+      "language": "python",
+      "line": 212,
+      "path": "core\\investigation_engine.py",
+      "text": "self,"
+    },
+    {
+      "language": "python",
+      "line": 213,
+      "path": "core\\investigation_engine.py",
+      "text": "mission: Mission,"
+    },
+    {
+      "language": "python",
+      "line": 214,
+      "path": "core\\investigation_engine.py",
+      "text": "plan: Dict[str, Any],"
+    },
+    {
+      "language": "python",
+      "line": 215,
+      "path": "core\\investigation_engine.py",
+      "text": "evidence: List[Evidence],"
+    },
+    {
+      "language": "python",
+      "line": 216,
+      "path": "core\\investigation_engine.py",
+      "text": "timeline: List[str],"
+    },
+    {
+      "language": "python",
+      "line": 217,
+      "path": "core\\investigation_engine.py",
+      "text": ") -> List[EvidenceGap]:"
+    },
+    {
+      "language": "python",
+      "line": 218,
+      "path": "core\\investigation_engine.py",
+      "text": "timeline.append(self._stamp(\"Gap analysis completed\"))"
+    },
+    {
+      "language": "python",
+      "line": 220,
+      "path": "core\\investigation_engine.py",
+      "text": "# RC1 skeleton: no required gaps until real drivers define expectations."
+    },
+    {
+      "language": "python",
+      "line": 221,
+      "path": "core\\investigation_engine.py",
+      "text": "return []"
+    },
+    {
+      "language": "python",
+      "line": 223,
+      "path": "core\\investigation_engine.py",
+      "text": "def _build_confidence("
+    },
+    {
+      "language": "python",
+      "line": 224,
+      "path": "core\\investigation_engine.py",
+      "text": "self,"
+    },
+    {
+      "language": "python",
+      "line": 225,
+      "path": "core\\investigation_engine.py",
+      "text": "mission: Mission,"
+    },
+    {
+      "language": "python",
+      "line": 226,
+      "path": "core\\investigation_engine.py",
+      "text": "evidence: List[Evidence],"
+    },
+    {
+      "language": "python",
+      "line": 227,
+      "path": "core\\investigation_engine.py",
+      "text": "gaps: List[EvidenceGap],"
+    },
+    {
+      "language": "python",
+      "line": 228,
+      "path": "core\\investigation_engine.py",
+      "text": "timeline: List[str],"
+    },
+    {
+      "language": "python",
+      "line": 229,
+      "path": "core\\investigation_engine.py",
+      "text": ") -> ConfidenceReport:"
+    },
+    {
+      "language": "python",
+      "line": 230,
+      "path": "core\\investigation_engine.py",
+      "text": "timeline.append(self._stamp(\"Confidence report built\"))"
+    },
+    {
+      "language": "python",
+      "line": 232,
+      "path": "core\\investigation_engine.py",
+      "text": "if not evidence:"
+    },
+    {
+      "language": "python",
+      "line": 233,
+      "path": "core\\investigation_engine.py",
+      "text": "return ConfidenceReport("
+    },
+    {
+      "language": "python",
+      "line": 234,
+      "path": "core\\investigation_engine.py",
+      "text": "evidence_quality=0,"
+    },
+    {
+      "language": "python",
+      "line": 235,
+      "path": "core\\investigation_engine.py",
+      "text": "coverage=0,"
+    },
+    {
+      "language": "python",
+      "line": 236,
+      "path": "core\\investigation_engine.py",
+      "text": "agreement=0,"
+    },
+    {
+      "language": "python",
+      "line": 237,
+      "path": "core\\investigation_engine.py",
+      "text": "overall=0,"
+    },
+    {
+      "language": "python",
+      "line": 238,
+      "path": "core\\investigation_engine.py",
+      "text": "notes=[\"RC1 skeleton: no evidence drivers produced evidence.\"],"
+    },
+    {
+      "language": "python",
+      "line": 239,
+      "path": "core\\investigation_engine.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 241,
+      "path": "core\\investigation_engine.py",
+      "text": "average_quality = int(sum(item.confidence for item in evidence) / len(evidence))"
+    },
+    {
+      "language": "python",
+      "line": 242,
+      "path": "core\\investigation_engine.py",
+      "text": "average_weight = int(sum(item.weight for item in evidence) / len(evidence))"
+    },
+    {
+      "language": "python",
+      "line": 244,
+      "path": "core\\investigation_engine.py",
+      "text": "return ConfidenceReport("
+    },
+    {
+      "language": "python",
+      "line": 245,
+      "path": "core\\investigation_engine.py",
+      "text": "evidence_quality=average_quality,"
+    },
+    {
+      "language": "python",
+      "line": 246,
+      "path": "core\\investigation_engine.py",
+      "text": "coverage=min(100, len(evidence) * 10),"
+    },
+    {
+      "language": "python",
+      "line": 247,
+      "path": "core\\investigation_engine.py",
+      "text": "agreement=average_weight,"
+    },
+    {
+      "language": "python",
+      "line": 248,
+      "path": "core\\investigation_engine.py",
+      "text": "overall=int((average_quality + min(100, len(evidence) * 10) + average_weight) / 3),"
+    },
+    {
+      "language": "python",
+      "line": 249,
+      "path": "core\\investigation_engine.py",
+      "text": "notes=[\"Confidence is provisional until RC2 evidence drivers are integrated.\"],"
+    },
+    {
+      "language": "python",
+      "line": 250,
+      "path": "core\\investigation_engine.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 252,
+      "path": "core\\investigation_engine.py",
+      "text": "def _build_recommendation("
+    },
+    {
+      "language": "python",
+      "line": 253,
+      "path": "core\\investigation_engine.py",
+      "text": "self,"
+    },
+    {
+      "language": "python",
+      "line": 254,
+      "path": "core\\investigation_engine.py",
+      "text": "mission: Mission,"
+    },
+    {
+      "language": "python",
+      "line": 255,
+      "path": "core\\investigation_engine.py",
+      "text": "evidence: List[Evidence],"
+    },
+    {
+      "language": "python",
+      "line": 256,
+      "path": "core\\investigation_engine.py",
+      "text": "gaps: List[EvidenceGap],"
+    },
+    {
+      "language": "python",
+      "line": 257,
+      "path": "core\\investigation_engine.py",
+      "text": "confidence: ConfidenceReport,"
+    },
+    {
+      "language": "python",
+      "line": 258,
+      "path": "core\\investigation_engine.py",
+      "text": "timeline: List[str],"
+    },
+    {
+      "language": "python",
+      "line": 259,
+      "path": "core\\investigation_engine.py",
+      "text": ") -> tuple[str, str, List[str], str]:"
+    },
+    {
+      "language": "python",
+      "line": 260,
+      "path": "core\\investigation_engine.py",
+      "text": "timeline.append(self._stamp(\"Recommendation built\"))"
+    },
+    {
+      "language": "python",
+      "line": 262,
+      "path": "core\\investigation_engine.py",
+      "text": "if not evidence:"
+    },
+    {
+      "language": "python",
+      "line": 263,
+      "path": "core\\investigation_engine.py",
+      "text": "return ("
+    },
+    {
+      "language": "python",
+      "line": 264,
+      "path": "core\\investigation_engine.py",
+      "text": "\"Investigation Engine RC1 completed the pipeline. No evidence was collected because no evidence drivers are active yet.\","
+    },
+    {
+      "language": "python",
+      "line": 265,
+      "path": "core\\investigation_engine.py",
+      "text": "\"low\","
+    },
+    {
+      "language": "python",
+      "line": 266,
+      "path": "core\\investigation_engine.py",
+      "text": "[\"Add SourceCodeDriver in RC2.\", \"Integrate SmartSearch as an evidence driver.\"],"
+    },
+    {
+      "language": "python",
+      "line": 267,
+      "path": "core\\investigation_engine.py",
+      "text": "\"Implement the first EvidenceDriver and rerun this mission.\","
+    },
+    {
+      "language": "python",
+      "line": 268,
+      "path": "core\\investigation_engine.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 270,
+      "path": "core\\investigation_engine.py",
+      "text": "return ("
+    },
+    {
+      "language": "python",
+      "line": 271,
+      "path": "core\\investigation_engine.py",
+      "text": "\"Evidence was collected. Review the structured evidence list before taking action.\","
+    },
+    {
+      "language": "python",
+      "line": 272,
+      "path": "core\\investigation_engine.py",
+      "text": "\"medium\","
+    },
+    {
+      "language": "python",
+      "line": 273,
+      "path": "core\\investigation_engine.py",
+      "text": "[\"Collect additional evidence with more drivers.\"],"
+    },
+    {
+      "language": "python",
+      "line": 274,
+      "path": "core\\investigation_engine.py",
+      "text": "\"Review evidence and proceed with a department-specific recommendation.\","
+    },
+    {
+      "language": "python",
+      "line": 275,
+      "path": "core\\investigation_engine.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 277,
+      "path": "core\\investigation_engine.py",
+      "text": "def _build_result("
+    },
+    {
+      "language": "python",
+      "line": 278,
+      "path": "core\\investigation_engine.py",
+      "text": "self,"
+    },
+    {
+      "language": "python",
+      "line": 279,
+      "path": "core\\investigation_engine.py",
+      "text": "mission: Mission,"
+    },
+    {
+      "language": "python",
+      "line": 280,
+      "path": "core\\investigation_engine.py",
+      "text": "evidence: List[Evidence],"
+    },
+    {
+      "language": "python",
+      "line": 281,
+      "path": "core\\investigation_engine.py",
+      "text": "gaps: List[EvidenceGap],"
+    },
+    {
+      "language": "python",
+      "line": 282,
+      "path": "core\\investigation_engine.py",
+      "text": "confidence: ConfidenceReport,"
+    },
+    {
+      "language": "python",
+      "line": 283,
+      "path": "core\\investigation_engine.py",
+      "text": "recommendation: str,"
+    },
+    {
+      "language": "python",
+      "line": 284,
+      "path": "core\\investigation_engine.py",
+      "text": "risk: str,"
+    },
+    {
+      "language": "python",
+      "line": 285,
+      "path": "core\\investigation_engine.py",
+      "text": "alternatives: List[str],"
+    },
+    {
+      "language": "python",
+      "line": 286,
+      "path": "core\\investigation_engine.py",
+      "text": "next_step: str,"
+    },
+    {
+      "language": "python",
+      "line": 287,
+      "path": "core\\investigation_engine.py",
+      "text": "timeline: List[str],"
+    },
+    {
+      "language": "python",
+      "line": 288,
+      "path": "core\\investigation_engine.py",
+      "text": "duration: float,"
+    },
+    {
+      "language": "python",
+      "line": 289,
+      "path": "core\\investigation_engine.py",
+      "text": "metadata: Optional[Dict[str, Any]] = None,"
+    },
+    {
+      "language": "python",
+      "line": 290,
+      "path": "core\\investigation_engine.py",
+      "text": ") -> InvestigationResult:"
+    },
+    {
+      "language": "python",
+      "line": 291,
+      "path": "core\\investigation_engine.py",
+      "text": "timeline.append(self._stamp(\"Investigation result assembled\"))"
+    },
+    {
+      "language": "python",
+      "line": 293,
+      "path": "core\\investigation_engine.py",
+      "text": "return InvestigationResult("
+    },
+    {
+      "language": "python",
+      "line": 294,
+      "path": "core\\investigation_engine.py",
+      "text": "mission=mission,"
+    },
+    {
+      "language": "python",
+      "line": 295,
+      "path": "core\\investigation_engine.py",
+      "text": "evidence=evidence,"
+    },
+    {
+      "language": "python",
+      "line": 296,
+      "path": "core\\investigation_engine.py",
+      "text": "gaps=gaps,"
+    },
+    {
+      "language": "python",
+      "line": 297,
+      "path": "core\\investigation_engine.py",
+      "text": "confidence=confidence,"
+    },
+    {
+      "language": "python",
+      "line": 298,
+      "path": "core\\investigation_engine.py",
+      "text": "recommendation=recommendation,"
+    },
+    {
+      "language": "python",
+      "line": 299,
+      "path": "core\\investigation_engine.py",
+      "text": "risk=risk,"
+    },
+    {
+      "language": "python",
+      "line": 300,
+      "path": "core\\investigation_engine.py",
+      "text": "alternatives=alternatives,"
+    },
+    {
+      "language": "python",
+      "line": 301,
+      "path": "core\\investigation_engine.py",
+      "text": "next_step=next_step,"
+    },
+    {
+      "language": "python",
+      "line": 302,
+      "path": "core\\investigation_engine.py",
+      "text": "timeline=timeline,"
+    },
+    {
+      "language": "python",
+      "line": 303,
+      "path": "core\\investigation_engine.py",
+      "text": "duration=duration,"
+    },
+    {
+      "language": "python",
+      "line": 304,
+      "path": "core\\investigation_engine.py",
+      "text": "metadata=metadata or {},"
+    },
+    {
+      "language": "python",
+      "line": 305,
+      "path": "core\\investigation_engine.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 307,
+      "path": "core\\investigation_engine.py",
+      "text": "def _publish(self, event_type: str, payload: Dict[str, Any]):"
+    },
+    {
+      "language": "python",
+      "line": 308,
+      "path": "core\\investigation_engine.py",
+      "text": "if not self.kernel:"
+    },
+    {
+      "language": "python",
+      "line": 309,
+      "path": "core\\investigation_engine.py",
+      "text": "return"
+    },
+    {
+      "language": "python",
+      "line": 311,
+      "path": "core\\investigation_engine.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 312,
+      "path": "core\\investigation_engine.py",
+      "text": "self.kernel.publish(event_type, payload, source=\"InvestigationEngine\")"
+    },
+    {
+      "language": "python",
+      "line": 313,
+      "path": "core\\investigation_engine.py",
+      "text": "except Exception:"
+    },
+    {
+      "language": "python",
+      "line": 314,
+      "path": "core\\investigation_engine.py",
+      "text": "# RC1 must not let event publishing break investigations."
+    },
+    {
+      "language": "python",
+      "line": 315,
+      "path": "core\\investigation_engine.py",
+      "text": "pass"
+    },
+    {
+      "language": "python",
+      "line": 317,
+      "path": "core\\investigation_engine.py",
+      "text": "def _stamp(self, message: str) -> str:"
+    },
+    {
+      "language": "python",
+      "line": 318,
+      "path": "core\\investigation_engine.py",
+      "text": "return f\"{datetime.now().isoformat(timespec='seconds')} | {message}\""
+    },
+    {
+      "language": "python",
+      "line": 1,
+      "path": "core\\kernel.py",
+      "text": "from core.workshop_bus import get_bus, WorkshopBus"
+    },
+    {
+      "language": "python",
+      "line": 2,
+      "path": "core\\kernel.py",
+      "text": "from core.confidence_engine import ConfidenceEngine"
+    },
+    {
+      "language": "python",
+      "line": 3,
+      "path": "core\\kernel.py",
+      "text": "from core.forge_journal import ForgeJournal"
+    },
+    {
+      "language": "python",
+      "line": 4,
+      "path": "core\\kernel.py",
+      "text": "from core.project_memory import ProjectMemory"
+    },
+    {
+      "language": "python",
+      "line": 5,
+      "path": "core\\kernel.py",
+      "text": "from core.decision_layer import DecisionLayer"
+    },
+    {
+      "language": "python",
+      "line": 6,
+      "path": "core\\kernel.py",
+      "text": "from core.service_registry import get_service_registry"
+    },
+    {
+      "language": "python",
+      "line": 8,
+      "path": "core\\kernel.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 9,
+      "path": "core\\kernel.py",
+      "text": "from core.smart_search import SmartSearch"
+    },
+    {
+      "language": "python",
+      "line": 10,
+      "path": "core\\kernel.py",
+      "text": "except Exception:"
+    },
+    {
+      "language": "python",
+      "line": 11,
+      "path": "core\\kernel.py",
+      "text": "SmartSearch = None"
+    },
+    {
+      "language": "python",
+      "line": 14,
+      "path": "core\\kernel.py",
+      "text": "class FoxAIKernel:"
+    },
+    {
+      "language": "python",
+      "line": 15,
+      "path": "core\\kernel.py",
+      "text": "\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 16,
+      "path": "core\\kernel.py",
+      "text": "FOXAI Kernel RC1"
+    },
+    {
+      "language": "python",
+      "line": 18,
+      "path": "core\\kernel.py",
+      "text": "Unified facade for core Workshop services."
+    },
+    {
+      "language": "python",
+      "line": 20,
+      "path": "core\\kernel.py",
+      "text": "Departments should eventually use this instead of importing every"
+    },
+    {
+      "language": "python",
+      "line": 21,
+      "path": "core\\kernel.py",
+      "text": "subsystem directly."
+    },
+    {
+      "language": "python",
+      "line": 23,
+      "path": "core\\kernel.py",
+      "text": "Kernel services:"
+    },
+    {
+      "language": "python",
+      "line": 24,
+      "path": "core\\kernel.py",
+      "text": "- Workshop Bus"
+    },
+    {
+      "language": "python",
+      "line": 25,
+      "path": "core\\kernel.py",
+      "text": "- Confidence Engine"
+    },
+    {
+      "language": "python",
+      "line": 26,
+      "path": "core\\kernel.py",
+      "text": "- Forge Journal"
+    },
+    {
+      "language": "python",
+      "line": 27,
+      "path": "core\\kernel.py",
+      "text": "- Project Memory"
+    },
+    {
+      "language": "python",
+      "line": 28,
+      "path": "core\\kernel.py",
+      "text": "- Decision Layer"
+    },
+    {
+      "language": "python",
+      "line": 29,
+      "path": "core\\kernel.py",
+      "text": "- SmartSearch / Evidence Search"
+    },
+    {
+      "language": "python",
+      "line": 30,
+      "path": "core\\kernel.py",
+      "text": "\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 32,
+      "path": "core\\kernel.py",
+      "text": "def __init__(self, root=None):"
+    },
+    {
+      "language": "python",
+      "line": 33,
+      "path": "core\\kernel.py",
+      "text": "self.root = root"
+    },
+    {
+      "language": "python",
+      "line": 34,
+      "path": "core\\kernel.py",
+      "text": "self.bus = get_bus()"
+    },
+    {
+      "language": "python",
+      "line": 35,
+      "path": "core\\kernel.py",
+      "text": "self.confidence_engine = ConfidenceEngine()"
+    },
+    {
+      "language": "python",
+      "line": 36,
+      "path": "core\\kernel.py",
+      "text": "self.forge_journal = ForgeJournal(root=root)"
+    },
+    {
+      "language": "python",
+      "line": 37,
+      "path": "core\\kernel.py",
+      "text": "self.project_memory = ProjectMemory(root=root)"
+    },
+    {
+      "language": "python",
+      "line": 38,
+      "path": "core\\kernel.py",
+      "text": "self.decision_layer = DecisionLayer()"
+    },
+    {
+      "language": "python",
+      "line": 39,
+      "path": "core\\kernel.py",
+      "text": "self.smart_search = SmartSearch(root) if (SmartSearch and root) else None"
+    },
+    {
+      "language": "python",
+      "line": 40,
+      "path": "core\\kernel.py",
+      "text": "self.service_registry = get_service_registry()"
+    },
+    {
+      "language": "python",
+      "line": 41,
+      "path": "core\\kernel.py",
+      "text": "self.register_core_services()"
+    },
+    {
+      "language": "python",
+      "line": 43,
+      "path": "core\\kernel.py",
+      "text": "# -------------------------"
+    },
+    {
+      "language": "python",
+      "line": 44,
+      "path": "core\\kernel.py",
+      "text": "# Service Registry"
+    },
+    {
+      "language": "python",
+      "line": 45,
+      "path": "core\\kernel.py",
+      "text": "# -------------------------"
+    },
+    {
+      "language": "python",
+      "line": 47,
+      "path": "core\\kernel.py",
+      "text": "def register_core_services(self):"
+    },
+    {
+      "language": "python",
+      "line": 48,
+      "path": "core\\kernel.py",
+      "text": "self.service_registry.register("
+    },
+    {
+      "language": "python",
+      "line": 49,
+      "path": "core\\kernel.py",
+      "text": "\"Workshop Bus\","
+    },
+    {
+      "language": "python",
+      "line": 50,
+      "path": "core\\kernel.py",
+      "text": "\"kernel_service\","
+    },
+    {
+      "language": "python",
+      "line": 51,
+      "path": "core\\kernel.py",
+      "text": "version=\"RC1\","
+    },
+    {
+      "language": "python",
+      "line": 52,
+      "path": "core\\kernel.py",
+      "text": "capabilities=[\"publish events\", \"subscribe handlers\", \"event history\"],"
+    },
+    {
+      "language": "python",
+      "line": 53,
+      "path": "core\\kernel.py",
+      "text": "detail=\"Kernel event communication backbone.\","
+    },
+    {
+      "language": "python",
+      "line": 54,
+      "path": "core\\kernel.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 56,
+      "path": "core\\kernel.py",
+      "text": "self.service_registry.register("
+    },
+    {
+      "language": "python",
+      "line": 57,
+      "path": "core\\kernel.py",
+      "text": "\"Confidence Engine\","
+    },
+    {
+      "language": "python",
+      "line": 58,
+      "path": "core\\kernel.py",
+      "text": "\"kernel_service\","
+    },
+    {
+      "language": "python",
+      "line": 59,
+      "path": "core\\kernel.py",
+      "text": "version=\"RC1\","
+    },
+    {
+      "language": "python",
+      "line": 60,
+      "path": "core\\kernel.py",
+      "text": "capabilities=[\"confidence cards\", \"evidence scoring\"],"
+    },
+    {
+      "language": "python",
+      "line": 61,
+      "path": "core\\kernel.py",
+      "text": "detail=\"Builds explainable confidence reports.\","
+    },
+    {
+      "language": "python",
+      "line": 62,
+      "path": "core\\kernel.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 64,
+      "path": "core\\kernel.py",
+      "text": "self.service_registry.register("
+    },
+    {
+      "language": "python",
+      "line": 65,
+      "path": "core\\kernel.py",
+      "text": "\"Forge Journal\","
+    },
+    {
+      "language": "python",
+      "line": 66,
+      "path": "core\\kernel.py",
+      "text": "\"kernel_service\","
+    },
+    {
+      "language": "python",
+      "line": 67,
+      "path": "core\\kernel.py",
+      "text": "version=\"RC1\","
+    },
+    {
+      "language": "python",
+      "line": 68,
+      "path": "core\\kernel.py",
+      "text": "capabilities=[\"forge entries\", \"decisions\", \"lessons\"],"
+    },
+    {
+      "language": "python",
+      "line": 69,
+      "path": "core\\kernel.py",
+      "text": "dependencies=[\"Project Memory\"],"
+    },
+    {
+      "language": "python",
+      "line": 70,
+      "path": "core\\kernel.py",
+      "text": "detail=\"Persistent engineering journal interface.\","
+    },
+    {
+      "language": "python",
+      "line": 71,
+      "path": "core\\kernel.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 73,
+      "path": "core\\kernel.py",
+      "text": "self.service_registry.register("
+    },
+    {
+      "language": "python",
+      "line": 74,
+      "path": "core\\kernel.py",
+      "text": "\"Project Memory\","
+    },
+    {
+      "language": "python",
+      "line": 75,
+      "path": "core\\kernel.py",
+      "text": "\"kernel_service\","
+    },
+    {
+      "language": "python",
+      "line": 76,
+      "path": "core\\kernel.py",
+      "text": "version=\"RC1\","
+    },
+    {
+      "language": "python",
+      "line": 77,
+      "path": "core\\kernel.py",
+      "text": "capabilities=[\"project records\", \"status\", \"decisions\", \"lessons\", \"forge logs\"],"
+    },
+    {
+      "language": "python",
+      "line": 78,
+      "path": "core\\kernel.py",
+      "text": "detail=\"Structured project memory store.\","
+    },
+    {
+      "language": "python",
+      "line": 79,
+      "path": "core\\kernel.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 81,
+      "path": "core\\kernel.py",
+      "text": "self.service_registry.register("
+    },
+    {
+      "language": "python",
+      "line": 82,
+      "path": "core\\kernel.py",
+      "text": "\"Decision Layer\","
+    },
+    {
+      "language": "python",
+      "line": 83,
+      "path": "core\\kernel.py",
+      "text": "\"kernel_service\","
+    },
+    {
+      "language": "python",
+      "line": 84,
+      "path": "core\\kernel.py",
+      "text": "version=\"RC3\","
+    },
+    {
+      "language": "python",
+      "line": 85,
+      "path": "core\\kernel.py",
+      "text": "capabilities=[\"mission classification\", \"department recommendation\", \"execution planning\"],"
+    },
+    {
+      "language": "python",
+      "line": 86,
+      "path": "core\\kernel.py",
+      "text": "detail=\"Strategic mission planning layer.\","
+    },
+    {
+      "language": "python",
+      "line": 87,
+      "path": "core\\kernel.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 89,
+      "path": "core\\kernel.py",
+      "text": "self.service_registry.register("
+    },
+    {
+      "language": "python",
+      "line": 90,
+      "path": "core\\kernel.py",
+      "text": "\"SmartSearch\","
+    },
+    {
+      "language": "python",
+      "line": 91,
+      "path": "core\\kernel.py",
+      "text": "\"kernel_service\","
+    },
+    {
+      "language": "python",
+      "line": 92,
+      "path": "core\\kernel.py",
+      "text": "version=\"RC2\" if self.smart_search else \"Unavailable\","
+    },
+    {
+      "language": "python",
+      "line": 93,
+      "path": "core\\kernel.py",
+      "text": "status=\"READY\" if self.smart_search else \"WARNING\","
+    },
+    {
+      "language": "python",
+      "line": 94,
+      "path": "core\\kernel.py",
+      "text": "capabilities=[\"evidence-weighted search\", \"source-first ranking\"],"
+    },
+    {
+      "language": "python",
+      "line": 95,
+      "path": "core\\kernel.py",
+      "text": "detail=\"Available with project root.\" if self.smart_search else \"No project root supplied.\","
+    },
+    {
+      "language": "python",
+      "line": 96,
+      "path": "core\\kernel.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 98,
+      "path": "core\\kernel.py",
+      "text": "self.service_registry.register("
+    },
+    {
+      "language": "python",
+      "line": 99,
+      "path": "core\\kernel.py",
+      "text": "\"Kernel\","
+    },
+    {
+      "language": "python",
+      "line": 100,
+      "path": "core\\kernel.py",
+      "text": "\"kernel_core\","
+    },
+    {
+      "language": "python",
+      "line": 101,
+      "path": "core\\kernel.py",
+      "text": "version=\"RC2\","
+    },
+    {
+      "language": "python",
+      "line": 102,
+      "path": "core\\kernel.py",
+      "text": "capabilities=[\"service facade\", \"shared kernel API\", \"service registry\"],"
+    },
+    {
+      "language": "python",
+      "line": 103,
+      "path": "core\\kernel.py",
+      "text": "dependencies=["
+    },
+    {
+      "language": "python",
+      "line": 104,
+      "path": "core\\kernel.py",
+      "text": "\"Workshop Bus\","
+    },
+    {
+      "language": "python",
+      "line": 105,
+      "path": "core\\kernel.py",
+      "text": "\"Confidence Engine\","
+    },
+    {
+      "language": "python",
+      "line": 106,
+      "path": "core\\kernel.py",
+      "text": "\"Forge Journal\","
+    },
+    {
+      "language": "python",
+      "line": 107,
+      "path": "core\\kernel.py",
+      "text": "\"Project Memory\","
+    },
+    {
+      "language": "python",
+      "line": 108,
+      "path": "core\\kernel.py",
+      "text": "\"Decision Layer\","
+    },
+    {
+      "language": "python",
+      "line": 109,
+      "path": "core\\kernel.py",
+      "text": "],"
+    },
+    {
+      "language": "python",
+      "line": 110,
+      "path": "core\\kernel.py",
+      "text": "detail=\"Unified front door to shared Workshop services.\","
+    },
+    {
+      "language": "python",
+      "line": 111,
+      "path": "core\\kernel.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 113,
+      "path": "core\\kernel.py",
+      "text": "def service_report(self):"
+    },
+    {
+      "language": "python",
+      "line": 114,
+      "path": "core\\kernel.py",
+      "text": "return self.service_registry.report()"
+    },
+    {
+      "language": "python",
+      "line": 116,
+      "path": "core\\kernel.py",
+      "text": "# -------------------------"
+    },
+    {
+      "language": "python",
+      "line": 117,
+      "path": "core\\kernel.py",
+      "text": "# Workshop Bus"
+    },
+    {
+      "language": "python",
+      "line": 118,
+      "path": "core\\kernel.py",
+      "text": "# -------------------------"
+    },
+    {
+      "language": "python",
+      "line": 120,
+      "path": "core\\kernel.py",
+      "text": "def publish(self, event_type, payload=None, source=\"kernel\"):"
+    },
+    {
+      "language": "python",
+      "line": 121,
+      "path": "core\\kernel.py",
+      "text": "return self.bus.publish(event_type, payload or {}, source=source)"
+    },
+    {
+      "language": "python",
+      "line": 123,
+      "path": "core\\kernel.py",
+      "text": "def subscribe(self, event_type, handler):"
+    },
+    {
+      "language": "python",
+      "line": 124,
+      "path": "core\\kernel.py",
+      "text": "return self.bus.subscribe(event_type, handler)"
+    },
+    {
+      "language": "python",
+      "line": 126,
+      "path": "core\\kernel.py",
+      "text": "def bus_report(self):"
+    },
+    {
+      "language": "python",
+      "line": 127,
+      "path": "core\\kernel.py",
+      "text": "return self.bus.report()"
+    },
+    {
+      "language": "python",
+      "line": 129,
+      "path": "core\\kernel.py",
+      "text": "# -------------------------"
+    },
+    {
+      "language": "python",
+      "line": 130,
+      "path": "core\\kernel.py",
+      "text": "# Planning"
+    },
+    {
+      "language": "python",
+      "line": 131,
+      "path": "core\\kernel.py",
+      "text": "# -------------------------"
+    },
+    {
+      "language": "python",
+      "line": 133,
+      "path": "core\\kernel.py",
+      "text": "def plan(self, query, available_models=None, hardware=None):"
+    },
+    {
+      "language": "python",
+      "line": 134,
+      "path": "core\\kernel.py",
+      "text": "self.publish("
+    },
+    {
+      "language": "python",
+      "line": 135,
+      "path": "core\\kernel.py",
+      "text": "WorkshopBus.INVESTIGATION_STARTED,"
+    },
+    {
+      "language": "python",
+      "line": 136,
+      "path": "core\\kernel.py",
+      "text": "{\"query\": query, \"stage\": \"decision_layer\"},"
+    },
+    {
+      "language": "python",
+      "line": 137,
+      "path": "core\\kernel.py",
+      "text": "source=\"Kernel\","
+    },
+    {
+      "language": "python",
+      "line": 138,
+      "path": "core\\kernel.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 140,
+      "path": "core\\kernel.py",
+      "text": "report = self.decision_layer.report("
+    },
+    {
+      "language": "python",
+      "line": 141,
+      "path": "core\\kernel.py",
+      "text": "query,"
+    },
+    {
+      "language": "python",
+      "line": 142,
+      "path": "core\\kernel.py",
+      "text": "available_models=available_models,"
+    },
+    {
+      "language": "python",
+      "line": 143,
+      "path": "core\\kernel.py",
+      "text": "hardware=hardware,"
+    },
+    {
+      "language": "python",
+      "line": 144,
+      "path": "core\\kernel.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 146,
+      "path": "core\\kernel.py",
+      "text": "self.publish("
+    },
+    {
+      "language": "python",
+      "line": 147,
+      "path": "core\\kernel.py",
+      "text": "WorkshopBus.INVESTIGATION_COMPLETED,"
+    },
+    {
+      "language": "python",
+      "line": 148,
+      "path": "core\\kernel.py",
+      "text": "{\"query\": query, \"stage\": \"decision_layer\"},"
+    },
+    {
+      "language": "python",
+      "line": 149,
+      "path": "core\\kernel.py",
+      "text": "source=\"Kernel\","
+    },
+    {
+      "language": "python",
+      "line": 150,
+      "path": "core\\kernel.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 152,
+      "path": "core\\kernel.py",
+      "text": "return report"
+    },
+    {
+      "language": "python",
+      "line": 154,
+      "path": "core\\kernel.py",
+      "text": "# -------------------------"
+    },
+    {
+      "language": "python",
+      "line": 155,
+      "path": "core\\kernel.py",
+      "text": "# Evidence / Investigation"
+    },
+    {
+      "language": "python",
+      "line": 156,
+      "path": "core\\kernel.py",
+      "text": "# -------------------------"
+    },
+    {
+      "language": "python",
+      "line": 158,
+      "path": "core\\kernel.py",
+      "text": "def search(self, query, limit=8):"
+    },
+    {
+      "language": "python",
+      "line": 159,
+      "path": "core\\kernel.py",
+      "text": "if not self.smart_search:"
+    },
+    {
+      "language": "python",
+      "line": 160,
+      "path": "core\\kernel.py",
+      "text": "return ("
+    },
+    {
+      "language": "python",
+      "line": 161,
+      "path": "core\\kernel.py",
+      "text": "\"KERNEL SEARCH\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 162,
+      "path": "core\\kernel.py",
+      "text": "\"SmartSearch is not available because no project root was provided.\""
+    },
+    {
+      "language": "python",
+      "line": 163,
+      "path": "core\\kernel.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 165,
+      "path": "core\\kernel.py",
+      "text": "self.publish("
+    },
+    {
+      "language": "python",
+      "line": 166,
+      "path": "core\\kernel.py",
+      "text": "WorkshopBus.INVESTIGATION_STARTED,"
+    },
+    {
+      "language": "python",
+      "line": 167,
+      "path": "core\\kernel.py",
+      "text": "{\"query\": query, \"stage\": \"smart_search\"},"
+    },
+    {
+      "language": "python",
+      "line": 168,
+      "path": "core\\kernel.py",
+      "text": "source=\"Kernel\","
+    },
+    {
+      "language": "python",
+      "line": 169,
+      "path": "core\\kernel.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 171,
+      "path": "core\\kernel.py",
+      "text": "report = self.smart_search.format_report(query, limit=limit)"
+    },
+    {
+      "language": "python",
+      "line": 173,
+      "path": "core\\kernel.py",
+      "text": "self.publish("
+    },
+    {
+      "language": "python",
+      "line": 174,
+      "path": "core\\kernel.py",
+      "text": "WorkshopBus.INVESTIGATION_COMPLETED,"
+    },
+    {
+      "language": "python",
+      "line": 175,
+      "path": "core\\kernel.py",
+      "text": "{\"query\": query, \"stage\": \"smart_search\"},"
+    },
+    {
+      "language": "python",
+      "line": 176,
+      "path": "core\\kernel.py",
+      "text": "source=\"Kernel\","
+    },
+    {
+      "language": "python",
+      "line": 177,
+      "path": "core\\kernel.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 179,
+      "path": "core\\kernel.py",
+      "text": "return report"
+    },
+    {
+      "language": "python",
+      "line": 181,
+      "path": "core\\kernel.py",
+      "text": "# -------------------------"
+    },
+    {
+      "language": "python",
+      "line": 182,
+      "path": "core\\kernel.py",
+      "text": "# Confidence"
+    },
+    {
+      "language": "python",
+      "line": 183,
+      "path": "core\\kernel.py",
+      "text": "# -------------------------"
+    },
+    {
+      "language": "python",
+      "line": 185,
+      "path": "core\\kernel.py",
+      "text": "def confidence(self, evidence=None, base=50, uncertainty=0, reason=\"\"):"
+    },
+    {
+      "language": "python",
+      "line": 186,
+      "path": "core\\kernel.py",
+      "text": "return self.confidence_engine.card("
+    }
+  ],
+  "schema": "foxai.agent_fox.technical_core.v1a2r1.refined_static_bridge.v1",
+  "shard_number": 17
+}

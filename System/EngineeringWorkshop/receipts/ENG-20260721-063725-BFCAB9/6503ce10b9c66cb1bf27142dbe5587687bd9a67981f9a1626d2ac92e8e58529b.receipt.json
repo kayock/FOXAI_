@@ -1,0 +1,184 @@
+{
+  "authorized": true,
+  "changes": [
+    {
+      "action": "write_file",
+      "after_sha256": "775edcfa3afc122e91aaabef95feb7a90a0e31d1e772bd46ab04343db18c1a42",
+      "after_size": 89391,
+      "before_sha256": null,
+      "before_size": null,
+      "relative_path": "System\\AgentFoxTechnicalCore\\static_code_launcher_bridge_v1r2.py"
+    },
+    {
+      "action": "write_file",
+      "after_sha256": "ab3e5ef12efcb44916f454f972e4f35d1ac7b4c0853d83219d9dfd872b1da236",
+      "after_size": 2532,
+      "before_sha256": null,
+      "before_size": null,
+      "relative_path": "System\\AgentFoxTechnicalCore\\STATIC_CODE_LAUNCHER_CONTRACT_V1R2.json"
+    },
+    {
+      "action": "write_file",
+      "after_sha256": "89f2543e5e3196f4cfac16708a4fafe99a1c13b703daffbed5eb8e62221926d0",
+      "after_size": 607,
+      "before_sha256": null,
+      "before_size": null,
+      "relative_path": "System\\AgentFoxTechnicalCore\\README_V1A2R2.md"
+    }
+  ],
+  "created_at": "2026-07-21T06:55:10.849332Z",
+  "evidence_is_tool_generated": true,
+  "failure": null,
+  "mission_id": "ENG-20260721-063725-BFCAB9",
+  "mission_title": "Agent Fox Technical Core V1A-2R2 \u2014 Immutable Input Determinism Repair",
+  "mission_type": "implement",
+  "no_deletions": true,
+  "no_renames": true,
+  "plan_path": "Z:\\FOXAI\\AGENT_FOX_V1A2R2\\PLAN.json",
+  "plan_sha256": "6503ce10b9c66cb1bf27142dbe5587687bd9a67981f9a1626d2ac92e8e58529b",
+  "project_root": "Z:\\FOXAI",
+  "result": "applied_verified",
+  "rolled_back": false,
+  "schema": "foxai.engineering.receipt.v1",
+  "snapshot_manifest": "Z:\\FOXAI\\System\\EngineeringWorkshop\\snapshots\\ENG-20260721-063725-BFCAB9\\snapshot_20260721T065503568442Z.manifest.json",
+  "snapshot_path": "Z:\\FOXAI\\System\\EngineeringWorkshop\\snapshots\\ENG-20260721-063725-BFCAB9\\snapshot_20260721T065503568442Z.zip",
+  "snapshot_sha256": "0b34498bc41e62fdb6522309a260bfd434ee6f7c7ecc149ca55c88e7dbfcc110",
+  "validations": [
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nimport ast, hashlib, json\nroot=Path(r\"Z:\\FOXAI\")\ndrop=root/r\"AGENT_FOX_V1A2R2\"\ninstalled=root/r\"System\\AgentFoxTechnicalCore\"\nchecks=[\n    (drop/r\"static_code_launcher_bridge_v1r2.py\", installed/r\"static_code_launcher_bridge_v1r2.py\", \"775edcfa3afc122e91aaabef95feb7a90a0e31d1e772bd46ab04343db18c1a42\"),\n    (drop/r\"STATIC_CODE_LAUNCHER_CONTRACT_V1R2.json\", installed/r\"STATIC_CODE_LAUNCHER_CONTRACT_V1R2.json\", \"ab3e5ef12efcb44916f454f972e4f35d1ac7b4c0853d83219d9dfd872b1da236\"),\n    (drop/r\"README_V1A2R2.md\", installed/r\"README_V1A2R2.md\", \"89f2543e5e3196f4cfac16708a4fafe99a1c13b703daffbed5eb8e62221926d0\"),\n]\nfor source,target,expected in checks:\n    assert source.is_file(), f\"missing package file: {source}\"\n    assert target.is_file(), f\"missing installed file: {target}\"\n    assert hashlib.sha256(source.read_bytes()).hexdigest()==expected, f\"package hash mismatch: {source}\"\n    assert hashlib.sha256(target.read_bytes()).hexdigest()==expected, f\"installed hash mismatch: {target}\"\nscript_path=installed/r\"static_code_launcher_bridge_v1r2.py\"\nscript=script_path.read_text(encoding=\"utf-8\")\ncompile(script,str(script_path),\"exec\")\ntree=ast.parse(script)\nimports=set()\nfor node in ast.walk(tree):\n    if isinstance(node,ast.Import):\n        imports.update(alias.name.split('.')[0] for alias in node.names)\n    elif isinstance(node,ast.ImportFrom) and node.module:\n        imports.add(node.module.split('.')[0])\nforbidden={\"subprocess\",\"socket\",\"urllib\",\"http\",\"ftplib\",\"requests\",\"pip\",\"ensurepip\",\"psutil\",\"winreg\",\"ctypes\",\"webbrowser\",\"importlib\",\"os\",\"shutil\"}\nbad=sorted(imports & forbidden)\nassert not bad, \"forbidden imports: \"+\", \".join(bad)\nfor marker in (\"subprocess.run(\",\"subprocess.Popen(\",\"os.system(\",\"shell=True\",\"urlopen(\",\"socket.socket(\",\"pip install\",\"Path.unlink(\",\"shutil.rmtree(\",\"os.remove(\",\"os.rename(\",\"importlib.import_module(\",\"__import__(\"):\n    assert marker not in script, \"forbidden operation marker: \"+marker\ncontract=json.loads((installed/r\"STATIC_CODE_LAUNCHER_CONTRACT_V1R2.json\").read_text(encoding=\"utf-8\"))\nassert contract.get(\"schema\")==\"foxai.agent_fox.technical_core.v1a2r2.immutable_static_bridge_contract.v1\"\nsafety=contract.get(\"safety\",{})\nfor key in (\"network_required\",\"third_party_dependencies_required\",\"subprocess_launches\",\"launcher_execution\",\"python_interpreter_probes\",\"foxai_imports_or_execution\",\"models_loaded\",\"elevation\",\"deletion_or_renaming\",\"existing_foxai_source_modified\",\"raw_source_content_persisted\"):\n    assert safety.get(key) is False, (key,safety.get(key))\npolicy=contract.get(\"determinism_policy\",{})\nassert policy.get(\"internal_build_count\")==2\nassert policy.get(\"same_immutable_capture_for_both_builds\") is True\nassert policy.get(\"live_tree_reread_for_second_build\") is False\nassert policy.get(\"byte_for_byte_core_and_shard_comparison\") is True\nassert policy.get(\"live_drift_reported_separately\") is True\nprior=root/r\"System\\EngineeringWorkshop\\missions\\ENG-20260721-053749-E3BE2A_V1A2_STATIC_BRIDGE\"\nprior_receipt=json.loads((prior/r\"STATIC_BRIDGE_RECEIPT.json\").read_text(encoding=\"utf-8\"))\nassert prior_receipt.get(\"result\")==\"static_code_and_launcher_bridge_complete\"\nassert prior_receipt.get(\"mission_id\")==\"ENG-20260721-053749-E3BE2A\"\nprint(\"AGENT_FOX_V1A2R2_INSTALL_PREFLIGHT_OK\")\n"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-21T06:55:03.760713Z",
+      "name": "Verify exact V1A-2R2 payloads, syntax, standard-library safety, immutable-capture contract, and V1A-2 prerequisite",
+      "returncode": 0,
+      "started_at": "2026-07-21T06:55:03.619082Z",
+      "stderr": "",
+      "stdout": "AGENT_FOX_V1A2R2_INSTALL_PREFLIGHT_OK\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\static_code_launcher_bridge_v1r2.py",
+        "--self-test"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-21T06:55:03.888642Z",
+      "name": "Run in-memory launcher precision, capture, URL, redaction, and deterministic parser self-tests",
+      "returncode": 0,
+      "started_at": "2026-07-21T06:55:03.761047Z",
+      "stderr": "",
+      "stdout": "AGENT_FOX_V1A2R2_SELF_TEST_OK\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\static_code_launcher_bridge_v1r2.py",
+        "build",
+        "--project-root",
+        "Z:\\FOXAI",
+        "--v1a2-dir",
+        "Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260721-053749-E3BE2A_V1A2_STATIC_BRIDGE",
+        "--output-dir",
+        "Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260721-063725-BFCAB9_V1A2R2_IMMUTABLE_BRIDGE",
+        "--mission-id",
+        "ENG-20260721-063725-BFCAB9"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-21T06:55:09.183142Z",
+      "name": "Capture authorized inputs once and internally build and compare two deterministic core-and-shard outputs",
+      "returncode": 0,
+      "started_at": "2026-07-21T06:55:03.888986Z",
+      "stderr": "",
+      "stdout": "{\n  \"result\": \"immutable_input_determinism_repair_complete\",\n  \"output_dir\": \"Z:\\\\FOXAI\\\\System\\\\EngineeringWorkshop\\\\missions\\\\ENG-20260721-063725-BFCAB9_V1A2R2_IMMUTABLE_BRIDGE\",\n  \"output_files\": 76,\n  \"output_bytes\": 41153758,\n  \"immutable_internal_double_build_match\": true,\n  \"network_used\": false,\n  \"launchers_executed\": false\n}\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\static_code_launcher_bridge_v1r2.py",
+        "validate-output",
+        "--index-dir",
+        "Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260721-063725-BFCAB9_V1A2R2_IMMUTABLE_BRIDGE"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-21T06:55:10.312599Z",
+      "name": "Run built-in output, immutable determinism, protected drift, hash, shard, count, and false-edge validator",
+      "returncode": 0,
+      "started_at": "2026-07-21T06:55:09.183502Z",
+      "stderr": "",
+      "stdout": "{\n  \"immutable_double_build_match\": true,\n  \"launcher_records\": 536,\n  \"output_bytes\": 41153758,\n  \"protected_change_count\": 0,\n  \"reference_shards\": 66,\n  \"result\": \"AGENT_FOX_V1A2R2_OUTPUT_VALIDATED\"\n}\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nimport json\nroot=Path(r\"Z:\\FOXAI\")\nout=root/r\"System\\EngineeringWorkshop\\missions\\ENG-20260721-063725-BFCAB9_V1A2R2_IMMUTABLE_BRIDGE\"\nlaunch=json.loads((out/r\"REFINED_STATIC_LAUNCHER_INDEX.json\").read_text(encoding=\"utf-8\"))\nassert launch.get(\"source_launcher_record_count\")==536\nassert launch.get(\"record_count\")==536\nassert launch.get(\"immutable_input_capture_used\") is True\nassert launch.get(\"launchers_executed\") is False\nassert launch.get(\"confirmed_active_or_executed_targets\")==0\nmetrics=launch.get(\"false_edge_metrics\",{})\nfor key in (\"shell_builtin_launch_edge_count\",\"url_as_filesystem_edge_count\",\"comment_launch_edge_count\",\"unresolved_confirmed_target_count\"):\n    assert metrics.get(key)==0, (key,metrics.get(key),metrics.get(\"samples\"))\nrecords={str(item.get(\"relative_path\",\"\")).replace('/','\\\\').casefold():item for item in launch.get(\"records\",[])}\ndef record(name):\n    key=name.replace('/','\\\\').casefold()\n    assert key in records, f\"missing known launcher: {name}\"\n    item=records[key]\n    assert item.get(\"parse_status\")==\"refined_static_parsed\", (name,item.get(\"parse_status\"),item.get(\"error\"))\n    assert item.get(\"launcher_executed\") is False\n    return item\ndef values(item,kind):\n    if kind==\"interpreters\": return [str(x.get(\"interpreter\",{}).get(\"expanded_value\",\"\")).replace('/','\\\\').casefold() for x in item.get(\"interpreter_invocations\",[])]\n    if kind==\"scripts\": return [str((x.get(\"script\") or {}).get(\"expanded_value\",\"\")).replace('/','\\\\').casefold() for x in item.get(\"interpreter_invocations\",[]) if x.get(\"script\")]\n    if kind==\"launchers\": return [str(x.get(\"expanded_value\",\"\")).replace('/','\\\\').casefold() for x in item.get(\"called_launchers\",[])]\n    raise AssertionError(kind)\ndef require_suffix(item,kind,suffix):\n    wanted=suffix.replace('/','\\\\').casefold()\n    available=values(item,kind)\n    assert any(value.endswith(wanted) for value in available), (item.get(\"relative_path\"),kind,wanted,available)\ndef require_root(item):\n    variables={str(k).casefold():str(v).replace('/','\\\\') for k,v in item.get(\"variables\",{}).items()}\n    assert variables.get(\"foxai_root\",\"\").casefold()==r\"Z:\\FOXAI\".casefold(), (item.get(\"relative_path\"),variables)\nworkshop=record(\"Launch FOXAI Workshop.bat\")\nrequire_root(workshop)\nrequire_suffix(workshop,\"interpreters\",r\"Runtime\\Desktop\\python\\python.exe\")\nrequire_suffix(workshop,\"scripts\",r\"System\\PortableRuntime\\manage_comfyui_normal.py\")\nportable=record(\"START_FOXAI_WEB_PORTABLE.bat\")\nrequire_suffix(portable,\"interpreters\",r\"env\\python\\python.exe\")\nrequire_suffix(portable,\"scripts\",r\"core\\foxai_web.py\")\nweb=record(\"START_FOXAI_WEB_WITH_COMFYUI.bat\")\nrequire_root(web)\nrequire_suffix(web,\"interpreters\",r\"Runtime\\Desktop\\python\\python.exe\")\nrequire_suffix(web,\"scripts\",r\"System\\PortableRuntime\\start_comfyui_quiet.py\")\nrequire_suffix(web,\"launchers\",r\"START_FOXAI_WEB_PORTABLE.bat\")\nassert 8765 in web.get(\"ports\",[])\nassert any(str(x.get(\"url\",\"\")).casefold()==\"http://127.0.0.1:8765\" for x in web.get(\"urls\",[])), web.get(\"urls\")\ndesktop=record(\"START_FOXAI_DESKTOP_TWO_WINDOW_RECOVERY.bat\")\nrequire_root(desktop)\nrequire_suffix(desktop,\"interpreters\",r\"Runtime\\Desktop\\python\\python.exe\")\nrequire_suffix(desktop,\"interpreters\",r\"Runtime\\Desktop\\python\\pythonw.exe\")\nrequire_suffix(desktop,\"scripts\",r\"System\\PortableRuntime\\start_comfyui_quiet.py\")\nrequire_suffix(desktop,\"scripts\",r\"foxai.py\")\nfor item in launch.get(\"records\",[]):\n    for edge in item.get(\"edges\",[]):\n        assert edge.get(\"confirmed_active_or_executed\") is False\n        assert edge.get(\"classification\")!=\"url\"\n        if edge.get(\"unresolved_variables\"):\n            assert edge.get(\"confirmation\")!=\"static_existing_target\"\nprint(\"AGENT_FOX_V1A2R2_KNOWN_LAUNCHER_TRACES_VERIFIED\")\n"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-21T06:55:10.400142Z",
+      "name": "Verify precise static traces for the four known-good FOXAI launchers",
+      "returncode": 0,
+      "started_at": "2026-07-21T06:55:10.312943Z",
+      "stderr": "",
+      "stdout": "AGENT_FOX_V1A2R2_KNOWN_LAUNCHER_TRACES_VERIFIED\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nimport json\nroot=Path(r\"Z:\\FOXAI\")\nout=root/r\"System\\EngineeringWorkshop\\missions\\ENG-20260721-063725-BFCAB9_V1A2R2_IMMUTABLE_BRIDGE\"\nd=json.loads((out/r\"IMMUTABLE_DETERMINISM_REPORT.json\").read_text(encoding=\"utf-8\"))\nassert d.get(\"comparison_kind\")==\"two_internal_builds_from_one_immutable_capture\"\nassert d.get(\"byte_for_byte_match\") is True\nassert d.get(\"live_tree_reread_for_second_build\") is False\nassert d.get(\"compared_output_count\")==len(d.get(\"compared_outputs\",[]))\nassert d.get(\"compared_output_count\",0)>=70, d.get(\"compared_output_count\")\nmanifest=json.loads((out/r\"INPUT_CAPTURE_MANIFEST.json\").read_text(encoding=\"utf-8\"))\nassert manifest.get(\"capture_kind\")==\"single_read_immutable_in_memory\"\nassert manifest.get(\"raw_source_content_persisted\") is False\nassert manifest.get(\"record_count\")==len(manifest.get(\"records\",[]))\nassert manifest.get(\"record_count\",0)>=565\nassert all(\"_bytes\" not in item and \"_native_path\" not in item for item in manifest.get(\"records\",[]))\ndrift=json.loads((out/r\"LIVE_DRIFT_REPORT.json\").read_text(encoding=\"utf-8\"))\nassert drift.get(\"ordinary_or_mutable_drift_is_parser_nondeterminism\") is False\nassert drift.get(\"protected_change_count\")==0, drift.get(\"protected_changes\")\nassert drift.get(\"record_count\")==len(drift.get(\"records\",[]))\nreceipt=json.loads((out/r\"REFINED_BRIDGE_RECEIPT.json\").read_text(encoding=\"utf-8\"))\nassert receipt.get(\"immutable_internal_double_build_match\") is True\nassert receipt.get(\"live_tree_reread_for_second_build\") is False\nassert receipt.get(\"protected_change_count\")==0\nassert receipt.get(\"input_capture_record_count\")==manifest.get(\"record_count\")\nprint(\"AGENT_FOX_V1A2R2_IMMUTABLE_DETERMINISM_AND_DRIFT_VERIFIED\")\n"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-21T06:55:10.454739Z",
+      "name": "Verify one-capture double-build determinism and separately classified live drift",
+      "returncode": 0,
+      "started_at": "2026-07-21T06:55:10.400536Z",
+      "stderr": "",
+      "stdout": "AGENT_FOX_V1A2R2_IMMUTABLE_DETERMINISM_AND_DRIFT_VERIFIED\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nimport hashlib, json\nroot=Path(r\"Z:\\FOXAI\")\nout=root/r\"System\\EngineeringWorkshop\\missions\\ENG-20260721-063725-BFCAB9_V1A2R2_IMMUTABLE_BRIDGE\"\nrequired={\"STATIC_CODE_INDEX.json\",\"REFINED_STATIC_LAUNCHER_INDEX.json\",\"STATIC_REFERENCE_CATALOG.json\",\"KNOWN_GOOD_COMPARISON.json\",\"REFINED_INDEX_COVERAGE.json\",\"INPUT_CAPTURE_MANIFEST.json\",\"IMMUTABLE_DETERMINISM_REPORT.json\",\"LIVE_DRIFT_REPORT.json\",\"REFINED_BRIDGE_RECEIPT.json\",\"QUERY_EXAMPLES.md\"}\nactual={p.name for p in out.iterdir() if p.is_file()}\nassert required.issubset(actual), f\"missing outputs: {sorted(required-actual)}\"\nreceipt=json.loads((out/r\"REFINED_BRIDGE_RECEIPT.json\").read_text(encoding=\"utf-8\"))\nassert receipt.get(\"result\")==\"immutable_input_determinism_repair_complete\"\nassert receipt.get(\"mission_id\")==\"ENG-20260721-063725-BFCAB9\"\nfor key in (\"network_used\",\"packages_installed\",\"foxai_source_imported_or_executed\",\"launchers_executed\",\"python_interpreters_probed\",\"models_loaded\",\"existing_foxai_source_modified\",\"global_line_record_ceiling_used\",\"live_tree_reread_for_second_build\"):\n    assert receipt.get(key) is False, (key,receipt.get(key))\nassert receipt.get(\"source_v1a2_outputs_verified\") is True\nassert receipt.get(\"known_good_candidates_all_match\") is True\nassert receipt.get(\"immutable_input_capture_used\") is True\nassert receipt.get(\"immutable_internal_double_build_match\") is True\nassert receipt.get(\"protected_change_count\")==0\nfor key in (\"shell_builtin_launch_edge_count\",\"url_as_filesystem_edge_count\",\"comment_launch_edge_count\",\"unresolved_confirmed_target_count\"):\n    assert receipt.get(key)==0, (key,receipt.get(key))\nfor item in receipt.get(\"core_outputs_before_receipt\",[]):\n    path=out/Path(item[\"name\"])\n    assert path.is_file(), f\"receipt output missing: {path}\"\n    assert path.stat().st_size==item[\"size_bytes\"], f\"output size mismatch: {path}\"\n    assert hashlib.sha256(path.read_bytes()).hexdigest()==item[\"sha256\"], f\"output hash mismatch: {path}\"\ncode=json.loads((out/r\"STATIC_CODE_INDEX.json\").read_text(encoding=\"utf-8\"))\nassert code.get(\"file_count\")==565\ncatalog=json.loads((out/r\"STATIC_REFERENCE_CATALOG.json\").read_text(encoding=\"utf-8\"))\nassert catalog.get(\"immutable_input_capture_used\") is True\nassert catalog.get(\"global_line_record_ceiling_used\") is False\nassert catalog.get(\"source_file_coverage_count\")==565\nassert len(catalog.get(\"source_file_coverage\",[]))==565\nassert catalog.get(\"shard_count\")==len(catalog.get(\"shards\",[]))\nassert catalog.get(\"shard_count\",0)>0\nassert sum(int(x.get(\"record_count\",0)) for x in catalog.get(\"shards\",[]))==catalog.get(\"line_record_count\")\nfor shard in catalog.get(\"shards\",[]):\n    path=out/Path(shard[\"name\"])\n    assert path.is_file(), path\n    assert path.stat().st_size==shard[\"size_bytes\"]\n    assert hashlib.sha256(path.read_bytes()).hexdigest()==shard[\"sha256\"]\ncoverage=json.loads((out/r\"REFINED_INDEX_COVERAGE.json\").read_text(encoding=\"utf-8\"))\nassert coverage.get(\"global_line_record_ceiling_used\") is False\nassert coverage.get(\"source_files_from_v1a2\")==565\nstatus=coverage.get(\"current_source_hash_status\",{})\nassert sum(int(v) for v in status.values())==565, status\nknown=json.loads((out/r\"KNOWN_GOOD_COMPARISON.json\").read_text(encoding=\"utf-8\"))\nassert known.get(\"record_count\")==6\nassert known.get(\"all_match\") is True\nassert all(item.get(\"status\")==\"match\" for item in known.get(\"records\",[]))\nprior=root/r\"System\\EngineeringWorkshop\\missions\\ENG-20260721-053749-E3BE2A_V1A2_STATIC_BRIDGE\"\nprior_receipt=json.loads((prior/r\"STATIC_BRIDGE_RECEIPT.json\").read_text(encoding=\"utf-8\"))\nfor item in prior_receipt.get(\"core_outputs_before_receipt\",[]):\n    path=prior/item[\"name\"]\n    assert path.is_file(), f\"V1A-2 prerequisite missing: {path}\"\n    assert path.stat().st_size==item[\"size_bytes\"]\n    assert hashlib.sha256(path.read_bytes()).hexdigest()==item[\"sha256\"], f\"V1A-2 prerequisite changed: {path}\"\ninstalled=root/r\"System\\AgentFoxTechnicalCore\"\nfor name,expected in {\"static_code_launcher_bridge_v1r2.py\": \"775edcfa3afc122e91aaabef95feb7a90a0e31d1e772bd46ab04343db18c1a42\", \"STATIC_CODE_LAUNCHER_CONTRACT_V1R2.json\": \"ab3e5ef12efcb44916f454f972e4f35d1ac7b4c0853d83219d9dfd872b1da236\", \"README_V1A2R2.md\": \"89f2543e5e3196f4cfac16708a4fafe99a1c13b703daffbed5eb8e62221926d0\"}.items():\n    path=installed/name\n    assert path.is_file() and hashlib.sha256(path.read_bytes()).hexdigest()==expected, f\"installed payload changed: {path}\"\ntotal=sum(p.stat().st_size for p in out.rglob('*') if p.is_file())\nassert total<=128*1024*1024, f\"output ceiling exceeded: {total}\"\nprint(\"AGENT_FOX_V1A2R2_COMPLETE_OUTPUTS_VERIFIED\")\n"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-21T06:55:10.849250Z",
+      "name": "Verify complete output hashes, shard accounting, protected candidates, V1A-2 prerequisites, payloads, counts, and 128 MiB ceiling",
+      "returncode": 0,
+      "started_at": "2026-07-21T06:55:10.455137Z",
+      "stderr": "",
+      "stdout": "AGENT_FOX_V1A2R2_COMPLETE_OUTPUTS_VERIFIED\n",
+      "timed_out": false
+    }
+  ]
+}

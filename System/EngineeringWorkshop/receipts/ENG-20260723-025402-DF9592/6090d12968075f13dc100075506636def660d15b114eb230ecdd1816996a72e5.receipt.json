@@ -1,0 +1,151 @@
+{
+  "authorized": true,
+  "changes": [
+    {
+      "action": "write_file",
+      "after_sha256": "8e9f197a7abc56d21721299a74e6feb925ecae4a1fa1886f4b4ea3a8ff681251",
+      "after_size": 34283,
+      "before_sha256": null,
+      "before_size": null,
+      "relative_path": "System/EngineeringWorkshop/missions/ENG-20260723-025402-DF9592_V1B3B_SHARED_ROUTER_INTEGRATION_PREFLIGHT/v1b3b_shared_router_integration_preflight.py"
+    },
+    {
+      "action": "write_file",
+      "after_sha256": "7858ca3ebdc830c37b67ad5a756ccf6b2e2ac0a96a731589431b0cf0a0055a67",
+      "after_size": 936,
+      "before_sha256": null,
+      "before_size": null,
+      "relative_path": "System/EngineeringWorkshop/missions/ENG-20260723-025402-DF9592_V1B3B_SHARED_ROUTER_INTEGRATION_PREFLIGHT/README_V1B3B.md"
+    }
+  ],
+  "created_at": "2026-07-23T03:04:21.871827Z",
+  "evidence_is_tool_generated": true,
+  "failure": null,
+  "mission_id": "ENG-20260723-025402-DF9592",
+  "mission_title": "Agent Fox Technical Core V1B-3B Shared-Router Integration Preflight",
+  "mission_type": "repair",
+  "no_deletions": true,
+  "no_renames": true,
+  "plan_path": "Z:\\FOXAI\\AGENT_FOX_V1B3B\\PLAN.json",
+  "plan_sha256": "6090d12968075f13dc100075506636def660d15b114eb230ecdd1816996a72e5",
+  "project_root": "Z:\\FOXAI",
+  "result": "applied_verified",
+  "rolled_back": false,
+  "schema": "foxai.engineering.receipt.v1",
+  "snapshot_manifest": "Z:\\FOXAI\\System\\EngineeringWorkshop\\snapshots\\ENG-20260723-025402-DF9592\\snapshot_20260723T030408738698Z.manifest.json",
+  "snapshot_path": "Z:\\FOXAI\\System\\EngineeringWorkshop\\snapshots\\ENG-20260723-025402-DF9592\\snapshot_20260723T030408738698Z.zip",
+  "snapshot_sha256": "18e62630107561f786a4d68b3f03d0ea8a80c304d7f040dc6191fe911336299f",
+  "validations": [
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nimport hashlib\nroot=Path(r\"Z:\\FOXAI\")\nexpected={\n r\"System/EngineeringWorkshop/missions/ENG-20260723-025402-DF9592_V1B3B_SHARED_ROUTER_INTEGRATION_PREFLIGHT/v1b3b_shared_router_integration_preflight.py\":(34283,\"8e9f197a7abc56d21721299a74e6feb925ecae4a1fa1886f4b4ea3a8ff681251\"),\n r\"System/EngineeringWorkshop/missions/ENG-20260723-025402-DF9592_V1B3B_SHARED_ROUTER_INTEGRATION_PREFLIGHT/README_V1B3B.md\":(936,\"7858ca3ebdc830c37b67ad5a756ccf6b2e2ac0a96a731589431b0cf0a0055a67\"),\n}\nfor rel,(size,digest) in expected.items():\n p=root/Path(rel)\n data=p.read_bytes()\n assert len(data)==size,(rel,len(data),size)\n assert hashlib.sha256(data).hexdigest()==digest,rel\ncompile((root/Path(r\"System/EngineeringWorkshop/missions/ENG-20260723-025402-DF9592_V1B3B_SHARED_ROUTER_INTEGRATION_PREFLIGHT/v1b3b_shared_router_integration_preflight.py\")).read_text(encoding=\"utf-8\"),\"<v1b3b-preflight>\",\"exec\")\nmanifest=root/Path(r\"System/AgentFoxTechnicalCore/Reference/TECHNICAL_CORE_REFERENCE_MANIFEST.json\")\nguide=root/Path(r\"System/AgentFoxTechnicalCore/Reference/TECHNICAL_CORE_REFERENCE_GUIDE.md\")\nassert hashlib.sha256(manifest.read_bytes()).hexdigest()==\"459b1d16af76af323fdd5037af7f044c7accf19db7e40652c3c7a6bb0d883737\"\nassert hashlib.sha256(guide.read_bytes()).hexdigest()==\"d194b5c649e29a06b1b5d2b8438185b35674318d5c5410f1583df59b3782d570\"\nprint(\"V1B3B_EXACT_PAYLOADS_AND_AUTHORITATIVE_REFERENCE_OK\")\n"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-23T03:04:08.829296Z",
+      "name": "Verify exact V1B-3B preflight payloads and authoritative reference hashes",
+      "returncode": 0,
+      "started_at": "2026-07-23T03:04:08.755067Z",
+      "stderr": "",
+      "stdout": "V1B3B_EXACT_PAYLOADS_AND_AUTHORITATIVE_REFERENCE_OK\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260723-025402-DF9592_V1B3B_SHARED_ROUTER_INTEGRATION_PREFLIGHT\\v1b3b_shared_router_integration_preflight.py",
+        "--project-root",
+        "Z:\\FOXAI",
+        "--output-dir",
+        "Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260723-025402-DF9592_V1B3B_SHARED_ROUTER_INTEGRATION_PREFLIGHT"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-23T03:04:21.559658Z",
+      "name": "Run deterministic bounded shared-router integration preflight",
+      "returncode": 0,
+      "started_at": "2026-07-23T03:04:08.829693Z",
+      "stderr": "",
+      "stdout": "{\n  \"deterministic\": true,\n  \"mission_id\": \"ENG-20260723-025402-DF9592\",\n  \"output_count\": 7,\n  \"output_dir\": \"Z:\\\\FOXAI\\\\System\\\\EngineeringWorkshop\\\\missions\\\\ENG-20260723-025402-DF9592_V1B3B_SHARED_ROUTER_INTEGRATION_PREFLIGHT\",\n  \"status\": \"preflight_complete_ready_for_classification_only_integration\"\n}\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nimport hashlib,json\nroot=Path(r\"Z:\\FOXAI\")\nout=root/Path(r\"System/EngineeringWorkshop/missions/ENG-20260723-025402-DF9592_V1B3B_SHARED_ROUTER_INTEGRATION_PREFLIGHT\")\nnames={\n \"V1B3B_PRIMARY_INPUT_INVENTORY.json\",\n \"V1B3B_SHARED_ROUTER_FINDINGS.json\",\n \"V1B3B_AUTHORIZATION_FINDINGS.json\",\n \"V1B3B_PASS_THROUGH_MATRIX.json\",\n \"V1B3B_MINIMAL_INTEGRATION_RECOMMENDATION.json\",\n \"V1B3B_PREFLIGHT_REPORT.md\",\n \"V1B3B_PREFLIGHT_RECEIPT.json\",\n}\nassert all((out/name).is_file() for name in names)\nreceipt=json.loads((out/\"V1B3B_PREFLIGHT_RECEIPT.json\").read_text(encoding=\"utf-8\"))\nassert receipt[\"mission_id\"]==\"ENG-20260723-025402-DF9592\"\nassert receipt[\"exact_output_count_including_receipt\"]==7\nassert receipt[\"authoritative_reference_verified\"] is True\nassert receipt[\"required_inputs_missing\"]==[]\nassert receipt[\"existing_live_source_files_modified\"]==0\nassert receipt[\"live_state_providers_invoked\"]==0\nassert receipt[\"live_scans\"]==0\nassert receipt[\"process_inspection\"] is False\nassert receipt[\"service_inspection\"] is False\nassert receipt[\"listener_inspection\"] is False\nassert receipt[\"port_inspection\"] is False\nassert receipt[\"memory_measurement\"] is False\nassert receipt[\"storage_measurement\"] is False\nassert receipt[\"startup_inspection\"] is False\nassert receipt[\"registry_inspection\"] is False\nassert receipt[\"network_used\"] is False\nassert receipt[\"model_calls\"]==0\nassert receipt[\"guis_launched\"]==0\nassert receipt[\"packages_installed\"] is False\nassert receipt[\"k_access\"] is False\nassert receipt[\"filesystem_search_performed\"] is False\nassert receipt[\"fixed_file_list_only\"] is True\nassert receipt[\"historical_evidence_used_as_current\"] is False\nfor row in receipt[\"outputs_excluding_receipt\"]:\n data=(out/row[\"name\"]).read_bytes()\n assert len(data)==row[\"size_bytes\"],row[\"name\"]\n assert hashlib.sha256(data).hexdigest()==row[\"sha256\"],row[\"name\"]\nrecommendation=json.loads((out/\"V1B3B_MINIMAL_INTEGRATION_RECOMMENDATION.json\").read_text(encoding=\"utf-8\"))\nassert recommendation[\"integration_scope\"][\"modify_only_shared_adapter\"] is True\nassert recommendation[\"integration_scope\"][\"desktop_source_change_required\"] is False\nassert recommendation[\"integration_scope\"][\"webui_source_change_required\"] is False\nassert recommendation[\"classification_only_behavior\"][\"can_execute_live_provider\"] is False\nprint(\"V1B3B_EXACT_OUTPUTS_AND_SAFETY_RECEIPT_OK\")\n"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-23T03:04:21.672715Z",
+      "name": "Verify exact seven preflight outputs and zero-live-execution safety receipt",
+      "returncode": 0,
+      "started_at": "2026-07-23T03:04:21.560186Z",
+      "stderr": "",
+      "stdout": "V1B3B_EXACT_OUTPUTS_AND_SAFETY_RECEIPT_OK\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nimport hashlib,json\nroot=Path(r\"Z:\\FOXAI\")\nout=root/Path(r\"System/EngineeringWorkshop/missions/ENG-20260723-025402-DF9592_V1B3B_SHARED_ROUTER_INTEGRATION_PREFLIGHT\")\ninventory=json.loads((out/\"V1B3B_PRIMARY_INPUT_INVENTORY.json\").read_text(encoding=\"utf-8\"))\nassert inventory[\"filesystem_search_performed\"] is False\nassert inventory[\"fixed_file_list_only\"] is True\nassert inventory[\"missing_required_inputs\"]==[]\nfor row in inventory[\"inputs\"]:\n if not row[\"exists\"]:\n  continue\n p=Path(row[\"path\"])\n data=p.read_bytes()\n assert len(data)==row[\"size_bytes\"],row[\"logical_name\"]\n assert hashlib.sha256(data).hexdigest()==row[\"sha256\"],row[\"logical_name\"]\nrouting=json.loads((out/\"V1B3B_SHARED_ROUTER_FINDINGS.json\").read_text(encoding=\"utf-8\"))\nassert routing[\"route_message_found\"] is True\nassert routing[\"slash_command_lines\"]\nassert routing[\"proposed_integration_anchor\"][\"after_line\"] < routing[\"proposed_integration_anchor\"][\"before_line\"]\nprint(\"V1B3B_BOUNDED_PRIMARY_INPUTS_REMAIN_UNCHANGED\")\n"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-23T03:04:21.729206Z",
+      "name": "Verify every bounded primary input remains byte-for-byte unchanged",
+      "returncode": 0,
+      "started_at": "2026-07-23T03:04:21.673458Z",
+      "stderr": "",
+      "stdout": "V1B3B_BOUNDED_PRIMARY_INPUTS_REMAIN_UNCHANGED\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260723-025402-DF9592_V1B3B_SHARED_ROUTER_INTEGRATION_PREFLIGHT\\v1b3b_shared_router_integration_preflight.py",
+        "--self-test"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-23T03:04:21.818242Z",
+      "name": "Run isolated synthetic preflight self-test",
+      "returncode": 0,
+      "started_at": "2026-07-23T03:04:21.729662Z",
+      "stderr": "",
+      "stdout": "{\n  \"mission_id\": \"ENG-20260723-025402-DF9592\",\n  \"passed\": true,\n  \"schema\": \"foxai.agent_fox.technical_core.v1b3b.self_test.v1\",\n  \"tests\": 8\n}\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nimport json\nroot=Path(r\"Z:\\FOXAI\")\nsnap=root/Path(r\"System/EngineeringWorkshop/snapshots/ENG-20260723-025402-DF9592\")\nmanifests=sorted(snap.glob(\"snapshot_*.manifest.json\"))\nassert manifests,str(snap)\nmanifest=json.loads(manifests[-1].read_text(encoding=\"utf-8\"))\nentries=manifest[\"entries\"]\nexpected=sorted([\n r\"System/EngineeringWorkshop/missions/ENG-20260723-025402-DF9592_V1B3B_SHARED_ROUTER_INTEGRATION_PREFLIGHT/v1b3b_shared_router_integration_preflight.py\".replace(\"/\",\"\\\\\"),\n r\"System/EngineeringWorkshop/missions/ENG-20260723-025402-DF9592_V1B3B_SHARED_ROUTER_INTEGRATION_PREFLIGHT/README_V1B3B.md\".replace(\"/\",\"\\\\\"),\n])\nnormalized=sorted(str(row[\"relative_path\"]).replace(\"/\",\"\\\\\") for row in entries)\nassert normalized==expected,(normalized,expected)\nassert all(row[\"existed\"] is False and row.get(\"sha256\") is None and row.get(\"size\") is None for row in entries)\nprint(\"V1B3B_EXACT_TWO_FILE_ADD_ONLY_SNAPSHOT_OK\")\n"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-23T03:04:21.871747Z",
+      "name": "Verify exact two-file add-only Workshop snapshot",
+      "returncode": 0,
+      "started_at": "2026-07-23T03:04:21.818715Z",
+      "stderr": "",
+      "stdout": "V1B3B_EXACT_TWO_FILE_ADD_ONLY_SNAPSHOT_OK\n",
+      "timed_out": false
+    }
+  ]
+}

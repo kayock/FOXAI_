@@ -1,0 +1,196 @@
+{
+  "authorized": true,
+  "changes": [
+    {
+      "action": "write_file",
+      "after_sha256": "41a1663cd30af8a3800c8082d351f8d0338e75cd1df39d3c801a39cc3075f680",
+      "after_size": 48584,
+      "before_sha256": null,
+      "before_size": null,
+      "relative_path": "System\\AgentFoxTechnicalCore\\resource_evidence_provider_v1.py"
+    },
+    {
+      "action": "write_file",
+      "after_sha256": "6f59b18094283cacd4d1911e79bf8ff102cd4fc7f16d280f695b81777907766b",
+      "after_size": 3841,
+      "before_sha256": null,
+      "before_size": null,
+      "relative_path": "System\\AgentFoxTechnicalCore\\RESOURCE_EVIDENCE_PROVIDER_CONTRACT_V1.json"
+    },
+    {
+      "action": "write_file",
+      "after_sha256": "bdc1f3fd032952e2eb3946844e3861527f6b86a58d3f56d07e569507e3bac72a",
+      "after_size": 2650,
+      "before_sha256": null,
+      "before_size": null,
+      "relative_path": "System\\AgentFoxTechnicalCore\\RESOURCE_EVIDENCE_QUERY_FIXTURES_V1.json"
+    }
+  ],
+  "created_at": "2026-07-22T15:34:17.858135Z",
+  "evidence_is_tool_generated": true,
+  "failure": null,
+  "mission_id": "ENG-20260722-153014-F39AF7",
+  "mission_title": "Agent Fox Technical Core V1B-2A-R2 \u2014 Provider Serialization Validation Repair",
+  "mission_type": "implement",
+  "no_deletions": true,
+  "no_renames": true,
+  "plan_path": "Z:\\FOXAI\\AGENT_FOX_V1B2A_R2\\PLAN.json",
+  "plan_sha256": "2d551d070b87a35faeed59ea0c7dca7e38fd6d03ad69d1b89e19dd2cbb412269",
+  "project_root": "Z:\\FOXAI",
+  "result": "applied_verified",
+  "rolled_back": false,
+  "schema": "foxai.engineering.receipt.v1",
+  "snapshot_manifest": "Z:\\FOXAI\\System\\EngineeringWorkshop\\snapshots\\ENG-20260722-153014-F39AF7\\snapshot_20260722T153417312312Z.manifest.json",
+  "snapshot_path": "Z:\\FOXAI\\System\\EngineeringWorkshop\\snapshots\\ENG-20260722-153014-F39AF7\\snapshot_20260722T153417312312Z.zip",
+  "snapshot_sha256": "e2bae517ee23a382b66a12006f992a4c3a5a8b97c84f50b32347d72f74a63e15",
+  "validations": [
+    {
+      "argv": [
+        "Z:/FOXAI/Runtime/Desktop/python/python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nimport hashlib,json\nsupport={\"Z:\\\\FOXAI\\\\System\\\\AgentFoxTechnicalCore\\\\RESOURCE_EVIDENCE_PROVIDER_CONTRACT_V1.json\": [3841, \"6f59b18094283cacd4d1911e79bf8ff102cd4fc7f16d280f695b81777907766b\"], \"Z:\\\\FOXAI\\\\System\\\\AgentFoxTechnicalCore\\\\RESOURCE_EVIDENCE_QUERY_FIXTURES_V1.json\": [2650, \"bdc1f3fd032952e2eb3946844e3861527f6b86a58d3f56d07e569507e3bac72a\"], \"Z:\\\\FOXAI\\\\System\\\\AgentFoxTechnicalCore\\\\resource_evidence_provider_v1.py\": [48584, \"41a1663cd30af8a3800c8082d351f8d0338e75cd1df39d3c801a39cc3075f680\"]}\nfor name,(size,digest) in support.items():\n p=Path(name); data=p.read_bytes()\n assert len(data)==size,(name,len(data),size)\n assert hashlib.sha256(data).hexdigest()==digest,name\ncompile(Path(r\"Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\resource_evidence_provider_v1.py\").read_text(encoding=\"utf-8\"),\"<v1b2a-provider>\",\"exec\")\nunchanged={\"Z:\\\\FOXAI\\\\System\\\\AgentFoxTechnicalCore\\\\desktop_self_knowledge_integration_v1.py\": \"e420706136b4902d82d8dbf1fecc64ae70fb8bc639106db41033545f8c196c30\", \"Z:\\\\FOXAI\\\\System\\\\AgentFoxTechnicalCore\\\\pc_resource_baseline_comparison_v1.py\": \"74c42992fac82d71846c40ac8d0fb776ace93a4a6bb4202e492a0fd56a8662c7\", \"Z:\\\\FOXAI\\\\System\\\\AgentFoxTechnicalCore\\\\protected_context_registry_query_bridge_v1.py\": \"96edd665af8eea2aca3563074f0e894607b03b53c22ac13d36cddc0bd58460f1\", \"Z:\\\\FOXAI\\\\System\\\\AgentFoxTechnicalCore\\\\provenance_self_knowledge_answer_packet_bridge_v1.py\": \"ad501eff2f8162a319085aa4eb6368039e9757e89ee4eaccb11e5f6e446ca6a7\", \"Z:\\\\FOXAI\\\\System\\\\AgentFoxTechnicalCore\\\\self_knowledge_chat_adapter_v1.py\": \"a80a9047e0eebd9ac87fe4d656c565bc6534563bb3c97e1ad9b59823a36804f7\", \"Z:\\\\FOXAI\\\\System\\\\AgentFoxTechnicalCore\\\\webui_self_knowledge_integration_v1.py\": \"765983b563f8495138c9670849de5c4703f4735a0ddc9324efd6580606fc517b\", \"Z:\\\\FOXAI\\\\core\\\\foxai_web.py\": \"d7bf0a2042d55ef7f0a5869556015e42c7427e7ff88636b28e1795f3adf7b952\", \"Z:\\\\FOXAI\\\\ui\\\\main_window.py\": \"a9c5bb86878e5f0cd27d221dbb32688b337e6026073a4b66d83339e0aef294a3\"}\nfor name,digest in unchanged.items():\n assert hashlib.sha256(Path(name).read_bytes()).hexdigest()==digest,name\nsource=Path(r\"Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260722-142022-9FAE11_V1B1C_BASELINE_COMPARISON_AND_CAPACITY_GUIDANCE\")\nexpected={\"BASELINE_COMPARISON_RECEIPT.json\": \"1688a1a1a90f7925c361996eef6211476d133280307416e5a84e68a3ca07b71f\", \"BASELINE_COMPARISON_REPORT.md\": \"6473cc6b7ef328e095348e4ad8813df53e31e061c21f1f5cff6e9993d18c95b7\", \"CAPACITY_HEADROOM_OBSERVATIONS.json\": \"3dc50e04a634a73c67b963ea3ee10fdb52d1bac126bac26cb22f544f92288fba\", \"FOXAI_COMPONENT_RESOURCE_ATTRIBUTION.json\": \"8673d496b81aebe432b4f79df7d1b773aea8742f0b09ebfe6d660a9f170f9c3f\", \"RESOURCE_BASELINE_COMPARISON.json\": \"40462031e89ea469b7c3940c863d225fa7fbad2cef4c6f44e720154d42cf4c86\"}\nfor name,digest in expected.items():\n assert hashlib.sha256((source/name).read_bytes()).hexdigest()==digest,name\nsnap=Path(r\"Z:\\FOXAI\\System\\EngineeringWorkshop\\snapshots\\ENG-20260722-153014-F39AF7\")\nmanifests=sorted(snap.glob(\"snapshot_*.manifest.json\")); assert manifests\nmanifest=json.loads(manifests[-1].read_text(encoding=\"utf-8\")); entries=manifest[\"entries\"]\nexpected_paths=[\n \"System/AgentFoxTechnicalCore/RESOURCE_EVIDENCE_PROVIDER_CONTRACT_V1.json\",\n \"System/AgentFoxTechnicalCore/RESOURCE_EVIDENCE_QUERY_FIXTURES_V1.json\",\n \"System/AgentFoxTechnicalCore/resource_evidence_provider_v1.py\",\n]\nnormalized=sorted(row[\"relative_path\"].replace(\"\\\\\",\"/\") for row in entries)\nassert len(entries)==3 and normalized==expected_paths,(normalized,expected_paths)\nassert all(row[\"existed\"] is False and row.get(\"sha256\") is None and row.get(\"size\") is None for row in entries)\nprint(\"AGENT_FOX_V1B2A_SUPPORT_SOURCES_COMPATIBILITY_AND_SNAPSHOT_OK\")"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-22T15:34:17.415848Z",
+      "name": "Verify exact V1B-2A support payloads, authoritative sources, compatibility hashes, and normalized snapshot",
+      "returncode": 0,
+      "started_at": "2026-07-22T15:34:17.329612Z",
+      "stderr": "",
+      "stdout": "AGENT_FOX_V1B2A_SUPPORT_SOURCES_COMPATIBILITY_AND_SNAPSHOT_OK\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:/FOXAI/Runtime/Desktop/python/python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nimport json,subprocess\np=Path(r\"Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\resource_evidence_provider_v1.py\")\nr=subprocess.run([r\"Z:/FOXAI/Runtime/Desktop/python/python.exe\",\"-I\",\"-B\",\"-S\",str(p),\"self-test\"],cwd=r\"Z:\\FOXAI\",capture_output=True,text=True,timeout=45)\nassert r.returncode==0,(r.stdout,r.stderr)\nobj=json.loads(r.stdout)\nassert obj[\"status\"]==\"ok\" and obj[\"output_count\"]==3 and obj[\"authoritative_source_count\"]==5\nassert obj[\"supported_category_count\"]==18 and obj[\"fixture_classification_count\"]==10\nassert obj[\"slash_bypass_before_evidence_loading\"] is True\nassert obj[\"unrelated_query_rejected_before_evidence_loading\"] is True\nassert obj[\"answer_packet_envelope_compatible\"] is True\nassert obj[\"current_state_claimed\"] is False and obj[\"live_scan_design\"] is False\nassert obj[\"network_used\"] is False and obj[\"model_used\"] is False\nassert obj[\"diagnosis_issued\"] is False and obj[\"recommendations_issued\"] is False\nassert obj[\"k_path_excluded\"] is True\nprint(json.dumps(obj,sort_keys=True))"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-22T15:34:17.511729Z",
+      "name": "Run isolated V1B-2A resource provider self-test",
+      "returncode": 0,
+      "started_at": "2026-07-22T15:34:17.416295Z",
+      "stderr": "",
+      "stdout": "{\"answer_packet_envelope_compatible\": true, \"authoritative_source_count\": 5, \"canonical_lf_only\": true, \"current_state_claimed\": false, \"diagnosis_issued\": false, \"fixture_classification_count\": 10, \"k_path_excluded\": true, \"live_scan_design\": false, \"model_used\": false, \"network_used\": false, \"output_count\": 3, \"recommendations_issued\": false, \"slash_bypass_before_evidence_loading\": true, \"stable_ids\": true, \"status\": \"ok\", \"supported_category_count\": 18, \"unrelated_query_rejected_before_evidence_loading\": true}\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:/FOXAI/Runtime/Desktop/python/python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "Z:/FOXAI/System/AgentFoxTechnicalCore/resource_evidence_provider_v1.py",
+        "build",
+        "--mission-id",
+        "ENG-20260722-153014-F39AF7",
+        "--output-dir",
+        "Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260722-153014-F39AF7_V1B2A_R2_RESOURCE_EVIDENCE_PROVIDER"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-22T15:34:17.570886Z",
+      "name": "Build bounded offline resource-evidence provider registry and fixture evidence",
+      "returncode": 0,
+      "started_at": "2026-07-22T15:34:17.512175Z",
+      "stderr": "",
+      "stdout": "{\"authoritative_source_count\": 5, \"mission_id\": \"ENG-20260722-153014-F39AF7\", \"network_connections_initiated\": false, \"new_live_scan_performed\": false, \"output_count\": 3, \"rollback_drive_k_accessed\": false, \"slash_bypass_before_evidence_loading\": true, \"status\": \"provider_built_and_verified\"}\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:/FOXAI/Runtime/Desktop/python/python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nimport json\nout=Path(r\"Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260722-153014-F39AF7_V1B2A_R2_RESOURCE_EVIDENCE_PROVIDER\")\nexpected=[\"RESOURCE_EVIDENCE_REGISTRY.json\", \"RESOURCE_QUERY_FIXTURE_RESULTS.json\", \"RESOURCE_EVIDENCE_PROVIDER_RECEIPT.json\"]\nfiles=sorted(p.name for p in out.iterdir() if p.is_file())\nassert files==sorted(expected),(files,expected)\nfor name in expected:\n data=(out/name).read_bytes(); assert b\"\\r\" not in data,name\n obj=json.loads(data.decode(\"utf-8\"))\n canonical=(json.dumps(obj,indent=2,sort_keys=True,ensure_ascii=False)+\"\\n\").encode(\"utf-8\")\n assert data==canonical,name\nassert sum((out/name).stat().st_size for name in expected)<2*1024*1024\nprint(\"AGENT_FOX_V1B2A_EXACT_THREE_UTF8_LF_OUTPUTS_OK\")"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-22T15:34:17.646501Z",
+      "name": "Validate exactly three deterministic UTF-8 LF-only provider outputs",
+      "returncode": 0,
+      "started_at": "2026-07-22T15:34:17.571612Z",
+      "stderr": "",
+      "stdout": "AGENT_FOX_V1B2A_EXACT_THREE_UTF8_LF_OUTPUTS_OK\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:/FOXAI/Runtime/Desktop/python/python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nimport hashlib,json\nout=Path(r\"Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260722-153014-F39AF7_V1B2A_R2_RESOURCE_EVIDENCE_PROVIDER\")\nsource=Path(r\"Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260722-142022-9FAE11_V1B1C_BASELINE_COMPARISON_AND_CAPACITY_GUIDANCE\")\nexpected={\"BASELINE_COMPARISON_RECEIPT.json\": \"1688a1a1a90f7925c361996eef6211476d133280307416e5a84e68a3ca07b71f\", \"BASELINE_COMPARISON_REPORT.md\": \"6473cc6b7ef328e095348e4ad8813df53e31e061c21f1f5cff6e9993d18c95b7\", \"CAPACITY_HEADROOM_OBSERVATIONS.json\": \"3dc50e04a634a73c67b963ea3ee10fdb52d1bac126bac26cb22f544f92288fba\", \"FOXAI_COMPONENT_RESOURCE_ATTRIBUTION.json\": \"8673d496b81aebe432b4f79df7d1b773aea8742f0b09ebfe6d660a9f170f9c3f\", \"RESOURCE_BASELINE_COMPARISON.json\": \"40462031e89ea469b7c3940c863d225fa7fbad2cef4c6f44e720154d42cf4c86\"}\nfor name,digest in expected.items():\n assert hashlib.sha256((source/name).read_bytes()).hexdigest()==digest,name\nsource_receipt=json.loads((source/\"BASELINE_COMPARISON_RECEIPT.json\").read_text(encoding=\"utf-8\"))\nassert source_receipt[\"status\"]==\"compared_and_verified\"\nassert source_receipt[\"authoritative_inputs_verified\"] is True and source_receipt[\"output_count\"]==5\nregistry=json.loads((out/\"RESOURCE_EVIDENCE_REGISTRY.json\").read_text(encoding=\"utf-8\"))\nassert registry[\"status\"]==\"registered_offline_provider\"\nassert registry[\"supported_category_count\"]==18\nassert len(registry[\"authoritative_source_files\"])==5\nassert registry[\"answer_packet_compatibility\"][\"base_schema\"]==\"foxai.agent_fox.technical_core.v1a3e.answer_packet.v1\"\nassert registry[\"answer_packet_compatibility\"][\"shared_contract_modified\"] is False\nassert registry[\"routing\"][\"slash_command_bypass_before_evidence_loading\"] is True\nprint(\"AGENT_FOX_V1B2A_FIVE_SOURCES_RECEIPT_AND_REGISTRY_OK\")"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-22T15:34:17.694290Z",
+      "name": "Validate all five authoritative sources, V1B-1C receipt, and provider registry",
+      "returncode": 0,
+      "started_at": "2026-07-22T15:34:17.647038Z",
+      "stderr": "",
+      "stdout": "AGENT_FOX_V1B2A_FIVE_SOURCES_RECEIPT_AND_REGISTRY_OK\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:/FOXAI/Runtime/Desktop/python/python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nimport importlib.util,json\nout=Path(r\"Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260722-153014-F39AF7_V1B2A_R2_RESOURCE_EVIDENCE_PROVIDER\")\nresults=json.loads((out/\"RESOURCE_QUERY_FIXTURE_RESULTS.json\").read_text(encoding=\"utf-8\"))\nassert results[\"status\"]==\"fixtures_passed\" and results[\"fixture_count\"]==10\nassert results[\"resource_answer_count\"]==8 and results[\"not_applicable_count\"]==1 and results[\"slash_bypass_count\"]==1\nrows={row[\"fixture_id\"]:row for row in results[\"rows\"]}\nexpected={\"FIXTURE-01\":\"measured_normal_loaded_ram\",\"FIXTURE-02\":\"dominant_measured_foxai_component\",\"FIXTURE-03\":\"available_loaded_state_memory\",\"FIXTURE-04\":\"current_page_file_usage\",\"FIXTURE-05\":\"idle_comfyui_working_set\",\"FIXTURE-06\":\"active_image_generation_capacity_limitation\",\"FIXTURE-07\":\"foxai_process_count_delta\",\"FIXTURE-08\":\"listener_presence_captured_states\"}\nfor fid,category in expected.items():\n row=rows[fid]; assert row[\"actual_status\"]==\"answered\" and row[\"actual_category\"]==category\n packet=row[\"answer_packet\"]; assert packet[\"status\"]==\"answered\" and packet[\"provider\"]==\"resource_evidence_provider_v1\"\n assert packet[\"current_state_claimed\"] is False and packet[\"live_scan_performed\"] is False\n assert packet[\"source_files\"] and packet[\"source_record_ids\"]\nassert rows[\"FIXTURE-01\"][\"answer_packet\"][\"observed_values\"][\"physical_memory_in_use_bytes\"]==42833985536\nassert rows[\"FIXTURE-02\"][\"answer_packet\"][\"observed_values\"][\"model_working_set_bytes\"]==29876736000\nassert rows[\"FIXTURE-03\"][\"answer_packet\"][\"observed_values\"][\"available_physical_memory_bytes\"]==8379232256\nassert rows[\"FIXTURE-04\"][\"answer_packet\"][\"observed_values\"][\"loaded_capture_page_file_current_usage_mib\"]==693\nassert rows[\"FIXTURE-04\"][\"answer_packet\"][\"observed_values\"][\"historical_peak_usage_mib\"]==8191\nassert rows[\"FIXTURE-05\"][\"answer_packet\"][\"observed_values\"][\"idle_comfyui_working_set_bytes\"]==567324672\nassert rows[\"FIXTURE-07\"][\"answer_packet\"][\"derived_values\"][\"foxai_process_count_delta\"]==3\nassert rows[\"FIXTURE-08\"][\"answer_packet\"][\"observed_values\"][\"8080\"]=={\"minimal_load_present\":False,\"normal_loaded_present\":True}\nassert rows[\"FIXTURE-09\"][\"actual_status\"]==\"not_applicable\" and rows[\"FIXTURE-09\"][\"evidence_loaded\"] is False\nassert rows[\"FIXTURE-10\"][\"actual_status\"]==\"bypass\" and rows[\"FIXTURE-10\"][\"evidence_loaded\"] is False\np=Path(r\"Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\resource_evidence_provider_v1.py\")\nspec=importlib.util.spec_from_file_location(\"v1b2a_validation\",p); mod=importlib.util.module_from_spec(spec); spec.loader.exec_module(mod)\nmod._configure_source_dir_for_tests(Path(r\"Q:\\definitely_missing\")); mod._reset_audit_for_tests()\nslash=mod.answer_question(\"   /engineer workshop begin test\",\"VALIDATE-SLASH\")\nassert slash[\"status\"]==\"bypass\" and slash[\"evidence_loaded\"] is False and mod.audit_snapshot()[\"source_file_reads\"]==0\njoke=mod.answer_question(\"Tell me a joke.\",\"VALIDATE-JOKE\")\nassert joke[\"status\"]==\"not_applicable\" and joke[\"evidence_loaded\"] is False and mod.audit_snapshot()[\"source_file_reads\"]==0\nprint(\"AGENT_FOX_V1B2A_FIXTURES_GROUNDED_VALUES_AND_PRELOAD_BYPASS_OK\")"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-22T15:34:17.760070Z",
+      "name": "Validate fixture classifications, exact grounded values, and slash bypass before evidence loading",
+      "returncode": 0,
+      "started_at": "2026-07-22T15:34:17.694703Z",
+      "stderr": "",
+      "stdout": "AGENT_FOX_V1B2A_FIXTURES_GROUNDED_VALUES_AND_PRELOAD_BYPASS_OK\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:/FOXAI/Runtime/Desktop/python/python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nimport hashlib,json\nout=Path(r\"Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260722-153014-F39AF7_V1B2A_R2_RESOURCE_EVIDENCE_PROVIDER\")\npayload=b\"\\\\n\".join(p.read_bytes() for p in out.iterdir() if p.is_file()).lower()\nfor token in (b\"c:\\\\\\\\users\\\\\\\\\",b'\"commandline\"',b'\"environment_values\"',b'\"api_key\"',b'\"token_value\"',b'\"cookie\"',b'\"credential\"',b'\"product_key\"',b'\"mac_address\"',b'\"drive_serial\"',b\"k:\\\\\\\\\",b\"k:/\"):\n assert token not in payload,token\nscript=Path(r\"Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\resource_evidence_provider_v1.py\").read_text(encoding=\"utf-8\").lower()\nfor token in (\"import subprocess\",\"import socket\",\"import psutil\",\"import winreg\",\"import requests\",\"get-ciminstance\",\"get-nettcpconnection\",\"urllib.request\"):\n assert token not in script,token\nfor forbidden in (\"the pc is healthy\",\"the pc is unhealthy\",\"computer is broken\",\"computer is infected\",\"buy more ram\",\"replace the model\",\"change the page file\",\"disable services\"):\n assert forbidden.encode(\"utf-8\") not in payload,forbidden\nreceipt=json.loads((out/\"RESOURCE_EVIDENCE_PROVIDER_RECEIPT.json\").read_text(encoding=\"utf-8\"))\nfor key in (\"authoritative_sources_verified\",\"slash_bypass_before_evidence_loading\",\"unrelated_query_rejection_verified\",\"exact_grounded_values_verified\",\"answer_packet_envelope_compatible\",\"deterministic_utf8_lf_serialization\"):\n assert receipt[key] is True,key\nfor key in (\"current_state_claimed\",\"live_scan_performed\",\"live_process_inspection_performed\",\"live_listener_inspection_performed\",\"filesystem_search_performed\",\"network_connections_initiated\",\"model_calls_performed\",\"gui_started\",\"automatic_process_changes_performed\",\"services_changed\",\"startup_items_changed\",\"registry_writes\",\"live_foxai_application_modules_imported\",\"diagnosis_issued\",\"recommendations_issued\",\"rollback_drive_k_accessed\"):\n assert receipt[key] is False,key\nunchanged={\"Z:\\\\FOXAI\\\\System\\\\AgentFoxTechnicalCore\\\\desktop_self_knowledge_integration_v1.py\": \"e420706136b4902d82d8dbf1fecc64ae70fb8bc639106db41033545f8c196c30\", \"Z:\\\\FOXAI\\\\System\\\\AgentFoxTechnicalCore\\\\pc_resource_baseline_comparison_v1.py\": \"74c42992fac82d71846c40ac8d0fb776ace93a4a6bb4202e492a0fd56a8662c7\", \"Z:\\\\FOXAI\\\\System\\\\AgentFoxTechnicalCore\\\\protected_context_registry_query_bridge_v1.py\": \"96edd665af8eea2aca3563074f0e894607b03b53c22ac13d36cddc0bd58460f1\", \"Z:\\\\FOXAI\\\\System\\\\AgentFoxTechnicalCore\\\\provenance_self_knowledge_answer_packet_bridge_v1.py\": \"ad501eff2f8162a319085aa4eb6368039e9757e89ee4eaccb11e5f6e446ca6a7\", \"Z:\\\\FOXAI\\\\System\\\\AgentFoxTechnicalCore\\\\self_knowledge_chat_adapter_v1.py\": \"a80a9047e0eebd9ac87fe4d656c565bc6534563bb3c97e1ad9b59823a36804f7\", \"Z:\\\\FOXAI\\\\System\\\\AgentFoxTechnicalCore\\\\webui_self_knowledge_integration_v1.py\": \"765983b563f8495138c9670849de5c4703f4735a0ddc9324efd6580606fc517b\", \"Z:\\\\FOXAI\\\\core\\\\foxai_web.py\": \"d7bf0a2042d55ef7f0a5869556015e42c7427e7ff88636b28e1795f3adf7b952\", \"Z:\\\\FOXAI\\\\ui\\\\main_window.py\": \"a9c5bb86878e5f0cd27d221dbb32688b337e6026073a4b66d83339e0aef294a3\"}\nfor name,digest in unchanged.items(): assert hashlib.sha256(Path(name).read_bytes()).hexdigest()==digest,name\nprint(\"AGENT_FOX_V1B2A_PRIVACY_OFFLINE_NO_RECOMMENDATIONS_AND_INTEGRATIONS_OK\")"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-22T15:34:17.810869Z",
+      "name": "Validate privacy, offline design, no unsupported diagnosis or recommendations, and unchanged integrations",
+      "returncode": 0,
+      "started_at": "2026-07-22T15:34:17.760499Z",
+      "stderr": "",
+      "stdout": "AGENT_FOX_V1B2A_PRIVACY_OFFLINE_NO_RECOMMENDATIONS_AND_INTEGRATIONS_OK\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:/FOXAI/Runtime/Desktop/python/python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nimport hashlib,json\nout=Path(r\"Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260722-153014-F39AF7_V1B2A_R2_RESOURCE_EVIDENCE_PROVIDER\")\nreceipt=json.loads((out/\"RESOURCE_EVIDENCE_PROVIDER_RECEIPT.json\").read_text(encoding=\"utf-8\"))\nassert receipt[\"status\"]==\"provider_built_and_verified\" and receipt[\"mission_id\"]==\"ENG-20260722-153014-F39AF7\"\nassert receipt[\"output_count\"]==3 and receipt[\"authoritative_source_count\"]==5\nassert len(receipt[\"outputs_before_receipt\"])==2\nfor row in receipt[\"outputs_before_receipt\"]:\n data=(out/row[\"name\"]).read_bytes(); assert len(data)==row[\"size_bytes\"]\n assert hashlib.sha256(data).hexdigest()==row[\"sha256\"]\nsource=Path(r\"Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260722-142022-9FAE11_V1B1C_BASELINE_COMPARISON_AND_CAPACITY_GUIDANCE\"); expected={\"BASELINE_COMPARISON_RECEIPT.json\": \"1688a1a1a90f7925c361996eef6211476d133280307416e5a84e68a3ca07b71f\", \"BASELINE_COMPARISON_REPORT.md\": \"6473cc6b7ef328e095348e4ad8813df53e31e061c21f1f5cff6e9993d18c95b7\", \"CAPACITY_HEADROOM_OBSERVATIONS.json\": \"3dc50e04a634a73c67b963ea3ee10fdb52d1bac126bac26cb22f544f92288fba\", \"FOXAI_COMPONENT_RESOURCE_ATTRIBUTION.json\": \"8673d496b81aebe432b4f79df7d1b773aea8742f0b09ebfe6d660a9f170f9c3f\", \"RESOURCE_BASELINE_COMPARISON.json\": \"40462031e89ea469b7c3940c863d225fa7fbad2cef4c6f44e720154d42cf4c86\"}\nfor name,digest in expected.items(): assert hashlib.sha256((source/name).read_bytes()).hexdigest()==digest,name\nassert sum(p.stat().st_size for p in out.iterdir() if p.is_file())<2*1024*1024\nprint(\"AGENT_FOX_V1B2A_RECEIPT_SOURCE_PRESERVATION_AND_SIZE_OK\")"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-22T15:34:17.858014Z",
+      "name": "Validate provider receipt, authoritative source preservation, and output-size ceiling",
+      "returncode": 0,
+      "started_at": "2026-07-22T15:34:17.811340Z",
+      "stderr": "",
+      "stdout": "AGENT_FOX_V1B2A_RECEIPT_SOURCE_PRESERVATION_AND_SIZE_OK\n",
+      "timed_out": false
+    }
+  ]
+}

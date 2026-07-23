@@ -1,0 +1,154 @@
+{
+  "schema": "foxai.engineering.plan.v1",
+  "mission_id": "ENG-20260722-225500-4D0517",
+  "title": "Agent Fox Technical Core V1B-2E R3 — Targeted Real GUI Routing Cleanup",
+  "project_root": "Z:\\FOXAI",
+  "intent": "Complete the verified V1B-2E cleanup using two exact replace_text edits and forward-slash relative paths, avoiding full-file payload and mixed-separator snapshot archive lookup defects.",
+  "changes": [
+    {
+      "action": "replace_text",
+      "path": "core/director.py",
+      "old": "    \"evidence\",\n",
+      "new": "",
+      "expected_occurrences": 1
+    },
+    {
+      "action": "replace_text",
+      "path": "ui/main_window.py",
+      "old": "            answer = f\"[Model: {model_used}]\\n\\n{answer}\"\n",
+      "new": "            if not answer.lstrip().startswith(\"[Model:\"):\n                answer = f\"[Model: {model_used}]\\n\\n{answer}\"\n",
+      "expected_occurrences": 1
+    }
+  ],
+  "validations": [
+    {
+      "name": "Verify exact two-file results, compilation, and normalized Workshop snapshot manifest",
+      "argv": [
+        "Z:/FOXAI/Runtime/Desktop/python/python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nimport hashlib,json\npost={\"Z:\\\\FOXAI\\\\core\\\\director.py\": [7003, \"1397b0ce5d1e21b9fc49eabef76ffa64467d716061b12d1a2c670167597d7d55\"], \"Z:\\\\FOXAI\\\\ui\\\\main_window.py\": [99139, \"c232ce7f14a9fc7e898c13afcdfc7e56be1826b51d18d3c71979ac3f0b2acdc9\"]}\nfor name,(size,digest) in post.items():\n data=Path(name).read_bytes()\n assert len(data)==size,(name,len(data),size)\n assert hashlib.sha256(data).hexdigest()==digest,name\n compile(data.decode(\"utf-8\"),name,\"exec\")\nsnap=Path(r\"Z:\\FOXAI\\System\\EngineeringWorkshop\\snapshots\\ENG-20260722-225500-4D0517\")\nmanifests=sorted(snap.glob(\"snapshot_*.manifest.json\")); assert manifests\nmanifest=json.loads(manifests[-1].read_text(encoding=\"utf-8\"))\nentries=manifest[\"entries\"]\nnormalized={row[\"relative_path\"].replace(\"\\\\\",\"/\"):row for row in entries}\nexpected={'core/director.py': {'existed': True, 'sha256': '6b390b00d260113c958e1d6866c31fcde59a831c9af774a84994767191eef5fd', 'size': 7019}, 'ui/main_window.py': {'existed': True, 'sha256': 'a9c5bb86878e5f0cd27d221dbb32688b337e6026073a4b66d83339e0aef294a3', 'size': 99077}}\nassert sorted(normalized)==sorted(expected),(sorted(normalized),sorted(expected))\nassert len(entries)==2\nfor path,prior in expected.items():\n row=normalized[path]\n assert row[\"existed\"] is prior[\"existed\"],(path,row)\n assert row.get(\"size\")==prior[\"size\"],(path,row.get(\"size\"),prior[\"size\"])\n assert row.get(\"sha256\")==prior[\"sha256\"],(path,row.get(\"sha256\"),prior[\"sha256\"])\nprint(\"AGENT_FOX_V1B2E_R3_REPLACE_TEXT_AND_NORMALIZED_SNAPSHOT_OK\")"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "timeout_seconds": 90
+    },
+    {
+      "name": "Verify ordinary evidence questions no longer collide with Engineer routing",
+      "argv": [
+        "Z:/FOXAI/Runtime/Desktop/python/python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nimport importlib.util,sys\nsys.path.insert(0,r\"Z:\\FOXAI\")\np=Path(r\"Z:\\FOXAI\\core\\director.py\")\nspec=importlib.util.spec_from_file_location(\"foxai_v1b2e_r3_director\",p)\nmod=importlib.util.module_from_spec(spec); spec.loader.exec_module(mod)\nassert \"evidence\" not in mod.ENGINEER_TRIGGERS\nassert \"ranked evidence\" in mod.ENGINEER_TRIGGERS\nfor text in (\n \"What evidence supports your answer about FOXAI resources?\",\n \"What are the limitations of this evidence?\",\n \"Can you provide evidence for that answer?\",\n \"What does the shared resource evidence provider do?\",\n):\n result=mod.classify(text,operator_approved=True,audit=False)\n assert result[\"agent\"]==\"chat\",(text,result)\nprint(\"AGENT_FOX_V1B2E_R3_BARE_EVIDENCE_COLLISION_REMOVED\")"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "timeout_seconds": 60
+    },
+    {
+      "name": "Verify explicit commands and strong engineering phrases still route to Engineer",
+      "argv": [
+        "Z:/FOXAI/Runtime/Desktop/python/python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nimport importlib.util,sys\nsys.path.insert(0,r\"Z:\\FOXAI\")\np=Path(r\"Z:\\FOXAI\\core\\director.py\")\nspec=importlib.util.spec_from_file_location(\"foxai_v1b2e_r3_director_strong\",p)\nmod=importlib.util.module_from_spec(spec); spec.loader.exec_module(mod)\ncases=(\n (\"/engineer workshop status\",\"engineer\"),\n (\"Please review your code for technical debt.\",\"engineer\"),\n (\"Show ranked evidence for this architecture review.\",\"engineer\"),\n (\"Investigate this Python error traceback.\",\"engineer\"),\n)\nfor text,expected in cases:\n result=mod.classify(text,operator_approved=True,audit=False)\n assert result[\"agent\"]==expected,(text,result)\nassert mod.classify(\"What is the capital of France?\",operator_approved=True,audit=False)[\"agent\"]==\"chat\"\nprint(\"AGENT_FOX_V1B2E_R3_STRONG_ENGINEER_ROUTING_PRESERVED\")"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "timeout_seconds": 60
+    },
+    {
+      "name": "Verify Desktop model-label rendering is idempotent and compiles",
+      "argv": [
+        "Z:/FOXAI/Runtime/Desktop/python/python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\np=Path(r\"Z:\\FOXAI\\ui\\main_window.py\")\ntext=p.read_text(encoding=\"utf-8\")\ncompile(text,str(p),\"exec\")\nguard='if not answer.lstrip().startswith(\"[Model:\"):'\nprepend='answer = f\"[Model: {model_used}]\\n\\n{answer}\"'\nassert text.count(guard)==1,text.count(guard)\nassert text.count(prepend)==1,text.count(prepend)\ndef render(answer,model_used):\n answer=answer.strip()\n if not answer.lstrip().startswith(\"[Model:\"):\n  answer=f\"[Model: {model_used}]\\n\\n{answer}\"\n return answer\nassert render(\"Hello\",\"Model-A\")==\"[Model: Model-A]\\n\\nHello\"\nexisting=\"[Model: Model-B]\\n\\nHello\"\nassert render(existing,\"Model-A\")==existing\nprint(\"AGENT_FOX_V1B2E_R3_MODEL_LABEL_IDEMPOTENT\")"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "timeout_seconds": 60
+    },
+    {
+      "name": "Verify protected Agent Fox Technical Core components remain byte-identical",
+      "argv": [
+        "Z:/FOXAI/Runtime/Desktop/python/python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nimport hashlib\nexpected={\"Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\SHARED_RESOURCE_PROVIDER_INTEGRATION_CONTRACT_V1.json\":\"60b6b5394849a5cd0a192be137deb01be39d2c3f8fd3e4fa75421b94ab5a9ab1\",\"Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\SHARED_RESOURCE_PROVIDER_INTEGRATION_FIXTURES_V1.json\":\"f2fab44d7926a4f46706e369eb853b790137a29ff4b6df689deeab44e9327b13\",\"Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\desktop_self_knowledge_integration_v1.py\":\"1b3aa2e3ab0409112ca602209285e27df1ab6b0216f5d9a9480766e4509078c4\",\"Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\resource_evidence_provider_v1.py\":\"41a1663cd30af8a3800c8082d351f8d0338e75cd1df39d3c801a39cc3075f680\",\"Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\self_knowledge_chat_adapter_v1.py\":\"1563a0f3275eb7516006c8f608ef595f693a85fcb9cba60f2610ca053b25f275\",\"Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\webui_self_knowledge_integration_v1.py\":\"451f8b274dad5fae8c72df8fc6a51b0e360cf99a6a4174c000c66f3af9dd8b69\"}\nfor name,digest in expected.items():\n data=Path(name).read_bytes(); assert hashlib.sha256(data).hexdigest()==digest,name\n if name.endswith(\".py\"): compile(data.decode(\"utf-8\"),name,\"exec\")\nprint(\"AGENT_FOX_V1B2E_R3_PROTECTED_TECHNICAL_CORE_UNCHANGED\")"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "timeout_seconds": 60
+    },
+    {
+      "name": "Verify WebUI source and Desktop self-knowledge-before-Director order remain unchanged",
+      "argv": [
+        "Z:/FOXAI/Runtime/Desktop/python/python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nimport hashlib\nweb=Path(r\"Z:\\FOXAI\\core\\foxai_web.py\").read_bytes()\nassert hashlib.sha256(web).hexdigest()==\"d7bf0a2042d55ef7f0a5869556015e42c7427e7ff88636b28e1795f3adf7b952\"\ncompile(web.decode(\"utf-8\"),r\"Z:\\FOXAI\\core\\foxai_web.py\",\"exec\")\nmain=Path(r\"Z:\\FOXAI\\ui\\main_window.py\").read_text(encoding=\"utf-8\")\nassert main.index(\"route_desktop_message(text)\") < main.index(\"self.format_director_analysis\")\nprint(\"AGENT_FOX_V1B2E_R3_GUI_INTERCEPTION_ORDER_PRESERVED\")"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "timeout_seconds": 60
+    },
+    {
+      "name": "Verify historical resource interception and current-live pass-through remain functional",
+      "argv": [
+        "Z:/FOXAI/Runtime/Desktop/python/python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nimport importlib.util,json\nroot=Path(r\"Z:\\FOXAI\\System\\AgentFoxTechnicalCore\")\ndef load(name,path):\n spec=importlib.util.spec_from_file_location(name,path); mod=importlib.util.module_from_spec(spec); spec.loader.exec_module(mod); return mod\ndesk=load(\"foxai_v1b2e_r3_desktop_helper\",root/\"desktop_self_knowledge_integration_v1.py\")\nweb=load(\"foxai_v1b2e_r3_web_helper\",root/\"webui_self_knowledge_integration_v1.py\")\nhistorical=\"How much RAM did FOXAI use in the loaded capture?\"\ncurrent=\"How much memory is my computer using right now?\"\ndh=desk.route_desktop_message(historical); dc=desk.route_desktop_message(current)\nassert dh[\"intercepted\"] is True and dh[\"model_bypass\"] is True and dh[\"status\"]==\"answered\",dh\nassert dc[\"intercepted\"] is False and dc[\"ordinary_chat_pass_through\"] is True,dc\nwh=web.route_http_request(json.dumps({\"message\":historical}).encode(\"utf-8\"),\"/api/chat/send\")\nwc=web.route_http_request(json.dumps({\"message\":current}).encode(\"utf-8\"),\"/api/chat/send\")\nassert wh[\"intercepted\"] is True and wh[\"adapter_result\"][\"status\"]==\"answered\",wh\nassert wc[\"intercepted\"] is False,wc\nprint(\"AGENT_FOX_V1B2E_R3_RESOURCE_ROUTING_PRESERVED\")"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "timeout_seconds": 90
+    },
+    {
+      "name": "Verify mission binding, replace-text scope, and forward-slash target paths",
+      "argv": [
+        "Z:/FOXAI/Runtime/Desktop/python/python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nimport json\np=Path(r\"Z:\\FOXAI\\AGENT_FOX_V1B2E_R3\\PLAN.json\")\nplan=json.loads(p.read_text(encoding=\"utf-8\"))\nassert plan[\"schema\"]==\"foxai.engineering.plan.v1\"\nassert plan[\"mission_id\"]==\"ENG-20260722-225500-4D0517\"\nassert len(plan[\"changes\"])==2\nassert [row[\"path\"] for row in plan[\"changes\"]]==[\"core/director.py\",\"ui/main_window.py\"]\nassert all(row[\"action\"]==\"replace_text\" for row in plan[\"changes\"])\nassert all(row[\"expected_occurrences\"]==1 for row in plan[\"changes\"])\nassert len(plan[\"validations\"])==8\nassert plan[\"expected_outputs\"]==[]\nassert plan[\"safety\"][\"modified_existing_files\"]==2\nassert plan[\"safety\"][\"technical_core_components_modified\"]==0\nassert plan[\"safety\"][\"webui_source_modified\"] is False\nassert plan[\"safety\"][\"model_calls\"] is False\nassert plan[\"safety\"][\"k_accessed\"] is False\nprint(\"AGENT_FOX_V1B2E_R3_MISSION_SCOPE_AND_FORWARD_PATHS_OK\")"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "timeout_seconds": 60
+    }
+  ],
+  "expected_outputs": [],
+  "rollback_boundary": {
+    "paths": [
+      "core/director.py",
+      "ui/main_window.py"
+    ],
+    "restore_from_workshop_snapshot": true,
+    "notes": "Only the two existing source files are in scope. The shared adapter, provider, helpers, contract, fixtures, and WebUI source are protected and unchanged."
+  },
+  "safety": {
+    "modified_existing_files": 2,
+    "new_live_files": 0,
+    "technical_core_components_modified": 0,
+    "webui_source_modified": false,
+    "model_calls": false,
+    "models_loaded": false,
+    "guis_launched": false,
+    "live_scans": false,
+    "network_used": false,
+    "k_accessed": false,
+    "services_changed": false,
+    "startup_items_changed": false,
+    "registry_writes": 0,
+    "packages_installed": false
+  }
+}

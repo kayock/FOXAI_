@@ -1,0 +1,217 @@
+{
+  "attribution_boundary": "Component values are point-in-time working sets. Shared pages, cache, memory compression, and operating-system accounting mean the values must not be treated as an exact additive partition.",
+  "availability_status": "available",
+  "component_working_set_comparisons": [
+    {
+      "attribution_limit": "Working-set values are point-in-time process observations and are not an exclusive accounting of every shared or cached byte.",
+      "availability_status": "available",
+      "bounded_interpretation": "The loaded shared model runtime was the dominant measured FOXAI process working set.",
+      "component": "shared_model_runtime",
+      "component_id": "COMPONENT-6B5C0C7C880DAABC",
+      "delta_loaded_minus_minimal": {
+        "availability_status": "available",
+        "derivation_method": "normal_loaded_working_set_bytes - minimal_load_working_set_bytes",
+        "value": 29876736000
+      },
+      "human_readable": {
+        "delta_loaded_minus_minimal": "29.88 GB",
+        "minimal": "0.00 GB",
+        "normal_loaded": "29.88 GB",
+        "normal_loaded_binary": "27.82 GiB"
+      },
+      "loaded_process_observation": {
+        "availability_status": "available",
+        "collection_method": "Get-CimInstance Win32_Process without CommandLine",
+        "collection_timestamp": "2026-07-22T14:09:53.010861Z",
+        "derivation_method": "Resolved from the qualified loaded-state process and listener evidence.",
+        "pid": 9824,
+        "process_id": "PROCESS-B2BA7FA946495425",
+        "process_name": "llama-server.exe",
+        "source_file": "NORMAL_LOADED_PROCESS_SUMMARY.json",
+        "source_mission": "ENG-20260722-140518-F13169"
+      },
+      "metric": "working_set_bytes",
+      "minimal_load": {
+        "availability_status": "available",
+        "collection_timestamp": "2026-07-22T06:41:46.756975Z",
+        "observation_type": "derived_from_qualified_absence",
+        "source_file": "MINIMAL_LOAD_QUALIFICATION.json",
+        "source_mission": "ENG-20260722-062243-69C555",
+        "value": 0
+      },
+      "normal_loaded": {
+        "availability_status": "available",
+        "collection_timestamp": "2026-07-22T14:09:53.010861Z",
+        "observation_type": "direct_observation",
+        "source_file": "NORMAL_LOADED_PROCESS_SUMMARY.json",
+        "source_mission": "ENG-20260722-140518-F13169",
+        "value": 29876736000
+      },
+      "unit": "bytes"
+    },
+    {
+      "attribution_limit": "Working-set values are point-in-time process observations and are not an exclusive accounting of every shared or cached byte.",
+      "availability_status": "available",
+      "bounded_interpretation": "Idle ComfyUI was comparatively smaller than the loaded model in this capture.",
+      "component": "comfyui_idle_runtime",
+      "component_id": "COMPONENT-B3D69B0E40F785EC",
+      "delta_loaded_minus_minimal": {
+        "availability_status": "available",
+        "derivation_method": "normal_loaded_working_set_bytes - minimal_load_working_set_bytes",
+        "value": 567324672
+      },
+      "human_readable": {
+        "delta_loaded_minus_minimal": "0.57 GB",
+        "minimal": "0.00 GB",
+        "normal_loaded": "0.57 GB",
+        "normal_loaded_binary": "0.53 GiB"
+      },
+      "loaded_process_observation": {
+        "availability_status": "available",
+        "collection_method": "Get-CimInstance Win32_Process without CommandLine",
+        "collection_timestamp": "2026-07-22T14:09:53.010861Z",
+        "derivation_method": "Resolved from the qualified loaded-state process and listener evidence.",
+        "pid": 6204,
+        "process_id": "PROCESS-0C9348B4F11AFED1",
+        "process_name": "python.exe",
+        "source_file": "NORMAL_LOADED_PROCESS_SUMMARY.json",
+        "source_mission": "ENG-20260722-140518-F13169"
+      },
+      "metric": "working_set_bytes",
+      "minimal_load": {
+        "availability_status": "available",
+        "collection_timestamp": "2026-07-22T06:41:46.756975Z",
+        "observation_type": "derived_from_qualified_absence",
+        "source_file": "MINIMAL_LOAD_QUALIFICATION.json",
+        "source_mission": "ENG-20260722-062243-69C555",
+        "value": 0
+      },
+      "normal_loaded": {
+        "availability_status": "available",
+        "collection_timestamp": "2026-07-22T14:09:53.010861Z",
+        "observation_type": "direct_observation",
+        "source_file": "NORMAL_LOADED_PROCESS_SUMMARY.json",
+        "source_mission": "ENG-20260722-140518-F13169",
+        "value": 567324672
+      },
+      "unit": "bytes"
+    },
+    {
+      "attribution_limit": "Working-set values are point-in-time process observations and are not an exclusive accounting of every shared or cached byte.",
+      "availability_status": "available",
+      "bounded_interpretation": "FOXAI Desktop was comparatively small in this capture.",
+      "component": "foxai_desktop",
+      "component_id": "COMPONENT-A525C9A99B1A2319",
+      "delta_loaded_minus_minimal": {
+        "availability_status": "available",
+        "derivation_method": "normal_loaded_working_set_bytes - minimal_load_working_set_bytes",
+        "value": 94650368
+      },
+      "human_readable": {
+        "delta_loaded_minus_minimal": "0.09 GB",
+        "minimal": "0.00 GB",
+        "normal_loaded": "0.09 GB",
+        "normal_loaded_binary": "0.09 GiB"
+      },
+      "loaded_process_observation": {
+        "availability_status": "available",
+        "collection_method": "Get-CimInstance Win32_Process without CommandLine",
+        "collection_timestamp": "2026-07-22T14:09:53.010861Z",
+        "derivation_method": "Resolved from the qualified loaded-state process and listener evidence.",
+        "pid": 14420,
+        "process_id": "PROCESS-2F8BE083B1F6D59C",
+        "process_name": "pythonw.exe",
+        "source_file": "NORMAL_LOADED_PROCESS_SUMMARY.json",
+        "source_mission": "ENG-20260722-140518-F13169"
+      },
+      "metric": "working_set_bytes",
+      "minimal_load": {
+        "availability_status": "available",
+        "collection_timestamp": "2026-07-22T06:41:46.756975Z",
+        "observation_type": "derived_from_qualified_absence",
+        "source_file": "MINIMAL_LOAD_QUALIFICATION.json",
+        "source_mission": "ENG-20260722-062243-69C555",
+        "value": 0
+      },
+      "normal_loaded": {
+        "availability_status": "available",
+        "collection_timestamp": "2026-07-22T14:09:53.010861Z",
+        "observation_type": "direct_observation",
+        "source_file": "NORMAL_LOADED_PROCESS_SUMMARY.json",
+        "source_mission": "ENG-20260722-140518-F13169",
+        "value": 94650368
+      },
+      "unit": "bytes"
+    },
+    {
+      "attribution_limit": "Working-set values are point-in-time process observations and are not an exclusive accounting of every shared or cached byte.",
+      "availability_status": "available",
+      "bounded_interpretation": "The WebUI working set changed modestly between the two point-in-time captures.",
+      "component": "foxai_webui",
+      "component_id": "COMPONENT-9D9C926CDBC21246",
+      "delta_loaded_minus_minimal": {
+        "availability_status": "available",
+        "derivation_method": "normal_loaded_working_set_bytes - minimal_load_working_set_bytes",
+        "value": 6287360
+      },
+      "human_readable": {
+        "delta_loaded_minus_minimal": "0.01 GB",
+        "minimal": "0.08 GB",
+        "normal_loaded": "0.08 GB",
+        "normal_loaded_binary": "0.08 GiB"
+      },
+      "loaded_process_observation": {
+        "availability_status": "available",
+        "collection_method": "Get-CimInstance Win32_Process without CommandLine",
+        "collection_timestamp": "2026-07-22T14:09:53.010861Z",
+        "derivation_method": "Resolved from the qualified loaded-state process and listener evidence.",
+        "pid": 25444,
+        "process_id": "PROCESS-2D88ED0653F7FBA0",
+        "process_name": "python.exe",
+        "source_file": "NORMAL_LOADED_PROCESS_SUMMARY.json",
+        "source_mission": "ENG-20260722-140518-F13169"
+      },
+      "metric": "working_set_bytes",
+      "minimal_load": {
+        "availability_status": "available",
+        "collection_timestamp": "2026-07-22T06:41:46.756975Z",
+        "observation_type": "direct_observation",
+        "source_file": "MINIMAL_LOAD_PROCESS_SUMMARY.json",
+        "source_mission": "ENG-20260722-062243-69C555",
+        "value": 76312576
+      },
+      "normal_loaded": {
+        "availability_status": "available",
+        "collection_timestamp": "2026-07-22T14:09:53.010861Z",
+        "observation_type": "direct_observation",
+        "source_file": "NORMAL_LOADED_PROCESS_SUMMARY.json",
+        "source_mission": "ENG-20260722-140518-F13169",
+        "value": 82599936
+      },
+      "unit": "bytes"
+    }
+  ],
+  "generated_at": "2026-07-22T14:09:53.010861Z",
+  "loaded_model_share_of_physical_memory_in_use": {
+    "attribution_id": "ATTRIBUTION-9593289804A47552",
+    "availability_status": "available",
+    "bounded_interpretation": "This ratio shows scale, not exclusive ownership; process working set and system physical use are different accounting views.",
+    "collection_timestamp": "2026-07-22T14:09:53.010861Z",
+    "denominator_bytes": 42833985536,
+    "derivation_method": "loaded model working_set_bytes / loaded physical_memory_in_use_bytes * 100",
+    "numerator_bytes": 29876736000,
+    "source_files": [
+      "NORMAL_LOADED_PROCESS_SUMMARY.json",
+      "NORMAL_LOADED_RESOURCE_SNAPSHOT.json"
+    ],
+    "source_mission": "ENG-20260722-140518-F13169",
+    "value_percent": 69.7501
+  },
+  "mission_id": "ENG-20260722-142022-9FAE11",
+  "schema": "foxai.agent_fox.technical_core.v1b1c.component_resource_attribution.v1",
+  "source_missions": [
+    "ENG-20260722-062243-69C555",
+    "ENG-20260722-140518-F13169"
+  ],
+  "status": "attributed_from_verified_evidence"
+}

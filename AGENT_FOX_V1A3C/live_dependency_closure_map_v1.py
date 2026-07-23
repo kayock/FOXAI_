@@ -1,0 +1,1115 @@
+from __future__ import annotations
+
+import argparse
+import ast
+import hashlib
+import json
+import ntpath
+import sys
+from collections import defaultdict, deque
+from pathlib import Path, PureWindowsPath
+from typing import Any, Iterable
+
+SCHEMA_PREFIX = "foxai.agent_fox.technical_core.v1a3c"
+PROJECT_ROOT_DEFAULT = r"Z:\FOXAI"
+OUTPUT_CEILING = 32 * 1024 * 1024
+SOURCE_V1A2R2_MISSION = "ENG-20260721-063725-BFCAB9"
+SOURCE_V1A3A_R1_MISSION = "ENG-20260721-152146-C4F8D5"
+SOURCE_V1A3B_MISSION = "ENG-20260721-154935-FF96C4"
+
+OUTPUT_NAMES = (
+    "LIVE_CONTEXT_SELECTION.json",
+    "FIRST_PARTY_IMPORT_CLOSURES.json",
+    "CONDITIONAL_AND_DEFERRED_IMPORTS.json",
+    "PROTECTED_CONTEXT_PACKAGE_REQUIREMENTS.json",
+    "UNRESOLVED_IMPORT_BRANCHES.json",
+    "DYNAMIC_IMPORT_CLOSURE_MAP.json",
+    "LIVE_DEPENDENCY_COVERAGE.json",
+)
+
+PROTECTED_CONTEXT_SPECS = (
+    {
+        "role": "web_portable_webui",
+        "launcher": r"Z:\FOXAI\START_FOXAI_WEB_PORTABLE.bat",
+        "script": r"Z:\FOXAI\core\foxai_web.py",
+        "interpreter_kind": "directly_observed_python_executable",
+    },
+    {
+        "role": "web_with_comfyui_helper",
+        "launcher": r"Z:\FOXAI\START_FOXAI_WEB_WITH_COMFYUI.bat",
+        "script": r"Z:\FOXAI\System\PortableRuntime\start_comfyui_quiet.py",
+        "interpreter_kind": "directly_observed_python_executable",
+    },
+    {
+        "role": "desktop_recovery_helper",
+        "launcher": r"Z:\FOXAI\START_FOXAI_DESKTOP_TWO_WINDOW_RECOVERY.bat",
+        "script": r"Z:\FOXAI\System\PortableRuntime\start_comfyui_quiet.py",
+        "interpreter_kind": "directly_observed_python_executable",
+    },
+    {
+        "role": "desktop_recovery_gui",
+        "launcher": r"Z:\FOXAI\START_FOXAI_DESKTOP_TWO_WINDOW_RECOVERY.bat",
+        "script": r"Z:\FOXAI\foxai.py",
+        "interpreter_kind": "pythonw_static_sibling_of_observed_python",
+    },
+    {
+        "role": "workshop_comfy_manager",
+        "launcher": r"Z:\FOXAI\Launch FOXAI Workshop.bat",
+        "script": r"Z:\FOXAI\System\PortableRuntime\manage_comfyui_normal.py",
+        "interpreter_kind": "directly_observed_python_executable",
+    },
+    {
+        "role": "workshop_gui_bare_python",
+        "launcher": r"Z:\FOXAI\Launch FOXAI Workshop.bat",
+        "script": r"Z:\FOXAI\foxai.py",
+        "interpreter_kind": "command_alias_requires_path_resolution",
+    },
+)
+
+# Stable classification list only. No import is performed to create it.
+STDLIB_TOP_LEVEL = {
+    "__future__", "abc", "argparse", "array", "ast", "asyncio", "atexit", "base64",
+    "binascii", "bisect", "builtins", "bz2", "calendar", "cmath", "cmd", "code",
+    "codecs", "collections", "compileall", "concurrent", "configparser", "contextlib",
+    "contextvars", "copy", "csv", "ctypes", "dataclasses", "datetime", "decimal",
+    "difflib", "dis", "email", "encodings", "enum", "errno", "faulthandler", "fnmatch",
+    "fractions", "functools", "gc", "getopt", "getpass", "gettext", "glob", "graphlib",
+    "gzip", "hashlib", "heapq", "hmac", "html", "http", "importlib", "inspect", "io",
+    "ipaddress", "itertools", "json", "keyword", "linecache", "locale", "logging", "lzma",
+    "math", "mimetypes", "mmap", "multiprocessing", "ntpath", "numbers", "operator", "os",
+    "pathlib", "pickle", "pkgutil", "platform", "pprint", "queue", "random", "re", "runpy",
+    "secrets", "select", "selectors", "shlex", "shutil", "signal", "site", "socket",
+    "sqlite3", "ssl", "stat", "statistics", "string", "struct", "subprocess", "sys",
+    "sysconfig", "tempfile", "textwrap", "threading", "time", "traceback", "types", "typing",
+    "unicodedata", "unittest", "urllib", "uuid", "venv", "warnings", "weakref", "webbrowser",
+    "winreg", "xml", "zipfile", "zipimport", "zlib", "zoneinfo",
+}
+
+DYNAMIC_PATTERNS = (
+    "__import__", "importlib.import_module", "import_module(", "find_spec(",
+    "module_from_spec", "exec_module", "pathfinder",
+)
+PATH_MUTATION_PATTERNS = (
+    "sys.path.insert", "sys.path.append", "sys.path.extend", "site.addsitedir",
+    "site.addsitepackages", "pythonpath",
+)
+
+
+def canonical_json_bytes(value: Any) -> bytes:
+    return (json.dumps(value, indent=2, sort_keys=True, ensure_ascii=False) + "\n").encode("utf-8")
+
+
+def sha256_bytes(data: bytes) -> str:
+    return hashlib.sha256(data).hexdigest()
+
+
+def sha256_file(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
+def read_json(path: Path) -> Any:
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
+def win_norm(value: str | None) -> str | None:
+    if value is None:
+        return None
+    text = str(value).strip().strip('"').replace("/", "\\")
+    return ntpath.normpath(text) if text else None
+
+
+def win_case(value: str | None) -> str:
+    normalized = win_norm(value)
+    return normalized.casefold() if normalized else ""
+
+
+def top_module(value: str | None) -> str:
+    text = str(value or "").lstrip(".")
+    return text.split(".", 1)[0] if text else ""
+
+
+def source_local_path(project_root_path: Path, project_root_win: str, source_path: str) -> Path:
+    p = PureWindowsPath(win_norm(source_path) or source_path)
+    root = PureWindowsPath(win_norm(project_root_win) or project_root_win)
+    try:
+        rel = p.relative_to(root)
+    except ValueError:
+        rel = p
+    return project_root_path.joinpath(*rel.parts)
+
+
+def verify_receipt_outputs(source_dir: Path, receipt_name: str, required: Iterable[str]) -> dict[str, Any]:
+    receipt_path = source_dir / receipt_name
+    receipt = read_json(receipt_path)
+    recorded = {str(row.get("name")): row for row in receipt.get("core_outputs_before_receipt", [])}
+    checks: list[dict[str, Any]] = []
+    for name in required:
+        row = recorded.get(name)
+        path = source_dir / PureWindowsPath(name)
+        if row is None:
+            raise ValueError(f"Source receipt does not record required output: {name}")
+        if not path.is_file():
+            raise FileNotFoundError(path)
+        size = path.stat().st_size
+        digest = sha256_file(path)
+        if size != int(row.get("size_bytes", -1)) or digest != row.get("sha256"):
+            raise ValueError(f"Source evidence hash mismatch: {name}")
+        checks.append({"name": name, "size_bytes": size, "sha256": digest, "status": "verified"})
+    return {
+        "receipt_path": str(receipt_path),
+        "receipt_sha256": sha256_file(receipt_path),
+        "receipt": receipt,
+        "checks": checks,
+    }
+
+
+def load_verified_sources(v1a2r2_dir: Path, v1a3a_r1_dir: Path, v1a3b_dir: Path) -> dict[str, Any]:
+    v2_names = (
+        "STATIC_CODE_INDEX.json", "REFINED_STATIC_LAUNCHER_INDEX.json",
+        "KNOWN_GOOD_COMPARISON.json", "REFINED_INDEX_COVERAGE.json",
+        "INPUT_CAPTURE_MANIFEST.json", "LIVE_DRIFT_REPORT.json",
+    )
+    v3a_names = (
+        "PYTHON_RUNTIME_MAP_CORRECTED.json", "PROBE_POLICY_REPORT.json",
+        "INTERPRETER_CONTROL_FILE_REPORT.json", "LAUNCHER_RUNTIME_MAP.json",
+        "PYTHON_RUNTIME_COVERAGE.json", "SOURCE_EVIDENCE_ADOPTION_MANIFEST.json",
+    )
+    v3b_names = (
+        "EFFECTIVE_IMPORT_CONTEXTS.json", "LAUNCHER_IMPORT_PATH_MAP.json",
+        "NORMALIZED_PACKAGE_PROVIDERS.json", "STATIC_IMPORT_RESOLUTION.json",
+        "REFINED_DEPENDENCY_CONFLICT_CANDIDATES.json",
+        "DYNAMIC_IMPORT_AND_PATH_MUTATION_REPORT.json", "IMPORT_RESOLUTION_COVERAGE.json",
+    )
+    v2 = verify_receipt_outputs(v1a2r2_dir, "REFINED_BRIDGE_RECEIPT.json", v2_names)
+    v3a = verify_receipt_outputs(v1a3a_r1_dir, "PYTHON_RUNTIME_CORRECTION_RECEIPT.json", v3a_names)
+    v3b = verify_receipt_outputs(v1a3b_dir, "EFFECTIVE_IMPORT_MAP_RECEIPT.json", v3b_names)
+    return {
+        "v1a2r2_verification": v2,
+        "v1a3a_r1_verification": v3a,
+        "v1a3b_verification": v3b,
+        "code_index": read_json(v1a2r2_dir / "STATIC_CODE_INDEX.json"),
+        "launcher_index": read_json(v1a2r2_dir / "REFINED_STATIC_LAUNCHER_INDEX.json"),
+        "known_good": read_json(v1a2r2_dir / "KNOWN_GOOD_COMPARISON.json"),
+        "v1a2r2_coverage": read_json(v1a2r2_dir / "REFINED_INDEX_COVERAGE.json"),
+        "runtime_map": read_json(v1a3a_r1_dir / "PYTHON_RUNTIME_MAP_CORRECTED.json"),
+        "effective_contexts": read_json(v1a3b_dir / "EFFECTIVE_IMPORT_CONTEXTS.json"),
+        "launcher_import_map": read_json(v1a3b_dir / "LAUNCHER_IMPORT_PATH_MAP.json"),
+        "package_providers": read_json(v1a3b_dir / "NORMALIZED_PACKAGE_PROVIDERS.json"),
+        "static_resolution": read_json(v1a3b_dir / "STATIC_IMPORT_RESOLUTION.json"),
+        "dynamic_report": read_json(v1a3b_dir / "DYNAMIC_IMPORT_AND_PATH_MUTATION_REPORT.json"),
+        "v1a3b_coverage": read_json(v1a3b_dir / "IMPORT_RESOLUTION_COVERAGE.json"),
+    }
+
+
+def select_protected_contexts(source: dict[str, Any]) -> dict[str, Any]:
+    contexts = source["effective_contexts"].get("contexts", [])
+    selected: list[dict[str, Any]] = []
+    for spec in PROTECTED_CONTEXT_SPECS:
+        matches = [
+            row for row in contexts
+            if win_case(row.get("launcher_path")) == win_case(spec["launcher"])
+            and win_case(row.get("script_path")) == win_case(spec["script"])
+            and str(row.get("interpreter_reference_kind")) == spec["interpreter_kind"]
+        ]
+        if len(matches) != 1:
+            raise ValueError(f"Expected one protected context for {spec['role']}, found {len(matches)}")
+        record = dict(matches[0])
+        record["role"] = spec["role"]
+        selected.append(record)
+
+    launcher_records = source["launcher_import_map"].get("records", [])
+    combo = next(
+        row for row in launcher_records
+        if win_case(row.get("launcher_path")) == win_case(r"Z:\FOXAI\START_FOXAI_WEB_WITH_COMFYUI.bat")
+    )
+    called = combo.get("called_launchers", [])
+    portable_links = [
+        row for row in called
+        if win_case(row.get("resolved_path") or row.get("path") or row.get("target"))
+        == win_case(r"Z:\FOXAI\START_FOXAI_WEB_PORTABLE.bat")
+    ]
+    if not portable_links:
+        raise ValueError("Web With ComfyUI called-launcher relationship to Web Portable is missing")
+
+    return {
+        "schema": f"{SCHEMA_PREFIX}.live_context_selection.v1",
+        "protected_direct_context_count": len(selected),
+        "contexts": sorted(selected, key=lambda row: row["role"]),
+        "called_launcher_relationships": [
+            {
+                "caller": r"Z:\FOXAI\START_FOXAI_WEB_WITH_COMFYUI.bat",
+                "callee": r"Z:\FOXAI\START_FOXAI_WEB_PORTABLE.bat",
+                "relationship_preserved_without_context_merge": True,
+                "source_records": portable_links,
+            }
+        ],
+        "contexts_merged": False,
+    }
+
+
+def provider_catalogs(source: dict[str, Any]) -> dict[str, Any]:
+    first_party = source["static_resolution"].get("first_party_provider_catalog", [])
+    fp_by_id = {row["provider_id"]: row for row in first_party}
+    fp_by_module: dict[str, list[dict[str, Any]]] = defaultdict(list)
+    fp_by_path: dict[str, list[dict[str, Any]]] = defaultdict(list)
+    for row in first_party:
+        fp_by_module[str(row.get("module", "")).casefold()].append(row)
+        fp_by_path[win_case(row.get("provider_path"))].append(row)
+    tp = source["package_providers"].get("providers", [])
+    tp_by_id = {row["provider_id"]: row for row in tp}
+    return {
+        "first_party": first_party,
+        "fp_by_id": fp_by_id,
+        "fp_by_module": fp_by_module,
+        "fp_by_path": fp_by_path,
+        "tp_by_id": tp_by_id,
+    }
+
+
+def capture_python_sources(source: dict[str, Any], project_root_path: Path, project_root_win: str) -> dict[str, Any]:
+    captures: dict[str, dict[str, Any]] = {}
+    records: list[dict[str, Any]] = []
+    for row in source["code_index"].get("files", []):
+        if row.get("language") != "python":
+            continue
+        win_path = win_norm(row.get("path"))
+        local = source_local_path(project_root_path, project_root_win, win_path or "")
+        capture = {
+            "path": win_path,
+            "relative_path": row.get("relative_path"),
+            "expected_sha256": row.get("sha256"),
+            "expected_size_bytes": row.get("size_bytes"),
+            "status": "missing",
+            "sha256": None,
+            "size_bytes": None,
+            "bytes": None,
+            "encoding": row.get("encoding") or "utf-8",
+        }
+        if local.is_file() and not local.is_symlink():
+            data = local.read_bytes()
+            digest = sha256_bytes(data)
+            capture.update({
+                "status": "captured_match" if digest == row.get("sha256") else "captured_source_drift",
+                "sha256": digest,
+                "size_bytes": len(data),
+                "bytes": data,
+            })
+        captures[win_case(win_path)] = capture
+        records.append({k: v for k, v in capture.items() if k != "bytes"})
+    return {
+        "captures": captures,
+        "manifest": {
+            "schema": f"{SCHEMA_PREFIX}.python_source_capture.v1",
+            "code_index_file_count": source["code_index"].get("file_count"),
+            "python_source_record_count": len(records),
+            "captured_match_count": sum(r["status"] == "captured_match" for r in records),
+            "source_drift_count": sum(r["status"] == "captured_source_drift" for r in records),
+            "missing_count": sum(r["status"] == "missing" for r in records),
+            "records": sorted(records, key=lambda r: win_case(r.get("path"))),
+            "raw_source_content_persisted": False,
+            "single_read_immutable_capture": True,
+        },
+    }
+
+
+def source_module_for_path(path: str, catalogs: dict[str, Any]) -> tuple[str | None, bool]:
+    providers = catalogs["fp_by_path"].get(win_case(path), [])
+    if not providers:
+        return None, False
+    exact = sorted(providers, key=lambda row: (row.get("provider_kind") != "first_party_package", len(str(row.get("module", "")))))
+    chosen = exact[0]
+    return str(chosen.get("module")), chosen.get("provider_kind") == "first_party_package"
+
+
+def resolve_relative_module(source_module: str | None, source_is_package: bool, level: int, module: str | None) -> str | None:
+    if not source_module:
+        return None
+    package_parts = source_module.split(".") if source_is_package else source_module.split(".")[:-1]
+    up = max(0, level - 1)
+    if up > len(package_parts):
+        return None
+    base = package_parts[: len(package_parts) - up]
+    if module:
+        base.extend(module.split("."))
+    return ".".join(base) if base else None
+
+
+def guard_text(node: ast.AST) -> str:
+    try:
+        return ast.unparse(node)
+    except Exception:
+        return node.__class__.__name__
+
+
+def name_chain(node: ast.AST) -> str:
+    if isinstance(node, ast.Name):
+        return node.id
+    if isinstance(node, ast.Attribute):
+        left = name_chain(node.value)
+        return f"{left}.{node.attr}" if left else node.attr
+    if isinstance(node, ast.Call):
+        return name_chain(node.func)
+    return ""
+
+
+def classify_if_guard(test: ast.AST) -> str:
+    text = guard_text(test).casefold()
+    chain = name_chain(test).casefold()
+    if "type_checking" in text or chain.endswith("type_checking"):
+        return "TYPE_CHECKING-only candidate"
+    if "sys.platform" in text or "os.name" in text or "platform.system" in text:
+        if "win" in text or "nt" in text:
+            return "Windows or non-Windows platform-conditional candidate"
+        return "platform-conditional candidate"
+    if "sys.version_info" in text or "python_version" in text:
+        return "Python-version-conditional candidate"
+    if isinstance(test, ast.Constant):
+        return "literal-condition candidate"
+    if isinstance(test, (ast.Name, ast.UnaryOp, ast.BoolOp, ast.Compare)):
+        return "evidence-incomplete conditional import"
+    return "evidence-incomplete conditional import"
+
+
+class ImportGuardVisitor(ast.NodeVisitor):
+    def __init__(self, source_path: str, source_module: str | None, source_is_package: bool) -> None:
+        self.source_path = source_path
+        self.source_module = source_module
+        self.source_is_package = source_is_package
+        self.function_depth = 0
+        self.class_depth = 0
+        self.guards: list[dict[str, Any]] = []
+        self.records: list[dict[str, Any]] = []
+
+    def _scope(self) -> str:
+        guard_kinds = [g["classification"] for g in self.guards]
+        precedence = (
+            "TYPE_CHECKING-only candidate",
+            "try-except-ImportError optional candidate",
+            "Windows or non-Windows platform-conditional candidate",
+            "platform-conditional candidate",
+            "Python-version-conditional candidate",
+            "literal-condition candidate",
+            "evidence-incomplete conditional import",
+        )
+        for item in precedence:
+            if item in guard_kinds:
+                return item
+        if self.function_depth:
+            return "function-local deferred candidate"
+        if self.class_depth:
+            return "class-body candidate"
+        return "module-load candidate"
+
+    def _append(self, node: ast.AST, kind: str, module: str | None, name: str | None, alias: str | None, level: int = 0) -> None:
+        resolved = module
+        if level:
+            resolved = resolve_relative_module(self.source_module, self.source_is_package, level, module)
+        self.records.append({
+            "source_path": self.source_path,
+            "line": int(getattr(node, "lineno", 0) or 0),
+            "end_line": int(getattr(node, "end_lineno", getattr(node, "lineno", 0)) or 0),
+            "kind": kind,
+            "module": module,
+            "name": name,
+            "alias": alias,
+            "relative_level": level,
+            "resolved_module": resolved,
+            "top_level_module": top_module(resolved or module),
+            "scope_classification": self._scope(),
+            "lexical_scope": "function_local" if self.function_depth else ("class_body" if self.class_depth else "module"),
+            "guard_classifications": [str(g.get("classification")) for g in self.guards],
+            "guards": [dict(g) for g in self.guards],
+            "import_executed_or_succeeded_proven": False,
+        })
+
+    def visit_Import(self, node: ast.Import) -> Any:
+        for alias in node.names:
+            self._append(node, "import", alias.name, alias.name, alias.asname)
+
+    def visit_ImportFrom(self, node: ast.ImportFrom) -> Any:
+        for alias in node.names:
+            self._append(node, "from_import", node.module, alias.name, alias.asname, int(node.level or 0))
+
+    def visit_FunctionDef(self, node: ast.FunctionDef) -> Any:
+        self.function_depth += 1
+        self.generic_visit(node)
+        self.function_depth -= 1
+
+    def visit_AsyncFunctionDef(self, node: ast.AsyncFunctionDef) -> Any:
+        self.function_depth += 1
+        self.generic_visit(node)
+        self.function_depth -= 1
+
+    def visit_ClassDef(self, node: ast.ClassDef) -> Any:
+        self.class_depth += 1
+        self.generic_visit(node)
+        self.class_depth -= 1
+
+    def visit_If(self, node: ast.If) -> Any:
+        classification = classify_if_guard(node.test)
+        base = {"classification": classification, "condition": guard_text(node.test)}
+        self.guards.append({**base, "branch": "body"})
+        for child in node.body:
+            self.visit(child)
+        self.guards.pop()
+        if node.orelse:
+            self.guards.append({**base, "branch": "else"})
+            for child in node.orelse:
+                self.visit(child)
+            self.guards.pop()
+
+    def visit_Try(self, node: ast.Try) -> Any:
+        catches_import_error = False
+        for handler in node.handlers:
+            if handler.type is None:
+                continue
+            names: list[str] = []
+            if isinstance(handler.type, ast.Tuple):
+                names = [name_chain(x) for x in handler.type.elts]
+            else:
+                names = [name_chain(handler.type)]
+            if any(name.split(".")[-1] in {"ImportError", "ModuleNotFoundError"} for name in names):
+                catches_import_error = True
+        if catches_import_error:
+            self.guards.append({
+                "classification": "try-except-ImportError optional candidate",
+                "condition": "try body guarded by ImportError/ModuleNotFoundError handler",
+                "branch": "try",
+            })
+        for child in node.body:
+            self.visit(child)
+        if catches_import_error:
+            self.guards.pop()
+        for handler in node.handlers:
+            for child in handler.body:
+                self.visit(child)
+        for child in node.orelse:
+            self.visit(child)
+        for child in node.finalbody:
+            self.visit(child)
+
+
+def decode_source(capture: dict[str, Any]) -> str:
+    data = capture.get("bytes")
+    if not isinstance(data, (bytes, bytearray)):
+        raise ValueError("Source bytes unavailable")
+    for encoding in (str(capture.get("encoding") or "utf-8"), "utf-8-sig", "utf-8", "cp1252"):
+        try:
+            return bytes(data).decode(encoding)
+        except (UnicodeDecodeError, LookupError):
+            continue
+    return bytes(data).decode("utf-8", errors="replace")
+
+
+def parse_guarded_imports(capture: dict[str, Any], catalogs: dict[str, Any]) -> tuple[list[dict[str, Any]], str | None]:
+    path = str(capture.get("path"))
+    source_module, source_is_package = source_module_for_path(path, catalogs)
+    try:
+        tree = ast.parse(decode_source(capture), filename=path)
+    except SyntaxError as exc:
+        return [], f"{exc.msg} at line {exc.lineno}"
+    visitor = ImportGuardVisitor(path, source_module, source_is_package)
+    visitor.visit(tree)
+    return visitor.records, None
+
+
+def import_catalog_lookup(source: dict[str, Any]) -> dict[tuple[Any, ...], list[dict[str, Any]]]:
+    lookup: dict[tuple[Any, ...], list[dict[str, Any]]] = defaultdict(list)
+    for row in source["static_resolution"].get("import_catalog", []):
+        key = (
+            win_case(row.get("source_path")), int(row.get("line") or 0),
+            str(row.get("kind")), str(row.get("module")), str(row.get("name")),
+        )
+        lookup[key].append(row)
+    return lookup
+
+
+def resolution_lookup(source: dict[str, Any]) -> dict[tuple[str, str], dict[str, Any]]:
+    output: dict[tuple[str, str], dict[str, Any]] = {}
+    for group in source["static_resolution"].get("path_group_resolutions", []):
+        gid = str(group.get("path_group_id"))
+        for row in group.get("resolutions", []):
+            output[(gid, str(row.get("import_id")))] = row
+    return output
+
+
+def match_import_record(record: dict[str, Any], lookup: dict[tuple[Any, ...], list[dict[str, Any]]]) -> dict[str, Any] | None:
+    module = record.get("module")
+    name = record.get("name")
+    key = (win_case(record.get("source_path")), record.get("line"), record.get("kind"), str(module), str(name))
+    matches = lookup.get(key, [])
+    if matches:
+        return matches[0]
+    # Relative imports are recorded with the original dotted module in V1A-3B.
+    if record.get("relative_level"):
+        dotted = "." * int(record["relative_level"]) + str(module or "")
+        key = (win_case(record.get("source_path")), record.get("line"), record.get("kind"), dotted, str(name))
+        matches = lookup.get(key, [])
+    return matches[0] if matches else None
+
+
+def candidate_first_party_modules(record: dict[str, Any], catalogs: dict[str, Any]) -> list[dict[str, Any]]:
+    base = str(record.get("resolved_module") or record.get("module") or "")
+    name = str(record.get("name") or "")
+    candidates: list[str] = []
+    if record.get("kind") == "from_import" and name and name != "*":
+        candidates.append(f"{base}.{name}" if base else name)
+    if base:
+        candidates.append(base)
+    output: list[dict[str, Any]] = []
+    seen: set[str] = set()
+    for module in candidates:
+        for provider in catalogs["fp_by_module"].get(module.casefold(), []):
+            pid = str(provider.get("provider_id"))
+            if pid not in seen:
+                seen.add(pid)
+                output.append(provider)
+    return output
+
+
+def build_closures(source: dict[str, Any], selection: dict[str, Any], capture: dict[str, Any], catalogs: dict[str, Any]) -> dict[str, Any]:
+    import_lookup = import_catalog_lookup(source)
+    resolution_by = resolution_lookup(source)
+    fp_by_id = catalogs["fp_by_id"]
+    contexts_output: list[dict[str, Any]] = []
+    all_guarded: list[dict[str, Any]] = []
+    all_unresolved: list[dict[str, Any]] = []
+    reached_paths: set[str] = set()
+
+    for context in selection["contexts"]:
+        context_id = str(context["context_id"])
+        path_group_id = str(context.get("path_group_id"))
+        entry_path = win_norm(context.get("script_path"))
+        queue: deque[tuple[str, list[dict[str, Any]]]] = deque()
+        queue.append((entry_path or "", []))
+        visited: set[str] = set()
+        nodes: list[dict[str, Any]] = []
+        edges: list[dict[str, Any]] = []
+        cycles: list[dict[str, Any]] = []
+        context_unresolved: list[dict[str, Any]] = []
+
+        while queue:
+            current_path, chain = queue.popleft()
+            current_key = win_case(current_path)
+            if current_key in visited:
+                continue
+            visited.add(current_key)
+            reached_paths.add(current_key)
+            current_capture = capture["captures"].get(current_key)
+            if current_capture is None:
+                node = {"path": current_path, "status": "not_in_verified_python_index"}
+                nodes.append(node)
+                context_unresolved.append({"context_id": context_id, "source_path": current_path, "reason": node["status"], "chain": chain})
+                continue
+            node = {
+                "path": current_path,
+                "relative_path": current_capture.get("relative_path"),
+                "capture_status": current_capture.get("status"),
+                "sha256": current_capture.get("sha256"),
+                "expected_sha256": current_capture.get("expected_sha256"),
+            }
+            if current_capture.get("status") not in {"captured_match", "captured_source_drift"}:
+                node["parse_status"] = "not_parsed"
+                nodes.append(node)
+                context_unresolved.append({"context_id": context_id, "source_path": current_path, "reason": current_capture.get("status"), "chain": chain})
+                continue
+            imports, syntax_error = parse_guarded_imports(current_capture, catalogs)
+            node["parse_status"] = "syntax_error" if syntax_error else "parsed"
+            node["syntax_error"] = syntax_error
+            node["guarded_import_count"] = len(imports)
+            nodes.append(node)
+            if syntax_error:
+                context_unresolved.append({"context_id": context_id, "source_path": current_path, "reason": "syntax_error", "detail": syntax_error, "chain": chain})
+                continue
+
+            for record in imports:
+                matched = match_import_record(record, import_lookup)
+                import_id = matched.get("import_id") if matched else None
+                static_resolution = resolution_by.get((path_group_id, str(import_id))) if import_id else None
+                provider_candidates: list[dict[str, Any]] = []
+                if static_resolution:
+                    for candidate in static_resolution.get("candidate_providers", []):
+                        if candidate.get("provider_type") == "first_party":
+                            provider = fp_by_id.get(candidate.get("provider_id"))
+                            if provider:
+                                provider_candidates.append(provider)
+                if not provider_candidates:
+                    provider_candidates = candidate_first_party_modules(record, catalogs)
+
+                classification = static_resolution.get("classification") if static_resolution else None
+                if not classification:
+                    if top_module(record.get("resolved_module") or record.get("module")) in STDLIB_TOP_LEVEL:
+                        classification = "standard_library_candidate"
+                    elif provider_candidates:
+                        classification = "unique_first_party_provider" if len(provider_candidates) == 1 else "multiple_provider_path_order_candidate"
+                    else:
+                        classification = "evidence_incomplete"
+
+                enriched = {
+                    **record,
+                    "context_id": context_id,
+                    "context_role": context["role"],
+                    "path_group_id": path_group_id,
+                    "import_id": import_id,
+                    "resolution_classification": classification,
+                    "candidate_first_party_providers": [
+                        {
+                            "provider_id": p.get("provider_id"),
+                            "module": p.get("module"),
+                            "provider_path": p.get("provider_path"),
+                            "provider_kind": p.get("provider_kind"),
+                        }
+                        for p in provider_candidates
+                    ],
+                    "source_chain": chain,
+                }
+                all_guarded.append(enriched)
+
+                if not provider_candidates:
+                    if classification in {"missing_provider", "multiple_provider_path_order_candidate", "evidence_incomplete"} or record.get("scope_classification") != "module-load candidate":
+                        unresolved = {
+                            "context_id": context_id,
+                            "context_role": context["role"],
+                            "source_path": current_path,
+                            "line": record.get("line"),
+                            "module": record.get("resolved_module") or record.get("module"),
+                            "scope_classification": record.get("scope_classification"),
+                            "resolution_classification": classification,
+                            "reason": "no_unique_reachable_first_party_provider",
+                            "confirmed_failure": False,
+                            "source_chain": chain,
+                        }
+                        context_unresolved.append(unresolved)
+                    continue
+
+                for provider in provider_candidates:
+                    target = win_norm(provider.get("provider_path"))
+                    edge = {
+                        "context_id": context_id,
+                        "source_path": current_path,
+                        "source_line": record.get("line"),
+                        "import_module": record.get("resolved_module") or record.get("module"),
+                        "import_name": record.get("name"),
+                        "scope_classification": record.get("scope_classification"),
+                        "guards": record.get("guards"),
+                        "target_path": target,
+                        "target_module": provider.get("module"),
+                        "provider_id": provider.get("provider_id"),
+                        "edge_execution_proven": False,
+                    }
+                    edges.append(edge)
+                    next_chain = chain + [{
+                        "source_path": current_path,
+                        "line": record.get("line"),
+                        "target_path": target,
+                        "module": provider.get("module"),
+                    }]
+                    if win_case(target) in visited or any(win_case(step.get("source_path")) == win_case(target) for step in chain):
+                        cycles.append({"context_id": context_id, "cycle_edge": edge, "chain": next_chain, "cycle_handled": True})
+                    else:
+                        queue.append((target or "", next_chain))
+
+        context_unresolved.sort(key=lambda r: (win_case(r.get("source_path")), int(r.get("line") or 0), str(r.get("reason"))))
+        all_unresolved.extend(context_unresolved)
+        contexts_output.append({
+            "context_id": context_id,
+            "role": context["role"],
+            "launcher_path": context.get("launcher_path"),
+            "entry_script": entry_path,
+            "runtime_id": context.get("runtime_id"),
+            "interpreter_reference_kind": context.get("interpreter_reference_kind"),
+            "path_group_id": path_group_id,
+            "node_count": len(nodes),
+            "edge_count": len(edges),
+            "cycle_count": len(cycles),
+            "unresolved_branch_count": len(context_unresolved),
+            "nodes": sorted(nodes, key=lambda r: win_case(r.get("path"))),
+            "edges": sorted(edges, key=lambda r: (win_case(r.get("source_path")), int(r.get("source_line") or 0), win_case(r.get("target_path")))),
+            "cycles": cycles,
+            "imports_or_source_executed": False,
+        })
+
+    return {
+        "closures": {
+            "schema": f"{SCHEMA_PREFIX}.first_party_import_closures.v1",
+            "context_count": len(contexts_output),
+            "contexts": sorted(contexts_output, key=lambda r: r["role"]),
+            "all_edges_have_exact_source_path_and_line": all(
+                edge.get("source_path") and int(edge.get("source_line") or 0) > 0
+                for context in contexts_output for edge in context["edges"]
+            ),
+            "cycle_detection_enabled": True,
+            "source_or_import_execution": False,
+        },
+        "guarded_imports": all_guarded,
+        "unresolved": all_unresolved,
+        "reached_path_keys": reached_paths,
+    }
+
+
+def build_conditional_report(guarded: list[dict[str, Any]]) -> dict[str, Any]:
+    conditional = [row for row in guarded if row.get("scope_classification") != "module-load candidate"]
+    counts: dict[str, int] = defaultdict(int)
+    for row in conditional:
+        counts[str(row.get("scope_classification"))] += 1
+    return {
+        "schema": f"{SCHEMA_PREFIX}.conditional_and_deferred_imports.v1",
+        "record_count": len(conditional),
+        "classification_counts": dict(sorted(counts.items())),
+        "records": sorted(conditional, key=lambda r: (str(r.get("context_role")), win_case(r.get("source_path")), int(r.get("line") or 0), str(r.get("resolved_module") or r.get("module")))),
+        "conditionally_guarded_imports_labeled_unconditional": 0,
+        "imports_executed": False,
+    }
+
+
+def build_package_requirements(guarded: list[dict[str, Any]], catalogs: dict[str, Any]) -> dict[str, Any]:
+    tp_by_id = catalogs["tp_by_id"]
+    by_context: dict[str, dict[str, Any]] = defaultdict(lambda: {
+        "probable_module_load_candidates": [],
+        "deferred_optional_or_conditional_candidates": [],
+        "standard_library_candidates": [],
+        "missing_or_incomplete_candidates": [],
+    })
+    seen: set[tuple[str, int, str, str]] = set()
+    for row in guarded:
+        context_id = str(row.get("context_id"))
+        key = (context_id, int(row.get("line") or 0), str(row.get("source_path")), str(row.get("resolved_module") or row.get("module")))
+        if key in seen:
+            continue
+        seen.add(key)
+        classification = str(row.get("resolution_classification"))
+        item = {
+            "source_path": row.get("source_path"),
+            "line": row.get("line"),
+            "module": row.get("resolved_module") or row.get("module"),
+            "name": row.get("name"),
+            "scope_classification": row.get("scope_classification"),
+            "resolution_classification": classification,
+            "import_success_proven": False,
+        }
+        if classification == "standard_library_candidate":
+            by_context[context_id]["standard_library_candidates"].append(item)
+        elif row.get("scope_classification") != "module-load candidate":
+            by_context[context_id]["deferred_optional_or_conditional_candidates"].append(item)
+        elif classification in {"missing_provider", "evidence_incomplete", "multiple_provider_path_order_candidate"}:
+            by_context[context_id]["missing_or_incomplete_candidates"].append(item)
+        else:
+            by_context[context_id]["probable_module_load_candidates"].append(item)
+    records = []
+    for context_id, groups in sorted(by_context.items()):
+        records.append({
+            "context_id": context_id,
+            **{name: sorted(values, key=lambda r: (win_case(r.get("source_path")), int(r.get("line") or 0), str(r.get("module")))) for name, values in groups.items()},
+        })
+    return {
+        "schema": f"{SCHEMA_PREFIX}.protected_context_package_requirements.v1",
+        "context_count": len(records),
+        "records": records,
+        "requirements_are_static_candidates_not_import_success": True,
+        "packages_imported": False,
+    }
+
+
+def build_dynamic_closure(source: dict[str, Any], reached_path_keys: set[str], guarded: list[dict[str, Any]]) -> dict[str, Any]:
+    reached_dynamic: list[dict[str, Any]] = []
+    unreached_dynamic: list[dict[str, Any]] = []
+    reached_mutations: list[dict[str, Any]] = []
+    unreached_mutations: list[dict[str, Any]] = []
+    context_by_path: dict[str, set[str]] = defaultdict(set)
+    reached_aliases: set[str] = set(reached_path_keys)
+    for row in guarded:
+        full_path = win_norm(row.get("source_path"))
+        keys = {win_case(full_path)}
+        if full_path and win_case(full_path).startswith(win_case(PROJECT_ROOT_DEFAULT) + "\\"):
+            keys.add(win_case(ntpath.relpath(full_path, PROJECT_ROOT_DEFAULT)))
+        for key in keys:
+            context_by_path[key].add(str(row.get("context_id")))
+            if win_case(full_path) in reached_path_keys:
+                reached_aliases.add(key)
+    for full_key in list(reached_path_keys):
+        full_path = win_norm(full_key)
+        if full_path and full_key.startswith(win_case(PROJECT_ROOT_DEFAULT) + "\\"):
+            reached_aliases.add(win_case(ntpath.relpath(full_path, PROJECT_ROOT_DEFAULT)))
+    for row in source["dynamic_report"].get("dynamic_import_references", []):
+        path_key = win_case(row.get("path"))
+        item = {**row, "context_ids": sorted(context_by_path.get(path_key, set())), "active_or_resolved_proven": False}
+        (reached_dynamic if path_key in reached_aliases else unreached_dynamic).append(item)
+    for row in source["dynamic_report"].get("path_mutations", []):
+        path_key = win_case(row.get("path"))
+        item = {**row, "context_ids": sorted(context_by_path.get(path_key, set())), "effective_or_executed_proven": False}
+        (reached_mutations if path_key in reached_aliases else unreached_mutations).append(item)
+    return {
+        "schema": f"{SCHEMA_PREFIX}.dynamic_import_closure_map.v1",
+        "reached_dynamic_import_reference_count": len(reached_dynamic),
+        "unreached_dynamic_import_reference_count": len(unreached_dynamic),
+        "reached_path_mutation_count": len(reached_mutations),
+        "unreached_path_mutation_count": len(unreached_mutations),
+        "reached_dynamic_import_references": reached_dynamic,
+        "unreached_dynamic_import_references": unreached_dynamic,
+        "reached_path_mutations": reached_mutations,
+        "unreached_path_mutations": unreached_mutations,
+        "unreached_records_called_active": False,
+        "source_executed": False,
+    }
+
+
+def build_outputs(project_root_path: Path, project_root_win: str, source: dict[str, Any], mission_id: str, captured_sources: dict[str, Any] | None = None) -> dict[str, Any]:
+    selection = select_protected_contexts(source)
+    catalogs = provider_catalogs(source)
+    capture = captured_sources if captured_sources is not None else capture_python_sources(source, project_root_path, project_root_win)
+    closure_result = build_closures(source, selection, capture, catalogs)
+    conditional = build_conditional_report(closure_result["guarded_imports"])
+    requirements = build_package_requirements(closure_result["guarded_imports"], catalogs)
+    dynamic = build_dynamic_closure(source, closure_result["reached_path_keys"], closure_result["guarded_imports"])
+
+    unresolved = {
+        "schema": f"{SCHEMA_PREFIX}.unresolved_import_branches.v1",
+        "record_count": len(closure_result["unresolved"]),
+        "records": sorted(closure_result["unresolved"], key=lambda r: (str(r.get("context_role")), win_case(r.get("source_path")), int(r.get("line") or 0), str(r.get("reason")))),
+        "unresolved_branches_labeled_confirmed": 0,
+        "import_failures_proven": False,
+    }
+
+    known_good = source["known_good"]
+    coverage = {
+        "schema": f"{SCHEMA_PREFIX}.live_dependency_coverage.v1",
+        "mission_id": mission_id,
+        "result": "live_python_dependency_closure_and_conditional_import_map_complete",
+        "source_v1a2r2_mission_id": SOURCE_V1A2R2_MISSION,
+        "source_v1a3a_r1_mission_id": SOURCE_V1A3A_R1_MISSION,
+        "source_v1a3b_mission_id": SOURCE_V1A3B_MISSION,
+        "source_outputs_verified_exact": True,
+        "source_launcher_record_count": source["v1a3b_coverage"].get("source_launcher_record_count"),
+        "source_code_file_count": source["v1a3b_coverage"].get("source_code_file_count"),
+        "protected_direct_context_count": selection["protected_direct_context_count"],
+        "called_launcher_relationship_count": len(selection["called_launcher_relationships"]),
+        "closure_context_count": closure_result["closures"]["context_count"],
+        "closure_node_count": sum(c["node_count"] for c in closure_result["closures"]["contexts"]),
+        "closure_edge_count": sum(c["edge_count"] for c in closure_result["closures"]["contexts"]),
+        "cycle_count": sum(c["cycle_count"] for c in closure_result["closures"]["contexts"]),
+        "guarded_import_record_count": len(closure_result["guarded_imports"]),
+        "conditional_or_deferred_import_count": conditional["record_count"],
+        "unresolved_branch_count": unresolved["record_count"],
+        "python_source_capture": capture["manifest"],
+        "known_good_candidates_all_match_in_source_evidence": known_good.get("all_match") is True,
+        "cartesian_all_imports_by_all_contexts_expansion": False,
+        "imports_or_source_executed": False,
+        "interpreter_child_processes": 0,
+        "shell_child_processes": 0,
+        "network_used": False,
+        "packages_installed": False,
+        "models_loaded": False,
+        "existing_foxai_source_modified": False,
+        "limitations": [
+            "Static reachability and provider evidence do not prove an import executed or succeeded.",
+            "Function-local imports are preserved as deferred candidates without call-graph execution inference.",
+            "Dynamic import strings are recorded only where statically present and are not resolved by execution.",
+            "Source drift is recorded; changed source is captured once and never silently equated with the older index hash.",
+        ],
+    }
+
+    selection["source_verification"] = {
+        "v1a2r2_receipt_sha256": source["v1a2r2_verification"]["receipt_sha256"],
+        "v1a3a_r1_receipt_sha256": source["v1a3a_r1_verification"]["receipt_sha256"],
+        "v1a3b_receipt_sha256": source["v1a3b_verification"]["receipt_sha256"],
+        "all_required_outputs_verified": True,
+    }
+    selection["python_source_capture_summary"] = {
+        key: capture["manifest"][key]
+        for key in ("code_index_file_count", "python_source_record_count", "captured_match_count", "source_drift_count", "missing_count", "raw_source_content_persisted", "single_read_immutable_capture")
+    }
+
+    return {
+        "LIVE_CONTEXT_SELECTION.json": selection,
+        "FIRST_PARTY_IMPORT_CLOSURES.json": closure_result["closures"],
+        "CONDITIONAL_AND_DEFERRED_IMPORTS.json": conditional,
+        "PROTECTED_CONTEXT_PACKAGE_REQUIREMENTS.json": requirements,
+        "UNRESOLVED_IMPORT_BRANCHES.json": unresolved,
+        "DYNAMIC_IMPORT_CLOSURE_MAP.json": dynamic,
+        "LIVE_DEPENDENCY_COVERAGE.json": coverage,
+    }
+
+
+def write_outputs(output_dir: Path, outputs: dict[str, Any], mission_id: str, source: dict[str, Any]) -> None:
+    output_dir.mkdir(parents=True, exist_ok=True)
+    first_bytes = {name: canonical_json_bytes(outputs[name]) for name in OUTPUT_NAMES}
+    second_bytes = {name: canonical_json_bytes(outputs[name]) for name in OUTPUT_NAMES}
+    if first_bytes != second_bytes:
+        raise ValueError("Internal deterministic serialization mismatch")
+    total = sum(len(data) for data in first_bytes.values())
+    if total > OUTPUT_CEILING:
+        raise ValueError(f"Output ceiling exceeded before receipt: {total}")
+    records = []
+    for name in OUTPUT_NAMES:
+        path = output_dir / name
+        path.write_bytes(first_bytes[name])
+        records.append({"name": name, "size_bytes": len(first_bytes[name]), "sha256": sha256_bytes(first_bytes[name])})
+    receipt = {
+        "schema": f"{SCHEMA_PREFIX}.live_dependency_receipt.v1",
+        "mission_id": mission_id,
+        "result": "live_python_dependency_closure_and_conditional_import_map_complete",
+        "source_outputs_verified_exact": True,
+        "source_v1a2r2_mission_id": SOURCE_V1A2R2_MISSION,
+        "source_v1a3a_r1_mission_id": SOURCE_V1A3A_R1_MISSION,
+        "source_v1a3b_mission_id": SOURCE_V1A3B_MISSION,
+        "source_v1a2r2_receipt_sha256": source["v1a2r2_verification"]["receipt_sha256"],
+        "source_v1a3a_r1_receipt_sha256": source["v1a3a_r1_verification"]["receipt_sha256"],
+        "source_v1a3b_receipt_sha256": source["v1a3b_verification"]["receipt_sha256"],
+        "internal_deterministic_rebuild_match": True,
+        "compared_output_count": len(OUTPUT_NAMES),
+        "core_outputs_before_receipt": records,
+        "output_bytes_before_receipt": total,
+        "output_ceiling_bytes": OUTPUT_CEILING,
+        "protected_direct_context_count": outputs["LIVE_CONTEXT_SELECTION.json"]["protected_direct_context_count"],
+        "source_launcher_record_count": outputs["LIVE_DEPENDENCY_COVERAGE.json"]["source_launcher_record_count"],
+        "source_code_file_count": outputs["LIVE_DEPENDENCY_COVERAGE.json"]["source_code_file_count"],
+        "known_good_candidates_all_match": source["known_good"].get("all_match") is True,
+        "cartesian_expansion_used": False,
+        "imports_or_source_executed": False,
+        "interpreter_child_processes": 0,
+        "shell_child_processes": 0,
+        "network_used": False,
+        "packages_installed": False,
+        "models_loaded": False,
+        "existing_foxai_source_modified": False,
+    }
+    receipt_bytes = canonical_json_bytes(receipt)
+    if total + len(receipt_bytes) > OUTPUT_CEILING:
+        raise ValueError("Output ceiling exceeded including receipt")
+    (output_dir / "LIVE_DEPENDENCY_RECEIPT.json").write_bytes(receipt_bytes)
+
+
+def validate_output(index_dir: Path) -> None:
+    receipt = read_json(index_dir / "LIVE_DEPENDENCY_RECEIPT.json")
+    if receipt.get("result") != "live_python_dependency_closure_and_conditional_import_map_complete":
+        raise ValueError("Unexpected result")
+    if receipt.get("protected_direct_context_count") != 6:
+        raise ValueError("Protected context count mismatch")
+    if receipt.get("source_launcher_record_count") != 536 or receipt.get("source_code_file_count") != 565:
+        raise ValueError("Source coverage mismatch")
+    if receipt.get("internal_deterministic_rebuild_match") is not True or receipt.get("cartesian_expansion_used") is not False:
+        raise ValueError("Determinism or expansion boundary failed")
+    for key in ("imports_or_source_executed", "network_used", "packages_installed", "models_loaded", "existing_foxai_source_modified"):
+        if receipt.get(key) is not False:
+            raise ValueError(f"Safety flag failed: {key}")
+    if receipt.get("interpreter_child_processes") != 0 or receipt.get("shell_child_processes") != 0:
+        raise ValueError("Unexpected child process count")
+    for row in receipt.get("core_outputs_before_receipt", []):
+        path = index_dir / row["name"]
+        if path.stat().st_size != row["size_bytes"] or sha256_file(path) != row["sha256"]:
+            raise ValueError(f"Output hash mismatch: {path}")
+    selection = read_json(index_dir / "LIVE_CONTEXT_SELECTION.json")
+    if selection.get("protected_direct_context_count") != 6 or selection.get("contexts_merged") is not False:
+        raise ValueError("Context selection invalid")
+    if not selection.get("called_launcher_relationships"):
+        raise ValueError("Called launcher relationship missing")
+    closures = read_json(index_dir / "FIRST_PARTY_IMPORT_CLOSURES.json")
+    if closures.get("context_count") != 6 or closures.get("all_edges_have_exact_source_path_and_line") is not True:
+        raise ValueError("Closure evidence invalid")
+    conditional = read_json(index_dir / "CONDITIONAL_AND_DEFERRED_IMPORTS.json")
+    if conditional.get("conditionally_guarded_imports_labeled_unconditional") != 0:
+        raise ValueError("Conditional import labeling failed")
+    unresolved = read_json(index_dir / "UNRESOLVED_IMPORT_BRANCHES.json")
+    if unresolved.get("unresolved_branches_labeled_confirmed") != 0 or unresolved.get("import_failures_proven") is not False:
+        raise ValueError("Unresolved branch boundary failed")
+    total = sum(p.stat().st_size for p in index_dir.glob("*.json"))
+    if total > OUTPUT_CEILING:
+        raise ValueError("Output ceiling exceeded")
+    print("AGENT_FOX_V1A3C_OUTPUT_VALIDATED")
+
+
+def query(index_dir: Path, command: str, value: str) -> None:
+    if command == "trace-dependency":
+        closures = read_json(index_dir / "FIRST_PARTY_IMPORT_CLOSURES.json")
+        needle = value.casefold()
+        rows = []
+        for context in closures.get("contexts", []):
+            edges = [e for e in context.get("edges", []) if needle in str(e.get("import_module", "")).casefold() or needle in str(e.get("target_module", "")).casefold() or needle in str(e.get("target_path", "")).casefold()]
+            if edges:
+                rows.append({"context_id": context.get("context_id"), "role": context.get("role"), "edges": edges})
+        print(json.dumps({"query": command, "value": value, "matches": rows}, indent=2, sort_keys=True))
+        return
+    if command == "explain-import-guard":
+        data = read_json(index_dir / "CONDITIONAL_AND_DEFERRED_IMPORTS.json")
+        needle = value.casefold()
+        rows = [r for r in data.get("records", []) if needle in str(r.get("resolved_module") or r.get("module") or "").casefold()]
+        print(json.dumps({"query": command, "value": value, "matches": rows[:100]}, indent=2, sort_keys=True))
+        return
+    if command == "show-context-requirements":
+        data = read_json(index_dir / "PROTECTED_CONTEXT_PACKAGE_REQUIREMENTS.json")
+        rows = [r for r in data.get("records", []) if value.casefold() in str(r.get("context_id", "")).casefold()]
+        print(json.dumps({"query": command, "value": value, "matches": rows}, indent=2, sort_keys=True))
+        return
+    if command == "explain-unresolved-branch":
+        data = read_json(index_dir / "UNRESOLVED_IMPORT_BRANCHES.json")
+        needle = value.casefold()
+        rows = [r for r in data.get("records", []) if needle in json.dumps(r, sort_keys=True).casefold()]
+        print(json.dumps({"query": command, "value": value, "matches": rows[:100]}, indent=2, sort_keys=True))
+        return
+    raise ValueError(command)
+
+
+def self_test() -> None:
+    source = b'''\nfrom typing import TYPE_CHECKING\nimport os\nif TYPE_CHECKING:\n    import typing_extensions\ntry:\n    import optional_pkg\nexcept ImportError:\n    optional_pkg = None\nif sys.platform == "win32":\n    import winreg\nclass C:\n    import class_dep\ndef f():\n    import deferred_dep\n'''
+    capture = {"path": r"Z:\FOXAI\pkg\mod.py", "bytes": source, "encoding": "utf-8"}
+    catalogs = {
+        "fp_by_path": {win_case(r"Z:\FOXAI\pkg\mod.py"): [{"module": "pkg.mod", "provider_kind": "first_party_module"}]}
+    }
+    imports, error = parse_guarded_imports(capture, catalogs)
+    assert error is None
+    by_name = {str(r.get("name")): r for r in imports}
+    assert by_name["typing_extensions"]["scope_classification"] == "TYPE_CHECKING-only candidate"
+    assert by_name["optional_pkg"]["scope_classification"] == "try-except-ImportError optional candidate"
+    assert by_name["winreg"]["scope_classification"] == "Windows or non-Windows platform-conditional candidate"
+    assert by_name["class_dep"]["scope_classification"] == "class-body candidate"
+    assert by_name["deferred_dep"]["scope_classification"] == "function-local deferred candidate"
+    assert resolve_relative_module("pkg.sub.mod", False, 1, "helper") == "pkg.sub.helper"
+    assert resolve_relative_module("pkg.sub", True, 1, "helper") == "pkg.sub.helper"
+    print("AGENT_FOX_V1A3C_SELF_TEST_PASSED")
+
+
+def main(argv: list[str] | None = None) -> int:
+    parser = argparse.ArgumentParser()
+    sub = parser.add_subparsers(dest="command", required=True)
+    sub.add_parser("self-test")
+    build = sub.add_parser("build")
+    build.add_argument("--project-root", required=True)
+    build.add_argument("--v1a2r2-dir", required=True)
+    build.add_argument("--v1a3a-r1-dir", required=True)
+    build.add_argument("--v1a3b-dir", required=True)
+    build.add_argument("--output-dir", required=True)
+    build.add_argument("--mission-id", required=True)
+    validate = sub.add_parser("validate-output")
+    validate.add_argument("--index-dir", required=True)
+    for command in ("trace-dependency", "explain-import-guard", "show-context-requirements", "explain-unresolved-branch"):
+        query_parser = sub.add_parser(command)
+        query_parser.add_argument("--index-dir", required=True)
+        query_parser.add_argument("--value", required=True)
+    args = parser.parse_args(argv)
+    if args.command == "self-test":
+        self_test()
+        return 0
+    if args.command == "build":
+        project_root_path = Path(args.project_root)
+        source = load_verified_sources(Path(args.v1a2r2_dir), Path(args.v1a3a_r1_dir), Path(args.v1a3b_dir))
+        captured_sources = capture_python_sources(source, project_root_path, args.project_root)
+        first = build_outputs(project_root_path, args.project_root, source, args.mission_id, captured_sources)
+        second = build_outputs(project_root_path, args.project_root, source, args.mission_id, captured_sources)
+        if {k: canonical_json_bytes(v) for k, v in first.items()} != {k: canonical_json_bytes(v) for k, v in second.items()}:
+            raise ValueError("Immutable-evidence deterministic rebuild mismatch")
+        write_outputs(Path(args.output_dir), first, args.mission_id, source)
+        print("AGENT_FOX_V1A3C_BUILD_COMPLETE")
+        return 0
+    if args.command == "validate-output":
+        validate_output(Path(args.index_dir))
+        return 0
+    query(Path(args.index_dir), args.command, args.value)
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

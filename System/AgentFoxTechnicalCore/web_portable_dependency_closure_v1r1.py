@@ -1,0 +1,1348 @@
+from __future__ import annotations
+
+import argparse
+import ast
+import gc
+import hashlib
+import json
+import ntpath
+import sys
+from collections import defaultdict, deque
+from pathlib import Path, PureWindowsPath
+from typing import Any, Iterable
+
+SCHEMA_PREFIX = "foxai.agent_fox.technical_core.v1a3c1_r1"
+PROJECT_ROOT_DEFAULT = r"Z:\FOXAI"
+OUTPUT_CEILING_BYTES = 8 * 1024 * 1024
+SOURCE_BUFFER_CEILING_BYTES = 8 * 1024 * 1024
+SOURCE_V1A2R2_MISSION = "ENG-20260721-063725-BFCAB9"
+SOURCE_V1A3A_R1_MISSION = "ENG-20260721-152146-C4F8D5"
+SOURCE_V1A3B_MISSION = "ENG-20260721-154935-FF96C4"
+TARGET_LAUNCHER = r"Z:\FOXAI\START_FOXAI_WEB_PORTABLE.bat"
+TARGET_SCRIPT = r"Z:\FOXAI\core\foxai_web.py"
+TARGET_INTERPRETER_KIND = "directly_observed_python_executable"
+EXPECTED_REACHED_NODE_COUNT = 57
+EXPECTED_DEPENDENCY_EDGE_COUNT = 165
+EXPECTED_PRELIMINARY_UNRESOLVED_COUNT = 1
+EXPECTED_ZERO_BYTE_SOURCE = r"Z:\FOXAI\core\__init__.py"
+EMPTY_FILE_SHA256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
+OUTPUT_NAMES = (
+    "WEB_PORTABLE_CONTEXT.json",
+    "WEB_PORTABLE_FIRST_PARTY_CLOSURE.json",
+    "WEB_PORTABLE_CONDITIONAL_IMPORTS.json",
+    "WEB_PORTABLE_PACKAGE_REQUIREMENTS.json",
+    "WEB_PORTABLE_UNRESOLVED_BRANCHES.json",
+    "WEB_PORTABLE_COVERAGE.json",
+)
+
+STDLIB_TOP_LEVEL = {
+    "__future__", "abc", "argparse", "array", "ast", "asyncio", "atexit", "base64",
+    "binascii", "bisect", "builtins", "bz2", "calendar", "cmath", "cmd", "code",
+    "codecs", "collections", "compileall", "concurrent", "configparser", "contextlib",
+    "contextvars", "copy", "csv", "ctypes", "dataclasses", "datetime", "decimal",
+    "difflib", "dis", "email", "encodings", "enum", "errno", "faulthandler", "fnmatch",
+    "fractions", "functools", "gc", "getopt", "getpass", "gettext", "glob", "graphlib",
+    "gzip", "hashlib", "heapq", "hmac", "html", "http", "importlib", "inspect", "io",
+    "ipaddress", "itertools", "json", "keyword", "linecache", "locale", "logging", "lzma",
+    "math", "mimetypes", "mmap", "multiprocessing", "ntpath", "numbers", "operator", "os",
+    "pathlib", "pickle", "pkgutil", "platform", "pprint", "queue", "random", "re", "runpy",
+    "secrets", "select", "selectors", "shlex", "shutil", "signal", "site", "socket",
+    "sqlite3", "ssl", "stat", "statistics", "string", "struct", "subprocess", "sys",
+    "sysconfig", "tempfile", "textwrap", "threading", "time", "traceback", "types", "typing",
+    "unicodedata", "unittest", "urllib", "uuid", "venv", "warnings", "weakref", "webbrowser",
+    "winreg", "xml", "zipfile", "zipimport", "zlib", "zoneinfo",
+}
+
+
+def canonical_json_bytes(value: Any) -> bytes:
+    return (json.dumps(value, indent=2, sort_keys=True, ensure_ascii=False) + "\n").encode("utf-8")
+
+
+def sha256_bytes(data: bytes) -> str:
+    return hashlib.sha256(data).hexdigest()
+
+
+def sha256_file(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
+def required_nonnegative_int(record: dict[str, Any], field: str, label: str) -> int:
+    if field not in record or record.get(field) is None:
+        raise ValueError(f"{label} missing required {field}")
+    value = record.get(field)
+    if isinstance(value, bool):
+        raise ValueError(f"{label} has invalid boolean {field}")
+    try:
+        parsed = int(value)
+    except (TypeError, ValueError) as exc:
+        raise ValueError(f"{label} has invalid {field}: {value!r}") from exc
+    if parsed < 0:
+        raise ValueError(f"{label} has negative {field}: {parsed}")
+    return parsed
+
+
+def verify_recorded_size_and_hash(
+    actual_size: int,
+    actual_sha256: str,
+    record: dict[str, Any],
+    label: str,
+) -> tuple[int, str]:
+    expected_size = required_nonnegative_int(record, "size_bytes", label)
+    raw_hash = record.get("sha256")
+    if raw_hash is None or not str(raw_hash).strip():
+        raise ValueError(f"{label} missing required sha256")
+    expected_sha256 = str(raw_hash).strip().casefold()
+    observed_sha256 = str(actual_sha256).strip().casefold()
+    if actual_size != expected_size or observed_sha256 != expected_sha256:
+        raise ValueError(
+            f"{label} size/hash mismatch: "
+            f"expected_size={expected_size}, observed_size={actual_size}, "
+            f"expected_sha256={expected_sha256}, observed_sha256={observed_sha256}"
+        )
+    return expected_size, expected_sha256
+
+
+def read_json(path: Path) -> Any:
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
+def win_norm(value: str | None) -> str | None:
+    if value is None:
+        return None
+    text = str(value).strip().strip('"').replace("/", "\\")
+    return ntpath.normpath(text) if text else None
+
+
+def win_case(value: str | None) -> str:
+    normalized = win_norm(value)
+    return normalized.casefold() if normalized else ""
+
+
+def top_module(value: str | None) -> str:
+    text = str(value or "").lstrip(".")
+    return text.split(".", 1)[0] if text else ""
+
+
+def source_local_path(project_root_path: Path, project_root_win: str, source_path: str) -> Path:
+    source = PureWindowsPath(win_norm(source_path) or source_path)
+    root = PureWindowsPath(win_norm(project_root_win) or project_root_win)
+    try:
+        relative = source.relative_to(root)
+    except ValueError:
+        relative = source
+    return project_root_path.joinpath(*relative.parts)
+
+
+def verify_receipt_outputs(source_dir: Path, receipt_name: str, required: Iterable[str]) -> dict[str, Any]:
+    receipt_path = source_dir / receipt_name
+    if not receipt_path.is_file():
+        raise FileNotFoundError(receipt_path)
+    receipt = read_json(receipt_path)
+    recorded = {str(row.get("name")): row for row in receipt.get("core_outputs_before_receipt", [])}
+    checks: list[dict[str, Any]] = []
+    for name in required:
+        row = recorded.get(name)
+        path = source_dir / PureWindowsPath(name)
+        if row is None:
+            raise ValueError(f"Source receipt does not record required output: {name}")
+        if not path.is_file():
+            raise FileNotFoundError(path)
+        size = path.stat().st_size
+        digest = sha256_file(path)
+        if size != int(row.get("size_bytes", -1)) or digest != str(row.get("sha256")):
+            raise ValueError(f"Source evidence hash mismatch: {name}")
+        checks.append({"name": name, "size_bytes": size, "sha256": digest, "status": "verified"})
+    return {
+        "receipt_path": str(receipt_path),
+        "receipt_sha256": sha256_file(receipt_path),
+        "receipt": receipt,
+        "checks": checks,
+    }
+
+
+def load_verified_sources(v1a2r2_dir: Path, v1a3a_r1_dir: Path, v1a3b_dir: Path) -> dict[str, Any]:
+    v2_names = (
+        "STATIC_CODE_INDEX.json", "REFINED_STATIC_LAUNCHER_INDEX.json",
+        "KNOWN_GOOD_COMPARISON.json", "REFINED_INDEX_COVERAGE.json",
+        "INPUT_CAPTURE_MANIFEST.json", "LIVE_DRIFT_REPORT.json",
+    )
+    v3a_names = (
+        "PYTHON_RUNTIME_MAP_CORRECTED.json", "PROBE_POLICY_REPORT.json",
+        "INTERPRETER_CONTROL_FILE_REPORT.json", "LAUNCHER_RUNTIME_MAP.json",
+        "PYTHON_RUNTIME_COVERAGE.json", "SOURCE_EVIDENCE_ADOPTION_MANIFEST.json",
+    )
+    v3b_names = (
+        "EFFECTIVE_IMPORT_CONTEXTS.json", "LAUNCHER_IMPORT_PATH_MAP.json",
+        "NORMALIZED_PACKAGE_PROVIDERS.json", "STATIC_IMPORT_RESOLUTION.json",
+        "REFINED_DEPENDENCY_CONFLICT_CANDIDATES.json",
+        "DYNAMIC_IMPORT_AND_PATH_MUTATION_REPORT.json", "IMPORT_RESOLUTION_COVERAGE.json",
+    )
+    v2 = verify_receipt_outputs(v1a2r2_dir, "REFINED_BRIDGE_RECEIPT.json", v2_names)
+    v3a = verify_receipt_outputs(v1a3a_r1_dir, "PYTHON_RUNTIME_CORRECTION_RECEIPT.json", v3a_names)
+    v3b = verify_receipt_outputs(v1a3b_dir, "EFFECTIVE_IMPORT_MAP_RECEIPT.json", v3b_names)
+    return {
+        "v1a2r2_verification": v2,
+        "v1a3a_r1_verification": v3a,
+        "v1a3b_verification": v3b,
+        "code_index": read_json(v1a2r2_dir / "STATIC_CODE_INDEX.json"),
+        "known_good": read_json(v1a2r2_dir / "KNOWN_GOOD_COMPARISON.json"),
+        "effective_contexts": read_json(v1a3b_dir / "EFFECTIVE_IMPORT_CONTEXTS.json"),
+        "package_providers": read_json(v1a3b_dir / "NORMALIZED_PACKAGE_PROVIDERS.json"),
+        "static_resolution": read_json(v1a3b_dir / "STATIC_IMPORT_RESOLUTION.json"),
+        "dynamic_report": read_json(v1a3b_dir / "DYNAMIC_IMPORT_AND_PATH_MUTATION_REPORT.json"),
+        "v1a3b_coverage": read_json(v1a3b_dir / "IMPORT_RESOLUTION_COVERAGE.json"),
+    }
+
+
+def select_web_portable_context(source: dict[str, Any]) -> dict[str, Any]:
+    matches = [
+        row for row in source["effective_contexts"].get("contexts", [])
+        if win_case(row.get("launcher_path")) == win_case(TARGET_LAUNCHER)
+        and win_case(row.get("script_path")) == win_case(TARGET_SCRIPT)
+        and str(row.get("interpreter_reference_kind")) == TARGET_INTERPRETER_KIND
+    ]
+    if len(matches) != 1:
+        raise ValueError(f"Expected exactly one Web Portable context, found {len(matches)}")
+    context = dict(matches[0])
+    context["role"] = "web_portable_webui"
+    context["context_selected_from_verified_evidence"] = True
+    context["context_execution_proven"] = False
+    return context
+
+
+def provider_catalogs(source: dict[str, Any]) -> dict[str, Any]:
+    first_party = source["static_resolution"].get("first_party_provider_catalog", [])
+    fp_by_id = {str(row.get("provider_id")): row for row in first_party}
+    fp_by_module: dict[str, list[dict[str, Any]]] = defaultdict(list)
+    fp_by_path: dict[str, list[dict[str, Any]]] = defaultdict(list)
+    for row in first_party:
+        fp_by_module[str(row.get("module", "")).casefold()].append(row)
+        fp_by_path[win_case(row.get("provider_path"))].append(row)
+    third_party = source["package_providers"].get("providers", [])
+    tp_by_id = {str(row.get("provider_id")): row for row in third_party}
+    return {
+        "first_party": first_party,
+        "fp_by_id": fp_by_id,
+        "fp_by_module": fp_by_module,
+        "fp_by_path": fp_by_path,
+        "tp_by_id": tp_by_id,
+    }
+
+
+def code_file_catalog(source: dict[str, Any]) -> dict[str, dict[str, Any]]:
+    return {
+        win_case(row.get("path")): row
+        for row in source["code_index"].get("files", [])
+        if row.get("language") == "python"
+    }
+
+
+def source_module_for_path(path: str, catalogs: dict[str, Any]) -> tuple[str | None, bool]:
+    providers = catalogs["fp_by_path"].get(win_case(path), [])
+    if not providers:
+        return None, False
+    ordered = sorted(
+        providers,
+        key=lambda row: (
+            row.get("provider_kind") != "first_party_package",
+            len(str(row.get("module", ""))),
+            str(row.get("module", "")),
+        ),
+    )
+    chosen = ordered[0]
+    return str(chosen.get("module")), chosen.get("provider_kind") == "first_party_package"
+
+
+def resolve_relative_module(source_module: str | None, source_is_package: bool, level: int, module: str | None) -> str | None:
+    if not source_module:
+        return None
+    package_parts = source_module.split(".") if source_is_package else source_module.split(".")[:-1]
+    upward = max(0, level - 1)
+    if upward > len(package_parts):
+        return None
+    base = package_parts[: len(package_parts) - upward]
+    if module:
+        base.extend(module.split("."))
+    return ".".join(base) if base else None
+
+
+def import_catalog_lookup(source: dict[str, Any]) -> dict[tuple[Any, ...], list[dict[str, Any]]]:
+    lookup: dict[tuple[Any, ...], list[dict[str, Any]]] = defaultdict(list)
+    for row in source["static_resolution"].get("import_catalog", []):
+        key = (
+            win_case(row.get("source_path")),
+            int(row.get("line") or 0),
+            str(row.get("kind")),
+            str(row.get("module")),
+            str(row.get("name")),
+        )
+        lookup[key].append(row)
+    return lookup
+
+
+def selected_path_group_resolutions(source: dict[str, Any], path_group_id: str) -> dict[str, dict[str, Any]]:
+    groups = [
+        group for group in source["static_resolution"].get("path_group_resolutions", [])
+        if str(group.get("path_group_id")) == path_group_id
+    ]
+    if len(groups) != 1:
+        raise ValueError(f"Expected one selected path group {path_group_id}, found {len(groups)}")
+    return {str(row.get("import_id")): row for row in groups[0].get("resolutions", [])}
+
+
+def match_indexed_import(
+    source_path: str,
+    indexed_import: dict[str, Any],
+    lookup: dict[tuple[Any, ...], list[dict[str, Any]]],
+) -> dict[str, Any] | None:
+    module = indexed_import.get("module")
+    name = indexed_import.get("name")
+    key = (
+        win_case(source_path),
+        int(indexed_import.get("line") or 0),
+        str(indexed_import.get("kind")),
+        str(module),
+        str(name),
+    )
+    matches = lookup.get(key, [])
+    return matches[0] if matches else None
+
+
+def candidate_first_party_modules(
+    source_path: str,
+    indexed_import: dict[str, Any],
+    catalogs: dict[str, Any],
+) -> list[dict[str, Any]]:
+    module = str(indexed_import.get("module") or "")
+    name = str(indexed_import.get("name") or "")
+    if module.startswith("."):
+        source_module, source_is_package = source_module_for_path(source_path, catalogs)
+        level = len(module) - len(module.lstrip("."))
+        module = resolve_relative_module(source_module, source_is_package, level, module.lstrip(".") or None) or module
+    candidates: list[str] = []
+    if indexed_import.get("kind") == "from_import" and name and name != "*":
+        candidates.append(f"{module}.{name}" if module else name)
+    if module:
+        candidates.append(module)
+    output: list[dict[str, Any]] = []
+    seen: set[str] = set()
+    for candidate in candidates:
+        for provider in catalogs["fp_by_module"].get(candidate.casefold(), []):
+            provider_id = str(provider.get("provider_id"))
+            if provider_id not in seen:
+                seen.add(provider_id)
+                output.append(provider)
+    return output
+
+
+def preliminary_static_closure(source: dict[str, Any], context: dict[str, Any], catalogs: dict[str, Any]) -> dict[str, Any]:
+    files = code_file_catalog(source)
+    import_lookup = import_catalog_lookup(source)
+    resolutions = selected_path_group_resolutions(source, str(context.get("path_group_id")))
+    fp_by_id = catalogs["fp_by_id"]
+    entry = win_norm(context.get("script_path")) or TARGET_SCRIPT
+    queue: deque[str] = deque([entry])
+    visited: set[str] = set()
+    nodes: list[dict[str, Any]] = []
+    edges: list[dict[str, Any]] = []
+    unresolved: list[dict[str, Any]] = []
+    edge_seen: set[tuple[str, int, str, str]] = set()
+
+    while queue:
+        current = queue.popleft()
+        current_key = win_case(current)
+        if current_key in visited:
+            continue
+        visited.add(current_key)
+        file_row = files.get(current_key)
+        if file_row is None:
+            nodes.append({"path": current, "status": "not_in_verified_python_index"})
+            unresolved.append({"source_path": current, "line": 0, "reason": "not_in_verified_python_index"})
+            continue
+        nodes.append({
+            "path": file_row.get("path"),
+            "relative_path": file_row.get("relative_path"),
+            "expected_sha256": file_row.get("sha256"),
+            "expected_size_bytes": file_row.get("size_bytes"),
+            "indexed_import_count": len(file_row.get("imports", [])),
+            "status": "indexed_first_party_source",
+        })
+        for indexed_import in file_row.get("imports", []):
+            catalog_record = match_indexed_import(str(file_row.get("path")), indexed_import, import_lookup)
+            import_id = str(catalog_record.get("import_id")) if catalog_record else None
+            static_resolution = resolutions.get(import_id) if import_id else None
+            providers: list[dict[str, Any]] = []
+            if static_resolution:
+                for candidate in static_resolution.get("candidate_providers", []):
+                    if candidate.get("provider_type") == "first_party":
+                        provider = fp_by_id.get(str(candidate.get("provider_id")))
+                        if provider:
+                            providers.append(provider)
+            if not providers:
+                providers = candidate_first_party_modules(str(file_row.get("path")), indexed_import, catalogs)
+            classification = str(static_resolution.get("classification")) if static_resolution else ""
+            if not classification:
+                classification = (
+                    "standard_library_candidate"
+                    if top_module(indexed_import.get("module")) in STDLIB_TOP_LEVEL
+                    else ("unique_first_party_provider" if len(providers) == 1 else (
+                        "multiple_provider_path_order_candidate" if providers else "evidence_incomplete"
+                    ))
+                )
+            if not providers:
+                if classification in {"missing_provider", "evidence_incomplete", "multiple_provider_path_order_candidate"}:
+                    unresolved.append({
+                        "source_path": file_row.get("path"),
+                        "line": int(indexed_import.get("line") or 0),
+                        "module": indexed_import.get("module"),
+                        "name": indexed_import.get("name"),
+                        "resolution_classification": classification,
+                        "reason": "no_unique_reachable_first_party_provider",
+                    })
+                continue
+            for provider in providers:
+                target = win_norm(provider.get("provider_path"))
+                key = (
+                    win_case(file_row.get("path")),
+                    int(indexed_import.get("line") or 0),
+                    str(provider.get("provider_id")),
+                    win_case(target),
+                )
+                if key in edge_seen:
+                    continue
+                edge_seen.add(key)
+                edge = {
+                    "source_path": file_row.get("path"),
+                    "source_line": int(indexed_import.get("line") or 0),
+                    "kind": indexed_import.get("kind"),
+                    "import_module": indexed_import.get("module"),
+                    "import_name": indexed_import.get("name"),
+                    "import_alias": indexed_import.get("alias"),
+                    "import_id": import_id,
+                    "resolution_classification": classification,
+                    "target_path": target,
+                    "target_module": provider.get("module"),
+                    "provider_id": provider.get("provider_id"),
+                    "provider_kind": provider.get("provider_kind"),
+                    "edge_execution_proven": False,
+                }
+                edges.append(edge)
+                if win_case(target) not in visited:
+                    queue.append(target or "")
+
+    return {
+        "entry_script": entry,
+        "nodes": sorted(nodes, key=lambda row: win_case(row.get("path"))),
+        "edges": sorted(edges, key=lambda row: (
+            win_case(row.get("source_path")), int(row.get("source_line") or 0), win_case(row.get("target_path"))
+        )),
+        "unresolved": sorted(unresolved, key=lambda row: (
+            win_case(row.get("source_path")), int(row.get("line") or 0), str(row.get("reason"))
+        )),
+        "reached_paths": sorted({row.get("path") for row in nodes if row.get("path")}, key=win_case),
+        "visited_path_keys": visited,
+    }
+
+
+def guard_text(node: ast.AST) -> str:
+    try:
+        return ast.unparse(node)
+    except Exception:
+        return node.__class__.__name__
+
+
+def name_chain(node: ast.AST) -> str:
+    if isinstance(node, ast.Name):
+        return node.id
+    if isinstance(node, ast.Attribute):
+        left = name_chain(node.value)
+        return f"{left}.{node.attr}" if left else node.attr
+    if isinstance(node, ast.Call):
+        return name_chain(node.func)
+    return ""
+
+
+def classify_if_guard(test: ast.AST) -> str:
+    text = guard_text(test).casefold()
+    chain = name_chain(test).casefold()
+    if "type_checking" in text or chain.endswith("type_checking"):
+        return "TYPE_CHECKING-only candidate"
+    if "sys.platform" in text or "os.name" in text or "platform.system" in text:
+        return "Windows or non-Windows platform-conditional candidate"
+    if "sys.version_info" in text or "python_version" in text:
+        return "Python-version-conditional candidate"
+    if isinstance(test, ast.Constant):
+        return "literal-condition candidate"
+    return "evidence-incomplete conditional import"
+
+
+class ImportGuardVisitor(ast.NodeVisitor):
+    def __init__(self, source_path: str, source_module: str | None, source_is_package: bool) -> None:
+        self.source_path = source_path
+        self.source_module = source_module
+        self.source_is_package = source_is_package
+        self.function_depth = 0
+        self.class_depth = 0
+        self.guards: list[dict[str, Any]] = []
+        self.records: list[dict[str, Any]] = []
+
+    def _scope(self) -> str:
+        kinds = [str(row.get("classification")) for row in self.guards]
+        precedence = (
+            "TYPE_CHECKING-only candidate",
+            "try-except-ImportError optional candidate",
+            "Windows or non-Windows platform-conditional candidate",
+            "Python-version-conditional candidate",
+            "literal-condition candidate",
+            "evidence-incomplete conditional import",
+        )
+        for item in precedence:
+            if item in kinds:
+                return item
+        if self.function_depth:
+            return "function-local deferred candidate"
+        if self.class_depth:
+            return "class-body candidate"
+        return "module-load candidate"
+
+    def _append(self, node: ast.AST, kind: str, module: str | None, name: str | None, alias: str | None, level: int = 0) -> None:
+        resolved = module
+        if level:
+            resolved = resolve_relative_module(self.source_module, self.source_is_package, level, module)
+        self.records.append({
+            "source_path": self.source_path,
+            "line": int(getattr(node, "lineno", 0) or 0),
+            "end_line": int(getattr(node, "end_lineno", getattr(node, "lineno", 0)) or 0),
+            "kind": kind,
+            "module": module,
+            "name": name,
+            "alias": alias,
+            "relative_level": level,
+            "resolved_module": resolved,
+            "top_level_module": top_module(resolved or module),
+            "scope_classification": self._scope(),
+            "lexical_scope": "function_local" if self.function_depth else (
+                "class_body" if self.class_depth else "module"
+            ),
+            "guard_classifications": [str(row.get("classification")) for row in self.guards],
+            "guards": [dict(row) for row in self.guards],
+            "import_executed_or_succeeded_proven": False,
+        })
+
+    def visit_Import(self, node: ast.Import) -> Any:
+        for alias in node.names:
+            self._append(node, "import", alias.name, alias.name, alias.asname)
+
+    def visit_ImportFrom(self, node: ast.ImportFrom) -> Any:
+        for alias in node.names:
+            self._append(node, "from_import", node.module, alias.name, alias.asname, int(node.level or 0))
+
+    def visit_FunctionDef(self, node: ast.FunctionDef) -> Any:
+        self.function_depth += 1
+        self.generic_visit(node)
+        self.function_depth -= 1
+
+    def visit_AsyncFunctionDef(self, node: ast.AsyncFunctionDef) -> Any:
+        self.function_depth += 1
+        self.generic_visit(node)
+        self.function_depth -= 1
+
+    def visit_ClassDef(self, node: ast.ClassDef) -> Any:
+        self.class_depth += 1
+        self.generic_visit(node)
+        self.class_depth -= 1
+
+    def visit_If(self, node: ast.If) -> Any:
+        classification = classify_if_guard(node.test)
+        base = {"classification": classification, "condition": guard_text(node.test)}
+        self.guards.append({**base, "branch": "body"})
+        for child in node.body:
+            self.visit(child)
+        self.guards.pop()
+        if node.orelse:
+            self.guards.append({**base, "branch": "else"})
+            for child in node.orelse:
+                self.visit(child)
+            self.guards.pop()
+
+    def visit_Try(self, node: ast.Try) -> Any:
+        catches_import_error = False
+        for handler in node.handlers:
+            if handler.type is None:
+                continue
+            names = [name_chain(handler.type)]
+            if isinstance(handler.type, ast.Tuple):
+                names = [name_chain(item) for item in handler.type.elts]
+            if any(name.split(".")[-1] in {"ImportError", "ModuleNotFoundError"} for name in names):
+                catches_import_error = True
+        if catches_import_error:
+            self.guards.append({
+                "classification": "try-except-ImportError optional candidate",
+                "condition": "try body guarded by ImportError/ModuleNotFoundError handler",
+                "branch": "try",
+            })
+        for child in node.body:
+            self.visit(child)
+        if catches_import_error:
+            self.guards.pop()
+        for handler in node.handlers:
+            for child in handler.body:
+                self.visit(child)
+        for child in node.orelse:
+            self.visit(child)
+        for child in node.finalbody:
+            self.visit(child)
+
+
+def decode_source(data: bytes, preferred: str | None) -> str:
+    for encoding in (preferred or "utf-8", "utf-8-sig", "utf-8", "cp1252"):
+        try:
+            return data.decode(encoding)
+        except (UnicodeDecodeError, LookupError):
+            continue
+    return data.decode("utf-8", errors="replace")
+
+
+def parse_reached_sources_once(
+    project_root_path: Path,
+    project_root_win: str,
+    source: dict[str, Any],
+    closure: dict[str, Any],
+    catalogs: dict[str, Any],
+) -> dict[str, Any]:
+    files = code_file_catalog(source)
+    records_by_key: dict[tuple[Any, ...], list[dict[str, Any]]] = defaultdict(list)
+    source_records: list[dict[str, Any]] = []
+    read_counts: dict[str, int] = defaultdict(int)
+    peak_source_bytes = 0
+    parsed_import_count = 0
+
+    for source_path in closure["reached_paths"]:
+        path_key = win_case(source_path)
+        file_row = files.get(path_key)
+        if file_row is None:
+            raise ValueError(f"Reached source missing from verified index: {source_path}")
+        local_path = source_local_path(project_root_path, project_root_win, source_path)
+        if not local_path.is_file() or local_path.is_symlink():
+            raise FileNotFoundError(local_path)
+        data = local_path.read_bytes()
+        read_counts[path_key] += 1
+        peak_source_bytes = max(peak_source_bytes, len(data))
+        if len(data) > SOURCE_BUFFER_CEILING_BYTES:
+            raise ValueError(f"Source buffer ceiling exceeded: {source_path} ({len(data)} bytes)")
+        digest = sha256_bytes(data)
+        try:
+            expected_size, expected_digest = verify_recorded_size_and_hash(
+                len(data),
+                digest,
+                file_row,
+                f"Reached source {source_path}",
+            )
+        except ValueError as exc:
+            raise ValueError(
+                f"Reached source failed verified immutable-index integrity: {source_path}: {exc}"
+            ) from exc
+        text = decode_source(data, str(file_row.get("encoding") or "utf-8"))
+        del data
+        tree = ast.parse(text, filename=source_path)
+        del text
+        source_module, source_is_package = source_module_for_path(source_path, catalogs)
+        visitor = ImportGuardVisitor(source_path, source_module, source_is_package)
+        visitor.visit(tree)
+        del tree
+        parsed_import_count += len(visitor.records)
+        for record in visitor.records:
+            keys = {
+                (
+                    path_key,
+                    int(record.get("line") or 0),
+                    str(record.get("kind")),
+                    str(record.get("module")),
+                    str(record.get("name")),
+                )
+            }
+            if int(record.get("relative_level") or 0):
+                dotted = "." * int(record["relative_level"]) + str(record.get("module") or "")
+                keys.add((path_key, int(record.get("line") or 0), str(record.get("kind")), dotted, str(record.get("name"))))
+            for key in keys:
+                records_by_key[key].append(record)
+        source_records.append({
+            "path": source_path,
+            "size_bytes": expected_size,
+            "sha256": expected_digest,
+            "read_count": 1,
+            "parse_status": "parsed",
+            "guarded_import_count": len(visitor.records),
+            "source_content_persisted": False,
+        })
+        del visitor
+        gc.collect()
+
+    if any(count != 1 for count in read_counts.values()):
+        raise ValueError("One or more reached source files were read more than once")
+    return {
+        "guard_lookup": records_by_key,
+        "source_records": source_records,
+        "source_files_read_count": len(source_records),
+        "maximum_reads_per_source_file": max(read_counts.values(), default=0),
+        "peak_source_bytes_in_memory": peak_source_bytes,
+        "parsed_import_count": parsed_import_count,
+        "raw_source_content_persisted": False,
+    }
+
+
+def guard_for_edge(edge: dict[str, Any], parsed: dict[str, Any]) -> dict[str, Any] | None:
+    key = (
+        win_case(edge.get("source_path")),
+        int(edge.get("source_line") or 0),
+        str(edge.get("kind")),
+        str(edge.get("import_module")),
+        str(edge.get("import_name")),
+    )
+    matches = parsed["guard_lookup"].get(key, [])
+    return matches[0] if matches else None
+
+
+def enrich_closure(closure: dict[str, Any], parsed: dict[str, Any], context: dict[str, Any]) -> dict[str, Any]:
+    enriched_edges: list[dict[str, Any]] = []
+    cycles: list[dict[str, Any]] = []
+    adjacency: dict[str, list[str]] = defaultdict(list)
+    for edge in closure["edges"]:
+        guard = guard_for_edge(edge, parsed)
+        item = {
+            **edge,
+            "scope_classification": guard.get("scope_classification") if guard else "evidence-incomplete conditional import",
+            "lexical_scope": guard.get("lexical_scope") if guard else "unknown",
+            "guards": guard.get("guards", []) if guard else [],
+            "guard_evidence_status": "matched_exact_source_line" if guard else "no_exact_ast_match",
+            "context_id": context.get("context_id"),
+            "context_role": "web_portable_webui",
+        }
+        enriched_edges.append(item)
+        adjacency[win_case(item.get("source_path"))].append(win_case(item.get("target_path")))
+
+    visited: set[str] = set()
+    active: set[str] = set()
+
+    def visit(node: str, chain: list[str]) -> None:
+        if node in active:
+            cycles.append({"cycle_path_keys": chain + [node], "cycle_handled": True})
+            return
+        if node in visited:
+            return
+        visited.add(node)
+        active.add(node)
+        for target in adjacency.get(node, []):
+            visit(target, chain + [node])
+        active.remove(node)
+
+    visit(win_case(closure["entry_script"]), [])
+    return {
+        "schema": f"{SCHEMA_PREFIX}.web_portable_first_party_closure.v1",
+        "context_id": context.get("context_id"),
+        "context_role": "web_portable_webui",
+        "launcher_path": TARGET_LAUNCHER,
+        "entry_script": TARGET_SCRIPT,
+        "node_count": len(closure["nodes"]),
+        "edge_count": len(enriched_edges),
+        "cycle_count": len(cycles),
+        "nodes": closure["nodes"],
+        "edges": enriched_edges,
+        "cycles": cycles,
+        "all_edges_have_exact_source_path_and_line": all(
+            edge.get("source_path") and int(edge.get("source_line") or 0) > 0 for edge in enriched_edges
+        ),
+        "source_or_import_execution": False,
+    }
+
+
+def all_reached_guard_records(parsed: dict[str, Any]) -> list[dict[str, Any]]:
+    output: list[dict[str, Any]] = []
+    seen: set[tuple[Any, ...]] = set()
+    for rows in parsed["guard_lookup"].values():
+        for row in rows:
+            key = (
+                win_case(row.get("source_path")), int(row.get("line") or 0), str(row.get("kind")),
+                str(row.get("module")), str(row.get("name")), str(row.get("scope_classification")),
+            )
+            if key not in seen:
+                seen.add(key)
+                output.append(row)
+    return sorted(output, key=lambda row: (
+        win_case(row.get("source_path")), int(row.get("line") or 0), str(row.get("module")), str(row.get("name"))
+    ))
+
+
+def build_conditional_report(parsed: dict[str, Any]) -> dict[str, Any]:
+    records = [row for row in all_reached_guard_records(parsed) if row.get("scope_classification") != "module-load candidate"]
+    counts: dict[str, int] = defaultdict(int)
+    for row in records:
+        counts[str(row.get("scope_classification"))] += 1
+    return {
+        "schema": f"{SCHEMA_PREFIX}.web_portable_conditional_imports.v1",
+        "context_count": 1,
+        "record_count": len(records),
+        "classification_counts": dict(sorted(counts.items())),
+        "records": records,
+        "conditionally_guarded_imports_labeled_unconditional": 0,
+        "imports_executed": False,
+    }
+
+
+def build_package_requirements(
+    source: dict[str, Any],
+    context: dict[str, Any],
+    parsed: dict[str, Any],
+) -> dict[str, Any]:
+    import_lookup = import_catalog_lookup(source)
+    resolutions = selected_path_group_resolutions(source, str(context.get("path_group_id")))
+    tp_by_id = {str(row.get("provider_id")): row for row in source["package_providers"].get("providers", [])}
+    groups: dict[str, list[dict[str, Any]]] = {
+        "probable_module_load_candidates": [],
+        "deferred_optional_or_conditional_candidates": [],
+        "standard_library_candidates": [],
+        "missing_or_incomplete_candidates": [],
+    }
+    seen: set[tuple[Any, ...]] = set()
+    for row in all_reached_guard_records(parsed):
+        key = (
+            win_case(row.get("source_path")), int(row.get("line") or 0), str(row.get("kind")),
+            str(row.get("module")), str(row.get("name")),
+        )
+        matches = import_lookup.get(key, [])
+        catalog_record = matches[0] if matches else None
+        resolution = resolutions.get(str(catalog_record.get("import_id"))) if catalog_record else None
+        classification = str(resolution.get("classification")) if resolution else ""
+        module = row.get("resolved_module") or row.get("module")
+        if not classification:
+            classification = "standard_library_candidate" if top_module(module) in STDLIB_TOP_LEVEL else "evidence_incomplete"
+        providers: list[dict[str, Any]] = []
+        if resolution:
+            for candidate in resolution.get("candidate_providers", []):
+                if candidate.get("provider_type") == "third_party":
+                    provider = tp_by_id.get(str(candidate.get("provider_id")))
+                    if provider:
+                        providers.append({
+                            "provider_id": provider.get("provider_id"),
+                            "distribution": provider.get("distribution"),
+                            "version": provider.get("version"),
+                            "site_root": provider.get("site_root"),
+                            "provider_path": provider.get("provider_path"),
+                        })
+        record_key = (key, str(row.get("scope_classification")), classification)
+        if record_key in seen:
+            continue
+        seen.add(record_key)
+        item = {
+            "source_path": row.get("source_path"),
+            "line": row.get("line"),
+            "module": module,
+            "name": row.get("name"),
+            "scope_classification": row.get("scope_classification"),
+            "resolution_classification": classification,
+            "third_party_provider_candidates": providers,
+            "import_success_proven": False,
+        }
+        if classification == "standard_library_candidate":
+            groups["standard_library_candidates"].append(item)
+        elif row.get("scope_classification") != "module-load candidate":
+            groups["deferred_optional_or_conditional_candidates"].append(item)
+        elif classification in {"missing_provider", "evidence_incomplete", "multiple_provider_path_order_candidate"}:
+            groups["missing_or_incomplete_candidates"].append(item)
+        else:
+            groups["probable_module_load_candidates"].append(item)
+    for name in groups:
+        groups[name] = sorted(groups[name], key=lambda row: (
+            win_case(row.get("source_path")), int(row.get("line") or 0), str(row.get("module"))
+        ))
+    return {
+        "schema": f"{SCHEMA_PREFIX}.web_portable_package_requirements.v1",
+        "context_id": context.get("context_id"),
+        "context_count": 1,
+        **groups,
+        "requirements_are_static_candidates_not_import_success": True,
+        "packages_imported": False,
+    }
+
+
+def build_unresolved_report(
+    source: dict[str, Any],
+    closure: dict[str, Any],
+    parsed: dict[str, Any],
+) -> dict[str, Any]:
+    reached = {win_case(path) for path in closure["reached_paths"]}
+    dynamic_reached: list[dict[str, Any]] = []
+    mutation_reached: list[dict[str, Any]] = []
+    for row in source["dynamic_report"].get("dynamic_import_references", []):
+        if win_case(row.get("path")) in reached:
+            dynamic_reached.append({**row, "active_or_resolved_proven": False})
+    for row in source["dynamic_report"].get("path_mutations", []):
+        if win_case(row.get("path")) in reached:
+            mutation_reached.append({**row, "effective_or_executed_proven": False})
+    no_guard_match = [
+        {
+            "source_path": edge.get("source_path"),
+            "line": edge.get("source_line"),
+            "module": edge.get("import_module"),
+            "reason": "no_exact_ast_guard_match",
+            "confirmed_failure": False,
+        }
+        for edge in closure["edges"] if guard_for_edge(edge, parsed) is None
+    ]
+    records = list(closure["unresolved"]) + no_guard_match
+    return {
+        "schema": f"{SCHEMA_PREFIX}.web_portable_unresolved_branches.v1",
+        "record_count": len(records),
+        "records": records,
+        "reached_dynamic_import_reference_count": len(dynamic_reached),
+        "reached_dynamic_import_references": dynamic_reached,
+        "reached_path_mutation_count": len(mutation_reached),
+        "reached_path_mutations": mutation_reached,
+        "unresolved_branches_labeled_confirmed": 0,
+        "import_failures_proven": False,
+        "dynamic_imports_executed": False,
+    }
+
+
+def verify_current_known_good(project_root_path: Path, project_root_win: str, known_good: dict[str, Any]) -> list[dict[str, Any]]:
+    checks: list[dict[str, Any]] = []
+    for row in known_good.get("records", []):
+        path = source_local_path(project_root_path, project_root_win, str(row.get("path")))
+        if not path.is_file():
+            raise FileNotFoundError(path)
+        digest = sha256_file(path)
+        expected = str(row.get("expected_sha256"))
+        if digest != expected:
+            raise ValueError(f"Protected known-good hash changed: {row.get('path')}")
+        checks.append({"path": row.get("path"), "sha256": digest, "status": "match"})
+    return checks
+
+
+def build_core_outputs(
+    mission_id: str,
+    source: dict[str, Any],
+    context: dict[str, Any],
+    closure: dict[str, Any],
+    parsed: dict[str, Any],
+    protected_checks: list[dict[str, Any]],
+) -> dict[str, Any]:
+    enriched = enrich_closure(closure, parsed, context)
+    conditional = build_conditional_report(parsed)
+    requirements = build_package_requirements(source, context, parsed)
+    unresolved = build_unresolved_report(source, closure, parsed)
+    context_output = {
+        "schema": f"{SCHEMA_PREFIX}.web_portable_context.v1",
+        "mission_id": mission_id,
+        "protected_direct_context_count": 1,
+        "context": context,
+        "launcher_path": TARGET_LAUNCHER,
+        "entry_script": TARGET_SCRIPT,
+        "runtime_id": context.get("runtime_id"),
+        "resolved_interpreter_path": context.get("resolved_interpreter_path"),
+        "path_group_id": context.get("path_group_id"),
+        "source_verification": {
+            "v1a2r2_receipt_sha256": source["v1a2r2_verification"]["receipt_sha256"],
+            "v1a3a_r1_receipt_sha256": source["v1a3a_r1_verification"]["receipt_sha256"],
+            "v1a3b_receipt_sha256": source["v1a3b_verification"]["receipt_sha256"],
+            "all_required_outputs_verified": True,
+        },
+        "source_capture_policy": {
+            "only_reached_sources_read": True,
+            "each_reached_source_read_at_most_once": True,
+            "source_buffer_ceiling_bytes": SOURCE_BUFFER_CEILING_BYTES,
+            "raw_source_content_persisted": False,
+            "second_deterministic_build_rereads_live_sources": False,
+        },
+        "context_execution_proven": False,
+    }
+    coverage = {
+        "schema": f"{SCHEMA_PREFIX}.web_portable_coverage.v1",
+        "mission_id": mission_id,
+        "result": "web_portable_dependency_closure_complete",
+        "source_v1a2r2_mission_id": SOURCE_V1A2R2_MISSION,
+        "source_v1a3a_r1_mission_id": SOURCE_V1A3A_R1_MISSION,
+        "source_v1a3b_mission_id": SOURCE_V1A3B_MISSION,
+        "source_outputs_verified_exact": True,
+        "source_launcher_record_count": source["v1a3b_coverage"].get("source_launcher_record_count"),
+        "source_code_file_count": source["v1a3b_coverage"].get("source_code_file_count"),
+        "protected_direct_context_count": 1,
+        "closure_node_count": enriched["node_count"],
+        "closure_edge_count": enriched["edge_count"],
+        "preliminary_reached_source_count": len(closure["reached_paths"]),
+        "preliminary_dependency_edge_count": len(closure["edges"]),
+        "preliminary_unresolved_branch_count": len(closure["unresolved"]),
+        "zero_byte_indexed_source_accepted": any(
+            win_case(row.get("path")) == win_case(EXPECTED_ZERO_BYTE_SOURCE)
+            and row.get("expected_size_bytes") == 0
+            and str(row.get("expected_sha256")) == EMPTY_FILE_SHA256
+            for row in closure["nodes"]
+        ),
+        "cycle_count": enriched["cycle_count"],
+        "conditional_or_deferred_import_count": conditional["record_count"],
+        "unresolved_branch_count": unresolved["record_count"],
+        "source_files_read_count": parsed["source_files_read_count"],
+        "maximum_reads_per_source_file": parsed["maximum_reads_per_source_file"],
+        "peak_source_bytes_in_memory": parsed["peak_source_bytes_in_memory"],
+        "source_buffer_ceiling_bytes": SOURCE_BUFFER_CEILING_BYTES,
+        "parsed_import_count": parsed["parsed_import_count"],
+        "intermediate_spill_used": False,
+        "cartesian_all_imports_by_all_contexts_expansion": False,
+        "other_protected_contexts_built": 0,
+        "known_good_candidates_all_match": len(protected_checks) == int(source["known_good"].get("record_count") or 0),
+        "protected_checks": protected_checks,
+        "imports_or_source_executed": False,
+        "interpreter_child_processes": 0,
+        "shell_child_processes": 0,
+        "network_used": False,
+        "packages_installed": False,
+        "models_loaded": False,
+        "existing_foxai_source_modified": False,
+        "limitations": [
+            "Static reachability does not prove an import executed or succeeded.",
+            "Function-local imports remain deferred candidates without call-graph execution inference.",
+            "Dynamic import references are recorded but not executed or resolved by execution.",
+            "Only the Web Portable protected context is covered by this mission.",
+        ],
+    }
+    return {
+        "WEB_PORTABLE_CONTEXT.json": context_output,
+        "WEB_PORTABLE_FIRST_PARTY_CLOSURE.json": enriched,
+        "WEB_PORTABLE_CONDITIONAL_IMPORTS.json": conditional,
+        "WEB_PORTABLE_PACKAGE_REQUIREMENTS.json": requirements,
+        "WEB_PORTABLE_UNRESOLVED_BRANCHES.json": unresolved,
+        "WEB_PORTABLE_COVERAGE.json": coverage,
+    }
+
+
+def write_outputs(output_dir: Path, outputs: dict[str, Any], mission_id: str) -> None:
+    first = {name: canonical_json_bytes(outputs[name]) for name in OUTPUT_NAMES}
+    second = {name: canonical_json_bytes(outputs[name]) for name in OUTPUT_NAMES}
+    if any(first[name] != second[name] for name in OUTPUT_NAMES):
+        raise ValueError("Internal deterministic output comparison failed")
+    total_pre_receipt = sum(len(data) for data in first.values())
+    if total_pre_receipt >= OUTPUT_CEILING_BYTES:
+        raise ValueError(f"Output ceiling exceeded before receipt: {total_pre_receipt}")
+    if output_dir.exists():
+        raise FileExistsError(f"Output directory already exists: {output_dir}")
+    output_dir.mkdir(parents=True)
+    core_outputs: list[dict[str, Any]] = []
+    for name in OUTPUT_NAMES:
+        path = output_dir / name
+        path.write_bytes(first[name])
+        core_outputs.append({"name": name, "size_bytes": len(first[name]), "sha256": sha256_bytes(first[name])})
+    coverage = outputs["WEB_PORTABLE_COVERAGE.json"]
+    receipt = {
+        "schema": f"{SCHEMA_PREFIX}.web_portable_closure_receipt.v1",
+        "mission_id": mission_id,
+        "result": "web_portable_dependency_closure_complete",
+        "source_outputs_verified_exact": True,
+        "internal_deterministic_rebuild_match": True,
+        "compared_output_count": len(OUTPUT_NAMES),
+        "protected_direct_context_count": 1,
+        "source_launcher_record_count": coverage.get("source_launcher_record_count"),
+        "source_code_file_count": coverage.get("source_code_file_count"),
+        "source_files_read_count": coverage.get("source_files_read_count"),
+        "preliminary_reached_source_count": coverage.get("preliminary_reached_source_count"),
+        "preliminary_dependency_edge_count": coverage.get("preliminary_dependency_edge_count"),
+        "preliminary_unresolved_branch_count": coverage.get("preliminary_unresolved_branch_count"),
+        "zero_byte_indexed_source_accepted": coverage.get("zero_byte_indexed_source_accepted"),
+        "maximum_reads_per_source_file": coverage.get("maximum_reads_per_source_file"),
+        "peak_source_bytes_in_memory": coverage.get("peak_source_bytes_in_memory"),
+        "source_buffer_ceiling_bytes": SOURCE_BUFFER_CEILING_BYTES,
+        "known_good_candidates_all_match": coverage.get("known_good_candidates_all_match"),
+        "cartesian_expansion_used": False,
+        "other_protected_contexts_built": 0,
+        "imports_or_source_executed": False,
+        "interpreter_child_processes": 0,
+        "shell_child_processes": 0,
+        "network_used": False,
+        "packages_installed": False,
+        "models_loaded": False,
+        "existing_foxai_source_modified": False,
+        "raw_source_content_persisted": False,
+        "core_outputs_before_receipt": core_outputs,
+    }
+    receipt_bytes = canonical_json_bytes(receipt)
+    if total_pre_receipt + len(receipt_bytes) >= OUTPUT_CEILING_BYTES:
+        raise ValueError("Output ceiling exceeded including receipt")
+    (output_dir / "WEB_PORTABLE_CLOSURE_RECEIPT.json").write_bytes(receipt_bytes)
+
+
+def build(
+    project_root_path: Path,
+    project_root_win: str,
+    v1a2r2_dir: Path,
+    v1a3a_r1_dir: Path,
+    v1a3b_dir: Path,
+    output_dir: Path,
+    mission_id: str,
+) -> None:
+    source = load_verified_sources(v1a2r2_dir, v1a3a_r1_dir, v1a3b_dir)
+    context = select_web_portable_context(source)
+    catalogs = provider_catalogs(source)
+    closure = preliminary_static_closure(source, context, catalogs)
+    parsed = parse_reached_sources_once(project_root_path, project_root_win, source, closure, catalogs)
+    protected_checks = verify_current_known_good(project_root_path, project_root_win, source["known_good"])
+    outputs_a = build_core_outputs(mission_id, source, context, closure, parsed, protected_checks)
+    outputs_b = build_core_outputs(mission_id, source, context, closure, parsed, protected_checks)
+    bytes_a = {name: canonical_json_bytes(outputs_a[name]) for name in OUTPUT_NAMES}
+    bytes_b = {name: canonical_json_bytes(outputs_b[name]) for name in OUTPUT_NAMES}
+    if bytes_a != bytes_b:
+        raise ValueError("Immutable compact-record deterministic rebuild failed")
+    write_outputs(output_dir, outputs_a, mission_id)
+
+
+def validate_output(index_dir: Path) -> None:
+    required = set(OUTPUT_NAMES) | {"WEB_PORTABLE_CLOSURE_RECEIPT.json"}
+    present = {path.name for path in index_dir.iterdir() if path.is_file()}
+    if not required.issubset(present):
+        raise ValueError(f"Missing output files: {sorted(required - present)}")
+    receipt = read_json(index_dir / "WEB_PORTABLE_CLOSURE_RECEIPT.json")
+    coverage = read_json(index_dir / "WEB_PORTABLE_COVERAGE.json")
+    closure = read_json(index_dir / "WEB_PORTABLE_FIRST_PARTY_CLOSURE.json")
+    context = read_json(index_dir / "WEB_PORTABLE_CONTEXT.json")
+    conditional = read_json(index_dir / "WEB_PORTABLE_CONDITIONAL_IMPORTS.json")
+    unresolved = read_json(index_dir / "WEB_PORTABLE_UNRESOLVED_BRANCHES.json")
+    if receipt.get("result") != "web_portable_dependency_closure_complete":
+        raise ValueError("Unexpected receipt result")
+    if receipt.get("internal_deterministic_rebuild_match") is not True:
+        raise ValueError("Deterministic rebuild did not match")
+    if receipt.get("protected_direct_context_count") != 1 or context.get("protected_direct_context_count") != 1:
+        raise ValueError("Expected exactly one protected context")
+    if coverage.get("other_protected_contexts_built") != 0 or coverage.get("cartesian_all_imports_by_all_contexts_expansion") is not False:
+        raise ValueError("Unexpected multi-context or Cartesian expansion")
+    if int(coverage.get("peak_source_bytes_in_memory") or 0) > SOURCE_BUFFER_CEILING_BYTES:
+        raise ValueError("Source buffer ceiling exceeded")
+    if int(coverage.get("maximum_reads_per_source_file") or 0) > 1:
+        raise ValueError("A source file was read more than once")
+    if closure.get("node_count") != EXPECTED_REACHED_NODE_COUNT:
+        raise ValueError(f"Unexpected reached-source count: {closure.get('node_count')}")
+    if closure.get("edge_count") != EXPECTED_DEPENDENCY_EDGE_COUNT:
+        raise ValueError(f"Unexpected dependency-edge count: {closure.get('edge_count')}")
+    if coverage.get("preliminary_reached_source_count") != EXPECTED_REACHED_NODE_COUNT:
+        raise ValueError("Preliminary reached-source count changed")
+    if coverage.get("preliminary_dependency_edge_count") != EXPECTED_DEPENDENCY_EDGE_COUNT:
+        raise ValueError("Preliminary dependency-edge count changed")
+    if coverage.get("preliminary_unresolved_branch_count") != EXPECTED_PRELIMINARY_UNRESOLVED_COUNT:
+        raise ValueError("Preliminary unresolved-branch count changed")
+    if coverage.get("zero_byte_indexed_source_accepted") is not True:
+        raise ValueError("Zero-byte indexed source was not accepted")
+    zero_nodes = [
+        row for row in closure.get("nodes", [])
+        if win_case(row.get("path")) == win_case(EXPECTED_ZERO_BYTE_SOURCE)
+    ]
+    if len(zero_nodes) != 1:
+        raise ValueError(f"Expected one zero-byte core package source, found {len(zero_nodes)}")
+    zero_node = zero_nodes[0]
+    if zero_node.get("expected_size_bytes") != 0 or str(zero_node.get("expected_sha256")) != EMPTY_FILE_SHA256:
+        raise ValueError("Zero-byte core package source evidence changed")
+    if closure.get("all_edges_have_exact_source_path_and_line") is not True:
+        raise ValueError("Closure edge lacks exact source evidence")
+    if conditional.get("conditionally_guarded_imports_labeled_unconditional") != 0:
+        raise ValueError("Conditional import mislabeled")
+    if unresolved.get("unresolved_branches_labeled_confirmed") != 0:
+        raise ValueError("Unresolved branch falsely confirmed")
+    for key in (
+        "imports_or_source_executed", "network_used", "packages_installed", "models_loaded",
+        "existing_foxai_source_modified",
+    ):
+        if receipt.get(key) is not False:
+            raise ValueError(f"Unsafe receipt flag: {key}")
+    if receipt.get("interpreter_child_processes") != 0 or receipt.get("shell_child_processes") != 0:
+        raise ValueError("Payload child process boundary violated")
+    for row in receipt.get("core_outputs_before_receipt", []):
+        path = index_dir / str(row.get("name"))
+        if not path.is_file():
+            raise FileNotFoundError(path)
+        verify_recorded_size_and_hash(
+            path.stat().st_size,
+            sha256_file(path),
+            row,
+            f"Generated output {path}",
+        )
+    total = sum(path.stat().st_size for path in index_dir.rglob("*") if path.is_file())
+    if total >= OUTPUT_CEILING_BYTES:
+        raise ValueError(f"Output ceiling exceeded: {total}")
+    print(json.dumps({"status": "valid", "total_output_bytes": total}, sort_keys=True))
+
+
+def show_context_requirements(index_dir: Path) -> None:
+    context = read_json(index_dir / "WEB_PORTABLE_CONTEXT.json")
+    requirements = read_json(index_dir / "WEB_PORTABLE_PACKAGE_REQUIREMENTS.json")
+    print(json.dumps({"context": context.get("context"), "requirements": requirements}, indent=2, sort_keys=True))
+
+
+def verify_inputs(v1a2r2_dir: Path, v1a3a_r1_dir: Path, v1a3b_dir: Path) -> None:
+    source = load_verified_sources(v1a2r2_dir, v1a3a_r1_dir, v1a3b_dir)
+    context = select_web_portable_context(source)
+    print(json.dumps({
+        "status": "verified",
+        "context_id": context.get("context_id"),
+        "path_group_id": context.get("path_group_id"),
+        "launcher": context.get("launcher_path"),
+        "script": context.get("script_path"),
+        "source_launcher_record_count": source["v1a3b_coverage"].get("source_launcher_record_count"),
+        "source_code_file_count": source["v1a3b_coverage"].get("source_code_file_count"),
+    }, sort_keys=True))
+
+
+def verify_topology(v1a2r2_dir: Path, v1a3a_r1_dir: Path, v1a3b_dir: Path) -> None:
+    source = load_verified_sources(v1a2r2_dir, v1a3a_r1_dir, v1a3b_dir)
+    context = select_web_portable_context(source)
+    catalogs = provider_catalogs(source)
+    closure = preliminary_static_closure(source, context, catalogs)
+    reached_count = len(closure["reached_paths"])
+    edge_count = len(closure["edges"])
+    unresolved_count = len(closure["unresolved"])
+    if reached_count != EXPECTED_REACHED_NODE_COUNT:
+        raise ValueError(f"Unexpected reached-source count: {reached_count}")
+    if edge_count != EXPECTED_DEPENDENCY_EDGE_COUNT:
+        raise ValueError(f"Unexpected dependency-edge count: {edge_count}")
+    if unresolved_count != EXPECTED_PRELIMINARY_UNRESOLVED_COUNT:
+        raise ValueError(f"Unexpected preliminary unresolved count: {unresolved_count}")
+    files = code_file_catalog(source)
+    zero_row = files.get(win_case(EXPECTED_ZERO_BYTE_SOURCE))
+    if zero_row is None:
+        raise ValueError("Zero-byte core package source missing from verified code index")
+    zero_size = required_nonnegative_int(zero_row, "size_bytes", EXPECTED_ZERO_BYTE_SOURCE)
+    if zero_size != 0 or str(zero_row.get("sha256")) != EMPTY_FILE_SHA256:
+        raise ValueError("Zero-byte core package source evidence changed")
+    print(json.dumps({
+        "status": "verified",
+        "context_id": context.get("context_id"),
+        "path_group_id": context.get("path_group_id"),
+        "reached_source_count": reached_count,
+        "dependency_edge_count": edge_count,
+        "preliminary_unresolved_branch_count": unresolved_count,
+        "zero_byte_source": EXPECTED_ZERO_BYTE_SOURCE,
+        "zero_byte_source_size": zero_size,
+        "zero_byte_source_sha256": zero_row.get("sha256"),
+    }, sort_keys=True))
+
+
+def self_test() -> None:
+    source = """
+from typing import TYPE_CHECKING
+import os
+if TYPE_CHECKING:
+    from demo import Types
+try:
+    import optional_dep
+except ImportError:
+    optional_dep = None
+if sys.platform == 'win32':
+    import win_only
+
+def later():
+    import deferred_dep
+"""
+    tree = ast.parse(source)
+    visitor = ImportGuardVisitor(r"Z:\FOXAI\core\sample.py", "core.sample", False)
+    visitor.visit(tree)
+    scopes = {(row["module"], row["scope_classification"]) for row in visitor.records}
+    assert ("demo", "TYPE_CHECKING-only candidate") in scopes
+    assert ("optional_dep", "try-except-ImportError optional candidate") in scopes
+    assert ("win_only", "Windows or non-Windows platform-conditional candidate") in scopes
+    assert ("deferred_dep", "function-local deferred candidate") in scopes
+    payload = {"b": 2, "a": 1}
+    assert canonical_json_bytes(payload) == canonical_json_bytes(payload)
+
+    empty_digest = sha256_bytes(b"")
+    zero_source_record = {"size_bytes": 0, "sha256": empty_digest}
+    size, digest = verify_recorded_size_and_hash(
+        0, empty_digest, zero_source_record, "zero-byte source regression"
+    )
+    assert size == 0 and digest == EMPTY_FILE_SHA256
+
+    missing_size_rejected = False
+    try:
+        verify_recorded_size_and_hash(
+            0, empty_digest, {"sha256": empty_digest}, "missing-size regression"
+        )
+    except ValueError as exc:
+        missing_size_rejected = "missing required size_bytes" in str(exc)
+    assert missing_size_rejected
+
+    mismatch_rejected = False
+    try:
+        verify_recorded_size_and_hash(
+            2, sha256_bytes(b"xx"), {"size_bytes": 1, "sha256": sha256_bytes(b"x")},
+            "nonzero mismatch regression",
+        )
+    except ValueError as exc:
+        mismatch_rejected = "size/hash mismatch" in str(exc)
+    assert mismatch_rejected
+
+    output_size, output_digest = verify_recorded_size_and_hash(
+        0, empty_digest, {"name": "ZERO.json", "size_bytes": 0, "sha256": empty_digest},
+        "zero-byte generated output regression",
+    )
+    assert output_size == 0 and output_digest == EMPTY_FILE_SHA256
+    print("V1A3C1_R1_ZERO_BYTE_SELF_TEST_OK")
+
+
+def main(argv: list[str] | None = None) -> int:
+    parser = argparse.ArgumentParser(description="Agent Fox V1A-3C1-R1 Web Portable static dependency closure with zero-byte integrity fix")
+    sub = parser.add_subparsers(dest="command", required=True)
+    sub.add_parser("self-test")
+
+    verify = sub.add_parser("verify-inputs")
+    verify.add_argument("--v1a2r2-dir", required=True)
+    verify.add_argument("--v1a3a-r1-dir", required=True)
+    verify.add_argument("--v1a3b-dir", required=True)
+
+    topology = sub.add_parser("verify-topology")
+    topology.add_argument("--v1a2r2-dir", required=True)
+    topology.add_argument("--v1a3a-r1-dir", required=True)
+    topology.add_argument("--v1a3b-dir", required=True)
+
+    build_parser = sub.add_parser("build")
+    build_parser.add_argument("--project-root", default=PROJECT_ROOT_DEFAULT)
+    build_parser.add_argument("--project-root-win", default=PROJECT_ROOT_DEFAULT)
+    build_parser.add_argument("--v1a2r2-dir", required=True)
+    build_parser.add_argument("--v1a3a-r1-dir", required=True)
+    build_parser.add_argument("--v1a3b-dir", required=True)
+    build_parser.add_argument("--output-dir", required=True)
+    build_parser.add_argument("--mission-id", required=True)
+
+    validate = sub.add_parser("validate-output")
+    validate.add_argument("--index-dir", required=True)
+
+    query = sub.add_parser("show-context-requirements")
+    query.add_argument("--index-dir", required=True)
+
+    args = parser.parse_args(argv)
+    if args.command == "self-test":
+        self_test()
+    elif args.command == "verify-inputs":
+        verify_inputs(Path(args.v1a2r2_dir), Path(args.v1a3a_r1_dir), Path(args.v1a3b_dir))
+    elif args.command == "verify-topology":
+        verify_topology(
+            Path(args.v1a2r2_dir),
+            Path(args.v1a3a_r1_dir),
+            Path(args.v1a3b_dir),
+        )
+    elif args.command == "build":
+        build(
+            Path(args.project_root),
+            args.project_root_win,
+            Path(args.v1a2r2_dir),
+            Path(args.v1a3a_r1_dir),
+            Path(args.v1a3b_dir),
+            Path(args.output_dir),
+            args.mission_id,
+        )
+    elif args.command == "validate-output":
+        validate_output(Path(args.index_dir))
+    elif args.command == "show-context-requirements":
+        show_context_requirements(Path(args.index_dir))
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

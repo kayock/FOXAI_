@@ -1,0 +1,7207 @@
+{
+  "record_count": 1200,
+  "records": [
+    {
+      "language": "python",
+      "line": 170,
+      "path": "AI\\kobold_engine_adapter.py",
+      "text": "echo."
+    },
+    {
+      "language": "python",
+      "line": 171,
+      "path": "AI\\kobold_engine_adapter.py",
+      "text": "echo Leave this window open."
+    },
+    {
+      "language": "python",
+      "line": 172,
+      "path": "AI\\kobold_engine_adapter.py",
+      "text": "echo When KoboldCpp finishes loading, return to the Bridge."
+    },
+    {
+      "language": "python",
+      "line": 173,
+      "path": "AI\\kobold_engine_adapter.py",
+      "text": "echo."
+    },
+    {
+      "language": "python",
+      "line": 174,
+      "path": "AI\\kobold_engine_adapter.py",
+      "text": "{cmd}"
+    },
+    {
+      "language": "python",
+      "line": 175,
+      "path": "AI\\kobold_engine_adapter.py",
+      "text": "pause"
+    },
+    {
+      "language": "python",
+      "line": 176,
+      "path": "AI\\kobold_engine_adapter.py",
+      "text": "\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 177,
+      "path": "AI\\kobold_engine_adapter.py",
+      "text": "launcher_path = GATEWAY / \"START_KOBOLD_ENGINE.bat\""
+    },
+    {
+      "language": "python",
+      "line": 178,
+      "path": "AI\\kobold_engine_adapter.py",
+      "text": "launcher_path.write_text(launcher, encoding=\"utf-8\")"
+    },
+    {
+      "language": "python",
+      "line": 180,
+      "path": "AI\\kobold_engine_adapter.py",
+      "text": "state = {"
+    },
+    {
+      "language": "python",
+      "line": 181,
+      "path": "AI\\kobold_engine_adapter.py",
+      "text": "\"generated_at\": datetime.datetime.now().isoformat(timespec=\"seconds\"),"
+    },
+    {
+      "language": "python",
+      "line": 182,
+      "path": "AI\\kobold_engine_adapter.py",
+      "text": "\"feature\": \"Feature 004C - Kobold Core Repair\","
+    },
+    {
+      "language": "python",
+      "line": 183,
+      "path": "AI\\kobold_engine_adapter.py",
+      "text": "\"engine_path\": str(exe) if exe else None,"
+    },
+    {
+      "language": "python",
+      "line": 184,
+      "path": "AI\\kobold_engine_adapter.py",
+      "text": "\"engine_exists\": bool(exe),"
+    },
+    {
+      "language": "python",
+      "line": 185,
+      "path": "AI\\kobold_engine_adapter.py",
+      "text": "\"model_path\": str(model) if model else None,"
+    },
+    {
+      "language": "python",
+      "line": 186,
+      "path": "AI\\kobold_engine_adapter.py",
+      "text": "\"model_exists\": bool(model),"
+    },
+    {
+      "language": "python",
+      "line": 187,
+      "path": "AI\\kobold_engine_adapter.py",
+      "text": "\"launcher\": str(launcher_path),"
+    },
+    {
+      "language": "python",
+      "line": 188,
+      "path": "AI\\kobold_engine_adapter.py",
+      "text": "\"health\": kobold_health(),"
+    },
+    {
+      "language": "python",
+      "line": 189,
+      "path": "AI\\kobold_engine_adapter.py",
+      "text": "\"config\": str(CONFIG),"
+    },
+    {
+      "language": "python",
+      "line": 190,
+      "path": "AI\\kobold_engine_adapter.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 191,
+      "path": "AI\\kobold_engine_adapter.py",
+      "text": "save_json(STATE, state)"
+    },
+    {
+      "language": "python",
+      "line": 192,
+      "path": "AI\\kobold_engine_adapter.py",
+      "text": "return state"
+    },
+    {
+      "language": "python",
+      "line": 194,
+      "path": "AI\\kobold_engine_adapter.py",
+      "text": "def chat(prompt):"
+    },
+    {
+      "language": "python",
+      "line": 195,
+      "path": "AI\\kobold_engine_adapter.py",
+      "text": "cfg = load_json(CONFIG, {})"
+    },
+    {
+      "language": "python",
+      "line": 196,
+      "path": "AI\\kobold_engine_adapter.py",
+      "text": "base = cfg.get(\"base_url\", BASE_URL)"
+    },
+    {
+      "language": "python",
+      "line": 197,
+      "path": "AI\\kobold_engine_adapter.py",
+      "text": "model_name = Path(cfg.get(\"selected_model_path\") or \"koboldcpp\").name"
+    },
+    {
+      "language": "python",
+      "line": 199,
+      "path": "AI\\kobold_engine_adapter.py",
+      "text": "system = \"You are a helpful local professor inside KayocktheOS. Be clear, practical, and advisor-only.\""
+    },
+    {
+      "language": "python",
+      "line": 200,
+      "path": "AI\\kobold_engine_adapter.py",
+      "text": "openai_payload = {"
+    },
+    {
+      "language": "python",
+      "line": 201,
+      "path": "AI\\kobold_engine_adapter.py",
+      "text": "\"model\": model_name,"
+    },
+    {
+      "language": "python",
+      "line": 202,
+      "path": "AI\\kobold_engine_adapter.py",
+      "text": "\"messages\": ["
+    },
+    {
+      "language": "python",
+      "line": 203,
+      "path": "AI\\kobold_engine_adapter.py",
+      "text": "{\"role\": \"system\", \"content\": system},"
+    },
+    {
+      "language": "python",
+      "line": 204,
+      "path": "AI\\kobold_engine_adapter.py",
+      "text": "{\"role\": \"user\", \"content\": prompt}"
+    },
+    {
+      "language": "python",
+      "line": 205,
+      "path": "AI\\kobold_engine_adapter.py",
+      "text": "],"
+    },
+    {
+      "language": "python",
+      "line": 206,
+      "path": "AI\\kobold_engine_adapter.py",
+      "text": "\"temperature\": 0.4,"
+    },
+    {
+      "language": "python",
+      "line": 207,
+      "path": "AI\\kobold_engine_adapter.py",
+      "text": "\"max_tokens\": 800,"
+    },
+    {
+      "language": "python",
+      "line": 208,
+      "path": "AI\\kobold_engine_adapter.py",
+      "text": "\"stream\": False"
+    },
+    {
+      "language": "python",
+      "line": 209,
+      "path": "AI\\kobold_engine_adapter.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 211,
+      "path": "AI\\kobold_engine_adapter.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 212,
+      "path": "AI\\kobold_engine_adapter.py",
+      "text": "data = post_json(base + \"/v1/chat/completions\", openai_payload)"
+    },
+    {
+      "language": "python",
+      "line": 213,
+      "path": "AI\\kobold_engine_adapter.py",
+      "text": "text = data.get(\"choices\", [{}])[0].get(\"message\", {}).get(\"content\")"
+    },
+    {
+      "language": "python",
+      "line": 214,
+      "path": "AI\\kobold_engine_adapter.py",
+      "text": "if text:"
+    },
+    {
+      "language": "python",
+      "line": 215,
+      "path": "AI\\kobold_engine_adapter.py",
+      "text": "return {\"ok\": True, \"response\": text, \"raw\": data, \"engine\": \"koboldcpp-openai\"}"
+    },
+    {
+      "language": "python",
+      "line": 216,
+      "path": "AI\\kobold_engine_adapter.py",
+      "text": "except Exception as openai_exc:"
+    },
+    {
+      "language": "python",
+      "line": 217,
+      "path": "AI\\kobold_engine_adapter.py",
+      "text": "openai_error = str(openai_exc)"
+    },
+    {
+      "language": "python",
+      "line": 219,
+      "path": "AI\\kobold_engine_adapter.py",
+      "text": "native_payload = {"
+    },
+    {
+      "language": "python",
+      "line": 220,
+      "path": "AI\\kobold_engine_adapter.py",
+      "text": "\"prompt\": f\"{system}\\n\\nOperator: {prompt}\\nProfessor:\","
+    },
+    {
+      "language": "python",
+      "line": 221,
+      "path": "AI\\kobold_engine_adapter.py",
+      "text": "\"max_length\": 800,"
+    },
+    {
+      "language": "python",
+      "line": 222,
+      "path": "AI\\kobold_engine_adapter.py",
+      "text": "\"temperature\": 0.4"
+    },
+    {
+      "language": "python",
+      "line": 223,
+      "path": "AI\\kobold_engine_adapter.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 225,
+      "path": "AI\\kobold_engine_adapter.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 226,
+      "path": "AI\\kobold_engine_adapter.py",
+      "text": "data = post_json(base + \"/api/v1/generate\", native_payload)"
+    },
+    {
+      "language": "python",
+      "line": 227,
+      "path": "AI\\kobold_engine_adapter.py",
+      "text": "text = \"\""
+    },
+    {
+      "language": "python",
+      "line": 228,
+      "path": "AI\\kobold_engine_adapter.py",
+      "text": "results = data.get(\"results\") if isinstance(data, dict) else None"
+    },
+    {
+      "language": "python",
+      "line": 229,
+      "path": "AI\\kobold_engine_adapter.py",
+      "text": "if isinstance(results, list) and results:"
+    },
+    {
+      "language": "python",
+      "line": 230,
+      "path": "AI\\kobold_engine_adapter.py",
+      "text": "text = results[0].get(\"text\", \"\")"
+    },
+    {
+      "language": "python",
+      "line": 231,
+      "path": "AI\\kobold_engine_adapter.py",
+      "text": "text = text or (data.get(\"text\") if isinstance(data, dict) else \"\") or json.dumps(data)[:1200]"
+    },
+    {
+      "language": "python",
+      "line": 232,
+      "path": "AI\\kobold_engine_adapter.py",
+      "text": "return {\"ok\": True, \"response\": text, \"raw\": data, \"engine\": \"koboldcpp-native\"}"
+    },
+    {
+      "language": "python",
+      "line": 233,
+      "path": "AI\\kobold_engine_adapter.py",
+      "text": "except Exception as native_exc:"
+    },
+    {
+      "language": "python",
+      "line": 234,
+      "path": "AI\\kobold_engine_adapter.py",
+      "text": "return {"
+    },
+    {
+      "language": "python",
+      "line": 235,
+      "path": "AI\\kobold_engine_adapter.py",
+      "text": "\"ok\": False,"
+    },
+    {
+      "language": "python",
+      "line": 236,
+      "path": "AI\\kobold_engine_adapter.py",
+      "text": "\"message\": \"KoboldCpp did not answer. Start AI\\\\Gateway\\\\START_KOBOLD_ENGINE.bat and wait for loading to complete.\","
+    },
+    {
+      "language": "python",
+      "line": 237,
+      "path": "AI\\kobold_engine_adapter.py",
+      "text": "\"openai_error\": openai_error,"
+    },
+    {
+      "language": "python",
+      "line": 238,
+      "path": "AI\\kobold_engine_adapter.py",
+      "text": "\"native_error\": str(native_exc),"
+    },
+    {
+      "language": "python",
+      "line": 239,
+      "path": "AI\\kobold_engine_adapter.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 241,
+      "path": "AI\\kobold_engine_adapter.py",
+      "text": "if __name__ == \"__main__\":"
+    },
+    {
+      "language": "python",
+      "line": 242,
+      "path": "AI\\kobold_engine_adapter.py",
+      "text": "print(json.dumps(write_config_and_launcher(), indent=2))"
+    },
+    {
+      "language": "python",
+      "line": 1,
+      "path": "AI\\local_chat.py",
+      "text": "from pathlib import Path"
+    },
+    {
+      "language": "python",
+      "line": 2,
+      "path": "AI\\local_chat.py",
+      "text": "import json"
+    },
+    {
+      "language": "python",
+      "line": 3,
+      "path": "AI\\local_chat.py",
+      "text": "import datetime"
+    },
+    {
+      "language": "python",
+      "line": 4,
+      "path": "AI\\local_chat.py",
+      "text": "import subprocess"
+    },
+    {
+      "language": "python",
+      "line": 5,
+      "path": "AI\\local_chat.py",
+      "text": "import sys"
+    },
+    {
+      "language": "python",
+      "line": 6,
+      "path": "AI\\local_chat.py",
+      "text": "import urllib.request"
+    },
+    {
+      "language": "python",
+      "line": 7,
+      "path": "AI\\local_chat.py",
+      "text": "import urllib.error"
+    },
+    {
+      "language": "python",
+      "line": 8,
+      "path": "AI\\local_chat.py",
+      "text": "import time"
+    },
+    {
+      "language": "python",
+      "line": 10,
+      "path": "AI\\local_chat.py",
+      "text": "ROOT = Path(__file__).resolve().parents[1]"
+    },
+    {
+      "language": "python",
+      "line": 11,
+      "path": "AI\\local_chat.py",
+      "text": "FOXAI_ROOT = Path(\"Z:/FOXAI\")"
+    },
+    {
+      "language": "python",
+      "line": 12,
+      "path": "AI\\local_chat.py",
+      "text": "GATEWAY_DIR = ROOT / \"AI\" / \"Gateway\""
+    },
+    {
+      "language": "python",
+      "line": 13,
+      "path": "AI\\local_chat.py",
+      "text": "CONFIG_PATH = GATEWAY_DIR / \"gateway_config.json\""
+    },
+    {
+      "language": "python",
+      "line": 14,
+      "path": "AI\\local_chat.py",
+      "text": "CHAT_STATE = GATEWAY_DIR / \"local_chat_state.json\""
+    },
+    {
+      "language": "python",
+      "line": 16,
+      "path": "AI\\local_chat.py",
+      "text": "DEFAULT_CONFIG = {"
+    },
+    {
+      "language": "python",
+      "line": 17,
+      "path": "AI\\local_chat.py",
+      "text": "\"mode\": \"advisor_only\","
+    },
+    {
+      "language": "python",
+      "line": 18,
+      "path": "AI\\local_chat.py",
+      "text": "\"write_access\": False,"
+    },
+    {
+      "language": "python",
+      "line": 19,
+      "path": "AI\\local_chat.py",
+      "text": "\"operator_approval_required\": True,"
+    },
+    {
+      "language": "python",
+      "line": 20,
+      "path": "AI\\local_chat.py",
+      "text": "\"active_runtime\": \"openai_compatible\","
+    },
+    {
+      "language": "python",
+      "line": 21,
+      "path": "AI\\local_chat.py",
+      "text": "\"chat_endpoint\": \"http://127.0.0.1:8845/v1/chat/completions\","
+    },
+    {
+      "language": "python",
+      "line": 22,
+      "path": "AI\\local_chat.py",
+      "text": "\"runtime_base\": \"http://127.0.0.1:8845\","
+    },
+    {
+      "language": "python",
+      "line": 23,
+      "path": "AI\\local_chat.py",
+      "text": "\"active_chat_model\": \"local-model\","
+    },
+    {
+      "language": "python",
+      "line": 24,
+      "path": "AI\\local_chat.py",
+      "text": "\"selected_model_path\": None,"
+    },
+    {
+      "language": "python",
+      "line": 25,
+      "path": "AI\\local_chat.py",
+      "text": "\"timeout_seconds\": 180,"
+    },
+    {
+      "language": "python",
+      "line": 26,
+      "path": "AI\\local_chat.py",
+      "text": "\"temperature\": 0.4,"
+    },
+    {
+      "language": "python",
+      "line": 27,
+      "path": "AI\\local_chat.py",
+      "text": "\"max_tokens\": 1024,"
+    },
+    {
+      "language": "python",
+      "line": 28,
+      "path": "AI\\local_chat.py",
+      "text": "\"runtime_command\": None"
+    },
+    {
+      "language": "python",
+      "line": 29,
+      "path": "AI\\local_chat.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 31,
+      "path": "AI\\local_chat.py",
+      "text": "def load_json(path, default):"
+    },
+    {
+      "language": "python",
+      "line": 32,
+      "path": "AI\\local_chat.py",
+      "text": "if path.exists():"
+    },
+    {
+      "language": "python",
+      "line": 33,
+      "path": "AI\\local_chat.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 34,
+      "path": "AI\\local_chat.py",
+      "text": "return json.loads(path.read_text(encoding=\"utf-8\"))"
+    },
+    {
+      "language": "python",
+      "line": 35,
+      "path": "AI\\local_chat.py",
+      "text": "except Exception:"
+    },
+    {
+      "language": "python",
+      "line": 36,
+      "path": "AI\\local_chat.py",
+      "text": "return default"
+    },
+    {
+      "language": "python",
+      "line": 37,
+      "path": "AI\\local_chat.py",
+      "text": "return default"
+    },
+    {
+      "language": "python",
+      "line": 39,
+      "path": "AI\\local_chat.py",
+      "text": "def save_json(path, data):"
+    },
+    {
+      "language": "python",
+      "line": 40,
+      "path": "AI\\local_chat.py",
+      "text": "path.parent.mkdir(parents=True, exist_ok=True)"
+    },
+    {
+      "language": "python",
+      "line": 41,
+      "path": "AI\\local_chat.py",
+      "text": "path.write_text(json.dumps(data, indent=2), encoding=\"utf-8\")"
+    },
+    {
+      "language": "python",
+      "line": 43,
+      "path": "AI\\local_chat.py",
+      "text": "def load_config():"
+    },
+    {
+      "language": "python",
+      "line": 44,
+      "path": "AI\\local_chat.py",
+      "text": "config = {**DEFAULT_CONFIG, **load_json(CONFIG_PATH, {})}"
+    },
+    {
+      "language": "python",
+      "line": 45,
+      "path": "AI\\local_chat.py",
+      "text": "save_json(CONFIG_PATH, config)"
+    },
+    {
+      "language": "python",
+      "line": 46,
+      "path": "AI\\local_chat.py",
+      "text": "return config"
+    },
+    {
+      "language": "python",
+      "line": 48,
+      "path": "AI\\local_chat.py",
+      "text": "def foxai_models():"
+    },
+    {
+      "language": "python",
+      "line": 49,
+      "path": "AI\\local_chat.py",
+      "text": "inv = ROOT / \"AI\" / \"Inventory\" / \"foxai_inventory.json\""
+    },
+    {
+      "language": "python",
+      "line": 50,
+      "path": "AI\\local_chat.py",
+      "text": "data = load_json(inv, None)"
+    },
+    {
+      "language": "python",
+      "line": 51,
+      "path": "AI\\local_chat.py",
+      "text": "if data:"
+    },
+    {
+      "language": "python",
+      "line": 52,
+      "path": "AI\\local_chat.py",
+      "text": "return data.get(\"assets\", {}).get(\"llms\", [])"
+    },
+    {
+      "language": "python",
+      "line": 53,
+      "path": "AI\\local_chat.py",
+      "text": "if not FOXAI_ROOT.exists():"
+    },
+    {
+      "language": "python",
+      "line": 54,
+      "path": "AI\\local_chat.py",
+      "text": "return []"
+    },
+    {
+      "language": "python",
+      "line": 55,
+      "path": "AI\\local_chat.py",
+      "text": "models = []"
+    },
+    {
+      "language": "python",
+      "line": 56,
+      "path": "AI\\local_chat.py",
+      "text": "for p in FOXAI_ROOT.rglob(\"*.gguf\"):"
+    },
+    {
+      "language": "python",
+      "line": 57,
+      "path": "AI\\local_chat.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 58,
+      "path": "AI\\local_chat.py",
+      "text": "models.append({"
+    },
+    {
+      "language": "python",
+      "line": 59,
+      "path": "AI\\local_chat.py",
+      "text": "\"name\": p.name,"
+    },
+    {
+      "language": "python",
+      "line": 60,
+      "path": "AI\\local_chat.py",
+      "text": "\"path\": str(p),"
+    },
+    {
+      "language": "python",
+      "line": 61,
+      "path": "AI\\local_chat.py",
+      "text": "\"size_gb\": round(p.stat().st_size / (1024**3), 3),"
+    },
+    {
+      "language": "python",
+      "line": 62,
+      "path": "AI\\local_chat.py",
+      "text": "\"capabilities\": infer_caps(p.name)"
+    },
+    {
+      "language": "python",
+      "line": 63,
+      "path": "AI\\local_chat.py",
+      "text": "})"
+    },
+    {
+      "language": "python",
+      "line": 64,
+      "path": "AI\\local_chat.py",
+      "text": "except Exception:"
+    },
+    {
+      "language": "python",
+      "line": 65,
+      "path": "AI\\local_chat.py",
+      "text": "pass"
+    },
+    {
+      "language": "python",
+      "line": 66,
+      "path": "AI\\local_chat.py",
+      "text": "return sorted(models, key=lambda x: x[\"name\"].lower())"
+    },
+    {
+      "language": "python",
+      "line": 68,
+      "path": "AI\\local_chat.py",
+      "text": "def infer_caps(name):"
+    },
+    {
+      "language": "python",
+      "line": 69,
+      "path": "AI\\local_chat.py",
+      "text": "n = name.lower()"
+    },
+    {
+      "language": "python",
+      "line": 70,
+      "path": "AI\\local_chat.py",
+      "text": "caps = [\"chat\"]"
+    },
+    {
+      "language": "python",
+      "line": 71,
+      "path": "AI\\local_chat.py",
+      "text": "if \"coder\" in n or \"code\" in n:"
+    },
+    {
+      "language": "python",
+      "line": 72,
+      "path": "AI\\local_chat.py",
+      "text": "caps.append(\"coding\")"
+    },
+    {
+      "language": "python",
+      "line": 73,
+      "path": "AI\\local_chat.py",
+      "text": "if \"deepseek\" in n or \"r1\" in n:"
+    },
+    {
+      "language": "python",
+      "line": 74,
+      "path": "AI\\local_chat.py",
+      "text": "caps.append(\"reasoning\")"
+    },
+    {
+      "language": "python",
+      "line": 75,
+      "path": "AI\\local_chat.py",
+      "text": "if \"vl\" in n or \"vision\" in n:"
+    },
+    {
+      "language": "python",
+      "line": 76,
+      "path": "AI\\local_chat.py",
+      "text": "caps.append(\"vision\")"
+    },
+    {
+      "language": "python",
+      "line": 77,
+      "path": "AI\\local_chat.py",
+      "text": "return sorted(set(caps))"
+    },
+    {
+      "language": "python",
+      "line": 79,
+      "path": "AI\\local_chat.py",
+      "text": "def recommend_default_model():"
+    },
+    {
+      "language": "python",
+      "line": 80,
+      "path": "AI\\local_chat.py",
+      "text": "models = foxai_models()"
+    },
+    {
+      "language": "python",
+      "line": 81,
+      "path": "AI\\local_chat.py",
+      "text": "if not models:"
+    },
+    {
+      "language": "python",
+      "line": 82,
+      "path": "AI\\local_chat.py",
+      "text": "return None"
+    },
+    {
+      "language": "python",
+      "line": 83,
+      "path": "AI\\local_chat.py",
+      "text": "scored = []"
+    },
+    {
+      "language": "python",
+      "line": 84,
+      "path": "AI\\local_chat.py",
+      "text": "for m in models:"
+    },
+    {
+      "language": "python",
+      "line": 85,
+      "path": "AI\\local_chat.py",
+      "text": "name = m.get(\"name\",\"\").lower()"
+    },
+    {
+      "language": "python",
+      "line": 86,
+      "path": "AI\\local_chat.py",
+      "text": "score = 0"
+    },
+    {
+      "language": "python",
+      "line": 87,
+      "path": "AI\\local_chat.py",
+      "text": "if \"deepseek\" in name and \"14b\" in name:"
+    },
+    {
+      "language": "python",
+      "line": 88,
+      "path": "AI\\local_chat.py",
+      "text": "score += 10"
+    },
+    {
+      "language": "python",
+      "line": 89,
+      "path": "AI\\local_chat.py",
+      "text": "if \"qwen\" in name and (\"8b\" in name or \"q4\" in name):"
+    },
+    {
+      "language": "python",
+      "line": 90,
+      "path": "AI\\local_chat.py",
+      "text": "score += 8"
+    },
+    {
+      "language": "python",
+      "line": 91,
+      "path": "AI\\local_chat.py",
+      "text": "if \"q4\" in name:"
+    },
+    {
+      "language": "python",
+      "line": 92,
+      "path": "AI\\local_chat.py",
+      "text": "score += 5"
+    },
+    {
+      "language": "python",
+      "line": 93,
+      "path": "AI\\local_chat.py",
+      "text": "if \"coder\" in name:"
+    },
+    {
+      "language": "python",
+      "line": 94,
+      "path": "AI\\local_chat.py",
+      "text": "score += 3"
+    },
+    {
+      "language": "python",
+      "line": 95,
+      "path": "AI\\local_chat.py",
+      "text": "if \"32b\" in name or \"30b\" in name:"
+    },
+    {
+      "language": "python",
+      "line": 96,
+      "path": "AI\\local_chat.py",
+      "text": "score -= 4"
+    },
+    {
+      "language": "python",
+      "line": 97,
+      "path": "AI\\local_chat.py",
+      "text": "scored.append((score, m))"
+    },
+    {
+      "language": "python",
+      "line": 98,
+      "path": "AI\\local_chat.py",
+      "text": "return sorted(scored, key=lambda x: (-x[0], x[1].get(\"size_gb\", 999)))[0][1]"
+    },
+    {
+      "language": "python",
+      "line": 100,
+      "path": "AI\\local_chat.py",
+      "text": "def configure_default():"
+    },
+    {
+      "language": "python",
+      "line": 101,
+      "path": "AI\\local_chat.py",
+      "text": "config = load_config()"
+    },
+    {
+      "language": "python",
+      "line": 102,
+      "path": "AI\\local_chat.py",
+      "text": "if not config.get(\"selected_model_path\"):"
+    },
+    {
+      "language": "python",
+      "line": 103,
+      "path": "AI\\local_chat.py",
+      "text": "model = recommend_default_model()"
+    },
+    {
+      "language": "python",
+      "line": 104,
+      "path": "AI\\local_chat.py",
+      "text": "if model:"
+    },
+    {
+      "language": "python",
+      "line": 105,
+      "path": "AI\\local_chat.py",
+      "text": "config[\"selected_model_path\"] = model[\"path\"]"
+    },
+    {
+      "language": "python",
+      "line": 106,
+      "path": "AI\\local_chat.py",
+      "text": "config[\"active_chat_model\"] = model[\"name\"]"
+    },
+    {
+      "language": "python",
+      "line": 107,
+      "path": "AI\\local_chat.py",
+      "text": "save_json(CONFIG_PATH, config)"
+    },
+    {
+      "language": "python",
+      "line": 108,
+      "path": "AI\\local_chat.py",
+      "text": "return config"
+    },
+    {
+      "language": "python",
+      "line": 110,
+      "path": "AI\\local_chat.py",
+      "text": "def runtime_health():"
+    },
+    {
+      "language": "python",
+      "line": 111,
+      "path": "AI\\local_chat.py",
+      "text": "config = load_config()"
+    },
+    {
+      "language": "python",
+      "line": 112,
+      "path": "AI\\local_chat.py",
+      "text": "base = config.get(\"runtime_base\") or \"http://127.0.0.1:8845\""
+    },
+    {
+      "language": "python",
+      "line": 113,
+      "path": "AI\\local_chat.py",
+      "text": "for url in [base + \"/v1/models\", base + \"/health\", base]:"
+    },
+    {
+      "language": "python",
+      "line": 114,
+      "path": "AI\\local_chat.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 115,
+      "path": "AI\\local_chat.py",
+      "text": "with urllib.request.urlopen(url, timeout=2) as res:"
+    },
+    {
+      "language": "python",
+      "line": 116,
+      "path": "AI\\local_chat.py",
+      "text": "return {\"online\": True, \"message\": f\"responded at {url}\", \"base\": base}"
+    },
+    {
+      "language": "python",
+      "line": 117,
+      "path": "AI\\local_chat.py",
+      "text": "except Exception:"
+    },
+    {
+      "language": "python",
+      "line": 118,
+      "path": "AI\\local_chat.py",
+      "text": "pass"
+    },
+    {
+      "language": "python",
+      "line": 119,
+      "path": "AI\\local_chat.py",
+      "text": "return {\"online\": False, \"message\": \"runtime offline\", \"base\": base}"
+    },
+    {
+      "language": "python",
+      "line": 121,
+      "path": "AI\\local_chat.py",
+      "text": "def write_launch_files():"
+    },
+    {
+      "language": "python",
+      "line": 122,
+      "path": "AI\\local_chat.py",
+      "text": "config = configure_default()"
+    },
+    {
+      "language": "python",
+      "line": 123,
+      "path": "AI\\local_chat.py",
+      "text": "model_path = config.get(\"selected_model_path\") or \"PASTE_MODEL_PATH_HERE.gguf\""
+    },
+    {
+      "language": "python",
+      "line": 124,
+      "path": "AI\\local_chat.py",
+      "text": "launch_dir = ROOT / \"AI\" / \"Gateway\""
+    },
+    {
+      "language": "python",
+      "line": 125,
+      "path": "AI\\local_chat.py",
+      "text": "launch_dir.mkdir(parents=True, exist_ok=True)"
+    },
+    {
+      "language": "python",
+      "line": 127,
+      "path": "AI\\local_chat.py",
+      "text": "bat = f'''@echo off"
+    },
+    {
+      "language": "python",
+      "line": 128,
+      "path": "AI\\local_chat.py",
+      "text": "title KayocktheOS Local Chat Runtime"
+    },
+    {
+      "language": "python",
+      "line": 129,
+      "path": "AI\\local_chat.py",
+      "text": "color 0A"
+    },
+    {
+      "language": "python",
+      "line": 130,
+      "path": "AI\\local_chat.py",
+      "text": "echo =========================================="
+    },
+    {
+      "language": "python",
+      "line": 131,
+      "path": "AI\\local_chat.py",
+      "text": "echo KayocktheOS Local Chat Runtime"
+    },
+    {
+      "language": "python",
+      "line": 132,
+      "path": "AI\\local_chat.py",
+      "text": "echo =========================================="
+    },
+    {
+      "language": "python",
+      "line": 133,
+      "path": "AI\\local_chat.py",
+      "text": "echo."
+    },
+    {
+      "language": "python",
+      "line": 134,
+      "path": "AI\\local_chat.py",
+      "text": "echo This starter expects an OpenAI-compatible local server on port 8845."
+    },
+    {
+      "language": "python",
+      "line": 135,
+      "path": "AI\\local_chat.py",
+      "text": "echo."
+    },
+    {
+      "language": "python",
+      "line": 136,
+      "path": "AI\\local_chat.py",
+      "text": "echo Selected model:"
+    },
+    {
+      "language": "python",
+      "line": 137,
+      "path": "AI\\local_chat.py",
+      "text": "echo {model_path}"
+    },
+    {
+      "language": "python",
+      "line": 138,
+      "path": "AI\\local_chat.py",
+      "text": "echo."
+    },
+    {
+      "language": "python",
+      "line": 139,
+      "path": "AI\\local_chat.py",
+      "text": "echo Option A: If using llamafile, run something like:"
+    },
+    {
+      "language": "python",
+      "line": 140,
+      "path": "AI\\local_chat.py",
+      "text": "echo llamafile.exe -m \"{model_path}\" --server --host 127.0.0.1 --port 8845"
+    },
+    {
+      "language": "python",
+      "line": 141,
+      "path": "AI\\local_chat.py",
+      "text": "echo."
+    },
+    {
+      "language": "python",
+      "line": 142,
+      "path": "AI\\local_chat.py",
+      "text": "echo Option B: If using llama.cpp server, run something like:"
+    },
+    {
+      "language": "python",
+      "line": 143,
+      "path": "AI\\local_chat.py",
+      "text": "echo llama-server.exe -m \"{model_path}\" --host 127.0.0.1 --port 8845"
+    },
+    {
+      "language": "python",
+      "line": 144,
+      "path": "AI\\local_chat.py",
+      "text": "echo."
+    },
+    {
+      "language": "python",
+      "line": 145,
+      "path": "AI\\local_chat.py",
+      "text": "echo After the runtime is started, test:"
+    },
+    {
+      "language": "python",
+      "line": 146,
+      "path": "AI\\local_chat.py",
+      "text": "echo http://127.0.0.1:8844/api/runtime"
+    },
+    {
+      "language": "python",
+      "line": 147,
+      "path": "AI\\local_chat.py",
+      "text": "echo."
+    },
+    {
+      "language": "python",
+      "line": 148,
+      "path": "AI\\local_chat.py",
+      "text": "pause"
+    },
+    {
+      "language": "python",
+      "line": 149,
+      "path": "AI\\local_chat.py",
+      "text": "'''"
+    },
+    {
+      "language": "python",
+      "line": 150,
+      "path": "AI\\local_chat.py",
+      "text": "(launch_dir / \"START_LOCAL_CHAT_RUNTIME.bat\").write_text(bat, encoding=\"utf-8\")"
+    },
+    {
+      "language": "python",
+      "line": 152,
+      "path": "AI\\local_chat.py",
+      "text": "state = {"
+    },
+    {
+      "language": "python",
+      "line": 153,
+      "path": "AI\\local_chat.py",
+      "text": "\"generated_at\": datetime.datetime.now().isoformat(timespec=\"seconds\"),"
+    },
+    {
+      "language": "python",
+      "line": 154,
+      "path": "AI\\local_chat.py",
+      "text": "\"selected_model_path\": model_path,"
+    },
+    {
+      "language": "python",
+      "line": 155,
+      "path": "AI\\local_chat.py",
+      "text": "\"selected_model_name\": config.get(\"active_chat_model\"),"
+    },
+    {
+      "language": "python",
+      "line": 156,
+      "path": "AI\\local_chat.py",
+      "text": "\"runtime_base\": config.get(\"runtime_base\"),"
+    },
+    {
+      "language": "python",
+      "line": 157,
+      "path": "AI\\local_chat.py",
+      "text": "\"health\": runtime_health(),"
+    },
+    {
+      "language": "python",
+      "line": 158,
+      "path": "AI\\local_chat.py",
+      "text": "\"note\": \"This feature creates launch guidance first. Automatic process launch comes after we confirm the runtime executable path.\""
+    },
+    {
+      "language": "python",
+      "line": 159,
+      "path": "AI\\local_chat.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 160,
+      "path": "AI\\local_chat.py",
+      "text": "save_json(CHAT_STATE, state)"
+    },
+    {
+      "language": "python",
+      "line": 161,
+      "path": "AI\\local_chat.py",
+      "text": "return state"
+    },
+    {
+      "language": "python",
+      "line": 163,
+      "path": "AI\\local_chat.py",
+      "text": "def chat_status():"
+    },
+    {
+      "language": "python",
+      "line": 164,
+      "path": "AI\\local_chat.py",
+      "text": "config = configure_default()"
+    },
+    {
+      "language": "python",
+      "line": 165,
+      "path": "AI\\local_chat.py",
+      "text": "return {"
+    },
+    {
+      "language": "python",
+      "line": 166,
+      "path": "AI\\local_chat.py",
+      "text": "\"generated_at\": datetime.datetime.now().isoformat(timespec=\"seconds\"),"
+    },
+    {
+      "language": "python",
+      "line": 167,
+      "path": "AI\\local_chat.py",
+      "text": "\"feature\": \"Feature 001 - Local Chat\","
+    },
+    {
+      "language": "python",
+      "line": 168,
+      "path": "AI\\local_chat.py",
+      "text": "\"configured\": bool(config.get(\"selected_model_path\")),"
+    },
+    {
+      "language": "python",
+      "line": 169,
+      "path": "AI\\local_chat.py",
+      "text": "\"selected_model\": config.get(\"active_chat_model\"),"
+    },
+    {
+      "language": "python",
+      "line": 170,
+      "path": "AI\\local_chat.py",
+      "text": "\"selected_model_path\": config.get(\"selected_model_path\"),"
+    },
+    {
+      "language": "python",
+      "line": 171,
+      "path": "AI\\local_chat.py",
+      "text": "\"runtime\": runtime_health(),"
+    },
+    {
+      "language": "python",
+      "line": 172,
+      "path": "AI\\local_chat.py",
+      "text": "\"available_models\": foxai_models()[:20],"
+    },
+    {
+      "language": "python",
+      "line": 173,
+      "path": "AI\\local_chat.py",
+      "text": "\"launch_helper\": \"AI/Gateway/START_LOCAL_CHAT_RUNTIME.bat\""
+    },
+    {
+      "language": "python",
+      "line": 174,
+      "path": "AI\\local_chat.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 176,
+      "path": "AI\\local_chat.py",
+      "text": "if __name__ == \"__main__\":"
+    },
+    {
+      "language": "python",
+      "line": 177,
+      "path": "AI\\local_chat.py",
+      "text": "write_launch_files()"
+    },
+    {
+      "language": "python",
+      "line": 178,
+      "path": "AI\\local_chat.py",
+      "text": "print(json.dumps(chat_status(), indent=2))"
+    },
+    {
+      "language": "python",
+      "line": 1,
+      "path": "AI\\local_runtime.py",
+      "text": "from pathlib import Path"
+    },
+    {
+      "language": "python",
+      "line": 2,
+      "path": "AI\\local_runtime.py",
+      "text": "import json"
+    },
+    {
+      "language": "python",
+      "line": 3,
+      "path": "AI\\local_runtime.py",
+      "text": "import urllib.request"
+    },
+    {
+      "language": "python",
+      "line": 4,
+      "path": "AI\\local_runtime.py",
+      "text": "import urllib.error"
+    },
+    {
+      "language": "python",
+      "line": 5,
+      "path": "AI\\local_runtime.py",
+      "text": "import datetime"
+    },
+    {
+      "language": "python",
+      "line": 7,
+      "path": "AI\\local_runtime.py",
+      "text": "ROOT = Path(__file__).resolve().parents[1]"
+    },
+    {
+      "language": "python",
+      "line": 8,
+      "path": "AI\\local_runtime.py",
+      "text": "CONFIG_DIR = ROOT / \"AI\" / \"Gateway\""
+    },
+    {
+      "language": "python",
+      "line": 9,
+      "path": "AI\\local_runtime.py",
+      "text": "CONFIG_PATH = CONFIG_DIR / \"gateway_config.json\""
+    },
+    {
+      "language": "python",
+      "line": 11,
+      "path": "AI\\local_runtime.py",
+      "text": "DEFAULT_CONFIG = {"
+    },
+    {
+      "language": "python",
+      "line": 12,
+      "path": "AI\\local_runtime.py",
+      "text": "\"mode\": \"advisor_only\","
+    },
+    {
+      "language": "python",
+      "line": 13,
+      "path": "AI\\local_runtime.py",
+      "text": "\"write_access\": False,"
+    },
+    {
+      "language": "python",
+      "line": 14,
+      "path": "AI\\local_runtime.py",
+      "text": "\"operator_approval_required\": True,"
+    },
+    {
+      "language": "python",
+      "line": 15,
+      "path": "AI\\local_runtime.py",
+      "text": "\"active_runtime\": \"openai_compatible\","
+    },
+    {
+      "language": "python",
+      "line": 16,
+      "path": "AI\\local_runtime.py",
+      "text": "\"chat_endpoint\": \"http://127.0.0.1:8845/v1/chat/completions\","
+    },
+    {
+      "language": "python",
+      "line": 17,
+      "path": "AI\\local_runtime.py",
+      "text": "\"active_chat_model\": \"local-model\","
+    },
+    {
+      "language": "python",
+      "line": 18,
+      "path": "AI\\local_runtime.py",
+      "text": "\"timeout_seconds\": 120,"
+    },
+    {
+      "language": "python",
+      "line": 19,
+      "path": "AI\\local_runtime.py",
+      "text": "\"temperature\": 0.4,"
+    },
+    {
+      "language": "python",
+      "line": 20,
+      "path": "AI\\local_runtime.py",
+      "text": "\"max_tokens\": 1024"
+    },
+    {
+      "language": "python",
+      "line": 21,
+      "path": "AI\\local_runtime.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 23,
+      "path": "AI\\local_runtime.py",
+      "text": "def load_config():"
+    },
+    {
+      "language": "python",
+      "line": 24,
+      "path": "AI\\local_runtime.py",
+      "text": "CONFIG_DIR.mkdir(parents=True, exist_ok=True)"
+    },
+    {
+      "language": "python",
+      "line": 25,
+      "path": "AI\\local_runtime.py",
+      "text": "if CONFIG_PATH.exists():"
+    },
+    {
+      "language": "python",
+      "line": 26,
+      "path": "AI\\local_runtime.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 27,
+      "path": "AI\\local_runtime.py",
+      "text": "loaded = json.loads(CONFIG_PATH.read_text(encoding=\"utf-8\"))"
+    },
+    {
+      "language": "python",
+      "line": 28,
+      "path": "AI\\local_runtime.py",
+      "text": "merged = {**DEFAULT_CONFIG, **loaded}"
+    },
+    {
+      "language": "python",
+      "line": 29,
+      "path": "AI\\local_runtime.py",
+      "text": "CONFIG_PATH.write_text(json.dumps(merged, indent=2), encoding=\"utf-8\")"
+    },
+    {
+      "language": "python",
+      "line": 30,
+      "path": "AI\\local_runtime.py",
+      "text": "return merged"
+    },
+    {
+      "language": "python",
+      "line": 31,
+      "path": "AI\\local_runtime.py",
+      "text": "except Exception:"
+    },
+    {
+      "language": "python",
+      "line": 32,
+      "path": "AI\\local_runtime.py",
+      "text": "pass"
+    },
+    {
+      "language": "python",
+      "line": 33,
+      "path": "AI\\local_runtime.py",
+      "text": "CONFIG_PATH.write_text(json.dumps(DEFAULT_CONFIG, indent=2), encoding=\"utf-8\")"
+    },
+    {
+      "language": "python",
+      "line": 34,
+      "path": "AI\\local_runtime.py",
+      "text": "return DEFAULT_CONFIG.copy()"
+    },
+    {
+      "language": "python",
+      "line": 36,
+      "path": "AI\\local_runtime.py",
+      "text": "def runtime_health():"
+    },
+    {
+      "language": "python",
+      "line": 37,
+      "path": "AI\\local_runtime.py",
+      "text": "config = load_config()"
+    },
+    {
+      "language": "python",
+      "line": 38,
+      "path": "AI\\local_runtime.py",
+      "text": "endpoint = config.get(\"chat_endpoint\")"
+    },
+    {
+      "language": "python",
+      "line": 39,
+      "path": "AI\\local_runtime.py",
+      "text": "base = endpoint.rsplit(\"/v1/\", 1)[0] if endpoint and \"/v1/\" in endpoint else \"http://127.0.0.1:8845\""
+    },
+    {
+      "language": "python",
+      "line": 40,
+      "path": "AI\\local_runtime.py",
+      "text": "health = {"
+    },
+    {
+      "language": "python",
+      "line": 41,
+      "path": "AI\\local_runtime.py",
+      "text": "\"generated_at\": datetime.datetime.now().isoformat(timespec=\"seconds\"),"
+    },
+    {
+      "language": "python",
+      "line": 42,
+      "path": "AI\\local_runtime.py",
+      "text": "\"configured\": bool(endpoint),"
+    },
+    {
+      "language": "python",
+      "line": 43,
+      "path": "AI\\local_runtime.py",
+      "text": "\"endpoint\": endpoint,"
+    },
+    {
+      "language": "python",
+      "line": 44,
+      "path": "AI\\local_runtime.py",
+      "text": "\"base\": base,"
+    },
+    {
+      "language": "python",
+      "line": 45,
+      "path": "AI\\local_runtime.py",
+      "text": "\"runtime\": config.get(\"active_runtime\"),"
+    },
+    {
+      "language": "python",
+      "line": 46,
+      "path": "AI\\local_runtime.py",
+      "text": "\"online\": False,"
+    },
+    {
+      "language": "python",
+      "line": 47,
+      "path": "AI\\local_runtime.py",
+      "text": "\"message\": \"offline\""
+    },
+    {
+      "language": "python",
+      "line": 48,
+      "path": "AI\\local_runtime.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 50,
+      "path": "AI\\local_runtime.py",
+      "text": "for test_url in [base + \"/v1/models\", base + \"/health\", base]:"
+    },
+    {
+      "language": "python",
+      "line": 51,
+      "path": "AI\\local_runtime.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 52,
+      "path": "AI\\local_runtime.py",
+      "text": "req = urllib.request.Request(test_url, method=\"GET\")"
+    },
+    {
+      "language": "python",
+      "line": 53,
+      "path": "AI\\local_runtime.py",
+      "text": "with urllib.request.urlopen(req, timeout=2) as res:"
+    },
+    {
+      "language": "python",
+      "line": 54,
+      "path": "AI\\local_runtime.py",
+      "text": "health[\"online\"] = True"
+    },
+    {
+      "language": "python",
+      "line": 55,
+      "path": "AI\\local_runtime.py",
+      "text": "health[\"message\"] = f\"responded at {test_url}\""
+    },
+    {
+      "language": "python",
+      "line": 56,
+      "path": "AI\\local_runtime.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 57,
+      "path": "AI\\local_runtime.py",
+      "text": "health[\"probe\"] = json.loads(res.read().decode(\"utf-8\", errors=\"replace\"))"
+    },
+    {
+      "language": "python",
+      "line": 58,
+      "path": "AI\\local_runtime.py",
+      "text": "except Exception:"
+    },
+    {
+      "language": "python",
+      "line": 59,
+      "path": "AI\\local_runtime.py",
+      "text": "health[\"probe\"] = \"non-json response\""
+    },
+    {
+      "language": "python",
+      "line": 60,
+      "path": "AI\\local_runtime.py",
+      "text": "return health"
+    },
+    {
+      "language": "python",
+      "line": 61,
+      "path": "AI\\local_runtime.py",
+      "text": "except Exception:"
+    },
+    {
+      "language": "python",
+      "line": 62,
+      "path": "AI\\local_runtime.py",
+      "text": "continue"
+    },
+    {
+      "language": "python",
+      "line": 63,
+      "path": "AI\\local_runtime.py",
+      "text": "return health"
+    },
+    {
+      "language": "python",
+      "line": 65,
+      "path": "AI\\local_runtime.py",
+      "text": "def chat(prompt, context=None):"
+    },
+    {
+      "language": "python",
+      "line": 66,
+      "path": "AI\\local_runtime.py",
+      "text": "config = load_config()"
+    },
+    {
+      "language": "python",
+      "line": 67,
+      "path": "AI\\local_runtime.py",
+      "text": "endpoint = config.get(\"chat_endpoint\")"
+    },
+    {
+      "language": "python",
+      "line": 68,
+      "path": "AI\\local_runtime.py",
+      "text": "if not endpoint:"
+    },
+    {
+      "language": "python",
+      "line": 69,
+      "path": "AI\\local_runtime.py",
+      "text": "return {"
+    },
+    {
+      "language": "python",
+      "line": 70,
+      "path": "AI\\local_runtime.py",
+      "text": "\"ok\": False,"
+    },
+    {
+      "language": "python",
+      "line": 71,
+      "path": "AI\\local_runtime.py",
+      "text": "\"message\": \"No local runtime endpoint configured.\","
+    },
+    {
+      "language": "python",
+      "line": 72,
+      "path": "AI\\local_runtime.py",
+      "text": "\"next_step\": \"Set AI/Gateway/gateway_config.json chat_endpoint.\""
+    },
+    {
+      "language": "python",
+      "line": 73,
+      "path": "AI\\local_runtime.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 75,
+      "path": "AI\\local_runtime.py",
+      "text": "messages = []"
+    },
+    {
+      "language": "python",
+      "line": 76,
+      "path": "AI\\local_runtime.py",
+      "text": "messages.append({"
+    },
+    {
+      "language": "python",
+      "line": 77,
+      "path": "AI\\local_runtime.py",
+      "text": "\"role\": \"system\","
+    },
+    {
+      "language": "python",
+      "line": 78,
+      "path": "AI\\local_runtime.py",
+      "text": "\"content\": ("
+    },
+    {
+      "language": "python",
+      "line": 79,
+      "path": "AI\\local_runtime.py",
+      "text": "\"You are the local KayocktheOS AI advisor. \""
+    },
+    {
+      "language": "python",
+      "line": 80,
+      "path": "AI\\local_runtime.py",
+      "text": "\"You are advisor-only. Do not claim you changed files. \""
+    },
+    {
+      "language": "python",
+      "line": 81,
+      "path": "AI\\local_runtime.py",
+      "text": "\"When proposing project changes, describe them clearly and wait for Operator approval.\""
+    },
+    {
+      "language": "python",
+      "line": 82,
+      "path": "AI\\local_runtime.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 83,
+      "path": "AI\\local_runtime.py",
+      "text": "})"
+    },
+    {
+      "language": "python",
+      "line": 84,
+      "path": "AI\\local_runtime.py",
+      "text": "if context:"
+    },
+    {
+      "language": "python",
+      "line": 85,
+      "path": "AI\\local_runtime.py",
+      "text": "messages.append({\"role\": \"system\", \"content\": \"Context: \" + json.dumps(context)[:4000]})"
+    },
+    {
+      "language": "python",
+      "line": 86,
+      "path": "AI\\local_runtime.py",
+      "text": "messages.append({\"role\": \"user\", \"content\": str(prompt or \"\")})"
+    },
+    {
+      "language": "python",
+      "line": 88,
+      "path": "AI\\local_runtime.py",
+      "text": "payload = {"
+    },
+    {
+      "language": "python",
+      "line": 89,
+      "path": "AI\\local_runtime.py",
+      "text": "\"model\": config.get(\"active_chat_model\") or \"local-model\","
+    },
+    {
+      "language": "python",
+      "line": 90,
+      "path": "AI\\local_runtime.py",
+      "text": "\"messages\": messages,"
+    },
+    {
+      "language": "python",
+      "line": 91,
+      "path": "AI\\local_runtime.py",
+      "text": "\"temperature\": config.get(\"temperature\", 0.4),"
+    },
+    {
+      "language": "python",
+      "line": 92,
+      "path": "AI\\local_runtime.py",
+      "text": "\"max_tokens\": config.get(\"max_tokens\", 1024),"
+    },
+    {
+      "language": "python",
+      "line": 93,
+      "path": "AI\\local_runtime.py",
+      "text": "\"stream\": False"
+    },
+    {
+      "language": "python",
+      "line": 94,
+      "path": "AI\\local_runtime.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 96,
+      "path": "AI\\local_runtime.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 97,
+      "path": "AI\\local_runtime.py",
+      "text": "data = json.dumps(payload).encode(\"utf-8\")"
+    },
+    {
+      "language": "python",
+      "line": 98,
+      "path": "AI\\local_runtime.py",
+      "text": "req = urllib.request.Request("
+    },
+    {
+      "language": "python",
+      "line": 99,
+      "path": "AI\\local_runtime.py",
+      "text": "endpoint,"
+    },
+    {
+      "language": "python",
+      "line": 100,
+      "path": "AI\\local_runtime.py",
+      "text": "data=data,"
+    },
+    {
+      "language": "python",
+      "line": 101,
+      "path": "AI\\local_runtime.py",
+      "text": "headers={\"Content-Type\": \"application/json\"},"
+    },
+    {
+      "language": "python",
+      "line": 102,
+      "path": "AI\\local_runtime.py",
+      "text": "method=\"POST\""
+    },
+    {
+      "language": "python",
+      "line": 103,
+      "path": "AI\\local_runtime.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 104,
+      "path": "AI\\local_runtime.py",
+      "text": "with urllib.request.urlopen(req, timeout=int(config.get(\"timeout_seconds\", 120))) as res:"
+    },
+    {
+      "language": "python",
+      "line": 105,
+      "path": "AI\\local_runtime.py",
+      "text": "raw = res.read().decode(\"utf-8\", errors=\"replace\")"
+    },
+    {
+      "language": "python",
+      "line": 106,
+      "path": "AI\\local_runtime.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 107,
+      "path": "AI\\local_runtime.py",
+      "text": "response = json.loads(raw)"
+    },
+    {
+      "language": "python",
+      "line": 108,
+      "path": "AI\\local_runtime.py",
+      "text": "except Exception:"
+    },
+    {
+      "language": "python",
+      "line": 109,
+      "path": "AI\\local_runtime.py",
+      "text": "return {\"ok\": True, \"raw\": raw}"
+    },
+    {
+      "language": "python",
+      "line": 111,
+      "path": "AI\\local_runtime.py",
+      "text": "text = \"\""
+    },
+    {
+      "language": "python",
+      "line": 112,
+      "path": "AI\\local_runtime.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 113,
+      "path": "AI\\local_runtime.py",
+      "text": "text = response[\"choices\"][0][\"message\"][\"content\"]"
+    },
+    {
+      "language": "python",
+      "line": 114,
+      "path": "AI\\local_runtime.py",
+      "text": "except Exception:"
+    },
+    {
+      "language": "python",
+      "line": 115,
+      "path": "AI\\local_runtime.py",
+      "text": "text = json.dumps(response)[:4000]"
+    },
+    {
+      "language": "python",
+      "line": 117,
+      "path": "AI\\local_runtime.py",
+      "text": "return {"
+    },
+    {
+      "language": "python",
+      "line": 118,
+      "path": "AI\\local_runtime.py",
+      "text": "\"ok\": True,"
+    },
+    {
+      "language": "python",
+      "line": 119,
+      "path": "AI\\local_runtime.py",
+      "text": "\"runtime\": config.get(\"active_runtime\"),"
+    },
+    {
+      "language": "python",
+      "line": 120,
+      "path": "AI\\local_runtime.py",
+      "text": "\"endpoint\": endpoint,"
+    },
+    {
+      "language": "python",
+      "line": 121,
+      "path": "AI\\local_runtime.py",
+      "text": "\"model\": payload[\"model\"],"
+    },
+    {
+      "language": "python",
+      "line": 122,
+      "path": "AI\\local_runtime.py",
+      "text": "\"response\": text,"
+    },
+    {
+      "language": "python",
+      "line": 123,
+      "path": "AI\\local_runtime.py",
+      "text": "\"raw\": response"
+    },
+    {
+      "language": "python",
+      "line": 124,
+      "path": "AI\\local_runtime.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 125,
+      "path": "AI\\local_runtime.py",
+      "text": "except urllib.error.URLError as exc:"
+    },
+    {
+      "language": "python",
+      "line": 126,
+      "path": "AI\\local_runtime.py",
+      "text": "return {"
+    },
+    {
+      "language": "python",
+      "line": 127,
+      "path": "AI\\local_runtime.py",
+      "text": "\"ok\": False,"
+    },
+    {
+      "language": "python",
+      "line": 128,
+      "path": "AI\\local_runtime.py",
+      "text": "\"message\": \"Local model runtime is not reachable.\","
+    },
+    {
+      "language": "python",
+      "line": 129,
+      "path": "AI\\local_runtime.py",
+      "text": "\"error\": str(exc),"
+    },
+    {
+      "language": "python",
+      "line": 130,
+      "path": "AI\\local_runtime.py",
+      "text": "\"next_step\": \"Start llamafile or llama.cpp server on port 8845.\""
+    },
+    {
+      "language": "python",
+      "line": 131,
+      "path": "AI\\local_runtime.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 132,
+      "path": "AI\\local_runtime.py",
+      "text": "except Exception as exc:"
+    },
+    {
+      "language": "python",
+      "line": 133,
+      "path": "AI\\local_runtime.py",
+      "text": "return {\"ok\": False, \"message\": \"Local chat request failed.\", \"error\": str(exc)}"
+    },
+    {
+      "language": "python",
+      "line": 135,
+      "path": "AI\\local_runtime.py",
+      "text": "if __name__ == \"__main__\":"
+    },
+    {
+      "language": "python",
+      "line": 136,
+      "path": "AI\\local_runtime.py",
+      "text": "print(json.dumps(runtime_health(), indent=2))"
+    },
+    {
+      "language": "python",
+      "line": 1,
+      "path": "AI\\model_profiles.py",
+      "text": "from pathlib import Path"
+    },
+    {
+      "language": "python",
+      "line": 2,
+      "path": "AI\\model_profiles.py",
+      "text": "import json"
+    },
+    {
+      "language": "python",
+      "line": 3,
+      "path": "AI\\model_profiles.py",
+      "text": "import datetime"
+    },
+    {
+      "language": "python",
+      "line": 5,
+      "path": "AI\\model_profiles.py",
+      "text": "ROOT = Path(__file__).resolve().parents[1]"
+    },
+    {
+      "language": "python",
+      "line": 6,
+      "path": "AI\\model_profiles.py",
+      "text": "FOXAI = Path(\"Z:/FOXAI\")"
+    },
+    {
+      "language": "python",
+      "line": 7,
+      "path": "AI\\model_profiles.py",
+      "text": "GATEWAY = ROOT / \"AI\" / \"Gateway\""
+    },
+    {
+      "language": "python",
+      "line": 8,
+      "path": "AI\\model_profiles.py",
+      "text": "PROFILES = GATEWAY / \"model_profiles.json\""
+    },
+    {
+      "language": "python",
+      "line": 9,
+      "path": "AI\\model_profiles.py",
+      "text": "ACTIVE = GATEWAY / \"active_model_profile.json\""
+    },
+    {
+      "language": "python",
+      "line": 10,
+      "path": "AI\\model_profiles.py",
+      "text": "CONFIG = GATEWAY / \"engine_adapter_config.json\""
+    },
+    {
+      "language": "python",
+      "line": 12,
+      "path": "AI\\model_profiles.py",
+      "text": "DEFAULT_PROFILES = {"
+    },
+    {
+      "language": "python",
+      "line": 13,
+      "path": "AI\\model_profiles.py",
+      "text": "\"safe\": {"
+    },
+    {
+      "language": "python",
+      "line": 14,
+      "path": "AI\\model_profiles.py",
+      "text": "\"label\": \"Safe Portable\","
+    },
+    {
+      "language": "python",
+      "line": 15,
+      "path": "AI\\model_profiles.py",
+      "text": "\"description\": \"Best default for this USB and midrange machines.\","
+    },
+    {
+      "language": "python",
+      "line": 16,
+      "path": "AI\\model_profiles.py",
+      "text": "\"model\": \"Z:/FOXAI/Models/Chat/DeepSeek-R1-Distill-Qwen-14B-Q4_K_M.gguf\","
+    },
+    {
+      "language": "python",
+      "line": 17,
+      "path": "AI\\model_profiles.py",
+      "text": "\"context_tokens\": 4096,"
+    },
+    {
+      "language": "python",
+      "line": 18,
+      "path": "AI\\model_profiles.py",
+      "text": "\"purpose\": [\"chat\", \"reasoning\", \"architecture\"],"
+    },
+    {
+      "language": "python",
+      "line": 19,
+      "path": "AI\\model_profiles.py",
+      "text": "\"default\": True"
+    },
+    {
+      "language": "python",
+      "line": 20,
+      "path": "AI\\model_profiles.py",
+      "text": "},"
+    },
+    {
+      "language": "python",
+      "line": 21,
+      "path": "AI\\model_profiles.py",
+      "text": "\"power\": {"
+    },
+    {
+      "language": "python",
+      "line": 22,
+      "path": "AI\\model_profiles.py",
+      "text": "\"label\": \"Power Workstation\","
+    },
+    {
+      "language": "python",
+      "line": 23,
+      "path": "AI\\model_profiles.py",
+      "text": "\"description\": \"For stronger computers with more RAM/VRAM.\","
+    },
+    {
+      "language": "python",
+      "line": 24,
+      "path": "AI\\model_profiles.py",
+      "text": "\"model\": \"Z:/FOXAI/Models/Chat/Qwen3-Coder-30B-A3B-Instruct-Q4_K_M.gguf\","
+    },
+    {
+      "language": "python",
+      "line": 25,
+      "path": "AI\\model_profiles.py",
+      "text": "\"context_tokens\": 4096,"
+    },
+    {
+      "language": "python",
+      "line": 26,
+      "path": "AI\\model_profiles.py",
+      "text": "\"purpose\": [\"coding\", \"engineering\", \"large reasoning\"],"
+    },
+    {
+      "language": "python",
+      "line": 27,
+      "path": "AI\\model_profiles.py",
+      "text": "\"default\": False"
+    },
+    {
+      "language": "python",
+      "line": 28,
+      "path": "AI\\model_profiles.py",
+      "text": "},"
+    },
+    {
+      "language": "python",
+      "line": 29,
+      "path": "AI\\model_profiles.py",
+      "text": "\"vision\": {"
+    },
+    {
+      "language": "python",
+      "line": 30,
+      "path": "AI\\model_profiles.py",
+      "text": "\"label\": \"Vision\","
+    },
+    {
+      "language": "python",
+      "line": 31,
+      "path": "AI\\model_profiles.py",
+      "text": "\"description\": \"For image/vision tasks. Not the default chat model.\","
+    },
+    {
+      "language": "python",
+      "line": 32,
+      "path": "AI\\model_profiles.py",
+      "text": "\"model\": \"Z:/FOXAI/Models/Chat/Qwen3VL-8B-Instruct-Q4_K_M.gguf\","
+    },
+    {
+      "language": "python",
+      "line": 33,
+      "path": "AI\\model_profiles.py",
+      "text": "\"context_tokens\": 2048,"
+    },
+    {
+      "language": "python",
+      "line": 34,
+      "path": "AI\\model_profiles.py",
+      "text": "\"purpose\": [\"vision\", \"image analysis\"],"
+    },
+    {
+      "language": "python",
+      "line": 35,
+      "path": "AI\\model_profiles.py",
+      "text": "\"default\": False"
+    },
+    {
+      "language": "python",
+      "line": 36,
+      "path": "AI\\model_profiles.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 37,
+      "path": "AI\\model_profiles.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 39,
+      "path": "AI\\model_profiles.py",
+      "text": "def load_json(path, default):"
+    },
+    {
+      "language": "python",
+      "line": 40,
+      "path": "AI\\model_profiles.py",
+      "text": "if path.exists():"
+    },
+    {
+      "language": "python",
+      "line": 41,
+      "path": "AI\\model_profiles.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 42,
+      "path": "AI\\model_profiles.py",
+      "text": "return json.loads(path.read_text(encoding=\"utf-8\"))"
+    },
+    {
+      "language": "python",
+      "line": 43,
+      "path": "AI\\model_profiles.py",
+      "text": "except Exception:"
+    },
+    {
+      "language": "python",
+      "line": 44,
+      "path": "AI\\model_profiles.py",
+      "text": "return default"
+    },
+    {
+      "language": "python",
+      "line": 45,
+      "path": "AI\\model_profiles.py",
+      "text": "return default"
+    },
+    {
+      "language": "python",
+      "line": 47,
+      "path": "AI\\model_profiles.py",
+      "text": "def save_json(path, data):"
+    },
+    {
+      "language": "python",
+      "line": 48,
+      "path": "AI\\model_profiles.py",
+      "text": "path.parent.mkdir(parents=True, exist_ok=True)"
+    },
+    {
+      "language": "python",
+      "line": 49,
+      "path": "AI\\model_profiles.py",
+      "text": "path.write_text(json.dumps(data, indent=2), encoding=\"utf-8\")"
+    },
+    {
+      "language": "python",
+      "line": 51,
+      "path": "AI\\model_profiles.py",
+      "text": "def materialize_profiles():"
+    },
+    {
+      "language": "python",
+      "line": 52,
+      "path": "AI\\model_profiles.py",
+      "text": "profiles = load_json(PROFILES, DEFAULT_PROFILES)"
+    },
+    {
+      "language": "python",
+      "line": 53,
+      "path": "AI\\model_profiles.py",
+      "text": "changed = False"
+    },
+    {
+      "language": "python",
+      "line": 55,
+      "path": "AI\\model_profiles.py",
+      "text": "for key, val in DEFAULT_PROFILES.items():"
+    },
+    {
+      "language": "python",
+      "line": 56,
+      "path": "AI\\model_profiles.py",
+      "text": "if key not in profiles:"
+    },
+    {
+      "language": "python",
+      "line": 57,
+      "path": "AI\\model_profiles.py",
+      "text": "profiles[key] = val"
+    },
+    {
+      "language": "python",
+      "line": 58,
+      "path": "AI\\model_profiles.py",
+      "text": "changed = True"
+    },
+    {
+      "language": "python",
+      "line": 60,
+      "path": "AI\\model_profiles.py",
+      "text": "# Add existence flags dynamically."
+    },
+    {
+      "language": "python",
+      "line": 61,
+      "path": "AI\\model_profiles.py",
+      "text": "for key, val in profiles.items():"
+    },
+    {
+      "language": "python",
+      "line": 62,
+      "path": "AI\\model_profiles.py",
+      "text": "p = Path(val.get(\"model\", \"\"))"
+    },
+    {
+      "language": "python",
+      "line": 63,
+      "path": "AI\\model_profiles.py",
+      "text": "val[\"model_exists\"] = p.exists()"
+    },
+    {
+      "language": "python",
+      "line": 64,
+      "path": "AI\\model_profiles.py",
+      "text": "val[\"model_name\"] = p.name if p.name else \"Unknown\""
+    },
+    {
+      "language": "python",
+      "line": 66,
+      "path": "AI\\model_profiles.py",
+      "text": "if changed or not PROFILES.exists():"
+    },
+    {
+      "language": "python",
+      "line": 67,
+      "path": "AI\\model_profiles.py",
+      "text": "save_json(PROFILES, profiles)"
+    },
+    {
+      "language": "python",
+      "line": 69,
+      "path": "AI\\model_profiles.py",
+      "text": "active = load_json(ACTIVE, {})"
+    },
+    {
+      "language": "python",
+      "line": 70,
+      "path": "AI\\model_profiles.py",
+      "text": "if not active.get(\"profile\"):"
+    },
+    {
+      "language": "python",
+      "line": 71,
+      "path": "AI\\model_profiles.py",
+      "text": "active = {\"profile\": \"safe\", \"updated_at\": datetime.datetime.now().isoformat(timespec=\"seconds\")}"
+    },
+    {
+      "language": "python",
+      "line": 72,
+      "path": "AI\\model_profiles.py",
+      "text": "save_json(ACTIVE, active)"
+    },
+    {
+      "language": "python",
+      "line": 74,
+      "path": "AI\\model_profiles.py",
+      "text": "return profiles, active"
+    },
+    {
+      "language": "python",
+      "line": 76,
+      "path": "AI\\model_profiles.py",
+      "text": "def get_active_profile():"
+    },
+    {
+      "language": "python",
+      "line": 77,
+      "path": "AI\\model_profiles.py",
+      "text": "profiles, active = materialize_profiles()"
+    },
+    {
+      "language": "python",
+      "line": 78,
+      "path": "AI\\model_profiles.py",
+      "text": "key = active.get(\"profile\", \"safe\")"
+    },
+    {
+      "language": "python",
+      "line": 79,
+      "path": "AI\\model_profiles.py",
+      "text": "if key not in profiles:"
+    },
+    {
+      "language": "python",
+      "line": 80,
+      "path": "AI\\model_profiles.py",
+      "text": "key = \"safe\""
+    },
+    {
+      "language": "python",
+      "line": 81,
+      "path": "AI\\model_profiles.py",
+      "text": "return key, profiles[key], profiles"
+    },
+    {
+      "language": "python",
+      "line": 83,
+      "path": "AI\\model_profiles.py",
+      "text": "def set_profile(profile):"
+    },
+    {
+      "language": "python",
+      "line": 84,
+      "path": "AI\\model_profiles.py",
+      "text": "profiles, _ = materialize_profiles()"
+    },
+    {
+      "language": "python",
+      "line": 85,
+      "path": "AI\\model_profiles.py",
+      "text": "if profile not in profiles:"
+    },
+    {
+      "language": "python",
+      "line": 86,
+      "path": "AI\\model_profiles.py",
+      "text": "return {\"ok\": False, \"error\": f\"Unknown profile: {profile}\", \"available\": list(profiles.keys())}"
+    },
+    {
+      "language": "python",
+      "line": 87,
+      "path": "AI\\model_profiles.py",
+      "text": "save_json(ACTIVE, {\"profile\": profile, \"updated_at\": datetime.datetime.now().isoformat(timespec=\"seconds\")})"
+    },
+    {
+      "language": "python",
+      "line": 88,
+      "path": "AI\\model_profiles.py",
+      "text": "apply_active_profile()"
+    },
+    {
+      "language": "python",
+      "line": 89,
+      "path": "AI\\model_profiles.py",
+      "text": "return {\"ok\": True, \"profile\": profile, \"active\": profiles[profile]}"
+    },
+    {
+      "language": "python",
+      "line": 91,
+      "path": "AI\\model_profiles.py",
+      "text": "def apply_active_profile():"
+    },
+    {
+      "language": "python",
+      "line": 92,
+      "path": "AI\\model_profiles.py",
+      "text": "key, profile, profiles = get_active_profile()"
+    },
+    {
+      "language": "python",
+      "line": 93,
+      "path": "AI\\model_profiles.py",
+      "text": "cfg = load_json(CONFIG, {})"
+    },
+    {
+      "language": "python",
+      "line": 94,
+      "path": "AI\\model_profiles.py",
+      "text": "cfg.update({"
+    },
+    {
+      "language": "python",
+      "line": 95,
+      "path": "AI\\model_profiles.py",
+      "text": "\"model_profile\": key,"
+    },
+    {
+      "language": "python",
+      "line": 96,
+      "path": "AI\\model_profiles.py",
+      "text": "\"active_chat_model\": profile.get(\"model_name\") or Path(profile.get(\"model\", \"\")).name,"
+    },
+    {
+      "language": "python",
+      "line": 97,
+      "path": "AI\\model_profiles.py",
+      "text": "\"selected_model_path\": profile.get(\"model\"),"
+    },
+    {
+      "language": "python",
+      "line": 98,
+      "path": "AI\\model_profiles.py",
+      "text": "\"context_tokens\": profile.get(\"context_tokens\", 4096),"
+    },
+    {
+      "language": "python",
+      "line": 99,
+      "path": "AI\\model_profiles.py",
+      "text": "\"model_profile_label\": profile.get(\"label\"),"
+    },
+    {
+      "language": "python",
+      "line": 100,
+      "path": "AI\\model_profiles.py",
+      "text": "\"model_profile_description\": profile.get(\"description\"),"
+    },
+    {
+      "language": "python",
+      "line": 101,
+      "path": "AI\\model_profiles.py",
+      "text": "})"
+    },
+    {
+      "language": "python",
+      "line": 102,
+      "path": "AI\\model_profiles.py",
+      "text": "save_json(CONFIG, cfg)"
+    },
+    {
+      "language": "python",
+      "line": 103,
+      "path": "AI\\model_profiles.py",
+      "text": "rewrite_launcher(cfg)"
+    },
+    {
+      "language": "python",
+      "line": 104,
+      "path": "AI\\model_profiles.py",
+      "text": "return {\"ok\": True, \"profile\": key, \"config\": cfg, \"profiles\": profiles}"
+    },
+    {
+      "language": "python",
+      "line": 106,
+      "path": "AI\\model_profiles.py",
+      "text": "def quote(value):"
+    },
+    {
+      "language": "python",
+      "line": 107,
+      "path": "AI\\model_profiles.py",
+      "text": "return '\"' + str(value).replace('\"', '') + '\"'"
+    },
+    {
+      "language": "python",
+      "line": 109,
+      "path": "AI\\model_profiles.py",
+      "text": "def rewrite_launcher(cfg):"
+    },
+    {
+      "language": "python",
+      "line": 110,
+      "path": "AI\\model_profiles.py",
+      "text": "engine = cfg.get(\"selected_engine_path\") or \"Z:/KayocktheOS/Engine/KoboldCpp/koboldcpp.exe\""
+    },
+    {
+      "language": "python",
+      "line": 111,
+      "path": "AI\\model_profiles.py",
+      "text": "model = cfg.get(\"selected_model_path\")"
+    },
+    {
+      "language": "python",
+      "line": 112,
+      "path": "AI\\model_profiles.py",
+      "text": "context = cfg.get(\"context_tokens\", 4096)"
+    },
+    {
+      "language": "python",
+      "line": 113,
+      "path": "AI\\model_profiles.py",
+      "text": "port = cfg.get(\"port\", 5001)"
+    },
+    {
+      "language": "python",
+      "line": 115,
+      "path": "AI\\model_profiles.py",
+      "text": "launcher_path = GATEWAY / \"START_KOBOLD_ENGINE.bat\""
+    },
+    {
+      "language": "python",
+      "line": 116,
+      "path": "AI\\model_profiles.py",
+      "text": "if not model:"
+    },
+    {
+      "language": "python",
+      "line": 117,
+      "path": "AI\\model_profiles.py",
+      "text": "text = \"\"\"@echo off"
+    },
+    {
+      "language": "python",
+      "line": 118,
+      "path": "AI\\model_profiles.py",
+      "text": "title KayocktheOS KoboldCpp Engine"
+    },
+    {
+      "language": "python",
+      "line": 119,
+      "path": "AI\\model_profiles.py",
+      "text": "color 0C"
+    },
+    {
+      "language": "python",
+      "line": 120,
+      "path": "AI\\model_profiles.py",
+      "text": "echo No active model profile selected."
+    },
+    {
+      "language": "python",
+      "line": 121,
+      "path": "AI\\model_profiles.py",
+      "text": "pause"
+    },
+    {
+      "language": "python",
+      "line": 122,
+      "path": "AI\\model_profiles.py",
+      "text": "\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 123,
+      "path": "AI\\model_profiles.py",
+      "text": "else:"
+    },
+    {
+      "language": "python",
+      "line": 124,
+      "path": "AI\\model_profiles.py",
+      "text": "text = f\"\"\"@echo off"
+    },
+    {
+      "language": "python",
+      "line": 125,
+      "path": "AI\\model_profiles.py",
+      "text": "title KayocktheOS KoboldCpp Engine - {cfg.get('model_profile_label', 'Profile')}"
+    },
+    {
+      "language": "python",
+      "line": 126,
+      "path": "AI\\model_profiles.py",
+      "text": "color 0A"
+    },
+    {
+      "language": "python",
+      "line": 127,
+      "path": "AI\\model_profiles.py",
+      "text": "echo =========================================="
+    },
+    {
+      "language": "python",
+      "line": 128,
+      "path": "AI\\model_profiles.py",
+      "text": "echo KayocktheOS KoboldCpp Engine Adapter"
+    },
+    {
+      "language": "python",
+      "line": 129,
+      "path": "AI\\model_profiles.py",
+      "text": "echo Profile: {cfg.get('model_profile_label', 'Unknown')}"
+    },
+    {
+      "language": "python",
+      "line": 130,
+      "path": "AI\\model_profiles.py",
+      "text": "echo =========================================="
+    },
+    {
+      "language": "python",
+      "line": 131,
+      "path": "AI\\model_profiles.py",
+      "text": "echo."
+    },
+    {
+      "language": "python",
+      "line": 132,
+      "path": "AI\\model_profiles.py",
+      "text": "echo Engine:"
+    },
+    {
+      "language": "python",
+      "line": 133,
+      "path": "AI\\model_profiles.py",
+      "text": "echo {engine}"
+    },
+    {
+      "language": "python",
+      "line": 134,
+      "path": "AI\\model_profiles.py",
+      "text": "echo."
+    },
+    {
+      "language": "python",
+      "line": 135,
+      "path": "AI\\model_profiles.py",
+      "text": "echo Model:"
+    },
+    {
+      "language": "python",
+      "line": 136,
+      "path": "AI\\model_profiles.py",
+      "text": "echo {model}"
+    },
+    {
+      "language": "python",
+      "line": 137,
+      "path": "AI\\model_profiles.py",
+      "text": "echo."
+    },
+    {
+      "language": "python",
+      "line": 138,
+      "path": "AI\\model_profiles.py",
+      "text": "echo Context:"
+    },
+    {
+      "language": "python",
+      "line": 139,
+      "path": "AI\\model_profiles.py",
+      "text": "echo {context}"
+    },
+    {
+      "language": "python",
+      "line": 140,
+      "path": "AI\\model_profiles.py",
+      "text": "echo."
+    },
+    {
+      "language": "python",
+      "line": 141,
+      "path": "AI\\model_profiles.py",
+      "text": "echo Server:"
+    },
+    {
+      "language": "python",
+      "line": 142,
+      "path": "AI\\model_profiles.py",
+      "text": "echo http://127.0.0.1:{port}"
+    },
+    {
+      "language": "python",
+      "line": 143,
+      "path": "AI\\model_profiles.py",
+      "text": "echo."
+    },
+    {
+      "language": "python",
+      "line": 144,
+      "path": "AI\\model_profiles.py",
+      "text": "echo Leave this window open."
+    },
+    {
+      "language": "python",
+      "line": 145,
+      "path": "AI\\model_profiles.py",
+      "text": "echo."
+    },
+    {
+      "language": "python",
+      "line": 146,
+      "path": "AI\\model_profiles.py",
+      "text": "{quote(engine)} --model {quote(model)} --port {port} --contextsize {context}"
+    },
+    {
+      "language": "python",
+      "line": 147,
+      "path": "AI\\model_profiles.py",
+      "text": "pause"
+    },
+    {
+      "language": "python",
+      "line": 148,
+      "path": "AI\\model_profiles.py",
+      "text": "\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 149,
+      "path": "AI\\model_profiles.py",
+      "text": "launcher_path.parent.mkdir(parents=True, exist_ok=True)"
+    },
+    {
+      "language": "python",
+      "line": 150,
+      "path": "AI\\model_profiles.py",
+      "text": "launcher_path.write_text(text, encoding=\"utf-8\")"
+    },
+    {
+      "language": "python",
+      "line": 152,
+      "path": "AI\\model_profiles.py",
+      "text": "def status():"
+    },
+    {
+      "language": "python",
+      "line": 153,
+      "path": "AI\\model_profiles.py",
+      "text": "profiles, active = materialize_profiles()"
+    },
+    {
+      "language": "python",
+      "line": 154,
+      "path": "AI\\model_profiles.py",
+      "text": "applied = apply_active_profile()"
+    },
+    {
+      "language": "python",
+      "line": 155,
+      "path": "AI\\model_profiles.py",
+      "text": "return {"
+    },
+    {
+      "language": "python",
+      "line": 156,
+      "path": "AI\\model_profiles.py",
+      "text": "\"generated_at\": datetime.datetime.now().isoformat(timespec=\"seconds\"),"
+    },
+    {
+      "language": "python",
+      "line": 157,
+      "path": "AI\\model_profiles.py",
+      "text": "\"feature\": \"Feature 004D - Model Profiles\","
+    },
+    {
+      "language": "python",
+      "line": 158,
+      "path": "AI\\model_profiles.py",
+      "text": "\"active\": active,"
+    },
+    {
+      "language": "python",
+      "line": 159,
+      "path": "AI\\model_profiles.py",
+      "text": "\"profiles\": profiles,"
+    },
+    {
+      "language": "python",
+      "line": 160,
+      "path": "AI\\model_profiles.py",
+      "text": "\"applied\": applied"
+    },
+    {
+      "language": "python",
+      "line": 161,
+      "path": "AI\\model_profiles.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 163,
+      "path": "AI\\model_profiles.py",
+      "text": "if __name__ == \"__main__\":"
+    },
+    {
+      "language": "python",
+      "line": 164,
+      "path": "AI\\model_profiles.py",
+      "text": "print(json.dumps(status(), indent=2))"
+    },
+    {
+      "language": "yaml",
+      "line": 1,
+      "path": "AI\\module.yaml",
+      "text": "id: ai_engines"
+    },
+    {
+      "language": "yaml",
+      "line": 2,
+      "path": "AI\\module.yaml",
+      "text": "name: AI Engines"
+    },
+    {
+      "language": "yaml",
+      "line": 3,
+      "path": "AI\\module.yaml",
+      "text": "status: planned"
+    },
+    {
+      "language": "yaml",
+      "line": 4,
+      "path": "AI\\module.yaml",
+      "text": "owner: AI"
+    },
+    {
+      "language": "yaml",
+      "line": 5,
+      "path": "AI\\module.yaml",
+      "text": "path: AI"
+    },
+    {
+      "language": "yaml",
+      "line": 6,
+      "path": "AI\\module.yaml",
+      "text": "icon: 🤖"
+    },
+    {
+      "language": "yaml",
+      "line": 7,
+      "path": "AI\\module.yaml",
+      "text": "description: Local models, model references, routing, and AI runtime engines."
+    },
+    {
+      "language": "yaml",
+      "line": 8,
+      "path": "AI\\module.yaml",
+      "text": "version: 0.5.0"
+    },
+    {
+      "language": "yaml",
+      "line": 9,
+      "path": "AI\\module.yaml",
+      "text": "entry: none"
+    },
+    {
+      "language": "python",
+      "line": 1,
+      "path": "AI\\runtime_launcher.py",
+      "text": "from pathlib import Path"
+    },
+    {
+      "language": "python",
+      "line": 2,
+      "path": "AI\\runtime_launcher.py",
+      "text": "import json"
+    },
+    {
+      "language": "python",
+      "line": 3,
+      "path": "AI\\runtime_launcher.py",
+      "text": "import datetime"
+    },
+    {
+      "language": "python",
+      "line": 4,
+      "path": "AI\\runtime_launcher.py",
+      "text": "import urllib.request"
+    },
+    {
+      "language": "python",
+      "line": 6,
+      "path": "AI\\runtime_launcher.py",
+      "text": "ROOT = Path(__file__).resolve().parents[1]"
+    },
+    {
+      "language": "python",
+      "line": 7,
+      "path": "AI\\runtime_launcher.py",
+      "text": "FOXAI_ROOT = Path(\"Z:/FOXAI\")"
+    },
+    {
+      "language": "python",
+      "line": 8,
+      "path": "AI\\runtime_launcher.py",
+      "text": "GATEWAY_DIR = ROOT / \"AI\" / \"Gateway\""
+    },
+    {
+      "language": "python",
+      "line": 9,
+      "path": "AI\\runtime_launcher.py",
+      "text": "CONFIG_PATH = GATEWAY_DIR / \"gateway_config.json\""
+    },
+    {
+      "language": "python",
+      "line": 10,
+      "path": "AI\\runtime_launcher.py",
+      "text": "STATE_PATH = GATEWAY_DIR / \"runtime_launcher_state.json\""
+    },
+    {
+      "language": "python",
+      "line": 12,
+      "path": "AI\\runtime_launcher.py",
+      "text": "RUNTIME_NAMES = [\"llamafile.exe\", \"llama-server.exe\", \"server.exe\", \"llama.cpp.exe\"]"
+    },
+    {
+      "language": "python",
+      "line": 14,
+      "path": "AI\\runtime_launcher.py",
+      "text": "def load_json(path, default):"
+    },
+    {
+      "language": "python",
+      "line": 15,
+      "path": "AI\\runtime_launcher.py",
+      "text": "if path.exists():"
+    },
+    {
+      "language": "python",
+      "line": 16,
+      "path": "AI\\runtime_launcher.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 17,
+      "path": "AI\\runtime_launcher.py",
+      "text": "return json.loads(path.read_text(encoding=\"utf-8\"))"
+    },
+    {
+      "language": "python",
+      "line": 18,
+      "path": "AI\\runtime_launcher.py",
+      "text": "except Exception:"
+    },
+    {
+      "language": "python",
+      "line": 19,
+      "path": "AI\\runtime_launcher.py",
+      "text": "return default"
+    },
+    {
+      "language": "python",
+      "line": 20,
+      "path": "AI\\runtime_launcher.py",
+      "text": "return default"
+    },
+    {
+      "language": "python",
+      "line": 22,
+      "path": "AI\\runtime_launcher.py",
+      "text": "def save_json(path, data):"
+    },
+    {
+      "language": "python",
+      "line": 23,
+      "path": "AI\\runtime_launcher.py",
+      "text": "path.parent.mkdir(parents=True, exist_ok=True)"
+    },
+    {
+      "language": "python",
+      "line": 24,
+      "path": "AI\\runtime_launcher.py",
+      "text": "path.write_text(json.dumps(data, indent=2), encoding=\"utf-8\")"
+    },
+    {
+      "language": "python",
+      "line": 26,
+      "path": "AI\\runtime_launcher.py",
+      "text": "def load_config():"
+    },
+    {
+      "language": "python",
+      "line": 27,
+      "path": "AI\\runtime_launcher.py",
+      "text": "return load_json(CONFIG_PATH, {})"
+    },
+    {
+      "language": "python",
+      "line": 29,
+      "path": "AI\\runtime_launcher.py",
+      "text": "def find_runtimes():"
+    },
+    {
+      "language": "python",
+      "line": 30,
+      "path": "AI\\runtime_launcher.py",
+      "text": "found = []"
+    },
+    {
+      "language": "python",
+      "line": 31,
+      "path": "AI\\runtime_launcher.py",
+      "text": "if not FOXAI_ROOT.exists():"
+    },
+    {
+      "language": "python",
+      "line": 32,
+      "path": "AI\\runtime_launcher.py",
+      "text": "return found"
+    },
+    {
+      "language": "python",
+      "line": 33,
+      "path": "AI\\runtime_launcher.py",
+      "text": "for exe in FOXAI_ROOT.rglob(\"*.exe\"):"
+    },
+    {
+      "language": "python",
+      "line": 34,
+      "path": "AI\\runtime_launcher.py",
+      "text": "name = exe.name.lower()"
+    },
+    {
+      "language": "python",
+      "line": 35,
+      "path": "AI\\runtime_launcher.py",
+      "text": "if name in RUNTIME_NAMES or \"llama\" in name or \"llamafile\" in name:"
+    },
+    {
+      "language": "python",
+      "line": 36,
+      "path": "AI\\runtime_launcher.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 37,
+      "path": "AI\\runtime_launcher.py",
+      "text": "found.append({"
+    },
+    {
+      "language": "python",
+      "line": 38,
+      "path": "AI\\runtime_launcher.py",
+      "text": "\"name\": exe.name,"
+    },
+    {
+      "language": "python",
+      "line": 39,
+      "path": "AI\\runtime_launcher.py",
+      "text": "\"path\": str(exe),"
+    },
+    {
+      "language": "python",
+      "line": 40,
+      "path": "AI\\runtime_launcher.py",
+      "text": "\"modified\": datetime.datetime.fromtimestamp(exe.stat().st_mtime).isoformat(timespec=\"seconds\")"
+    },
+    {
+      "language": "python",
+      "line": 41,
+      "path": "AI\\runtime_launcher.py",
+      "text": "})"
+    },
+    {
+      "language": "python",
+      "line": 42,
+      "path": "AI\\runtime_launcher.py",
+      "text": "except Exception:"
+    },
+    {
+      "language": "python",
+      "line": 43,
+      "path": "AI\\runtime_launcher.py",
+      "text": "pass"
+    },
+    {
+      "language": "python",
+      "line": 44,
+      "path": "AI\\runtime_launcher.py",
+      "text": "return sorted(found, key=lambda x: x[\"name\"].lower())"
+    },
+    {
+      "language": "python",
+      "line": 46,
+      "path": "AI\\runtime_launcher.py",
+      "text": "def selected_model():"
+    },
+    {
+      "language": "python",
+      "line": 47,
+      "path": "AI\\runtime_launcher.py",
+      "text": "cfg = load_config()"
+    },
+    {
+      "language": "python",
+      "line": 48,
+      "path": "AI\\runtime_launcher.py",
+      "text": "p = cfg.get(\"selected_model_path\")"
+    },
+    {
+      "language": "python",
+      "line": 49,
+      "path": "AI\\runtime_launcher.py",
+      "text": "if p and Path(p).exists():"
+    },
+    {
+      "language": "python",
+      "line": 50,
+      "path": "AI\\runtime_launcher.py",
+      "text": "return {\"name\": Path(p).name, \"path\": p}"
+    },
+    {
+      "language": "python",
+      "line": 51,
+      "path": "AI\\runtime_launcher.py",
+      "text": "inv = ROOT / \"AI\" / \"Inventory\" / \"foxai_inventory.json\""
+    },
+    {
+      "language": "python",
+      "line": 52,
+      "path": "AI\\runtime_launcher.py",
+      "text": "data = load_json(inv, {})"
+    },
+    {
+      "language": "python",
+      "line": 53,
+      "path": "AI\\runtime_launcher.py",
+      "text": "models = data.get(\"assets\", {}).get(\"llms\", [])"
+    },
+    {
+      "language": "python",
+      "line": 54,
+      "path": "AI\\runtime_launcher.py",
+      "text": "if models:"
+    },
+    {
+      "language": "python",
+      "line": 55,
+      "path": "AI\\runtime_launcher.py",
+      "text": "m = models[0]"
+    },
+    {
+      "language": "python",
+      "line": 56,
+      "path": "AI\\runtime_launcher.py",
+      "text": "return {\"name\": m.get(\"name\"), \"path\": m.get(\"path\")}"
+    },
+    {
+      "language": "python",
+      "line": 57,
+      "path": "AI\\runtime_launcher.py",
+      "text": "return None"
+    },
+    {
+      "language": "python",
+      "line": 59,
+      "path": "AI\\runtime_launcher.py",
+      "text": "def runtime_health():"
+    },
+    {
+      "language": "python",
+      "line": 60,
+      "path": "AI\\runtime_launcher.py",
+      "text": "base = load_config().get(\"runtime_base\", \"http://127.0.0.1:8845\")"
+    },
+    {
+      "language": "python",
+      "line": 61,
+      "path": "AI\\runtime_launcher.py",
+      "text": "for url in [base + \"/v1/models\", base + \"/health\", base]:"
+    },
+    {
+      "language": "python",
+      "line": 62,
+      "path": "AI\\runtime_launcher.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 63,
+      "path": "AI\\runtime_launcher.py",
+      "text": "with urllib.request.urlopen(url, timeout=2) as res:"
+    },
+    {
+      "language": "python",
+      "line": 64,
+      "path": "AI\\runtime_launcher.py",
+      "text": "return {\"online\": True, \"message\": f\"responded at {url}\", \"base\": base}"
+    },
+    {
+      "language": "python",
+      "line": 65,
+      "path": "AI\\runtime_launcher.py",
+      "text": "except Exception:"
+    },
+    {
+      "language": "python",
+      "line": 66,
+      "path": "AI\\runtime_launcher.py",
+      "text": "pass"
+    },
+    {
+      "language": "python",
+      "line": 67,
+      "path": "AI\\runtime_launcher.py",
+      "text": "return {\"online\": False, \"message\": \"runtime offline\", \"base\": base}"
+    },
+    {
+      "language": "python",
+      "line": 69,
+      "path": "AI\\runtime_launcher.py",
+      "text": "def choose_runtime():"
+    },
+    {
+      "language": "python",
+      "line": 70,
+      "path": "AI\\runtime_launcher.py",
+      "text": "runtimes = find_runtimes()"
+    },
+    {
+      "language": "python",
+      "line": 71,
+      "path": "AI\\runtime_launcher.py",
+      "text": "if not runtimes:"
+    },
+    {
+      "language": "python",
+      "line": 72,
+      "path": "AI\\runtime_launcher.py",
+      "text": "return None"
+    },
+    {
+      "language": "python",
+      "line": 73,
+      "path": "AI\\runtime_launcher.py",
+      "text": "for rt in runtimes:"
+    },
+    {
+      "language": "python",
+      "line": 74,
+      "path": "AI\\runtime_launcher.py",
+      "text": "if \"llamafile\" in rt[\"name\"].lower():"
+    },
+    {
+      "language": "python",
+      "line": 75,
+      "path": "AI\\runtime_launcher.py",
+      "text": "return rt"
+    },
+    {
+      "language": "python",
+      "line": 76,
+      "path": "AI\\runtime_launcher.py",
+      "text": "for rt in runtimes:"
+    },
+    {
+      "language": "python",
+      "line": 77,
+      "path": "AI\\runtime_launcher.py",
+      "text": "if \"llama-server\" in rt[\"name\"].lower():"
+    },
+    {
+      "language": "python",
+      "line": 78,
+      "path": "AI\\runtime_launcher.py",
+      "text": "return rt"
+    },
+    {
+      "language": "python",
+      "line": 79,
+      "path": "AI\\runtime_launcher.py",
+      "text": "return runtimes[0]"
+    },
+    {
+      "language": "python",
+      "line": 81,
+      "path": "AI\\runtime_launcher.py",
+      "text": "def build_command():"
+    },
+    {
+      "language": "python",
+      "line": 82,
+      "path": "AI\\runtime_launcher.py",
+      "text": "rt = choose_runtime()"
+    },
+    {
+      "language": "python",
+      "line": 83,
+      "path": "AI\\runtime_launcher.py",
+      "text": "model = selected_model()"
+    },
+    {
+      "language": "python",
+      "line": 84,
+      "path": "AI\\runtime_launcher.py",
+      "text": "if not rt or not model:"
+    },
+    {
+      "language": "python",
+      "line": 85,
+      "path": "AI\\runtime_launcher.py",
+      "text": "return None"
+    },
+    {
+      "language": "python",
+      "line": 87,
+      "path": "AI\\runtime_launcher.py",
+      "text": "exe = rt[\"path\"]"
+    },
+    {
+      "language": "python",
+      "line": 88,
+      "path": "AI\\runtime_launcher.py",
+      "text": "model_path = model[\"path\"]"
+    },
+    {
+      "language": "python",
+      "line": 89,
+      "path": "AI\\runtime_launcher.py",
+      "text": "lower = Path(exe).name.lower()"
+    },
+    {
+      "language": "python",
+      "line": 91,
+      "path": "AI\\runtime_launcher.py",
+      "text": "if \"llamafile\" in lower:"
+    },
+    {
+      "language": "python",
+      "line": 92,
+      "path": "AI\\runtime_launcher.py",
+      "text": "args = [exe, \"-m\", model_path, \"--server\", \"--host\", \"127.0.0.1\", \"--port\", \"8845\"]"
+    },
+    {
+      "language": "python",
+      "line": 93,
+      "path": "AI\\runtime_launcher.py",
+      "text": "else:"
+    },
+    {
+      "language": "python",
+      "line": 94,
+      "path": "AI\\runtime_launcher.py",
+      "text": "args = [exe, \"-m\", model_path, \"--host\", \"127.0.0.1\", \"--port\", \"8845\"]"
+    },
+    {
+      "language": "python",
+      "line": 96,
+      "path": "AI\\runtime_launcher.py",
+      "text": "return {"
+    },
+    {
+      "language": "python",
+      "line": 97,
+      "path": "AI\\runtime_launcher.py",
+      "text": "\"runtime\": rt,"
+    },
+    {
+      "language": "python",
+      "line": 98,
+      "path": "AI\\runtime_launcher.py",
+      "text": "\"model\": model,"
+    },
+    {
+      "language": "python",
+      "line": 99,
+      "path": "AI\\runtime_launcher.py",
+      "text": "\"args\": args,"
+    },
+    {
+      "language": "python",
+      "line": 100,
+      "path": "AI\\runtime_launcher.py",
+      "text": "\"display\": \" \".join(f'\"{a}\"' if \" \" in a else a for a in args)"
+    },
+    {
+      "language": "python",
+      "line": 101,
+      "path": "AI\\runtime_launcher.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 103,
+      "path": "AI\\runtime_launcher.py",
+      "text": "def write_launcher_bat():"
+    },
+    {
+      "language": "python",
+      "line": 104,
+      "path": "AI\\runtime_launcher.py",
+      "text": "cmd = build_command()"
+    },
+    {
+      "language": "python",
+      "line": 105,
+      "path": "AI\\runtime_launcher.py",
+      "text": "GATEWAY_DIR.mkdir(parents=True, exist_ok=True)"
+    },
+    {
+      "language": "python",
+      "line": 106,
+      "path": "AI\\runtime_launcher.py",
+      "text": "if not cmd:"
+    },
+    {
+      "language": "python",
+      "line": 107,
+      "path": "AI\\runtime_launcher.py",
+      "text": "content = ("
+    },
+    {
+      "language": "python",
+      "line": 108,
+      "path": "AI\\runtime_launcher.py",
+      "text": "\"@echo off\\n\""
+    },
+    {
+      "language": "python",
+      "line": 109,
+      "path": "AI\\runtime_launcher.py",
+      "text": "\"title KayocktheOS Runtime Launcher\\n\""
+    },
+    {
+      "language": "python",
+      "line": 110,
+      "path": "AI\\runtime_launcher.py",
+      "text": "\"color 0C\\n\""
+    },
+    {
+      "language": "python",
+      "line": 111,
+      "path": "AI\\runtime_launcher.py",
+      "text": "\"echo Runtime or model not found.\\n\""
+    },
+    {
+      "language": "python",
+      "line": 112,
+      "path": "AI\\runtime_launcher.py",
+      "text": "\"echo.\\n\""
+    },
+    {
+      "language": "python",
+      "line": 113,
+      "path": "AI\\runtime_launcher.py",
+      "text": "\"echo Put llamafile.exe or llama-server.exe somewhere under Z:\\\\FOXAI.\\n\""
+    },
+    {
+      "language": "python",
+      "line": 114,
+      "path": "AI\\runtime_launcher.py",
+      "text": "\"echo Make sure FOXAI Discovery found at least one GGUF model.\\n\""
+    },
+    {
+      "language": "python",
+      "line": 115,
+      "path": "AI\\runtime_launcher.py",
+      "text": "\"pause\\n\""
+    },
+    {
+      "language": "python",
+      "line": 116,
+      "path": "AI\\runtime_launcher.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 117,
+      "path": "AI\\runtime_launcher.py",
+      "text": "(GATEWAY_DIR / \"LAUNCH_SELECTED_MODEL_RUNTIME.bat\").write_text(content, encoding=\"utf-8\")"
+    },
+    {
+      "language": "python",
+      "line": 118,
+      "path": "AI\\runtime_launcher.py",
+      "text": "return {\"ok\": False, \"message\": \"runtime or model missing\"}"
+    },
+    {
+      "language": "python",
+      "line": 120,
+      "path": "AI\\runtime_launcher.py",
+      "text": "lines = ["
+    },
+    {
+      "language": "python",
+      "line": 121,
+      "path": "AI\\runtime_launcher.py",
+      "text": "\"@echo off\","
+    },
+    {
+      "language": "python",
+      "line": 122,
+      "path": "AI\\runtime_launcher.py",
+      "text": "\"title KayocktheOS Selected Model Runtime\","
+    },
+    {
+      "language": "python",
+      "line": 123,
+      "path": "AI\\runtime_launcher.py",
+      "text": "\"color 0A\","
+    },
+    {
+      "language": "python",
+      "line": 124,
+      "path": "AI\\runtime_launcher.py",
+      "text": "\"echo ==========================================\","
+    },
+    {
+      "language": "python",
+      "line": 125,
+      "path": "AI\\runtime_launcher.py",
+      "text": "\"echo KayocktheOS Local AI Runtime\","
+    },
+    {
+      "language": "python",
+      "line": 126,
+      "path": "AI\\runtime_launcher.py",
+      "text": "\"echo ==========================================\","
+    },
+    {
+      "language": "python",
+      "line": 127,
+      "path": "AI\\runtime_launcher.py",
+      "text": "\"echo.\","
+    },
+    {
+      "language": "python",
+      "line": 128,
+      "path": "AI\\runtime_launcher.py",
+      "text": "f\"echo Runtime: {cmd['runtime']['name']}\","
+    },
+    {
+      "language": "python",
+      "line": 129,
+      "path": "AI\\runtime_launcher.py",
+      "text": "f\"echo Model: {cmd['model']['name']}\","
+    },
+    {
+      "language": "python",
+      "line": 130,
+      "path": "AI\\runtime_launcher.py",
+      "text": "\"echo Port: 8845\","
+    },
+    {
+      "language": "python",
+      "line": 131,
+      "path": "AI\\runtime_launcher.py",
+      "text": "\"echo.\","
+    },
+    {
+      "language": "python",
+      "line": 132,
+      "path": "AI\\runtime_launcher.py",
+      "text": "\"echo Leave this window open while chatting.\","
+    },
+    {
+      "language": "python",
+      "line": 133,
+      "path": "AI\\runtime_launcher.py",
+      "text": "\"echo.\","
+    },
+    {
+      "language": "python",
+      "line": 134,
+      "path": "AI\\runtime_launcher.py",
+      "text": "cmd[\"display\"],"
+    },
+    {
+      "language": "python",
+      "line": 135,
+      "path": "AI\\runtime_launcher.py",
+      "text": "\"pause\","
+    },
+    {
+      "language": "python",
+      "line": 136,
+      "path": "AI\\runtime_launcher.py",
+      "text": "\"\""
+    },
+    {
+      "language": "python",
+      "line": 137,
+      "path": "AI\\runtime_launcher.py",
+      "text": "]"
+    },
+    {
+      "language": "python",
+      "line": 138,
+      "path": "AI\\runtime_launcher.py",
+      "text": "(GATEWAY_DIR / \"LAUNCH_SELECTED_MODEL_RUNTIME.bat\").write_text(\"\\n\".join(lines), encoding=\"utf-8\")"
+    },
+    {
+      "language": "python",
+      "line": 139,
+      "path": "AI\\runtime_launcher.py",
+      "text": "return {\"ok\": True, \"launcher\": \"AI/Gateway/LAUNCH_SELECTED_MODEL_RUNTIME.bat\", \"command\": cmd}"
+    },
+    {
+      "language": "python",
+      "line": 141,
+      "path": "AI\\runtime_launcher.py",
+      "text": "def status():"
+    },
+    {
+      "language": "python",
+      "line": 142,
+      "path": "AI\\runtime_launcher.py",
+      "text": "launch = write_launcher_bat()"
+    },
+    {
+      "language": "python",
+      "line": 143,
+      "path": "AI\\runtime_launcher.py",
+      "text": "payload = {"
+    },
+    {
+      "language": "python",
+      "line": 144,
+      "path": "AI\\runtime_launcher.py",
+      "text": "\"generated_at\": datetime.datetime.now().isoformat(timespec=\"seconds\"),"
+    },
+    {
+      "language": "python",
+      "line": 145,
+      "path": "AI\\runtime_launcher.py",
+      "text": "\"feature\": \"Feature 001B - Runtime Auto Launcher\","
+    },
+    {
+      "language": "python",
+      "line": 146,
+      "path": "AI\\runtime_launcher.py",
+      "text": "\"foxai_root\": str(FOXAI_ROOT),"
+    },
+    {
+      "language": "python",
+      "line": 147,
+      "path": "AI\\runtime_launcher.py",
+      "text": "\"runtimes_found\": find_runtimes(),"
+    },
+    {
+      "language": "python",
+      "line": 148,
+      "path": "AI\\runtime_launcher.py",
+      "text": "\"selected_runtime\": choose_runtime(),"
+    },
+    {
+      "language": "python",
+      "line": 149,
+      "path": "AI\\runtime_launcher.py",
+      "text": "\"selected_model\": selected_model(),"
+    },
+    {
+      "language": "python",
+      "line": 150,
+      "path": "AI\\runtime_launcher.py",
+      "text": "\"launch\": launch,"
+    },
+    {
+      "language": "python",
+      "line": 151,
+      "path": "AI\\runtime_launcher.py",
+      "text": "\"health\": runtime_health()"
+    },
+    {
+      "language": "python",
+      "line": 152,
+      "path": "AI\\runtime_launcher.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 153,
+      "path": "AI\\runtime_launcher.py",
+      "text": "save_json(STATE_PATH, payload)"
+    },
+    {
+      "language": "python",
+      "line": 154,
+      "path": "AI\\runtime_launcher.py",
+      "text": "return payload"
+    },
+    {
+      "language": "python",
+      "line": 156,
+      "path": "AI\\runtime_launcher.py",
+      "text": "if __name__ == \"__main__\":"
+    },
+    {
+      "language": "python",
+      "line": 157,
+      "path": "AI\\runtime_launcher.py",
+      "text": "print(json.dumps(status(), indent=2))"
+    },
+    {
+      "language": "python",
+      "line": 1,
+      "path": "AI\\scan_ai_assets.py",
+      "text": "from pathlib import Path"
+    },
+    {
+      "language": "python",
+      "line": 2,
+      "path": "AI\\scan_ai_assets.py",
+      "text": "import json"
+    },
+    {
+      "language": "python",
+      "line": 3,
+      "path": "AI\\scan_ai_assets.py",
+      "text": "import datetime"
+    },
+    {
+      "language": "python",
+      "line": 5,
+      "path": "AI\\scan_ai_assets.py",
+      "text": "ROOT = Path(__file__).resolve().parents[1]"
+    },
+    {
+      "language": "python",
+      "line": 6,
+      "path": "AI\\scan_ai_assets.py",
+      "text": "MODEL_PATTERNS = [\"*.gguf\",\"*.safetensors\",\"*.ckpt\",\"*.bin\",\"*.onnx\",\"*.pt\",\"*.pth\"]"
+    },
+    {
+      "language": "python",
+      "line": 8,
+      "path": "AI\\scan_ai_assets.py",
+      "text": "def parse_model_refs():"
+    },
+    {
+      "language": "python",
+      "line": 9,
+      "path": "AI\\scan_ai_assets.py",
+      "text": "refs = []"
+    },
+    {
+      "language": "python",
+      "line": 10,
+      "path": "AI\\scan_ai_assets.py",
+      "text": "ref_file = ROOT / \"AI\" / \"Model_Links\" / \"FoxAI_Model_References.txt\""
+    },
+    {
+      "language": "python",
+      "line": 11,
+      "path": "AI\\scan_ai_assets.py",
+      "text": "if not ref_file.exists():"
+    },
+    {
+      "language": "python",
+      "line": 12,
+      "path": "AI\\scan_ai_assets.py",
+      "text": "return refs"
+    },
+    {
+      "language": "python",
+      "line": 13,
+      "path": "AI\\scan_ai_assets.py",
+      "text": "for line in ref_file.read_text(encoding=\"utf-8\", errors=\"replace\").splitlines():"
+    },
+    {
+      "language": "python",
+      "line": 14,
+      "path": "AI\\scan_ai_assets.py",
+      "text": "line = line.strip()"
+    },
+    {
+      "language": "python",
+      "line": 15,
+      "path": "AI\\scan_ai_assets.py",
+      "text": "if not line or line.startswith(\"#\") or \"=\" not in line:"
+    },
+    {
+      "language": "python",
+      "line": 16,
+      "path": "AI\\scan_ai_assets.py",
+      "text": "continue"
+    },
+    {
+      "language": "python",
+      "line": 17,
+      "path": "AI\\scan_ai_assets.py",
+      "text": "key, value = line.split(\"=\", 1)"
+    },
+    {
+      "language": "python",
+      "line": 18,
+      "path": "AI\\scan_ai_assets.py",
+      "text": "refs.append({\"name\": key.strip(), \"path\": value.strip().strip('\"')})"
+    },
+    {
+      "language": "python",
+      "line": 19,
+      "path": "AI\\scan_ai_assets.py",
+      "text": "return refs"
+    },
+    {
+      "language": "python",
+      "line": 21,
+      "path": "AI\\scan_ai_assets.py",
+      "text": "def resolve_ref_path(value):"
+    },
+    {
+      "language": "python",
+      "line": 22,
+      "path": "AI\\scan_ai_assets.py",
+      "text": "p = Path(value)"
+    },
+    {
+      "language": "python",
+      "line": 23,
+      "path": "AI\\scan_ai_assets.py",
+      "text": "if not p.is_absolute():"
+    },
+    {
+      "language": "python",
+      "line": 24,
+      "path": "AI\\scan_ai_assets.py",
+      "text": "p = (ROOT / p).resolve()"
+    },
+    {
+      "language": "python",
+      "line": 25,
+      "path": "AI\\scan_ai_assets.py",
+      "text": "return p"
+    },
+    {
+      "language": "python",
+      "line": 27,
+      "path": "AI\\scan_ai_assets.py",
+      "text": "def scan_folder(folder):"
+    },
+    {
+      "language": "python",
+      "line": 28,
+      "path": "AI\\scan_ai_assets.py",
+      "text": "folder = Path(folder)"
+    },
+    {
+      "language": "python",
+      "line": 29,
+      "path": "AI\\scan_ai_assets.py",
+      "text": "models = []"
+    },
+    {
+      "language": "python",
+      "line": 30,
+      "path": "AI\\scan_ai_assets.py",
+      "text": "if not folder.exists():"
+    },
+    {
+      "language": "python",
+      "line": 31,
+      "path": "AI\\scan_ai_assets.py",
+      "text": "return models"
+    },
+    {
+      "language": "python",
+      "line": 32,
+      "path": "AI\\scan_ai_assets.py",
+      "text": "for pattern in MODEL_PATTERNS:"
+    },
+    {
+      "language": "python",
+      "line": 33,
+      "path": "AI\\scan_ai_assets.py",
+      "text": "for file in folder.rglob(pattern):"
+    },
+    {
+      "language": "python",
+      "line": 34,
+      "path": "AI\\scan_ai_assets.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 35,
+      "path": "AI\\scan_ai_assets.py",
+      "text": "stat = file.stat()"
+    },
+    {
+      "language": "python",
+      "line": 36,
+      "path": "AI\\scan_ai_assets.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 37,
+      "path": "AI\\scan_ai_assets.py",
+      "text": "rel = str(file.relative_to(ROOT))"
+    },
+    {
+      "language": "python",
+      "line": 38,
+      "path": "AI\\scan_ai_assets.py",
+      "text": "except Exception:"
+    },
+    {
+      "language": "python",
+      "line": 39,
+      "path": "AI\\scan_ai_assets.py",
+      "text": "rel = str(file)"
+    },
+    {
+      "language": "python",
+      "line": 40,
+      "path": "AI\\scan_ai_assets.py",
+      "text": "models.append({"
+    },
+    {
+      "language": "python",
+      "line": 41,
+      "path": "AI\\scan_ai_assets.py",
+      "text": "\"name\": file.name,"
+    },
+    {
+      "language": "python",
+      "line": 42,
+      "path": "AI\\scan_ai_assets.py",
+      "text": "\"path\": str(file),"
+    },
+    {
+      "language": "python",
+      "line": 43,
+      "path": "AI\\scan_ai_assets.py",
+      "text": "\"relative_path\": rel,"
+    },
+    {
+      "language": "python",
+      "line": 44,
+      "path": "AI\\scan_ai_assets.py",
+      "text": "\"extension\": file.suffix.lower(),"
+    },
+    {
+      "language": "python",
+      "line": 45,
+      "path": "AI\\scan_ai_assets.py",
+      "text": "\"size_gb\": round(stat.st_size / (1024 ** 3), 3),"
+    },
+    {
+      "language": "python",
+      "line": 46,
+      "path": "AI\\scan_ai_assets.py",
+      "text": "\"size_mb\": round(stat.st_size / (1024 ** 2), 1),"
+    },
+    {
+      "language": "python",
+      "line": 47,
+      "path": "AI\\scan_ai_assets.py",
+      "text": "\"source\": \"local\" if str(file).startswith(str(ROOT)) else \"reference\""
+    },
+    {
+      "language": "python",
+      "line": 48,
+      "path": "AI\\scan_ai_assets.py",
+      "text": "})"
+    },
+    {
+      "language": "python",
+      "line": 49,
+      "path": "AI\\scan_ai_assets.py",
+      "text": "except Exception:"
+    },
+    {
+      "language": "python",
+      "line": 50,
+      "path": "AI\\scan_ai_assets.py",
+      "text": "pass"
+    },
+    {
+      "language": "python",
+      "line": 51,
+      "path": "AI\\scan_ai_assets.py",
+      "text": "return models"
+    },
+    {
+      "language": "python",
+      "line": 53,
+      "path": "AI\\scan_ai_assets.py",
+      "text": "def build_ai_assets():"
+    },
+    {
+      "language": "python",
+      "line": 54,
+      "path": "AI\\scan_ai_assets.py",
+      "text": "local_models = scan_folder(ROOT / \"AI\" / \"Models\")"
+    },
+    {
+      "language": "python",
+      "line": 55,
+      "path": "AI\\scan_ai_assets.py",
+      "text": "refs = parse_model_refs()"
+    },
+    {
+      "language": "python",
+      "line": 56,
+      "path": "AI\\scan_ai_assets.py",
+      "text": "referenced_models = []"
+    },
+    {
+      "language": "python",
+      "line": 57,
+      "path": "AI\\scan_ai_assets.py",
+      "text": "for ref in refs:"
+    },
+    {
+      "language": "python",
+      "line": 58,
+      "path": "AI\\scan_ai_assets.py",
+      "text": "referenced_models.extend(scan_folder(resolve_ref_path(ref[\"path\"])))"
+    },
+    {
+      "language": "python",
+      "line": 60,
+      "path": "AI\\scan_ai_assets.py",
+      "text": "all_models = local_models + referenced_models"
+    },
+    {
+      "language": "python",
+      "line": 61,
+      "path": "AI\\scan_ai_assets.py",
+      "text": "by_ext = {}"
+    },
+    {
+      "language": "python",
+      "line": 62,
+      "path": "AI\\scan_ai_assets.py",
+      "text": "total_gb = 0"
+    },
+    {
+      "language": "python",
+      "line": 63,
+      "path": "AI\\scan_ai_assets.py",
+      "text": "for model in all_models:"
+    },
+    {
+      "language": "python",
+      "line": 64,
+      "path": "AI\\scan_ai_assets.py",
+      "text": "by_ext[model[\"extension\"]] = by_ext.get(model[\"extension\"], 0) + 1"
+    },
+    {
+      "language": "python",
+      "line": 65,
+      "path": "AI\\scan_ai_assets.py",
+      "text": "total_gb += model.get(\"size_gb\", 0)"
+    },
+    {
+      "language": "python",
+      "line": 67,
+      "path": "AI\\scan_ai_assets.py",
+      "text": "return {"
+    },
+    {
+      "language": "python",
+      "line": 68,
+      "path": "AI\\scan_ai_assets.py",
+      "text": "\"generated_at\": datetime.datetime.now().isoformat(timespec=\"seconds\"),"
+    },
+    {
+      "language": "python",
+      "line": 69,
+      "path": "AI\\scan_ai_assets.py",
+      "text": "\"local_model_root\": str(ROOT / \"AI\" / \"Models\"),"
+    },
+    {
+      "language": "python",
+      "line": 70,
+      "path": "AI\\scan_ai_assets.py",
+      "text": "\"references\": refs,"
+    },
+    {
+      "language": "python",
+      "line": 71,
+      "path": "AI\\scan_ai_assets.py",
+      "text": "\"summary\": {"
+    },
+    {
+      "language": "python",
+      "line": 72,
+      "path": "AI\\scan_ai_assets.py",
+      "text": "\"total_models\": len(all_models),"
+    },
+    {
+      "language": "python",
+      "line": 73,
+      "path": "AI\\scan_ai_assets.py",
+      "text": "\"local_models\": len(local_models),"
+    },
+    {
+      "language": "python",
+      "line": 74,
+      "path": "AI\\scan_ai_assets.py",
+      "text": "\"referenced_models\": len(referenced_models),"
+    },
+    {
+      "language": "python",
+      "line": 75,
+      "path": "AI\\scan_ai_assets.py",
+      "text": "\"total_size_gb\": round(total_gb, 3),"
+    },
+    {
+      "language": "python",
+      "line": 76,
+      "path": "AI\\scan_ai_assets.py",
+      "text": "\"by_extension\": by_ext"
+    },
+    {
+      "language": "python",
+      "line": 77,
+      "path": "AI\\scan_ai_assets.py",
+      "text": "},"
+    },
+    {
+      "language": "python",
+      "line": 78,
+      "path": "AI\\scan_ai_assets.py",
+      "text": "\"models\": sorted(all_models, key=lambda x: (x[\"extension\"], x[\"name\"].lower()))"
+    },
+    {
+      "language": "python",
+      "line": 79,
+      "path": "AI\\scan_ai_assets.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 81,
+      "path": "AI\\scan_ai_assets.py",
+      "text": "def write_inventory():"
+    },
+    {
+      "language": "python",
+      "line": 82,
+      "path": "AI\\scan_ai_assets.py",
+      "text": "assets = build_ai_assets()"
+    },
+    {
+      "language": "python",
+      "line": 83,
+      "path": "AI\\scan_ai_assets.py",
+      "text": "out = ROOT / \"AI\" / \"Inventory\""
+    },
+    {
+      "language": "python",
+      "line": 84,
+      "path": "AI\\scan_ai_assets.py",
+      "text": "out.mkdir(parents=True, exist_ok=True)"
+    },
+    {
+      "language": "python",
+      "line": 85,
+      "path": "AI\\scan_ai_assets.py",
+      "text": "(out / \"ai_assets.json\").write_text(json.dumps(assets, indent=2), encoding=\"utf-8\")"
+    },
+    {
+      "language": "python",
+      "line": 86,
+      "path": "AI\\scan_ai_assets.py",
+      "text": "md = [\"# AI Asset Inventory\", \"\", f\"Generated: {assets['generated_at']}\", \"\", \"## Summary\", \"\"]"
+    },
+    {
+      "language": "python",
+      "line": 87,
+      "path": "AI\\scan_ai_assets.py",
+      "text": "s = assets[\"summary\"]"
+    },
+    {
+      "language": "python",
+      "line": 88,
+      "path": "AI\\scan_ai_assets.py",
+      "text": "md += ["
+    },
+    {
+      "language": "python",
+      "line": 89,
+      "path": "AI\\scan_ai_assets.py",
+      "text": "f\"- Total models: {s['total_models']}\","
+    },
+    {
+      "language": "python",
+      "line": 90,
+      "path": "AI\\scan_ai_assets.py",
+      "text": "f\"- Local models: {s['local_models']}\","
+    },
+    {
+      "language": "python",
+      "line": 91,
+      "path": "AI\\scan_ai_assets.py",
+      "text": "f\"- Referenced models: {s['referenced_models']}\","
+    },
+    {
+      "language": "python",
+      "line": 92,
+      "path": "AI\\scan_ai_assets.py",
+      "text": "f\"- Total size: {s['total_size_gb']} GB\","
+    },
+    {
+      "language": "python",
+      "line": 93,
+      "path": "AI\\scan_ai_assets.py",
+      "text": "\"\","
+    },
+    {
+      "language": "python",
+      "line": 94,
+      "path": "AI\\scan_ai_assets.py",
+      "text": "\"## Models\","
+    },
+    {
+      "language": "python",
+      "line": 95,
+      "path": "AI\\scan_ai_assets.py",
+      "text": "\"\""
+    },
+    {
+      "language": "python",
+      "line": 96,
+      "path": "AI\\scan_ai_assets.py",
+      "text": "]"
+    },
+    {
+      "language": "python",
+      "line": 97,
+      "path": "AI\\scan_ai_assets.py",
+      "text": "for model in assets[\"models\"][:500]:"
+    },
+    {
+      "language": "python",
+      "line": 98,
+      "path": "AI\\scan_ai_assets.py",
+      "text": "md.append(f\"- `{model['name']}` — {model['extension']} — {model['size_gb']} GB — {model['source']}\")"
+    },
+    {
+      "language": "python",
+      "line": 99,
+      "path": "AI\\scan_ai_assets.py",
+      "text": "(out / \"AI_ASSET_INVENTORY.md\").write_text(\"\\n\".join(md) + \"\\n\", encoding=\"utf-8\")"
+    },
+    {
+      "language": "python",
+      "line": 100,
+      "path": "AI\\scan_ai_assets.py",
+      "text": "return assets"
+    },
+    {
+      "language": "python",
+      "line": 102,
+      "path": "AI\\scan_ai_assets.py",
+      "text": "if __name__ == \"__main__\":"
+    },
+    {
+      "language": "python",
+      "line": 103,
+      "path": "AI\\scan_ai_assets.py",
+      "text": "assets = write_inventory()"
+    },
+    {
+      "language": "python",
+      "line": 104,
+      "path": "AI\\scan_ai_assets.py",
+      "text": "print(json.dumps(assets[\"summary\"], indent=2))"
+    },
+    {
+      "language": "batch",
+      "line": 1,
+      "path": "APPLY_PHASE1.bat",
+      "text": "@echo off"
+    },
+    {
+      "language": "batch",
+      "line": 2,
+      "path": "APPLY_PHASE1.bat",
+      "text": "setlocal"
+    },
+    {
+      "language": "batch",
+      "line": 3,
+      "path": "APPLY_PHASE1.bat",
+      "text": "set \"BUNDLE=%~dp0\""
+    },
+    {
+      "language": "batch",
+      "line": 4,
+      "path": "APPLY_PHASE1.bat",
+      "text": "set \"PY=%BUNDLE%..\\env\\python\\python.exe\""
+    },
+    {
+      "language": "batch",
+      "line": 5,
+      "path": "APPLY_PHASE1.bat",
+      "text": "if not exist \"%PY%\" set \"PY=python\""
+    },
+    {
+      "language": "batch",
+      "line": 6,
+      "path": "APPLY_PHASE1.bat",
+      "text": "\"%PY%\" \"%BUNDLE%tools\\phase1_bundle.py\" apply %*"
+    },
+    {
+      "language": "batch",
+      "line": 7,
+      "path": "APPLY_PHASE1.bat",
+      "text": "set \"RC=%ERRORLEVEL%\""
+    },
+    {
+      "language": "batch",
+      "line": 8,
+      "path": "APPLY_PHASE1.bat",
+      "text": "echo."
+    },
+    {
+      "language": "batch",
+      "line": 9,
+      "path": "APPLY_PHASE1.bat",
+      "text": "if \"%RC%\"==\"0\" (echo Phase 1 applied and verified.) else (echo Phase 1 was not applied, or it failed and rollback was attempted.)"
+    },
+    {
+      "language": "batch",
+      "line": 10,
+      "path": "APPLY_PHASE1.bat",
+      "text": "pause"
+    },
+    {
+      "language": "batch",
+      "line": 11,
+      "path": "APPLY_PHASE1.bat",
+      "text": "exit /b %RC%"
+    },
+    {
+      "language": "batch",
+      "line": 1,
+      "path": "APPLY_PURPLE_DESKTOP.bat",
+      "text": "@echo off"
+    },
+    {
+      "language": "batch",
+      "line": 2,
+      "path": "APPLY_PURPLE_DESKTOP.bat",
+      "text": "setlocal"
+    },
+    {
+      "language": "batch",
+      "line": 3,
+      "path": "APPLY_PURPLE_DESKTOP.bat",
+      "text": "title FOXAI Orion v9.1 Purple Desktop Shell"
+    },
+    {
+      "language": "batch",
+      "line": 5,
+      "path": "APPLY_PURPLE_DESKTOP.bat",
+      "text": "cd /d \"%~dp0\""
+    },
+    {
+      "language": "batch",
+      "line": 7,
+      "path": "APPLY_PURPLE_DESKTOP.bat",
+      "text": "echo =========================================="
+    },
+    {
+      "language": "batch",
+      "line": 8,
+      "path": "APPLY_PURPLE_DESKTOP.bat",
+      "text": "echo FOXAI Orion v9.1 Purple Desktop Shell"
+    },
+    {
+      "language": "batch",
+      "line": 9,
+      "path": "APPLY_PURPLE_DESKTOP.bat",
+      "text": "echo =========================================="
+    },
+    {
+      "language": "batch",
+      "line": 10,
+      "path": "APPLY_PURPLE_DESKTOP.bat",
+      "text": "echo."
+    },
+    {
+      "language": "batch",
+      "line": 11,
+      "path": "APPLY_PURPLE_DESKTOP.bat",
+      "text": "echo This will backup and patch the existing CustomTkinter UI."
+    },
+    {
+      "language": "batch",
+      "line": 12,
+      "path": "APPLY_PURPLE_DESKTOP.bat",
+      "text": "echo."
+    },
+    {
+      "language": "batch",
+      "line": 14,
+      "path": "APPLY_PURPLE_DESKTOP.bat",
+      "text": "if exist \".venv\\Scripts\\python.exe\" ("
+    },
+    {
+      "language": "batch",
+      "line": 15,
+      "path": "APPLY_PURPLE_DESKTOP.bat",
+      "text": "\".venv\\Scripts\\python.exe\" APPLY_PURPLE_DESKTOP.py"
+    },
+    {
+      "language": "batch",
+      "line": 16,
+      "path": "APPLY_PURPLE_DESKTOP.bat",
+      "text": ") else ("
+    },
+    {
+      "language": "batch",
+      "line": 17,
+      "path": "APPLY_PURPLE_DESKTOP.bat",
+      "text": "python APPLY_PURPLE_DESKTOP.py"
+    },
+    {
+      "language": "batch",
+      "line": 18,
+      "path": "APPLY_PURPLE_DESKTOP.bat",
+      "text": ")"
+    },
+    {
+      "language": "batch",
+      "line": 20,
+      "path": "APPLY_PURPLE_DESKTOP.bat",
+      "text": "echo."
+    },
+    {
+      "language": "batch",
+      "line": 21,
+      "path": "APPLY_PURPLE_DESKTOP.bat",
+      "text": "pause"
+    },
+    {
+      "language": "python",
+      "line": 1,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "from __future__ import annotations"
+    },
+    {
+      "language": "python",
+      "line": 3,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "from pathlib import Path"
+    },
+    {
+      "language": "python",
+      "line": 4,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "from datetime import datetime"
+    },
+    {
+      "language": "python",
+      "line": 5,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "import shutil"
+    },
+    {
+      "language": "python",
+      "line": 6,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "import json"
+    },
+    {
+      "language": "python",
+      "line": 8,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "ROOT = Path(__file__).resolve().parent"
+    },
+    {
+      "language": "python",
+      "line": 9,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "UI = ROOT / \"ui\""
+    },
+    {
+      "language": "python",
+      "line": 10,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "BACKUP_ROOT = ROOT / \"Backups\" / f\"purple_desktop_{datetime.now().strftime('%Y%m%d_%H%M%S')}\""
+    },
+    {
+      "language": "python",
+      "line": 12,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "def backup(path: Path) -> None:"
+    },
+    {
+      "language": "python",
+      "line": 13,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "if path.exists():"
+    },
+    {
+      "language": "python",
+      "line": 14,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "dest = BACKUP_ROOT / path.relative_to(ROOT)"
+    },
+    {
+      "language": "python",
+      "line": 15,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "dest.parent.mkdir(parents=True, exist_ok=True)"
+    },
+    {
+      "language": "python",
+      "line": 16,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "shutil.copy2(path, dest)"
+    },
+    {
+      "language": "python",
+      "line": 18,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "def write_theme() -> None:"
+    },
+    {
+      "language": "python",
+      "line": 19,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "src = ROOT / \"_purple_payload\" / \"ui\" / \"foxai_theme.py\""
+    },
+    {
+      "language": "python",
+      "line": 20,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "dst = UI / \"foxai_theme.py\""
+    },
+    {
+      "language": "python",
+      "line": 21,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "dst.parent.mkdir(parents=True, exist_ok=True)"
+    },
+    {
+      "language": "python",
+      "line": 22,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "shutil.copy2(src, dst)"
+    },
+    {
+      "language": "python",
+      "line": 24,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "def patch_main_window() -> dict:"
+    },
+    {
+      "language": "python",
+      "line": 25,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "path = UI / \"main_window.py\""
+    },
+    {
+      "language": "python",
+      "line": 26,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "if not path.exists():"
+    },
+    {
+      "language": "python",
+      "line": 27,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "raise SystemExit(\"ERROR: ui\\\\main_window.py not found. Extract into Z:\\\\FOXAI.\")"
+    },
+    {
+      "language": "python",
+      "line": 28,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "backup(path)"
+    },
+    {
+      "language": "python",
+      "line": 29,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "text = path.read_text(encoding=\"utf-8\")"
+    },
+    {
+      "language": "python",
+      "line": 30,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "changed = []"
+    },
+    {
+      "language": "python",
+      "line": 32,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "if \"import json\" not in text:"
+    },
+    {
+      "language": "python",
+      "line": 33,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "text = text.replace(\"import configparser\\n\", \"import configparser\\nimport json\\n\")"
+    },
+    {
+      "language": "python",
+      "line": 34,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "changed.append(\"added json import\")"
+    },
+    {
+      "language": "python",
+      "line": 35,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "if \"from pathlib import Path\" not in text:"
+    },
+    {
+      "language": "python",
+      "line": 36,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "text = text.replace(\"import json\\n\", \"import json\\nfrom pathlib import Path\\n\")"
+    },
+    {
+      "language": "python",
+      "line": 37,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "changed.append(\"added Path import\")"
+    },
+    {
+      "language": "python",
+      "line": 39,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "if \"from ui.foxai_theme import\" not in text and \"from .foxai_theme import\" not in text:"
+    },
+    {
+      "language": "python",
+      "line": 40,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "marker = \"from core.chat_resilience import ChatResilience, ChatTimeoutError\\n\""
+    },
+    {
+      "language": "python",
+      "line": 41,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "insert = marker + \"\\ntry:\\n    from .foxai_theme import configure_ctk_identity, apply_foxai_theme, color\\nexcept Exception:\\n    from ui.foxai_theme import configure_ctk_identity, apply_foxai_theme, color\\n\""
+    },
+    {
+      "language": "python",
+      "line": 42,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "text = text.replace(marker, insert)"
+    },
+    {
+      "language": "python",
+      "line": 43,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "changed.append(\"added FOXAI theme import\")"
+    },
+    {
+      "language": "python",
+      "line": 45,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "text = text.replace('ctk.set_default_color_theme(\"green\")', 'configure_ctk_identity()')"
+    },
+    {
+      "language": "python",
+      "line": 46,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "text = text.replace('self.title(\"FOXAI // Cyber Operations Console\")', 'self.title(\"FOXAI Command OS // Ultimate Edifier Platform\")')"
+    },
+    {
+      "language": "python",
+      "line": 48,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "if \"apply_foxai_theme(self)\\n        self.after(750, self._foxai_theme_watchdog)\" not in text:"
+    },
+    {
+      "language": "python",
+      "line": 49,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "text = text.replace("
+    },
+    {
+      "language": "python",
+      "line": 50,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "\"        self.build_ui()\\n        self.show_mission_console()\\n\","
+    },
+    {
+      "language": "python",
+      "line": 51,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "\"        self.build_ui()\\n        apply_foxai_theme(self)\\n        self.after(750, self._foxai_theme_watchdog)\\n        self.show_command_bridge()\\n\""
+    },
+    {
+      "language": "python",
+      "line": 52,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 53,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "changed.append(\"startup now opens Command Bridge\")"
+    },
+    {
+      "language": "python",
+      "line": 55,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "if \"def _foxai_theme_watchdog(self):\" not in text:"
+    },
+    {
+      "language": "python",
+      "line": 56,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "method = '''"
+    },
+    {
+      "language": "python",
+      "line": 57,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "def _foxai_theme_watchdog(self):"
+    },
+    {
+      "language": "python",
+      "line": 58,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "if self._closing:"
+    },
+    {
+      "language": "python",
+      "line": 59,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "return"
+    },
+    {
+      "language": "python",
+      "line": 60,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 61,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "apply_foxai_theme(self)"
+    },
+    {
+      "language": "python",
+      "line": 62,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "except Exception:"
+    },
+    {
+      "language": "python",
+      "line": 63,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "pass"
+    },
+    {
+      "language": "python",
+      "line": 64,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "self.after(1200, self._foxai_theme_watchdog)"
+    },
+    {
+      "language": "python",
+      "line": 66,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "def read_bridge_feed(self):"
+    },
+    {
+      "language": "python",
+      "line": 67,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "path = Path(__file__).resolve().parent.parent / \"OpsBridge\" / \"outbox\" / \"bridge_feed.json\""
+    },
+    {
+      "language": "python",
+      "line": 68,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "if path.exists():"
+    },
+    {
+      "language": "python",
+      "line": 69,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 70,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "return json.loads(path.read_text(encoding=\"utf-8\", errors=\"replace\"))"
+    },
+    {
+      "language": "python",
+      "line": 71,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "except Exception:"
+    },
+    {
+      "language": "python",
+      "line": 72,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "return None"
+    },
+    {
+      "language": "python",
+      "line": 73,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "return None"
+    },
+    {
+      "language": "python",
+      "line": 75,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "def show_command_bridge(self):"
+    },
+    {
+      "language": "python",
+      "line": 76,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "self.clear_content()"
+    },
+    {
+      "language": "python",
+      "line": 77,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "self.make_title(\"FOXAI COMMAND BRIDGE\")"
+    },
+    {
+      "language": "python",
+      "line": 78,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "feed = self.read_bridge_feed()"
+    },
+    {
+      "language": "python",
+      "line": 80,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "outer = ctk.CTkScrollableFrame(self.content)"
+    },
+    {
+      "language": "python",
+      "line": 81,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "outer.pack(fill=\"both\", expand=True, padx=20, pady=15)"
+    },
+    {
+      "language": "python",
+      "line": 83,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "hero = ctk.CTkFrame(outer)"
+    },
+    {
+      "language": "python",
+      "line": 84,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "hero.pack(fill=\"x\", padx=10, pady=(10, 15))"
+    },
+    {
+      "language": "python",
+      "line": 86,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "identity = (feed or {}).get(\"identity\", {})"
+    },
+    {
+      "language": "python",
+      "line": 87,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "summary = (feed or {}).get(\"summary\", {})"
+    },
+    {
+      "language": "python",
+      "line": 88,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "kernel = (feed or {}).get(\"kernel\", {})"
+    },
+    {
+      "language": "python",
+      "line": 90,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "title = identity.get(\"name\", \"FOXAI Command OS\")"
+    },
+    {
+      "language": "python",
+      "line": 91,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "subtitle = identity.get(\"subtitle\", \"Ultimate Edifier Platform\")"
+    },
+    {
+      "language": "python",
+      "line": 92,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "kernel_status = kernel.get(\"status\", \"WAITING\")"
+    },
+    {
+      "language": "python",
+      "line": 94,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "ctk.CTkLabel(hero, text=title, font=(\"Consolas\", 28, \"bold\"), text_color=color(\"purple_soft\")).pack(pady=(18, 2))"
+    },
+    {
+      "language": "python",
+      "line": 95,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "ctk.CTkLabel(hero, text=f\"{subtitle}  //  Kernel: {kernel_status}\", font=(\"Consolas\", 14), text_color=color(\"muted\")).pack(pady=(0, 18))"
+    },
+    {
+      "language": "python",
+      "line": 97,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "metrics = ctk.CTkFrame(outer)"
+    },
+    {
+      "language": "python",
+      "line": 98,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "metrics.pack(fill=\"x\", padx=10, pady=(0, 15))"
+    },
+    {
+      "language": "python",
+      "line": 99,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "for i in range(4):"
+    },
+    {
+      "language": "python",
+      "line": 100,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "metrics.grid_columnconfigure(i, weight=1)"
+    },
+    {
+      "language": "python",
+      "line": 102,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "metric_data = ["
+    },
+    {
+      "language": "python",
+      "line": 103,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "(\"Departments\", summary.get(\"department_count\", \"—\")),"
+    },
+    {
+      "language": "python",
+      "line": 104,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "(\"Online\", summary.get(\"departments_online\", \"—\")),"
+    },
+    {
+      "language": "python",
+      "line": 105,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "(\"Runtime Packages\", summary.get(\"runtime_packages\", \"—\")),"
+    },
+    {
+      "language": "python",
+      "line": 106,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "(\"Log Entries\", summary.get(\"captains_log_entries\", \"—\")),"
+    },
+    {
+      "language": "python",
+      "line": 107,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "]"
+    },
+    {
+      "language": "python",
+      "line": 108,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "for i, (label, value) in enumerate(metric_data):"
+    },
+    {
+      "language": "python",
+      "line": 109,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "card = ctk.CTkFrame(metrics)"
+    },
+    {
+      "language": "python",
+      "line": 110,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "card.grid(row=0, column=i, padx=8, pady=8, sticky=\"nsew\")"
+    },
+    {
+      "language": "python",
+      "line": 111,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "ctk.CTkLabel(card, text=label.upper(), font=(\"Consolas\", 12, \"bold\"), text_color=color(\"muted\")).pack(pady=(14, 4))"
+    },
+    {
+      "language": "python",
+      "line": 112,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "ctk.CTkLabel(card, text=str(value), font=(\"Consolas\", 24, \"bold\"), text_color=color(\"purple_soft\")).pack(pady=(0, 14))"
+    },
+    {
+      "language": "python",
+      "line": 114,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "dept_panel = ctk.CTkFrame(outer)"
+    },
+    {
+      "language": "python",
+      "line": 115,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "dept_panel.pack(fill=\"x\", padx=10, pady=(0, 15))"
+    },
+    {
+      "language": "python",
+      "line": 116,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "ctk.CTkLabel(dept_panel, text=\"DEPARTMENTS\", font=(\"Consolas\", 16, \"bold\"), text_color=color(\"cyan\")).pack(anchor=\"w\", padx=14, pady=(12, 6))"
+    },
+    {
+      "language": "python",
+      "line": 118,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "cards = (feed or {}).get(\"department_cards\", [])"
+    },
+    {
+      "language": "python",
+      "line": 119,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "if not cards:"
+    },
+    {
+      "language": "python",
+      "line": 120,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "ctk.CTkLabel(dept_panel, text=\"Run BUILD_FOXAI.bat to generate OpsBridge\\\\\\\\outbox\\\\\\\\bridge_feed.json.\", font=(\"Consolas\", 13)).pack(anchor=\"w\", padx=14, pady=(0, 14))"
+    },
+    {
+      "language": "python",
+      "line": 121,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "else:"
+    },
+    {
+      "language": "python",
+      "line": 122,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "grid = ctk.CTkFrame(dept_panel)"
+    },
+    {
+      "language": "python",
+      "line": 123,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "grid.pack(fill=\"x\", padx=10, pady=(0, 12))"
+    },
+    {
+      "language": "python",
+      "line": 124,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "grid.grid_columnconfigure(0, weight=1)"
+    },
+    {
+      "language": "python",
+      "line": 125,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "grid.grid_columnconfigure(1, weight=1)"
+    },
+    {
+      "language": "python",
+      "line": 126,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "for i, card in enumerate(cards):"
+    },
+    {
+      "language": "python",
+      "line": 127,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "panel = ctk.CTkFrame(grid)"
+    },
+    {
+      "language": "python",
+      "line": 128,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "panel.grid(row=i // 2, column=i % 2, padx=8, pady=8, sticky=\"nsew\")"
+    },
+    {
+      "language": "python",
+      "line": 129,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "status_color = color(\"green\") if card.get(\"ok\") else color(\"gold\")"
+    },
+    {
+      "language": "python",
+      "line": 130,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "ctk.CTkLabel(panel, text=card.get(\"title\", \"Department\"), font=(\"Consolas\", 15, \"bold\")).pack(anchor=\"w\", padx=14, pady=(12, 2))"
+    },
+    {
+      "language": "python",
+      "line": 131,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "ctk.CTkLabel(panel, text=card.get(\"officer\", \"Unassigned\"), font=(\"Consolas\", 12), text_color=color(\"muted\")).pack(anchor=\"w\", padx=14)"
+    },
+    {
+      "language": "python",
+      "line": 132,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "ctk.CTkLabel(panel, text=card.get(\"status\", \"UNKNOWN\"), font=(\"Consolas\", 13, \"bold\"), text_color=status_color).pack(anchor=\"w\", padx=14, pady=(8, 12))"
+    },
+    {
+      "language": "python",
+      "line": 134,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "mission_panel = ctk.CTkFrame(outer)"
+    },
+    {
+      "language": "python",
+      "line": 135,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "mission_panel.pack(fill=\"x\", padx=10, pady=(0, 15))"
+    },
+    {
+      "language": "python",
+      "line": 136,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "ctk.CTkLabel(mission_panel, text=\"MISSION SNAPSHOT\", font=(\"Consolas\", 16, \"bold\"), text_color=color(\"cyan\")).pack(anchor=\"w\", padx=14, pady=(12, 6))"
+    },
+    {
+      "language": "python",
+      "line": 137,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "latest_mission = summary.get(\"latest_mission\") or \"No recent mission.\""
+    },
+    {
+      "language": "python",
+      "line": 138,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "latest_event = summary.get(\"latest_event\") or \"Awaiting latest event.\""
+    },
+    {
+      "language": "python",
+      "line": 139,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "ctk.CTkLabel(mission_panel, text=f\"Latest Mission: {latest_mission}\\\\nLatest Event: {latest_event}\", justify=\"left\", font=(\"Consolas\", 13)).pack(anchor=\"w\", padx=14, pady=(0, 12))"
+    },
+    {
+      "language": "python",
+      "line": 141,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "actions = ctk.CTkFrame(mission_panel)"
+    },
+    {
+      "language": "python",
+      "line": 142,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "actions.pack(fill=\"x\", padx=10, pady=(0, 12))"
+    },
+    {
+      "language": "python",
+      "line": 143,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "ctk.CTkButton(actions, text=\"REFRESH BRIDGE\", command=self.show_command_bridge, width=160).pack(side=\"left\", padx=8, pady=8)"
+    },
+    {
+      "language": "python",
+      "line": 144,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "ctk.CTkButton(actions, text=\"MISSION CONSOLE\", command=self.show_mission_console, width=170).pack(side=\"left\", padx=8, pady=8)"
+    },
+    {
+      "language": "python",
+      "line": 145,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "ctk.CTkButton(actions, text=\"DIAGNOSTICS\", command=self.show_diagnostics, width=150).pack(side=\"left\", padx=8, pady=8)"
+    },
+    {
+      "language": "python",
+      "line": 147,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "log_panel = ctk.CTkFrame(outer)"
+    },
+    {
+      "language": "python",
+      "line": 148,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "log_panel.pack(fill=\"both\", expand=True, padx=10, pady=(0, 15))"
+    },
+    {
+      "language": "python",
+      "line": 149,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "ctk.CTkLabel(log_panel, text=\"CAPTAIN'S LOG\", font=(\"Consolas\", 16, \"bold\"), text_color=color(\"cyan\")).pack(anchor=\"w\", padx=14, pady=(12, 6))"
+    },
+    {
+      "language": "python",
+      "line": 150,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "log_box = ctk.CTkTextbox(log_panel, wrap=\"word\", height=220, font=(\"Consolas\", 12))"
+    },
+    {
+      "language": "python",
+      "line": 151,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "log_box.pack(fill=\"both\", expand=True, padx=14, pady=(0, 14))"
+    },
+    {
+      "language": "python",
+      "line": 152,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "entries = ((feed or {}).get(\"captains_log\") or {}).get(\"entries\", [])[-8:]"
+    },
+    {
+      "language": "python",
+      "line": 153,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "if entries:"
+    },
+    {
+      "language": "python",
+      "line": 154,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "for entry in reversed(entries):"
+    },
+    {
+      "language": "python",
+      "line": 155,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "log_box.insert(\"end\", f\"{entry.get('timestamp')} — {entry.get('source')}\\\\n[{entry.get('severity')}] {entry.get('message')}\\\\n\\\\n\")"
+    },
+    {
+      "language": "python",
+      "line": 156,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "else:"
+    },
+    {
+      "language": "python",
+      "line": 157,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "log_box.insert(\"end\", \"Captain's Log waiting for bridge feed.\\\\n\")"
+    },
+    {
+      "language": "python",
+      "line": 158,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "log_box.configure(state=\"disabled\")"
+    },
+    {
+      "language": "python",
+      "line": 160,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "self.make_status_bar()"
+    },
+    {
+      "language": "python",
+      "line": 161,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 162,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "apply_foxai_theme(self)"
+    },
+    {
+      "language": "python",
+      "line": 163,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "except Exception:"
+    },
+    {
+      "language": "python",
+      "line": 164,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "pass"
+    },
+    {
+      "language": "python",
+      "line": 166,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "'''"
+    },
+    {
+      "language": "python",
+      "line": 167,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "text = text.replace(\"    def load_config(self):\\n\", method + \"\\n    def load_config(self):\\n\")"
+    },
+    {
+      "language": "python",
+      "line": 168,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "changed.append(\"added Command Bridge view\")"
+    },
+    {
+      "language": "python",
+      "line": 170,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "if \"self.command_bridge_button\" not in text:"
+    },
+    {
+      "language": "python",
+      "line": 171,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "needle = '        ctk.CTkLabel(self.sidebar, text=\"DEPARTMENTS\", font=(\"Consolas\", 12, \"bold\")).pack(pady=(18, 8))\\n\\n'"
+    },
+    {
+      "language": "python",
+      "line": 172,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "replacement = needle + '        self.command_bridge_button = ctk.CTkButton(self.sidebar, text=\"🚀 COMMAND BRIDGE\", command=self.show_command_bridge, width=230)\\n        self.command_bridge_button.pack(pady=4)\\n\\n'"
+    },
+    {
+      "language": "python",
+      "line": 173,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "text = text.replace(needle, replacement)"
+    },
+    {
+      "language": "python",
+      "line": 174,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "changed.append(\"added Command Bridge sidebar button\")"
+    },
+    {
+      "language": "python",
+      "line": 176,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "text = text.replace('ctk.CTkLabel(self.sidebar, text=\"FOXAI // OPS\", font=(\"Consolas\", 28, \"bold\")).pack(pady=(5, 5))',"
+    },
+    {
+      "language": "python",
+      "line": 177,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "'ctk.CTkLabel(self.sidebar, text=\"FOXAI COMMAND OS\", font=(\"Consolas\", 24, \"bold\"), text_color=color(\"purple_soft\")).pack(pady=(5, 5))')"
+    },
+    {
+      "language": "python",
+      "line": 178,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "text = text.replace('ctk.CTkLabel(self.sidebar, text=\"Cyber Operations Console\", font=(\"Consolas\", 13)).pack(pady=(0, 18))',"
+    },
+    {
+      "language": "python",
+      "line": 179,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "'ctk.CTkLabel(self.sidebar, text=\"Ultimate Edifier Platform\", font=(\"Consolas\", 13), text_color=color(\"muted\")).pack(pady=(0, 18))')"
+    },
+    {
+      "language": "python",
+      "line": 181,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "path.write_text(text, encoding=\"utf-8\")"
+    },
+    {
+      "language": "python",
+      "line": 182,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "return {\"file\": str(path), \"changed\": changed}"
+    },
+    {
+      "language": "python",
+      "line": 184,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "def patch_splash() -> dict:"
+    },
+    {
+      "language": "python",
+      "line": 185,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "path = UI / \"splash.py\""
+    },
+    {
+      "language": "python",
+      "line": 186,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "if not path.exists():"
+    },
+    {
+      "language": "python",
+      "line": 187,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "raise SystemExit(\"ERROR: ui\\\\splash.py not found. Extract into Z:\\\\FOXAI.\")"
+    },
+    {
+      "language": "python",
+      "line": 188,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "backup(path)"
+    },
+    {
+      "language": "python",
+      "line": 189,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "text = path.read_text(encoding=\"utf-8\")"
+    },
+    {
+      "language": "python",
+      "line": 190,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "changed = []"
+    },
+    {
+      "language": "python",
+      "line": 192,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "if \"from ui.foxai_theme import\" not in text and \"from .foxai_theme import\" not in text:"
+    },
+    {
+      "language": "python",
+      "line": 193,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "marker = \"from PIL import Image\\n\""
+    },
+    {
+      "language": "python",
+      "line": 194,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "text = text.replace(marker, marker + \"\\ntry:\\n    from .foxai_theme import configure_ctk_identity, apply_foxai_theme, color\\nexcept Exception:\\n    from ui.foxai_theme import configure_ctk_identity, apply_foxai_theme, color\\n\")"
+    },
+    {
+      "language": "python",
+      "line": 195,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "changed.append(\"added FOXAI theme import\")"
+    },
+    {
+      "language": "python",
+      "line": 197,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "text = text.replace('ctk.set_default_color_theme(\"green\")', 'configure_ctk_identity()')"
+    },
+    {
+      "language": "python",
+      "line": 198,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "text = text.replace('ctk.CTkLabel(frame, text=\"FOXAI BIOS\", font=(\"Consolas\", 34, \"bold\")).pack(pady=(5, 0))',"
+    },
+    {
+      "language": "python",
+      "line": 199,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "'ctk.CTkLabel(frame, text=\"FOXAI COMMAND OS\", font=(\"Consolas\", 32, \"bold\"), text_color=color(\"purple_soft\")).pack(pady=(5, 0))')"
+    },
+    {
+      "language": "python",
+      "line": 200,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "text = text.replace('ctk.CTkLabel(frame, text=\"Cyber Operations Console // Local Runtime\", font=(\"Consolas\", 14)).pack(pady=(0, 15))',"
+    },
+    {
+      "language": "python",
+      "line": 201,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "'ctk.CTkLabel(frame, text=\"Ultimate Edifier Platform // Local Runtime\", font=(\"Consolas\", 14), text_color=color(\"muted\")).pack(pady=(0, 15))')"
+    },
+    {
+      "language": "python",
+      "line": 202,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "text = text.replace('\"Cyber Console..........READY\"', '\"Command Bridge.........READY\"')"
+    },
+    {
+      "language": "python",
+      "line": 203,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "text = text.replace('\"Launching Agent Fox...\"', '\"Launching FOXAI Bridge...\"')"
+    },
+    {
+      "language": "python",
+      "line": 205,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "if \"apply_foxai_theme(splash)\" not in text:"
+    },
+    {
+      "language": "python",
+      "line": 206,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "text = text.replace('    frame.pack(fill=\"both\", expand=True, padx=18, pady=18)\\n',"
+    },
+    {
+      "language": "python",
+      "line": 207,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "'    frame.pack(fill=\"both\", expand=True, padx=18, pady=18)\\n    apply_foxai_theme(splash)\\n')"
+    },
+    {
+      "language": "python",
+      "line": 208,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "changed.append(\"applied splash theme\")"
+    },
+    {
+      "language": "python",
+      "line": 210,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "path.write_text(text, encoding=\"utf-8\")"
+    },
+    {
+      "language": "python",
+      "line": 211,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "return {\"file\": str(path), \"changed\": changed}"
+    },
+    {
+      "language": "python",
+      "line": 213,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "def main() -> None:"
+    },
+    {
+      "language": "python",
+      "line": 214,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "if not UI.exists():"
+    },
+    {
+      "language": "python",
+      "line": 215,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "raise SystemExit(\"ERROR: ui folder not found. Extract this package into Z:\\\\FOXAI and run again.\")"
+    },
+    {
+      "language": "python",
+      "line": 216,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "if not (ROOT / \"_purple_payload\").exists():"
+    },
+    {
+      "language": "python",
+      "line": 217,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "raise SystemExit(\"ERROR: _purple_payload missing. Re-extract package and try again.\")"
+    },
+    {
+      "language": "python",
+      "line": 219,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "BACKUP_ROOT.mkdir(parents=True, exist_ok=True)"
+    },
+    {
+      "language": "python",
+      "line": 220,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "write_theme()"
+    },
+    {
+      "language": "python",
+      "line": 221,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "result = {"
+    },
+    {
+      "language": "python",
+      "line": 222,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "\"ok\": True,"
+    },
+    {
+      "language": "python",
+      "line": 223,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "\"patch\": \"FOXAI Orion v9.1 Purple Desktop Shell\","
+    },
+    {
+      "language": "python",
+      "line": 224,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "\"backup_root\": str(BACKUP_ROOT),"
+    },
+    {
+      "language": "python",
+      "line": 225,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "\"main_window\": patch_main_window(),"
+    },
+    {
+      "language": "python",
+      "line": 226,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "\"splash\": patch_splash(),"
+    },
+    {
+      "language": "python",
+      "line": 227,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 229,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "outbox = ROOT / \"OpsBridge\" / \"outbox\""
+    },
+    {
+      "language": "python",
+      "line": 230,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "outbox.mkdir(parents=True, exist_ok=True)"
+    },
+    {
+      "language": "python",
+      "line": 231,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "(outbox / \"purple_desktop_patch_report.json\").write_text(json.dumps(result, indent=2), encoding=\"utf-8\")"
+    },
+    {
+      "language": "python",
+      "line": 232,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "(outbox / \"purple_desktop_patch_report.txt\").write_text("
+    },
+    {
+      "language": "python",
+      "line": 233,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "\"FOXAI Orion v9.1 Purple Desktop Shell\\n\""
+    },
+    {
+      "language": "python",
+      "line": 234,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "\"=====================================\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 235,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "f\"OK: {result['ok']}\\n\""
+    },
+    {
+      "language": "python",
+      "line": 236,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "f\"Backup Root: {result['backup_root']}\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 237,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "\"Green identity retired. Graphite + purple desktop shell applied.\\n\","
+    },
+    {
+      "language": "python",
+      "line": 238,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "encoding=\"utf-8\""
+    },
+    {
+      "language": "python",
+      "line": 239,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 241,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "print(\"FOXAI Orion v9.1 Purple Desktop Shell\")"
+    },
+    {
+      "language": "python",
+      "line": 242,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "print(\"=====================================\")"
+    },
+    {
+      "language": "python",
+      "line": 243,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "print()"
+    },
+    {
+      "language": "python",
+      "line": 244,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "print(\"OK: True\")"
+    },
+    {
+      "language": "python",
+      "line": 245,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "print(f\"Backup Root: {BACKUP_ROOT}\")"
+    },
+    {
+      "language": "python",
+      "line": 246,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "print()"
+    },
+    {
+      "language": "python",
+      "line": 247,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "print(\"Patched:\")"
+    },
+    {
+      "language": "python",
+      "line": 248,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "print(\"- ui\\\\main_window.py\")"
+    },
+    {
+      "language": "python",
+      "line": 249,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "print(\"- ui\\\\splash.py\")"
+    },
+    {
+      "language": "python",
+      "line": 250,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "print(\"- ui\\\\foxai_theme.py\")"
+    },
+    {
+      "language": "python",
+      "line": 251,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "print()"
+    },
+    {
+      "language": "python",
+      "line": 252,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "print(\"Next:\")"
+    },
+    {
+      "language": "python",
+      "line": 253,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "print(\"Run your normal FOXAI start command.\")"
+    },
+    {
+      "language": "python",
+      "line": 255,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "if __name__ == \"__main__\":"
+    },
+    {
+      "language": "python",
+      "line": 256,
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "text": "main()"
+    },
+    {
+      "language": "python",
+      "line": 1,
+      "path": "APPLY_UPDATE.py",
+      "text": "from pathlib import Path"
+    },
+    {
+      "language": "python",
+      "line": 2,
+      "path": "APPLY_UPDATE.py",
+      "text": "import argparse"
+    },
+    {
+      "language": "python",
+      "line": 3,
+      "path": "APPLY_UPDATE.py",
+      "text": "from core_v10.update_center import UpdateCenter"
+    },
+    {
+      "language": "python",
+      "line": 5,
+      "path": "APPLY_UPDATE.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 6,
+      "path": "APPLY_UPDATE.py",
+      "text": "from rich.console import Console"
+    },
+    {
+      "language": "python",
+      "line": 7,
+      "path": "APPLY_UPDATE.py",
+      "text": "from rich.panel import Panel"
+    },
+    {
+      "language": "python",
+      "line": 8,
+      "path": "APPLY_UPDATE.py",
+      "text": "from rich.table import Table"
+    },
+    {
+      "language": "python",
+      "line": 9,
+      "path": "APPLY_UPDATE.py",
+      "text": "from rich import box"
+    },
+    {
+      "language": "python",
+      "line": 10,
+      "path": "APPLY_UPDATE.py",
+      "text": "except Exception:"
+    },
+    {
+      "language": "python",
+      "line": 11,
+      "path": "APPLY_UPDATE.py",
+      "text": "Console = None"
+    },
+    {
+      "language": "python",
+      "line": 13,
+      "path": "APPLY_UPDATE.py",
+      "text": "root = Path(__file__).resolve().parent"
+    },
+    {
+      "language": "python",
+      "line": 14,
+      "path": "APPLY_UPDATE.py",
+      "text": "parser = argparse.ArgumentParser()"
+    },
+    {
+      "language": "python",
+      "line": 15,
+      "path": "APPLY_UPDATE.py",
+      "text": "parser.add_argument(\"--preview\", action=\"store_true\")"
+    },
+    {
+      "language": "python",
+      "line": 16,
+      "path": "APPLY_UPDATE.py",
+      "text": "parser.add_argument(\"--package\", default=None)"
+    },
+    {
+      "language": "python",
+      "line": 17,
+      "path": "APPLY_UPDATE.py",
+      "text": "args = parser.parse_args()"
+    },
+    {
+      "language": "python",
+      "line": 19,
+      "path": "APPLY_UPDATE.py",
+      "text": "package = Path(args.package).resolve() if args.package else root"
+    },
+    {
+      "language": "python",
+      "line": 20,
+      "path": "APPLY_UPDATE.py",
+      "text": "center = UpdateCenter(root)"
+    },
+    {
+      "language": "python",
+      "line": 21,
+      "path": "APPLY_UPDATE.py",
+      "text": "report = center.preview(package) if args.preview else center.apply(package)"
+    },
+    {
+      "language": "python",
+      "line": 23,
+      "path": "APPLY_UPDATE.py",
+      "text": "if Console:"
+    },
+    {
+      "language": "python",
+      "line": 24,
+      "path": "APPLY_UPDATE.py",
+      "text": "c = Console()"
+    },
+    {
+      "language": "python",
+      "line": 25,
+      "path": "APPLY_UPDATE.py",
+      "text": "c.rule(\"[bold cyan]FOXAI Update Center[/bold cyan]\")"
+    },
+    {
+      "language": "python",
+      "line": 26,
+      "path": "APPLY_UPDATE.py",
+      "text": "c.print(Panel("
+    },
+    {
+      "language": "python",
+      "line": 27,
+      "path": "APPLY_UPDATE.py",
+      "text": "f\"OK: {report.get('ok')}\\nMode: {report.get('mode')}\\nCyclic Copy Risk: {report.get('cyclic_copy_risk')}\\nFiles: {len(report.get('files', []))}\\nApplied: {len(report.get('applied', [])) if 'applied' in report else 'preview'}\","
+    },
+    {
+      "language": "python",
+      "line": 28,
+      "path": "APPLY_UPDATE.py",
+      "text": "title=\"Project Orion v7.5\","
+    },
+    {
+      "language": "python",
+      "line": 29,
+      "path": "APPLY_UPDATE.py",
+      "text": "border_style=\"green\" if report.get(\"ok\") else \"red\","
+    },
+    {
+      "language": "python",
+      "line": 30,
+      "path": "APPLY_UPDATE.py",
+      "text": "))"
+    },
+    {
+      "language": "python",
+      "line": 31,
+      "path": "APPLY_UPDATE.py",
+      "text": "t = Table(title=\"Files\", box=box.ROUNDED)"
+    },
+    {
+      "language": "python",
+      "line": 32,
+      "path": "APPLY_UPDATE.py",
+      "text": "t.add_column(\"Path\")"
+    },
+    {
+      "language": "python",
+      "line": 33,
+      "path": "APPLY_UPDATE.py",
+      "text": "t.add_column(\"Action\")"
+    },
+    {
+      "language": "python",
+      "line": 34,
+      "path": "APPLY_UPDATE.py",
+      "text": "for item in report.get(\"files\", []):"
+    },
+    {
+      "language": "python",
+      "line": 35,
+      "path": "APPLY_UPDATE.py",
+      "text": "t.add_row(item[\"relative_path\"], item[\"action\"])"
+    },
+    {
+      "language": "python",
+      "line": 36,
+      "path": "APPLY_UPDATE.py",
+      "text": "c.print(t)"
+    },
+    {
+      "language": "python",
+      "line": 37,
+      "path": "APPLY_UPDATE.py",
+      "text": "else:"
+    },
+    {
+      "language": "python",
+      "line": 38,
+      "path": "APPLY_UPDATE.py",
+      "text": "print(center.render_text(report))"
+    },
+    {
+      "language": "json",
+      "line": 1,
+      "path": "baseline_manifest.json",
+      "text": "{"
+    },
+    {
+      "language": "json",
+      "line": 2,
+      "path": "baseline_manifest.json",
+      "text": "\"created_utc\": \"2026-07-12T01:13:49+00:00\","
+    },
+    {
+      "language": "json",
+      "line": 3,
+      "path": "baseline_manifest.json",
+      "text": "\"bundle\": \"KayocktheOS_Phase1_Airlock_Patch_Bundle_20260712T011348Z\","
+    },
+    {
+      "language": "json",
+      "line": 4,
+      "path": "baseline_manifest.json",
+      "text": "\"baseline\": {"
+    },
+    {
+      "language": "json",
+      "line": 5,
+      "path": "baseline_manifest.json",
+      "text": "\"core/agents.py\": \"09f65bdb7f3f874dc306ebb7941c3f991c7c708dc8a121c9d70487f8ea96e06a\","
+    },
+    {
+      "language": "json",
+      "line": 6,
+      "path": "baseline_manifest.json",
+      "text": "\"core/director.py\": \"24d940d05cadf1baa9e7169a2ecf526caeab7268b61317588f198919d308dbcf\","
+    },
+    {
+      "language": "json",
+      "line": 7,
+      "path": "baseline_manifest.json",
+      "text": "\"core/engineer_agent.py\": \"fcd1fb2e6ae5cb85744b689a36bd755db345a3aeea4bee33a1e420a687bcece8\","
+    },
+    {
+      "language": "json",
+      "line": 8,
+      "path": "baseline_manifest.json",
+      "text": "\"core/smart_search.py\": \"5622caed24eb687d958995e18783fdfabfd22cf16cc17e4c3cd63386e27ce204\","
+    },
+    {
+      "language": "json",
+      "line": 9,
+      "path": "baseline_manifest.json",
+      "text": "\"core/foxai_web.py\": \"f660f2964551cff959b1889c9b25be72d3217f99c8710721c3caf5dfb7e4067f\","
+    },
+    {
+      "language": "json",
+      "line": 10,
+      "path": "baseline_manifest.json",
+      "text": "\"START_FOXAI_WEB_PORTABLE.bat\": \"dcd4115c1db4e11996b794fae3e40f8efc743868049c04adf93cd0a9c9157705\""
+    },
+    {
+      "language": "json",
+      "line": 11,
+      "path": "baseline_manifest.json",
+      "text": "},"
+    },
+    {
+      "language": "json",
+      "line": 12,
+      "path": "baseline_manifest.json",
+      "text": "\"payload\": {"
+    },
+    {
+      "language": "json",
+      "line": 13,
+      "path": "baseline_manifest.json",
+      "text": "\"START_FOXAI_WEB_PORTABLE.bat\": \"dcd4115c1db4e11996b794fae3e40f8efc743868049c04adf93cd0a9c9157705\","
+    },
+    {
+      "language": "json",
+      "line": 14,
+      "path": "baseline_manifest.json",
+      "text": "\"core/security_containment.py\": \"ea45ef5d4a201adc2cf8f337d776a81946d85febe3180e635a9cff4928bdd7e8\","
+    },
+    {
+      "language": "json",
+      "line": 15,
+      "path": "baseline_manifest.json",
+      "text": "\"core/director.py\": \"40d28702a56e36d8cc9c0bc224392ada935394407c4c6ac053ef3054c73fd729\","
+    },
+    {
+      "language": "json",
+      "line": 16,
+      "path": "baseline_manifest.json",
+      "text": "\"core/agents.py\": \"a822bc012da7f7fd6b3166ad14a57844c402ace21cc1bb971190b43c823b0a65\","
+    },
+    {
+      "language": "json",
+      "line": 17,
+      "path": "baseline_manifest.json",
+      "text": "\"core/smart_search.py\": \"f87ff40820e70067ad562ce1ffb57afcb60a3085dcac176deab4d26c4e427d18\","
+    },
+    {
+      "language": "json",
+      "line": 18,
+      "path": "baseline_manifest.json",
+      "text": "\"core/engineer_agent.py\": \"bf32b0ab80b6cc3a177698101a5c2121a4224d0bf55bbe78c047f541fb3a6339\","
+    },
+    {
+      "language": "json",
+      "line": 19,
+      "path": "baseline_manifest.json",
+      "text": "\"core/foxai_web.py\": \"5feb632c5d44d260dba706019beeacf2f5e210ab5a495b9ede3fbe287a6b899e\","
+    },
+    {
+      "language": "json",
+      "line": 20,
+      "path": "baseline_manifest.json",
+      "text": "\"Config/engineering_airlock_model.conf\": \"8f056f3b85cc10b56eaa9aea617f3ab6526f1eaba9e4ad23819890af1c6a482c\","
+    },
+    {
+      "language": "json",
+      "line": 21,
+      "path": "baseline_manifest.json",
+      "text": "\"Config/engineering_airlock_policy.csv\": \"e484ccc96765e67cd3ce177bfe92bdcb09bee58cb67f0dd5b5a6d5d87b0167ac\""
+    },
+    {
+      "language": "json",
+      "line": 22,
+      "path": "baseline_manifest.json",
+      "text": "},"
+    },
+    {
+      "language": "json",
+      "line": 23,
+      "path": "baseline_manifest.json",
+      "text": "\"expected_absent\": ["
+    },
+    {
+      "language": "json",
+      "line": 24,
+      "path": "baseline_manifest.json",
+      "text": "\"core/security_containment.py\","
+    },
+    {
+      "language": "json",
+      "line": 25,
+      "path": "baseline_manifest.json",
+      "text": "\"Config/engineering_airlock_model.conf\","
+    },
+    {
+      "language": "json",
+      "line": 26,
+      "path": "baseline_manifest.json",
+      "text": "\"Config/engineering_airlock_policy.csv\""
+    },
+    {
+      "language": "json",
+      "line": 27,
+      "path": "baseline_manifest.json",
+      "text": "],"
+    },
+    {
+      "language": "json",
+      "line": 28,
+      "path": "baseline_manifest.json",
+      "text": "\"safety\": {"
+    },
+    {
+      "language": "json",
+      "line": 29,
+      "path": "baseline_manifest.json",
+      "text": "\"uploaded_sources_modified\": false,"
+    },
+    {
+      "language": "json",
+      "line": 30,
+      "path": "baseline_manifest.json",
+      "text": "\"preview_changes_live_files\": false,"
+    },
+    {
+      "language": "json",
+      "line": 31,
+      "path": "baseline_manifest.json",
+      "text": "\"apply_requires_exact_phrase\": \"APPLY KAYOCK PHASE1\","
+    },
+    {
+      "language": "json",
+      "line": 32,
+      "path": "baseline_manifest.json",
+      "text": "\"apply_requires_clean_git_if_repository_present\": true,"
+    },
+    {
+      "language": "json",
+      "line": 33,
+      "path": "baseline_manifest.json",
+      "text": "\"automatic_rollback_on_failed_postcheck\": true"
+    },
+    {
+      "language": "json",
+      "line": 34,
+      "path": "baseline_manifest.json",
+      "text": "}"
+    },
+    {
+      "language": "json",
+      "line": 35,
+      "path": "baseline_manifest.json",
+      "text": "}"
+    },
+    {
+      "language": "batch",
+      "line": 1,
+      "path": "bootstrap_kayocktheos.bat",
+      "text": "@echo off"
+    },
+    {
+      "language": "batch",
+      "line": 2,
+      "path": "bootstrap_kayocktheos.bat",
+      "text": "title KayocktheOS Bootstrap"
+    },
+    {
+      "language": "batch",
+      "line": 3,
+      "path": "bootstrap_kayocktheos.bat",
+      "text": "color 0A"
+    },
+    {
+      "language": "batch",
+      "line": 4,
+      "path": "bootstrap_kayocktheos.bat",
+      "text": "echo KayocktheOS bootstrap check"
+    },
+    {
+      "language": "batch",
+      "line": 5,
+      "path": "bootstrap_kayocktheos.bat",
+      "text": "echo This release already includes the complete v0.1.0 folder tree."
+    },
+    {
+      "language": "batch",
+      "line": 6,
+      "path": "bootstrap_kayocktheos.bat",
+      "text": "echo."
+    },
+    {
+      "language": "batch",
+      "line": 7,
+      "path": "bootstrap_kayocktheos.bat",
+      "text": "echo If folders are missing, unzip the release again over the project root."
+    },
+    {
+      "language": "batch",
+      "line": 8,
+      "path": "bootstrap_kayocktheos.bat",
+      "text": "pause"
+    },
+    {
+      "language": "html",
+      "line": 1,
+      "path": "Bridge\\index.html",
+      "text": "<!doctype html>"
+    },
+    {
+      "language": "html",
+      "line": 2,
+      "path": "Bridge\\index.html",
+      "text": "<html lang=\"en\">"
+    },
+    {
+      "language": "html",
+      "line": 3,
+      "path": "Bridge\\index.html",
+      "text": "<head>"
+    },
+    {
+      "language": "html",
+      "line": 4,
+      "path": "Bridge\\index.html",
+      "text": "<meta charset=\"utf-8\" />"
+    },
+    {
+      "language": "html",
+      "line": 5,
+      "path": "Bridge\\index.html",
+      "text": "<meta"
+    },
+    {
+      "language": "html",
+      "line": 6,
+      "path": "Bridge\\index.html",
+      "text": "http-equiv=\"Content-Security-Policy\""
+    },
+    {
+      "language": "html",
+      "line": 7,
+      "path": "Bridge\\index.html",
+      "text": "content=\"default-src 'self'; connect-src 'self' http://127.0.0.1:8844; img-src 'self' data: file:; style-src 'self' 'unsafe-inline'; script-src 'self';\""
+    },
+    {
+      "language": "html",
+      "line": 8,
+      "path": "Bridge\\index.html",
+      "text": "/>"
+    },
+    {
+      "language": "html",
+      "line": 9,
+      "path": "Bridge\\index.html",
+      "text": "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" />"
+    },
+    {
+      "language": "html",
+      "line": 10,
+      "path": "Bridge\\index.html",
+      "text": "<title>KayocktheOS Bridge</title>"
+    },
+    {
+      "language": "html",
+      "line": 11,
+      "path": "Bridge\\index.html",
+      "text": "<link rel=\"stylesheet\" href=\"style.css\" />"
+    },
+    {
+      "language": "html",
+      "line": 12,
+      "path": "Bridge\\index.html",
+      "text": "</head>"
+    },
+    {
+      "language": "html",
+      "line": 13,
+      "path": "Bridge\\index.html",
+      "text": "<body>"
+    },
+    {
+      "language": "html",
+      "line": 14,
+      "path": "Bridge\\index.html",
+      "text": "<div id=\"bootScreen\" class=\"bootScreen\">"
+    },
+    {
+      "language": "html",
+      "line": 15,
+      "path": "Bridge\\index.html",
+      "text": "<div class=\"bootCard\">"
+    },
+    {
+      "language": "html",
+      "line": 16,
+      "path": "Bridge\\index.html",
+      "text": "<div class=\"sigil large\">K</div>"
+    },
+    {
+      "language": "html",
+      "line": 17,
+      "path": "Bridge\\index.html",
+      "text": "<h1>Opening the Workshop...</h1>"
+    },
+    {
+      "language": "html",
+      "line": 18,
+      "path": "Bridge\\index.html",
+      "text": "<p id=\"bootLine\">Preparing the Bridge.</p>"
+    },
+    {
+      "language": "html",
+      "line": 19,
+      "path": "Bridge\\index.html",
+      "text": "<div class=\"bootBar\"><span id=\"bootProgress\"></span></div>"
+    },
+    {
+      "language": "html",
+      "line": 20,
+      "path": "Bridge\\index.html",
+      "text": "</div>"
+    },
+    {
+      "language": "html",
+      "line": 21,
+      "path": "Bridge\\index.html",
+      "text": "</div>"
+    },
+    {
+      "language": "html",
+      "line": 23,
+      "path": "Bridge\\index.html",
+      "text": "<div class=\"app\">"
+    },
+    {
+      "language": "html",
+      "line": 24,
+      "path": "Bridge\\index.html",
+      "text": "<aside class=\"sidebar\">"
+    },
+    {
+      "language": "html",
+      "line": 25,
+      "path": "Bridge\\index.html",
+      "text": "<div class=\"brand\">"
+    },
+    {
+      "language": "html",
+      "line": 26,
+      "path": "Bridge\\index.html",
+      "text": "<div class=\"sigil\">K</div>"
+    },
+    {
+      "language": "html",
+      "line": 27,
+      "path": "Bridge\\index.html",
+      "text": "<div>"
+    },
+    {
+      "language": "html",
+      "line": 28,
+      "path": "Bridge\\index.html",
+      "text": "<h1>KayocktheOS</h1>"
+    },
+    {
+      "language": "html",
+      "line": 29,
+      "path": "Bridge\\index.html",
+      "text": "<p>Living Knowledge Workshop</p>"
+    },
+    {
+      "language": "html",
+      "line": 30,
+      "path": "Bridge\\index.html",
+      "text": "</div>"
+    },
+    {
+      "language": "html",
+      "line": 31,
+      "path": "Bridge\\index.html",
+      "text": "</div>"
+    },
+    {
+      "language": "html",
+      "line": 33,
+      "path": "Bridge\\index.html",
+      "text": "<nav>"
+    },
+    {
+      "language": "html",
+      "line": 34,
+      "path": "Bridge\\index.html",
+      "text": "<button class=\"nav active\" data-room=\"home\">🏠 Home</button>"
+    },
+    {
+      "language": "html",
+      "line": 35,
+      "path": "Bridge\\index.html",
+      "text": "<button class=\"nav\" data-room=\"academy\">🎓 Academy</button>"
+    },
+    {
+      "language": "html",
+      "line": 36,
+      "path": "Bridge\\index.html",
+      "text": "<button class=\"nav\" data-room=\"workshop\">🔧 Workshop</button>"
+    },
+    {
+      "language": "html",
+      "line": 37,
+      "path": "Bridge\\index.html",
+      "text": "<button class=\"nav\" data-room=\"library\">📚 Library</button>"
+    },
+    {
+      "language": "html",
+      "line": 38,
+      "path": "Bridge\\index.html",
+      "text": "<button class=\"nav\" data-room=\"observatory\">🔍 Observatory</button>"
+    },
+    {
+      "language": "html",
+      "line": 39,
+      "path": "Bridge\\index.html",
+      "text": "<button class=\"nav\" data-room=\"foundry\">🏛 Foundry</button>"
+    },
+    {
+      "language": "html",
+      "line": 40,
+      "path": "Bridge\\index.html",
+      "text": "</nav>"
+    },
+    {
+      "language": "html",
+      "line": 42,
+      "path": "Bridge\\index.html",
+      "text": "<div class=\"sidebarStatus\">"
+    },
+    {
+      "language": "html",
+      "line": 43,
+      "path": "Bridge\\index.html",
+      "text": "<div><span id=\"apiDot\" class=\"dot wait\"></span> Core API</div>"
+    },
+    {
+      "language": "html",
+      "line": 44,
+      "path": "Bridge\\index.html",
+      "text": "<div><span id=\"runtimeDot\" class=\"dot wait\"></span> Runtime</div>"
+    },
+    {
+      "language": "html",
+      "line": 45,
+      "path": "Bridge\\index.html",
+      "text": "<div><span id=\"foxaiDot\" class=\"dot wait\"></span> FOXAI</div>"
+    },
+    {
+      "language": "html",
+      "line": 46,
+      "path": "Bridge\\index.html",
+      "text": "</div>"
+    },
+    {
+      "language": "html",
+      "line": 47,
+      "path": "Bridge\\index.html",
+      "text": "</aside>"
+    },
+    {
+      "language": "html",
+      "line": 49,
+      "path": "Bridge\\index.html",
+      "text": "<main class=\"main\">"
+    },
+    {
+      "language": "html",
+      "line": 50,
+      "path": "Bridge\\index.html",
+      "text": "<header class=\"topbar\">"
+    },
+    {
+      "language": "html",
+      "line": 51,
+      "path": "Bridge\\index.html",
+      "text": "<div>"
+    },
+    {
+      "language": "html",
+      "line": 52,
+      "path": "Bridge\\index.html",
+      "text": "<p class=\"eyebrow\">Bridge OS</p>"
+    },
+    {
+      "language": "html",
+      "line": 53,
+      "path": "Bridge\\index.html",
+      "text": "<h2 id=\"roomTitle\">Home</h2>"
+    },
+    {
+      "language": "html",
+      "line": 54,
+      "path": "Bridge\\index.html",
+      "text": "</div>"
+    },
+    {
+      "language": "html",
+      "line": 55,
+      "path": "Bridge\\index.html",
+      "text": "<div class=\"topRight\">"
+    },
+    {
+      "language": "html",
+      "line": 56,
+      "path": "Bridge\\index.html",
+      "text": "<button id=\"bellBtn\" class=\"bell\">🔔 <span id=\"bellCount\">0</span></button>"
+    },
+    {
+      "language": "html",
+      "line": 57,
+      "path": "Bridge\\index.html",
+      "text": "<div class=\"operator\">"
+    },
+    {
+      "language": "html",
+      "line": 58,
+      "path": "Bridge\\index.html",
+      "text": "<span id=\"operatorName\">Operator</span>"
+    },
+    {
+      "language": "html",
+      "line": 59,
+      "path": "Bridge\\index.html",
+      "text": "<small id=\"versionLabel\">Loading...</small>"
+    },
+    {
+      "language": "html",
+      "line": 60,
+      "path": "Bridge\\index.html",
+      "text": "</div>"
+    },
+    {
+      "language": "html",
+      "line": 61,
+      "path": "Bridge\\index.html",
+      "text": "</div>"
+    },
+    {
+      "language": "html",
+      "line": 62,
+      "path": "Bridge\\index.html",
+      "text": "</header>"
+    },
+    {
+      "language": "html",
+      "line": 64,
+      "path": "Bridge\\index.html",
+      "text": "<div id=\"bellPanel\" class=\"bellPanel hidden\">"
+    },
+    {
+      "language": "html",
+      "line": 65,
+      "path": "Bridge\\index.html",
+      "text": "<h4>Workshop Bell</h4>"
+    },
+    {
+      "language": "html",
+      "line": 66,
+      "path": "Bridge\\index.html",
+      "text": "<div id=\"notificationList\" class=\"smallList\"></div>"
+    },
+    {
+      "language": "html",
+      "line": 67,
+      "path": "Bridge\\index.html",
+      "text": "</div>"
+    },
+    {
+      "language": "html",
+      "line": 69,
+      "path": "Bridge\\index.html",
+      "text": "<section id=\"home\" class=\"room active\">"
+    },
+    {
+      "language": "html",
+      "line": 70,
+      "path": "Bridge\\index.html",
+      "text": "<div class=\"hero\">"
+    },
+    {
+      "language": "html",
+      "line": 71,
+      "path": "Bridge\\index.html",
+      "text": "<div>"
+    },
+    {
+      "language": "html",
+      "line": 72,
+      "path": "Bridge\\index.html",
+      "text": "<p class=\"eyebrow\">Welcome back</p>"
+    },
+    {
+      "language": "html",
+      "line": 73,
+      "path": "Bridge\\index.html",
+      "text": "<h3 id=\"heroGreeting\">Opening the Workshop...</h3>"
+    },
+    {
+      "language": "html",
+      "line": 74,
+      "path": "Bridge\\index.html",
+      "text": "<p id=\"academyGreeting\">The Academy is open. Today's lesson awaits.</p>"
+    },
+    {
+      "language": "html",
+      "line": 75,
+      "path": "Bridge\\index.html",
+      "text": "</div>"
+    },
+    {
+      "language": "html",
+      "line": 76,
+      "path": "Bridge\\index.html",
+      "text": "<div id=\"overallStatus\" class=\"statusPill wait\">Checking</div>"
+    },
+    {
+      "language": "html",
+      "line": 77,
+      "path": "Bridge\\index.html",
+      "text": "</div>"
+    },
+    {
+      "language": "html",
+      "line": 79,
+      "path": "Bridge\\index.html",
+      "text": "<div class=\"missionCard\">"
+    },
+    {
+      "language": "html",
+      "line": 80,
+      "path": "Bridge\\index.html",
+      "text": "<div>"
+    },
+    {
+      "language": "html",
+      "line": 81,
+      "path": "Bridge\\index.html",
+      "text": "<p class=\"eyebrow\">Today's Mission</p>"
+    },
+    {
+      "language": "html",
+      "line": 82,
+      "path": "Bridge\\index.html",
+      "text": "<h4 id=\"missionTitle\">Continue building the Bridge</h4>"
+    },
+    {
+      "language": "html",
+      "line": 83,
+      "path": "Bridge\\index.html",
+      "text": "<p id=\"missionDetail\">Bring the rooms to life with live capability cards and professor studies.</p>"
+    },
+    {
+      "language": "html",
+      "line": 84,
+      "path": "Bridge\\index.html",
+      "text": "</div>"
+    },
+    {
+      "language": "html",
+      "line": 85,
+      "path": "Bridge\\index.html",
+      "text": "<button class=\"primaryBtn\" data-room-jump=\"academy\">Visit Academy</button>"
+    },
+    {
+      "language": "html",
+      "line": 86,
+      "path": "Bridge\\index.html",
+      "text": "</div>"
+    },
+    {
+      "language": "html",
+      "line": 88,
+      "path": "Bridge\\index.html",
+      "text": "<div class=\"grid three\">"
+    },
+    {
+      "language": "html",
+      "line": 89,
+      "path": "Bridge\\index.html",
+      "text": "<article class=\"card\">"
+    },
+    {
+      "language": "html",
+      "line": 90,
+      "path": "Bridge\\index.html",
+      "text": "<h4>System Health</h4>"
+    },
+    {
+      "language": "html",
+      "line": 91,
+      "path": "Bridge\\index.html",
+      "text": "<div id=\"healthList\" class=\"list smallList\"></div>"
+    },
+    {
+      "language": "html",
+      "line": 92,
+      "path": "Bridge\\index.html",
+      "text": "</article>"
+    },
+    {
+      "language": "html",
+      "line": 93,
+      "path": "Bridge\\index.html",
+      "text": "<article class=\"card\">"
+    },
+    {
+      "language": "html",
+      "line": 94,
+      "path": "Bridge\\index.html",
+      "text": "<h4>FOXAI Capabilities</h4>"
+    },
+    {
+      "language": "html",
+      "line": 95,
+      "path": "Bridge\\index.html",
+      "text": "<div id=\"homeCapabilityMini\" class=\"capMini\"></div>"
+    },
+    {
+      "language": "html",
+      "line": 96,
+      "path": "Bridge\\index.html",
+      "text": "</article>"
+    },
+    {
+      "language": "html",
+      "line": 97,
+      "path": "Bridge\\index.html",
+      "text": "<article class=\"card\">"
+    },
+    {
+      "language": "html",
+      "line": 98,
+      "path": "Bridge\\index.html",
+      "text": "<h4>Local Chat</h4>"
+    },
+    {
+      "language": "html",
+      "line": 99,
+      "path": "Bridge\\index.html",
+      "text": "<div id=\"chatSummary\" class=\"smallList\"></div>"
+    },
+    {
+      "language": "html",
+      "line": 100,
+      "path": "Bridge\\index.html",
+      "text": "</article>"
+    },
+    {
+      "language": "html",
+      "line": 101,
+      "path": "Bridge\\index.html",
+      "text": "</div>"
+    },
+    {
+      "language": "html",
+      "line": 103,
+      "path": "Bridge\\index.html",
+      "text": "<article class=\"card chatCard\">"
+    },
+    {
+      "language": "html",
+      "line": 104,
+      "path": "Bridge\\index.html",
+      "text": "<h4>Ask the Academy</h4>"
+    },
+    {
+      "language": "html",
+      "line": 105,
+      "path": "Bridge\\index.html",
+      "text": "<div id=\"chatLog\" class=\"chatLog\">"
+    },
+    {
+      "language": "html",
+      "line": 106,
+      "path": "Bridge\\index.html",
+      "text": "<div class=\"message system\">Local chat is ready when the model runtime is online.</div>"
+    },
+    {
+      "language": "html",
+      "line": 107,
+      "path": "Bridge\\index.html",
+      "text": "</div>"
+    },
+    {
+      "language": "html",
+      "line": 108,
+      "path": "Bridge\\index.html",
+      "text": "<form id=\"chatForm\" class=\"chatForm\">"
+    },
+    {
+      "language": "html",
+      "line": 109,
+      "path": "Bridge\\index.html",
+      "text": "<input id=\"chatInput\" placeholder=\"Ask the Academy...\" />"
+    },
+    {
+      "language": "html",
+      "line": 110,
+      "path": "Bridge\\index.html",
+      "text": "<button type=\"submit\">Ask</button>"
+    },
+    {
+      "language": "html",
+      "line": 111,
+      "path": "Bridge\\index.html",
+      "text": "</form>"
+    },
+    {
+      "language": "html",
+      "line": 112,
+      "path": "Bridge\\index.html",
+      "text": "</article>"
+    },
+    {
+      "language": "html",
+      "line": 113,
+      "path": "Bridge\\index.html",
+      "text": "</section>"
+    },
+    {
+      "language": "html",
+      "line": 115,
+      "path": "Bridge\\index.html",
+      "text": "<section id=\"academy\" class=\"room\">"
+    },
+    {
+      "language": "html",
+      "line": 116,
+      "path": "Bridge\\index.html",
+      "text": "<div id=\"academyHall\" class=\"academyView active\">"
+    },
+    {
+      "language": "html",
+      "line": 117,
+      "path": "Bridge\\index.html",
+      "text": "<article class=\"card wide\">"
+    },
+    {
+      "language": "html",
+      "line": 118,
+      "path": "Bridge\\index.html",
+      "text": "<div class=\"sectionHeader\">"
+    },
+    {
+      "language": "html",
+      "line": 119,
+      "path": "Bridge\\index.html",
+      "text": "<div>"
+    },
+    {
+      "language": "html",
+      "line": 120,
+      "path": "Bridge\\index.html",
+      "text": "<p class=\"eyebrow\">Academy</p>"
+    },
+    {
+      "language": "html",
+      "line": 121,
+      "path": "Bridge\\index.html",
+      "text": "<h4>Hall of Professors</h4>"
+    },
+    {
+      "language": "html",
+      "line": 122,
+      "path": "Bridge\\index.html",
+      "text": "</div>"
+    },
+    {
+      "language": "html",
+      "line": 123,
+      "path": "Bridge\\index.html",
+      "text": "<span id=\"professorCount\" class=\"badge\">-- professors</span>"
+    },
+    {
+      "language": "html",
+      "line": 124,
+      "path": "Bridge\\index.html",
+      "text": "</div>"
+    },
+    {
+      "language": "html",
+      "line": 125,
+      "path": "Bridge\\index.html",
+      "text": "<p class=\"roomIntro\">Choose a professor to enter their study. Each professor represents a stable area of expertise; the underlying model team can evolve over time.</p>"
+    },
+    {
+      "language": "html",
+      "line": 126,
+      "path": "Bridge\\index.html",
+      "text": "<div id=\"professorGrid\" class=\"professorGrid\"></div>"
+    },
+    {
+      "language": "html",
+      "line": 127,
+      "path": "Bridge\\index.html",
+      "text": "</article>"
+    },
+    {
+      "language": "html",
+      "line": 128,
+      "path": "Bridge\\index.html",
+      "text": "</div>"
+    },
+    {
+      "language": "html",
+      "line": 130,
+      "path": "Bridge\\index.html",
+      "text": "<div id=\"professorStudy\" class=\"academyView\">"
+    },
+    {
+      "language": "html",
+      "line": 131,
+      "path": "Bridge\\index.html",
+      "text": "<article class=\"card wide studyHero\">"
+    },
+    {
+      "language": "html",
+      "line": 132,
+      "path": "Bridge\\index.html",
+      "text": "<button id=\"backToHall\" class=\"ghostBtn\">← Hall of Professors</button>"
+    },
+    {
+      "language": "html",
+      "line": 133,
+      "path": "Bridge\\index.html",
+      "text": "<div class=\"studyTop\">"
+    },
+    {
+      "language": "html",
+      "line": 134,
+      "path": "Bridge\\index.html",
+      "text": "<div class=\"professorSeal\" id=\"studySeal\">K</div>"
+    },
+    {
+      "language": "html",
+      "line": 135,
+      "path": "Bridge\\index.html",
+      "text": "<div>"
+    },
+    {
+      "language": "html",
+      "line": 136,
+      "path": "Bridge\\index.html",
+      "text": "<p class=\"eyebrow\" id=\"studyCollege\">College</p>"
+    },
+    {
+      "language": "html",
+      "line": 137,
+      "path": "Bridge\\index.html",
+      "text": "<h3 id=\"studyProfessor\">Professor</h3>"
+    },
+    {
+      "language": "html",
+      "line": 138,
+      "path": "Bridge\\index.html",
+      "text": "<p id=\"studyMotto\">Motto</p>"
+    },
+    {
+      "language": "html",
+      "line": 139,
+      "path": "Bridge\\index.html",
+      "text": "</div>"
+    },
+    {
+      "language": "html",
+      "line": 140,
+      "path": "Bridge\\index.html",
+      "text": "<span id=\"studyAvailability\" class=\"statusPill wait\">Checking</span>"
+    },
+    {
+      "language": "html",
+      "line": 141,
+      "path": "Bridge\\index.html",
+      "text": "</div>"
+    },
+    {
+      "language": "html",
+      "line": 142,
+      "path": "Bridge\\index.html",
+      "text": "</article>"
+    },
+    {
+      "language": "html",
+      "line": 144,
+      "path": "Bridge\\index.html",
+      "text": "<div class=\"grid two\">"
+    },
+    {
+      "language": "html",
+      "line": 145,
+      "path": "Bridge\\index.html",
+      "text": "<article class=\"card\">"
+    },
+    {
+      "language": "html",
+      "line": 146,
+      "path": "Bridge\\index.html",
+      "text": "<h4>Mission</h4>"
+    },
+    {
+      "language": "html",
+      "line": 147,
+      "path": "Bridge\\index.html",
+      "text": "<p id=\"studyMission\">Loading...</p>"
+    }
+  ],
+  "schema": "foxai.agent_fox.technical_core.v1a2r2.immutable_static_bridge.v1",
+  "shard_number": 4
+}

@@ -1,0 +1,70 @@
+{
+  "actions": [
+    {
+      "bounded": true,
+      "change": "Place the existing webui_self_knowledge_integration_v1.route_http_request interception after exact slash-command dispatch but before any model request construction or model invocation for both /api/chat/send and /api/chat/stream.",
+      "existing_component": "Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\webui_self_knowledge_integration_v1.py",
+      "priority": 1,
+      "source_candidate": "Z:\\FOXAI\\core\\foxai_web.py",
+      "surface": "webui"
+    },
+    {
+      "bounded": true,
+      "change": "Place the existing desktop_self_knowledge_integration_v1.route_desktop_message interception in the actual visible send path before Director classification, department selection, Engineer project search, and model-thread dispatch.",
+      "existing_component": "Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\desktop_self_knowledge_integration_v1.py",
+      "priority": 2,
+      "source_candidate": "Z:\\FOXAI\\ui\\main_window.py",
+      "surface": "desktop"
+    },
+    {
+      "bounded": true,
+      "change": "Remove the bare ordinary noun evidence as an independent Engineering trigger. Require an explicit engineering action, command prefix, project-analysis phrase, or stronger multi-token condition.",
+      "collision_findings": 41,
+      "priority": 3,
+      "reason": "Visible Desktop questions about the evidence provider and supporting evidence were routed to Engineer project search.",
+      "surface": "desktop_director"
+    },
+    {
+      "bounded": true,
+      "change": "Preserve pass-through for current-live questions and ordinary chat, but render handled self-knowledge answer_text directly without sending it to the model.",
+      "priority": 4,
+      "surface": "both"
+    },
+    {
+      "bounded": true,
+      "candidate_label_sites": 3,
+      "change": "Deduplicate model labels at the display boundary: add one label only when configured and when answer text does not already begin with [Model:.",
+      "priority": 5,
+      "surface": "desktop_renderer"
+    }
+  ],
+  "do_not_change": [
+    "Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\self_knowledge_chat_adapter_v1.py",
+    "Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\resource_evidence_provider_v1.py",
+    "Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\SHARED_RESOURCE_PROVIDER_INTEGRATION_CONTRACT_V1.json",
+    "Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\SHARED_RESOURCE_PROVIDER_INTEGRATION_FIXTURES_V1.json"
+  ],
+  "implementation_should_begin_with_new_explicitly_authorized_mission": true,
+  "inferred_current_order": {
+    "desktop": {
+      "first_director_line": 2203,
+      "first_model_line": null,
+      "first_self_knowledge_line": 2174
+    },
+    "webui": {
+      "first_director_line": 13373,
+      "first_model_line": 1138,
+      "first_self_knowledge_line": 13333
+    }
+  },
+  "mission_id": "ENG-20260722-223348-83B942",
+  "required_order": [
+    "exact slash-command handler",
+    "shared self-knowledge adapter",
+    "department/director routing",
+    "ordinary model dispatch"
+  ],
+  "schema": "foxai.agent_fox.technical_core.v1b2e.recommendation.v1",
+  "static_only": true,
+  "status": "implementation_recommended_after_exact_review"
+}

@@ -1,0 +1,7207 @@
+{
+  "record_count": 1200,
+  "records": [
+    {
+      "language": "python",
+      "line": 30,
+      "path": "TEST_FLEET_SYNC_CONVERSATION.py",
+      "text": "print()"
+    },
+    {
+      "language": "python",
+      "line": 32,
+      "path": "TEST_FLEET_SYNC_CONVERSATION.py",
+      "text": "plan = planner.create_plan(\"Tell me a joke about a toaster joining Starfleet.\")"
+    },
+    {
+      "language": "python",
+      "line": 33,
+      "path": "TEST_FLEET_SYNC_CONVERSATION.py",
+      "text": "report = gap.analyze_plan(plan)"
+    },
+    {
+      "language": "python",
+      "line": 34,
+      "path": "TEST_FLEET_SYNC_CONVERSATION.py",
+      "text": "print(gap.render_text(report))"
+    },
+    {
+      "language": "python",
+      "line": 36,
+      "path": "TEST_FLEET_SYNC_CONVERSATION.py",
+      "text": "print()"
+    },
+    {
+      "language": "python",
+      "line": 37,
+      "path": "TEST_FLEET_SYNC_CONVERSATION.py",
+      "text": "if any(g.get(\"capability\") == \"general_reasoning\" and g.get(\"available\") for g in report.get(\"gaps\", [])):"
+    },
+    {
+      "language": "python",
+      "line": 38,
+      "path": "TEST_FLEET_SYNC_CONVERSATION.py",
+      "text": "print(\"PASS: general_reasoning is now provided by the Fleet Registry.\")"
+    },
+    {
+      "language": "python",
+      "line": 39,
+      "path": "TEST_FLEET_SYNC_CONVERSATION.py",
+      "text": "else:"
+    },
+    {
+      "language": "python",
+      "line": 40,
+      "path": "TEST_FLEET_SYNC_CONVERSATION.py",
+      "text": "print(\"FAIL: general_reasoning still missing. Re-run INSTALL_CONVERSATION_SHUTTLE.bat, then this test.\")"
+    },
+    {
+      "language": "batch",
+      "line": 1,
+      "path": "TEST_FOXKERNEL.bat",
+      "text": "@echo off"
+    },
+    {
+      "language": "batch",
+      "line": 2,
+      "path": "TEST_FOXKERNEL.bat",
+      "text": "setlocal"
+    },
+    {
+      "language": "batch",
+      "line": 3,
+      "path": "TEST_FOXKERNEL.bat",
+      "text": "title FOXAI Command OS v6.0 FOXKernel Test"
+    },
+    {
+      "language": "batch",
+      "line": 5,
+      "path": "TEST_FOXKERNEL.bat",
+      "text": "cd /d \"%~dp0\""
+    },
+    {
+      "language": "batch",
+      "line": 7,
+      "path": "TEST_FOXKERNEL.bat",
+      "text": "echo =========================================="
+    },
+    {
+      "language": "batch",
+      "line": 8,
+      "path": "TEST_FOXKERNEL.bat",
+      "text": "echo FOXAI Command OS v6.0 FOXKernel Test"
+    },
+    {
+      "language": "batch",
+      "line": 9,
+      "path": "TEST_FOXKERNEL.bat",
+      "text": "echo =========================================="
+    },
+    {
+      "language": "batch",
+      "line": 10,
+      "path": "TEST_FOXKERNEL.bat",
+      "text": "echo."
+    },
+    {
+      "language": "batch",
+      "line": 12,
+      "path": "TEST_FOXKERNEL.bat",
+      "text": "echo Running kernel status..."
+    },
+    {
+      "language": "batch",
+      "line": 13,
+      "path": "TEST_FOXKERNEL.bat",
+      "text": "call FOXKERNEL_STATUS.bat"
+    },
+    {
+      "language": "batch",
+      "line": 15,
+      "path": "TEST_FOXKERNEL.bat",
+      "text": "echo."
+    },
+    {
+      "language": "batch",
+      "line": 16,
+      "path": "TEST_FOXKERNEL.bat",
+      "text": "echo Running kernel command..."
+    },
+    {
+      "language": "batch",
+      "line": 17,
+      "path": "TEST_FOXKERNEL.bat",
+      "text": "call FOXKERNEL_COMMAND.bat \"Tell me a joke about a toaster joining Starfleet.\""
+    },
+    {
+      "language": "batch",
+      "line": 19,
+      "path": "TEST_FOXKERNEL.bat",
+      "text": "echo."
+    },
+    {
+      "language": "batch",
+      "line": 20,
+      "path": "TEST_FOXKERNEL.bat",
+      "text": "echo Kernel files:"
+    },
+    {
+      "language": "batch",
+      "line": 21,
+      "path": "TEST_FOXKERNEL.bat",
+      "text": "echo OpsBridge\\outbox\\kernel_status.json"
+    },
+    {
+      "language": "batch",
+      "line": 22,
+      "path": "TEST_FOXKERNEL.bat",
+      "text": "echo OpsBridge\\outbox\\kernel_status.txt"
+    },
+    {
+      "language": "batch",
+      "line": 23,
+      "path": "TEST_FOXKERNEL.bat",
+      "text": "echo OpsBridge\\outbox\\kernel_latest_command.json"
+    },
+    {
+      "language": "batch",
+      "line": 24,
+      "path": "TEST_FOXKERNEL.bat",
+      "text": "echo."
+    },
+    {
+      "language": "batch",
+      "line": 25,
+      "path": "TEST_FOXKERNEL.bat",
+      "text": "pause"
+    },
+    {
+      "language": "batch",
+      "line": 1,
+      "path": "TEST_INTENT_ENGINE.bat",
+      "text": "@echo off"
+    },
+    {
+      "language": "batch",
+      "line": 2,
+      "path": "TEST_INTENT_ENGINE.bat",
+      "text": "setlocal"
+    },
+    {
+      "language": "batch",
+      "line": 3,
+      "path": "TEST_INTENT_ENGINE.bat",
+      "text": "title FOXAI Mission Planner v3.1 Intent Engine"
+    },
+    {
+      "language": "batch",
+      "line": 5,
+      "path": "TEST_INTENT_ENGINE.bat",
+      "text": "cd /d \"%~dp0\""
+    },
+    {
+      "language": "batch",
+      "line": 7,
+      "path": "TEST_INTENT_ENGINE.bat",
+      "text": "echo =========================================="
+    },
+    {
+      "language": "batch",
+      "line": 8,
+      "path": "TEST_INTENT_ENGINE.bat",
+      "text": "echo FOXAI Mission Planner v3.1 Intent Engine"
+    },
+    {
+      "language": "batch",
+      "line": 9,
+      "path": "TEST_INTENT_ENGINE.bat",
+      "text": "echo =========================================="
+    },
+    {
+      "language": "batch",
+      "line": 10,
+      "path": "TEST_INTENT_ENGINE.bat",
+      "text": "echo."
+    },
+    {
+      "language": "batch",
+      "line": 12,
+      "path": "TEST_INTENT_ENGINE.bat",
+      "text": "if exist \".venv\\Scripts\\python.exe\" ("
+    },
+    {
+      "language": "batch",
+      "line": 13,
+      "path": "TEST_INTENT_ENGINE.bat",
+      "text": "\".venv\\Scripts\\python.exe\" TEST_INTENT_ENGINE.py"
+    },
+    {
+      "language": "batch",
+      "line": 14,
+      "path": "TEST_INTENT_ENGINE.bat",
+      "text": ") else ("
+    },
+    {
+      "language": "batch",
+      "line": 15,
+      "path": "TEST_INTENT_ENGINE.bat",
+      "text": "python TEST_INTENT_ENGINE.py"
+    },
+    {
+      "language": "batch",
+      "line": 16,
+      "path": "TEST_INTENT_ENGINE.bat",
+      "text": ")"
+    },
+    {
+      "language": "batch",
+      "line": 18,
+      "path": "TEST_INTENT_ENGINE.bat",
+      "text": "echo."
+    },
+    {
+      "language": "batch",
+      "line": 19,
+      "path": "TEST_INTENT_ENGINE.bat",
+      "text": "pause"
+    },
+    {
+      "language": "python",
+      "line": 1,
+      "path": "TEST_INTENT_ENGINE.py",
+      "text": "from pathlib import Path"
+    },
+    {
+      "language": "python",
+      "line": 2,
+      "path": "TEST_INTENT_ENGINE.py",
+      "text": "from core_v10.intent_engine import IntentEngine"
+    },
+    {
+      "language": "python",
+      "line": 3,
+      "path": "TEST_INTENT_ENGINE.py",
+      "text": "from core_v10.mission_planner import MissionPlanner"
+    },
+    {
+      "language": "python",
+      "line": 5,
+      "path": "TEST_INTENT_ENGINE.py",
+      "text": "root = Path(__file__).resolve().parent"
+    },
+    {
+      "language": "python",
+      "line": 6,
+      "path": "TEST_INTENT_ENGINE.py",
+      "text": "engine = IntentEngine()"
+    },
+    {
+      "language": "python",
+      "line": 7,
+      "path": "TEST_INTENT_ENGINE.py",
+      "text": "planner = MissionPlanner(root)"
+    },
+    {
+      "language": "python",
+      "line": 9,
+      "path": "TEST_INTENT_ENGINE.py",
+      "text": "tests = ["
+    },
+    {
+      "language": "python",
+      "line": 10,
+      "path": "TEST_INTENT_ENGINE.py",
+      "text": "\"Professor Ada, find every place MissionBus is used.\","
+    },
+    {
+      "language": "python",
+      "line": 11,
+      "path": "TEST_INTENT_ENGINE.py",
+      "text": "\"Compare today's FOXAI folder with yesterday's backup.\","
+    },
+    {
+      "language": "python",
+      "line": 12,
+      "path": "TEST_INTENT_ENGINE.py",
+      "text": "\"Find where I put my GGUF models.\","
+    },
+    {
+      "language": "python",
+      "line": 13,
+      "path": "TEST_INTENT_ENGINE.py",
+      "text": "\"Parse the code structure and find classes.\","
+    },
+    {
+      "language": "python",
+      "line": 14,
+      "path": "TEST_INTENT_ENGINE.py",
+      "text": "\"Tell me a joke about a toaster joining Starfleet.\","
+    },
+    {
+      "language": "python",
+      "line": 15,
+      "path": "TEST_INTENT_ENGINE.py",
+      "text": "\"Write chapter three where Anthony learns the prophecy.\","
+    },
+    {
+      "language": "python",
+      "line": 16,
+      "path": "TEST_INTENT_ENGINE.py",
+      "text": "\"Draw me a logo for the Engineering Fleet.\","
+    },
+    {
+      "language": "python",
+      "line": 17,
+      "path": "TEST_INTENT_ENGINE.py",
+      "text": "\"Research the Python sqlite3 docs.\","
+    },
+    {
+      "language": "python",
+      "line": 18,
+      "path": "TEST_INTENT_ENGINE.py",
+      "text": "\"Diagnose why the browser crashes.\","
+    },
+    {
+      "language": "python",
+      "line": 19,
+      "path": "TEST_INTENT_ENGINE.py",
+      "text": "]"
+    },
+    {
+      "language": "python",
+      "line": 21,
+      "path": "TEST_INTENT_ENGINE.py",
+      "text": "print(\"FOXAI Mission Planner v3.1 — Intent Engine\")"
+    },
+    {
+      "language": "python",
+      "line": 22,
+      "path": "TEST_INTENT_ENGINE.py",
+      "text": "print(\"==========================================\")"
+    },
+    {
+      "language": "python",
+      "line": 23,
+      "path": "TEST_INTENT_ENGINE.py",
+      "text": "print()"
+    },
+    {
+      "language": "python",
+      "line": 25,
+      "path": "TEST_INTENT_ENGINE.py",
+      "text": "for request in tests:"
+    },
+    {
+      "language": "python",
+      "line": 26,
+      "path": "TEST_INTENT_ENGINE.py",
+      "text": "intent = engine.classify(request)"
+    },
+    {
+      "language": "python",
+      "line": 27,
+      "path": "TEST_INTENT_ENGINE.py",
+      "text": "print(\"REQUEST:\", request)"
+    },
+    {
+      "language": "python",
+      "line": 28,
+      "path": "TEST_INTENT_ENGINE.py",
+      "text": "print(\"INTENT:\", intent[\"mission_type\"], \"|\", intent[\"department\"], \"|\", intent[\"lead_professor\"], \"| confidence\", intent[\"confidence\"])"
+    },
+    {
+      "language": "python",
+      "line": 29,
+      "path": "TEST_INTENT_ENGINE.py",
+      "text": "print(\"CAPABILITIES:\", \", \".join(intent[\"required_capabilities\"]))"
+    },
+    {
+      "language": "python",
+      "line": 30,
+      "path": "TEST_INTENT_ENGINE.py",
+      "text": "print()"
+    },
+    {
+      "language": "python",
+      "line": 32,
+      "path": "TEST_INTENT_ENGINE.py",
+      "text": "print(\"\\n\" + \"=\" * 72 + \"\\n\")"
+    },
+    {
+      "language": "python",
+      "line": 34,
+      "path": "TEST_INTENT_ENGINE.py",
+      "text": "for request in tests[:5]:"
+    },
+    {
+      "language": "python",
+      "line": 35,
+      "path": "TEST_INTENT_ENGINE.py",
+      "text": "plan = planner.create_plan(request)"
+    },
+    {
+      "language": "python",
+      "line": 36,
+      "path": "TEST_INTENT_ENGINE.py",
+      "text": "print(planner.render_plan_text(plan))"
+    },
+    {
+      "language": "python",
+      "line": 37,
+      "path": "TEST_INTENT_ENGINE.py",
+      "text": "print(\"\\n\" + \"-\" * 72 + \"\\n\")"
+    },
+    {
+      "language": "batch",
+      "line": 1,
+      "path": "TEST_MEMORY_GUARDRAILS.bat",
+      "text": "@echo off"
+    },
+    {
+      "language": "batch",
+      "line": 2,
+      "path": "TEST_MEMORY_GUARDRAILS.bat",
+      "text": "setlocal"
+    },
+    {
+      "language": "batch",
+      "line": 3,
+      "path": "TEST_MEMORY_GUARDRAILS.bat",
+      "text": "title FOXAI v10.2 Memory Guardrail Test"
+    },
+    {
+      "language": "batch",
+      "line": 5,
+      "path": "TEST_MEMORY_GUARDRAILS.bat",
+      "text": "cd /d \"%~dp0\""
+    },
+    {
+      "language": "batch",
+      "line": 7,
+      "path": "TEST_MEMORY_GUARDRAILS.bat",
+      "text": "echo =========================================="
+    },
+    {
+      "language": "batch",
+      "line": 8,
+      "path": "TEST_MEMORY_GUARDRAILS.bat",
+      "text": "echo FOXAI v10.2 Memory Guardrail Test"
+    },
+    {
+      "language": "batch",
+      "line": 9,
+      "path": "TEST_MEMORY_GUARDRAILS.bat",
+      "text": "echo =========================================="
+    },
+    {
+      "language": "batch",
+      "line": 10,
+      "path": "TEST_MEMORY_GUARDRAILS.bat",
+      "text": "echo."
+    },
+    {
+      "language": "batch",
+      "line": 12,
+      "path": "TEST_MEMORY_GUARDRAILS.bat",
+      "text": "where py >nul 2>nul"
+    },
+    {
+      "language": "batch",
+      "line": 13,
+      "path": "TEST_MEMORY_GUARDRAILS.bat",
+      "text": "if not errorlevel 1 ("
+    },
+    {
+      "language": "batch",
+      "line": 14,
+      "path": "TEST_MEMORY_GUARDRAILS.bat",
+      "text": "py -3 TEST_MEMORY_GUARDRAILS.py"
+    },
+    {
+      "language": "batch",
+      "line": 15,
+      "path": "TEST_MEMORY_GUARDRAILS.bat",
+      "text": ") else ("
+    },
+    {
+      "language": "batch",
+      "line": 16,
+      "path": "TEST_MEMORY_GUARDRAILS.bat",
+      "text": "python TEST_MEMORY_GUARDRAILS.py"
+    },
+    {
+      "language": "batch",
+      "line": 17,
+      "path": "TEST_MEMORY_GUARDRAILS.bat",
+      "text": ")"
+    },
+    {
+      "language": "batch",
+      "line": 19,
+      "path": "TEST_MEMORY_GUARDRAILS.bat",
+      "text": "echo."
+    },
+    {
+      "language": "batch",
+      "line": 20,
+      "path": "TEST_MEMORY_GUARDRAILS.bat",
+      "text": "pause"
+    },
+    {
+      "language": "python",
+      "line": 1,
+      "path": "TEST_MEMORY_GUARDRAILS.py",
+      "text": "from pathlib import Path"
+    },
+    {
+      "language": "python",
+      "line": 2,
+      "path": "TEST_MEMORY_GUARDRAILS.py",
+      "text": "from core_v10.foxai_core import FoxAICore"
+    },
+    {
+      "language": "python",
+      "line": 4,
+      "path": "TEST_MEMORY_GUARDRAILS.py",
+      "text": "root = Path(__file__).resolve().parent"
+    },
+    {
+      "language": "python",
+      "line": 5,
+      "path": "TEST_MEMORY_GUARDRAILS.py",
+      "text": "core = FoxAICore(root)"
+    },
+    {
+      "language": "python",
+      "line": 7,
+      "path": "TEST_MEMORY_GUARDRAILS.py",
+      "text": "project = core.create_project(\"FOXAI_Memory_Test\")"
+    },
+    {
+      "language": "python",
+      "line": 8,
+      "path": "TEST_MEMORY_GUARDRAILS.py",
+      "text": "mission = core.mission(\"FOXAI_Memory_Test\", professor=\"fox\", model_name=\"guardrail-test\")"
+    },
+    {
+      "language": "python",
+      "line": 10,
+      "path": "TEST_MEMORY_GUARDRAILS.py",
+      "text": "mission.memory.add_item(\"fact\", \"FOXAI is a portable Star Trek Engineering Console for Makers, Builders, and Explorers.\")"
+    },
+    {
+      "language": "python",
+      "line": 11,
+      "path": "TEST_MEMORY_GUARDRAILS.py",
+      "text": "mission.memory.add_item(\"decision\", \"All future LLM calls should route through MissionBus.dispatch().\")"
+    },
+    {
+      "language": "python",
+      "line": 12,
+      "path": "TEST_MEMORY_GUARDRAILS.py",
+      "text": "mission.memory.add_item(\"objective\", \"Build grounded Mission Intelligence that does not invent unstored details.\")"
+    },
+    {
+      "language": "python",
+      "line": 13,
+      "path": "TEST_MEMORY_GUARDRAILS.py",
+      "text": "mission.memory.add_item(\"task\", \"Create a Mission Intelligence panel in the web UI.\")"
+    },
+    {
+      "language": "python",
+      "line": 14,
+      "path": "TEST_MEMORY_GUARDRAILS.py",
+      "text": "mission.memory.add_item(\"fact\", \"Novel Forge is reserved but not installed yet.\")"
+    },
+    {
+      "language": "python",
+      "line": 16,
+      "path": "TEST_MEMORY_GUARDRAILS.py",
+      "text": "print(\"FOXAI Memory Guardrail Test\")"
+    },
+    {
+      "language": "python",
+      "line": 17,
+      "path": "TEST_MEMORY_GUARDRAILS.py",
+      "text": "print(\"===========================\")"
+    },
+    {
+      "language": "python",
+      "line": 18,
+      "path": "TEST_MEMORY_GUARDRAILS.py",
+      "text": "print()"
+    },
+    {
+      "language": "python",
+      "line": 19,
+      "path": "TEST_MEMORY_GUARDRAILS.py",
+      "text": "print(\"Project:\", project[\"name\"])"
+    },
+    {
+      "language": "python",
+      "line": 20,
+      "path": "TEST_MEMORY_GUARDRAILS.py",
+      "text": "print(\"Memory folder:\", mission.memory.memory_root)"
+    },
+    {
+      "language": "python",
+      "line": 21,
+      "path": "TEST_MEMORY_GUARDRAILS.py",
+      "text": "print()"
+    },
+    {
+      "language": "python",
+      "line": 22,
+      "path": "TEST_MEMORY_GUARDRAILS.py",
+      "text": "print(mission.memory.build_remembered_only_context(\"Agent Fox\", \"guardrail-test\")[:5000])"
+    },
+    {
+      "language": "python",
+      "line": 23,
+      "path": "TEST_MEMORY_GUARDRAILS.py",
+      "text": "print()"
+    },
+    {
+      "language": "python",
+      "line": 24,
+      "path": "TEST_MEMORY_GUARDRAILS.py",
+      "text": "print(\"PASS if the report contains only stored memory and says unknown by default.\")"
+    },
+    {
+      "language": "batch",
+      "line": 1,
+      "path": "TEST_MISSION_BUS.bat",
+      "text": "@echo off"
+    },
+    {
+      "language": "batch",
+      "line": 2,
+      "path": "TEST_MISSION_BUS.bat",
+      "text": "setlocal"
+    },
+    {
+      "language": "batch",
+      "line": 3,
+      "path": "TEST_MISSION_BUS.bat",
+      "text": "title FOXAI Core v10 Phase 2 Mission Bus Test"
+    },
+    {
+      "language": "batch",
+      "line": 4,
+      "path": "TEST_MISSION_BUS.bat",
+      "text": "cd /d \"%~dp0\""
+    },
+    {
+      "language": "batch",
+      "line": 6,
+      "path": "TEST_MISSION_BUS.bat",
+      "text": "echo =========================================="
+    },
+    {
+      "language": "batch",
+      "line": 7,
+      "path": "TEST_MISSION_BUS.bat",
+      "text": "echo FOXAI Core v10 Phase 2 - Mission Bus Test"
+    },
+    {
+      "language": "batch",
+      "line": 8,
+      "path": "TEST_MISSION_BUS.bat",
+      "text": "echo =========================================="
+    },
+    {
+      "language": "batch",
+      "line": 9,
+      "path": "TEST_MISSION_BUS.bat",
+      "text": "echo."
+    },
+    {
+      "language": "batch",
+      "line": 11,
+      "path": "TEST_MISSION_BUS.bat",
+      "text": "where py >nul 2>nul"
+    },
+    {
+      "language": "batch",
+      "line": 12,
+      "path": "TEST_MISSION_BUS.bat",
+      "text": "if not errorlevel 1 ("
+    },
+    {
+      "language": "batch",
+      "line": 13,
+      "path": "TEST_MISSION_BUS.bat",
+      "text": "py -3 TEST_MISSION_BUS.py"
+    },
+    {
+      "language": "batch",
+      "line": 14,
+      "path": "TEST_MISSION_BUS.bat",
+      "text": ") else ("
+    },
+    {
+      "language": "batch",
+      "line": 15,
+      "path": "TEST_MISSION_BUS.bat",
+      "text": "python TEST_MISSION_BUS.py"
+    },
+    {
+      "language": "batch",
+      "line": 16,
+      "path": "TEST_MISSION_BUS.bat",
+      "text": ")"
+    },
+    {
+      "language": "batch",
+      "line": 18,
+      "path": "TEST_MISSION_BUS.bat",
+      "text": "echo."
+    },
+    {
+      "language": "batch",
+      "line": 19,
+      "path": "TEST_MISSION_BUS.bat",
+      "text": "pause"
+    },
+    {
+      "language": "python",
+      "line": 1,
+      "path": "TEST_MISSION_BUS.py",
+      "text": "from pathlib import Path"
+    },
+    {
+      "language": "python",
+      "line": 2,
+      "path": "TEST_MISSION_BUS.py",
+      "text": "from core_v10.mission_bus import MissionBus"
+    },
+    {
+      "language": "python",
+      "line": 4,
+      "path": "TEST_MISSION_BUS.py",
+      "text": "root = Path(__file__).resolve().parent"
+    },
+    {
+      "language": "python",
+      "line": 5,
+      "path": "TEST_MISSION_BUS.py",
+      "text": "bus = MissionBus(root)"
+    },
+    {
+      "language": "python",
+      "line": 7,
+      "path": "TEST_MISSION_BUS.py",
+      "text": "print(\"FOXAI Mission Bus Phase 2\")"
+    },
+    {
+      "language": "python",
+      "line": 8,
+      "path": "TEST_MISSION_BUS.py",
+      "text": "print(\"=========================\")"
+    },
+    {
+      "language": "python",
+      "line": 10,
+      "path": "TEST_MISSION_BUS.py",
+      "text": "for command, payload in ["
+    },
+    {
+      "language": "python",
+      "line": 11,
+      "path": "TEST_MISSION_BUS.py",
+      "text": "(\"ping\", {}),"
+    },
+    {
+      "language": "python",
+      "line": 12,
+      "path": "TEST_MISSION_BUS.py",
+      "text": "(\"professors.list\", {}),"
+    },
+    {
+      "language": "python",
+      "line": 13,
+      "path": "TEST_MISSION_BUS.py",
+      "text": "(\"projects.create\", {\"name\": \"FOXAI_Mission_Bus_Test\"}),"
+    },
+    {
+      "language": "python",
+      "line": 14,
+      "path": "TEST_MISSION_BUS.py",
+      "text": "(\"memory.add\", {"
+    },
+    {
+      "language": "python",
+      "line": 15,
+      "path": "TEST_MISSION_BUS.py",
+      "text": "\"project\": \"FOXAI_Mission_Bus_Test\","
+    },
+    {
+      "language": "python",
+      "line": 16,
+      "path": "TEST_MISSION_BUS.py",
+      "text": "\"kind\": \"objective\","
+    },
+    {
+      "language": "python",
+      "line": 17,
+      "path": "TEST_MISSION_BUS.py",
+      "text": "\"text\": \"Prove that Mission Bus can route commands through FOXAI Core.\""
+    },
+    {
+      "language": "python",
+      "line": 18,
+      "path": "TEST_MISSION_BUS.py",
+      "text": "}),"
+    },
+    {
+      "language": "python",
+      "line": 19,
+      "path": "TEST_MISSION_BUS.py",
+      "text": "(\"memory.add\", {"
+    },
+    {
+      "language": "python",
+      "line": 20,
+      "path": "TEST_MISSION_BUS.py",
+      "text": "\"project\": \"FOXAI_Mission_Bus_Test\","
+    },
+    {
+      "language": "python",
+      "line": 21,
+      "path": "TEST_MISSION_BUS.py",
+      "text": "\"kind\": \"decision\","
+    },
+    {
+      "language": "python",
+      "line": 22,
+      "path": "TEST_MISSION_BUS.py",
+      "text": "\"text\": \"All future departments should call MissionBus.dispatch().\""
+    },
+    {
+      "language": "python",
+      "line": 23,
+      "path": "TEST_MISSION_BUS.py",
+      "text": "}),"
+    },
+    {
+      "language": "python",
+      "line": 24,
+      "path": "TEST_MISSION_BUS.py",
+      "text": "(\"memory.context\", {"
+    },
+    {
+      "language": "python",
+      "line": 25,
+      "path": "TEST_MISSION_BUS.py",
+      "text": "\"project\": \"FOXAI_Mission_Bus_Test\","
+    },
+    {
+      "language": "python",
+      "line": 26,
+      "path": "TEST_MISSION_BUS.py",
+      "text": "\"professor\": \"fox\","
+    },
+    {
+      "language": "python",
+      "line": 27,
+      "path": "TEST_MISSION_BUS.py",
+      "text": "\"model_name\": \"smoke-test\""
+    },
+    {
+      "language": "python",
+      "line": 28,
+      "path": "TEST_MISSION_BUS.py",
+      "text": "}),"
+    },
+    {
+      "language": "python",
+      "line": 29,
+      "path": "TEST_MISSION_BUS.py",
+      "text": "]:"
+    },
+    {
+      "language": "python",
+      "line": 30,
+      "path": "TEST_MISSION_BUS.py",
+      "text": "print()"
+    },
+    {
+      "language": "python",
+      "line": 31,
+      "path": "TEST_MISSION_BUS.py",
+      "text": "print(\"COMMAND:\", command)"
+    },
+    {
+      "language": "python",
+      "line": 32,
+      "path": "TEST_MISSION_BUS.py",
+      "text": "result = bus.dispatch(command, payload)"
+    },
+    {
+      "language": "python",
+      "line": 33,
+      "path": "TEST_MISSION_BUS.py",
+      "text": "if command == \"memory.context\" and result.get(\"ok\"):"
+    },
+    {
+      "language": "python",
+      "line": 34,
+      "path": "TEST_MISSION_BUS.py",
+      "text": "print(result[\"context\"][:2200])"
+    },
+    {
+      "language": "python",
+      "line": 35,
+      "path": "TEST_MISSION_BUS.py",
+      "text": "else:"
+    },
+    {
+      "language": "python",
+      "line": 36,
+      "path": "TEST_MISSION_BUS.py",
+      "text": "print(result)"
+    },
+    {
+      "language": "python",
+      "line": 38,
+      "path": "TEST_MISSION_BUS.py",
+      "text": "print()"
+    },
+    {
+      "language": "python",
+      "line": 39,
+      "path": "TEST_MISSION_BUS.py",
+      "text": "print(\"Smoke test complete.\")"
+    },
+    {
+      "language": "batch",
+      "line": 1,
+      "path": "TEST_MISSION_EXECUTOR.bat",
+      "text": "@echo off"
+    },
+    {
+      "language": "batch",
+      "line": 2,
+      "path": "TEST_MISSION_EXECUTOR.bat",
+      "text": "setlocal"
+    },
+    {
+      "language": "batch",
+      "line": 3,
+      "path": "TEST_MISSION_EXECUTOR.bat",
+      "text": "title FOXAI CM v3.7 Mission Executor Test"
+    },
+    {
+      "language": "batch",
+      "line": 5,
+      "path": "TEST_MISSION_EXECUTOR.bat",
+      "text": "cd /d \"%~dp0\""
+    },
+    {
+      "language": "batch",
+      "line": 7,
+      "path": "TEST_MISSION_EXECUTOR.bat",
+      "text": "echo =========================================="
+    },
+    {
+      "language": "batch",
+      "line": 8,
+      "path": "TEST_MISSION_EXECUTOR.bat",
+      "text": "echo FOXAI CM v3.7 Mission Executor Test"
+    },
+    {
+      "language": "batch",
+      "line": 9,
+      "path": "TEST_MISSION_EXECUTOR.bat",
+      "text": "echo =========================================="
+    },
+    {
+      "language": "batch",
+      "line": 10,
+      "path": "TEST_MISSION_EXECUTOR.bat",
+      "text": "echo."
+    },
+    {
+      "language": "batch",
+      "line": 12,
+      "path": "TEST_MISSION_EXECUTOR.bat",
+      "text": "if exist \".venv\\Scripts\\python.exe\" ("
+    },
+    {
+      "language": "batch",
+      "line": 13,
+      "path": "TEST_MISSION_EXECUTOR.bat",
+      "text": "\".venv\\Scripts\\python.exe\" TEST_MISSION_EXECUTOR.py"
+    },
+    {
+      "language": "batch",
+      "line": 14,
+      "path": "TEST_MISSION_EXECUTOR.bat",
+      "text": ") else ("
+    },
+    {
+      "language": "batch",
+      "line": 15,
+      "path": "TEST_MISSION_EXECUTOR.bat",
+      "text": "python TEST_MISSION_EXECUTOR.py"
+    },
+    {
+      "language": "batch",
+      "line": 16,
+      "path": "TEST_MISSION_EXECUTOR.bat",
+      "text": ")"
+    },
+    {
+      "language": "batch",
+      "line": 18,
+      "path": "TEST_MISSION_EXECUTOR.bat",
+      "text": "echo."
+    },
+    {
+      "language": "batch",
+      "line": 19,
+      "path": "TEST_MISSION_EXECUTOR.bat",
+      "text": "pause"
+    },
+    {
+      "language": "python",
+      "line": 1,
+      "path": "TEST_MISSION_EXECUTOR.py",
+      "text": "from pathlib import Path"
+    },
+    {
+      "language": "python",
+      "line": 2,
+      "path": "TEST_MISSION_EXECUTOR.py",
+      "text": "from core_v10.mission_executor import MissionExecutor"
+    },
+    {
+      "language": "python",
+      "line": 4,
+      "path": "TEST_MISSION_EXECUTOR.py",
+      "text": "root = Path(__file__).resolve().parent"
+    },
+    {
+      "language": "python",
+      "line": 5,
+      "path": "TEST_MISSION_EXECUTOR.py",
+      "text": "executor = MissionExecutor(root)"
+    },
+    {
+      "language": "python",
+      "line": 7,
+      "path": "TEST_MISSION_EXECUTOR.py",
+      "text": "tests = ["
+    },
+    {
+      "language": "python",
+      "line": 8,
+      "path": "TEST_MISSION_EXECUTOR.py",
+      "text": "\"Tell me a joke about a toaster joining Starfleet.\","
+    },
+    {
+      "language": "python",
+      "line": 9,
+      "path": "TEST_MISSION_EXECUTOR.py",
+      "text": "\"Professor Ada, explain what MissionBus does.\","
+    },
+    {
+      "language": "python",
+      "line": 10,
+      "path": "TEST_MISSION_EXECUTOR.py",
+      "text": "\"Write a mythic sentence about the Engineering Fleet.\","
+    },
+    {
+      "language": "python",
+      "line": 11,
+      "path": "TEST_MISSION_EXECUTOR.py",
+      "text": "]"
+    },
+    {
+      "language": "python",
+      "line": 13,
+      "path": "TEST_MISSION_EXECUTOR.py",
+      "text": "print(\"FOXAI CM v3.7 - Mission Execution Engine Test\")"
+    },
+    {
+      "language": "python",
+      "line": 14,
+      "path": "TEST_MISSION_EXECUTOR.py",
+      "text": "print(\"=============================================\")"
+    },
+    {
+      "language": "python",
+      "line": 15,
+      "path": "TEST_MISSION_EXECUTOR.py",
+      "text": "print()"
+    },
+    {
+      "language": "python",
+      "line": 17,
+      "path": "TEST_MISSION_EXECUTOR.py",
+      "text": "for request in tests:"
+    },
+    {
+      "language": "python",
+      "line": 18,
+      "path": "TEST_MISSION_EXECUTOR.py",
+      "text": "print(\"REQUEST:\", request)"
+    },
+    {
+      "language": "python",
+      "line": 19,
+      "path": "TEST_MISSION_EXECUTOR.py",
+      "text": "report = executor.execute(request)"
+    },
+    {
+      "language": "python",
+      "line": 20,
+      "path": "TEST_MISSION_EXECUTOR.py",
+      "text": "print(executor.render_text(report))"
+    },
+    {
+      "language": "python",
+      "line": 21,
+      "path": "TEST_MISSION_EXECUTOR.py",
+      "text": "print(\"-\" * 72)"
+    },
+    {
+      "language": "batch",
+      "line": 1,
+      "path": "TEST_MISSION_PLANNER.bat",
+      "text": "@echo off"
+    },
+    {
+      "language": "batch",
+      "line": 2,
+      "path": "TEST_MISSION_PLANNER.bat",
+      "text": "setlocal"
+    },
+    {
+      "language": "batch",
+      "line": 3,
+      "path": "TEST_MISSION_PLANNER.bat",
+      "text": "title FOXAI Mission Planner v3.0"
+    },
+    {
+      "language": "batch",
+      "line": 5,
+      "path": "TEST_MISSION_PLANNER.bat",
+      "text": "cd /d \"%~dp0\""
+    },
+    {
+      "language": "batch",
+      "line": 7,
+      "path": "TEST_MISSION_PLANNER.bat",
+      "text": "echo =========================================="
+    },
+    {
+      "language": "batch",
+      "line": 8,
+      "path": "TEST_MISSION_PLANNER.bat",
+      "text": "echo FOXAI Mission Planner v3.0"
+    },
+    {
+      "language": "batch",
+      "line": 9,
+      "path": "TEST_MISSION_PLANNER.bat",
+      "text": "echo =========================================="
+    },
+    {
+      "language": "batch",
+      "line": 10,
+      "path": "TEST_MISSION_PLANNER.bat",
+      "text": "echo."
+    },
+    {
+      "language": "batch",
+      "line": 12,
+      "path": "TEST_MISSION_PLANNER.bat",
+      "text": "if exist \".venv\\Scripts\\python.exe\" ("
+    },
+    {
+      "language": "batch",
+      "line": 13,
+      "path": "TEST_MISSION_PLANNER.bat",
+      "text": "\".venv\\Scripts\\python.exe\" TEST_MISSION_PLANNER.py"
+    },
+    {
+      "language": "batch",
+      "line": 14,
+      "path": "TEST_MISSION_PLANNER.bat",
+      "text": ") else ("
+    },
+    {
+      "language": "batch",
+      "line": 15,
+      "path": "TEST_MISSION_PLANNER.bat",
+      "text": "where py >nul 2>nul"
+    },
+    {
+      "language": "batch",
+      "line": 16,
+      "path": "TEST_MISSION_PLANNER.bat",
+      "text": "if not errorlevel 1 ("
+    },
+    {
+      "language": "batch",
+      "line": 17,
+      "path": "TEST_MISSION_PLANNER.bat",
+      "text": "py -3 TEST_MISSION_PLANNER.py"
+    },
+    {
+      "language": "batch",
+      "line": 18,
+      "path": "TEST_MISSION_PLANNER.bat",
+      "text": ") else ("
+    },
+    {
+      "language": "batch",
+      "line": 19,
+      "path": "TEST_MISSION_PLANNER.bat",
+      "text": "python TEST_MISSION_PLANNER.py"
+    },
+    {
+      "language": "batch",
+      "line": 20,
+      "path": "TEST_MISSION_PLANNER.bat",
+      "text": ")"
+    },
+    {
+      "language": "batch",
+      "line": 21,
+      "path": "TEST_MISSION_PLANNER.bat",
+      "text": ")"
+    },
+    {
+      "language": "batch",
+      "line": 23,
+      "path": "TEST_MISSION_PLANNER.bat",
+      "text": "echo."
+    },
+    {
+      "language": "batch",
+      "line": 24,
+      "path": "TEST_MISSION_PLANNER.bat",
+      "text": "pause"
+    },
+    {
+      "language": "python",
+      "line": 1,
+      "path": "TEST_MISSION_PLANNER.py",
+      "text": "from pathlib import Path"
+    },
+    {
+      "language": "python",
+      "line": 2,
+      "path": "TEST_MISSION_PLANNER.py",
+      "text": "from core_v10.mission_planner import MissionPlanner"
+    },
+    {
+      "language": "python",
+      "line": 4,
+      "path": "TEST_MISSION_PLANNER.py",
+      "text": "root = Path(__file__).resolve().parent"
+    },
+    {
+      "language": "python",
+      "line": 5,
+      "path": "TEST_MISSION_PLANNER.py",
+      "text": "planner = MissionPlanner(root)"
+    },
+    {
+      "language": "python",
+      "line": 7,
+      "path": "TEST_MISSION_PLANNER.py",
+      "text": "tests = ["
+    },
+    {
+      "language": "python",
+      "line": 8,
+      "path": "TEST_MISSION_PLANNER.py",
+      "text": "\"Professor Ada, find every place MissionBus is used.\","
+    },
+    {
+      "language": "python",
+      "line": 9,
+      "path": "TEST_MISSION_PLANNER.py",
+      "text": "\"Compare today's FOXAI folder with yesterday's backup.\","
+    },
+    {
+      "language": "python",
+      "line": 10,
+      "path": "TEST_MISSION_PLANNER.py",
+      "text": "\"Find where I put my GGUF models.\","
+    },
+    {
+      "language": "python",
+      "line": 11,
+      "path": "TEST_MISSION_PLANNER.py",
+      "text": "\"Parse the code structure and find classes.\","
+    },
+    {
+      "language": "python",
+      "line": 12,
+      "path": "TEST_MISSION_PLANNER.py",
+      "text": "\"Tell me a joke about a toaster joining Starfleet.\","
+    },
+    {
+      "language": "python",
+      "line": 13,
+      "path": "TEST_MISSION_PLANNER.py",
+      "text": "]"
+    },
+    {
+      "language": "python",
+      "line": 15,
+      "path": "TEST_MISSION_PLANNER.py",
+      "text": "for request in tests:"
+    },
+    {
+      "language": "python",
+      "line": 16,
+      "path": "TEST_MISSION_PLANNER.py",
+      "text": "plan = planner.create_plan(request, professor=\"Professor Ada\")"
+    },
+    {
+      "language": "python",
+      "line": 17,
+      "path": "TEST_MISSION_PLANNER.py",
+      "text": "print(planner.render_plan_text(plan))"
+    },
+    {
+      "language": "python",
+      "line": 18,
+      "path": "TEST_MISSION_PLANNER.py",
+      "text": "print(\"\\n\" + \"-\" * 72 + \"\\n\")"
+    },
+    {
+      "language": "batch",
+      "line": 1,
+      "path": "TEST_NO_LAUNCH_LIFECYCLE_GUARD.bat",
+      "text": "@echo off"
+    },
+    {
+      "language": "batch",
+      "line": 2,
+      "path": "TEST_NO_LAUNCH_LIFECYCLE_GUARD.bat",
+      "text": "setlocal"
+    },
+    {
+      "language": "batch",
+      "line": 3,
+      "path": "TEST_NO_LAUNCH_LIFECYCLE_GUARD.bat",
+      "text": "title FOXAI CM v2.3b Lifecycle Guard Test"
+    },
+    {
+      "language": "batch",
+      "line": 5,
+      "path": "TEST_NO_LAUNCH_LIFECYCLE_GUARD.bat",
+      "text": "cd /d \"%~dp0\""
+    },
+    {
+      "language": "batch",
+      "line": 7,
+      "path": "TEST_NO_LAUNCH_LIFECYCLE_GUARD.bat",
+      "text": "echo =========================================="
+    },
+    {
+      "language": "batch",
+      "line": 8,
+      "path": "TEST_NO_LAUNCH_LIFECYCLE_GUARD.bat",
+      "text": "echo FOXAI CM v2.3b Lifecycle Guard Test"
+    },
+    {
+      "language": "batch",
+      "line": 9,
+      "path": "TEST_NO_LAUNCH_LIFECYCLE_GUARD.bat",
+      "text": "echo =========================================="
+    },
+    {
+      "language": "batch",
+      "line": 10,
+      "path": "TEST_NO_LAUNCH_LIFECYCLE_GUARD.bat",
+      "text": "echo."
+    },
+    {
+      "language": "batch",
+      "line": 12,
+      "path": "TEST_NO_LAUNCH_LIFECYCLE_GUARD.bat",
+      "text": "if exist \".venv\\Scripts\\python.exe\" ("
+    },
+    {
+      "language": "batch",
+      "line": 13,
+      "path": "TEST_NO_LAUNCH_LIFECYCLE_GUARD.bat",
+      "text": "\".venv\\Scripts\\python.exe\" TEST_NO_LAUNCH_LIFECYCLE_GUARD.py"
+    },
+    {
+      "language": "batch",
+      "line": 14,
+      "path": "TEST_NO_LAUNCH_LIFECYCLE_GUARD.bat",
+      "text": ") else ("
+    },
+    {
+      "language": "batch",
+      "line": 15,
+      "path": "TEST_NO_LAUNCH_LIFECYCLE_GUARD.bat",
+      "text": "where py >nul 2>nul"
+    },
+    {
+      "language": "batch",
+      "line": 16,
+      "path": "TEST_NO_LAUNCH_LIFECYCLE_GUARD.bat",
+      "text": "if not errorlevel 1 ("
+    },
+    {
+      "language": "batch",
+      "line": 17,
+      "path": "TEST_NO_LAUNCH_LIFECYCLE_GUARD.bat",
+      "text": "py -3 TEST_NO_LAUNCH_LIFECYCLE_GUARD.py"
+    },
+    {
+      "language": "batch",
+      "line": 18,
+      "path": "TEST_NO_LAUNCH_LIFECYCLE_GUARD.bat",
+      "text": ") else ("
+    },
+    {
+      "language": "batch",
+      "line": 19,
+      "path": "TEST_NO_LAUNCH_LIFECYCLE_GUARD.bat",
+      "text": "python TEST_NO_LAUNCH_LIFECYCLE_GUARD.py"
+    },
+    {
+      "language": "batch",
+      "line": 20,
+      "path": "TEST_NO_LAUNCH_LIFECYCLE_GUARD.bat",
+      "text": ")"
+    },
+    {
+      "language": "batch",
+      "line": 21,
+      "path": "TEST_NO_LAUNCH_LIFECYCLE_GUARD.bat",
+      "text": ")"
+    },
+    {
+      "language": "batch",
+      "line": 23,
+      "path": "TEST_NO_LAUNCH_LIFECYCLE_GUARD.bat",
+      "text": "echo."
+    },
+    {
+      "language": "batch",
+      "line": 24,
+      "path": "TEST_NO_LAUNCH_LIFECYCLE_GUARD.bat",
+      "text": "pause"
+    },
+    {
+      "language": "python",
+      "line": 1,
+      "path": "TEST_NO_LAUNCH_LIFECYCLE_GUARD.py",
+      "text": "from pathlib import Path"
+    },
+    {
+      "language": "python",
+      "line": 2,
+      "path": "TEST_NO_LAUNCH_LIFECYCLE_GUARD.py",
+      "text": "from core_v10.extension_manager import ExtensionManager"
+    },
+    {
+      "language": "python",
+      "line": 3,
+      "path": "TEST_NO_LAUNCH_LIFECYCLE_GUARD.py",
+      "text": "from core_v10.fleet_registry import FleetRegistry"
+    },
+    {
+      "language": "python",
+      "line": 5,
+      "path": "TEST_NO_LAUNCH_LIFECYCLE_GUARD.py",
+      "text": "root = Path(__file__).resolve().parent"
+    },
+    {
+      "language": "python",
+      "line": 7,
+      "path": "TEST_NO_LAUNCH_LIFECYCLE_GUARD.py",
+      "text": "print(\"FOXAI CM v2.3b Lifecycle Guard Test\")"
+    },
+    {
+      "language": "python",
+      "line": 8,
+      "path": "TEST_NO_LAUNCH_LIFECYCLE_GUARD.py",
+      "text": "print(\"===================================\")"
+    },
+    {
+      "language": "python",
+      "line": 9,
+      "path": "TEST_NO_LAUNCH_LIFECYCLE_GUARD.py",
+      "text": "print()"
+    },
+    {
+      "language": "python",
+      "line": 11,
+      "path": "TEST_NO_LAUNCH_LIFECYCLE_GUARD.py",
+      "text": "manager = ExtensionManager(root)"
+    },
+    {
+      "language": "python",
+      "line": 13,
+      "path": "TEST_NO_LAUNCH_LIFECYCLE_GUARD.py",
+      "text": "print(\"Passive health test:\")"
+    },
+    {
+      "language": "python",
+      "line": 14,
+      "path": "TEST_NO_LAUNCH_LIFECYCLE_GUARD.py",
+      "text": "health = manager.passive_health()"
+    },
+    {
+      "language": "python",
+      "line": 15,
+      "path": "TEST_NO_LAUNCH_LIFECYCLE_GUARD.py",
+      "text": "print(\"mode:\", health.get(\"mode\"))"
+    },
+    {
+      "language": "python",
+      "line": 16,
+      "path": "TEST_NO_LAUNCH_LIFECYCLE_GUARD.py",
+      "text": "print(\"total:\", health.get(\"total\"))"
+    },
+    {
+      "language": "python",
+      "line": 17,
+      "path": "TEST_NO_LAUNCH_LIFECYCLE_GUARD.py",
+      "text": "for item in health.get(\"items\", []):"
+    },
+    {
+      "language": "python",
+      "line": 18,
+      "path": "TEST_NO_LAUNCH_LIFECYCLE_GUARD.py",
+      "text": "h = item.get(\"health\", {})"
+    },
+    {
+      "language": "python",
+      "line": 19,
+      "path": "TEST_NO_LAUNCH_LIFECYCLE_GUARD.py",
+      "text": "print(f\"- {item.get('callsign')}: {h.get('status')} - {h.get('message')}\")"
+    },
+    {
+      "language": "python",
+      "line": 21,
+      "path": "TEST_NO_LAUNCH_LIFECYCLE_GUARD.py",
+      "text": "print()"
+    },
+    {
+      "language": "python",
+      "line": 22,
+      "path": "TEST_NO_LAUNCH_LIFECYCLE_GUARD.py",
+      "text": "print(\"Fleet Registry refresh:\")"
+    },
+    {
+      "language": "python",
+      "line": 23,
+      "path": "TEST_NO_LAUNCH_LIFECYCLE_GUARD.py",
+      "text": "fleet = FleetRegistry(root)"
+    },
+    {
+      "language": "python",
+      "line": 24,
+      "path": "TEST_NO_LAUNCH_LIFECYCLE_GUARD.py",
+      "text": "data = fleet.refresh()"
+    },
+    {
+      "language": "python",
+      "line": 25,
+      "path": "TEST_NO_LAUNCH_LIFECYCLE_GUARD.py",
+      "text": "summary = fleet.summary(data)"
+    },
+    {
+      "language": "python",
+      "line": 26,
+      "path": "TEST_NO_LAUNCH_LIFECYCLE_GUARD.py",
+      "text": "print(\"mode:\", summary.get(\"mode\"))"
+    },
+    {
+      "language": "python",
+      "line": 27,
+      "path": "TEST_NO_LAUNCH_LIFECYCLE_GUARD.py",
+      "text": "print(\"total:\", summary.get(\"total\"))"
+    },
+    {
+      "language": "python",
+      "line": 28,
+      "path": "TEST_NO_LAUNCH_LIFECYCLE_GUARD.py",
+      "text": "print(\"states:\", summary.get(\"states\"))"
+    },
+    {
+      "language": "python",
+      "line": 30,
+      "path": "TEST_NO_LAUNCH_LIFECYCLE_GUARD.py",
+      "text": "print()"
+    },
+    {
+      "language": "python",
+      "line": 31,
+      "path": "TEST_NO_LAUNCH_LIFECYCLE_GUARD.py",
+      "text": "print(\"If no GUI apps opened, lifecycle guard passed.\")"
+    },
+    {
+      "language": "batch",
+      "line": 1,
+      "path": "TEST_OPS_BRIDGE.bat",
+      "text": "@echo off"
+    },
+    {
+      "language": "batch",
+      "line": 2,
+      "path": "TEST_OPS_BRIDGE.bat",
+      "text": "setlocal"
+    },
+    {
+      "language": "batch",
+      "line": 3,
+      "path": "TEST_OPS_BRIDGE.bat",
+      "text": "title FOXAI CM v5.0a OPS Bridge Test"
+    },
+    {
+      "language": "batch",
+      "line": 5,
+      "path": "TEST_OPS_BRIDGE.bat",
+      "text": "cd /d \"%~dp0\""
+    },
+    {
+      "language": "batch",
+      "line": 7,
+      "path": "TEST_OPS_BRIDGE.bat",
+      "text": "echo =========================================="
+    },
+    {
+      "language": "batch",
+      "line": 8,
+      "path": "TEST_OPS_BRIDGE.bat",
+      "text": "echo FOXAI CM v5.0a OPS Integration Bridge Test"
+    },
+    {
+      "language": "batch",
+      "line": 9,
+      "path": "TEST_OPS_BRIDGE.bat",
+      "text": "echo =========================================="
+    },
+    {
+      "language": "batch",
+      "line": 10,
+      "path": "TEST_OPS_BRIDGE.bat",
+      "text": "echo."
+    },
+    {
+      "language": "batch",
+      "line": 12,
+      "path": "TEST_OPS_BRIDGE.bat",
+      "text": "echo Running bridge status..."
+    },
+    {
+      "language": "batch",
+      "line": 13,
+      "path": "TEST_OPS_BRIDGE.bat",
+      "text": "call OPS_BRIDGE_STATUS.bat"
+    },
+    {
+      "language": "batch",
+      "line": 15,
+      "path": "TEST_OPS_BRIDGE.bat",
+      "text": "echo."
+    },
+    {
+      "language": "batch",
+      "line": 16,
+      "path": "TEST_OPS_BRIDGE.bat",
+      "text": "echo Running plain text mission..."
+    },
+    {
+      "language": "batch",
+      "line": 17,
+      "path": "TEST_OPS_BRIDGE.bat",
+      "text": "call OPS_BRIDGE.bat \"Tell me a joke about a toaster joining Starfleet.\""
+    },
+    {
+      "language": "batch",
+      "line": 19,
+      "path": "TEST_OPS_BRIDGE.bat",
+      "text": "echo."
+    },
+    {
+      "language": "batch",
+      "line": 20,
+      "path": "TEST_OPS_BRIDGE.bat",
+      "text": "echo Running JSON mission..."
+    },
+    {
+      "language": "batch",
+      "line": 21,
+      "path": "TEST_OPS_BRIDGE.bat",
+      "text": "call OPS_BRIDGE_JSON.bat \"Professor Ada, explain what MissionBus does.\""
+    },
+    {
+      "language": "batch",
+      "line": 23,
+      "path": "TEST_OPS_BRIDGE.bat",
+      "text": "echo."
+    },
+    {
+      "language": "batch",
+      "line": 24,
+      "path": "TEST_OPS_BRIDGE.bat",
+      "text": "echo Latest output files should now exist:"
+    },
+    {
+      "language": "batch",
+      "line": 25,
+      "path": "TEST_OPS_BRIDGE.bat",
+      "text": "echo OpsBridge\\outbox\\latest_result.json"
+    },
+    {
+      "language": "batch",
+      "line": 26,
+      "path": "TEST_OPS_BRIDGE.bat",
+      "text": "echo OpsBridge\\outbox\\latest_result.txt"
+    },
+    {
+      "language": "batch",
+      "line": 27,
+      "path": "TEST_OPS_BRIDGE.bat",
+      "text": "echo."
+    },
+    {
+      "language": "batch",
+      "line": 28,
+      "path": "TEST_OPS_BRIDGE.bat",
+      "text": "pause"
+    },
+    {
+      "language": "batch",
+      "line": 1,
+      "path": "TEST_RUNTIME_DETECTION.bat",
+      "text": "@echo off"
+    },
+    {
+      "language": "batch",
+      "line": 2,
+      "path": "TEST_RUNTIME_DETECTION.bat",
+      "text": "setlocal"
+    },
+    {
+      "language": "batch",
+      "line": 3,
+      "path": "TEST_RUNTIME_DETECTION.bat",
+      "text": "title FOXAI CM v5.2 Hangar Bay Package Inspector"
+    },
+    {
+      "language": "batch",
+      "line": 5,
+      "path": "TEST_RUNTIME_DETECTION.bat",
+      "text": "cd /d \"%~dp0\""
+    },
+    {
+      "language": "batch",
+      "line": 7,
+      "path": "TEST_RUNTIME_DETECTION.bat",
+      "text": "echo =========================================="
+    },
+    {
+      "language": "batch",
+      "line": 8,
+      "path": "TEST_RUNTIME_DETECTION.bat",
+      "text": "echo FOXAI CM v5.2 Hangar Bay Package Inspector"
+    },
+    {
+      "language": "batch",
+      "line": 9,
+      "path": "TEST_RUNTIME_DETECTION.bat",
+      "text": "echo =========================================="
+    },
+    {
+      "language": "batch",
+      "line": 10,
+      "path": "TEST_RUNTIME_DETECTION.bat",
+      "text": "echo."
+    },
+    {
+      "language": "batch",
+      "line": 12,
+      "path": "TEST_RUNTIME_DETECTION.bat",
+      "text": "if exist \".venv\\Scripts\\python.exe\" ("
+    },
+    {
+      "language": "batch",
+      "line": 13,
+      "path": "TEST_RUNTIME_DETECTION.bat",
+      "text": "\".venv\\Scripts\\python.exe\" TEST_RUNTIME_DETECTION.py"
+    },
+    {
+      "language": "batch",
+      "line": 14,
+      "path": "TEST_RUNTIME_DETECTION.bat",
+      "text": ") else ("
+    },
+    {
+      "language": "batch",
+      "line": 15,
+      "path": "TEST_RUNTIME_DETECTION.bat",
+      "text": "python TEST_RUNTIME_DETECTION.py"
+    },
+    {
+      "language": "batch",
+      "line": 16,
+      "path": "TEST_RUNTIME_DETECTION.bat",
+      "text": ")"
+    },
+    {
+      "language": "batch",
+      "line": 18,
+      "path": "TEST_RUNTIME_DETECTION.bat",
+      "text": "echo."
+    },
+    {
+      "language": "batch",
+      "line": 19,
+      "path": "TEST_RUNTIME_DETECTION.bat",
+      "text": "pause"
+    },
+    {
+      "language": "python",
+      "line": 1,
+      "path": "TEST_RUNTIME_DETECTION.py",
+      "text": "from pathlib import Path"
+    },
+    {
+      "language": "python",
+      "line": 2,
+      "path": "TEST_RUNTIME_DETECTION.py",
+      "text": "from core_v10.bridge_officers import BridgeOfficerRegistry"
+    },
+    {
+      "language": "python",
+      "line": 4,
+      "path": "TEST_RUNTIME_DETECTION.py",
+      "text": "root = Path(__file__).resolve().parent"
+    },
+    {
+      "language": "python",
+      "line": 5,
+      "path": "TEST_RUNTIME_DETECTION.py",
+      "text": "registry = BridgeOfficerRegistry(root)"
+    },
+    {
+      "language": "python",
+      "line": 7,
+      "path": "TEST_RUNTIME_DETECTION.py",
+      "text": "report = registry.assignment_report({"
+    },
+    {
+      "language": "python",
+      "line": 8,
+      "path": "TEST_RUNTIME_DETECTION.py",
+      "text": "\"mission_type\": \"General Conversation\","
+    },
+    {
+      "language": "python",
+      "line": 9,
+      "path": "TEST_RUNTIME_DETECTION.py",
+      "text": "\"department\": \"Academy\","
+    },
+    {
+      "language": "python",
+      "line": 10,
+      "path": "TEST_RUNTIME_DETECTION.py",
+      "text": "\"professor\": \"Professor Kayock\","
+    },
+    {
+      "language": "python",
+      "line": 11,
+      "path": "TEST_RUNTIME_DETECTION.py",
+      "text": "})"
+    },
+    {
+      "language": "python",
+      "line": 13,
+      "path": "TEST_RUNTIME_DETECTION.py",
+      "text": "print(registry.render_text(report))"
+    },
+    {
+      "language": "python",
+      "line": 14,
+      "path": "TEST_RUNTIME_DETECTION.py",
+      "text": "print()"
+    },
+    {
+      "language": "python",
+      "line": 15,
+      "path": "TEST_RUNTIME_DETECTION.py",
+      "text": "print(\"Runtime detection:\")"
+    },
+    {
+      "language": "python",
+      "line": 16,
+      "path": "TEST_RUNTIME_DETECTION.py",
+      "text": "print(report.get(\"runtime_detection\"))"
+    },
+    {
+      "language": "batch",
+      "line": 1,
+      "path": "TEST_SERVICE_SHUTTLE_ARCHITECTURE.bat",
+      "text": "@echo off"
+    },
+    {
+      "language": "batch",
+      "line": 2,
+      "path": "TEST_SERVICE_SHUTTLE_ARCHITECTURE.bat",
+      "text": "setlocal"
+    },
+    {
+      "language": "batch",
+      "line": 3,
+      "path": "TEST_SERVICE_SHUTTLE_ARCHITECTURE.bat",
+      "text": "title FOXAI CM v3.4b Service Shuttle Architecture Test"
+    },
+    {
+      "language": "batch",
+      "line": 4,
+      "path": "TEST_SERVICE_SHUTTLE_ARCHITECTURE.bat",
+      "text": "cd /d \"%~dp0\""
+    },
+    {
+      "language": "batch",
+      "line": 6,
+      "path": "TEST_SERVICE_SHUTTLE_ARCHITECTURE.bat",
+      "text": "echo =========================================="
+    },
+    {
+      "language": "batch",
+      "line": 7,
+      "path": "TEST_SERVICE_SHUTTLE_ARCHITECTURE.bat",
+      "text": "echo FOXAI CM v3.4b Service Shuttle Architecture"
+    },
+    {
+      "language": "batch",
+      "line": 8,
+      "path": "TEST_SERVICE_SHUTTLE_ARCHITECTURE.bat",
+      "text": "echo =========================================="
+    },
+    {
+      "language": "batch",
+      "line": 9,
+      "path": "TEST_SERVICE_SHUTTLE_ARCHITECTURE.bat",
+      "text": "echo."
+    },
+    {
+      "language": "batch",
+      "line": 11,
+      "path": "TEST_SERVICE_SHUTTLE_ARCHITECTURE.bat",
+      "text": "if exist \".venv\\Scripts\\python.exe\" ("
+    },
+    {
+      "language": "batch",
+      "line": 12,
+      "path": "TEST_SERVICE_SHUTTLE_ARCHITECTURE.bat",
+      "text": "\".venv\\Scripts\\python.exe\" TEST_SERVICE_SHUTTLE_ARCHITECTURE.py"
+    },
+    {
+      "language": "batch",
+      "line": 13,
+      "path": "TEST_SERVICE_SHUTTLE_ARCHITECTURE.bat",
+      "text": ") else ("
+    },
+    {
+      "language": "batch",
+      "line": 14,
+      "path": "TEST_SERVICE_SHUTTLE_ARCHITECTURE.bat",
+      "text": "python TEST_SERVICE_SHUTTLE_ARCHITECTURE.py"
+    },
+    {
+      "language": "batch",
+      "line": 15,
+      "path": "TEST_SERVICE_SHUTTLE_ARCHITECTURE.bat",
+      "text": ")"
+    },
+    {
+      "language": "batch",
+      "line": 17,
+      "path": "TEST_SERVICE_SHUTTLE_ARCHITECTURE.bat",
+      "text": "echo."
+    },
+    {
+      "language": "batch",
+      "line": 18,
+      "path": "TEST_SERVICE_SHUTTLE_ARCHITECTURE.bat",
+      "text": "pause"
+    },
+    {
+      "language": "python",
+      "line": 1,
+      "path": "TEST_SERVICE_SHUTTLE_ARCHITECTURE.py",
+      "text": "from pathlib import Path"
+    },
+    {
+      "language": "python",
+      "line": 2,
+      "path": "TEST_SERVICE_SHUTTLE_ARCHITECTURE.py",
+      "text": "from core_v10.fleet_registry import FleetRegistry"
+    },
+    {
+      "language": "python",
+      "line": 3,
+      "path": "TEST_SERVICE_SHUTTLE_ARCHITECTURE.py",
+      "text": "from core_v10.mission_planner import MissionPlanner"
+    },
+    {
+      "language": "python",
+      "line": 4,
+      "path": "TEST_SERVICE_SHUTTLE_ARCHITECTURE.py",
+      "text": "from core_v10.capability_gap_analyzer import CapabilityGapAnalyzer"
+    },
+    {
+      "language": "python",
+      "line": 6,
+      "path": "TEST_SERVICE_SHUTTLE_ARCHITECTURE.py",
+      "text": "root = Path(__file__).resolve().parent"
+    },
+    {
+      "language": "python",
+      "line": 7,
+      "path": "TEST_SERVICE_SHUTTLE_ARCHITECTURE.py",
+      "text": "fleet = FleetRegistry(root)"
+    },
+    {
+      "language": "python",
+      "line": 8,
+      "path": "TEST_SERVICE_SHUTTLE_ARCHITECTURE.py",
+      "text": "planner = MissionPlanner(root)"
+    },
+    {
+      "language": "python",
+      "line": 9,
+      "path": "TEST_SERVICE_SHUTTLE_ARCHITECTURE.py",
+      "text": "gap = CapabilityGapAnalyzer(root)"
+    },
+    {
+      "language": "python",
+      "line": 11,
+      "path": "TEST_SERVICE_SHUTTLE_ARCHITECTURE.py",
+      "text": "print(\"FOXAI CM v3.4b - Service Shuttle Architecture Test\")"
+    },
+    {
+      "language": "python",
+      "line": 12,
+      "path": "TEST_SERVICE_SHUTTLE_ARCHITECTURE.py",
+      "text": "print(\"==================================================\")"
+    },
+    {
+      "language": "python",
+      "line": 13,
+      "path": "TEST_SERVICE_SHUTTLE_ARCHITECTURE.py",
+      "text": "print()"
+    },
+    {
+      "language": "python",
+      "line": 15,
+      "path": "TEST_SERVICE_SHUTTLE_ARCHITECTURE.py",
+      "text": "data = fleet.refresh()"
+    },
+    {
+      "language": "python",
+      "line": 16,
+      "path": "TEST_SERVICE_SHUTTLE_ARCHITECTURE.py",
+      "text": "summary = fleet.summary(data)"
+    },
+    {
+      "language": "python",
+      "line": 17,
+      "path": "TEST_SERVICE_SHUTTLE_ARCHITECTURE.py",
+      "text": "print(\"Fleet total:\", summary.get(\"total\"))"
+    },
+    {
+      "language": "python",
+      "line": 18,
+      "path": "TEST_SERVICE_SHUTTLE_ARCHITECTURE.py",
+      "text": "print(\"Fleet states:\", summary.get(\"states\"))"
+    },
+    {
+      "language": "python",
+      "line": 19,
+      "path": "TEST_SERVICE_SHUTTLE_ARCHITECTURE.py",
+      "text": "print(\"Fleet kinds:\", summary.get(\"kinds\"))"
+    },
+    {
+      "language": "python",
+      "line": 20,
+      "path": "TEST_SERVICE_SHUTTLE_ARCHITECTURE.py",
+      "text": "print()"
+    },
+    {
+      "language": "python",
+      "line": 22,
+      "path": "TEST_SERVICE_SHUTTLE_ARCHITECTURE.py",
+      "text": "conversation = (data.get(\"shuttles\") or {}).get(\"conversation\")"
+    },
+    {
+      "language": "python",
+      "line": 23,
+      "path": "TEST_SERVICE_SHUTTLE_ARCHITECTURE.py",
+      "text": "print(\"Conversation Shuttle:\")"
+    },
+    {
+      "language": "python",
+      "line": 24,
+      "path": "TEST_SERVICE_SHUTTLE_ARCHITECTURE.py",
+      "text": "print(conversation)"
+    },
+    {
+      "language": "python",
+      "line": 25,
+      "path": "TEST_SERVICE_SHUTTLE_ARCHITECTURE.py",
+      "text": "print()"
+    },
+    {
+      "language": "python",
+      "line": 27,
+      "path": "TEST_SERVICE_SHUTTLE_ARCHITECTURE.py",
+      "text": "plan = planner.create_plan(\"Tell me a joke about a toaster joining Starfleet.\")"
+    },
+    {
+      "language": "python",
+      "line": 28,
+      "path": "TEST_SERVICE_SHUTTLE_ARCHITECTURE.py",
+      "text": "report = gap.analyze_plan(plan)"
+    },
+    {
+      "language": "python",
+      "line": 29,
+      "path": "TEST_SERVICE_SHUTTLE_ARCHITECTURE.py",
+      "text": "print(gap.render_text(report))"
+    },
+    {
+      "language": "python",
+      "line": 31,
+      "path": "TEST_SERVICE_SHUTTLE_ARCHITECTURE.py",
+      "text": "print()"
+    },
+    {
+      "language": "python",
+      "line": 32,
+      "path": "TEST_SERVICE_SHUTTLE_ARCHITECTURE.py",
+      "text": "if conversation and conversation.get(\"service_state\") == \"Operational\":"
+    },
+    {
+      "language": "python",
+      "line": 33,
+      "path": "TEST_SERVICE_SHUTTLE_ARCHITECTURE.py",
+      "text": "print(\"PASS: Conversation Shuttle is operational as a service.\")"
+    },
+    {
+      "language": "python",
+      "line": 34,
+      "path": "TEST_SERVICE_SHUTTLE_ARCHITECTURE.py",
+      "text": "else:"
+    },
+    {
+      "language": "python",
+      "line": 35,
+      "path": "TEST_SERVICE_SHUTTLE_ARCHITECTURE.py",
+      "text": "print(\"FAIL: Conversation Shuttle is not operational.\")"
+    },
+    {
+      "language": "python",
+      "line": 37,
+      "path": "TEST_SERVICE_SHUTTLE_ARCHITECTURE.py",
+      "text": "if any(g.get(\"capability\") == \"general_reasoning\" and g.get(\"available\") for g in report.get(\"gaps\", [])):"
+    },
+    {
+      "language": "python",
+      "line": 38,
+      "path": "TEST_SERVICE_SHUTTLE_ARCHITECTURE.py",
+      "text": "print(\"PASS: general_reasoning is available from Fleet Registry.\")"
+    },
+    {
+      "language": "python",
+      "line": 39,
+      "path": "TEST_SERVICE_SHUTTLE_ARCHITECTURE.py",
+      "text": "else:"
+    },
+    {
+      "language": "python",
+      "line": 40,
+      "path": "TEST_SERVICE_SHUTTLE_ARCHITECTURE.py",
+      "text": "print(\"FAIL: general_reasoning still missing.\")"
+    },
+    {
+      "language": "batch",
+      "line": 1,
+      "path": "TEST_SHUTTLE_POD_COMMISSIONING.bat",
+      "text": "@echo off"
+    },
+    {
+      "language": "batch",
+      "line": 2,
+      "path": "TEST_SHUTTLE_POD_COMMISSIONING.bat",
+      "text": "setlocal"
+    },
+    {
+      "language": "batch",
+      "line": 3,
+      "path": "TEST_SHUTTLE_POD_COMMISSIONING.bat",
+      "text": "title FOXAI CM v2.2a Shuttle Pod Commissioning FIX"
+    },
+    {
+      "language": "batch",
+      "line": 5,
+      "path": "TEST_SHUTTLE_POD_COMMISSIONING.bat",
+      "text": "cd /d \"%~dp0\""
+    },
+    {
+      "language": "batch",
+      "line": 7,
+      "path": "TEST_SHUTTLE_POD_COMMISSIONING.bat",
+      "text": "echo =========================================="
+    },
+    {
+      "language": "batch",
+      "line": 8,
+      "path": "TEST_SHUTTLE_POD_COMMISSIONING.bat",
+      "text": "echo FOXAI CM v2.2a Shuttle Pod Commissioning"
+    },
+    {
+      "language": "batch",
+      "line": 9,
+      "path": "TEST_SHUTTLE_POD_COMMISSIONING.bat",
+      "text": "echo =========================================="
+    },
+    {
+      "language": "batch",
+      "line": 10,
+      "path": "TEST_SHUTTLE_POD_COMMISSIONING.bat",
+      "text": "echo."
+    },
+    {
+      "language": "batch",
+      "line": 12,
+      "path": "TEST_SHUTTLE_POD_COMMISSIONING.bat",
+      "text": "if exist \".venv\\Scripts\\python.exe\" ("
+    },
+    {
+      "language": "batch",
+      "line": 13,
+      "path": "TEST_SHUTTLE_POD_COMMISSIONING.bat",
+      "text": "\".venv\\Scripts\\python.exe\" TEST_SHUTTLE_POD_COMMISSIONING.py"
+    },
+    {
+      "language": "batch",
+      "line": 14,
+      "path": "TEST_SHUTTLE_POD_COMMISSIONING.bat",
+      "text": ") else ("
+    },
+    {
+      "language": "batch",
+      "line": 15,
+      "path": "TEST_SHUTTLE_POD_COMMISSIONING.bat",
+      "text": "where py >nul 2>nul"
+    },
+    {
+      "language": "batch",
+      "line": 16,
+      "path": "TEST_SHUTTLE_POD_COMMISSIONING.bat",
+      "text": "if not errorlevel 1 ("
+    },
+    {
+      "language": "batch",
+      "line": 17,
+      "path": "TEST_SHUTTLE_POD_COMMISSIONING.bat",
+      "text": "py -3 TEST_SHUTTLE_POD_COMMISSIONING.py"
+    },
+    {
+      "language": "batch",
+      "line": 18,
+      "path": "TEST_SHUTTLE_POD_COMMISSIONING.bat",
+      "text": ") else ("
+    },
+    {
+      "language": "batch",
+      "line": 19,
+      "path": "TEST_SHUTTLE_POD_COMMISSIONING.bat",
+      "text": "python TEST_SHUTTLE_POD_COMMISSIONING.py"
+    },
+    {
+      "language": "batch",
+      "line": 20,
+      "path": "TEST_SHUTTLE_POD_COMMISSIONING.bat",
+      "text": ")"
+    },
+    {
+      "language": "batch",
+      "line": 21,
+      "path": "TEST_SHUTTLE_POD_COMMISSIONING.bat",
+      "text": ")"
+    },
+    {
+      "language": "batch",
+      "line": 23,
+      "path": "TEST_SHUTTLE_POD_COMMISSIONING.bat",
+      "text": "echo."
+    },
+    {
+      "language": "batch",
+      "line": 24,
+      "path": "TEST_SHUTTLE_POD_COMMISSIONING.bat",
+      "text": "pause"
+    },
+    {
+      "language": "python",
+      "line": 1,
+      "path": "TEST_SHUTTLE_POD_COMMISSIONING.py",
+      "text": "from pathlib import Path"
+    },
+    {
+      "language": "python",
+      "line": 2,
+      "path": "TEST_SHUTTLE_POD_COMMISSIONING.py",
+      "text": "from core_v10.extension_commissioner import commission_known_extensions"
+    },
+    {
+      "language": "python",
+      "line": 3,
+      "path": "TEST_SHUTTLE_POD_COMMISSIONING.py",
+      "text": "from core_v10.extension_manager import ExtensionManager"
+    },
+    {
+      "language": "python",
+      "line": 5,
+      "path": "TEST_SHUTTLE_POD_COMMISSIONING.py",
+      "text": "root = Path(__file__).resolve().parent"
+    },
+    {
+      "language": "python",
+      "line": 7,
+      "path": "TEST_SHUTTLE_POD_COMMISSIONING.py",
+      "text": "print(\"FOXAI CM v2.2a Shuttle Pod Commissioning FIX\")"
+    },
+    {
+      "language": "python",
+      "line": 8,
+      "path": "TEST_SHUTTLE_POD_COMMISSIONING.py",
+      "text": "print(\"============================================\")"
+    },
+    {
+      "language": "python",
+      "line": 9,
+      "path": "TEST_SHUTTLE_POD_COMMISSIONING.py",
+      "text": "print()"
+    },
+    {
+      "language": "python",
+      "line": 11,
+      "path": "TEST_SHUTTLE_POD_COMMISSIONING.py",
+      "text": "result = commission_known_extensions(root, overwrite=False)"
+    },
+    {
+      "language": "python",
+      "line": 13,
+      "path": "TEST_SHUTTLE_POD_COMMISSIONING.py",
+      "text": "print(\"Inventory executables:\", result[\"inventory_count\"])"
+    },
+    {
+      "language": "python",
+      "line": 14,
+      "path": "TEST_SHUTTLE_POD_COMMISSIONING.py",
+      "text": "print()"
+    },
+    {
+      "language": "python",
+      "line": 16,
+      "path": "TEST_SHUTTLE_POD_COMMISSIONING.py",
+      "text": "print(\"Created:\")"
+    },
+    {
+      "language": "python",
+      "line": 17,
+      "path": "TEST_SHUTTLE_POD_COMMISSIONING.py",
+      "text": "for item in result[\"created\"]:"
+    },
+    {
+      "language": "python",
+      "line": 18,
+      "path": "TEST_SHUTTLE_POD_COMMISSIONING.py",
+      "text": "print(f\"- {item['callsign']} ({item['key']}) -> {item['path']}\")"
+    },
+    {
+      "language": "python",
+      "line": 19,
+      "path": "TEST_SHUTTLE_POD_COMMISSIONING.py",
+      "text": "if not result[\"created\"]:"
+    },
+    {
+      "language": "python",
+      "line": 20,
+      "path": "TEST_SHUTTLE_POD_COMMISSIONING.py",
+      "text": "print(\"- None\")"
+    },
+    {
+      "language": "python",
+      "line": 22,
+      "path": "TEST_SHUTTLE_POD_COMMISSIONING.py",
+      "text": "print()"
+    },
+    {
+      "language": "python",
+      "line": 23,
+      "path": "TEST_SHUTTLE_POD_COMMISSIONING.py",
+      "text": "print(\"Skipped:\")"
+    },
+    {
+      "language": "python",
+      "line": 24,
+      "path": "TEST_SHUTTLE_POD_COMMISSIONING.py",
+      "text": "for item in result[\"skipped\"]:"
+    },
+    {
+      "language": "python",
+      "line": 25,
+      "path": "TEST_SHUTTLE_POD_COMMISSIONING.py",
+      "text": "print(f\"- {item['name']} ({item['key']}): {item['reason']}\")"
+    },
+    {
+      "language": "python",
+      "line": 26,
+      "path": "TEST_SHUTTLE_POD_COMMISSIONING.py",
+      "text": "if not result[\"skipped\"]:"
+    },
+    {
+      "language": "python",
+      "line": 27,
+      "path": "TEST_SHUTTLE_POD_COMMISSIONING.py",
+      "text": "print(\"- None\")"
+    },
+    {
+      "language": "python",
+      "line": 29,
+      "path": "TEST_SHUTTLE_POD_COMMISSIONING.py",
+      "text": "print()"
+    },
+    {
+      "language": "python",
+      "line": 30,
+      "path": "TEST_SHUTTLE_POD_COMMISSIONING.py",
+      "text": "print(\"Missing signatures:\")"
+    },
+    {
+      "language": "python",
+      "line": 31,
+      "path": "TEST_SHUTTLE_POD_COMMISSIONING.py",
+      "text": "for item in result[\"missing\"]:"
+    },
+    {
+      "language": "python",
+      "line": 32,
+      "path": "TEST_SHUTTLE_POD_COMMISSIONING.py",
+      "text": "print(f\"- {item['name']} ({item['key']}): {item['reason']}\")"
+    },
+    {
+      "language": "python",
+      "line": 33,
+      "path": "TEST_SHUTTLE_POD_COMMISSIONING.py",
+      "text": "if not result[\"missing\"]:"
+    },
+    {
+      "language": "python",
+      "line": 34,
+      "path": "TEST_SHUTTLE_POD_COMMISSIONING.py",
+      "text": "print(\"- None\")"
+    },
+    {
+      "language": "python",
+      "line": 36,
+      "path": "TEST_SHUTTLE_POD_COMMISSIONING.py",
+      "text": "print()"
+    },
+    {
+      "language": "python",
+      "line": 37,
+      "path": "TEST_SHUTTLE_POD_COMMISSIONING.py",
+      "text": "print(\"Registered Extensions After Commissioning:\")"
+    },
+    {
+      "language": "python",
+      "line": 38,
+      "path": "TEST_SHUTTLE_POD_COMMISSIONING.py",
+      "text": "manager = ExtensionManager(root)"
+    },
+    {
+      "language": "python",
+      "line": 39,
+      "path": "TEST_SHUTTLE_POD_COMMISSIONING.py",
+      "text": "for ext in manager.list_extensions():"
+    },
+    {
+      "language": "python",
+      "line": 40,
+      "path": "TEST_SHUTTLE_POD_COMMISSIONING.py",
+      "text": "print(f\"- {ext.get('callsign')} | {ext.get('department')} | installed={ext.get('installed')} | {', '.join(ext.get('capabilities', []))}\")"
+    },
+    {
+      "language": "python",
+      "line": 42,
+      "path": "TEST_SHUTTLE_POD_COMMISSIONING.py",
+      "text": "print()"
+    },
+    {
+      "language": "python",
+      "line": 43,
+      "path": "TEST_SHUTTLE_POD_COMMISSIONING.py",
+      "text": "print(\"Health:\")"
+    },
+    {
+      "language": "python",
+      "line": 44,
+      "path": "TEST_SHUTTLE_POD_COMMISSIONING.py",
+      "text": "health = manager.health()"
+    },
+    {
+      "language": "python",
+      "line": 45,
+      "path": "TEST_SHUTTLE_POD_COMMISSIONING.py",
+      "text": "for item in health.get(\"items\", []):"
+    },
+    {
+      "language": "python",
+      "line": 46,
+      "path": "TEST_SHUTTLE_POD_COMMISSIONING.py",
+      "text": "h = item.get(\"health\", {})"
+    },
+    {
+      "language": "python",
+      "line": 47,
+      "path": "TEST_SHUTTLE_POD_COMMISSIONING.py",
+      "text": "print(f\"- {item.get('callsign')}: {h.get('status')} - {h.get('message')}\")"
+    },
+    {
+      "language": "batch",
+      "line": 1,
+      "path": "TEST_VAULT_DATABASE_SHUTTLE.bat",
+      "text": "@echo off"
+    },
+    {
+      "language": "batch",
+      "line": 2,
+      "path": "TEST_VAULT_DATABASE_SHUTTLE.bat",
+      "text": "setlocal"
+    },
+    {
+      "language": "batch",
+      "line": 3,
+      "path": "TEST_VAULT_DATABASE_SHUTTLE.bat",
+      "text": "title FOXAI CM v2.4 USS Database Shuttle Test"
+    },
+    {
+      "language": "batch",
+      "line": 5,
+      "path": "TEST_VAULT_DATABASE_SHUTTLE.bat",
+      "text": "cd /d \"%~dp0\""
+    },
+    {
+      "language": "batch",
+      "line": 7,
+      "path": "TEST_VAULT_DATABASE_SHUTTLE.bat",
+      "text": "echo =========================================="
+    },
+    {
+      "language": "batch",
+      "line": 8,
+      "path": "TEST_VAULT_DATABASE_SHUTTLE.bat",
+      "text": "echo FOXAI CM v2.4 USS Database Shuttle Test"
+    },
+    {
+      "language": "batch",
+      "line": 9,
+      "path": "TEST_VAULT_DATABASE_SHUTTLE.bat",
+      "text": "echo =========================================="
+    },
+    {
+      "language": "batch",
+      "line": 10,
+      "path": "TEST_VAULT_DATABASE_SHUTTLE.bat",
+      "text": "echo."
+    },
+    {
+      "language": "batch",
+      "line": 12,
+      "path": "TEST_VAULT_DATABASE_SHUTTLE.bat",
+      "text": "if exist \".venv\\Scripts\\python.exe\" ("
+    },
+    {
+      "language": "batch",
+      "line": 13,
+      "path": "TEST_VAULT_DATABASE_SHUTTLE.bat",
+      "text": "\".venv\\Scripts\\python.exe\" TEST_VAULT_DATABASE_SHUTTLE.py"
+    },
+    {
+      "language": "batch",
+      "line": 14,
+      "path": "TEST_VAULT_DATABASE_SHUTTLE.bat",
+      "text": ") else ("
+    },
+    {
+      "language": "batch",
+      "line": 15,
+      "path": "TEST_VAULT_DATABASE_SHUTTLE.bat",
+      "text": "python TEST_VAULT_DATABASE_SHUTTLE.py"
+    },
+    {
+      "language": "batch",
+      "line": 16,
+      "path": "TEST_VAULT_DATABASE_SHUTTLE.bat",
+      "text": ")"
+    },
+    {
+      "language": "batch",
+      "line": 18,
+      "path": "TEST_VAULT_DATABASE_SHUTTLE.bat",
+      "text": "echo."
+    },
+    {
+      "language": "batch",
+      "line": 19,
+      "path": "TEST_VAULT_DATABASE_SHUTTLE.bat",
+      "text": "pause"
+    },
+    {
+      "language": "python",
+      "line": 1,
+      "path": "TEST_VAULT_DATABASE_SHUTTLE.py",
+      "text": "from pathlib import Path"
+    },
+    {
+      "language": "python",
+      "line": 2,
+      "path": "TEST_VAULT_DATABASE_SHUTTLE.py",
+      "text": "from core_v10.database_shuttle import DatabaseShuttle"
+    },
+    {
+      "language": "python",
+      "line": 3,
+      "path": "TEST_VAULT_DATABASE_SHUTTLE.py",
+      "text": "from core_v10.vault import Vault"
+    },
+    {
+      "language": "python",
+      "line": 5,
+      "path": "TEST_VAULT_DATABASE_SHUTTLE.py",
+      "text": "root = Path(__file__).resolve().parent"
+    },
+    {
+      "language": "python",
+      "line": 7,
+      "path": "TEST_VAULT_DATABASE_SHUTTLE.py",
+      "text": "db = DatabaseShuttle(root)"
+    },
+    {
+      "language": "python",
+      "line": 8,
+      "path": "TEST_VAULT_DATABASE_SHUTTLE.py",
+      "text": "print(\"FOXAI CM v2.4 - USS Database Shuttle\")"
+    },
+    {
+      "language": "python",
+      "line": 9,
+      "path": "TEST_VAULT_DATABASE_SHUTTLE.py",
+      "text": "print(\"====================================\")"
+    },
+    {
+      "language": "python",
+      "line": 10,
+      "path": "TEST_VAULT_DATABASE_SHUTTLE.py",
+      "text": "print()"
+    },
+    {
+      "language": "python",
+      "line": 12,
+      "path": "TEST_VAULT_DATABASE_SHUTTLE.py",
+      "text": "print(\"Health:\")"
+    },
+    {
+      "language": "python",
+      "line": 13,
+      "path": "TEST_VAULT_DATABASE_SHUTTLE.py",
+      "text": "print(db.health())"
+    },
+    {
+      "language": "python",
+      "line": 14,
+      "path": "TEST_VAULT_DATABASE_SHUTTLE.py",
+      "text": "print()"
+    },
+    {
+      "language": "python",
+      "line": 16,
+      "path": "TEST_VAULT_DATABASE_SHUTTLE.py",
+      "text": "vault = Vault(root)"
+    },
+    {
+      "language": "python",
+      "line": 17,
+      "path": "TEST_VAULT_DATABASE_SHUTTLE.py",
+      "text": "mission = vault.log_mission("
+    },
+    {
+      "language": "python",
+      "line": 18,
+      "path": "TEST_VAULT_DATABASE_SHUTTLE.py",
+      "text": "title=\"Vault smoke test\","
+    },
+    {
+      "language": "python",
+      "line": 19,
+      "path": "TEST_VAULT_DATABASE_SHUTTLE.py",
+      "text": "request=\"Confirm FOXAI.db can record missions through controlled APIs.\","
+    },
+    {
+      "language": "python",
+      "line": 20,
+      "path": "TEST_VAULT_DATABASE_SHUTTLE.py",
+      "text": "professor=\"Mission Control\","
+    },
+    {
+      "language": "python",
+      "line": 21,
+      "path": "TEST_VAULT_DATABASE_SHUTTLE.py",
+      "text": "mission_type=\"database_smoke_test\","
+    },
+    {
+      "language": "python",
+      "line": 22,
+      "path": "TEST_VAULT_DATABASE_SHUTTLE.py",
+      "text": "department=\"Engineering\","
+    },
+    {
+      "language": "python",
+      "line": 23,
+      "path": "TEST_VAULT_DATABASE_SHUTTLE.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 24,
+      "path": "TEST_VAULT_DATABASE_SHUTTLE.py",
+      "text": "vault.log_step("
+    },
+    {
+      "language": "python",
+      "line": 25,
+      "path": "TEST_VAULT_DATABASE_SHUTTLE.py",
+      "text": "mission_id=mission[\"mission_id\"],"
+    },
+    {
+      "language": "python",
+      "line": 26,
+      "path": "TEST_VAULT_DATABASE_SHUTTLE.py",
+      "text": "step_number=1,"
+    },
+    {
+      "language": "python",
+      "line": 27,
+      "path": "TEST_VAULT_DATABASE_SHUTTLE.py",
+      "text": "capability=\"mission_history\","
+    },
+    {
+      "language": "python",
+      "line": 28,
+      "path": "TEST_VAULT_DATABASE_SHUTTLE.py",
+      "text": "shuttle_key=\"database\","
+    },
+    {
+      "language": "python",
+      "line": 29,
+      "path": "TEST_VAULT_DATABASE_SHUTTLE.py",
+      "text": "shuttle_callsign=\"USS Database Shuttle\","
+    },
+    {
+      "language": "python",
+      "line": 30,
+      "path": "TEST_VAULT_DATABASE_SHUTTLE.py",
+      "text": "status=\"complete\","
+    },
+    {
+      "language": "python",
+      "line": 31,
+      "path": "TEST_VAULT_DATABASE_SHUTTLE.py",
+      "text": "details=\"Created mission and step through Vault service.\","
+    },
+    {
+      "language": "python",
+      "line": 32,
+      "path": "TEST_VAULT_DATABASE_SHUTTLE.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 33,
+      "path": "TEST_VAULT_DATABASE_SHUTTLE.py",
+      "text": "vault.log_event("
+    },
+    {
+      "language": "python",
+      "line": 34,
+      "path": "TEST_VAULT_DATABASE_SHUTTLE.py",
+      "text": "mission_id=mission[\"mission_id\"],"
+    },
+    {
+      "language": "python",
+      "line": 35,
+      "path": "TEST_VAULT_DATABASE_SHUTTLE.py",
+      "text": "level=\"INFO\","
+    },
+    {
+      "language": "python",
+      "line": 36,
+      "path": "TEST_VAULT_DATABASE_SHUTTLE.py",
+      "text": "source=\"MissionBus\","
+    },
+    {
+      "language": "python",
+      "line": 37,
+      "path": "TEST_VAULT_DATABASE_SHUTTLE.py",
+      "text": "message=\"Vault smoke test complete.\","
+    },
+    {
+      "language": "python",
+      "line": 38,
+      "path": "TEST_VAULT_DATABASE_SHUTTLE.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 40,
+      "path": "TEST_VAULT_DATABASE_SHUTTLE.py",
+      "text": "print(\"Logged mission:\", mission)"
+    },
+    {
+      "language": "python",
+      "line": 41,
+      "path": "TEST_VAULT_DATABASE_SHUTTLE.py",
+      "text": "print()"
+    },
+    {
+      "language": "python",
+      "line": 42,
+      "path": "TEST_VAULT_DATABASE_SHUTTLE.py",
+      "text": "print(\"Recent missions:\")"
+    },
+    {
+      "language": "python",
+      "line": 43,
+      "path": "TEST_VAULT_DATABASE_SHUTTLE.py",
+      "text": "for item in vault.list_missions(limit=5)[\"missions\"]:"
+    },
+    {
+      "language": "python",
+      "line": 44,
+      "path": "TEST_VAULT_DATABASE_SHUTTLE.py",
+      "text": "print(f\"- #{item['id']} {item['title']} [{item['status']}]\")"
+    },
+    {
+      "language": "python",
+      "line": 45,
+      "path": "TEST_VAULT_DATABASE_SHUTTLE.py",
+      "text": "print()"
+    },
+    {
+      "language": "python",
+      "line": 46,
+      "path": "TEST_VAULT_DATABASE_SHUTTLE.py",
+      "text": "print(\"Vault path:\", vault.vault_root)"
+    },
+    {
+      "language": "python",
+      "line": 47,
+      "path": "TEST_VAULT_DATABASE_SHUTTLE.py",
+      "text": "print(\"Database:\", vault.db_path)"
+    },
+    {
+      "language": "python",
+      "line": 1,
+      "path": "tools\\phase1_bundle.py",
+      "text": "from __future__ import annotations"
+    },
+    {
+      "language": "python",
+      "line": 3,
+      "path": "tools\\phase1_bundle.py",
+      "text": "import argparse"
+    },
+    {
+      "language": "python",
+      "line": 4,
+      "path": "tools\\phase1_bundle.py",
+      "text": "import difflib"
+    },
+    {
+      "language": "python",
+      "line": 5,
+      "path": "tools\\phase1_bundle.py",
+      "text": "import hashlib"
+    },
+    {
+      "language": "python",
+      "line": 6,
+      "path": "tools\\phase1_bundle.py",
+      "text": "import json"
+    },
+    {
+      "language": "python",
+      "line": 7,
+      "path": "tools\\phase1_bundle.py",
+      "text": "import os"
+    },
+    {
+      "language": "python",
+      "line": 8,
+      "path": "tools\\phase1_bundle.py",
+      "text": "from pathlib import Path"
+    },
+    {
+      "language": "python",
+      "line": 9,
+      "path": "tools\\phase1_bundle.py",
+      "text": "import py_compile"
+    },
+    {
+      "language": "python",
+      "line": 10,
+      "path": "tools\\phase1_bundle.py",
+      "text": "import shutil"
+    },
+    {
+      "language": "python",
+      "line": 11,
+      "path": "tools\\phase1_bundle.py",
+      "text": "import subprocess"
+    },
+    {
+      "language": "python",
+      "line": 12,
+      "path": "tools\\phase1_bundle.py",
+      "text": "import sys"
+    },
+    {
+      "language": "python",
+      "line": 13,
+      "path": "tools\\phase1_bundle.py",
+      "text": "from datetime import datetime, timezone"
+    },
+    {
+      "language": "python",
+      "line": 15,
+      "path": "tools\\phase1_bundle.py",
+      "text": "BUNDLE = Path(__file__).resolve().parents[1]"
+    },
+    {
+      "language": "python",
+      "line": 16,
+      "path": "tools\\phase1_bundle.py",
+      "text": "PAYLOAD = BUNDLE / \"payload\""
+    },
+    {
+      "language": "python",
+      "line": 17,
+      "path": "tools\\phase1_bundle.py",
+      "text": "BASELINE = BUNDLE / \"baseline\""
+    },
+    {
+      "language": "python",
+      "line": 18,
+      "path": "tools\\phase1_bundle.py",
+      "text": "MANIFEST = BUNDLE / \"baseline_manifest.json\""
+    },
+    {
+      "language": "python",
+      "line": 19,
+      "path": "tools\\phase1_bundle.py",
+      "text": "TEST_FILE = BUNDLE / \"tests\" / \"test_phase1_security.py\""
+    },
+    {
+      "language": "python",
+      "line": 20,
+      "path": "tools\\phase1_bundle.py",
+      "text": "TARGETS = ["
+    },
+    {
+      "language": "python",
+      "line": 21,
+      "path": "tools\\phase1_bundle.py",
+      "text": "\"core/agents.py\","
+    },
+    {
+      "language": "python",
+      "line": 22,
+      "path": "tools\\phase1_bundle.py",
+      "text": "\"core/director.py\","
+    },
+    {
+      "language": "python",
+      "line": 23,
+      "path": "tools\\phase1_bundle.py",
+      "text": "\"core/engineer_agent.py\","
+    },
+    {
+      "language": "python",
+      "line": 24,
+      "path": "tools\\phase1_bundle.py",
+      "text": "\"core/smart_search.py\","
+    },
+    {
+      "language": "python",
+      "line": 25,
+      "path": "tools\\phase1_bundle.py",
+      "text": "\"core/foxai_web.py\","
+    },
+    {
+      "language": "python",
+      "line": 26,
+      "path": "tools\\phase1_bundle.py",
+      "text": "\"core/security_containment.py\","
+    },
+    {
+      "language": "python",
+      "line": 27,
+      "path": "tools\\phase1_bundle.py",
+      "text": "\"Config/engineering_airlock_model.conf\","
+    },
+    {
+      "language": "python",
+      "line": 28,
+      "path": "tools\\phase1_bundle.py",
+      "text": "\"Config/engineering_airlock_policy.csv\","
+    },
+    {
+      "language": "python",
+      "line": 29,
+      "path": "tools\\phase1_bundle.py",
+      "text": "]"
+    },
+    {
+      "language": "python",
+      "line": 32,
+      "path": "tools\\phase1_bundle.py",
+      "text": "def sha(path: Path) -> str:"
+    },
+    {
+      "language": "python",
+      "line": 33,
+      "path": "tools\\phase1_bundle.py",
+      "text": "h = hashlib.sha256()"
+    },
+    {
+      "language": "python",
+      "line": 34,
+      "path": "tools\\phase1_bundle.py",
+      "text": "with path.open(\"rb\") as f:"
+    },
+    {
+      "language": "python",
+      "line": 35,
+      "path": "tools\\phase1_bundle.py",
+      "text": "for block in iter(lambda: f.read(1024 * 1024), b\"\"):"
+    },
+    {
+      "language": "python",
+      "line": 36,
+      "path": "tools\\phase1_bundle.py",
+      "text": "h.update(block)"
+    },
+    {
+      "language": "python",
+      "line": 37,
+      "path": "tools\\phase1_bundle.py",
+      "text": "return h.hexdigest()"
+    },
+    {
+      "language": "python",
+      "line": 40,
+      "path": "tools\\phase1_bundle.py",
+      "text": "def locate_root(arg: str | None) -> Path:"
+    },
+    {
+      "language": "python",
+      "line": 41,
+      "path": "tools\\phase1_bundle.py",
+      "text": "candidates = []"
+    },
+    {
+      "language": "python",
+      "line": 42,
+      "path": "tools\\phase1_bundle.py",
+      "text": "if arg:"
+    },
+    {
+      "language": "python",
+      "line": 43,
+      "path": "tools\\phase1_bundle.py",
+      "text": "candidates.append(Path(arg))"
+    },
+    {
+      "language": "python",
+      "line": 44,
+      "path": "tools\\phase1_bundle.py",
+      "text": "if os.environ.get(\"FOXAI_ROOT\"):"
+    },
+    {
+      "language": "python",
+      "line": 45,
+      "path": "tools\\phase1_bundle.py",
+      "text": "candidates.append(Path(os.environ[\"FOXAI_ROOT\"]))"
+    },
+    {
+      "language": "python",
+      "line": 46,
+      "path": "tools\\phase1_bundle.py",
+      "text": "candidates += [Path.cwd(), BUNDLE.parent, BUNDLE.parent.parent]"
+    },
+    {
+      "language": "python",
+      "line": 47,
+      "path": "tools\\phase1_bundle.py",
+      "text": "for p in candidates:"
+    },
+    {
+      "language": "python",
+      "line": 48,
+      "path": "tools\\phase1_bundle.py",
+      "text": "p = p.resolve()"
+    },
+    {
+      "language": "python",
+      "line": 49,
+      "path": "tools\\phase1_bundle.py",
+      "text": "if (p / \"core\" / \"foxai_web.py\").exists() and (p / \"START_FOXAI_WEB_PORTABLE.bat\").exists():"
+    },
+    {
+      "language": "python",
+      "line": 50,
+      "path": "tools\\phase1_bundle.py",
+      "text": "return p"
+    },
+    {
+      "language": "python",
+      "line": 51,
+      "path": "tools\\phase1_bundle.py",
+      "text": "raise SystemExit(\"FOXAI root not found. Pass it as the first argument, for example: PREVIEW_PHASE1.bat Z:\\\\FOXAI\")"
+    },
+    {
+      "language": "python",
+      "line": 54,
+      "path": "tools\\phase1_bundle.py",
+      "text": "def load_manifest() -> dict:"
+    },
+    {
+      "language": "python",
+      "line": 55,
+      "path": "tools\\phase1_bundle.py",
+      "text": "return json.loads(MANIFEST.read_text(encoding=\"utf-8\"))"
+    },
+    {
+      "language": "python",
+      "line": 58,
+      "path": "tools\\phase1_bundle.py",
+      "text": "def validate_baseline(root: Path) -> list[str]:"
+    },
+    {
+      "language": "python",
+      "line": 59,
+      "path": "tools\\phase1_bundle.py",
+      "text": "manifest = load_manifest()"
+    },
+    {
+      "language": "python",
+      "line": 60,
+      "path": "tools\\phase1_bundle.py",
+      "text": "problems = []"
+    },
+    {
+      "language": "python",
+      "line": 61,
+      "path": "tools\\phase1_bundle.py",
+      "text": "for rel, expected in manifest[\"baseline\"].items():"
+    },
+    {
+      "language": "python",
+      "line": 62,
+      "path": "tools\\phase1_bundle.py",
+      "text": "live = root / rel"
+    },
+    {
+      "language": "python",
+      "line": 63,
+      "path": "tools\\phase1_bundle.py",
+      "text": "if not live.exists():"
+    },
+    {
+      "language": "python",
+      "line": 64,
+      "path": "tools\\phase1_bundle.py",
+      "text": "problems.append(f\"MISSING: {rel}\")"
+    },
+    {
+      "language": "python",
+      "line": 65,
+      "path": "tools\\phase1_bundle.py",
+      "text": "else:"
+    },
+    {
+      "language": "python",
+      "line": 66,
+      "path": "tools\\phase1_bundle.py",
+      "text": "actual = sha(live)"
+    },
+    {
+      "language": "python",
+      "line": 67,
+      "path": "tools\\phase1_bundle.py",
+      "text": "if actual != expected:"
+    },
+    {
+      "language": "python",
+      "line": 68,
+      "path": "tools\\phase1_bundle.py",
+      "text": "problems.append(f\"HASH MISMATCH: {rel}\\n  expected {expected}\\n  actual   {actual}\")"
+    },
+    {
+      "language": "python",
+      "line": 69,
+      "path": "tools\\phase1_bundle.py",
+      "text": "for rel in manifest.get(\"expected_absent\", []):"
+    },
+    {
+      "language": "python",
+      "line": 70,
+      "path": "tools\\phase1_bundle.py",
+      "text": "if (root / rel).exists():"
+    },
+    {
+      "language": "python",
+      "line": 71,
+      "path": "tools\\phase1_bundle.py",
+      "text": "problems.append(f\"EXPECTED ABSENT BUT EXISTS: {rel}\")"
+    },
+    {
+      "language": "python",
+      "line": 72,
+      "path": "tools\\phase1_bundle.py",
+      "text": "return problems"
+    },
+    {
+      "language": "python",
+      "line": 75,
+      "path": "tools\\phase1_bundle.py",
+      "text": "def compile_payload() -> list[str]:"
+    },
+    {
+      "language": "python",
+      "line": 76,
+      "path": "tools\\phase1_bundle.py",
+      "text": "errors = []"
+    },
+    {
+      "language": "python",
+      "line": 77,
+      "path": "tools\\phase1_bundle.py",
+      "text": "for rel in TARGETS:"
+    },
+    {
+      "language": "python",
+      "line": 78,
+      "path": "tools\\phase1_bundle.py",
+      "text": "p = PAYLOAD / rel"
+    },
+    {
+      "language": "python",
+      "line": 79,
+      "path": "tools\\phase1_bundle.py",
+      "text": "if p.suffix == \".py\":"
+    },
+    {
+      "language": "python",
+      "line": 80,
+      "path": "tools\\phase1_bundle.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 81,
+      "path": "tools\\phase1_bundle.py",
+      "text": "py_compile.compile(str(p), doraise=True)"
+    },
+    {
+      "language": "python",
+      "line": 82,
+      "path": "tools\\phase1_bundle.py",
+      "text": "except Exception as exc:"
+    },
+    {
+      "language": "python",
+      "line": 83,
+      "path": "tools\\phase1_bundle.py",
+      "text": "errors.append(f\"{rel}: {exc}\")"
+    },
+    {
+      "language": "python",
+      "line": 84,
+      "path": "tools\\phase1_bundle.py",
+      "text": "return errors"
+    },
+    {
+      "language": "python",
+      "line": 87,
+      "path": "tools\\phase1_bundle.py",
+      "text": "def run_tests() -> tuple[int, str]:"
+    },
+    {
+      "language": "python",
+      "line": 88,
+      "path": "tools\\phase1_bundle.py",
+      "text": "proc = subprocess.run([sys.executable, str(TEST_FILE)], cwd=str(BUNDLE), text=True, capture_output=True)"
+    },
+    {
+      "language": "python",
+      "line": 89,
+      "path": "tools\\phase1_bundle.py",
+      "text": "return proc.returncode, proc.stdout + proc.stderr"
+    },
+    {
+      "language": "python",
+      "line": 92,
+      "path": "tools\\phase1_bundle.py",
+      "text": "def write_diff(root: Path, out: Path) -> None:"
+    },
+    {
+      "language": "python",
+      "line": 93,
+      "path": "tools\\phase1_bundle.py",
+      "text": "chunks = []"
+    },
+    {
+      "language": "python",
+      "line": 94,
+      "path": "tools\\phase1_bundle.py",
+      "text": "for rel in TARGETS:"
+    },
+    {
+      "language": "python",
+      "line": 95,
+      "path": "tools\\phase1_bundle.py",
+      "text": "old = root / rel"
+    },
+    {
+      "language": "python",
+      "line": 96,
+      "path": "tools\\phase1_bundle.py",
+      "text": "new = PAYLOAD / rel"
+    },
+    {
+      "language": "python",
+      "line": 97,
+      "path": "tools\\phase1_bundle.py",
+      "text": "old_text = old.read_text(encoding=\"utf-8\", errors=\"replace\").splitlines(True) if old.exists() else []"
+    },
+    {
+      "language": "python",
+      "line": 98,
+      "path": "tools\\phase1_bundle.py",
+      "text": "new_text = new.read_text(encoding=\"utf-8\", errors=\"replace\").splitlines(True)"
+    },
+    {
+      "language": "python",
+      "line": 99,
+      "path": "tools\\phase1_bundle.py",
+      "text": "chunks.extend(difflib.unified_diff(old_text, new_text, fromfile=f\"a/{rel}\", tofile=f\"b/{rel}\"))"
+    },
+    {
+      "language": "python",
+      "line": 100,
+      "path": "tools\\phase1_bundle.py",
+      "text": "out.write_text(\"\".join(chunks), encoding=\"utf-8\")"
+    },
+    {
+      "language": "python",
+      "line": 103,
+      "path": "tools\\phase1_bundle.py",
+      "text": "def preview(root: Path) -> int:"
+    },
+    {
+      "language": "python",
+      "line": 104,
+      "path": "tools\\phase1_bundle.py",
+      "text": "out = BUNDLE / \"preview_output\""
+    },
+    {
+      "language": "python",
+      "line": 105,
+      "path": "tools\\phase1_bundle.py",
+      "text": "out.mkdir(exist_ok=True)"
+    },
+    {
+      "language": "python",
+      "line": 106,
+      "path": "tools\\phase1_bundle.py",
+      "text": "problems = validate_baseline(root)"
+    },
+    {
+      "language": "python",
+      "line": 107,
+      "path": "tools\\phase1_bundle.py",
+      "text": "compile_errors = compile_payload()"
+    },
+    {
+      "language": "python",
+      "line": 108,
+      "path": "tools\\phase1_bundle.py",
+      "text": "test_code, test_output = run_tests()"
+    },
+    {
+      "language": "python",
+      "line": 109,
+      "path": "tools\\phase1_bundle.py",
+      "text": "write_diff(root, out / \"PHASE1_EXACT.diff\")"
+    },
+    {
+      "language": "python",
+      "line": 110,
+      "path": "tools\\phase1_bundle.py",
+      "text": "report = {"
+    },
+    {
+      "language": "python",
+      "line": 111,
+      "path": "tools\\phase1_bundle.py",
+      "text": "\"mode\": \"preview_only\","
+    },
+    {
+      "language": "python",
+      "line": 112,
+      "path": "tools\\phase1_bundle.py",
+      "text": "\"created\": datetime.now(timezone.utc).isoformat(timespec=\"seconds\"),"
+    },
+    {
+      "language": "python",
+      "line": 113,
+      "path": "tools\\phase1_bundle.py",
+      "text": "\"foxai_root\": str(root),"
+    },
+    {
+      "language": "python",
+      "line": 114,
+      "path": "tools\\phase1_bundle.py",
+      "text": "\"baseline_ok\": not problems,"
+    },
+    {
+      "language": "python",
+      "line": 115,
+      "path": "tools\\phase1_bundle.py",
+      "text": "\"baseline_problems\": problems,"
+    },
+    {
+      "language": "python",
+      "line": 116,
+      "path": "tools\\phase1_bundle.py",
+      "text": "\"compile_ok\": not compile_errors,"
+    },
+    {
+      "language": "python",
+      "line": 117,
+      "path": "tools\\phase1_bundle.py",
+      "text": "\"compile_errors\": compile_errors,"
+    },
+    {
+      "language": "python",
+      "line": 118,
+      "path": "tools\\phase1_bundle.py",
+      "text": "\"tests_ok\": test_code == 0,"
+    },
+    {
+      "language": "python",
+      "line": 119,
+      "path": "tools\\phase1_bundle.py",
+      "text": "\"test_output\": test_output,"
+    },
+    {
+      "language": "python",
+      "line": 120,
+      "path": "tools\\phase1_bundle.py",
+      "text": "\"changed_or_added\": TARGETS,"
+    },
+    {
+      "language": "python",
+      "line": 121,
+      "path": "tools\\phase1_bundle.py",
+      "text": "\"writes_to_live_tree\": False,"
+    },
+    {
+      "language": "python",
+      "line": 122,
+      "path": "tools\\phase1_bundle.py",
+      "text": "\"diff\": str(out / \"PHASE1_EXACT.diff\"),"
+    },
+    {
+      "language": "python",
+      "line": 123,
+      "path": "tools\\phase1_bundle.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 124,
+      "path": "tools\\phase1_bundle.py",
+      "text": "(out / \"PREVIEW_RECEIPT.json\").write_text(json.dumps(report, indent=2), encoding=\"utf-8\")"
+    },
+    {
+      "language": "python",
+      "line": 125,
+      "path": "tools\\phase1_bundle.py",
+      "text": "print(\"\\nKAYOCKTHEOS PHASE 1 PREVIEW\")"
+    },
+    {
+      "language": "python",
+      "line": 126,
+      "path": "tools\\phase1_bundle.py",
+      "text": "print(\"=\" * 72)"
+    },
+    {
+      "language": "python",
+      "line": 127,
+      "path": "tools\\phase1_bundle.py",
+      "text": "print(f\"FOXAI root: {root}\")"
+    },
+    {
+      "language": "python",
+      "line": 128,
+      "path": "tools\\phase1_bundle.py",
+      "text": "print(f\"Baseline hashes: {'PASS' if not problems else 'BLOCKED'}\")"
+    },
+    {
+      "language": "python",
+      "line": 129,
+      "path": "tools\\phase1_bundle.py",
+      "text": "for item in problems:"
+    },
+    {
+      "language": "python",
+      "line": 130,
+      "path": "tools\\phase1_bundle.py",
+      "text": "print(item)"
+    },
+    {
+      "language": "python",
+      "line": 131,
+      "path": "tools\\phase1_bundle.py",
+      "text": "print(f\"Proposed Python compile: {'PASS' if not compile_errors else 'FAIL'}\")"
+    },
+    {
+      "language": "python",
+      "line": 132,
+      "path": "tools\\phase1_bundle.py",
+      "text": "for item in compile_errors:"
+    },
+    {
+      "language": "python",
+      "line": 133,
+      "path": "tools\\phase1_bundle.py",
+      "text": "print(item)"
+    },
+    {
+      "language": "python",
+      "line": 134,
+      "path": "tools\\phase1_bundle.py",
+      "text": "print(f\"Security tests: {'PASS' if test_code == 0 else 'FAIL'}\")"
+    },
+    {
+      "language": "python",
+      "line": 135,
+      "path": "tools\\phase1_bundle.py",
+      "text": "print(test_output)"
+    },
+    {
+      "language": "python",
+      "line": 136,
+      "path": "tools\\phase1_bundle.py",
+      "text": "print(f\"Exact diff: {out / 'PHASE1_EXACT.diff'}\")"
+    },
+    {
+      "language": "python",
+      "line": 137,
+      "path": "tools\\phase1_bundle.py",
+      "text": "print(\"No live file was changed.\")"
+    },
+    {
+      "language": "python",
+      "line": 138,
+      "path": "tools\\phase1_bundle.py",
+      "text": "return 0 if not problems and not compile_errors and test_code == 0 else 2"
+    },
+    {
+      "language": "python",
+      "line": 141,
+      "path": "tools\\phase1_bundle.py",
+      "text": "def git_targets_safe(root: Path) -> tuple[bool, str]:"
+    },
+    {
+      "language": "python",
+      "line": 142,
+      "path": "tools\\phase1_bundle.py",
+      "text": "\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 143,
+      "path": "tools\\phase1_bundle.py",
+      "text": "Protect only the files this reviewed bundle will touch."
+    },
+    {
+      "language": "python",
+      "line": 145,
+      "path": "tools\\phase1_bundle.py",
+      "text": "A globally clean repository is not required because FOXAI may contain known,"
+    },
+    {
+      "language": "python",
+      "line": 146,
+      "path": "tools\\phase1_bundle.py",
+      "text": "unrelated Git anomalies or the extracted patch bundle itself. Safety comes"
+    },
+    {
+      "language": "python",
+      "line": 147,
+      "path": "tools\\phase1_bundle.py",
+      "text": "from exact baseline hashes plus blocking staged/unstaged changes to the"
+    },
+    {
+      "language": "python",
+      "line": 148,
+      "path": "tools\\phase1_bundle.py",
+      "text": "reviewed target files."
+    },
+    {
+      "language": "python",
+      "line": 149,
+      "path": "tools\\phase1_bundle.py",
+      "text": "\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 150,
+      "path": "tools\\phase1_bundle.py",
+      "text": "if not (root / \".git\").exists():"
+    },
+    {
+      "language": "python",
+      "line": 151,
+      "path": "tools\\phase1_bundle.py",
+      "text": "return True, \"No .git directory detected; exact baseline hashes and timestamped backup remain active.\""
+    },
+    {
+      "language": "python",
+      "line": 153,
+      "path": "tools\\phase1_bundle.py",
+      "text": "manifest = load_manifest()"
+    },
+    {
+      "language": "python",
+      "line": 154,
+      "path": "tools\\phase1_bundle.py",
+      "text": "reviewed_paths = list(manifest[\"baseline\"].keys()) + list(manifest.get(\"expected_absent\", []))"
+    },
+    {
+      "language": "python",
+      "line": 156,
+      "path": "tools\\phase1_bundle.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 157,
+      "path": "tools\\phase1_bundle.py",
+      "text": "unstaged = subprocess.run("
+    },
+    {
+      "language": "python",
+      "line": 158,
+      "path": "tools\\phase1_bundle.py",
+      "text": "[\"git\", \"diff\", \"--name-status\", \"--\", *reviewed_paths],"
+    },
+    {
+      "language": "python",
+      "line": 159,
+      "path": "tools\\phase1_bundle.py",
+      "text": "cwd=str(root), text=True, capture_output=True,"
+    },
+    {
+      "language": "python",
+      "line": 160,
+      "path": "tools\\phase1_bundle.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 161,
+      "path": "tools\\phase1_bundle.py",
+      "text": "staged = subprocess.run("
+    },
+    {
+      "language": "python",
+      "line": 162,
+      "path": "tools\\phase1_bundle.py",
+      "text": "[\"git\", \"diff\", \"--cached\", \"--name-status\", \"--\", *reviewed_paths],"
+    },
+    {
+      "language": "python",
+      "line": 163,
+      "path": "tools\\phase1_bundle.py",
+      "text": "cwd=str(root), text=True, capture_output=True,"
+    },
+    {
+      "language": "python",
+      "line": 164,
+      "path": "tools\\phase1_bundle.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 165,
+      "path": "tools\\phase1_bundle.py",
+      "text": "advisory = subprocess.run("
+    },
+    {
+      "language": "python",
+      "line": 166,
+      "path": "tools\\phase1_bundle.py",
+      "text": "[\"git\", \"status\", \"--porcelain\", \"--untracked-files=normal\"],"
+    },
+    {
+      "language": "python",
+      "line": 167,
+      "path": "tools\\phase1_bundle.py",
+      "text": "cwd=str(root), text=True, capture_output=True,"
+    },
+    {
+      "language": "python",
+      "line": 168,
+      "path": "tools\\phase1_bundle.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 169,
+      "path": "tools\\phase1_bundle.py",
+      "text": "except FileNotFoundError:"
+    },
+    {
+      "language": "python",
+      "line": 170,
+      "path": "tools\\phase1_bundle.py",
+      "text": "return False, \"Git repository exists but git.exe was not found.\""
+    },
+    {
+      "language": "python",
+      "line": 172,
+      "path": "tools\\phase1_bundle.py",
+      "text": "for proc, label in ((unstaged, \"unstaged target check\"), (staged, \"staged target check\"), (advisory, \"status advisory\")):"
+    },
+    {
+      "language": "python",
+      "line": 173,
+      "path": "tools\\phase1_bundle.py",
+      "text": "if proc.returncode != 0:"
+    },
+    {
+      "language": "python",
+      "line": 174,
+      "path": "tools\\phase1_bundle.py",
+      "text": "return False, proc.stderr.strip() or f\"git {label} failed.\""
+    },
+    {
+      "language": "python",
+      "line": 176,
+      "path": "tools\\phase1_bundle.py",
+      "text": "target_changes = []"
+    },
+    {
+      "language": "python",
+      "line": 177,
+      "path": "tools\\phase1_bundle.py",
+      "text": "if unstaged.stdout.strip():"
+    },
+    {
+      "language": "python",
+      "line": 178,
+      "path": "tools\\phase1_bundle.py",
+      "text": "target_changes.append(\"Unstaged changes to reviewed target files:\\n\" + unstaged.stdout.strip())"
+    },
+    {
+      "language": "python",
+      "line": 179,
+      "path": "tools\\phase1_bundle.py",
+      "text": "if staged.stdout.strip():"
+    },
+    {
+      "language": "python",
+      "line": 180,
+      "path": "tools\\phase1_bundle.py",
+      "text": "target_changes.append(\"Staged changes to reviewed target files:\\n\" + staged.stdout.strip())"
+    },
+    {
+      "language": "python",
+      "line": 182,
+      "path": "tools\\phase1_bundle.py",
+      "text": "if target_changes:"
+    },
+    {
+      "language": "python",
+      "line": 183,
+      "path": "tools\\phase1_bundle.py",
+      "text": "return False, \"\\n\\n\".join(target_changes)"
+    },
+    {
+      "language": "python",
+      "line": 185,
+      "path": "tools\\phase1_bundle.py",
+      "text": "message = ("
+    },
+    {
+      "language": "python",
+      "line": 186,
+      "path": "tools\\phase1_bundle.py",
+      "text": "\"Reviewed target files have no staged or unstaged Git changes. \""
+    },
+    {
+      "language": "python",
+      "line": 187,
+      "path": "tools\\phase1_bundle.py",
+      "text": "\"Exact baseline hashes also match.\""
+    },
+    {
+      "language": "python",
+      "line": 188,
+      "path": "tools\\phase1_bundle.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 189,
+      "path": "tools\\phase1_bundle.py",
+      "text": "if advisory.stdout.strip():"
+    },
+    {
+      "language": "python",
+      "line": 190,
+      "path": "tools\\phase1_bundle.py",
+      "text": "message += ("
+    },
+    {
+      "language": "python",
+      "line": 191,
+      "path": "tools\\phase1_bundle.py",
+      "text": "\"\\nUnrelated Git entries are present and will be preserved, not modified:\\n\""
+    },
+    {
+      "language": "python",
+      "line": 192,
+      "path": "tools\\phase1_bundle.py",
+      "text": "+ advisory.stdout.rstrip()"
+    },
+    {
+      "language": "python",
+      "line": 193,
+      "path": "tools\\phase1_bundle.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 194,
+      "path": "tools\\phase1_bundle.py",
+      "text": "return True, message"
+    },
+    {
+      "language": "python",
+      "line": 197,
+      "path": "tools\\phase1_bundle.py",
+      "text": "def restore_backup(root: Path, backup: Path, created_files: list[str]) -> tuple[bool, list[str]]:"
+    },
+    {
+      "language": "python",
+      "line": 198,
+      "path": "tools\\phase1_bundle.py",
+      "text": "errors = []"
+    },
+    {
+      "language": "python",
+      "line": 199,
+      "path": "tools\\phase1_bundle.py",
+      "text": "manifest = load_manifest()"
+    },
+    {
+      "language": "python",
+      "line": 200,
+      "path": "tools\\phase1_bundle.py",
+      "text": "for rel in manifest[\"baseline\"]:"
+    },
+    {
+      "language": "python",
+      "line": 201,
+      "path": "tools\\phase1_bundle.py",
+      "text": "src = backup / rel"
+    },
+    {
+      "language": "python",
+      "line": 202,
+      "path": "tools\\phase1_bundle.py",
+      "text": "dst = root / rel"
+    },
+    {
+      "language": "python",
+      "line": 203,
+      "path": "tools\\phase1_bundle.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 204,
+      "path": "tools\\phase1_bundle.py",
+      "text": "dst.parent.mkdir(parents=True, exist_ok=True)"
+    },
+    {
+      "language": "python",
+      "line": 205,
+      "path": "tools\\phase1_bundle.py",
+      "text": "shutil.copy2(src, dst)"
+    },
+    {
+      "language": "python",
+      "line": 206,
+      "path": "tools\\phase1_bundle.py",
+      "text": "except Exception as exc:"
+    },
+    {
+      "language": "python",
+      "line": 207,
+      "path": "tools\\phase1_bundle.py",
+      "text": "errors.append(f\"restore {rel}: {exc}\")"
+    },
+    {
+      "language": "python",
+      "line": 208,
+      "path": "tools\\phase1_bundle.py",
+      "text": "for rel in created_files:"
+    },
+    {
+      "language": "python",
+      "line": 209,
+      "path": "tools\\phase1_bundle.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 210,
+      "path": "tools\\phase1_bundle.py",
+      "text": "p = root / rel"
+    },
+    {
+      "language": "python",
+      "line": 211,
+      "path": "tools\\phase1_bundle.py",
+      "text": "if p.exists():"
+    },
+    {
+      "language": "python",
+      "line": 212,
+      "path": "tools\\phase1_bundle.py",
+      "text": "p.unlink()"
+    },
+    {
+      "language": "python",
+      "line": 213,
+      "path": "tools\\phase1_bundle.py",
+      "text": "except Exception as exc:"
+    },
+    {
+      "language": "python",
+      "line": 214,
+      "path": "tools\\phase1_bundle.py",
+      "text": "errors.append(f\"remove new {rel}: {exc}\")"
+    },
+    {
+      "language": "python",
+      "line": 215,
+      "path": "tools\\phase1_bundle.py",
+      "text": "errors.extend(validate_baseline(root))"
+    },
+    {
+      "language": "python",
+      "line": 216,
+      "path": "tools\\phase1_bundle.py",
+      "text": "return not errors, errors"
+    },
+    {
+      "language": "python",
+      "line": 219,
+      "path": "tools\\phase1_bundle.py",
+      "text": "def apply(root: Path) -> int:"
+    },
+    {
+      "language": "python",
+      "line": 220,
+      "path": "tools\\phase1_bundle.py",
+      "text": "phrase = input(\"Type exactly APPLY KAYOCK PHASE1 to continue: \").strip()"
+    },
+    {
+      "language": "python",
+      "line": 221,
+      "path": "tools\\phase1_bundle.py",
+      "text": "if phrase != \"APPLY KAYOCK PHASE1\":"
+    },
+    {
+      "language": "python",
+      "line": 222,
+      "path": "tools\\phase1_bundle.py",
+      "text": "print(\"Approval phrase did not match. No changes made.\")"
+    },
+    {
+      "language": "python",
+      "line": 223,
+      "path": "tools\\phase1_bundle.py",
+      "text": "return 3"
+    },
+    {
+      "language": "python",
+      "line": 224,
+      "path": "tools\\phase1_bundle.py",
+      "text": "problems = validate_baseline(root)"
+    },
+    {
+      "language": "python",
+      "line": 225,
+      "path": "tools\\phase1_bundle.py",
+      "text": "if problems:"
+    },
+    {
+      "language": "python",
+      "line": 226,
+      "path": "tools\\phase1_bundle.py",
+      "text": "print(\"Baseline mismatch. Refusing to apply.\")"
+    },
+    {
+      "language": "python",
+      "line": 227,
+      "path": "tools\\phase1_bundle.py",
+      "text": "print(\"\\n\".join(problems))"
+    },
+    {
+      "language": "python",
+      "line": 228,
+      "path": "tools\\phase1_bundle.py",
+      "text": "return 4"
+    },
+    {
+      "language": "python",
+      "line": 229,
+      "path": "tools\\phase1_bundle.py",
+      "text": "compile_errors = compile_payload()"
+    },
+    {
+      "language": "python",
+      "line": 230,
+      "path": "tools\\phase1_bundle.py",
+      "text": "test_code, test_output = run_tests()"
+    },
+    {
+      "language": "python",
+      "line": 231,
+      "path": "tools\\phase1_bundle.py",
+      "text": "if compile_errors or test_code != 0:"
+    },
+    {
+      "language": "python",
+      "line": 232,
+      "path": "tools\\phase1_bundle.py",
+      "text": "print(\"Proposed payload failed preflight. No changes made.\")"
+    },
+    {
+      "language": "python",
+      "line": 233,
+      "path": "tools\\phase1_bundle.py",
+      "text": "print(\"\\n\".join(compile_errors))"
+    },
+    {
+      "language": "python",
+      "line": 234,
+      "path": "tools\\phase1_bundle.py",
+      "text": "print(test_output)"
+    },
+    {
+      "language": "python",
+      "line": 235,
+      "path": "tools\\phase1_bundle.py",
+      "text": "return 5"
+    },
+    {
+      "language": "python",
+      "line": 236,
+      "path": "tools\\phase1_bundle.py",
+      "text": "clean, git_message = git_targets_safe(root)"
+    },
+    {
+      "language": "python",
+      "line": 237,
+      "path": "tools\\phase1_bundle.py",
+      "text": "print(git_message)"
+    },
+    {
+      "language": "python",
+      "line": 238,
+      "path": "tools\\phase1_bundle.py",
+      "text": "if not clean:"
+    },
+    {
+      "language": "python",
+      "line": 239,
+      "path": "tools\\phase1_bundle.py",
+      "text": "print(\"Refusing to apply because a reviewed target file has a Git change.\")"
+    },
+    {
+      "language": "python",
+      "line": 240,
+      "path": "tools\\phase1_bundle.py",
+      "text": "return 6"
+    },
+    {
+      "language": "python",
+      "line": 242,
+      "path": "tools\\phase1_bundle.py",
+      "text": "stamp = datetime.now(timezone.utc).strftime(\"%Y%m%dT%H%M%SZ\")"
+    },
+    {
+      "language": "python",
+      "line": 243,
+      "path": "tools\\phase1_bundle.py",
+      "text": "backup = root / \"Backups\" / \"SecurityMilestone\" / f\"Phase1_{stamp}\""
+    },
+    {
+      "language": "python",
+      "line": 244,
+      "path": "tools\\phase1_bundle.py",
+      "text": "report_dir = root / \"Reports\" / \"SecurityMilestone\""
+    },
+    {
+      "language": "python",
+      "line": 245,
+      "path": "tools\\phase1_bundle.py",
+      "text": "backup.mkdir(parents=True, exist_ok=True)"
+    },
+    {
+      "language": "python",
+      "line": 246,
+      "path": "tools\\phase1_bundle.py",
+      "text": "report_dir.mkdir(parents=True, exist_ok=True)"
+    },
+    {
+      "language": "python",
+      "line": 247,
+      "path": "tools\\phase1_bundle.py",
+      "text": "manifest = load_manifest()"
+    },
+    {
+      "language": "python",
+      "line": 248,
+      "path": "tools\\phase1_bundle.py",
+      "text": "for rel in manifest[\"baseline\"]:"
+    },
+    {
+      "language": "python",
+      "line": 249,
+      "path": "tools\\phase1_bundle.py",
+      "text": "src = root / rel"
+    },
+    {
+      "language": "python",
+      "line": 250,
+      "path": "tools\\phase1_bundle.py",
+      "text": "dst = backup / rel"
+    },
+    {
+      "language": "python",
+      "line": 251,
+      "path": "tools\\phase1_bundle.py",
+      "text": "dst.parent.mkdir(parents=True, exist_ok=True)"
+    },
+    {
+      "language": "python",
+      "line": 252,
+      "path": "tools\\phase1_bundle.py",
+      "text": "shutil.copy2(src, dst)"
+    },
+    {
+      "language": "python",
+      "line": 254,
+      "path": "tools\\phase1_bundle.py",
+      "text": "created_files = [rel for rel in TARGETS if not (root / rel).exists()]"
+    },
+    {
+      "language": "python",
+      "line": 255,
+      "path": "tools\\phase1_bundle.py",
+      "text": "receipt = {"
+    },
+    {
+      "language": "python",
+      "line": 256,
+      "path": "tools\\phase1_bundle.py",
+      "text": "\"action\": \"kayock_phase1_apply\","
+    },
+    {
+      "language": "python",
+      "line": 257,
+      "path": "tools\\phase1_bundle.py",
+      "text": "\"created\": datetime.now(timezone.utc).isoformat(timespec=\"seconds\"),"
+    },
+    {
+      "language": "python",
+      "line": 258,
+      "path": "tools\\phase1_bundle.py",
+      "text": "\"state\": \"started\","
+    },
+    {
+      "language": "python",
+      "line": 259,
+      "path": "tools\\phase1_bundle.py",
+      "text": "\"backup\": str(backup),"
+    },
+    {
+      "language": "python",
+      "line": 260,
+      "path": "tools\\phase1_bundle.py",
+      "text": "\"files\": TARGETS,"
+    },
+    {
+      "language": "python",
+      "line": 261,
+      "path": "tools\\phase1_bundle.py",
+      "text": "\"before\": {rel: sha(root / rel) for rel in manifest[\"baseline\"]},"
+    },
+    {
+      "language": "python",
+      "line": 262,
+      "path": "tools\\phase1_bundle.py",
+      "text": "\"checks\": [],"
+    },
+    {
+      "language": "python",
+      "line": 263,
+      "path": "tools\\phase1_bundle.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 264,
+      "path": "tools\\phase1_bundle.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 265,
+      "path": "tools\\phase1_bundle.py",
+      "text": "for rel in TARGETS:"
+    },
+    {
+      "language": "python",
+      "line": 266,
+      "path": "tools\\phase1_bundle.py",
+      "text": "src = PAYLOAD / rel"
+    },
+    {
+      "language": "python",
+      "line": 267,
+      "path": "tools\\phase1_bundle.py",
+      "text": "dst = root / rel"
+    },
+    {
+      "language": "python",
+      "line": 268,
+      "path": "tools\\phase1_bundle.py",
+      "text": "dst.parent.mkdir(parents=True, exist_ok=True)"
+    },
+    {
+      "language": "python",
+      "line": 269,
+      "path": "tools\\phase1_bundle.py",
+      "text": "shutil.copy2(src, dst)"
+    },
+    {
+      "language": "python",
+      "line": 270,
+      "path": "tools\\phase1_bundle.py",
+      "text": "for rel in TARGETS:"
+    },
+    {
+      "language": "python",
+      "line": 271,
+      "path": "tools\\phase1_bundle.py",
+      "text": "p = root / rel"
+    },
+    {
+      "language": "python",
+      "line": 272,
+      "path": "tools\\phase1_bundle.py",
+      "text": "if p.suffix == \".py\":"
+    },
+    {
+      "language": "python",
+      "line": 273,
+      "path": "tools\\phase1_bundle.py",
+      "text": "py_compile.compile(str(p), doraise=True)"
+    },
+    {
+      "language": "python",
+      "line": 274,
+      "path": "tools\\phase1_bundle.py",
+      "text": "live_test = subprocess.run([sys.executable, str(TEST_FILE)], cwd=str(BUNDLE), text=True, capture_output=True)"
+    },
+    {
+      "language": "python",
+      "line": 275,
+      "path": "tools\\phase1_bundle.py",
+      "text": "if live_test.returncode != 0:"
+    },
+    {
+      "language": "python",
+      "line": 276,
+      "path": "tools\\phase1_bundle.py",
+      "text": "raise RuntimeError(\"Security tests failed after copy:\\n\" + live_test.stdout + live_test.stderr)"
+    },
+    {
+      "language": "python",
+      "line": 277,
+      "path": "tools\\phase1_bundle.py",
+      "text": "payload_hashes = {rel: sha(PAYLOAD / rel) for rel in TARGETS}"
+    },
+    {
+      "language": "python",
+      "line": 278,
+      "path": "tools\\phase1_bundle.py",
+      "text": "live_hashes = {rel: sha(root / rel) for rel in TARGETS}"
+    },
+    {
+      "language": "python",
+      "line": 279,
+      "path": "tools\\phase1_bundle.py",
+      "text": "mismatches = [rel for rel in TARGETS if payload_hashes[rel] != live_hashes[rel]]"
+    },
+    {
+      "language": "python",
+      "line": 280,
+      "path": "tools\\phase1_bundle.py",
+      "text": "if mismatches:"
+    },
+    {
+      "language": "python",
+      "line": 281,
+      "path": "tools\\phase1_bundle.py",
+      "text": "raise RuntimeError(\"Post-copy hash mismatch: \" + \", \".join(mismatches))"
+    },
+    {
+      "language": "python",
+      "line": 282,
+      "path": "tools\\phase1_bundle.py",
+      "text": "receipt.update({"
+    },
+    {
+      "language": "python",
+      "line": 283,
+      "path": "tools\\phase1_bundle.py",
+      "text": "\"state\": \"verified\","
+    },
+    {
+      "language": "python",
+      "line": 284,
+      "path": "tools\\phase1_bundle.py",
+      "text": "\"verified\": True,"
+    },
+    {
+      "language": "python",
+      "line": 285,
+      "path": "tools\\phase1_bundle.py",
+      "text": "\"after\": live_hashes,"
+    },
+    {
+      "language": "python",
+      "line": 286,
+      "path": "tools\\phase1_bundle.py",
+      "text": "\"tests\": live_test.stdout + live_test.stderr,"
+    },
+    {
+      "language": "python",
+      "line": 287,
+      "path": "tools\\phase1_bundle.py",
+      "text": "\"checks\": ["
+    },
+    {
+      "language": "python",
+      "line": 288,
+      "path": "tools\\phase1_bundle.py",
+      "text": "{\"id\": \"backup_created\", \"ok\": backup.exists()},"
+    },
+    {
+      "language": "python",
+      "line": 289,
+      "path": "tools\\phase1_bundle.py",
+      "text": "{\"id\": \"python_compile\", \"ok\": True},"
+    },
+    {
+      "language": "python",
+      "line": 290,
+      "path": "tools\\phase1_bundle.py",
+      "text": "{\"id\": \"security_tests\", \"ok\": True},"
+    },
+    {
+      "language": "python",
+      "line": 291,
+      "path": "tools\\phase1_bundle.py",
+      "text": "{\"id\": \"payload_hashes_match\", \"ok\": True},"
+    },
+    {
+      "language": "python",
+      "line": 292,
+      "path": "tools\\phase1_bundle.py",
+      "text": "],"
+    },
+    {
+      "language": "python",
+      "line": 293,
+      "path": "tools\\phase1_bundle.py",
+      "text": "})"
+    },
+    {
+      "language": "python",
+      "line": 294,
+      "path": "tools\\phase1_bundle.py",
+      "text": "path = report_dir / f\"Phase1_Apply_Receipt_{stamp}.json\""
+    },
+    {
+      "language": "python",
+      "line": 295,
+      "path": "tools\\phase1_bundle.py",
+      "text": "path.write_text(json.dumps(receipt, indent=2), encoding=\"utf-8\")"
+    },
+    {
+      "language": "python",
+      "line": 296,
+      "path": "tools\\phase1_bundle.py",
+      "text": "print(f\"VERIFIED: Phase 1 applied. Receipt: {path}\")"
+    },
+    {
+      "language": "python",
+      "line": 297,
+      "path": "tools\\phase1_bundle.py",
+      "text": "return 0"
+    },
+    {
+      "language": "python",
+      "line": 298,
+      "path": "tools\\phase1_bundle.py",
+      "text": "except Exception as exc:"
+    },
+    {
+      "language": "python",
+      "line": 299,
+      "path": "tools\\phase1_bundle.py",
+      "text": "rollback_ok, rollback_errors = restore_backup(root, backup, created_files)"
+    },
+    {
+      "language": "python",
+      "line": 300,
+      "path": "tools\\phase1_bundle.py",
+      "text": "receipt.update({"
+    },
+    {
+      "language": "python",
+      "line": 301,
+      "path": "tools\\phase1_bundle.py",
+      "text": "\"state\": \"rolled_back\" if rollback_ok else \"failed\","
+    },
+    {
+      "language": "python",
+      "line": 302,
+      "path": "tools\\phase1_bundle.py",
+      "text": "\"verified\": False,"
+    },
+    {
+      "language": "python",
+      "line": 303,
+      "path": "tools\\phase1_bundle.py",
+      "text": "\"error\": str(exc),"
+    },
+    {
+      "language": "python",
+      "line": 304,
+      "path": "tools\\phase1_bundle.py",
+      "text": "\"rollback_verified\": rollback_ok,"
+    },
+    {
+      "language": "python",
+      "line": 305,
+      "path": "tools\\phase1_bundle.py",
+      "text": "\"rollback_errors\": rollback_errors,"
+    },
+    {
+      "language": "python",
+      "line": 306,
+      "path": "tools\\phase1_bundle.py",
+      "text": "})"
+    },
+    {
+      "language": "python",
+      "line": 307,
+      "path": "tools\\phase1_bundle.py",
+      "text": "path = report_dir / f\"Phase1_Failure_Receipt_{stamp}.json\""
+    },
+    {
+      "language": "python",
+      "line": 308,
+      "path": "tools\\phase1_bundle.py",
+      "text": "path.write_text(json.dumps(receipt, indent=2), encoding=\"utf-8\")"
+    },
+    {
+      "language": "python",
+      "line": 309,
+      "path": "tools\\phase1_bundle.py",
+      "text": "print(f\"Apply failed: {exc}\")"
+    },
+    {
+      "language": "python",
+      "line": 310,
+      "path": "tools\\phase1_bundle.py",
+      "text": "print(\"Rollback \" + (\"verified.\" if rollback_ok else \"FAILED verification.\"))"
+    },
+    {
+      "language": "python",
+      "line": 311,
+      "path": "tools\\phase1_bundle.py",
+      "text": "print(f\"Receipt: {path}\")"
+    },
+    {
+      "language": "python",
+      "line": 312,
+      "path": "tools\\phase1_bundle.py",
+      "text": "return 7"
+    },
+    {
+      "language": "python",
+      "line": 315,
+      "path": "tools\\phase1_bundle.py",
+      "text": "def main() -> int:"
+    },
+    {
+      "language": "python",
+      "line": 316,
+      "path": "tools\\phase1_bundle.py",
+      "text": "parser = argparse.ArgumentParser()"
+    },
+    {
+      "language": "python",
+      "line": 317,
+      "path": "tools\\phase1_bundle.py",
+      "text": "parser.add_argument(\"mode\", choices=[\"preview\", \"apply\"])"
+    },
+    {
+      "language": "python",
+      "line": 318,
+      "path": "tools\\phase1_bundle.py",
+      "text": "parser.add_argument(\"root\", nargs=\"?\")"
+    },
+    {
+      "language": "python",
+      "line": 319,
+      "path": "tools\\phase1_bundle.py",
+      "text": "args = parser.parse_args()"
+    },
+    {
+      "language": "python",
+      "line": 320,
+      "path": "tools\\phase1_bundle.py",
+      "text": "root = locate_root(args.root)"
+    },
+    {
+      "language": "python",
+      "line": 321,
+      "path": "tools\\phase1_bundle.py",
+      "text": "return preview(root) if args.mode == \"preview\" else apply(root)"
+    },
+    {
+      "language": "python",
+      "line": 324,
+      "path": "tools\\phase1_bundle.py",
+      "text": "if __name__ == \"__main__\":"
+    },
+    {
+      "language": "python",
+      "line": 325,
+      "path": "tools\\phase1_bundle.py",
+      "text": "raise SystemExit(main())"
+    },
+    {
+      "language": "python",
+      "line": 1,
+      "path": "tools\\preview_portable_fix.py",
+      "text": "from __future__ import annotations"
+    },
+    {
+      "language": "python",
+      "line": 3,
+      "path": "tools\\preview_portable_fix.py",
+      "text": "from pathlib import Path"
+    },
+    {
+      "language": "python",
+      "line": 4,
+      "path": "tools\\preview_portable_fix.py",
+      "text": "from datetime import datetime, timezone"
+    },
+    {
+      "language": "python",
+      "line": 5,
+      "path": "tools\\preview_portable_fix.py",
+      "text": "import difflib"
+    },
+    {
+      "language": "python",
+      "line": 6,
+      "path": "tools\\preview_portable_fix.py",
+      "text": "import hashlib"
+    },
+    {
+      "language": "python",
+      "line": 7,
+      "path": "tools\\preview_portable_fix.py",
+      "text": "import json"
+    },
+    {
+      "language": "python",
+      "line": 8,
+      "path": "tools\\preview_portable_fix.py",
+      "text": "import sys"
+    },
+    {
+      "language": "python",
+      "line": 10,
+      "path": "tools\\preview_portable_fix.py",
+      "text": "EXPECTED = \"5feb632c5d44d260dba706019beeacf2f5e210ab5a495b9ede3fbe287a6b899e\""
+    },
+    {
+      "language": "python",
+      "line": 12,
+      "path": "tools\\preview_portable_fix.py",
+      "text": "def sha256(path: Path) -> str:"
+    },
+    {
+      "language": "python",
+      "line": 13,
+      "path": "tools\\preview_portable_fix.py",
+      "text": "h = hashlib.sha256()"
+    },
+    {
+      "language": "python",
+      "line": 14,
+      "path": "tools\\preview_portable_fix.py",
+      "text": "with path.open(\"rb\") as fh:"
+    },
+    {
+      "language": "python",
+      "line": 15,
+      "path": "tools\\preview_portable_fix.py",
+      "text": "for chunk in iter(lambda: fh.read(1024 * 1024), b\"\"):"
+    },
+    {
+      "language": "python",
+      "line": 16,
+      "path": "tools\\preview_portable_fix.py",
+      "text": "h.update(chunk)"
+    },
+    {
+      "language": "python",
+      "line": 17,
+      "path": "tools\\preview_portable_fix.py",
+      "text": "return h.hexdigest()"
+    },
+    {
+      "language": "python",
+      "line": 19,
+      "path": "tools\\preview_portable_fix.py",
+      "text": "bundle = Path(__file__).resolve().parents[1]"
+    },
+    {
+      "language": "python",
+      "line": 21,
+      "path": "tools\\preview_portable_fix.py",
+      "text": "# Supports both safe layouts:"
+    },
+    {
+      "language": "python",
+      "line": 22,
+      "path": "tools\\preview_portable_fix.py",
+      "text": "# 1. Z:\\FOXAI\\<bundle folder>\\..."
+    },
+    {
+      "language": "python",
+      "line": 23,
+      "path": "tools\\preview_portable_fix.py",
+      "text": "# 2. Files accidentally extracted directly into Z:\\FOXAI\\..."
+    },
+    {
+      "language": "python",
+      "line": 24,
+      "path": "tools\\preview_portable_fix.py",
+      "text": "root_candidates = [bundle, bundle.parent]"
+    },
+    {
+      "language": "python",
+      "line": 25,
+      "path": "tools\\preview_portable_fix.py",
+      "text": "root = None"
+    },
+    {
+      "language": "python",
+      "line": 26,
+      "path": "tools\\preview_portable_fix.py",
+      "text": "live = None"
+    },
+    {
+      "language": "python",
+      "line": 27,
+      "path": "tools\\preview_portable_fix.py",
+      "text": "candidate_details = []"
+    },
+    {
+      "language": "python",
+      "line": 29,
+      "path": "tools\\preview_portable_fix.py",
+      "text": "for possible_root in root_candidates:"
+    },
+    {
+      "language": "python",
+      "line": 30,
+      "path": "tools\\preview_portable_fix.py",
+      "text": "possible_live = possible_root / \"core\" / \"foxai_web.py\""
+    },
+    {
+      "language": "python",
+      "line": 31,
+      "path": "tools\\preview_portable_fix.py",
+      "text": "exists = possible_live.exists()"
+    },
+    {
+      "language": "python",
+      "line": 32,
+      "path": "tools\\preview_portable_fix.py",
+      "text": "live_hash = sha256(possible_live) if exists else None"
+    },
+    {
+      "language": "python",
+      "line": 33,
+      "path": "tools\\preview_portable_fix.py",
+      "text": "candidate_details.append({"
+    },
+    {
+      "language": "python",
+      "line": 34,
+      "path": "tools\\preview_portable_fix.py",
+      "text": "\"root\": str(possible_root),"
+    },
+    {
+      "language": "python",
+      "line": 35,
+      "path": "tools\\preview_portable_fix.py",
+      "text": "\"live\": str(possible_live),"
+    },
+    {
+      "language": "python",
+      "line": 36,
+      "path": "tools\\preview_portable_fix.py",
+      "text": "\"exists\": exists,"
+    },
+    {
+      "language": "python",
+      "line": 37,
+      "path": "tools\\preview_portable_fix.py",
+      "text": "\"sha256\": live_hash,"
+    },
+    {
+      "language": "python",
+      "line": 38,
+      "path": "tools\\preview_portable_fix.py",
+      "text": "})"
+    },
+    {
+      "language": "python",
+      "line": 39,
+      "path": "tools\\preview_portable_fix.py",
+      "text": "if exists and live_hash == EXPECTED:"
+    },
+    {
+      "language": "python",
+      "line": 40,
+      "path": "tools\\preview_portable_fix.py",
+      "text": "root = possible_root"
+    },
+    {
+      "language": "python",
+      "line": 41,
+      "path": "tools\\preview_portable_fix.py",
+      "text": "live = possible_live"
+    },
+    {
+      "language": "python",
+      "line": 42,
+      "path": "tools\\preview_portable_fix.py",
+      "text": "break"
+    },
+    {
+      "language": "python",
+      "line": 44,
+      "path": "tools\\preview_portable_fix.py",
+      "text": "baseline = bundle / \"baseline\" / \"core\" / \"foxai_web.py\""
+    },
+    {
+      "language": "python",
+      "line": 45,
+      "path": "tools\\preview_portable_fix.py",
+      "text": "candidate = bundle / \"candidate\" / \"core\" / \"foxai_web.py\""
+    },
+    {
+      "language": "python",
+      "line": 46,
+      "path": "tools\\preview_portable_fix.py",
+      "text": "out = bundle / \"preview_output\""
+    },
+    {
+      "language": "python",
+      "line": 47,
+      "path": "tools\\preview_portable_fix.py",
+      "text": "out.mkdir(parents=True, exist_ok=True)"
+    },
+    {
+      "language": "python",
+      "line": 49,
+      "path": "tools\\preview_portable_fix.py",
+      "text": "receipt = {"
+    },
+    {
+      "language": "python",
+      "line": 50,
+      "path": "tools\\preview_portable_fix.py",
+      "text": "\"action\": \"portable_python_compatibility_preview\","
+    },
+    {
+      "language": "python",
+      "line": 51,
+      "path": "tools\\preview_portable_fix.py",
+      "text": "\"created\": datetime.now(timezone.utc).isoformat(timespec=\"seconds\"),"
+    },
+    {
+      "language": "python",
+      "line": 52,
+      "path": "tools\\preview_portable_fix.py",
+      "text": "\"bundle\": str(bundle),"
+    },
+    {
+      "language": "python",
+      "line": 53,
+      "path": "tools\\preview_portable_fix.py",
+      "text": "\"root_candidates\": candidate_details,"
+    },
+    {
+      "language": "python",
+      "line": 54,
+      "path": "tools\\preview_portable_fix.py",
+      "text": "\"modified\": False,"
+    },
+    {
+      "language": "python",
+      "line": 55,
+      "path": "tools\\preview_portable_fix.py",
+      "text": "\"checks\": [],"
+    },
+    {
+      "language": "python",
+      "line": 56,
+      "path": "tools\\preview_portable_fix.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 58,
+      "path": "tools\\preview_portable_fix.py",
+      "text": "def check(check_id: str, ok: bool, detail: str) -> None:"
+    },
+    {
+      "language": "python",
+      "line": 59,
+      "path": "tools\\preview_portable_fix.py",
+      "text": "receipt[\"checks\"].append({\"id\": check_id, \"ok\": bool(ok), \"detail\": detail})"
+    },
+    {
+      "language": "python",
+      "line": 61,
+      "path": "tools\\preview_portable_fix.py",
+      "text": "check(\"foxai_root_detected\", root is not None, str(root) if root else \"No candidate matched the reviewed Phase 1 hash.\")"
+    },
+    {
+      "language": "python",
+      "line": 63,
+      "path": "tools\\preview_portable_fix.py",
+      "text": "if root is not None and live is not None:"
+    },
+    {
+      "language": "python",
+      "line": 64,
+      "path": "tools\\preview_portable_fix.py",
+      "text": "receipt[\"root\"] = str(root)"
+    },
+    {
+      "language": "python",
+      "line": 65,
+      "path": "tools\\preview_portable_fix.py",
+      "text": "receipt[\"live_file\"] = str(live)"
+    },
+    {
+      "language": "python",
+      "line": 66,
+      "path": "tools\\preview_portable_fix.py",
+      "text": "check(\"live_file_exists\", True, str(live))"
+    },
+    {
+      "language": "python",
+      "line": 67,
+      "path": "tools\\preview_portable_fix.py",
+      "text": "live_hash = sha256(live)"
+    },
+    {
+      "language": "python",
+      "line": 68,
+      "path": "tools\\preview_portable_fix.py",
+      "text": "check(\"live_hash_matches_reviewed_phase1\", live_hash == EXPECTED, live_hash)"
+    },
+    {
+      "language": "python",
+      "line": 69,
+      "path": "tools\\preview_portable_fix.py",
+      "text": "else:"
+    },
+    {
+      "language": "python",
+      "line": 70,
+      "path": "tools\\preview_portable_fix.py",
+      "text": "live_hash = None"
+    },
+    {
+      "language": "python",
+      "line": 72,
+      "path": "tools\\preview_portable_fix.py",
+      "text": "baseline_exists = baseline.exists()"
+    },
+    {
+      "language": "python",
+      "line": 73,
+      "path": "tools\\preview_portable_fix.py",
+      "text": "candidate_exists = candidate.exists()"
+    },
+    {
+      "language": "python",
+      "line": 74,
+      "path": "tools\\preview_portable_fix.py",
+      "text": "check(\"bundled_baseline_exists\", baseline_exists, str(baseline))"
+    },
+    {
+      "language": "python",
+      "line": 75,
+      "path": "tools\\preview_portable_fix.py",
+      "text": "check(\"bundled_candidate_exists\", candidate_exists, str(candidate))"
+    },
+    {
+      "language": "python",
+      "line": 77,
+      "path": "tools\\preview_portable_fix.py",
+      "text": "if baseline_exists:"
+    },
+    {
+      "language": "python",
+      "line": 78,
+      "path": "tools\\preview_portable_fix.py",
+      "text": "baseline_hash = sha256(baseline)"
+    },
+    {
+      "language": "python",
+      "line": 79,
+      "path": "tools\\preview_portable_fix.py",
+      "text": "check(\"bundled_baseline_hash\", baseline_hash == EXPECTED, baseline_hash)"
+    },
+    {
+      "language": "python",
+      "line": 80,
+      "path": "tools\\preview_portable_fix.py",
+      "text": "else:"
+    },
+    {
+      "language": "python",
+      "line": 81,
+      "path": "tools\\preview_portable_fix.py",
+      "text": "baseline_hash = None"
+    },
+    {
+      "language": "python",
+      "line": 83,
+      "path": "tools\\preview_portable_fix.py",
+      "text": "ready = ("
+    },
+    {
+      "language": "python",
+      "line": 84,
+      "path": "tools\\preview_portable_fix.py",
+      "text": "root is not None"
+    },
+    {
+      "language": "python",
+      "line": 85,
+      "path": "tools\\preview_portable_fix.py",
+      "text": "and live is not None"
+    },
+    {
+      "language": "python",
+      "line": 86,
+      "path": "tools\\preview_portable_fix.py",
+      "text": "and live_hash == EXPECTED"
+    },
+    {
+      "language": "python",
+      "line": 87,
+      "path": "tools\\preview_portable_fix.py",
+      "text": "and baseline_exists"
+    },
+    {
+      "language": "python",
+      "line": 88,
+      "path": "tools\\preview_portable_fix.py",
+      "text": "and baseline_hash == EXPECTED"
+    },
+    {
+      "language": "python",
+      "line": 89,
+      "path": "tools\\preview_portable_fix.py",
+      "text": "and candidate_exists"
+    },
+    {
+      "language": "python",
+      "line": 90,
+      "path": "tools\\preview_portable_fix.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 92,
+      "path": "tools\\preview_portable_fix.py",
+      "text": "if ready:"
+    },
+    {
+      "language": "python",
+      "line": 93,
+      "path": "tools\\preview_portable_fix.py",
+      "text": "old = live.read_text(encoding=\"utf-8\")"
+    },
+    {
+      "language": "python",
+      "line": 94,
+      "path": "tools\\preview_portable_fix.py",
+      "text": "new = candidate.read_text(encoding=\"utf-8\")"
+    },
+    {
+      "language": "python",
+      "line": 95,
+      "path": "tools\\preview_portable_fix.py",
+      "text": "exact = \"\".join(difflib.unified_diff("
+    },
+    {
+      "language": "python",
+      "line": 96,
+      "path": "tools\\preview_portable_fix.py",
+      "text": "old.splitlines(keepends=True),"
+    },
+    {
+      "language": "python",
+      "line": 97,
+      "path": "tools\\preview_portable_fix.py",
+      "text": "new.splitlines(keepends=True),"
+    },
+    {
+      "language": "python",
+      "line": 98,
+      "path": "tools\\preview_portable_fix.py",
+      "text": "fromfile=\"a/core/foxai_web.py\","
+    },
+    {
+      "language": "python",
+      "line": 99,
+      "path": "tools\\preview_portable_fix.py",
+      "text": "tofile=\"b/core/foxai_web.py\","
+    },
+    {
+      "language": "python",
+      "line": 100,
+      "path": "tools\\preview_portable_fix.py",
+      "text": "n=4,"
+    },
+    {
+      "language": "python",
+      "line": 101,
+      "path": "tools\\preview_portable_fix.py",
+      "text": "))"
+    },
+    {
+      "language": "python",
+      "line": 102,
+      "path": "tools\\preview_portable_fix.py",
+      "text": "diff_path = out / \"PORTABLE_PYTHON_COMPATIBILITY_EXACT.diff\""
+    },
+    {
+      "language": "python",
+      "line": 103,
+      "path": "tools\\preview_portable_fix.py",
+      "text": "diff_path.write_text(exact, encoding=\"utf-8\")"
+    },
+    {
+      "language": "python",
+      "line": 104,
+      "path": "tools\\preview_portable_fix.py",
+      "text": "check(\"exact_diff_generated\", bool(exact), str(diff_path))"
+    },
+    {
+      "language": "python",
+      "line": 105,
+      "path": "tools\\preview_portable_fix.py",
+      "text": "receipt[\"state\"] = \"preview_ready\""
+    },
+    {
+      "language": "python",
+      "line": 106,
+      "path": "tools\\preview_portable_fix.py",
+      "text": "receipt[\"candidate_sha256\"] = sha256(candidate)"
+    },
+    {
+      "language": "python",
+      "line": 107,
+      "path": "tools\\preview_portable_fix.py",
+      "text": "receipt[\"diff\"] = str(diff_path)"
+    },
+    {
+      "language": "python",
+      "line": 108,
+      "path": "tools\\preview_portable_fix.py",
+      "text": "else:"
+    },
+    {
+      "language": "python",
+      "line": 109,
+      "path": "tools\\preview_portable_fix.py",
+      "text": "receipt[\"state\"] = \"blocked\""
+    },
+    {
+      "language": "python",
+      "line": 111,
+      "path": "tools\\preview_portable_fix.py",
+      "text": "receipt[\"verified\"] = receipt[\"state\"] == \"preview_ready\" and all(c[\"ok\"] for c in receipt[\"checks\"])"
+    },
+    {
+      "language": "python",
+      "line": 112,
+      "path": "tools\\preview_portable_fix.py",
+      "text": "receipt_path = out / \"PREVIEW_RECEIPT.json\""
+    },
+    {
+      "language": "python",
+      "line": 113,
+      "path": "tools\\preview_portable_fix.py",
+      "text": "receipt_path.write_text(json.dumps(receipt, indent=2), encoding=\"utf-8\")"
+    },
+    {
+      "language": "python",
+      "line": 115,
+      "path": "tools\\preview_portable_fix.py",
+      "text": "print()"
+    },
+    {
+      "language": "python",
+      "line": 116,
+      "path": "tools\\preview_portable_fix.py",
+      "text": "print(\"PORTABLE PYTHON COMPATIBILITY FIX - PREVIEW ONLY\")"
+    },
+    {
+      "language": "python",
+      "line": 117,
+      "path": "tools\\preview_portable_fix.py",
+      "text": "print(\"=\" * 62)"
+    },
+    {
+      "language": "python",
+      "line": 118,
+      "path": "tools\\preview_portable_fix.py",
+      "text": "for item in receipt[\"checks\"]:"
+    },
+    {
+      "language": "python",
+      "line": 119,
+      "path": "tools\\preview_portable_fix.py",
+      "text": "print((\"PASS\" if item[\"ok\"] else \"FAIL\") + \"  \" + item[\"id\"] + \"  \" + item[\"detail\"])"
+    },
+    {
+      "language": "python",
+      "line": 120,
+      "path": "tools\\preview_portable_fix.py",
+      "text": "print()"
+    },
+    {
+      "language": "python",
+      "line": 121,
+      "path": "tools\\preview_portable_fix.py",
+      "text": "print(\"Detected FOXAI root:\", receipt.get(\"root\", \"NOT FOUND\"))"
+    },
+    {
+      "language": "python",
+      "line": 122,
+      "path": "tools\\preview_portable_fix.py",
+      "text": "print(\"State:\", receipt[\"state\"])"
+    },
+    {
+      "language": "python",
+      "line": 123,
+      "path": "tools\\preview_portable_fix.py",
+      "text": "print(\"Modified live files: NO\")"
+    },
+    {
+      "language": "python",
+      "line": 124,
+      "path": "tools\\preview_portable_fix.py",
+      "text": "print(\"Receipt:\", receipt_path)"
+    },
+    {
+      "language": "python",
+      "line": 125,
+      "path": "tools\\preview_portable_fix.py",
+      "text": "if receipt.get(\"diff\"):"
+    },
+    {
+      "language": "python",
+      "line": 126,
+      "path": "tools\\preview_portable_fix.py",
+      "text": "print(\"Exact diff:\", receipt[\"diff\"])"
+    },
+    {
+      "language": "python",
+      "line": 127,
+      "path": "tools\\preview_portable_fix.py",
+      "text": "print()"
+    },
+    {
+      "language": "python",
+      "line": 128,
+      "path": "tools\\preview_portable_fix.py",
+      "text": "print(Path(receipt[\"diff\"]).read_text(encoding=\"utf-8\"))"
+    },
+    {
+      "language": "python",
+      "line": 129,
+      "path": "tools\\preview_portable_fix.py",
+      "text": "sys.exit(0 if receipt[\"verified\"] else 1)"
+    },
+    {
+      "language": "python",
+      "line": 1,
+      "path": "ui\\foxai_theme.py",
+      "text": "from __future__ import annotations"
+    },
+    {
+      "language": "python",
+      "line": 3,
+      "path": "ui\\foxai_theme.py",
+      "text": "import customtkinter as ctk"
+    },
+    {
+      "language": "python",
+      "line": 5,
+      "path": "ui\\foxai_theme.py",
+      "text": "FOXAI_COLORS = {"
+    },
+    {
+      "language": "python",
+      "line": 6,
+      "path": "ui\\foxai_theme.py",
+      "text": "\"bg\": \"#070811\", \"panel\": \"#121420\", \"panel2\": \"#181b2a\", \"panel3\": \"#202436\","
+    },
+    {
+      "language": "python",
+      "line": 7,
+      "path": "ui\\foxai_theme.py",
+      "text": "\"text\": \"#f4f1ff\", \"muted\": \"#aeb2c8\", \"purple\": \"#8f5cff\","
+    },
+    {
+      "language": "python",
+      "line": 8,
+      "path": "ui\\foxai_theme.py",
+      "text": "\"purple_hover\": \"#7c4de6\", \"purple_soft\": \"#b18cff\", \"cyan\": \"#23d7ff\","
+    },
+    {
+      "language": "python",
+      "line": 9,
+      "path": "ui\\foxai_theme.py",
+      "text": "\"green\": \"#42ff9e\", \"orange\": \"#ff9f43\", \"blue\": \"#3ba7ff\","
+    },
+    {
+      "language": "python",
+      "line": 10,
+      "path": "ui\\foxai_theme.py",
+      "text": "\"magenta\": \"#ff5ccf\", \"gold\": \"#ffd166\", \"red\": \"#ff4d6d\""
+    },
+    {
+      "language": "python",
+      "line": 11,
+      "path": "ui\\foxai_theme.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 13,
+      "path": "ui\\foxai_theme.py",
+      "text": "def configure_ctk_identity() -> None:"
+    },
+    {
+      "language": "python",
+      "line": 14,
+      "path": "ui\\foxai_theme.py",
+      "text": "ctk.set_appearance_mode(\"dark\")"
+    },
+    {
+      "language": "python",
+      "line": 15,
+      "path": "ui\\foxai_theme.py",
+      "text": "ctk.set_default_color_theme(\"blue\")"
+    },
+    {
+      "language": "python",
+      "line": 17,
+      "path": "ui\\foxai_theme.py",
+      "text": "def color(name: str) -> str:"
+    },
+    {
+      "language": "python",
+      "line": 18,
+      "path": "ui\\foxai_theme.py",
+      "text": "return FOXAI_COLORS.get(name, FOXAI_COLORS[\"purple\"])"
+    },
+    {
+      "language": "python",
+      "line": 20,
+      "path": "ui\\foxai_theme.py",
+      "text": "def _safe(widget, **kwargs) -> None:"
+    },
+    {
+      "language": "python",
+      "line": 21,
+      "path": "ui\\foxai_theme.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 22,
+      "path": "ui\\foxai_theme.py",
+      "text": "widget.configure(**kwargs)"
+    },
+    {
+      "language": "python",
+      "line": 23,
+      "path": "ui\\foxai_theme.py",
+      "text": "except Exception:"
+    },
+    {
+      "language": "python",
+      "line": 24,
+      "path": "ui\\foxai_theme.py",
+      "text": "pass"
+    },
+    {
+      "language": "python",
+      "line": 26,
+      "path": "ui\\foxai_theme.py",
+      "text": "def apply_foxai_theme(root) -> None:"
+    },
+    {
+      "language": "python",
+      "line": 27,
+      "path": "ui\\foxai_theme.py",
+      "text": "c = FOXAI_COLORS"
+    },
+    {
+      "language": "python",
+      "line": 29,
+      "path": "ui\\foxai_theme.py",
+      "text": "def visit(widget):"
+    },
+    {
+      "language": "python",
+      "line": 30,
+      "path": "ui\\foxai_theme.py",
+      "text": "cls = widget.__class__.__name__"
+    },
+    {
+      "language": "python",
+      "line": 31,
+      "path": "ui\\foxai_theme.py",
+      "text": "if cls in {\"CTk\", \"CTkToplevel\"}:"
+    },
+    {
+      "language": "python",
+      "line": 32,
+      "path": "ui\\foxai_theme.py",
+      "text": "_safe(widget, fg_color=c[\"bg\"])"
+    },
+    {
+      "language": "python",
+      "line": 33,
+      "path": "ui\\foxai_theme.py",
+      "text": "elif cls in {\"CTkFrame\", \"CTkScrollableFrame\"}:"
+    },
+    {
+      "language": "python",
+      "line": 34,
+      "path": "ui\\foxai_theme.py",
+      "text": "_safe(widget, fg_color=c[\"panel\"], border_color=\"#2a2d42\")"
+    },
+    {
+      "language": "python",
+      "line": 35,
+      "path": "ui\\foxai_theme.py",
+      "text": "elif cls == \"CTkButton\":"
+    },
+    {
+      "language": "python",
+      "line": 36,
+      "path": "ui\\foxai_theme.py",
+      "text": "text = \"\""
+    },
+    {
+      "language": "python",
+      "line": 37,
+      "path": "ui\\foxai_theme.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 38,
+      "path": "ui\\foxai_theme.py",
+      "text": "text = str(widget.cget(\"text\")).lower()"
+    },
+    {
+      "language": "python",
+      "line": 39,
+      "path": "ui\\foxai_theme.py",
+      "text": "except Exception:"
+    },
+    {
+      "language": "python",
+      "line": 40,
+      "path": "ui\\foxai_theme.py",
+      "text": "pass"
+    },
+    {
+      "language": "python",
+      "line": 41,
+      "path": "ui\\foxai_theme.py",
+      "text": "fg, hover = c[\"purple\"], c[\"purple_hover\"]"
+    },
+    {
+      "language": "python",
+      "line": 42,
+      "path": "ui\\foxai_theme.py",
+      "text": "if any(w in text for w in [\"engineer\", \"repair\", \"diagnostic\", \"inspection\"]):"
+    },
+    {
+      "language": "python",
+      "line": 43,
+      "path": "ui\\foxai_theme.py",
+      "text": "fg, hover = c[\"orange\"], \"#dd862f\""
+    },
+    {
+      "language": "python",
+      "line": 44,
+      "path": "ui\\foxai_theme.py",
+      "text": "elif any(w in text for w in [\"library\", \"science\", \"iron\"]):"
+    },
+    {
+      "language": "python",
+      "line": 45,
+      "path": "ui\\foxai_theme.py",
+      "text": "fg, hover = c[\"blue\"], \"#2d86d4\""
+    },
+    {
+      "language": "python",
+      "line": 46,
+      "path": "ui\\foxai_theme.py",
+      "text": "elif any(w in text for w in [\"canvas\", \"creative\", \"prompt\"]):"
+    },
+    {
+      "language": "python",
+      "line": 47,
+      "path": "ui\\foxai_theme.py",
+      "text": "fg, hover = c[\"magenta\"], \"#df45b2\""
+    },
+    {
+      "language": "python",
+      "line": 48,
+      "path": "ui\\foxai_theme.py",
+      "text": "elif any(w in text for w in [\"end\", \"error\", \"stop\"]):"
+    },
+    {
+      "language": "python",
+      "line": 49,
+      "path": "ui\\foxai_theme.py",
+      "text": "fg, hover = c[\"red\"], \"#d93c59\""
+    },
+    {
+      "language": "python",
+      "line": 50,
+      "path": "ui\\foxai_theme.py",
+      "text": "_safe(widget, fg_color=fg, hover_color=hover, text_color=c[\"text\"], border_width=1, border_color=\"#332a55\", corner_radius=12)"
+    },
+    {
+      "language": "python",
+      "line": 51,
+      "path": "ui\\foxai_theme.py",
+      "text": "elif cls == \"CTkLabel\":"
+    },
+    {
+      "language": "python",
+      "line": 52,
+      "path": "ui\\foxai_theme.py",
+      "text": "_safe(widget, text_color=c[\"text\"])"
+    },
+    {
+      "language": "python",
+      "line": 53,
+      "path": "ui\\foxai_theme.py",
+      "text": "elif cls in {\"CTkTextbox\", \"CTkEntry\"}:"
+    },
+    {
+      "language": "python",
+      "line": 54,
+      "path": "ui\\foxai_theme.py",
+      "text": "_safe(widget, fg_color=\"#0b0d17\", text_color=c[\"text\"], border_color=\"#332a55\", border_width=1)"
+    },
+    {
+      "language": "python",
+      "line": 55,
+      "path": "ui\\foxai_theme.py",
+      "text": "elif cls == \"CTkOptionMenu\":"
+    },
+    {
+      "language": "python",
+      "line": 56,
+      "path": "ui\\foxai_theme.py",
+      "text": "_safe(widget, fg_color=c[\"panel3\"], button_color=c[\"purple\"], button_hover_color=c[\"purple_hover\"],"
+    },
+    {
+      "language": "python",
+      "line": 57,
+      "path": "ui\\foxai_theme.py",
+      "text": "text_color=c[\"text\"], dropdown_fg_color=c[\"panel2\"], dropdown_text_color=c[\"text\"], dropdown_hover_color=\"#2a2142\")"
+    },
+    {
+      "language": "python",
+      "line": 58,
+      "path": "ui\\foxai_theme.py",
+      "text": "elif cls == \"CTkProgressBar\":"
+    },
+    {
+      "language": "python",
+      "line": 59,
+      "path": "ui\\foxai_theme.py",
+      "text": "_safe(widget, fg_color=\"#24263a\", progress_color=c[\"purple\"])"
+    },
+    {
+      "language": "python",
+      "line": 60,
+      "path": "ui\\foxai_theme.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 61,
+      "path": "ui\\foxai_theme.py",
+      "text": "for child in widget.winfo_children():"
+    },
+    {
+      "language": "python",
+      "line": 62,
+      "path": "ui\\foxai_theme.py",
+      "text": "visit(child)"
+    },
+    {
+      "language": "python",
+      "line": 63,
+      "path": "ui\\foxai_theme.py",
+      "text": "except Exception:"
+    },
+    {
+      "language": "python",
+      "line": 64,
+      "path": "ui\\foxai_theme.py",
+      "text": "pass"
+    },
+    {
+      "language": "python",
+      "line": 66,
+      "path": "ui\\foxai_theme.py",
+      "text": "visit(root)"
+    },
+    {
+      "language": "python",
+      "line": 1,
+      "path": "ui\\main_window.py",
+      "text": "import time"
+    },
+    {
+      "language": "python",
+      "line": 2,
+      "path": "ui\\main_window.py",
+      "text": "import threading"
+    },
+    {
+      "language": "python",
+      "line": 3,
+      "path": "ui\\main_window.py",
+      "text": "import configparser"
+    },
+    {
+      "language": "python",
+      "line": 4,
+      "path": "ui\\main_window.py",
+      "text": "import json"
+    },
+    {
+      "language": "python",
+      "line": 5,
+      "path": "ui\\main_window.py",
+      "text": "import re"
+    },
+    {
+      "language": "python",
+      "line": 6,
+      "path": "ui\\main_window.py",
+      "text": "import tkinter as tk"
+    },
+    {
+      "language": "python",
+      "line": 7,
+      "path": "ui\\main_window.py",
+      "text": "from tkinter import messagebox"
+    },
+    {
+      "language": "python",
+      "line": 8,
+      "path": "ui\\main_window.py",
+      "text": "from pathlib import Path"
+    },
+    {
+      "language": "python",
+      "line": 10,
+      "path": "ui\\main_window.py",
+      "text": "import customtkinter as ctk"
+    },
+    {
+      "language": "python",
+      "line": 11,
+      "path": "ui\\main_window.py",
+      "text": "import psutil"
+    },
+    {
+      "language": "python",
+      "line": 12,
+      "path": "ui\\main_window.py",
+      "text": "import requests"
+    },
+    {
+      "language": "python",
+      "line": 13,
+      "path": "ui\\main_window.py",
+      "text": "from PIL import Image"
+    },
+    {
+      "language": "python",
+      "line": 15,
+      "path": "ui\\main_window.py",
+      "text": "from core.paths import CONFIG, ASSETS"
+    },
+    {
+      "language": "python",
+      "line": 16,
+      "path": "ui\\main_window.py",
+      "text": "from core.models import find_models"
+    },
+    {
+      "language": "python",
+      "line": 17,
+      "path": "ui\\main_window.py",
+      "text": "from core.agents import find_agents, load_agent_prompt, display_name"
+    },
+    {
+      "language": "python",
+      "line": 18,
+      "path": "ui\\main_window.py",
+      "text": "from core.memory import OperatorMemory, MissionMemory"
+    },
+    {
+      "language": "python",
+      "line": 19,
+      "path": "ui\\main_window.py",
+      "text": "from core.library import ensure_library, list_documents, search_documents"
+    },
+    {
+      "language": "python",
+      "line": 20,
+      "path": "ui\\main_window.py",
+      "text": "from core.red_canvas import save_prompt"
+    },
+    {
+      "language": "python",
+      "line": 21,
+      "path": "ui\\main_window.py",
+      "text": "from core.comfy_bridge import is_comfy_running, generate_image"
+    },
+    {
+      "language": "python",
+      "line": 22,
+      "path": "ui\\main_window.py",
+      "text": "from core.promptsmith import build_prompt"
+    },
+    {
+      "language": "python",
+      "line": 23,
+      "path": "ui\\main_window.py",
+      "text": "from core.image_models import find_checkpoints"
+    },
+    {
+      "language": "python",
+      "line": 24,
+      "path": "ui\\main_window.py",
+      "text": "from core.director import direct"
+    },
+    {
+      "language": "python",
+      "line": 25,
+      "path": "ui\\main_window.py",
+      "text": "from core.chat_agent import ChatAgent"
+    },
+    {
+      "language": "python",
+      "line": 26,
+      "path": "ui\\main_window.py",
+      "text": "from core.red_canvas_agent import RedCanvasAgent"
+    },
+    {
+      "language": "python",
+      "line": 27,
+      "path": "ui\\main_window.py",
+      "text": "from core.library_agent import LibraryAgent"
+    },
+    {
+      "language": "python",
+      "line": 28,
+      "path": "ui\\main_window.py",
+      "text": "from core.engineer_agent import EngineerAgent"
+    },
+    {
+      "language": "python",
+      "line": 29,
+      "path": "ui\\main_window.py",
+      "text": "from core.brainstem import Brainstem"
+    },
+    {
+      "language": "python",
+      "line": 30,
+      "path": "ui\\main_window.py",
+      "text": "from core.server import LlamaServer"
+    },
+    {
+      "language": "python",
+      "line": 31,
+      "path": "ui\\main_window.py",
+      "text": "from core import diagnostics"
+    },
+    {
+      "language": "python",
+      "line": 32,
+      "path": "ui\\main_window.py",
+      "text": "from core.chat_resilience import ChatResilience, ChatTimeoutError"
+    },
+    {
+      "language": "python",
+      "line": 33,
+      "path": "ui\\main_window.py",
+      "text": "from core.application_registry import ApplicationRegistry"
+    },
+    {
+      "language": "python",
+      "line": 34,
+      "path": "ui\\main_window.py",
+      "text": "from core.comfy_ops_monitor import comfy_operations_snapshot"
+    },
+    {
+      "language": "python",
+      "line": 35,
+      "path": "ui\\main_window.py",
+      "text": "from core.security_containment import ("
+    },
+    {
+      "language": "python",
+      "line": 36,
+      "path": "ui\\main_window.py",
+      "text": "new_airlock_correlation_id,"
+    },
+    {
+      "language": "python",
+      "line": 37,
+      "path": "ui\\main_window.py",
+      "text": "record_trip_sentry_test_event,"
+    },
+    {
+      "language": "python",
+      "line": 38,
+      "path": "ui\\main_window.py",
+      "text": "redact_mapping,"
+    },
+    {
+      "language": "python",
+      "line": 39,
+      "path": "ui\\main_window.py",
+      "text": "verify_airlock_audit_log,"
+    },
+    {
+      "language": "python",
+      "line": 40,
+      "path": "ui\\main_window.py",
+      "text": "airlock_chain_alert,"
+    },
+    {
+      "language": "python",
+      "line": 41,
+      "path": "ui\\main_window.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 42,
+      "path": "ui\\main_window.py",
+      "text": "from uuid import uuid4"
+    },
+    {
+      "language": "python",
+      "line": 44,
+      "path": "ui\\main_window.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 45,
+      "path": "ui\\main_window.py",
+      "text": "from .foxai_theme import configure_ctk_identity, apply_foxai_theme, color"
+    },
+    {
+      "language": "python",
+      "line": 46,
+      "path": "ui\\main_window.py",
+      "text": "except Exception:"
+    },
+    {
+      "language": "python",
+      "line": 47,
+      "path": "ui\\main_window.py",
+      "text": "from ui.foxai_theme import configure_ctk_identity, apply_foxai_theme, color"
+    },
+    {
+      "language": "python",
+      "line": 49,
+      "path": "ui\\main_window.py",
+      "text": "ctk.set_appearance_mode(\"dark\")"
+    },
+    {
+      "language": "python",
+      "line": 50,
+      "path": "ui\\main_window.py",
+      "text": "configure_ctk_identity()"
+    },
+    {
+      "language": "python",
+      "line": 53,
+      "path": "ui\\main_window.py",
+      "text": "class FoxAIApp(ctk.CTk):"
+    },
+    {
+      "language": "python",
+      "line": 54,
+      "path": "ui\\main_window.py",
+      "text": "def __init__(self):"
+    },
+    {
+      "language": "python",
+      "line": 55,
+      "path": "ui\\main_window.py",
+      "text": "super().__init__()"
+    },
+    {
+      "language": "python",
+      "line": 56,
+      "path": "ui\\main_window.py",
+      "text": "self.title(\"FOXAI Command OS // Ultimate Edifier Platform\")"
+    },
+    {
+      "language": "python",
+      "line": 57,
+      "path": "ui\\main_window.py",
+      "text": "self.icon_path = ASSETS / \"foxai.ico\""
+    },
+    {
+      "language": "python",
+      "line": 58,
+      "path": "ui\\main_window.py",
+      "text": "self.logo_path = ASSETS / \"foxai_logo.png\""
+    },
+    {
+      "language": "python",
+      "line": 59,
+      "path": "ui\\main_window.py",
+      "text": "if self.icon_path.exists():"
+    },
+    {
+      "language": "python",
+      "line": 60,
+      "path": "ui\\main_window.py",
+      "text": "self.iconbitmap(str(self.icon_path))"
+    },
+    {
+      "language": "python",
+      "line": 61,
+      "path": "ui\\main_window.py",
+      "text": "self.geometry(\"1220x720\")"
+    },
+    {
+      "language": "python",
+      "line": 62,
+      "path": "ui\\main_window.py",
+      "text": "self.minsize(1050, 700)"
+    },
+    {
+      "language": "python",
+      "line": 64,
+      "path": "ui\\main_window.py",
+      "text": "self.server = LlamaServer(interface_name=\"Desktop\")"
+    },
+    {
+      "language": "python",
+      "line": 65,
+      "path": "ui\\main_window.py",
+      "text": "self.operator_memory = OperatorMemory()"
+    },
+    {
+      "language": "python",
+      "line": 66,
+      "path": "ui\\main_window.py",
+      "text": "self.operator = self.operator_memory.load()"
+    },
+    {
+      "language": "python",
+      "line": 67,
+      "path": "ui\\main_window.py",
+      "text": "self.mission_memory = MissionMemory()"
+    },
+    {
+      "language": "python",
+      "line": 68,
+      "path": "ui\\main_window.py",
+      "text": "self.models = find_models()"
+    },
+    {
+      "language": "python",
+      "line": 69,
+      "path": "ui\\main_window.py",
+      "text": "self.agents = find_agents()"
+    },
+    {
+      "language": "python",
+      "line": 70,
+      "path": "ui\\main_window.py",
+      "text": "self.messages = []"
+    },
+    {
+      "language": "python",
+      "line": 71,
+      "path": "ui\\main_window.py",
+      "text": "self.last_canvas_image = None"
+    },
+    {
+      "language": "python",
+      "line": 72,
+      "path": "ui\\main_window.py",
+      "text": "self.mission_animation_job = None"
+    },
+    {
+      "language": "python",
+      "line": 73,
+      "path": "ui\\main_window.py",
+      "text": "self.mission_animation_step = 0"
+    },
+    {
+      "language": "python",
+      "line": 74,
+      "path": "ui\\main_window.py",
+      "text": "self._closing = False"
+    },
+    {
+      "language": "python",
+      "line": 75,
+      "path": "ui\\main_window.py",
+      "text": "self._mission_context_menus = []"
+    },
+    {
+      "language": "python",
+      "line": 76,
+      "path": "ui\\main_window.py",
+      "text": "self.comfy_ops_window = None"
+    },
+    {
+      "language": "python",
+      "line": 77,
+      "path": "ui\\main_window.py",
+      "text": "self.comfy_ops_refresh_job = None"
+    },
+    {
+      "language": "python",
+      "line": 78,
+      "path": "ui\\main_window.py",
+      "text": "self.red_canvas_progress_job = None"
+    },
+    {
+      "language": "python",
+      "line": 79,
+      "path": "ui\\main_window.py",
+      "text": "self.red_canvas_active = False"
+    },
+    {
+      "language": "python",
+      "line": 80,
+      "path": "ui\\main_window.py",
+      "text": "self.red_canvas_progress_percent = 0"
+    },
+    {
+      "language": "python",
+      "line": 81,
+      "path": "ui\\main_window.py",
+      "text": "self.red_canvas_progress_text = \"\""
+    },
+    {
+      "language": "python",
+      "line": 82,
+      "path": "ui\\main_window.py",
+      "text": "self.red_canvas_log_path = None"
+    },
+    {
+      "language": "python",
+      "line": 83,
+      "path": "ui\\main_window.py",
+      "text": "self.red_canvas_log_offset = 0"
+    },
+    {
+      "language": "python",
+      "line": 84,
+      "path": "ui\\main_window.py",
+      "text": "self.red_canvas_log_buffer = \"\""
+    },
+    {
+      "language": "python",
+      "line": 85,
+      "path": "ui\\main_window.py",
+      "text": "self.specialists = {"
+    },
+    {
+      "language": "python",
+      "line": 86,
+      "path": "ui\\main_window.py",
+      "text": "\"chat\": ChatAgent(self),"
+    },
+    {
+      "language": "python",
+      "line": 87,
+      "path": "ui\\main_window.py",
+      "text": "\"red_canvas\": RedCanvasAgent(self),"
+    },
+    {
+      "language": "python",
+      "line": 88,
+      "path": "ui\\main_window.py",
+      "text": "\"iron_library\": LibraryAgent(self),"
+    },
+    {
+      "language": "python",
+      "line": 89,
+      "path": "ui\\main_window.py",
+      "text": "\"engineer\": EngineerAgent(self),"
+    },
+    {
+      "language": "python",
+      "line": 90,
+      "path": "ui\\main_window.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 92,
+      "path": "ui\\main_window.py",
+      "text": "self.config = self.load_config()"
+    },
+    {
+      "language": "python",
+      "line": 93,
+      "path": "ui\\main_window.py",
+      "text": "self.host = self.config[\"Server\"].get(\"host\", \"127.0.0.1\")"
+    },
+    {
+      "language": "python",
+      "line": 94,
+      "path": "ui\\main_window.py",
+      "text": "self.port = self.config[\"Server\"].get(\"port\", \"8080\")"
+    },
+    {
+      "language": "python",
+      "line": 95,
+      "path": "ui\\main_window.py",
+      "text": "self.threads = self.config[\"Server\"].get(\"threads\", \"12\")"
+    },
+    {
+      "language": "python",
+      "line": 96,
+      "path": "ui\\main_window.py",
+      "text": "self.context = self.config[\"Server\"].get(\"context\", \"8192\")"
+    },
+    {
+      "language": "python",
+      "line": 97,
+      "path": "ui\\main_window.py",
+      "text": "self.api_url = f\"http://{self.host}:{self.port}/v1/chat/completions\""
+    },
+    {
+      "language": "python",
+      "line": 98,
+      "path": "ui\\main_window.py",
+      "text": "self.brainstem = Brainstem(self.host, self.port)"
+    },
+    {
+      "language": "python",
+      "line": 99,
+      "path": "ui\\main_window.py",
+      "text": "self.chat_resilience = ChatResilience(self)"
+    },
+    {
+      "language": "python",
+      "line": 100,
+      "path": "ui\\main_window.py",
+      "text": "self.long_think_after_seconds = 120"
+    },
+    {
+      "language": "python",
+      "line": 101,
+      "path": "ui\\main_window.py",
+      "text": "self.chat_heartbeat_job = None"
+    },
+    {
+      "language": "python",
+      "line": 102,
+      "path": "ui\\main_window.py",
+      "text": "self.chat_heartbeat_started_at = None"
+    },
+    {
+      "language": "python",
+      "line": 103,
+      "path": "ui\\main_window.py",
+      "text": "self.chat_heartbeat_count = 0"
+    },
+    {
+      "language": "python",
+      "line": 105,
+      "path": "ui\\main_window.py",
+      "text": "self.status = ctk.StringVar(value=\"OFFLINE\")"
+    },
+    {
+      "language": "python",
+      "line": 106,
+      "path": "ui\\main_window.py",
+      "text": "self.stats = ctk.StringVar(value=\"CPU -- | RAM -- | STATUS OFFLINE\")"
+    },
+    {
+      "language": "python",
+      "line": 107,
+      "path": "ui\\main_window.py",
+      "text": "self.build_ui()"
+    },
+    {
+      "language": "python",
+      "line": 108,
+      "path": "ui\\main_window.py",
+      "text": "apply_foxai_theme(self)"
+    },
+    {
+      "language": "python",
+      "line": 109,
+      "path": "ui\\main_window.py",
+      "text": "self.after(750, self._foxai_theme_watchdog)"
+    },
+    {
+      "language": "python",
+      "line": 110,
+      "path": "ui\\main_window.py",
+      "text": "self.show_command_bridge()"
+    },
+    {
+      "language": "python",
+      "line": 111,
+      "path": "ui\\main_window.py",
+      "text": "self.update_stats()"
+    },
+    {
+      "language": "python",
+      "line": 112,
+      "path": "ui\\main_window.py",
+      "text": "self.protocol(\"WM_DELETE_WINDOW\", self.on_close)"
+    },
+    {
+      "language": "python",
+      "line": 115,
+      "path": "ui\\main_window.py",
+      "text": "def _foxai_theme_watchdog(self):"
+    },
+    {
+      "language": "python",
+      "line": 116,
+      "path": "ui\\main_window.py",
+      "text": "if self._closing:"
+    },
+    {
+      "language": "python",
+      "line": 117,
+      "path": "ui\\main_window.py",
+      "text": "return"
+    },
+    {
+      "language": "python",
+      "line": 118,
+      "path": "ui\\main_window.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 119,
+      "path": "ui\\main_window.py",
+      "text": "apply_foxai_theme(self)"
+    },
+    {
+      "language": "python",
+      "line": 120,
+      "path": "ui\\main_window.py",
+      "text": "except Exception:"
+    },
+    {
+      "language": "python",
+      "line": 121,
+      "path": "ui\\main_window.py",
+      "text": "pass"
+    },
+    {
+      "language": "python",
+      "line": 122,
+      "path": "ui\\main_window.py",
+      "text": "self.after(1200, self._foxai_theme_watchdog)"
+    },
+    {
+      "language": "python",
+      "line": 124,
+      "path": "ui\\main_window.py",
+      "text": "def read_bridge_feed(self):"
+    },
+    {
+      "language": "python",
+      "line": 125,
+      "path": "ui\\main_window.py",
+      "text": "path = Path(__file__).resolve().parent.parent / \"OpsBridge\" / \"outbox\" / \"bridge_feed.json\""
+    },
+    {
+      "language": "python",
+      "line": 126,
+      "path": "ui\\main_window.py",
+      "text": "if path.exists():"
+    },
+    {
+      "language": "python",
+      "line": 127,
+      "path": "ui\\main_window.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 128,
+      "path": "ui\\main_window.py",
+      "text": "return json.loads(path.read_text(encoding=\"utf-8\", errors=\"replace\"))"
+    },
+    {
+      "language": "python",
+      "line": 129,
+      "path": "ui\\main_window.py",
+      "text": "except Exception:"
+    },
+    {
+      "language": "python",
+      "line": 130,
+      "path": "ui\\main_window.py",
+      "text": "return None"
+    },
+    {
+      "language": "python",
+      "line": 131,
+      "path": "ui\\main_window.py",
+      "text": "return None"
+    },
+    {
+      "language": "python",
+      "line": 133,
+      "path": "ui\\main_window.py",
+      "text": "def show_command_bridge(self):"
+    },
+    {
+      "language": "python",
+      "line": 134,
+      "path": "ui\\main_window.py",
+      "text": "self.clear_content()"
+    },
+    {
+      "language": "python",
+      "line": 135,
+      "path": "ui\\main_window.py",
+      "text": "self.make_title(\"FOXAI COMMAND BRIDGE\")"
+    },
+    {
+      "language": "python",
+      "line": 136,
+      "path": "ui\\main_window.py",
+      "text": "feed = self.read_bridge_feed()"
+    },
+    {
+      "language": "python",
+      "line": 138,
+      "path": "ui\\main_window.py",
+      "text": "outer = ctk.CTkScrollableFrame(self.content)"
+    },
+    {
+      "language": "python",
+      "line": 139,
+      "path": "ui\\main_window.py",
+      "text": "outer.pack(fill=\"both\", expand=True, padx=20, pady=15)"
+    },
+    {
+      "language": "python",
+      "line": 141,
+      "path": "ui\\main_window.py",
+      "text": "hero = ctk.CTkFrame(outer)"
+    },
+    {
+      "language": "python",
+      "line": 142,
+      "path": "ui\\main_window.py",
+      "text": "hero.pack(fill=\"x\", padx=10, pady=(10, 15))"
+    },
+    {
+      "language": "python",
+      "line": 144,
+      "path": "ui\\main_window.py",
+      "text": "identity = (feed or {}).get(\"identity\", {})"
+    },
+    {
+      "language": "python",
+      "line": 145,
+      "path": "ui\\main_window.py",
+      "text": "summary = (feed or {}).get(\"summary\", {})"
+    },
+    {
+      "language": "python",
+      "line": 146,
+      "path": "ui\\main_window.py",
+      "text": "kernel = (feed or {}).get(\"kernel\", {})"
+    },
+    {
+      "language": "python",
+      "line": 148,
+      "path": "ui\\main_window.py",
+      "text": "title = identity.get(\"name\", \"FOXAI Command OS\")"
+    },
+    {
+      "language": "python",
+      "line": 149,
+      "path": "ui\\main_window.py",
+      "text": "subtitle = identity.get(\"subtitle\", \"Ultimate Edifier Platform\")"
+    },
+    {
+      "language": "python",
+      "line": 150,
+      "path": "ui\\main_window.py",
+      "text": "kernel_status = kernel.get(\"status\", \"WAITING\")"
+    },
+    {
+      "language": "python",
+      "line": 152,
+      "path": "ui\\main_window.py",
+      "text": "ctk.CTkLabel(hero, text=title, font=(\"Consolas\", 28, \"bold\"), text_color=color(\"purple_soft\")).pack(pady=(18, 2))"
+    },
+    {
+      "language": "python",
+      "line": 153,
+      "path": "ui\\main_window.py",
+      "text": "ctk.CTkLabel(hero, text=f\"{subtitle}  //  Kernel: {kernel_status}\", font=(\"Consolas\", 14), text_color=color(\"muted\")).pack(pady=(0, 18))"
+    },
+    {
+      "language": "python",
+      "line": 155,
+      "path": "ui\\main_window.py",
+      "text": "metrics = ctk.CTkFrame(outer)"
+    },
+    {
+      "language": "python",
+      "line": 156,
+      "path": "ui\\main_window.py",
+      "text": "metrics.pack(fill=\"x\", padx=10, pady=(0, 15))"
+    },
+    {
+      "language": "python",
+      "line": 157,
+      "path": "ui\\main_window.py",
+      "text": "for i in range(4):"
+    },
+    {
+      "language": "python",
+      "line": 158,
+      "path": "ui\\main_window.py",
+      "text": "metrics.grid_columnconfigure(i, weight=1)"
+    },
+    {
+      "language": "python",
+      "line": 160,
+      "path": "ui\\main_window.py",
+      "text": "metric_data = ["
+    },
+    {
+      "language": "python",
+      "line": 161,
+      "path": "ui\\main_window.py",
+      "text": "(\"Departments\", summary.get(\"department_count\", \"—\")),"
+    },
+    {
+      "language": "python",
+      "line": 162,
+      "path": "ui\\main_window.py",
+      "text": "(\"Online\", summary.get(\"departments_online\", \"—\")),"
+    },
+    {
+      "language": "python",
+      "line": 163,
+      "path": "ui\\main_window.py",
+      "text": "(\"Runtime Packages\", summary.get(\"runtime_packages\", \"—\")),"
+    },
+    {
+      "language": "python",
+      "line": 164,
+      "path": "ui\\main_window.py",
+      "text": "(\"Log Entries\", summary.get(\"captains_log_entries\", \"—\")),"
+    },
+    {
+      "language": "python",
+      "line": 165,
+      "path": "ui\\main_window.py",
+      "text": "]"
+    },
+    {
+      "language": "python",
+      "line": 166,
+      "path": "ui\\main_window.py",
+      "text": "for i, (label, value) in enumerate(metric_data):"
+    },
+    {
+      "language": "python",
+      "line": 167,
+      "path": "ui\\main_window.py",
+      "text": "card = ctk.CTkFrame(metrics)"
+    },
+    {
+      "language": "python",
+      "line": 168,
+      "path": "ui\\main_window.py",
+      "text": "card.grid(row=0, column=i, padx=8, pady=8, sticky=\"nsew\")"
+    },
+    {
+      "language": "python",
+      "line": 169,
+      "path": "ui\\main_window.py",
+      "text": "ctk.CTkLabel(card, text=label.upper(), font=(\"Consolas\", 12, \"bold\"), text_color=color(\"muted\")).pack(pady=(14, 4))"
+    },
+    {
+      "language": "python",
+      "line": 170,
+      "path": "ui\\main_window.py",
+      "text": "ctk.CTkLabel(card, text=str(value), font=(\"Consolas\", 24, \"bold\"), text_color=color(\"purple_soft\")).pack(pady=(0, 14))"
+    },
+    {
+      "language": "python",
+      "line": 172,
+      "path": "ui\\main_window.py",
+      "text": "dept_panel = ctk.CTkFrame(outer)"
+    },
+    {
+      "language": "python",
+      "line": 173,
+      "path": "ui\\main_window.py",
+      "text": "dept_panel.pack(fill=\"x\", padx=10, pady=(0, 15))"
+    },
+    {
+      "language": "python",
+      "line": 174,
+      "path": "ui\\main_window.py",
+      "text": "ctk.CTkLabel(dept_panel, text=\"DEPARTMENTS\", font=(\"Consolas\", 16, \"bold\"), text_color=color(\"cyan\")).pack(anchor=\"w\", padx=14, pady=(12, 6))"
+    },
+    {
+      "language": "python",
+      "line": 176,
+      "path": "ui\\main_window.py",
+      "text": "cards = (feed or {}).get(\"department_cards\", [])"
+    },
+    {
+      "language": "python",
+      "line": 177,
+      "path": "ui\\main_window.py",
+      "text": "if not cards:"
+    },
+    {
+      "language": "python",
+      "line": 178,
+      "path": "ui\\main_window.py",
+      "text": "ctk.CTkLabel(dept_panel, text=\"Run BUILD_FOXAI.bat to generate OpsBridge\\\\outbox\\\\bridge_feed.json.\", font=(\"Consolas\", 13)).pack(anchor=\"w\", padx=14, pady=(0, 14))"
+    },
+    {
+      "language": "python",
+      "line": 179,
+      "path": "ui\\main_window.py",
+      "text": "else:"
+    },
+    {
+      "language": "python",
+      "line": 180,
+      "path": "ui\\main_window.py",
+      "text": "grid = ctk.CTkFrame(dept_panel)"
+    },
+    {
+      "language": "python",
+      "line": 181,
+      "path": "ui\\main_window.py",
+      "text": "grid.pack(fill=\"x\", padx=10, pady=(0, 12))"
+    },
+    {
+      "language": "python",
+      "line": 182,
+      "path": "ui\\main_window.py",
+      "text": "grid.grid_columnconfigure(0, weight=1)"
+    },
+    {
+      "language": "python",
+      "line": 183,
+      "path": "ui\\main_window.py",
+      "text": "grid.grid_columnconfigure(1, weight=1)"
+    },
+    {
+      "language": "python",
+      "line": 184,
+      "path": "ui\\main_window.py",
+      "text": "for i, card in enumerate(cards):"
+    },
+    {
+      "language": "python",
+      "line": 185,
+      "path": "ui\\main_window.py",
+      "text": "panel = ctk.CTkFrame(grid)"
+    },
+    {
+      "language": "python",
+      "line": 186,
+      "path": "ui\\main_window.py",
+      "text": "panel.grid(row=i // 2, column=i % 2, padx=8, pady=8, sticky=\"nsew\")"
+    },
+    {
+      "language": "python",
+      "line": 187,
+      "path": "ui\\main_window.py",
+      "text": "status_color = color(\"green\") if card.get(\"ok\") else color(\"gold\")"
+    },
+    {
+      "language": "python",
+      "line": 188,
+      "path": "ui\\main_window.py",
+      "text": "ctk.CTkLabel(panel, text=card.get(\"title\", \"Department\"), font=(\"Consolas\", 15, \"bold\")).pack(anchor=\"w\", padx=14, pady=(12, 2))"
+    },
+    {
+      "language": "python",
+      "line": 189,
+      "path": "ui\\main_window.py",
+      "text": "ctk.CTkLabel(panel, text=card.get(\"officer\", \"Unassigned\"), font=(\"Consolas\", 12), text_color=color(\"muted\")).pack(anchor=\"w\", padx=14)"
+    },
+    {
+      "language": "python",
+      "line": 190,
+      "path": "ui\\main_window.py",
+      "text": "ctk.CTkLabel(panel, text=card.get(\"status\", \"UNKNOWN\"), font=(\"Consolas\", 13, \"bold\"), text_color=status_color).pack(anchor=\"w\", padx=14, pady=(8, 12))"
+    },
+    {
+      "language": "python",
+      "line": 192,
+      "path": "ui\\main_window.py",
+      "text": "mission_panel = ctk.CTkFrame(outer)"
+    },
+    {
+      "language": "python",
+      "line": 193,
+      "path": "ui\\main_window.py",
+      "text": "mission_panel.pack(fill=\"x\", padx=10, pady=(0, 15))"
+    },
+    {
+      "language": "python",
+      "line": 194,
+      "path": "ui\\main_window.py",
+      "text": "ctk.CTkLabel(mission_panel, text=\"MISSION SNAPSHOT\", font=(\"Consolas\", 16, \"bold\"), text_color=color(\"cyan\")).pack(anchor=\"w\", padx=14, pady=(12, 6))"
+    },
+    {
+      "language": "python",
+      "line": 195,
+      "path": "ui\\main_window.py",
+      "text": "latest_mission = summary.get(\"latest_mission\") or \"No recent mission.\""
+    },
+    {
+      "language": "python",
+      "line": 196,
+      "path": "ui\\main_window.py",
+      "text": "latest_event = summary.get(\"latest_event\") or \"Awaiting latest event.\""
+    },
+    {
+      "language": "python",
+      "line": 197,
+      "path": "ui\\main_window.py",
+      "text": "ctk.CTkLabel(mission_panel, text=f\"Latest Mission: {latest_mission}\\nLatest Event: {latest_event}\", justify=\"left\", font=(\"Consolas\", 13)).pack(anchor=\"w\", padx=14, pady=(0, 12))"
+    },
+    {
+      "language": "python",
+      "line": 199,
+      "path": "ui\\main_window.py",
+      "text": "actions = ctk.CTkFrame(mission_panel)"
+    },
+    {
+      "language": "python",
+      "line": 200,
+      "path": "ui\\main_window.py",
+      "text": "actions.pack(fill=\"x\", padx=10, pady=(0, 12))"
+    },
+    {
+      "language": "python",
+      "line": 201,
+      "path": "ui\\main_window.py",
+      "text": "ctk.CTkButton(actions, text=\"REFRESH BRIDGE\", command=self.show_command_bridge, width=160).pack(side=\"left\", padx=8, pady=8)"
+    },
+    {
+      "language": "python",
+      "line": 202,
+      "path": "ui\\main_window.py",
+      "text": "ctk.CTkButton(actions, text=\"MISSION CONSOLE\", command=self.show_mission_console, width=170).pack(side=\"left\", padx=8, pady=8)"
+    },
+    {
+      "language": "python",
+      "line": 203,
+      "path": "ui\\main_window.py",
+      "text": "ctk.CTkButton(actions, text=\"DIAGNOSTICS\", command=self.show_diagnostics, width=150).pack(side=\"left\", padx=8, pady=8)"
+    },
+    {
+      "language": "python",
+      "line": 205,
+      "path": "ui\\main_window.py",
+      "text": "log_panel = ctk.CTkFrame(outer)"
+    },
+    {
+      "language": "python",
+      "line": 206,
+      "path": "ui\\main_window.py",
+      "text": "log_panel.pack(fill=\"both\", expand=True, padx=10, pady=(0, 15))"
+    },
+    {
+      "language": "python",
+      "line": 207,
+      "path": "ui\\main_window.py",
+      "text": "ctk.CTkLabel(log_panel, text=\"CAPTAIN'S LOG\", font=(\"Consolas\", 16, \"bold\"), text_color=color(\"cyan\")).pack(anchor=\"w\", padx=14, pady=(12, 6))"
+    },
+    {
+      "language": "python",
+      "line": 208,
+      "path": "ui\\main_window.py",
+      "text": "log_box = ctk.CTkTextbox(log_panel, wrap=\"word\", height=220, font=(\"Consolas\", 12))"
+    },
+    {
+      "language": "python",
+      "line": 209,
+      "path": "ui\\main_window.py",
+      "text": "log_box.pack(fill=\"both\", expand=True, padx=14, pady=(0, 14))"
+    },
+    {
+      "language": "python",
+      "line": 210,
+      "path": "ui\\main_window.py",
+      "text": "entries = ((feed or {}).get(\"captains_log\") or {}).get(\"entries\", [])[-8:]"
+    },
+    {
+      "language": "python",
+      "line": 211,
+      "path": "ui\\main_window.py",
+      "text": "if entries:"
+    },
+    {
+      "language": "python",
+      "line": 212,
+      "path": "ui\\main_window.py",
+      "text": "for entry in reversed(entries):"
+    },
+    {
+      "language": "python",
+      "line": 213,
+      "path": "ui\\main_window.py",
+      "text": "log_box.insert(\"end\", f\"{entry.get('timestamp')} — {entry.get('source')}\\n[{entry.get('severity')}] {entry.get('message')}\\n\\n\")"
+    },
+    {
+      "language": "python",
+      "line": 214,
+      "path": "ui\\main_window.py",
+      "text": "else:"
+    },
+    {
+      "language": "python",
+      "line": 215,
+      "path": "ui\\main_window.py",
+      "text": "log_box.insert(\"end\", \"Captain's Log waiting for bridge feed.\\n\")"
+    },
+    {
+      "language": "python",
+      "line": 216,
+      "path": "ui\\main_window.py",
+      "text": "log_box.configure(state=\"disabled\")"
+    },
+    {
+      "language": "python",
+      "line": 218,
+      "path": "ui\\main_window.py",
+      "text": "self.make_status_bar()"
+    },
+    {
+      "language": "python",
+      "line": 219,
+      "path": "ui\\main_window.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 220,
+      "path": "ui\\main_window.py",
+      "text": "apply_foxai_theme(self)"
+    },
+    {
+      "language": "python",
+      "line": 221,
+      "path": "ui\\main_window.py",
+      "text": "except Exception:"
+    },
+    {
+      "language": "python",
+      "line": 222,
+      "path": "ui\\main_window.py",
+      "text": "pass"
+    },
+    {
+      "language": "python",
+      "line": 225,
+      "path": "ui\\main_window.py",
+      "text": "def load_config(self):"
+    },
+    {
+      "language": "python",
+      "line": 226,
+      "path": "ui\\main_window.py",
+      "text": "CONFIG.mkdir(exist_ok=True)"
+    },
+    {
+      "language": "python",
+      "line": 227,
+      "path": "ui\\main_window.py",
+      "text": "config_file = CONFIG / \"FoxAI.ini\""
+    },
+    {
+      "language": "python",
+      "line": 228,
+      "path": "ui\\main_window.py",
+      "text": "config = configparser.ConfigParser()"
+    },
+    {
+      "language": "python",
+      "line": 229,
+      "path": "ui\\main_window.py",
+      "text": "if not config_file.exists():"
+    },
+    {
+      "language": "python",
+      "line": 230,
+      "path": "ui\\main_window.py",
+      "text": "config[\"Server\"] = {\"host\": \"127.0.0.1\", \"port\": \"8080\", \"threads\": \"12\", \"context\": \"8192\"}"
+    },
+    {
+      "language": "python",
+      "line": 231,
+      "path": "ui\\main_window.py",
+      "text": "with open(config_file, \"w\", encoding=\"utf-8\") as f:"
+    },
+    {
+      "language": "python",
+      "line": 232,
+      "path": "ui\\main_window.py",
+      "text": "config.write(f)"
+    },
+    {
+      "language": "python",
+      "line": 233,
+      "path": "ui\\main_window.py",
+      "text": "config.read(config_file)"
+    },
+    {
+      "language": "python",
+      "line": 234,
+      "path": "ui\\main_window.py",
+      "text": "return config"
+    },
+    {
+      "language": "python",
+      "line": 236,
+      "path": "ui\\main_window.py",
+      "text": "def build_ui(self):"
+    },
+    {
+      "language": "python",
+      "line": 237,
+      "path": "ui\\main_window.py",
+      "text": "main = ctk.CTkFrame(self)"
+    },
+    {
+      "language": "python",
+      "line": 238,
+      "path": "ui\\main_window.py",
+      "text": "main.pack(fill=\"both\", expand=True, padx=10, pady=10)"
+    },
+    {
+      "language": "python",
+      "line": 239,
+      "path": "ui\\main_window.py",
+      "text": "self.sidebar = ctk.CTkScrollableFrame(main, width=290)"
+    },
+    {
+      "language": "python",
+      "line": 240,
+      "path": "ui\\main_window.py",
+      "text": "self.sidebar.pack(side=\"left\", fill=\"y\", padx=(0, 10))"
+    },
+    {
+      "language": "python",
+      "line": 241,
+      "path": "ui\\main_window.py",
+      "text": "self.content = ctk.CTkFrame(main)"
+    },
+    {
+      "language": "python",
+      "line": 242,
+      "path": "ui\\main_window.py",
+      "text": "self.content.pack(side=\"right\", fill=\"both\", expand=True)"
+    },
+    {
+      "language": "python",
+      "line": 243,
+      "path": "ui\\main_window.py",
+      "text": "self.build_sidebar()"
+    },
+    {
+      "language": "python",
+      "line": 245,
+      "path": "ui\\main_window.py",
+      "text": "def build_sidebar(self):"
+    },
+    {
+      "language": "python",
+      "line": 246,
+      "path": "ui\\main_window.py",
+      "text": "if self.logo_path.exists():"
+    },
+    {
+      "language": "python",
+      "line": 247,
+      "path": "ui\\main_window.py",
+      "text": "logo_img = ctk.CTkImage(light_image=Image.open(self.logo_path), dark_image=Image.open(self.logo_path), size=(165, 165))"
+    },
+    {
+      "language": "python",
+      "line": 248,
+      "path": "ui\\main_window.py",
+      "text": "logo_label = ctk.CTkLabel(self.sidebar, image=logo_img, text=\"\")"
+    },
+    {
+      "language": "python",
+      "line": 249,
+      "path": "ui\\main_window.py",
+      "text": "logo_label.image = logo_img"
+    },
+    {
+      "language": "python",
+      "line": 250,
+      "path": "ui\\main_window.py",
+      "text": "logo_label.pack(pady=(15, 5))"
+    },
+    {
+      "language": "python",
+      "line": 252,
+      "path": "ui\\main_window.py",
+      "text": "ctk.CTkLabel(self.sidebar, text=\"FOXAI COMMAND OS\", font=(\"Consolas\", 24, \"bold\"), text_color=color(\"purple_soft\")).pack(pady=(5, 5))"
+    },
+    {
+      "language": "python",
+      "line": 253,
+      "path": "ui\\main_window.py",
+      "text": "ctk.CTkLabel(self.sidebar, text=\"Ultimate Edifier Platform\", font=(\"Consolas\", 13), text_color=color(\"muted\")).pack(pady=(0, 18))"
+    },
+    {
+      "language": "python",
+      "line": 254,
+      "path": "ui\\main_window.py",
+      "text": "info = ("
+    },
+    {
+      "language": "python",
+      "line": 255,
+      "path": "ui\\main_window.py",
+      "text": "f\"OPERATOR: {self.operator.get('operator_name', 'Operator')}\\n\""
+    },
+    {
+      "language": "python",
+      "line": 256,
+      "path": "ui\\main_window.py",
+      "text": "f\"ASSISTANT: {self.operator.get('assistant_name', 'Agent Fox')}\\n\""
+    },
+    {
+      "language": "python",
+      "line": 257,
+      "path": "ui\\main_window.py",
+      "text": "f\"MISSION: {self.operator.get('current_mission', 'Operation Red Bridge')}\""
+    },
+    {
+      "language": "python",
+      "line": 258,
+      "path": "ui\\main_window.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 259,
+      "path": "ui\\main_window.py",
+      "text": "ctk.CTkLabel(self.sidebar, text=info, justify=\"left\", font=(\"Consolas\", 12)).pack(pady=(0, 15), padx=12)"
+    },
+    {
+      "language": "python",
+      "line": 261,
+      "path": "ui\\main_window.py",
+      "text": "ctk.CTkLabel(self.sidebar, text=\"NEURAL ENGINE\", font=(\"Consolas\", 12, \"bold\")).pack(pady=(5, 5))"
+    },
+    {
+      "language": "python",
+      "line": 262,
+      "path": "ui\\main_window.py",
+      "text": "self.model_menu = ctk.CTkOptionMenu(self.sidebar, values=[m.name for m in self.models] or [\"No engines found\"], width=250)"
+    },
+    {
+      "language": "python",
+      "line": 263,
+      "path": "ui\\main_window.py",
+      "text": "self.model_menu.pack(pady=5)"
+    },
+    {
+      "language": "python",
+      "line": 265,
+      "path": "ui\\main_window.py",
+      "text": "ctk.CTkLabel(self.sidebar, text=\"AGENT\", font=(\"Consolas\", 12, \"bold\")).pack(pady=(12, 5))"
+    },
+    {
+      "language": "python",
+      "line": 266,
+      "path": "ui\\main_window.py",
+      "text": "self.agent_menu = ctk.CTkOptionMenu("
+    },
+    {
+      "language": "python",
+      "line": 267,
+      "path": "ui\\main_window.py",
+      "text": "self.sidebar,"
+    },
+    {
+      "language": "python",
+      "line": 268,
+      "path": "ui\\main_window.py",
+      "text": "values=[\"🦊 Agent Fox\"] + [display_name(a) for a in self.agents],"
+    },
+    {
+      "language": "python",
+      "line": 269,
+      "path": "ui\\main_window.py",
+      "text": "width=250"
+    },
+    {
+      "language": "python",
+      "line": 270,
+      "path": "ui\\main_window.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 271,
+      "path": "ui\\main_window.py",
+      "text": "self.agent_menu.pack(pady=5)"
+    },
+    {
+      "language": "python",
+      "line": 272,
+      "path": "ui\\main_window.py",
+      "text": "ctk.CTkLabel(self.sidebar, text=\"DEPARTMENTS\", font=(\"Consolas\", 12, \"bold\")).pack(pady=(18, 8))"
+    },
+    {
+      "language": "python",
+      "line": 274,
+      "path": "ui\\main_window.py",
+      "text": "self.command_bridge_button = ctk.CTkButton(self.sidebar, text=\"🚀 COMMAND BRIDGE\", command=self.show_command_bridge, width=230)"
+    },
+    {
+      "language": "python",
+      "line": 275,
+      "path": "ui\\main_window.py",
+      "text": "self.command_bridge_button.pack(pady=4)"
+    },
+    {
+      "language": "python",
+      "line": 277,
+      "path": "ui\\main_window.py",
+      "text": "self.dashboard_button = ctk.CTkButton(self.sidebar, text=\"⌂ DASHBOARD\", command=self.show_dashboard, width=230)"
+    },
+    {
+      "language": "python",
+      "line": 278,
+      "path": "ui\\main_window.py",
+      "text": "self.dashboard_button.pack(pady=4)"
+    },
+    {
+      "language": "python",
+      "line": 280,
+      "path": "ui\\main_window.py",
+      "text": "self.console_button = ctk.CTkButton(self.sidebar, text=\"> MISSION CONSOLE\", command=self.show_mission_console, width=230)"
+    },
+    {
+      "language": "python",
+      "line": 281,
+      "path": "ui\\main_window.py",
+      "text": "self.console_button.pack(pady=4)"
+    },
+    {
+      "language": "python",
+      "line": 283,
+      "path": "ui\\main_window.py",
+      "text": "self.diagnostics_button = ctk.CTkButton(self.sidebar, text=\"🩺 DIAGNOSTICS\", command=self.show_diagnostics, width=230)"
+    },
+    {
+      "language": "python",
+      "line": 284,
+      "path": "ui\\main_window.py",
+      "text": "self.diagnostics_button.pack(pady=4)"
+    },
+    {
+      "language": "python",
+      "line": 286,
+      "path": "ui\\main_window.py",
+      "text": "self.trip_sentry_button = ctk.CTkButton("
+    },
+    {
+      "language": "python",
+      "line": 287,
+      "path": "ui\\main_window.py",
+      "text": "self.sidebar,"
+    },
+    {
+      "language": "python",
+      "line": 288,
+      "path": "ui\\main_window.py",
+      "text": "text=\"⚠ TRIP SENTRY TEST\","
+    },
+    {
+      "language": "python",
+      "line": 289,
+      "path": "ui\\main_window.py",
+      "text": "command=self.show_trip_sentry,"
+    },
+    {
+      "language": "python",
+      "line": 290,
+      "path": "ui\\main_window.py",
+      "text": "width=230,"
+    },
+    {
+      "language": "python",
+      "line": 291,
+      "path": "ui\\main_window.py",
+      "text": "fg_color=\"#8f2038\","
+    },
+    {
+      "language": "python",
+      "line": 292,
+      "path": "ui\\main_window.py",
+      "text": "hover_color=\"#b52b4a\","
+    },
+    {
+      "language": "python",
+      "line": 293,
+      "path": "ui\\main_window.py",
+      "text": ")"
+    }
+  ],
+  "schema": "foxai.agent_fox.technical_core.v1a2r1.refined_static_bridge.v1",
+  "shard_number": 64
+}

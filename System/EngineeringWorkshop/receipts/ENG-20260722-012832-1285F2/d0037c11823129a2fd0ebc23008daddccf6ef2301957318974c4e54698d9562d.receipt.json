@@ -1,0 +1,74 @@
+{
+  "authorized": true,
+  "changes": [
+    {
+      "action": "write_file",
+      "after_sha256": "ed20fce59691875ff409caef0a879243e277d4628e73fcf0981b3e8387fb599c",
+      "after_size": 7587,
+      "before_sha256": null,
+      "before_size": null,
+      "relative_path": "System/AgentFoxTechnicalCore/webui_self_knowledge_integration_v1.py"
+    },
+    {
+      "action": "write_file",
+      "after_sha256": "44e52bfbcabe9efee87d6a95a797a076d893eb963df33b676ae98e0b85fc0cd3",
+      "after_size": 894,
+      "before_sha256": null,
+      "before_size": null,
+      "relative_path": "System/AgentFoxTechnicalCore/WEBUI_SELF_KNOWLEDGE_INTEGRATION_CONTRACT_V1.json"
+    },
+    {
+      "action": "write_file",
+      "after_sha256": "4c273d5464ffc81fbb004c23fb0ea658a0379540ebc84c3437d29c3d74863870",
+      "after_size": 359,
+      "before_sha256": null,
+      "before_size": null,
+      "relative_path": "System/AgentFoxTechnicalCore/README_V1A3H.md"
+    },
+    {
+      "action": "replace_text",
+      "after_sha256": "e6c857c7002e09da5dc2deca7564ec02be33bff189627048820f189138ff59b1",
+      "after_size": 2355405,
+      "before_sha256": "d7bf0a2042d55ef7f0a5869556015e42c7427e7ff88636b28e1795f3adf7b952",
+      "before_size": 2353581,
+      "relative_path": "core/foxai_web.py"
+    }
+  ],
+  "created_at": "2026-07-22T01:42:09.326815Z",
+  "evidence_is_tool_generated": true,
+  "failure": "Validation failed: Verify adapter, patched WebUI, Desktop isolation, and exact Workshop snapshot source member (return code 1)",
+  "mission_id": "ENG-20260722-012832-1285F2",
+  "mission_title": "Agent Fox Technical Core V1A-3H-R1 \u2014 WebUI Integration Package Payload Repair",
+  "mission_type": "implement",
+  "no_deletions": true,
+  "no_renames": true,
+  "plan_path": "Z:\\FOXAI\\AGENT_FOX_V1A3H_R1\\PLAN.json",
+  "plan_sha256": "d0037c11823129a2fd0ebc23008daddccf6ef2301957318974c4e54698d9562d",
+  "project_root": "Z:\\FOXAI",
+  "result": "rolled_back",
+  "rolled_back": true,
+  "schema": "foxai.engineering.receipt.v1",
+  "snapshot_manifest": "Z:\\FOXAI\\System\\EngineeringWorkshop\\snapshots\\ENG-20260722-012832-1285F2\\snapshot_20260722T014206489717Z.manifest.json",
+  "snapshot_path": "Z:\\FOXAI\\System\\EngineeringWorkshop\\snapshots\\ENG-20260722-012832-1285F2\\snapshot_20260722T014206489717Z.zip",
+  "snapshot_sha256": "477bd525e08abae18b575562daf10bd11c79415a0819a97ac1b9eb07f8201023",
+  "validations": [
+    {
+      "argv": [
+        "Z:/FOXAI/Runtime/Desktop/python/python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nimport hashlib,zipfile\nweb=Path(r\"Z:\\FOXAI\\core\\foxai_web.py\")\nadapter=Path(r\"Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\self_knowledge_chat_adapter_v1.py\")\nassert adapter.is_file() and hashlib.sha256(adapter.read_bytes()).hexdigest()==\"a80a9047e0eebd9ac87fe4d656c565bc6534563bb3c97e1ad9b59823a36804f7\"\ntext=web.read_text(encoding=\"utf-8\"); compile(text,str(web),\"exec\"); assert text.count(\"FOXAI_SELF_KNOWLEDGE_WEBUI_V1A3H_BEGIN\")==1\nassert \"ui\\\\main_window.py\" not in text\nsnapshot_dir=Path(r\"Z:\\FOXAI\\System\\EngineeringWorkshop\\snapshots\\ENG-20260722-012832-1285F2\")\narchives=sorted(snapshot_dir.glob(\"snapshot_*.zip\"))\nassert archives, \"mission snapshot archive missing\"\nwith zipfile.ZipFile(archives[-1],\"r\") as archive:\n    names=set(archive.namelist())\n    assert \"files/core/foxai_web.py\" in names, sorted(name for name in names if name.startswith(\"files/core\"))[:20]\n    source=archive.read(\"files/core/foxai_web.py\")\nassert len(source)==2351757, len(source)\nassert hashlib.sha256(source).hexdigest()==\"e4e9fd62e6c4736a18781c6b17184441e8852412867cc95dbca94e570921ba77\"\nprint(\"AGENT_FOX_V1A3H_R1_PATCH_AND_SNAPSHOT_MEMBER_OK\")"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-22T01:42:09.316218Z",
+      "name": "Verify adapter, patched WebUI, Desktop isolation, and exact Workshop snapshot source member",
+      "returncode": 1,
+      "started_at": "2026-07-22T01:42:06.543501Z",
+      "stderr": "Traceback (most recent call last):\n  File \"<string>\", line 6, in <module>\n    text=web.read_text(encoding=\"utf-8\"); compile(text,str(web),\"exec\"); assert text.count(\"FOXAI_SELF_KNOWLEDGE_WEBUI_V1A3H_BEGIN\")==1\n                                                                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n",
+      "stdout": "",
+      "timed_out": false
+    }
+  ]
+}

@@ -1,0 +1,140 @@
+{
+  "authorized": true,
+  "changes": [
+    {
+      "action": "write_file",
+      "after_sha256": "da458a9a2eeca42b86d43b13ffb113a8417f182399683e758e56b74d8317f322",
+      "after_size": 53384,
+      "before_sha256": null,
+      "before_size": null,
+      "relative_path": "System\\AgentFoxTechnicalCore\\web_portable_dependency_closure_v1.py"
+    },
+    {
+      "action": "write_file",
+      "after_sha256": "58b1e998deddf4e89152470451fa6b2d1d1a82845748d2b5588d3eba906baf8d",
+      "after_size": 1315,
+      "before_sha256": null,
+      "before_size": null,
+      "relative_path": "System\\AgentFoxTechnicalCore\\WEB_PORTABLE_DEPENDENCY_CONTRACT_V1.json"
+    },
+    {
+      "action": "write_file",
+      "after_sha256": "e859742eb9f97a8498ab84b7f6e42beb6ce1711cc98de916ad1987194964412b",
+      "after_size": 823,
+      "before_sha256": null,
+      "before_size": null,
+      "relative_path": "System\\AgentFoxTechnicalCore\\README_V1A3C1.md"
+    }
+  ],
+  "created_at": "2026-07-21T21:24:28.769524Z",
+  "evidence_is_tool_generated": true,
+  "failure": "Validation failed: Build one bounded Web Portable dependency closure from verified evidence (return code 1)",
+  "mission_id": "ENG-20260721-172935-37F095",
+  "mission_title": "Agent Fox Technical Core V1A-3C1 \u2014 Web Portable Dependency Closure",
+  "mission_type": "implement",
+  "no_deletions": true,
+  "no_renames": true,
+  "plan_path": "Z:\\FOXAI\\AGENT_FOX_V1A3C1\\PLAN.json",
+  "plan_sha256": "23ec8fc9bcc9e9c6dafb4375430c6f867c612735f157a19c52d6af07f042449a",
+  "project_root": "Z:\\FOXAI",
+  "result": "rolled_back",
+  "rolled_back": true,
+  "schema": "foxai.engineering.receipt.v1",
+  "snapshot_manifest": "Z:\\FOXAI\\System\\EngineeringWorkshop\\snapshots\\ENG-20260721-172935-37F095\\snapshot_20260721T212427592309Z.manifest.json",
+  "snapshot_path": "Z:\\FOXAI\\System\\EngineeringWorkshop\\snapshots\\ENG-20260721-172935-37F095\\snapshot_20260721T212427592309Z.zip",
+  "snapshot_sha256": "8f07e1593a30690d59bed79598257e84efdadd653d3ee3770a60d16227610358",
+  "validations": [
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nimport ast,hashlib,json\nroot=Path(r\"Z:\\FOXAI\")\ndrop=root/r\"AGENT_FOX_V1A3C1\"\ninstalled=root/r\"System\\AgentFoxTechnicalCore\"\nchecks=[\n (drop/r\"web_portable_dependency_closure_v1.py\",installed/r\"web_portable_dependency_closure_v1.py\",\"da458a9a2eeca42b86d43b13ffb113a8417f182399683e758e56b74d8317f322\"),\n (drop/r\"WEB_PORTABLE_DEPENDENCY_CONTRACT_V1.json\",installed/r\"WEB_PORTABLE_DEPENDENCY_CONTRACT_V1.json\",\"58b1e998deddf4e89152470451fa6b2d1d1a82845748d2b5588d3eba906baf8d\"),\n (drop/r\"README_V1A3C1.md\",installed/r\"README_V1A3C1.md\",\"e859742eb9f97a8498ab84b7f6e42beb6ce1711cc98de916ad1987194964412b\"),\n]\nfor src,dst,expected in checks:\n assert src.is_file() and dst.is_file(),(src,dst)\n assert hashlib.sha256(src.read_bytes()).hexdigest()==expected,src\n assert hashlib.sha256(dst.read_bytes()).hexdigest()==expected,dst\nscript=(installed/r\"web_portable_dependency_closure_v1.py\").read_text(encoding=\"utf-8\")\ncompile(script,str(installed/r\"web_portable_dependency_closure_v1.py\"),\"exec\")\ntree=ast.parse(script)\nimports=set()\nfor node in ast.walk(tree):\n if isinstance(node,ast.Import): imports.update(a.name.split('.')[0] for a in node.names)\n elif isinstance(node,ast.ImportFrom) and node.module: imports.add(node.module.split('.')[0])\nforbidden={\"subprocess\",\"socket\",\"urllib\",\"http\",\"ftplib\",\"requests\",\"pip\",\"ensurepip\",\"psutil\",\"winreg\",\"ctypes\",\"webbrowser\",\"importlib\"}\nassert not (imports & forbidden),sorted(imports & forbidden)\ncontract=json.loads((installed/r\"WEB_PORTABLE_DEPENDENCY_CONTRACT_V1.json\").read_text(encoding=\"utf-8\"))\nassert contract.get(\"mission_id\")==\"ENG-20260721-172935-37F095\"\nassert contract.get(\"protected_direct_context_count\")==1\nscope=contract.get(\"scope\",{})\nassert scope.get(\"maximum_reads_per_reached_source\")==1\nassert scope.get(\"source_buffer_ceiling_bytes\")==8388608\nassert scope.get(\"output_ceiling_bytes\")==8388608\nassert scope.get(\"payload_interpreter_child_processes\")==0\nassert scope.get(\"payload_shell_child_processes\")==0\nprint(\"AGENT_FOX_V1A3C1_INSTALL_PREFLIGHT_OK\")"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-21T21:24:27.861673Z",
+      "name": "Verify exact V1A-3C1 payloads, syntax, one-context contract, and zero payload child-process imports",
+      "returncode": 0,
+      "started_at": "2026-07-21T21:24:27.609034Z",
+      "stderr": "",
+      "stdout": "AGENT_FOX_V1A3C1_INSTALL_PREFLIGHT_OK\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\web_portable_dependency_closure_v1.py",
+        "self-test"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-21T21:24:28.031169Z",
+      "name": "Run in-memory guard, optional-import, platform, and deferred-import self-tests",
+      "returncode": 0,
+      "started_at": "2026-07-21T21:24:27.862050Z",
+      "stderr": "",
+      "stdout": "V1A3C1_SELF_TEST_OK\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\web_portable_dependency_closure_v1.py",
+        "verify-inputs",
+        "--v1a2r2-dir",
+        "Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260721-063725-BFCAB9_V1A2R2_IMMUTABLE_BRIDGE",
+        "--v1a3a-r1-dir",
+        "Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260721-152146-C4F8D5_V1A3A_R1_ADOPTED_RUNTIME_MAP",
+        "--v1a3b-dir",
+        "Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260721-154935-FF96C4_V1A3B_EFFECTIVE_IMPORT_MAP"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-21T21:24:28.464787Z",
+      "name": "Verify prior evidence receipts and select exactly the protected Web Portable context",
+      "returncode": 0,
+      "started_at": "2026-07-21T21:24:28.031579Z",
+      "stderr": "",
+      "stdout": "{\"context_id\": \"CTX-23820E95DB51A6C5\", \"launcher\": \"Z:\\\\FOXAI\\\\START_FOXAI_WEB_PORTABLE.bat\", \"path_group_id\": \"PATHGROUP-8017393F74F3ACD3\", \"script\": \"Z:\\\\FOXAI\\\\core\\\\foxai_web.py\", \"source_code_file_count\": 565, \"source_launcher_record_count\": 536, \"status\": \"verified\"}\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\web_portable_dependency_closure_v1.py",
+        "build",
+        "--project-root",
+        "Z:\\FOXAI",
+        "--project-root-win",
+        "Z:\\FOXAI",
+        "--v1a2r2-dir",
+        "Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260721-063725-BFCAB9_V1A2R2_IMMUTABLE_BRIDGE",
+        "--v1a3a-r1-dir",
+        "Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260721-152146-C4F8D5_V1A3A_R1_ADOPTED_RUNTIME_MAP",
+        "--v1a3b-dir",
+        "Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260721-154935-FF96C4_V1A3B_EFFECTIVE_IMPORT_MAP",
+        "--output-dir",
+        "Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260721-172935-37F095_V1A3C1_WEB_PORTABLE_CLOSURE",
+        "--mission-id",
+        "ENG-20260721-172935-37F095"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-21T21:24:28.765607Z",
+      "name": "Build one bounded Web Portable dependency closure from verified evidence",
+      "returncode": 1,
+      "started_at": "2026-07-21T21:24:28.465178Z",
+      "stderr": "Traceback (most recent call last):\n  File \"Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\web_portable_dependency_closure_v1.py\", line 1185, in <module>\n    raise SystemExit(main())\n                     ~~~~^^\n  File \"Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\web_portable_dependency_closure_v1.py\", line 1168, in main\n    build(\n    ~~~~~^\n        Path(args.project_root),\n        ^^^^^^^^^^^^^^^^^^^^^^^^\n    ...<5 lines>...\n        args.mission_id,\n        ^^^^^^^^^^^^^^^^\n    )\n    ^\n  File \"Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\web_portable_dependency_closure_v1.py\", line 1028, in build\n    parsed = parse_reached_sources_once(project_root_path, project_root_win, source, closure, catalogs)\n  File \"Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\web_portable_dependency_closure_v1.py\", line 601, in parse_reached_sources_once\n    raise ValueError(f\"Reached source drifted from verified immutable index: {source_path}\")\nValueError: Reached source drifted from verified immutable index: Z:\\FOXAI\\core\\__init__.py\n",
+      "stdout": "",
+      "timed_out": false
+    }
+  ]
+}

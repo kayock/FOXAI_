@@ -1,0 +1,152 @@
+{
+  "context": {
+    "arguments": [],
+    "command": "\"%~dp0env\\python\\python.exe\" -s \"%~dp0core\\foxai_web.py\"",
+    "context_execution_proven": false,
+    "context_id": "CTX-23820E95DB51A6C5",
+    "context_selected_from_verified_evidence": true,
+    "effective_path_entries": [
+      {
+        "evidence": "core\\foxai_web.py:19 sys.path.insert(0, str(PROJECT_ROOT))",
+        "order": 0,
+        "path": "Z:\\FOXAI",
+        "source": "script_static_mutation",
+        "status": "static_expression_candidate",
+        "within_project_root": true
+      },
+      {
+        "evidence": "adopted runtime portable_env",
+        "order": 1,
+        "path": "Z:\\FOXAI\\env\\python\\python314.zip",
+        "source": "observed_runtime_probe_path",
+        "status": "observed_under_isolated_probe",
+        "within_project_root": true
+      },
+      {
+        "evidence": "adopted runtime portable_env",
+        "order": 2,
+        "path": "Z:\\FOXAI\\env\\python",
+        "source": "observed_runtime_probe_path",
+        "status": "observed_under_isolated_probe",
+        "within_project_root": true
+      },
+      {
+        "evidence": "adopted runtime portable_env",
+        "order": 3,
+        "path": "Z:\\FOXAI\\Runtime\\Core\\site-packages",
+        "source": "observed_runtime_probe_path",
+        "status": "observed_under_isolated_probe",
+        "within_project_root": true
+      }
+    ],
+    "execution_or_import_success_proven": false,
+    "flags": [
+      "-s"
+    ],
+    "ignored_environment": [],
+    "interpreter_reference": "%~dp0env\\python\\python.exe",
+    "interpreter_reference_kind": "directly_observed_python_executable",
+    "invocation_ordinal": 1,
+    "launcher_classification": {
+      "categories": [
+        "protected_location",
+        "launcher",
+        "live_candidate"
+      ],
+      "historical_or_derived_location": false,
+      "normalized_path": "Z:\\FOXAI\\START_FOXAI_WEB_PORTABLE.bat",
+      "primary_category": "protected_location",
+      "relative_path": "START_FOXAI_WEB_PORTABLE.bat",
+      "unresolved_reason": null
+    },
+    "launcher_environment": {
+      "PYTHONNOUSERSITE": "1"
+    },
+    "launcher_path": "Z:\\FOXAI\\START_FOXAI_WEB_PORTABLE.bat",
+    "launcher_relative_path": "START_FOXAI_WEB_PORTABLE.bat",
+    "line": 5,
+    "path_group_id": "PATHGROUP-8017393F74F3ACD3",
+    "pythonw_identity_directly_observed": null,
+    "resolved_interpreter_path": "Z:\\FOXAI\\env\\python\\python.exe",
+    "role": "web_portable_webui",
+    "runtime_id": "portable_env",
+    "runtime_identity_directly_observed": true,
+    "runtime_portability_classification": "project_root_runtime",
+    "script_exists_static": true,
+    "script_path": "Z:\\FOXAI\\core\\foxai_web.py",
+    "script_static_path_mutations": [
+      {
+        "derivation": "unresolved_static_expression",
+        "derived_path": null,
+        "executed_or_effective_proven": false,
+        "kind": "pythonpath_reference",
+        "line": 18,
+        "path": "core\\foxai_web.py",
+        "text": "if str(PROJECT_ROOT) not in sys.path:"
+      },
+      {
+        "derivation": "project_root_from_invoked_file_location_and_named_expression",
+        "derived_path": "Z:\\FOXAI",
+        "executed_or_effective_proven": false,
+        "kind": "sys_path_insert",
+        "line": 19,
+        "path": "core\\foxai_web.py",
+        "text": "sys.path.insert(0, str(PROJECT_ROOT))"
+      },
+      {
+        "derivation": "unresolved_static_expression",
+        "derived_path": null,
+        "executed_or_effective_proven": false,
+        "kind": "pythonpath_reference",
+        "line": 464,
+        "path": "core\\foxai_web.py",
+        "text": "for key in ('PYTHONHOME','PYTHONPATH'): env.pop(key,None)"
+      },
+      {
+        "derivation": "unresolved_static_expression",
+        "derived_path": null,
+        "executed_or_effective_proven": false,
+        "kind": "pythonpath_reference",
+        "line": 1440,
+        "path": "core\\foxai_web.py",
+        "text": "for key in ('PYTHONNOUSERSITE','PYTHONHOME','PYTHONPATH'):"
+      },
+      {
+        "derivation": "unresolved_static_expression",
+        "derived_path": null,
+        "executed_or_effective_proven": false,
+        "kind": "pythonpath_reference",
+        "line": 1450,
+        "path": "core\\foxai_web.py",
+        "text": "for key in ('PYTHONNOUSERSITE','PYTHONHOME','PYTHONPATH'):"
+      }
+    ],
+    "source_kind": "direct",
+    "uncertainty": [
+      "script_directory_suppressed_by_isolated_or_safe_path_policy"
+    ],
+    "working_directory": "Z:\\FOXAI"
+  },
+  "context_execution_proven": false,
+  "entry_script": "Z:\\FOXAI\\core\\foxai_web.py",
+  "launcher_path": "Z:\\FOXAI\\START_FOXAI_WEB_PORTABLE.bat",
+  "mission_id": "ENG-20260721-220855-64D244",
+  "path_group_id": "PATHGROUP-8017393F74F3ACD3",
+  "protected_direct_context_count": 1,
+  "resolved_interpreter_path": "Z:\\FOXAI\\env\\python\\python.exe",
+  "runtime_id": "portable_env",
+  "schema": "foxai.agent_fox.technical_core.v1a3c1_r1.web_portable_context.v1",
+  "source_capture_policy": {
+    "each_reached_source_read_at_most_once": true,
+    "only_reached_sources_read": true,
+    "raw_source_content_persisted": false,
+    "second_deterministic_build_rereads_live_sources": false,
+    "source_buffer_ceiling_bytes": 8388608
+  },
+  "source_verification": {
+    "all_required_outputs_verified": true,
+    "v1a2r2_receipt_sha256": "ce111794871b420c5c6f867d807a3128f4bddf10dc1196850320c3ebe4fcba38",
+    "v1a3a_r1_receipt_sha256": "2562bf3926cda1eaf3840ca1d3ebc5f172582137be987cfc2df64cabf01dd3ea",
+    "v1a3b_receipt_sha256": "a2f8c14518d6df5efbd49b4aeb887b0a2d30cc992f36f0247d75c6e185ba0ff8"
+  }
+}

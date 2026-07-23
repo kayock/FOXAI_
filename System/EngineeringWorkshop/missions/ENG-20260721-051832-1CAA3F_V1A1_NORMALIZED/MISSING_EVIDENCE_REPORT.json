@@ -1,0 +1,55 @@
+{
+  "agent_rule": "Missing, denied, unresolved, partial, historical, and inferred evidence must never be reported as current proof.",
+  "coverage_limits": {
+    "databases_or_indexes_observed": 6,
+    "launcher_records_normalized": 536,
+    "models_observed": 3,
+    "runtime_records_normalized": 40,
+    "scan_caps_were_reached": true
+  },
+  "normalized_missing_evidence": [
+    {
+      "area": "Python runtime behavior",
+      "reason": "Interpreter execution was intentionally deferred; exact versions, sys.path, prefixes, user-site state, and import origins are not established.",
+      "recommended_future_phase": "V1A-3",
+      "status": "missing"
+    },
+    {
+      "area": "Launcher execution graph",
+      "reason": "Launcher text is available, but environment-variable expansion, CALL/START flow resolution, shortcut targets, working directories, and runtime activation branches are not normalized yet.",
+      "recommended_future_phase": "V1A-2",
+      "status": "partial_static_evidence"
+    },
+    {
+      "area": "Complete model inventory",
+      "reason": "Only bounded observed model files are present in V1A-0. The broader GGUF model library was not captured.",
+      "recommended_future_phase": "bounded_storage_followup",
+      "status": "missing"
+    },
+    {
+      "area": "Live Bibliotheca database",
+      "reason": "Observed database records are backups; the live database was not captured in V1A-0.",
+      "recommended_future_phase": "bounded_storage_followup",
+      "status": "missing"
+    },
+    {
+      "area": "Windows evidence bridge",
+      "reason": "Processes, services, tasks, ports, signatures, installed applications, event failures, and resource deltas require a separate read-only phase.",
+      "recommended_future_phase": "V1A-4",
+      "status": "not_collected_in_v1a0"
+    }
+  ],
+  "schema": "foxai.agent_fox.technical_core.v1a1.normalizer.v1",
+  "source_missing_evidence": [
+    "A static launcher reference is not proof that the referenced component is currently active.",
+    "Exact interpreter versions, sys.path, prefixes, environment differences, and active runtime ownership require a later explicitly bounded runtime-probe mission.",
+    "Exact runtime versions, sys.path, prefixes and host-versus-portable behavior were deliberately not executed in R2.",
+    "No Python interpreter other than the Workshop validation interpreter was launched by this collector.",
+    "Repository evidence is reference evidence and is not treated as proof of the live installation.",
+    "Windows live processes, services, startup, tasks, ports, event failures and signatures were deliberately deferred."
+  ],
+  "source_warnings": [
+    "scan_entry_limit_reached:25000",
+    "scan_entry_limit_reached:30000"
+  ]
+}

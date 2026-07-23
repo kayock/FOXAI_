@@ -1,0 +1,130 @@
+{
+  "candidates": [
+    {
+      "classification": "candidate_patch_seam",
+      "dynamic_test_required_before_live_integration": true,
+      "locator": {
+        "closure_memberships": [
+          "web"
+        ],
+        "end_line": 386,
+        "qualified_name": "post",
+        "source_path": "Z:\\FOXAI\\core\\foxai_web.py",
+        "source_relative_path": "core\\foxai_web.py",
+        "source_sha256": "e4e9fd62e6c4736a18781c6b17184441e8852412867cc95dbca94e570921ba77",
+        "source_size_bytes": 2351757,
+        "start_line": 383,
+        "statement_locator": {
+          "line": 383,
+          "statement_kind": "FunctionDef",
+          "statement_sha256": "d6ba2e8868547995f08e8d95bc3481e284d70bd9377a4c16a0b2af2b982cf978"
+        }
+      },
+      "ordinary_chat_preservation": "adapter pass_through result must execute the existing route unchanged",
+      "proposed_change": "invoke one shared adapter after text normalization and before existing model dispatch",
+      "risk": "medium",
+      "rollback_boundary": "one source file plus new isolated adapter module; snapshot before change",
+      "safely_patchable_with_current_static_evidence": true,
+      "source_path": "Z:\\FOXAI\\core\\foxai_web.py",
+      "source_relative_path": "core\\foxai_web.py",
+      "source_sha256": "e4e9fd62e6c4736a18781c6b17184441e8852412867cc95dbca94e570921ba77",
+      "source_size_bytes": 2351757,
+      "surface": "webui"
+    },
+    {
+      "classification": "candidate_patch_seam",
+      "dynamic_test_required_before_live_integration": true,
+      "locator": {
+        "closure_memberships": [
+          "desktop",
+          "workshop"
+        ],
+        "end_line": 2206,
+        "qualified_name": "FoxAIApp.send_message",
+        "source_path": "Z:\\FOXAI\\ui\\main_window.py",
+        "source_relative_path": "ui\\main_window.py",
+        "source_sha256": "cd20a1785a574eae44e290c1af1c1da7ac2bb66559f7d9ce8e93a9b2d6516b36",
+        "source_size_bytes": 96883,
+        "start_line": 2146,
+        "statement_locator": {
+          "line": 2146,
+          "statement_kind": "FunctionDef",
+          "statement_sha256": "29b417c3cc5237e9880b8f81ae93f3871f037c7581572f74cdc48947a7be989e"
+        }
+      },
+      "ordinary_chat_preservation": "adapter pass_through result must execute the existing route unchanged",
+      "proposed_change": "invoke one shared adapter after text normalization and before existing model dispatch",
+      "risk": "medium",
+      "rollback_boundary": "one source file plus new isolated adapter module; snapshot before change",
+      "safely_patchable_with_current_static_evidence": true,
+      "source_path": "Z:\\FOXAI\\ui\\main_window.py",
+      "source_relative_path": "ui\\main_window.py",
+      "source_sha256": "cd20a1785a574eae44e290c1af1c1da7ac2bb66559f7d9ce8e93a9b2d6516b36",
+      "source_size_bytes": 96883,
+      "surface": "desktop"
+    },
+    {
+      "classification": "candidate_patch_seam",
+      "dynamic_test_required_before_live_integration": true,
+      "locator": {
+        "closure_memberships": [
+          "desktop",
+          "workshop"
+        ],
+        "end_line": 21,
+        "qualified_name": "ChatAgent.handle",
+        "source_path": "Z:\\FOXAI\\core\\chat_agent.py",
+        "source_relative_path": "core\\chat_agent.py",
+        "source_sha256": "7720092b9a6a616c6a572450a64bcb204de1dc40f4375b85a75eba63e58404f9",
+        "source_size_bytes": 571,
+        "start_line": 10,
+        "statement_locator": {
+          "line": 10,
+          "statement_kind": "FunctionDef",
+          "statement_sha256": "ea08628dbb16ededf2dc4014b307d84c4c8d6da41c6dc7771198f2680a6e84d7"
+        }
+      },
+      "ordinary_chat_preservation": "adapter pass_through result must execute the existing route unchanged",
+      "proposed_change": "invoke one shared adapter after text normalization and before existing model dispatch",
+      "risk": "medium_alternative",
+      "rollback_boundary": "one source file plus new isolated adapter module; snapshot before change",
+      "safely_patchable_with_current_static_evidence": true,
+      "source_path": "Z:\\FOXAI\\core\\chat_agent.py",
+      "source_relative_path": "core\\chat_agent.py",
+      "source_sha256": "7720092b9a6a616c6a572450a64bcb204de1dc40f4375b85a75eba63e58404f9",
+      "source_size_bytes": 571,
+      "surface": "desktop"
+    },
+    {
+      "classification": "evidence_only_not_safely_patchable_yet",
+      "dynamic_test_required_before_live_integration": true,
+      "locator": {
+        "closure_memberships": [
+          "desktop",
+          "workshop"
+        ],
+        "source_path": "Z:\\FOXAI\\foxai.py",
+        "source_relative_path": "foxai.py",
+        "source_sha256": "423bb098170dbaad2b96c6b07e31beee171904d286b8364457ce6357551c33d0",
+        "source_size_bytes": 156
+      },
+      "ordinary_chat_preservation": "adapter pass_through result must execute the existing route unchanged",
+      "proposed_change": "no direct patch proposed",
+      "risk": "not_recommended_entry_only",
+      "rollback_boundary": "one source file plus new isolated adapter module; snapshot before change",
+      "safely_patchable_with_current_static_evidence": false,
+      "source_path": "Z:\\FOXAI\\foxai.py",
+      "source_relative_path": "foxai.py",
+      "source_sha256": "423bb098170dbaad2b96c6b07e31beee171904d286b8364457ce6357551c33d0",
+      "source_size_bytes": 156,
+      "surface": "desktop"
+    }
+  ],
+  "live_patch_performed": false,
+  "new_module_candidate": {
+    "classification": "new_isolated_file_candidate",
+    "existing_source_modified": false,
+    "path": "Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\self_knowledge_chat_adapter_v1.py"
+  },
+  "schema": "foxai.agent_fox.technical_core.v1a3f.patch_candidates.v1"
+}

@@ -1,0 +1,229 @@
+{
+  "candidate_message_functions": [
+    {
+      "end_line": 2237,
+      "events": [
+        {
+          "kind": "self_knowledge",
+          "line": 2174,
+          "symbol": "_foxai_sk_module.route_desktop_message"
+        },
+        {
+          "kind": "render_or_send",
+          "line": 2184,
+          "symbol": "self.add_chat"
+        },
+        {
+          "kind": "render_or_send",
+          "line": 2186,
+          "symbol": "self.add_chat"
+        },
+        {
+          "kind": "director_or_department",
+          "line": 2203,
+          "symbol": "self.format_director_analysis"
+        },
+        {
+          "kind": "engineer_or_workshop",
+          "line": 2207,
+          "symbol": "self.begin_workshop_mission"
+        },
+        {
+          "kind": "engineer_or_workshop",
+          "line": 2212,
+          "symbol": "self.begin_workshop_mission"
+        },
+        {
+          "kind": "engineer_or_workshop",
+          "line": 2223,
+          "symbol": "self.begin_workshop_mission"
+        },
+        {
+          "kind": "engineer_or_workshop",
+          "line": 2226,
+          "symbol": "self.complete_workshop_mission"
+        },
+        {
+          "kind": "engineer_or_workshop",
+          "line": 2229,
+          "symbol": "self.begin_workshop_mission"
+        },
+        {
+          "kind": "engineer_or_workshop",
+          "line": 2235,
+          "symbol": "self.fail_workshop_mission"
+        },
+        {
+          "kind": "render_or_send",
+          "line": 2236,
+          "symbol": "self.add_chat"
+        }
+      ],
+      "first_director_or_department_line": 2203,
+      "first_model_or_specialist_line": null,
+      "first_self_knowledge_line": 2174,
+      "qualified_name": "FoxAIApp.send_message",
+      "self_knowledge_before_director": true,
+      "self_knowledge_before_model": true,
+      "snippet": {
+        "end_line": 2168,
+        "lines": [
+          {
+            "line": 2146,
+            "text": "    def send_message(self, event=None):"
+          },
+          {
+            "line": 2147,
+            "text": "        if self.brainstem.is_busy():"
+          },
+          {
+            "line": 2148,
+            "text": "            self.mission_status("
+          },
+          {
+            "line": 2149,
+            "text": "                \"MISSION LOCK ACTIVE\\n\\n\""
+          },
+          {
+            "line": 2150,
+            "text": "                f\"Current Specialist: {self.brainstem.active_specialist}\\n\""
+          },
+          {
+            "line": 2151,
+            "text": "                f\"Elapsed: {self.brainstem.elapsed_label()}\\n\\n\""
+          },
+          {
+            "line": 2152,
+            "text": "                \"Please wait for the active mission to complete.\""
+          },
+          {
+            "line": 2153,
+            "text": "            )"
+          },
+          {
+            "line": 2154,
+            "text": "            return \"break\""
+          },
+          {
+            "line": 2155,
+            "text": ""
+          },
+          {
+            "line": 2156,
+            "text": "        text = self.input_box.get(\"1.0\", \"end\").strip()"
+          },
+          {
+            "line": 2157,
+            "text": ""
+          },
+          {
+            "line": 2158,
+            "text": "        if not text:"
+          },
+          {
+            "line": 2159,
+            "text": "            return \"break\""
+          },
+          {
+            "line": 2160,
+            "text": ""
+          },
+          {
+            "line": 2161,
+            "text": "        # FOXAI_SELF_KNOWLEDGE_DESKTOP_V1A3I_BEGIN"
+          },
+          {
+            "line": 2162,
+            "text": "        try:"
+          },
+          {
+            "line": 2163,
+            "text": "            import importlib.util as _foxai_sk_importlib_util"
+          },
+          {
+            "line": 2164,
+            "text": "            from pathlib import Path as _foxai_sk_Path"
+          },
+          {
+            "line": 2165,
+            "text": "            _foxai_sk_module = getattr(self, \"_foxai_self_knowledge_desktop_module\", None)"
+          },
+          {
+            "line": 2166,
+            "text": "            if _foxai_sk_module is None:"
+          },
+          {
+            "line": 2167,
+            "text": "                _foxai_sk_path = _foxai_sk_Path(r\"Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\desktop_self_knowledge_integration_v1.py\")"
+          },
+          {
+            "line": 2168,
+            "text": "                _foxai_sk_spec = _foxai_sk_importlib_util.spec_from_file_location(\"foxai_desktop_self_knowledge_integration_v1\", _foxai_sk_path)"
+          }
+        ],
+        "path": "Z:\\FOXAI\\ui\\main_window.py",
+        "start_line": 2146
+      },
+      "start_line": 2146
+    }
+  ],
+  "command_hits": [],
+  "mission_id": "ENG-20260722-223348-83B942",
+  "schema": "foxai.agent_fox.technical_core.v1b2e.surface_path.v1",
+  "self_knowledge_seam_hits": [
+    {
+      "line": 2161,
+      "matched_terms": [
+        "FOXAI_SELF_KNOWLEDGE"
+      ],
+      "text": "        # FOXAI_SELF_KNOWLEDGE_DESKTOP_V1A3I_BEGIN"
+    },
+    {
+      "line": 2165,
+      "matched_terms": [
+        "FOXAI_SELF_KNOWLEDGE"
+      ],
+      "text": "            _foxai_sk_module = getattr(self, \"_foxai_self_knowledge_desktop_module\", None)"
+    },
+    {
+      "line": 2167,
+      "matched_terms": [
+        "desktop_self_knowledge_integration_v1"
+      ],
+      "text": "                _foxai_sk_path = _foxai_sk_Path(r\"Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\desktop_self_knowledge_integration_v1.py\")"
+    },
+    {
+      "line": 2168,
+      "matched_terms": [
+        "desktop_self_knowledge_integration_v1"
+      ],
+      "text": "                _foxai_sk_spec = _foxai_sk_importlib_util.spec_from_file_location(\"foxai_desktop_self_knowledge_integration_v1\", _foxai_sk_path)"
+    },
+    {
+      "line": 2173,
+      "matched_terms": [
+        "FOXAI_SELF_KNOWLEDGE"
+      ],
+      "text": "                setattr(self, \"_foxai_self_knowledge_desktop_module\", _foxai_sk_module)"
+    },
+    {
+      "line": 2174,
+      "matched_terms": [
+        "route_desktop_message"
+      ],
+      "text": "            _foxai_sk_reply = _foxai_sk_module.route_desktop_message(text)"
+    },
+    {
+      "line": 2191,
+      "matched_terms": [
+        "FOXAI_SELF_KNOWLEDGE"
+      ],
+      "text": "        # FOXAI_SELF_KNOWLEDGE_DESKTOP_V1A3I_END"
+    }
+  ],
+  "source": "Z:\\FOXAI\\ui\\main_window.py",
+  "source_sha256": "a9c5bb86878e5f0cd27d221dbb32688b337e6026073a4b66d83339e0aef294a3",
+  "source_size_bytes": 99077,
+  "static_only": true,
+  "surface": "desktop"
+}

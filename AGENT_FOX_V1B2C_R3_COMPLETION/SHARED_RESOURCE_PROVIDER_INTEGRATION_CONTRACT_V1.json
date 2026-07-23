@@ -1,0 +1,77 @@
+{
+  "answer_packet": {
+    "base_schema": "foxai.agent_fox.technical_core.v1a3e.answer_packet.v1",
+    "current_state_claimed": false,
+    "live_scan_performed": false,
+    "resource_renderer": "bounded answer, verified evidence source, and limitations"
+  },
+  "changed_live_modules": [
+    {
+      "path": "Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\self_knowledge_chat_adapter_v1.py",
+      "role": "shared routing seam"
+    },
+    {
+      "path": "Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\webui_self_knowledge_integration_v1.py",
+      "role": "verified adapter hash and bounded test configuration"
+    },
+    {
+      "path": "Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\desktop_self_knowledge_integration_v1.py",
+      "role": "verified adapter hash and bounded test configuration"
+    }
+  ],
+  "failure_boundaries": {
+    "evidence_failure_after_positive_resource_recognition": "evidence_error and model bypass",
+    "protected_evidence_failure": "existing evidence_error and model bypass",
+    "provider_unavailable_before_recognition": "ordinary chat pass-through"
+  },
+  "resource_provider": {
+    "category_count": 18,
+    "expected_sha256": "41a1663cd30af8a3800c8082d351f8d0338e75cd1df39d3c801a39cc3075f680",
+    "path": "Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\resource_evidence_provider_v1.py",
+    "source_mission": "ENG-20260722-142022-9FAE11"
+  },
+  "routing_order": [
+    {
+      "order": 1,
+      "route": "slash_command_bypass",
+      "rule": "message first non-whitespace character is slash; no provider is loaded"
+    },
+    {
+      "order": 2,
+      "route": "protected_context_self_knowledge",
+      "rule": "existing protected catalog retains priority, including generic WebUI launcher clarification alias"
+    },
+    {
+      "order": 3,
+      "route": "resource_evidence_provider",
+      "rule": "historical bounded resource categories only after protected no-match"
+    },
+    {
+      "order": 4,
+      "route": "ordinary_chat",
+      "rule": "current-live, unrelated, and creative messages pass through"
+    }
+  ],
+  "safety": {
+    "live_scan": false,
+    "model_calls": false,
+    "network_access": false,
+    "process_changes": false,
+    "registry_writes": false,
+    "rollback_drive_k_accessed": false,
+    "services_changed": false,
+    "source_evidence_modified": false,
+    "startup_items_changed": false
+  },
+  "schema": "foxai.agent_fox.technical_core.v1b2c.integration_contract.v1",
+  "surface_compatibility": {
+    "desktop_entry": "route_desktop_message",
+    "live_source_entry_points_modified": false,
+    "restart_required_after_apply": true,
+    "webui_endpoints": [
+      "/api/chat/send",
+      "/api/chat/stream"
+    ]
+  },
+  "title": "Agent Fox Technical Core V1B-2C \u2014 Shared Resource Provider Integration"
+}

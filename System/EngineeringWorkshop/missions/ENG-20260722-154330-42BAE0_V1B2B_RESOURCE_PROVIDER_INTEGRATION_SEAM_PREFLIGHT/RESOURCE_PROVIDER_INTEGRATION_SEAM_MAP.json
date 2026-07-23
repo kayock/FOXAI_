@@ -1,0 +1,516 @@
+{
+  "callable_compatibility": {
+    "answer_packet_compatibility": {
+      "existing_v1a3e_schema_preserved": true,
+      "required_field_count": 9,
+      "required_fields_present": true,
+      "resource_specific_data_bounded": true,
+      "schema": "foxai.agent_fox.technical_core.v1a3e.answer_packet.v1",
+      "shared_answer_contract_modified": false
+    },
+    "callable_results": [
+      {
+        "available": true,
+        "callable": "answer_bridge.answer_request"
+      },
+      {
+        "available": true,
+        "callable": "answer_bridge.answer_schema"
+      },
+      {
+        "available": true,
+        "callable": "desktop_helper.route_desktop_message"
+      },
+      {
+        "available": true,
+        "callable": "provider.answer_question"
+      },
+      {
+        "available": true,
+        "callable": "provider.classify_question"
+      },
+      {
+        "available": true,
+        "callable": "query_bridge.query"
+      },
+      {
+        "available": true,
+        "callable": "shared_adapter.route_message"
+      },
+      {
+        "available": true,
+        "callable": "web_helper.route_http_request"
+      }
+    ]
+  },
+  "classification_overlap": {
+    "ambiguous_phrases": [
+      {
+        "deterministic_precedence": "protected_context_self_knowledge",
+        "overlap_id": "OVERLAP-8538D98C19474F27",
+        "protected_intent_candidates": [
+          "launcher_runtime_entry_mapping"
+        ],
+        "provider_behavior_changed": false,
+        "question": "What was using most of the memory and what runs in FOXAI?",
+        "resource_category": "dominant_measured_foxai_component",
+        "silent_ordinary_chat_theft": false
+      },
+      {
+        "deterministic_precedence": "protected_context_self_knowledge",
+        "overlap_id": "OVERLAP-32F8CF0FA480E1C9",
+        "protected_intent_candidates": [
+          "launcher_runtime_entry_mapping"
+        ],
+        "provider_behavior_changed": false,
+        "question": "Which python does FOXAI Desktop use and how much RAM did Desktop use?",
+        "resource_category": "desktop_working_set",
+        "silent_ordinary_chat_theft": false
+      },
+      {
+        "deterministic_precedence": "protected_context_self_knowledge",
+        "overlap_id": "OVERLAP-66E51DC3521DA94B",
+        "protected_intent_candidates": [
+          "summarize_context"
+        ],
+        "provider_behavior_changed": false,
+        "question": "Show context for WebUI and its RAM use.",
+        "resource_category": "webui_working_set",
+        "silent_ordinary_chat_theft": false
+      },
+      {
+        "deterministic_precedence": "protected_context_self_knowledge",
+        "overlap_id": "OVERLAP-F6B1C5C8680F0D54",
+        "protected_intent_candidates": [
+          "launcher_runtime_entry_mapping"
+        ],
+        "provider_behavior_changed": false,
+        "question": "FOXAI launcher to runtime to entry and model memory use",
+        "resource_category": "model_working_set",
+        "silent_ordinary_chat_theft": false
+      }
+    ],
+    "engineered_ambiguous_phrase_count": 4,
+    "ordinary_chat_guard": "If neither protected context nor a bounded historical resource category matches, preserve ordinary chat pass-through.",
+    "precedence_rule": "When both catalogs match, protected-context self-knowledge wins. The resource provider is not invoked.",
+    "representative_category_results": [
+      {
+        "category": "active_image_generation_capacity_limitation",
+        "deterministic_precedence": "resource_after_protected_no_match",
+        "direct_catalog_overlap": false,
+        "protected_intent_candidates": [],
+        "representative_question": "Can this prove I can generate images while the 30B model is loaded?",
+        "resource_classification": "active_image_generation_capacity_limitation"
+      },
+      {
+        "category": "available_loaded_state_memory",
+        "deterministic_precedence": "resource_after_protected_no_match",
+        "direct_catalog_overlap": false,
+        "protected_intent_candidates": [],
+        "representative_question": "How much RAM was left with the model and ComfyUI loaded?",
+        "resource_classification": "available_loaded_state_memory"
+      },
+      {
+        "category": "commit_headroom",
+        "deterministic_precedence": "resource_after_protected_no_match",
+        "direct_catalog_overlap": false,
+        "protected_intent_candidates": [],
+        "representative_question": "How much commit headroom was left?",
+        "resource_classification": "commit_headroom"
+      },
+      {
+        "category": "current_page_file_usage",
+        "deterministic_precedence": "resource_after_protected_no_match",
+        "direct_catalog_overlap": false,
+        "protected_intent_candidates": [],
+        "representative_question": "What was the current page file usage in the capture?",
+        "resource_classification": "current_page_file_usage"
+      },
+      {
+        "category": "desktop_working_set",
+        "deterministic_precedence": "resource_after_protected_no_match",
+        "direct_catalog_overlap": false,
+        "protected_intent_candidates": [],
+        "representative_question": "How much RAM did FOXAI Desktop use?",
+        "resource_classification": "desktop_working_set"
+      },
+      {
+        "category": "dominant_measured_foxai_component",
+        "deterministic_precedence": "resource_after_protected_no_match",
+        "direct_catalog_overlap": false,
+        "protected_intent_candidates": [],
+        "representative_question": "What was using most of the memory?",
+        "resource_classification": "dominant_measured_foxai_component"
+      },
+      {
+        "category": "foxai_process_count_delta",
+        "deterministic_precedence": "resource_after_protected_no_match",
+        "direct_catalog_overlap": false,
+        "protected_intent_candidates": [],
+        "representative_question": "How many more FOXAI processes were in the loaded capture?",
+        "resource_classification": "foxai_process_count_delta"
+      },
+      {
+        "category": "future_or_multi_model_capacity_limitation",
+        "deterministic_precedence": "resource_after_protected_no_match",
+        "direct_catalog_overlap": false,
+        "protected_intent_candidates": [],
+        "representative_question": "Does this prove capacity for multiple simultaneous large models?",
+        "resource_classification": "future_or_multi_model_capacity_limitation"
+      },
+      {
+        "category": "historical_page_file_peak_meaning",
+        "deterministic_precedence": "resource_after_protected_no_match",
+        "direct_catalog_overlap": false,
+        "protected_intent_candidates": [],
+        "representative_question": "What does the historical page file peak of 8191 MiB mean?",
+        "resource_classification": "historical_page_file_peak_meaning"
+      },
+      {
+        "category": "idle_comfyui_working_set",
+        "deterministic_precedence": "resource_after_protected_no_match",
+        "direct_catalog_overlap": false,
+        "protected_intent_candidates": [],
+        "representative_question": "How much memory did idle ComfyUI use?",
+        "resource_classification": "idle_comfyui_working_set"
+      },
+      {
+        "category": "known_evidence_limitations",
+        "deterministic_precedence": "resource_after_protected_no_match",
+        "direct_catalog_overlap": false,
+        "protected_intent_candidates": [],
+        "representative_question": "What are the limitations of this evidence?",
+        "resource_classification": "known_evidence_limitations"
+      },
+      {
+        "category": "listener_presence_captured_states",
+        "deterministic_precedence": "resource_after_protected_no_match",
+        "direct_catalog_overlap": false,
+        "protected_intent_candidates": [],
+        "representative_question": "What ports were present in each captured state?",
+        "resource_classification": "listener_presence_captured_states"
+      },
+      {
+        "category": "measured_minimal_load_ram",
+        "deterministic_precedence": "resource_after_protected_no_match",
+        "direct_catalog_overlap": false,
+        "protected_intent_candidates": [],
+        "representative_question": "How much RAM was used in the minimal-load capture?",
+        "resource_classification": "measured_minimal_load_ram"
+      },
+      {
+        "category": "measured_normal_loaded_ram",
+        "deterministic_precedence": "resource_after_protected_no_match",
+        "direct_catalog_overlap": false,
+        "protected_intent_candidates": [],
+        "representative_question": "How much RAM did FOXAI use in the loaded capture?",
+        "resource_classification": "measured_normal_loaded_ram"
+      },
+      {
+        "category": "memory_load_delta",
+        "deterministic_precedence": "resource_after_protected_no_match",
+        "direct_catalog_overlap": false,
+        "protected_intent_candidates": [],
+        "representative_question": "What was the memory-load delta between the captures?",
+        "resource_classification": "memory_load_delta"
+      },
+      {
+        "category": "model_working_set",
+        "deterministic_precedence": "resource_after_protected_no_match",
+        "direct_catalog_overlap": false,
+        "protected_intent_candidates": [],
+        "representative_question": "How much memory did the model use?",
+        "resource_classification": "model_working_set"
+      },
+      {
+        "category": "storage_free_space_comparison",
+        "deterministic_precedence": "resource_after_protected_no_match",
+        "direct_catalog_overlap": false,
+        "protected_intent_candidates": [],
+        "representative_question": "Compare the captured drive free space.",
+        "resource_classification": "storage_free_space_comparison"
+      },
+      {
+        "category": "webui_working_set",
+        "deterministic_precedence": "resource_after_protected_no_match",
+        "direct_catalog_overlap": false,
+        "protected_intent_candidates": [],
+        "representative_question": "How much RAM did FOXAI WebUI use?",
+        "resource_classification": "webui_working_set"
+      }
+    ],
+    "representative_direct_overlap_count": 0,
+    "supported_category_count": 18
+  },
+  "current_seam_observations": {
+    "desktop_helper_direct_slash_guard": "none detected",
+    "observation_is_static": true,
+    "required_future_shared_guard": "first non-whitespace character",
+    "webui_helper_direct_slash_guard": "raw first character only"
+  },
+  "generic_webui_launcher_alias": {
+    "behavior": "Route to the existing protected-context provider and request clarification rather than guessing between the portable WebUI launcher and WebUI-with-ComfyUI launcher.",
+    "future_router_hint": {
+      "intent": "contexts_for_launcher"
+    },
+    "phrase": "Tell me about the WebUI launcher.",
+    "provider_modified": false
+  },
+  "mission_id": "ENG-20260722-154330-42BAE0",
+  "mode": "read_only_static_and_callable_preflight",
+  "provider_source_mission": "ENG-20260722-153014-F39AF7",
+  "resource_evidence_source_mission": "ENG-20260722-142022-9FAE11",
+  "routing_order": [
+    {
+      "evidence_files_loaded": 0,
+      "order": 1,
+      "provider_modules_invoked": 0,
+      "route": "slash_command_bypass",
+      "rule": "message.lstrip().startswith('/')"
+    },
+    {
+      "order": 2,
+      "route": "protected_context_self_knowledge",
+      "rule": "retain existing protected-context catalog, answer-packet bridge, and priority"
+    },
+    {
+      "order": 3,
+      "route": "resource_evidence_provider",
+      "rule": "consult only after protected-context no-match; historical bounded categories only"
+    },
+    {
+      "order": 4,
+      "route": "ordinary_chat",
+      "rule": "current-live, unrelated, and creative requests pass through unchanged"
+    }
+  ],
+  "safety": {
+    "gui_launched": false,
+    "integration_performed": false,
+    "live_desktop_source_modified": false,
+    "live_listener_inspection_performed": false,
+    "live_process_inspection_performed": false,
+    "live_scan_performed": false,
+    "live_webui_source_modified": false,
+    "model_calls_performed": false,
+    "network_connections_initiated": false,
+    "process_changes_performed": false,
+    "provider_modified": false,
+    "registry_writes": false,
+    "rollback_drive_k_accessed": false,
+    "services_changed": false,
+    "shared_adapter_modified": false,
+    "source_evidence_modified": false,
+    "startup_items_changed": false
+  },
+  "schema": "foxai.agent_fox.technical_core.v1b2b.integration_seam_map.v1",
+  "smallest_safe_shared_seam": {
+    "callable": "route_message(message, surface, request_id=None, selectors=None)",
+    "future_change_boundary": "Add first-non-whitespace slash bypass at function entry, preserve existing protected-context path, then call resource_evidence_provider_v1 only on protected no-match.",
+    "helper_hash_updates_would_be_required_after_adapter_change": true,
+    "integration_performed_in_this_mission": false,
+    "live_source_patch_required_for_surface_entry_points": false,
+    "module": "self_knowledge_chat_adapter_v1.py",
+    "reason": "Both live surfaces already converge here through their verified integration helpers, so provider logic need not be duplicated."
+  },
+  "status": "preflight_mapped_and_verified",
+  "surface_seams": {
+    "desktop": {
+      "begin_marker_line": 2161,
+      "current_helper_explicit_slash_guard": false,
+      "entry_function": "main_window.on_enter",
+      "helper_call_line": 2174,
+      "helper_callable": "route_desktop_message(message, adapter_path=..., bridge_path=None, registry_dir=None)",
+      "helper_load_line": 2167,
+      "ordinary_route_resumes_after_marker_line": 2192,
+      "shared_adapter_callable": "route_message(message, surface='desktop', request_id=None, selectors=None)",
+      "source_sha256": "a9c5bb86878e5f0cd27d221dbb32688b337e6026073a4b66d83339e0aef294a3",
+      "surface_source": "Z:\\FOXAI\\ui\\main_window.py"
+    },
+    "shared_convergence": {
+      "callable": "route_message(message, surface, request_id=None, selectors=None)",
+      "module": "Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\self_knowledge_chat_adapter_v1.py",
+      "resource_provider_location": "after protected-context no-match and before ordinary-chat pass-through",
+      "sha256": "a80a9047e0eebd9ac87fe4d656c565bc6534563bb3c97e1ad9b59823a36804f7",
+      "slash_guard_location": "first executable routing decision after normalization and surface validation, before protected bridge or resource provider invocation",
+      "smallest_safe_logical_seam": "shared_adapter.route_message"
+    },
+    "webui": {
+      "begin_marker_line": 13316,
+      "current_helper_slash_guard": "raw_first_character_only",
+      "entry_function": "Handler.do_POST",
+      "helper_call_line": 13333,
+      "helper_callable": "route_http_request(raw_body, route, adapter_path=...)",
+      "helper_load_line": 13329,
+      "ordinary_route_resumes_after_marker_line": 13346,
+      "shared_adapter_callable": "route_message(message, surface='webui', request_id=None, selectors=None)",
+      "source_sha256": "d7bf0a2042d55ef7f0a5869556015e42c7427e7ff88636b28e1795f3adf7b952",
+      "surface_source": "Z:\\FOXAI\\core\\foxai_web.py"
+    }
+  },
+  "verified_input_count": 18,
+  "verified_inputs": [
+    {
+      "actual_sha256": "ad501eff2f8162a319085aa4eb6368039e9757e89ee4eaccb11e5f6e446ca6a7",
+      "availability_status": "available",
+      "expected_sha256": "ad501eff2f8162a319085aa4eb6368039e9757e89ee4eaccb11e5f6e446ca6a7",
+      "input_id": "INPUT-7F98C20693A2D8A0",
+      "logical_name": "answer_bridge",
+      "sha256_matches_expected": true,
+      "size_bytes": 46204
+    },
+    {
+      "actual_sha256": "e420706136b4902d82d8dbf1fecc64ae70fb8bc639106db41033545f8c196c30",
+      "availability_status": "available",
+      "expected_sha256": "e420706136b4902d82d8dbf1fecc64ae70fb8bc639106db41033545f8c196c30",
+      "input_id": "INPUT-D16BE98DB7CBB451",
+      "logical_name": "desktop_helper",
+      "sha256_matches_expected": true,
+      "size_bytes": 32524
+    },
+    {
+      "actual_sha256": "a9c5bb86878e5f0cd27d221dbb32688b337e6026073a4b66d83339e0aef294a3",
+      "availability_status": "available",
+      "expected_sha256": "a9c5bb86878e5f0cd27d221dbb32688b337e6026073a4b66d83339e0aef294a3",
+      "input_id": "INPUT-B46A7733D59A1D51",
+      "logical_name": "desktop_source",
+      "sha256_matches_expected": true,
+      "size_bytes": 99077
+    },
+    {
+      "actual_sha256": "41a1663cd30af8a3800c8082d351f8d0338e75cd1df39d3c801a39cc3075f680",
+      "availability_status": "available",
+      "expected_sha256": "41a1663cd30af8a3800c8082d351f8d0338e75cd1df39d3c801a39cc3075f680",
+      "input_id": "INPUT-3735A888CBF0FA3A",
+      "logical_name": "provider",
+      "sha256_matches_expected": true,
+      "size_bytes": 48584
+    },
+    {
+      "actual_sha256": "6f59b18094283cacd4d1911e79bf8ff102cd4fc7f16d280f695b81777907766b",
+      "availability_status": "available",
+      "expected_sha256": "6f59b18094283cacd4d1911e79bf8ff102cd4fc7f16d280f695b81777907766b",
+      "input_id": "INPUT-5E293C668EA55F1D",
+      "logical_name": "provider_contract",
+      "sha256_matches_expected": true,
+      "size_bytes": 3841
+    },
+    {
+      "actual_sha256": "554631166de3da90ad54f737df2b81621fbd55eafef6b553d0fb9f96c6502bd6",
+      "availability_status": "available",
+      "expected_sha256": "554631166de3da90ad54f737df2b81621fbd55eafef6b553d0fb9f96c6502bd6",
+      "input_id": "INPUT-493B9A6F00A01380",
+      "logical_name": "provider_fixture_results",
+      "sha256_matches_expected": true,
+      "size_bytes": 36280
+    },
+    {
+      "actual_sha256": "bdc1f3fd032952e2eb3946844e3861527f6b86a58d3f56d07e569507e3bac72a",
+      "availability_status": "available",
+      "expected_sha256": "bdc1f3fd032952e2eb3946844e3861527f6b86a58d3f56d07e569507e3bac72a",
+      "input_id": "INPUT-A9B6C5FC690B75E0",
+      "logical_name": "provider_fixtures",
+      "sha256_matches_expected": true,
+      "size_bytes": 2650
+    },
+    {
+      "actual_sha256": "a660a47f3597531a5e603cddd6069d85c9d68cccec6b59521a489ecf5ed5c3db",
+      "availability_status": "available",
+      "expected_sha256": "a660a47f3597531a5e603cddd6069d85c9d68cccec6b59521a489ecf5ed5c3db",
+      "input_id": "INPUT-C9376D496846D935",
+      "logical_name": "provider_receipt",
+      "sha256_matches_expected": true,
+      "size_bytes": 1752
+    },
+    {
+      "actual_sha256": "6e9c3eaea722cb5260f9f0df35d6ea90f37e83697e1b83592670d6599c33e1aa",
+      "availability_status": "available",
+      "expected_sha256": "6e9c3eaea722cb5260f9f0df35d6ea90f37e83697e1b83592670d6599c33e1aa",
+      "input_id": "INPUT-1FAF572E0ADF29B1",
+      "logical_name": "provider_registry",
+      "sha256_matches_expected": true,
+      "size_bytes": 3590
+    },
+    {
+      "actual_sha256": "96edd665af8eea2aca3563074f0e894607b03b53c22ac13d36cddc0bd58460f1",
+      "availability_status": "available",
+      "expected_sha256": "96edd665af8eea2aca3563074f0e894607b03b53c22ac13d36cddc0bd58460f1",
+      "input_id": "INPUT-C2FDCBFAC8A8A072",
+      "logical_name": "query_bridge",
+      "sha256_matches_expected": true,
+      "size_bytes": 43908
+    },
+    {
+      "actual_sha256": "a80a9047e0eebd9ac87fe4d656c565bc6534563bb3c97e1ad9b59823a36804f7",
+      "availability_status": "available",
+      "expected_sha256": "a80a9047e0eebd9ac87fe4d656c565bc6534563bb3c97e1ad9b59823a36804f7",
+      "input_id": "INPUT-3ACB27CE5F59E096",
+      "logical_name": "shared_adapter",
+      "sha256_matches_expected": true,
+      "size_bytes": 52572
+    },
+    {
+      "actual_sha256": "765983b563f8495138c9670849de5c4703f4735a0ddc9324efd6580606fc517b",
+      "availability_status": "available",
+      "expected_sha256": "765983b563f8495138c9670849de5c4703f4735a0ddc9324efd6580606fc517b",
+      "input_id": "INPUT-607FC842B704B251",
+      "logical_name": "web_helper",
+      "sha256_matches_expected": true,
+      "size_bytes": 7742
+    },
+    {
+      "actual_sha256": "d7bf0a2042d55ef7f0a5869556015e42c7427e7ff88636b28e1795f3adf7b952",
+      "availability_status": "available",
+      "expected_sha256": "d7bf0a2042d55ef7f0a5869556015e42c7427e7ff88636b28e1795f3adf7b952",
+      "input_id": "INPUT-ADFC975174969300",
+      "logical_name": "web_source",
+      "sha256_matches_expected": true,
+      "size_bytes": 2353581
+    },
+    {
+      "actual_sha256": "1688a1a1a90f7925c361996eef6211476d133280307416e5a84e68a3ca07b71f",
+      "availability_status": "available",
+      "expected_sha256": "1688a1a1a90f7925c361996eef6211476d133280307416e5a84e68a3ca07b71f",
+      "input_id": "INPUT-08F7D435FF60A171",
+      "logical_name": "v1b1c:BASELINE_COMPARISON_RECEIPT.json",
+      "sha256_matches_expected": true,
+      "size_bytes": 1988
+    },
+    {
+      "actual_sha256": "6473cc6b7ef328e095348e4ad8813df53e31e061c21f1f5cff6e9993d18c95b7",
+      "availability_status": "available",
+      "expected_sha256": "6473cc6b7ef328e095348e4ad8813df53e31e061c21f1f5cff6e9993d18c95b7",
+      "input_id": "INPUT-4261223B5857EF08",
+      "logical_name": "v1b1c:BASELINE_COMPARISON_REPORT.md",
+      "sha256_matches_expected": true,
+      "size_bytes": 2810
+    },
+    {
+      "actual_sha256": "3dc50e04a634a73c67b963ea3ee10fdb52d1bac126bac26cb22f544f92288fba",
+      "availability_status": "available",
+      "expected_sha256": "3dc50e04a634a73c67b963ea3ee10fdb52d1bac126bac26cb22f544f92288fba",
+      "input_id": "INPUT-783F5610E7E64B48",
+      "logical_name": "v1b1c:CAPACITY_HEADROOM_OBSERVATIONS.json",
+      "sha256_matches_expected": true,
+      "size_bytes": 4067
+    },
+    {
+      "actual_sha256": "8673d496b81aebe432b4f79df7d1b773aea8742f0b09ebfe6d660a9f170f9c3f",
+      "availability_status": "available",
+      "expected_sha256": "8673d496b81aebe432b4f79df7d1b773aea8742f0b09ebfe6d660a9f170f9c3f",
+      "input_id": "INPUT-1C5C849798E3E777",
+      "logical_name": "v1b1c:FOXAI_COMPONENT_RESOURCE_ATTRIBUTION.json",
+      "sha256_matches_expected": true,
+      "size_bytes": 9835
+    },
+    {
+      "actual_sha256": "40462031e89ea469b7c3940c863d225fa7fbad2cef4c6f44e720154d42cf4c86",
+      "availability_status": "available",
+      "expected_sha256": "40462031e89ea469b7c3940c863d225fa7fbad2cef4c6f44e720154d42cf4c86",
+      "input_id": "INPUT-56170FAE2126C812",
+      "logical_name": "v1b1c:RESOURCE_BASELINE_COMPARISON.json",
+      "sha256_matches_expected": true,
+      "size_bytes": 27350
+    }
+  ]
+}

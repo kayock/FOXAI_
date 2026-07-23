@@ -1,0 +1,146 @@
+{
+  "authorized": true,
+  "changes": [
+    {
+      "action": "write_file",
+      "after_sha256": "474931ca30ea79e0176373b486bbca48a13fdf00429eaad50a198846fdce7ee5",
+      "after_size": 26445,
+      "before_sha256": null,
+      "before_size": null,
+      "relative_path": "System\\AgentFoxTechnicalCore\\v1a3c_failure_postmortem_v1.py"
+    },
+    {
+      "action": "write_file",
+      "after_sha256": "88f1865f67dad689d72cf9316cff270f3f094ab633fa1b4842d5842c9003f834",
+      "after_size": 1561,
+      "before_sha256": null,
+      "before_size": null,
+      "relative_path": "System\\AgentFoxTechnicalCore\\POSTMORTEM_CONTRACT_V1.json"
+    },
+    {
+      "action": "write_file",
+      "after_sha256": "2c8a473f4adce0537bd8f255e4d6cfbd16f29a884ccc343c9659adbf8d8e9bad",
+      "after_size": 683,
+      "before_sha256": null,
+      "before_size": null,
+      "relative_path": "System\\AgentFoxTechnicalCore\\README_V1A3C_PM.md"
+    }
+  ],
+  "created_at": "2026-07-21T16:53:56.401031Z",
+  "evidence_is_tool_generated": true,
+  "failure": null,
+  "mission_id": "ENG-20260721-164308-A1692D",
+  "mission_title": "Agent Fox Technical Core V1A-3C-PM \u2014 Python and USB Failure Postmortem",
+  "mission_type": "implement",
+  "no_deletions": true,
+  "no_renames": true,
+  "plan_path": "Z:\\FOXAI\\AGENT_FOX_V1A3C_PM\\PLAN.json",
+  "plan_sha256": "572e67f23cc44cc19714a52d0b2fc161c79bb3889345e8d4e6cd21d03654a188",
+  "project_root": "Z:\\FOXAI",
+  "result": "applied_verified",
+  "rolled_back": false,
+  "schema": "foxai.engineering.receipt.v1",
+  "snapshot_manifest": "Z:\\FOXAI\\System\\EngineeringWorkshop\\snapshots\\ENG-20260721-164308-A1692D\\snapshot_20260721T165334269255Z.manifest.json",
+  "snapshot_path": "Z:\\FOXAI\\System\\EngineeringWorkshop\\snapshots\\ENG-20260721-164308-A1692D\\snapshot_20260721T165334269255Z.zip",
+  "snapshot_sha256": "6deb7e7f15631018545a39ccd0a5f5fe0f264246831290fd345a9e7281d1a047",
+  "validations": [
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nimport ast,hashlib,json\nroot=Path(r\"Z:\\FOXAI\")\ndrop=root/r\"AGENT_FOX_V1A3C_PM\"\ninstalled=root/r\"System\\AgentFoxTechnicalCore\"\nchecks=[\n (drop/r\"v1a3c_failure_postmortem_v1.py\",installed/r\"v1a3c_failure_postmortem_v1.py\",\"474931ca30ea79e0176373b486bbca48a13fdf00429eaad50a198846fdce7ee5\"),\n (drop/r\"POSTMORTEM_CONTRACT_V1.json\",installed/r\"POSTMORTEM_CONTRACT_V1.json\",\"88f1865f67dad689d72cf9316cff270f3f094ab633fa1b4842d5842c9003f834\"),\n (drop/r\"README_V1A3C_PM.md\",installed/r\"README_V1A3C_PM.md\",\"2c8a473f4adce0537bd8f255e4d6cfbd16f29a884ccc343c9659adbf8d8e9bad\"),\n]\nfor src,dst,expected in checks:\n assert src.is_file() and dst.is_file(),(src,dst)\n assert hashlib.sha256(src.read_bytes()).hexdigest()==expected,src\n assert hashlib.sha256(dst.read_bytes()).hexdigest()==expected,dst\nscript=(installed/r\"v1a3c_failure_postmortem_v1.py\").read_text(encoding=\"utf-8\")\ncompile(script,str(installed/r\"v1a3c_failure_postmortem_v1.py\"),\"exec\")\ntree=ast.parse(script)\nimports=set()\nrun_calls=0\nfor node in ast.walk(tree):\n if isinstance(node,ast.Import): imports.update(a.name.split('.')[0] for a in node.names)\n elif isinstance(node,ast.ImportFrom) and node.module: imports.add(node.module.split('.')[0])\n if isinstance(node,ast.Call) and isinstance(node.func,ast.Attribute) and isinstance(node.func.value,ast.Name):\n  if node.func.value.id=='subprocess' and node.func.attr=='run': run_calls+=1\nforbidden={\"socket\",\"urllib\",\"http\",\"ftplib\",\"requests\",\"pip\",\"ensurepip\",\"psutil\",\"winreg\",\"ctypes\",\"webbrowser\",\"importlib\"}\nassert not (imports & forbidden),sorted(imports & forbidden)\nassert run_calls==1,run_calls\nassert 'shell=False' in script\nassert 'powershell.exe' in script\nassert 'MAX_DISCOVERED_FILES = 120' in script\nassert 'OUTPUT_CEILING_BYTES = 8 * 1024 * 1024' in script\nps=script.split('script = rf\"\"\"',1)[1].split('\"\"\".strip()',1)[0].casefold()\nfor marker in ('repair-volume','format-volume','clear-disk','initialize-disk','set-disk','set-partition','remove-item','rename-item','start-process','chkdsk','defrag','optimize-volume'):\n assert marker not in ps,marker\ncontract=json.loads((installed/r\"POSTMORTEM_CONTRACT_V1.json\").read_text(encoding=\"utf-8\"))\nassert contract.get('mission_id')=='ENG-20260721-164308-A1692D'\nassert contract.get('failed_mission_id')=='ENG-20260721-161617-AA7BE6'\nassert contract.get('scope',{}).get('allowed_child_processes')==1\nassert contract.get('scope',{}).get('maximum_output_bytes')==8388608\nprint('AGENT_FOX_V1A3C_PM_INSTALL_PREFLIGHT_OK')\n"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-21T16:53:34.604329Z",
+      "name": "Verify exact postmortem payloads, syntax, single bounded PowerShell query, and no repair commands",
+      "returncode": 0,
+      "started_at": "2026-07-21T16:53:34.329014Z",
+      "stderr": "",
+      "stdout": "AGENT_FOX_V1A3C_PM_INSTALL_PREFLIGHT_OK\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\v1a3c_failure_postmortem_v1.py",
+        "self-test"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-21T16:53:34.768649Z",
+      "name": "Run bounded in-memory postmortem classification and redaction self-tests",
+      "returncode": 0,
+      "started_at": "2026-07-21T16:53:34.604695Z",
+      "stderr": "",
+      "stdout": "V1A3C_PM_SELF_TEST_OK\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\v1a3c_failure_postmortem_v1.py",
+        "collect",
+        "--project-root",
+        "Z:\\FOXAI",
+        "--output-dir",
+        "Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260721-164308-A1692D_V1A3C_PM_POSTMORTEM",
+        "--mission-id",
+        "ENG-20260721-164308-A1692D"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-21T16:53:56.236691Z",
+      "name": "Collect bounded Workshop, volume, snapshot, and Windows event evidence without repair",
+      "returncode": 0,
+      "started_at": "2026-07-21T16:53:34.769036Z",
+      "stderr": "",
+      "stdout": "",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\v1a3c_failure_postmortem_v1.py",
+        "validate-output",
+        "--output-dir",
+        "Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260721-164308-A1692D_V1A3C_PM_POSTMORTEM"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-21T16:53:56.346223Z",
+      "name": "Run built-in postmortem output, hash, safety, and 8 MiB ceiling validator",
+      "returncode": 0,
+      "started_at": "2026-07-21T16:53:56.237037Z",
+      "stderr": "",
+      "stdout": "{\"status\": \"valid\", \"total_output_bytes\": 27234}\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nimport hashlib,json\nout=Path(r\"Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260721-164308-A1692D_V1A3C_PM_POSTMORTEM\")\nrequired={\"POSTMORTEM_EVIDENCE.json\",\"FAILURE_CLASSIFICATION.json\",\"POSTMORTEM_SUMMARY.md\",\"POSTMORTEM_RECEIPT.json\"}\nassert required.issubset({p.name for p in out.iterdir() if p.is_file()})\nevidence=json.loads((out/r\"POSTMORTEM_EVIDENCE.json\").read_text(encoding=\"utf-8\"))\nclassification=json.loads((out/r\"FAILURE_CLASSIFICATION.json\").read_text(encoding=\"utf-8\"))\nreceipt=json.loads((out/r\"POSTMORTEM_RECEIPT.json\").read_text(encoding=\"utf-8\"))\nassert evidence.get('mission_id')=='ENG-20260721-161617-AA7BE6'\nassert evidence.get('postmortem_mission_id')=='ENG-20260721-164308-A1692D'\nassert evidence.get('current_volume_state',{}).get('foxai_path_accessible') is True\nassert receipt.get('mission_id')=='ENG-20260721-164308-A1692D'\nassert receipt.get('result')=='bounded_postmortem_complete'\nassert receipt.get('powershell_child_process_count')==1\nfor key in ('network_used','packages_installed','repair_commands_run','chkdsk_run','benchmark_or_stress_test_run','foxai_application_launched','models_loaded','full_source_tree_scanned','existing_foxai_files_modified','live_system_modified_outside_authorized_outputs'):\n assert receipt.get(key) is False,(key,receipt.get(key))\nassert classification.get('network_used') is False\nassert classification.get('repair_commands_run') is False\nassert classification.get('existing_foxai_files_modified') is False\nfor item in receipt.get('core_outputs_before_receipt',[]):\n p=out/item['name']\n assert p.is_file() and p.stat().st_size==item['size_bytes']\n assert hashlib.sha256(p.read_bytes()).hexdigest()==item['sha256']\ntotal=sum(p.stat().st_size for p in out.rglob('*') if p.is_file())\nassert total<=8*1024*1024,total\nprint('AGENT_FOX_V1A3C_PM_OUTPUTS_VERIFIED')\n"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-21T16:53:56.400965Z",
+      "name": "Verify authoritative rollback evidence, current drive access, one read-only query, output hashes, and zero repair actions",
+      "returncode": 0,
+      "started_at": "2026-07-21T16:53:56.346570Z",
+      "stderr": "",
+      "stdout": "AGENT_FOX_V1A3C_PM_OUTPUTS_VERIFIED\n",
+      "timed_out": false
+    }
+  ]
+}

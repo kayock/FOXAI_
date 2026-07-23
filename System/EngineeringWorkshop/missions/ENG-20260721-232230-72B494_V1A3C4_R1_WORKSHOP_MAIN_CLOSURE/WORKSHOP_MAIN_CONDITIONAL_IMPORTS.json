@@ -1,0 +1,170 @@
+{
+  "classification_counts": {
+    "Windows or non-Windows platform-conditional candidate": 1,
+    "evidence-incomplete conditional import": 1,
+    "function-local deferred candidate": 4,
+    "try-except-ImportError optional candidate": 1
+  },
+  "conditionally_guarded_imports_labeled_unconditional": 0,
+  "context_count": 1,
+  "imports_executed": false,
+  "record_count": 7,
+  "records": [
+    {
+      "alias": null,
+      "end_line": 1128,
+      "guard_classifications": [
+        "evidence-incomplete conditional import",
+        "evidence-incomplete conditional import"
+      ],
+      "guards": [
+        {
+          "branch": "body",
+          "classification": "evidence-incomplete conditional import",
+          "condition": "re.match('^workshop\\\\b', query, flags=re.IGNORECASE)"
+        },
+        {
+          "branch": "body",
+          "classification": "evidence-incomplete conditional import",
+          "condition": "workshop_bridge is None"
+        }
+      ],
+      "import_executed_or_succeeded_proven": false,
+      "kind": "from_import",
+      "lexical_scope": "function_local",
+      "line": 1128,
+      "module": "core.engineering_workshop_bridge",
+      "name": "EngineeringWorkshopBridge",
+      "relative_level": 0,
+      "resolved_module": "core.engineering_workshop_bridge",
+      "scope_classification": "evidence-incomplete conditional import",
+      "source_path": "Z:\\FOXAI\\core\\engineer_agent.py",
+      "top_level_module": "core"
+    },
+    {
+      "alias": null,
+      "end_line": 113,
+      "guard_classifications": [
+        "Windows or non-Windows platform-conditional candidate"
+      ],
+      "guards": [
+        {
+          "branch": "body",
+          "classification": "Windows or non-Windows platform-conditional candidate",
+          "condition": "os.name == 'nt'"
+        }
+      ],
+      "import_executed_or_succeeded_proven": false,
+      "kind": "import",
+      "lexical_scope": "function_local",
+      "line": 113,
+      "module": "msvcrt",
+      "name": "msvcrt",
+      "relative_level": 0,
+      "resolved_module": "msvcrt",
+      "scope_classification": "Windows or non-Windows platform-conditional candidate",
+      "source_path": "Z:\\FOXAI\\core\\security_containment.py",
+      "top_level_module": "msvcrt"
+    },
+    {
+      "alias": null,
+      "end_line": 135,
+      "guard_classifications": [
+        "Windows or non-Windows platform-conditional candidate",
+        "try-except-ImportError optional candidate"
+      ],
+      "guards": [
+        {
+          "branch": "else",
+          "classification": "Windows or non-Windows platform-conditional candidate",
+          "condition": "os.name == 'nt'"
+        },
+        {
+          "branch": "try",
+          "classification": "try-except-ImportError optional candidate",
+          "condition": "try body guarded by ImportError/ModuleNotFoundError handler"
+        }
+      ],
+      "import_executed_or_succeeded_proven": false,
+      "kind": "import",
+      "lexical_scope": "function_local",
+      "line": 135,
+      "module": "fcntl",
+      "name": "fcntl",
+      "relative_level": 0,
+      "resolved_module": "fcntl",
+      "scope_classification": "try-except-ImportError optional candidate",
+      "source_path": "Z:\\FOXAI\\core\\security_containment.py",
+      "top_level_module": "fcntl"
+    },
+    {
+      "alias": null,
+      "end_line": 211,
+      "guard_classifications": [],
+      "guards": [],
+      "import_executed_or_succeeded_proven": false,
+      "kind": "import",
+      "lexical_scope": "function_local",
+      "line": 211,
+      "module": "casbin",
+      "name": "casbin",
+      "relative_level": 0,
+      "resolved_module": "casbin",
+      "scope_classification": "function-local deferred candidate",
+      "source_path": "Z:\\FOXAI\\core\\security_containment.py",
+      "top_level_module": "casbin"
+    },
+    {
+      "alias": null,
+      "end_line": 940,
+      "guard_classifications": [],
+      "guards": [],
+      "import_executed_or_succeeded_proven": false,
+      "kind": "import",
+      "lexical_scope": "function_local",
+      "line": 940,
+      "module": "psutil",
+      "name": "psutil",
+      "relative_level": 0,
+      "resolved_module": "psutil",
+      "scope_classification": "function-local deferred candidate",
+      "source_path": "Z:\\FOXAI\\core\\server.py",
+      "top_level_module": "psutil"
+    },
+    {
+      "alias": null,
+      "end_line": 953,
+      "guard_classifications": [],
+      "guards": [],
+      "import_executed_or_succeeded_proven": false,
+      "kind": "import",
+      "lexical_scope": "function_local",
+      "line": 953,
+      "module": "psutil",
+      "name": "psutil",
+      "relative_level": 0,
+      "resolved_module": "psutil",
+      "scope_classification": "function-local deferred candidate",
+      "source_path": "Z:\\FOXAI\\core\\server.py",
+      "top_level_module": "psutil"
+    },
+    {
+      "alias": null,
+      "end_line": 1035,
+      "guard_classifications": [],
+      "guards": [],
+      "import_executed_or_succeeded_proven": false,
+      "kind": "import",
+      "lexical_scope": "function_local",
+      "line": 1035,
+      "module": "psutil",
+      "name": "psutil",
+      "relative_level": 0,
+      "resolved_module": "psutil",
+      "scope_classification": "function-local deferred candidate",
+      "source_path": "Z:\\FOXAI\\core\\server.py",
+      "top_level_module": "psutil"
+    }
+  ],
+  "schema": "foxai.agent_fox.technical_core.v1a3c4_r1.workshop_main_conditional_imports.v1"
+}

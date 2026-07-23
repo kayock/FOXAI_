@@ -1,0 +1,230 @@
+{
+  "authorized": true,
+  "changes": [
+    {
+      "action": "write_file",
+      "after_sha256": "b11f1280211cfbbc8ec74b79a831341caf35d22b54f3d42b9183b3fe0a6a52a1",
+      "after_size": 47446,
+      "before_sha256": null,
+      "before_size": null,
+      "relative_path": "System\\AgentFoxTechnicalCore\\live_chat_integration_seam_preflight_v1.py"
+    },
+    {
+      "action": "write_file",
+      "after_sha256": "8ebd441a5c254ff3c5c12d0eff834a6b16dab7cd68e9fd7d92d038a0186920ec",
+      "after_size": 1874,
+      "before_sha256": null,
+      "before_size": null,
+      "relative_path": "System\\AgentFoxTechnicalCore\\LIVE_CHAT_INTEGRATION_SEAM_PREFLIGHT_CONTRACT_V1.json"
+    },
+    {
+      "action": "write_file",
+      "after_sha256": "0b2170a8bf790ad8e9ffe4456bb3a07f35e0285470f2ed8f6f151ef6eadbc939",
+      "after_size": 1287,
+      "before_sha256": null,
+      "before_size": null,
+      "relative_path": "System\\AgentFoxTechnicalCore\\README_V1A3F.md"
+    }
+  ],
+  "created_at": "2026-07-22T00:48:55.766691Z",
+  "evidence_is_tool_generated": true,
+  "failure": null,
+  "mission_id": "ENG-20260722-003059-4F07D0",
+  "mission_title": "Agent Fox Technical Core V1A-3F \u2014 Live Chat Self-Knowledge Integration Seam Preflight",
+  "mission_type": "implement",
+  "no_deletions": true,
+  "no_renames": true,
+  "plan_path": "Z:\\FOXAI\\AGENT_FOX_V1A3F\\PLAN.json",
+  "plan_sha256": "49f00299f5d1143e295d17da222e9f80fc5f81904d94d38b128c656a3f4850cb",
+  "project_root": "Z:\\FOXAI",
+  "result": "applied_verified",
+  "rolled_back": false,
+  "schema": "foxai.engineering.receipt.v1",
+  "snapshot_manifest": "Z:\\FOXAI\\System\\EngineeringWorkshop\\snapshots\\ENG-20260722-003059-4F07D0\\snapshot_20260722T004851437380Z.manifest.json",
+  "snapshot_path": "Z:\\FOXAI\\System\\EngineeringWorkshop\\snapshots\\ENG-20260722-003059-4F07D0\\snapshot_20260722T004851437380Z.zip",
+  "snapshot_sha256": "ecc3e2f9cd2e5669b87b19761ca505363dc7ef9059ab3bd1617ce056096dce0e",
+  "validations": [
+    {
+      "argv": [
+        "Z:/FOXAI/Runtime/Desktop/python/python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nimport ast\nimport hashlib\nimport json\n\nroot = Path(\"Z:/FOXAI\")\ndrop = root / \"AGENT_FOX_V1A3F\"\ninstalled = root / \"System/AgentFoxTechnicalCore\"\nchecks = [\n    (drop / \"live_chat_integration_seam_preflight_v1.py\", installed / \"live_chat_integration_seam_preflight_v1.py\", \"b11f1280211cfbbc8ec74b79a831341caf35d22b54f3d42b9183b3fe0a6a52a1\"),\n    (drop / \"LIVE_CHAT_INTEGRATION_SEAM_PREFLIGHT_CONTRACT_V1.json\", installed / \"LIVE_CHAT_INTEGRATION_SEAM_PREFLIGHT_CONTRACT_V1.json\", \"8ebd441a5c254ff3c5c12d0eff834a6b16dab7cd68e9fd7d92d038a0186920ec\"),\n    (drop / \"README_V1A3F.md\", installed / \"README_V1A3F.md\", \"0b2170a8bf790ad8e9ffe4456bb3a07f35e0285470f2ed8f6f151ef6eadbc939\"),\n]\nfor source, target, expected_hash in checks:\n    assert source.is_file(), source\n    assert target.is_file(), target\n    assert hashlib.sha256(source.read_bytes()).hexdigest() == expected_hash\n    assert hashlib.sha256(target.read_bytes()).hexdigest() == expected_hash\nscript_text = (installed / \"live_chat_integration_seam_preflight_v1.py\").read_text(encoding=\"utf-8\")\ncompile(script_text, str(installed / \"live_chat_integration_seam_preflight_v1.py\"), \"exec\")\ntree = ast.parse(script_text)\nimports = set()\nfor node in ast.walk(tree):\n    if isinstance(node, ast.Import):\n        imports.update(alias.name.split(\".\")[0] for alias in node.names)\n    elif isinstance(node, ast.ImportFrom) and node.module:\n        imports.add(node.module.split(\".\")[0])\nforbidden = {\n    \"subprocess\", \"socket\", \"urllib\", \"http\", \"ftplib\", \"requests\",\n    \"pip\", \"ensurepip\", \"psutil\", \"winreg\", \"ctypes\", \"webbrowser\", \"importlib\",\n}\nassert not (imports & forbidden), sorted(imports & forbidden)\ncontract = json.loads((installed / \"LIVE_CHAT_INTEGRATION_SEAM_PREFLIGHT_CONTRACT_V1.json\").read_text(encoding=\"utf-8\"))\nassert contract[\"mission_id\"] == \"ENG-20260722-003059-4F07D0\"\nassert contract[\"verified_receipt_count\"] == 5\nassert contract[\"deduplicated_first_party_source_count\"] == 76\nassert contract[\"supported_intent_count\"] == 11\nassert contract[\"integration_test_count\"] == 28\nassert len(contract[\"outputs\"]) == 8\nassert contract[\"scope\"][\"maximum_reads_per_source_file\"] == 1\nassert contract[\"scope\"][\"recognized_request_model_bypass_required\"] is True\nassert contract[\"scope\"][\"ambiguous_request_clarification_required\"] is True\nassert contract[\"scope\"][\"unrecognized_request_pass_through_required\"] is True\nassert contract[\"scope\"][\"live_patch_performed\"] is False\nprint(\"AGENT_FOX_V1A3F_INSTALL_PREFLIGHT_OK\")"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-22T00:48:51.557486Z",
+      "name": "Verify exact V1A-3F payloads, syntax, contract, and zero forbidden imports",
+      "returncode": 0,
+      "started_at": "2026-07-22T00:48:51.450893Z",
+      "stderr": "",
+      "stdout": "AGENT_FOX_V1A3F_INSTALL_PREFLIGHT_OK\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:/FOXAI/Runtime/Desktop/python/python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "Z:/FOXAI/System/AgentFoxTechnicalCore/live_chat_integration_seam_preflight_v1.py",
+        "self-test"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-22T00:48:51.640870Z",
+      "name": "Run bounded seam classifier, adapter, and route-policy self-tests",
+      "returncode": 0,
+      "started_at": "2026-07-22T00:48:51.557934Z",
+      "stderr": "",
+      "stdout": "{\"ambiguous_clarification\": true, \"integration_test_count\": 28, \"recognized_model_bypass\": true, \"role_count\": 9, \"status\": \"self_test_ok\", \"supported_intent_count\": 11, \"unrecognized_pass_through\": true}\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:/FOXAI/Runtime/Desktop/python/python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "Z:/FOXAI/System/AgentFoxTechnicalCore/live_chat_integration_seam_preflight_v1.py",
+        "verify-inputs",
+        "--v1a3e-dir",
+        "Z:/FOXAI/System/EngineeringWorkshop/missions/ENG-20260722-001310-533BE2_V1A3E_SELF_KNOWLEDGE_ANSWER_PACKET_BRIDGE",
+        "--v1a3d-dir",
+        "Z:/FOXAI/System/EngineeringWorkshop/missions/ENG-20260721-235244-7594A9_V1A3D_PROTECTED_CONTEXT_REGISTRY",
+        "--web-closure-dir",
+        "Z:/FOXAI/System/EngineeringWorkshop/missions/ENG-20260721-220855-64D244_V1A3C1_R1_WEB_PORTABLE_CLOSURE",
+        "--workshop-main-dir",
+        "Z:/FOXAI/System/EngineeringWorkshop/missions/ENG-20260721-232230-72B494_V1A3C4_R1_WORKSHOP_MAIN_CLOSURE",
+        "--desktop-gui-dir",
+        "Z:/FOXAI/System/EngineeringWorkshop/missions/ENG-20260721-234311-5F92E4_V1A3C6_DESKTOP_RECOVERY_GUI_CLOSURE"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-22T00:48:51.728940Z",
+      "name": "Hash-verify V1A-3E, V1A-3D, and three authoritative closure evidence sets",
+      "returncode": 0,
+      "started_at": "2026-07-22T00:48:51.641272Z",
+      "stderr": "",
+      "stdout": "{\"source_missions\": [\"ENG-20260722-001310-533BE2\", \"ENG-20260721-235244-7594A9\", \"ENG-20260721-220855-64D244\", \"ENG-20260721-232230-72B494\", \"ENG-20260721-234311-5F92E4\"], \"status\": \"verified\", \"supported_intent_count\": 11, \"verified_receipt_count\": 5}\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:/FOXAI/Runtime/Desktop/python/python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "Z:/FOXAI/System/AgentFoxTechnicalCore/live_chat_integration_seam_preflight_v1.py",
+        "verify-topology",
+        "--v1a3e-dir",
+        "Z:/FOXAI/System/EngineeringWorkshop/missions/ENG-20260722-001310-533BE2_V1A3E_SELF_KNOWLEDGE_ANSWER_PACKET_BRIDGE",
+        "--v1a3d-dir",
+        "Z:/FOXAI/System/EngineeringWorkshop/missions/ENG-20260721-235244-7594A9_V1A3D_PROTECTED_CONTEXT_REGISTRY",
+        "--web-closure-dir",
+        "Z:/FOXAI/System/EngineeringWorkshop/missions/ENG-20260721-220855-64D244_V1A3C1_R1_WEB_PORTABLE_CLOSURE",
+        "--workshop-main-dir",
+        "Z:/FOXAI/System/EngineeringWorkshop/missions/ENG-20260721-232230-72B494_V1A3C4_R1_WORKSHOP_MAIN_CLOSURE",
+        "--desktop-gui-dir",
+        "Z:/FOXAI/System/EngineeringWorkshop/missions/ENG-20260721-234311-5F92E4_V1A3C6_DESKTOP_RECOVERY_GUI_CLOSURE"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-22T00:48:51.830988Z",
+      "name": "Verify exact 76-source deduplicated closure topology before live source reads",
+      "returncode": 0,
+      "started_at": "2026-07-22T00:48:51.729360Z",
+      "stderr": "",
+      "stdout": "{\"closure_source_counts\": {\"desktop\": 70, \"web\": 57, \"workshop\": 70}, \"deduplicated_first_party_source_count\": 76, \"required_sources_present\": [\"core\\\\foxai_web.py\", \"foxai.py\", \"ui\\\\main_window.py\", \"core\\\\chat_agent.py\"], \"status\": \"verified\", \"supported_intent_count\": 11, \"verified_receipt_count\": 5}\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:/FOXAI/Runtime/Desktop/python/python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "Z:/FOXAI/System/AgentFoxTechnicalCore/live_chat_integration_seam_preflight_v1.py",
+        "build",
+        "--v1a3e-dir",
+        "Z:/FOXAI/System/EngineeringWorkshop/missions/ENG-20260722-001310-533BE2_V1A3E_SELF_KNOWLEDGE_ANSWER_PACKET_BRIDGE",
+        "--v1a3d-dir",
+        "Z:/FOXAI/System/EngineeringWorkshop/missions/ENG-20260721-235244-7594A9_V1A3D_PROTECTED_CONTEXT_REGISTRY",
+        "--web-closure-dir",
+        "Z:/FOXAI/System/EngineeringWorkshop/missions/ENG-20260721-220855-64D244_V1A3C1_R1_WEB_PORTABLE_CLOSURE",
+        "--workshop-main-dir",
+        "Z:/FOXAI/System/EngineeringWorkshop/missions/ENG-20260721-232230-72B494_V1A3C4_R1_WORKSHOP_MAIN_CLOSURE",
+        "--desktop-gui-dir",
+        "Z:/FOXAI/System/EngineeringWorkshop/missions/ENG-20260721-234311-5F92E4_V1A3C6_DESKTOP_RECOVERY_GUI_CLOSURE",
+        "--project-root",
+        "Z:/FOXAI",
+        "--output-dir",
+        "Z:/FOXAI/System/EngineeringWorkshop/missions/ENG-20260722-003059-4F07D0_V1A3F_LIVE_CHAT_SELF_KNOWLEDGE_INTEGRATION_SEAM_PREFLIGHT",
+        "--mission-id",
+        "ENG-20260722-003059-4F07D0"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-22T00:48:55.554217Z",
+      "name": "Build bounded WebUI and Desktop self-knowledge integration seam preflight",
+      "returncode": 0,
+      "started_at": "2026-07-22T00:48:51.831389Z",
+      "stderr": "",
+      "stdout": "{\"deduplicated_source_count\": 76, \"integration_test_count\": 28, \"internal_deterministic_rebuild_match\": true, \"output_count\": 8, \"output_dir\": \"Z:\\\\FOXAI\\\\System\\\\EngineeringWorkshop\\\\missions\\\\ENG-20260722-003059-4F07D0_V1A3F_LIVE_CHAT_SELF_KNOWLEDGE_INTEGRATION_SEAM_PREFLIGHT\", \"patch_candidate_count\": 4, \"peak_source_bytes\": 2351757, \"source_files_read_count\": 76, \"status\": \"built\", \"supported_intent_count\": 11, \"total_output_bytes\": 193219}\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:/FOXAI/Runtime/Desktop/python/python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "Z:/FOXAI/System/AgentFoxTechnicalCore/live_chat_integration_seam_preflight_v1.py",
+        "validate-output",
+        "--index-dir",
+        "Z:/FOXAI/System/EngineeringWorkshop/missions/ENG-20260722-003059-4F07D0_V1A3F_LIVE_CHAT_SELF_KNOWLEDGE_INTEGRATION_SEAM_PREFLIGHT"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-22T00:48:55.690632Z",
+      "name": "Validate exact eight-output preflight, deterministic hashes, read ceilings, and safety boundaries",
+      "returncode": 0,
+      "started_at": "2026-07-22T00:48:55.554627Z",
+      "stderr": "",
+      "stdout": "{\"deduplicated_first_party_source_count\": 76, \"integration_test_count\": 28, \"output_count\": 8, \"status\": \"validated\", \"total_output_bytes\": 193219}\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:/FOXAI/Runtime/Desktop/python/python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nimport json\nindex = Path(r\"Z:/FOXAI/System/EngineeringWorkshop/missions/ENG-20260722-003059-4F07D0_V1A3F_LIVE_CHAT_SELF_KNOWLEDGE_INTEGRATION_SEAM_PREFLIGHT\")\nroute = json.loads((index / \"CHAT_SURFACE_ROUTE_MAP.json\").read_text(encoding=\"utf-8\"))\nadapter = json.loads((index / \"PROPOSED_SELF_KNOWLEDGE_ADAPTER_CONTRACT.json\").read_text(encoding=\"utf-8\"))\ntests = json.loads((index / \"INTEGRATION_TEST_MATRIX.json\").read_text(encoding=\"utf-8\"))\nassert {row[\"surface\"] for row in route[\"surfaces\"]} == {\"webui\", \"desktop\"}\nassert route[\"shared_adapter_feasibility\"][\"one_shared_read_only_adapter_possible\"] is True\nassert adapter[\"supported_intent_count\"] == 11\nassert len(adapter[\"routing_rules\"]) == 5\nassert any(row[\"condition\"] == \"recognized exact self-knowledge request\" and row[\"model_bypass\"] is True for row in adapter[\"routing_rules\"])\nassert any(row[\"condition\"] == \"ambiguous self-knowledge request\" and row[\"model_bypass\"] is True for row in adapter[\"routing_rules\"])\nassert any(row[\"condition\"] == \"unrecognized ordinary chat\" and row[\"ordinary_chat_pass_through\"] is True for row in adapter[\"routing_rules\"])\nassert tests[\"test_count\"] == 28\nassert {row[\"surface\"] for row in tests[\"tests\"]} == {\"webui\", \"desktop\"}\nprint(\"AGENT_FOX_V1A3F_ROUTE_CONTRACT_OK\")"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-22T00:48:55.729418Z",
+      "name": "Validate both chat surfaces, eleven intents, model bypass, clarification, and pass-through contract",
+      "returncode": 0,
+      "started_at": "2026-07-22T00:48:55.691002Z",
+      "stderr": "",
+      "stdout": "AGENT_FOX_V1A3F_ROUTE_CONTRACT_OK\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:/FOXAI/Runtime/Desktop/python/python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nimport json\nindex = Path(r\"Z:/FOXAI/System/EngineeringWorkshop/missions/ENG-20260722-003059-4F07D0_V1A3F_LIVE_CHAT_SELF_KNOWLEDGE_INTEGRATION_SEAM_PREFLIGHT\")\npatches = json.loads((index / \"PATCH_CANDIDATES.json\").read_text(encoding=\"utf-8\"))\ncoverage = json.loads((index / \"INTEGRATION_PREFLIGHT_COVERAGE.json\").read_text(encoding=\"utf-8\"))\nreceipt = json.loads((index / \"INTEGRATION_PREFLIGHT_RECEIPT.json\").read_text(encoding=\"utf-8\"))\nfor row in patches[\"candidates\"]:\n    if row[\"safely_patchable_with_current_static_evidence\"]:\n        assert len(row[\"source_sha256\"]) == 64\n        assert row[\"locator\"][\"start_line\"] > 0\n        assert len(row[\"locator\"][\"statement_locator\"][\"statement_sha256\"]) == 64\nassert coverage[\"deduplicated_first_party_source_count\"] == 76\nassert coverage[\"source_files_read_count\"] == 76\nassert coverage[\"maximum_reads_per_source_file\"] == 1\nassert coverage[\"source_execution_count\"] == 0\nassert coverage[\"imported_foxai_module_count\"] == 0\nassert receipt[\"exact_output_count_including_receipt\"] == 8\nassert receipt[\"internal_deterministic_rebuild_match\"] is True\nassert receipt[\"existing_foxai_source_modified\"] is False\nassert receipt[\"live_patch_performed\"] is False\nassert receipt[\"rollback_t7_k_accessed\"] is False\nprint(\"AGENT_FOX_V1A3F_PATCH_AND_SAFETY_OK\")"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-22T00:48:55.766613Z",
+      "name": "Validate exact hash-and-locator patch evidence and no live integration or source modification",
+      "returncode": 0,
+      "started_at": "2026-07-22T00:48:55.729829Z",
+      "stderr": "",
+      "stdout": "AGENT_FOX_V1A3F_PATCH_AND_SAFETY_OK\n",
+      "timed_out": false
+    }
+  ]
+}

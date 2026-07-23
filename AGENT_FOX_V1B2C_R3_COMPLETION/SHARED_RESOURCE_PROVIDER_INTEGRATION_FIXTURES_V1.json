@@ -1,0 +1,160 @@
+{
+  "live_restart_required_after_apply": true,
+  "overlap_fixtures": [
+    {
+      "expected_route": "protected_context_self_knowledge",
+      "fixture_id": "OVERLAP-1",
+      "message": "What was using most of the memory and what runs in FOXAI?"
+    },
+    {
+      "expected_route": "protected_context_self_knowledge",
+      "fixture_id": "OVERLAP-2",
+      "message": "Which python does FOXAI Desktop use and how much RAM did Desktop use?"
+    },
+    {
+      "expected_route": "protected_context_self_knowledge",
+      "fixture_id": "OVERLAP-3",
+      "message": "Show context for WebUI and its RAM use."
+    },
+    {
+      "expected_route": "protected_context_self_knowledge",
+      "fixture_id": "OVERLAP-4",
+      "message": "FOXAI launcher to runtime to entry and model memory use"
+    }
+  ],
+  "routing_fixtures": [
+    {
+      "expected_route": "resource_evidence_provider",
+      "expected_status": "answered",
+      "fixture_id": "HISTORICAL-RAM",
+      "message": "How much RAM did FOXAI use in the loaded capture?"
+    },
+    {
+      "expected_route": "resource_evidence_provider",
+      "expected_status": "answered",
+      "fixture_id": "DOMINANT-MEMORY",
+      "message": "What was using most of the memory?"
+    },
+    {
+      "expected_route": "ordinary_chat",
+      "expected_status": "pass_through",
+      "fixture_id": "CURRENT-LIVE",
+      "message": "How much memory is my computer using right now?"
+    },
+    {
+      "expected_route": "protected_context_self_knowledge",
+      "expected_status": "clarification_required",
+      "fixture_id": "WEBUI-LAUNCHER",
+      "message": "Tell me about the WebUI launcher."
+    },
+    {
+      "expected_route": "ordinary_chat",
+      "expected_status": "pass_through",
+      "fixture_id": "JOKE",
+      "message": "Tell me a joke."
+    },
+    {
+      "expected_route": "ordinary_chat",
+      "expected_status": "pass_through",
+      "fixture_id": "CREATIVE-MEMORY",
+      "message": "Write a poem about memory."
+    },
+    {
+      "expected_route": "slash_command_bypass",
+      "expected_status": "pass_through",
+      "fixture_id": "SLASH-DIRECT",
+      "message": "/engineer workshop begin test"
+    },
+    {
+      "expected_route": "slash_command_bypass",
+      "expected_status": "pass_through",
+      "fixture_id": "SLASH-SPACED",
+      "message": "   /engineer workshop preview test"
+    }
+  ],
+  "routing_order": [
+    "slash_command_bypass",
+    "protected_context_self_knowledge",
+    "resource_evidence_provider",
+    "ordinary_chat"
+  ],
+  "schema": "foxai.agent_fox.technical_core.v1b2c.integration_fixtures.v1",
+  "supported_resource_categories": [
+    {
+      "category": "active_image_generation_capacity_limitation",
+      "question": "Can this prove I can generate images while the 30B model is loaded?"
+    },
+    {
+      "category": "available_loaded_state_memory",
+      "question": "How much RAM was left with the model and ComfyUI loaded?"
+    },
+    {
+      "category": "commit_headroom",
+      "question": "How much commit headroom was left?"
+    },
+    {
+      "category": "current_page_file_usage",
+      "question": "What was the current page file usage in the capture?"
+    },
+    {
+      "category": "desktop_working_set",
+      "question": "How much RAM did FOXAI Desktop use?"
+    },
+    {
+      "category": "dominant_measured_foxai_component",
+      "question": "What was using most of the memory?"
+    },
+    {
+      "category": "foxai_process_count_delta",
+      "question": "How many more FOXAI processes were in the loaded capture?"
+    },
+    {
+      "category": "future_or_multi_model_capacity_limitation",
+      "question": "Does this prove capacity for multiple simultaneous large models?"
+    },
+    {
+      "category": "historical_page_file_peak_meaning",
+      "question": "What does the historical page file peak of 8191 MiB mean?"
+    },
+    {
+      "category": "idle_comfyui_working_set",
+      "question": "How much memory did idle ComfyUI use?"
+    },
+    {
+      "category": "known_evidence_limitations",
+      "question": "What are the limitations of this evidence?"
+    },
+    {
+      "category": "listener_presence_captured_states",
+      "question": "What ports were present in each captured state?"
+    },
+    {
+      "category": "measured_minimal_load_ram",
+      "question": "How much RAM was used in the minimal-load capture?"
+    },
+    {
+      "category": "measured_normal_loaded_ram",
+      "question": "How much RAM did FOXAI use in the loaded capture?"
+    },
+    {
+      "category": "memory_load_delta",
+      "question": "What was the memory-load delta between the captures?"
+    },
+    {
+      "category": "model_working_set",
+      "question": "How much memory did the model use?"
+    },
+    {
+      "category": "storage_free_space_comparison",
+      "question": "Compare the captured drive free space."
+    },
+    {
+      "category": "webui_working_set",
+      "question": "How much RAM did FOXAI WebUI use?"
+    }
+  ],
+  "surfaces": [
+    "desktop",
+    "webui"
+  ]
+}

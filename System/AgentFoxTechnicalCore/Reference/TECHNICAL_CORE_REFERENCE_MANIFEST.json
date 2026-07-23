@@ -1,0 +1,980 @@
+{
+  "architecture": {
+    "known_live_seams": {
+      "desktop_helper": "Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\desktop_self_knowledge_integration_v1.py",
+      "desktop_source": "Z:\\FOXAI\\ui\\main_window.py",
+      "director": "Z:\\FOXAI\\core\\director.py",
+      "resource_provider": "Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\resource_evidence_provider_v1.py",
+      "shared_adapter": "Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\self_knowledge_chat_adapter_v1.py",
+      "webui_helper": "Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\webui_self_knowledge_integration_v1.py",
+      "webui_source": "Z:\\FOXAI\\core\\foxai_web.py"
+    },
+    "technical_core_components": {
+      "desktop_integration_helper": "Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\desktop_self_knowledge_integration_v1.py",
+      "integration_contract": "Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\SHARED_RESOURCE_PROVIDER_INTEGRATION_CONTRACT_V1.json",
+      "integration_fixtures": "Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\SHARED_RESOURCE_PROVIDER_INTEGRATION_FIXTURES_V1.json",
+      "integration_readme": "Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\README_V1B2C.md",
+      "integration_verifier": "Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\shared_resource_provider_integration_verifier_v1.py",
+      "resource_evidence_provider": "Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\resource_evidence_provider_v1.py",
+      "shared_chat_adapter": "Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\self_knowledge_chat_adapter_v1.py",
+      "webui_integration_helper": "Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\webui_self_knowledge_integration_v1.py"
+    }
+  },
+  "authority": {
+    "basis": "Six SHA-256-verified V1B-2G bounded static preflight evidence files.",
+    "current_live_state_claims": false,
+    "evidence": {
+      "V1B2G_DEPENDENCY_GRAPH.json": {
+        "path": "Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260723-012205-B039AE_V1B2G_REFERENCE_PREFLIGHT\\V1B2G_DEPENDENCY_GRAPH.json",
+        "sha256": "151628665790cbe5b675c550813d584f23f60fedcd02058f5acdc2fe98d2e22a",
+        "size_bytes": 50016
+      },
+      "V1B2G_MISSION_AND_RECEIPT_INDEX.json": {
+        "path": "Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260723-012205-B039AE_V1B2G_REFERENCE_PREFLIGHT\\V1B2G_MISSION_AND_RECEIPT_INDEX.json",
+        "sha256": "aad65a8206b7717cc78e2f80e20b4a5587da6feb1a8c96de9bc3898796bc2182",
+        "size_bytes": 32465
+      },
+      "V1B2G_PREFLIGHT_RECEIPT.json": {
+        "path": "Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260723-012205-B039AE_V1B2G_REFERENCE_PREFLIGHT\\V1B2G_PREFLIGHT_RECEIPT.json",
+        "sha256": "7e9e84d6b3274c89f926c75a89b1b0a02b2f03baaf6460267b84fae9a850567f",
+        "size_bytes": 2578
+      },
+      "V1B2G_REFERENCE_BUILD_RECOMMENDATION.json": {
+        "path": "Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260723-012205-B039AE_V1B2G_REFERENCE_PREFLIGHT\\V1B2G_REFERENCE_BUILD_RECOMMENDATION.json",
+        "sha256": "985f986b43c9baadcd4e7de2c95722cad6c9334a242d4aed15cb77fc16c4630c",
+        "size_bytes": 1542
+      },
+      "V1B2G_ROUTING_AND_DEPARTMENT_FINDINGS.json": {
+        "path": "Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260723-012205-B039AE_V1B2G_REFERENCE_PREFLIGHT\\V1B2G_ROUTING_AND_DEPARTMENT_FINDINGS.json",
+        "sha256": "9ca1e638eb8d64b076d052d2714c9a4945233ad5184e6c20eedc6275a04eb0a7",
+        "size_bytes": 397667
+      },
+      "V1B2G_SOURCE_AND_SYMBOL_INVENTORY.json": {
+        "path": "Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260723-012205-B039AE_V1B2G_REFERENCE_PREFLIGHT\\V1B2G_SOURCE_AND_SYMBOL_INVENTORY.json",
+        "sha256": "cc150828df06cd8d4b00730adac3a16a8221f852be0badefe00914215a50560c",
+        "size_bytes": 1138371
+      }
+    }
+  },
+  "current_milestone": {
+    "completed": "V1B-2 Shared Resource Evidence Provider and dual-interface integration",
+    "next": "V1B-3A Approved Read-Only Current-State Request Broker",
+    "portable_mirror": "V1B-2 fixed-file increment verified on K: under ENG-20260723-002238-CD8A83"
+  },
+  "dependencies": {
+    "classification_note": "Static classification only; not proof that a package is installed or required at runtime.",
+    "import_statement_count": 224,
+    "local_modules": [
+      "core",
+      "core.agents",
+      "core.application_registry",
+      "core.boot_manager",
+      "core.brainstem",
+      "core.chat_agent",
+      "core.chat_resilience",
+      "core.comfy_bridge",
+      "core.comfy_ops_monitor",
+      "core.confidence_engine",
+      "core.decision_layer",
+      "core.dependency_graph",
+      "core.director",
+      "core.engineer_agent",
+      "core.engineer_intent",
+      "core.evidence_drivers",
+      "core.evidence_ranker",
+      "core.forge_journal",
+      "core.forge_master",
+      "core.image_models",
+      "core.investigation_engine",
+      "core.kernel",
+      "core.library",
+      "core.library_agent",
+      "core.memory",
+      "core.mission_flow",
+      "core.mission_session",
+      "core.model_sources",
+      "core.models",
+      "core.paths",
+      "core.project_index",
+      "core.promptsmith",
+      "core.recommendation_engine",
+      "core.red_canvas",
+      "core.red_canvas_agent",
+      "core.runtime_graph",
+      "core.security_containment",
+      "core.server",
+      "core.smart_search",
+      "core.technical_debt",
+      "core.workshop_config"
+    ],
+    "stdlib_modules": [
+      "__future__",
+      "abc",
+      "argparse",
+      "base64",
+      "binascii",
+      "configparser",
+      "contextlib",
+      "dataclasses",
+      "datetime",
+      "functools",
+      "hashlib",
+      "http",
+      "importlib",
+      "io",
+      "json",
+      "os",
+      "pathlib",
+      "platform",
+      "py_compile",
+      "re",
+      "secrets",
+      "shlex",
+      "shutil",
+      "subprocess",
+      "sys",
+      "tempfile",
+      "textwrap",
+      "threading",
+      "time",
+      "tkinter",
+      "typing",
+      "urllib",
+      "uuid"
+    ],
+    "third_party_or_unresolved_modules": [
+      "Departments",
+      "PIL",
+      "customtkinter",
+      "psutil",
+      "requests"
+    ]
+  },
+  "evidence_limitations": [
+    "The reference is static and reflects the six verified preflight files, not future source changes.",
+    "Import presence does not prove installation, runtime use, or universal necessity.",
+    "Extracted names and maps are preserved as found; unresolved naming is not silently normalized.",
+    "The mission index is bounded to the mission IDs selected by V1B-2G preflight, not every Engineering Workshop mission."
+  ],
+  "known_anomalies": [
+    "V1B-2E source edits were verified by exact post-hash reconciliation because Workshop archive bookkeeping failed after writes; no normal applied_verified implementation receipt exists for those two edits.",
+    "The Workshop previously reported BLOCKED — NOTHING CHANGED despite evidence that source writes had occurred; transactional semantics and archive path normalization require a separate read-only self-repair preflight.",
+    "Static dependency classification leaves Departments unresolved as local-versus-external within the six-evidence-file boundary."
+  ],
+  "known_good_behavior": [
+    "Historical resource questions are intercepted in both Desktop and WebUI through the shared adapter.",
+    "Current-live resource questions pass through rather than receiving stale historical claims.",
+    "The provider preserves the existing V1A-3E answer-packet envelope.",
+    "The provider supports 18 bounded resource-evidence categories.",
+    "Slash commands bypass the provider before evidence loading.",
+    "Ordinary use of the bare word evidence no longer routes to Engineer.",
+    "Desktop model labels are not repeatedly stacked."
+  ],
+  "mission_history": {
+    "artifact_count": 48,
+    "artifacts": [
+      {
+        "kind": "evidence_or_receipt",
+        "mission_id": "ENG-20260722-153014-F39AF7",
+        "plan_sha256": "2d551d070b87a35faeed59ea0c7dca7e38fd6d03ad69d1b89e19dd2cbb412269",
+        "relative_to_foxai": "System/EngineeringWorkshop/missions/ENG-20260722-153014-F39AF7.json",
+        "sha256": "8f3ffd76de6c97eaacefe3e139bc8b8c1e931cb47e959a0d34a9dc3860a74022",
+        "size_bytes": 993,
+        "title": "Agent Fox Technical Core V1B-2A-R2 — Provider Serialization Validation Repair"
+      },
+      {
+        "kind": "evidence_or_receipt",
+        "mission_id": "ENG-20260722-153014-F39AF7",
+        "relative_to_foxai": "System/EngineeringWorkshop/missions/ENG-20260722-153014-F39AF7_V1B2A_R2_RESOURCE_EVIDENCE_PROVIDER/RESOURCE_EVIDENCE_PROVIDER_RECEIPT.json",
+        "schema": "foxai.agent_fox.technical_core.v1b2a.resource_evidence_provider_receipt.v1",
+        "sha256": "a660a47f3597531a5e603cddd6069d85c9d68cccec6b59521a489ecf5ed5c3db",
+        "size_bytes": 1752,
+        "status": "provider_built_and_verified"
+      },
+      {
+        "kind": "evidence_or_receipt",
+        "mission_id": "ENG-20260722-153014-F39AF7",
+        "relative_to_foxai": "System/EngineeringWorkshop/missions/ENG-20260722-153014-F39AF7_V1B2A_R2_RESOURCE_EVIDENCE_PROVIDER/RESOURCE_EVIDENCE_REGISTRY.json",
+        "schema": "foxai.agent_fox.technical_core.v1b2a.resource_evidence_registry.v1",
+        "sha256": "6e9c3eaea722cb5260f9f0df35d6ea90f37e83697e1b83592670d6599c33e1aa",
+        "size_bytes": 3590,
+        "status": "registered_offline_provider"
+      },
+      {
+        "kind": "evidence_or_receipt",
+        "mission_id": "ENG-20260722-153014-F39AF7",
+        "relative_to_foxai": "System/EngineeringWorkshop/missions/ENG-20260722-153014-F39AF7_V1B2A_R2_RESOURCE_EVIDENCE_PROVIDER/RESOURCE_QUERY_FIXTURE_RESULTS.json",
+        "schema": "foxai.agent_fox.technical_core.v1b2a.resource_query_fixture_results.v1",
+        "sha256": "554631166de3da90ad54f737df2b81621fbd55eafef6b553d0fb9f96c6502bd6",
+        "size_bytes": 36280,
+        "status": "fixtures_passed"
+      },
+      {
+        "kind": "evidence_or_receipt",
+        "mission_id": "ENG-20260722-154330-42BAE0",
+        "plan_sha256": "bcbe18590e5882722cf7ff2695a52cd71cd768cd584990e02dc1f9d1181ee44f",
+        "relative_to_foxai": "System/EngineeringWorkshop/missions/ENG-20260722-154330-42BAE0.json",
+        "sha256": "ed3db40fc1515956616585cb071a9f2d0fe43427245cfc0b1b9d33556acd2f78",
+        "size_bytes": 991,
+        "title": "Agent Fox Technical Core V1B-2B — Resource Provider Integration Seam Preflight"
+      },
+      {
+        "kind": "snapshot",
+        "mission_id": "ENG-20260722-154330-42BAE0",
+        "relative_to_foxai": "System/EngineeringWorkshop/missions/ENG-20260722-154330-42BAE0_V1B2B_RESOURCE_PROVIDER_INTEGRATION_SEAM_PREFLIGHT.zip",
+        "sha256": "bb1c240bb319d37a5a8dafec3da9c206a9dbe98ba68aa8ea77a115da3d055ff7",
+        "size_bytes": 9434
+      },
+      {
+        "kind": "evidence_or_receipt",
+        "mission_id": "ENG-20260722-154330-42BAE0",
+        "relative_to_foxai": "System/EngineeringWorkshop/missions/ENG-20260722-154330-42BAE0_V1B2B_RESOURCE_PROVIDER_INTEGRATION_SEAM_PREFLIGHT/RESOURCE_PROVIDER_INTEGRATION_PREFLIGHT_RECEIPT.json",
+        "schema": "foxai.agent_fox.technical_core.v1b2b.integration_preflight_receipt.v1",
+        "sha256": "2738abcb23646e99b9936cd3501721e2901d3cc8ba942cb302d6662ae1dff612",
+        "size_bytes": 1724,
+        "status": "preflight_completed_and_verified"
+      },
+      {
+        "kind": "evidence_or_receipt",
+        "mission_id": "ENG-20260722-154330-42BAE0",
+        "relative_to_foxai": "System/EngineeringWorkshop/missions/ENG-20260722-154330-42BAE0_V1B2B_RESOURCE_PROVIDER_INTEGRATION_SEAM_PREFLIGHT/RESOURCE_PROVIDER_INTEGRATION_SEAM_MAP.json",
+        "schema": "foxai.agent_fox.technical_core.v1b2b.integration_seam_map.v1",
+        "sha256": "e43691d671e4feea43c18fc94e97ca82468b2ca9d18d649554c0008bd82ad490",
+        "size_bytes": 22402,
+        "status": "preflight_mapped_and_verified"
+      },
+      {
+        "kind": "evidence_or_receipt",
+        "mission_id": "ENG-20260722-154330-42BAE0",
+        "relative_to_foxai": "System/EngineeringWorkshop/missions/ENG-20260722-154330-42BAE0_V1B2B_RESOURCE_PROVIDER_INTEGRATION_SEAM_PREFLIGHT/RESOURCE_PROVIDER_ROUTING_PREFLIGHT_FIXTURES.json",
+        "schema": "foxai.agent_fox.technical_core.v1b2b.routing_preflight_fixtures.v1",
+        "sha256": "1dd58fe3d6dd5056e69340f372464d33af38140f9ca076b8cffbb280813c6690",
+        "size_bytes": 19943,
+        "status": "routing_preflight_passed"
+      },
+      {
+        "kind": "evidence_or_receipt",
+        "mission_id": "ENG-20260722-165746-DF7E34",
+        "plan_sha256": "50bf20156c35770d85aa98b13246aba75c7e3c280516132ad347d52154a8eba1",
+        "relative_to_foxai": "System/EngineeringWorkshop/missions/ENG-20260722-165746-DF7E34.json",
+        "sha256": "d39d941a085ef6085b0600f01f46231d07cc1753f1ec306594229e5f14a45408",
+        "size_bytes": 1027,
+        "title": "Agent Fox Technical Core V1B-2C R2 Shared Resource Provider Integration Package Repair and Verified Apply"
+      },
+      {
+        "kind": "evidence_or_receipt",
+        "mission_id": "ENG-20260722-165746-DF7E34",
+        "relative_to_foxai": "System/EngineeringWorkshop/missions/ENG-20260722-165746-DF7E34_V1B2C_R3_ADD_ONLY_COMPLETION/SHARED_RESOURCE_PROVIDER_INTEGRATION_MAP.json",
+        "schema": "foxai.agent_fox.technical_core.v1b2c.integration_map.v1",
+        "sha256": "852b05eacd4218147572ccfc35d22f406f4d86fe984ffcb6befc2cdee9943e20",
+        "size_bytes": 9356,
+        "status": "integrated_and_verified"
+      },
+      {
+        "kind": "evidence_or_receipt",
+        "mission_id": "ENG-20260722-165746-DF7E34",
+        "relative_to_foxai": "System/EngineeringWorkshop/missions/ENG-20260722-165746-DF7E34_V1B2C_R3_ADD_ONLY_COMPLETION/SHARED_RESOURCE_PROVIDER_INTEGRATION_RECEIPT.json",
+        "schema": "foxai.agent_fox.technical_core.v1b2c.integration_receipt.v1",
+        "sha256": "74fd4765286c6d40313d72cb9241bea43d918fe66bcd59139e7a527ab226437c",
+        "size_bytes": 2160,
+        "status": "integration_built_and_verified"
+      },
+      {
+        "kind": "evidence_or_receipt",
+        "mission_id": "ENG-20260722-165746-DF7E34",
+        "relative_to_foxai": "System/EngineeringWorkshop/missions/ENG-20260722-165746-DF7E34_V1B2C_R3_ADD_ONLY_COMPLETION/SHARED_RESOURCE_PROVIDER_ROUTING_RESULTS.json",
+        "schema": "foxai.agent_fox.technical_core.v1b2c.routing_results.v1",
+        "sha256": "d5e79125b59635b8d4e1d66a540af6ace1b0ef28c3be870e798b33c95414a80f",
+        "size_bytes": 31986,
+        "status": "routing_verified"
+      },
+      {
+        "kind": "evidence_or_receipt",
+        "mission_id": "ENG-20260722-165746-DF7E34",
+        "relative_to_foxai": "System/EngineeringWorkshop/missions/ENG-20260722-165746-DF7E34_V1B2C_R3_ADD_ONLY_COMPLETION/SHARED_RESOURCE_PROVIDER_SURFACE_COMPATIBILITY.json",
+        "schema": "foxai.agent_fox.technical_core.v1b2c.surface_compatibility.v1",
+        "sha256": "b0036374cecff7346c5b3a1320d4a517adeaabee7fb0e6481e72317269da3545",
+        "size_bytes": 2702,
+        "status": "surface_compatibility_verified"
+      },
+      {
+        "kind": "evidence_or_receipt",
+        "mission_id": "ENG-20260722-183657-F5AF85",
+        "relative_to_foxai": "System/EngineeringWorkshop/missions/ENG-20260722-183657-F5AF85.json",
+        "sha256": "dfa3375f9875390bb9219d6dc6f9ab8c3b5a07cfc048458ca695468f3ba4f3c1",
+        "size_bytes": 454,
+        "title": "Agent Fox Technical Core V1B-2D Dual-Interface Live Acceptance Verification"
+      },
+      {
+        "kind": "evidence_or_receipt",
+        "mission_id": "ENG-20260722-183657-F5AF85",
+        "relative_to_foxai": "System/EngineeringWorkshop/missions/ENG-20260722-183657-F5AF85_V1B2D_DUAL_INTERFACE_LIVE_ACCEPTANCE/SHARED_RESOURCE_PROVIDER_INTEGRATION_MAP.json",
+        "schema": "foxai.agent_fox.technical_core.v1b2c.integration_map.v1",
+        "sha256": "948c28e2f826a30d3e4cda9b1a2a22ecc294b1f2d0228ddeafac98e5608b7d61",
+        "size_bytes": 9356,
+        "status": "integrated_and_verified"
+      },
+      {
+        "kind": "evidence_or_receipt",
+        "mission_id": "ENG-20260722-183657-F5AF85",
+        "relative_to_foxai": "System/EngineeringWorkshop/missions/ENG-20260722-183657-F5AF85_V1B2D_DUAL_INTERFACE_LIVE_ACCEPTANCE/SHARED_RESOURCE_PROVIDER_INTEGRATION_RECEIPT.json",
+        "schema": "foxai.agent_fox.technical_core.v1b2c.integration_receipt.v1",
+        "sha256": "1e822d38e4e85d1d75ac0ffde279e00968987df4ae4759db322a2635839243f2",
+        "size_bytes": 2160,
+        "status": "integration_built_and_verified"
+      },
+      {
+        "kind": "evidence_or_receipt",
+        "mission_id": "ENG-20260722-183657-F5AF85",
+        "relative_to_foxai": "System/EngineeringWorkshop/missions/ENG-20260722-183657-F5AF85_V1B2D_DUAL_INTERFACE_LIVE_ACCEPTANCE/SHARED_RESOURCE_PROVIDER_ROUTING_RESULTS.json",
+        "schema": "foxai.agent_fox.technical_core.v1b2c.routing_results.v1",
+        "sha256": "f6f54428bd32c3c2a637d41af8bd8c87015db5af6028cb5c4fcb8ed1efb21889",
+        "size_bytes": 31986,
+        "status": "routing_verified"
+      },
+      {
+        "kind": "evidence_or_receipt",
+        "mission_id": "ENG-20260722-183657-F5AF85",
+        "relative_to_foxai": "System/EngineeringWorkshop/missions/ENG-20260722-183657-F5AF85_V1B2D_DUAL_INTERFACE_LIVE_ACCEPTANCE/SHARED_RESOURCE_PROVIDER_SURFACE_COMPATIBILITY.json",
+        "schema": "foxai.agent_fox.technical_core.v1b2c.surface_compatibility.v1",
+        "sha256": "03e8116e9626cb4f8ce568d5ed86063eafe2a037d990654186a97e5c562dd8ea",
+        "size_bytes": 2702,
+        "status": "surface_compatibility_verified"
+      },
+      {
+        "kind": "evidence_or_receipt",
+        "mission_id": "ENG-20260722-183657-F5AF85",
+        "relative_to_foxai": "System/EngineeringWorkshop/missions/ENG-20260722-183657-F5AF85_V1B2D_DUAL_INTERFACE_LIVE_ACCEPTANCE/V1B2D_DUAL_INTERFACE_LIVE_ACCEPTANCE_RECEIPT.json",
+        "schema": "foxai.agent_fox.technical_core.v1b2d.dual_interface_live_acceptance_receipt.v1",
+        "sha256": "0f1883898c55898d1c7b0e40aabc5dded2ede64cf70ca3e2e367db4db7ac7a2f",
+        "size_bytes": 5442,
+        "status": "accepted_verified",
+        "title": "Agent Fox Technical Core V1B-2D — Dual-Interface Live Acceptance Verification"
+      },
+      {
+        "kind": "evidence_or_receipt",
+        "mission_id": "ENG-20260722-223348-83B942",
+        "relative_to_foxai": "System/EngineeringWorkshop/missions/ENG-20260722-223348-83B942.json",
+        "sha256": "7b560ed04b1e4d81f7161077e146ae524f0ae35a6605ef76f9eb6d5d66d8a54b",
+        "size_bytes": 460,
+        "title": "Agent Fox Technical Core V1B-2E R1 Real GUI Shared Resource Routing Gap Preflight"
+      },
+      {
+        "kind": "evidence_or_receipt",
+        "mission_id": "ENG-20260722-223348-83B942",
+        "relative_to_foxai": "System/EngineeringWorkshop/missions/ENG-20260722-223348-83B942_V1B2E_R1_REAL_GUI_ROUTING_GAP_PREFLIGHT/COMMAND_PRECEDENCE_FINDINGS.json",
+        "schema": "foxai.agent_fox.technical_core.v1b2e.command_precedence.v1",
+        "sha256": "ffdb85960831dc6338d2b97235dc4e5b3bfe18c5f1cf35164a67d66ca2ed2ade",
+        "size_bytes": 321791
+      },
+      {
+        "kind": "evidence_or_receipt",
+        "mission_id": "ENG-20260722-223348-83B942",
+        "relative_to_foxai": "System/EngineeringWorkshop/missions/ENG-20260722-223348-83B942_V1B2E_R1_REAL_GUI_ROUTING_GAP_PREFLIGHT/DESKTOP_MESSAGE_PATH.json",
+        "schema": "foxai.agent_fox.technical_core.v1b2e.surface_path.v1",
+        "sha256": "e23729994b2987d954653064892c07c7aa4763cd193751f6ed0c8a04b7693cd6",
+        "size_bytes": 6683
+      },
+      {
+        "kind": "evidence_or_receipt",
+        "mission_id": "ENG-20260722-223348-83B942",
+        "relative_to_foxai": "System/EngineeringWorkshop/missions/ENG-20260722-223348-83B942_V1B2E_R1_REAL_GUI_ROUTING_GAP_PREFLIGHT/DIRECTOR_KEYWORD_FINDINGS.json",
+        "schema": "foxai.agent_fox.technical_core.v1b2e.director_keywords.v1",
+        "sha256": "1ac12310780ebe0edea5412c3aa9b2bbbfd2d03edfbcfa60acf3e4b8dc0f9891",
+        "size_bytes": 319935
+      },
+      {
+        "kind": "evidence_or_receipt",
+        "mission_id": "ENG-20260722-223348-83B942",
+        "relative_to_foxai": "System/EngineeringWorkshop/missions/ENG-20260722-223348-83B942_V1B2E_R1_REAL_GUI_ROUTING_GAP_PREFLIGHT/MINIMAL_IMPLEMENTATION_RECOMMENDATION.json",
+        "schema": "foxai.agent_fox.technical_core.v1b2e.recommendation.v1",
+        "sha256": "75a5b0c738e942e49ca2c0494530d26ccc064d100aba62abeb50bb19faec7147",
+        "size_bytes": 3184,
+        "status": "implementation_recommended_after_exact_review"
+      },
+      {
+        "kind": "evidence_or_receipt",
+        "mission_id": "ENG-20260722-223348-83B942",
+        "relative_to_foxai": "System/EngineeringWorkshop/missions/ENG-20260722-223348-83B942_V1B2E_R1_REAL_GUI_ROUTING_GAP_PREFLIGHT/MODEL_LABEL_FINDINGS.json",
+        "schema": "foxai.agent_fox.technical_core.v1b2e.model_labels.v1",
+        "sha256": "af0a4593d00313794207f707c4b76f5c60070a2340399ee171fe3d7cc6637c86",
+        "size_bytes": 4281
+      },
+      {
+        "kind": "evidence_or_receipt",
+        "mission_id": "ENG-20260722-223348-83B942",
+        "relative_to_foxai": "System/EngineeringWorkshop/missions/ENG-20260722-223348-83B942_V1B2E_R1_REAL_GUI_ROUTING_GAP_PREFLIGHT/REAL_GUI_ROUTE_TRACE.json",
+        "schema": "foxai.agent_fox.technical_core.v1b2e.real_gui_route_trace.v1",
+        "sha256": "83e437d3ffd2375d2328d6b65561faaade60374ccf951fd6f4c2e14fab388819",
+        "size_bytes": 1645,
+        "status": "preflight_complete_ready_for_exact_review",
+        "title": "Agent Fox Technical Core V1B-2E R1 Real GUI Shared Resource Routing Gap Preflight"
+      },
+      {
+        "kind": "evidence_or_receipt",
+        "mission_id": "ENG-20260722-223348-83B942",
+        "relative_to_foxai": "System/EngineeringWorkshop/missions/ENG-20260722-223348-83B942_V1B2E_R1_REAL_GUI_ROUTING_GAP_PREFLIGHT/V1B2E_R1_PREFLIGHT_RECEIPT.json",
+        "schema": "foxai.agent_fox.technical_core.v1b2e.preflight_receipt.v1",
+        "sha256": "1825f25e14161f947ee927d42feb20ca5c2f9f155c53b8a72e2943e0266075d2",
+        "size_bytes": 8537,
+        "status": "preflight_complete_ready_for_exact_review",
+        "title": "Agent Fox Technical Core V1B-2E R1 Real GUI Shared Resource Routing Gap Preflight"
+      },
+      {
+        "kind": "evidence_or_receipt",
+        "mission_id": "ENG-20260722-223348-83B942",
+        "relative_to_foxai": "System/EngineeringWorkshop/missions/ENG-20260722-223348-83B942_V1B2E_R1_REAL_GUI_ROUTING_GAP_PREFLIGHT/WEBUI_MESSAGE_PATH.json",
+        "schema": "foxai.agent_fox.technical_core.v1b2e.surface_path.v1",
+        "sha256": "7c467a535a11ca69ce7fefb69581e371f75375514c0ce9a4678cf013bc00ddca",
+        "size_bytes": 42803
+      },
+      {
+        "kind": "evidence_or_receipt",
+        "mission_id": "ENG-20260722-225500-4D0517",
+        "plan_sha256": "142bd4b9a7978f49f08ea428ac5a2cb06ed8592e16fa44c50e794c6aaf1521c0",
+        "relative_to_foxai": "System/EngineeringWorkshop/missions/ENG-20260722-225500-4D0517.json",
+        "sha256": "797d6f528a1cda02f4a2d69c69f92fe07e6985fb6bc0c45e218531c1f7f21d93",
+        "size_bytes": 1555,
+        "title": "Agent Fox Technical Core V1B-2E R2 Real GUI Shared Resource Routing Repair and Verified Apply"
+      },
+      {
+        "kind": "evidence_or_receipt",
+        "mission_id": "ENG-20260722-225500-4D0517",
+        "relative_to_foxai": "System/EngineeringWorkshop/missions/ENG-20260722-225500-4D0517_V1B2E_R4_PARTIAL_APPLY_RECONCILIATION/V1B2E_R4_PARTIAL_APPLY_RECONCILIATION.json",
+        "schema": "foxai.agent_fox.technical_core.v1b2e.partial_apply_reconciliation.v1",
+        "sha256": "2cb082c782d24c5b6874ccf01ee0b99215ebbdb0291d38693f489254e9777487",
+        "size_bytes": 4563,
+        "status": "reconciled_verified"
+      },
+      {
+        "kind": "evidence_or_receipt",
+        "mission_id": "ENG-20260722-225500-4D0517",
+        "relative_to_foxai": "System/EngineeringWorkshop/missions/ENG-20260722-225500-4D0517_V1B2E_R4_PARTIAL_APPLY_RECONCILIATION/V1B2E_R4_RECONCILIATION_RECEIPT.json",
+        "sha256": "d76ee578a4c8e4d2c18416ba19c712d4facb5bc23b1587d29ae30db66413ccca",
+        "size_bytes": 525,
+        "status": "reconciled_verified"
+      },
+      {
+        "kind": "evidence_or_receipt",
+        "mission_id": "ENG-20260723-001455-43C31D",
+        "relative_to_foxai": "System/EngineeringWorkshop/missions/ENG-20260723-001455-43C31D.json",
+        "sha256": "672a79229aa70a074987c4a7a46f47362e1ecce3b17b19c192fc7e079629b40e",
+        "size_bytes": 450,
+        "title": "Agent Fox Technical Core V1B-2F Read-Only Z and K Closure Comparison"
+      },
+      {
+        "kind": "evidence_or_receipt",
+        "mission_id": "ENG-20260723-002238-CD8A83",
+        "relative_to_foxai": "System/EngineeringWorkshop/missions/ENG-20260723-002238-CD8A83.json",
+        "sha256": "697cdd1d63c648ead69de2408889bb7d060200595c20d7c91ba227c008238bc3",
+        "size_bytes": 473,
+        "title": "Agent Fox Technical Core V1B-2F R1 Incremental Z to K Mirror Update and Focused Validation"
+      },
+      {
+        "kind": "evidence_or_receipt",
+        "mission_id": "ENG-20260723-002238-CD8A83",
+        "relative_to_foxai": "System/EngineeringWorkshop/missions/ENG-20260723-002238-CD8A83_V1B2F_R3_INCREMENTAL_Z_TO_K_MIRROR_UPDATE/V1B2F_R3_Z_TO_K_TRANSFER_RECEIPT.json",
+        "schema": "foxai.agent_fox.technical_core.v1b2f.r3.transfer_receipt.v1",
+        "sha256": "3d85b2396d2745b8a3a3000aeed50237e7e7d6908a79e14c6d5bd2481dc52785",
+        "size_bytes": 6190,
+        "status": "applied_verified",
+        "title": "Agent Fox Technical Core V1B-2F R3 Incremental Z to K Mirror Update and Focused Validation"
+      },
+      {
+        "kind": "evidence_or_receipt",
+        "mission_id": "ENG-20260723-012205-B039AE",
+        "relative_to_foxai": "System/EngineeringWorkshop/missions/ENG-20260723-012205-B039AE.json",
+        "sha256": "1ca446d656ed94c3af6ff75b96907bcd9be7361913f2b7f4f31fc3d2c0c1b81a",
+        "size_bytes": 477,
+        "title": "Agent Fox Technical Core V1B-2G Authoritative Architecture and Dependency Reference Preflight"
+      },
+      {
+        "kind": "evidence_or_receipt",
+        "mission_id": "ENG-20260722-153014-F39AF7",
+        "plan_sha256": "2d551d070b87a35faeed59ea0c7dca7e38fd6d03ad69d1b89e19dd2cbb412269",
+        "relative_to_foxai": "System/EngineeringWorkshop/receipts/ENG-20260722-153014-F39AF7/2d551d070b87a35faeed59ea0c7dca7e38fd6d03ad69d1b89e19dd2cbb412269.receipt.json",
+        "schema": "foxai.engineering.receipt.v1",
+        "sha256": "7b733496ba811812356123eb0e9da176e2560b664206e192f4c29ad93e1eb6e1",
+        "size_bytes": 23791,
+        "status": "applied_verified"
+      },
+      {
+        "kind": "evidence_or_receipt",
+        "mission_id": "ENG-20260722-154330-42BAE0",
+        "plan_sha256": "bcbe18590e5882722cf7ff2695a52cd71cd768cd584990e02dc1f9d1181ee44f",
+        "relative_to_foxai": "System/EngineeringWorkshop/receipts/ENG-20260722-154330-42BAE0/bcbe18590e5882722cf7ff2695a52cd71cd768cd584990e02dc1f9d1181ee44f.receipt.json",
+        "schema": "foxai.engineering.receipt.v1",
+        "sha256": "9dfe30fc383b38e65677f3bdfbd931da315c6b76a23c4c2d32b44b77f526c60f",
+        "size_bytes": 23727,
+        "status": "applied_verified"
+      },
+      {
+        "kind": "evidence_or_receipt",
+        "mission_id": "ENG-20260722-165746-DF7E34",
+        "plan_sha256": "50bf20156c35770d85aa98b13246aba75c7e3c280516132ad347d52154a8eba1",
+        "relative_to_foxai": "System/EngineeringWorkshop/receipts/ENG-20260722-165746-DF7E34/50bf20156c35770d85aa98b13246aba75c7e3c280516132ad347d52154a8eba1.receipt.json",
+        "schema": "foxai.engineering.receipt.v1",
+        "sha256": "ff988ce24f7f095427582c2696a7ed2c7a474336abe268acde74789732398cc3",
+        "size_bytes": 24462,
+        "status": "applied_verified"
+      },
+      {
+        "kind": "evidence_or_receipt",
+        "mission_id": "ENG-20260722-153014-F39AF7",
+        "relative_to_foxai": "System/EngineeringWorkshop/snapshots/ENG-20260722-153014-F39AF7/snapshot_20260722T153417312312Z.manifest.json",
+        "sha256": "620751bc0e8f397da6c6d7de03b2449624379a2099b31cf2a5cbea1ab022e5cf",
+        "size_bytes": 919
+      },
+      {
+        "kind": "snapshot",
+        "mission_id": "ENG-20260722-153014-F39AF7",
+        "relative_to_foxai": "System/EngineeringWorkshop/snapshots/ENG-20260722-153014-F39AF7/snapshot_20260722T153417312312Z.zip",
+        "sha256": "e2bae517ee23a382b66a12006f992a4c3a5a8b97c84f50b32347d72f74a63e15",
+        "size_bytes": 436
+      },
+      {
+        "kind": "evidence_or_receipt",
+        "mission_id": "ENG-20260722-154330-42BAE0",
+        "relative_to_foxai": "System/EngineeringWorkshop/snapshots/ENG-20260722-154330-42BAE0/snapshot_20260722T160715190864Z.manifest.json",
+        "sha256": "51f4ed48f903cc5dc2252e54648baa80dc10959ed2782e9b1870f7ada6dc22f5",
+        "size_bytes": 925
+      },
+      {
+        "kind": "snapshot",
+        "mission_id": "ENG-20260722-154330-42BAE0",
+        "relative_to_foxai": "System/EngineeringWorkshop/snapshots/ENG-20260722-154330-42BAE0/snapshot_20260722T160715190864Z.zip",
+        "sha256": "51ad15b356496383ecda97d0c97b2ed81be02d3d89ad5b813371e636741d7e9b",
+        "size_bytes": 461
+      },
+      {
+        "kind": "evidence_or_receipt",
+        "mission_id": "ENG-20260722-165746-DF7E34",
+        "relative_to_foxai": "System/EngineeringWorkshop/snapshots/ENG-20260722-165746-DF7E34/snapshot_20260722T183255310785Z.manifest.json",
+        "sha256": "ef7dd034bb58013c4f14d9a3ba1fa4d17996442fe6d15cab13da63f2e3693082",
+        "size_bytes": 925
+      },
+      {
+        "kind": "snapshot",
+        "mission_id": "ENG-20260722-165746-DF7E34",
+        "relative_to_foxai": "System/EngineeringWorkshop/snapshots/ENG-20260722-165746-DF7E34/snapshot_20260722T183255310785Z.zip",
+        "sha256": "f4ccee3f2e2480958664ce31336f3a295fab6b0f53e29a5b6714150c7d61855f",
+        "size_bytes": 431
+      },
+      {
+        "kind": "evidence_or_receipt",
+        "mission_id": "ENG-20260722-225500-4D0517",
+        "relative_to_foxai": "System/EngineeringWorkshop/snapshots/ENG-20260722-225500-4D0517/snapshot_20260722T232514547501Z.manifest.json",
+        "sha256": "34a56ae7e5f895c1b6668efef62f69f6d3d42e1ac3cd0abda728a8bc37ec7d54",
+        "size_bytes": 758
+      },
+      {
+        "kind": "snapshot",
+        "mission_id": "ENG-20260722-225500-4D0517",
+        "relative_to_foxai": "System/EngineeringWorkshop/snapshots/ENG-20260722-225500-4D0517/snapshot_20260722T232514547501Z.zip",
+        "sha256": "c874fc7f04cc2b473d66f757a6c8b5001d847e8b8a7ee54aa3f02728760175fb",
+        "size_bytes": 24229
+      },
+      {
+        "kind": "snapshot",
+        "mission_id": "ENG-20260723-002238-CD8A83",
+        "relative_to_foxai": "System/EngineeringWorkshop/snapshots/ENG-20260723-002238-CD8A83/v1b2f_r3_k_preupdate_20260723T0045179806004Z.zip",
+        "sha256": "d521440e99a7de4101b12fde5aa0f080df87454c5a780a18ec1d82f1db5d139c",
+        "size_bytes": 23857
+      }
+    ],
+    "mission_ids": [
+      "ENG-20260722-153014-F39AF7",
+      "ENG-20260722-154330-42BAE0",
+      "ENG-20260722-165746-DF7E34",
+      "ENG-20260722-183657-F5AF85",
+      "ENG-20260722-223348-83B942",
+      "ENG-20260722-225500-4D0517",
+      "ENG-20260723-001455-43C31D",
+      "ENG-20260723-002238-CD8A83",
+      "ENG-20260723-012205-B039AE"
+    ]
+  },
+  "next_boundary": {
+    "goals": [
+      "Recognize explicit current-state questions.",
+      "Require or enforce approved read-only authorization.",
+      "Route only to bounded approved live-state providers.",
+      "Clearly distinguish live evidence from historical evidence.",
+      "Preserve pass-through when authorization or a suitable provider is unavailable."
+    ],
+    "name": "V1B-3A Approved Read-Only Current-State Request Broker",
+    "non_goals": [
+      "No automatic scans merely because a user opens Desktop or WebUI.",
+      "No diagnosis, repair, tuning, optimization, or recommendations.",
+      "No write operations, installs, network activity, or background monitoring.",
+      "No reuse of historical evidence as a substitute for current measurements."
+    ]
+  },
+  "official_names_and_maps": {},
+  "preflight_mission_id": "ENG-20260723-012205-B039AE",
+  "reference_build_mission_id": "ENG-20260723-013919-9712A1",
+  "reference_build_recommendation": {
+    "final_outputs_not_created": true,
+    "mission_id": "ENG-20260723-012205-B039AE",
+    "proposed_guide_sections": [
+      "Purpose and current milestone",
+      "Official departments and subsystem names",
+      "Architecture layers and entry points",
+      "Desktop and WebUI routing precedence",
+      "Providers, adapters, contracts, fixtures, and evidence sources",
+      "Python and local dependency map",
+      "Protected files and current hashes",
+      "Allowed and prohibited operations",
+      "Validation suites and known-good behavior",
+      "Mission, receipt, snapshot, and anomaly index",
+      "Z active-build and K mirror convention",
+      "V1B-3A boundary and non-goals"
+    ],
+    "recommended_final_outputs": [
+      {
+        "name": "TECHNICAL_CORE_REFERENCE_MANIFEST.json",
+        "purpose": "Machine-readable authoritative map."
+      },
+      {
+        "name": "TECHNICAL_CORE_REFERENCE_GUIDE.md",
+        "purpose": "Human-readable architecture and dependency guide."
+      }
+    ],
+    "required_review_before_final_build": [
+      "Resolve missing paths, if any.",
+      "Review third_party_or_unknown imports; static presence is not runtime proof.",
+      "Select protected authoritative baselines.",
+      "Confirm official display names from extracted maps.",
+      "Carry forward the V1B-2E partial-apply bookkeeping anomaly.",
+      "Set the next boundary to V1B-3A Approved Read-Only Current-State Request Broker."
+    ],
+    "schema": "foxai.agent_fox.technical_core.v1b2g.reference_build_recommendation.v1",
+    "status": "preflight_complete_ready_for_reference_build"
+  },
+  "routing": {
+    "desktop_model_label_idempotent": true,
+    "ordinary_evidence_word_routes_to_engineer": false,
+    "ranked_evidence_trigger_preserved": true,
+    "required_precedence": [
+      "exact slash-command handling",
+      "shared self-knowledge adapter/provider",
+      "department or Director routing",
+      "ordinary model dispatch"
+    ],
+    "shared_adapter_entry_point": "self_knowledge_chat_adapter_v1.route_message"
+  },
+  "safety_boundary": {
+    "allowed": [
+      "Bounded static inspection of explicitly relevant Technical Core files.",
+      "Historical resource-evidence answers grounded in verified evidence sources.",
+      "Exact slash-command bypass before self-knowledge evidence loading.",
+      "Explicit, fixed-file Z-to-K mirroring with post-copy hash verification."
+    ],
+    "prohibited": [
+      "Automatic current-live-state claims from historical evidence.",
+      "Unapproved live scans, process/listener inspection, or network access.",
+      "Model calls or GUI launches by the historical resource provider.",
+      "Filesystem-wide search, service/startup/registry changes, or K: access without explicit scope.",
+      "Diagnosis or performance recommendations from the historical resource provider."
+    ]
+  },
+  "schema": "foxai.agent_fox.technical_core.reference_manifest.v1",
+  "source_inventory": {
+    "bounded_source_count": 25,
+    "files": [
+      {
+        "historical_hash": "09c64402aa1f1315f0cc07eec1c2d0a52de0391748bb2a1a8096cd6535bcff62",
+        "historical_hash_match": true,
+        "path": "System/AgentFoxTechnicalCore/README_V1B2C.md",
+        "sha256": "09c64402aa1f1315f0cc07eec1c2d0a52de0391748bb2a1a8096cd6535bcff62",
+        "size_bytes": 952,
+        "suffix": ".md"
+      },
+      {
+        "historical_hash": "60b6b5394849a5cd0a192be137deb01be39d2c3f8fd3e4fa75421b94ab5a9ab1",
+        "historical_hash_match": true,
+        "path": "System/AgentFoxTechnicalCore/SHARED_RESOURCE_PROVIDER_INTEGRATION_CONTRACT_V1.json",
+        "sha256": "60b6b5394849a5cd0a192be137deb01be39d2c3f8fd3e4fa75421b94ab5a9ab1",
+        "size_bytes": 2761,
+        "suffix": ".json"
+      },
+      {
+        "historical_hash": "f2fab44d7926a4f46706e369eb853b790137a29ff4b6df689deeab44e9327b13",
+        "historical_hash_match": true,
+        "path": "System/AgentFoxTechnicalCore/SHARED_RESOURCE_PROVIDER_INTEGRATION_FIXTURES_V1.json",
+        "sha256": "f2fab44d7926a4f46706e369eb853b790137a29ff4b6df689deeab44e9327b13",
+        "size_bytes": 5000,
+        "suffix": ".json"
+      },
+      {
+        "historical_hash": "1b3aa2e3ab0409112ca602209285e27df1ab6b0216f5d9a9480766e4509078c4",
+        "historical_hash_match": true,
+        "path": "System/AgentFoxTechnicalCore/desktop_self_knowledge_integration_v1.py",
+        "sha256": "1b3aa2e3ab0409112ca602209285e27df1ab6b0216f5d9a9480766e4509078c4",
+        "size_bytes": 32753,
+        "suffix": ".py",
+        "top_level_classes": [],
+        "top_level_functions": []
+      },
+      {
+        "historical_hash": "41a1663cd30af8a3800c8082d351f8d0338e75cd1df39d3c801a39cc3075f680",
+        "historical_hash_match": true,
+        "path": "System/AgentFoxTechnicalCore/resource_evidence_provider_v1.py",
+        "sha256": "41a1663cd30af8a3800c8082d351f8d0338e75cd1df39d3c801a39cc3075f680",
+        "size_bytes": 48584,
+        "suffix": ".py",
+        "top_level_classes": [],
+        "top_level_functions": []
+      },
+      {
+        "historical_hash": "1563a0f3275eb7516006c8f608ef595f693a85fcb9cba60f2610ca053b25f275",
+        "historical_hash_match": true,
+        "path": "System/AgentFoxTechnicalCore/self_knowledge_chat_adapter_v1.py",
+        "sha256": "1563a0f3275eb7516006c8f608ef595f693a85fcb9cba60f2610ca053b25f275",
+        "size_bytes": 62045,
+        "suffix": ".py",
+        "top_level_classes": [],
+        "top_level_functions": []
+      },
+      {
+        "historical_hash": "fdf30e7b33ac1fda8d88d2ac761fae3ca93f3a01a3261b03e3832a55898d39ce",
+        "historical_hash_match": true,
+        "path": "System/AgentFoxTechnicalCore/shared_resource_provider_integration_verifier_v1.py",
+        "sha256": "fdf30e7b33ac1fda8d88d2ac761fae3ca93f3a01a3261b03e3832a55898d39ce",
+        "size_bytes": 26679,
+        "suffix": ".py",
+        "top_level_classes": [],
+        "top_level_functions": []
+      },
+      {
+        "historical_hash": "451f8b274dad5fae8c72df8fc6a51b0e360cf99a6a4174c000c66f3af9dd8b69",
+        "historical_hash_match": true,
+        "path": "System/AgentFoxTechnicalCore/webui_self_knowledge_integration_v1.py",
+        "sha256": "451f8b274dad5fae8c72df8fc6a51b0e360cf99a6a4174c000c66f3af9dd8b69",
+        "size_bytes": 8296,
+        "suffix": ".py",
+        "top_level_classes": [],
+        "top_level_functions": []
+      },
+      {
+        "historical_hash": null,
+        "historical_hash_match": null,
+        "path": "core/agents.py",
+        "sha256": "a822bc012da7f7fd6b3166ad14a57844c402ace21cc1bb971190b43c823b0a65",
+        "size_bytes": 1321,
+        "suffix": ".py",
+        "top_level_classes": [],
+        "top_level_functions": []
+      },
+      {
+        "historical_hash": null,
+        "historical_hash_match": null,
+        "path": "core/chat_agent.py",
+        "sha256": "7720092b9a6a616c6a572450a64bcb204de1dc40f4375b85a75eba63e58404f9",
+        "size_bytes": 571,
+        "suffix": ".py",
+        "top_level_classes": [],
+        "top_level_functions": []
+      },
+      {
+        "historical_hash": null,
+        "historical_hash_match": null,
+        "path": "core/chat_resilience.py",
+        "sha256": "af53270881eee1f0c4d23fb3deafed2dceb44bd684d9bd6e66221f3d05a29838",
+        "size_bytes": 3991,
+        "suffix": ".py",
+        "top_level_classes": [],
+        "top_level_functions": []
+      },
+      {
+        "historical_hash": "1397b0ce5d1e21b9fc49eabef76ffa64467d716061b12d1a2c670167597d7d55",
+        "historical_hash_match": true,
+        "path": "core/director.py",
+        "selected_constants": {
+          "ENGINEER_TRIGGERS": [
+            "investigate",
+            "investigation",
+            "investigation engine",
+            "ranked evidence",
+            "recommendation",
+            "engineering assessment",
+            "heuristic",
+            "mission router",
+            "kernel",
+            "boot report",
+            "service registry",
+            "timeout",
+            "scan for new files",
+            "scan new files",
+            "reindex project",
+            "scan project files",
+            "project index",
+            "review your code",
+            "scan your code",
+            "scan your own code",
+            "review your own code",
+            "architecture review",
+            "technical debt",
+            "dependency graph",
+            "runtime graph",
+            "code review",
+            "refactor",
+            "forge",
+            "forge sprint",
+            "build component",
+            "generate implementation",
+            "debug",
+            "fix this code",
+            "python error",
+            "traceback",
+            "syntaxerror",
+            "indentationerror",
+            "module not found"
+          ]
+        },
+        "sha256": "1397b0ce5d1e21b9fc49eabef76ffa64467d716061b12d1a2c670167597d7d55",
+        "size_bytes": 7003,
+        "suffix": ".py",
+        "top_level_classes": [],
+        "top_level_functions": []
+      },
+      {
+        "historical_hash": null,
+        "historical_hash_match": null,
+        "path": "core/engineer_agent.py",
+        "sha256": "d01bd8e6e6ec1b8be896c828177caf3d5eea4bd58a6ea54e95b5976779683b28",
+        "size_bytes": 80044,
+        "suffix": ".py",
+        "top_level_classes": [],
+        "top_level_functions": []
+      },
+      {
+        "historical_hash": null,
+        "historical_hash_match": null,
+        "path": "core/engineer_intent.py",
+        "sha256": "a74a4982dc08cda8175d20c60541ae670369ee9a30695d024115c69d66f2002f",
+        "size_bytes": 4080,
+        "suffix": ".py",
+        "top_level_classes": [],
+        "top_level_functions": []
+      },
+      {
+        "historical_hash": null,
+        "historical_hash_match": null,
+        "path": "core/engineering_workshop_bridge.py",
+        "sha256": "2a2ee1b46266aac04a70554f90e6d33416267c18e0689c36c7c88d0ad220f4da",
+        "size_bytes": 14423,
+        "suffix": ".py",
+        "top_level_classes": [],
+        "top_level_functions": []
+      },
+      {
+        "historical_hash": "d7bf0a2042d55ef7f0a5869556015e42c7427e7ff88636b28e1795f3adf7b952",
+        "historical_hash_match": true,
+        "path": "core/foxai_web.py",
+        "sha256": "d7bf0a2042d55ef7f0a5869556015e42c7427e7ff88636b28e1795f3adf7b952",
+        "size_bytes": 2353581,
+        "suffix": ".py",
+        "top_level_classes": [],
+        "top_level_functions": []
+      },
+      {
+        "historical_hash": null,
+        "historical_hash_match": null,
+        "path": "core/investigation_engine.py",
+        "sha256": "6e6ff3a97c5c1f72407c20ff805514ce9bff68dabd07ff22144791b3ad7a44ca",
+        "size_bytes": 9622,
+        "suffix": ".py",
+        "top_level_classes": [],
+        "top_level_functions": []
+      },
+      {
+        "historical_hash": null,
+        "historical_hash_match": null,
+        "path": "core/library_agent.py",
+        "sha256": "846b7ee2eea7417ce7a258cf592896d5d2cce73b496a5528ce8881aeb70d7fa4",
+        "size_bytes": 958,
+        "suffix": ".py",
+        "top_level_classes": [],
+        "top_level_functions": []
+      },
+      {
+        "historical_hash": null,
+        "historical_hash_match": null,
+        "path": "core/memory.py",
+        "sha256": "05117cb38a179ca66761dfb7495f799bf008c423de8db0e531a226c24af538bf",
+        "size_bytes": 1921,
+        "suffix": ".py",
+        "top_level_classes": [],
+        "top_level_functions": []
+      },
+      {
+        "historical_hash": null,
+        "historical_hash_match": null,
+        "path": "core/mission_flow.py",
+        "sha256": "30c1c3ef910d944e0a3ea899b517938da942e69218dc1a68f9b7a9a50865172a",
+        "size_bytes": 6862,
+        "suffix": ".py",
+        "top_level_classes": [],
+        "top_level_functions": []
+      },
+      {
+        "historical_hash": null,
+        "historical_hash_match": null,
+        "path": "core/mission_session.py",
+        "sha256": "d1032abb31b30f9b5a0b8e6169983de368d4a5ab474438f454fe385436a6d57a",
+        "size_bytes": 11541,
+        "suffix": ".py",
+        "top_level_classes": [],
+        "top_level_functions": []
+      },
+      {
+        "historical_hash": null,
+        "historical_hash_match": null,
+        "path": "core/red_canvas_agent.py",
+        "sha256": "7b02daa842635fa922eec6e03d69ed71805383222ea8b2cbceb19556125e201d",
+        "size_bytes": 288,
+        "suffix": ".py",
+        "top_level_classes": [],
+        "top_level_functions": []
+      },
+      {
+        "historical_hash": null,
+        "historical_hash_match": null,
+        "path": "core/security_containment.py",
+        "sha256": "9a00ed8c1b2ef45a02fab2e4c2e552b3a6532e1609b6995a7985034ccf002a24",
+        "size_bytes": 37899,
+        "suffix": ".py",
+        "top_level_classes": [],
+        "top_level_functions": []
+      },
+      {
+        "historical_hash": null,
+        "historical_hash_match": null,
+        "path": "core/workshop_config.py",
+        "sha256": "91236db004335645db467962028de638e19046cff2d349fa3af0dd4c9d5e4265",
+        "size_bytes": 3968,
+        "suffix": ".py",
+        "top_level_classes": [],
+        "top_level_functions": []
+      },
+      {
+        "historical_hash": "c232ce7f14a9fc7e898c13afcdfc7e56be1826b51d18d3c71979ac3f0b2acdc9",
+        "historical_hash_match": true,
+        "path": "ui/main_window.py",
+        "sha256": "c232ce7f14a9fc7e898c13afcdfc7e56be1826b51d18d3c71979ac3f0b2acdc9",
+        "size_bytes": 99139,
+        "suffix": ".py",
+        "top_level_classes": [],
+        "top_level_functions": []
+      }
+    ],
+    "missing_count": 0,
+    "present_count": 25
+  },
+  "storage_workflow": {
+    "active_build": "Z:\\FOXAI",
+    "portable_mirror": "K:\\FOXAI",
+    "small_increment_policy": "Fixed-file add/update copy plus post-copy SHA-256 verification; delete nothing unless explicitly authorized."
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "schema": "foxai.agent_fox.technical_core.v1a3c_pm.postmortem_contract.v1",
+  "mission_id": "ENG-20260721-164308-A1692D",
+  "failed_mission_id": "ENG-20260721-161617-AA7BE6",
+  "purpose": "Bounded read-only postmortem of the V1A-3C validation failure and reported temporary Python/USB interruption.",
+  "scope": {
+    "allowed_reads": [
+      "Authoritative failed-mission receipt and bounded Workshop artifacts",
+      "Snapshot ZIP central-directory metadata without extraction",
+      "Current Z: volume, partition, and disk status",
+      "Bounded Application and System event-log window centered on the failed receipt timestamp"
+    ],
+    "allowed_child_processes": 1,
+    "allowed_child_process": "powershell.exe read-only evidence query",
+    "event_window_minutes_before": 30,
+    "event_window_minutes_after": 30,
+    "maximum_application_events": 80,
+    "maximum_system_events": 120,
+    "maximum_discovered_workshop_files": 120,
+    "maximum_individual_file_read_bytes": 2097152,
+    "maximum_output_bytes": 8388608
+  },
+  "prohibited": {
+    "network": true,
+    "package_installation": true,
+    "chkdsk_or_repair": true,
+    "benchmark_or_stress_test": true,
+    "full_source_tree_scan": true,
+    "failed_payload_execution": true,
+    "dependency_closure_build": true,
+    "foxai_application_launch": true,
+    "model_loading": true,
+    "elevation": true,
+    "deletion_or_rename": true
+  },
+  "outputs": [
+    "POSTMORTEM_EVIDENCE.json",
+    "FAILURE_CLASSIFICATION.json",
+    "POSTMORTEM_SUMMARY.md",
+    "POSTMORTEM_RECEIPT.json"
+  ]
+}

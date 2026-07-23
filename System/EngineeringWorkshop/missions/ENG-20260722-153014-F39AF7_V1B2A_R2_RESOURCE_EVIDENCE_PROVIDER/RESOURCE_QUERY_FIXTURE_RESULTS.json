@@ -1,0 +1,893 @@
+{
+  "fixture_count": 10,
+  "mission_id": "ENG-20260722-153014-F39AF7",
+  "not_applicable_count": 1,
+  "resource_answer_count": 8,
+  "rows": [
+    {
+      "actual_category": "measured_normal_loaded_ram",
+      "actual_status": "answered",
+      "answer_packet": {
+        "answer_text": "In the qualified normal-loaded capture, physical RAM in use was 42.83 GB at 83.64% memory load, leaving 8.38 GB available.",
+        "answer_text_claim_ids": [
+          "RESOURCE-CLAIM-9F4C724819F87088"
+        ],
+        "clarification": null,
+        "confidence_basis": "exact_hash_verified_authoritative_v1b1c_evidence",
+        "current_state_claimed": false,
+        "derived_values": {},
+        "evidence": {
+          "current_state_claimed": false,
+          "derived_values": {},
+          "limitations": [
+            "This answer describes verified point-in-time captures and does not claim current-live state."
+          ],
+          "live_scan_performed": false,
+          "observed_values": {
+            "available_physical_memory_bytes": 8379232256,
+            "memory_load_percent": 83.64,
+            "physical_memory_in_use_bytes": 42833985536
+          },
+          "provider_schema": "foxai.agent_fox.technical_core.v1b2a.answer_evidence.v1",
+          "source_files": [
+            "RESOURCE_BASELINE_COMPARISON.json"
+          ],
+          "source_mission": "ENG-20260722-142022-9FAE11",
+          "source_record_ids": [
+            "COMPARISON-6D46FE1072DFCDC5",
+            "COMPARISON-90DB130D101F01F9",
+            "COMPARISON-CD1BBA9B5EE53E50"
+          ]
+        },
+        "limitations": [
+          "This answer describes verified point-in-time captures and does not claim current-live state."
+        ],
+        "linked_context_references": [],
+        "live_scan_performed": false,
+        "matched_category": "measured_normal_loaded_ram",
+        "normalized_intent": "resource_evidence:measured_normal_loaded_ram",
+        "observed_values": {
+          "available_physical_memory_bytes": 8379232256,
+          "memory_load_percent": 83.64,
+          "physical_memory_in_use_bytes": 42833985536
+        },
+        "provider": "resource_evidence_provider_v1",
+        "request_id": "FIXTURE-01",
+        "resolved_selectors": {
+          "resource_category": "measured_normal_loaded_ram"
+        },
+        "safety": {
+          "current_state_claimed": false,
+          "dependency_nodes_or_edges_copied": false,
+          "diagnosis_issued": false,
+          "live_scan_performed": false,
+          "recommendations_issued": false,
+          "runtime_facts_inferred_across_contexts": false,
+          "unresolved_candidates_presented_as_confirmed": false
+        },
+        "schema": "foxai.agent_fox.technical_core.v1a3e.answer_packet.v1",
+        "source_files": [
+          "RESOURCE_BASELINE_COMPARISON.json"
+        ],
+        "source_mission": "ENG-20260722-142022-9FAE11",
+        "source_record_ids": [
+          "COMPARISON-6D46FE1072DFCDC5",
+          "COMPARISON-90DB130D101F01F9",
+          "COMPARISON-CD1BBA9B5EE53E50"
+        ],
+        "status": "answered",
+        "structured_claims": [
+          {
+            "claim_id": "RESOURCE-CLAIM-9F4C724819F87088",
+            "provenance": [
+              {
+                "source_file": "RESOURCE_BASELINE_COMPARISON.json",
+                "source_mission": "ENG-20260722-142022-9FAE11",
+                "source_record_id": "COMPARISON-90DB130D101F01F9",
+                "source_sha256": "40462031e89ea469b7c3940c863d225fa7fbad2cef4c6f44e720154d42cf4c86",
+                "underlying_capture_missions": [
+                  "ENG-20260722-062243-69C555",
+                  "ENG-20260722-140518-F13169"
+                ]
+              }
+            ],
+            "text": "In the qualified normal-loaded capture, physical RAM in use was 42.83 GB at 83.64% memory load, leaving 8.38 GB available.",
+            "value": {
+              "derived": {},
+              "observed": {
+                "available_physical_memory_bytes": 8379232256,
+                "memory_load_percent": 83.64,
+                "physical_memory_in_use_bytes": 42833985536
+              }
+            }
+          }
+        ],
+        "uncertainty_statements": [],
+        "unresolved_items": []
+      },
+      "evidence_loaded": true,
+      "expected_category": "measured_normal_loaded_ram",
+      "expected_status": "answered",
+      "fixture_id": "FIXTURE-01",
+      "question": "How much RAM does FOXAI use when everything is loaded?",
+      "source_read_delta": 0
+    },
+    {
+      "actual_category": "dominant_measured_foxai_component",
+      "actual_status": "answered",
+      "answer_packet": {
+        "answer_text": "The shared model runtime was the dominant measured FOXAI process at 29.88 GB (27.82 GiB) working set. Its scale ratio was 69.75% of total physical memory in use, but that ratio is not exclusive ownership accounting.",
+        "answer_text_claim_ids": [
+          "RESOURCE-CLAIM-61E33518CA3294A2"
+        ],
+        "clarification": null,
+        "confidence_basis": "exact_hash_verified_authoritative_v1b1c_evidence",
+        "current_state_claimed": false,
+        "derived_values": {
+          "model_share_of_physical_memory_in_use_percent": 69.7501
+        },
+        "evidence": {
+          "current_state_claimed": false,
+          "derived_values": {
+            "model_share_of_physical_memory_in_use_percent": 69.7501
+          },
+          "limitations": [
+            "Working-set values are point-in-time process observations and are not an exclusive accounting of every shared or cached byte.",
+            "This ratio shows scale, not exclusive ownership; process working set and system physical use are different accounting views."
+          ],
+          "live_scan_performed": false,
+          "observed_values": {
+            "model_working_set_bytes": 29876736000
+          },
+          "provider_schema": "foxai.agent_fox.technical_core.v1b2a.answer_evidence.v1",
+          "source_files": [
+            "FOXAI_COMPONENT_RESOURCE_ATTRIBUTION.json"
+          ],
+          "source_mission": "ENG-20260722-142022-9FAE11",
+          "source_record_ids": [
+            "ATTRIBUTION-9593289804A47552",
+            "COMPONENT-6B5C0C7C880DAABC"
+          ]
+        },
+        "limitations": [
+          "Working-set values are point-in-time process observations and are not an exclusive accounting of every shared or cached byte.",
+          "This ratio shows scale, not exclusive ownership; process working set and system physical use are different accounting views."
+        ],
+        "linked_context_references": [],
+        "live_scan_performed": false,
+        "matched_category": "dominant_measured_foxai_component",
+        "normalized_intent": "resource_evidence:dominant_measured_foxai_component",
+        "observed_values": {
+          "model_working_set_bytes": 29876736000
+        },
+        "provider": "resource_evidence_provider_v1",
+        "request_id": "FIXTURE-02",
+        "resolved_selectors": {
+          "resource_category": "dominant_measured_foxai_component"
+        },
+        "safety": {
+          "current_state_claimed": false,
+          "dependency_nodes_or_edges_copied": false,
+          "diagnosis_issued": false,
+          "live_scan_performed": false,
+          "recommendations_issued": false,
+          "runtime_facts_inferred_across_contexts": false,
+          "unresolved_candidates_presented_as_confirmed": false
+        },
+        "schema": "foxai.agent_fox.technical_core.v1a3e.answer_packet.v1",
+        "source_files": [
+          "FOXAI_COMPONENT_RESOURCE_ATTRIBUTION.json"
+        ],
+        "source_mission": "ENG-20260722-142022-9FAE11",
+        "source_record_ids": [
+          "ATTRIBUTION-9593289804A47552",
+          "COMPONENT-6B5C0C7C880DAABC"
+        ],
+        "status": "answered",
+        "structured_claims": [
+          {
+            "claim_id": "RESOURCE-CLAIM-61E33518CA3294A2",
+            "provenance": [
+              {
+                "source_file": "FOXAI_COMPONENT_RESOURCE_ATTRIBUTION.json",
+                "source_mission": "ENG-20260722-142022-9FAE11",
+                "source_record_id": "COMPONENT-6B5C0C7C880DAABC",
+                "source_sha256": "8673d496b81aebe432b4f79df7d1b773aea8742f0b09ebfe6d660a9f170f9c3f",
+                "underlying_capture_missions": [
+                  "ENG-20260722-062243-69C555",
+                  "ENG-20260722-140518-F13169"
+                ]
+              }
+            ],
+            "text": "The shared model runtime was the dominant measured FOXAI process at 29.88 GB (27.82 GiB) working set. Its scale ratio was 69.75% of total physical memory in use, but that ratio is not exclusive ownership accounting.",
+            "value": {
+              "model_working_set_bytes": 29876736000
+            }
+          }
+        ],
+        "uncertainty_statements": [],
+        "unresolved_items": []
+      },
+      "evidence_loaded": true,
+      "expected_category": "dominant_measured_foxai_component",
+      "expected_status": "answered",
+      "fixture_id": "FIXTURE-02",
+      "question": "What was using most of the memory?",
+      "source_read_delta": 0
+    },
+    {
+      "actual_category": "available_loaded_state_memory",
+      "actual_status": "answered",
+      "answer_packet": {
+        "answer_text": "The qualified loaded capture had 8.38 GB (7.80 GiB) of physical RAM available, equal to 16.36% point-in-time physical-memory headroom.",
+        "answer_text_claim_ids": [
+          "RESOURCE-CLAIM-BF6D4397AADB36DD"
+        ],
+        "clarification": null,
+        "confidence_basis": "exact_hash_verified_authoritative_v1b1c_evidence",
+        "current_state_claimed": false,
+        "derived_values": {
+          "physical_memory_headroom_percent": 16.36
+        },
+        "evidence": {
+          "current_state_claimed": false,
+          "derived_values": {
+            "physical_memory_headroom_percent": 16.36
+          },
+          "limitations": [
+            "This is a point-in-time qualified capture, not a current-live reading or stress test."
+          ],
+          "live_scan_performed": false,
+          "observed_values": {
+            "available_physical_memory_bytes": 8379232256
+          },
+          "provider_schema": "foxai.agent_fox.technical_core.v1b2a.answer_evidence.v1",
+          "source_files": [
+            "CAPACITY_HEADROOM_OBSERVATIONS.json"
+          ],
+          "source_mission": "ENG-20260722-142022-9FAE11",
+          "source_record_ids": [
+            "HEADROOM-A74B0BBDCDA044EA",
+            "HEADROOM-FFCC7431EC72F11A"
+          ]
+        },
+        "limitations": [
+          "This is a point-in-time qualified capture, not a current-live reading or stress test."
+        ],
+        "linked_context_references": [],
+        "live_scan_performed": false,
+        "matched_category": "available_loaded_state_memory",
+        "normalized_intent": "resource_evidence:available_loaded_state_memory",
+        "observed_values": {
+          "available_physical_memory_bytes": 8379232256
+        },
+        "provider": "resource_evidence_provider_v1",
+        "request_id": "FIXTURE-03",
+        "resolved_selectors": {
+          "resource_category": "available_loaded_state_memory"
+        },
+        "safety": {
+          "current_state_claimed": false,
+          "dependency_nodes_or_edges_copied": false,
+          "diagnosis_issued": false,
+          "live_scan_performed": false,
+          "recommendations_issued": false,
+          "runtime_facts_inferred_across_contexts": false,
+          "unresolved_candidates_presented_as_confirmed": false
+        },
+        "schema": "foxai.agent_fox.technical_core.v1a3e.answer_packet.v1",
+        "source_files": [
+          "CAPACITY_HEADROOM_OBSERVATIONS.json"
+        ],
+        "source_mission": "ENG-20260722-142022-9FAE11",
+        "source_record_ids": [
+          "HEADROOM-A74B0BBDCDA044EA",
+          "HEADROOM-FFCC7431EC72F11A"
+        ],
+        "status": "answered",
+        "structured_claims": [
+          {
+            "claim_id": "RESOURCE-CLAIM-BF6D4397AADB36DD",
+            "provenance": [
+              {
+                "source_file": "CAPACITY_HEADROOM_OBSERVATIONS.json",
+                "source_mission": "ENG-20260722-142022-9FAE11",
+                "source_record_id": "HEADROOM-FFCC7431EC72F11A",
+                "source_sha256": "3dc50e04a634a73c67b963ea3ee10fdb52d1bac126bac26cb22f544f92288fba",
+                "underlying_capture_missions": [
+                  "ENG-20260722-062243-69C555",
+                  "ENG-20260722-140518-F13169"
+                ]
+              }
+            ],
+            "text": "The qualified loaded capture had 8.38 GB (7.80 GiB) of physical RAM available, equal to 16.36% point-in-time physical-memory headroom.",
+            "value": {
+              "available_physical_memory_bytes": 8379232256
+            }
+          }
+        ],
+        "uncertainty_statements": [],
+        "unresolved_items": []
+      },
+      "evidence_loaded": true,
+      "expected_category": "available_loaded_state_memory",
+      "expected_status": "answered",
+      "fixture_id": "FIXTURE-03",
+      "question": "How much RAM was left with the model and ComfyUI running?",
+      "source_read_delta": 0
+    },
+    {
+      "actual_category": "current_page_file_usage",
+      "actual_status": "answered",
+      "answer_packet": {
+        "answer_text": "The evidence cannot claim the page file's current live state. In the qualified loaded capture, page-file use was 693 MiB of 8192 MiB (8.46%). The 8191 MiB figure was a historical peak since boot, not usage at capture time.",
+        "answer_text_claim_ids": [
+          "RESOURCE-CLAIM-533EF454B6F9B6BD"
+        ],
+        "clarification": null,
+        "confidence_basis": "exact_hash_verified_authoritative_v1b1c_evidence",
+        "current_state_claimed": false,
+        "derived_values": {
+          "loaded_capture_page_file_usage_percent": 8.4595
+        },
+        "evidence": {
+          "current_state_claimed": false,
+          "derived_values": {
+            "loaded_capture_page_file_usage_percent": 8.4595
+          },
+          "limitations": [
+            "No current-live page-file status is claimed.",
+            "This is a historical peak since boot, not point-in-time page-file use during either capture."
+          ],
+          "live_scan_performed": false,
+          "observed_values": {
+            "historical_peak_usage_mib": 8191,
+            "loaded_capture_page_file_current_usage_mib": 693,
+            "page_file_allocated_mib": 8192
+          },
+          "provider_schema": "foxai.agent_fox.technical_core.v1b2a.answer_evidence.v1",
+          "source_files": [
+            "RESOURCE_BASELINE_COMPARISON.json"
+          ],
+          "source_mission": "ENG-20260722-142022-9FAE11",
+          "source_record_ids": [
+            "COMPARISON-4A19C1D21AEAD772",
+            "COMPARISON-4AB3633B156B8229",
+            "COMPARISON-75F3DA2A54CD6FD6"
+          ]
+        },
+        "limitations": [
+          "No current-live page-file status is claimed.",
+          "This is a historical peak since boot, not point-in-time page-file use during either capture."
+        ],
+        "linked_context_references": [],
+        "live_scan_performed": false,
+        "matched_category": "current_page_file_usage",
+        "normalized_intent": "resource_evidence:current_page_file_usage",
+        "observed_values": {
+          "historical_peak_usage_mib": 8191,
+          "loaded_capture_page_file_current_usage_mib": 693,
+          "page_file_allocated_mib": 8192
+        },
+        "provider": "resource_evidence_provider_v1",
+        "request_id": "FIXTURE-04",
+        "resolved_selectors": {
+          "resource_category": "current_page_file_usage"
+        },
+        "safety": {
+          "current_state_claimed": false,
+          "dependency_nodes_or_edges_copied": false,
+          "diagnosis_issued": false,
+          "live_scan_performed": false,
+          "recommendations_issued": false,
+          "runtime_facts_inferred_across_contexts": false,
+          "unresolved_candidates_presented_as_confirmed": false
+        },
+        "schema": "foxai.agent_fox.technical_core.v1a3e.answer_packet.v1",
+        "source_files": [
+          "RESOURCE_BASELINE_COMPARISON.json"
+        ],
+        "source_mission": "ENG-20260722-142022-9FAE11",
+        "source_record_ids": [
+          "COMPARISON-4A19C1D21AEAD772",
+          "COMPARISON-4AB3633B156B8229",
+          "COMPARISON-75F3DA2A54CD6FD6"
+        ],
+        "status": "answered",
+        "structured_claims": [
+          {
+            "claim_id": "RESOURCE-CLAIM-533EF454B6F9B6BD",
+            "provenance": [
+              {
+                "source_file": "RESOURCE_BASELINE_COMPARISON.json",
+                "source_mission": "ENG-20260722-142022-9FAE11",
+                "source_record_id": "COMPARISON-4AB3633B156B8229",
+                "source_sha256": "40462031e89ea469b7c3940c863d225fa7fbad2cef4c6f44e720154d42cf4c86",
+                "underlying_capture_missions": [
+                  "ENG-20260722-062243-69C555",
+                  "ENG-20260722-140518-F13169"
+                ]
+              }
+            ],
+            "text": "The evidence cannot claim the page file's current live state. In the qualified loaded capture, page-file use was 693 MiB of 8192 MiB (8.46%). The 8191 MiB figure was a historical peak since boot, not usage at capture time.",
+            "value": {
+              "derived": {
+                "loaded_capture_page_file_usage_percent": 8.4595
+              },
+              "observed": {
+                "historical_peak_usage_mib": 8191,
+                "loaded_capture_page_file_current_usage_mib": 693,
+                "page_file_allocated_mib": 8192
+              }
+            }
+          }
+        ],
+        "uncertainty_statements": [],
+        "unresolved_items": []
+      },
+      "evidence_loaded": true,
+      "expected_category": "current_page_file_usage",
+      "expected_status": "answered",
+      "fixture_id": "FIXTURE-04",
+      "question": "Is my page file currently full?",
+      "source_read_delta": 0
+    },
+    {
+      "actual_category": "idle_comfyui_working_set",
+      "actual_status": "answered",
+      "answer_packet": {
+        "answer_text": "No. Idle ComfyUI measured 0.57 GB (0.53 GiB) working set, while the shared model measured 29.88 GB.",
+        "answer_text_claim_ids": [
+          "RESOURCE-CLAIM-D628E2CCC4B08410"
+        ],
+        "clarification": null,
+        "confidence_basis": "exact_hash_verified_authoritative_v1b1c_evidence",
+        "current_state_claimed": false,
+        "derived_values": {
+          "idle_comfyui_as_percent_of_model_working_set": 1.8989
+        },
+        "evidence": {
+          "current_state_claimed": false,
+          "derived_values": {
+            "idle_comfyui_as_percent_of_model_working_set": 1.8989
+          },
+          "limitations": [
+            "Working-set values are point-in-time process observations and are not an exclusive accounting of every shared or cached byte."
+          ],
+          "live_scan_performed": false,
+          "observed_values": {
+            "idle_comfyui_working_set_bytes": 567324672,
+            "model_working_set_bytes": 29876736000
+          },
+          "provider_schema": "foxai.agent_fox.technical_core.v1b2a.answer_evidence.v1",
+          "source_files": [
+            "FOXAI_COMPONENT_RESOURCE_ATTRIBUTION.json"
+          ],
+          "source_mission": "ENG-20260722-142022-9FAE11",
+          "source_record_ids": [
+            "COMPONENT-6B5C0C7C880DAABC",
+            "COMPONENT-B3D69B0E40F785EC"
+          ]
+        },
+        "limitations": [
+          "Working-set values are point-in-time process observations and are not an exclusive accounting of every shared or cached byte."
+        ],
+        "linked_context_references": [],
+        "live_scan_performed": false,
+        "matched_category": "idle_comfyui_working_set",
+        "normalized_intent": "resource_evidence:idle_comfyui_working_set",
+        "observed_values": {
+          "idle_comfyui_working_set_bytes": 567324672,
+          "model_working_set_bytes": 29876736000
+        },
+        "provider": "resource_evidence_provider_v1",
+        "request_id": "FIXTURE-05",
+        "resolved_selectors": {
+          "resource_category": "idle_comfyui_working_set"
+        },
+        "safety": {
+          "current_state_claimed": false,
+          "dependency_nodes_or_edges_copied": false,
+          "diagnosis_issued": false,
+          "live_scan_performed": false,
+          "recommendations_issued": false,
+          "runtime_facts_inferred_across_contexts": false,
+          "unresolved_candidates_presented_as_confirmed": false
+        },
+        "schema": "foxai.agent_fox.technical_core.v1a3e.answer_packet.v1",
+        "source_files": [
+          "FOXAI_COMPONENT_RESOURCE_ATTRIBUTION.json"
+        ],
+        "source_mission": "ENG-20260722-142022-9FAE11",
+        "source_record_ids": [
+          "COMPONENT-6B5C0C7C880DAABC",
+          "COMPONENT-B3D69B0E40F785EC"
+        ],
+        "status": "answered",
+        "structured_claims": [
+          {
+            "claim_id": "RESOURCE-CLAIM-D628E2CCC4B08410",
+            "provenance": [
+              {
+                "source_file": "FOXAI_COMPONENT_RESOURCE_ATTRIBUTION.json",
+                "source_mission": "ENG-20260722-142022-9FAE11",
+                "source_record_id": "COMPONENT-B3D69B0E40F785EC",
+                "source_sha256": "8673d496b81aebe432b4f79df7d1b773aea8742f0b09ebfe6d660a9f170f9c3f",
+                "underlying_capture_missions": [
+                  "ENG-20260722-062243-69C555",
+                  "ENG-20260722-140518-F13169"
+                ]
+              }
+            ],
+            "text": "No. Idle ComfyUI measured 0.57 GB (0.53 GiB) working set, while the shared model measured 29.88 GB.",
+            "value": {
+              "idle_comfyui_working_set_bytes": 567324672,
+              "model_working_set_bytes": 29876736000
+            }
+          }
+        ],
+        "uncertainty_statements": [],
+        "unresolved_items": []
+      },
+      "evidence_loaded": true,
+      "expected_category": "idle_comfyui_working_set",
+      "expected_status": "answered",
+      "fixture_id": "FIXTURE-05",
+      "question": "Does idle ComfyUI use most of the memory?",
+      "source_read_delta": 0
+    },
+    {
+      "actual_category": "active_image_generation_capacity_limitation",
+      "actual_status": "answered",
+      "answer_packet": {
+        "answer_text": "No. The captures do not prove capacity during active image generation. The loaded qualification could not non-invasively determine generation activity and relied on the idle-queue precondition.",
+        "answer_text_claim_ids": [
+          "RESOURCE-CLAIM-D5BF336C45750D48"
+        ],
+        "clarification": null,
+        "confidence_basis": "exact_hash_verified_authoritative_v1b1c_evidence",
+        "current_state_claimed": false,
+        "derived_values": {},
+        "evidence": {
+          "current_state_claimed": false,
+          "derived_values": {},
+          "limitations": [
+            "The loaded capture does not establish capacity during active image generation."
+          ],
+          "live_scan_performed": false,
+          "observed_values": {},
+          "provider_schema": "foxai.agent_fox.technical_core.v1b2a.answer_evidence.v1",
+          "source_files": [
+            "CAPACITY_HEADROOM_OBSERVATIONS.json"
+          ],
+          "source_mission": "ENG-20260722-142022-9FAE11",
+          "source_record_ids": [
+            "LIMIT-6771874AA7E2903E"
+          ]
+        },
+        "limitations": [
+          "The loaded capture does not establish capacity during active image generation."
+        ],
+        "linked_context_references": [],
+        "live_scan_performed": false,
+        "matched_category": "active_image_generation_capacity_limitation",
+        "normalized_intent": "resource_evidence:active_image_generation_capacity_limitation",
+        "observed_values": {},
+        "provider": "resource_evidence_provider_v1",
+        "request_id": "FIXTURE-06",
+        "resolved_selectors": {
+          "resource_category": "active_image_generation_capacity_limitation"
+        },
+        "safety": {
+          "current_state_claimed": false,
+          "dependency_nodes_or_edges_copied": false,
+          "diagnosis_issued": false,
+          "live_scan_performed": false,
+          "recommendations_issued": false,
+          "runtime_facts_inferred_across_contexts": false,
+          "unresolved_candidates_presented_as_confirmed": false
+        },
+        "schema": "foxai.agent_fox.technical_core.v1a3e.answer_packet.v1",
+        "source_files": [
+          "CAPACITY_HEADROOM_OBSERVATIONS.json"
+        ],
+        "source_mission": "ENG-20260722-142022-9FAE11",
+        "source_record_ids": [
+          "LIMIT-6771874AA7E2903E"
+        ],
+        "status": "answered",
+        "structured_claims": [
+          {
+            "claim_id": "RESOURCE-CLAIM-D5BF336C45750D48",
+            "provenance": [
+              {
+                "source_file": "CAPACITY_HEADROOM_OBSERVATIONS.json",
+                "source_mission": "ENG-20260722-142022-9FAE11",
+                "source_record_id": "LIMIT-6771874AA7E2903E",
+                "source_sha256": "3dc50e04a634a73c67b963ea3ee10fdb52d1bac126bac26cb22f544f92288fba",
+                "underlying_capture_missions": [
+                  "ENG-20260722-062243-69C555",
+                  "ENG-20260722-140518-F13169"
+                ]
+              }
+            ],
+            "text": "No. The captures do not prove capacity during active image generation. The loaded qualification could not non-invasively determine generation activity and relied on the idle-queue precondition.",
+            "value": {}
+          }
+        ],
+        "uncertainty_statements": [],
+        "unresolved_items": []
+      },
+      "evidence_loaded": true,
+      "expected_category": "active_image_generation_capacity_limitation",
+      "expected_status": "answered",
+      "fixture_id": "FIXTURE-06",
+      "question": "Can this prove I can generate images while the 30B model is loaded?",
+      "source_read_delta": 0
+    },
+    {
+      "actual_category": "foxai_process_count_delta",
+      "actual_status": "answered",
+      "answer_packet": {
+        "answer_text": "The loaded capture had 5 FOXAI workspace processes versus 2 at minimal load, an increase of 3.",
+        "answer_text_claim_ids": [
+          "RESOURCE-CLAIM-F2D4EC2F5E90BE7A"
+        ],
+        "clarification": null,
+        "confidence_basis": "exact_hash_verified_authoritative_v1b1c_evidence",
+        "current_state_claimed": false,
+        "derived_values": {
+          "foxai_process_count_delta": 3
+        },
+        "evidence": {
+          "current_state_claimed": false,
+          "derived_values": {
+            "foxai_process_count_delta": 3
+          },
+          "limitations": [
+            "This answer describes verified point-in-time captures and does not claim current-live state."
+          ],
+          "live_scan_performed": false,
+          "observed_values": {
+            "loaded_foxai_process_count": 5,
+            "minimal_foxai_process_count": 2
+          },
+          "provider_schema": "foxai.agent_fox.technical_core.v1b2a.answer_evidence.v1",
+          "source_files": [
+            "RESOURCE_BASELINE_COMPARISON.json"
+          ],
+          "source_mission": "ENG-20260722-142022-9FAE11",
+          "source_record_ids": [
+            "COMPARISON-B1F53BCCD281C66C"
+          ]
+        },
+        "limitations": [
+          "This answer describes verified point-in-time captures and does not claim current-live state."
+        ],
+        "linked_context_references": [],
+        "live_scan_performed": false,
+        "matched_category": "foxai_process_count_delta",
+        "normalized_intent": "resource_evidence:foxai_process_count_delta",
+        "observed_values": {
+          "loaded_foxai_process_count": 5,
+          "minimal_foxai_process_count": 2
+        },
+        "provider": "resource_evidence_provider_v1",
+        "request_id": "FIXTURE-07",
+        "resolved_selectors": {
+          "resource_category": "foxai_process_count_delta"
+        },
+        "safety": {
+          "current_state_claimed": false,
+          "dependency_nodes_or_edges_copied": false,
+          "diagnosis_issued": false,
+          "live_scan_performed": false,
+          "recommendations_issued": false,
+          "runtime_facts_inferred_across_contexts": false,
+          "unresolved_candidates_presented_as_confirmed": false
+        },
+        "schema": "foxai.agent_fox.technical_core.v1a3e.answer_packet.v1",
+        "source_files": [
+          "RESOURCE_BASELINE_COMPARISON.json"
+        ],
+        "source_mission": "ENG-20260722-142022-9FAE11",
+        "source_record_ids": [
+          "COMPARISON-B1F53BCCD281C66C"
+        ],
+        "status": "answered",
+        "structured_claims": [
+          {
+            "claim_id": "RESOURCE-CLAIM-F2D4EC2F5E90BE7A",
+            "provenance": [
+              {
+                "source_file": "RESOURCE_BASELINE_COMPARISON.json",
+                "source_mission": "ENG-20260722-142022-9FAE11",
+                "source_record_id": "COMPARISON-B1F53BCCD281C66C",
+                "source_sha256": "40462031e89ea469b7c3940c863d225fa7fbad2cef4c6f44e720154d42cf4c86",
+                "underlying_capture_missions": [
+                  "ENG-20260722-062243-69C555",
+                  "ENG-20260722-140518-F13169"
+                ]
+              }
+            ],
+            "text": "The loaded capture had 5 FOXAI workspace processes versus 2 at minimal load, an increase of 3.",
+            "value": {
+              "derived": {
+                "foxai_process_count_delta": 3
+              },
+              "observed": {
+                "loaded_foxai_process_count": 5,
+                "minimal_foxai_process_count": 2
+              }
+            }
+          }
+        ],
+        "uncertainty_statements": [],
+        "unresolved_items": []
+      },
+      "evidence_loaded": true,
+      "expected_category": "foxai_process_count_delta",
+      "expected_status": "answered",
+      "fixture_id": "FIXTURE-07",
+      "question": "How many more FOXAI processes were present in the loaded capture?",
+      "source_read_delta": 0
+    },
+    {
+      "actual_category": "listener_presence_captured_states",
+      "actual_status": "answered",
+      "answer_packet": {
+        "answer_text": "In the minimal capture, port 8765 was present while 8080 and 8188 were absent. In the qualified loaded capture, loopback listeners were present on 8080, 8188, and 8765.",
+        "answer_text_claim_ids": [
+          "RESOURCE-CLAIM-F6A1D3C7F869B7FC"
+        ],
+        "clarification": null,
+        "confidence_basis": "exact_hash_verified_authoritative_v1b1c_evidence",
+        "current_state_claimed": false,
+        "derived_values": {},
+        "evidence": {
+          "current_state_claimed": false,
+          "derived_values": {},
+          "limitations": [
+            "These are captured listener-presence observations, not a current-live port scan."
+          ],
+          "live_scan_performed": false,
+          "observed_values": {
+            "8080": {
+              "minimal_load_present": false,
+              "normal_loaded_present": true
+            },
+            "8188": {
+              "minimal_load_present": false,
+              "normal_loaded_present": true
+            },
+            "8765": {
+              "minimal_load_present": true,
+              "normal_loaded_present": true
+            }
+          },
+          "provider_schema": "foxai.agent_fox.technical_core.v1b2a.answer_evidence.v1",
+          "source_files": [
+            "RESOURCE_BASELINE_COMPARISON.json"
+          ],
+          "source_mission": "ENG-20260722-142022-9FAE11",
+          "source_record_ids": [
+            "LISTENER-5D9567F6A51C6A39",
+            "LISTENER-6F92D69335C810C6",
+            "LISTENER-AFD2B6649542AE6B"
+          ]
+        },
+        "limitations": [
+          "These are captured listener-presence observations, not a current-live port scan."
+        ],
+        "linked_context_references": [],
+        "live_scan_performed": false,
+        "matched_category": "listener_presence_captured_states",
+        "normalized_intent": "resource_evidence:listener_presence_captured_states",
+        "observed_values": {
+          "8080": {
+            "minimal_load_present": false,
+            "normal_loaded_present": true
+          },
+          "8188": {
+            "minimal_load_present": false,
+            "normal_loaded_present": true
+          },
+          "8765": {
+            "minimal_load_present": true,
+            "normal_loaded_present": true
+          }
+        },
+        "provider": "resource_evidence_provider_v1",
+        "request_id": "FIXTURE-08",
+        "resolved_selectors": {
+          "resource_category": "listener_presence_captured_states"
+        },
+        "safety": {
+          "current_state_claimed": false,
+          "dependency_nodes_or_edges_copied": false,
+          "diagnosis_issued": false,
+          "live_scan_performed": false,
+          "recommendations_issued": false,
+          "runtime_facts_inferred_across_contexts": false,
+          "unresolved_candidates_presented_as_confirmed": false
+        },
+        "schema": "foxai.agent_fox.technical_core.v1a3e.answer_packet.v1",
+        "source_files": [
+          "RESOURCE_BASELINE_COMPARISON.json"
+        ],
+        "source_mission": "ENG-20260722-142022-9FAE11",
+        "source_record_ids": [
+          "LISTENER-5D9567F6A51C6A39",
+          "LISTENER-6F92D69335C810C6",
+          "LISTENER-AFD2B6649542AE6B"
+        ],
+        "status": "answered",
+        "structured_claims": [
+          {
+            "claim_id": "RESOURCE-CLAIM-F6A1D3C7F869B7FC",
+            "provenance": [
+              {
+                "source_file": "RESOURCE_BASELINE_COMPARISON.json",
+                "source_mission": "ENG-20260722-142022-9FAE11",
+                "source_record_id": "LISTENER-6F92D69335C810C6",
+                "source_sha256": "40462031e89ea469b7c3940c863d225fa7fbad2cef4c6f44e720154d42cf4c86",
+                "underlying_capture_missions": [
+                  "ENG-20260722-062243-69C555",
+                  "ENG-20260722-140518-F13169"
+                ]
+              }
+            ],
+            "text": "In the minimal capture, port 8765 was present while 8080 and 8188 were absent. In the qualified loaded capture, loopback listeners were present on 8080, 8188, and 8765.",
+            "value": {
+              "8080": {
+                "minimal_load_present": false,
+                "normal_loaded_present": true
+              },
+              "8188": {
+                "minimal_load_present": false,
+                "normal_loaded_present": true
+              },
+              "8765": {
+                "minimal_load_present": true,
+                "normal_loaded_present": true
+              }
+            }
+          }
+        ],
+        "uncertainty_statements": [],
+        "unresolved_items": []
+      },
+      "evidence_loaded": true,
+      "expected_category": "listener_presence_captured_states",
+      "expected_status": "answered",
+      "fixture_id": "FIXTURE-08",
+      "question": "What ports were present in the minimal and loaded captures?",
+      "source_read_delta": 0
+    },
+    {
+      "actual_category": null,
+      "actual_status": "not_applicable",
+      "answer_packet": null,
+      "evidence_loaded": false,
+      "expected_category": null,
+      "expected_status": "not_applicable",
+      "fixture_id": "FIXTURE-09",
+      "question": "Tell me a joke.",
+      "source_read_delta": 0
+    },
+    {
+      "actual_category": "slash_command_bypass",
+      "actual_status": "bypass",
+      "answer_packet": null,
+      "evidence_loaded": false,
+      "expected_category": "slash_command_bypass",
+      "expected_status": "bypass",
+      "fixture_id": "FIXTURE-10",
+      "question": "/engineer workshop begin test",
+      "source_read_delta": 0
+    }
+  ],
+  "schema": "foxai.agent_fox.technical_core.v1b2a.resource_query_fixture_results.v1",
+  "slash_bypass_count": 1,
+  "status": "fixtures_passed"
+}

@@ -1,0 +1,196 @@
+{
+  "authorized": true,
+  "changes": [
+    {
+      "action": "write_file",
+      "after_sha256": "8c3af6d6f8d5a21a03fbd5c97eabd58280718a195c65f51a2b9201ff84ec798b",
+      "after_size": 63172,
+      "before_sha256": null,
+      "before_size": null,
+      "relative_path": "System\\AgentFoxTechnicalCore\\pc_foxai_baseline_v1.py"
+    },
+    {
+      "action": "write_file",
+      "after_sha256": "b5acf4057471c96c4236c6e2bfda85174e4d20d567b0f4a9047c178664350b52",
+      "after_size": 2459,
+      "before_sha256": null,
+      "before_size": null,
+      "relative_path": "System\\AgentFoxTechnicalCore\\PC_FOXAI_BASELINE_CONTRACT_V1.json"
+    },
+    {
+      "action": "write_file",
+      "after_sha256": "279b999820eed14c22d840eed4ba47e3eee79ad47a33e28188874d10bc3342db",
+      "after_size": 1274,
+      "before_sha256": null,
+      "before_size": null,
+      "relative_path": "System\\AgentFoxTechnicalCore\\README_V1B0.md"
+    }
+  ],
+  "created_at": "2026-07-22T05:28:11.983726Z",
+  "evidence_is_tool_generated": true,
+  "failure": null,
+  "mission_id": "ENG-20260722-051940-8477D9",
+  "mission_title": "Agent Fox Technical Core V1B-0-R2 \u2014 Privacy Exclusion Label Self-Check Repair",
+  "mission_type": "implement",
+  "no_deletions": true,
+  "no_renames": true,
+  "plan_path": "Z:\\FOXAI\\AGENT_FOX_V1B0_R2\\PLAN.json",
+  "plan_sha256": "999cf435e2fa9239f5df5a1febe6c979e01d4738e414f1244cc4bd38228794f7",
+  "project_root": "Z:\\FOXAI",
+  "result": "applied_verified",
+  "rolled_back": false,
+  "schema": "foxai.engineering.receipt.v1",
+  "snapshot_manifest": "Z:\\FOXAI\\System\\EngineeringWorkshop\\snapshots\\ENG-20260722-051940-8477D9\\snapshot_20260722T052807080163Z.manifest.json",
+  "snapshot_path": "Z:\\FOXAI\\System\\EngineeringWorkshop\\snapshots\\ENG-20260722-051940-8477D9\\snapshot_20260722T052807080163Z.zip",
+  "snapshot_sha256": "a05ed4f6eb66c3beb59bdf522f8095ea8a858aa8b107fada8d39d167530fbf47",
+  "validations": [
+    {
+      "argv": [
+        "Z:/FOXAI/Runtime/Desktop/python/python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nimport hashlib,json\nchecks={\n r\"Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\pc_foxai_baseline_v1.py\":(63172,\"8c3af6d6f8d5a21a03fbd5c97eabd58280718a195c65f51a2b9201ff84ec798b\"),\n r\"Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\PC_FOXAI_BASELINE_CONTRACT_V1.json\":(2459,\"b5acf4057471c96c4236c6e2bfda85174e4d20d567b0f4a9047c178664350b52\"),\n r\"Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\README_V1B0.md\":(1274,\"279b999820eed14c22d840eed4ba47e3eee79ad47a33e28188874d10bc3342db\"),\n}\nfor name,(size,digest) in checks.items():\n p=Path(name); data=p.read_bytes(); assert len(data)==size,(name,len(data)); assert hashlib.sha256(data).hexdigest()==digest,name\ncompile(Path(r\"Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\pc_foxai_baseline_v1.py\").read_text(encoding=\"utf-8\"),\"<v1b0-collector>\",\"exec\")\nunchanged={\n r\"Z:\\FOXAI\\core\\foxai_web.py\":\"d7bf0a2042d55ef7f0a5869556015e42c7427e7ff88636b28e1795f3adf7b952\",\n r\"Z:\\FOXAI\\ui\\main_window.py\":\"a9c5bb86878e5f0cd27d221dbb32688b337e6026073a4b66d83339e0aef294a3\",\n r\"Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\self_knowledge_chat_adapter_v1.py\":\"a80a9047e0eebd9ac87fe4d656c565bc6534563bb3c97e1ad9b59823a36804f7\",\n r\"Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\webui_self_knowledge_integration_v1.py\":\"765983b563f8495138c9670849de5c4703f4735a0ddc9324efd6580606fc517b\",\n r\"Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\desktop_self_knowledge_integration_v1.py\":\"e420706136b4902d82d8dbf1fecc64ae70fb8bc639106db41033545f8c196c30\",\n}\nfor name,digest in unchanged.items(): assert hashlib.sha256(Path(name).read_bytes()).hexdigest()==digest,name\nsnap=Path(r\"Z:\\FOXAI\\System\\EngineeringWorkshop\\snapshots\\ENG-20260722-051940-8477D9\")\nmanifests=sorted(snap.glob(\"snapshot_*.manifest.json\")); assert manifests\nmanifest=json.loads(manifests[-1].read_text(encoding=\"utf-8\")); entries=manifest[\"entries\"]\nexpected=[\"System/AgentFoxTechnicalCore/PC_FOXAI_BASELINE_CONTRACT_V1.json\",\"System/AgentFoxTechnicalCore/README_V1B0.md\",\"System/AgentFoxTechnicalCore/pc_foxai_baseline_v1.py\"]\nassert len(entries)==3,len(entries)\nnormalized=sorted(row[\"relative_path\"].replace(\"\\\\\",\"/\") for row in entries)\nassert normalized==expected,(normalized,expected)\nassert all(row[\"existed\"] is False and row.get(\"sha256\") is None and row.get(\"size\") is None for row in entries)\nprint(\"AGENT_FOX_V1B0_R2_SUPPORT_AND_NORMALIZED_SNAPSHOT_OK\")"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-22T05:28:07.191791Z",
+      "name": "Verify exact V1B-0-R2 payloads, unchanged integrations, and normalized three-path snapshot",
+      "returncode": 0,
+      "started_at": "2026-07-22T05:28:07.098742Z",
+      "stderr": "",
+      "stdout": "AGENT_FOX_V1B0_R2_SUPPORT_AND_NORMALIZED_SNAPSHOT_OK\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:/FOXAI/Runtime/Desktop/python/python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nimport json,subprocess\np=Path(r\"Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\pc_foxai_baseline_v1.py\")\nr=subprocess.run([r\"Z:/FOXAI/Runtime/Desktop/python/python.exe\",\"-I\",\"-B\",\"-S\",str(p),\"self-test\"],cwd=r\"Z:\\FOXAI\",capture_output=True,text=True,timeout=45)\nassert r.returncode==0,(r.stdout,r.stderr)\nobj=json.loads(r.stdout)\nassert obj[\"status\"]==\"ok\" and obj[\"output_count\"]==8\nassert obj[\"privacy_exclusion_label_scoped\"] is True\nassert obj[\"motherboard_uuid_field_rejected\"] is True\nassert obj[\"motherboard_uuid_label_outside_exclusion_rejected\"] is True\nprint(json.dumps(obj,sort_keys=True))"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-22T05:28:07.345992Z",
+      "name": "Run isolated V1B-0-R2 collector and scoped privacy self-check self-test",
+      "returncode": 0,
+      "started_at": "2026-07-22T05:28:07.192177Z",
+      "stderr": "",
+      "stdout": "{\"canonical_lf_only\": true, \"listener_classification\": true, \"motherboard_uuid_field_rejected\": true, \"motherboard_uuid_label_outside_exclusion_rejected\": true, \"output_count\": 8, \"privacy_exclusion_label_scoped\": true, \"privacy_redaction\": true, \"stable_ids\": true, \"startup_argument_stripping\": true, \"status\": \"ok\"}\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:/FOXAI/Runtime/Desktop/python/python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "Z:/FOXAI/System/AgentFoxTechnicalCore/pc_foxai_baseline_v1.py",
+        "collect",
+        "--mission-id",
+        "ENG-20260722-051940-8477D9",
+        "--output-dir",
+        "Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260722-051940-8477D9_V1B0_R2_PC_AND_FOXAI_BASELINE"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-22T05:28:11.754205Z",
+      "name": "Collect bounded read-only PC and FOXAI baseline evidence with scoped privacy validation",
+      "returncode": 0,
+      "started_at": "2026-07-22T05:28:07.346447Z",
+      "stderr": "",
+      "stdout": "{\"child_process_count\": 10, \"mission_id\": \"ENG-20260722-051940-8477D9\", \"output_count\": 8, \"output_directory\": \"Z:\\\\FOXAI\\\\System\\\\EngineeringWorkshop\\\\missions\\\\ENG-20260722-051940-8477D9_V1B0_R2_PC_AND_FOXAI_BASELINE\", \"rollback_drive_accessed\": false, \"status\": \"baseline_collected_read_only\", \"total_output_bytes\": 500778}\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:/FOXAI/Runtime/Desktop/python/python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nimport json,hashlib,os,re\nout=Path(r\"Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260722-051940-8477D9_V1B0_R2_PC_AND_FOXAI_BASELINE\")\nnames=['HOST_AND_WINDOWS_BASELINE.json', 'ACTIVE_DRIVE_BASELINE.json', 'FOXAI_ACTIVE_WORKSPACE_BASELINE.json', 'PYTHON_RUNTIME_INVENTORY.json', 'PROCESS_RESOURCE_BASELINE.json', 'SERVICE_STARTUP_AND_LISTENER_BASELINE.json', 'PC_BASELINE_OBSERVATIONS.json', 'PC_BASELINE_RECEIPT.json']\nassert sorted(p.name for p in out.iterdir() if p.is_file())==sorted(names)\ntotal=0\npayloads=[]\nfor name in names:\n p=out/name; data=p.read_bytes(); payloads.append(data); total+=len(data)\n assert b\"\\r\" not in data,name\n obj=json.loads(data.decode(\"utf-8\")); canonical=(json.dumps(obj,indent=2,sort_keys=True,ensure_ascii=False)+\"\\n\").encode(\"utf-8\")\n assert data==canonical,name\nassert total<16*1024*1024,total\njoined=b\"\\n\".join(payloads).lower()\nfor value in (os.environ.get(\"USERPROFILE\"),os.environ.get(\"USERNAME\")):\n if value: assert value.encode(\"utf-8\",errors=\"ignore\").lower() not in joined,\"profile marker leaked\"\ntext=joined.decode(\"utf-8\",errors=\"replace\")\nassert not re.search(r'(?i)C:\\\\Users\\\\(?!<REDACTED>)',text)\nassert '\"environment_variable_values\"' not in text\nassert '\"full_command_line\"' not in text\n\nobjects=[json.loads(payload.decode(\"utf-8\")) for payload in payloads]\nallowed_label_count=0\ndef walk(value,path=()):\n global allowed_label_count\n if isinstance(value,dict):\n  for key,item in value.items():\n   normalized=str(key).strip().lower()\n   if normalized==\"sensitive_identifiers_excluded\":\n    assert isinstance(item,list) and all(isinstance(label,str) for label in item)\n    allowed_label_count+=sum(label.strip().lower()==\"motherboard_uuid\" for label in item)\n    continue\n   assert normalized not in {\"motherboard_uuid\",\"baseboard_uuid\",\"board_uuid\",\"system_uuid\",\"hardware_uuid\",\"device_uuid\"},(path,key)\n   assert not (\"motherboard\" in normalized and \"uuid\" in normalized),(path,key)\n   walk(item,path+(str(key),))\n elif isinstance(value,list):\n  for index,item in enumerate(value): walk(item,path+(str(index),))\n elif isinstance(value,str):\n  assert value.strip().lower()!=\"motherboard_uuid\",path\nfor obj in objects: walk(obj)\nassert allowed_label_count==1,allowed_label_count\nprint(json.dumps({\"status\":\"canonical_privacy_outputs_ok\",\"count\":len(names),\"total_bytes\":total}))"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-22T05:28:11.818552Z",
+      "name": "Validate exact eight canonical outputs, privacy redaction, and scoped exclusion declaration",
+      "returncode": 0,
+      "started_at": "2026-07-22T05:28:11.754678Z",
+      "stderr": "",
+      "stdout": "{\"status\": \"canonical_privacy_outputs_ok\", \"count\": 8, \"total_bytes\": 500778}\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:/FOXAI/Runtime/Desktop/python/python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nimport json\nout=Path(r\"Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260722-051940-8477D9_V1B0_R2_PC_AND_FOXAI_BASELINE\")\nhost=json.loads((out/\"HOST_AND_WINDOWS_BASELINE.json\").read_text(encoding=\"utf-8\"))\ndrives=json.loads((out/\"ACTIVE_DRIVE_BASELINE.json\").read_text(encoding=\"utf-8\"))\nworkspace=json.loads((out/\"FOXAI_ACTIVE_WORKSPACE_BASELINE.json\").read_text(encoding=\"utf-8\"))\npy=json.loads((out/\"PYTHON_RUNTIME_INVENTORY.json\").read_text(encoding=\"utf-8\"))\nrequired={\"record_id\",\"subject\",\"availability_status\",\"collection_method\",\"collected_at\",\"provenance\",\"facts\"}\nfor obj in (host,drives,workspace,py):\n for row in obj.get(\"records\",[]): assert required.issubset(row),row.get(\"subject\")\nroots=[row[\"facts\"].get(\"drive_root\") for row in drives[\"records\"]]\nassert roots==[\"C:\\\\\",\"Z:\\\\\",\"S:\\\\\"],roots\nassert all(not str(root).upper().startswith(\"K:\") for root in roots)\nz=next(row for row in drives[\"records\"] if row[\"facts\"].get(\"drive_root\")==\"Z:\\\\\")\nassert z[\"availability_status\"]==\"available\" and str(z[\"facts\"].get(\"filesystem\")).upper()==\"NTFS\"\nactive=next(row for row in workspace[\"records\"] if row[\"subject\"]==\"active_foxai_workspace\")\nassert active[\"facts\"][\"exists\"] is True and active[\"facts\"][\"active_build_workspace\"] is True and active[\"facts\"][\"filesystem_is_ntfs\"] is True\nknown=next(row for row in workspace[\"records\"] if row[\"subject\"]==\"known_good_source_and_component_hashes\")\nassert len(known[\"facts\"][\"files\"])==5 and all(x[\"exists\"] and x[\"sha256_matches_expected\"] for x in known[\"facts\"][\"files\"])\navailable=[row for row in py[\"records\"] if row[\"availability_status\"]==\"available\"]\nassert available\nassert any(str(row[\"facts\"].get(\"path\",\"\")).lower().endswith(r\"runtime\\desktop\\python\\python.exe\") for row in available)\nfor row in available:\n facts=row[\"facts\"]\n for key in (\"version\",\"implementation\",\"architecture_bits\",\"prefix\",\"base_prefix\",\"no_site\",\"no_user_site\",\"site_imported_by_default\",\"sys_path\",\"classification\"): assert key in facts,(row[\"subject\"],key)\nprint(json.dumps({\"status\":\"host_drive_workspace_python_coverage_ok\",\"python_available\":len(available)}))"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-22T05:28:11.857804Z",
+      "name": "Validate host, drive, active workspace, and Python runtime coverage",
+      "returncode": 0,
+      "started_at": "2026-07-22T05:28:11.819090Z",
+      "stderr": "",
+      "stdout": "{\"status\": \"host_drive_workspace_python_coverage_ok\", \"python_available\": 5}\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:/FOXAI/Runtime/Desktop/python/python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nimport json,re\nout=Path(r\"Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260722-051940-8477D9_V1B0_R2_PC_AND_FOXAI_BASELINE\")\nproc=json.loads((out/\"PROCESS_RESOURCE_BASELINE.json\").read_text(encoding=\"utf-8\"))\nssl=json.loads((out/\"SERVICE_STARTUP_AND_LISTENER_BASELINE.json\").read_text(encoding=\"utf-8\"))\nassert len(proc.get(\"records\",[]))<=500\nfor row in proc.get(\"records\",[]):\n facts=row[\"facts\"]; assert \"command_line\" not in facts and facts.get(\"full_command_line_recorded\") is False\n path=str(facts.get(\"executable_path_redacted\") or \"\")\n assert not re.search(r'(?i)C:\\\\Users\\\\(?!<REDACTED>)',path)\nassert len(ssl[\"services\"][\"records\"])<=600\nassert len(ssl[\"startup_items\"][\"records\"])<=200\nassert len(ssl[\"local_listeners\"][\"records\"])<=500\nassert ssl[\"startup_items\"][\"arguments_recorded\"] is False\nfor row in ssl[\"startup_items\"][\"records\"]:\n assert row[\"facts\"][\"arguments_recorded\"] is False and \"command\" not in row[\"facts\"]\nfor row in ssl[\"local_listeners\"][\"records\"]:\n facts=row[\"facts\"]; assert facts[\"protocol\"] in (\"TCP\",\"UDP\") and facts[\"remote_connection_attempted\"] is False\n assert facts[\"address_classification\"] in (\"loopback_only\",\"wildcard_externally_bound\",\"link_local\",\"specific_interface_bound\",\"unclassified\")\nassert ssl[\"local_listeners\"][\"remote_hosts_probed\"] is False and ssl[\"local_listeners\"][\"packet_capture_performed\"] is False\nassert ssl[\"changes_performed\"]=={\"services\":False,\"startup\":False,\"listeners\":False}\nprint(json.dumps({\"status\":\"process_service_startup_listener_bounds_ok\",\"process_rows\":len(proc.get(\"records\",[])),\"service_rows\":len(ssl[\"services\"][\"records\"]),\"listener_rows\":len(ssl[\"local_listeners\"][\"records\"])}))"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-22T05:28:11.896844Z",
+      "name": "Validate bounded process, service, startup, and local-listener evidence",
+      "returncode": 0,
+      "started_at": "2026-07-22T05:28:11.858257Z",
+      "stderr": "",
+      "stdout": "{\"status\": \"process_service_startup_listener_bounds_ok\", \"process_rows\": 285, \"service_rows\": 322, \"listener_rows\": 74}\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:/FOXAI/Runtime/Desktop/python/python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nimport json\nout=Path(r\"Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260722-051940-8477D9_V1B0_R2_PC_AND_FOXAI_BASELINE\")\nobs=json.loads((out/\"PC_BASELINE_OBSERVATIONS.json\").read_text(encoding=\"utf-8\"))\nallowed={\"observed_fact\",\"potential_attention_item\",\"unavailable\",\"not_evaluated\"}\nassert obs[\"overall_health_label_assigned\"] is False\nassert obs[\"malware_or_damage_diagnosis_performed\"] is False\nassert obs[\"repair_or_deletion_recommendations_included\"] is False\nassert obs[\"records\"]\nfor row in obs[\"records\"]:\n assert row[\"classification\"] in allowed and row[\"diagnostic_conclusion\"] is False and row[\"repair_recommendation\"] is False\n message=row[\"message\"].lower()\n assert not any(term in message for term in (\"pc is healthy\",\"pc is unhealthy\",\"infected\",\"computer is broken\",\"delete this\",\"run repair\"))\n assert isinstance(row[\"evidence_record_ids\"],list)\nprint(json.dumps({\"status\":\"bounded_observation_layer_ok\",\"observations\":len(obs[\"records\"])}))"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-22T05:28:11.931085Z",
+      "name": "Validate observation labels remain evidence-linked and non-diagnostic",
+      "returncode": 0,
+      "started_at": "2026-07-22T05:28:11.897260Z",
+      "stderr": "",
+      "stdout": "{\"status\": \"bounded_observation_layer_ok\", \"observations\": 9}\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:/FOXAI/Runtime/Desktop/python/python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nimport hashlib,json\nout=Path(r\"Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260722-051940-8477D9_V1B0_R2_PC_AND_FOXAI_BASELINE\")\nreceipt=json.loads((out/\"PC_BASELINE_RECEIPT.json\").read_text(encoding=\"utf-8\"))\nassert receipt[\"status\"]==\"baseline_collected_read_only\" and receipt[\"exact_output_count_including_receipt\"]==8\nassert receipt[\"collection_audit\"][\"rollback_drive_accessed\"] is False\nassert receipt[\"collection_audit\"][\"network_connections_initiated\"] is False\nassert receipt[\"collection_audit\"][\"packet_capture_performed\"] is False\nassert receipt[\"collection_audit\"][\"child_process_count\"]<=64\nallowed={\"powershell.exe\",\"pwsh.exe\",\"powershell\",\"pwsh\",\"python.exe\",\"pythonw.exe\"}\nassert all(str(row[\"executable_name\"]).lower() in allowed for row in receipt[\"collection_audit\"][\"child_processes\"])\nfor entry in receipt[\"collection_audit\"][\"entries\"]:\n source=str(entry.get(\"source\") or \"\"); assert not source.upper().startswith(\"K:\")\nassert all(value is False for value in receipt[\"changes\"].values())\nassert receipt[\"privacy\"][\"profile_names_redacted\"] is True\nassert receipt[\"privacy\"][\"command_line_arguments_recorded\"] is False\nassert receipt[\"privacy\"][\"environment_variable_values_recorded\"] is False\nassert receipt[\"overall_pc_health_conclusion\"]==\"not_assigned\"\nassert receipt[\"diagnostic_or_repair_actions_performed\"] is False\nunchanged={\n r\"Z:\\FOXAI\\core\\foxai_web.py\":\"d7bf0a2042d55ef7f0a5869556015e42c7427e7ff88636b28e1795f3adf7b952\",\n r\"Z:\\FOXAI\\ui\\main_window.py\":\"a9c5bb86878e5f0cd27d221dbb32688b337e6026073a4b66d83339e0aef294a3\",\n r\"Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\self_knowledge_chat_adapter_v1.py\":\"a80a9047e0eebd9ac87fe4d656c565bc6534563bb3c97e1ad9b59823a36804f7\",\n r\"Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\webui_self_knowledge_integration_v1.py\":\"765983b563f8495138c9670849de5c4703f4735a0ddc9324efd6580606fc517b\",\n r\"Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\desktop_self_knowledge_integration_v1.py\":\"e420706136b4902d82d8dbf1fecc64ae70fb8bc639106db41033545f8c196c30\",\n}\nfor name,digest in unchanged.items(): assert hashlib.sha256(Path(name).read_bytes()).hexdigest()==digest,name\nassert sum((out/name).stat().st_size for name in ['HOST_AND_WINDOWS_BASELINE.json', 'ACTIVE_DRIVE_BASELINE.json', 'FOXAI_ACTIVE_WORKSPACE_BASELINE.json', 'PYTHON_RUNTIME_INVENTORY.json', 'PROCESS_RESOURCE_BASELINE.json', 'SERVICE_STARTUP_AND_LISTENER_BASELINE.json', 'PC_BASELINE_OBSERVATIONS.json', 'PC_BASELINE_RECEIPT.json'])<16*1024*1024\nprint(json.dumps({\"status\":\"read_only_safety_receipt_ok\",\"child_processes\":receipt[\"collection_audit\"][\"child_process_count\"]}))"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-22T05:28:11.983653Z",
+      "name": "Validate read-only safety receipt, bounded collectors, unchanged integrations, and size ceiling",
+      "returncode": 0,
+      "started_at": "2026-07-22T05:28:11.931479Z",
+      "stderr": "",
+      "stdout": "{\"status\": \"read_only_safety_receipt_ok\", \"child_processes\": 10}\n",
+      "timed_out": false
+    }
+  ]
+}

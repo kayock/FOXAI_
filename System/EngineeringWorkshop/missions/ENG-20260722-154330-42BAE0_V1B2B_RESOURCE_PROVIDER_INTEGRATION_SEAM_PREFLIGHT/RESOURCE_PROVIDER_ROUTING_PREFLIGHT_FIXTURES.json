@@ -1,0 +1,484 @@
+{
+  "fixture_results": {
+    "all_passed": true,
+    "fixture_count": 8,
+    "fixtures": [
+      {
+        "expected_route": "resource_evidence_provider",
+        "fixture_id": "FIXTURE-HISTORICAL-RAM",
+        "message": "How much RAM did FOXAI use in the loaded capture?",
+        "passed": true,
+        "surface_results": [
+          {
+            "answer_packet_schema": "foxai.agent_fox.technical_core.v1a3e.answer_packet.v1",
+            "current_state_claimed": false,
+            "live_scan_performed": false,
+            "ordinary_chat_pass_through": false,
+            "protected_evidence_loaded": false,
+            "protected_provider_invoked": true,
+            "reason": "bounded_historical_resource_category",
+            "resource_category": "measured_normal_loaded_ram",
+            "resource_evidence_loaded": true,
+            "resource_provider_invoked": true,
+            "route": "resource_evidence_provider",
+            "status": "answered",
+            "surface": "desktop"
+          },
+          {
+            "answer_packet_schema": "foxai.agent_fox.technical_core.v1a3e.answer_packet.v1",
+            "current_state_claimed": false,
+            "live_scan_performed": false,
+            "ordinary_chat_pass_through": false,
+            "protected_evidence_loaded": false,
+            "protected_provider_invoked": true,
+            "reason": "bounded_historical_resource_category",
+            "resource_category": "measured_normal_loaded_ram",
+            "resource_evidence_loaded": true,
+            "resource_provider_invoked": true,
+            "route": "resource_evidence_provider",
+            "status": "answered",
+            "surface": "webui"
+          }
+        ]
+      },
+      {
+        "expected_route": "resource_evidence_provider",
+        "fixture_id": "FIXTURE-DOMINANT-MEMORY",
+        "message": "What was using most of the memory?",
+        "passed": true,
+        "surface_results": [
+          {
+            "answer_packet_schema": "foxai.agent_fox.technical_core.v1a3e.answer_packet.v1",
+            "current_state_claimed": false,
+            "live_scan_performed": false,
+            "ordinary_chat_pass_through": false,
+            "protected_evidence_loaded": false,
+            "protected_provider_invoked": true,
+            "reason": "bounded_historical_resource_category",
+            "resource_category": "dominant_measured_foxai_component",
+            "resource_evidence_loaded": true,
+            "resource_provider_invoked": true,
+            "route": "resource_evidence_provider",
+            "status": "answered",
+            "surface": "desktop"
+          },
+          {
+            "answer_packet_schema": "foxai.agent_fox.technical_core.v1a3e.answer_packet.v1",
+            "current_state_claimed": false,
+            "live_scan_performed": false,
+            "ordinary_chat_pass_through": false,
+            "protected_evidence_loaded": false,
+            "protected_provider_invoked": true,
+            "reason": "bounded_historical_resource_category",
+            "resource_category": "dominant_measured_foxai_component",
+            "resource_evidence_loaded": true,
+            "resource_provider_invoked": true,
+            "route": "resource_evidence_provider",
+            "status": "answered",
+            "surface": "webui"
+          }
+        ]
+      },
+      {
+        "expected_route": "ordinary_chat",
+        "fixture_id": "FIXTURE-CURRENT-LIVE",
+        "message": "How much memory is my computer using right now?",
+        "passed": true,
+        "surface_results": [
+          {
+            "ordinary_chat_pass_through": true,
+            "protected_evidence_loaded": false,
+            "protected_provider_invoked": true,
+            "reason": "requires_current_live_state",
+            "resource_category": null,
+            "resource_evidence_loaded": false,
+            "resource_provider_invoked": true,
+            "route": "ordinary_chat",
+            "status": "pass_through",
+            "surface": "desktop"
+          },
+          {
+            "ordinary_chat_pass_through": true,
+            "protected_evidence_loaded": false,
+            "protected_provider_invoked": true,
+            "reason": "requires_current_live_state",
+            "resource_category": null,
+            "resource_evidence_loaded": false,
+            "resource_provider_invoked": true,
+            "route": "ordinary_chat",
+            "status": "pass_through",
+            "surface": "webui"
+          }
+        ]
+      },
+      {
+        "expected_route": "protected_context_self_knowledge",
+        "fixture_id": "FIXTURE-WEBUI-LAUNCHER",
+        "message": "Tell me about the WebUI launcher.",
+        "passed": true,
+        "surface_results": [
+          {
+            "ordinary_chat_pass_through": false,
+            "protected_evidence_loaded": true,
+            "protected_normalized_intent": "contexts_for_launcher",
+            "protected_provider_invoked": true,
+            "reason": "protected_context_priority",
+            "resource_evidence_loaded": false,
+            "resource_provider_invoked": false,
+            "route": "protected_context_self_knowledge",
+            "status": "clarification_required",
+            "surface": "desktop"
+          },
+          {
+            "ordinary_chat_pass_through": false,
+            "protected_evidence_loaded": true,
+            "protected_normalized_intent": "contexts_for_launcher",
+            "protected_provider_invoked": true,
+            "reason": "protected_context_priority",
+            "resource_evidence_loaded": false,
+            "resource_provider_invoked": false,
+            "route": "protected_context_self_knowledge",
+            "status": "clarification_required",
+            "surface": "webui"
+          }
+        ]
+      },
+      {
+        "expected_route": "ordinary_chat",
+        "fixture_id": "FIXTURE-JOKE",
+        "message": "Tell me a joke.",
+        "passed": true,
+        "surface_results": [
+          {
+            "ordinary_chat_pass_through": true,
+            "protected_evidence_loaded": false,
+            "protected_provider_invoked": true,
+            "reason": "outside_resource_baseline_catalog",
+            "resource_category": null,
+            "resource_evidence_loaded": false,
+            "resource_provider_invoked": true,
+            "route": "ordinary_chat",
+            "status": "pass_through",
+            "surface": "desktop"
+          },
+          {
+            "ordinary_chat_pass_through": true,
+            "protected_evidence_loaded": false,
+            "protected_provider_invoked": true,
+            "reason": "outside_resource_baseline_catalog",
+            "resource_category": null,
+            "resource_evidence_loaded": false,
+            "resource_provider_invoked": true,
+            "route": "ordinary_chat",
+            "status": "pass_through",
+            "surface": "webui"
+          }
+        ]
+      },
+      {
+        "expected_route": "ordinary_chat",
+        "fixture_id": "FIXTURE-CREATIVE-MEMORY",
+        "message": "Write a poem about memory.",
+        "passed": true,
+        "surface_results": [
+          {
+            "ordinary_chat_pass_through": true,
+            "protected_evidence_loaded": false,
+            "protected_provider_invoked": true,
+            "reason": "outside_resource_baseline_catalog",
+            "resource_category": null,
+            "resource_evidence_loaded": false,
+            "resource_provider_invoked": true,
+            "route": "ordinary_chat",
+            "status": "pass_through",
+            "surface": "desktop"
+          },
+          {
+            "ordinary_chat_pass_through": true,
+            "protected_evidence_loaded": false,
+            "protected_provider_invoked": true,
+            "reason": "outside_resource_baseline_catalog",
+            "resource_category": null,
+            "resource_evidence_loaded": false,
+            "resource_provider_invoked": true,
+            "route": "ordinary_chat",
+            "status": "pass_through",
+            "surface": "webui"
+          }
+        ]
+      },
+      {
+        "expected_route": "slash_command_bypass",
+        "fixture_id": "FIXTURE-SLASH-DIRECT",
+        "message": "/engineer workshop begin test",
+        "passed": true,
+        "surface_results": [
+          {
+            "ordinary_chat_pass_through": true,
+            "protected_evidence_loaded": false,
+            "protected_provider_invoked": false,
+            "reason": "first_non_whitespace_character_is_slash",
+            "resource_evidence_loaded": false,
+            "resource_provider_invoked": false,
+            "route": "slash_command_bypass",
+            "status": "bypass",
+            "surface": "desktop"
+          },
+          {
+            "ordinary_chat_pass_through": true,
+            "protected_evidence_loaded": false,
+            "protected_provider_invoked": false,
+            "reason": "first_non_whitespace_character_is_slash",
+            "resource_evidence_loaded": false,
+            "resource_provider_invoked": false,
+            "route": "slash_command_bypass",
+            "status": "bypass",
+            "surface": "webui"
+          }
+        ]
+      },
+      {
+        "expected_route": "slash_command_bypass",
+        "fixture_id": "FIXTURE-SLASH-SPACED",
+        "message": "   /engineer workshop preview test",
+        "passed": true,
+        "surface_results": [
+          {
+            "ordinary_chat_pass_through": true,
+            "protected_evidence_loaded": false,
+            "protected_provider_invoked": false,
+            "reason": "first_non_whitespace_character_is_slash",
+            "resource_evidence_loaded": false,
+            "resource_provider_invoked": false,
+            "route": "slash_command_bypass",
+            "status": "bypass",
+            "surface": "desktop"
+          },
+          {
+            "ordinary_chat_pass_through": true,
+            "protected_evidence_loaded": false,
+            "protected_provider_invoked": false,
+            "reason": "first_non_whitespace_character_is_slash",
+            "resource_evidence_loaded": false,
+            "resource_provider_invoked": false,
+            "route": "slash_command_bypass",
+            "status": "bypass",
+            "surface": "webui"
+          }
+        ]
+      }
+    ],
+    "surface_case_count": 16
+  },
+  "mission_id": "ENG-20260722-154330-42BAE0",
+  "overlap_results": {
+    "ambiguous_phrases": [
+      {
+        "deterministic_precedence": "protected_context_self_knowledge",
+        "overlap_id": "OVERLAP-8538D98C19474F27",
+        "protected_intent_candidates": [
+          "launcher_runtime_entry_mapping"
+        ],
+        "provider_behavior_changed": false,
+        "question": "What was using most of the memory and what runs in FOXAI?",
+        "resource_category": "dominant_measured_foxai_component",
+        "silent_ordinary_chat_theft": false
+      },
+      {
+        "deterministic_precedence": "protected_context_self_knowledge",
+        "overlap_id": "OVERLAP-32F8CF0FA480E1C9",
+        "protected_intent_candidates": [
+          "launcher_runtime_entry_mapping"
+        ],
+        "provider_behavior_changed": false,
+        "question": "Which python does FOXAI Desktop use and how much RAM did Desktop use?",
+        "resource_category": "desktop_working_set",
+        "silent_ordinary_chat_theft": false
+      },
+      {
+        "deterministic_precedence": "protected_context_self_knowledge",
+        "overlap_id": "OVERLAP-66E51DC3521DA94B",
+        "protected_intent_candidates": [
+          "summarize_context"
+        ],
+        "provider_behavior_changed": false,
+        "question": "Show context for WebUI and its RAM use.",
+        "resource_category": "webui_working_set",
+        "silent_ordinary_chat_theft": false
+      },
+      {
+        "deterministic_precedence": "protected_context_self_knowledge",
+        "overlap_id": "OVERLAP-F6B1C5C8680F0D54",
+        "protected_intent_candidates": [
+          "launcher_runtime_entry_mapping"
+        ],
+        "provider_behavior_changed": false,
+        "question": "FOXAI launcher to runtime to entry and model memory use",
+        "resource_category": "model_working_set",
+        "silent_ordinary_chat_theft": false
+      }
+    ],
+    "engineered_ambiguous_phrase_count": 4,
+    "ordinary_chat_guard": "If neither protected context nor a bounded historical resource category matches, preserve ordinary chat pass-through.",
+    "precedence_rule": "When both catalogs match, protected-context self-knowledge wins. The resource provider is not invoked.",
+    "representative_category_results": [
+      {
+        "category": "active_image_generation_capacity_limitation",
+        "deterministic_precedence": "resource_after_protected_no_match",
+        "direct_catalog_overlap": false,
+        "protected_intent_candidates": [],
+        "representative_question": "Can this prove I can generate images while the 30B model is loaded?",
+        "resource_classification": "active_image_generation_capacity_limitation"
+      },
+      {
+        "category": "available_loaded_state_memory",
+        "deterministic_precedence": "resource_after_protected_no_match",
+        "direct_catalog_overlap": false,
+        "protected_intent_candidates": [],
+        "representative_question": "How much RAM was left with the model and ComfyUI loaded?",
+        "resource_classification": "available_loaded_state_memory"
+      },
+      {
+        "category": "commit_headroom",
+        "deterministic_precedence": "resource_after_protected_no_match",
+        "direct_catalog_overlap": false,
+        "protected_intent_candidates": [],
+        "representative_question": "How much commit headroom was left?",
+        "resource_classification": "commit_headroom"
+      },
+      {
+        "category": "current_page_file_usage",
+        "deterministic_precedence": "resource_after_protected_no_match",
+        "direct_catalog_overlap": false,
+        "protected_intent_candidates": [],
+        "representative_question": "What was the current page file usage in the capture?",
+        "resource_classification": "current_page_file_usage"
+      },
+      {
+        "category": "desktop_working_set",
+        "deterministic_precedence": "resource_after_protected_no_match",
+        "direct_catalog_overlap": false,
+        "protected_intent_candidates": [],
+        "representative_question": "How much RAM did FOXAI Desktop use?",
+        "resource_classification": "desktop_working_set"
+      },
+      {
+        "category": "dominant_measured_foxai_component",
+        "deterministic_precedence": "resource_after_protected_no_match",
+        "direct_catalog_overlap": false,
+        "protected_intent_candidates": [],
+        "representative_question": "What was using most of the memory?",
+        "resource_classification": "dominant_measured_foxai_component"
+      },
+      {
+        "category": "foxai_process_count_delta",
+        "deterministic_precedence": "resource_after_protected_no_match",
+        "direct_catalog_overlap": false,
+        "protected_intent_candidates": [],
+        "representative_question": "How many more FOXAI processes were in the loaded capture?",
+        "resource_classification": "foxai_process_count_delta"
+      },
+      {
+        "category": "future_or_multi_model_capacity_limitation",
+        "deterministic_precedence": "resource_after_protected_no_match",
+        "direct_catalog_overlap": false,
+        "protected_intent_candidates": [],
+        "representative_question": "Does this prove capacity for multiple simultaneous large models?",
+        "resource_classification": "future_or_multi_model_capacity_limitation"
+      },
+      {
+        "category": "historical_page_file_peak_meaning",
+        "deterministic_precedence": "resource_after_protected_no_match",
+        "direct_catalog_overlap": false,
+        "protected_intent_candidates": [],
+        "representative_question": "What does the historical page file peak of 8191 MiB mean?",
+        "resource_classification": "historical_page_file_peak_meaning"
+      },
+      {
+        "category": "idle_comfyui_working_set",
+        "deterministic_precedence": "resource_after_protected_no_match",
+        "direct_catalog_overlap": false,
+        "protected_intent_candidates": [],
+        "representative_question": "How much memory did idle ComfyUI use?",
+        "resource_classification": "idle_comfyui_working_set"
+      },
+      {
+        "category": "known_evidence_limitations",
+        "deterministic_precedence": "resource_after_protected_no_match",
+        "direct_catalog_overlap": false,
+        "protected_intent_candidates": [],
+        "representative_question": "What are the limitations of this evidence?",
+        "resource_classification": "known_evidence_limitations"
+      },
+      {
+        "category": "listener_presence_captured_states",
+        "deterministic_precedence": "resource_after_protected_no_match",
+        "direct_catalog_overlap": false,
+        "protected_intent_candidates": [],
+        "representative_question": "What ports were present in each captured state?",
+        "resource_classification": "listener_presence_captured_states"
+      },
+      {
+        "category": "measured_minimal_load_ram",
+        "deterministic_precedence": "resource_after_protected_no_match",
+        "direct_catalog_overlap": false,
+        "protected_intent_candidates": [],
+        "representative_question": "How much RAM was used in the minimal-load capture?",
+        "resource_classification": "measured_minimal_load_ram"
+      },
+      {
+        "category": "measured_normal_loaded_ram",
+        "deterministic_precedence": "resource_after_protected_no_match",
+        "direct_catalog_overlap": false,
+        "protected_intent_candidates": [],
+        "representative_question": "How much RAM did FOXAI use in the loaded capture?",
+        "resource_classification": "measured_normal_loaded_ram"
+      },
+      {
+        "category": "memory_load_delta",
+        "deterministic_precedence": "resource_after_protected_no_match",
+        "direct_catalog_overlap": false,
+        "protected_intent_candidates": [],
+        "representative_question": "What was the memory-load delta between the captures?",
+        "resource_classification": "memory_load_delta"
+      },
+      {
+        "category": "model_working_set",
+        "deterministic_precedence": "resource_after_protected_no_match",
+        "direct_catalog_overlap": false,
+        "protected_intent_candidates": [],
+        "representative_question": "How much memory did the model use?",
+        "resource_classification": "model_working_set"
+      },
+      {
+        "category": "storage_free_space_comparison",
+        "deterministic_precedence": "resource_after_protected_no_match",
+        "direct_catalog_overlap": false,
+        "protected_intent_candidates": [],
+        "representative_question": "Compare the captured drive free space.",
+        "resource_classification": "storage_free_space_comparison"
+      },
+      {
+        "category": "webui_working_set",
+        "deterministic_precedence": "resource_after_protected_no_match",
+        "direct_catalog_overlap": false,
+        "protected_intent_candidates": [],
+        "representative_question": "How much RAM did FOXAI WebUI use?",
+        "resource_classification": "webui_working_set"
+      }
+    ],
+    "representative_direct_overlap_count": 0,
+    "supported_category_count": 18
+  },
+  "routing_invariants": {
+    "both_surfaces_share_identical_logical_order": true,
+    "creative_memory_request_not_stolen": true,
+    "current_live_resource_question_passes_to_ordinary_chat": true,
+    "protected_context_priority": true,
+    "resource_only_after_protected_no_match": true,
+    "slash_bypass_before_any_provider": true,
+    "unrelated_chat_not_stolen": true
+  },
+  "schema": "foxai.agent_fox.technical_core.v1b2b.routing_preflight_fixtures.v1",
+  "status": "routing_preflight_passed"
+}

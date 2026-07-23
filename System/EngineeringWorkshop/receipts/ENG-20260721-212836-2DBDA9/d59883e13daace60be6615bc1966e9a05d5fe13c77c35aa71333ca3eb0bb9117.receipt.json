@@ -1,0 +1,182 @@
+{
+  "authorized": true,
+  "changes": [
+    {
+      "action": "write_file",
+      "after_sha256": "f8eda1937a8f5f8ce56ee7982a0c09c934b4751620e42a90fab0e5c7aaa00cbd",
+      "after_size": 28285,
+      "before_sha256": null,
+      "before_size": null,
+      "relative_path": "System\\AgentFoxTechnicalCore\\web_portable_closure_failure_diagnostic_v1.py"
+    },
+    {
+      "action": "write_file",
+      "after_sha256": "4805399c3ba761ed4f4627b97cd9c52b50e8b10b3d7655e4e8006d98cfeaaca6",
+      "after_size": 2011,
+      "before_sha256": null,
+      "before_size": null,
+      "relative_path": "System\\AgentFoxTechnicalCore\\V1A3C1_FAILURE_DIAGNOSTIC_CONTRACT_V1.json"
+    },
+    {
+      "action": "write_file",
+      "after_sha256": "bc8dacebf86d3b2c09b47cac16440f2e4cbf8ecb27a5471acefc90cec9ac452d",
+      "after_size": 952,
+      "before_sha256": null,
+      "before_size": null,
+      "relative_path": "System\\AgentFoxTechnicalCore\\README_V1A3C1D.md"
+    }
+  ],
+  "created_at": "2026-07-21T21:36:51.839386Z",
+  "evidence_is_tool_generated": true,
+  "failure": "Validation failed: Verify captured failure or explicit unexpected success, protected context, retained evidence, and zero normal closure outputs (return code 1)",
+  "mission_id": "ENG-20260721-212836-2DBDA9",
+  "mission_title": "Agent Fox Technical Core V1A-3C1D \u2014 Web Portable Closure Failure Diagnostic",
+  "mission_type": "implement",
+  "no_deletions": true,
+  "no_renames": true,
+  "plan_path": "Z:\\FOXAI\\AGENT_FOX_V1A3C1D\\PLAN.json",
+  "plan_sha256": "d59883e13daace60be6615bc1966e9a05d5fe13c77c35aa71333ca3eb0bb9117",
+  "project_root": "Z:\\FOXAI",
+  "result": "rolled_back",
+  "rolled_back": true,
+  "schema": "foxai.engineering.receipt.v1",
+  "snapshot_manifest": "Z:\\FOXAI\\System\\EngineeringWorkshop\\snapshots\\ENG-20260721-212836-2DBDA9\\snapshot_20260721T213650527103Z.manifest.json",
+  "snapshot_path": "Z:\\FOXAI\\System\\EngineeringWorkshop\\snapshots\\ENG-20260721-212836-2DBDA9\\snapshot_20260721T213650527103Z.zip",
+  "snapshot_sha256": "74222fe8c0199456303781faa9dfc7d8d87838cf4a36c40fed430fbca3417e49",
+  "validations": [
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nimport ast,hashlib,json\nroot=Path(r\"Z:\\FOXAI\")\ndrop=root/r\"AGENT_FOX_V1A3C1D\"\ninstalled=root/r\"System\\AgentFoxTechnicalCore\"\nchecks=[\n (drop/r\"web_portable_closure_failure_diagnostic_v1.py\",installed/r\"web_portable_closure_failure_diagnostic_v1.py\",\"f8eda1937a8f5f8ce56ee7982a0c09c934b4751620e42a90fab0e5c7aaa00cbd\"),\n (drop/r\"V1A3C1_FAILURE_DIAGNOSTIC_CONTRACT_V1.json\",installed/r\"V1A3C1_FAILURE_DIAGNOSTIC_CONTRACT_V1.json\",\"4805399c3ba761ed4f4627b97cd9c52b50e8b10b3d7655e4e8006d98cfeaaca6\"),\n (drop/r\"README_V1A3C1D.md\",installed/r\"README_V1A3C1D.md\",\"bc8dacebf86d3b2c09b47cac16440f2e4cbf8ecb27a5471acefc90cec9ac452d\"),\n]\nfor src,dst,expected in checks:\n assert src.is_file() and dst.is_file(),(src,dst)\n assert hashlib.sha256(src.read_bytes()).hexdigest()==expected,src\n assert hashlib.sha256(dst.read_bytes()).hexdigest()==expected,dst\nscript=(installed/r\"web_portable_closure_failure_diagnostic_v1.py\").read_text(encoding=\"utf-8\")\ncompile(script,str(installed/r\"web_portable_closure_failure_diagnostic_v1.py\"),\"exec\")\ntree=ast.parse(script)\nimports=set()\nfor node in ast.walk(tree):\n if isinstance(node,ast.Import): imports.update(a.name.split('.')[0] for a in node.names)\n elif isinstance(node,ast.ImportFrom) and node.module: imports.add(node.module.split('.')[0])\nforbidden={\"subprocess\",\"socket\",\"urllib\",\"http\",\"ftplib\",\"requests\",\"pip\",\"ensurepip\",\"psutil\",\"winreg\",\"ctypes\",\"webbrowser\",\"importlib\"}\nassert not (imports & forbidden),sorted(imports & forbidden)\ncontract=json.loads((installed/r\"V1A3C1_FAILURE_DIAGNOSTIC_CONTRACT_V1.json\").read_text(encoding=\"utf-8\"))\nassert contract.get(\"mission_id\")==\"ENG-20260721-212836-2DBDA9\"\nassert contract.get(\"protected_direct_context_count\")==1\nscope=contract.get(\"scope\",{})\nassert scope.get(\"normal_closure_outputs_generated\") is False\nassert scope.get(\"diagnostic_returns_success_after_capture\") is True\nassert scope.get(\"maximum_reads_per_reached_source\")==1\nassert scope.get(\"source_buffer_ceiling_bytes\")==8388608\nassert scope.get(\"diagnostic_output_ceiling_bytes\")==1048576\nassert scope.get(\"payload_interpreter_child_processes\")==0\nassert scope.get(\"payload_shell_child_processes\")==0\nprint(\"AGENT_FOX_V1A3C1D_INSTALL_PREFLIGHT_OK\")"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-21T21:36:50.788267Z",
+      "name": "Verify exact V1A-3C1D payloads, syntax, diagnostic-only contract, and zero forbidden imports",
+      "returncode": 0,
+      "started_at": "2026-07-21T21:36:50.540754Z",
+      "stderr": "",
+      "stdout": "AGENT_FOX_V1A3C1D_INSTALL_PREFLIGHT_OK\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\web_portable_closure_failure_diagnostic_v1.py",
+        "self-test"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-21T21:36:50.927028Z",
+      "name": "Run bounded diagnostic capture self-test",
+      "returncode": 0,
+      "started_at": "2026-07-21T21:36:50.788658Z",
+      "stderr": "",
+      "stdout": "V1A3C1D_SELF_TEST_OK\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\web_portable_closure_failure_diagnostic_v1.py",
+        "verify-inputs",
+        "--subject-builder",
+        "Z:\\FOXAI\\AGENT_FOX_V1A3C1\\web_portable_dependency_closure_v1.py",
+        "--v1a2r2-dir",
+        "Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260721-063725-BFCAB9_V1A2R2_IMMUTABLE_BRIDGE",
+        "--v1a3a-r1-dir",
+        "Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260721-152146-C4F8D5_V1A3A_R1_ADOPTED_RUNTIME_MAP",
+        "--v1a3b-dir",
+        "Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260721-154935-FF96C4_V1A3B_EFFECTIVE_IMPORT_MAP"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-21T21:36:51.378879Z",
+      "name": "Verify exact failed builder hash, prior evidence receipts, and protected Web Portable context",
+      "returncode": 0,
+      "started_at": "2026-07-21T21:36:50.927415Z",
+      "stderr": "",
+      "stdout": "{\"context_id\": \"CTX-23820E95DB51A6C5\", \"path_group_id\": \"PATHGROUP-8017393F74F3ACD3\", \"source_code_file_count\": 565, \"source_launcher_record_count\": 536, \"status\": \"verified\", \"subject_builder_sha256\": \"da458a9a2eeca42b86d43b13ffb113a8417f182399683e758e56b74d8317f322\"}\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\web_portable_closure_failure_diagnostic_v1.py",
+        "diagnose",
+        "--project-root",
+        "Z:\\FOXAI",
+        "--project-root-win",
+        "Z:\\FOXAI",
+        "--subject-builder",
+        "Z:\\FOXAI\\AGENT_FOX_V1A3C1\\web_portable_dependency_closure_v1.py",
+        "--v1a2r2-dir",
+        "Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260721-063725-BFCAB9_V1A2R2_IMMUTABLE_BRIDGE",
+        "--v1a3a-r1-dir",
+        "Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260721-152146-C4F8D5_V1A3A_R1_ADOPTED_RUNTIME_MAP",
+        "--v1a3b-dir",
+        "Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260721-154935-FF96C4_V1A3B_EFFECTIVE_IMPORT_MAP",
+        "--output-dir",
+        "Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260721-212836-2DBDA9_V1A3C1D_WEB_PORTABLE_DIAGNOSTIC",
+        "--mission-id",
+        "ENG-20260721-212836-2DBDA9"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-21T21:36:51.664345Z",
+      "name": "Capture deterministic V1A-3C1 Web Portable closure failure without rollback",
+      "returncode": 0,
+      "started_at": "2026-07-21T21:36:51.379261Z",
+      "stderr": "",
+      "stdout": "{\"last_successful_stage\": \"preliminary_closure_construction\", \"output_dir\": \"Z:\\\\FOXAI\\\\System\\\\EngineeringWorkshop\\\\missions\\\\ENG-20260721-212836-2DBDA9_V1A3C1D_WEB_PORTABLE_DIAGNOSTIC\", \"result\": \"captured_failure\", \"status\": \"diagnostic_recorded\"}\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\web_portable_closure_failure_diagnostic_v1.py",
+        "validate-diagnostic",
+        "--index-dir",
+        "Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260721-212836-2DBDA9_V1A3C1D_WEB_PORTABLE_DIAGNOSTIC"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-21T21:36:51.771891Z",
+      "name": "Validate exact three-file diagnostic evidence set, hashes, safety, single-read ceiling, and sub-1-MiB output",
+      "returncode": 0,
+      "started_at": "2026-07-21T21:36:51.664752Z",
+      "stderr": "",
+      "stdout": "{\"exception_type\": \"ValueError\", \"last_successful_stage\": \"preliminary_closure_construction\", \"result\": \"captured_failure\", \"status\": \"valid\", \"total_output_bytes\": 5824}\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nimport hashlib,json\nout=Path(r\"Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260721-212836-2DBDA9_V1A3C1D_WEB_PORTABLE_DIAGNOSTIC\")\nrequired={\"V1A3C1_FAILURE_DIAGNOSTIC.json\",\"V1A3C1_FAILURE_TRACEBACK.txt\",\"V1A3C1_DIAGNOSTIC_RECEIPT.json\"}\npresent={p.name for p in out.iterdir() if p.is_file()}\nassert present==required,(present,required)\ndiag=json.loads((out/r\"V1A3C1_FAILURE_DIAGNOSTIC.json\").read_text(encoding=\"utf-8\"))\nreceipt=json.loads((out/r\"V1A3C1_DIAGNOSTIC_RECEIPT.json\").read_text(encoding=\"utf-8\"))\nassert diag.get(\"mission_id\")==\"ENG-20260721-212836-2DBDA9\"\nassert diag.get(\"subject_mission_id\")==\"ENG-20260721-172935-37F095\"\nassert diag.get(\"result\") in {\"captured_failure\",\"unexpected_success\"}\nassert diag.get(\"protected_direct_context_count\") in {0,1}\nctx=diag.get(\"context\",{})\nif diag.get(\"protected_direct_context_count\")==1:\n assert str(ctx.get(\"launcher_path\",\"\")).casefold()==r\"z:\foxai\\start_foxai_web_portable.bat\"\n assert str(ctx.get(\"script_path\",\"\")).casefold()==r\"z:\foxai\\core\foxai_web.py\"\n assert str(ctx.get(\"resolved_interpreter_path\",\"\")).casefold()==r\"z:\foxai\\env\\python\\python.exe\"\nassert receipt.get(\"diagnostic_command_returned_success_after_recording\") is True\nassert receipt.get(\"normal_closure_outputs_generated\") is False\nassert receipt.get(\"interpreter_child_processes\")==0 and receipt.get(\"shell_child_processes\")==0\nfor item in receipt.get(\"diagnostic_outputs_before_receipt\",[]):\n p=out/item[\"name\"]\n assert p.is_file() and p.stat().st_size==item[\"size_bytes\"]\n assert hashlib.sha256(p.read_bytes()).hexdigest()==item[\"sha256\"]\ntotal=sum(p.stat().st_size for p in out.iterdir() if p.is_file())\nassert total<1048576,total\nprint(\"AGENT_FOX_V1A3C1D_DIAGNOSTIC_VERIFIED\")"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-21T21:36:51.835711Z",
+      "name": "Verify captured failure or explicit unexpected success, protected context, retained evidence, and zero normal closure outputs",
+      "returncode": 1,
+      "started_at": "2026-07-21T21:36:51.772263Z",
+      "stderr": "Traceback (most recent call last):\n  File \"<string>\", line 15, in <module>\n    assert str(ctx.get(\"launcher_path\",\"\")).casefold()==r\"z:\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n",
+      "stdout": "",
+      "timed_out": false
+    }
+  ]
+}

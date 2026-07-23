@@ -1,0 +1,7207 @@
+{
+  "record_count": 1200,
+  "records": [
+    {
+      "language": "python",
+      "line": 220,
+      "path": "core\\engineer_agent.py",
+      "text": "*,"
+    },
+    {
+      "language": "python",
+      "line": 221,
+      "path": "core\\engineer_agent.py",
+      "text": "correlation_id=None,"
+    },
+    {
+      "language": "python",
+      "line": 222,
+      "path": "core\\engineer_agent.py",
+      "text": "mission_id=None,"
+    },
+    {
+      "language": "python",
+      "line": 223,
+      "path": "core\\engineer_agent.py",
+      "text": "route_audit_receipt=None,"
+    },
+    {
+      "language": "python",
+      "line": 224,
+      "path": "core\\engineer_agent.py",
+      "text": "):"
+    },
+    {
+      "language": "python",
+      "line": 225,
+      "path": "core\\engineer_agent.py",
+      "text": "query = (payload or text or \"\").strip()"
+    },
+    {
+      "language": "python",
+      "line": 226,
+      "path": "core\\engineer_agent.py",
+      "text": "# FOXAI_ENGINEERING_WORKSHOP_V1_1_INTEGRATION"
+    },
+    {
+      "language": "python",
+      "line": 227,
+      "path": "core\\engineer_agent.py",
+      "text": "if self.engineering_workshop is not None:"
+    },
+    {
+      "language": "python",
+      "line": 228,
+      "path": "core\\engineer_agent.py",
+      "text": "workshop_report = self.engineering_workshop.handle("
+    },
+    {
+      "language": "python",
+      "line": 229,
+      "path": "core\\engineer_agent.py",
+      "text": "query,"
+    },
+    {
+      "language": "python",
+      "line": 230,
+      "path": "core\\engineer_agent.py",
+      "text": "caller=caller,"
+    },
+    {
+      "language": "python",
+      "line": 231,
+      "path": "core\\engineer_agent.py",
+      "text": "operator_approved=operator_approved,"
+    },
+    {
+      "language": "python",
+      "line": 232,
+      "path": "core\\engineer_agent.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 233,
+      "path": "core\\engineer_agent.py",
+      "text": "if workshop_report is not None:"
+    },
+    {
+      "language": "python",
+      "line": 234,
+      "path": "core\\engineer_agent.py",
+      "text": "self.app.add_chat(\"ERIC\", query)"
+    },
+    {
+      "language": "python",
+      "line": 235,
+      "path": "core\\engineer_agent.py",
+      "text": "self.app.mission_status("
+    },
+    {
+      "language": "python",
+      "line": 236,
+      "path": "core\\engineer_agent.py",
+      "text": "\"Engineering Workshop online.\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 237,
+      "path": "core\\engineer_agent.py",
+      "text": "\"Controlled implementation workflow active.\""
+    },
+    {
+      "language": "python",
+      "line": 238,
+      "path": "core\\engineer_agent.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 239,
+      "path": "core\\engineer_agent.py",
+      "text": "self.app.add_chat(\"ENGINEER\", workshop_report)"
+    },
+    {
+      "language": "python",
+      "line": 240,
+      "path": "core\\engineer_agent.py",
+      "text": "self.app.mission_memory.save()"
+    },
+    {
+      "language": "python",
+      "line": 241,
+      "path": "core\\engineer_agent.py",
+      "text": "if hasattr(self.app, \"complete_workshop_mission\"):"
+    },
+    {
+      "language": "python",
+      "line": 242,
+      "path": "core\\engineer_agent.py",
+      "text": "self.app.complete_workshop_mission(\"ONLINE\")"
+    },
+    {
+      "language": "python",
+      "line": 243,
+      "path": "core\\engineer_agent.py",
+      "text": "return \"break\""
+    },
+    {
+      "language": "python",
+      "line": 245,
+      "path": "core\\engineer_agent.py",
+      "text": "correlation_id = correlation_id or new_airlock_correlation_id()"
+    },
+    {
+      "language": "python",
+      "line": 246,
+      "path": "core\\engineer_agent.py",
+      "text": "mission_id = (mission_id or \"\").strip()"
+    },
+    {
+      "language": "python",
+      "line": 248,
+      "path": "core\\engineer_agent.py",
+      "text": "route_receipt_id = \"\""
+    },
+    {
+      "language": "python",
+      "line": 249,
+      "path": "core\\engineer_agent.py",
+      "text": "route_context_status = \"not_supplied\""
+    },
+    {
+      "language": "python",
+      "line": 250,
+      "path": "core\\engineer_agent.py",
+      "text": "if route_audit_receipt is not None:"
+    },
+    {
+      "language": "python",
+      "line": 251,
+      "path": "core\\engineer_agent.py",
+      "text": "if isinstance(route_audit_receipt, dict):"
+    },
+    {
+      "language": "python",
+      "line": 252,
+      "path": "core\\engineer_agent.py",
+      "text": "route_receipt_id = str(route_audit_receipt.get(\"receipt_id\") or \"\")"
+    },
+    {
+      "language": "python",
+      "line": 253,
+      "path": "core\\engineer_agent.py",
+      "text": "route_validation = validate_airlock_route_receipt("
+    },
+    {
+      "language": "python",
+      "line": 254,
+      "path": "core\\engineer_agent.py",
+      "text": "route_audit_receipt,"
+    },
+    {
+      "language": "python",
+      "line": 255,
+      "path": "core\\engineer_agent.py",
+      "text": "expected_actor=caller,"
+    },
+    {
+      "language": "python",
+      "line": 256,
+      "path": "core\\engineer_agent.py",
+      "text": "expected_object=\"engineering_airlock\","
+    },
+    {
+      "language": "python",
+      "line": 257,
+      "path": "core\\engineer_agent.py",
+      "text": "expected_action=\"route\","
+    },
+    {
+      "language": "python",
+      "line": 258,
+      "path": "core\\engineer_agent.py",
+      "text": "correlation_id=correlation_id,"
+    },
+    {
+      "language": "python",
+      "line": 259,
+      "path": "core\\engineer_agent.py",
+      "text": "mission_id=mission_id,"
+    },
+    {
+      "language": "python",
+      "line": 260,
+      "path": "core\\engineer_agent.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 261,
+      "path": "core\\engineer_agent.py",
+      "text": "if not route_validation.get(\"verified\"):"
+    },
+    {
+      "language": "python",
+      "line": 262,
+      "path": "core\\engineer_agent.py",
+      "text": "validation_reason = str("
+    },
+    {
+      "language": "python",
+      "line": 263,
+      "path": "core\\engineer_agent.py",
+      "text": "(route_validation.get(\"details\") or {}).get(\"reason\")"
+    },
+    {
+      "language": "python",
+      "line": 264,
+      "path": "core\\engineer_agent.py",
+      "text": "or \"Forwarded Engineering Airlock route context is invalid.\""
+    },
+    {
+      "language": "python",
+      "line": 265,
+      "path": "core\\engineer_agent.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 266,
+      "path": "core\\engineer_agent.py",
+      "text": "denial_receipt = record_boundary_denial("
+    },
+    {
+      "language": "python",
+      "line": 267,
+      "path": "core\\engineer_agent.py",
+      "text": "actor=caller,"
+    },
+    {
+      "language": "python",
+      "line": 268,
+      "path": "core\\engineer_agent.py",
+      "text": "obj=\"engineering_airlock\","
+    },
+    {
+      "language": "python",
+      "line": 269,
+      "path": "core\\engineer_agent.py",
+      "text": "action=\"route_context\","
+    },
+    {
+      "language": "python",
+      "line": 270,
+      "path": "core\\engineer_agent.py",
+      "text": "reason=validation_reason,"
+    },
+    {
+      "language": "python",
+      "line": 271,
+      "path": "core\\engineer_agent.py",
+      "text": "incident_kind=\"context_mismatch\","
+    },
+    {
+      "language": "python",
+      "line": 272,
+      "path": "core\\engineer_agent.py",
+      "text": "correlation_id=correlation_id,"
+    },
+    {
+      "language": "python",
+      "line": 273,
+      "path": "core\\engineer_agent.py",
+      "text": "mission_id=mission_id,"
+    },
+    {
+      "language": "python",
+      "line": 274,
+      "path": "core\\engineer_agent.py",
+      "text": "receipt_id=route_receipt_id,"
+    },
+    {
+      "language": "python",
+      "line": 275,
+      "path": "core\\engineer_agent.py",
+      "text": "context_status=\"mismatch\","
+    },
+    {
+      "language": "python",
+      "line": 276,
+      "path": "core\\engineer_agent.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 277,
+      "path": "core\\engineer_agent.py",
+      "text": "if not denial_receipt.get(\"verified\"):"
+    },
+    {
+      "language": "python",
+      "line": 278,
+      "path": "core\\engineer_agent.py",
+      "text": "self.app.add_chat("
+    },
+    {
+      "language": "python",
+      "line": 279,
+      "path": "core\\engineer_agent.py",
+      "text": "\"SYSTEM\","
+    },
+    {
+      "language": "python",
+      "line": 280,
+      "path": "core\\engineer_agent.py",
+      "text": "("
+    },
+    {
+      "language": "python",
+      "line": 281,
+      "path": "core\\engineer_agent.py",
+      "text": "\"Engineering Airlock denied: route context validation \""
+    },
+    {
+      "language": "python",
+      "line": 282,
+      "path": "core\\engineer_agent.py",
+      "text": "\"failed and the boundary incident audit also failed closed.\""
+    },
+    {
+      "language": "python",
+      "line": 283,
+      "path": "core\\engineer_agent.py",
+      "text": "),"
+    },
+    {
+      "language": "python",
+      "line": 284,
+      "path": "core\\engineer_agent.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 285,
+      "path": "core\\engineer_agent.py",
+      "text": "else:"
+    },
+    {
+      "language": "python",
+      "line": 286,
+      "path": "core\\engineer_agent.py",
+      "text": "self.app.add_chat("
+    },
+    {
+      "language": "python",
+      "line": 287,
+      "path": "core\\engineer_agent.py",
+      "text": "\"SYSTEM\","
+    },
+    {
+      "language": "python",
+      "line": 288,
+      "path": "core\\engineer_agent.py",
+      "text": "f\"Engineering Airlock denied: {validation_reason}\","
+    },
+    {
+      "language": "python",
+      "line": 289,
+      "path": "core\\engineer_agent.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 290,
+      "path": "core\\engineer_agent.py",
+      "text": "return \"break\""
+    },
+    {
+      "language": "python",
+      "line": 291,
+      "path": "core\\engineer_agent.py",
+      "text": "route_context_status = \"verified\""
+    },
+    {
+      "language": "python",
+      "line": 293,
+      "path": "core\\engineer_agent.py",
+      "text": "authorization = authorize_department_route("
+    },
+    {
+      "language": "python",
+      "line": 294,
+      "path": "core\\engineer_agent.py",
+      "text": "caller,"
+    },
+    {
+      "language": "python",
+      "line": 295,
+      "path": "core\\engineer_agent.py",
+      "text": "\"engineering_airlock\","
+    },
+    {
+      "language": "python",
+      "line": 296,
+      "path": "core\\engineer_agent.py",
+      "text": "\"inspect\","
+    },
+    {
+      "language": "python",
+      "line": 297,
+      "path": "core\\engineer_agent.py",
+      "text": "operator_approved=operator_approved,"
+    },
+    {
+      "language": "python",
+      "line": 298,
+      "path": "core\\engineer_agent.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 299,
+      "path": "core\\engineer_agent.py",
+      "text": "audit_receipt = record_authorization_decision("
+    },
+    {
+      "language": "python",
+      "line": 300,
+      "path": "core\\engineer_agent.py",
+      "text": "authorization,"
+    },
+    {
+      "language": "python",
+      "line": 301,
+      "path": "core\\engineer_agent.py",
+      "text": "correlation_id=correlation_id,"
+    },
+    {
+      "language": "python",
+      "line": 302,
+      "path": "core\\engineer_agent.py",
+      "text": "mission_id=mission_id,"
+    },
+    {
+      "language": "python",
+      "line": 303,
+      "path": "core\\engineer_agent.py",
+      "text": "receipt_id=route_receipt_id,"
+    },
+    {
+      "language": "python",
+      "line": 304,
+      "path": "core\\engineer_agent.py",
+      "text": "context_status=route_context_status,"
+    },
+    {
+      "language": "python",
+      "line": 305,
+      "path": "core\\engineer_agent.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 306,
+      "path": "core\\engineer_agent.py",
+      "text": "if not audit_receipt.get(\"verified\"):"
+    },
+    {
+      "language": "python",
+      "line": 307,
+      "path": "core\\engineer_agent.py",
+      "text": "self.app.add_chat("
+    },
+    {
+      "language": "python",
+      "line": 308,
+      "path": "core\\engineer_agent.py",
+      "text": "\"SYSTEM\","
+    },
+    {
+      "language": "python",
+      "line": 309,
+      "path": "core\\engineer_agent.py",
+      "text": "("
+    },
+    {
+      "language": "python",
+      "line": 310,
+      "path": "core\\engineer_agent.py",
+      "text": "\"Engineering Airlock denied: the security audit \""
+    },
+    {
+      "language": "python",
+      "line": 311,
+      "path": "core\\engineer_agent.py",
+      "text": "\"receipt could not be verified.\""
+    },
+    {
+      "language": "python",
+      "line": 312,
+      "path": "core\\engineer_agent.py",
+      "text": "),"
+    },
+    {
+      "language": "python",
+      "line": 313,
+      "path": "core\\engineer_agent.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 314,
+      "path": "core\\engineer_agent.py",
+      "text": "return \"break\""
+    },
+    {
+      "language": "python",
+      "line": 315,
+      "path": "core\\engineer_agent.py",
+      "text": "if not authorization.allowed:"
+    },
+    {
+      "language": "python",
+      "line": 316,
+      "path": "core\\engineer_agent.py",
+      "text": "self.app.add_chat("
+    },
+    {
+      "language": "python",
+      "line": 317,
+      "path": "core\\engineer_agent.py",
+      "text": "\"SYSTEM\","
+    },
+    {
+      "language": "python",
+      "line": 318,
+      "path": "core\\engineer_agent.py",
+      "text": "f\"Engineering Airlock denied: {authorization.reason}\","
+    },
+    {
+      "language": "python",
+      "line": 319,
+      "path": "core\\engineer_agent.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 320,
+      "path": "core\\engineer_agent.py",
+      "text": "return \"break\""
+    },
+    {
+      "language": "python",
+      "line": 321,
+      "path": "core\\engineer_agent.py",
+      "text": "self.app.add_chat(\"ERIC\", query)"
+    },
+    {
+      "language": "python",
+      "line": 322,
+      "path": "core\\engineer_agent.py",
+      "text": "self.app.mission_status(\"Engineer online.\\n\\nPerforming read-only project analysis.\")"
+    },
+    {
+      "language": "python",
+      "line": 324,
+      "path": "core\\engineer_agent.py",
+      "text": "self._active_airlock_context = {"
+    },
+    {
+      "language": "python",
+      "line": 325,
+      "path": "core\\engineer_agent.py",
+      "text": "\"actor\": authorization.actor,"
+    },
+    {
+      "language": "python",
+      "line": 326,
+      "path": "core\\engineer_agent.py",
+      "text": "\"authorization_allowed\": bool(authorization.allowed),"
+    },
+    {
+      "language": "python",
+      "line": 327,
+      "path": "core\\engineer_agent.py",
+      "text": "\"authorization_reason\": authorization.reason,"
+    },
+    {
+      "language": "python",
+      "line": 328,
+      "path": "core\\engineer_agent.py",
+      "text": "\"authorization_policy_source\": authorization.policy_source,"
+    },
+    {
+      "language": "python",
+      "line": 329,
+      "path": "core\\engineer_agent.py",
+      "text": "\"correlation_id\": correlation_id,"
+    },
+    {
+      "language": "python",
+      "line": 330,
+      "path": "core\\engineer_agent.py",
+      "text": "\"mission_id\": mission_id,"
+    },
+    {
+      "language": "python",
+      "line": 331,
+      "path": "core\\engineer_agent.py",
+      "text": "\"fox_sentry_receipt_id\": str(audit_receipt.get(\"receipt_id\") or \"\"),"
+    },
+    {
+      "language": "python",
+      "line": 332,
+      "path": "core\\engineer_agent.py",
+      "text": "\"route_receipt_id\": route_receipt_id,"
+    },
+    {
+      "language": "python",
+      "line": 333,
+      "path": "core\\engineer_agent.py",
+      "text": "\"route_context_status\": route_context_status,"
+    },
+    {
+      "language": "python",
+      "line": 334,
+      "path": "core\\engineer_agent.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 336,
+      "path": "core\\engineer_agent.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 337,
+      "path": "core\\engineer_agent.py",
+      "text": "report = self.analyze(query)"
+    },
+    {
+      "language": "python",
+      "line": 338,
+      "path": "core\\engineer_agent.py",
+      "text": "self.app.add_chat(\"ENGINEER\", report)"
+    },
+    {
+      "language": "python",
+      "line": 339,
+      "path": "core\\engineer_agent.py",
+      "text": "self.app.mission_memory.save()"
+    },
+    {
+      "language": "python",
+      "line": 340,
+      "path": "core\\engineer_agent.py",
+      "text": "if hasattr(self.app, \"complete_workshop_mission\"):"
+    },
+    {
+      "language": "python",
+      "line": 341,
+      "path": "core\\engineer_agent.py",
+      "text": "self.app.complete_workshop_mission(\"ONLINE\")"
+    },
+    {
+      "language": "python",
+      "line": 342,
+      "path": "core\\engineer_agent.py",
+      "text": "return \"break\""
+    },
+    {
+      "language": "python",
+      "line": 343,
+      "path": "core\\engineer_agent.py",
+      "text": "except Exception as error:"
+    },
+    {
+      "language": "python",
+      "line": 344,
+      "path": "core\\engineer_agent.py",
+      "text": "if hasattr(self.app, \"fail_workshop_mission\"):"
+    },
+    {
+      "language": "python",
+      "line": 345,
+      "path": "core\\engineer_agent.py",
+      "text": "self.app.fail_workshop_mission(str(error))"
+    },
+    {
+      "language": "python",
+      "line": 346,
+      "path": "core\\engineer_agent.py",
+      "text": "self.app.add_chat(\"ENGINEER\", f\"Engineering analysis failed:\\n{error}\")"
+    },
+    {
+      "language": "python",
+      "line": 347,
+      "path": "core\\engineer_agent.py",
+      "text": "return \"break\""
+    },
+    {
+      "language": "python",
+      "line": 348,
+      "path": "core\\engineer_agent.py",
+      "text": "finally:"
+    },
+    {
+      "language": "python",
+      "line": 349,
+      "path": "core\\engineer_agent.py",
+      "text": "self._active_airlock_context = {}"
+    },
+    {
+      "language": "python",
+      "line": 351,
+      "path": "core\\engineer_agent.py",
+      "text": "def build_index(self):"
+    },
+    {
+      "language": "python",
+      "line": 352,
+      "path": "core\\engineer_agent.py",
+      "text": "self.index = ProjectIndex(self.project_root).build()"
+    },
+    {
+      "language": "python",
+      "line": 353,
+      "path": "core\\engineer_agent.py",
+      "text": "return self.index"
+    },
+    {
+      "language": "python",
+      "line": 355,
+      "path": "core\\engineer_agent.py",
+      "text": "def get_index(self):"
+    },
+    {
+      "language": "python",
+      "line": 356,
+      "path": "core\\engineer_agent.py",
+      "text": "if self.index is None:"
+    },
+    {
+      "language": "python",
+      "line": 357,
+      "path": "core\\engineer_agent.py",
+      "text": "return self.build_index()"
+    },
+    {
+      "language": "python",
+      "line": 358,
+      "path": "core\\engineer_agent.py",
+      "text": "return self.index"
+    },
+    {
+      "language": "python",
+      "line": 360,
+      "path": "core\\engineer_agent.py",
+      "text": "def build_dependency_graph(self):"
+    },
+    {
+      "language": "python",
+      "line": 361,
+      "path": "core\\engineer_agent.py",
+      "text": "self.dependency_graph = DependencyGraph(self.project_root).build()"
+    },
+    {
+      "language": "python",
+      "line": 362,
+      "path": "core\\engineer_agent.py",
+      "text": "return self.dependency_graph"
+    },
+    {
+      "language": "python",
+      "line": 364,
+      "path": "core\\engineer_agent.py",
+      "text": "def get_dependency_graph(self):"
+    },
+    {
+      "language": "python",
+      "line": 365,
+      "path": "core\\engineer_agent.py",
+      "text": "if self.dependency_graph is None:"
+    },
+    {
+      "language": "python",
+      "line": 366,
+      "path": "core\\engineer_agent.py",
+      "text": "return self.build_dependency_graph()"
+    },
+    {
+      "language": "python",
+      "line": 367,
+      "path": "core\\engineer_agent.py",
+      "text": "return self.dependency_graph"
+    },
+    {
+      "language": "python",
+      "line": 369,
+      "path": "core\\engineer_agent.py",
+      "text": "def build_runtime_graph(self):"
+    },
+    {
+      "language": "python",
+      "line": 370,
+      "path": "core\\engineer_agent.py",
+      "text": "self.runtime_graph = RuntimeGraph(self.project_root).build()"
+    },
+    {
+      "language": "python",
+      "line": 371,
+      "path": "core\\engineer_agent.py",
+      "text": "return self.runtime_graph"
+    },
+    {
+      "language": "python",
+      "line": 373,
+      "path": "core\\engineer_agent.py",
+      "text": "def get_runtime_graph(self):"
+    },
+    {
+      "language": "python",
+      "line": 374,
+      "path": "core\\engineer_agent.py",
+      "text": "if self.runtime_graph is None:"
+    },
+    {
+      "language": "python",
+      "line": 375,
+      "path": "core\\engineer_agent.py",
+      "text": "return self.build_runtime_graph()"
+    },
+    {
+      "language": "python",
+      "line": 376,
+      "path": "core\\engineer_agent.py",
+      "text": "return self.runtime_graph"
+    },
+    {
+      "language": "python",
+      "line": 378,
+      "path": "core\\engineer_agent.py",
+      "text": "def build_technical_debt(self):"
+    },
+    {
+      "language": "python",
+      "line": 379,
+      "path": "core\\engineer_agent.py",
+      "text": "self.technical_debt = TechnicalDebtEngine(self.project_root).build()"
+    },
+    {
+      "language": "python",
+      "line": 380,
+      "path": "core\\engineer_agent.py",
+      "text": "return self.technical_debt"
+    },
+    {
+      "language": "python",
+      "line": 382,
+      "path": "core\\engineer_agent.py",
+      "text": "def get_technical_debt(self):"
+    },
+    {
+      "language": "python",
+      "line": 383,
+      "path": "core\\engineer_agent.py",
+      "text": "if self.technical_debt is None:"
+    },
+    {
+      "language": "python",
+      "line": 384,
+      "path": "core\\engineer_agent.py",
+      "text": "return self.build_technical_debt()"
+    },
+    {
+      "language": "python",
+      "line": 385,
+      "path": "core\\engineer_agent.py",
+      "text": "return self.technical_debt"
+    },
+    {
+      "language": "python",
+      "line": 387,
+      "path": "core\\engineer_agent.py",
+      "text": "def confidence_card(self, evidence, reason=\"\", base=50, uncertainty=0):"
+    },
+    {
+      "language": "python",
+      "line": 388,
+      "path": "core\\engineer_agent.py",
+      "text": "return self.confidence.card("
+    },
+    {
+      "language": "python",
+      "line": 389,
+      "path": "core\\engineer_agent.py",
+      "text": "evidence=evidence,"
+    },
+    {
+      "language": "python",
+      "line": 390,
+      "path": "core\\engineer_agent.py",
+      "text": "base=base,"
+    },
+    {
+      "language": "python",
+      "line": 391,
+      "path": "core\\engineer_agent.py",
+      "text": "uncertainty=uncertainty,"
+    },
+    {
+      "language": "python",
+      "line": 392,
+      "path": "core\\engineer_agent.py",
+      "text": "reason=reason,"
+    },
+    {
+      "language": "python",
+      "line": 393,
+      "path": "core\\engineer_agent.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 395,
+      "path": "core\\engineer_agent.py",
+      "text": "def _after_phrase(self, text, phrases):"
+    },
+    {
+      "language": "python",
+      "line": 396,
+      "path": "core\\engineer_agent.py",
+      "text": "lowered = text.lower()"
+    },
+    {
+      "language": "python",
+      "line": 397,
+      "path": "core\\engineer_agent.py",
+      "text": "for phrase in phrases:"
+    },
+    {
+      "language": "python",
+      "line": 398,
+      "path": "core\\engineer_agent.py",
+      "text": "idx = lowered.find(phrase)"
+    },
+    {
+      "language": "python",
+      "line": 399,
+      "path": "core\\engineer_agent.py",
+      "text": "if idx >= 0:"
+    },
+    {
+      "language": "python",
+      "line": 400,
+      "path": "core\\engineer_agent.py",
+      "text": "return text[idx + len(phrase):].strip()"
+    },
+    {
+      "language": "python",
+      "line": 401,
+      "path": "core\\engineer_agent.py",
+      "text": "return text.strip()"
+    },
+    {
+      "language": "python",
+      "line": 403,
+      "path": "core\\engineer_agent.py",
+      "text": "def _split_project_note(self, text):"
+    },
+    {
+      "language": "python",
+      "line": 404,
+      "path": "core\\engineer_agent.py",
+      "text": "\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 405,
+      "path": "core\\engineer_agent.py",
+      "text": "Simple RC1 parser."
+    },
+    {
+      "language": "python",
+      "line": 407,
+      "path": "core\\engineer_agent.py",
+      "text": "Supports:"
+    },
+    {
+      "language": "python",
+      "line": 408,
+      "path": "core\\engineer_agent.py",
+      "text": "- chisel decision for FOXAI: Title - reason"
+    },
+    {
+      "language": "python",
+      "line": 409,
+      "path": "core\\engineer_agent.py",
+      "text": "- log lesson for FOXAI: Lesson - reason"
+    },
+    {
+      "language": "python",
+      "line": 410,
+      "path": "core\\engineer_agent.py",
+      "text": "- open project memory for Web Spider Toolkit"
+    },
+    {
+      "language": "python",
+      "line": 411,
+      "path": "core\\engineer_agent.py",
+      "text": "\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 412,
+      "path": "core\\engineer_agent.py",
+      "text": "if \":\" in text:"
+    },
+    {
+      "language": "python",
+      "line": 413,
+      "path": "core\\engineer_agent.py",
+      "text": "left, right = text.split(\":\", 1)"
+    },
+    {
+      "language": "python",
+      "line": 414,
+      "path": "core\\engineer_agent.py",
+      "text": "else:"
+    },
+    {
+      "language": "python",
+      "line": 415,
+      "path": "core\\engineer_agent.py",
+      "text": "left, right = text, \"\""
+    },
+    {
+      "language": "python",
+      "line": 417,
+      "path": "core\\engineer_agent.py",
+      "text": "project = self._after_phrase("
+    },
+    {
+      "language": "python",
+      "line": 418,
+      "path": "core\\engineer_agent.py",
+      "text": "left,"
+    },
+    {
+      "language": "python",
+      "line": 419,
+      "path": "core\\engineer_agent.py",
+      "text": "["
+    },
+    {
+      "language": "python",
+      "line": 420,
+      "path": "core\\engineer_agent.py",
+      "text": "\"chisel decision for \","
+    },
+    {
+      "language": "python",
+      "line": 421,
+      "path": "core\\engineer_agent.py",
+      "text": "\"log decision for \","
+    },
+    {
+      "language": "python",
+      "line": 422,
+      "path": "core\\engineer_agent.py",
+      "text": "\"record decision for \","
+    },
+    {
+      "language": "python",
+      "line": 423,
+      "path": "core\\engineer_agent.py",
+      "text": "\"log lesson for \","
+    },
+    {
+      "language": "python",
+      "line": 424,
+      "path": "core\\engineer_agent.py",
+      "text": "\"chisel lesson for \","
+    },
+    {
+      "language": "python",
+      "line": 425,
+      "path": "core\\engineer_agent.py",
+      "text": "\"open project memory for \","
+    },
+    {
+      "language": "python",
+      "line": 426,
+      "path": "core\\engineer_agent.py",
+      "text": "\"open project for \","
+    },
+    {
+      "language": "python",
+      "line": 427,
+      "path": "core\\engineer_agent.py",
+      "text": "],"
+    },
+    {
+      "language": "python",
+      "line": 428,
+      "path": "core\\engineer_agent.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 430,
+      "path": "core\\engineer_agent.py",
+      "text": "note = right.strip()"
+    },
+    {
+      "language": "python",
+      "line": 432,
+      "path": "core\\engineer_agent.py",
+      "text": "if \" - \" in note:"
+    },
+    {
+      "language": "python",
+      "line": 433,
+      "path": "core\\engineer_agent.py",
+      "text": "title, reason = note.split(\" - \", 1)"
+    },
+    {
+      "language": "python",
+      "line": 434,
+      "path": "core\\engineer_agent.py",
+      "text": "else:"
+    },
+    {
+      "language": "python",
+      "line": 435,
+      "path": "core\\engineer_agent.py",
+      "text": "title, reason = note, \"\""
+    },
+    {
+      "language": "python",
+      "line": 437,
+      "path": "core\\engineer_agent.py",
+      "text": "return project.strip() or \"FOXAI\", title.strip(), reason.strip()"
+    },
+    {
+      "language": "python",
+      "line": 439,
+      "path": "core\\engineer_agent.py",
+      "text": "def architecture_review(self, query):"
+    },
+    {
+      "language": "python",
+      "line": 440,
+      "path": "core\\engineer_agent.py",
+      "text": "report = self.build_technical_debt().review()"
+    },
+    {
+      "language": "python",
+      "line": 442,
+      "path": "core\\engineer_agent.py",
+      "text": "return ("
+    },
+    {
+      "language": "python",
+      "line": 443,
+      "path": "core\\engineer_agent.py",
+      "text": "\"ENGINEER ARCHITECTURE REVIEW\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 444,
+      "path": "core\\engineer_agent.py",
+      "text": "\"Intent:\\n\""
+    },
+    {
+      "language": "python",
+      "line": 445,
+      "path": "core\\engineer_agent.py",
+      "text": "\"Architecture Review\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 446,
+      "path": "core\\engineer_agent.py",
+      "text": "\"Reason:\\n\""
+    },
+    {
+      "language": "python",
+      "line": 447,
+      "path": "core\\engineer_agent.py",
+      "text": "\"The request asks Engineer to evaluate code/design rather than perform a raw text search.\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 448,
+      "path": "core\\engineer_agent.py",
+      "text": "f\"{report}\""
+    },
+    {
+      "language": "python",
+      "line": 449,
+      "path": "core\\engineer_agent.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 451,
+      "path": "core\\engineer_agent.py",
+      "text": "def ui_investigation(self, query):"
+    },
+    {
+      "language": "python",
+      "line": 452,
+      "path": "core\\engineer_agent.py",
+      "text": "self.kernel.publish("
+    },
+    {
+      "language": "python",
+      "line": 453,
+      "path": "core\\engineer_agent.py",
+      "text": "\"INVESTIGATION_STARTED\","
+    },
+    {
+      "language": "python",
+      "line": 454,
+      "path": "core\\engineer_agent.py",
+      "text": "{\"intent\": \"UI Investigation\", \"query\": query},"
+    },
+    {
+      "language": "python",
+      "line": 455,
+      "path": "core\\engineer_agent.py",
+      "text": "source=\"Engineer\""
+    },
+    {
+      "language": "python",
+      "line": 456,
+      "path": "core\\engineer_agent.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 458,
+      "path": "core\\engineer_agent.py",
+      "text": "search_terms = ["
+    },
+    {
+      "language": "python",
+      "line": 459,
+      "path": "core\\engineer_agent.py",
+      "text": "\"bind(\\\"<Button-3>\\\"\","
+    },
+    {
+      "language": "python",
+      "line": 460,
+      "path": "core\\engineer_agent.py",
+      "text": "\"bind('<Button-3>'\","
+    },
+    {
+      "language": "python",
+      "line": 461,
+      "path": "core\\engineer_agent.py",
+      "text": "\"context menu\","
+    },
+    {
+      "language": "python",
+      "line": 462,
+      "path": "core\\engineer_agent.py",
+      "text": "\"right click\","
+    },
+    {
+      "language": "python",
+      "line": 463,
+      "path": "core\\engineer_agent.py",
+      "text": "\"right-click\","
+    },
+    {
+      "language": "python",
+      "line": 464,
+      "path": "core\\engineer_agent.py",
+      "text": "\"tk.Menu\","
+    },
+    {
+      "language": "python",
+      "line": 465,
+      "path": "core\\engineer_agent.py",
+      "text": "\"CTkTextbox\","
+    },
+    {
+      "language": "python",
+      "line": 466,
+      "path": "core\\engineer_agent.py",
+      "text": "\"input_box\","
+    },
+    {
+      "language": "python",
+      "line": 467,
+      "path": "core\\engineer_agent.py",
+      "text": "\"chat_box\","
+    },
+    {
+      "language": "python",
+      "line": 468,
+      "path": "core\\engineer_agent.py",
+      "text": "\"engineer_box\","
+    },
+    {
+      "language": "python",
+      "line": 469,
+      "path": "core\\engineer_agent.py",
+      "text": "]"
+    },
+    {
+      "language": "python",
+      "line": 471,
+      "path": "core\\engineer_agent.py",
+      "text": "lines = ["
+    },
+    {
+      "language": "python",
+      "line": 472,
+      "path": "core\\engineer_agent.py",
+      "text": "\"ENGINEER UI INVESTIGATION\","
+    },
+    {
+      "language": "python",
+      "line": 473,
+      "path": "core\\engineer_agent.py",
+      "text": "\"\","
+    },
+    {
+      "language": "python",
+      "line": 474,
+      "path": "core\\engineer_agent.py",
+      "text": "\"Intent:\","
+    },
+    {
+      "language": "python",
+      "line": 475,
+      "path": "core\\engineer_agent.py",
+      "text": "\"UI Investigation\","
+    },
+    {
+      "language": "python",
+      "line": 476,
+      "path": "core\\engineer_agent.py",
+      "text": "\"\","
+    },
+    {
+      "language": "python",
+      "line": 477,
+      "path": "core\\engineer_agent.py",
+      "text": "\"Question:\","
+    },
+    {
+      "language": "python",
+      "line": 478,
+      "path": "core\\engineer_agent.py",
+      "text": "query,"
+    },
+    {
+      "language": "python",
+      "line": 479,
+      "path": "core\\engineer_agent.py",
+      "text": "\"\","
+    },
+    {
+      "language": "python",
+      "line": 480,
+      "path": "core\\engineer_agent.py",
+      "text": "\"What Engineer checked:\","
+    },
+    {
+      "language": "python",
+      "line": 481,
+      "path": "core\\engineer_agent.py",
+      "text": "\"• Right-click bindings such as <Button-3>\","
+    },
+    {
+      "language": "python",
+      "line": 482,
+      "path": "core\\engineer_agent.py",
+      "text": "\"• Context menu references\","
+    },
+    {
+      "language": "python",
+      "line": 483,
+      "path": "core\\engineer_agent.py",
+      "text": "\"• Tk menu references\","
+    },
+    {
+      "language": "python",
+      "line": 484,
+      "path": "core\\engineer_agent.py",
+      "text": "\"• Textbox widgets that may need menu binding\","
+    },
+    {
+      "language": "python",
+      "line": 485,
+      "path": "core\\engineer_agent.py",
+      "text": "\"\","
+    },
+    {
+      "language": "python",
+      "line": 486,
+      "path": "core\\engineer_agent.py",
+      "text": "\"Findings:\","
+    },
+    {
+      "language": "python",
+      "line": 487,
+      "path": "core\\engineer_agent.py",
+      "text": "]"
+    },
+    {
+      "language": "python",
+      "line": 489,
+      "path": "core\\engineer_agent.py",
+      "text": "matches = []"
+    },
+    {
+      "language": "python",
+      "line": 490,
+      "path": "core\\engineer_agent.py",
+      "text": "for term in search_terms:"
+    },
+    {
+      "language": "python",
+      "line": 491,
+      "path": "core\\engineer_agent.py",
+      "text": "result = self.smart_search.layered_search(term, limit=5)"
+    },
+    {
+      "language": "python",
+      "line": 492,
+      "path": "core\\engineer_agent.py",
+      "text": "if result.get(\"primary\"):"
+    },
+    {
+      "language": "python",
+      "line": 493,
+      "path": "core\\engineer_agent.py",
+      "text": "matches.append((term, result, \"primary\"))"
+    },
+    {
+      "language": "python",
+      "line": 494,
+      "path": "core\\engineer_agent.py",
+      "text": "elif result.get(\"history\"):"
+    },
+    {
+      "language": "python",
+      "line": 495,
+      "path": "core\\engineer_agent.py",
+      "text": "matches.append((term, result, \"history\"))"
+    },
+    {
+      "language": "python",
+      "line": 496,
+      "path": "core\\engineer_agent.py",
+      "text": "elif result.get(\"vendor\"):"
+    },
+    {
+      "language": "python",
+      "line": 497,
+      "path": "core\\engineer_agent.py",
+      "text": "matches.append((term, result, \"vendor\"))"
+    },
+    {
+      "language": "python",
+      "line": 499,
+      "path": "core\\engineer_agent.py",
+      "text": "confidence_base = 55"
+    },
+    {
+      "language": "python",
+      "line": 500,
+      "path": "core\\engineer_agent.py",
+      "text": "evidence_note = \"No direct implementation evidence found.\""
+    },
+    {
+      "language": "python",
+      "line": 502,
+      "path": "core\\engineer_agent.py",
+      "text": "if matches and matches[0][2] == \"primary\":"
+    },
+    {
+      "language": "python",
+      "line": 503,
+      "path": "core\\engineer_agent.py",
+      "text": "lines.append(\"Potential executable/source evidence was found.\")"
+    },
+    {
+      "language": "python",
+      "line": 504,
+      "path": "core\\engineer_agent.py",
+      "text": "lines.append(\"\")"
+    },
+    {
+      "language": "python",
+      "line": 505,
+      "path": "core\\engineer_agent.py",
+      "text": "lines.append(\"Top source result:\")"
+    },
+    {
+      "language": "python",
+      "line": 506,
+      "path": "core\\engineer_agent.py",
+      "text": "first = matches[0][1][\"primary\"][0]"
+    },
+    {
+      "language": "python",
+      "line": 507,
+      "path": "core\\engineer_agent.py",
+      "text": "lines.append(f\"--- {first['file']} ---\")"
+    },
+    {
+      "language": "python",
+      "line": 508,
+      "path": "core\\engineer_agent.py",
+      "text": "lines.append(f\"Class: {first['evidence_label']}\")"
+    },
+    {
+      "language": "python",
+      "line": 509,
+      "path": "core\\engineer_agent.py",
+      "text": "lines.append(first[\"snippet\"])"
+    },
+    {
+      "language": "python",
+      "line": 510,
+      "path": "core\\engineer_agent.py",
+      "text": "confidence_base = 82"
+    },
+    {
+      "language": "python",
+      "line": 511,
+      "path": "core\\engineer_agent.py",
+      "text": "evidence_note = \"Source/config evidence was found.\""
+    },
+    {
+      "language": "python",
+      "line": 512,
+      "path": "core\\engineer_agent.py",
+      "text": "elif matches and matches[0][2] == \"history\":"
+    },
+    {
+      "language": "python",
+      "line": 513,
+      "path": "core\\engineer_agent.py",
+      "text": "lines.append(\"Only historical/project-memory evidence was found.\")"
+    },
+    {
+      "language": "python",
+      "line": 514,
+      "path": "core\\engineer_agent.py",
+      "text": "lines.append(\"\")"
+    },
+    {
+      "language": "python",
+      "line": 515,
+      "path": "core\\engineer_agent.py",
+      "text": "lines.append(\"Top historical result:\")"
+    },
+    {
+      "language": "python",
+      "line": 516,
+      "path": "core\\engineer_agent.py",
+      "text": "first = matches[0][1][\"history\"][0]"
+    },
+    {
+      "language": "python",
+      "line": 517,
+      "path": "core\\engineer_agent.py",
+      "text": "lines.append(f\"--- {first['file']} ---\")"
+    },
+    {
+      "language": "python",
+      "line": 518,
+      "path": "core\\engineer_agent.py",
+      "text": "lines.append(f\"Class: {first['evidence_label']}\")"
+    },
+    {
+      "language": "python",
+      "line": 519,
+      "path": "core\\engineer_agent.py",
+      "text": "lines.append(first[\"snippet\"])"
+    },
+    {
+      "language": "python",
+      "line": 520,
+      "path": "core\\engineer_agent.py",
+      "text": "confidence_base = 58"
+    },
+    {
+      "language": "python",
+      "line": 521,
+      "path": "core\\engineer_agent.py",
+      "text": "evidence_note = \"History is useful context but weak implementation evidence.\""
+    },
+    {
+      "language": "python",
+      "line": 522,
+      "path": "core\\engineer_agent.py",
+      "text": "elif matches and matches[0][2] == \"vendor\":"
+    },
+    {
+      "language": "python",
+      "line": 523,
+      "path": "core\\engineer_agent.py",
+      "text": "lines.append(\"Only vendor fallback evidence was found.\")"
+    },
+    {
+      "language": "python",
+      "line": 524,
+      "path": "core\\engineer_agent.py",
+      "text": "lines.append(\"\")"
+    },
+    {
+      "language": "python",
+      "line": 525,
+      "path": "core\\engineer_agent.py",
+      "text": "lines.append(\"Top vendor result:\")"
+    },
+    {
+      "language": "python",
+      "line": 526,
+      "path": "core\\engineer_agent.py",
+      "text": "first = matches[0][1][\"vendor\"][0]"
+    },
+    {
+      "language": "python",
+      "line": 527,
+      "path": "core\\engineer_agent.py",
+      "text": "lines.append(f\"--- {first['file']} ---\")"
+    },
+    {
+      "language": "python",
+      "line": 528,
+      "path": "core\\engineer_agent.py",
+      "text": "lines.append(f\"Class: {first['evidence_label']}\")"
+    },
+    {
+      "language": "python",
+      "line": 529,
+      "path": "core\\engineer_agent.py",
+      "text": "lines.append(first[\"snippet\"])"
+    },
+    {
+      "language": "python",
+      "line": 530,
+      "path": "core\\engineer_agent.py",
+      "text": "confidence_base = 35"
+    },
+    {
+      "language": "python",
+      "line": 531,
+      "path": "core\\engineer_agent.py",
+      "text": "evidence_note = \"Vendor evidence does not prove FOXAI implementation behavior.\""
+    },
+    {
+      "language": "python",
+      "line": 532,
+      "path": "core\\engineer_agent.py",
+      "text": "else:"
+    },
+    {
+      "language": "python",
+      "line": 533,
+      "path": "core\\engineer_agent.py",
+      "text": "lines.extend(["
+    },
+    {
+      "language": "python",
+      "line": 534,
+      "path": "core\\engineer_agent.py",
+      "text": "\"No obvious right-click/context-menu binding was found in the scanned project files.\","
+    },
+    {
+      "language": "python",
+      "line": 535,
+      "path": "core\\engineer_agent.py",
+      "text": "\"\","
+    },
+    {
+      "language": "python",
+      "line": 536,
+      "path": "core\\engineer_agent.py",
+      "text": "\"Likely fix:\","
+    },
+    {
+      "language": "python",
+      "line": 537,
+      "path": "core\\engineer_agent.py",
+      "text": "\"Add a reusable context menu helper and bind it to the text widgets that need right-click support.\","
+    },
+    {
+      "language": "python",
+      "line": 538,
+      "path": "core\\engineer_agent.py",
+      "text": "\"\","
+    },
+    {
+      "language": "python",
+      "line": 539,
+      "path": "core\\engineer_agent.py",
+      "text": "\"Typical widgets to bind:\","
+    },
+    {
+      "language": "python",
+      "line": 540,
+      "path": "core\\engineer_agent.py",
+      "text": "\"• input_box\","
+    },
+    {
+      "language": "python",
+      "line": 541,
+      "path": "core\\engineer_agent.py",
+      "text": "\"• chat_box\","
+    },
+    {
+      "language": "python",
+      "line": 542,
+      "path": "core\\engineer_agent.py",
+      "text": "\"• engineer_box\","
+    },
+    {
+      "language": "python",
+      "line": 543,
+      "path": "core\\engineer_agent.py",
+      "text": "\"• library_box\","
+    },
+    {
+      "language": "python",
+      "line": 544,
+      "path": "core\\engineer_agent.py",
+      "text": "\"• canvas_prompt\","
+    },
+    {
+      "language": "python",
+      "line": 545,
+      "path": "core\\engineer_agent.py",
+      "text": "\"• canvas_negative\","
+    },
+    {
+      "language": "python",
+      "line": 546,
+      "path": "core\\engineer_agent.py",
+      "text": "\"\","
+    },
+    {
+      "language": "python",
+      "line": 547,
+      "path": "core\\engineer_agent.py",
+      "text": "\"Expected implementation shape:\","
+    },
+    {
+      "language": "python",
+      "line": 548,
+      "path": "core\\engineer_agent.py",
+      "text": "\"1. Create a right-click menu with Cut, Copy, Paste, Select All.\","
+    },
+    {
+      "language": "python",
+      "line": 549,
+      "path": "core\\engineer_agent.py",
+      "text": "\"2. Bind <Button-3> to each editable textbox.\","
+    },
+    {
+      "language": "python",
+      "line": 550,
+      "path": "core\\engineer_agent.py",
+      "text": "\"3. Use widget.focus_set() before showing the menu.\","
+    },
+    {
+      "language": "python",
+      "line": 551,
+      "path": "core\\engineer_agent.py",
+      "text": "\"4. Use tk_popup(event.x_root, event.y_root).\","
+    },
+    {
+      "language": "python",
+      "line": 552,
+      "path": "core\\engineer_agent.py",
+      "text": "\"5. Release the grab after menu closes.\","
+    },
+    {
+      "language": "python",
+      "line": 553,
+      "path": "core\\engineer_agent.py",
+      "text": "])"
+    },
+    {
+      "language": "python",
+      "line": 555,
+      "path": "core\\engineer_agent.py",
+      "text": "lines.extend(["
+    },
+    {
+      "language": "python",
+      "line": 556,
+      "path": "core\\engineer_agent.py",
+      "text": "\"\","
+    },
+    {
+      "language": "python",
+      "line": 557,
+      "path": "core\\engineer_agent.py",
+      "text": "self.confidence_card("
+    },
+    {
+      "language": "python",
+      "line": 558,
+      "path": "core\\engineer_agent.py",
+      "text": "evidence=["
+    },
+    {
+      "language": "python",
+      "line": 559,
+      "path": "core\\engineer_agent.py",
+      "text": "{\"type\": \"direct_file_match\", \"detail\": \"Engineer searched for context-menu and right-click binding patterns.\"},"
+    },
+    {
+      "language": "python",
+      "line": 560,
+      "path": "core\\engineer_agent.py",
+      "text": "{\"type\": \"inference\", \"detail\": \"Recommendation is based on missing or weak UI binding evidence.\"},"
+    },
+    {
+      "language": "python",
+      "line": 561,
+      "path": "core\\engineer_agent.py",
+      "text": "],"
+    },
+    {
+      "language": "python",
+      "line": 562,
+      "path": "core\\engineer_agent.py",
+      "text": "base=confidence_base,"
+    },
+    {
+      "language": "python",
+      "line": 563,
+      "path": "core\\engineer_agent.py",
+      "text": "reason=f\"UI investigation uses evidence-weighted search. {evidence_note}\""
+    },
+    {
+      "language": "python",
+      "line": 564,
+      "path": "core\\engineer_agent.py",
+      "text": "),"
+    },
+    {
+      "language": "python",
+      "line": 565,
+      "path": "core\\engineer_agent.py",
+      "text": "\"\","
+    },
+    {
+      "language": "python",
+      "line": 566,
+      "path": "core\\engineer_agent.py",
+      "text": "\"Safety Status:\","
+    },
+    {
+      "language": "python",
+      "line": 567,
+      "path": "core\\engineer_agent.py",
+      "text": "\"Read-only. No files were modified.\","
+    },
+    {
+      "language": "python",
+      "line": 568,
+      "path": "core\\engineer_agent.py",
+      "text": "])"
+    },
+    {
+      "language": "python",
+      "line": 570,
+      "path": "core\\engineer_agent.py",
+      "text": "result = \"\\n\".join(lines)"
+    },
+    {
+      "language": "python",
+      "line": 572,
+      "path": "core\\engineer_agent.py",
+      "text": "self.kernel.publish("
+    },
+    {
+      "language": "python",
+      "line": 573,
+      "path": "core\\engineer_agent.py",
+      "text": "\"INVESTIGATION_COMPLETED\","
+    },
+    {
+      "language": "python",
+      "line": 574,
+      "path": "core\\engineer_agent.py",
+      "text": "{\"intent\": \"UI Investigation\", \"query\": query},"
+    },
+    {
+      "language": "python",
+      "line": 575,
+      "path": "core\\engineer_agent.py",
+      "text": "source=\"Engineer\""
+    },
+    {
+      "language": "python",
+      "line": 576,
+      "path": "core\\engineer_agent.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 578,
+      "path": "core\\engineer_agent.py",
+      "text": "return result"
+    },
+    {
+      "language": "python",
+      "line": 580,
+      "path": "core\\engineer_agent.py",
+      "text": "def performance_review(self, query):"
+    },
+    {
+      "language": "python",
+      "line": 581,
+      "path": "core\\engineer_agent.py",
+      "text": "return ("
+    },
+    {
+      "language": "python",
+      "line": 582,
+      "path": "core\\engineer_agent.py",
+      "text": "\"ENGINEER PERFORMANCE REVIEW\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 583,
+      "path": "core\\engineer_agent.py",
+      "text": "\"Intent:\\nPerformance Review\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 584,
+      "path": "core\\engineer_agent.py",
+      "text": "\"Recommended first checks:\\n\""
+    },
+    {
+      "language": "python",
+      "line": 585,
+      "path": "core\\engineer_agent.py",
+      "text": "\"• Long-running requests should use ChatResilience.\\n\""
+    },
+    {
+      "language": "python",
+      "line": 586,
+      "path": "core\\engineer_agent.py",
+      "text": "\"• UI should not block during neural requests.\\n\""
+    },
+    {
+      "language": "python",
+      "line": 587,
+      "path": "core\\engineer_agent.py",
+      "text": "\"• Background threads should report status through Mission Control.\\n\""
+    },
+    {
+      "language": "python",
+      "line": 588,
+      "path": "core\\engineer_agent.py",
+      "text": "\"• Large scans should ignore ComfyUI/vendor folders unless explicitly requested.\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 589,
+      "path": "core\\engineer_agent.py",
+      "text": "+ self.build_technical_debt().refactor_plan()"
+    },
+    {
+      "language": "python",
+      "line": 590,
+      "path": "core\\engineer_agent.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 592,
+      "path": "core\\engineer_agent.py",
+      "text": "def security_review(self, query):"
+    },
+    {
+      "language": "python",
+      "line": 593,
+      "path": "core\\engineer_agent.py",
+      "text": "return ("
+    },
+    {
+      "language": "python",
+      "line": 594,
+      "path": "core\\engineer_agent.py",
+      "text": "\"ENGINEER SECURITY REVIEW\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 595,
+      "path": "core\\engineer_agent.py",
+      "text": "\"Intent:\\nSecurity Review\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 596,
+      "path": "core\\engineer_agent.py",
+      "text": "\"Initial recommendations:\\n\""
+    },
+    {
+      "language": "python",
+      "line": 597,
+      "path": "core\\engineer_agent.py",
+      "text": "\"• Keep Engineer read-only by default.\\n\""
+    },
+    {
+      "language": "python",
+      "line": 598,
+      "path": "core\\engineer_agent.py",
+      "text": "\"• Require operator approval before file writes.\\n\""
+    },
+    {
+      "language": "python",
+      "line": 599,
+      "path": "core\\engineer_agent.py",
+      "text": "\"• Keep password storage out of plain text.\\n\""
+    },
+    {
+      "language": "python",
+      "line": 600,
+      "path": "core\\engineer_agent.py",
+      "text": "\"• Avoid executing generated scripts automatically.\\n\""
+    },
+    {
+      "language": "python",
+      "line": 601,
+      "path": "core\\engineer_agent.py",
+      "text": "\"• Treat browser/download features as a separate trust boundary.\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 602,
+      "path": "core\\engineer_agent.py",
+      "text": "\"Safety Status:\\nRead-only. No files were modified.\""
+    },
+    {
+      "language": "python",
+      "line": 603,
+      "path": "core\\engineer_agent.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 605,
+      "path": "core\\engineer_agent.py",
+      "text": "def parse_exact_path_inspection(self, query):"
+    },
+    {
+      "language": "python",
+      "line": 606,
+      "path": "core\\engineer_agent.py",
+      "text": "\"\"\"Return the literal path from an explicit Inspect command."
+    },
+    {
+      "language": "python",
+      "line": 608,
+      "path": "core\\engineer_agent.py",
+      "text": "A recognized Inspect command returns a string, including an empty"
+    },
+    {
+      "language": "python",
+      "line": 609,
+      "path": "core\\engineer_agent.py",
+      "text": "string for a missing path. Non-Inspect requests return None so normal"
+    },
+    {
+      "language": "python",
+      "line": 610,
+      "path": "core\\engineer_agent.py",
+      "text": "Engineer routing can continue."
+    },
+    {
+      "language": "python",
+      "line": 611,
+      "path": "core\\engineer_agent.py",
+      "text": "\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 612,
+      "path": "core\\engineer_agent.py",
+      "text": "first_line = (query or \"\").splitlines()[0].strip()"
+    },
+    {
+      "language": "python",
+      "line": 613,
+      "path": "core\\engineer_agent.py",
+      "text": "match = re.match("
+    },
+    {
+      "language": "python",
+      "line": 614,
+      "path": "core\\engineer_agent.py",
+      "text": "r\"^inspect(?:\\s+file)?(?:\\s+(.*))?$\","
+    },
+    {
+      "language": "python",
+      "line": 615,
+      "path": "core\\engineer_agent.py",
+      "text": "first_line,"
+    },
+    {
+      "language": "python",
+      "line": 616,
+      "path": "core\\engineer_agent.py",
+      "text": "flags=re.IGNORECASE,"
+    },
+    {
+      "language": "python",
+      "line": 617,
+      "path": "core\\engineer_agent.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 618,
+      "path": "core\\engineer_agent.py",
+      "text": "if not match:"
+    },
+    {
+      "language": "python",
+      "line": 619,
+      "path": "core\\engineer_agent.py",
+      "text": "return None"
+    },
+    {
+      "language": "python",
+      "line": 621,
+      "path": "core\\engineer_agent.py",
+      "text": "raw_path = (match.group(1) or \"\").strip()"
+    },
+    {
+      "language": "python",
+      "line": 622,
+      "path": "core\\engineer_agent.py",
+      "text": "if len(raw_path) >= 2 and raw_path[0] == raw_path[-1]:"
+    },
+    {
+      "language": "python",
+      "line": 623,
+      "path": "core\\engineer_agent.py",
+      "text": "if raw_path[0] in {'\"', \"'\"}:"
+    },
+    {
+      "language": "python",
+      "line": 624,
+      "path": "core\\engineer_agent.py",
+      "text": "raw_path = raw_path[1:-1].strip()"
+    },
+    {
+      "language": "python",
+      "line": 625,
+      "path": "core\\engineer_agent.py",
+      "text": "return raw_path"
+    },
+    {
+      "language": "python",
+      "line": 627,
+      "path": "core\\engineer_agent.py",
+      "text": "def resolve_exact_inspection_path(self, raw_path):"
+    },
+    {
+      "language": "python",
+      "line": 628,
+      "path": "core\\engineer_agent.py",
+      "text": "\"\"\"Resolve one absolute path and keep it inside the project root.\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 629,
+      "path": "core\\engineer_agent.py",
+      "text": "value = (raw_path or \"\").strip()"
+    },
+    {
+      "language": "python",
+      "line": 630,
+      "path": "core\\engineer_agent.py",
+      "text": "if not value:"
+    },
+    {
+      "language": "python",
+      "line": 631,
+      "path": "core\\engineer_agent.py",
+      "text": "return None, \"No file path was supplied after Inspect.\""
+    },
+    {
+      "language": "python",
+      "line": 633,
+      "path": "core\\engineer_agent.py",
+      "text": "if value.startswith(\"\\\\\\\\\") or value.startswith(\"//\"):"
+    },
+    {
+      "language": "python",
+      "line": 634,
+      "path": "core\\engineer_agent.py",
+      "text": "return None, \"UNC and network paths are outside the Engineering Airlock.\""
+    },
+    {
+      "language": "python",
+      "line": 636,
+      "path": "core\\engineer_agent.py",
+      "text": "drive_match = re.match(r\"^[A-Za-z]:\", value)"
+    },
+    {
+      "language": "python",
+      "line": 637,
+      "path": "core\\engineer_agent.py",
+      "text": "remainder = value[2:] if drive_match else value"
+    },
+    {
+      "language": "python",
+      "line": 638,
+      "path": "core\\engineer_agent.py",
+      "text": "if \":\" in remainder:"
+    },
+    {
+      "language": "python",
+      "line": 639,
+      "path": "core\\engineer_agent.py",
+      "text": "return None, \"Alternate data streams are not allowed.\""
+    },
+    {
+      "language": "python",
+      "line": 641,
+      "path": "core\\engineer_agent.py",
+      "text": "candidate = Path(value)"
+    },
+    {
+      "language": "python",
+      "line": 642,
+      "path": "core\\engineer_agent.py",
+      "text": "if not candidate.is_absolute():"
+    },
+    {
+      "language": "python",
+      "line": 643,
+      "path": "core\\engineer_agent.py",
+      "text": "return None, \"Exact-path inspection requires an absolute file path.\""
+    },
+    {
+      "language": "python",
+      "line": 645,
+      "path": "core\\engineer_agent.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 646,
+      "path": "core\\engineer_agent.py",
+      "text": "root = self.project_root.resolve(strict=True)"
+    },
+    {
+      "language": "python",
+      "line": 647,
+      "path": "core\\engineer_agent.py",
+      "text": "resolved = candidate.resolve(strict=True)"
+    },
+    {
+      "language": "python",
+      "line": 648,
+      "path": "core\\engineer_agent.py",
+      "text": "except FileNotFoundError:"
+    },
+    {
+      "language": "python",
+      "line": 649,
+      "path": "core\\engineer_agent.py",
+      "text": "return None, \"The requested file does not exist.\""
+    },
+    {
+      "language": "python",
+      "line": 650,
+      "path": "core\\engineer_agent.py",
+      "text": "except Exception as error:"
+    },
+    {
+      "language": "python",
+      "line": 651,
+      "path": "core\\engineer_agent.py",
+      "text": "return None, f\"The requested path could not be resolved: {type(error).__name__}.\""
+    },
+    {
+      "language": "python",
+      "line": 653,
+      "path": "core\\engineer_agent.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 654,
+      "path": "core\\engineer_agent.py",
+      "text": "resolved.relative_to(root)"
+    },
+    {
+      "language": "python",
+      "line": 655,
+      "path": "core\\engineer_agent.py",
+      "text": "except ValueError:"
+    },
+    {
+      "language": "python",
+      "line": 656,
+      "path": "core\\engineer_agent.py",
+      "text": "return None, \"The requested file resolves outside the FOXAI project root.\""
+    },
+    {
+      "language": "python",
+      "line": 658,
+      "path": "core\\engineer_agent.py",
+      "text": "if is_protected_path(resolved, root):"
+    },
+    {
+      "language": "python",
+      "line": 659,
+      "path": "core\\engineer_agent.py",
+      "text": "return None, \"The requested file is protected by the Engineering Airlock.\""
+    },
+    {
+      "language": "python",
+      "line": 660,
+      "path": "core\\engineer_agent.py",
+      "text": "if not resolved.is_file():"
+    },
+    {
+      "language": "python",
+      "line": 661,
+      "path": "core\\engineer_agent.py",
+      "text": "return None, \"The requested path is not a regular file.\""
+    },
+    {
+      "language": "python",
+      "line": 662,
+      "path": "core\\engineer_agent.py",
+      "text": "if resolved.suffix.lower() not in self.CODE_EXTENSIONS:"
+    },
+    {
+      "language": "python",
+      "line": 663,
+      "path": "core\\engineer_agent.py",
+      "text": "return None, \"The requested file type is not approved for text inspection.\""
+    },
+    {
+      "language": "python",
+      "line": 665,
+      "path": "core\\engineer_agent.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 666,
+      "path": "core\\engineer_agent.py",
+      "text": "size = resolved.stat().st_size"
+    },
+    {
+      "language": "python",
+      "line": 667,
+      "path": "core\\engineer_agent.py",
+      "text": "except OSError as error:"
+    },
+    {
+      "language": "python",
+      "line": 668,
+      "path": "core\\engineer_agent.py",
+      "text": "return None, f\"The requested file metadata could not be read: {type(error).__name__}.\""
+    },
+    {
+      "language": "python",
+      "line": 669,
+      "path": "core\\engineer_agent.py",
+      "text": "if size > self.EXACT_INSPECTION_MAX_BYTES:"
+    },
+    {
+      "language": "python",
+      "line": 670,
+      "path": "core\\engineer_agent.py",
+      "text": "return None, ("
+    },
+    {
+      "language": "python",
+      "line": 671,
+      "path": "core\\engineer_agent.py",
+      "text": "\"The requested file is too large for bounded exact-path \""
+    },
+    {
+      "language": "python",
+      "line": 672,
+      "path": "core\\engineer_agent.py",
+      "text": "f\"inspection ({size} bytes; limit {self.EXACT_INSPECTION_MAX_BYTES}).\""
+    },
+    {
+      "language": "python",
+      "line": 673,
+      "path": "core\\engineer_agent.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 675,
+      "path": "core\\engineer_agent.py",
+      "text": "return resolved, \"\""
+    },
+    {
+      "language": "python",
+      "line": 677,
+      "path": "core\\engineer_agent.py",
+      "text": "def _brief_exact_file_summary(self, path, text):"
+    },
+    {
+      "language": "python",
+      "line": 678,
+      "path": "core\\engineer_agent.py",
+      "text": "lines = text.splitlines()"
+    },
+    {
+      "language": "python",
+      "line": 679,
+      "path": "core\\engineer_agent.py",
+      "text": "nonempty = [line.strip() for line in lines if line.strip()]"
+    },
+    {
+      "language": "python",
+      "line": 680,
+      "path": "core\\engineer_agent.py",
+      "text": "title = \"\""
+    },
+    {
+      "language": "python",
+      "line": 681,
+      "path": "core\\engineer_agent.py",
+      "text": "if path.suffix.lower() == \".md\":"
+    },
+    {
+      "language": "python",
+      "line": 682,
+      "path": "core\\engineer_agent.py",
+      "text": "for line in nonempty:"
+    },
+    {
+      "language": "python",
+      "line": 683,
+      "path": "core\\engineer_agent.py",
+      "text": "if line.startswith(\"#\"):"
+    },
+    {
+      "language": "python",
+      "line": 684,
+      "path": "core\\engineer_agent.py",
+      "text": "title = line.lstrip(\"#\").strip()"
+    },
+    {
+      "language": "python",
+      "line": 685,
+      "path": "core\\engineer_agent.py",
+      "text": "break"
+    },
+    {
+      "language": "python",
+      "line": 687,
+      "path": "core\\engineer_agent.py",
+      "text": "opening_lines = nonempty[:6]"
+    },
+    {
+      "language": "python",
+      "line": 688,
+      "path": "core\\engineer_agent.py",
+      "text": "opening = \" \".join(opening_lines)"
+    },
+    {
+      "language": "python",
+      "line": 689,
+      "path": "core\\engineer_agent.py",
+      "text": "if len(opening) > 700:"
+    },
+    {
+      "language": "python",
+      "line": 690,
+      "path": "core\\engineer_agent.py",
+      "text": "opening = opening[:697].rstrip() + \"...\""
+    },
+    {
+      "language": "python",
+      "line": 692,
+      "path": "core\\engineer_agent.py",
+      "text": "kind = {"
+    },
+    {
+      "language": "python",
+      "line": 693,
+      "path": "core\\engineer_agent.py",
+      "text": "\".md\": \"Markdown document\","
+    },
+    {
+      "language": "python",
+      "line": 694,
+      "path": "core\\engineer_agent.py",
+      "text": "\".py\": \"Python source file\","
+    },
+    {
+      "language": "python",
+      "line": 695,
+      "path": "core\\engineer_agent.py",
+      "text": "\".json\": \"JSON document\","
+    },
+    {
+      "language": "python",
+      "line": 696,
+      "path": "core\\engineer_agent.py",
+      "text": "\".bat\": \"Windows batch script\","
+    },
+    {
+      "language": "python",
+      "line": 697,
+      "path": "core\\engineer_agent.py",
+      "text": "\".ps1\": \"PowerShell script\","
+    },
+    {
+      "language": "python",
+      "line": 698,
+      "path": "core\\engineer_agent.py",
+      "text": "\".yaml\": \"YAML document\","
+    },
+    {
+      "language": "python",
+      "line": 699,
+      "path": "core\\engineer_agent.py",
+      "text": "\".yml\": \"YAML document\","
+    },
+    {
+      "language": "python",
+      "line": 700,
+      "path": "core\\engineer_agent.py",
+      "text": "\".ini\": \"INI configuration file\","
+    },
+    {
+      "language": "python",
+      "line": 701,
+      "path": "core\\engineer_agent.py",
+      "text": "\".txt\": \"text document\","
+    },
+    {
+      "language": "python",
+      "line": 702,
+      "path": "core\\engineer_agent.py",
+      "text": "}.get(path.suffix.lower(), \"text file\")"
+    },
+    {
+      "language": "python",
+      "line": 704,
+      "path": "core\\engineer_agent.py",
+      "text": "parts = ["
+    },
+    {
+      "language": "python",
+      "line": 705,
+      "path": "core\\engineer_agent.py",
+      "text": "f\"{kind} with {len(lines)} line(s).\","
+    },
+    {
+      "language": "python",
+      "line": 706,
+      "path": "core\\engineer_agent.py",
+      "text": "]"
+    },
+    {
+      "language": "python",
+      "line": 707,
+      "path": "core\\engineer_agent.py",
+      "text": "if title:"
+    },
+    {
+      "language": "python",
+      "line": 708,
+      "path": "core\\engineer_agent.py",
+      "text": "parts.append(f\"Title: {title}.\")"
+    },
+    {
+      "language": "python",
+      "line": 709,
+      "path": "core\\engineer_agent.py",
+      "text": "if opening:"
+    },
+    {
+      "language": "python",
+      "line": 710,
+      "path": "core\\engineer_agent.py",
+      "text": "parts.append(f\"Opening content: {opening}\")"
+    },
+    {
+      "language": "python",
+      "line": 711,
+      "path": "core\\engineer_agent.py",
+      "text": "else:"
+    },
+    {
+      "language": "python",
+      "line": 712,
+      "path": "core\\engineer_agent.py",
+      "text": "parts.append(\"The file contains no non-empty text lines.\")"
+    },
+    {
+      "language": "python",
+      "line": 713,
+      "path": "core\\engineer_agent.py",
+      "text": "return \" \".join(parts)"
+    },
+    {
+      "language": "python",
+      "line": 715,
+      "path": "core\\engineer_agent.py",
+      "text": "def _record_exact_path_denial(self, denial_reason):"
+    },
+    {
+      "language": "python",
+      "line": 716,
+      "path": "core\\engineer_agent.py",
+      "text": "context = dict(getattr(self, \"_active_airlock_context\", {}) or {})"
+    },
+    {
+      "language": "python",
+      "line": 717,
+      "path": "core\\engineer_agent.py",
+      "text": "if not context.get(\"correlation_id\") or not context.get(\"mission_id\"):"
+    },
+    {
+      "language": "python",
+      "line": 718,
+      "path": "core\\engineer_agent.py",
+      "text": "return {"
+    },
+    {
+      "language": "python",
+      "line": 719,
+      "path": "core\\engineer_agent.py",
+      "text": "\"state\": \"context_not_supplied\","
+    },
+    {
+      "language": "python",
+      "line": 720,
+      "path": "core\\engineer_agent.py",
+      "text": "\"verified\": False,"
+    },
+    {
+      "language": "python",
+      "line": 721,
+      "path": "core\\engineer_agent.py",
+      "text": "\"receipt_id\": \"\","
+    },
+    {
+      "language": "python",
+      "line": 722,
+      "path": "core\\engineer_agent.py",
+      "text": "\"details\": {"
+    },
+    {
+      "language": "python",
+      "line": 723,
+      "path": "core\\engineer_agent.py",
+      "text": "\"event\": {"
+    },
+    {
+      "language": "python",
+      "line": 724,
+      "path": "core\\engineer_agent.py",
+      "text": "\"severity\": \"WARNING\","
+    },
+    {
+      "language": "python",
+      "line": 725,
+      "path": "core\\engineer_agent.py",
+      "text": "\"incident_kind\": \"protected_resource_denial\","
+    },
+    {
+      "language": "python",
+      "line": 726,
+      "path": "core\\engineer_agent.py",
+      "text": "\"attempt_count\": 1,"
+    },
+    {
+      "language": "python",
+      "line": 727,
+      "path": "core\\engineer_agent.py",
+      "text": "\"context_status\": \"not_supplied\","
+    },
+    {
+      "language": "python",
+      "line": 728,
+      "path": "core\\engineer_agent.py",
+      "text": "},"
+    },
+    {
+      "language": "python",
+      "line": 729,
+      "path": "core\\engineer_agent.py",
+      "text": "\"reason\": ("
+    },
+    {
+      "language": "python",
+      "line": 730,
+      "path": "core\\engineer_agent.py",
+      "text": "\"Boundary denial remained enforced, but no trusted mission \""
+    },
+    {
+      "language": "python",
+      "line": 731,
+      "path": "core\\engineer_agent.py",
+      "text": "\"context was supplied for an immutable incident append.\""
+    },
+    {
+      "language": "python",
+      "line": 732,
+      "path": "core\\engineer_agent.py",
+      "text": "),"
+    },
+    {
+      "language": "python",
+      "line": 733,
+      "path": "core\\engineer_agent.py",
+      "text": "},"
+    },
+    {
+      "language": "python",
+      "line": 734,
+      "path": "core\\engineer_agent.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 735,
+      "path": "core\\engineer_agent.py",
+      "text": "return record_boundary_denial("
+    },
+    {
+      "language": "python",
+      "line": 736,
+      "path": "core\\engineer_agent.py",
+      "text": "actor=context.get(\"actor\") or \"engineer\","
+    },
+    {
+      "language": "python",
+      "line": 737,
+      "path": "core\\engineer_agent.py",
+      "text": "obj=\"engineering_airlock\","
+    },
+    {
+      "language": "python",
+      "line": 738,
+      "path": "core\\engineer_agent.py",
+      "text": "action=\"inspect_path\","
+    },
+    {
+      "language": "python",
+      "line": 739,
+      "path": "core\\engineer_agent.py",
+      "text": "reason=f\"Exact-path inspection denied: {denial_reason}\","
+    },
+    {
+      "language": "python",
+      "line": 740,
+      "path": "core\\engineer_agent.py",
+      "text": "incident_kind=\"protected_resource_denial\","
+    },
+    {
+      "language": "python",
+      "line": 741,
+      "path": "core\\engineer_agent.py",
+      "text": "correlation_id=context.get(\"correlation_id\"),"
+    },
+    {
+      "language": "python",
+      "line": 742,
+      "path": "core\\engineer_agent.py",
+      "text": "mission_id=context.get(\"mission_id\"),"
+    },
+    {
+      "language": "python",
+      "line": 743,
+      "path": "core\\engineer_agent.py",
+      "text": "receipt_id=context.get(\"fox_sentry_receipt_id\"),"
+    },
+    {
+      "language": "python",
+      "line": 744,
+      "path": "core\\engineer_agent.py",
+      "text": "context_status=context.get(\"route_context_status\") or \"not_supplied\","
+    },
+    {
+      "language": "python",
+      "line": 745,
+      "path": "core\\engineer_agent.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 748,
+      "path": "core\\engineer_agent.py",
+      "text": "def _format_exact_path_denial("
+    },
+    {
+      "language": "python",
+      "line": 749,
+      "path": "core\\engineer_agent.py",
+      "text": "self,"
+    },
+    {
+      "language": "python",
+      "line": 750,
+      "path": "core\\engineer_agent.py",
+      "text": "raw_path,"
+    },
+    {
+      "language": "python",
+      "line": 751,
+      "path": "core\\engineer_agent.py",
+      "text": "denial_reason,"
+    },
+    {
+      "language": "python",
+      "line": 752,
+      "path": "core\\engineer_agent.py",
+      "text": "boundary_receipt,"
+    },
+    {
+      "language": "python",
+      "line": 753,
+      "path": "core\\engineer_agent.py",
+      "text": "*,"
+    },
+    {
+      "language": "python",
+      "line": 754,
+      "path": "core\\engineer_agent.py",
+      "text": "resolved_path=None,"
+    },
+    {
+      "language": "python",
+      "line": 755,
+      "path": "core\\engineer_agent.py",
+      "text": "):"
+    },
+    {
+      "language": "python",
+      "line": 756,
+      "path": "core\\engineer_agent.py",
+      "text": "context = dict(getattr(self, \"_active_airlock_context\", {}) or {})"
+    },
+    {
+      "language": "python",
+      "line": 757,
+      "path": "core\\engineer_agent.py",
+      "text": "event = (boundary_receipt.get(\"details\") or {}).get(\"event\") or {}"
+    },
+    {
+      "language": "python",
+      "line": 758,
+      "path": "core\\engineer_agent.py",
+      "text": "boundary_verified = bool(boundary_receipt.get(\"verified\"))"
+    },
+    {
+      "language": "python",
+      "line": 759,
+      "path": "core\\engineer_agent.py",
+      "text": "if boundary_verified:"
+    },
+    {
+      "language": "python",
+      "line": 760,
+      "path": "core\\engineer_agent.py",
+      "text": "boundary_state = \"RECORDED\""
+    },
+    {
+      "language": "python",
+      "line": 761,
+      "path": "core\\engineer_agent.py",
+      "text": "elif boundary_receipt.get(\"state\") == \"context_not_supplied\":"
+    },
+    {
+      "language": "python",
+      "line": 762,
+      "path": "core\\engineer_agent.py",
+      "text": "boundary_state = \"NOT RECORDED — TRUSTED CONTEXT NOT SUPPLIED\""
+    },
+    {
+      "language": "python",
+      "line": 763,
+      "path": "core\\engineer_agent.py",
+      "text": "else:"
+    },
+    {
+      "language": "python",
+      "line": 764,
+      "path": "core\\engineer_agent.py",
+      "text": "boundary_state = \"AUDIT FAILED CLOSED\""
+    },
+    {
+      "language": "python",
+      "line": 765,
+      "path": "core\\engineer_agent.py",
+      "text": "displayed_path = resolved_path or raw_path or \"[not supplied]\""
+    },
+    {
+      "language": "python",
+      "line": 766,
+      "path": "core\\engineer_agent.py",
+      "text": "return ("
+    },
+    {
+      "language": "python",
+      "line": 767,
+      "path": "core\\engineer_agent.py",
+      "text": "\"ENGINEER EXACT-PATH INSPECTION\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 768,
+      "path": "core\\engineer_agent.py",
+      "text": "\"Mission:\\nExact file inspection\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 769,
+      "path": "core\\engineer_agent.py",
+      "text": "\"Authorization:\\nAUTHORIZED FOR READ-ONLY INSPECTION\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 770,
+      "path": "core\\engineer_agent.py",
+      "text": "\"Path Decision:\\nDENIED\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 771,
+      "path": "core\\engineer_agent.py",
+      "text": "f\"Requested Path:\\n{displayed_path}\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 772,
+      "path": "core\\engineer_agent.py",
+      "text": "f\"Reason:\\n{denial_reason}\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 773,
+      "path": "core\\engineer_agent.py",
+      "text": "f\"Correlation ID:\\n{context.get('correlation_id') or '[not supplied]'}\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 774,
+      "path": "core\\engineer_agent.py",
+      "text": "f\"Mission ID:\\n{context.get('mission_id') or '[not supplied]'}\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 775,
+      "path": "core\\engineer_agent.py",
+      "text": "\"Fox Sentry Authorization Receipt ID:\\n\""
+    },
+    {
+      "language": "python",
+      "line": 776,
+      "path": "core\\engineer_agent.py",
+      "text": "f\"{context.get('fox_sentry_receipt_id') or '[not supplied]'}\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 777,
+      "path": "core\\engineer_agent.py",
+      "text": "f\"Boundary Incident:\\n{boundary_state}\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 778,
+      "path": "core\\engineer_agent.py",
+      "text": "f\"Boundary Severity:\\n{event.get('severity') or '[unverified]'}\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 779,
+      "path": "core\\engineer_agent.py",
+      "text": "f\"Incident Kind:\\n{event.get('incident_kind') or 'protected_resource_denial'}\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 780,
+      "path": "core\\engineer_agent.py",
+      "text": "f\"Attempt Count:\\n{event.get('attempt_count') or '[unverified]'}\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 781,
+      "path": "core\\engineer_agent.py",
+      "text": "f\"Context Status:\\n{event.get('context_status') or context.get('route_context_status') or '[not supplied]'}\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 782,
+      "path": "core\\engineer_agent.py",
+      "text": "\"Boundary Receipt ID:\\n\""
+    },
+    {
+      "language": "python",
+      "line": 783,
+      "path": "core\\engineer_agent.py",
+      "text": "f\"{boundary_receipt.get('receipt_id') or '[not supplied]'}\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 784,
+      "path": "core\\engineer_agent.py",
+      "text": "\"Safety Status:\\n\""
+    },
+    {
+      "language": "python",
+      "line": 785,
+      "path": "core\\engineer_agent.py",
+      "text": "\"Read-only. No file was opened and no files were modified.\""
+    },
+    {
+      "language": "python",
+      "line": 786,
+      "path": "core\\engineer_agent.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 788,
+      "path": "core\\engineer_agent.py",
+      "text": "def inspect_exact_path(self, raw_path):"
+    },
+    {
+      "language": "python",
+      "line": 789,
+      "path": "core\\engineer_agent.py",
+      "text": "\"\"\"Read and summarize exactly one approved project text file.\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 790,
+      "path": "core\\engineer_agent.py",
+      "text": "context = dict(getattr(self, \"_active_airlock_context\", {}) or {})"
+    },
+    {
+      "language": "python",
+      "line": 791,
+      "path": "core\\engineer_agent.py",
+      "text": "resolved, denial_reason = self.resolve_exact_inspection_path(raw_path)"
+    },
+    {
+      "language": "python",
+      "line": 793,
+      "path": "core\\engineer_agent.py",
+      "text": "if resolved is None:"
+    },
+    {
+      "language": "python",
+      "line": 794,
+      "path": "core\\engineer_agent.py",
+      "text": "receipt = self._record_exact_path_denial(denial_reason)"
+    },
+    {
+      "language": "python",
+      "line": 795,
+      "path": "core\\engineer_agent.py",
+      "text": "return self._format_exact_path_denial("
+    },
+    {
+      "language": "python",
+      "line": 796,
+      "path": "core\\engineer_agent.py",
+      "text": "raw_path,"
+    },
+    {
+      "language": "python",
+      "line": 797,
+      "path": "core\\engineer_agent.py",
+      "text": "denial_reason,"
+    },
+    {
+      "language": "python",
+      "line": 798,
+      "path": "core\\engineer_agent.py",
+      "text": "receipt,"
+    },
+    {
+      "language": "python",
+      "line": 799,
+      "path": "core\\engineer_agent.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 801,
+      "path": "core\\engineer_agent.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 802,
+      "path": "core\\engineer_agent.py",
+      "text": "data = resolved.read_bytes()"
+    },
+    {
+      "language": "python",
+      "line": 803,
+      "path": "core\\engineer_agent.py",
+      "text": "except OSError as error:"
+    },
+    {
+      "language": "python",
+      "line": 804,
+      "path": "core\\engineer_agent.py",
+      "text": "denial_reason = f\"The file could not be read: {type(error).__name__}.\""
+    },
+    {
+      "language": "python",
+      "line": 805,
+      "path": "core\\engineer_agent.py",
+      "text": "receipt = self._record_exact_path_denial(denial_reason)"
+    },
+    {
+      "language": "python",
+      "line": 806,
+      "path": "core\\engineer_agent.py",
+      "text": "return self._format_exact_path_denial("
+    },
+    {
+      "language": "python",
+      "line": 807,
+      "path": "core\\engineer_agent.py",
+      "text": "raw_path,"
+    },
+    {
+      "language": "python",
+      "line": 808,
+      "path": "core\\engineer_agent.py",
+      "text": "denial_reason,"
+    },
+    {
+      "language": "python",
+      "line": 809,
+      "path": "core\\engineer_agent.py",
+      "text": "receipt,"
+    },
+    {
+      "language": "python",
+      "line": 810,
+      "path": "core\\engineer_agent.py",
+      "text": "resolved_path=resolved,"
+    },
+    {
+      "language": "python",
+      "line": 811,
+      "path": "core\\engineer_agent.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 813,
+      "path": "core\\engineer_agent.py",
+      "text": "if b\"\\x00\" in data:"
+    },
+    {
+      "language": "python",
+      "line": 814,
+      "path": "core\\engineer_agent.py",
+      "text": "denial_reason = \"Binary content was detected.\""
+    },
+    {
+      "language": "python",
+      "line": 815,
+      "path": "core\\engineer_agent.py",
+      "text": "receipt = self._record_exact_path_denial(denial_reason)"
+    },
+    {
+      "language": "python",
+      "line": 816,
+      "path": "core\\engineer_agent.py",
+      "text": "return self._format_exact_path_denial("
+    },
+    {
+      "language": "python",
+      "line": 817,
+      "path": "core\\engineer_agent.py",
+      "text": "raw_path,"
+    },
+    {
+      "language": "python",
+      "line": 818,
+      "path": "core\\engineer_agent.py",
+      "text": "denial_reason,"
+    },
+    {
+      "language": "python",
+      "line": 819,
+      "path": "core\\engineer_agent.py",
+      "text": "receipt,"
+    },
+    {
+      "language": "python",
+      "line": 820,
+      "path": "core\\engineer_agent.py",
+      "text": "resolved_path=resolved,"
+    },
+    {
+      "language": "python",
+      "line": 821,
+      "path": "core\\engineer_agent.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 823,
+      "path": "core\\engineer_agent.py",
+      "text": "decoded = data.decode(\"utf-8\", errors=\"replace\")"
+    },
+    {
+      "language": "python",
+      "line": 824,
+      "path": "core\\engineer_agent.py",
+      "text": "redacted, redaction_count = redact_secrets("
+    },
+    {
+      "language": "python",
+      "line": 825,
+      "path": "core\\engineer_agent.py",
+      "text": "decoded[:self.EXACT_INSPECTION_MAX_CHARS]"
+    },
+    {
+      "language": "python",
+      "line": 826,
+      "path": "core\\engineer_agent.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 827,
+      "path": "core\\engineer_agent.py",
+      "text": "summary = self._brief_exact_file_summary(resolved, redacted)"
+    },
+    {
+      "language": "python",
+      "line": 828,
+      "path": "core\\engineer_agent.py",
+      "text": "authorization = ("
+    },
+    {
+      "language": "python",
+      "line": 829,
+      "path": "core\\engineer_agent.py",
+      "text": "\"AUTHORIZED\""
+    },
+    {
+      "language": "python",
+      "line": 830,
+      "path": "core\\engineer_agent.py",
+      "text": "if context.get(\"authorization_allowed\", True)"
+    },
+    {
+      "language": "python",
+      "line": 831,
+      "path": "core\\engineer_agent.py",
+      "text": "else \"DENIED\""
+    },
+    {
+      "language": "python",
+      "line": 832,
+      "path": "core\\engineer_agent.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 834,
+      "path": "core\\engineer_agent.py",
+      "text": "return ("
+    },
+    {
+      "language": "python",
+      "line": 835,
+      "path": "core\\engineer_agent.py",
+      "text": "\"ENGINEER EXACT-PATH INSPECTION\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 836,
+      "path": "core\\engineer_agent.py",
+      "text": "\"Mission:\\nExact file inspection\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 837,
+      "path": "core\\engineer_agent.py",
+      "text": "f\"Authorization:\\n{authorization}\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 838,
+      "path": "core\\engineer_agent.py",
+      "text": "\"Authorization Reason:\\n\""
+    },
+    {
+      "language": "python",
+      "line": 839,
+      "path": "core\\engineer_agent.py",
+      "text": "f\"{context.get('authorization_reason') or 'Read-only Engineer inspection authorized.'}\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 840,
+      "path": "core\\engineer_agent.py",
+      "text": "f\"Inspected Path:\\n{resolved}\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 841,
+      "path": "core\\engineer_agent.py",
+      "text": "f\"Correlation ID:\\n{context.get('correlation_id') or '[not supplied]'}\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 842,
+      "path": "core\\engineer_agent.py",
+      "text": "f\"Mission ID:\\n{context.get('mission_id') or '[not supplied]'}\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 843,
+      "path": "core\\engineer_agent.py",
+      "text": "\"Fox Sentry Receipt ID:\\n\""
+    },
+    {
+      "language": "python",
+      "line": 844,
+      "path": "core\\engineer_agent.py",
+      "text": "f\"{context.get('fox_sentry_receipt_id') or '[not supplied]'}\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 845,
+      "path": "core\\engineer_agent.py",
+      "text": "f\"Route Context Status:\\n{context.get('route_context_status') or 'not_supplied'}\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 846,
+      "path": "core\\engineer_agent.py",
+      "text": "f\"File Size:\\n{len(data)} bytes\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 847,
+      "path": "core\\engineer_agent.py",
+      "text": "f\"Secret Redactions Applied:\\n{redaction_count}\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 848,
+      "path": "core\\engineer_agent.py",
+      "text": "f\"Brief Summary:\\n{summary}\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 849,
+      "path": "core\\engineer_agent.py",
+      "text": "\"Safety Status:\\n\""
+    },
+    {
+      "language": "python",
+      "line": 850,
+      "path": "core\\engineer_agent.py",
+      "text": "\"Read-only. Exactly one file was read. No files were modified.\""
+    },
+    {
+      "language": "python",
+      "line": 851,
+      "path": "core\\engineer_agent.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 853,
+      "path": "core\\engineer_agent.py",
+      "text": "def smart_search_report(self, query):"
+    },
+    {
+      "language": "python",
+      "line": 854,
+      "path": "core\\engineer_agent.py",
+      "text": "target = self.normalize_operator_query(query)"
+    },
+    {
+      "language": "python",
+      "line": 856,
+      "path": "core\\engineer_agent.py",
+      "text": "command_match = re.match("
+    },
+    {
+      "language": "python",
+      "line": 857,
+      "path": "core\\engineer_agent.py",
+      "text": "r\"^(?:smart\\s+search|search\\s+smart|foxai\\s+search)\\s+for(?:\\s+(.*))?$\","
+    },
+    {
+      "language": "python",
+      "line": 858,
+      "path": "core\\engineer_agent.py",
+      "text": "target,"
+    },
+    {
+      "language": "python",
+      "line": 859,
+      "path": "core\\engineer_agent.py",
+      "text": "flags=re.IGNORECASE,"
+    },
+    {
+      "language": "python",
+      "line": 860,
+      "path": "core\\engineer_agent.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 861,
+      "path": "core\\engineer_agent.py",
+      "text": "if command_match:"
+    },
+    {
+      "language": "python",
+      "line": 862,
+      "path": "core\\engineer_agent.py",
+      "text": "target = (command_match.group(1) or \"\").strip()"
+    },
+    {
+      "language": "python",
+      "line": 864,
+      "path": "core\\engineer_agent.py",
+      "text": "target = target.strip().strip('\"').strip(\"'\").strip()"
+    },
+    {
+      "language": "python",
+      "line": 865,
+      "path": "core\\engineer_agent.py",
+      "text": "if not target:"
+    },
+    {
+      "language": "python",
+      "line": 866,
+      "path": "core\\engineer_agent.py",
+      "text": "return ("
+    },
+    {
+      "language": "python",
+      "line": 867,
+      "path": "core\\engineer_agent.py",
+      "text": "\"SMART SEARCH REPORT\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 868,
+      "path": "core\\engineer_agent.py",
+      "text": "\"No search target was provided.\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 869,
+      "path": "core\\engineer_agent.py",
+      "text": "\"Example:\\n\""
+    },
+    {
+      "language": "python",
+      "line": 870,
+      "path": "core\\engineer_agent.py",
+      "text": "\"/engineer smart search for COMFY_MAIN\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 871,
+      "path": "core\\engineer_agent.py",
+      "text": "\"Safety Status:\\n\""
+    },
+    {
+      "language": "python",
+      "line": 872,
+      "path": "core\\engineer_agent.py",
+      "text": "\"Read-only. No files were modified.\""
+    },
+    {
+      "language": "python",
+      "line": 873,
+      "path": "core\\engineer_agent.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 875,
+      "path": "core\\engineer_agent.py",
+      "text": "return self.smart_search.format_report(target)"
+    },
+    {
+      "language": "python",
+      "line": 877,
+      "path": "core\\engineer_agent.py",
+      "text": "def mission_router_report(self, query, route, reason, pipeline):"
+    },
+    {
+      "language": "python",
+      "line": 878,
+      "path": "core\\engineer_agent.py",
+      "text": "lines = ["
+    },
+    {
+      "language": "python",
+      "line": 879,
+      "path": "core\\engineer_agent.py",
+      "text": "\"MISSION ROUTER\","
+    },
+    {
+      "language": "python",
+      "line": 880,
+      "path": "core\\engineer_agent.py",
+      "text": "\"\","
+    },
+    {
+      "language": "python",
+      "line": 881,
+      "path": "core\\engineer_agent.py",
+      "text": "\"Route:\","
+    },
+    {
+      "language": "python",
+      "line": 882,
+      "path": "core\\engineer_agent.py",
+      "text": "route,"
+    },
+    {
+      "language": "python",
+      "line": 883,
+      "path": "core\\engineer_agent.py",
+      "text": "\"\","
+    },
+    {
+      "language": "python",
+      "line": 884,
+      "path": "core\\engineer_agent.py",
+      "text": "\"Reason:\","
+    },
+    {
+      "language": "python",
+      "line": 885,
+      "path": "core\\engineer_agent.py",
+      "text": "reason,"
+    },
+    {
+      "language": "python",
+      "line": 886,
+      "path": "core\\engineer_agent.py",
+      "text": "\"\","
+    },
+    {
+      "language": "python",
+      "line": 887,
+      "path": "core\\engineer_agent.py",
+      "text": "\"Pipeline:\","
+    },
+    {
+      "language": "python",
+      "line": 888,
+      "path": "core\\engineer_agent.py",
+      "text": "]"
+    },
+    {
+      "language": "python",
+      "line": 889,
+      "path": "core\\engineer_agent.py",
+      "text": "for step in pipeline:"
+    },
+    {
+      "language": "python",
+      "line": 890,
+      "path": "core\\engineer_agent.py",
+      "text": "lines.append(f\"• {step}\")"
+    },
+    {
+      "language": "python",
+      "line": 891,
+      "path": "core\\engineer_agent.py",
+      "text": "lines.extend(["
+    },
+    {
+      "language": "python",
+      "line": 892,
+      "path": "core\\engineer_agent.py",
+      "text": "\"\","
+    },
+    {
+      "language": "python",
+      "line": 893,
+      "path": "core\\engineer_agent.py",
+      "text": "\"Query:\","
+    },
+    {
+      "language": "python",
+      "line": 894,
+      "path": "core\\engineer_agent.py",
+      "text": "query,"
+    },
+    {
+      "language": "python",
+      "line": 895,
+      "path": "core\\engineer_agent.py",
+      "text": "])"
+    },
+    {
+      "language": "python",
+      "line": 896,
+      "path": "core\\engineer_agent.py",
+      "text": "return \"\\n\".join(lines)"
+    },
+    {
+      "language": "python",
+      "line": 898,
+      "path": "core\\engineer_agent.py",
+      "text": "def scan_new_files(self, query):"
+    },
+    {
+      "language": "python",
+      "line": 899,
+      "path": "core\\engineer_agent.py",
+      "text": "\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 900,
+      "path": "core\\engineer_agent.py",
+      "text": "Scan/index project files without entering Forge Build mode."
+    },
+    {
+      "language": "python",
+      "line": 901,
+      "path": "core\\engineer_agent.py",
+      "text": "\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 902,
+      "path": "core\\engineer_agent.py",
+      "text": "index = self.build_index()"
+    },
+    {
+      "language": "python",
+      "line": 903,
+      "path": "core\\engineer_agent.py",
+      "text": "summary = index.summary()"
+    },
+    {
+      "language": "python",
+      "line": 905,
+      "path": "core\\engineer_agent.py",
+      "text": "return ("
+    },
+    {
+      "language": "python",
+      "line": 906,
+      "path": "core\\engineer_agent.py",
+      "text": "\"ENGINEER FILE SCAN\\\\n\\\\n\""
+    },
+    {
+      "language": "python",
+      "line": 907,
+      "path": "core\\engineer_agent.py",
+      "text": "\"Route:\\\\n\""
+    },
+    {
+      "language": "python",
+      "line": 908,
+      "path": "core\\engineer_agent.py",
+      "text": "\"Project Index\\\\n\\\\n\""
+    },
+    {
+      "language": "python",
+      "line": 909,
+      "path": "core\\engineer_agent.py",
+      "text": "f\"Project Root:\\\\n{self.project_root}\\\\n\\\\n\""
+    },
+    {
+      "language": "python",
+      "line": 910,
+      "path": "core\\engineer_agent.py",
+      "text": "f\"Files indexed: {summary['file_count']}\\\\n\""
+    },
+    {
+      "language": "python",
+      "line": 911,
+      "path": "core\\engineer_agent.py",
+      "text": "f\"Python files: {summary['python_file_count']}\\\\n\""
+    },
+    {
+      "language": "python",
+      "line": 912,
+      "path": "core\\engineer_agent.py",
+      "text": "f\"Classes detected: {summary['class_count']}\\\\n\""
+    },
+    {
+      "language": "python",
+      "line": 913,
+      "path": "core\\engineer_agent.py",
+      "text": "f\"Functions detected: {summary['function_count']}\\\\n\""
+    },
+    {
+      "language": "python",
+      "line": 914,
+      "path": "core\\engineer_agent.py",
+      "text": "f\"Imports detected: {summary['import_count']}\\\\n\\\\n\""
+    },
+    {
+      "language": "python",
+      "line": 915,
+      "path": "core\\engineer_agent.py",
+      "text": "\"Safety Status:\\\\n\""
+    },
+    {
+      "language": "python",
+      "line": 916,
+      "path": "core\\engineer_agent.py",
+      "text": "\"Read-only. No files were modified.\""
+    },
+    {
+      "language": "python",
+      "line": 917,
+      "path": "core\\engineer_agent.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 919,
+      "path": "core\\engineer_agent.py",
+      "text": "def select_evidence_drivers(self, mission):"
+    },
+    {
+      "language": "python",
+      "line": 920,
+      "path": "core\\engineer_agent.py",
+      "text": "\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 921,
+      "path": "core\\engineer_agent.py",
+      "text": "Select relevant evidence drivers for a mission."
+    },
+    {
+      "language": "python",
+      "line": 923,
+      "path": "core\\engineer_agent.py",
+      "text": "Specialized drivers run first. SourceCodeDriver remains a fallback."
+    },
+    {
+      "language": "python",
+      "line": 924,
+      "path": "core\\engineer_agent.py",
+      "text": "\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 925,
+      "path": "core\\engineer_agent.py",
+      "text": "selected = []"
+    },
+    {
+      "language": "python",
+      "line": 927,
+      "path": "core\\engineer_agent.py",
+      "text": "for driver in self.evidence_drivers:"
+    },
+    {
+      "language": "python",
+      "line": 928,
+      "path": "core\\engineer_agent.py",
+      "text": "can_handle = getattr(driver, \"can_handle\", None)"
+    },
+    {
+      "language": "python",
+      "line": 929,
+      "path": "core\\engineer_agent.py",
+      "text": "if callable(can_handle) and can_handle(mission):"
+    },
+    {
+      "language": "python",
+      "line": 930,
+      "path": "core\\engineer_agent.py",
+      "text": "selected.append(driver)"
+    },
+    {
+      "language": "python",
+      "line": 932,
+      "path": "core\\engineer_agent.py",
+      "text": "if not selected:"
+    },
+    {
+      "language": "python",
+      "line": 933,
+      "path": "core\\engineer_agent.py",
+      "text": "# Fallback to generic source driver."
+    },
+    {
+      "language": "python",
+      "line": 934,
+      "path": "core\\engineer_agent.py",
+      "text": "selected = [self.evidence_drivers[-1]]"
+    },
+    {
+      "language": "python",
+      "line": 936,
+      "path": "core\\engineer_agent.py",
+      "text": "return selected"
+    },
+    {
+      "language": "python",
+      "line": 938,
+      "path": "core\\engineer_agent.py",
+      "text": "def investigation_engine_test(self, query):"
+    },
+    {
+      "language": "python",
+      "line": 939,
+      "path": "core\\engineer_agent.py",
+      "text": "\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 940,
+      "path": "core\\engineer_agent.py",
+      "text": "Run a real end-to-end Investigation Engine mission through SourceCodeDriver."
+    },
+    {
+      "language": "python",
+      "line": 941,
+      "path": "core\\engineer_agent.py",
+      "text": "\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 942,
+      "path": "core\\engineer_agent.py",
+      "text": "mission = Mission.create("
+    },
+    {
+      "language": "python",
+      "line": 943,
+      "path": "core\\engineer_agent.py",
+      "text": "department=\"Engineer\","
+    },
+    {
+      "language": "python",
+      "line": 944,
+      "path": "core\\engineer_agent.py",
+      "text": "intent=\"Investigation Engine Test\","
+    },
+    {
+      "language": "python",
+      "line": 945,
+      "path": "core\\engineer_agent.py",
+      "text": "query=query,"
+    },
+    {
+      "language": "python",
+      "line": 946,
+      "path": "core\\engineer_agent.py",
+      "text": "requested_drivers=[\"SourceCodeDriver\"],"
+    },
+    {
+      "language": "python",
+      "line": 947,
+      "path": "core\\engineer_agent.py",
+      "text": "metadata={\"rc\": \"20B\"},"
+    },
+    {
+      "language": "python",
+      "line": 948,
+      "path": "core\\engineer_agent.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 950,
+      "path": "core\\engineer_agent.py",
+      "text": "selected_drivers = self.select_evidence_drivers(mission)"
+    },
+    {
+      "language": "python",
+      "line": 951,
+      "path": "core\\engineer_agent.py",
+      "text": "self.investigation_engine.drivers = selected_drivers"
+    },
+    {
+      "language": "python",
+      "line": 953,
+      "path": "core\\engineer_agent.py",
+      "text": "result = self.investigation_engine.investigate(mission)"
+    },
+    {
+      "language": "python",
+      "line": 955,
+      "path": "core\\engineer_agent.py",
+      "text": "ranked_evidence = self.evidence_ranker.rank("
+    },
+    {
+      "language": "python",
+      "line": 956,
+      "path": "core\\engineer_agent.py",
+      "text": "result.evidence,"
+    },
+    {
+      "language": "python",
+      "line": 957,
+      "path": "core\\engineer_agent.py",
+      "text": "query=query,"
+    },
+    {
+      "language": "python",
+      "line": 958,
+      "path": "core\\engineer_agent.py",
+      "text": "department=\"Engineer\","
+    },
+    {
+      "language": "python",
+      "line": 959,
+      "path": "core\\engineer_agent.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 961,
+      "path": "core\\engineer_agent.py",
+      "text": "lines = ["
+    },
+    {
+      "language": "python",
+      "line": 962,
+      "path": "core\\engineer_agent.py",
+      "text": "\"INVESTIGATION ENGINE TEST\","
+    },
+    {
+      "language": "python",
+      "line": 963,
+      "path": "core\\engineer_agent.py",
+      "text": "\"\","
+    },
+    {
+      "language": "python",
+      "line": 964,
+      "path": "core\\engineer_agent.py",
+      "text": "\"Mission:\","
+    },
+    {
+      "language": "python",
+      "line": 965,
+      "path": "core\\engineer_agent.py",
+      "text": "result.mission.id,"
+    },
+    {
+      "language": "python",
+      "line": 966,
+      "path": "core\\engineer_agent.py",
+      "text": "\"\","
+    },
+    {
+      "language": "python",
+      "line": 967,
+      "path": "core\\engineer_agent.py",
+      "text": "\"Query:\","
+    },
+    {
+      "language": "python",
+      "line": 968,
+      "path": "core\\engineer_agent.py",
+      "text": "result.mission.query,"
+    },
+    {
+      "language": "python",
+      "line": 969,
+      "path": "core\\engineer_agent.py",
+      "text": "\"\","
+    },
+    {
+      "language": "python",
+      "line": 970,
+      "path": "core\\engineer_agent.py",
+      "text": "\"Selected Drivers:\","
+    },
+    {
+      "language": "python",
+      "line": 971,
+      "path": "core\\engineer_agent.py",
+      "text": "\", \".join(driver.name for driver in selected_drivers),"
+    },
+    {
+      "language": "python",
+      "line": 972,
+      "path": "core\\engineer_agent.py",
+      "text": "\"\","
+    },
+    {
+      "language": "python",
+      "line": 973,
+      "path": "core\\engineer_agent.py",
+      "text": "\"Ranked Evidence:\","
+    },
+    {
+      "language": "python",
+      "line": 974,
+      "path": "core\\engineer_agent.py",
+      "text": "]"
+    },
+    {
+      "language": "python",
+      "line": 976,
+      "path": "core\\engineer_agent.py",
+      "text": "if ranked_evidence:"
+    },
+    {
+      "language": "python",
+      "line": 977,
+      "path": "core\\engineer_agent.py",
+      "text": "for ranked in ranked_evidence[:5]:"
+    },
+    {
+      "language": "python",
+      "line": 978,
+      "path": "core\\engineer_agent.py",
+      "text": "item = ranked.evidence"
+    },
+    {
+      "language": "python",
+      "line": 979,
+      "path": "core\\engineer_agent.py",
+      "text": "lines.append(f\"--- {item.path or item.source} ---\")"
+    },
+    {
+      "language": "python",
+      "line": 980,
+      "path": "core\\engineer_agent.py",
+      "text": "lines.append(f\"Rank Score: {ranked.score}\")"
+    },
+    {
+      "language": "python",
+      "line": 981,
+      "path": "core\\engineer_agent.py",
+      "text": "lines.append(f\"Category: {item.category}\")"
+    },
+    {
+      "language": "python",
+      "line": 982,
+      "path": "core\\engineer_agent.py",
+      "text": "lines.append(f\"Confidence: {item.confidence}\")"
+    },
+    {
+      "language": "python",
+      "line": 983,
+      "path": "core\\engineer_agent.py",
+      "text": "lines.append(f\"Weight: {item.weight}\")"
+    },
+    {
+      "language": "python",
+      "line": 984,
+      "path": "core\\engineer_agent.py",
+      "text": "lines.append(\"Ranking Reasons:\")"
+    },
+    {
+      "language": "python",
+      "line": 985,
+      "path": "core\\engineer_agent.py",
+      "text": "for reason in ranked.reasons[:6]:"
+    },
+    {
+      "language": "python",
+      "line": 986,
+      "path": "core\\engineer_agent.py",
+      "text": "lines.append(f\"• {reason}\")"
+    },
+    {
+      "language": "python",
+      "line": 987,
+      "path": "core\\engineer_agent.py",
+      "text": "lines.append(\"\")"
+    },
+    {
+      "language": "python",
+      "line": 988,
+      "path": "core\\engineer_agent.py",
+      "text": "lines.append(item.snippet.strip() or \"[No snippet]\")"
+    },
+    {
+      "language": "python",
+      "line": 989,
+      "path": "core\\engineer_agent.py",
+      "text": "lines.append(\"\")"
+    },
+    {
+      "language": "python",
+      "line": 990,
+      "path": "core\\engineer_agent.py",
+      "text": "else:"
+    },
+    {
+      "language": "python",
+      "line": 991,
+      "path": "core\\engineer_agent.py",
+      "text": "lines.append(\"No evidence collected.\")"
+    },
+    {
+      "language": "python",
+      "line": 992,
+      "path": "core\\engineer_agent.py",
+      "text": "lines.append(\"\")"
+    },
+    {
+      "language": "python",
+      "line": 994,
+      "path": "core\\engineer_agent.py",
+      "text": "assessment = self.recommendation_engine.assess("
+    },
+    {
+      "language": "python",
+      "line": 995,
+      "path": "core\\engineer_agent.py",
+      "text": "mission=result.mission,"
+    },
+    {
+      "language": "python",
+      "line": 996,
+      "path": "core\\engineer_agent.py",
+      "text": "ranked_evidence=ranked_evidence,"
+    },
+    {
+      "language": "python",
+      "line": 997,
+      "path": "core\\engineer_agent.py",
+      "text": "confidence_report=result.confidence,"
+    },
+    {
+      "language": "python",
+      "line": 998,
+      "path": "core\\engineer_agent.py",
+      "text": "gaps=result.gaps,"
+    },
+    {
+      "language": "python",
+      "line": 999,
+      "path": "core\\engineer_agent.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1001,
+      "path": "core\\engineer_agent.py",
+      "text": "lines.extend(["
+    },
+    {
+      "language": "python",
+      "line": 1002,
+      "path": "core\\engineer_agent.py",
+      "text": "\"Confidence:\","
+    },
+    {
+      "language": "python",
+      "line": 1003,
+      "path": "core\\engineer_agent.py",
+      "text": "f\"Evidence Quality: {result.confidence.evidence_quality}\","
+    },
+    {
+      "language": "python",
+      "line": 1004,
+      "path": "core\\engineer_agent.py",
+      "text": "f\"Coverage: {result.confidence.coverage}\","
+    },
+    {
+      "language": "python",
+      "line": 1005,
+      "path": "core\\engineer_agent.py",
+      "text": "f\"Agreement: {result.confidence.agreement}\","
+    },
+    {
+      "language": "python",
+      "line": 1006,
+      "path": "core\\engineer_agent.py",
+      "text": "f\"Overall: {result.confidence.overall}\","
+    },
+    {
+      "language": "python",
+      "line": 1007,
+      "path": "core\\engineer_agent.py",
+      "text": "\"\","
+    },
+    {
+      "language": "python",
+      "line": 1008,
+      "path": "core\\engineer_agent.py",
+      "text": "assessment.report(),"
+    },
+    {
+      "language": "python",
+      "line": 1009,
+      "path": "core\\engineer_agent.py",
+      "text": "\"\","
+    },
+    {
+      "language": "python",
+      "line": 1010,
+      "path": "core\\engineer_agent.py",
+      "text": "\"Investigation Engine Raw Recommendation:\","
+    },
+    {
+      "language": "python",
+      "line": 1011,
+      "path": "core\\engineer_agent.py",
+      "text": "result.recommendation,"
+    },
+    {
+      "language": "python",
+      "line": 1012,
+      "path": "core\\engineer_agent.py",
+      "text": "\"\","
+    },
+    {
+      "language": "python",
+      "line": 1013,
+      "path": "core\\engineer_agent.py",
+      "text": "\"Timeline:\","
+    },
+    {
+      "language": "python",
+      "line": 1014,
+      "path": "core\\engineer_agent.py",
+      "text": "])"
+    },
+    {
+      "language": "python",
+      "line": 1016,
+      "path": "core\\engineer_agent.py",
+      "text": "for step in result.timeline:"
+    },
+    {
+      "language": "python",
+      "line": 1017,
+      "path": "core\\engineer_agent.py",
+      "text": "lines.append(f\"• {step}\")"
+    },
+    {
+      "language": "python",
+      "line": 1019,
+      "path": "core\\engineer_agent.py",
+      "text": "lines.extend(["
+    },
+    {
+      "language": "python",
+      "line": 1020,
+      "path": "core\\engineer_agent.py",
+      "text": "\"\","
+    },
+    {
+      "language": "python",
+      "line": 1021,
+      "path": "core\\engineer_agent.py",
+      "text": "\"Safety Status:\","
+    },
+    {
+      "language": "python",
+      "line": 1022,
+      "path": "core\\engineer_agent.py",
+      "text": "\"Read-only. Investigation Engine collected evidence but modified no files.\","
+    },
+    {
+      "language": "python",
+      "line": 1023,
+      "path": "core\\engineer_agent.py",
+      "text": "])"
+    },
+    {
+      "language": "python",
+      "line": 1025,
+      "path": "core\\engineer_agent.py",
+      "text": "return \"\\n\".join(lines)"
+    },
+    {
+      "language": "python",
+      "line": 1027,
+      "path": "core\\engineer_agent.py",
+      "text": "def forge_build(self, query):"
+    },
+    {
+      "language": "python",
+      "line": 1028,
+      "path": "core\\engineer_agent.py",
+      "text": "\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 1029,
+      "path": "core\\engineer_agent.py",
+      "text": "Forge Build RC2"
+    },
+    {
+      "language": "python",
+      "line": 1031,
+      "path": "core\\engineer_agent.py",
+      "text": "Handles explicit implementation requests such as Forge Sprint 20A."
+    },
+    {
+      "language": "python",
+      "line": 1033,
+      "path": "core\\engineer_agent.py",
+      "text": "RC2 is intentionally narrow. General scan/search/review requests must"
+    },
+    {
+      "language": "python",
+      "line": 1034,
+      "path": "core\\engineer_agent.py",
+      "text": "not enter Forge Build mode."
+    },
+    {
+      "language": "python",
+      "line": 1035,
+      "path": "core\\engineer_agent.py",
+      "text": "\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 1036,
+      "path": "core\\engineer_agent.py",
+      "text": "lowered = query.lower()"
+    },
+    {
+      "language": "python",
+      "line": 1038,
+      "path": "core\\engineer_agent.py",
+      "text": "forge_markers = ["
+    },
+    {
+      "language": "python",
+      "line": 1039,
+      "path": "core\\engineer_agent.py",
+      "text": "\"forge sprint\","
+    },
+    {
+      "language": "python",
+      "line": 1040,
+      "path": "core\\engineer_agent.py",
+      "text": "\"begin forge\","
+    },
+    {
+      "language": "python",
+      "line": 1041,
+      "path": "core\\engineer_agent.py",
+      "text": "\"start forge\","
+    },
+    {
+      "language": "python",
+      "line": 1042,
+      "path": "core\\engineer_agent.py",
+      "text": "\"build component\","
+    },
+    {
+      "language": "python",
+      "line": 1043,
+      "path": "core\\engineer_agent.py",
+      "text": "\"create component\","
+    },
+    {
+      "language": "python",
+      "line": 1044,
+      "path": "core\\engineer_agent.py",
+      "text": "\"create a new file\","
+    },
+    {
+      "language": "python",
+      "line": 1045,
+      "path": "core\\engineer_agent.py",
+      "text": "\"generate implementation\","
+    },
+    {
+      "language": "python",
+      "line": 1046,
+      "path": "core\\engineer_agent.py",
+      "text": "\"write the code\","
+    },
+    {
+      "language": "python",
+      "line": 1047,
+      "path": "core\\engineer_agent.py",
+      "text": "\"build the skeleton\","
+    },
+    {
+      "language": "python",
+      "line": 1048,
+      "path": "core\\engineer_agent.py",
+      "text": "]"
+    },
+    {
+      "language": "python",
+      "line": 1050,
+      "path": "core\\engineer_agent.py",
+      "text": "if not any(marker in lowered for marker in forge_markers):"
+    },
+    {
+      "language": "python",
+      "line": 1051,
+      "path": "core\\engineer_agent.py",
+      "text": "return self.search_project(query)"
+    },
+    {
+      "language": "python",
+      "line": 1053,
+      "path": "core\\engineer_agent.py",
+      "text": "if \"investigation_engine.py\" in lowered or \"investigation engine\" in lowered or \"forge sprint 20a\" in lowered:"
+    },
+    {
+      "language": "python",
+      "line": 1054,
+      "path": "core\\engineer_agent.py",
+      "text": "code = 'from __future__ import annotations\\n\\nfrom abc import ABC, abstractmethod\\nfrom dataclasses import dataclass, field\\nfrom datetime import datetime\\nfrom time import perf_counter\\nfrom typing import Any, Dict, List, Optional\\nfrom uuid import uuid4\\n\\n\\n@dataclass(frozen=True)\\nclass Mission:\\n    \"\"\"\\n    A structured investigation request.\\n\\n    Departments create Missions instead of passing raw strings into the\\n    Investigation Engine.\\n    \"\"\"\\n    id: str\\n    "
+    },
+    {
+      "language": "python",
+      "line": 1055,
+      "path": "core\\engineer_agent.py",
+      "text": "return ("
+    },
+    {
+      "language": "python",
+      "line": 1056,
+      "path": "core\\engineer_agent.py",
+      "text": "\"FORGE BUILD RESULT\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1057,
+      "path": "core\\engineer_agent.py",
+      "text": "\"Target:\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1058,
+      "path": "core\\engineer_agent.py",
+      "text": "\"core/investigation_engine.py\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1059,
+      "path": "core\\engineer_agent.py",
+      "text": "\"Status:\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1060,
+      "path": "core\\engineer_agent.py",
+      "text": "\"Generated source code for operator review. No files were modified by Engineer.\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1061,
+      "path": "core\\engineer_agent.py",
+      "text": "\"```python\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1062,
+      "path": "core\\engineer_agent.py",
+      "text": "f\"{code}\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1063,
+      "path": "core\\engineer_agent.py",
+      "text": "\"```\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1064,
+      "path": "core\\engineer_agent.py",
+      "text": "\"Architecture Summary:\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1065,
+      "path": "core\\engineer_agent.py",
+      "text": "\"• Defines kernel-grade dataclasses for missions, evidence, gaps, confidence, and results.\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1066,
+      "path": "core\\engineer_agent.py",
+      "text": "\"• Defines EvidenceDriver as the future pluggable evidence source contract.\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1067,
+      "path": "core\\engineer_agent.py",
+      "text": "\"• Defines InvestigationEngine.investigate() as the single public entry point.\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1068,
+      "path": "core\\engineer_agent.py",
+      "text": "\"• Publishes only MISSION_STARTED and MISSION_COMPLETED when a kernel is supplied.\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1069,
+      "path": "core\\engineer_agent.py",
+      "text": "\"• Contains no filesystem scanning, SmartSearch integration, AI calls, web access, threading, or caching.\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1070,
+      "path": "core\\engineer_agent.py",
+      "text": "\"Recommended Integration:\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1071,
+      "path": "core\\engineer_agent.py",
+      "text": "\"• Add this file as core/investigation_engine.py after Chief Architect review.\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1072,
+      "path": "core\\engineer_agent.py",
+      "text": "\"• Later expose it through core/kernel.py.\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1073,
+      "path": "core\\engineer_agent.py",
+      "text": "\"• Later refactor Engineer UI investigations to use this engine.\""
+    },
+    {
+      "language": "python",
+      "line": 1074,
+      "path": "core\\engineer_agent.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1076,
+      "path": "core\\engineer_agent.py",
+      "text": "return ("
+    },
+    {
+      "language": "python",
+      "line": 1077,
+      "path": "core\\engineer_agent.py",
+      "text": "\"FORGE BUILD\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1078,
+      "path": "core\\engineer_agent.py",
+      "text": "\"Forge Build intent detected, but RC1 only knows how to generate \""
+    },
+    {
+      "language": "python",
+      "line": 1079,
+      "path": "core\\engineer_agent.py",
+      "text": "\"core/investigation_engine.py for Forge Sprint 20A.\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1080,
+      "path": "core\\engineer_agent.py",
+      "text": "\"Next step:\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1081,
+      "path": "core\\engineer_agent.py",
+      "text": "\"Specify the target component or include investigation_engine.py in the request.\""
+    },
+    {
+      "language": "python",
+      "line": 1082,
+      "path": "core\\engineer_agent.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1084,
+      "path": "core\\engineer_agent.py",
+      "text": "def workshop_status(self):"
+    },
+    {
+      "language": "python",
+      "line": 1085,
+      "path": "core\\engineer_agent.py",
+      "text": "\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 1086,
+      "path": "core\\engineer_agent.py",
+      "text": "Workshop Status RC1"
+    },
+    {
+      "language": "python",
+      "line": 1088,
+      "path": "core\\engineer_agent.py",
+      "text": "Reports installed reasoning components and known teaching modules."
+    },
+    {
+      "language": "python",
+      "line": 1089,
+      "path": "core\\engineer_agent.py",
+      "text": "\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 1090,
+      "path": "core\\engineer_agent.py",
+      "text": "driver_names = [driver.name for driver in getattr(self, \"evidence_drivers\", [])]"
+    },
+    {
+      "language": "python",
+      "line": 1091,
+      "path": "core\\engineer_agent.py",
+      "text": "heuristic_names = ["
+    },
+    {
+      "language": "python",
+      "line": 1092,
+      "path": "core\\engineer_agent.py",
+      "text": "getattr(heuristic, \"name\", heuristic.__class__.__name__)"
+    },
+    {
+      "language": "python",
+      "line": 1093,
+      "path": "core\\engineer_agent.py",
+      "text": "for heuristic in getattr(self.recommendation_engine, \"heuristics\", [])"
+    },
+    {
+      "language": "python",
+      "line": 1094,
+      "path": "core\\engineer_agent.py",
+      "text": "]"
+    },
+    {
+      "language": "python",
+      "line": 1096,
+      "path": "core\\engineer_agent.py",
+      "text": "return ("
+    },
+    {
+      "language": "python",
+      "line": 1097,
+      "path": "core\\engineer_agent.py",
+      "text": "\"FOXAI WORKSHOP STATUS\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1098,
+      "path": "core\\engineer_agent.py",
+      "text": "\"Kernel Components:\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1099,
+      "path": "core\\engineer_agent.py",
+      "text": "\"• Investigation Engine: Online\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1100,
+      "path": "core\\engineer_agent.py",
+      "text": "\"• Evidence Ranker: Online\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1101,
+      "path": "core\\engineer_agent.py",
+      "text": "\"• Recommendation Engine: Online\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1102,
+      "path": "core\\engineer_agent.py",
+      "text": "\"• Engineering Assessment: Online\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1103,
+      "path": "core\\engineer_agent.py",
+      "text": "\"• Mission Router: Online\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1104,
+      "path": "core\\engineer_agent.py",
+      "text": "f\"Evidence Drivers Installed: {len(driver_names)}\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1105,
+      "path": "core\\engineer_agent.py",
+      "text": "+ \"\\n\".join(f\"• {name}\" for name in driver_names)"
+    },
+    {
+      "language": "python",
+      "line": 1106,
+      "path": "core\\engineer_agent.py",
+      "text": "+ \"\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1107,
+      "path": "core\\engineer_agent.py",
+      "text": "f\"Heuristics Installed: {len(heuristic_names)}\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1108,
+      "path": "core\\engineer_agent.py",
+      "text": "+ \"\\n\".join(f\"• {name}\" for name in heuristic_names)"
+    },
+    {
+      "language": "python",
+      "line": 1109,
+      "path": "core\\engineer_agent.py",
+      "text": "+ \"\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1110,
+      "path": "core\\engineer_agent.py",
+      "text": "\"Current Teaching Domains:\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1111,
+      "path": "core\\engineer_agent.py",
+      "text": "\"• Timeout investigation\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1112,
+      "path": "core\\engineer_agent.py",
+      "text": "\"• Context menu investigation\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1113,
+      "path": "core\\engineer_agent.py",
+      "text": "\"• Spellcheck investigation\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1114,
+      "path": "core\\engineer_agent.py",
+      "text": "\"Safety Status:\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1115,
+      "path": "core\\engineer_agent.py",
+      "text": "\"Read-only. Status report only.\""
+    },
+    {
+      "language": "python",
+      "line": 1116,
+      "path": "core\\engineer_agent.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1118,
+      "path": "core\\engineer_agent.py",
+      "text": "def analyze(self, query):"
+    },
+    {
+      "language": "python",
+      "line": 1119,
+      "path": "core\\engineer_agent.py",
+      "text": "query = self.normalize_operator_query(query)"
+    },
+    {
+      "language": "python",
+      "line": 1120,
+      "path": "core\\engineer_agent.py",
+      "text": "# FOXAI_ENGINEERING_WORKSHOP_V1_2_ANALYZE_ROUTE"
+    },
+    {
+      "language": "python",
+      "line": 1121,
+      "path": "core\\engineer_agent.py",
+      "text": "if re.match(r\"^workshop\\b\", query, flags=re.IGNORECASE):"
+    },
+    {
+      "language": "python",
+      "line": 1122,
+      "path": "core\\engineer_agent.py",
+      "text": "workshop_bridge = ("
+    },
+    {
+      "language": "python",
+      "line": 1123,
+      "path": "core\\engineer_agent.py",
+      "text": "getattr(self, \"engineering_workshop\", None)"
+    },
+    {
+      "language": "python",
+      "line": 1124,
+      "path": "core\\engineer_agent.py",
+      "text": "or getattr(self, \"_engineering_workshop_bridge\", None)"
+    },
+    {
+      "language": "python",
+      "line": 1125,
+      "path": "core\\engineer_agent.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1126,
+      "path": "core\\engineer_agent.py",
+      "text": "if workshop_bridge is None:"
+    },
+    {
+      "language": "python",
+      "line": 1127,
+      "path": "core\\engineer_agent.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 1128,
+      "path": "core\\engineer_agent.py",
+      "text": "from core.engineering_workshop_bridge import EngineeringWorkshopBridge"
+    },
+    {
+      "language": "python",
+      "line": 1129,
+      "path": "core\\engineer_agent.py",
+      "text": "workshop_bridge = EngineeringWorkshopBridge(self)"
+    },
+    {
+      "language": "python",
+      "line": 1130,
+      "path": "core\\engineer_agent.py",
+      "text": "self._engineering_workshop_bridge = workshop_bridge"
+    },
+    {
+      "language": "python",
+      "line": 1131,
+      "path": "core\\engineer_agent.py",
+      "text": "self.engineering_workshop = workshop_bridge"
+    },
+    {
+      "language": "python",
+      "line": 1132,
+      "path": "core\\engineer_agent.py",
+      "text": "except Exception as workshop_error:"
+    },
+    {
+      "language": "python",
+      "line": 1133,
+      "path": "core\\engineer_agent.py",
+      "text": "return ("
+    },
+    {
+      "language": "python",
+      "line": 1134,
+      "path": "core\\engineer_agent.py",
+      "text": "\"ENGINEERING WORKSHOP — ROUTE UNAVAILABLE\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1135,
+      "path": "core\\engineer_agent.py",
+      "text": "\"The explicit Workshop command was recognized, but the \""
+    },
+    {
+      "language": "python",
+      "line": 1136,
+      "path": "core\\engineer_agent.py",
+      "text": "\"Workshop bridge could not load.\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1137,
+      "path": "core\\engineer_agent.py",
+      "text": "f\"{type(workshop_error).__name__}: {workshop_error}\""
+    },
+    {
+      "language": "python",
+      "line": 1138,
+      "path": "core\\engineer_agent.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1139,
+      "path": "core\\engineer_agent.py",
+      "text": "context = getattr(self, \"_active_airlock_context\", {}) or {}"
+    },
+    {
+      "language": "python",
+      "line": 1140,
+      "path": "core\\engineer_agent.py",
+      "text": "caller = str(context.get(\"actor\") or \"operator\")"
+    },
+    {
+      "language": "python",
+      "line": 1141,
+      "path": "core\\engineer_agent.py",
+      "text": "workshop_report = workshop_bridge.handle("
+    },
+    {
+      "language": "python",
+      "line": 1142,
+      "path": "core\\engineer_agent.py",
+      "text": "query,"
+    },
+    {
+      "language": "python",
+      "line": 1143,
+      "path": "core\\engineer_agent.py",
+      "text": "caller=caller,"
+    },
+    {
+      "language": "python",
+      "line": 1144,
+      "path": "core\\engineer_agent.py",
+      "text": "operator_approved=bool(context.get(\"authorization_allowed\")),"
+    },
+    {
+      "language": "python",
+      "line": 1145,
+      "path": "core\\engineer_agent.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1146,
+      "path": "core\\engineer_agent.py",
+      "text": "if workshop_report is not None:"
+    },
+    {
+      "language": "python",
+      "line": 1147,
+      "path": "core\\engineer_agent.py",
+      "text": "return workshop_report"
+    },
+    {
+      "language": "python",
+      "line": 1148,
+      "path": "core\\engineer_agent.py",
+      "text": "exact_path = self.parse_exact_path_inspection(query)"
+    },
+    {
+      "language": "python",
+      "line": 1149,
+      "path": "core\\engineer_agent.py",
+      "text": "if exact_path is not None:"
+    },
+    {
+      "language": "python",
+      "line": 1150,
+      "path": "core\\engineer_agent.py",
+      "text": "return self.inspect_exact_path(exact_path)"
+    },
+    {
+      "language": "python",
+      "line": 1152,
+      "path": "core\\engineer_agent.py",
+      "text": "lowered = query.lower()"
+    },
+    {
+      "language": "python",
+      "line": 1153,
+      "path": "core\\engineer_agent.py",
+      "text": "intent = self.intent.classify(query)"
+    },
+    {
+      "language": "python",
+      "line": 1155,
+      "path": "core\\engineer_agent.py",
+      "text": "if any(term in lowered for term in [\"boot report\", \"kernel boot\", \"startup readiness\", \"boot manager\"]):"
+    },
+    {
+      "language": "python",
+      "line": 1156,
+      "path": "core\\engineer_agent.py",
+      "text": "return self.boot_manager.report()"
+    },
+    {
+      "language": "python",
+      "line": 1158,
+      "path": "core\\engineer_agent.py",
+      "text": "if any(term in lowered for term in [\"workshop status\", \"show workshop status\", \"what do you know\", \"known domains\"]):"
+    },
+    {
+      "language": "python",
+      "line": 1159,
+      "path": "core\\engineer_agent.py",
+      "text": "return self.workshop_status()"
+    },
+    {
+      "language": "python",
+      "line": 1161,
+      "path": "core\\engineer_agent.py",
+      "text": "if any(term in lowered for term in [\"kernel report\", \"show kernel\", \"kernel status\"]):"
+    },
+    {
+      "language": "python",
+      "line": 1162,
+      "path": "core\\engineer_agent.py",
+      "text": "return self.kernel.report()"
+    },
+    {
+      "language": "python",
+      "line": 1164,
+      "path": "core\\engineer_agent.py",
+      "text": "if any(term in lowered for term in [\"bus report\", \"workshop bus report\", \"show bus\"]):"
+    },
+    {
+      "language": "python",
+      "line": 1165,
+      "path": "core\\engineer_agent.py",
+      "text": "return self.kernel.bus_report()"
+    },
+    {
+      "language": "python",
+      "line": 1167,
+      "path": "core\\engineer_agent.py",
+      "text": "if any(term in lowered for term in [\"kernel plan\", \"kernel decision\"]):"
+    },
+    {
+      "language": "python",
+      "line": 1168,
+      "path": "core\\engineer_agent.py",
+      "text": "return self.kernel.plan("
+    },
+    {
+      "language": "python",
+      "line": 1169,
+      "path": "core\\engineer_agent.py",
+      "text": "query,"
+    },
+    {
+      "language": "python",
+      "line": 1170,
+      "path": "core\\engineer_agent.py",
+      "text": "available_models=getattr(self.app, \"models\", []),"
+    },
+    {
+      "language": "python",
+      "line": 1171,
+      "path": "core\\engineer_agent.py",
+      "text": "hardware={\"recommended_threads\": int(getattr(self.app, \"threads\", 10))}"
+    },
+    {
+      "language": "python",
+      "line": 1172,
+      "path": "core\\engineer_agent.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1174,
+      "path": "core\\engineer_agent.py",
+      "text": "if any(term in lowered for term in [\"scan for new files\", \"scan new files\", \"rescan files\", \"reindex project\", \"scan project files\"]):"
+    },
+    {
+      "language": "python",
+      "line": 1175,
+      "path": "core\\engineer_agent.py",
+      "text": "return self.scan_new_files(query)"
+    },
+    {
+      "language": "python",
+      "line": 1177,
+      "path": "core\\engineer_agent.py",
+      "text": "if any(term in lowered for term in [\"router report\", \"mission router\", \"show route\"]):"
+    },
+    {
+      "language": "python",
+      "line": 1178,
+      "path": "core\\engineer_agent.py",
+      "text": "return self.mission_router_report("
+    },
+    {
+      "language": "python",
+      "line": 1179,
+      "path": "core\\engineer_agent.py",
+      "text": "query,"
+    },
+    {
+      "language": "python",
+      "line": 1180,
+      "path": "core\\engineer_agent.py",
+      "text": "route=\"diagnostic\","
+    },
+    {
+      "language": "python",
+      "line": 1181,
+      "path": "core\\engineer_agent.py",
+      "text": "reason=\"Operator requested routing explanation.\","
+    },
+    {
+      "language": "python",
+      "line": 1182,
+      "path": "core\\engineer_agent.py",
+      "text": "pipeline=[\"Engineer\", \"Mission Router\", \"Diagnostic Report\"],"
+    },
+    {
+      "language": "python",
+      "line": 1183,
+      "path": "core\\engineer_agent.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1185,
+      "path": "core\\engineer_agent.py",
+      "text": "if any(term in lowered for term in [\"investigation engine test\", \"test investigation engine\", \"kernel investigation test\"]):"
+    },
+    {
+      "language": "python",
+      "line": 1186,
+      "path": "core\\engineer_agent.py",
+      "text": "return self.investigation_engine_test(query)"
+    },
+    {
+      "language": "python",
+      "line": 1188,
+      "path": "core\\engineer_agent.py",
+      "text": "if lowered.startswith(\"engineer, investigate\") or any(term in lowered for term in [\"investigate timeout\", \"investigate right click\", \"investigate context menu\", \"investigate investigation engine\"]):"
+    },
+    {
+      "language": "python",
+      "line": 1189,
+      "path": "core\\engineer_agent.py",
+      "text": "return self.investigation_engine_test(query)"
+    },
+    {
+      "language": "python",
+      "line": 1191,
+      "path": "core\\engineer_agent.py",
+      "text": "if any(term in lowered for term in [\"smart search\", \"search smart\", \"foxai search\"]):"
+    },
+    {
+      "language": "python",
+      "line": 1192,
+      "path": "core\\engineer_agent.py",
+      "text": "return self.smart_search_report(query)"
+    },
+    {
+      "language": "python",
+      "line": 1194,
+      "path": "core\\engineer_agent.py",
+      "text": "if any(term in lowered for term in [\"show engineer intent\", \"classify intent\", \"what intent\"]):"
+    },
+    {
+      "language": "python",
+      "line": 1195,
+      "path": "core\\engineer_agent.py",
+      "text": "return self.intent.report(query)"
+    },
+    {
+      "language": "python",
+      "line": 1197,
+      "path": "core\\engineer_agent.py",
+      "text": "if intent[\"intent\"] == \"forge_build\":"
+    },
+    {
+      "language": "python",
+      "line": 1198,
+      "path": "core\\engineer_agent.py",
+      "text": "# Safety: only explicit creation/build requests should enter Forge Build."
+    },
+    {
+      "language": "python",
+      "line": 1199,
+      "path": "core\\engineer_agent.py",
+      "text": "if any(marker in lowered for marker in ["
+    },
+    {
+      "language": "python",
+      "line": 1200,
+      "path": "core\\engineer_agent.py",
+      "text": "\"forge sprint\", \"begin forge\", \"start forge\", \"build component\","
+    },
+    {
+      "language": "python",
+      "line": 1201,
+      "path": "core\\engineer_agent.py",
+      "text": "\"create component\", \"create a new file\", \"generate implementation\","
+    },
+    {
+      "language": "python",
+      "line": 1202,
+      "path": "core\\engineer_agent.py",
+      "text": "\"write the code\", \"build the skeleton\""
+    },
+    {
+      "language": "python",
+      "line": 1203,
+      "path": "core\\engineer_agent.py",
+      "text": "]):"
+    },
+    {
+      "language": "python",
+      "line": 1204,
+      "path": "core\\engineer_agent.py",
+      "text": "return self.forge_build(query)"
+    },
+    {
+      "language": "python",
+      "line": 1205,
+      "path": "core\\engineer_agent.py",
+      "text": "return self.search_project(query)"
+    },
+    {
+      "language": "python",
+      "line": 1207,
+      "path": "core\\engineer_agent.py",
+      "text": "if intent[\"intent\"] == \"architecture_review\":"
+    },
+    {
+      "language": "python",
+      "line": 1208,
+      "path": "core\\engineer_agent.py",
+      "text": "return self.architecture_review(query)"
+    },
+    {
+      "language": "python",
+      "line": 1210,
+      "path": "core\\engineer_agent.py",
+      "text": "if intent[\"intent\"] == \"ui_investigation\":"
+    },
+    {
+      "language": "python",
+      "line": 1211,
+      "path": "core\\engineer_agent.py",
+      "text": "return self.ui_investigation(query)"
+    },
+    {
+      "language": "python",
+      "line": 1213,
+      "path": "core\\engineer_agent.py",
+      "text": "if intent[\"intent\"] == \"performance_review\":"
+    },
+    {
+      "language": "python",
+      "line": 1214,
+      "path": "core\\engineer_agent.py",
+      "text": "return self.performance_review(query)"
+    },
+    {
+      "language": "python",
+      "line": 1216,
+      "path": "core\\engineer_agent.py",
+      "text": "if intent[\"intent\"] == \"security_review\":"
+    },
+    {
+      "language": "python",
+      "line": 1217,
+      "path": "core\\engineer_agent.py",
+      "text": "return self.security_review(query)"
+    },
+    {
+      "language": "python",
+      "line": 1219,
+      "path": "core\\engineer_agent.py",
+      "text": "if any(term in lowered for term in [\"project index\", \"index the project\", \"build index\", \"scan the project\"]):"
+    },
+    {
+      "language": "python",
+      "line": 1220,
+      "path": "core\\engineer_agent.py",
+      "text": "return self.build_index().architecture_report()"
+    },
+    {
+      "language": "python",
+      "line": 1222,
+      "path": "core\\engineer_agent.py",
+      "text": "if any(term in lowered for term in [\"show project memory\", \"project memory report\", \"show forge journal\"]):"
+    },
+    {
+      "language": "python",
+      "line": 1223,
+      "path": "core\\engineer_agent.py",
+      "text": "return self.kernel.project_memory_report()"
+    },
+    {
+      "language": "python",
+      "line": 1225,
+      "path": "core\\engineer_agent.py",
+      "text": "if any(term in lowered for term in [\"open project memory for\", \"open project for\"]):"
+    },
+    {
+      "language": "python",
+      "line": 1226,
+      "path": "core\\engineer_agent.py",
+      "text": "project, _, _ = self._split_project_note(query)"
+    },
+    {
+      "language": "python",
+      "line": 1227,
+      "path": "core\\engineer_agent.py",
+      "text": "return self.kernel.open_project(project)"
+    },
+    {
+      "language": "python",
+      "line": 1229,
+      "path": "core\\engineer_agent.py",
+      "text": "if any(term in lowered for term in [\"chisel decision for\", \"log decision for\", \"record decision for\"]):"
+    },
+    {
+      "language": "python",
+      "line": 1230,
+      "path": "core\\engineer_agent.py",
+      "text": "project, title, reason = self._split_project_note(query)"
+    },
+    {
+      "language": "python",
+      "line": 1231,
+      "path": "core\\engineer_agent.py",
+      "text": "if not title:"
+    },
+    {
+      "language": "python",
+      "line": 1232,
+      "path": "core\\engineer_agent.py",
+      "text": "title = \"Untitled decision\""
+    },
+    {
+      "language": "python",
+      "line": 1233,
+      "path": "core\\engineer_agent.py",
+      "text": "if not reason:"
+    },
+    {
+      "language": "python",
+      "line": 1234,
+      "path": "core\\engineer_agent.py",
+      "text": "reason = \"No reason provided.\""
+    },
+    {
+      "language": "python",
+      "line": 1235,
+      "path": "core\\engineer_agent.py",
+      "text": "return self.kernel.chisel_decision(project, title, reason)"
+    },
+    {
+      "language": "python",
+      "line": 1237,
+      "path": "core\\engineer_agent.py",
+      "text": "if any(term in lowered for term in [\"log lesson for\", \"chisel lesson for\"]):"
+    },
+    {
+      "language": "python",
+      "line": 1238,
+      "path": "core\\engineer_agent.py",
+      "text": "project, lesson, reason = self._split_project_note(query)"
+    },
+    {
+      "language": "python",
+      "line": 1239,
+      "path": "core\\engineer_agent.py",
+      "text": "if not lesson:"
+    },
+    {
+      "language": "python",
+      "line": 1240,
+      "path": "core\\engineer_agent.py",
+      "text": "lesson = \"Untitled lesson\""
+    },
+    {
+      "language": "python",
+      "line": 1241,
+      "path": "core\\engineer_agent.py",
+      "text": "return self.kernel.record_lesson(project, lesson, reason)"
+    },
+    {
+      "language": "python",
+      "line": 1243,
+      "path": "core\\engineer_agent.py",
+      "text": "if any(term in lowered for term in [\"log forge for\", \"forge journal entry for\"]):"
+    },
+    {
+      "language": "python",
+      "line": 1244,
+      "path": "core\\engineer_agent.py",
+      "text": "project, summary, reason = self._split_project_note(query)"
+    },
+    {
+      "language": "python",
+      "line": 1245,
+      "path": "core\\engineer_agent.py",
+      "text": "if not summary:"
+    },
+    {
+      "language": "python",
+      "line": 1246,
+      "path": "core\\engineer_agent.py",
+      "text": "summary = \"Forge entry recorded\""
+    },
+    {
+      "language": "python",
+      "line": 1247,
+      "path": "core\\engineer_agent.py",
+      "text": "lessons = [reason] if reason else []"
+    },
+    {
+      "language": "python",
+      "line": 1248,
+      "path": "core\\engineer_agent.py",
+      "text": "return self.kernel.forge_entry("
+    },
+    {
+      "language": "python",
+      "line": 1249,
+      "path": "core\\engineer_agent.py",
+      "text": "project,"
+    },
+    {
+      "language": "python",
+      "line": 1250,
+      "path": "core\\engineer_agent.py",
+      "text": "summary=summary,"
+    },
+    {
+      "language": "python",
+      "line": 1251,
+      "path": "core\\engineer_agent.py",
+      "text": "lessons=lessons,"
+    },
+    {
+      "language": "python",
+      "line": 1252,
+      "path": "core\\engineer_agent.py",
+      "text": "next_hammer=\"Not specified\","
+    },
+    {
+      "language": "python",
+      "line": 1253,
+      "path": "core\\engineer_agent.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1255,
+      "path": "core\\engineer_agent.py",
+      "text": "if any(term in lowered for term in [\"project charter\", \"charter for\", \"create charter\"]):"
+    },
+    {
+      "language": "python",
+      "line": 1256,
+      "path": "core\\engineer_agent.py",
+      "text": "return self.forge_master.charter(query)"
+    },
+    {
+      "language": "python",
+      "line": 1258,
+      "path": "core\\engineer_agent.py",
+      "text": "if any(term in lowered for term in [\"show forge templates\", \"forge templates\", \"mission templates\"]):"
+    },
+    {
+      "language": "python",
+      "line": 1259,
+      "path": "core\\engineer_agent.py",
+      "text": "return self.forge_master.templates_report()"
+    },
+    {
+      "language": "python",
+      "line": 1261,
+      "path": "core\\engineer_agent.py",
+      "text": "if any(term in lowered for term in [\"forge plan\", \"forge blueprint\", \"forge master\", \"blueprint for\"]):"
+    },
+    {
+      "language": "python",
+      "line": 1262,
+      "path": "core\\engineer_agent.py",
+      "text": "return self.forge_master.blueprint(query)"
+    },
+    {
+      "language": "python",
+      "line": 1264,
+      "path": "core\\engineer_agent.py",
+      "text": "if any(term in lowered for term in [\"department registry\", \"show registry\", \"show department registry\"]):"
+    },
+    {
+      "language": "python",
+      "line": 1265,
+      "path": "core\\engineer_agent.py",
+      "text": "return self.decision_layer.registry_report()"
+    },
+    {
+      "language": "python",
+      "line": 1267,
+      "path": "core\\engineer_agent.py",
+      "text": "if any(term in lowered for term in [\"execution plan\", \"execution planner\", \"capability plan\", \"workflow plan\"]):"
+    },
+    {
+      "language": "python",
+      "line": 1268,
+      "path": "core\\engineer_agent.py",
+      "text": "return self.decision_layer.execution_plan_report(query)"
+    },
+    {
+      "language": "python",
+      "line": 1270,
+      "path": "core\\engineer_agent.py",
+      "text": "if any(term in lowered for term in [\"decision report\", \"decision layer\", \"recommend model\", \"model recommendation\"]):"
+    },
+    {
+      "language": "python",
+      "line": 1271,
+      "path": "core\\engineer_agent.py",
+      "text": "return self.decision_layer.report("
+    },
+    {
+      "language": "python",
+      "line": 1272,
+      "path": "core\\engineer_agent.py",
+      "text": "query,"
+    },
+    {
+      "language": "python",
+      "line": 1273,
+      "path": "core\\engineer_agent.py",
+      "text": "available_models=getattr(self.app, \"models\", []),"
+    },
+    {
+      "language": "python",
+      "line": 1274,
+      "path": "core\\engineer_agent.py",
+      "text": "hardware={\"recommended_threads\": int(getattr(self.app, \"threads\", 10))}"
+    },
+    {
+      "language": "python",
+      "line": 1275,
+      "path": "core\\engineer_agent.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1277,
+      "path": "core\\engineer_agent.py",
+      "text": "if any(term in lowered for term in [\"confidence engine\", \"show confidence\", \"confidence report\"]):"
+    },
+    {
+      "language": "python",
+      "line": 1278,
+      "path": "core\\engineer_agent.py",
+      "text": "return self.confidence.card("
+    },
+    {
+      "language": "python",
+      "line": 1279,
+      "path": "core\\engineer_agent.py",
+      "text": "evidence=["
+    },
+    {
+      "language": "python",
+      "line": 1280,
+      "path": "core\\engineer_agent.py",
+      "text": "{\"type\": \"project_index\", \"detail\": \"Engineer can inspect project structure.\"},"
+    },
+    {
+      "language": "python",
+      "line": 1281,
+      "path": "core\\engineer_agent.py",
+      "text": "{\"type\": \"dependency_graph\", \"detail\": \"Engineer can inspect import relationships.\"},"
+    },
+    {
+      "language": "python",
+      "line": 1282,
+      "path": "core\\engineer_agent.py",
+      "text": "{\"type\": \"runtime_graph\", \"detail\": \"Engineer can inspect runtime references.\"},"
+    },
+    {
+      "language": "python",
+      "line": 1283,
+      "path": "core\\engineer_agent.py",
+      "text": "{\"type\": \"mission_flow\", \"detail\": \"Engineer can explain mission paths.\"},"
+    },
+    {
+      "language": "python",
+      "line": 1284,
+      "path": "core\\engineer_agent.py",
+      "text": "{\"type\": \"technical_debt\", \"detail\": \"Engineer can evaluate architecture health.\"},"
+    },
+    {
+      "language": "python",
+      "line": 1285,
+      "path": "core\\engineer_agent.py",
+      "text": "],"
+    },
+    {
+      "language": "python",
+      "line": 1286,
+      "path": "core\\engineer_agent.py",
+      "text": "base=70,"
+    },
+    {
+      "language": "python",
+      "line": 1287,
+      "path": "core\\engineer_agent.py",
+      "text": "reason=\"Confidence Engine RC1 is installed and available to Engineer.\""
+    },
+    {
+      "language": "python",
+      "line": 1288,
+      "path": "core\\engineer_agent.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1290,
+      "path": "core\\engineer_agent.py",
+      "text": "if any(term in lowered for term in [\"technical debt\", \"debt report\", \"review the workshop\", \"architecture review\", \"workshop review\"]):"
+    },
+    {
+      "language": "python",
+      "line": 1291,
+      "path": "core\\engineer_agent.py",
+      "text": "report = self.build_technical_debt().review()"
+    },
+    {
+      "language": "python",
+      "line": 1292,
+      "path": "core\\engineer_agent.py",
+      "text": "return report + \"\\n\\n\" + self.confidence_card("
+    },
+    {
+      "language": "python",
+      "line": 1293,
+      "path": "core\\engineer_agent.py",
+      "text": "evidence=["
+    },
+    {
+      "language": "python",
+      "line": 1294,
+      "path": "core\\engineer_agent.py",
+      "text": "{\"type\": \"technical_debt\", \"detail\": \"Report is based on AST scanning and file metrics.\"},"
+    },
+    {
+      "language": "python",
+      "line": 1295,
+      "path": "core\\engineer_agent.py",
+      "text": "{\"type\": \"project_index\", \"detail\": \"Reviewed files are limited to FOXAI source scope.\"},"
+    },
+    {
+      "language": "python",
+      "line": 1296,
+      "path": "core\\engineer_agent.py",
+      "text": "],"
+    },
+    {
+      "language": "python",
+      "line": 1297,
+      "path": "core\\engineer_agent.py",
+      "text": "base=75,"
+    },
+    {
+      "language": "python",
+      "line": 1298,
+      "path": "core\\engineer_agent.py",
+      "text": "reason=\"Technical debt findings are metric-based, but recommendations are still engineering guidance.\""
+    },
+    {
+      "language": "python",
+      "line": 1299,
+      "path": "core\\engineer_agent.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1301,
+      "path": "core\\engineer_agent.py",
+      "text": "if any(term in lowered for term in [\"refactor plan\", \"what should we refactor\", \"refactor next\", \"improve architecture\"]):"
+    },
+    {
+      "language": "python",
+      "line": 1302,
+      "path": "core\\engineer_agent.py",
+      "text": "report = self.build_technical_debt().refactor_plan()"
+    },
+    {
+      "language": "python",
+      "line": 1303,
+      "path": "core\\engineer_agent.py",
+      "text": "return report + \"\\n\\n\" + self.confidence_card("
+    },
+    {
+      "language": "python",
+      "line": 1304,
+      "path": "core\\engineer_agent.py",
+      "text": "evidence=["
+    },
+    {
+      "language": "python",
+      "line": 1305,
+      "path": "core\\engineer_agent.py",
+      "text": "{\"type\": \"technical_debt\", \"detail\": \"Refactor targets are based on measured file/function size.\"},"
+    },
+    {
+      "language": "python",
+      "line": 1306,
+      "path": "core\\engineer_agent.py",
+      "text": "{\"type\": \"inference\", \"detail\": \"Suggested extraction boundaries are architectural recommendations.\"},"
+    },
+    {
+      "language": "python",
+      "line": 1307,
+      "path": "core\\engineer_agent.py",
+      "text": "],"
+    },
+    {
+      "language": "python",
+      "line": 1308,
+      "path": "core\\engineer_agent.py",
+      "text": "base=65,"
+    },
+    {
+      "language": "python",
+      "line": 1309,
+      "path": "core\\engineer_agent.py",
+      "text": "reason=\"Refactor plan is grounded in code metrics but should be reviewed before implementation.\""
+    },
+    {
+      "language": "python",
+      "line": 1310,
+      "path": "core\\engineer_agent.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1312,
+      "path": "core\\engineer_agent.py",
+      "text": "if any(term in lowered for term in [\"mission flow\", \"show mission flows\", \"show flows\"]):"
+    },
+    {
+      "language": "python",
+      "line": 1313,
+      "path": "core\\engineer_agent.py",
+      "text": "return self.mission_flow.list_flows()"
+    },
+    {
+      "language": "python",
+      "line": 1315,
+      "path": "core\\engineer_agent.py",
+      "text": "if any(term in lowered for term in [\"trace\", \"flow for\", \"mission path\", \"mission route\"]):"
+    },
+    {
+      "language": "python",
+      "line": 1316,
+      "path": "core\\engineer_agent.py",
+      "text": "return self.mission_flow.trace(query)"
+    },
+    {
+      "language": "python",
+      "line": 1318,
+      "path": "core\\engineer_agent.py",
+      "text": "if any(term in lowered for term in [\"runtime graph\", \"runtime relationship\", \"show runtime\", \"show runtime graph\"]):"
+    },
+    {
+      "language": "python",
+      "line": 1319,
+      "path": "core\\engineer_agent.py",
+      "text": "report = self.get_runtime_graph().report()"
+    },
+    {
+      "language": "python",
+      "line": 1320,
+      "path": "core\\engineer_agent.py",
+      "text": "return report + \"\\n\\n\" + self.confidence_card("
+    },
+    {
+      "language": "python",
+      "line": 1321,
+      "path": "core\\engineer_agent.py",
+      "text": "evidence=["
+    },
+    {
+      "language": "python",
+      "line": 1322,
+      "path": "core\\engineer_agent.py",
+      "text": "{\"type\": \"runtime_graph\", \"detail\": \"Runtime references and call sites were scanned.\"},"
+    },
+    {
+      "language": "python",
+      "line": 1323,
+      "path": "core\\engineer_agent.py",
+      "text": "],"
+    },
+    {
+      "language": "python",
+      "line": 1324,
+      "path": "core\\engineer_agent.py",
+      "text": "base=80,"
+    },
+    {
+      "language": "python",
+      "line": 1325,
+      "path": "core\\engineer_agent.py",
+      "text": "reason=\"Runtime graph reports are grounded in AST-detected attributes, calls, and strings.\""
+    },
+    {
+      "language": "python",
+      "line": 1326,
+      "path": "core\\engineer_agent.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1328,
+      "path": "core\\engineer_agent.py",
+      "text": "if any(term in lowered for term in [\"who uses\", \"what touches\", \"runtime uses\", \"who touches\"]):"
+    },
+    {
+      "language": "python",
+      "line": 1329,
+      "path": "core\\engineer_agent.py",
+      "text": "report = self.get_runtime_graph().relationship_answer(query)"
+    },
+    {
+      "language": "python",
+      "line": 1330,
+      "path": "core\\engineer_agent.py",
+      "text": "return report + \"\\n\\n\" + self.confidence_card("
+    },
+    {
+      "language": "python",
+      "line": 1331,
+      "path": "core\\engineer_agent.py",
+      "text": "evidence=["
+    },
+    {
+      "language": "python",
+      "line": 1332,
+      "path": "core\\engineer_agent.py",
+      "text": "{\"type\": \"runtime_graph\", \"detail\": \"Relationship answer is based on runtime reference scanning.\"},"
+    },
+    {
+      "language": "python",
+      "line": 1333,
+      "path": "core\\engineer_agent.py",
+      "text": "],"
+    },
+    {
+      "language": "python",
+      "line": 1334,
+      "path": "core\\engineer_agent.py",
+      "text": "base=75,"
+    },
+    {
+      "language": "python",
+      "line": 1335,
+      "path": "core\\engineer_agent.py",
+      "text": "reason=\"Runtime relationship analysis can include noisy string references, so review grouped results.\""
+    },
+    {
+      "language": "python",
+      "line": 1336,
+      "path": "core\\engineer_agent.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1338,
+      "path": "core\\engineer_agent.py",
+      "text": "if any(term in lowered for term in [\"dependency graph\", \"show dependencies\", \"show dependency graph\", \"build dependency graph\"]):"
+    },
+    {
+      "language": "python",
+      "line": 1339,
+      "path": "core\\engineer_agent.py",
+      "text": "report = self.get_dependency_graph().report()"
+    },
+    {
+      "language": "python",
+      "line": 1340,
+      "path": "core\\engineer_agent.py",
+      "text": "return report + \"\\n\\n\" + self.confidence_card("
+    },
+    {
+      "language": "python",
+      "line": 1341,
+      "path": "core\\engineer_agent.py",
+      "text": "evidence=["
+    },
+    {
+      "language": "python",
+      "line": 1342,
+      "path": "core\\engineer_agent.py",
+      "text": "{\"type\": \"dependency_graph\", \"detail\": \"Import relationships were scanned.\"},"
+    },
+    {
+      "language": "python",
+      "line": 1343,
+      "path": "core\\engineer_agent.py",
+      "text": "],"
+    },
+    {
+      "language": "python",
+      "line": 1344,
+      "path": "core\\engineer_agent.py",
+      "text": "base=85,"
+    },
+    {
+      "language": "python",
+      "line": 1345,
+      "path": "core\\engineer_agent.py",
+      "text": "reason=\"Dependency graph reports are based on Python import statements.\""
+    },
+    {
+      "language": "python",
+      "line": 1346,
+      "path": "core\\engineer_agent.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1348,
+      "path": "core\\engineer_agent.py",
+      "text": "if any(term in lowered for term in [\"what depends on\", \"what imports\", \"used by\", \"depends on\"]):"
+    },
+    {
+      "language": "python",
+      "line": 1349,
+      "path": "core\\engineer_agent.py",
+      "text": "report = self.get_dependency_graph().dependency_answer(query)"
+    },
+    {
+      "language": "python",
+      "line": 1350,
+      "path": "core\\engineer_agent.py",
+      "text": "return report + \"\\n\\n\" + self.confidence_card("
+    },
+    {
+      "language": "python",
+      "line": 1351,
+      "path": "core\\engineer_agent.py",
+      "text": "evidence=["
+    },
+    {
+      "language": "python",
+      "line": 1352,
+      "path": "core\\engineer_agent.py",
+      "text": "{\"type\": \"dependency_graph\", \"detail\": \"Dependency answer is based on import statements.\"},"
+    },
+    {
+      "language": "python",
+      "line": 1353,
+      "path": "core\\engineer_agent.py",
+      "text": "],"
+    },
+    {
+      "language": "python",
+      "line": 1354,
+      "path": "core\\engineer_agent.py",
+      "text": "base=85,"
+    },
+    {
+      "language": "python",
+      "line": 1355,
+      "path": "core\\engineer_agent.py",
+      "text": "reason=\"Import dependency analysis is strong for direct imports but does not capture every runtime relationship.\""
+    },
+    {
+      "language": "python",
+      "line": 1356,
+      "path": "core\\engineer_agent.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1358,
+      "path": "core\\engineer_agent.py",
+      "text": "if any(term in lowered for term in [\"project map\", \"map the project\", \"show project map\"]):"
+    },
+    {
+      "language": "python",
+      "line": 1359,
+      "path": "core\\engineer_agent.py",
+      "text": "return self.project_map()"
+    },
+    {
+      "language": "python",
+      "line": 1361,
+      "path": "core\\engineer_agent.py",
+      "text": "if any(term in lowered for term in [\"find symbol\", \"where is function\", \"where is class\", \"find class\", \"find function\"]):"
+    },
+    {
+      "language": "python",
+      "line": 1362,
+      "path": "core\\engineer_agent.py",
+      "text": "return self.symbol_search(query)"
+    },
+    {
+      "language": "python",
+      "line": 1364,
+      "path": "core\\engineer_agent.py",
+      "text": "if any(term in lowered for term in [\"review your own code\", \"review your code\", \"scan your own code\", \"scan your code\"]):"
+    },
+    {
+      "language": "python",
+      "line": 1365,
+      "path": "core\\engineer_agent.py",
+      "text": "return self.project_overview()"
+    },
+    {
+      "language": "python",
+      "line": 1367,
+      "path": "core\\engineer_agent.py",
+      "text": "if any(term in lowered for term in [\"architecture\", \"explain the project\", \"explain this project\", \"how are you built\"]):"
+    },
+    {
+      "language": "python",
+      "line": 1368,
+      "path": "core\\engineer_agent.py",
+      "text": "return self.architecture_summary()"
+    },
+    {
+      "language": "python",
+      "line": 1370,
+      "path": "core\\engineer_agent.py",
+      "text": "return self.search_project(query)"
+    },
+    {
+      "language": "python",
+      "line": 1372,
+      "path": "core\\engineer_agent.py",
+      "text": "def iter_project_files(self):"
+    },
+    {
+      "language": "python",
+      "line": 1373,
+      "path": "core\\engineer_agent.py",
+      "text": "for path in self.project_root.rglob(\"*\"):"
+    },
+    {
+      "language": "python",
+      "line": 1374,
+      "path": "core\\engineer_agent.py",
+      "text": "if not path.is_file():"
+    },
+    {
+      "language": "python",
+      "line": 1375,
+      "path": "core\\engineer_agent.py",
+      "text": "continue"
+    },
+    {
+      "language": "python",
+      "line": 1377,
+      "path": "core\\engineer_agent.py",
+      "text": "if any(part in self.IGNORE_DIRS for part in path.parts):"
+    },
+    {
+      "language": "python",
+      "line": 1378,
+      "path": "core\\engineer_agent.py",
+      "text": "continue"
+    },
+    {
+      "language": "python",
+      "line": 1380,
+      "path": "core\\engineer_agent.py",
+      "text": "if is_protected_path(path, self.project_root):"
+    },
+    {
+      "language": "python",
+      "line": 1381,
+      "path": "core\\engineer_agent.py",
+      "text": "continue"
+    },
+    {
+      "language": "python",
+      "line": 1383,
+      "path": "core\\engineer_agent.py",
+      "text": "if path.suffix.lower() in self.IGNORE_SUFFIXES:"
+    },
+    {
+      "language": "python",
+      "line": 1384,
+      "path": "core\\engineer_agent.py",
+      "text": "continue"
+    },
+    {
+      "language": "python",
+      "line": 1386,
+      "path": "core\\engineer_agent.py",
+      "text": "if path.suffix.lower() not in self.CODE_EXTENSIONS:"
+    },
+    {
+      "language": "python",
+      "line": 1387,
+      "path": "core\\engineer_agent.py",
+      "text": "continue"
+    },
+    {
+      "language": "python",
+      "line": 1389,
+      "path": "core\\engineer_agent.py",
+      "text": "yield path"
+    },
+    {
+      "language": "python",
+      "line": 1391,
+      "path": "core\\engineer_agent.py",
+      "text": "def read_text_safely(self, path, limit=120000):"
+    },
+    {
+      "language": "python",
+      "line": 1392,
+      "path": "core\\engineer_agent.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 1393,
+      "path": "core\\engineer_agent.py",
+      "text": "text = path.read_text(encoding=\"utf-8\", errors=\"replace\")"
+    },
+    {
+      "language": "python",
+      "line": 1394,
+      "path": "core\\engineer_agent.py",
+      "text": "redacted, _ = redact_secrets(text[:limit])"
+    },
+    {
+      "language": "python",
+      "line": 1395,
+      "path": "core\\engineer_agent.py",
+      "text": "return redacted"
+    },
+    {
+      "language": "python",
+      "line": 1396,
+      "path": "core\\engineer_agent.py",
+      "text": "except Exception:"
+    },
+    {
+      "language": "python",
+      "line": 1397,
+      "path": "core\\engineer_agent.py",
+      "text": "return \"\""
+    },
+    {
+      "language": "python",
+      "line": 1399,
+      "path": "core\\engineer_agent.py",
+      "text": "def project_overview(self):"
+    },
+    {
+      "language": "python",
+      "line": 1400,
+      "path": "core\\engineer_agent.py",
+      "text": "index = self.build_index()"
+    },
+    {
+      "language": "python",
+      "line": 1401,
+      "path": "core\\engineer_agent.py",
+      "text": "summary = index.summary()"
+    },
+    {
+      "language": "python",
+      "line": 1403,
+      "path": "core\\engineer_agent.py",
+      "text": "important = ["
+    },
+    {
+      "language": "python",
+      "line": 1404,
+      "path": "core\\engineer_agent.py",
+      "text": "\"foxai.py\","
+    },
+    {
+      "language": "python",
+      "line": 1405,
+      "path": "core\\engineer_agent.py",
+      "text": "\"ui/main_window.py\","
+    },
+    {
+      "language": "python",
+      "line": 1406,
+      "path": "core\\engineer_agent.py",
+      "text": "\"core/director.py\","
+    },
+    {
+      "language": "python",
+      "line": 1407,
+      "path": "core\\engineer_agent.py",
+      "text": "\"core/brainstem.py\","
+    },
+    {
+      "language": "python",
+      "line": 1408,
+      "path": "core\\engineer_agent.py",
+      "text": "\"core/diagnostics.py\","
+    },
+    {
+      "language": "python",
+      "line": 1409,
+      "path": "core\\engineer_agent.py",
+      "text": "\"core/project_index.py\","
+    },
+    {
+      "language": "python",
+      "line": 1410,
+      "path": "core\\engineer_agent.py",
+      "text": "\"core/comfy_bridge.py\","
+    },
+    {
+      "language": "python",
+      "line": 1411,
+      "path": "core\\engineer_agent.py",
+      "text": "\"core/promptsmith.py\","
+    },
+    {
+      "language": "python",
+      "line": 1412,
+      "path": "core\\engineer_agent.py",
+      "text": "\"core/chat_agent.py\","
+    },
+    {
+      "language": "python",
+      "line": 1413,
+      "path": "core\\engineer_agent.py",
+      "text": "\"core/red_canvas_agent.py\","
+    },
+    {
+      "language": "python",
+      "line": 1414,
+      "path": "core\\engineer_agent.py",
+      "text": "\"core/library_agent.py\","
+    },
+    {
+      "language": "python",
+      "line": 1415,
+      "path": "core\\engineer_agent.py",
+      "text": "\"core/engineer_agent.py\","
+    },
+    {
+      "language": "python",
+      "line": 1416,
+      "path": "core\\engineer_agent.py",
+      "text": "]"
+    },
+    {
+      "language": "python",
+      "line": 1418,
+      "path": "core\\engineer_agent.py",
+      "text": "found = []"
+    },
+    {
+      "language": "python",
+      "line": 1419,
+      "path": "core\\engineer_agent.py",
+      "text": "missing = []"
+    },
+    {
+      "language": "python",
+      "line": 1421,
+      "path": "core\\engineer_agent.py",
+      "text": "for rel in important:"
+    },
+    {
+      "language": "python",
+      "line": 1422,
+      "path": "core\\engineer_agent.py",
+      "text": "path = self.project_root / rel"
+    },
+    {
+      "language": "python",
+      "line": 1423,
+      "path": "core\\engineer_agent.py",
+      "text": "if path.exists():"
+    },
+    {
+      "language": "python",
+      "line": 1424,
+      "path": "core\\engineer_agent.py",
+      "text": "found.append(rel)"
+    },
+    {
+      "language": "python",
+      "line": 1425,
+      "path": "core\\engineer_agent.py",
+      "text": "else:"
+    },
+    {
+      "language": "python",
+      "line": 1426,
+      "path": "core\\engineer_agent.py",
+      "text": "missing.append(rel)"
+    },
+    {
+      "language": "python",
+      "line": 1428,
+      "path": "core\\engineer_agent.py",
+      "text": "return ("
+    },
+    {
+      "language": "python",
+      "line": 1429,
+      "path": "core\\engineer_agent.py",
+      "text": "\"ENGINEER REPORT\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1430,
+      "path": "core\\engineer_agent.py",
+      "text": "\"Mission:\\nRead-only self-review\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1431,
+      "path": "core\\engineer_agent.py",
+      "text": "f\"Project Root:\\n{self.project_root}\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1432,
+      "path": "core\\engineer_agent.py",
+      "text": "f\"Files indexed:\\n{summary['file_count']}\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1433,
+      "path": "core\\engineer_agent.py",
+      "text": "f\"Python files:\\n{summary['python_file_count']}\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1434,
+      "path": "core\\engineer_agent.py",
+      "text": "f\"Classes detected:\\n{summary['class_count']}\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1435,
+      "path": "core\\engineer_agent.py",
+      "text": "f\"Functions detected:\\n{summary['function_count']}\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1436,
+      "path": "core\\engineer_agent.py",
+      "text": "f\"Imports detected:\\n{summary['import_count']}\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1437,
+      "path": "core\\engineer_agent.py",
+      "text": "\"Core files found:\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1438,
+      "path": "core\\engineer_agent.py",
+      "text": "+ \"\\n\".join(f\"✓ {item}\" for item in found)"
+    },
+    {
+      "language": "python",
+      "line": 1439,
+      "path": "core\\engineer_agent.py",
+      "text": "+ (\"\\n\\nCore files not found:\\n\" + \"\\n\".join(f\"⚠ {item}\" for item in missing) if missing else \"\")"
+    },
+    {
+      "language": "python",
+      "line": 1440,
+      "path": "core\\engineer_agent.py",
+      "text": "+ \"\\n\\nInitial Assessment:\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1441,
+      "path": "core\\engineer_agent.py",
+      "text": "\"FOXAI is organized around a clear workshop architecture:\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1442,
+      "path": "core\\engineer_agent.py",
+      "text": "\"Director → routes missions\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1443,
+      "path": "core\\engineer_agent.py",
+      "text": "\"Brainstem → tracks workshop state\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1444,
+      "path": "core\\engineer_agent.py",
+      "text": "\"Diagnostics → reports system health\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1445,
+      "path": "core\\engineer_agent.py",
+      "text": "\"Project Index → maps code structure\\nDependency Graph → maps import relationships\\nRuntime Graph → maps object and call-site relationships\\nMission Flow → explains request paths through the Workshop\\nTechnical Debt Engine → reviews architecture health and refactor candidates\\nDecision Layer → recommends department, model, and settings\\nForge Master → creates mission blueprints and quality gates\\nForge Journal → stores project memory, decisions, lessons, and forge logs\\nEngin"
+    },
+    {
+      "language": "python",
+      "line": 1446,
+      "path": "core\\engineer_agent.py",
+      "text": "\"Mission Control → narrates operations\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1447,
+      "path": "core\\engineer_agent.py",
+      "text": "\"Specialists → perform department work\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1448,
+      "path": "core\\engineer_agent.py",
+      "text": "\"\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1449,
+      "path": "core\\engineer_agent.py",
+      "text": "+ self.confidence_card("
+    },
+    {
+      "language": "python",
+      "line": 1450,
+      "path": "core\\engineer_agent.py",
+      "text": "evidence=["
+    },
+    {
+      "language": "python",
+      "line": 1451,
+      "path": "core\\engineer_agent.py",
+      "text": "{\"type\": \"project_index\", \"detail\": \"Project files, classes, functions, and imports were indexed.\"},"
+    },
+    {
+      "language": "python",
+      "line": 1452,
+      "path": "core\\engineer_agent.py",
+      "text": "{\"type\": \"direct_file_match\", \"detail\": \"Core files were checked directly.\"},"
+    },
+    {
+      "language": "python",
+      "line": 1453,
+      "path": "core\\engineer_agent.py",
+      "text": "],"
+    },
+    {
+      "language": "python",
+      "line": 1454,
+      "path": "core\\engineer_agent.py",
+      "text": "base=70,"
+    },
+    {
+      "language": "python",
+      "line": 1455,
+      "path": "core\\engineer_agent.py",
+      "text": "reason=\"The self-review is based on direct project indexing and known core file checks.\""
+    },
+    {
+      "language": "python",
+      "line": 1456,
+      "path": "core\\engineer_agent.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1457,
+      "path": "core\\engineer_agent.py",
+      "text": "+ \"\\n\\nSafety Status:\\nRead-only. No files were modified.\""
+    },
+    {
+      "language": "python",
+      "line": 1458,
+      "path": "core\\engineer_agent.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1460,
+      "path": "core\\engineer_agent.py",
+      "text": "def architecture_summary(self):"
+    },
+    {
+      "language": "python",
+      "line": 1461,
+      "path": "core\\engineer_agent.py",
+      "text": "return ("
+    },
+    {
+      "language": "python",
+      "line": 1462,
+      "path": "core\\engineer_agent.py",
+      "text": "\"ENGINEER ARCHITECTURE SUMMARY\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1463,
+      "path": "core\\engineer_agent.py",
+      "text": "\"FOXAI currently behaves like a modular AI workshop.\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1464,
+      "path": "core\\engineer_agent.py",
+      "text": "\"Primary flow:\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1465,
+      "path": "core\\engineer_agent.py",
+      "text": "\"1. Operator enters a request.\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1466,
+      "path": "core\\engineer_agent.py",
+      "text": "\"2. Director classifies the mission.\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1467,
+      "path": "core\\engineer_agent.py",
+      "text": "\"3. Brainstem marks the workshop busy.\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1468,
+      "path": "core\\engineer_agent.py",
+      "text": "\"4. Mission Control narrates the routing.\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1469,
+      "path": "core\\engineer_agent.py",
+      "text": "\"5. A specialist performs the work.\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1470,
+      "path": "core\\engineer_agent.py",
+      "text": "\"6. Brainstem returns the workshop to ready.\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1471,
+      "path": "core\\engineer_agent.py",
+      "text": "\"Main departments:\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1472,
+      "path": "core\\engineer_agent.py",
+      "text": "\"• Agent Fox: conversation\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1473,
+      "path": "core\\engineer_agent.py",
+      "text": "\"• Engineer: code and architecture analysis\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1474,
+      "path": "core\\engineer_agent.py",
+      "text": "\"• Diagnostics: workshop health\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1475,
+      "path": "core\\engineer_agent.py",
+      "text": "\"• Dependency Graph: import relationship analysis\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1476,
+      "path": "core\\engineer_agent.py",
+      "text": "\"• Red Canvas: image generation\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1477,
+      "path": "core\\engineer_agent.py",
+      "text": "\"• Iron Library: local file search\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1478,
+      "path": "core\\engineer_agent.py",
+      "text": "\"Recommended next architecture improvement:\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1479,
+      "path": "core\\engineer_agent.py",
+      "text": "\"Move identity and theme settings into a profile system so FOXAI, Kayock's Forge, and future variants can share one codebase.\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1480,
+      "path": "core\\engineer_agent.py",
+      "text": "+ self.confidence_card("
+    },
+    {
+      "language": "python",
+      "line": 1481,
+      "path": "core\\engineer_agent.py",
+      "text": "evidence=["
+    },
+    {
+      "language": "python",
+      "line": 1482,
+      "path": "core\\engineer_agent.py",
+      "text": "{\"type\": \"mission_flow\", \"detail\": \"Architecture flow is based on known mission routing.\"},"
+    },
+    {
+      "language": "python",
+      "line": 1483,
+      "path": "core\\engineer_agent.py",
+      "text": "{\"type\": \"project_index\", \"detail\": \"Project modules are indexed.\"},"
+    },
+    {
+      "language": "python",
+      "line": 1484,
+      "path": "core\\engineer_agent.py",
+      "text": "{\"type\": \"inference\", \"detail\": \"Identity recommendation is architectural guidance.\"},"
+    },
+    {
+      "language": "python",
+      "line": 1485,
+      "path": "core\\engineer_agent.py",
+      "text": "],"
+    },
+    {
+      "language": "python",
+      "line": 1486,
+      "path": "core\\engineer_agent.py",
+      "text": "base=65,"
+    },
+    {
+      "language": "python",
+      "line": 1487,
+      "path": "core\\engineer_agent.py",
+      "text": "reason=\"The architecture summary combines known Workshop modules with an inferred next design step.\""
+    },
+    {
+      "language": "python",
+      "line": 1488,
+      "path": "core\\engineer_agent.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1489,
+      "path": "core\\engineer_agent.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1491,
+      "path": "core\\engineer_agent.py",
+      "text": "def project_map(self):"
+    },
+    {
+      "language": "python",
+      "line": 1492,
+      "path": "core\\engineer_agent.py",
+      "text": "index = self.get_index()"
+    },
+    {
+      "language": "python",
+      "line": 1493,
+      "path": "core\\engineer_agent.py",
+      "text": "summary = index.summary()"
+    },
+    {
+      "language": "python",
+      "line": 1495,
+      "path": "core\\engineer_agent.py",
+      "text": "return ("
+    },
+    {
+      "language": "python",
+      "line": 1496,
+      "path": "core\\engineer_agent.py",
+      "text": "\"ENGINEER PROJECT MAP\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1497,
+      "path": "core\\engineer_agent.py",
+      "text": "\"FOXAI\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1498,
+      "path": "core\\engineer_agent.py",
+      "text": "\"│\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1499,
+      "path": "core\\engineer_agent.py",
+      "text": "\"├── foxai.py\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1500,
+      "path": "core\\engineer_agent.py",
+      "text": "\"│   └── Application entry point\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1501,
+      "path": "core\\engineer_agent.py",
+      "text": "\"│\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1502,
+      "path": "core\\engineer_agent.py",
+      "text": "\"├── ui/\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1503,
+      "path": "core\\engineer_agent.py",
+      "text": "\"│   └── main_window.py\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1504,
+      "path": "core\\engineer_agent.py",
+      "text": "\"│       └── Workshop interface and department panels\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1505,
+      "path": "core\\engineer_agent.py",
+      "text": "\"│\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1506,
+      "path": "core\\engineer_agent.py",
+      "text": "\"├── core/\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1507,
+      "path": "core\\engineer_agent.py",
+      "text": "\"│   ├── director.py\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1508,
+      "path": "core\\engineer_agent.py",
+      "text": "\"│   │   └── Mission routing\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1509,
+      "path": "core\\engineer_agent.py",
+      "text": "\"│   ├── brainstem.py\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1510,
+      "path": "core\\engineer_agent.py",
+      "text": "\"│   │   └── Workshop state and neural health\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1511,
+      "path": "core\\engineer_agent.py",
+      "text": "\"│   ├── diagnostics.py\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1512,
+      "path": "core\\engineer_agent.py",
+      "text": "\"│   │   └── Health checks and Workshop Advisor\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1513,
+      "path": "core\\engineer_agent.py",
+      "text": "\"│   ├── project_index.py\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1514,
+      "path": "core\\engineer_agent.py",
+      "text": "\"│   │   └── Read-only code structure index\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1515,
+      "path": "core\\engineer_agent.py",
+      "text": "\"│   ├── engineer_agent.py\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1516,
+      "path": "core\\engineer_agent.py",
+      "text": "\"│   │   └── Engineering specialist\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1517,
+      "path": "core\\engineer_agent.py",
+      "text": "\"│   ├── runtime_graph.py\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1518,
+      "path": "core\\engineer_agent.py",
+      "text": "\"│   │   └── Runtime relationship scanner\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1519,
+      "path": "core\\engineer_agent.py",
+      "text": "\"│   ├── mission_flow.py\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1520,
+      "path": "core\\engineer_agent.py",
+      "text": "\"│   │   └── Mission flow blueprint\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1521,
+      "path": "core\\engineer_agent.py",
+      "text": "\"│   ├── technical_debt.py\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1522,
+      "path": "core\\engineer_agent.py",
+      "text": "\"│   │   └── Architecture review and refactor guidance\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1523,
+      "path": "core\\engineer_agent.py",
+      "text": "\"│   ├── department_registry.py\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1524,
+      "path": "core\\engineer_agent.py",
+      "text": "\"│   │   └── Department capability registry\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1525,
+      "path": "core\\engineer_agent.py",
+      "text": "\"│   ├── decision_layer.py\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1526,
+      "path": "core\\engineer_agent.py",
+      "text": "\"│   │   └── Advisory mission/model/settings recommendation layer\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1527,
+      "path": "core\\engineer_agent.py",
+      "text": "\"│   ├── mission_templates.py\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1528,
+      "path": "core\\engineer_agent.py",
+      "text": "\"│   │   └── Reusable Forge Master templates\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1529,
+      "path": "core\\engineer_agent.py",
+      "text": "\"│   ├── forge_master.py\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1530,
+      "path": "core\\engineer_agent.py",
+      "text": "\"│   │   └── Mission blueprints and quality gates\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1531,
+      "path": "core\\engineer_agent.py",
+      "text": "\"│   ├── project_memory.py\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1532,
+      "path": "core\\engineer_agent.py",
+      "text": "\"│   │   └── Persistent project memory store\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1533,
+      "path": "core\\engineer_agent.py",
+      "text": "\"│   ├── forge_journal.py\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1534,
+      "path": "core\\engineer_agent.py",
+      "text": "\"│   │   └── Decisions, lessons, and forge logs\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1535,
+      "path": "core\\engineer_agent.py",
+      "text": "\"│   ├── engineer_intent.py\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1536,
+      "path": "core\\engineer_agent.py",
+      "text": "\"│   │   └── Engineer mission intent classifier\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1537,
+      "path": "core\\engineer_agent.py",
+      "text": "\"│   ├── smart_search.py\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1538,
+      "path": "core\\engineer_agent.py",
+      "text": "\"│   │   └── Evidence-weighted FOXAI-first search\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1539,
+      "path": "core\\engineer_agent.py",
+      "text": "\"│   ├── kernel.py\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1540,
+      "path": "core\\engineer_agent.py",
+      "text": "\"│   │   └── Unified Kernel facade for shared Workshop services\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1541,
+      "path": "core\\engineer_agent.py",
+      "text": "\"│   ├── boot_manager.py\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1542,
+      "path": "core\\engineer_agent.py",
+      "text": "\"│   │   └── Kernel startup readiness inspection\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1543,
+      "path": "core\\engineer_agent.py",
+      "text": "\"│   ├── comfy_bridge.py\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1544,
+      "path": "core\\engineer_agent.py",
+      "text": "\"│   │   └── ComfyUI bridge\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1545,
+      "path": "core\\engineer_agent.py",
+      "text": "\"│   └── promptsmith.py\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1546,
+      "path": "core\\engineer_agent.py",
+      "text": "\"│       └── Image prompt enhancement\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1547,
+      "path": "core\\engineer_agent.py",
+      "text": "\"│\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1548,
+      "path": "core\\engineer_agent.py",
+      "text": "\"├── Library/\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1549,
+      "path": "core\\engineer_agent.py",
+      "text": "\"│   └── Iron Library content\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1550,
+      "path": "core\\engineer_agent.py",
+      "text": "\"│\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1551,
+      "path": "core\\engineer_agent.py",
+      "text": "\"├── Red Canvas/\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1552,
+      "path": "core\\engineer_agent.py",
+      "text": "\"│   └── Workflows, prompts, and outputs\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1553,
+      "path": "core\\engineer_agent.py",
+      "text": "\"│\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1554,
+      "path": "core\\engineer_agent.py",
+      "text": "\"└── Mission Archive/\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1555,
+      "path": "core\\engineer_agent.py",
+      "text": "\"    └── Saved mission logs\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1556,
+      "path": "core\\engineer_agent.py",
+      "text": "f\"Index Summary:\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1557,
+      "path": "core\\engineer_agent.py",
+      "text": "f\"Files indexed: {summary['file_count']}\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1558,
+      "path": "core\\engineer_agent.py",
+      "text": "f\"Python files: {summary['python_file_count']}\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1559,
+      "path": "core\\engineer_agent.py",
+      "text": "f\"Classes: {summary['class_count']}\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1560,
+      "path": "core\\engineer_agent.py",
+      "text": "f\"Functions: {summary['function_count']}\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1561,
+      "path": "core\\engineer_agent.py",
+      "text": "\"\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1562,
+      "path": "core\\engineer_agent.py",
+      "text": "+ self.confidence_card("
+    },
+    {
+      "language": "python",
+      "line": 1563,
+      "path": "core\\engineer_agent.py",
+      "text": "evidence=["
+    },
+    {
+      "language": "python",
+      "line": 1564,
+      "path": "core\\engineer_agent.py",
+      "text": "{\"type\": \"project_index\", \"detail\": \"Project map uses indexed core files.\"},"
+    },
+    {
+      "language": "python",
+      "line": 1565,
+      "path": "core\\engineer_agent.py",
+      "text": "{\"type\": \"mission_flow\", \"detail\": \"Department responsibilities align with mission flows.\"},"
+    },
+    {
+      "language": "python",
+      "line": 1566,
+      "path": "core\\engineer_agent.py",
+      "text": "],"
+    },
+    {
+      "language": "python",
+      "line": 1567,
+      "path": "core\\engineer_agent.py",
+      "text": "base=70,"
+    },
+    {
+      "language": "python",
+      "line": 1568,
+      "path": "core\\engineer_agent.py",
+      "text": "reason=\"The project map is based on known module locations and established Workshop responsibilities.\""
+    },
+    {
+      "language": "python",
+      "line": 1569,
+      "path": "core\\engineer_agent.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1570,
+      "path": "core\\engineer_agent.py",
+      "text": "+ \"\\n\\nSafety Status:\\nRead-only. No files were modified.\""
+    },
+    {
+      "language": "python",
+      "line": 1571,
+      "path": "core\\engineer_agent.py",
+      "text": ")"
+    }
+  ],
+  "schema": "foxai.agent_fox.technical_core.v1a2r1.refined_static_bridge.v1",
+  "shard_number": 11
+}

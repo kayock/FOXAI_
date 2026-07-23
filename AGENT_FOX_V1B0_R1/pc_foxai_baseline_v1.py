@@ -1,0 +1,1412 @@
+from __future__ import annotations
+
+import argparse
+import ctypes
+import hashlib
+import ipaddress
+import json
+import os
+import platform
+import re
+import shutil
+import subprocess
+import sys
+import time
+from datetime import datetime, timezone
+from pathlib import Path
+from typing import Any, Iterable
+
+SCHEMA_PREFIX = "foxai.agent_fox.technical_core.v1b0"
+PROJECT_ROOT = Path(r"Z:\FOXAI")
+TECHNICAL_CORE_DIR = PROJECT_ROOT / "System" / "AgentFoxTechnicalCore"
+WORKSHOP_ROOT = PROJECT_ROOT / "System" / "EngineeringWorkshop"
+OUTPUT_NAMES = (
+    "HOST_AND_WINDOWS_BASELINE.json",
+    "ACTIVE_DRIVE_BASELINE.json",
+    "FOXAI_ACTIVE_WORKSPACE_BASELINE.json",
+    "PYTHON_RUNTIME_INVENTORY.json",
+    "PROCESS_RESOURCE_BASELINE.json",
+    "SERVICE_STARTUP_AND_LISTENER_BASELINE.json",
+    "PC_BASELINE_OBSERVATIONS.json",
+    "PC_BASELINE_RECEIPT.json",
+)
+OUTPUT_CEILING_BYTES = 16 * 1024 * 1024
+ALLOWED_OBSERVATION_LABELS = {
+    "observed_fact",
+    "potential_attention_item",
+    "unavailable",
+    "not_evaluated",
+}
+KNOWN_FILE_BASELINES = {
+    r"Z:\FOXAI\core\foxai_web.py": "d7bf0a2042d55ef7f0a5869556015e42c7427e7ff88636b28e1795f3adf7b952",
+    r"Z:\FOXAI\ui\main_window.py": "a9c5bb86878e5f0cd27d221dbb32688b337e6026073a4b66d83339e0aef294a3",
+    r"Z:\FOXAI\System\AgentFoxTechnicalCore\self_knowledge_chat_adapter_v1.py": "a80a9047e0eebd9ac87fe4d656c565bc6534563bb3c97e1ad9b59823a36804f7",
+    r"Z:\FOXAI\System\AgentFoxTechnicalCore\webui_self_knowledge_integration_v1.py": "765983b563f8495138c9670849de5c4703f4735a0ddc9324efd6580606fc517b",
+    r"Z:\FOXAI\System\AgentFoxTechnicalCore\desktop_self_knowledge_integration_v1.py": "e420706136b4902d82d8dbf1fecc64ae70fb8bc639106db41033545f8c196c30",
+}
+KNOWN_LAUNCHER_NAMES = (
+    "START_FOXAI_WEB_PORTABLE.bat",
+    "START_FOXAI_WEB_WITH_COMFYUI.bat",
+    "START_FOXAI_DESKTOP_TWO_WINDOW_RECOVERY.bat",
+    "Launch FOXAI Workshop.bat",
+)
+KNOWN_PYTHON_PATHS = (
+    Path(r"Z:\FOXAI\Runtime\Desktop\python\python.exe"),
+    Path(r"Z:\FOXAI\Runtime\Desktop\python\pythonw.exe"),
+    Path(r"Z:\FOXAI\env\python\python.exe"),
+    Path(r"Z:\FOXAI\.venv\Scripts\python.exe"),
+)
+POWERSHELL_TIMEOUT_SECONDS = 45
+PYTHON_PROBE_TIMEOUT_SECONDS = 12
+MAX_PROCESS_ROWS = 500
+MAX_SERVICE_ROWS = 600
+MAX_STARTUP_ROWS = 200
+MAX_LISTENER_ROWS = 500
+
+
+def utc_now() -> str:
+    return datetime.now(timezone.utc).isoformat(timespec="microseconds").replace("+00:00", "Z")
+
+
+def canonical_bytes(value: Any) -> bytes:
+    return (json.dumps(value, indent=2, sort_keys=True, ensure_ascii=False) + "\n").encode("utf-8")
+
+
+def sha256_bytes(data: bytes) -> str:
+    return hashlib.sha256(data).hexdigest()
+
+
+def sha256_file(path: Path) -> str:
+    digest = hashlib.sha256()
+    with Path(path).open("rb") as handle:
+        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
+def stable_id(kind: str, value: Any) -> str:
+    material = canonical_bytes({"kind": kind, "value": value})
+    return f"{kind.upper()}-{sha256_bytes(material)[:16].upper()}"
+
+
+class AuditLog:
+    def __init__(self, collected_at: str):
+        self.collected_at = collected_at
+        self.entries: list[dict[str, Any]] = []
+        self.child_processes: list[dict[str, Any]] = []
+        self.paths_read: list[str] = []
+
+    def api(self, label: str, source: str, details: dict[str, Any] | None = None) -> None:
+        self.entries.append(
+            {
+                "audit_id": stable_id("audit", {"label": label, "source": source, "index": len(self.entries)}),
+                "label": label,
+                "method": "local_api_read",
+                "source": source,
+                "details": details or {},
+                "collected_at": self.collected_at,
+            }
+        )
+
+    def file_read(self, path: Path, purpose: str) -> None:
+        normalized = str(path)
+        self.paths_read.append(normalized)
+        self.entries.append(
+            {
+                "audit_id": stable_id("audit", {"path": normalized, "purpose": purpose, "index": len(self.entries)}),
+                "label": purpose,
+                "method": "bounded_file_read",
+                "source": normalized,
+                "details": {},
+                "collected_at": self.collected_at,
+            }
+        )
+
+    def child(self, executable: str, label: str, script: str, timeout_seconds: int) -> None:
+        row = {
+            "collector_id": stable_id("collector", {"label": label, "script_sha256": sha256_bytes(script.encode("utf-8"))}),
+            "label": label,
+            "executable_name": Path(executable).name,
+            "script_sha256": sha256_bytes(script.encode("utf-8")),
+            "timeout_seconds": timeout_seconds,
+            "argument_policy": "fixed_read_only_collector_or_isolated_runtime_probe",
+            "network_activity": "none_requested",
+            "collected_at": self.collected_at,
+        }
+        self.child_processes.append(row)
+        self.entries.append(
+            {
+                "audit_id": stable_id("audit", {"collector": row["collector_id"], "index": len(self.entries)}),
+                "label": label,
+                "method": "bounded_child_process",
+                "source": Path(executable).name,
+                "details": {
+                    "collector_id": row["collector_id"],
+                    "script_sha256": row["script_sha256"],
+                    "timeout_seconds": timeout_seconds,
+                },
+                "collected_at": self.collected_at,
+            }
+        )
+
+
+def _profile_markers() -> list[str]:
+    markers: list[str] = []
+    for key in ("USERPROFILE", "HOME"):
+        value = os.environ.get(key)
+        if value:
+            markers.append(value.rstrip("\\/"))
+    username = os.environ.get("USERNAME") or os.environ.get("USER")
+    if username:
+        markers.append(username)
+    return sorted({m for m in markers if len(m) >= 2}, key=len, reverse=True)
+
+
+PROFILE_MARKERS = _profile_markers()
+
+
+def redact_text(value: Any) -> Any:
+    if not isinstance(value, str):
+        return value
+    result = value
+    for marker in PROFILE_MARKERS:
+        if re.fullmatch(r"[A-Za-z0-9._-]+", marker):
+            result = re.sub(rf"(?i)(?<=\\Users\\){re.escape(marker)}(?=\\|$)", "<REDACTED>", result)
+            result = re.sub(rf"(?i)(?<=/Users/){re.escape(marker)}(?=/|$)", "<REDACTED>", result)
+        else:
+            result = re.sub(re.escape(marker), lambda _m: r"C:\Users\<REDACTED>", result, flags=re.IGNORECASE)
+    result = re.sub(r"(?i)C:\\Users\\[^\\\s\"']+", lambda _m: r"C:\Users\<REDACTED>", result)
+    result = re.sub(r"(?i)C:/Users/[^/\s\"']+", "C:/Users/<REDACTED>", result)
+    return result
+
+
+def sanitize(value: Any) -> Any:
+    if isinstance(value, dict):
+        return {str(key): sanitize(item) for key, item in value.items()}
+    if isinstance(value, list):
+        return [sanitize(item) for item in value]
+    if isinstance(value, tuple):
+        return [sanitize(item) for item in value]
+    return redact_text(value)
+
+
+def record(
+    kind: str,
+    subject: str,
+    status: str,
+    method: str,
+    collected_at: str,
+    facts: dict[str, Any] | None = None,
+    provenance: dict[str, Any] | None = None,
+    reason: str | None = None,
+) -> dict[str, Any]:
+    identity = {"kind": kind, "subject": subject, "facts": facts or {}, "status": status}
+    row = {
+        "record_id": stable_id(kind, sanitize(identity)),
+        "subject": subject,
+        "availability_status": status,
+        "collection_method": method,
+        "collected_at": collected_at,
+        "provenance": sanitize(provenance or {}),
+        "facts": sanitize(facts or {}),
+    }
+    if reason:
+        row["unavailable_reason"] = redact_text(reason)
+    return row
+
+
+def _powershell_executable() -> str | None:
+    for candidate in (shutil.which("powershell.exe"), shutil.which("pwsh.exe"), shutil.which("powershell"), shutil.which("pwsh")):
+        if candidate:
+            return candidate
+    return None
+
+
+def run_powershell_json(script: str, label: str, audit: AuditLog, timeout: int = POWERSHELL_TIMEOUT_SECONDS) -> tuple[Any | None, str | None]:
+    executable = _powershell_executable()
+    if not executable:
+        return None, "PowerShell collector unavailable"
+    prefix = (
+        "[Console]::OutputEncoding=[System.Text.UTF8Encoding]::new($false);"
+        "$OutputEncoding=[System.Text.UTF8Encoding]::new($false);"
+        "$ProgressPreference='SilentlyContinue';$ErrorActionPreference='Stop';"
+    )
+    full_script = prefix + script
+    audit.child(executable, label, full_script, timeout)
+    try:
+        completed = subprocess.run(
+            [
+                executable,
+                "-NoLogo",
+                "-NoProfile",
+                "-NonInteractive",
+                "-ExecutionPolicy",
+                "Bypass",
+                "-Command",
+                full_script,
+            ],
+            capture_output=True,
+            text=True,
+            encoding="utf-8",
+            errors="replace",
+            timeout=timeout,
+            check=False,
+            creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0),
+        )
+    except Exception as exc:
+        return None, f"PowerShell collector failed to start: {type(exc).__name__}"
+    if completed.returncode != 0:
+        tail = (completed.stderr or "").strip().splitlines()[-1:] or ["collector returned nonzero"]
+        return None, redact_text(tail[0])[:300]
+    output = (completed.stdout or "").strip().lstrip("\ufeff")
+    if not output:
+        return None, "PowerShell collector returned no JSON"
+    try:
+        return json.loads(output), None
+    except Exception as exc:
+        return None, f"PowerShell JSON parse failed: {type(exc).__name__}"
+
+
+def _read_registry_value(root: Any, key_path: str, name: str) -> tuple[Any | None, str | None]:
+    if os.name != "nt":
+        return None, "Windows registry unavailable on this platform"
+    try:
+        import winreg
+
+        with winreg.OpenKey(root, key_path, 0, winreg.KEY_READ) as key:
+            value, _kind = winreg.QueryValueEx(key, name)
+            return value, None
+    except Exception as exc:
+        return None, f"registry value unavailable: {type(exc).__name__}"
+
+
+def collect_host(collected_at: str, audit: AuditLog) -> dict[str, Any]:
+    audit.api("host identity", "Python os/platform and read-only Windows APIs")
+    records: list[dict[str, Any]] = []
+    computer_name = os.environ.get("COMPUTERNAME") or platform.node() or "unavailable"
+    records.append(
+        record(
+            "host",
+            "host_identity",
+            "available",
+            "Python os/platform",
+            collected_at,
+            {
+                "computer_name": computer_name,
+                "architecture": platform.machine(),
+                "python_collector_architecture_bits": ctypes.sizeof(ctypes.c_void_p) * 8,
+                "environment_variable_name_count": len(os.environ),
+                "environment_variable_values_recorded": False,
+            },
+            {"api": ["os.environ names/count", "platform.machine", "ctypes pointer size"]},
+        )
+    )
+
+    windows_facts: dict[str, Any] = {
+        "platform_system": platform.system(),
+        "platform_release": platform.release(),
+        "platform_version": platform.version(),
+    }
+    registry_sources: list[str] = []
+    if os.name == "nt":
+        import winreg
+
+        key_path = r"SOFTWARE\Microsoft\Windows NT\CurrentVersion"
+        mapping = {
+            "ProductName": "edition",
+            "DisplayVersion": "display_version",
+            "CurrentBuildNumber": "build_number",
+            "UBR": "update_build_revision",
+            "EditionID": "edition_id",
+        }
+        for source_name, target_name in mapping.items():
+            value, error = _read_registry_value(winreg.HKEY_LOCAL_MACHINE, key_path, source_name)
+            registry_sources.append(f"HKLM\\{key_path}\\{source_name}")
+            if error is None:
+                windows_facts[target_name] = value
+    records.append(
+        record(
+            "windows",
+            "windows_identity",
+            "available" if platform.system() == "Windows" else "unavailable_with_reason",
+            "Python platform plus HKLM read-only registry",
+            collected_at,
+            windows_facts,
+            {"registry_values": registry_sources, "platform_api": "platform"},
+            None if platform.system() == "Windows" else "collector is not running on Windows",
+        )
+    )
+
+    hardware_script = r"""
+$os=Get-CimInstance Win32_OperatingSystem
+$cs=Get-CimInstance Win32_ComputerSystem
+$cpus=@(Get-CimInstance Win32_Processor)
+$gpus=@(Get-CimInstance Win32_VideoController)
+$page=@(Get-CimInstance Win32_PageFileUsage)
+[pscustomobject]@{
+ os_caption=$os.Caption
+ os_version=$os.Version
+ os_build=$os.BuildNumber
+ last_boot_utc=if($os.LastBootUpTime){$os.LastBootUpTime.ToUniversalTime().ToString('o')}else{$null}
+ total_visible_memory_kib=[int64]$os.TotalVisibleMemorySize
+ free_physical_memory_kib=[int64]$os.FreePhysicalMemory
+ total_physical_memory_bytes=[int64]$cs.TotalPhysicalMemory
+ logical_processors=[int]$cs.NumberOfLogicalProcessors
+ physical_processor_packages=[int]$cs.NumberOfProcessors
+ cpus=@($cpus|ForEach-Object{[pscustomobject]@{name=$_.Name;physical_cores=[int]$_.NumberOfCores;logical_processors=[int]$_.NumberOfLogicalProcessors;max_clock_mhz=[int]$_.MaxClockSpeed}})
+ gpus=@($gpus|ForEach-Object{[pscustomobject]@{name=$_.Name;adapter_ram_bytes=if($_.AdapterRAM){[uint64]$_.AdapterRAM}else{$null};driver_version=$_.DriverVersion}})
+ page_files=@($page|ForEach-Object{[pscustomobject]@{name=$_.Name;allocated_mib=[int64]$_.AllocatedBaseSize;current_usage_mib=[int64]$_.CurrentUsage;peak_usage_mib=[int64]$_.PeakUsage}})
+}|ConvertTo-Json -Depth 6 -Compress
+"""
+    hardware, error = run_powershell_json(hardware_script, "Windows hardware and memory CIM snapshot", audit)
+    if error:
+        records.append(
+            record(
+                "hardware",
+                "hardware_memory_and_display",
+                "unavailable_with_reason",
+                "PowerShell Get-CimInstance read-only",
+                collected_at,
+                {},
+                {"collector": "Win32_OperatingSystem/ComputerSystem/Processor/VideoController/PageFileUsage"},
+                error,
+            )
+        )
+    else:
+        hardware = sanitize(hardware)
+        for key in ("cpus", "gpus", "page_files"):
+            value = hardware.get(key)
+            if isinstance(value, dict):
+                hardware[key] = [value]
+            elif not isinstance(value, list):
+                hardware[key] = []
+        hardware["physical_core_count"] = sum(int(item.get("physical_cores") or 0) for item in hardware["cpus"] if isinstance(item, dict))
+        hardware["logical_processor_count"] = int(hardware.get("logical_processors") or 0) or sum(int(item.get("logical_processors") or 0) for item in hardware["cpus"] if isinstance(item, dict))
+        try:
+            total = int(hardware.get("total_physical_memory_bytes") or 0)
+            free = int(hardware.get("free_physical_memory_kib") or 0) * 1024
+            used = max(total - free, 0) if total else None
+            hardware["available_physical_memory_bytes"] = free
+            hardware["used_physical_memory_bytes"] = used
+            hardware["memory_used_percent"] = round((used / total) * 100.0, 2) if total and used is not None else None
+            boot = hardware.get("last_boot_utc")
+            if boot:
+                boot_dt = datetime.fromisoformat(str(boot).replace("Z", "+00:00"))
+                hardware["uptime_seconds"] = max(0, int((datetime.now(timezone.utc) - boot_dt).total_seconds()))
+        except Exception:
+            hardware["uptime_seconds"] = None
+        records.append(
+            record(
+                "hardware",
+                "hardware_memory_and_display",
+                "available",
+                "PowerShell Get-CimInstance read-only",
+                collected_at,
+                hardware,
+                {"cim_classes": ["Win32_OperatingSystem", "Win32_ComputerSystem", "Win32_Processor", "Win32_VideoController", "Win32_PageFileUsage"]},
+            )
+        )
+    return {
+        "schema": f"{SCHEMA_PREFIX}.host_and_windows_baseline.v1",
+        "collected_at": collected_at,
+        "records": records,
+        "sensitive_identifiers_excluded": [
+            "product_keys",
+            "device_serial_numbers",
+            "motherboard_uuid",
+            "mac_addresses",
+            "credentials",
+            "account_tokens",
+        ],
+    }
+
+
+def _volume_information(root: str, collected_at: str, audit: AuditLog) -> dict[str, Any]:
+    audit.api(f"drive {root} capacity", "GetDiskFreeSpaceExW/GetVolumeInformationW", {"root": root})
+    if os.name != "nt":
+        return record(
+            "drive",
+            root,
+            "unavailable_with_reason",
+            "Win32 volume APIs",
+            collected_at,
+            {"drive_root": root, "reachable": False},
+            {"api": ["GetDiskFreeSpaceExW", "GetVolumeInformationW"]},
+            "Win32 volume APIs unavailable",
+        )
+    kernel32 = ctypes.windll.kernel32
+    free_available = ctypes.c_ulonglong(0)
+    total_bytes = ctypes.c_ulonglong(0)
+    total_free = ctypes.c_ulonglong(0)
+    ok = kernel32.GetDiskFreeSpaceExW(
+        ctypes.c_wchar_p(root),
+        ctypes.byref(free_available),
+        ctypes.byref(total_bytes),
+        ctypes.byref(total_free),
+    )
+    if not ok:
+        return record(
+            "drive",
+            root,
+            "unavailable_with_reason",
+            "GetDiskFreeSpaceExW",
+            collected_at,
+            {"drive_root": root, "reachable": False},
+            {"api": "GetDiskFreeSpaceExW"},
+            f"drive unavailable; winerror={ctypes.get_last_error()}",
+        )
+    fs_name = ctypes.create_unicode_buffer(64)
+    volume_name = ctypes.create_unicode_buffer(64)
+    serial = ctypes.c_ulong(0)
+    max_component = ctypes.c_ulong(0)
+    flags = ctypes.c_ulong(0)
+    fs_ok = kernel32.GetVolumeInformationW(
+        ctypes.c_wchar_p(root),
+        volume_name,
+        len(volume_name),
+        ctypes.byref(serial),
+        ctypes.byref(max_component),
+        ctypes.byref(flags),
+        fs_name,
+        len(fs_name),
+    )
+    total = int(total_bytes.value)
+    free = int(total_free.value)
+    used = max(total - free, 0)
+    return record(
+        "drive",
+        root,
+        "available",
+        "GetDiskFreeSpaceExW/GetVolumeInformationW",
+        collected_at,
+        {
+            "drive_root": root,
+            "reachable": True,
+            "filesystem": fs_name.value if fs_ok else "unavailable",
+            "total_bytes": total,
+            "free_bytes": free,
+            "used_bytes": used,
+            "free_percent": round((free / total) * 100.0, 2) if total else None,
+            "volume_serial_recorded": False,
+            "volume_label_recorded": False,
+        },
+        {"api": ["GetDiskFreeSpaceExW", "GetVolumeInformationW"], "queried_root": root},
+    )
+
+
+def collect_drives(collected_at: str, audit: AuditLog) -> dict[str, Any]:
+    roots = ("C:\\", "Z:\\", "S:\\")
+    rows = [_volume_information(root, collected_at, audit) for root in roots]
+    return {
+        "schema": f"{SCHEMA_PREFIX}.active_drive_baseline.v1",
+        "collected_at": collected_at,
+        "queried_drive_roots": list(roots),
+        "excluded_drive_roots": ["rollback drive excluded by policy"],
+        "records": rows,
+        "storage_tests_performed": [],
+    }
+
+
+def _bounded_root_counts(path: Path, audit: AuditLog) -> dict[str, Any]:
+    audit.file_read(path, "bounded immediate directory count")
+    try:
+        entries = list(path.iterdir())
+    except Exception as exc:
+        return {"availability_status": "unavailable_with_reason", "reason": type(exc).__name__}
+    return {
+        "availability_status": "available",
+        "immediate_file_count": sum(1 for item in entries if item.is_file()),
+        "immediate_directory_count": sum(1 for item in entries if item.is_dir()),
+        "entry_count": len(entries),
+        "recursive": False,
+    }
+
+
+def _find_launcher_path(name: str) -> Path:
+    direct = PROJECT_ROOT / name
+    if direct.exists():
+        return direct
+    # The search remains bounded to the project root and one directory level.
+    try:
+        for child in PROJECT_ROOT.iterdir():
+            if child.is_dir():
+                candidate = child / name
+                if candidate.exists():
+                    return candidate
+    except Exception:
+        pass
+    return direct
+
+
+def collect_workspace(collected_at: str, audit: AuditLog, drive_output: dict[str, Any]) -> dict[str, Any]:
+    records: list[dict[str, Any]] = []
+    exists = PROJECT_ROOT.is_dir()
+    z_drive = next(
+        (row for row in drive_output.get("records", []) if str(row.get("facts", {}).get("drive_root", "")).upper() == "Z:\\"),
+        None,
+    )
+    z_filesystem = z_drive.get("facts", {}).get("filesystem") if z_drive else None
+    records.append(
+        record(
+            "workspace",
+            "active_foxai_workspace",
+            "available" if exists else "unavailable_with_reason",
+            "bounded pathlib existence, immediate counts, and linked Win32 volume evidence",
+            collected_at,
+            {
+                "root": str(PROJECT_ROOT),
+                "exists": exists,
+                "active_build_workspace": True if exists else None,
+                "workspace_role": "active internal build workspace" if exists else None,
+                "filesystem": z_filesystem,
+                "filesystem_is_ntfs": str(z_filesystem or "").upper() == "NTFS",
+                "workspace_architecture_basis": "approved project architecture plus live Z: volume evidence",
+                "bounded_root_counts": _bounded_root_counts(PROJECT_ROOT, audit) if exists else None,
+                "technical_core_counts": _bounded_root_counts(TECHNICAL_CORE_DIR, audit) if TECHNICAL_CORE_DIR.is_dir() else {"availability_status": "unavailable_with_reason"},
+            },
+            {"path": str(PROJECT_ROOT), "recursive_hashing": False, "drive_record_id": z_drive.get("record_id") if z_drive else None},
+            None if exists else "Z:/FOXAI is unavailable",
+        )
+    )
+
+    launchers: list[dict[str, Any]] = []
+    for name in KNOWN_LAUNCHER_NAMES:
+        path = _find_launcher_path(name)
+        row: dict[str, Any] = {"name": name, "path": str(path), "exists": path.is_file()}
+        if path.is_file():
+            audit.file_read(path, "known-good launcher identity")
+            data = path.read_bytes()
+            row.update({"size_bytes": len(data), "sha256": sha256_bytes(data)})
+        launchers.append(sanitize(row))
+    records.append(
+        record(
+            "workspace",
+            "selected_known_good_launchers",
+            "available",
+            "bounded launcher path checks and SHA-256",
+            collected_at,
+            {"launchers": launchers, "launcher_count": len(launchers)},
+            {"names": list(KNOWN_LAUNCHER_NAMES), "search_depth": 1},
+        )
+    )
+
+    known_files: list[dict[str, Any]] = []
+    for raw_path, expected_sha in KNOWN_FILE_BASELINES.items():
+        path = Path(raw_path)
+        item = {
+            "path": raw_path,
+            "exists": path.is_file(),
+            "expected_known_good_sha256": expected_sha,
+            "sha256_matches_expected": False,
+        }
+        if path.is_file():
+            audit.file_read(path, "bounded known-good source/component hash")
+            data = path.read_bytes()
+            actual = sha256_bytes(data)
+            item.update({"actual_sha256": actual, "size_bytes": len(data), "sha256_matches_expected": actual == expected_sha})
+        known_files.append(item)
+    records.append(
+        record(
+            "workspace",
+            "known_good_source_and_component_hashes",
+            "available",
+            "bounded SHA-256 verification",
+            collected_at,
+            {"files": known_files, "file_count": len(known_files)},
+            {"algorithm": "SHA-256", "recursive_hashing": False},
+        )
+    )
+
+    workshop_locations = {
+        "receipts": str(WORKSHOP_ROOT / "receipts"),
+        "snapshots": str(WORKSHOP_ROOT / "snapshots"),
+        "missions": str(WORKSHOP_ROOT / "missions"),
+    }
+    records.append(
+        record(
+            "workspace",
+            "engineering_workshop_locations",
+            "available",
+            "bounded directory existence checks",
+            collected_at,
+            {
+                "locations": [
+                    {"kind": kind, "path": path, "exists": Path(path).is_dir()}
+                    for kind, path in workshop_locations.items()
+                ]
+            },
+            {"root": str(WORKSHOP_ROOT)},
+        )
+    )
+    return {
+        "schema": f"{SCHEMA_PREFIX}.foxai_active_workspace_baseline.v1",
+        "collected_at": collected_at,
+        "records": records,
+        "full_tree_hash_performed": False,
+        "live_foxai_modules_imported": False,
+    }
+
+
+def _extract_python_paths_from_launcher(path: Path, audit: AuditLog) -> list[dict[str, Any]]:
+    if not path.is_file():
+        return []
+    audit.file_read(path, "bounded Python reference scan in launcher")
+    text = path.read_text(encoding="utf-8", errors="replace")
+    found: list[dict[str, Any]] = []
+    patterns = (
+        re.compile(r'(?i)"([A-Za-z]:\\[^"\r\n]*?pythonw?\.exe)"'),
+        re.compile(r'(?i)([A-Za-z]:\\[^\r\n&|<>]*?pythonw?\.exe)'),
+    )
+    for pattern in patterns:
+        for match in pattern.finditer(text):
+            literal = match.group(1).strip()
+            found.append({"literal": literal, "resolved_path": literal, "launcher": str(path)})
+    set_pattern = re.compile(r'(?im)^\s*set\s+"?([A-Za-z_][A-Za-z0-9_]*)=([^"\r\n]+pythonw?\.exe)"?\s*$')
+    for match in set_pattern.finditer(text):
+        found.append({"literal": f"%{match.group(1)}%", "resolved_path": match.group(2).strip(), "launcher": str(path)})
+    unique: dict[str, dict[str, Any]] = {}
+    for row in found:
+        key = str(row["resolved_path"]).lower()
+        unique[key] = sanitize(row)
+    return list(unique.values())
+
+
+def _runtime_classification(path: Path, prefix: str | None, base_prefix: str | None) -> str:
+    normalized = str(path).lower().replace("/", "\\")
+    if "\\foxai\\runtime\\desktop\\python\\" in normalized:
+        return "portable_project_runtime"
+    if "\\foxai\\env\\python\\" in normalized:
+        return "project_environment_runtime"
+    if "\\foxai\\.venv\\scripts\\" in normalized:
+        if base_prefix and str(base_prefix).lower().startswith("c:\\"):
+            return "project_venv_host_base_dependent"
+        return "project_virtual_environment"
+    if normalized.startswith("c:\\python"):
+        return "host_python_runtime"
+    return "other_discovered_runtime"
+
+
+def _python_probe_script() -> str:
+    return (
+        "import json,platform,struct,sys;"
+        "print(json.dumps({"
+        "'executable':sys.executable,'version':platform.python_version(),"
+        "'implementation':platform.python_implementation(),"
+        "'architecture_bits':struct.calcsize('P')*8,'prefix':sys.prefix,"
+        "'base_prefix':sys.base_prefix,'exec_prefix':sys.exec_prefix,"
+        "'base_exec_prefix':sys.base_exec_prefix,'isolated':bool(sys.flags.isolated),"
+        "'ignore_environment':bool(sys.flags.ignore_environment),"
+        "'no_user_site':bool(sys.flags.no_user_site),'no_site':bool(sys.flags.no_site),"
+        "'site_imported_by_default':('site' in sys.modules),'sys_path':sys.path[:24]},"
+        "sort_keys=True))"
+    )
+
+
+def _probe_python(path: Path, discovered_by: list[str], launcher_refs: list[dict[str, Any]], collected_at: str, audit: AuditLog) -> dict[str, Any]:
+    subject = str(path)
+    if not path.is_file():
+        return record(
+            "python_runtime",
+            subject,
+            "unavailable_with_reason",
+            "bounded executable existence check",
+            collected_at,
+            {"path": subject, "discovered_by": discovered_by, "launcher_references": launcher_refs},
+            {"path": subject},
+            "interpreter executable not present",
+        )
+    script = _python_probe_script()
+    audit.child(str(path), "isolated Python runtime identity probe", script, PYTHON_PROBE_TIMEOUT_SECONDS)
+    try:
+        completed = subprocess.run(
+            [str(path), "-I", "-B", "-c", script],
+            capture_output=True,
+            text=True,
+            encoding="utf-8",
+            errors="replace",
+            timeout=PYTHON_PROBE_TIMEOUT_SECONDS,
+            check=False,
+            creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0),
+        )
+    except Exception as exc:
+        return record(
+            "python_runtime",
+            subject,
+            "unavailable_with_reason",
+            "isolated no-user-site child probe",
+            collected_at,
+            {"path": subject, "discovered_by": discovered_by, "launcher_references": launcher_refs},
+            {"argv_policy": "-I -B -c fixed stdlib identity probe"},
+            f"runtime probe failed: {type(exc).__name__}",
+        )
+    if completed.returncode != 0:
+        return record(
+            "python_runtime",
+            subject,
+            "unavailable_with_reason",
+            "isolated no-user-site child probe",
+            collected_at,
+            {"path": subject, "discovered_by": discovered_by, "launcher_references": launcher_refs},
+            {"argv_policy": "-I -B -c fixed stdlib identity probe", "returncode": completed.returncode},
+            "runtime probe returned nonzero",
+        )
+    try:
+        facts = json.loads((completed.stdout or "").strip())
+    except Exception as exc:
+        return record(
+            "python_runtime",
+            subject,
+            "unavailable_with_reason",
+            "isolated no-user-site child probe",
+            collected_at,
+            {"path": subject, "discovered_by": discovered_by, "launcher_references": launcher_refs},
+            {"argv_policy": "-I -B -c fixed stdlib identity probe"},
+            f"runtime JSON parse failed: {type(exc).__name__}",
+        )
+    facts = sanitize(facts)
+    facts["path"] = redact_text(subject)
+    facts["discovered_by"] = discovered_by
+    facts["launcher_references"] = launcher_refs
+    facts["classification"] = _runtime_classification(path, facts.get("prefix"), facts.get("base_prefix"))
+    facts["virtual_environment"] = facts.get("prefix") != facts.get("base_prefix")
+    facts["host_base_dependency"] = bool(
+        str(path).lower().replace("/", "\\").startswith("z:\\")
+        and str(facts.get("base_prefix") or "").lower().startswith("c:\\")
+    )
+    facts["package_inventory_collected"] = False
+    return record(
+        "python_runtime",
+        subject,
+        "available",
+        "isolated no-user-site child probe",
+        collected_at,
+        facts,
+        {"argv_policy": "-I -B -c fixed stdlib identity probe", "probe_script_sha256": sha256_bytes(script.encode("utf-8"))},
+    )
+
+
+def collect_python(collected_at: str, audit: AuditLog) -> dict[str, Any]:
+    candidates: dict[str, dict[str, Any]] = {}
+
+    def add(path: Path, source: str, launcher_ref: dict[str, Any] | None = None) -> None:
+        key = str(path).lower()
+        row = candidates.setdefault(key, {"path": path, "sources": [], "launcher_refs": []})
+        if source not in row["sources"]:
+            row["sources"].append(source)
+        if launcher_ref and launcher_ref not in row["launcher_refs"]:
+            row["launcher_refs"].append(launcher_ref)
+
+    for path in KNOWN_PYTHON_PATHS:
+        add(path, "known_foxai_runtime_path")
+    if sys.executable:
+        add(Path(sys.executable), "current_collector_interpreter")
+    try:
+        for path in Path("C:\\").glob("Python*/python.exe"):
+            add(path, "bounded_C_root_Python_glob")
+    except Exception:
+        pass
+    launcher_scan: list[dict[str, Any]] = []
+    for name in KNOWN_LAUNCHER_NAMES:
+        launcher = _find_launcher_path(name)
+        for ref in _extract_python_paths_from_launcher(launcher, audit):
+            launcher_scan.append(ref)
+            add(Path(ref["resolved_path"]), "known_launcher_reference", ref)
+    rows = [
+        _probe_python(row["path"], sorted(row["sources"]), row["launcher_refs"], collected_at, audit)
+        for _key, row in sorted(candidates.items(), key=lambda pair: pair[0])
+    ]
+    available = [row for row in rows if row["availability_status"] == "available"]
+    return {
+        "schema": f"{SCHEMA_PREFIX}.python_runtime_inventory.v1",
+        "collected_at": collected_at,
+        "records": rows,
+        "summary": {
+            "candidate_count": len(rows),
+            "available_count": len(available),
+            "unavailable_count": len(rows) - len(available),
+            "launcher_reference_count": len(launcher_scan),
+            "packages_changed": False,
+            "packages_enumerated": False,
+            "live_foxai_modules_imported": False,
+        },
+    }
+
+
+def _process_classification(name: str, executable: str | None) -> str:
+    lowered = (name or "").lower()
+    path = (executable or "").lower()
+    if "comfyui" in lowered or "comfyui" in path:
+        return "comfyui_related"
+    if "python" in lowered:
+        return "python_runtime"
+    if "foxai" in lowered or "\\foxai\\" in path:
+        return "foxai_related"
+    if lowered in {"chrome.exe", "msedge.exe", "firefox.exe", "thorium.exe", "brave.exe", "opera.exe"}:
+        return "browser"
+    return "other"
+
+
+def collect_processes(collected_at: str, audit: AuditLog) -> dict[str, Any]:
+    script = r"""
+@(
+ Get-CimInstance Win32_Process | ForEach-Object {
+  [pscustomobject]@{
+   name=$_.Name
+   pid=[int]$_.ProcessId
+   parent_pid=[int]$_.ParentProcessId
+   kernel_time_100ns=if($_.KernelModeTime){[uint64]$_.KernelModeTime}else{0}
+   user_time_100ns=if($_.UserModeTime){[uint64]$_.UserModeTime}else{0}
+   working_set_bytes=if($_.WorkingSetSize){[uint64]$_.WorkingSetSize}else{0}
+   executable_path=$_.ExecutablePath
+  }
+ }
+)|ConvertTo-Json -Depth 4 -Compress
+"""
+    data, error = run_powershell_json(script, "running process CIM snapshot", audit)
+    if error:
+        return {
+            "schema": f"{SCHEMA_PREFIX}.process_resource_baseline.v1",
+            "collected_at": collected_at,
+            "availability_status": "unavailable_with_reason",
+            "unavailable_reason": error,
+            "records": [],
+            "command_line_arguments_recorded": False,
+        }
+    source_rows = data if isinstance(data, list) else [data]
+    normalized: list[dict[str, Any]] = []
+    for item in source_rows:
+        if not isinstance(item, dict):
+            continue
+        working = int(item.get("working_set_bytes") or 0)
+        cpu_seconds = round((int(item.get("kernel_time_100ns") or 0) + int(item.get("user_time_100ns") or 0)) / 10_000_000.0, 3)
+        executable = redact_text(item.get("executable_path")) if item.get("executable_path") else None
+        facts = {
+            "name": item.get("name"),
+            "pid": int(item.get("pid") or 0),
+            "parent_pid": int(item.get("parent_pid") or 0),
+            "cpu_time_seconds": cpu_seconds,
+            "working_set_bytes": working,
+            "executable_path_redacted": executable,
+            "classification": _process_classification(str(item.get("name") or ""), executable),
+            "full_command_line_recorded": False,
+        }
+        normalized.append(
+            record(
+                "process",
+                f"pid:{facts['pid']}:{facts['name']}",
+                "available",
+                "PowerShell Get-CimInstance Win32_Process",
+                collected_at,
+                facts,
+                {"cim_class": "Win32_Process", "properties_excluded": ["CommandLine"]},
+            )
+        )
+    total = len(normalized)
+    if total > MAX_PROCESS_ROWS:
+        relevant = [row for row in normalized if row["facts"]["classification"] != "other"]
+        others = sorted(
+            [row for row in normalized if row["facts"]["classification"] == "other"],
+            key=lambda row: int(row["facts"].get("working_set_bytes") or 0),
+            reverse=True,
+        )
+        retained = relevant[:100] + others[: max(0, MAX_PROCESS_ROWS - min(len(relevant), 100))]
+        normalized = sorted(retained, key=lambda row: int(row["facts"].get("pid") or 0))
+    return {
+        "schema": f"{SCHEMA_PREFIX}.process_resource_baseline.v1",
+        "collected_at": collected_at,
+        "availability_status": "available",
+        "records": normalized,
+        "summary": {
+            "observed_process_count": total,
+            "retained_process_count": len(normalized),
+            "truncated": len(normalized) < total,
+            "row_cap": MAX_PROCESS_ROWS,
+            "command_line_arguments_recorded": False,
+            "processes_modified": False,
+        },
+    }
+
+
+def _extract_startup_executable(command: str | None) -> str | None:
+    if not command:
+        return None
+    text = str(command).strip()
+    if not text:
+        return None
+    if text.startswith('"'):
+        match = re.match(r'^"([^"]+)"', text)
+        if match:
+            return match.group(1)
+    match = re.match(r"(?i)^(.+?\.(?:exe|com|bat|cmd|ps1|vbs|js))(?=\s|$)", text)
+    if match:
+        return match.group(1).strip()
+    return text.split()[0]
+
+
+def _listener_classification(address: str) -> str:
+    raw = str(address or "").split("%", 1)[0]
+    if raw in {"0.0.0.0", "::", "*"}:
+        return "wildcard_externally_bound"
+    try:
+        parsed = ipaddress.ip_address(raw)
+    except Exception:
+        return "unclassified"
+    if parsed.is_loopback:
+        return "loopback_only"
+    if parsed.is_link_local:
+        return "link_local"
+    if parsed.is_unspecified:
+        return "wildcard_externally_bound"
+    return "specific_interface_bound"
+
+
+def collect_services_startup_listeners(collected_at: str, audit: AuditLog, process_output: dict[str, Any]) -> dict[str, Any]:
+    service_script = r"""
+@(
+ Get-CimInstance Win32_Service | ForEach-Object {
+  [pscustomobject]@{name=$_.Name;display_name=$_.DisplayName;state=$_.State;start_mode=$_.StartMode}
+ }
+)|ConvertTo-Json -Depth 4 -Compress
+"""
+    startup_script = r"""
+@(
+ Get-CimInstance Win32_StartupCommand | ForEach-Object {
+  [pscustomobject]@{name=$_.Name;command=$_.Command;location=$_.Location}
+ }
+)|ConvertTo-Json -Depth 4 -Compress
+"""
+    listener_script = r"""
+$tcp=@()
+try{$tcp=@(Get-NetTCPConnection -State Listen | ForEach-Object{[pscustomobject]@{protocol='TCP';local_address=$_.LocalAddress;local_port=[int]$_.LocalPort;owning_pid=[int]$_.OwningProcess}})}catch{}
+$udp=@()
+try{$udp=@(Get-NetUDPEndpoint | ForEach-Object{[pscustomobject]@{protocol='UDP';local_address=$_.LocalAddress;local_port=[int]$_.LocalPort;owning_pid=[int]$_.OwningProcess}})}catch{}
+[pscustomobject]@{tcp=$tcp;udp=$udp}|ConvertTo-Json -Depth 5 -Compress
+"""
+    services, service_error = run_powershell_json(service_script, "Windows service CIM snapshot", audit)
+    startup, startup_error = run_powershell_json(startup_script, "Windows startup command CIM snapshot", audit)
+    listeners, listener_error = run_powershell_json(listener_script, "local TCP and UDP listener snapshot", audit)
+
+    service_rows: list[dict[str, Any]] = []
+    if not service_error:
+        for item in (services if isinstance(services, list) else [services]):
+            if isinstance(item, dict):
+                service_rows.append(
+                    record(
+                        "service",
+                        str(item.get("name") or item.get("display_name") or "unnamed"),
+                        "available",
+                        "PowerShell Get-CimInstance Win32_Service",
+                        collected_at,
+                        {
+                            "service_name": item.get("name"),
+                            "display_name": item.get("display_name"),
+                            "state": item.get("state"),
+                            "start_type": item.get("start_mode"),
+                        },
+                        {"cim_class": "Win32_Service"},
+                    )
+                )
+    service_rows = service_rows[:MAX_SERVICE_ROWS]
+
+    startup_rows: list[dict[str, Any]] = []
+    if not startup_error:
+        for item in (startup if isinstance(startup, list) else [startup]):
+            if isinstance(item, dict):
+                executable = redact_text(_extract_startup_executable(item.get("command")))
+                startup_rows.append(
+                    record(
+                        "startup",
+                        str(item.get("name") or "unnamed"),
+                        "available",
+                        "PowerShell Get-CimInstance Win32_StartupCommand plus argument stripping",
+                        collected_at,
+                        {
+                            "name": item.get("name"),
+                            "executable_path_redacted": executable,
+                            "location_redacted": redact_text(item.get("location")),
+                            "arguments_recorded": False,
+                        },
+                        {"cim_class": "Win32_StartupCommand", "properties_excluded": ["User"], "command_arguments_discarded": True},
+                    )
+                )
+    startup_rows = startup_rows[:MAX_STARTUP_ROWS]
+
+    process_names: dict[int, str] = {}
+    for row in process_output.get("records", []):
+        facts = row.get("facts", {})
+        try:
+            process_names[int(facts.get("pid") or 0)] = str(facts.get("name") or "unknown")
+        except Exception:
+            pass
+    listener_rows: list[dict[str, Any]] = []
+    if not listener_error and isinstance(listeners, dict):
+        tcp_value = listeners.get("tcp")
+        udp_value = listeners.get("udp")
+        tcp_rows = tcp_value if isinstance(tcp_value, list) else ([tcp_value] if isinstance(tcp_value, dict) else [])
+        udp_rows = udp_value if isinstance(udp_value, list) else ([udp_value] if isinstance(udp_value, dict) else [])
+        for item in tcp_rows + udp_rows:
+            if not isinstance(item, dict):
+                continue
+            pid = int(item.get("owning_pid") or 0)
+            address = str(item.get("local_address") or "")
+            protocol = str(item.get("protocol") or "").upper()
+            port = int(item.get("local_port") or 0)
+            listener_rows.append(
+                record(
+                    "listener",
+                    f"{protocol}:{address}:{port}:{pid}",
+                    "available",
+                    "PowerShell Get-NetTCPConnection/Get-NetUDPEndpoint local enumeration",
+                    collected_at,
+                    {
+                        "protocol": protocol,
+                        "local_address": address,
+                        "local_port": port,
+                        "owning_pid": pid,
+                        "owning_process_name": process_names.get(pid, "unavailable"),
+                        "address_classification": _listener_classification(address),
+                        "remote_connection_attempted": False,
+                    },
+                    {"cmdlets": ["Get-NetTCPConnection -State Listen", "Get-NetUDPEndpoint"]},
+                )
+            )
+    listener_rows = listener_rows[:MAX_LISTENER_ROWS]
+
+    return {
+        "schema": f"{SCHEMA_PREFIX}.service_startup_listener_baseline.v1",
+        "collected_at": collected_at,
+        "services": {
+            "availability_status": "available" if not service_error else "unavailable_with_reason",
+            "unavailable_reason": service_error,
+            "records": service_rows,
+            "row_cap": MAX_SERVICE_ROWS,
+        },
+        "startup_items": {
+            "availability_status": "available" if not startup_error else "unavailable_with_reason",
+            "unavailable_reason": startup_error,
+            "records": startup_rows,
+            "row_cap": MAX_STARTUP_ROWS,
+            "arguments_recorded": False,
+        },
+        "local_listeners": {
+            "availability_status": "available" if not listener_error else "unavailable_with_reason",
+            "unavailable_reason": listener_error,
+            "records": listener_rows,
+            "row_cap": MAX_LISTENER_ROWS,
+            "remote_hosts_probed": False,
+            "packet_capture_performed": False,
+        },
+        "changes_performed": {"services": False, "startup": False, "listeners": False},
+    }
+
+
+def _observation(label: str, subject: str, message: str, evidence: list[str], collected_at: str) -> dict[str, Any]:
+    if label not in ALLOWED_OBSERVATION_LABELS:
+        raise ValueError(f"invalid observation label: {label}")
+    return {
+        "observation_id": stable_id("observation", {"subject": subject, "label": label, "message": message, "evidence": evidence}),
+        "subject": subject,
+        "classification": label,
+        "message": message,
+        "evidence_record_ids": evidence,
+        "collected_at": collected_at,
+        "diagnostic_conclusion": False,
+        "repair_recommendation": False,
+    }
+
+
+def collect_observations(
+    collected_at: str,
+    host: dict[str, Any],
+    drives: dict[str, Any],
+    python_output: dict[str, Any],
+    processes: dict[str, Any],
+    services_listeners: dict[str, Any],
+) -> dict[str, Any]:
+    rows: list[dict[str, Any]] = []
+
+    available_drives = [row for row in drives.get("records", []) if row.get("availability_status") == "available"]
+    for row in available_drives:
+        facts = row["facts"]
+        free_percent = facts.get("free_percent")
+        free_bytes = facts.get("free_bytes")
+        attention = (free_percent is not None and float(free_percent) < 15.0) or (free_bytes is not None and int(free_bytes) < 20 * 1024**3)
+        rows.append(
+            _observation(
+                "potential_attention_item" if attention else "observed_fact",
+                f"free_space_{facts.get('drive_root')}",
+                "Free-space headroom is below the bounded attention threshold." if attention else "Free-space headroom is at or above the bounded attention threshold.",
+                [row["record_id"]],
+                collected_at,
+            )
+        )
+
+    hardware_rows = [row for row in host.get("records", []) if row.get("subject") == "hardware_memory_and_display"]
+    if hardware_rows and hardware_rows[0].get("availability_status") == "available":
+        row = hardware_rows[0]
+        used = row["facts"].get("memory_used_percent")
+        if used is None:
+            rows.append(_observation("not_evaluated", "memory_use", "Current memory-use percentage could not be calculated.", [row["record_id"]], collected_at))
+        else:
+            rows.append(
+                _observation(
+                    "potential_attention_item" if float(used) >= 85.0 else "observed_fact",
+                    "memory_use",
+                    "Current physical-memory use is at or above 85 percent." if float(used) >= 85.0 else "Current physical-memory use is below 85 percent.",
+                    [row["record_id"]],
+                    collected_at,
+                )
+            )
+        uptime = row["facts"].get("uptime_seconds")
+        if uptime is None:
+            rows.append(_observation("not_evaluated", "uptime", "System uptime could not be calculated.", [row["record_id"]], collected_at))
+        else:
+            rows.append(
+                _observation(
+                    "potential_attention_item" if int(uptime) >= 14 * 86400 else "observed_fact",
+                    "uptime",
+                    "System uptime is at least fourteen days." if int(uptime) >= 14 * 86400 else "System uptime is below fourteen days.",
+                    [row["record_id"]],
+                    collected_at,
+                )
+            )
+    else:
+        rows.append(_observation("unavailable", "memory_and_uptime", "Memory and uptime evidence is unavailable.", [], collected_at))
+
+    available_python = [row for row in python_output.get("records", []) if row.get("availability_status") == "available"]
+    rows.append(
+        _observation(
+            "potential_attention_item" if len(available_python) >= 4 else "observed_fact",
+            "python_runtime_count",
+            f"{len(available_python)} reachable Python runtimes were observed; multiple runtimes can require careful environment selection." if len(available_python) >= 4 else f"{len(available_python)} reachable Python runtimes were observed.",
+            [row["record_id"] for row in available_python],
+            collected_at,
+        )
+    )
+    host_dependent = [row for row in available_python if row["facts"].get("host_base_dependency") is True]
+    rows.append(
+        _observation(
+            "potential_attention_item" if host_dependent else "observed_fact",
+            "host_dependent_python_environments",
+            f"{len(host_dependent)} project runtime(s) depend on a base prefix located on C:." if host_dependent else "No reachable project runtime reported a C:-based base prefix.",
+            [row["record_id"] for row in host_dependent],
+            collected_at,
+        )
+    )
+
+    process_rows = processes.get("records", []) if processes.get("availability_status") == "available" else []
+    heavy = [row for row in process_rows if int(row.get("facts", {}).get("working_set_bytes") or 0) >= 1024**3]
+    rows.append(
+        _observation(
+            "potential_attention_item" if heavy else ("observed_fact" if process_rows else "unavailable"),
+            "heavy_processes",
+            f"{len(heavy)} retained process(es) currently use at least 1 GiB of working-set memory." if heavy else ("No retained process currently uses at least 1 GiB of working-set memory." if process_rows else "Process resource evidence is unavailable."),
+            [row["record_id"] for row in heavy],
+            collected_at,
+        )
+    )
+
+    listener_section = services_listeners.get("local_listeners", {})
+    listener_rows = listener_section.get("records", []) if listener_section.get("availability_status") == "available" else []
+    external = [row for row in listener_rows if row.get("facts", {}).get("address_classification") in {"wildcard_externally_bound", "specific_interface_bound"}]
+    rows.append(
+        _observation(
+            "potential_attention_item" if external else ("observed_fact" if listener_rows else "unavailable"),
+            "externally_bound_local_listeners",
+            f"{len(external)} local listener(s) are bound beyond loopback; this is an observation, not a finding of exposure or compromise." if external else ("No retained local listener is bound beyond loopback." if listener_rows else "Local listener evidence is unavailable."),
+            [row["record_id"] for row in external],
+            collected_at,
+        )
+    )
+    return {
+        "schema": f"{SCHEMA_PREFIX}.pc_baseline_observations.v1",
+        "collected_at": collected_at,
+        "records": rows,
+        "allowed_classifications": sorted(ALLOWED_OBSERVATION_LABELS),
+        "overall_health_label_assigned": False,
+        "malware_or_damage_diagnosis_performed": False,
+        "repair_or_deletion_recommendations_included": False,
+    }
+
+
+def _write_canonical(path: Path, value: Any) -> dict[str, Any]:
+    data = canonical_bytes(sanitize(value))
+    if b"\r" in data:
+        raise AssertionError("canonical JSON contains carriage return")
+    path.write_bytes(data)
+    return {"name": path.name, "size_bytes": len(data), "sha256": sha256_bytes(data)}
+
+
+def _privacy_assertions(payloads: Iterable[bytes]) -> None:
+    joined = b"\n".join(payloads)
+    lower = joined.lower()
+    for marker in PROFILE_MARKERS:
+        encoded = marker.encode("utf-8", errors="ignore").lower()
+        if encoded and encoded in lower:
+            raise AssertionError("profile marker leaked into evidence")
+    forbidden_tokens = (
+        b'"command_line"',
+        b'"environment_values"',
+        b'"product_key"',
+        b'"mac_address"',
+        b'"motherboard_uuid"',
+    )
+    for token in forbidden_tokens:
+        if token in lower:
+            raise AssertionError(f"forbidden evidence token: {token!r}")
+
+
+def collect(mission_id: str, output_dir: Path) -> dict[str, Any]:
+    collected_at = utc_now()
+    audit = AuditLog(collected_at)
+    output_dir = Path(output_dir)
+    output_dir.mkdir(parents=True, exist_ok=False)
+
+    host = collect_host(collected_at, audit)
+    drives = collect_drives(collected_at, audit)
+    workspace = collect_workspace(collected_at, audit, drives)
+    python_output = collect_python(collected_at, audit)
+    processes = collect_processes(collected_at, audit)
+    services_listeners = collect_services_startup_listeners(collected_at, audit, processes)
+    observations = collect_observations(collected_at, host, drives, python_output, processes, services_listeners)
+
+    payload_map = {
+        "HOST_AND_WINDOWS_BASELINE.json": host,
+        "ACTIVE_DRIVE_BASELINE.json": drives,
+        "FOXAI_ACTIVE_WORKSPACE_BASELINE.json": workspace,
+        "PYTHON_RUNTIME_INVENTORY.json": python_output,
+        "PROCESS_RESOURCE_BASELINE.json": processes,
+        "SERVICE_STARTUP_AND_LISTENER_BASELINE.json": services_listeners,
+        "PC_BASELINE_OBSERVATIONS.json": observations,
+    }
+    rows: list[dict[str, Any]] = []
+    for name in OUTPUT_NAMES[:-1]:
+        rows.append(_write_canonical(output_dir / name, payload_map[name]))
+
+    drive_roots = [row.get("facts", {}).get("drive_root") for row in drives.get("records", [])]
+    if any(str(root).upper().startswith("K:") for root in drive_roots if root):
+        raise AssertionError("excluded rollback drive was queried")
+    if any(str(path).upper().startswith("K:") for path in audit.paths_read):
+        raise AssertionError("excluded rollback drive path was read")
+
+    receipt = {
+        "schema": f"{SCHEMA_PREFIX}.pc_baseline_receipt.v1",
+        "mission_id": mission_id,
+        "collected_at": collected_at,
+        "status": "baseline_collected_read_only",
+        "output_directory": str(output_dir),
+        "outputs_before_receipt": rows,
+        "exact_output_count_including_receipt": 8,
+        "total_output_ceiling_bytes": OUTPUT_CEILING_BYTES,
+        "collection_audit": {
+            "entries": sanitize(audit.entries),
+            "child_processes": sanitize(audit.child_processes),
+            "child_process_count": len(audit.child_processes),
+            "paths_read_count": len(audit.paths_read),
+            "allowed_drive_roots": ["C:\\", "Z:\\", "S:\\"],
+            "rollback_drive_accessed": False,
+            "network_connections_initiated": False,
+            "packet_capture_performed": False,
+        },
+        "privacy": {
+            "profile_names_redacted": True,
+            "command_line_arguments_recorded": False,
+            "environment_variable_values_recorded": False,
+            "personal_documents_inspected": False,
+            "browser_history_inspected": False,
+            "credentials_or_tokens_recorded": False,
+            "device_serials_or_mac_addresses_recorded": False,
+        },
+        "changes": {
+            "packages_changed": False,
+            "services_changed": False,
+            "startup_items_changed": False,
+            "processes_changed": False,
+            "registry_writes": False,
+            "firewall_or_network_configuration_changed": False,
+            "foxai_source_executed": False,
+            "live_foxai_modules_imported": False,
+            "gui_launched": False,
+            "models_loaded": False,
+            "comfyui_launched": False,
+        },
+        "overall_pc_health_conclusion": "not_assigned",
+        "diagnostic_or_repair_actions_performed": False,
+    }
+    receipt_row = _write_canonical(output_dir / OUTPUT_NAMES[-1], receipt)
+    rows.append(receipt_row)
+
+    names = sorted(path.name for path in output_dir.iterdir() if path.is_file())
+    if names != sorted(OUTPUT_NAMES):
+        raise AssertionError("exact output set mismatch")
+    payloads = [(output_dir / name).read_bytes() for name in OUTPUT_NAMES]
+    _privacy_assertions(payloads)
+    if any(b"\r" in payload for payload in payloads):
+        raise AssertionError("carriage return found in evidence")
+    total = sum(len(payload) for payload in payloads)
+    if total >= OUTPUT_CEILING_BYTES:
+        raise AssertionError("evidence output exceeds size ceiling")
+    return {
+        "status": "baseline_collected_read_only",
+        "mission_id": mission_id,
+        "output_count": len(names),
+        "total_output_bytes": total,
+        "output_directory": str(output_dir),
+        "child_process_count": len(audit.child_processes),
+        "rollback_drive_accessed": False,
+    }
+
+
+def self_test() -> dict[str, Any]:
+    sample = {"path": r"C:\Users\ExampleUser\Documents\x.txt", "nested": ["C:/Users/ExampleUser/file"]}
+    global PROFILE_MARKERS
+    previous = PROFILE_MARKERS
+    try:
+        PROFILE_MARKERS = [r"C:\Users\ExampleUser", "ExampleUser"]
+        sanitized = sanitize(sample)
+        encoded = canonical_bytes(sanitized)
+        assert b"ExampleUser" not in encoded
+        assert b"<REDACTED>" in encoded
+    finally:
+        PROFILE_MARKERS = previous
+    assert _listener_classification("127.0.0.1") == "loopback_only"
+    assert _listener_classification("::1") == "loopback_only"
+    assert _listener_classification("0.0.0.0") == "wildcard_externally_bound"
+    assert _listener_classification("192.168.1.5") == "specific_interface_bound"
+    assert _extract_startup_executable('"C:\\Program Files\\App\\app.exe" --flag') == r"C:\Program Files\App\app.exe"
+    assert _extract_startup_executable(r"C:\Tools\thing.exe /quiet") == r"C:\Tools\thing.exe"
+    a = stable_id("test", {"b": 2, "a": 1})
+    b = stable_id("test", {"a": 1, "b": 2})
+    assert a == b
+    sample_record = record("test", "subject", "available", "self_test", "2026-01-01T00:00:00Z", {"x": 1}, {"source": "fixture"})
+    assert set(("record_id", "availability_status", "collection_method", "collected_at", "provenance", "facts")).issubset(sample_record)
+    assert b"\r" not in canonical_bytes(sample_record)
+    return {
+        "status": "ok",
+        "stable_ids": True,
+        "privacy_redaction": True,
+        "listener_classification": True,
+        "startup_argument_stripping": True,
+        "canonical_lf_only": True,
+        "output_count": len(OUTPUT_NAMES),
+    }
+
+
+def main(argv: list[str] | None = None) -> int:
+    parser = argparse.ArgumentParser(description="Agent Fox V1B-0 read-only PC and FOXAI baseline collector")
+    sub = parser.add_subparsers(dest="command", required=True)
+    sub.add_parser("self-test")
+    collect_parser = sub.add_parser("collect")
+    collect_parser.add_argument("--mission-id", required=True)
+    collect_parser.add_argument("--output-dir", required=True)
+    args = parser.parse_args(argv)
+    if args.command == "self-test":
+        print(json.dumps(self_test(), sort_keys=True))
+        return 0
+    result = collect(args.mission_id, Path(args.output_dir))
+    print(json.dumps(result, sort_keys=True))
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

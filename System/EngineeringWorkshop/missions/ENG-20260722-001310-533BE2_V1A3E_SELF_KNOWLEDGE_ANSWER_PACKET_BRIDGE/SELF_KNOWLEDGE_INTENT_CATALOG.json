@@ -1,0 +1,143 @@
+{
+  "intents": [
+    {
+      "description": "List all six protected contexts without merging their evidence boundaries.",
+      "intent": "list_protected_contexts",
+      "required_selectors": [],
+      "synonyms": [
+        "list protected contexts",
+        "show protected contexts",
+        "what contexts are protected"
+      ]
+    },
+    {
+      "description": "List the protected contexts associated with one launcher.",
+      "intent": "contexts_for_launcher",
+      "required_selectors": [
+        "launcher"
+      ],
+      "synonyms": [
+        "contexts for launcher",
+        "show contexts for",
+        "linked launcher contexts"
+      ]
+    },
+    {
+      "description": "Show launcher, interpreter, runtime status, flags, arguments, and entry script.",
+      "intent": "launcher_runtime_entry_mapping",
+      "required_selectors": [
+        "context_or_launcher"
+      ],
+      "synonyms": [
+        "launcher to runtime to entry",
+        "which python",
+        "entry script",
+        "what starts",
+        "what runs"
+      ]
+    },
+    {
+      "description": "Summarize one protected context and its bounded closure counts.",
+      "intent": "summarize_context",
+      "required_selectors": [
+        "context"
+      ],
+      "synonyms": [
+        "summarize context",
+        "show context",
+        "context summary"
+      ]
+    },
+    {
+      "description": "List unresolved static candidates while preserving their unconfirmed status.",
+      "intent": "list_unresolved_branches",
+      "required_selectors": [
+        "context"
+      ],
+      "synonyms": [
+        "unresolved imports",
+        "unresolved branches",
+        "missing imports"
+      ]
+    },
+    {
+      "description": "Show package and provider candidates without claiming installation or runtime success.",
+      "intent": "show_package_candidates",
+      "required_selectors": [
+        "context"
+      ],
+      "synonyms": [
+        "package candidates",
+        "provider candidates",
+        "third party candidates"
+      ]
+    },
+    {
+      "description": "Explain resolved or unresolved runtime evidence and uncertainty for one context.",
+      "intent": "explain_runtime_uncertainty",
+      "required_selectors": [
+        "context"
+      ],
+      "synonyms": [
+        "runtime uncertainty",
+        "which runtime is proven",
+        "python uncertainty"
+      ]
+    },
+    {
+      "description": "Show evidence links between contexts without merging closure records.",
+      "intent": "show_linked_contexts",
+      "required_selectors": [
+        "context"
+      ],
+      "synonyms": [
+        "linked contexts",
+        "linked launcher",
+        "context links"
+      ]
+    },
+    {
+      "description": "Locate the source mission, evidence hash, field path, and receipt hash for one fact.",
+      "intent": "locate_authoritative_evidence",
+      "required_selectors": [
+        "context",
+        "fact"
+      ],
+      "synonyms": [
+        "where did this fact come from",
+        "locate evidence",
+        "authoritative source"
+      ]
+    },
+    {
+      "description": "Compare exactly two contexts while retaining separate provenance for each side.",
+      "intent": "compare_contexts",
+      "required_selectors": [
+        "contexts[2]"
+      ],
+      "synonyms": [
+        "compare contexts",
+        "difference between contexts",
+        "compare launcher contexts"
+      ]
+    },
+    {
+      "description": "Summarize six-context Technical Core coverage and registry safety boundaries.",
+      "intent": "summarize_technical_core_coverage",
+      "required_selectors": [],
+      "synonyms": [
+        "technical core coverage",
+        "six context coverage",
+        "coverage summary"
+      ]
+    }
+  ],
+  "mission_id": "ENG-20260722-001310-533BE2",
+  "normalization_policy": {
+    "ambiguous_requests_require_clarification": true,
+    "bounded_synonym_matching": true,
+    "cross_context_runtime_inference_allowed": false
+  },
+  "schema": "foxai.agent_fox.technical_core.v1a3e.intent_catalog.v1",
+  "supported_intent_count": 11
+}

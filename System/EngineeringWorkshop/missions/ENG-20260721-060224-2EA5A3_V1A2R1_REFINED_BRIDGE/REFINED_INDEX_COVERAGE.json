@@ -1,0 +1,4008 @@
+{
+  "complete_areas": [
+    "Refined static BAT/CMD parsing separates launchers, interpreters, scripts, URLs, shell references, checks, diagnostics, file operations, and control flow",
+    "Reference-line evidence is deterministically sharded with per-file coverage so one early file cannot suppress later-file evidence",
+    "V1A-2 symbol, import, setting, reference, code, source-hash, and known-good evidence is preserved and provenance-checked"
+  ],
+  "current_source_hash_records": [
+    {
+      "actual_sha256": "13fe8e86a68cd1efe652979c64364974f3f0da117f14856bd10ade6fa3a7bde7",
+      "expected_sha256": "13fe8e86a68cd1efe652979c64364974f3f0da117f14856bd10ade6fa3a7bde7",
+      "path": "Academy\\academy.json",
+      "size_bytes": 3390,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "035bc2882dca5478ef91dc7c82a6fe6dcb910521879903c6a4248717724cc283",
+      "expected_sha256": "035bc2882dca5478ef91dc7c82a6fe6dcb910521879903c6a4248717724cc283",
+      "path": "Academy\\academy.py",
+      "size_bytes": 5217,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "bda1a5a6acf6c1bd0266fd3577b98e6cadddc99119c21f4a0233709b66f3e412",
+      "expected_sha256": "bda1a5a6acf6c1bd0266fd3577b98e6cadddc99119c21f4a0233709b66f3e412",
+      "path": "Academy\\module.yaml",
+      "size_bytes": 190,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "357eea92544267d9f3b2678fe2304ce50b11956377cea5598aed9c02eeb3c201",
+      "expected_sha256": "357eea92544267d9f3b2678fe2304ce50b11956377cea5598aed9c02eeb3c201",
+      "path": "AI\\ai_gateway.py",
+      "size_bytes": 3895,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "19b724699f48b3d0c4587606c9fb99aa8eb959b45e96b27b12f675e896d94354",
+      "expected_sha256": "19b724699f48b3d0c4587606c9fb99aa8eb959b45e96b27b12f675e896d94354",
+      "path": "AI\\core_working.py",
+      "size_bytes": 6492,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "cda86c7d02c98edcb7d06a9b8b55c7571888bb1141fa7dd1b38c64f09e1d377d",
+      "expected_sha256": "cda86c7d02c98edcb7d06a9b8b55c7571888bb1141fa7dd1b38c64f09e1d377d",
+      "path": "AI\\first_contact.py",
+      "size_bytes": 7370,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "22cf1ea3a06b58b2a5b523ec726564e506848f7ff2892b3ab49b13f85f107946",
+      "expected_sha256": "22cf1ea3a06b58b2a5b523ec726564e506848f7ff2892b3ab49b13f85f107946",
+      "path": "AI\\first_contact_runtime_fixer.py",
+      "size_bytes": 4689,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "05c0dcf497f76e54e669b196b83939c2aebee523f3d38395ca1b33e46f6c4d76",
+      "expected_sha256": "05c0dcf497f76e54e669b196b83939c2aebee523f3d38395ca1b33e46f6c4d76",
+      "path": "AI\\first_contact_stable_context.py",
+      "size_bytes": 3861,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "70321b9f6203006e7c65901d50d61f7d1a33f0b7906dedde9bfd170f4bd25960",
+      "expected_sha256": "70321b9f6203006e7c65901d50d61f7d1a33f0b7906dedde9bfd170f4bd25960",
+      "path": "AI\\foxai_discovery.py",
+      "size_bytes": 4659,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "8d9798bf3d4445c70745ec318aa16c6150f1681885fabf180d9b6894d151c6c0",
+      "expected_sha256": "8d9798bf3d4445c70745ec318aa16c6150f1681885fabf180d9b6894d151c6c0",
+      "path": "AI\\Gateway\\active_model_profile.json",
+      "size_bytes": 65,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "98ec81b6fa0d56216d6aad3b1de4c8b0b1147b5219716ff5508c68db0d8be2d7",
+      "expected_sha256": "98ec81b6fa0d56216d6aad3b1de4c8b0b1147b5219716ff5508c68db0d8be2d7",
+      "path": "AI\\Gateway\\core_working_config.json",
+      "size_bytes": 305,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "2eae03a26e4b93edbab350dadc7729d33ac1e46bd23be36c16187d1b8cbda39a",
+      "expected_sha256": "2eae03a26e4b93edbab350dadc7729d33ac1e46bd23be36c16187d1b8cbda39a",
+      "path": "AI\\Gateway\\core_working_state.json",
+      "size_bytes": 1101,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "962ac149cab47b8c70906e4c2af490f229851875267b67b897b0e9cfacc69a4f",
+      "expected_sha256": "962ac149cab47b8c70906e4c2af490f229851875267b67b897b0e9cfacc69a4f",
+      "path": "AI\\Gateway\\engine_adapter_config.json",
+      "size_bytes": 711,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "e9fb2132c672be83ece47ed47f00de44f8c61f364eaf2168b4c7d1b54bc0afe7",
+      "expected_sha256": "e9fb2132c672be83ece47ed47f00de44f8c61f364eaf2168b4c7d1b54bc0afe7",
+      "path": "AI\\Gateway\\first_contact_runtime_fixer_state.json",
+      "size_bytes": 604,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "ebdb6d349f2d3cfc747e0248055c472eb32b37848754b8b01758d6dfbbd62244",
+      "expected_sha256": "ebdb6d349f2d3cfc747e0248055c472eb32b37848754b8b01758d6dfbbd62244",
+      "path": "AI\\Gateway\\first_contact_stable_context_state.json",
+      "size_bytes": 525,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "c1bb7b178e620c2a4367de918db6fe7122890cddaef40cab1684a7de9d93708b",
+      "expected_sha256": "c1bb7b178e620c2a4367de918db6fe7122890cddaef40cab1684a7de9d93708b",
+      "path": "AI\\Gateway\\FIRST_CONTACT_START_RUNTIME.bat",
+      "size_bytes": 449,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "7d30222436175cef890797030a41283e67d29bb4ff5284aa0268742cd2d7a9d5",
+      "expected_sha256": "7d30222436175cef890797030a41283e67d29bb4ff5284aa0268742cd2d7a9d5",
+      "path": "AI\\Gateway\\first_contact_state.json",
+      "size_bytes": 702,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "cc0fe1eec874b81035eecfd796138db16a00e40cd9de77c76d0176de06bc36c8",
+      "expected_sha256": "cc0fe1eec874b81035eecfd796138db16a00e40cd9de77c76d0176de06bc36c8",
+      "path": "AI\\Gateway\\gateway_config.json",
+      "size_bytes": 584,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "4e209b64dd2f214fb53ea66f5889f13df399c7429c9a9b692ff1f0170e2fd8a2",
+      "expected_sha256": "4e209b64dd2f214fb53ea66f5889f13df399c7429c9a9b692ff1f0170e2fd8a2",
+      "path": "AI\\Gateway\\kobold_adapter_state.json",
+      "size_bytes": 1242,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "5feb19d4fa63a30cb7b0fb9b9779805eddd2856cc9e4286fe0d1d0a9a1480c9b",
+      "expected_sha256": "5feb19d4fa63a30cb7b0fb9b9779805eddd2856cc9e4286fe0d1d0a9a1480c9b",
+      "path": "AI\\Gateway\\LAUNCH_SELECTED_MODEL_RUNTIME.bat",
+      "size_bytes": 482,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "dc1348432bdf6c6cacb1f7ee96f5210ce597b48dd6721313b10b7c5bc18c669f",
+      "expected_sha256": "dc1348432bdf6c6cacb1f7ee96f5210ce597b48dd6721313b10b7c5bc18c669f",
+      "path": "AI\\Gateway\\local_chat_state.json",
+      "size_bytes": 504,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "f4f52ea6c542e7daf62f6db9a95dabacaacd6350195fc5021b074ca3ea0d8020",
+      "expected_sha256": "f4f52ea6c542e7daf62f6db9a95dabacaacd6350195fc5021b074ca3ea0d8020",
+      "path": "AI\\Gateway\\model_profiles.json",
+      "size_bytes": 1247,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "983918bbe38b3e48c7f5b843495656610cd9924cd566fee636708e3aef9ad1cf",
+      "expected_sha256": "983918bbe38b3e48c7f5b843495656610cd9924cd566fee636708e3aef9ad1cf",
+      "path": "AI\\Gateway\\runtime_launcher_state.json",
+      "size_bytes": 4579,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "6a337728ed78072ffd1f29572d1a9392e236668311a2a4c6228e82833847c06c",
+      "expected_sha256": "6a337728ed78072ffd1f29572d1a9392e236668311a2a4c6228e82833847c06c",
+      "path": "AI\\Gateway\\START_ANYTHINGLLM.bat",
+      "size_bytes": 111,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "a07af34e55b764ca27c58f0dc4b5752a1be93ba96d6f2436733ab4a9d8b9f713",
+      "expected_sha256": "a07af34e55b764ca27c58f0dc4b5752a1be93ba96d6f2436733ab4a9d8b9f713",
+      "path": "AI\\Gateway\\START_CORE_WORKING.bat",
+      "size_bytes": 1035,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "179c2a0872165445149009b26cb7a2362b7108e0fa66cdefad869da0922bf2cb",
+      "expected_sha256": "179c2a0872165445149009b26cb7a2362b7108e0fa66cdefad869da0922bf2cb",
+      "path": "AI\\Gateway\\START_KOBOLD_ENGINE.bat",
+      "size_bytes": 689,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "3c18b1d48e379a061811ff0c3d56b67aa8ad5e054c0c432cf7d7407709b18963",
+      "expected_sha256": "3c18b1d48e379a061811ff0c3d56b67aa8ad5e054c0c432cf7d7407709b18963",
+      "path": "AI\\Gateway\\START_LOCAL_CHAT_RUNTIME.bat",
+      "size_bytes": 853,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "f05a0cc42f305acf14870e65915ed943496539b8f9839fbbd6113ed5994a672a",
+      "expected_sha256": "f05a0cc42f305acf14870e65915ed943496539b8f9839fbbd6113ed5994a672a",
+      "path": "AI\\Inventory\\ai_assets.json",
+      "size_bytes": 468,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "f66b1c9238dfb466115f4e47b13290982ff4d5dd7c292b06832a2113297ac3bd",
+      "expected_sha256": "f66b1c9238dfb466115f4e47b13290982ff4d5dd7c292b06832a2113297ac3bd",
+      "path": "AI\\Inventory\\foxai_inventory.json",
+      "size_bytes": 56128,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "69378bdf447405836a61750f0fceaa649f7d3e362b9bb9b5e7043f78dd7d28a3",
+      "expected_sha256": "69378bdf447405836a61750f0fceaa649f7d3e362b9bb9b5e7043f78dd7d28a3",
+      "path": "AI\\kobold_engine_adapter.py",
+      "size_bytes": 7808,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "55627a4db8334ef551a14707385dddde3a632de6f4df2139d045d9531480bc4c",
+      "expected_sha256": "55627a4db8334ef551a14707385dddde3a632de6f4df2139d045d9531480bc4c",
+      "path": "AI\\local_chat.py",
+      "size_bytes": 5939,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "2a143bb717b6c63b274e48c2f71069b73ea2e0c8793688a8ae89db625403eb87",
+      "expected_sha256": "2a143bb717b6c63b274e48c2f71069b73ea2e0c8793688a8ae89db625403eb87",
+      "path": "AI\\local_runtime.py",
+      "size_bytes": 4797,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "ee12ff21b1472e76afe8ee5bb31bef078b0a53f5b857a7ed73e8d3f84b82346a",
+      "expected_sha256": "ee12ff21b1472e76afe8ee5bb31bef078b0a53f5b857a7ed73e8d3f84b82346a",
+      "path": "AI\\model_profiles.py",
+      "size_bytes": 5441,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "fc8448ab3e1610c2664becf48b39cb13cd006ebffab364141e6fde9f0d6d25ad",
+      "expected_sha256": "fc8448ab3e1610c2664becf48b39cb13cd006ebffab364141e6fde9f0d6d25ad",
+      "path": "AI\\module.yaml",
+      "size_bytes": 192,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "c1aef378808d07e1f61a069e0e824e0df058e04fafa754457b7fc6ba2bd0127e",
+      "expected_sha256": "c1aef378808d07e1f61a069e0e824e0df058e04fafa754457b7fc6ba2bd0127e",
+      "path": "AI\\runtime_launcher.py",
+      "size_bytes": 5303,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "e31667f2478dc7404425748f7b5d072bf7451e6237e386cabac492169022f9a0",
+      "expected_sha256": "e31667f2478dc7404425748f7b5d072bf7451e6237e386cabac492169022f9a0",
+      "path": "AI\\scan_ai_assets.py",
+      "size_bytes": 3807,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "e117e2b5a711e613283b58037eded6e8d0631eed7096894990b7ddb254f5f463",
+      "expected_sha256": "e117e2b5a711e613283b58037eded6e8d0631eed7096894990b7ddb254f5f463",
+      "path": "APPLY_PHASE1.bat",
+      "size_bytes": 353,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "119632db7d923a4fc6e040fe736f0e287b37c185948c682128ec1274bea14d94",
+      "expected_sha256": "119632db7d923a4fc6e040fe736f0e287b37c185948c682128ec1274bea14d94",
+      "path": "APPLY_PURPLE_DESKTOP.bat",
+      "size_bytes": 446,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "d8f7cc7f3fb4a729c4b45362bd2cc824ed63b4864086acdd08c3a3dcee4940ef",
+      "expected_sha256": "d8f7cc7f3fb4a729c4b45362bd2cc824ed63b4864086acdd08c3a3dcee4940ef",
+      "path": "APPLY_PURPLE_DESKTOP.py",
+      "size_bytes": 13314,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "ffde9b2ff272f34b4e2eee6c642f04124a85600b84bcead1fd861661651af851",
+      "expected_sha256": "ffde9b2ff272f34b4e2eee6c642f04124a85600b84bcead1fd861661651af851",
+      "path": "APPLY_UPDATE.py",
+      "size_bytes": 1334,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "e9de21db52789b209b61847bcb2a508d6319ae61cdd02d9b3f70bcf57fc6d957",
+      "expected_sha256": "e9de21db52789b209b61847bcb2a508d6319ae61cdd02d9b3f70bcf57fc6d957",
+      "path": "baseline_manifest.json",
+      "size_bytes": 2057,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "3367f4ccc6788a6ede55b9fd699e281626dab32c80e44283d84fa782ed7b94d1",
+      "expected_sha256": "3367f4ccc6788a6ede55b9fd699e281626dab32c80e44283d84fa782ed7b94d1",
+      "path": "bootstrap_kayocktheos.bat",
+      "size_bytes": 244,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "368b28cf40c9ec97c88ac667d9bb9efc5105970afeaf4511f7af76b4e7d4e52c",
+      "expected_sha256": "368b28cf40c9ec97c88ac667d9bb9efc5105970afeaf4511f7af76b4e7d4e52c",
+      "path": "Bridge\\index.html",
+      "size_bytes": 8145,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "990e0f37f0a7c890e315de7ad071dd32e3c864ab2d47e6973cd5b5086fcc48ce",
+      "expected_sha256": "990e0f37f0a7c890e315de7ad071dd32e3c864ab2d47e6973cd5b5086fcc48ce",
+      "path": "Bridge\\main.js",
+      "size_bytes": 913,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "108c0763c9801a35cdf8a5be4bd3a01308b5f2567683a13dd0b51d8dfa1388e8",
+      "expected_sha256": "108c0763c9801a35cdf8a5be4bd3a01308b5f2567683a13dd0b51d8dfa1388e8",
+      "path": "Bridge\\package-lock.json",
+      "size_bytes": 31663,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "afccd518d18e38899187af9091d6b3580ef01fa2d7186188e3ebdcea7a2f334d",
+      "expected_sha256": "afccd518d18e38899187af9091d6b3580ef01fa2d7186188e3ebdcea7a2f334d",
+      "path": "Bridge\\package.json",
+      "size_bytes": 321,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "4551a307a8395011cb651e42c241ad792ba58d8edd38fca6beeb7f3606ac31a5",
+      "expected_sha256": "4551a307a8395011cb651e42c241ad792ba58d8edd38fca6beeb7f3606ac31a5",
+      "path": "Bridge\\preload.js",
+      "size_bytes": 142,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "7074d712d094176899063cabaf47a828586fa0585d0f3e44cec7911bb0f0b8ac",
+      "expected_sha256": "7074d712d094176899063cabaf47a828586fa0585d0f3e44cec7911bb0f0b8ac",
+      "path": "Bridge\\renderer.js",
+      "size_bytes": 66201,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "4edaf302655cf7cf09d1d43af8a0be8d11870b8c1402c6bd99dcac21a9151c56",
+      "expected_sha256": "4edaf302655cf7cf09d1d43af8a0be8d11870b8c1402c6bd99dcac21a9151c56",
+      "path": "Bridge\\style.css",
+      "size_bytes": 19498,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "ecb8f8e1236f26fe146d5a9cd3443d0c92574772540a2eefeb140b13bfa0819c",
+      "expected_sha256": "ecb8f8e1236f26fe146d5a9cd3443d0c92574772540a2eefeb140b13bfa0819c",
+      "path": "BRIDGE_COMMAND.bat",
+      "size_bytes": 337,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "e97d300d97ab1f95e4ca518edb22ebf7af07e4deb42aeb6c2b6e702a8111123f",
+      "expected_sha256": "e97d300d97ab1f95e4ca518edb22ebf7af07e4deb42aeb6c2b6e702a8111123f",
+      "path": "BRIDGE_COMMAND.py",
+      "size_bytes": 2841,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "e7d3b7d7111ea8cc771fc5d2ecbdf2fd3855c51d4da927af3b8a574a0297a819",
+      "expected_sha256": "e7d3b7d7111ea8cc771fc5d2ecbdf2fd3855c51d4da927af3b8a574a0297a819",
+      "path": "BridgeUI\\DEMO_bridge_status.html",
+      "size_bytes": 2390,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "5d23656b05f5f24c291716cc514af71e3f80954d77f2d550f9ff0ab5d8b853c6",
+      "expected_sha256": "5d23656b05f5f24c291716cc514af71e3f80954d77f2d550f9ff0ab5d8b853c6",
+      "path": "BridgeUI\\foxai-bridge-feed.html",
+      "size_bytes": 208,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "7ea074cf65c8767de4943a4d1366f1fa3de6c0fd6b1afbfebbc4cae3da100a62",
+      "expected_sha256": "7ea074cf65c8767de4943a4d1366f1fa3de6c0fd6b1afbfebbc4cae3da100a62",
+      "path": "BridgeUI\\foxai-bridge-feed.js",
+      "size_bytes": 3463,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "72a66e9f9128862f5d2caba296c001e096faedf8b1f8ff9d7cb7a14e1e5a3713",
+      "expected_sha256": "72a66e9f9128862f5d2caba296c001e096faedf8b1f8ff9d7cb7a14e1e5a3713",
+      "path": "BridgeUI\\foxai-bridge-status.css",
+      "size_bytes": 2930,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "a2074d7c23de47d87f03e7cb44f8da2e061aa62897ca7cb2dd8f8e5ff919d075",
+      "expected_sha256": "a2074d7c23de47d87f03e7cb44f8da2e061aa62897ca7cb2dd8f8e5ff919d075",
+      "path": "BridgeUI\\foxai-bridge-status.html",
+      "size_bytes": 2292,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "6129e152430980864d5d064c8be1900e78ec0c66a107bf4b827046fc406b4edd",
+      "expected_sha256": "6129e152430980864d5d064c8be1900e78ec0c66a107bf4b827046fc406b4edd",
+      "path": "BridgeUI\\foxai-bridge-status.js",
+      "size_bytes": 6317,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "9cd437a7f0a980c9699ca62237e38eb6f0b9d3d6f8937f84cb3e46b4cdba4e4e",
+      "expected_sha256": "9cd437a7f0a980c9699ca62237e38eb6f0b9d3d6f8937f84cb3e46b4cdba4e4e",
+      "path": "BridgeUI\\foxai-command-bridge.css",
+      "size_bytes": 6013,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "ae5427a4945967de322f228f88bc765aacc65d347195cf703858cd565e4e50b2",
+      "expected_sha256": "ae5427a4945967de322f228f88bc765aacc65d347195cf703858cd565e4e50b2",
+      "path": "BridgeUI\\foxai-command-bridge.html",
+      "size_bytes": 2975,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "5cb2b3cf13d6a6c96d657ad15f845a45a50717229f1a4cf3d20c72afbf47ebab",
+      "expected_sha256": "5cb2b3cf13d6a6c96d657ad15f845a45a50717229f1a4cf3d20c72afbf47ebab",
+      "path": "BridgeUI\\foxai-command-bridge.js",
+      "size_bytes": 4042,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "76455db84e66c2d94246368740e8d2908cbb7766664c8771ddcec8ac47ba9fa6",
+      "expected_sha256": "76455db84e66c2d94246368740e8d2908cbb7766664c8771ddcec8ac47ba9fa6",
+      "path": "BUILD_BRIDGE_FEED.bat",
+      "size_bytes": 400,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "767205653d619fb1e226f1c86cdcb38f946225ce109eeda4724af2a3f2e68f0b",
+      "expected_sha256": "767205653d619fb1e226f1c86cdcb38f946225ce109eeda4724af2a3f2e68f0b",
+      "path": "BUILD_BRIDGE_FEED.py",
+      "size_bytes": 1392,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "3d8965b91de1192d197ccf471d289665ddfa862a871c224f2afaeae4da0f6302",
+      "expected_sha256": "3d8965b91de1192d197ccf471d289665ddfa862a871c224f2afaeae4da0f6302",
+      "path": "BUILD_FOXAI.bat",
+      "size_bytes": 371,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "9829f56adb7ee1cca95cd8e23233dedcb3273fc63fb9d665fdaa2d9a0f90a460",
+      "expected_sha256": "9829f56adb7ee1cca95cd8e23233dedcb3273fc63fb9d665fdaa2d9a0f90a460",
+      "path": "BUILD_FOXAI.py",
+      "size_bytes": 1270,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "8f8d27f0694b272d2df469846c713ef3b73d0c217e6534ea65b284c7ecf0e69d",
+      "expected_sha256": "8f8d27f0694b272d2df469846c713ef3b73d0c217e6534ea65b284c7ecf0e69d",
+      "path": "BUNDLE_VERIFICATION_RECEIPT.json",
+      "size_bytes": 2303,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "43fd7ea0d4125b8133183a9a1c3ebbdf48c0080d49d967c50777141b269fd4bd",
+      "expected_sha256": "43fd7ea0d4125b8133183a9a1c3ebbdf48c0080d49d967c50777141b269fd4bd",
+      "path": "Capabilities\\aider\\adapter.json",
+      "size_bytes": 293,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "0ce312916d1bb519c6f61a9c5af3d255615681cb6542d808021bd68464a43071",
+      "expected_sha256": "0ce312916d1bb519c6f61a9c5af3d255615681cb6542d808021bd68464a43071",
+      "path": "Capabilities\\comfyui\\adapter.json",
+      "size_bytes": 383,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "b2579d2ffaf9018e618dd662a5d8e8d0f3eb674def1b09451e07c1b539878024",
+      "expected_sha256": "b2579d2ffaf9018e618dd662a5d8e8d0f3eb674def1b09451e07c1b539878024",
+      "path": "Capabilities\\iron_library\\adapter.json",
+      "size_bytes": 296,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "86dd343bfa1d4489da0a3f648eb5ce5c82577ad62ad6afee2035fb98bb334807",
+      "expected_sha256": "86dd343bfa1d4489da0a3f648eb5ce5c82577ad62ad6afee2035fb98bb334807",
+      "path": "Capabilities\\llama_server\\adapter.json",
+      "size_bytes": 382,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "77372bcd506d8bcc2be983ca11903044e690ee5b29d459f8824075bc0121e607",
+      "expected_sha256": "77372bcd506d8bcc2be983ca11903044e690ee5b29d459f8824075bc0121e607",
+      "path": "Capabilities\\novel_forge\\adapter.json",
+      "size_bytes": 331,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "59ea1c59371441c8f1bec2eecc4e169f983c4bbcb91852c81cc6b541699d20d8",
+      "expected_sha256": "59ea1c59371441c8f1bec2eecc4e169f983c4bbcb91852c81cc6b541699d20d8",
+      "path": "CAPTAINS_LOG_VIEW.bat",
+      "size_bytes": 335,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "ed337946a882e689fe835ee630b7cd7f216732b4fe70b35b3d3dfa78edfe2529",
+      "expected_sha256": "ed337946a882e689fe835ee630b7cd7f216732b4fe70b35b3d3dfa78edfe2529",
+      "path": "CAPTAINS_LOG_VIEW.py",
+      "size_bytes": 193,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "2f46f269fa6d2fdc20fd9a7e6c2d4affc96fa73b4d31eebf1c331a730de66cbf",
+      "expected_sha256": "2f46f269fa6d2fdc20fd9a7e6c2d4affc96fa73b4d31eebf1c331a730de66cbf",
+      "path": "COMMISSION_ENGINEERING.bat",
+      "size_bytes": 423,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "de630f1739e0d4bf51cc60d4b66ff114677ac049ffff2d5b00a0caa331413ed2",
+      "expected_sha256": "de630f1739e0d4bf51cc60d4b66ff114677ac049ffff2d5b00a0caa331413ed2",
+      "path": "COMMISSION_ENGINEERING.py",
+      "size_bytes": 1528,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "253fda6a7b57271e688063374bd6be8507671a540a42984c60a40dc9b8ce5663",
+      "expected_sha256": "253fda6a7b57271e688063374bd6be8507671a540a42984c60a40dc9b8ce5663",
+      "path": "COMMISSION_FOXAI_USB.bat",
+      "size_bytes": 988,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "6338e10b813460ee421e4cbf3d9d74fd82d5f24178347e35f4318ef3c4ef9022",
+      "expected_sha256": "6338e10b813460ee421e4cbf3d9d74fd82d5f24178347e35f4318ef3c4ef9022",
+      "path": "Config\\application_registry.json",
+      "size_bytes": 6380,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "ac571db5715af56f915617673ddcff37dd9f8682b38f54b1228cb59c01f082a6",
+      "expected_sha256": "ac571db5715af56f915617673ddcff37dd9f8682b38f54b1228cb59c01f082a6",
+      "path": "Config\\fleet_registry.json",
+      "size_bytes": 5284,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "677067e2b58416ba7d7bacc1dcfe40b9f43783e625dd305d0bbf82b6d3174d41",
+      "expected_sha256": "677067e2b58416ba7d7bacc1dcfe40b9f43783e625dd305d0bbf82b6d3174d41",
+      "path": "Config\\FoxAI.ini",
+      "size_bytes": 58,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "c17eb3b8b6c93734f7e117522213c95af6c105fe26400d0560768fe586e21c91",
+      "expected_sha256": "c17eb3b8b6c93734f7e117522213c95af6c105fe26400d0560768fe586e21c91",
+      "path": "Config\\model_sources.json",
+      "size_bytes": 1775,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "69be416ce71df2581ccbe98efe55431a62ecb2d2e04b3b17aa29ecbcad341e0a",
+      "expected_sha256": "69be416ce71df2581ccbe98efe55431a62ecb2d2e04b3b17aa29ecbcad341e0a",
+      "path": "Config\\workshop_config.json",
+      "size_bytes": 272,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "path": "core\\__init__.py",
+      "size_bytes": 0,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "a822bc012da7f7fd6b3166ad14a57844c402ace21cc1bb971190b43c823b0a65",
+      "expected_sha256": "a822bc012da7f7fd6b3166ad14a57844c402ace21cc1bb971190b43c823b0a65",
+      "path": "core\\agents.py",
+      "size_bytes": 1321,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "7be3cbc893e4dfa38d1b09509b6b391c27446fdfe2eb8b1b93949160935be262",
+      "expected_sha256": "7be3cbc893e4dfa38d1b09509b6b391c27446fdfe2eb8b1b93949160935be262",
+      "path": "core\\application_registry.py",
+      "size_bytes": 16803,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "b8c0284af35fa15b5697358710b89b1b188f64364cb1a533f588881f36d6ed11",
+      "expected_sha256": "b8c0284af35fa15b5697358710b89b1b188f64364cb1a533f588881f36d6ed11",
+      "path": "core\\boot_manager.py",
+      "size_bytes": 4724,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "8a94895b00cd8709f4b7a6939e3577505fcff09325224ca63e65f547ad84281a",
+      "expected_sha256": "8a94895b00cd8709f4b7a6939e3577505fcff09325224ca63e65f547ad84281a",
+      "path": "core\\brainstem.py",
+      "size_bytes": 4397,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "4b3943e059ffed35af78098fe54097b20613549c98675089fceeec62e78c0c25",
+      "expected_sha256": "4b3943e059ffed35af78098fe54097b20613549c98675089fceeec62e78c0c25",
+      "path": "core\\capability_graph.py",
+      "size_bytes": 1897,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "7720092b9a6a616c6a572450a64bcb204de1dc40f4375b85a75eba63e58404f9",
+      "expected_sha256": "7720092b9a6a616c6a572450a64bcb204de1dc40f4375b85a75eba63e58404f9",
+      "path": "core\\chat_agent.py",
+      "size_bytes": 571,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "af53270881eee1f0c4d23fb3deafed2dceb44bd684d9bd6e66221f3d05a29838",
+      "expected_sha256": "af53270881eee1f0c4d23fb3deafed2dceb44bd684d9bd6e66221f3d05a29838",
+      "path": "core\\chat_resilience.py",
+      "size_bytes": 3991,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "d03f3b6020b276d5d0a411ab8de7cfb709bc06bb4232134ce10937abf53cba01",
+      "expected_sha256": "d03f3b6020b276d5d0a411ab8de7cfb709bc06bb4232134ce10937abf53cba01",
+      "path": "core\\comfy_bridge.py",
+      "size_bytes": 5921,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "6009488ddc85ede3955c24e5748806a93c44d45c9babb28f66e324c0b1c639dc",
+      "expected_sha256": "6009488ddc85ede3955c24e5748806a93c44d45c9babb28f66e324c0b1c639dc",
+      "path": "core\\comfy_ops_monitor.py",
+      "size_bytes": 5783,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "0ed3c31e79258e1a5e080c16a908c582da91fd787a555f57279b93b8cfcff3f7",
+      "expected_sha256": "0ed3c31e79258e1a5e080c16a908c582da91fd787a555f57279b93b8cfcff3f7",
+      "path": "core\\confidence_engine.py",
+      "size_bytes": 4586,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "0e5b51fba60596b125b9d9ade9e2da0d167e58188a79175544acedcb5166cea2",
+      "expected_sha256": "0e5b51fba60596b125b9d9ade9e2da0d167e58188a79175544acedcb5166cea2",
+      "path": "core\\decision_layer.py",
+      "size_bytes": 15243,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "7d2e3e943742ae83f371bddb7de15749bece601d481f6b31613847404ff14f58",
+      "expected_sha256": "7d2e3e943742ae83f371bddb7de15749bece601d481f6b31613847404ff14f58",
+      "path": "core\\department_registry.py",
+      "size_bytes": 5379,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "2db2bc6e66ca013f03c5f41615d850ac40809cb051f5a34e0d3db01938e7fbb8",
+      "expected_sha256": "2db2bc6e66ca013f03c5f41615d850ac40809cb051f5a34e0d3db01938e7fbb8",
+      "path": "core\\dependency_graph.py",
+      "size_bytes": 9559,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "c97ccfe12a4d1ffa90639ad2b8b80dfbc65a26be91515dea55791b434dbffa91",
+      "expected_sha256": "c97ccfe12a4d1ffa90639ad2b8b80dfbc65a26be91515dea55791b434dbffa91",
+      "path": "core\\diagnostics.py",
+      "size_bytes": 9338,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "6b390b00d260113c958e1d6866c31fcde59a831c9af774a84994767191eef5fd",
+      "expected_sha256": "6b390b00d260113c958e1d6866c31fcde59a831c9af774a84994767191eef5fd",
+      "path": "core\\director.py",
+      "size_bytes": 7019,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "d01bd8e6e6ec1b8be896c828177caf3d5eea4bd58a6ea54e95b5976779683b28",
+      "expected_sha256": "d01bd8e6e6ec1b8be896c828177caf3d5eea4bd58a6ea54e95b5976779683b28",
+      "path": "core\\engineer_agent.py",
+      "size_bytes": 80044,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "a74a4982dc08cda8175d20c60541ae670369ee9a30695d024115c69d66f2002f",
+      "expected_sha256": "a74a4982dc08cda8175d20c60541ae670369ee9a30695d024115c69d66f2002f",
+      "path": "core\\engineer_intent.py",
+      "size_bytes": 4080,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "76957e943f8b880b3b6b998e046767ccca8e7e6a3eb8bf22bd8307e591c40c7c",
+      "expected_sha256": "76957e943f8b880b3b6b998e046767ccca8e7e6a3eb8bf22bd8307e591c40c7c",
+      "path": "core\\engineering_assessment.py",
+      "size_bytes": 2510,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "2a2ee1b46266aac04a70554f90e6d33416267c18e0689c36c7c88d0ad220f4da",
+      "expected_sha256": "2a2ee1b46266aac04a70554f90e6d33416267c18e0689c36c7c88d0ad220f4da",
+      "path": "core\\engineering_workshop_bridge.py",
+      "size_bytes": 14423,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "c2f29bb619b52ccd46ec5db1f98e68cb72ed0b80db61ee40782dbf77b2c036f7",
+      "expected_sha256": "c2f29bb619b52ccd46ec5db1f98e68cb72ed0b80db61ee40782dbf77b2c036f7",
+      "path": "core\\evidence_drivers\\__init__.py",
+      "size_bytes": 300,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "67752ed681eee294e6962fca365f2dce4987d060ac34592e03255f18e0fd5d90",
+      "expected_sha256": "67752ed681eee294e6962fca365f2dce4987d060ac34592e03255f18e0fd5d90",
+      "path": "core\\evidence_drivers\\base.py",
+      "size_bytes": 5802,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "7f74966ff5709b278c07b1075d770119bb1e5da1058cb4246a21a900e65cdeca",
+      "expected_sha256": "7f74966ff5709b278c07b1075d770119bb1e5da1058cb4246a21a900e65cdeca",
+      "path": "core\\evidence_drivers\\context_menu_driver.py",
+      "size_bytes": 1128,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "13b798de1c281ffb5b3eaf783fcd166bebfdc888f4238113330c338e77f45215",
+      "expected_sha256": "13b798de1c281ffb5b3eaf783fcd166bebfdc888f4238113330c338e77f45215",
+      "path": "core\\evidence_drivers\\spellcheck_driver.py",
+      "size_bytes": 980,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "8a426b02f374affb96cfef5a184c95b66b2947f9fbb020862540729682b36a76",
+      "expected_sha256": "8a426b02f374affb96cfef5a184c95b66b2947f9fbb020862540729682b36a76",
+      "path": "core\\evidence_drivers\\timeout_driver.py",
+      "size_bytes": 850,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "2f5e726f2da9d321a5ff25f0f9c85d25000cf60b420fc30c51761d215a8c0535",
+      "expected_sha256": "2f5e726f2da9d321a5ff25f0f9c85d25000cf60b420fc30c51761d215a8c0535",
+      "path": "core\\evidence_ranker.py",
+      "size_bytes": 9163,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "c00ccdd81600138f44fc9c599e67969ccc4f322d257f20239378171c69f95202",
+      "expected_sha256": "c00ccdd81600138f44fc9c599e67969ccc4f322d257f20239378171c69f95202",
+      "path": "core\\execution_planner.py",
+      "size_bytes": 3023,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "586b72465803c8752672398284fc4726ff9e07bc79667e1fdd285ac4e5da9ab3",
+      "expected_sha256": "586b72465803c8752672398284fc4726ff9e07bc79667e1fdd285ac4e5da9ab3",
+      "path": "core\\forge_journal.py",
+      "size_bytes": 3278,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "b61cad370689c585d5bf618f3a433672ba48d5c5f5c43370a06963c35153be00",
+      "expected_sha256": "b61cad370689c585d5bf618f3a433672ba48d5c5f5c43370a06963c35153be00",
+      "path": "core\\forge_master.py",
+      "size_bytes": 8322,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "e4e9fd62e6c4736a18781c6b17184441e8852412867cc95dbca94e570921ba77",
+      "expected_sha256": "e4e9fd62e6c4736a18781c6b17184441e8852412867cc95dbca94e570921ba77",
+      "path": "core\\foxai_web.py",
+      "size_bytes": 2351757,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "a2d334fb80f1d25d07f28cd6beb6d6d16011327cb7cca1aee20780151cc42b5c",
+      "expected_sha256": "a2d334fb80f1d25d07f28cd6beb6d6d16011327cb7cca1aee20780151cc42b5c",
+      "path": "core\\heuristics.py",
+      "size_bytes": 9605,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "eae4a9d900d5a02f99792f75e181c0fdad7cea56ece3ea5495b32ef4b8a0aef0",
+      "expected_sha256": "eae4a9d900d5a02f99792f75e181c0fdad7cea56ece3ea5495b32ef4b8a0aef0",
+      "path": "core\\heuristics\\context_menu_heuristic.py",
+      "size_bytes": 2348,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "078ac29af9e10089b2ad23336c4510043066364f96621df0d0bc3d0265982258",
+      "expected_sha256": "078ac29af9e10089b2ad23336c4510043066364f96621df0d0bc3d0265982258",
+      "path": "core\\image_models.py",
+      "size_bytes": 337,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "6e6ff3a97c5c1f72407c20ff805514ce9bff68dabd07ff22144791b3ad7a44ca",
+      "expected_sha256": "6e6ff3a97c5c1f72407c20ff805514ce9bff68dabd07ff22144791b3ad7a44ca",
+      "path": "core\\investigation_engine.py",
+      "size_bytes": 9622,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "e5b6267ae63ebf6bb8d39866e541ba5bd93ff59bce787ac407183bcc3476f9db",
+      "expected_sha256": "e5b6267ae63ebf6bb8d39866e541ba5bd93ff59bce787ac407183bcc3476f9db",
+      "path": "core\\kernel.py",
+      "size_bytes": 9580,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "e5b6267ae63ebf6bb8d39866e541ba5bd93ff59bce787ac407183bcc3476f9db",
+      "expected_sha256": "e5b6267ae63ebf6bb8d39866e541ba5bd93ff59bce787ac407183bcc3476f9db",
+      "path": "core\\kernel_service.py",
+      "size_bytes": 9580,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "d97cc9d4f1c74d8ffeaeed409db7d34021682657894a96713dd321e8c005d493",
+      "expected_sha256": "d97cc9d4f1c74d8ffeaeed409db7d34021682657894a96713dd321e8c005d493",
+      "path": "core\\library.py",
+      "size_bytes": 2024,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "846b7ee2eea7417ce7a258cf592896d5d2cce73b496a5528ce8881aeb70d7fa4",
+      "expected_sha256": "846b7ee2eea7417ce7a258cf592896d5d2cce73b496a5528ce8881aeb70d7fa4",
+      "path": "core\\library_agent.py",
+      "size_bytes": 958,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "05117cb38a179ca66761dfb7495f799bf008c423de8db0e531a226c24af538bf",
+      "expected_sha256": "05117cb38a179ca66761dfb7495f799bf008c423de8db0e531a226c24af538bf",
+      "path": "core\\memory.py",
+      "size_bytes": 1921,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "30c1c3ef910d944e0a3ea899b517938da942e69218dc1a68f9b7a9a50865172a",
+      "expected_sha256": "30c1c3ef910d944e0a3ea899b517938da942e69218dc1a68f9b7a9a50865172a",
+      "path": "core\\mission_flow.py",
+      "size_bytes": 6862,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "d1032abb31b30f9b5a0b8e6169983de368d4a5ab474438f454fe385436a6d57a",
+      "expected_sha256": "d1032abb31b30f9b5a0b8e6169983de368d4a5ab474438f454fe385436a6d57a",
+      "path": "core\\mission_session.py",
+      "size_bytes": 11541,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "cb0037d8ec3918b013e83ff832b9a881c34f7abc04443b42c65c93431ab2007a",
+      "expected_sha256": "cb0037d8ec3918b013e83ff832b9a881c34f7abc04443b42c65c93431ab2007a",
+      "path": "core\\mission_templates.py",
+      "size_bytes": 5870,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "e00a861265eff8826c4d7eeb89b3765e719b88f349811a2e608525d8a3f91ea2",
+      "expected_sha256": "e00a861265eff8826c4d7eeb89b3765e719b88f349811a2e608525d8a3f91ea2",
+      "path": "core\\model_sources.py",
+      "size_bytes": 23000,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "7ffd11b118ac1974fc7454b63b8324afb58c5311e9e40b16d057d094992171e6",
+      "expected_sha256": "7ffd11b118ac1974fc7454b63b8324afb58c5311e9e40b16d057d094992171e6",
+      "path": "core\\models.py",
+      "size_bytes": 138,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "cb80775b7ee7824afd26d861727a27268401237358c94f7a28a82f5c6603d82e",
+      "expected_sha256": "cb80775b7ee7824afd26d861727a27268401237358c94f7a28a82f5c6603d82e",
+      "path": "core\\paths.py",
+      "size_bytes": 361,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "ff5f463a3d2fa0409c1def0e68e0a296404f0a220174b356040aa6b3fdd65afb",
+      "expected_sha256": "ff5f463a3d2fa0409c1def0e68e0a296404f0a220174b356040aa6b3fdd65afb",
+      "path": "core\\project_charter.py",
+      "size_bytes": 12143,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "124288b36aead7d24f67a370fd413528b1cc353a25cd19c65aa66906a2adf3a4",
+      "expected_sha256": "124288b36aead7d24f67a370fd413528b1cc353a25cd19c65aa66906a2adf3a4",
+      "path": "core\\project_index.py",
+      "size_bytes": 6727,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "caf1b196ed2a727e764e81249acc18c7af5d9e275ae02e13e71072c3b00f0dcc",
+      "expected_sha256": "caf1b196ed2a727e764e81249acc18c7af5d9e275ae02e13e71072c3b00f0dcc",
+      "path": "core\\project_memory.py",
+      "size_bytes": 7204,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "09f31f851f04671946917b21ed2b1cecf41beda56103ca3def65060a48051277",
+      "expected_sha256": "09f31f851f04671946917b21ed2b1cecf41beda56103ca3def65060a48051277",
+      "path": "core\\promptsmith.py",
+      "size_bytes": 1777,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "a1f9f81163d79195ff1817b43b1f51f5c97dcfc8bb429ab29edcecbb23d416ae",
+      "expected_sha256": "a1f9f81163d79195ff1817b43b1f51f5c97dcfc8bb429ab29edcecbb23d416ae",
+      "path": "core\\recommendation_engine.py",
+      "size_bytes": 4791,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "75493258f8c62b572ba5939e9dd8f2c28d7dc442fd9460fe80bdfea44f3625a5",
+      "expected_sha256": "75493258f8c62b572ba5939e9dd8f2c28d7dc442fd9460fe80bdfea44f3625a5",
+      "path": "core\\red_canvas.py",
+      "size_bytes": 611,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "7b02daa842635fa922eec6e03d69ed71805383222ea8b2cbceb19556125e201d",
+      "expected_sha256": "7b02daa842635fa922eec6e03d69ed71805383222ea8b2cbceb19556125e201d",
+      "path": "core\\red_canvas_agent.py",
+      "size_bytes": 288,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "e8359742895beebc50deb152fc2edd34a1b542a3e99f31f0c13d930e6ab2ea6c",
+      "expected_sha256": "e8359742895beebc50deb152fc2edd34a1b542a3e99f31f0c13d930e6ab2ea6c",
+      "path": "core\\repair_bay_baseline.py",
+      "size_bytes": 46126,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "6952e242233f63d3f04af2f2e0a7a2070abadd2dd4ef2ea73bb60d100162ac3f",
+      "expected_sha256": "6952e242233f63d3f04af2f2e0a7a2070abadd2dd4ef2ea73bb60d100162ac3f",
+      "path": "core\\repair_bay_diagnostics.py",
+      "size_bytes": 80060,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "4bfd074c48bfc94183320e3c90dcdebe5da18cc91cf8194b1fd93e82db92fb25",
+      "expected_sha256": "4bfd074c48bfc94183320e3c90dcdebe5da18cc91cf8194b1fd93e82db92fb25",
+      "path": "core\\repair_bay_handoff.py",
+      "size_bytes": 19265,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "f09fee04cdb8e3a01cea7d24e3f7452f18922453cc184d549ad0f291b61f51c4",
+      "expected_sha256": "f09fee04cdb8e3a01cea7d24e3f7452f18922453cc184d549ad0f291b61f51c4",
+      "path": "core\\runtime_graph.py",
+      "size_bytes": 9884,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "9a00ed8c1b2ef45a02fab2e4c2e552b3a6532e1609b6995a7985034ccf002a24",
+      "expected_sha256": "9a00ed8c1b2ef45a02fab2e4c2e552b3a6532e1609b6995a7985034ccf002a24",
+      "path": "core\\security_containment.py",
+      "size_bytes": 37899,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "238931aaa46446448696c5000ae9b744f44d171fd491e0d41b3562b8d9fddd81",
+      "expected_sha256": "238931aaa46446448696c5000ae9b744f44d171fd491e0d41b3562b8d9fddd81",
+      "path": "core\\server.py",
+      "size_bytes": 38704,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "cc798df061a27a51c4ea1f64b3757d2a92724a9a5768e4c190846966efe0251b",
+      "expected_sha256": "cc798df061a27a51c4ea1f64b3757d2a92724a9a5768e4c190846966efe0251b",
+      "path": "core\\service_registry.py",
+      "size_bytes": 4721,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "d2e44e4451a734b8ffa8d6d72d49c1604fbee0af469222cdb9e4846e09cb212a",
+      "expected_sha256": "d2e44e4451a734b8ffa8d6d72d49c1604fbee0af469222cdb9e4846e09cb212a",
+      "path": "core\\smart_search.py",
+      "size_bytes": 16832,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "8b76ff90b5203f173681b0b59cbe23110de530ff2aa10e0c3f266e84a5bc0def",
+      "expected_sha256": "8b76ff90b5203f173681b0b59cbe23110de530ff2aa10e0c3f266e84a5bc0def",
+      "path": "core\\technical_debt.py",
+      "size_bytes": 10380,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "5eb7bdaa8c409732b406cc01a16f7c4b03000839e26af133a7d84458d2d5e845",
+      "expected_sha256": "5eb7bdaa8c409732b406cc01a16f7c4b03000839e26af133a7d84458d2d5e845",
+      "path": "core\\VERIFY_KAYOCK_WRITER_V2.py",
+      "size_bytes": 7484,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "e3527e5cf3b0b6bb63bd23d1be87f78348277653ba117107d78a788bdd5232a7",
+      "expected_sha256": "e3527e5cf3b0b6bb63bd23d1be87f78348277653ba117107d78a788bdd5232a7",
+      "path": "core\\VERIFY_REPAIR_BAY_V1.py",
+      "size_bytes": 38776,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "944219126a8d8086cc010cffd145aa83bd4a1a6709675b82990a6de2b952195a",
+      "expected_sha256": "944219126a8d8086cc010cffd145aa83bd4a1a6709675b82990a6de2b952195a",
+      "path": "core\\VERIFY_REPAIR_BAY_V3.py",
+      "size_bytes": 16747,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "b7f7ca844beecfac82bdc5a8a5beb440c689b6e4f4e96fb802fa3a5651402f5b",
+      "expected_sha256": "b7f7ca844beecfac82bdc5a8a5beb440c689b6e4f4e96fb802fa3a5651402f5b",
+      "path": "core\\workshop_bus.py",
+      "size_bytes": 4917,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "91236db004335645db467962028de638e19046cff2d349fa3af0dd4c9d5e4265",
+      "expected_sha256": "91236db004335645db467962028de638e19046cff2d349fa3af0dd4c9d5e4265",
+      "path": "core\\workshop_config.py",
+      "size_bytes": 3968,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "f703ee88bff7260d103da4b421af4ff6aa74628c2781bc6a655ee18db92817ac",
+      "expected_sha256": "f703ee88bff7260d103da4b421af4ff6aa74628c2781bc6a655ee18db92817ac",
+      "path": "CORRECTED_PREVIEW_RECEIPT.json",
+      "size_bytes": 615,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "c98a6d97277d3c6702a6ed0867eea9959d3bf93dc051257187a893c4fba3d068",
+      "expected_sha256": "c98a6d97277d3c6702a6ed0867eea9959d3bf93dc051257187a893c4fba3d068",
+      "path": "Create Desktop Shortcut.ps1",
+      "size_bytes": 425,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "548eb2014a963abf29274d87821d57d3bf95cca6a1edefa5342afbc63068d8e9",
+      "expected_sha256": "548eb2014a963abf29274d87821d57d3bf95cca6a1edefa5342afbc63068d8e9",
+      "path": "CreativeStudio\\module.yaml",
+      "size_bytes": 222,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "c421764ae090f773c3fc966ca777efbb6e5eb6fd1f0403b61518d8c10415db7d",
+      "expected_sha256": "c421764ae090f773c3fc966ca777efbb6e5eb6fd1f0403b61518d8c10415db7d",
+      "path": "Departments\\Engineering\\__init__.py",
+      "size_bytes": 289,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "546edc67a6d22eef886783aab581502c884fb3e8b3e59adac61b56cc84698212",
+      "expected_sha256": "546edc67a6d22eef886783aab581502c884fb3e8b3e59adac61b56cc84698212",
+      "path": "Departments\\Engineering\\cli.py",
+      "size_bytes": 4010,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "5ba97d9fa0f6bbf821cd9c9d4d9428d6e2aeec6e2880b3501caf8b7f9ca91162",
+      "expected_sha256": "5ba97d9fa0f6bbf821cd9c9d4d9428d6e2aeec6e2880b3501caf8b7f9ca91162",
+      "path": "Departments\\Engineering\\evidence.py",
+      "size_bytes": 955,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "e13df8c44af5dea1e412403910b99cc5a48f2ccbf68a66b3374d6ab9cef9fc65",
+      "expected_sha256": "e13df8c44af5dea1e412403910b99cc5a48f2ccbf68a66b3374d6ab9cef9fc65",
+      "path": "Departments\\Engineering\\examples\\fixture_project\\app.py",
+      "size_bytes": 10,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "b61a4ff7c20f6f68809df37bb6af27240c141f3cfaeaec155d7214b0ed47e946",
+      "expected_sha256": "b61a4ff7c20f6f68809df37bb6af27240c141f3cfaeaec155d7214b0ed47e946",
+      "path": "Departments\\Engineering\\examples\\fixture_project\\test_app.py",
+      "size_bytes": 185,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "919ac46448c4694ade4fd60b2540cfc30a14a4de56bdb79dde0c324a94444178",
+      "expected_sha256": "919ac46448c4694ade4fd60b2540cfc30a14a4de56bdb79dde0c324a94444178",
+      "path": "Departments\\Engineering\\examples\\PLAN_TEMPLATE.json",
+      "size_bytes": 888,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "819306d38679e11f5a9c3280d144b5652c747c12db000f6d2286f0afde3ae777",
+      "expected_sha256": "819306d38679e11f5a9c3280d144b5652c747c12db000f6d2286f0afde3ae777",
+      "path": "Departments\\Engineering\\health.py",
+      "size_bytes": 2817,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "fdb801a6dad031d50964b2529fe8d262fe4174ddac018fc5b30e23b2ae7def90",
+      "expected_sha256": "fdb801a6dad031d50964b2529fe8d262fe4174ddac018fc5b30e23b2ae7def90",
+      "path": "Departments\\Engineering\\manifest.json",
+      "size_bytes": 2649,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "10622a8def82d0a857abe1d031cb4d771a5c3bd3f076a2bda3dd22acc180832d",
+      "expected_sha256": "10622a8def82d0a857abe1d031cb4d771a5c3bd3f076a2bda3dd22acc180832d",
+      "path": "Departments\\Engineering\\mission_router.py",
+      "size_bytes": 2913,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "f321159f1ba9f122198e1d087289d772980c185b2f92c29b69c66676a47746c6",
+      "expected_sha256": "f321159f1ba9f122198e1d087289d772980c185b2f92c29b69c66676a47746c6",
+      "path": "Departments\\Engineering\\mission_state.py",
+      "size_bytes": 1703,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "0855ca7cf3bd834165a2113b9b791206bc6acd6febf0599d99bab374e68723b9",
+      "expected_sha256": "0855ca7cf3bd834165a2113b9b791206bc6acd6febf0599d99bab374e68723b9",
+      "path": "Departments\\Engineering\\models.py",
+      "size_bytes": 1818,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "a99591f88e6a472e2126d10f7b2269a4df88eb05b2d9daf6bfbcf62933d10fe2",
+      "expected_sha256": "a99591f88e6a472e2126d10f7b2269a4df88eb05b2d9daf6bfbcf62933d10fe2",
+      "path": "Departments\\Engineering\\officer.py",
+      "size_bytes": 700,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "4e015ee9683a0772535e9079cef8a91f1e821e38e36e0e96c9f2aa0cd1903c96",
+      "expected_sha256": "4e015ee9683a0772535e9079cef8a91f1e821e38e36e0e96c9f2aa0cd1903c96",
+      "path": "Departments\\Engineering\\patch_engine.py",
+      "size_bytes": 6288,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "eaae4c58e04eba5138bc1e23e2112ec9b83716165ad8546d0de363e5534fa882",
+      "expected_sha256": "eaae4c58e04eba5138bc1e23e2112ec9b83716165ad8546d0de363e5534fa882",
+      "path": "Departments\\Engineering\\policy.py",
+      "size_bytes": 3155,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "838c10cf5a3de926e5c5618a026a577ef0ab3dcf58c07988d824ae9e0d0ffb17",
+      "expected_sha256": "838c10cf5a3de926e5c5618a026a577ef0ab3dcf58c07988d824ae9e0d0ffb17",
+      "path": "Departments\\Engineering\\RUN_ENGINEERING_WORKSHOP.bat",
+      "size_bytes": 305,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "3dd117225d50bd98a1d24d548053a9b2e1f37b78ea207c38a0cc6302a8587020",
+      "expected_sha256": "3dd117225d50bd98a1d24d548053a9b2e1f37b78ea207c38a0cc6302a8587020",
+      "path": "Departments\\Engineering\\RUN_WORKSHOP_TESTS.bat",
+      "size_bytes": 328,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "945036d72386e4f0048c51f5427ec53dcd5af5b70ccd16658ef30fd0f4decedb",
+      "expected_sha256": "945036d72386e4f0048c51f5427ec53dcd5af5b70ccd16658ef30fd0f4decedb",
+      "path": "Departments\\Engineering\\services.py",
+      "size_bytes": 1753,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "3a8eeec44c714b703f72a3be8de6238d774c84214465267d263ba18e7446e665",
+      "expected_sha256": "3a8eeec44c714b703f72a3be8de6238d774c84214465267d263ba18e7446e665",
+      "path": "Departments\\Engineering\\snapshot.py",
+      "size_bytes": 4173,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "5577c464fa6e541c6642b016a0b0de8533bae8ef736ef710fdd34f61480c4295",
+      "expected_sha256": "5577c464fa6e541c6642b016a0b0de8533bae8ef736ef710fdd34f61480c4295",
+      "path": "Departments\\Engineering\\source_locator.py",
+      "size_bytes": 2515,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "path": "Departments\\Engineering\\tests\\__init__.py",
+      "size_bytes": 0,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "00babc227a9a9085442c1fbf42dd16da215f97664c24d8c984f8815dffb390df",
+      "expected_sha256": "00babc227a9a9085442c1fbf42dd16da215f97664c24d8c984f8815dffb390df",
+      "path": "Departments\\Engineering\\tests\\test_workshop.py",
+      "size_bytes": 6610,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "7dd2cd76bd2a27019e1ad6a97c5fa1565e40f2d1684217bfb5c966798cbb1b7f",
+      "expected_sha256": "7dd2cd76bd2a27019e1ad6a97c5fa1565e40f2d1684217bfb5c966798cbb1b7f",
+      "path": "Departments\\Engineering\\validator.py",
+      "size_bytes": 2731,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "df5f8a852aaaf1d0bc7939ed71101dbdd250ca1ffdcc63e28d82343a81d0dfac",
+      "expected_sha256": "df5f8a852aaaf1d0bc7939ed71101dbdd250ca1ffdcc63e28d82343a81d0dfac",
+      "path": "Departments\\Engineering\\workshop.py",
+      "size_bytes": 10962,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "9208d4882b0556da45db2f7ca164993f5e808d39f98bca4ae75dc38243c1c96a",
+      "expected_sha256": "9208d4882b0556da45db2f7ca164993f5e808d39f98bca4ae75dc38243c1c96a",
+      "path": "DEPENDENCY_ARBITER.bat",
+      "size_bytes": 367,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "2a1e6d1e911581879e41f33a16c57a30dbceb244ffc9ebabebe54eb0712f8632",
+      "expected_sha256": "2a1e6d1e911581879e41f33a16c57a30dbceb244ffc9ebabebe54eb0712f8632",
+      "path": "DEPENDENCY_ARBITER.py",
+      "size_bytes": 1343,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "19134b9d2326979dbcf708bb3bc272be897d340cd9770684c553779b59f29396",
+      "expected_sha256": "19134b9d2326979dbcf708bb3bc272be897d340cd9770684c553779b59f29396",
+      "path": "ENGINEERING_REPORT.bat",
+      "size_bytes": 347,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "ac5c41568804981ac2e78fe2325a927c2315b9d1344c99260961f44f21553a1a",
+      "expected_sha256": "ac5c41568804981ac2e78fe2325a927c2315b9d1344c99260961f44f21553a1a",
+      "path": "ENGINEERING_REPORT.py",
+      "size_bytes": 2551,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "df30700492e04abf3841d5ab485b9e6a8a75392e5957196e7da3fedf20dade41",
+      "expected_sha256": "df30700492e04abf3841d5ab485b9e6a8a75392e5957196e7da3fedf20dade41",
+      "path": "ENGINEERING_STATUS.bat",
+      "size_bytes": 369,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "f69009802665285d6eb3cedb8d85fc4ec196c4c4f55a76b29e4f49c10b119213",
+      "expected_sha256": "f69009802665285d6eb3cedb8d85fc4ec196c4c4f55a76b29e4f49c10b119213",
+      "path": "ENGINEERING_STATUS.py",
+      "size_bytes": 917,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "49e3af682655c13aff4a85ab5a6678da524542bb13bfdd3d8a72cba8e142d997",
+      "expected_sha256": "49e3af682655c13aff4a85ab5a6678da524542bb13bfdd3d8a72cba8e142d997",
+      "path": "EVENT_BUS_DEMO.bat",
+      "size_bytes": 369,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "8bb20f5f978c81f79ebf47bbae44dfeb8adbefa81f623dd3643db00a7a0c62cd",
+      "expected_sha256": "8bb20f5f978c81f79ebf47bbae44dfeb8adbefa81f623dd3643db00a7a0c62cd",
+      "path": "EVENT_BUS_DEMO.py",
+      "size_bytes": 1702,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "ef7b44bc5075cb8b71fa03339b4bc1f8121cb1e398c65f6805a989d55a2f6bed",
+      "expected_sha256": "ef7b44bc5075cb8b71fa03339b4bc1f8121cb1e398c65f6805a989d55a2f6bed",
+      "path": "EXECUTE_MISSION.bat",
+      "size_bytes": 359,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "f16492cca1c638cb332c3c9345c3f3c2d04f39a376a9fc5539c51a7cf1d553a3",
+      "expected_sha256": "f16492cca1c638cb332c3c9345c3f3c2d04f39a376a9fc5539c51a7cf1d553a3",
+      "path": "EXECUTE_MISSION.py",
+      "size_bytes": 2509,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "bd94beb278523891931272e1e7b00c72f6eae344493fa1fecb5c51b804097d5d",
+      "expected_sha256": "bd94beb278523891931272e1e7b00c72f6eae344493fa1fecb5c51b804097d5d",
+      "path": "Extensions\\Academy\\Conversation\\extension.json",
+      "size_bytes": 613,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "140b33f013fbfcc443df729e973a22b9bb8dbc4db4f5da564672cd0ecfc9fb81",
+      "expected_sha256": "140b33f013fbfcc443df729e973a22b9bb8dbc4db4f5da564672cd0ecfc9fb81",
+      "path": "Extensions\\Academy\\Conversation\\plugin.py",
+      "size_bytes": 1405,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "a487f38867411ae72abeb9427393b5847242c2181ade5ef841c7490f5e6360f8",
+      "expected_sha256": "a487f38867411ae72abeb9427393b5847242c2181ade5ef841c7490f5e6360f8",
+      "path": "Extensions\\Engineering\\Database\\extension.json",
+      "size_bytes": 572,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "45d399539b33c90f2ef25038cfc36f71f76651ab6d48bfb00d5dcba1807e3de2",
+      "expected_sha256": "45d399539b33c90f2ef25038cfc36f71f76651ab6d48bfb00d5dcba1807e3de2",
+      "path": "Extensions\\Engineering\\Database\\plugin.py",
+      "size_bytes": 909,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "bbc5243aff38c74007ecfe777f5204bf80f119d44853e828c6e3186395176c86",
+      "expected_sha256": "bbc5243aff38c74007ecfe777f5204bf80f119d44853e828c6e3186395176c86",
+      "path": "Extensions\\Engineering\\Everything\\extension.json",
+      "size_bytes": 498,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "302a9cb22940979e9871b5b4d8413e31af369a0bd128c72f1dc831a3d706bc81",
+      "expected_sha256": "302a9cb22940979e9871b5b4d8413e31af369a0bd128c72f1dc831a3d706bc81",
+      "path": "Extensions\\Engineering\\Everything\\plugin.py",
+      "size_bytes": 1615,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "c14377d81addd30b8f845db4c6d7f94531d81cde380e33330c11077fe57f6c9c",
+      "expected_sha256": "c14377d81addd30b8f845db4c6d7f94531d81cde380e33330c11077fe57f6c9c",
+      "path": "Extensions\\Engineering\\Everything\\plugin_backup_before_safe_fleet_20260705_210348.py",
+      "size_bytes": 1380,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "21d4e25c2a312ecaf13affd9df29229beae623d36e1f6396f3b6981e3508ea0b",
+      "expected_sha256": "21d4e25c2a312ecaf13affd9df29229beae623d36e1f6396f3b6981e3508ea0b",
+      "path": "Extensions\\Engineering\\ripgrep\\extension.json",
+      "size_bytes": 429,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "954bffd169d64d5828bc73d5e63267c84de715c3d782ea41c9cfe8a7b066542f",
+      "expected_sha256": "954bffd169d64d5828bc73d5e63267c84de715c3d782ea41c9cfe8a7b066542f",
+      "path": "Extensions\\Engineering\\ripgrep\\plugin.py",
+      "size_bytes": 2533,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "feb9e78e193b1ae3a2d40dbf73f6b9e6692f386d9d670a2291c990d4120b0250",
+      "expected_sha256": "feb9e78e193b1ae3a2d40dbf73f6b9e6692f386d9d670a2291c990d4120b0250",
+      "path": "Extensions\\Engineering\\TreeSitter\\extension.json",
+      "size_bytes": 503,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "43ee2b73b58bf7bcc8298d04a54ef70030238487470c79b58507f39cabe6dfce",
+      "expected_sha256": "43ee2b73b58bf7bcc8298d04a54ef70030238487470c79b58507f39cabe6dfce",
+      "path": "Extensions\\Engineering\\TreeSitter\\plugin.py",
+      "size_bytes": 1564,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "5846ee8d86521415d49e7192a27893b30deb735aff63f97638ff1c8614c113e4",
+      "expected_sha256": "5846ee8d86521415d49e7192a27893b30deb735aff63f97638ff1c8614c113e4",
+      "path": "Extensions\\Engineering\\TreeSitter\\plugin_backup_before_safe_fleet_20260705_210348.py",
+      "size_bytes": 1431,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "a272f06a53c2788c3d36e3cf3c5be1480d06228c288326043bffc769cd6f8d02",
+      "expected_sha256": "a272f06a53c2788c3d36e3cf3c5be1480d06228c288326043bffc769cd6f8d02",
+      "path": "Extensions\\Engineering\\WinMerge\\extension.json",
+      "size_bytes": 485,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "302a9cb22940979e9871b5b4d8413e31af369a0bd128c72f1dc831a3d706bc81",
+      "expected_sha256": "302a9cb22940979e9871b5b4d8413e31af369a0bd128c72f1dc831a3d706bc81",
+      "path": "Extensions\\Engineering\\WinMerge\\plugin.py",
+      "size_bytes": 1615,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "c14377d81addd30b8f845db4c6d7f94531d81cde380e33330c11077fe57f6c9c",
+      "expected_sha256": "c14377d81addd30b8f845db4c6d7f94531d81cde380e33330c11077fe57f6c9c",
+      "path": "Extensions\\Engineering\\WinMerge\\plugin_backup_before_safe_fleet_20260705_210348.py",
+      "size_bytes": 1380,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "d57ed4614d4f5283fcd4c8ae244b64448a05b6ccd154de17f6ca9801267a78be",
+      "expected_sha256": "d57ed4614d4f5283fcd4c8ae244b64448a05b6ccd154de17f6ca9801267a78be",
+      "path": "FIXED_GATE_SIMULATION_RECEIPT.json",
+      "size_bytes": 765,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "3a7a3a20789979cde49b058c0e302c92a2ebe84acf99e3b125ec21cd7928c67f",
+      "expected_sha256": "3a7a3a20789979cde49b058c0e302c92a2ebe84acf99e3b125ec21cd7928c67f",
+      "path": "FLEET_COMMAND.bat",
+      "size_bytes": 333,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "08e9cfc9631f1eec1fdb4eed1e69a52a2576eff835c873d7981138beda62f5fb",
+      "expected_sha256": "08e9cfc9631f1eec1fdb4eed1e69a52a2576eff835c873d7981138beda62f5fb",
+      "path": "FLEET_COMMAND.py",
+      "size_bytes": 2870,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "6a297accfd345bd73b1da07cb82561aaea2e2e0eab4489cd3e76caa4fc8df711",
+      "expected_sha256": "6a297accfd345bd73b1da07cb82561aaea2e2e0eab4489cd3e76caa4fc8df711",
+      "path": "Forge\\module.yaml",
+      "size_bytes": 185,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "f4613cf3e8cea2ae4fbcf8bb031bfa4a2ecdd31067ae5d1d8937f47f50069d2d",
+      "expected_sha256": "f4613cf3e8cea2ae4fbcf8bb031bfa4a2ecdd31067ae5d1d8937f47f50069d2d",
+      "path": "Foundry\\BackupScripts\\backup_project.bat",
+      "size_bytes": 222,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "7120235a35d8c6ad7e9b82501bb6ee6a12d73f68ba925180121ac38e11619100",
+      "expected_sha256": "7120235a35d8c6ad7e9b82501bb6ee6a12d73f68ba925180121ac38e11619100",
+      "path": "Foundry\\BackupScripts\\backup_project.py",
+      "size_bytes": 781,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "e9d86cc457e169dfebcb40576e00794866e309c78fa5ab1dadb3a4d95eb5039a",
+      "expected_sha256": "e9d86cc457e169dfebcb40576e00794866e309c78fa5ab1dadb3a4d95eb5039a",
+      "path": "Foundry\\bridge_health.bat",
+      "size_bytes": 207,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "0012da304f0df008d392e0282ce63d9cb4d5a68a839ee1e77d92c6d0cf966786",
+      "expected_sha256": "0012da304f0df008d392e0282ce63d9cb4d5a68a839ee1e77d92c6d0cf966786",
+      "path": "Foundry\\bridge_health.py",
+      "size_bytes": 3832,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "920ff5696454b2d6ce53e9eac9f02dfba9754c344ec71140fce7cc1d5dc14eb6",
+      "expected_sha256": "920ff5696454b2d6ce53e9eac9f02dfba9754c344ec71140fce7cc1d5dc14eb6",
+      "path": "Foundry\\build_portable_rc.bat",
+      "size_bytes": 228,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "1cac4c656a9ad5e61ca749e40f8f0e7706c4566efa586e13723b0d86f8756f8b",
+      "expected_sha256": "1cac4c656a9ad5e61ca749e40f8f0e7706c4566efa586e13723b0d86f8756f8b",
+      "path": "Foundry\\build_portable_rc.py",
+      "size_bytes": 2119,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "5a1fb2fbe2e8157ebd4706adf058d7c6c7d1004e1e96b6b53baa895f903158c1",
+      "expected_sha256": "5a1fb2fbe2e8157ebd4706adf058d7c6c7d1004e1e96b6b53baa895f903158c1",
+      "path": "Foundry\\finalize_v1_release.bat",
+      "size_bytes": 230,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "81a93d5c3ea9231825659b93ef71881a36a903b0a5d019991d9a79a97a5cb0f7",
+      "expected_sha256": "81a93d5c3ea9231825659b93ef71881a36a903b0a5d019991d9a79a97a5cb0f7",
+      "path": "Foundry\\finalize_v1_release.py",
+      "size_bytes": 4994,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "26769b60b66fdf1a5e13895ba4381d05181a45808fcb93a199fb448850955dc1",
+      "expected_sha256": "26769b60b66fdf1a5e13895ba4381d05181a45808fcb93a199fb448850955dc1",
+      "path": "Foundry\\first_contact_diagnostics.bat",
+      "size_bytes": 325,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "42253f190b24824a3f8f023c9235499da6fcccf4134370cd49d222362e008b61",
+      "expected_sha256": "42253f190b24824a3f8f023c9235499da6fcccf4134370cd49d222362e008b61",
+      "path": "Foundry\\first_contact_diagnostics.py",
+      "size_bytes": 4187,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "46ac62a4fe02a72dedc1a743925ec736f8fe9a727c7b1216f5f752ffdadf83be",
+      "expected_sha256": "46ac62a4fe02a72dedc1a743925ec736f8fe9a727c7b1216f5f752ffdadf83be",
+      "path": "Foundry\\git_baseline.bat",
+      "size_bytes": 522,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "b38e1bfcda6df6e6d50e52c5aec8a81c1ea26533969b6b9deeeffad95e926ffa",
+      "expected_sha256": "b38e1bfcda6df6e6d50e52c5aec8a81c1ea26533969b6b9deeeffad95e926ffa",
+      "path": "Foundry\\module.yaml",
+      "size_bytes": 196,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "8f168317783f8fcfa9ed75c0fe58e1281cdd3f5f56f6b921359235eb0f82c3bc",
+      "expected_sha256": "8f168317783f8fcfa9ed75c0fe58e1281cdd3f5f56f6b921359235eb0f82c3bc",
+      "path": "Foundry\\package_release.bat",
+      "size_bytes": 206,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "a1b24e17141951389a7d81f9daca5bb7460eaffbcec47974aa893339b2a5e169",
+      "expected_sha256": "a1b24e17141951389a7d81f9daca5bb7460eaffbcec47974aa893339b2a5e169",
+      "path": "Foundry\\package_release.py",
+      "size_bytes": 2835,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "e26d57024a3cbd6d464db6248084208e2e7f7cb9ba270005b0dceb8289188051",
+      "expected_sha256": "e26d57024a3cbd6d464db6248084208e2e7f7cb9ba270005b0dceb8289188051",
+      "path": "Foundry\\Patches\\apply_feature001_local_chat.py",
+      "size_bytes": 12396,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "f8a3c33e6f4a5e09ea60ea2aee71f6a3d43a18f3d6a1fdda327725705fc5bd1b",
+      "expected_sha256": "f8a3c33e6f4a5e09ea60ea2aee71f6a3d43a18f3d6a1fdda327725705fc5bd1b",
+      "path": "Foundry\\Patches\\apply_feature001b_runtime_launcher.py",
+      "size_bytes": 11785,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "9abddd432c1020f234a9f83fd58208706bff7b799b09e5c30513138fb9896189",
+      "expected_sha256": "9abddd432c1020f234a9f83fd58208706bff7b799b09e5c30513138fb9896189",
+      "path": "Foundry\\Patches\\apply_feature002_bridge_app.py",
+      "size_bytes": 26107,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "83715ca5e7c91a2d50a0aff60af2e97d8e4713bea9fdeece49e4d3e37a6ffe90",
+      "expected_sha256": "83715ca5e7c91a2d50a0aff60af2e97d8e4713bea9fdeece49e4d3e37a6ffe90",
+      "path": "Foundry\\Patches\\apply_feature002b_living_bridge_polish.py",
+      "size_bytes": 31883,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "78e7bf8876b60dfa1a05afb2ebc31eaa52ca9d22be108ee2ac2aa338f7fc2cc4",
+      "expected_sha256": "78e7bf8876b60dfa1a05afb2ebc31eaa52ca9d22be108ee2ac2aa338f7fc2cc4",
+      "path": "Foundry\\Patches\\apply_feature002c_professor_studies.py",
+      "size_bytes": 36479,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "bf74a2baca19eb9198e55d9d80c8fea8fdeb82fbe90a9254d571967c20c313f1",
+      "expected_sha256": "bf74a2baca19eb9198e55d9d80c8fea8fdeb82fbe90a9254d571967c20c313f1",
+      "path": "Foundry\\Patches\\apply_feature002d_observatory_room.py",
+      "size_bytes": 11271,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "6d7f0fe977162f3f2048fca83e7e8855de1d20e59aec7b7bca0ac4048d76ce2a",
+      "expected_sha256": "6d7f0fe977162f3f2048fca83e7e8855de1d20e59aec7b7bca0ac4048d76ce2a",
+      "path": "Foundry\\Patches\\apply_feature002e_foundry_room.py",
+      "size_bytes": 11286,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "0a3e9be9b5f700e08be4c4da59bd93c46db42744a3c6bf737de063a845eb7280",
+      "expected_sha256": "0a3e9be9b5f700e08be4c4da59bd93c46db42744a3c6bf737de063a845eb7280",
+      "path": "Foundry\\Patches\\apply_feature002f_library_room.py",
+      "size_bytes": 9152,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "79e59b4cbea967d769b920b923cb1afcb4346e8633cec84dac9d37f42dbbcc87",
+      "expected_sha256": "79e59b4cbea967d769b920b923cb1afcb4346e8633cec84dac9d37f42dbbcc87",
+      "path": "Foundry\\Patches\\apply_feature002g_creative_studio_v2.py",
+      "size_bytes": 11198,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "216843a6612de2d2fe3712fc69519f517ae843dcac9926d5ad7e547efcbc29e1",
+      "expected_sha256": "216843a6612de2d2fe3712fc69519f517ae843dcac9926d5ad7e547efcbc29e1",
+      "path": "Foundry\\Patches\\apply_feature002h_repair_bay_room.py",
+      "size_bytes": 10634,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "3c69e6f307f7ca767afdbabbd59ced0677772295ddcfc9f444f0c1e272addecf",
+      "expected_sha256": "3c69e6f307f7ca767afdbabbd59ced0677772295ddcfc9f444f0c1e272addecf",
+      "path": "Foundry\\Patches\\apply_feature002i_bridge_stabilizer.py",
+      "size_bytes": 9234,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "216e1611bcc465e2473a5749220f93a8757f065a1a027a3e4385f1f0d108a454",
+      "expected_sha256": "216e1611bcc465e2473a5749220f93a8757f065a1a027a3e4385f1f0d108a454",
+      "path": "Foundry\\Patches\\apply_feature002j_operator_settings.py",
+      "size_bytes": 10033,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "8acc9c90ead30a747145074860b6386c6a4216103cd55dd8610f1bc927c57f79",
+      "expected_sha256": "8acc9c90ead30a747145074860b6386c6a4216103cd55dd8610f1bc927c57f79",
+      "path": "Foundry\\Patches\\apply_feature002k_launcher_polish.py",
+      "size_bytes": 5031,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "2ef134deea35cef006f5829fffdf07bc4743b218e72be20aa3c9d0da41816585",
+      "expected_sha256": "2ef134deea35cef006f5829fffdf07bc4743b218e72be20aa3c9d0da41816585",
+      "path": "Foundry\\Patches\\apply_feature003_first_contact.py",
+      "size_bytes": 15768,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "a48abd1bd90e4bf4f7c9706c66b82aafbf552e76c5b89d29c84b5006d569a88f",
+      "expected_sha256": "a48abd1bd90e4bf4f7c9706c66b82aafbf552e76c5b89d29c84b5006d569a88f",
+      "path": "Foundry\\Patches\\apply_feature003b_first_contact_v2.py",
+      "size_bytes": 12255,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "5cb3b7ec5ade515974e9ceb36c423b0104bd6ba31920e1f75ecd5286741b8a5a",
+      "expected_sha256": "5cb3b7ec5ade515974e9ceb36c423b0104bd6ba31920e1f75ecd5286741b8a5a",
+      "path": "Foundry\\Patches\\apply_feature003c_first_contact_panel.py",
+      "size_bytes": 7953,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "6cdcd48fef1a4f9243c28da31abb2599addf690bf162b7c1b9162e2149cb59c0",
+      "expected_sha256": "6cdcd48fef1a4f9243c28da31abb2599addf690bf162b7c1b9162e2149cb59c0",
+      "path": "Foundry\\Patches\\apply_feature003d_first_contact_diagnostics.py",
+      "size_bytes": 9740,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "a08adcf8377f1671cd0400e1a4e194523c630867bc4b251e6940d295e7849e6c",
+      "expected_sha256": "a08adcf8377f1671cd0400e1a4e194523c630867bc4b251e6940d295e7849e6c",
+      "path": "Foundry\\Patches\\apply_feature003e_runtime_fixer.py",
+      "size_bytes": 8704,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "2bfb23c6847fb111285ae5bb2f0c72de442cd3cf16cf9eb129b2c1af166ba8e1",
+      "expected_sha256": "2bfb23c6847fb111285ae5bb2f0c72de442cd3cf16cf9eb129b2c1af166ba8e1",
+      "path": "Foundry\\Patches\\apply_feature003f_stable_context.py",
+      "size_bytes": 7705,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "9412b2cdc43d7469f4b799cde4d9d68690b499349443746ff8c0ca87853db88c",
+      "expected_sha256": "9412b2cdc43d7469f4b799cde4d9d68690b499349443746ff8c0ca87853db88c",
+      "path": "Foundry\\Patches\\apply_feature004_kobold_adapter.py",
+      "size_bytes": 15209,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "b427664567c9218a49fdbf847aa61a334e74e21f4e9dc7f6ef40d69b050df356",
+      "expected_sha256": "b427664567c9218a49fdbf847aa61a334e74e21f4e9dc7f6ef40d69b050df356",
+      "path": "Foundry\\Patches\\apply_feature004b_kobold_panel.py",
+      "size_bytes": 7691,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "dc1647176a7b292d993ca87a4b704adcc5f4977327208ce0a135a31de5e33fd4",
+      "expected_sha256": "dc1647176a7b292d993ca87a4b704adcc5f4977327208ce0a135a31de5e33fd4",
+      "path": "Foundry\\Patches\\apply_feature004c_kobold_core_repair.py",
+      "size_bytes": 13954,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "c1eca7d043826eb1e3bbd22e7ce7766438d39a514d18e5d7b44e7a1caae78e58",
+      "expected_sha256": "c1eca7d043826eb1e3bbd22e7ce7766438d39a514d18e5d7b44e7a1caae78e58",
+      "path": "Foundry\\Patches\\apply_feature004d_model_profiles.py",
+      "size_bytes": 13332,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "491452f228e4502a628e4341b7799d4af981c9ba124c0800aabdf33a69d49f3c",
+      "expected_sha256": "491452f228e4502a628e4341b7799d4af981c9ba124c0800aabdf33a69d49f3c",
+      "path": "Foundry\\Patches\\apply_feature006_core_working.py",
+      "size_bytes": 17173,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "75d0c5a5c11e28677260cf1552c8e3b82eea0c763ad07798bb8c22943c18fb98",
+      "expected_sha256": "75d0c5a5c11e28677260cf1552c8e3b82eea0c763ad07798bb8c22943c18fb98",
+      "path": "Foundry\\Patches\\apply_feature007_academy_bridge.py",
+      "size_bytes": 9599,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "9a8a117fcc9811570d3a4cd68a84c5ad387bd1a6584199fa78fbeba5e44b05f8",
+      "expected_sha256": "9a8a117fcc9811570d3a4cd68a84c5ad387bd1a6584199fa78fbeba5e44b05f8",
+      "path": "Foundry\\Patches\\apply_v0.3.0_project_unification.py",
+      "size_bytes": 7971,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "015875806c030b11fb2da048624e9717079c66523f6d9349ceef34a67d9003ea",
+      "expected_sha256": "015875806c030b11fb2da048624e9717079c66523f6d9349ceef34a67d9003ea",
+      "path": "Foundry\\Patches\\apply_v0.4.0_living_system_scanner.py",
+      "size_bytes": 12783,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "58cc426b63352c72aabfb7069e268b3f73f44808ce418d8ea977c605cd004319",
+      "expected_sha256": "58cc426b63352c72aabfb7069e268b3f73f44808ce418d8ea977c605cd004319",
+      "path": "Foundry\\Patches\\apply_v0.5.0_dynamic_module_registry.py",
+      "size_bytes": 11750,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "fa366fe82e63f5a3ae70d44964448cadafc44c7c427c2c18b7a9eac9e5946af9",
+      "expected_sha256": "fa366fe82e63f5a3ae70d44964448cadafc44c7c427c2c18b7a9eac9e5946af9",
+      "path": "Foundry\\Patches\\apply_v0.6.0_ai_asset_scanner.py",
+      "size_bytes": 9190,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "7dcf774e754e70c4cb9eaede896b0b2f4052c41623e93dce32d6c32e263f4b96",
+      "expected_sha256": "7dcf774e754e70c4cb9eaede896b0b2f4052c41623e93dce32d6c32e263f4b96",
+      "path": "Foundry\\Patches\\apply_v0.7.0_service_bus.py",
+      "size_bytes": 12159,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "aa3d8022616d47e46022c036d29e665566ed7750b0d452676a9120449371d77c",
+      "expected_sha256": "aa3d8022616d47e46022c036d29e665566ed7750b0d452676a9120449371d77c",
+      "path": "Foundry\\Patches\\apply_v0.8.0_foundry_release_checker.py",
+      "size_bytes": 11012,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "16cfc27eaf22bf138b416eb8b760eec9b8582f19095028aa3c4912a42c56dfe3",
+      "expected_sha256": "16cfc27eaf22bf138b416eb8b760eec9b8582f19095028aa3c4912a42c56dfe3",
+      "path": "Foundry\\Patches\\apply_v0.9.0_git_release_packager.py",
+      "size_bytes": 8371,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "d99bd2edbdf1a8be055d640037c159ad77e0f657a2108a847c1080ec36c78f5b",
+      "expected_sha256": "d99bd2edbdf1a8be055d640037c159ad77e0f657a2108a847c1080ec36c78f5b",
+      "path": "Foundry\\Patches\\apply_v1.0.0_portable_rc.py",
+      "size_bytes": 6032,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "cc99542e64d1800da4aa68c6dcfe5e62cf2fc6ea1b9c3367905d82dd6fc80158",
+      "expected_sha256": "cc99542e64d1800da4aa68c6dcfe5e62cf2fc6ea1b9c3367905d82dd6fc80158",
+      "path": "Foundry\\Patches\\apply_v1.0.0_release_finalizer.py",
+      "size_bytes": 8047,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "64f609b6b5eedf9ba504d8dcb6b2e93895ecc62e706a2e0ca5a8e449a450cf6b",
+      "expected_sha256": "64f609b6b5eedf9ba504d8dcb6b2e93895ecc62e706a2e0ca5a8e449a450cf6b",
+      "path": "Foundry\\Patches\\apply_v1.1.0_academy_seed.py",
+      "size_bytes": 10624,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "c4a33913cc59ae5ecafb904bc0672873388604462f512337a8fbd42c639c939f",
+      "expected_sha256": "c4a33913cc59ae5ecafb904bc0672873388604462f512337a8fbd42c639c939f",
+      "path": "Foundry\\Patches\\apply_v1.2.0_foxai_discovery.py",
+      "size_bytes": 10715,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "7861567482b2b65f97027f39ec994c5a666937633e653216a370f53494884c20",
+      "expected_sha256": "7861567482b2b65f97027f39ec994c5a666937633e653216a370f53494884c20",
+      "path": "Foundry\\Patches\\apply_v1.3.0_ai_gateway_stub.py",
+      "size_bytes": 11381,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "c1b29bdc6c4cac330153bb0d4f802196d8266632df06b32e4d437f6386ed175d",
+      "expected_sha256": "c1b29bdc6c4cac330153bb0d4f802196d8266632df06b32e4d437f6386ed175d",
+      "path": "Foundry\\Patches\\apply_v1.4.0_local_runtime_connector.py",
+      "size_bytes": 11895,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "075f3c3b0beeb79230d6bc0032daf2496349be4b28bea2abc5e2296943a5a1f3",
+      "expected_sha256": "075f3c3b0beeb79230d6bc0032daf2496349be4b28bea2abc5e2296943a5a1f3",
+      "path": "Foundry\\Patches\\RUN_Feature001_Local_Chat.bat",
+      "size_bytes": 617,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "635ed6d9067a66e8f52200f669a7c348105b9f789bdd0223897ef1a80ecb164c",
+      "expected_sha256": "635ed6d9067a66e8f52200f669a7c348105b9f789bdd0223897ef1a80ecb164c",
+      "path": "Foundry\\Patches\\RUN_Feature001B_Runtime_Launcher.bat",
+      "size_bytes": 645,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "e17a8989786c3cb9165e126b5707b9e4b34b98fb60121a9636f5e54da5580f37",
+      "expected_sha256": "e17a8989786c3cb9165e126b5707b9e4b34b98fb60121a9636f5e54da5580f37",
+      "path": "Foundry\\Patches\\RUN_Feature002_Bridge_App.bat",
+      "size_bytes": 617,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "a2ccacee9a5da4fb018a6aa623a7f22748aab4ec77bed9973874d3140f86869a",
+      "expected_sha256": "a2ccacee9a5da4fb018a6aa623a7f22748aab4ec77bed9973874d3140f86869a",
+      "path": "Foundry\\Patches\\RUN_Feature002B_Living_Bridge_Polish.bat",
+      "size_bytes": 654,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "d22b2746d7c99be183b59eb1b75ce05feb604ddc3bd21f39c8073dd836acc223",
+      "expected_sha256": "d22b2746d7c99be183b59eb1b75ce05feb604ddc3bd21f39c8073dd836acc223",
+      "path": "Foundry\\Patches\\RUN_Feature002C_Professor_Studies.bat",
+      "size_bytes": 649,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "5cab3f47310ebdb7284f1900bbef371a550bb1f4f140c3846b2acfcffab3f29f",
+      "expected_sha256": "5cab3f47310ebdb7284f1900bbef371a550bb1f4f140c3846b2acfcffab3f29f",
+      "path": "Foundry\\Patches\\RUN_Feature002D_Observatory_Room.bat",
+      "size_bytes": 645,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "c32ec1a2aec7864da9639eccd4bebebef3f2c5f664030b5f98669bb3c0e5f283",
+      "expected_sha256": "c32ec1a2aec7864da9639eccd4bebebef3f2c5f664030b5f98669bb3c0e5f283",
+      "path": "Foundry\\Patches\\RUN_Feature002E_Foundry_Room.bat",
+      "size_bytes": 629,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "aa168ee29d7d4f863adcf6e2b69a73ab04d36ef6f7e93997fe5a5806ecf8b088",
+      "expected_sha256": "aa168ee29d7d4f863adcf6e2b69a73ab04d36ef6f7e93997fe5a5806ecf8b088",
+      "path": "Foundry\\Patches\\RUN_Feature002F_Library_Room.bat",
+      "size_bytes": 629,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "34214ee5e7ea1b4699ec74e32be6326ca649d0823531230b095a807f019ab93e",
+      "expected_sha256": "34214ee5e7ea1b4699ec74e32be6326ca649d0823531230b095a807f019ab93e",
+      "path": "Foundry\\Patches\\RUN_Feature002G_Creative_Studio.bat",
+      "size_bytes": 443,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "2f2f70e7e380cb2ffa240ca0483f966871a5159e8b0e3146aeef78c5b71123a7",
+      "expected_sha256": "2f2f70e7e380cb2ffa240ca0483f966871a5159e8b0e3146aeef78c5b71123a7",
+      "path": "Foundry\\Patches\\RUN_Feature002G_Creative_Studio_v2.bat",
+      "size_bytes": 653,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "0fd3affec25b7fde222d29786a4282ab14f427a94468a213822e7ab76169f797",
+      "expected_sha256": "0fd3affec25b7fde222d29786a4282ab14f427a94468a213822e7ab76169f797",
+      "path": "Foundry\\Patches\\RUN_Feature002H_Repair_Bay_Room.bat",
+      "size_bytes": 641,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "092580fa77a4bcdfb328834ad684708a8371c63870340014dd70821488564a95",
+      "expected_sha256": "092580fa77a4bcdfb328834ad684708a8371c63870340014dd70821488564a95",
+      "path": "Foundry\\Patches\\RUN_Feature002I_Bridge_Stabilizer.bat",
+      "size_bytes": 649,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "812b7c8d7572fa02bdade8569a260742a4c7482e1afc0de47b639abc4b595b04",
+      "expected_sha256": "812b7c8d7572fa02bdade8569a260742a4c7482e1afc0de47b639abc4b595b04",
+      "path": "Foundry\\Patches\\RUN_Feature002J_Operator_Settings.bat",
+      "size_bytes": 649,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "b49bb02bf002674a5d50f1cb537c17a88d41518fbaab53719d3794eb0d5b13ac",
+      "expected_sha256": "b49bb02bf002674a5d50f1cb537c17a88d41518fbaab53719d3794eb0d5b13ac",
+      "path": "Foundry\\Patches\\RUN_Feature002K_Launcher_Polish.bat",
+      "size_bytes": 641,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "67db8cdc94b7934160cac8715e6c72e10865496a4f43aec25d20ea4e03834db4",
+      "expected_sha256": "67db8cdc94b7934160cac8715e6c72e10865496a4f43aec25d20ea4e03834db4",
+      "path": "Foundry\\Patches\\RUN_Feature002L_Mission_Control.bat",
+      "size_bytes": 497,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "9f49926ca99014f1c88e01e36f8bcdae47f7b2f375cd9ff6b36d6d7ace845063",
+      "expected_sha256": "9f49926ca99014f1c88e01e36f8bcdae47f7b2f375cd9ff6b36d6d7ace845063",
+      "path": "Foundry\\Patches\\RUN_Feature003_First_Contact.bat",
+      "size_bytes": 629,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "b19fbdc85a50b5eb31f8ef29365e44faa46fd3c1b10c5585848e539546ec9c4f",
+      "expected_sha256": "b19fbdc85a50b5eb31f8ef29365e44faa46fd3c1b10c5585848e539546ec9c4f",
+      "path": "Foundry\\Patches\\RUN_Feature003B_First_Contact_v2.bat",
+      "size_bytes": 645,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "eb8fc91cf76479edd2c1624f0ffa1c0473da423dd3cf5af3d60733904ee1d647",
+      "expected_sha256": "eb8fc91cf76479edd2c1624f0ffa1c0473da423dd3cf5af3d60733904ee1d647",
+      "path": "Foundry\\Patches\\RUN_Feature003C_First_Contact_Panel.bat",
+      "size_bytes": 657,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "c6e92487906d1b243b436caab75c20d775586e11894e8d5ed13d5e635e455525",
+      "expected_sha256": "c6e92487906d1b243b436caab75c20d775586e11894e8d5ed13d5e635e455525",
+      "path": "Foundry\\Patches\\RUN_Feature003D_First_Contact_Diagnostics.bat",
+      "size_bytes": 667,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "ed4d9b2cc89727f77abf4c35e76823f573488086420ee5e45f3f58fc0f1799af",
+      "expected_sha256": "ed4d9b2cc89727f77abf4c35e76823f573488086420ee5e45f3f58fc0f1799af",
+      "path": "Foundry\\Patches\\RUN_Feature003E_Runtime_Fixer.bat",
+      "size_bytes": 633,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "fa449c249d1f68b15382d576baf459ee6bd797404c0fa0551b038f31af92c14b",
+      "expected_sha256": "fa449c249d1f68b15382d576baf459ee6bd797404c0fa0551b038f31af92c14b",
+      "path": "Foundry\\Patches\\RUN_Feature003F_Stable_Context.bat",
+      "size_bytes": 637,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "f8892dded4fc5a2fc5472ee9b5be24418c687d503da5c984f11d9fc9726bfefb",
+      "expected_sha256": "f8892dded4fc5a2fc5472ee9b5be24418c687d503da5c984f11d9fc9726bfefb",
+      "path": "Foundry\\Patches\\RUN_Feature004_Kobold_Adapter.bat",
+      "size_bytes": 640,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "ff8c12320240c579bfd24849b606cde7e696282d1583fbb06e20224a9d40ed1e",
+      "expected_sha256": "ff8c12320240c579bfd24849b606cde7e696282d1583fbb06e20224a9d40ed1e",
+      "path": "Foundry\\Patches\\RUN_Feature004B_Kobold_Panel.bat",
+      "size_bytes": 629,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "da956661472b39920efef4930834b5f29327d6f23fb20b5d8243dca871282aa5",
+      "expected_sha256": "da956661472b39920efef4930834b5f29327d6f23fb20b5d8243dca871282aa5",
+      "path": "Foundry\\Patches\\RUN_Feature004C_Kobold_Core_Repair.bat",
+      "size_bytes": 653,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "77c05ebcf58cbfb0c3ec91f02cdd5b325ecd15d91cc4630b03b464b77776e0de",
+      "expected_sha256": "77c05ebcf58cbfb0c3ec91f02cdd5b325ecd15d91cc4630b03b464b77776e0de",
+      "path": "Foundry\\Patches\\RUN_Feature004D_Model_Profiles.bat",
+      "size_bytes": 445,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "10aa4df6aa8259db38be97f7125cd7ff4c1dd6d281da67549206e69a1944773f",
+      "expected_sha256": "10aa4df6aa8259db38be97f7125cd7ff4c1dd6d281da67549206e69a1944773f",
+      "path": "Foundry\\Patches\\RUN_Feature006_Core_Working.bat",
+      "size_bytes": 433,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "d72ae34135dcf508fef3220290f99bb6f33afb0b840970965a74ac5ed5912ee5",
+      "expected_sha256": "d72ae34135dcf508fef3220290f99bb6f33afb0b840970965a74ac5ed5912ee5",
+      "path": "Foundry\\Patches\\RUN_Feature007_Academy_Bridge.bat",
+      "size_bytes": 441,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "4b227202750a46addd111c4c9857eb9766700c9edaeb9f569f965491360454c9",
+      "expected_sha256": "4b227202750a46addd111c4c9857eb9766700c9edaeb9f569f965491360454c9",
+      "path": "Foundry\\Patches\\RUN_v0.3.0_Project_Unification.bat",
+      "size_bytes": 649,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "d5587211bd26fa78d8cee127587db4cc03db0c8ffc3aa0c32a1a0bbdd2b41944",
+      "expected_sha256": "d5587211bd26fa78d8cee127587db4cc03db0c8ffc3aa0c32a1a0bbdd2b41944",
+      "path": "Foundry\\Patches\\RUN_v0.4.0_Living_System_Scanner.bat",
+      "size_bytes": 641,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "c619e00abee53a27b1307a7d47a6516c141f3e151588e476ba4762cc0c39bf14",
+      "expected_sha256": "c619e00abee53a27b1307a7d47a6516c141f3e151588e476ba4762cc0c39bf14",
+      "path": "Foundry\\Patches\\RUN_v0.5.0_Dynamic_Module_Registry.bat",
+      "size_bytes": 649,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "55b98a4652ba3e81d220d6590bf184bb65b3ec7852740207b836f174ad51288c",
+      "expected_sha256": "55b98a4652ba3e81d220d6590bf184bb65b3ec7852740207b836f174ad51288c",
+      "path": "Foundry\\Patches\\RUN_v0.6.0_AI_Asset_Scanner.bat",
+      "size_bytes": 621,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "7921621b6fd07fc37d779126dd25af7477c3c07607fdd2b22109d23a8385637d",
+      "expected_sha256": "7921621b6fd07fc37d779126dd25af7477c3c07607fdd2b22109d23a8385637d",
+      "path": "Foundry\\Patches\\RUN_v0.7.0_Service_Bus.bat",
+      "size_bytes": 601,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "bc8a8aa4f3a6b65869dda9c439e59f444750fe04be80819d4bd28688d73ea12e",
+      "expected_sha256": "bc8a8aa4f3a6b65869dda9c439e59f444750fe04be80819d4bd28688d73ea12e",
+      "path": "Foundry\\Patches\\RUN_v0.8.0_Foundry_Release_Checker.bat",
+      "size_bytes": 649,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "d59e103608c1dfb28fb499341308c259b53f286115134789faaeef0476931081",
+      "expected_sha256": "d59e103608c1dfb28fb499341308c259b53f286115134789faaeef0476931081",
+      "path": "Foundry\\Patches\\RUN_v0.9.0_Git_Release_Packager.bat",
+      "size_bytes": 655,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "135d4b7c9286be8c10f285ad5bf1579a0b1ad3336f22251f34b1d1cf7d59d823",
+      "expected_sha256": "135d4b7c9286be8c10f285ad5bf1579a0b1ad3336f22251f34b1d1cf7d59d823",
+      "path": "Foundry\\Patches\\RUN_v1.0.0_Portable_RC.bat",
+      "size_bytes": 624,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "b258bc071f66f5a5c94f372ba939fca9585b030cd74b6fa873914afa8b8bc966",
+      "expected_sha256": "b258bc071f66f5a5c94f372ba939fca9585b030cd74b6fa873914afa8b8bc966",
+      "path": "Foundry\\Patches\\RUN_v1.0.0_Release_Finalizer.bat",
+      "size_bytes": 625,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "ed95f069b3f43f8d391f6fce78a9164cc0ebee354008a620f42e521a5ba83b24",
+      "expected_sha256": "ed95f069b3f43f8d391f6fce78a9164cc0ebee354008a620f42e521a5ba83b24",
+      "path": "Foundry\\Patches\\RUN_v1.1.0_Academy_Seed.bat",
+      "size_bytes": 605,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "61c8e3dfae7aa61baa60b0dfb3a4d6058ec2c1da915f15daaf8da8d3ff1e3c5b",
+      "expected_sha256": "61c8e3dfae7aa61baa60b0dfb3a4d6058ec2c1da915f15daaf8da8d3ff1e3c5b",
+      "path": "Foundry\\Patches\\RUN_v1.2.0_FOXAI_Discovery.bat",
+      "size_bytes": 617,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "d9a93d781824563157907d2f1edf330c3542aae0fe947b3166cf6d9ae9bdc22a",
+      "expected_sha256": "d9a93d781824563157907d2f1edf330c3542aae0fe947b3166cf6d9ae9bdc22a",
+      "path": "Foundry\\Patches\\RUN_v1.3.0_AI_Gateway_Stub.bat",
+      "size_bytes": 617,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "c57d681c7451eae3b5e15c34aaec7241db22c56c14788f9a7887622707a1b2bd",
+      "expected_sha256": "c57d681c7451eae3b5e15c34aaec7241db22c56c14788f9a7887622707a1b2bd",
+      "path": "Foundry\\Patches\\RUN_v1.4.0_Local_Runtime_Connector.bat",
+      "size_bytes": 649,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "311874eb5153162ff31fe6b9216ea2e812003deb7cfe7543e4765868ca98596d",
+      "expected_sha256": "311874eb5153162ff31fe6b9216ea2e812003deb7cfe7543e4765868ca98596d",
+      "path": "Foundry\\release_check.py",
+      "size_bytes": 5205,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "1d76d31d634c745fed0b7eb665fee29c3e31982c779bd0e7e985bb27cfa158db",
+      "expected_sha256": "1d76d31d634c745fed0b7eb665fee29c3e31982c779bd0e7e985bb27cfa158db",
+      "path": "Foundry\\run_release_check.bat",
+      "size_bytes": 196,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "423bb098170dbaad2b96c6b07e31beee171904d286b8364457ce6357551c33d0",
+      "expected_sha256": "423bb098170dbaad2b96c6b07e31beee171904d286b8364457ce6357551c33d0",
+      "path": "foxai.py",
+      "size_bytes": 156,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "56a90cb2f6abe308dda39b2b25ae8b5fb0930d9e76bb6924e37698c0329850bf",
+      "expected_sha256": "56a90cb2f6abe308dda39b2b25ae8b5fb0930d9e76bb6924e37698c0329850bf",
+      "path": "FoxAI_Desktop.py",
+      "size_bytes": 6541,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "cccd4897bc219d0c2cd3cee938ba27b037315012a71854ec4d023b34dcf131b4",
+      "expected_sha256": "cccd4897bc219d0c2cd3cee938ba27b037315012a71854ec4d023b34dcf131b4",
+      "path": "FoxAI_Launcher.py",
+      "size_bytes": 6042,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "ccdf337c2f8cd8f44e9d6c0c120c5f855788f3b2b6e0eaa9ad282c4676f031f8",
+      "expected_sha256": "ccdf337c2f8cd8f44e9d6c0c120c5f855788f3b2b6e0eaa9ad282c4676f031f8",
+      "path": "FOXKERNEL_COMMAND.bat",
+      "size_bytes": 233,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "1cf2995d78d1c5cc4a840ee03d27cdd8f39e2c9ac787f3f25ae593ba783e8a43",
+      "expected_sha256": "1cf2995d78d1c5cc4a840ee03d27cdd8f39e2c9ac787f3f25ae593ba783e8a43",
+      "path": "FOXKERNEL_COMMAND.py",
+      "size_bytes": 1282,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "6018f6303c593dd1f82d38bc5a9e3b7f3ad0e434cdde113586fb0fac3badc752",
+      "expected_sha256": "6018f6303c593dd1f82d38bc5a9e3b7f3ad0e434cdde113586fb0fac3badc752",
+      "path": "FOXKERNEL_STATUS.bat",
+      "size_bytes": 371,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "65bf914b22f28f20ce318ef9e46a72199d42e4f8dc3e94a7ceff8c5ef70a855e",
+      "expected_sha256": "65bf914b22f28f20ce318ef9e46a72199d42e4f8dc3e94a7ceff8c5ef70a855e",
+      "path": "FOXKERNEL_STATUS.py",
+      "size_bytes": 2287,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "bcd2a6b93bda18a33950aea42227acac8ea8d7fdfdf5805a811a39d840d6a44f",
+      "expected_sha256": "bcd2a6b93bda18a33950aea42227acac8ea8d7fdfdf5805a811a39d840d6a44f",
+      "path": "GENERATE_HANGAR_BAY_ADAPTERS.bat",
+      "size_bytes": 483,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "64ede5606371353335488eacc0c4ab1e069b9676d8b471c7a63b1a040b870a2a",
+      "expected_sha256": "64ede5606371353335488eacc0c4ab1e069b9676d8b471c7a63b1a040b870a2a",
+      "path": "GENERATE_HANGAR_BAY_ADAPTERS.py",
+      "size_bytes": 5106,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "2142e62adb1e8945c6ad92bec80eb6a6618f192b2d2129df75683b5bb743f43d",
+      "expected_sha256": "2142e62adb1e8945c6ad92bec80eb6a6618f192b2d2129df75683b5bb743f43d",
+      "path": "HANGAR_BAY_INVENTORY.bat",
+      "size_bytes": 371,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "5d6ceac8ab791308fb24d29c05f2c26162cd9a88d3f6db36f7290da8280ad98f",
+      "expected_sha256": "5d6ceac8ab791308fb24d29c05f2c26162cd9a88d3f6db36f7290da8280ad98f",
+      "path": "HANGAR_BAY_INVENTORY.py",
+      "size_bytes": 311,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "96489cdd881505b818b5e90415f28529a152c7a185ad126584c2fb8e54de67bb",
+      "expected_sha256": "96489cdd881505b818b5e90415f28529a152c7a185ad126584c2fb8e54de67bb",
+      "path": "Install ComfyUI Requirements.bat",
+      "size_bytes": 240,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "517e105743a235c71e94fb26361ac86c53857cbcae222a7093f934b5a8a6fe12",
+      "expected_sha256": "517e105743a235c71e94fb26361ac86c53857cbcae222a7093f934b5a8a6fe12",
+      "path": "Install FOXAI Requirements.bat",
+      "size_bytes": 105,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "e91110100c6e09affb052ad33e86224f4cbdbd6a8343ae917d9cde723180e824",
+      "expected_sha256": "e91110100c6e09affb052ad33e86224f4cbdbd6a8343ae917d9cde723180e824",
+      "path": "Install Requirements.bat",
+      "size_bytes": 72,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "f2388c34f69e946578e0a44e7d7c223be933dc2a75e8838dd36dadaf82ae6b47",
+      "expected_sha256": "f2388c34f69e946578e0a44e7d7c223be933dc2a75e8838dd36dadaf82ae6b47",
+      "path": "INSTALL_ARCHITECTURE_PACK.bat",
+      "size_bytes": 532,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "6ab70277e35004d87dfbdc416f8215044e45ec08675d800dc8240ae5bf891308",
+      "expected_sha256": "6ab70277e35004d87dfbdc416f8215044e45ec08675d800dc8240ae5bf891308",
+      "path": "INSTALL_BRIDGE_FEED_UI.bat",
+      "size_bytes": 586,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "a82fed1b56a5eebb809a597906cf383cdb80184e8c54e742e9fa722718873a57",
+      "expected_sha256": "a82fed1b56a5eebb809a597906cf383cdb80184e8c54e742e9fa722718873a57",
+      "path": "INSTALL_BRIDGE_LIVE_LOG.bat",
+      "size_bytes": 626,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "d9795b9efda37d8d097d4c2fd5abe56e2c42eb999b45d661b3d8ab9d251e254a",
+      "expected_sha256": "d9795b9efda37d8d097d4c2fd5abe56e2c42eb999b45d661b3d8ab9d251e254a",
+      "path": "INSTALL_BRIDGE_STATUS_PANEL.bat",
+      "size_bytes": 690,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "1f41583c67f5b9ef1a8c9840d394fa169faa570e48b1e3b677902b7e37d69097",
+      "expected_sha256": "1f41583c67f5b9ef1a8c9840d394fa169faa570e48b1e3b677902b7e37d69097",
+      "path": "INSTALL_CONVERSATION_SHUTTLE.bat",
+      "size_bytes": 247,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "e565f831b85f1b7e0ce1826b4b980bd35e9e8f1a2f10e661c9c60e10cd68fac3",
+      "expected_sha256": "e565f831b85f1b7e0ce1826b4b980bd35e9e8f1a2f10e661c9c60e10cd68fac3",
+      "path": "INSTALL_CONVERSATION_SHUTTLE.py",
+      "size_bytes": 2332,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "19a70bebd1c63604955860329736f7ab741fcac2e7712b64ebf4d1564312ec83",
+      "expected_sha256": "19a70bebd1c63604955860329736f7ab741fcac2e7712b64ebf4d1564312ec83",
+      "path": "INSTALL_DATABASE_SHUTTLE.bat",
+      "size_bytes": 236,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "3cae51856527e466f589163a2d38fb3e943103b4c5541c10b00765603d377b7e",
+      "expected_sha256": "3cae51856527e466f589163a2d38fb3e943103b4c5541c10b00765603d377b7e",
+      "path": "INSTALL_DATABASE_SHUTTLE.py",
+      "size_bytes": 1372,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "1c7aa476e474188856171c346c1b2cfd8e8a8581bf4832ace91f92bd2f6a64d8",
+      "expected_sha256": "1c7aa476e474188856171c346c1b2cfd8e8a8581bf4832ace91f92bd2f6a64d8",
+      "path": "INSTALL_MISSION_BUS.bat",
+      "size_bytes": 508,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "d1d1a5ecd0da0c4b40852a143de59d140bed2fc63609a25e37c21a8fe52c525e",
+      "expected_sha256": "d1d1a5ecd0da0c4b40852a143de59d140bed2fc63609a25e37c21a8fe52c525e",
+      "path": "INSTALL_PORTABLE_PYTHON_3146.bat",
+      "size_bytes": 3778,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "562c7cd807f3df4e3ea64aae6dba7fc190915a8bef7e5e7a81f2d1f20ea336c4",
+      "expected_sha256": "562c7cd807f3df4e3ea64aae6dba7fc190915a8bef7e5e7a81f2d1f20ea336c4",
+      "path": "INSTALL_UI_FOUNDATION.bat",
+      "size_bytes": 451,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "2d64c494dffe108f53b53e0d9d99103dbdaca6b857cc7aa92d8e656390ed5a1e",
+      "expected_sha256": "2d64c494dffe108f53b53e0d9d99103dbdaca6b857cc7aa92d8e656390ed5a1e",
+      "path": "INSTALL_UPDATE.bat",
+      "size_bytes": 333,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "19d894e390a1785814563be07b7b3e4bff72e46f451588a2eaa1078d146cefc5",
+      "expected_sha256": "19d894e390a1785814563be07b7b3e4bff72e46f451588a2eaa1078d146cefc5",
+      "path": "Knowledge\\module.yaml",
+      "size_bytes": 225,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "c438259fb5a24476373c677a43999344a6e1fc550e50a6e7d2fc590147784af7",
+      "expected_sha256": "c438259fb5a24476373c677a43999344a6e1fc550e50a6e7d2fc590147784af7",
+      "path": "Launch FOXAI Workshop.bat",
+      "size_bytes": 808,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "9221dd66640bd3b295c0cbd972c0718a1ffeda9eb267be59aed7fb6f253afcb9",
+      "expected_sha256": "9221dd66640bd3b295c0cbd972c0718a1ffeda9eb267be59aed7fb6f253afcb9",
+      "path": "Launch_KayocktheOS_Workshop.bat",
+      "size_bytes": 1303,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "6fc7dbfb9f79dfe4341930d63a7ce71653fc60211dca8c0c6c3627306b0a675a",
+      "expected_sha256": "6fc7dbfb9f79dfe4341930d63a7ce71653fc60211dca8c0c6c3627306b0a675a",
+      "path": "make_icon.py",
+      "size_bytes": 306,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "7f90dcb2ebea077dc68d4828d20c4e10e69bc3bdb5bf49e02746e6461fe71179",
+      "expected_sha256": "7f90dcb2ebea077dc68d4828d20c4e10e69bc3bdb5bf49e02746e6461fe71179",
+      "path": "manifest.json",
+      "size_bytes": 1595,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "904424151d0c5a5ed2aec82acd17c0a824fd224b08c4b8fb582a49400f6e8c1c",
+      "expected_sha256": "904424151d0c5a5ed2aec82acd17c0a824fd224b08c4b8fb582a49400f6e8c1c",
+      "path": "manifest.yaml",
+      "size_bytes": 2411,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "path": "Memory\\core\\__init__.py",
+      "size_bytes": 0,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "a0b84b34d85f337fcca4b95e79521366d9f5b627689c7e27ececa346018e9d20",
+      "expected_sha256": "a0b84b34d85f337fcca4b95e79521366d9f5b627689c7e27ececa346018e9d20",
+      "path": "Memory\\core\\agents.py",
+      "size_bytes": 614,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "f0b285b02f28efaa60c49ca2bad74a2924a24cda24603d590782db11d89722c0",
+      "expected_sha256": "f0b285b02f28efaa60c49ca2bad74a2924a24cda24603d590782db11d89722c0",
+      "path": "Memory\\core\\library.py",
+      "size_bytes": 943,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "05117cb38a179ca66761dfb7495f799bf008c423de8db0e531a226c24af538bf",
+      "expected_sha256": "05117cb38a179ca66761dfb7495f799bf008c423de8db0e531a226c24af538bf",
+      "path": "Memory\\core\\memory.py",
+      "size_bytes": 1921,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "7ffd11b118ac1974fc7454b63b8324afb58c5311e9e40b16d057d094992171e6",
+      "expected_sha256": "7ffd11b118ac1974fc7454b63b8324afb58c5311e9e40b16d057d094992171e6",
+      "path": "Memory\\core\\models.py",
+      "size_bytes": 138,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "cb80775b7ee7824afd26d861727a27268401237358c94f7a28a82f5c6603d82e",
+      "expected_sha256": "cb80775b7ee7824afd26d861727a27268401237358c94f7a28a82f5c6603d82e",
+      "path": "Memory\\core\\paths.py",
+      "size_bytes": 361,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "75493258f8c62b572ba5939e9dd8f2c28d7dc442fd9460fe80bdfea44f3625a5",
+      "expected_sha256": "75493258f8c62b572ba5939e9dd8f2c28d7dc442fd9460fe80bdfea44f3625a5",
+      "path": "Memory\\core\\red_canvas.py",
+      "size_bytes": 611,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "e0a840396045e728794a64edfeee5d1465471feb975da76dc97b44f6ce14884c",
+      "expected_sha256": "e0a840396045e728794a64edfeee5d1465471feb975da76dc97b44f6ce14884c",
+      "path": "Memory\\core\\server.py",
+      "size_bytes": 822,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "c98a6d97277d3c6702a6ed0867eea9959d3bf93dc051257187a893c4fba3d068",
+      "expected_sha256": "c98a6d97277d3c6702a6ed0867eea9959d3bf93dc051257187a893c4fba3d068",
+      "path": "Memory\\Create Desktop Shortcut.ps1",
+      "size_bytes": 425,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "423bb098170dbaad2b96c6b07e31beee171904d286b8364457ce6357551c33d0",
+      "expected_sha256": "423bb098170dbaad2b96c6b07e31beee171904d286b8364457ce6357551c33d0",
+      "path": "Memory\\foxai.py",
+      "size_bytes": 156,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "e91110100c6e09affb052ad33e86224f4cbdbd6a8343ae917d9cde723180e824",
+      "expected_sha256": "e91110100c6e09affb052ad33e86224f4cbdbd6a8343ae917d9cde723180e824",
+      "path": "Memory\\Install Requirements.bat",
+      "size_bytes": 72,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "5c3defe062ac54f702728085bc92bc2bfb17ae36f4aeeea9696847e5c28d50d4",
+      "expected_sha256": "5c3defe062ac54f702728085bc92bc2bfb17ae36f4aeeea9696847e5c28d50d4",
+      "path": "Memory\\Memory\\Operator.json",
+      "size_bytes": 314,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "5c3defe062ac54f702728085bc92bc2bfb17ae36f4aeeea9696847e5c28d50d4",
+      "expected_sha256": "5c3defe062ac54f702728085bc92bc2bfb17ae36f4aeeea9696847e5c28d50d4",
+      "path": "Memory\\Operator.json",
+      "size_bytes": 314,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "44a3631da95b0db4adc7ea12e358677fbffa591e6d45b5b8208d081b0b354c1b",
+      "expected_sha256": "44a3631da95b0db4adc7ea12e358677fbffa591e6d45b5b8208d081b0b354c1b",
+      "path": "Memory\\Start FoxAI.bat",
+      "size_bytes": 46,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "path": "Memory\\ui\\__init__.py",
+      "size_bytes": 0,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "0613c68a63e0899964fbdcf07aec76b60fa10cb7332565c20aee4fe366709beb",
+      "expected_sha256": "0613c68a63e0899964fbdcf07aec76b60fa10cb7332565c20aee4fe366709beb",
+      "path": "Memory\\ui\\main_window.py",
+      "size_bytes": 18123,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "c8201ca3b4bcd6e11e9c69b77b9d866c1d3dfe246a16b74a05486dd1b5d6d1d8",
+      "expected_sha256": "c8201ca3b4bcd6e11e9c69b77b9d866c1d3dfe246a16b74a05486dd1b5d6d1d8",
+      "path": "Memory\\ui\\splash.py",
+      "size_bytes": 2188,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "2bc0a8966665bbcb814de29afd280e8fa5a6d619e14d0932df77b21fac8f803d",
+      "expected_sha256": "2bc0a8966665bbcb814de29afd280e8fa5a6d619e14d0932df77b21fac8f803d",
+      "path": "MISSION_CONTROL_REPORT.bat",
+      "size_bytes": 369,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "63b3602dc184ba605b547ec7c1c6029f7ed3d27748d392528a5f10087a2c2f61",
+      "expected_sha256": "63b3602dc184ba605b547ec7c1c6029f7ed3d27748d392528a5f10087a2c2f61",
+      "path": "MISSION_CONTROL_REPORT.py",
+      "size_bytes": 330,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "bafa6c8bfd547638c0f8f13303ee324b1f7ab1b520e8d193d355ca851f113b25",
+      "expected_sha256": "bafa6c8bfd547638c0f8f13303ee324b1f7ab1b520e8d193d355ca851f113b25",
+      "path": "NovelForge\\Exports\\Slipping_into_Darkness_Story_Bible_20260707_172721.json",
+      "size_bytes": 27419,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "a27667da46eaa18050f82fc59fd839daccd5f06c3277179d34aec8561882d7f7",
+      "expected_sha256": "a27667da46eaa18050f82fc59fd839daccd5f06c3277179d34aec8561882d7f7",
+      "path": "NovelForge\\Slipping.json",
+      "size_bytes": 2422,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "56eea0c4624c4ef4820a383b8e2e9ba7dc0adc2278ccfc66256ec34648c0470e",
+      "expected_sha256": "56eea0c4624c4ef4820a383b8e2e9ba7dc0adc2278ccfc66256ec34648c0470e",
+      "path": "NovelForge\\Slipping_into_Darkness.json",
+      "size_bytes": 9063,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "47677d860eba96c998c175c4edbbe95de9e8f8e134bbcf5f950edd9b41c777ea",
+      "expected_sha256": "47677d860eba96c998c175c4edbbe95de9e8f8e134bbcf5f950edd9b41c777ea",
+      "path": "NovelForge\\Untitled_Universe.json",
+      "size_bytes": 2440,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "3ffc15d43a3156724e6400b8dd698fefd0f340ae0cd833c69a3a5c3fe5689ad3",
+      "expected_sha256": "3ffc15d43a3156724e6400b8dd698fefd0f340ae0cd833c69a3a5c3fe5689ad3",
+      "path": "OPS_BRIDGE.bat",
+      "size_bytes": 183,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "6e2680d59500f33057e4d455c95b634788cc8a490a20da1b5f5201f08ecd0142",
+      "expected_sha256": "6e2680d59500f33057e4d455c95b634788cc8a490a20da1b5f5201f08ecd0142",
+      "path": "OPS_BRIDGE.py",
+      "size_bytes": 1621,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "004363d36e84b3798012333f9494fd622c07d28a662547b4e553906b682b11d9",
+      "expected_sha256": "004363d36e84b3798012333f9494fd622c07d28a662547b4e553906b682b11d9",
+      "path": "OPS_BRIDGE_JSON.bat",
+      "size_bytes": 173,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "ec6d13f67900da44eea15516f6083123085c092e89f40781a4da912759eb6fbe",
+      "expected_sha256": "ec6d13f67900da44eea15516f6083123085c092e89f40781a4da912759eb6fbe",
+      "path": "OPS_BRIDGE_STATUS.bat",
+      "size_bytes": 171,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "2eb07fce558b720c15fe020545a4a9d28825b520a2a2e0ec753b3e3881ceb824",
+      "expected_sha256": "2eb07fce558b720c15fe020545a4a9d28825b520a2a2e0ec753b3e3881ceb824",
+      "path": "OpsBridge\\outbox\\academy_unification_report.json",
+      "size_bytes": 2286,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "d2e41f7f760670cb55cc671d590fb53d7ad03e5140d5eb3792bff57668972e04",
+      "expected_sha256": "d2e41f7f760670cb55cc671d590fb53d7ad03e5140d5eb3792bff57668972e04",
+      "path": "OpsBridge\\outbox\\bridge_feed.json",
+      "size_bytes": 2386160,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "39171e5c094173fe4eb365457b26f23408314f7e73cc1e0af66ebb25b2f60acf",
+      "expected_sha256": "39171e5c094173fe4eb365457b26f23408314f7e73cc1e0af66ebb25b2f60acf",
+      "path": "OpsBridge\\outbox\\builder_report.json",
+      "size_bytes": 10030,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "0522dcd41868a1c70de117b0f8ee813e2c73a2322766f5e1020119d2f434b221",
+      "expected_sha256": "0522dcd41868a1c70de117b0f8ee813e2c73a2322766f5e1020119d2f434b221",
+      "path": "OpsBridge\\outbox\\captains_log.json",
+      "size_bytes": 31116,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "c8473865404123035b5f96e999dde76933615dc54c64cabb9b40cc1da5a6fa59",
+      "expected_sha256": "c8473865404123035b5f96e999dde76933615dc54c64cabb9b40cc1da5a6fa59",
+      "path": "OpsBridge\\outbox\\department_registry_status.json",
+      "size_bytes": 4323,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "78aeb5532453df26731e9bceb1e5fde5d1341eec2ff91256198165b3bb7236df",
+      "expected_sha256": "78aeb5532453df26731e9bceb1e5fde5d1341eec2ff91256198165b3bb7236df",
+      "path": "OpsBridge\\outbox\\dependency_report.json",
+      "size_bytes": 76328,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "4c75787e5012ac638922cee88f5b460a3e5e1169f7b917d5f283e36d7b97202e",
+      "expected_sha256": "4c75787e5012ac638922cee88f5b460a3e5e1169f7b917d5f283e36d7b97202e",
+      "path": "OpsBridge\\outbox\\engineering_commissioning_certificate.json",
+      "size_bytes": 4894,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "b80ca0e04210db4826cc28a46e87347a0dba99f280d43308e04fc930d4d74627",
+      "expected_sha256": "b80ca0e04210db4826cc28a46e87347a0dba99f280d43308e04fc930d4d74627",
+      "path": "OpsBridge\\outbox\\hangar_bay_inventory.json",
+      "size_bytes": 225584,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "992cc7b947816184ccb5800b11d6abced8e938867d81f6746bc6313e92418657",
+      "expected_sha256": "992cc7b947816184ccb5800b11d6abced8e938867d81f6746bc6313e92418657",
+      "path": "OpsBridge\\outbox\\kernel_status.json",
+      "size_bytes": 14899,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "4e666242ecf41df003deb900baee60e5173be511007aae2a6bdd4ce9ef63eb97",
+      "expected_sha256": "4e666242ecf41df003deb900baee60e5173be511007aae2a6bdd4ce9ef63eb97",
+      "path": "OpsBridge\\outbox\\latest_event.json",
+      "size_bytes": 10174,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "21073f54a6864ac44cf62e87c7c66be80e733c69587cf4b4d4eee17cc38c11ae",
+      "expected_sha256": "21073f54a6864ac44cf62e87c7c66be80e733c69587cf4b4d4eee17cc38c11ae",
+      "path": "OpsBridge\\outbox\\latest_result.json",
+      "size_bytes": 21927,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "4a7e1096d581a1301678a1a0610bebbc37481620f6a3d7f762660b01f6a44efb",
+      "expected_sha256": "4a7e1096d581a1301678a1a0610bebbc37481620f6a3d7f762660b01f6a44efb",
+      "path": "OpsBridge\\outbox\\purple_desktop_patch_report.json",
+      "size_bytes": 315,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "20cf3bb4da119562a075ad3682f1dbc09cafaab6fa99c728d469d771a3b7ac36",
+      "expected_sha256": "20cf3bb4da119562a075ad3682f1dbc09cafaab6fa99c728d469d771a3b7ac36",
+      "path": "OpsBridge\\outbox\\result_20260706_120656.json",
+      "size_bytes": 19516,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "21073f54a6864ac44cf62e87c7c66be80e733c69587cf4b4d4eee17cc38c11ae",
+      "expected_sha256": "21073f54a6864ac44cf62e87c7c66be80e733c69587cf4b4d4eee17cc38c11ae",
+      "path": "OpsBridge\\outbox\\result_20260706_120723.json",
+      "size_bytes": 21927,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "c2b26036dc34c47eee05e94d69c943488b9c86f76067e68a723b6c466634c9bf",
+      "expected_sha256": "c2b26036dc34c47eee05e94d69c943488b9c86f76067e68a723b6c466634c9bf",
+      "path": "OpsBridge\\outbox\\stabilization_tools_verify.json",
+      "size_bytes": 694,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "00c52aed97aed03514b887ae459dedfae1c2c2e062b90c0b7e680d62fecf9946",
+      "expected_sha256": "00c52aed97aed03514b887ae459dedfae1c2c2e062b90c0b7e680d62fecf9946",
+      "path": "OpsBridge\\outbox\\update_center_report.json",
+      "size_bytes": 2205835,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "c90fcb30884f691f96805c6bc782ed5ec66705bfb8e49a470581999cf61473d4",
+      "expected_sha256": "c90fcb30884f691f96805c6bc782ed5ec66705bfb8e49a470581999cf61473d4",
+      "path": "PATCH_ACADEMY_REGISTRAR.bat",
+      "size_bytes": 385,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "03a5cc669a5b6f8d247c173023a1fa575199cd75304ff7d8a783b427ef3d9d54",
+      "expected_sha256": "03a5cc669a5b6f8d247c173023a1fa575199cd75304ff7d8a783b427ef3d9d54",
+      "path": "PATCH_ACADEMY_REGISTRAR.py",
+      "size_bytes": 438,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "58d801f3e367d14ea469a72c43865a786bc134e9b6f5f6b8ae52b9d57fc2371a",
+      "expected_sha256": "58d801f3e367d14ea469a72c43865a786bc134e9b6f5f6b8ae52b9d57fc2371a",
+      "path": "PATCH_CAPABILITY_MANAGER_V2.bat",
+      "size_bytes": 456,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "3eda4400b82ee81f964a8cacfd3eabe6538f51036734fcc7df08a7f16dccb5c1",
+      "expected_sha256": "3eda4400b82ee81f964a8cacfd3eabe6538f51036734fcc7df08a7f16dccb5c1",
+      "path": "PATCH_CAPABILITY_MANAGER_V2.py",
+      "size_bytes": 5312,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "ee5d9b91af7a7f177615a32f82e9c3cbb10576594f29addb84b0e0780f997b5a",
+      "expected_sha256": "ee5d9b91af7a7f177615a32f82e9c3cbb10576594f29addb84b0e0780f997b5a",
+      "path": "PATCH_CONVERSATION_INVOKE_ARBITER.bat",
+      "size_bytes": 411,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "dea49cd9bbaf6b7010e9de6fd524344391e005d077ea039c103da282627873b6",
+      "expected_sha256": "dea49cd9bbaf6b7010e9de6fd524344391e005d077ea039c103da282627873b6",
+      "path": "PATCH_CONVERSATION_INVOKE_ARBITER.py",
+      "size_bytes": 5230,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "57daf80808a223d225ddbb13c8ac1fae08ae1683eb31cb588672e5085a8dc2b4",
+      "expected_sha256": "57daf80808a223d225ddbb13c8ac1fae08ae1683eb31cb588672e5085a8dc2b4",
+      "path": "PATCH_CONVERSATION_MANIFEST_SERVICE_KIND.bat",
+      "size_bytes": 274,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "ac72d77d4b1d697f0975541c24f9a26720fba93cca0b92efb2864a2849e594d7",
+      "expected_sha256": "ac72d77d4b1d697f0975541c24f9a26720fba93cca0b92efb2864a2849e594d7",
+      "path": "PATCH_CONVERSATION_MANIFEST_SERVICE_KIND.py",
+      "size_bytes": 581,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "a58667d8f23860db9ea59456c9d379a6f5c5b0a4f142fbc9183f8a78d19c2b18",
+      "expected_sha256": "a58667d8f23860db9ea59456c9d379a6f5c5b0a4f142fbc9183f8a78d19c2b18",
+      "path": "PATCH_EXTENSION_HEALTH_ARBITER.bat",
+      "size_bytes": 405,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "ad3b002c1fdda37b352a066aed3fa134a1842266dc7c171fd727e8370e50f020",
+      "expected_sha256": "ad3b002c1fdda37b352a066aed3fa134a1842266dc7c171fd727e8370e50f020",
+      "path": "PATCH_EXTENSION_HEALTH_ARBITER.py",
+      "size_bytes": 5123,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "2e17955c044bddacecbd9957b2307d6b55e97e1bac7ddd2602ef6e5f6a2acf71",
+      "expected_sha256": "2e17955c044bddacecbd9957b2307d6b55e97e1bac7ddd2602ef6e5f6a2acf71",
+      "path": "PATCH_FOXAI_V10.bat",
+      "size_bytes": 455,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "eee80fc477511b82238aca4662d842f9daadf5648fa7b1d2f9a9aa3e3161c2f9",
+      "expected_sha256": "eee80fc477511b82238aca4662d842f9daadf5648fa7b1d2f9a9aa3e3161c2f9",
+      "path": "PATCH_FOXAI_V10.py",
+      "size_bytes": 14839,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "ee52acebc470f7925b81c97f9d4deb995c4ac84e122bc7ea785101b41dc03ab1",
+      "expected_sha256": "ee52acebc470f7925b81c97f9d4deb995c4ac84e122bc7ea785101b41dc03ab1",
+      "path": "PATCH_FOXAI_V9_2.bat",
+      "size_bytes": 497,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "e598ff359993bb5e019445302366ab83e5f0533769beae33b0a294e531e39206",
+      "expected_sha256": "e598ff359993bb5e019445302366ab83e5f0533769beae33b0a294e531e39206",
+      "path": "PATCH_FOXAI_V9_2.py",
+      "size_bytes": 8112,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "1ec9ef34f74db9312a12dbee2dd9b147320750c3b6682265cf917ca4f7a7e23b",
+      "expected_sha256": "1ec9ef34f74db9312a12dbee2dd9b147320750c3b6682265cf917ca4f7a7e23b",
+      "path": "PATCH_GROUNDED_MEMORY_V10_1.bat",
+      "size_bytes": 506,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "df1867062c4134305bc184371c3dddef87c87431b09f08acbd135820b60f9b4e",
+      "expected_sha256": "df1867062c4134305bc184371c3dddef87c87431b09f08acbd135820b60f9b4e",
+      "path": "PATCH_GROUNDED_MEMORY_V10_1.py",
+      "size_bytes": 5854,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "092c6e939ff82214a994b779d75174a029b274dde8841de92fa46e5168b76efb",
+      "expected_sha256": "092c6e939ff82214a994b779d75174a029b274dde8841de92fa46e5168b76efb",
+      "path": "PATCH_MEMORY_GUARDRAILS_V10_2.bat",
+      "size_bytes": 440,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "079ad2e5f4aa69c64868ae84add66249923326aff5bc5cc20fa28bcb93ec3b41",
+      "expected_sha256": "079ad2e5f4aa69c64868ae84add66249923326aff5bc5cc20fa28bcb93ec3b41",
+      "path": "PATCH_MEMORY_GUARDRAILS_V10_2.py",
+      "size_bytes": 5464,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "9e160bdf74c0838f4b6771b1e033da96f9e0633aa46e6cc40d2030bb622e83cd",
+      "expected_sha256": "9e160bdf74c0838f4b6771b1e033da96f9e0633aa46e6cc40d2030bb622e83cd",
+      "path": "PATCH_NO_LAUNCH_LIFECYCLE_GUARD.bat",
+      "size_bytes": 647,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "8f08f1648b1a5754001763acd33b913572b34f104c73438021292f9f302a4281",
+      "expected_sha256": "8f08f1648b1a5754001763acd33b913572b34f104c73438021292f9f302a4281",
+      "path": "PATCH_NO_LAUNCH_LIFECYCLE_GUARD.py",
+      "size_bytes": 14807,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "a9b1807e073099bf174339c797e9fd462d4ba7ece10e8fe192daec75ea2e1b37",
+      "expected_sha256": "a9b1807e073099bf174339c797e9fd462d4ba7ece10e8fe192daec75ea2e1b37",
+      "path": "PATCH_REMEMBERED_ONLY_ROUTE_V10_3.bat",
+      "size_bytes": 517,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "f1cbd41c2b6cad6069e7123ac47850012ebb5fa1928748aa99af731ea718756d",
+      "expected_sha256": "f1cbd41c2b6cad6069e7123ac47850012ebb5fa1928748aa99af731ea718756d",
+      "path": "PATCH_REMEMBERED_ONLY_ROUTE_V10_3.py",
+      "size_bytes": 3565,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "d660f7ed242954801a27f7c04bc9542f812e317ce8efec7c68450779caead7ac",
+      "expected_sha256": "d660f7ed242954801a27f7c04bc9542f812e317ce8efec7c68450779caead7ac",
+      "path": "PATCH_SAFE_FLEET_OPERATIONS.bat",
+      "size_bytes": 576,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "51dab83488f9c886d688834620e07fe5b6509d3d9989b6874e71077107ce693c",
+      "expected_sha256": "51dab83488f9c886d688834620e07fe5b6509d3d9989b6874e71077107ce693c",
+      "path": "PATCH_SAFE_FLEET_OPERATIONS.py",
+      "size_bytes": 5333,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "bfc1cc8783bbc7cbb20284adaf5dca679353e8a45109b05bf95af53097a954ed",
+      "expected_sha256": "bfc1cc8783bbc7cbb20284adaf5dca679353e8a45109b05bf95af53097a954ed",
+      "path": "PATCH_SERVICE_CONTRACTS.bat",
+      "size_bytes": 389,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "954b82be5dac62d52332388a1dee2da6f73b98b47255d03a4d942c95278b6d33",
+      "expected_sha256": "954b82be5dac62d52332388a1dee2da6f73b98b47255d03a4d942c95278b6d33",
+      "path": "PATCH_SERVICE_CONTRACTS.py",
+      "size_bytes": 2942,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "728fb10e7863daf1094726b1dea690bd7ee0a3414bb5bdbdb02efb0811f0593f",
+      "expected_sha256": "728fb10e7863daf1094726b1dea690bd7ee0a3414bb5bdbdb02efb0811f0593f",
+      "path": "PATCH_WEB_CAPABILITY_DEPARTMENT_API.bat",
+      "size_bytes": 450,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "350421cf8500cb0595ccc99dcc288cb53471717479c04f890fbd475fbfd8786c",
+      "expected_sha256": "350421cf8500cb0595ccc99dcc288cb53471717479c04f890fbd475fbfd8786c",
+      "path": "PATCH_WEB_CAPABILITY_DEPARTMENT_API.py",
+      "size_bytes": 5427,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "f893977547634e8d8d5d80b37f1aef1960ec12e9ceca9236412cc82872ab4cbe",
+      "expected_sha256": "f893977547634e8d8d5d80b37f1aef1960ec12e9ceca9236412cc82872ab4cbe",
+      "path": "PLUGIN_DIAGNOSTICS.bat",
+      "size_bytes": 353,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "323bbd804c2a9163a71510021ae8c11d562a9ba830bf8aa53898bd2c0600fa2f",
+      "expected_sha256": "323bbd804c2a9163a71510021ae8c11d562a9ba830bf8aa53898bd2c0600fa2f",
+      "path": "PLUGIN_DIAGNOSTICS.py",
+      "size_bytes": 2696,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "0b5d365f81a8534e273d945ba7204cf7c0b2d3d9f86a60a2249079e44f0b9e76",
+      "expected_sha256": "0b5d365f81a8534e273d945ba7204cf7c0b2d3d9f86a60a2249079e44f0b9e76",
+      "path": "PREVIEW_BUNDLE_RECEIPT.json",
+      "size_bytes": 4754,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "1c2da39b4d5826c9b5e537b0ce3e27ce24363902ac5b04ad3e6ea9f055e4f457",
+      "expected_sha256": "1c2da39b4d5826c9b5e537b0ce3e27ce24363902ac5b04ad3e6ea9f055e4f457",
+      "path": "PREVIEW_PHASE1.bat",
+      "size_bytes": 374,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "d7ff9dbf8dfc9cb20e72b5592f9bd9bbc1577787f6972abfa391fa8f448617a8",
+      "expected_sha256": "d7ff9dbf8dfc9cb20e72b5592f9bd9bbc1577787f6972abfa391fa8f448617a8",
+      "path": "PREVIEW_PORTABLE_PYTHON_FIX.bat",
+      "size_bytes": 487,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "afd0f838a186dd58e38605d12d2b73cc465cb49287f348de68e491b74d1d967c",
+      "expected_sha256": "afd0f838a186dd58e38605d12d2b73cc465cb49287f348de68e491b74d1d967c",
+      "path": "PREVIEW_UPDATE.bat",
+      "size_bytes": 357,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "a0b4cdc4083dd7d731690445de67d1aa59d382017ae93e0c7d9b44e72c9a8918",
+      "expected_sha256": "a0b4cdc4083dd7d731690445de67d1aa59d382017ae93e0c7d9b44e72c9a8918",
+      "path": "PUSH_TO_GITHUB.bat",
+      "size_bytes": 656,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "a163998b2d4c47ee18d1e20370af3ef4678e96034ffd3439f424f9908b89d9fb",
+      "expected_sha256": "a163998b2d4c47ee18d1e20370af3ef4678e96034ffd3439f424f9908b89d9fb",
+      "path": "RepairBay\\module.yaml",
+      "size_bytes": 211,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "96edbffec7f04e98b1fe2435afe629d195e26eb3b935bef19af30d1e6ccfee1d",
+      "expected_sha256": "96edbffec7f04e98b1fe2435afe629d195e26eb3b935bef19af30d1e6ccfee1d",
+      "path": "RESTORE_ACADEMY_REGISTRAR.bat",
+      "size_bytes": 375,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "702ebfea2a05f051c7dbb3bf288aea3de94170340024dccbdc4cac803f4f54ce",
+      "expected_sha256": "702ebfea2a05f051c7dbb3bf288aea3de94170340024dccbdc4cac803f4f54ce",
+      "path": "RESTORE_ACADEMY_REGISTRAR.py",
+      "size_bytes": 883,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "11c9b89784728c98e92942925e0359c79cff2a989f360f791bf9805782e2930f",
+      "expected_sha256": "11c9b89784728c98e92942925e0359c79cff2a989f360f791bf9805782e2930f",
+      "path": "RESTORE_CONVERSATION_INVOKE_ARBITER.bat",
+      "size_bytes": 415,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "171c997ab3cfd327864abce4844416f29877385a47ae43025cf926ed362dac8b",
+      "expected_sha256": "171c997ab3cfd327864abce4844416f29877385a47ae43025cf926ed362dac8b",
+      "path": "RESTORE_CONVERSATION_INVOKE_ARBITER.py",
+      "size_bytes": 854,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "78724378b3286f5a52801880c7850527d640dae72200922aac9353286fc0625e",
+      "expected_sha256": "78724378b3286f5a52801880c7850527d640dae72200922aac9353286fc0625e",
+      "path": "RESTORE_EXTENSION_HEALTH_ARBITER.bat",
+      "size_bytes": 403,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "2dcdb86ccbbc0ebf71c7747ced34b156c5f84e291262fb70fa8ae3d0f347ef04",
+      "expected_sha256": "2dcdb86ccbbc0ebf71c7747ced34b156c5f84e291262fb70fa8ae3d0f347ef04",
+      "path": "RESTORE_EXTENSION_HEALTH_ARBITER.py",
+      "size_bytes": 845,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "95de24b7e965febb5ab1bea45cb1e24f2ebea5f914a388c66cfe69c17d98742a",
+      "expected_sha256": "95de24b7e965febb5ab1bea45cb1e24f2ebea5f914a388c66cfe69c17d98742a",
+      "path": "RESTORE_IMPORT_PATH_DIAGNOSTIC.bat",
+      "size_bytes": 395,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "60d8bf0245851000e54a9272570628c33ad116d05e0de9277cfc75bd8de428ff",
+      "expected_sha256": "60d8bf0245851000e54a9272570628c33ad116d05e0de9277cfc75bd8de428ff",
+      "path": "RESTORE_IMPORT_PATH_DIAGNOSTIC.py",
+      "size_bytes": 1019,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "b4fd7c670659c64e8fe0bbed635fa6ae13a68f7d3eec235c8dd25db623525f77",
+      "expected_sha256": "b4fd7c670659c64e8fe0bbed635fa6ae13a68f7d3eec235c8dd25db623525f77",
+      "path": "RESTORE_SERVICE_CONTRACTS.bat",
+      "size_bytes": 375,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "234b1391755615b9a4f9cedbb9cd8fd361e4891088c1a68968bc15c8508933f4",
+      "expected_sha256": "234b1391755615b9a4f9cedbb9cd8fd361e4891088c1a68968bc15c8508933f4",
+      "path": "RESTORE_SERVICE_CONTRACTS.py",
+      "size_bytes": 825,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "4d4b79bf473ede3c6d79c6944b9155f5baec9d37cdda084615a31a0d0965a245",
+      "expected_sha256": "4d4b79bf473ede3c6d79c6944b9155f5baec9d37cdda084615a31a0d0965a245",
+      "path": "ROLLBACK_WEB_CAPABILITY_API_PATCH.bat",
+      "size_bytes": 444,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "2d6be5742d90d0b619900ce8c7a7e05153848e834d95c36bdb04ab1e9791c161",
+      "expected_sha256": "2d6be5742d90d0b619900ce8c7a7e05153848e834d95c36bdb04ab1e9791c161",
+      "path": "ROLLBACK_WEB_CAPABILITY_API_PATCH.py",
+      "size_bytes": 1170,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "cbbf538548c0807365c310e1d45ba4faadf96bb8f51811bc94e915e6601aa34e",
+      "expected_sha256": "cbbf538548c0807365c310e1d45ba4faadf96bb8f51811bc94e915e6601aa34e",
+      "path": "RUN_IMPORT_PATH_DIAGNOSTIC.bat",
+      "size_bytes": 371,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "bb40da429ec1cce55d7fc236e3653f8a14d8d03d20c745c668d02a341962c63f",
+      "expected_sha256": "bb40da429ec1cce55d7fc236e3653f8a14d8d03d20c745c668d02a341962c63f",
+      "path": "RUN_IMPORT_PATH_DIAGNOSTIC.py",
+      "size_bytes": 2701,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "365c3a4e7bceb149a067cf1acddde0a67a86d77c46214e54067fc0c6289bb71b",
+      "expected_sha256": "365c3a4e7bceb149a067cf1acddde0a67a86d77c46214e54067fc0c6289bb71b",
+      "path": "SETUP_GITHUB_REMOTE.bat",
+      "size_bytes": 368,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "38e50afa7e7c2f78c4bee58817895155746559a3663e90a7cbf8bcb2d3012de0",
+      "expected_sha256": "38e50afa7e7c2f78c4bee58817895155746559a3663e90a7cbf8bcb2d3012de0",
+      "path": "Shell\\Bridge_Dashboard\\assets\\bridge.css",
+      "size_bytes": 2245,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "0416d2724d66398e272bd33b320ac0791d93054cc11aaa7c87a6beb5672d6fc1",
+      "expected_sha256": "0416d2724d66398e272bd33b320ac0791d93054cc11aaa7c87a6beb5672d6fc1",
+      "path": "Shell\\Bridge_Dashboard\\assets\\bridge.js",
+      "size_bytes": 2499,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "a51ecca342b2b62b71740175b9ac75253b5b243ef9b9411f86fa075018f65cc3",
+      "expected_sha256": "a51ecca342b2b62b71740175b9ac75253b5b243ef9b9411f86fa075018f65cc3",
+      "path": "Shell\\Bridge_Dashboard\\index.html",
+      "size_bytes": 1781,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "8642a4036e3286c3033a13ac4c974193559a40093989114d37ba4fcb5dd00e82",
+      "expected_sha256": "8642a4036e3286c3033a13ac4c974193559a40093989114d37ba4fcb5dd00e82",
+      "path": "Shell\\KayockBrowser\\bridge-desktop.css",
+      "size_bytes": 3064,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "70de33161756c98e47a4849cc2a1a4b8ff1629b5b892cf077a6873cf3727c433",
+      "expected_sha256": "70de33161756c98e47a4849cc2a1a4b8ff1629b5b892cf077a6873cf3727c433",
+      "path": "Shell\\KayockBrowser\\index.html",
+      "size_bytes": 16161,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "b63944d09e269e51b23b339ae5fd023070069a1d8c023e2c5ef5cf75a68595f4",
+      "expected_sha256": "b63944d09e269e51b23b339ae5fd023070069a1d8c023e2c5ef5cf75a68595f4",
+      "path": "Shell\\KayockBrowser\\index_1.html",
+      "size_bytes": 14011,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "7befc38263c676e9610c0a770387dd792672b54e4ba712aa2767d021ae0bf30e",
+      "expected_sha256": "7befc38263c676e9610c0a770387dd792672b54e4ba712aa2767d021ae0bf30e",
+      "path": "Shell\\KayockBrowser\\main.js",
+      "size_bytes": 24137,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "cc2c8f519effae060637b9fb7bbaed2f69f63fef0e03e5544ef9b4619a69f292",
+      "expected_sha256": "cc2c8f519effae060637b9fb7bbaed2f69f63fef0e03e5544ef9b4619a69f292",
+      "path": "Shell\\KayockBrowser\\module.yaml",
+      "size_bytes": 213,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "1047955f8e8c8e4e7ef9bee239ef8b8fe0cb3d30fcf1381b3f0722aee0f0855f",
+      "expected_sha256": "1047955f8e8c8e4e7ef9bee239ef8b8fe0cb3d30fcf1381b3f0722aee0f0855f",
+      "path": "Shell\\KayockBrowser\\package.json",
+      "size_bytes": 1764,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "71bfb1291252d4b2889a083e9438e356479f6239e09f2b3530bfcb0869e0a5cb",
+      "expected_sha256": "71bfb1291252d4b2889a083e9438e356479f6239e09f2b3530bfcb0869e0a5cb",
+      "path": "Shell\\KayockBrowser\\preload.js",
+      "size_bytes": 1959,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "42fa6f17fc720a370dd58801192ef5c5ff1de1c39f1af9193e19c60038537cc2",
+      "expected_sha256": "42fa6f17fc720a370dd58801192ef5c5ff1de1c39f1af9193e19c60038537cc2",
+      "path": "Shell\\KayockBrowser\\renderer.js",
+      "size_bytes": 62495,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "041c7d9aa2b352c8e7091700224aabed12035ef6038fdac41968d331cc91128c",
+      "expected_sha256": "041c7d9aa2b352c8e7091700224aabed12035ef6038fdac41968d331cc91128c",
+      "path": "Shell\\KayockBrowser\\renderer_1.js",
+      "size_bytes": 58624,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "22827bfff53d6b1329c5836258a5d50fde4ef838f5e531f40025f9cda272c3a7",
+      "expected_sha256": "22827bfff53d6b1329c5836258a5d50fde4ef838f5e531f40025f9cda272c3a7",
+      "path": "Shell\\KayockBrowser\\RUN_KAYOCK.bat",
+      "size_bytes": 2379,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "424a42c4ace574f6f4d758723a25b21f41a399bd1521e4d72b4bf898787eefd5",
+      "expected_sha256": "424a42c4ace574f6f4d758723a25b21f41a399bd1521e4d72b4bf898787eefd5",
+      "path": "Shell\\KayockBrowser\\style.css",
+      "size_bytes": 24933,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "dabb1fbeecfb1841ed834c25676c06e98634ab898385cc4eed5d31b9cddfac99",
+      "expected_sha256": "dabb1fbeecfb1841ed834c25676c06e98634ab898385cc4eed5d31b9cddfac99",
+      "path": "SIMULATED_APPLY_TEST_RECEIPT.json",
+      "size_bytes": 761,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "0073601cb4c4ace1a148af1a5d7dab4fd90c5b997786f4ad74a80f437690d82d",
+      "expected_sha256": "0073601cb4c4ace1a148af1a5d7dab4fd90c5b997786f4ad74a80f437690d82d",
+      "path": "Start ComfyUI CPU.bat",
+      "size_bytes": 131,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "44a3631da95b0db4adc7ea12e358677fbffa591e6d45b5b8208d081b0b354c1b",
+      "expected_sha256": "44a3631da95b0db4adc7ea12e358677fbffa591e6d45b5b8208d081b0b354c1b",
+      "path": "start FoxAI 3 Alpha.bat",
+      "size_bytes": 46,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "b10a2b2454f901d43c672997c52f128627f636e9d4cc49677b9bfd2fc2b12f65",
+      "expected_sha256": "b10a2b2454f901d43c672997c52f128627f636e9d4cc49677b9bfd2fc2b12f65",
+      "path": "Start FoxAI Desktop.bat",
+      "size_bytes": 56,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "ab01363876e02b0047ee8c8d794721135e9fcc5691b588ea3150541dea7ce394",
+      "expected_sha256": "ab01363876e02b0047ee8c8d794721135e9fcc5691b588ea3150541dea7ce394",
+      "path": "Start FoxAI v1.1.bat",
+      "size_bytes": 57,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "44a3631da95b0db4adc7ea12e358677fbffa591e6d45b5b8208d081b0b354c1b",
+      "expected_sha256": "44a3631da95b0db4adc7ea12e358677fbffa591e6d45b5b8208d081b0b354c1b",
+      "path": "Start FoxAI.bat",
+      "size_bytes": 46,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "b5c9ab2a0be6762e7223ae5193fe997411ecbe669477585005a1279e3535c330",
+      "expected_sha256": "b5c9ab2a0be6762e7223ae5193fe997411ecbe669477585005a1279e3535c330",
+      "path": "Start_Bridge.bat",
+      "size_bytes": 179,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "1b70ac5587dfcd9b73d0499abb609cc7f4dcc453ff5438ba579a42ef899db325",
+      "expected_sha256": "1b70ac5587dfcd9b73d0499abb609cc7f4dcc453ff5438ba579a42ef899db325",
+      "path": "START_COMFYUI_APPROVED_NODES.bat",
+      "size_bytes": 841,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "84261b28c3fa1d219697329fe4ab30b362e1264bd9270beec8331e44d8c6f33d",
+      "expected_sha256": "84261b28c3fa1d219697329fe4ab30b362e1264bd9270beec8331e44d8c6f33d",
+      "path": "START_COMFYUI_ISOLATED.bat",
+      "size_bytes": 115,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "bcd32f063a50162318b74e45b5a756b5b3df7e76166cca970d9e3105ec079afd",
+      "expected_sha256": "bcd32f063a50162318b74e45b5a756b5b3df7e76166cca970d9e3105ec079afd",
+      "path": "START_COMFYUI_NORMAL.bat",
+      "size_bytes": 759,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "703039c0f9f5639d036276a43bb90c0e59d0143568cedc61ba7fc1d75a280368",
+      "expected_sha256": "703039c0f9f5639d036276a43bb90c0e59d0143568cedc61ba7fc1d75a280368",
+      "path": "START_FOXAI_CLEAN.bat",
+      "size_bytes": 4368,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "89e906d805f99392b4ecc2ea85aa688577517a26e577de3542159a1f5eaf046c",
+      "expected_sha256": "89e906d805f99392b4ecc2ea85aa688577517a26e577de3542159a1f5eaf046c",
+      "path": "START_FOXAI_DESKTOP_PORTABLE.bat",
+      "size_bytes": 1020,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "51eb97d3749eddd50faae9fa05822843cc397717092d31e687023f154931eb18",
+      "expected_sha256": "51eb97d3749eddd50faae9fa05822843cc397717092d31e687023f154931eb18",
+      "path": "START_FOXAI_DESKTOP_PORTABLE_DIAGNOSTIC.bat",
+      "size_bytes": 884,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "9bbf09e917a5bfd4202395467d7ff4777964d290c8bec7e2944914365ca13901",
+      "expected_sha256": "9bbf09e917a5bfd4202395467d7ff4777964d290c8bec7e2944914365ca13901",
+      "path": "START_FOXAI_DESKTOP_TWO_WINDOW_RECOVERY.bat",
+      "size_bytes": 1681,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "286b586363ab9fb323dce6d8f5a7d71383144c10d87fb2137237a4996d49b498",
+      "expected_sha256": "286b586363ab9fb323dce6d8f5a7d71383144c10d87fb2137237a4996d49b498",
+      "path": "START_FOXAI_WEB.bat",
+      "size_bytes": 942,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "834e129be2d41405be40e1ea5aeca6d7a96b4faaf3b72c906487e902a9dca3b1",
+      "expected_sha256": "834e129be2d41405be40e1ea5aeca6d7a96b4faaf3b72c906487e902a9dca3b1",
+      "path": "START_FOXAI_WEB_PORTABLE.bat",
+      "size_bytes": 121,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "e93618e7f702241519fdb855b234d3c83e020bc57adefa54944fcc7c4ae150cc",
+      "expected_sha256": "e93618e7f702241519fdb855b234d3c83e020bc57adefa54944fcc7c4ae150cc",
+      "path": "START_FOXAI_WEB_WITH_COMFYUI.bat",
+      "size_bytes": 1722,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "5b203ced238288d1fef7dace32d422927a85b411fbff817ddb2d070c31c673dd",
+      "expected_sha256": "5b203ced238288d1fef7dace32d422927a85b411fbff817ddb2d070c31c673dd",
+      "path": "START_FOXAI_WORKSHOP_PORTABLE.bat",
+      "size_bytes": 2670,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "bfa9ee6cc5ec5bf94852b55a3fe462f935d69744cfa66c52d9196351ecd18620",
+      "expected_sha256": "bfa9ee6cc5ec5bf94852b55a3fe462f935d69744cfa66c52d9196351ecd18620",
+      "path": "Start_KayocktheOS.bat",
+      "size_bytes": 388,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "a3467e737cc5459231f8bbaff8d3e73c91575bb7bcfd7d6143d762508076313c",
+      "expected_sha256": "a3467e737cc5459231f8bbaff8d3e73c91575bb7bcfd7d6143d762508076313c",
+      "path": "STATUS_COMFYUI_NORMAL.bat",
+      "size_bytes": 611,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "06da84e52333fc46027fcf4869f0e282306bc5950d8c1ae844305b989ecf64d4",
+      "expected_sha256": "06da84e52333fc46027fcf4869f0e282306bc5950d8c1ae844305b989ecf64d4",
+      "path": "STEVEDORE_INSPECTOR.bat",
+      "size_bytes": 365,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "60bd3971a9b17419dcb30f98e89a085297f48ac7f220bae2a5ddabdd5483d635",
+      "expected_sha256": "60bd3971a9b17419dcb30f98e89a085297f48ac7f220bae2a5ddabdd5483d635",
+      "path": "STEVEDORE_INSPECTOR.py",
+      "size_bytes": 2699,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "55b60dfadf0cc19a722b33eb3758f0835ef820250154155416aff2c796ee641d",
+      "expected_sha256": "55b60dfadf0cc19a722b33eb3758f0835ef820250154155416aff2c796ee641d",
+      "path": "STOP_COMFYUI_NORMAL.bat",
+      "size_bytes": 609,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "c3c263e63ca89efbba5584d76230e0b27c883020f9bd3980660e33b45f0945d3",
+      "expected_sha256": "c3c263e63ca89efbba5584d76230e0b27c883020f9bd3980660e33b45f0945d3",
+      "path": "STOP_FOXAI_CHAT_ENGINE.bat",
+      "size_bytes": 514,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "c4ec414e8734f9889fcb549b73d3c2bf87cca90eae026048b04b06b7b03880a0",
+      "expected_sha256": "c4ec414e8734f9889fcb549b73d3c2bf87cca90eae026048b04b06b7b03880a0",
+      "path": "STOP_FOXAI_CHAT_ENGINE_PORT_8080.bat",
+      "size_bytes": 451,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "497745d0bf7638b3c09e039d54c666f125b818fa038ddaf1d6a590ef1ebce842",
+      "expected_sha256": "497745d0bf7638b3c09e039d54c666f125b818fa038ddaf1d6a590ef1ebce842",
+      "path": "System\\AgentFoxTechnicalCore\\EVIDENCE_CONTRACT_V1.json",
+      "size_bytes": 2387,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "9c1331d04c5973944e1bab3a7177f3035803183236f144610fc6de957ea27b0c",
+      "expected_sha256": "9c1331d04c5973944e1bab3a7177f3035803183236f144610fc6de957ea27b0c",
+      "path": "System\\AgentFoxTechnicalCore\\static_code_launcher_bridge_v1.py",
+      "size_bytes": 54068,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "4c4c434ac1e5e51a776adb87d43eab352a7791a11a2fa219fb3fb3a71870f9e8",
+      "expected_sha256": "4c4c434ac1e5e51a776adb87d43eab352a7791a11a2fa219fb3fb3a71870f9e8",
+      "path": "System\\AgentFoxTechnicalCore\\STATIC_CODE_LAUNCHER_CONTRACT_V1.json",
+      "size_bytes": 2340,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "05e9b43aaa7da0f02626d61635b4af07e88529d217e62b3d2ebba3288789308a",
+      "expected_sha256": "05e9b43aaa7da0f02626d61635b4af07e88529d217e62b3d2ebba3288789308a",
+      "path": "System\\AgentFoxTechnicalCore\\static_manifest_normalizer_v1.py",
+      "size_bytes": 40070,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "76c73ceac23a264b99191297a43cec62900a8821ea0765ca50609f2c6e0f1be9",
+      "expected_sha256": "76c73ceac23a264b99191297a43cec62900a8821ea0765ca50609f2c6e0f1be9",
+      "path": "System\\API\\core_api.py",
+      "size_bytes": 21610,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "39785314b4dca4e8fc51076cea97e8e7f73c2c655613d61acfa4dcdf72954654",
+      "expected_sha256": "39785314b4dca4e8fc51076cea97e8e7f73c2c655613d61acfa4dcdf72954654",
+      "path": "System\\Commissioning\\commission_usb.py",
+      "size_bytes": 29119,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "860f0cae5819f609189c6b584df42188f39916823fc680b6217d08b484fcf15e",
+      "expected_sha256": "860f0cae5819f609189c6b584df42188f39916823fc680b6217d08b484fcf15e",
+      "path": "System\\Config\\health_policy.yaml",
+      "size_bytes": 454,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "032ee242af0307603c3b152905465d6f08115e65e8c29338364de617b355ee46",
+      "expected_sha256": "032ee242af0307603c3b152905465d6f08115e65e8c29338364de617b355ee46",
+      "path": "System\\Config\\manifest.yaml",
+      "size_bytes": 757,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "24a16762d4a85cdb3681e8e6f8793a17525deeacfc42afcec0e12b2859c6e3cd",
+      "expected_sha256": "24a16762d4a85cdb3681e8e6f8793a17525deeacfc42afcec0e12b2859c6e3cd",
+      "path": "System\\Config\\modules.yaml",
+      "size_bytes": 475,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "82ca837175473c252c109e4dfe7eaa2711231407840f815bf11ab275e399acdc",
+      "expected_sha256": "82ca837175473c252c109e4dfe7eaa2711231407840f815bf11ab275e399acdc",
+      "path": "System\\Config\\operator.yaml",
+      "size_bytes": 160,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "e4f99cff43066d87e44375973791d0fa977e4b16c39d973b324d532d99c5a646",
+      "expected_sha256": "e4f99cff43066d87e44375973791d0fa977e4b16c39d973b324d532d99c5a646",
+      "path": "System\\GitHub\\push_source_snapshot.ps1",
+      "size_bytes": 9605,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "1bbb6873f11ebccc8a12ceb9c5c8dfd29087d44c25b987c106dbb606e27252a5",
+      "expected_sha256": "1bbb6873f11ebccc8a12ceb9c5c8dfd29087d44c25b987c106dbb606e27252a5",
+      "path": "System\\Launchers\\launch.py",
+      "size_bytes": 6296,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "343c3c4f73344f0265ac6f46227153260a698f42557a1f9eb68fffba0e47f74f",
+      "expected_sha256": "343c3c4f73344f0265ac6f46227153260a698f42557a1f9eb68fffba0e47f74f",
+      "path": "System\\module.yaml",
+      "size_bytes": 210,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "ad0d9b82796668252ed289a0be120c4ab68b6a57a04c0d1bbae351bf84dac833",
+      "expected_sha256": "ad0d9b82796668252ed289a0be120c4ab68b6a57a04c0d1bbae351bf84dac833",
+      "path": "System\\Modules\\modules.yaml",
+      "size_bytes": 759,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "03c716f41180aa4f3210eea6fa0a63128193b5c72238b91ee74d0044c8ee92c7",
+      "expected_sha256": "03c716f41180aa4f3210eea6fa0a63128193b5c72238b91ee74d0044c8ee92c7",
+      "path": "System\\Portability\\COMFYUI_KNOWN_GOOD_CURRENT.json",
+      "size_bytes": 1392,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "d7843838e3ef53844801d4893c2ad77890f79e89e131a689e663e20c6f3e8d38",
+      "expected_sha256": "d7843838e3ef53844801d4893c2ad77890f79e89e131a689e663e20c6f3e8d38",
+      "path": "System\\Portability\\verify_comfyui_known_good.py",
+      "size_bytes": 9504,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "49250fa6cfe39bf2b612f25eebb267c8dfd8009d62c702bccb2366f2aaf7e05a",
+      "expected_sha256": "49250fa6cfe39bf2b612f25eebb267c8dfd8009d62c702bccb2366f2aaf7e05a",
+      "path": "System\\PortableRuntime\\comfy_console_tee.py",
+      "size_bytes": 3415,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "35ec8b837e894bc691990ae8550866cad4cb6afaf4685a5d8813de8729bd6ca5",
+      "expected_sha256": "35ec8b837e894bc691990ae8550866cad4cb6afaf4685a5d8813de8729bd6ca5",
+      "path": "System\\PortableRuntime\\COMFYUI_NORMAL_POLICY.json",
+      "size_bytes": 4775,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "e714428b172fbdbf91b19625d9feef5638c9e7c03751cfc46ba6db542223933f",
+      "expected_sha256": "e714428b172fbdbf91b19625d9feef5638c9e7c03751cfc46ba6db542223933f",
+      "path": "System\\PortableRuntime\\launch_comfyui_isolated.py",
+      "size_bytes": 1751,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "7f6c08cf28e41a3e73ae34b6d4ee9128e282d9c9e2c11e07f5d34ebca2e98629",
+      "expected_sha256": "7f6c08cf28e41a3e73ae34b6d4ee9128e282d9c9e2c11e07f5d34ebca2e98629",
+      "path": "System\\PortableRuntime\\manage_comfyui_normal.py",
+      "size_bytes": 35956,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "93c6255609d6e2b42f7e4fffeb76e966c59c9bc02a0e390612ba272e4a80f15e",
+      "expected_sha256": "93c6255609d6e2b42f7e4fffeb76e966c59c9bc02a0e390612ba272e4a80f15e",
+      "path": "System\\PortableRuntime\\start_comfyui_quiet.py",
+      "size_bytes": 5985,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "3743657d9249c00cf11f891b3e703743eca206301f9a48807b17d568a440939e",
+      "expected_sha256": "3743657d9249c00cf11f891b3e703743eca206301f9a48807b17d568a440939e",
+      "path": "System\\PortableRuntime\\verify_desktop_runtime.py",
+      "size_bytes": 3715,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "d429067e30a9316a56d2598e39637685ebf5119cfbda6ec4c03eb5de376ab71c",
+      "expected_sha256": "d429067e30a9316a56d2598e39637685ebf5119cfbda6ec4c03eb5de376ab71c",
+      "path": "System\\Registry\\build_registry.py",
+      "size_bytes": 3467,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "bda1a5a6acf6c1bd0266fd3577b98e6cadddc99119c21f4a0233709b66f3e412",
+      "expected_sha256": "bda1a5a6acf6c1bd0266fd3577b98e6cadddc99119c21f4a0233709b66f3e412",
+      "path": "System\\Registry\\modules\\academy.module.yaml",
+      "size_bytes": 190,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "8449ca52dad329a644155a52843e01367885830b79583d0c9bceb9de86a7b154",
+      "expected_sha256": "8449ca52dad329a644155a52843e01367885830b79583d0c9bceb9de86a7b154",
+      "path": "System\\Registry\\modules\\academy.yaml",
+      "size_bytes": 301,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "fc8448ab3e1610c2664becf48b39cb13cd006ebffab364141e6fde9f0d6d25ad",
+      "expected_sha256": "fc8448ab3e1610c2664becf48b39cb13cd006ebffab364141e6fde9f0d6d25ad",
+      "path": "System\\Registry\\modules\\ai_engines.module.yaml",
+      "size_bytes": 192,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "2606033efe9617ac79a7635d3c9f63c7ec5dc4ce3e197ee27463c7f4b623921c",
+      "expected_sha256": "2606033efe9617ac79a7635d3c9f63c7ec5dc4ce3e197ee27463c7f4b623921c",
+      "path": "System\\Registry\\modules\\ai_engines.yaml",
+      "size_bytes": 295,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "3132562521a630271809e089db5bcf43971e924ea0dc1a98b9118b219b062c45",
+      "expected_sha256": "3132562521a630271809e089db5bcf43971e924ea0dc1a98b9118b219b062c45",
+      "path": "System\\Registry\\modules\\core_api.module.yaml",
+      "size_bytes": 183,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "343c3c4f73344f0265ac6f46227153260a698f42557a1f9eb68fffba0e47f74f",
+      "expected_sha256": "343c3c4f73344f0265ac6f46227153260a698f42557a1f9eb68fffba0e47f74f",
+      "path": "System\\Registry\\modules\\core_system.module.yaml",
+      "size_bytes": 210,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "3bf24e4b35572251ea43ec53b94ca4330f1d60c581f60e39496fa67e562379ba",
+      "expected_sha256": "3bf24e4b35572251ea43ec53b94ca4330f1d60c581f60e39496fa67e562379ba",
+      "path": "System\\Registry\\modules\\core_system.yaml",
+      "size_bytes": 324,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "548eb2014a963abf29274d87821d57d3bf95cca6a1edefa5342afbc63068d8e9",
+      "expected_sha256": "548eb2014a963abf29274d87821d57d3bf95cca6a1edefa5342afbc63068d8e9",
+      "path": "System\\Registry\\modules\\creative_studio.module.yaml",
+      "size_bytes": 222,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "8d1d13b1dbb2726708cb275793b8d356131840e291176e43f0fb2c47d953b86a",
+      "expected_sha256": "8d1d13b1dbb2726708cb275793b8d356131840e291176e43f0fb2c47d953b86a",
+      "path": "System\\Registry\\modules\\creative_studio.yaml",
+      "size_bytes": 321,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "cbe045e7b24bfdee530a58130bd54361654c810f44a6bd340754de5c110a5c77",
+      "expected_sha256": "cbe045e7b24bfdee530a58130bd54361654c810f44a6bd340754de5c110a5c77",
+      "path": "System\\Registry\\modules\\error_modules.module.yaml",
+      "size_bytes": 277,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "6a297accfd345bd73b1da07cb82561aaea2e2e0eab4489cd3e76caa4fc8df711",
+      "expected_sha256": "6a297accfd345bd73b1da07cb82561aaea2e2e0eab4489cd3e76caa4fc8df711",
+      "path": "System\\Registry\\modules\\forge.module.yaml",
+      "size_bytes": 185,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "fedfaba3d5cd69cd10dac709a6cfa2d42a8b7690e1de0ac0cc6a7ccc2cfa3430",
+      "expected_sha256": "fedfaba3d5cd69cd10dac709a6cfa2d42a8b7690e1de0ac0cc6a7ccc2cfa3430",
+      "path": "System\\Registry\\modules\\forge.yaml",
+      "size_bytes": 288,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "b38e1bfcda6df6e6d50e52c5aec8a81c1ea26533969b6b9deeeffad95e926ffa",
+      "expected_sha256": "b38e1bfcda6df6e6d50e52c5aec8a81c1ea26533969b6b9deeeffad95e926ffa",
+      "path": "System\\Registry\\modules\\foundry.module.yaml",
+      "size_bytes": 196,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "8c1be8e2f66a80cacb0ae39f5294b9198215858d6da9cbe2d0d90280b6b3e80a",
+      "expected_sha256": "8c1be8e2f66a80cacb0ae39f5294b9198215858d6da9cbe2d0d90280b6b3e80a",
+      "path": "System\\Registry\\modules\\foundry.yaml",
+      "size_bytes": 298,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "19d894e390a1785814563be07b7b3e4bff72e46f451588a2eaa1078d146cefc5",
+      "expected_sha256": "19d894e390a1785814563be07b7b3e4bff72e46f451588a2eaa1078d146cefc5",
+      "path": "System\\Registry\\modules\\iron_library.module.yaml",
+      "size_bytes": 225,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "f1c1a743941f9c45e1c03b07a7a575cddcb087e7875ca8b2575099b0c40df5d7",
+      "expected_sha256": "f1c1a743941f9c45e1c03b07a7a575cddcb087e7875ca8b2575099b0c40df5d7",
+      "path": "System\\Registry\\modules\\iron_library.yaml",
+      "size_bytes": 320,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "b234a80f4e46c454ee24615a9619da849f8d4237fb0164d6bff347bf831c5822",
+      "expected_sha256": "b234a80f4e46c454ee24615a9619da849f8d4237fb0164d6bff347bf831c5822",
+      "path": "System\\Registry\\modules\\kayock_browser.yaml",
+      "size_bytes": 514,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "50bdfc47a303a2b8f5585d5d448155e3d77195fe5170a1f6f7b77264359bd1d1",
+      "expected_sha256": "50bdfc47a303a2b8f5585d5d448155e3d77195fe5170a1f6f7b77264359bd1d1",
+      "path": "System\\Registry\\modules\\modules.json",
+      "size_bytes": 5462,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "a163998b2d4c47ee18d1e20370af3ef4678e96034ffd3439f424f9908b89d9fb",
+      "expected_sha256": "a163998b2d4c47ee18d1e20370af3ef4678e96034ffd3439f424f9908b89d9fb",
+      "path": "System\\Registry\\modules\\repair_bay.module.yaml",
+      "size_bytes": 211,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "4acde1a01b60eb2e1c50f976b0c6ba0d0ed99ef0b99a4388c83743ac830abae5",
+      "expected_sha256": "4acde1a01b60eb2e1c50f976b0c6ba0d0ed99ef0b99a4388c83743ac830abae5",
+      "path": "System\\Registry\\modules\\repair_bay.yaml",
+      "size_bytes": 321,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "cc2c8f519effae060637b9fb7bbaed2f69f63fef0e03e5544ef9b4619a69f292",
+      "expected_sha256": "cc2c8f519effae060637b9fb7bbaed2f69f63fef0e03e5544ef9b4619a69f292",
+      "path": "System\\Registry\\modules\\shell.module.yaml",
+      "size_bytes": 213,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "521df8afb215940f7d2912af1c558a302a6589dfb6791784f2803771af193226",
+      "expected_sha256": "521df8afb215940f7d2912af1c558a302a6589dfb6791784f2803771af193226",
+      "path": "System\\Scripts\\backup_project.bat",
+      "size_bytes": 402,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "7005914a87cd27b53d714894497a241bdf74ae1dea7541b8b12c5581d821bbfa",
+      "expected_sha256": "7005914a87cd27b53d714894497a241bdf74ae1dea7541b8b12c5581d821bbfa",
+      "path": "System\\Scripts\\check_structure.bat",
+      "size_bytes": 465,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "62fc75830d6d271acde8558799194e40e8cc8f75487d26bfbd447a2fb1af6adc",
+      "expected_sha256": "62fc75830d6d271acde8558799194e40e8cc8f75487d26bfbd447a2fb1af6adc",
+      "path": "System\\Scripts\\repair_structure.py",
+      "size_bytes": 1343,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "e8affc6590467c7c513d7673d76218f3aea8722b2d95cbf6bb44337c32097331",
+      "expected_sha256": "e8affc6590467c7c513d7673d76218f3aea8722b2d95cbf6bb44337c32097331",
+      "path": "System\\Services\\service_bus.py",
+      "size_bytes": 4904,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "04812118db4043d794e454c5022aa5584f03d28240e5166ccd3b0a049f9f6648",
+      "expected_sha256": "04812118db4043d794e454c5022aa5584f03d28240e5166ccd3b0a049f9f6648",
+      "path": "System\\Services\\services.json",
+      "size_bytes": 2420,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "c110b3a6f1380876987948cec3d1e0099178711ed00cccd97a01f48adf64136f",
+      "expected_sha256": "c110b3a6f1380876987948cec3d1e0099178711ed00cccd97a01f48adf64136f",
+      "path": "TEST_ACADEMY_UNIFICATION.bat",
+      "size_bytes": 404,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "3355918496d5d144f8d9c01476633043b8489d3bf010dc559f3b888fac11acfc",
+      "expected_sha256": "3355918496d5d144f8d9c01476633043b8489d3bf010dc559f3b888fac11acfc",
+      "path": "TEST_ACADEMY_UNIFICATION.py",
+      "size_bytes": 972,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "758258e62bb88bce9d00f88987faf27753ae19bf03d2769cb3262de5bb5108f8",
+      "expected_sha256": "758258e62bb88bce9d00f88987faf27753ae19bf03d2769cb3262de5bb5108f8",
+      "path": "TEST_BRIDGE_OFFICERS.bat",
+      "size_bytes": 379,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "2dbc8aa77eefdf8c4967e406587bbc4779c6e65a0a5c8a3366fe67c4db55ce62",
+      "expected_sha256": "2dbc8aa77eefdf8c4967e406587bbc4779c6e65a0a5c8a3366fe67c4db55ce62",
+      "path": "TEST_BRIDGE_OFFICERS.py",
+      "size_bytes": 608,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "fa66b6718daee6ae3f1b97e0f6b2f41b764a42a90420b8f83ab8ca51a2afc387",
+      "expected_sha256": "fa66b6718daee6ae3f1b97e0f6b2f41b764a42a90420b8f83ab8ca51a2afc387",
+      "path": "TEST_CAPABILITY_BUS.bat",
+      "size_bytes": 334,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "f69af93e87c37d8e7abc44f1adb4b8a03f1f3e57a308f230c3be81da9742c507",
+      "expected_sha256": "f69af93e87c37d8e7abc44f1adb4b8a03f1f3e57a308f230c3be81da9742c507",
+      "path": "TEST_CAPABILITY_BUS.py",
+      "size_bytes": 1596,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "93b6f67706b40eb0b629a8a5644ece33e096cbdf946345aa67f750a5c0c3b351",
+      "expected_sha256": "93b6f67706b40eb0b629a8a5644ece33e096cbdf946345aa67f750a5c0c3b351",
+      "path": "TEST_CAPABILITY_GAP_ANALYZER.bat",
+      "size_bytes": 393,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "04dfc7380b8f04755e06f81f5da4bfb144546b2d63b2ef133792b68213345e79",
+      "expected_sha256": "04dfc7380b8f04755e06f81f5da4bfb144546b2d63b2ef133792b68213345e79",
+      "path": "TEST_CAPABILITY_GAP_ANALYZER.py",
+      "size_bytes": 699,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "45e5f647b840a14f737dc31afd510562d0aa8c2c406d3bb24b1b5fcca02f11d5",
+      "expected_sha256": "45e5f647b840a14f737dc31afd510562d0aa8c2c406d3bb24b1b5fcca02f11d5",
+      "path": "TEST_CAPABILITY_MANAGER.bat",
+      "size_bytes": 356,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "21e412d33233126782c1b61a95502fd99aa5b4e92045305923df6fea4fbb1cce",
+      "expected_sha256": "21e412d33233126782c1b61a95502fd99aa5b4e92045305923df6fea4fbb1cce",
+      "path": "TEST_CAPABILITY_MANAGER.py",
+      "size_bytes": 916,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "fdaabe3442b0a69adcfa2429ed5221768cec515179ffd96b98ecd1724885308c",
+      "expected_sha256": "fdaabe3442b0a69adcfa2429ed5221768cec515179ffd96b98ecd1724885308c",
+      "path": "TEST_CONVERSATION_SHUTTLE.bat",
+      "size_bytes": 393,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "f3cef8aa1e5a92750cb218154471a07b7553c06f5b90bba40b77107fccb1210a",
+      "expected_sha256": "f3cef8aa1e5a92750cb218154471a07b7553c06f5b90bba40b77107fccb1210a",
+      "path": "TEST_CONVERSATION_SHUTTLE.py",
+      "size_bytes": 1242,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "b505a1c9e52a2b6ded7822b2a7c48b6f1c52dfe3593e2a3a76d42e4bd3add906",
+      "expected_sha256": "b505a1c9e52a2b6ded7822b2a7c48b6f1c52dfe3593e2a3a76d42e4bd3add906",
+      "path": "TEST_CORE_V10.bat",
+      "size_bytes": 321,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "3da451ef5d3ad1263384fe462d5df7076ee0e1415aa01b26dfe195ae16f95837",
+      "expected_sha256": "3da451ef5d3ad1263384fe462d5df7076ee0e1415aa01b26dfe195ae16f95837",
+      "path": "TEST_CORE_V10.py",
+      "size_bytes": 1019,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "214c30a937a13207189d58dc10113ceafff70298d9c5478c2357e8b57d950a9c",
+      "expected_sha256": "214c30a937a13207189d58dc10113ceafff70298d9c5478c2357e8b57d950a9c",
+      "path": "TEST_EXTENSION_MANAGER.bat",
+      "size_bytes": 482,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "f9c29685e92e0de2703210ee62d5394de42768f08fc381fedc8344d33e60f846",
+      "expected_sha256": "f9c29685e92e0de2703210ee62d5394de42768f08fc381fedc8344d33e60f846",
+      "path": "TEST_EXTENSION_MANAGER.py",
+      "size_bytes": 788,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "23ad041d28ad20e0bfb462ecdec9dfec722eef2fce717f32aab403de2d49a67f",
+      "expected_sha256": "23ad041d28ad20e0bfb462ecdec9dfec722eef2fce717f32aab403de2d49a67f",
+      "path": "TEST_EXTENSION_MANAGER_V2.bat",
+      "size_bytes": 491,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "1c11c257b2033294de644aa0378c59722d58f5104471a83743d464d57951a38b",
+      "expected_sha256": "1c11c257b2033294de644aa0378c59722d58f5104471a83743d464d57951a38b",
+      "path": "TEST_EXTENSION_MANAGER_V2.py",
+      "size_bytes": 1316,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "fda490235f441aaae23db30f0085d2c1a8236bd4915205344f2e2ede62845f3c",
+      "expected_sha256": "fda490235f441aaae23db30f0085d2c1a8236bd4915205344f2e2ede62845f3c",
+      "path": "TEST_EXTENSION_MANIFESTS.bat",
+      "size_bytes": 500,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "283c9137dd4c82337b8f3a790f1b5597cd9c4fea54c174c88a80c4a084c7db4d",
+      "expected_sha256": "283c9137dd4c82337b8f3a790f1b5597cd9c4fea54c174c88a80c4a084c7db4d",
+      "path": "TEST_EXTENSION_MANIFESTS.py",
+      "size_bytes": 1005,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "ba3a1212cdf22dc2be9b5b59dd5df0a62b4220c0a9f5443d3b3b1a3fad2e8d2f",
+      "expected_sha256": "ba3a1212cdf22dc2be9b5b59dd5df0a62b4220c0a9f5443d3b3b1a3fad2e8d2f",
+      "path": "TEST_FLEET_COMMAND.bat",
+      "size_bytes": 363,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "010e6543b70fbdc643df290de237bfb096477f8374d67158b276c1a1c10f3517",
+      "expected_sha256": "010e6543b70fbdc643df290de237bfb096477f8374d67158b276c1a1c10f3517",
+      "path": "TEST_FLEET_COMMAND.py",
+      "size_bytes": 592,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "272a5bfb72e237bdd3b55802df644617103c2dc8be23920262f861b918b883cf",
+      "expected_sha256": "272a5bfb72e237bdd3b55802df644617103c2dc8be23920262f861b918b883cf",
+      "path": "TEST_FLEET_REGISTRY.bat",
+      "size_bytes": 467,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "8f1c40e7dd9c17b7b6b587ea1e8960f12752c8f5cf1cbde6a16b6cae1d880a67",
+      "expected_sha256": "8f1c40e7dd9c17b7b6b587ea1e8960f12752c8f5cf1cbde6a16b6cae1d880a67",
+      "path": "TEST_FLEET_REGISTRY.py",
+      "size_bytes": 1527,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "dbd8a5ffdbe53a982ae1972abe49a6e8ca761158d48a86a2766fb8a9393bc502",
+      "expected_sha256": "dbd8a5ffdbe53a982ae1972abe49a6e8ca761158d48a86a2766fb8a9393bc502",
+      "path": "TEST_FLEET_SYNC_CONVERSATION.bat",
+      "size_bytes": 400,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "d625529e0fb899ee68e2f08a19b74b2b3b632766c2f1a1656cff2322dc311ee7",
+      "expected_sha256": "d625529e0fb899ee68e2f08a19b74b2b3b632766c2f1a1656cff2322dc311ee7",
+      "path": "TEST_FLEET_SYNC_CONVERSATION.py",
+      "size_bytes": 1304,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "f15a43ffee52c37f016998894e0ccd387b4fcc932b6dbfcb14fb7603425876fd",
+      "expected_sha256": "f15a43ffee52c37f016998894e0ccd387b4fcc932b6dbfcb14fb7603425876fd",
+      "path": "TEST_FOXKERNEL.bat",
+      "size_bytes": 564,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "bdda250de5187591c02ae2c3f931098f68f487163b0491be296fd87ebd96f0db",
+      "expected_sha256": "bdda250de5187591c02ae2c3f931098f68f487163b0491be296fd87ebd96f0db",
+      "path": "TEST_INTENT_ENGINE.bat",
+      "size_bytes": 379,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "009404e6ece3ce08b67ba34369aaba22ef3625891d359f0f93863ebc6d16f42b",
+      "expected_sha256": "009404e6ece3ce08b67ba34369aaba22ef3625891d359f0f93863ebc6d16f42b",
+      "path": "TEST_INTENT_ENGINE.py",
+      "size_bytes": 1298,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "95c0c92d7edbcd1737d345a356e74022b19845a2b6cfe04b0b5659681fe8dffb",
+      "expected_sha256": "95c0c92d7edbcd1737d345a356e74022b19845a2b6cfe04b0b5659681fe8dffb",
+      "path": "TEST_MEMORY_GUARDRAILS.bat",
+      "size_bytes": 356,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "c37c04e3374034dd69cb4f66397629a45edf9ab7f79a4b5f40dc2ddb4c3264d1",
+      "expected_sha256": "c37c04e3374034dd69cb4f66397629a45edf9ab7f79a4b5f40dc2ddb4c3264d1",
+      "path": "TEST_MEMORY_GUARDRAILS.py",
+      "size_bytes": 1143,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "6d89c429f86e845b517aaaedde6f0860e86cf8b509b076f143a2416d037a72f6",
+      "expected_sha256": "6d89c429f86e845b517aaaedde6f0860e86cf8b509b076f143a2416d037a72f6",
+      "path": "TEST_MISSION_BUS.bat",
+      "size_bytes": 357,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "ea5bf1bfcfffd31276bd5f18d5acab9b133d30239abb488134a47018f89a7973",
+      "expected_sha256": "ea5bf1bfcfffd31276bd5f18d5acab9b133d30239abb488134a47018f89a7973",
+      "path": "TEST_MISSION_BUS.py",
+      "size_bytes": 1098,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "93d7b2fd4f32711579ed2eb504a6186c4dc4f2af47e612a4777a75ef8482413c",
+      "expected_sha256": "93d7b2fd4f32711579ed2eb504a6186c4dc4f2af47e612a4777a75ef8482413c",
+      "path": "TEST_MISSION_EXECUTOR.bat",
+      "size_bytes": 375,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "289b47ddd7c2a2a84574f82ab5c98caf5b9609c1d7843b2dabbdac5d6b566b7c",
+      "expected_sha256": "289b47ddd7c2a2a84574f82ab5c98caf5b9609c1d7843b2dabbdac5d6b566b7c",
+      "path": "TEST_MISSION_EXECUTOR.py",
+      "size_bytes": 606,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "0651224e04f8efc6acffb595a101fe5e124fb14ffaf95f504d91ae1db340bf77",
+      "expected_sha256": "0651224e04f8efc6acffb595a101fe5e124fb14ffaf95f504d91ae1db340bf77",
+      "path": "TEST_MISSION_PLANNER.bat",
+      "size_bytes": 466,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "a90bbacf94236756def02310317cddf74737fa120e411847e9e0631a1b6b9c5a",
+      "expected_sha256": "a90bbacf94236756def02310317cddf74737fa120e411847e9e0631a1b6b9c5a",
+      "path": "TEST_MISSION_PLANNER.py",
+      "size_bytes": 594,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "82cf28e811853dd21941a5cd93c63eecd94c333b82a8bf0c8f3a11b2d18c69f3",
+      "expected_sha256": "82cf28e811853dd21941a5cd93c63eecd94c333b82a8bf0c8f3a11b2d18c69f3",
+      "path": "TEST_NO_LAUNCH_LIFECYCLE_GUARD.bat",
+      "size_bytes": 514,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "b2d882e16b0ae2de78c79432b8ff1e6f23c78263997f60d537047653fa50ef5a",
+      "expected_sha256": "b2d882e16b0ae2de78c79432b8ff1e6f23c78263997f60d537047653fa50ef5a",
+      "path": "TEST_NO_LAUNCH_LIFECYCLE_GUARD.py",
+      "size_bytes": 890,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "f2b7175555a665b9fa6652de5d0b62eb4061f57a19e78ca21159f9432069befa",
+      "expected_sha256": "f2b7175555a665b9fa6652de5d0b62eb4061f57a19e78ca21159f9432069befa",
+      "path": "TEST_OPS_BRIDGE.bat",
+      "size_bytes": 645,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "a3e853295f3a790e2628c65cbb9e9d2c5f6fa6489e7660aaab319743d2ec3d3c",
+      "expected_sha256": "a3e853295f3a790e2628c65cbb9e9d2c5f6fa6489e7660aaab319743d2ec3d3c",
+      "path": "TEST_RUNTIME_DETECTION.bat",
+      "size_bytes": 391,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "aadd3cae7cd19d2262ffc58c08faa032f5dc4ac9145c7f1f16371daf588e7b36",
+      "expected_sha256": "aadd3cae7cd19d2262ffc58c08faa032f5dc4ac9145c7f1f16371daf588e7b36",
+      "path": "TEST_RUNTIME_DETECTION.py",
+      "size_bytes": 427,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "c6d8424a5a34223e9d753f30755a14572c33e08ed6aa18ec7f515cd5f2f90640",
+      "expected_sha256": "c6d8424a5a34223e9d753f30755a14572c33e08ed6aa18ec7f515cd5f2f90640",
+      "path": "TEST_SERVICE_SHUTTLE_ARCHITECTURE.bat",
+      "size_bytes": 419,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "b38f3a4adfcb33fa55fe3efa83040bb61c1c8c858a21430077de6fb187855705",
+      "expected_sha256": "b38f3a4adfcb33fa55fe3efa83040bb61c1c8c858a21430077de6fb187855705",
+      "path": "TEST_SERVICE_SHUTTLE_ARCHITECTURE.py",
+      "size_bytes": 1373,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "81876bfbbe6f6d2953c9ebf22ddc408a5925c166639b1835299fd732d47c369e",
+      "expected_sha256": "81876bfbbe6f6d2953c9ebf22ddc408a5925c166639b1835299fd732d47c369e",
+      "path": "TEST_SHUTTLE_POD_COMMISSIONING.bat",
+      "size_bytes": 528,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "fae57c3afdf09425b3ec4e662d1e96d8dad5a733dd60ab396ed5e7bb46701db1",
+      "expected_sha256": "fae57c3afdf09425b3ec4e662d1e96d8dad5a733dd60ab396ed5e7bb46701db1",
+      "path": "TEST_SHUTTLE_POD_COMMISSIONING.py",
+      "size_bytes": 1426,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "87641aec218546728338475fe8e007af7a01e4a929d84a5dc8488c804f33820c",
+      "expected_sha256": "87641aec218546728338475fe8e007af7a01e4a929d84a5dc8488c804f33820c",
+      "path": "TEST_VAULT_DATABASE_SHUTTLE.bat",
+      "size_bytes": 395,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "86809ec3315b912f24092d05a8fe2a942e527f3e3796989df122b159a0f22bfd",
+      "expected_sha256": "86809ec3315b912f24092d05a8fe2a942e527f3e3796989df122b159a0f22bfd",
+      "path": "TEST_VAULT_DATABASE_SHUTTLE.py",
+      "size_bytes": 1266,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "8f5b63fc5422aa36924132b8135629689e0553f690d7fe01b9e981f8e54059ee",
+      "expected_sha256": "8f5b63fc5422aa36924132b8135629689e0553f690d7fe01b9e981f8e54059ee",
+      "path": "tools\\phase1_bundle.py",
+      "size_bytes": 12055,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "d64887e184cc13bb7eccca201c593b1070e052ada85f9c3bfd60d172ab65e3c5",
+      "expected_sha256": "d64887e184cc13bb7eccca201c593b1070e052ada85f9c3bfd60d172ab65e3c5",
+      "path": "tools\\preview_portable_fix.py",
+      "size_bytes": 4154,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "path": "ui\\__init__.py",
+      "size_bytes": 0,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "0c261d8488c82b79b849b6733ceb5bab46805a18a89e0dad7ade4449a0090b14",
+      "expected_sha256": "0c261d8488c82b79b849b6733ceb5bab46805a18a89e0dad7ade4449a0090b14",
+      "path": "ui\\foxai_theme.py",
+      "size_bytes": 2750,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "cd20a1785a574eae44e290c1af1c1da7ac2bb66559f7d9ce8e93a9b2d6516b36",
+      "expected_sha256": "cd20a1785a574eae44e290c1af1c1da7ac2bb66559f7d9ce8e93a9b2d6516b36",
+      "path": "ui\\main_window.py",
+      "size_bytes": 96883,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "7d3d2e7f779cadce4693cedae5f2b75637ee37e8624b16a7a276320ef45e0c94",
+      "expected_sha256": "7d3d2e7f779cadce4693cedae5f2b75637ee37e8624b16a7a276320ef45e0c94",
+      "path": "ui\\splash.py",
+      "size_bytes": 2527,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "21a284b27bb4562bc280e16e30a2667f4d0b093bb6af65beeaefa27e07ba5b5f",
+      "expected_sha256": "21a284b27bb4562bc280e16e30a2667f4d0b093bb6af65beeaefa27e07ba5b5f",
+      "path": "VERIFY_COMFYUI_KNOWN_GOOD.bat",
+      "size_bytes": 692,
+      "status": "match"
+    },
+    {
+      "actual_sha256": "9d55075ed70c99c371ae3bc2cbeb68567138624bdd7980d9009c5569aeb0172c",
+      "expected_sha256": "9d55075ed70c99c371ae3bc2cbeb68567138624bdd7980d9009c5569aeb0172c",
+      "path": "VERIFY_PORTABLE_PYTHON.bat",
+      "size_bytes": 245,
+      "status": "match"
+    }
+  ],
+  "current_source_hash_status": {
+    "match": 565
+  },
+  "false_edge_metrics": {
+    "comment_launch_edge_count": 0,
+    "samples": {
+      "comments": [],
+      "shell_builtins": [],
+      "unresolved_confirmed": [],
+      "url_paths": []
+    },
+    "shell_builtin_launch_edge_count": 0,
+    "unresolved_confirmed_target_count": 0,
+    "url_as_filesystem_edge_count": 0
+  },
+  "foxai_source_imported_or_executed": false,
+  "global_line_record_ceiling_used": false,
+  "launcher_errors": {},
+  "launcher_parse_status": {
+    "refined_static_parsed": 536
+  },
+  "launcher_records_processed": 536,
+  "launchers_executed": false,
+  "mission_id": "ENG-20260721-060224-2EA5A3",
+  "models_loaded": false,
+  "network_used": false,
+  "not_collected_areas": [
+    "Runtime execution, sys.path, imports at runtime, processes, services, open ports, scheduled tasks, event logs, signatures, shortcuts, models, and repairs"
+  ],
+  "packages_installed": false,
+  "partial_areas": [
+    "Per-file reference lines remain bounded to 5000 nonblank noncomment lines and report omissions explicitly",
+    "Dynamic delayed expansion, arbitrary batch subroutines, registry-derived paths, and runtime shell behavior remain unverified",
+    "PowerShell parsing is conservative and records only explicit static invocation forms"
+  ],
+  "python_interpreters_probed": false,
+  "reference_files_complete": 561,
+  "reference_files_missing_or_unreadable": 0,
+  "reference_files_per_file_limit_reached": 4,
+  "reference_line_records": 78740,
+  "reference_shards": 66,
+  "schema": "foxai.agent_fox.technical_core.v1a2r1.refined_static_bridge.v1",
+  "source_files_from_v1a2": 565,
+  "source_v1a2_mission_id": "ENG-20260721-053749-E3BE2A"
+}

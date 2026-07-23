@@ -1,0 +1,66 @@
+{
+  "authoritative_recognition_catalog": "V1A-3E INTENT_DEFINITIONS and synonyms",
+  "domain_anchors": [
+    "foxai",
+    "agent fox",
+    "technical core",
+    "protected context",
+    "launcher",
+    "web portable",
+    "web_with_comfyui",
+    "web with comfyui",
+    "workshop main",
+    "workshop_comfyui",
+    "desktop recovery",
+    "desktop_recovery",
+    "ctx-",
+    "pathgroup-",
+    "start_foxai",
+    "launch foxai workshop"
+  ],
+  "mission_id": "ENG-20260722-005700-10980D",
+  "request_id_generation": "SHA-256 over normalized surface, case-folded normalized message, and canonical selectors; first 16 uppercase hex characters prefixed CHAT-.",
+  "rules": [
+    {
+      "class": "recognized",
+      "handled": true,
+      "model_bypass": true,
+      "ordinary_chat_pass_through": false,
+      "registry_verification": true
+    },
+    {
+      "class": "ambiguous_supported",
+      "handled": true,
+      "model_bypass": true,
+      "ordinary_chat_pass_through": false,
+      "registry_verification": "only when selector resolution requires it"
+    },
+    {
+      "class": "unsupported_ordinary",
+      "handled": false,
+      "model_bypass": false,
+      "ordinary_chat_pass_through": true,
+      "registry_verification": false
+    },
+    {
+      "class": "recognized_evidence_failure",
+      "handled": true,
+      "model_bypass": true,
+      "ordinary_chat_pass_through": false,
+      "registry_verification": "failed"
+    }
+  ],
+  "runtime_safety": {
+    "pythonw_identity_directly_probed": false,
+    "runtime_facts_inferred_across_contexts": false,
+    "workshop_python_alias_resolved": false
+  },
+  "schema": "foxai.agent_fox.technical_core.v1a3g.routing.v1",
+  "supported_intent_count": 11,
+  "weak_generic_synonyms_requiring_foxai_domain_anchor": [
+    "entry script",
+    "what runs",
+    "what starts",
+    "which python"
+  ]
+}

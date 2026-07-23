@@ -1,0 +1,1124 @@
+from __future__ import annotations
+
+import argparse
+import csv
+import hashlib
+import json
+import ntpath
+import os
+import re
+import subprocess
+import sys
+import time
+from collections import Counter, defaultdict
+from pathlib import Path, PureWindowsPath
+from typing import Any, Iterable
+
+SCHEMA = "foxai.agent_fox.technical_core.v1a3a.python_runtime_map.v1"
+CONTRACT_SCHEMA = "foxai.agent_fox.technical_core.v1a3a.python_runtime_contract.v1"
+DEFAULT_PROJECT_ROOT = Path(r"Z:\FOXAI")
+DEFAULT_V1A1_DIR = Path(r"Z:\FOXAI\System\EngineeringWorkshop\missions\ENG-20260721-051832-1CAA3F_V1A1_NORMALIZED")
+DEFAULT_V1A2R2_DIR = Path(r"Z:\FOXAI\System\EngineeringWorkshop\missions\ENG-20260721-063725-BFCAB9_V1A2R2_IMMUTABLE_BRIDGE")
+DEFAULT_OUTPUT_DIR = Path(r"Z:\FOXAI\System\EngineeringWorkshop\missions\ENG-20260721-071125-0FB108_V1A3A_PYTHON_RUNTIME_MAP")
+DEFAULT_MISSION_ID = "ENG-20260721-071125-0FB108"
+MAX_OUTPUT_BYTES = 64 * 1024 * 1024
+MAX_METADATA_FILE_BYTES = 2 * 1024 * 1024
+MAX_PTH_FILE_BYTES = 512 * 1024
+MAX_SITE_ROOT_ENTRIES = 20000
+MAX_METADATA_RECORDS_PER_ROOT = 5000
+MAX_RECORD_LINES = 50000
+PROBE_TIMEOUT_SECONDS = 15
+
+ALLOWLIST = (
+    {"runtime_id": "portable_desktop", "owner": "Desktop", "path": r"Z:\FOXAI\Runtime\Desktop\python\python.exe", "portable_expected": True},
+    {"runtime_id": "portable_env", "owner": "legacy_or_general_env", "path": r"Z:\FOXAI\env\python\python.exe", "portable_expected": True},
+    {"runtime_id": "project_venv", "owner": "virtual_environment", "path": r"Z:\FOXAI\.venv\Scripts\python.exe", "portable_expected": True},
+    {"runtime_id": "host_python314", "owner": "host", "path": r"C:\Python314\python.exe", "portable_expected": False},
+)
+
+FIXED_SITE_ROOTS = (
+    {"owner": "Core", "path": r"Z:\FOXAI\Runtime\Core\site-packages", "source": "known_foxai_layout"},
+    {"owner": "Desktop", "path": r"Z:\FOXAI\Runtime\Desktop\site-packages", "source": "known_foxai_layout"},
+    {"owner": "ComfyUI", "path": r"Z:\FOXAI\Runtime\ComfyUI\site-packages", "source": "known_foxai_layout"},
+    {"owner": "legacy_or_general_env", "path": r"Z:\FOXAI\env\python\Lib\site-packages", "source": "known_foxai_layout"},
+    {"owner": "legacy_or_general_env", "path": r"Z:\FOXAI\env\python\site-packages", "source": "known_foxai_layout"},
+    {"owner": "virtual_environment", "path": r"Z:\FOXAI\.venv\Lib\site-packages", "source": "known_foxai_layout"},
+    {"owner": "host", "path": r"C:\Python314\Lib\site-packages", "source": "known_host_layout"},
+)
+
+PROBE_CODE = r'''import json, os, platform, site, struct, sys, sysconfig
+flags = {}
+for name in ("debug", "inspect", "interactive", "optimize", "dont_write_bytecode", "no_user_site", "no_site", "ignore_environment", "verbose", "bytes_warning", "quiet", "hash_randomization", "isolated", "dev_mode", "utf8_mode", "safe_path", "int_max_str_digits"):
+    flags[name] = getattr(sys.flags, name, None)
+data = {
+    "schema": "foxai.agent_fox.v1a3a.isolated_probe.v1",
+    "sys_executable": sys.executable,
+    "version": sys.version,
+    "version_info": list(sys.version_info),
+    "implementation_name": getattr(sys.implementation, "name", None),
+    "implementation_version": list(getattr(sys.implementation, "version", ())),
+    "pointer_bits": struct.calcsize("P") * 8,
+    "machine": platform.machine(),
+    "system": platform.system(),
+    "release": platform.release(),
+    "platform": sys.platform,
+    "prefix": sys.prefix,
+    "base_prefix": sys.base_prefix,
+    "exec_prefix": sys.exec_prefix,
+    "base_exec_prefix": sys.base_exec_prefix,
+    "sys_path": list(sys.path),
+    "flags": flags,
+    "sysconfig_paths": sysconfig.get_paths(),
+    "sysconfig_platform": sysconfig.get_platform(),
+    "soabi": sysconfig.get_config_var("SOABI"),
+    "filesystem_encoding": sys.getfilesystemencoding(),
+    "default_encoding": sys.getdefaultencoding(),
+    "cwd": os.getcwd(),
+    "user_base": site.getuserbase(),
+    "user_site": site.getusersitepackages(),
+    "site_imported_for_getters_only": True,
+}
+print(json.dumps(data, sort_keys=True, separators=(",", ":")))'''
+
+
+def json_bytes(value: Any) -> bytes:
+    return (json.dumps(value, ensure_ascii=False, sort_keys=True, indent=2) + "\n").encode("utf-8")
+
+
+def sha256_bytes(data: bytes) -> str:
+    return hashlib.sha256(data).hexdigest()
+
+
+def sha256_file(path: Path, max_bytes: int | None = None) -> str:
+    size = path.stat().st_size
+    if max_bytes is not None and size > max_bytes:
+        raise ValueError(f"hash_input_over_limit:{path}:{size}")
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
+def norm_win(value: str | Path | None) -> str:
+    if value is None:
+        return ""
+    text = str(value).strip().replace("/", "\\")
+    if not text:
+        return ""
+    return ntpath.normpath(text)
+
+
+def path_key(value: str | Path | None) -> str:
+    return norm_win(value).casefold()
+
+
+def within_project(value: str | Path | None, project_root: Path) -> bool:
+    text = norm_win(value)
+    root = norm_win(project_root)
+    if not text or not root:
+        return False
+    folded = text.casefold()
+    base = root.casefold().rstrip("\\")
+    return folded == base or folded.startswith(base + "\\")
+
+
+def safe_relative(value: str | Path | None, project_root: Path) -> str | None:
+    text = norm_win(value)
+    root = norm_win(project_root)
+    if not within_project(text, project_root):
+        return None
+    try:
+        rel = ntpath.relpath(text, root)
+    except ValueError:
+        return None
+    return "." if rel == "." else rel
+
+
+def read_json(path: Path) -> Any:
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
+def read_text_bounded(path: Path, max_bytes: int) -> tuple[str, str, int]:
+    size = path.stat().st_size
+    if size > max_bytes:
+        raise ValueError(f"file_over_limit:{path}:{size}")
+    raw = path.read_bytes()
+    for encoding in ("utf-8-sig", "utf-8", "cp1252"):
+        try:
+            return raw.decode(encoding), encoding, len(raw)
+        except UnicodeDecodeError:
+            continue
+    return raw.decode("utf-8", errors="replace"), "utf-8-replacement", len(raw)
+
+
+def static_file_record(path: Path, project_root: Path, max_hash_bytes: int = 8 * 1024 * 1024) -> dict[str, Any]:
+    record: dict[str, Any] = {
+        "path": norm_win(path),
+        "relative_path": safe_relative(path, project_root),
+        "exists": False,
+        "is_file": False,
+        "is_directory": False,
+        "is_symlink": False,
+        "size_bytes": None,
+        "modified_ns": None,
+        "sha256": None,
+        "within_project_root": within_project(path, project_root),
+    }
+    try:
+        record["exists"] = path.exists()
+        record["is_file"] = path.is_file()
+        record["is_directory"] = path.is_dir()
+        record["is_symlink"] = path.is_symlink()
+        if path.is_file() and not path.is_symlink():
+            stat = path.stat()
+            record["size_bytes"] = stat.st_size
+            record["modified_ns"] = stat.st_mtime_ns
+            if stat.st_size <= max_hash_bytes:
+                record["sha256"] = sha256_file(path, max_hash_bytes)
+            else:
+                record["hash_status"] = "over_hash_limit"
+    except (OSError, PermissionError) as exc:
+        record["error"] = f"{type(exc).__name__}:{exc}"
+    return record
+
+
+def inspect_text_control_file(path: Path, project_root: Path, kind: str, max_bytes: int) -> dict[str, Any]:
+    record = static_file_record(path, project_root, max_hash_bytes=max_bytes)
+    record["kind"] = kind
+    record["executed"] = False
+    if not record.get("is_file") or record.get("is_symlink"):
+        return record
+    try:
+        text, encoding, byte_count = read_text_bounded(path, max_bytes)
+        lines = []
+        executable_lines = []
+        for line_no, raw in enumerate(text.splitlines(), start=1):
+            stripped = raw.strip()
+            if not stripped or stripped.startswith("#"):
+                continue
+            item = {"line": line_no, "text": stripped[:500]}
+            lines.append(item)
+            if kind == "pth_file" and re.match(r"(?i)^import\s+", stripped):
+                executable_lines.append({**item, "classification": "executable_import_line_not_run"})
+        record.update({
+            "encoding": encoding,
+            "bytes_read": byte_count,
+            "nonblank_noncomment_lines": lines,
+            "executable_import_lines": executable_lines,
+            "executable_import_line_count": len(executable_lines),
+        })
+    except (OSError, PermissionError, ValueError) as exc:
+        record["read_error"] = f"{type(exc).__name__}:{exc}"
+    return record
+
+
+def associated_control_files(executable: Path, project_root: Path) -> dict[str, Any]:
+    roots = []
+    for candidate in (executable.parent, executable.parent.parent):
+        key = path_key(candidate)
+        if key and key not in {path_key(x) for x in roots}:
+            roots.append(candidate)
+    pyvenv = []
+    underscore_pth = []
+    pythonw = []
+    for root in roots:
+        candidate = root / "pyvenv.cfg"
+        if candidate.exists() or candidate.is_symlink():
+            pyvenv.append(inspect_text_control_file(candidate, project_root, "pyvenv_cfg", MAX_PTH_FILE_BYTES))
+        try:
+            names = sorted(root.glob("*._pth"), key=lambda p: p.name.casefold())
+        except (OSError, PermissionError):
+            names = []
+        for path in names[:20]:
+            underscore_pth.append(inspect_text_control_file(path, project_root, "underscore_pth", MAX_PTH_FILE_BYTES))
+        candidate_w = root / "pythonw.exe"
+        if candidate_w.exists() or candidate_w.is_symlink():
+            item = static_file_record(candidate_w, project_root)
+            item.update({"kind": "pythonw_alias", "executed": False})
+            pythonw.append(item)
+    return {
+        "pyvenv_cfg": pyvenv,
+        "underscore_pth_files": underscore_pth,
+        "pythonw_aliases": pythonw,
+    }
+
+
+def build_static_interpreter_inventory(project_root: Path) -> dict[str, Any]:
+    records = []
+    for item in ALLOWLIST:
+        path = Path(item["path"])
+        record = static_file_record(path, project_root)
+        record.update({
+            "runtime_id": item["runtime_id"],
+            "owner": item["owner"],
+            "portable_expected": item["portable_expected"],
+            "allowlisted_for_probe": True,
+            "probe_attempted": False,
+            "control_files": associated_control_files(path, project_root),
+        })
+        records.append(record)
+    return {
+        "schema": SCHEMA,
+        "inventory_kind": "exact_allowlisted_python_interpreters_and_static_control_files",
+        "allowlist_count": len(ALLOWLIST),
+        "record_count": len(records),
+        "records": records,
+        "pythonw_execution_allowed": False,
+        "unlisted_interpreter_search_performed": False,
+    }
+
+
+def cleaned_probe_environment() -> tuple[dict[str, str], list[str]]:
+    env = dict(os.environ)
+    removed = []
+    for key in list(env):
+        if key.upper().startswith("PYTHON"):
+            removed.append(key)
+            env.pop(key, None)
+    env["PYTHONDONTWRITEBYTECODE"] = "1"
+    return env, sorted(removed, key=str.casefold)
+
+
+def parse_probe_stdout(stdout: str) -> dict[str, Any]:
+    text = stdout.strip()
+    if not text:
+        raise ValueError("empty_probe_stdout")
+    try:
+        value = json.loads(text)
+    except json.JSONDecodeError:
+        lines = [line.strip() for line in text.splitlines() if line.strip()]
+        candidates = []
+        for line in reversed(lines):
+            try:
+                candidates.append(json.loads(line))
+                break
+            except json.JSONDecodeError:
+                continue
+        if not candidates:
+            raise ValueError("malformed_probe_stdout")
+        value = candidates[0]
+    if not isinstance(value, dict) or value.get("schema") != "foxai.agent_fox.v1a3a.isolated_probe.v1":
+        raise ValueError("unexpected_probe_schema")
+    return value
+
+
+def probe_allowlisted_interpreters(inventory: dict[str, Any], project_root: Path) -> dict[str, Any]:
+    env, removed_python_environment_keys = cleaned_probe_environment()
+    rows = []
+    process_count = 0
+    sequence = 0
+    allowed_keys = {path_key(item["path"]): item for item in ALLOWLIST}
+    for inventory_record in inventory["records"]:
+        executable = Path(inventory_record["path"])
+        row: dict[str, Any] = {
+            "runtime_id": inventory_record["runtime_id"],
+            "owner": inventory_record["owner"],
+            "executable": inventory_record["path"],
+            "allowlisted": path_key(executable) in allowed_keys,
+            "executable_exists": bool(inventory_record.get("is_file") and not inventory_record.get("is_symlink")),
+            "attempted": False,
+            "executed": False,
+            "shell": False,
+            "timeout_seconds": PROBE_TIMEOUT_SECONDS,
+            "argv_prefix": [inventory_record["path"], "-I", "-B", "-S", "-c"],
+            "probe_code_sha256": sha256_bytes(PROBE_CODE.encode("utf-8")),
+            "python_environment_keys_removed": removed_python_environment_keys,
+            "python_environment_values_recorded": False,
+        }
+        if not row["allowlisted"]:
+            row["status"] = "blocked_not_allowlisted"
+            rows.append(row)
+            continue
+        if not row["executable_exists"]:
+            row["status"] = "missing_executable"
+            rows.append(row)
+            continue
+        sequence += 1
+        process_count += 1
+        row["attempted"] = True
+        row["sequence"] = sequence
+        row["sequential_execution"] = True
+        started = time.monotonic()
+        try:
+            completed = subprocess.run(
+                [str(executable), "-I", "-B", "-S", "-c", PROBE_CODE],
+                cwd=str(executable.parent),
+                env=env,
+                shell=False,
+                capture_output=True,
+                text=True,
+                encoding="utf-8",
+                errors="replace",
+                timeout=PROBE_TIMEOUT_SECONDS,
+                check=False,
+            )
+            row["executed"] = True
+            row["return_code"] = completed.returncode
+            row["duration_ms"] = round((time.monotonic() - started) * 1000, 3)
+            row["stderr"] = completed.stderr[-4000:]
+            row["stdout_size"] = len(completed.stdout.encode("utf-8", errors="replace"))
+            if completed.returncode != 0:
+                row["status"] = "nonzero_exit"
+            else:
+                try:
+                    result = parse_probe_stdout(completed.stdout)
+                    row["status"] = "probe_succeeded"
+                    row["result"] = result
+                except ValueError as exc:
+                    row["status"] = "malformed_output"
+                    row["parse_error"] = str(exc)
+                    row["stdout_tail"] = completed.stdout[-4000:]
+        except subprocess.TimeoutExpired as exc:
+            row["executed"] = True
+            row["status"] = "timeout"
+            row["duration_ms"] = round((time.monotonic() - started) * 1000, 3)
+            row["stderr"] = str(exc.stderr or "")[-4000:]
+            row["stdout_tail"] = str(exc.stdout or "")[-4000:]
+        except (OSError, PermissionError) as exc:
+            row["status"] = "launch_error"
+            row["error"] = f"{type(exc).__name__}:{exc}"
+            row["duration_ms"] = round((time.monotonic() - started) * 1000, 3)
+        rows.append(row)
+    assert process_count <= 4
+    return {
+        "schema": SCHEMA,
+        "probe_kind": "exact_allowlisted_sequential_isolated_standard_library_identity",
+        "probe_flags": ["-I", "-B", "-S", "-c"],
+        "allowlist": [dict(item) for item in ALLOWLIST],
+        "process_count": process_count,
+        "max_concurrent_processes": 1 if process_count else 0,
+        "sequential_only": True,
+        "shell_invocation": False,
+        "pythonw_executed": False,
+        "pip_invoked": False,
+        "foxai_source_imported_or_executed": False,
+        "third_party_modules_imported": False,
+        "records": rows,
+        "record_count": len(rows),
+    }
+
+
+def probe_by_path(probes: dict[str, Any]) -> dict[str, dict[str, Any]]:
+    return {path_key(item.get("executable")): item for item in probes.get("records", [])}
+
+
+def parse_command_flags(command: str) -> list[str]:
+    flags = []
+    tokens = re.findall(r'''"[^"]*"|'[^']*'|\S+''', command or "")
+    for token in tokens:
+        clean = token.strip('"\'')
+        if re.match(r"^-[A-Za-z](?:[A-Za-z]*)?$", clean) or re.match(r"^-X\S+$", clean):
+            flags.append(clean)
+    return flags
+
+
+def launcher_runtime_map(v1a2r2_dir: Path, inventory: dict[str, Any], probes: dict[str, Any], project_root: Path) -> dict[str, Any]:
+    source_path = v1a2r2_dir / "REFINED_STATIC_LAUNCHER_INDEX.json"
+    source = read_json(source_path)
+    static_by_path = {path_key(item["path"]): item for item in inventory["records"]}
+    probe_map = probe_by_path(probes)
+    records = []
+    mapped = 0
+    for launcher in source.get("records", []):
+        invocations = []
+        variables = {str(k).casefold(): str(v) for k, v in (launcher.get("variables") or {}).items()}
+        env_settings = {
+            key.upper(): variables.get(key)
+            for key in ("pythonhome", "pythonpath", "pythonnousersite", "pythondontwritebytecode")
+            if key in variables
+        }
+        pythonpath_entries = []
+        if env_settings.get("PYTHONPATH"):
+            for raw in env_settings["PYTHONPATH"].split(";"):
+                canonical = norm_win(raw)
+                pythonpath_entries.append({
+                    "raw": raw,
+                    "canonical_path": canonical,
+                    "exists": Path(canonical).is_dir() if canonical else False,
+                    "within_project_root": within_project(canonical, project_root),
+                })
+        for item in launcher.get("interpreter_invocations", []):
+            interp = item.get("interpreter") or {}
+            executable = norm_win(interp.get("resolved_path") or interp.get("expanded_value"))
+            key = path_key(executable)
+            static = static_by_path.get(key)
+            linked_probe = probe_map.get(key)
+            invocations.append({
+                "line": item.get("line"),
+                "source_kind": item.get("source_kind"),
+                "command": item.get("command"),
+                "interpreter": executable,
+                "interpreter_relative_path": safe_relative(executable, project_root),
+                "interpreter_exists": bool(static and static.get("is_file")),
+                "interpreter_allowlisted": key in {path_key(x["path"]) for x in ALLOWLIST},
+                "interpreter_probe_status": linked_probe.get("status") if linked_probe else "not_allowlisted_or_not_probed",
+                "interpreter_alias_kind": "pythonw_static_alias" if PureWindowsPath(executable).name.casefold() == "pythonw.exe" else "python_executable_or_reference",
+                "pythonw_executed": False,
+                "flags": parse_command_flags(item.get("command") or ""),
+                "script": norm_win((item.get("script") or {}).get("resolved_path") or (item.get("script") or {}).get("expanded_value")),
+                "script_exists": bool((item.get("script") or {}).get("exists")),
+                "arguments": item.get("arguments") or [],
+                "unresolved_variables": (interp.get("unresolved_variables") or []) + ((item.get("script") or {}).get("unresolved_variables") or []),
+                "active_or_executed_proven": False,
+            })
+        if invocations:
+            mapped += 1
+        records.append({
+            "relative_path": launcher.get("relative_path"),
+            "path": launcher.get("path"),
+            "path_classification": launcher.get("path_classification"),
+            "parse_status": launcher.get("parse_status"),
+            "working_directories": launcher.get("working_directories") or [],
+            "environment": env_settings,
+            "pythonpath_entries": pythonpath_entries,
+            "interpreter_invocations": invocations,
+            "called_launchers": launcher.get("called_launchers") or [],
+            "unresolved_references": launcher.get("unresolved_references") or [],
+            "launcher_executed": False,
+        })
+    return {
+        "schema": SCHEMA,
+        "map_kind": "static_launcher_to_runtime_with_allowlisted_probe_linkage",
+        "source_path": norm_win(source_path),
+        "source_sha256": sha256_file(source_path),
+        "source_launcher_record_count": source.get("record_count"),
+        "record_count": len(records),
+        "runtime_mapped_launcher_count": mapped,
+        "records": records,
+        "launchers_executed": False,
+        "active_runtime_claims": 0,
+    }
+
+
+def parse_metadata_headers(text: str) -> tuple[str | None, str | None]:
+    name = None
+    version = None
+    for raw in text.splitlines():
+        if not raw.strip():
+            break
+        if raw.lower().startswith("name:") and name is None:
+            name = raw.split(":", 1)[1].strip()
+        elif raw.lower().startswith("version:") and version is None:
+            version = raw.split(":", 1)[1].strip()
+    return name, version
+
+
+def normalized_distribution_name(value: str | None) -> str:
+    return re.sub(r"[-_.]+", "-", (value or "").strip()).casefold()
+
+
+def record_top_levels_from_record(path: Path) -> tuple[list[str], dict[str, Any]]:
+    info: dict[str, Any] = {"path": norm_win(path), "read": False, "truncated": False, "line_count": 0}
+    names = set()
+    if not path.is_file() or path.is_symlink():
+        return [], info
+    try:
+        text, encoding, byte_count = read_text_bounded(path, MAX_METADATA_FILE_BYTES)
+        info.update({"read": True, "encoding": encoding, "bytes_read": byte_count})
+        for line_no, row in enumerate(csv.reader(text.splitlines()), start=1):
+            if line_no > MAX_RECORD_LINES:
+                info["truncated"] = True
+                break
+            info["line_count"] = line_no
+            if not row:
+                continue
+            first = row[0].replace("\\", "/").lstrip("./")
+            top = first.split("/", 1)[0]
+            if top and not top.endswith((".dist-info", ".egg-info", ".data")):
+                if top.endswith(".py"):
+                    top = top[:-3]
+                if re.match(r"^[A-Za-z_][A-Za-z0-9_]*$", top):
+                    names.add(top)
+        return sorted(names, key=str.casefold), info
+    except (OSError, PermissionError, ValueError, csv.Error) as exc:
+        info["error"] = f"{type(exc).__name__}:{exc}"
+        return [], info
+
+
+def package_record(metadata_dir: Path, site_root: Path, owner: str, project_root: Path) -> dict[str, Any]:
+    metadata_path = metadata_dir / "METADATA"
+    if not metadata_path.is_file():
+        metadata_path = metadata_dir / "PKG-INFO"
+    name = None
+    version = None
+    metadata_status = "missing"
+    metadata_sha = None
+    if metadata_path.is_file() and not metadata_path.is_symlink():
+        try:
+            text, _, _ = read_text_bounded(metadata_path, MAX_METADATA_FILE_BYTES)
+            name, version = parse_metadata_headers(text)
+            metadata_sha = sha256_file(metadata_path, MAX_METADATA_FILE_BYTES)
+            metadata_status = "read"
+        except (OSError, PermissionError, ValueError) as exc:
+            metadata_status = f"read_error:{type(exc).__name__}"
+    if not name:
+        stem = metadata_dir.name
+        stem = re.sub(r"(?i)\.(dist|egg)-info$", "", stem)
+        if "-" in stem:
+            maybe_name, maybe_version = stem.rsplit("-", 1)
+            name = maybe_name
+            version = version or maybe_version
+        else:
+            name = stem
+    top_level_path = metadata_dir / "top_level.txt"
+    top_level_names = []
+    top_level_status = "missing"
+    if top_level_path.is_file() and not top_level_path.is_symlink():
+        try:
+            text, _, _ = read_text_bounded(top_level_path, MAX_METADATA_FILE_BYTES)
+            top_level_names = sorted({line.strip() for line in text.splitlines() if re.match(r"^[A-Za-z_][A-Za-z0-9_]*$", line.strip())}, key=str.casefold)
+            top_level_status = "read"
+        except (OSError, PermissionError, ValueError) as exc:
+            top_level_status = f"read_error:{type(exc).__name__}"
+    record_names, record_info = record_top_levels_from_record(metadata_dir / "RECORD")
+    return {
+        "owner": owner,
+        "site_packages": norm_win(site_root),
+        "metadata_directory": norm_win(metadata_dir),
+        "metadata_path": norm_win(metadata_path),
+        "metadata_status": metadata_status,
+        "metadata_sha256": metadata_sha,
+        "name": name,
+        "normalized_name": normalized_distribution_name(name),
+        "version": version,
+        "top_level_names": top_level_names,
+        "top_level_status": top_level_status,
+        "record_top_level_names": record_names,
+        "record_info": record_info,
+        "activation_verified": False,
+        "imported": False,
+        "within_project_root": within_project(site_root, project_root),
+    }
+
+
+def owner_for_site_path(path: str, project_root: Path) -> str:
+    folded = path_key(path)
+    rules = [
+        (r"Z:\FOXAI\Runtime\Core\site-packages", "Core"),
+        (r"Z:\FOXAI\Runtime\Desktop\site-packages", "Desktop"),
+        (r"Z:\FOXAI\Runtime\ComfyUI\site-packages", "ComfyUI"),
+        (r"Z:\FOXAI\env\python", "legacy_or_general_env"),
+        (r"Z:\FOXAI\.venv", "virtual_environment"),
+        (r"C:\Python314", "host"),
+    ]
+    for prefix, owner in rules:
+        p = path_key(prefix)
+        if folded == p or folded.startswith(p + "\\"):
+            return owner
+    if "\\appdata\\roaming\\python\\" in folded:
+        return "host_user_site"
+    if within_project(path, project_root):
+        return "unresolved_foxai_runtime"
+    return "external_or_host"
+
+
+def discover_site_roots(probes: dict[str, Any], project_root: Path) -> list[dict[str, Any]]:
+    candidates = [dict(item) for item in FIXED_SITE_ROOTS]
+    for probe in probes.get("records", []):
+        result = probe.get("result") or {}
+        for label, value in (result.get("sysconfig_paths") or {}).items():
+            if label not in {"purelib", "platlib"} or not value:
+                continue
+            candidates.append({
+                "owner": owner_for_site_path(value, project_root),
+                "path": norm_win(value),
+                "source": f"probe:{probe.get('runtime_id')}:sysconfig:{label}",
+            })
+        user_site = result.get("user_site")
+        values = user_site if isinstance(user_site, list) else [user_site]
+        for value in values:
+            if value:
+                candidates.append({
+                    "owner": owner_for_site_path(value, project_root),
+                    "path": norm_win(value),
+                    "source": f"probe:{probe.get('runtime_id')}:user_site_getter",
+                })
+    dedup: dict[str, dict[str, Any]] = {}
+    for item in candidates:
+        key = path_key(item["path"])
+        if not key:
+            continue
+        if key not in dedup:
+            dedup[key] = {**item, "sources": [item["source"]]}
+        elif item["source"] not in dedup[key]["sources"]:
+            dedup[key]["sources"].append(item["source"])
+    return [dedup[key] for key in sorted(dedup)]
+
+
+def scan_site_root(item: dict[str, Any], project_root: Path) -> dict[str, Any]:
+    root = Path(item["path"])
+    result: dict[str, Any] = {
+        "owner": item["owner"],
+        "path": norm_win(root),
+        "sources": sorted(item.get("sources", []), key=str.casefold),
+        "exists": False,
+        "is_directory": False,
+        "is_symlink": False,
+        "within_project_root": within_project(root, project_root),
+        "entry_count_examined": 0,
+        "entry_limit": MAX_SITE_ROOT_ENTRIES,
+        "entry_limit_reached": False,
+        "packages": [],
+        "direct_top_level": [],
+        "pth_files": [],
+        "errors": [],
+    }
+    try:
+        result["exists"] = root.exists()
+        result["is_directory"] = root.is_dir()
+        result["is_symlink"] = root.is_symlink()
+        if not root.is_dir() or root.is_symlink():
+            return result
+        entries = sorted(root.iterdir(), key=lambda p: p.name.casefold())
+    except (OSError, PermissionError) as exc:
+        result["errors"].append(f"{type(exc).__name__}:{exc}")
+        return result
+    for index, entry in enumerate(entries):
+        if index >= MAX_SITE_ROOT_ENTRIES:
+            result["entry_limit_reached"] = True
+            break
+        result["entry_count_examined"] += 1
+        name = entry.name
+        lower = name.casefold()
+        try:
+            if entry.is_symlink():
+                continue
+            if entry.is_dir() and lower.endswith((".dist-info", ".egg-info")):
+                if len(result["packages"]) < MAX_METADATA_RECORDS_PER_ROOT:
+                    result["packages"].append(package_record(entry, root, item["owner"], project_root))
+                continue
+            if entry.is_file() and lower.endswith(".pth"):
+                result["pth_files"].append(inspect_text_control_file(entry, project_root, "pth_file", MAX_PTH_FILE_BYTES))
+                continue
+            if entry.is_file() and lower.endswith((".py", ".pyw", ".pyd")):
+                top = entry.stem
+                if re.match(r"^[A-Za-z_][A-Za-z0-9_]*$", top):
+                    result["direct_top_level"].append({"name": top, "kind": entry.suffix.casefold().lstrip("."), "path": norm_win(entry)})
+                continue
+            if entry.is_dir() and re.match(r"^[A-Za-z_][A-Za-z0-9_]*$", name):
+                kind = "package_directory" if (entry / "__init__.py").is_file() else "namespace_or_data_directory"
+                result["direct_top_level"].append({"name": name, "kind": kind, "path": norm_win(entry)})
+        except (OSError, PermissionError) as exc:
+            result["errors"].append(f"{norm_win(entry)}:{type(exc).__name__}:{exc}")
+    result["package_count"] = len(result["packages"])
+    result["direct_top_level_count"] = len(result["direct_top_level"])
+    result["pth_file_count"] = len(result["pth_files"])
+    result["executable_pth_line_count"] = sum(int(x.get("executable_import_line_count", 0)) for x in result["pth_files"])
+    return result
+
+
+def static_package_inventory(probes: dict[str, Any], project_root: Path) -> dict[str, Any]:
+    roots = discover_site_roots(probes, project_root)
+    records = [scan_site_root(item, project_root) for item in roots]
+    return {
+        "schema": SCHEMA,
+        "inventory_kind": "static_metadata_and_top_level_names_without_imports_or_pip",
+        "site_root_count": len(records),
+        "site_roots": records,
+        "package_record_count": sum(int(x.get("package_count", 0)) for x in records),
+        "direct_top_level_record_count": sum(int(x.get("direct_top_level_count", 0)) for x in records),
+        "pth_file_count": sum(int(x.get("pth_file_count", 0)) for x in records),
+        "executable_pth_line_count": sum(int(x.get("executable_pth_line_count", 0)) for x in records),
+        "packages_imported": False,
+        "pip_invoked": False,
+        "activation_verified": False,
+    }
+
+
+def duplicate_candidates(package_inventory: dict[str, Any]) -> dict[str, Any]:
+    top_providers: dict[str, list[dict[str, Any]]] = defaultdict(list)
+    distributions: dict[str, list[dict[str, Any]]] = defaultdict(list)
+    for root in package_inventory.get("site_roots", []):
+        owner = root.get("owner")
+        site = root.get("path")
+        for package in root.get("packages", []):
+            distributions[package.get("normalized_name") or ""].append({
+                "owner": owner,
+                "site_packages": site,
+                "name": package.get("name"),
+                "version": package.get("version"),
+                "metadata_path": package.get("metadata_path"),
+            })
+            names = set(package.get("top_level_names", [])) | set(package.get("record_top_level_names", []))
+            for name in names:
+                top_providers[name.casefold()].append({
+                    "top_level_name": name,
+                    "provider_kind": "distribution_metadata",
+                    "distribution": package.get("name"),
+                    "version": package.get("version"),
+                    "owner": owner,
+                    "site_packages": site,
+                })
+        for direct in root.get("direct_top_level", []):
+            top_providers[str(direct.get("name", "")).casefold()].append({
+                "top_level_name": direct.get("name"),
+                "provider_kind": "direct_top_level",
+                "distribution": None,
+                "version": None,
+                "owner": owner,
+                "site_packages": site,
+                "path": direct.get("path"),
+            })
+    duplicate_rows = []
+    for key, providers in sorted(top_providers.items()):
+        roots = {path_key(item.get("site_packages")) for item in providers}
+        if key and len(roots) > 1:
+            duplicate_rows.append({
+                "top_level_name": providers[0].get("top_level_name"),
+                "provider_count": len(providers),
+                "site_root_count": len(roots),
+                "providers": providers,
+                "classification": "duplicate_module_candidate_not_active_conflict_proof",
+            })
+    version_rows = []
+    for key, providers in sorted(distributions.items()):
+        versions = {str(item.get("version")) for item in providers if item.get("version") is not None}
+        roots = {path_key(item.get("site_packages")) for item in providers}
+        if key and len(versions) > 1 and len(roots) > 1:
+            version_rows.append({
+                "normalized_name": key,
+                "versions": sorted(versions),
+                "providers": providers,
+                "classification": "package_version_conflict_candidate_not_active_conflict_proof",
+            })
+    return {
+        "schema": SCHEMA,
+        "duplicate_top_level_candidate_count": len(duplicate_rows),
+        "duplicate_top_level_candidates": duplicate_rows,
+        "package_version_conflict_candidate_count": len(version_rows),
+        "package_version_conflict_candidates": version_rows,
+        "active_conflict_proven": False,
+        "imports_performed": False,
+    }
+
+
+def classify_path_boundary(path: str, project_root: Path, runtime_owner: str) -> str:
+    normalized = norm_win(path)
+    if not normalized:
+        return "empty_path_entry"
+    if within_project(normalized, project_root):
+        return "inside_foxai"
+    folded = normalized.casefold()
+    if "\\appdata\\roaming\\python\\" in folded:
+        return "host_user_site"
+    if re.match(r"(?i)^c:\\python\d+", normalized):
+        return "host_python_installation"
+    if re.match(r"(?i)^[a-z]:\\windows(?:\\|$)", normalized):
+        return "windows_system"
+    return "outside_foxai_other"
+
+
+def path_boundary_report(inventory: dict[str, Any], probes: dict[str, Any], launcher_map: dict[str, Any], packages: dict[str, Any], project_root: Path) -> dict[str, Any]:
+    rows = []
+    borrowing = []
+    for probe in probes.get("records", []):
+        result = probe.get("result") or {}
+        owner = probe.get("owner") or "unknown"
+        portable = next((x.get("portable_expected") for x in ALLOWLIST if x["runtime_id"] == probe.get("runtime_id")), False)
+        for index, value in enumerate(result.get("sys_path") or []):
+            classification = classify_path_boundary(value, project_root, owner)
+            row = {
+                "runtime_id": probe.get("runtime_id"),
+                "owner": owner,
+                "sys_path_index": index,
+                "path": norm_win(value),
+                "classification": classification,
+                "exists": Path(value).exists() if value else False,
+                "portable_runtime": bool(portable),
+            }
+            rows.append(row)
+            if portable and classification not in {"inside_foxai", "empty_path_entry", "windows_system"}:
+                borrowing.append({**row, "classification": "portable_runtime_external_path_borrowing_candidate"})
+        for prefix_name in ("prefix", "base_prefix", "exec_prefix", "base_exec_prefix"):
+            value = result.get(prefix_name)
+            if portable and value and not within_project(value, project_root):
+                borrowing.append({
+                    "runtime_id": probe.get("runtime_id"),
+                    "owner": owner,
+                    "field": prefix_name,
+                    "path": norm_win(value),
+                    "classification": "portable_runtime_external_prefix_candidate",
+                })
+    missing_launcher_paths = []
+    for launcher in launcher_map.get("records", []):
+        for item in launcher.get("pythonpath_entries", []):
+            if not item.get("exists"):
+                missing_launcher_paths.append({
+                    "launcher": launcher.get("relative_path"),
+                    "path": item.get("canonical_path"),
+                    "classification": "launcher_pythonpath_entry_missing",
+                })
+    executable_pth = []
+    for root in packages.get("site_roots", []):
+        for pth in root.get("pth_files", []):
+            for line in pth.get("executable_import_lines", []):
+                executable_pth.append({
+                    "owner": root.get("owner"),
+                    "site_packages": root.get("path"),
+                    "pth_path": pth.get("path"),
+                    **line,
+                    "executed": False,
+                })
+    return {
+        "schema": SCHEMA,
+        "sys_path_entry_count": len(rows),
+        "sys_path_entries": rows,
+        "host_versus_portable_path_borrowing_candidate_count": len(borrowing),
+        "host_versus_portable_path_borrowing_candidates": borrowing,
+        "missing_launcher_package_path_count": len(missing_launcher_paths),
+        "missing_launcher_package_paths": missing_launcher_paths,
+        "executable_pth_line_count": len(executable_pth),
+        "executable_pth_lines_not_run": executable_pth,
+        "active_conflict_or_borrowing_proven": False,
+    }
+
+
+def verify_prerequisite_receipts(v1a1_dir: Path, v1a2r2_dir: Path) -> dict[str, Any]:
+    checks = []
+    receipt_specs = [
+        (v1a1_dir / "NORMALIZATION_RECEIPT.json", "normalized_static_manifest_complete", "ENG-20260721-051832-1CAA3F"),
+        (v1a2r2_dir / "REFINED_BRIDGE_RECEIPT.json", "immutable_input_determinism_repair_complete", "ENG-20260721-063725-BFCAB9"),
+    ]
+    for path, expected_result, expected_mission in receipt_specs:
+        row = {"path": norm_win(path), "exists": path.is_file(), "expected_result": expected_result, "expected_mission_id": expected_mission}
+        if path.is_file():
+            data = read_json(path)
+            row.update({
+                "sha256": sha256_file(path),
+                "result": data.get("result"),
+                "mission_id": data.get("mission_id"),
+                "match": data.get("result") == expected_result and data.get("mission_id") == expected_mission,
+            })
+        else:
+            row["match"] = False
+        checks.append(row)
+    return {"records": checks, "all_match": all(item.get("match") for item in checks)}
+
+
+def write_output(path: Path, value: Any) -> dict[str, Any]:
+    raw = json_bytes(value)
+    path.write_bytes(raw)
+    return {"name": path.name, "size_bytes": len(raw), "sha256": sha256_bytes(raw)}
+
+
+def output_total_bytes(output_dir: Path) -> int:
+    return sum(path.stat().st_size for path in output_dir.rglob("*") if path.is_file())
+
+
+def build(project_root: Path, v1a1_dir: Path, v1a2r2_dir: Path, output_dir: Path, mission_id: str) -> dict[str, Any]:
+    prerequisites = verify_prerequisite_receipts(v1a1_dir, v1a2r2_dir)
+    if not prerequisites["all_match"]:
+        raise ValueError(f"prerequisite_receipt_mismatch:{prerequisites}")
+    output_dir.mkdir(parents=True, exist_ok=True)
+    inventory = build_static_interpreter_inventory(project_root)
+    probes = probe_allowlisted_interpreters(inventory, project_root)
+    probe_map = probe_by_path(probes)
+    for item in inventory["records"]:
+        linked = probe_map.get(path_key(item["path"]))
+        item["probe_attempted"] = bool(linked and linked.get("attempted"))
+        item["probe_status"] = linked.get("status") if linked else "not_recorded"
+    launcher_map = launcher_runtime_map(v1a2r2_dir, inventory, probes, project_root)
+    package_inventory = static_package_inventory(probes, project_root)
+    duplicates = duplicate_candidates(package_inventory)
+    boundaries = path_boundary_report(inventory, probes, launcher_map, package_inventory, project_root)
+    coverage = {
+        "schema": SCHEMA,
+        "mission_id": mission_id,
+        "project_root": norm_win(project_root),
+        "allowlisted_interpreter_count": len(ALLOWLIST),
+        "existing_allowlisted_interpreter_count": sum(1 for x in inventory["records"] if x.get("is_file") and not x.get("is_symlink")),
+        "probe_process_count": probes.get("process_count"),
+        "successful_probe_count": sum(1 for x in probes["records"] if x.get("status") == "probe_succeeded"),
+        "failed_or_missing_probe_count": sum(1 for x in probes["records"] if x.get("status") != "probe_succeeded"),
+        "source_launcher_record_count": launcher_map.get("source_launcher_record_count"),
+        "runtime_mapped_launcher_count": launcher_map.get("runtime_mapped_launcher_count"),
+        "site_root_count": package_inventory.get("site_root_count"),
+        "package_record_count": package_inventory.get("package_record_count"),
+        "direct_top_level_record_count": package_inventory.get("direct_top_level_record_count"),
+        "duplicate_module_candidate_count": duplicates.get("duplicate_top_level_candidate_count"),
+        "version_conflict_candidate_count": duplicates.get("package_version_conflict_candidate_count"),
+        "external_path_borrowing_candidate_count": boundaries.get("host_versus_portable_path_borrowing_candidate_count"),
+        "missing_launcher_package_path_count": boundaries.get("missing_launcher_package_path_count"),
+        "executable_pth_line_count": boundaries.get("executable_pth_line_count"),
+        "caps": {
+            "probe_timeout_seconds": PROBE_TIMEOUT_SECONDS,
+            "maximum_child_processes": 4,
+            "maximum_concurrency": 1,
+            "maximum_site_root_entries": MAX_SITE_ROOT_ENTRIES,
+            "maximum_metadata_records_per_root": MAX_METADATA_RECORDS_PER_ROOT,
+            "maximum_output_bytes": MAX_OUTPUT_BYTES,
+        },
+        "missing_evidence": [
+            "Import success and runtime package activation were not tested.",
+            "Duplicate modules and version differences are candidates, not proof of an active conflict.",
+            "Launcher maps are static and do not prove a process or service is active.",
+            "Non-allowlisted, archived, backup, package, pythonw, and unresolved interpreters were not executed.",
+        ],
+        "safety": {
+            "network_used": False,
+            "packages_installed": False,
+            "pip_invoked": False,
+            "foxai_source_imported_or_executed": False,
+            "launchers_executed": False,
+            "pythonw_executed": False,
+            "models_loaded": False,
+            "existing_foxai_source_modified": False,
+            "probe_child_processes_sequential": True,
+            "probe_shell_invocation": False,
+        },
+        "prerequisites": prerequisites,
+    }
+    outputs = []
+    outputs.append(write_output(output_dir / "PYTHON_INTERPRETER_INVENTORY.json", inventory))
+    outputs.append(write_output(output_dir / "ISOLATED_RUNTIME_PROBES.json", probes))
+    outputs.append(write_output(output_dir / "LAUNCHER_RUNTIME_MAP.json", launcher_map))
+    outputs.append(write_output(output_dir / "STATIC_PACKAGE_INVENTORY.json", package_inventory))
+    outputs.append(write_output(output_dir / "DUPLICATE_MODULE_CANDIDATES.json", duplicates))
+    outputs.append(write_output(output_dir / "PYTHON_PATH_BOUNDARY_REPORT.json", boundaries))
+    outputs.append(write_output(output_dir / "PYTHON_RUNTIME_COVERAGE.json", coverage))
+    total_before_receipt = output_total_bytes(output_dir)
+    if total_before_receipt > MAX_OUTPUT_BYTES:
+        raise ValueError(f"output_ceiling_exceeded:{total_before_receipt}")
+    receipt = {
+        "schema": SCHEMA,
+        "result": "python_runtime_identity_and_path_safety_map_complete",
+        "mission_id": mission_id,
+        "project_root": norm_win(project_root),
+        "network_used": False,
+        "packages_installed": False,
+        "pip_invoked": False,
+        "models_loaded": False,
+        "foxai_source_imported_or_executed": False,
+        "launchers_executed": False,
+        "pythonw_executed": False,
+        "existing_foxai_source_modified": False,
+        "probe_process_count": probes.get("process_count"),
+        "maximum_concurrent_probe_processes": probes.get("max_concurrent_processes"),
+        "probe_shell_invocation": False,
+        "exact_allowlist_enforced": True,
+        "allowlist_count": len(ALLOWLIST),
+        "successful_probe_count": coverage["successful_probe_count"],
+        "failed_or_missing_probe_count": coverage["failed_or_missing_probe_count"],
+        "launcher_record_count": launcher_map.get("record_count"),
+        "package_record_count": package_inventory.get("package_record_count"),
+        "duplicate_module_candidate_count": duplicates.get("duplicate_top_level_candidate_count"),
+        "active_conflict_proven": False,
+        "prerequisites_verified": prerequisites["all_match"],
+        "core_outputs_before_receipt": outputs,
+        "output_bytes_before_receipt": total_before_receipt,
+        "output_ceiling_bytes": MAX_OUTPUT_BYTES,
+    }
+    write_output(output_dir / "PYTHON_RUNTIME_RECEIPT.json", receipt)
+    if output_total_bytes(output_dir) > MAX_OUTPUT_BYTES:
+        raise ValueError("output_ceiling_exceeded_after_receipt")
+    return receipt
+
+
+def validate_output(index_dir: Path) -> None:
+    required = {
+        "PYTHON_INTERPRETER_INVENTORY.json",
+        "ISOLATED_RUNTIME_PROBES.json",
+        "LAUNCHER_RUNTIME_MAP.json",
+        "STATIC_PACKAGE_INVENTORY.json",
+        "DUPLICATE_MODULE_CANDIDATES.json",
+        "PYTHON_PATH_BOUNDARY_REPORT.json",
+        "PYTHON_RUNTIME_COVERAGE.json",
+        "PYTHON_RUNTIME_RECEIPT.json",
+    }
+    actual = {p.name for p in index_dir.iterdir() if p.is_file()}
+    missing = required - actual
+    if missing:
+        raise ValueError(f"missing_outputs:{sorted(missing)}")
+    receipt = read_json(index_dir / "PYTHON_RUNTIME_RECEIPT.json")
+    if receipt.get("result") != "python_runtime_identity_and_path_safety_map_complete":
+        raise ValueError("unexpected_receipt_result")
+    if int(receipt.get("probe_process_count", 99)) > 4:
+        raise ValueError("probe_process_ceiling_exceeded")
+    if int(receipt.get("maximum_concurrent_probe_processes", 99)) > 1:
+        raise ValueError("probe_concurrency_exceeded")
+    for key in ("network_used", "packages_installed", "pip_invoked", "models_loaded", "foxai_source_imported_or_executed", "launchers_executed", "pythonw_executed", "existing_foxai_source_modified", "probe_shell_invocation", "active_conflict_proven"):
+        if receipt.get(key) is not False:
+            raise ValueError(f"safety_flag_not_false:{key}:{receipt.get(key)}")
+    for item in receipt.get("core_outputs_before_receipt", []):
+        path = index_dir / item["name"]
+        if not path.is_file() or path.stat().st_size != item["size_bytes"] or sha256_file(path) != item["sha256"]:
+            raise ValueError(f"output_hash_or_size_mismatch:{path}")
+    probes = read_json(index_dir / "ISOLATED_RUNTIME_PROBES.json")
+    allowed = {path_key(item["path"]) for item in ALLOWLIST}
+    attempted = [x for x in probes.get("records", []) if x.get("attempted")]
+    if len(attempted) != probes.get("process_count") or len(attempted) > 4:
+        raise ValueError("probe_count_mismatch")
+    sequences = [x.get("sequence") for x in attempted]
+    if sequences != list(range(1, len(sequences) + 1)):
+        raise ValueError("probe_sequence_not_strictly_sequential")
+    for row in attempted:
+        if path_key(row.get("executable")) not in allowed:
+            raise ValueError("nonallowlisted_probe")
+        if row.get("shell") is not False or row.get("argv_prefix", [])[1:5] != ["-I", "-B", "-S", "-c"]:
+            raise ValueError("unsafe_probe_argv")
+        if PureWindowsPath(row.get("executable", "")).name.casefold() == "pythonw.exe":
+            raise ValueError("pythonw_probe_detected")
+    if output_total_bytes(index_dir) > MAX_OUTPUT_BYTES:
+        raise ValueError("output_ceiling_exceeded")
+    print("AGENT_FOX_V1A3A_OUTPUT_VALID")
+
+
+def self_test() -> None:
+    assert norm_win(r"Z:\FOXAI\Runtime\Desktop\python\..\python\python.exe") == r"Z:\FOXAI\Runtime\Desktop\python\python.exe"
+    assert within_project(r"Z:\FOXAI\core\foxai_web.py", Path(r"Z:\FOXAI"))
+    assert not within_project(r"C:\Python314\python.exe", Path(r"Z:\FOXAI"))
+    sample = json.dumps({"schema": "foxai.agent_fox.v1a3a.isolated_probe.v1", "sys_path": []})
+    assert parse_probe_stdout(sample)["schema"].endswith("isolated_probe.v1")
+    assert parse_command_flags(r'"Z:\FOXAI\python.exe" -I -B -S "x.py"') == ["-I", "-B", "-S"]
+    name, version = parse_metadata_headers("Name: Demo_Pkg\nVersion: 1.2.3\n\nBody")
+    assert name == "Demo_Pkg" and version == "1.2.3"
+    assert normalized_distribution_name("Demo_Pkg") == "demo-pkg"
+    assert classify_path_boundary(r"C:\Users\Eric\AppData\Roaming\Python\Python314\site-packages", Path(r"Z:\FOXAI"), "Desktop") == "host_user_site"
+    synthetic = {
+        "site_roots": [
+            {"owner": "A", "path": r"Z:\A", "packages": [{"normalized_name": "demo", "name": "demo", "version": "1", "metadata_path": "a", "top_level_names": ["demo"], "record_top_level_names": []}], "direct_top_level": []},
+            {"owner": "B", "path": r"Z:\B", "packages": [{"normalized_name": "demo", "name": "demo", "version": "2", "metadata_path": "b", "top_level_names": ["demo"], "record_top_level_names": []}], "direct_top_level": []},
+        ]
+    }
+    candidates = duplicate_candidates(synthetic)
+    assert candidates["duplicate_top_level_candidate_count"] == 1
+    assert candidates["package_version_conflict_candidate_count"] == 1
+    assert candidates["active_conflict_proven"] is False
+    assert len(ALLOWLIST) == 4
+    assert all(PureWindowsPath(item["path"]).name.casefold() == "python.exe" for item in ALLOWLIST)
+    print("AGENT_FOX_V1A3A_SELF_TEST_OK")
+
+
+def parser() -> argparse.ArgumentParser:
+    result = argparse.ArgumentParser(description="Agent Fox V1A-3A Python Runtime Identity and Path Safety Map")
+    sub = result.add_subparsers(dest="command", required=True)
+    sub.add_parser("self-test")
+    build_parser = sub.add_parser("build")
+    build_parser.add_argument("--project-root", type=Path, default=DEFAULT_PROJECT_ROOT)
+    build_parser.add_argument("--v1a1-dir", type=Path, default=DEFAULT_V1A1_DIR)
+    build_parser.add_argument("--v1a2r2-dir", type=Path, default=DEFAULT_V1A2R2_DIR)
+    build_parser.add_argument("--output-dir", type=Path, default=DEFAULT_OUTPUT_DIR)
+    build_parser.add_argument("--mission-id", default=DEFAULT_MISSION_ID)
+    validate_parser = sub.add_parser("validate-output")
+    validate_parser.add_argument("--index-dir", type=Path, default=DEFAULT_OUTPUT_DIR)
+    return result
+
+
+def main(argv: list[str] | None = None) -> int:
+    args = parser().parse_args(argv)
+    if args.command == "self-test":
+        self_test()
+        return 0
+    if args.command == "build":
+        receipt = build(args.project_root, args.v1a1_dir, args.v1a2r2_dir, args.output_dir, args.mission_id)
+        print(json.dumps({"result": receipt["result"], "probe_process_count": receipt["probe_process_count"], "output_dir": norm_win(args.output_dir)}, sort_keys=True))
+        return 0
+    if args.command == "validate-output":
+        validate_output(args.index_dir)
+        return 0
+    raise AssertionError(args.command)
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

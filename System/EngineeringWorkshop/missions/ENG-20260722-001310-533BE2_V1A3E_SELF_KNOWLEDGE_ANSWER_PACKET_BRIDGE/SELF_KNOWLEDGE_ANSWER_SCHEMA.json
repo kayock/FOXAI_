@@ -1,0 +1,303 @@
+{
+  "$id": "foxai.agent_fox.technical_core.v1a3e.answer_schema.v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "properties": {
+    "answer_text": {
+      "type": "string"
+    },
+    "answer_text_claim_ids": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "clarification": {
+      "type": [
+        "object",
+        "null"
+      ]
+    },
+    "linked_context_references": {
+      "items": {
+        "properties": {
+          "claim_id": {
+            "type": "string"
+          },
+          "provenance": {
+            "items": {
+              "properties": {
+                "evidence_filename": {
+                  "type": "string"
+                },
+                "evidence_sha256": {
+                  "pattern": "^[0-9a-f]{64}$",
+                  "type": "string"
+                },
+                "json_field_path": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "record_locator": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "source_mission_id": {
+                  "type": "string"
+                },
+                "source_receipt_sha256": {
+                  "pattern": "^[0-9a-f]{64}$",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "source_mission_id",
+                "evidence_filename",
+                "evidence_sha256",
+                "source_receipt_sha256"
+              ],
+              "type": "object"
+            },
+            "minItems": 1,
+            "type": "array"
+          },
+          "text": {
+            "type": "string"
+          },
+          "value": {}
+        },
+        "required": [
+          "claim_id",
+          "text",
+          "value",
+          "provenance"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "normalized_intent": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "request_id": {
+      "type": "string"
+    },
+    "resolved_selectors": {
+      "type": "object"
+    },
+    "safety": {
+      "type": "object"
+    },
+    "status": {
+      "enum": [
+        "answered",
+        "clarification_required"
+      ]
+    },
+    "structured_claims": {
+      "items": {
+        "properties": {
+          "claim_id": {
+            "type": "string"
+          },
+          "provenance": {
+            "items": {
+              "properties": {
+                "evidence_filename": {
+                  "type": "string"
+                },
+                "evidence_sha256": {
+                  "pattern": "^[0-9a-f]{64}$",
+                  "type": "string"
+                },
+                "json_field_path": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "record_locator": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "source_mission_id": {
+                  "type": "string"
+                },
+                "source_receipt_sha256": {
+                  "pattern": "^[0-9a-f]{64}$",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "source_mission_id",
+                "evidence_filename",
+                "evidence_sha256",
+                "source_receipt_sha256"
+              ],
+              "type": "object"
+            },
+            "minItems": 1,
+            "type": "array"
+          },
+          "text": {
+            "type": "string"
+          },
+          "value": {}
+        },
+        "required": [
+          "claim_id",
+          "text",
+          "value",
+          "provenance"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "uncertainty_statements": {
+      "items": {
+        "properties": {
+          "claim_id": {
+            "type": "string"
+          },
+          "provenance": {
+            "items": {
+              "properties": {
+                "evidence_filename": {
+                  "type": "string"
+                },
+                "evidence_sha256": {
+                  "pattern": "^[0-9a-f]{64}$",
+                  "type": "string"
+                },
+                "json_field_path": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "record_locator": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "source_mission_id": {
+                  "type": "string"
+                },
+                "source_receipt_sha256": {
+                  "pattern": "^[0-9a-f]{64}$",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "source_mission_id",
+                "evidence_filename",
+                "evidence_sha256",
+                "source_receipt_sha256"
+              ],
+              "type": "object"
+            },
+            "minItems": 1,
+            "type": "array"
+          },
+          "text": {
+            "type": "string"
+          },
+          "value": {}
+        },
+        "required": [
+          "claim_id",
+          "text",
+          "value",
+          "provenance"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "unresolved_items": {
+      "items": {
+        "properties": {
+          "claim_id": {
+            "type": "string"
+          },
+          "provenance": {
+            "items": {
+              "properties": {
+                "evidence_filename": {
+                  "type": "string"
+                },
+                "evidence_sha256": {
+                  "pattern": "^[0-9a-f]{64}$",
+                  "type": "string"
+                },
+                "json_field_path": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "record_locator": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "source_mission_id": {
+                  "type": "string"
+                },
+                "source_receipt_sha256": {
+                  "pattern": "^[0-9a-f]{64}$",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "source_mission_id",
+                "evidence_filename",
+                "evidence_sha256",
+                "source_receipt_sha256"
+              ],
+              "type": "object"
+            },
+            "minItems": 1,
+            "type": "array"
+          },
+          "text": {
+            "type": "string"
+          },
+          "value": {}
+        },
+        "required": [
+          "claim_id",
+          "text",
+          "value",
+          "provenance"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    }
+  },
+  "required": [
+    "request_id",
+    "normalized_intent",
+    "status",
+    "answer_text",
+    "structured_claims",
+    "uncertainty_statements",
+    "unresolved_items",
+    "linked_context_references",
+    "safety"
+  ],
+  "title": "Agent Fox Provenance Self-Knowledge Answer Packet",
+  "type": "object"
+}

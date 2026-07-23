@@ -1,0 +1,66 @@
+{
+  "authoritative_sources": {
+    "minimal_load": {
+      "evidence_directory": "Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260722-062243-69C555_V1B1A_R2_MINIMAL_LOAD_RESOURCE_BASELINE",
+      "files": {
+        "MINIMAL_LOAD_CAPTURE_RECEIPT.json": "19a76bef2adf4f88ba495ed8abcf48e356b52f628de97eccabaf6a334fbd7c82",
+        "MINIMAL_LOAD_PROCESS_SUMMARY.json": "83b37ebcdb6b5882573f74e96f81b42296e4d6a6fc7a2f1e9a9158c8546ae76f",
+        "MINIMAL_LOAD_QUALIFICATION.json": "c300ef1e519b0dc0be949d528034ad8548392e0791e544ce70e4a650f7a09026",
+        "MINIMAL_LOAD_RESOURCE_SNAPSHOT.json": "5ca895a436b91047b095a97efaaa7de2e23ea35555c9b17664a844826db1c639"
+      },
+      "mission_id": "ENG-20260722-062243-69C555",
+      "qualification_required": "qualified_minimal_load"
+    },
+    "normal_loaded": {
+      "evidence_directory": "Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260722-140518-F13169_V1B1B_R1_NORMAL_LOADED_RESOURCE_BASELINE",
+      "files": {
+        "NORMAL_LOADED_CAPTURE_RECEIPT.json": "d061a6d75417debea27b7fcd4be552aa99009058eece6f47fcd8e1a4e3150685",
+        "NORMAL_LOADED_PROCESS_SUMMARY.json": "58e1d3be02d064066b9bec96aca551ea98c4d8fac2e537e8e50847f85eac4c5f",
+        "NORMAL_LOADED_QUALIFICATION.json": "79d1589bc0d2787f6effddab1eb432eed90ca4523e7b74f8b2b0037def691b45",
+        "NORMAL_LOADED_RESOURCE_SNAPSHOT.json": "cf415b6aaa2eb6a6b52ccfbc27ff99e0b5a79b6cd5ad060a3597ba86d0ba4fcb"
+      },
+      "mission_id": "ENG-20260722-140518-F13169",
+      "qualification_required": "qualified_normal_loaded"
+    }
+  },
+  "comparison_scope": [
+    "physical and committed memory",
+    "page-file allocation, current use, and historical peak",
+    "process and FOXAI workspace process counts",
+    "selected FOXAI component working sets",
+    "loopback listener presence",
+    "C, Z, and S free-space percentages"
+  ],
+  "component": "pc_resource_baseline_comparison_v1.py",
+  "exact_output_count": 5,
+  "interpretation_boundary": "Two verified point-in-time captures only. No claim is made about active image generation, longer contexts, multiple simultaneous large models, additional applications, or future workload changes.",
+  "mission_id": "ENG-20260722-142022-9FAE11",
+  "mode": "offline_authoritative_evidence_comparison",
+  "output_ceiling_bytes": 4194304,
+  "outputs": [
+    "RESOURCE_BASELINE_COMPARISON.json",
+    "FOXAI_COMPONENT_RESOURCE_ATTRIBUTION.json",
+    "CAPACITY_HEADROOM_OBSERVATIONS.json",
+    "BASELINE_COMPARISON_REPORT.md",
+    "BASELINE_COMPARISON_RECEIPT.json"
+  ],
+  "safety": {
+    "diagnosis_issued": false,
+    "live_foxai_imports": false,
+    "live_listener_inspection": false,
+    "live_process_inspection": false,
+    "network_connections": false,
+    "new_live_scan": false,
+    "process_changes": false,
+    "recommendations_issued": false,
+    "registry_writes": false,
+    "rollback_drive_k_accessed": false,
+    "service_changes": false,
+    "source_evidence_modified": false,
+    "startup_changes": false,
+    "webui_or_desktop_integration_modified": false
+  },
+  "schema": "foxai.agent_fox.technical_core.v1b1c.resource_baseline_comparison_contract.v1",
+  "serialization": "UTF-8 LF-only; canonical sorted JSON",
+  "title": "Agent Fox Technical Core V1B-1C — Baseline Comparison and Safe Capacity Guidance"
+}

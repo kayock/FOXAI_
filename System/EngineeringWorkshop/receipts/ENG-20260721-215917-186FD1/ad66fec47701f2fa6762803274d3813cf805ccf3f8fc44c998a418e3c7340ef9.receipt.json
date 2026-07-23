@@ -1,0 +1,208 @@
+{
+  "authorized": true,
+  "changes": [
+    {
+      "action": "write_file",
+      "after_sha256": "38f32715b955338306b5c467f6d6ad408d63d6612e657a69eacba56da466d8a4",
+      "after_size": 30239,
+      "before_sha256": null,
+      "before_size": null,
+      "relative_path": "System\\AgentFoxTechnicalCore\\web_portable_reached_source_drift_reconciliation_v1.py"
+    },
+    {
+      "action": "write_file",
+      "after_sha256": "43368accbd4d20560e5c11d3c132c98fd9ff3c84f3f75a1215abdac5352b4b12",
+      "after_size": 2079,
+      "before_sha256": null,
+      "before_size": null,
+      "relative_path": "System\\AgentFoxTechnicalCore\\WEB_PORTABLE_REACHED_SOURCE_RECONCILIATION_CONTRACT_V1.json"
+    },
+    {
+      "action": "write_file",
+      "after_sha256": "0e3581dca11916224b2d5e102b766c6e35cb51484c49b9afd420ed513a7bcf78",
+      "after_size": 949,
+      "before_sha256": null,
+      "before_size": null,
+      "relative_path": "System\\AgentFoxTechnicalCore\\README_V1A3C1E.md"
+    }
+  ],
+  "created_at": "2026-07-21T22:06:19.120862Z",
+  "evidence_is_tool_generated": true,
+  "failure": null,
+  "mission_id": "ENG-20260721-215917-186FD1",
+  "mission_title": "Agent Fox Technical Core V1A-3C1E \u2014 Web Portable Reached-Source Drift Reconciliation",
+  "mission_type": "implement",
+  "no_deletions": true,
+  "no_renames": true,
+  "plan_path": "Z:\\FOXAI\\AGENT_FOX_V1A3C1E\\PLAN.json",
+  "plan_sha256": "ad66fec47701f2fa6762803274d3813cf805ccf3f8fc44c998a418e3c7340ef9",
+  "project_root": "Z:\\FOXAI",
+  "result": "applied_verified",
+  "rolled_back": false,
+  "schema": "foxai.engineering.receipt.v1",
+  "snapshot_manifest": "Z:\\FOXAI\\System\\EngineeringWorkshop\\snapshots\\ENG-20260721-215917-186FD1\\snapshot_20260721T220616816456Z.manifest.json",
+  "snapshot_path": "Z:\\FOXAI\\System\\EngineeringWorkshop\\snapshots\\ENG-20260721-215917-186FD1\\snapshot_20260721T220616816456Z.zip",
+  "snapshot_sha256": "1b025fefdbf32d65fe0b613ab7f5bc58cd709b6555e171209b0b11e9049db167",
+  "validations": [
+    {
+      "argv": [
+        "Z:/FOXAI/Runtime/Desktop/python/python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nimport ast\nimport hashlib\nimport json\n\nroot = Path(\"Z:/FOXAI\")\ndrop = root / \"AGENT_FOX_V1A3C1E\"\ninstalled = root / \"System/AgentFoxTechnicalCore\"\nchecks = [\n    (drop / \"web_portable_reached_source_drift_reconciliation_v1.py\", installed / \"web_portable_reached_source_drift_reconciliation_v1.py\", \"38f32715b955338306b5c467f6d6ad408d63d6612e657a69eacba56da466d8a4\"),\n    (drop / \"WEB_PORTABLE_REACHED_SOURCE_RECONCILIATION_CONTRACT_V1.json\", installed / \"WEB_PORTABLE_REACHED_SOURCE_RECONCILIATION_CONTRACT_V1.json\", \"43368accbd4d20560e5c11d3c132c98fd9ff3c84f3f75a1215abdac5352b4b12\"),\n    (drop / \"README_V1A3C1E.md\", installed / \"README_V1A3C1E.md\", \"0e3581dca11916224b2d5e102b766c6e35cb51484c49b9afd420ed513a7bcf78\"),\n]\nfor source, target, expected in checks:\n    assert source.is_file(), source\n    assert target.is_file(), target\n    assert hashlib.sha256(source.read_bytes()).hexdigest() == expected\n    assert hashlib.sha256(target.read_bytes()).hexdigest() == expected\ntext = (installed / \"web_portable_reached_source_drift_reconciliation_v1.py\").read_text(encoding=\"utf-8\")\ncompile(text, str(installed / \"web_portable_reached_source_drift_reconciliation_v1.py\"), \"exec\")\ntree = ast.parse(text)\nimports = set()\nfor node in ast.walk(tree):\n    if isinstance(node, ast.Import):\n        imports.update(alias.name.split(\".\")[0] for alias in node.names)\n    elif isinstance(node, ast.ImportFrom) and node.module:\n        imports.add(node.module.split(\".\")[0])\nforbidden = {\"subprocess\", \"socket\", \"urllib\", \"http\", \"ftplib\", \"requests\", \"pip\", \"ensurepip\", \"psutil\", \"winreg\", \"ctypes\", \"webbrowser\", \"importlib\"}\nassert not (imports & forbidden), sorted(imports & forbidden)\ncontract = json.loads((installed / \"WEB_PORTABLE_REACHED_SOURCE_RECONCILIATION_CONTRACT_V1.json\").read_text(encoding=\"utf-8\"))\nassert contract[\"mission_id\"] == \"ENG-20260721-215917-186FD1\"\nassert contract[\"protected_context\"][\"reached_source_count\"] == 57\nassert contract[\"protected_context\"][\"edge_count\"] == 165\nassert contract[\"protected_context\"][\"unresolved_count\"] == 1\nassert contract[\"rollback_root_access\"] == \"read_only\"\nassert contract[\"limits\"][\"maximum_reads_per_source_per_drive\"] == 1\nassert contract[\"limits\"][\"source_buffer_ceiling_bytes\"] == 8388608\nassert contract[\"safety\"][\"rollback_t7_k_modified\"] is False\nassert contract[\"safety\"][\"immutable_evidence_refreshed\"] is False\nprint(\"AGENT_FOX_V1A3C1E_INSTALL_PREFLIGHT_OK\")"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-21T22:06:16.943959Z",
+      "name": "Verify exact V1A-3C1E payloads, syntax, bounded reconciliation contract, and zero forbidden imports",
+      "returncode": 0,
+      "started_at": "2026-07-21T22:06:16.832648Z",
+      "stderr": "",
+      "stdout": "AGENT_FOX_V1A3C1E_INSTALL_PREFLIGHT_OK\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:/FOXAI/Runtime/Desktop/python/python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "Z:/FOXAI/System/AgentFoxTechnicalCore/web_portable_reached_source_drift_reconciliation_v1.py",
+        "self-test"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-21T22:06:17.029910Z",
+      "name": "Run bounded classification and Windows-path self-test",
+      "returncode": 0,
+      "started_at": "2026-07-21T22:06:16.944391Z",
+      "stderr": "",
+      "stdout": "V1A3C1E_SELF_TEST_OK\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:/FOXAI/Runtime/Desktop/python/python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "Z:/FOXAI/System/AgentFoxTechnicalCore/web_portable_reached_source_drift_reconciliation_v1.py",
+        "verify-inputs",
+        "--subject-builder",
+        "Z:/FOXAI/AGENT_FOX_V1A3C1/web_portable_dependency_closure_v1.py",
+        "--v1a2r2-dir",
+        "Z:/FOXAI/System/EngineeringWorkshop/missions/ENG-20260721-063725-BFCAB9_V1A2R2_IMMUTABLE_BRIDGE",
+        "--v1a3a-r1-dir",
+        "Z:/FOXAI/System/EngineeringWorkshop/missions/ENG-20260721-152146-C4F8D5_V1A3A_R1_ADOPTED_RUNTIME_MAP",
+        "--v1a3b-dir",
+        "Z:/FOXAI/System/EngineeringWorkshop/missions/ENG-20260721-154935-FF96C4_V1A3B_EFFECTIVE_IMPORT_MAP",
+        "--diagnostic-dir",
+        "Z:/FOXAI/System/EngineeringWorkshop/missions/ENG-20260721-215227-E95BEF_V1A3C1D_R2_WEB_PORTABLE_DIAGNOSTIC"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-21T22:06:17.354593Z",
+      "name": "Verify immutable evidence, retained diagnostic, exact Web Portable context, and 57-node preliminary closure",
+      "returncode": 0,
+      "started_at": "2026-07-21T22:06:17.030353Z",
+      "stderr": "",
+      "stdout": "{\"context_id\": \"CTX-23820E95DB51A6C5\", \"edge_count\": 165, \"path_group_id\": \"PATHGROUP-8017393F74F3ACD3\", \"reached_node_count\": 57, \"status\": \"verified\", \"subject_builder_sha256\": \"da458a9a2eeca42b86d43b13ffb113a8417f182399683e758e56b74d8317f322\", \"unresolved_count\": 1}\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:/FOXAI/Runtime/Desktop/python/python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "Z:/FOXAI/System/AgentFoxTechnicalCore/web_portable_reached_source_drift_reconciliation_v1.py",
+        "reconcile",
+        "--subject-builder",
+        "Z:/FOXAI/AGENT_FOX_V1A3C1/web_portable_dependency_closure_v1.py",
+        "--v1a2r2-dir",
+        "Z:/FOXAI/System/EngineeringWorkshop/missions/ENG-20260721-063725-BFCAB9_V1A2R2_IMMUTABLE_BRIDGE",
+        "--v1a3a-r1-dir",
+        "Z:/FOXAI/System/EngineeringWorkshop/missions/ENG-20260721-152146-C4F8D5_V1A3A_R1_ADOPTED_RUNTIME_MAP",
+        "--v1a3b-dir",
+        "Z:/FOXAI/System/EngineeringWorkshop/missions/ENG-20260721-154935-FF96C4_V1A3B_EFFECTIVE_IMPORT_MAP",
+        "--diagnostic-dir",
+        "Z:/FOXAI/System/EngineeringWorkshop/missions/ENG-20260721-215227-E95BEF_V1A3C1D_R2_WEB_PORTABLE_DIAGNOSTIC",
+        "--active-root",
+        "Z:/FOXAI",
+        "--rollback-root",
+        "K:/FOXAI",
+        "--project-root-win",
+        "Z:/FOXAI",
+        "--output-dir",
+        "Z:/FOXAI/System/EngineeringWorkshop/missions/ENG-20260721-215917-186FD1_V1A3C1E_WEB_PORTABLE_DRIFT_RECONCILIATION",
+        "--mission-id",
+        "ENG-20260721-215917-186FD1"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-21T22:06:18.900415Z",
+      "name": "Compare all 57 reached sources once per drive and record Z, K, and immutable-evidence reconciliation",
+      "returncode": 0,
+      "started_at": "2026-07-21T22:06:17.355028Z",
+      "stderr": "",
+      "stdout": "{\"classification_counts\": {\"active-and-rollback-match-but-evidence-stale\": 0, \"active-differs-from-rollback\": 0, \"evidence-record-missing\": 0, \"missing-on-active\": 0, \"missing-on-rollback\": 0, \"rollback-only\": 0, \"unchanged\": 57}, \"core_init_classification\": \"unchanged\", \"elapsed_seconds\": 1.442312, \"maximum_reads_per_source_per_drive\": 1, \"mission_id\": \"ENG-20260721-215917-186FD1\", \"output_dir\": \"Z:/FOXAI/System/EngineeringWorkshop/missions/ENG-20260721-215917-186FD1_V1A3C1E_WEB_PORTABLE_DRIFT_RECONCILIATION\", \"peak_buffer_bytes\": 1048576, \"reached_source_count\": 57, \"status\": \"comparison_recorded\"}\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:/FOXAI/Runtime/Desktop/python/python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "Z:/FOXAI/System/AgentFoxTechnicalCore/web_portable_reached_source_drift_reconciliation_v1.py",
+        "validate",
+        "--index-dir",
+        "Z:/FOXAI/System/EngineeringWorkshop/missions/ENG-20260721-215917-186FD1_V1A3C1E_WEB_PORTABLE_DRIFT_RECONCILIATION"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-21T22:06:18.994888Z",
+      "name": "Validate exact four-file reconciliation set, 57 classifications, hashes, read ceilings, and zero source-drive writes",
+      "returncode": 0,
+      "started_at": "2026-07-21T22:06:18.900829Z",
+      "stderr": "",
+      "stdout": "{\"classification_counts\": {\"active-and-rollback-match-but-evidence-stale\": 0, \"active-differs-from-rollback\": 0, \"evidence-record-missing\": 0, \"missing-on-active\": 0, \"missing-on-rollback\": 0, \"rollback-only\": 0, \"unchanged\": 57}, \"core_init_classification\": \"unchanged\", \"reached_source_count\": 57, \"status\": \"valid\", \"total_output_bytes\": 109324}\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:/FOXAI/Runtime/Desktop/python/python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path, PureWindowsPath\nimport json\n\nout = Path(\"Z:/FOXAI/System/EngineeringWorkshop/missions/ENG-20260721-215917-186FD1_V1A3C1E_WEB_PORTABLE_DRIFT_RECONCILIATION\")\nreport = json.loads((out / \"WEB_PORTABLE_REACHED_SOURCE_DRIFT_REPORT.json\").read_text(encoding=\"utf-8\"))\nreceipt = json.loads((out / \"WEB_PORTABLE_EVIDENCE_RECONCILIATION_RECEIPT.json\").read_text(encoding=\"utf-8\"))\ndef norm(value):\n    return str(PureWindowsPath(str(value).replace(\"/\", \"\\\\\"))).casefold()\nassert report[\"mission_id\"] == \"ENG-20260721-215917-186FD1\"\nassert report[\"closure_counts\"] == {\"reached_node_count\": 57, \"edge_count\": 165, \"unresolved_count\": 1}\nassert len(report[\"records\"]) == 57\nassert norm(report[\"context\"][\"launcher_path\"]) == norm(\"Z:/FOXAI/START_FOXAI_WEB_PORTABLE.bat\")\nassert norm(report[\"context\"][\"script_path\"]) == norm(\"Z:/FOXAI/core/foxai_web.py\")\nassert norm(report[\"context\"][\"resolved_interpreter_path\"]) == norm(\"Z:/FOXAI/env/python/python.exe\")\ncore = report[\"core_init_record\"]\nassert norm(core[\"source_path\"]) == norm(\"Z:/FOXAI/core/__init__.py\")\nassert len(str(core[\"evidence\"][\"expected_sha256\"])) == 64\nassert isinstance(core[\"evidence\"][\"expected_size_bytes\"], int)\nassert core[\"active\"][\"is_file\"] is True\nassert core[\"rollback\"][\"is_file\"] is True\nassert len(str(core[\"active\"][\"sha256\"])) == 64\nassert len(str(core[\"rollback\"][\"sha256\"])) == 64\nassert core[\"classification\"] in {\"unchanged\", \"active-and-rollback-match-but-evidence-stale\", \"active-differs-from-rollback\"}\nassert receipt[\"rollback_write_operations\"] == 0\nassert receipt[\"active_source_write_operations\"] == 0\nassert receipt[\"maximum_reads_per_source_per_drive\"] <= 1\nassert receipt[\"peak_buffer_bytes\"] <= 8388608\nprint(json.dumps({\n    \"status\": \"AGENT_FOX_V1A3C1E_EXACT_CORE_INIT_RECONCILED\",\n    \"classification_counts\": report[\"classification_counts\"],\n    \"core_init\": {\n        \"classification\": core[\"classification\"],\n        \"expected_size_bytes\": core[\"evidence\"][\"expected_size_bytes\"],\n        \"expected_sha256\": core[\"evidence\"][\"expected_sha256\"],\n        \"active_size_bytes\": core[\"active\"][\"size_bytes\"],\n        \"active_sha256\": core[\"active\"][\"sha256\"],\n        \"rollback_size_bytes\": core[\"rollback\"][\"size_bytes\"],\n        \"rollback_sha256\": core[\"rollback\"][\"sha256\"],\n    },\n}, sort_keys=True))"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-21T22:06:19.038533Z",
+      "name": "Verify and print exact core init expected, active, and rollback hashes and sizes",
+      "returncode": 0,
+      "started_at": "2026-07-21T22:06:18.995310Z",
+      "stderr": "",
+      "stdout": "{\"classification_counts\": {\"active-and-rollback-match-but-evidence-stale\": 0, \"active-differs-from-rollback\": 0, \"evidence-record-missing\": 0, \"missing-on-active\": 0, \"missing-on-rollback\": 0, \"rollback-only\": 0, \"unchanged\": 57}, \"core_init\": {\"active_sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\", \"active_size_bytes\": 0, \"classification\": \"unchanged\", \"expected_sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\", \"expected_size_bytes\": 0, \"rollback_sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\", \"rollback_size_bytes\": 0}, \"status\": \"AGENT_FOX_V1A3C1E_EXACT_CORE_INIT_RECONCILED\"}\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:/FOXAI/Runtime/Desktop/python/python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "Z:/FOXAI/System/AgentFoxTechnicalCore/web_portable_reached_source_drift_reconciliation_v1.py",
+        "show-summary",
+        "--index-dir",
+        "Z:/FOXAI/System/EngineeringWorkshop/missions/ENG-20260721-215917-186FD1_V1A3C1E_WEB_PORTABLE_DRIFT_RECONCILIATION"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-21T22:06:19.120777Z",
+      "name": "Exercise read-only reached-source drift reconciliation summary query",
+      "returncode": 0,
+      "started_at": "2026-07-21T22:06:19.038937Z",
+      "stderr": "",
+      "stdout": "{\"classification_counts\": {\"active-and-rollback-match-but-evidence-stale\": 0, \"active-differs-from-rollback\": 0, \"evidence-record-missing\": 0, \"missing-on-active\": 0, \"missing-on-rollback\": 0, \"rollback-only\": 0, \"unchanged\": 57}, \"core_init\": {\"active_sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\", \"active_size_bytes\": 0, \"classification\": \"unchanged\", \"expected_sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\", \"expected_size_bytes\": 0, \"rollback_sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\", \"rollback_size_bytes\": 0}, \"io\": {\"active_bytes_read\": 2953433, \"active_source_read_count\": 57, \"hash_chunk_bytes\": 1048576, \"maximum_reads_per_source_per_drive\": 1, \"peak_buffer_bytes\": 1048576, \"rollback_bytes_read\": 2953433, \"rollback_source_read_count\": 57}, \"mission_id\": \"ENG-20260721-215917-186FD1\"}\n",
+      "timed_out": false
+    }
+  ]
+}

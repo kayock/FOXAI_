@@ -1,0 +1,421 @@
+{
+  "schema": "foxai.agent_fox.current_state_request_broker.fixtures.v1",
+  "mission_id": "ENG-20260723-022511-401206",
+  "fixture_safety": {
+    "in_memory_providers_only": true,
+    "live_system_inspection": false,
+    "network_access": false,
+    "writes": false,
+    "historical_evidence_loaded": false
+  },
+  "cases": [
+    {
+      "id": "slash_command_bypass",
+      "request": "/engineer workshop status",
+      "provider_setup": "memory",
+      "authorization": {
+        "authorized": true,
+        "mode": "read_only",
+        "allowed_categories": [
+          "memory"
+        ],
+        "allowed_provider_ids": [
+          "memory_fixture_provider"
+        ]
+      },
+      "expected": {
+        "status": "slash_command_bypass",
+        "request_class": "slash_command_bypass",
+        "category": null,
+        "execution_performed": false,
+        "live_evidence": false,
+        "provider_calls": 0
+      }
+    },
+    {
+      "id": "historical_report_preserved",
+      "request": "What did the saved resource report say about RAM?",
+      "provider_setup": "memory",
+      "authorization": {
+        "authorized": true,
+        "mode": "read_only",
+        "allowed_categories": [
+          "memory"
+        ],
+        "allowed_provider_ids": [
+          "memory_fixture_provider"
+        ]
+      },
+      "expected": {
+        "status": "historical_route_preserved",
+        "request_class": "historical_evidence",
+        "category": "memory",
+        "execution_performed": false,
+        "live_evidence": false,
+        "provider_calls": 0
+      }
+    },
+    {
+      "id": "live_memory_authorization_required",
+      "request": "How much memory is available right now?",
+      "provider_setup": "memory",
+      "authorization": null,
+      "expected": {
+        "status": "authorization_required",
+        "request_class": "explicit_current_state",
+        "category": "memory",
+        "execution_performed": false,
+        "live_evidence": false,
+        "provider_calls": 0
+      }
+    },
+    {
+      "id": "live_memory_approved",
+      "request": "How much memory is available right now?",
+      "provider_setup": "memory",
+      "authorization": {
+        "authorized": true,
+        "mode": "read_only",
+        "allowed_categories": [
+          "memory"
+        ],
+        "allowed_provider_ids": [
+          "memory_fixture_provider"
+        ]
+      },
+      "expected": {
+        "status": "approved_live_result",
+        "request_class": "explicit_current_state",
+        "category": "memory",
+        "execution_performed": true,
+        "live_evidence": true,
+        "provider_calls": 1,
+        "provider_id": "memory_fixture_provider"
+      }
+    },
+    {
+      "id": "wrong_authorization_mode",
+      "request": "How much RAM is available now?",
+      "provider_setup": "memory",
+      "authorization": {
+        "authorized": true,
+        "mode": "write",
+        "allowed_categories": [
+          "memory"
+        ],
+        "allowed_provider_ids": [
+          "memory_fixture_provider"
+        ]
+      },
+      "expected": {
+        "status": "authorization_required",
+        "request_class": "explicit_current_state",
+        "category": "memory",
+        "execution_performed": false,
+        "live_evidence": false,
+        "provider_calls": 0
+      }
+    },
+    {
+      "id": "provider_unavailable",
+      "request": "How much RAM is available now?",
+      "provider_setup": "none",
+      "authorization": {
+        "authorized": true,
+        "mode": "read_only",
+        "allowed_categories": [
+          "memory"
+        ],
+        "allowed_provider_ids": [
+          "memory_fixture_provider"
+        ]
+      },
+      "expected": {
+        "status": "provider_unavailable",
+        "request_class": "explicit_current_state",
+        "category": "memory",
+        "execution_performed": false,
+        "live_evidence": false,
+        "provider_calls": 0
+      }
+    },
+    {
+      "id": "wrong_category_provider",
+      "request": "How much RAM is available now?",
+      "provider_setup": "wrong_category",
+      "authorization": {
+        "authorized": true,
+        "mode": "read_only",
+        "allowed_categories": [
+          "memory"
+        ],
+        "allowed_provider_ids": [
+          "memory_fixture_provider"
+        ]
+      },
+      "expected": {
+        "status": "provider_unavailable",
+        "request_class": "explicit_current_state",
+        "category": "memory",
+        "execution_performed": false,
+        "live_evidence": false,
+        "provider_calls": 0
+      }
+    },
+    {
+      "id": "diagnosis_not_converted_to_scan",
+      "request": "Is Chrome using too much memory right now?",
+      "provider_setup": "memory",
+      "authorization": {
+        "authorized": true,
+        "mode": "read_only",
+        "allowed_categories": [
+          "memory"
+        ],
+        "allowed_provider_ids": [
+          "memory_fixture_provider"
+        ]
+      },
+      "expected": {
+        "status": "disallowed_intent",
+        "request_class": "diagnostic_or_advisory",
+        "category": "memory",
+        "execution_performed": false,
+        "live_evidence": false,
+        "provider_calls": 0
+      }
+    },
+    {
+      "id": "repair_not_routed",
+      "request": "Fix whatever process is using my RAM right now.",
+      "provider_setup": "memory",
+      "authorization": {
+        "authorized": true,
+        "mode": "read_only",
+        "allowed_categories": [
+          "memory"
+        ],
+        "allowed_provider_ids": [
+          "memory_fixture_provider"
+        ]
+      },
+      "expected": {
+        "status": "disallowed_intent",
+        "request_class": "disallowed_action_intent",
+        "category": "memory",
+        "execution_performed": false,
+        "live_evidence": false,
+        "provider_calls": 0
+      }
+    },
+    {
+      "id": "generic_state_ambiguous",
+      "request": "How is my computer doing?",
+      "provider_setup": "memory",
+      "authorization": {
+        "authorized": true,
+        "mode": "read_only",
+        "allowed_categories": [
+          "memory"
+        ],
+        "allowed_provider_ids": [
+          "memory_fixture_provider"
+        ]
+      },
+      "expected": {
+        "status": "ambiguous_request",
+        "request_class": "ambiguous_state_request",
+        "category": null,
+        "execution_performed": false,
+        "live_evidence": false,
+        "provider_calls": 0
+      }
+    },
+    {
+      "id": "mixed_historical_and_live",
+      "request": "What did the last baseline show, and how much RAM is available now?",
+      "provider_setup": "memory",
+      "authorization": {
+        "authorized": true,
+        "mode": "read_only",
+        "allowed_categories": [
+          "memory"
+        ],
+        "allowed_provider_ids": [
+          "memory_fixture_provider"
+        ]
+      },
+      "expected": {
+        "status": "ambiguous_request",
+        "request_class": "mixed_historical_and_live",
+        "category": "memory",
+        "execution_performed": false,
+        "live_evidence": false,
+        "provider_calls": 0
+      }
+    },
+    {
+      "id": "provider_error_safe_passthrough",
+      "request": "How much RAM is available right now?",
+      "provider_setup": "error",
+      "authorization": {
+        "authorized": true,
+        "mode": "read_only",
+        "allowed_categories": [
+          "memory"
+        ],
+        "allowed_provider_ids": [
+          "failing_provider"
+        ]
+      },
+      "expected": {
+        "status": "provider_error_safe_passthrough",
+        "request_class": "explicit_current_state",
+        "category": "memory",
+        "execution_performed": true,
+        "live_evidence": false,
+        "provider_calls": 1,
+        "provider_id": "failing_provider"
+      }
+    },
+    {
+      "id": "user_provider_name_cannot_select",
+      "request": "Use evil_provider to tell me how much RAM is available now.",
+      "provider_setup": "memory",
+      "authorization": {
+        "authorized": true,
+        "mode": "read_only",
+        "allowed_categories": [
+          "memory"
+        ],
+        "allowed_provider_ids": [
+          "memory_fixture_provider"
+        ]
+      },
+      "expected": {
+        "status": "approved_live_result",
+        "request_class": "explicit_current_state",
+        "category": "memory",
+        "execution_performed": true,
+        "live_evidence": true,
+        "provider_calls": 1,
+        "provider_id": "memory_fixture_provider"
+      }
+    },
+    {
+      "id": "unsupported_present_category",
+      "request": "What is my battery health right now?",
+      "provider_setup": "none",
+      "authorization": {
+        "authorized": true,
+        "mode": "read_only",
+        "allowed_categories": [
+          "battery"
+        ],
+        "allowed_provider_ids": []
+      },
+      "expected": {
+        "status": "unsupported_live_category",
+        "request_class": "explicit_current_state",
+        "category": null,
+        "execution_performed": false,
+        "live_evidence": false,
+        "provider_calls": 0
+      }
+    },
+    {
+      "id": "service_provider_approved",
+      "request": "Which services are running right now?",
+      "provider_setup": "services",
+      "authorization": {
+        "authorized": true,
+        "mode": "read_only",
+        "allowed_categories": [
+          "services"
+        ],
+        "allowed_provider_ids": [
+          "services_fixture_provider"
+        ]
+      },
+      "expected": {
+        "status": "approved_live_result",
+        "request_class": "explicit_current_state",
+        "category": "services",
+        "execution_performed": true,
+        "live_evidence": true,
+        "provider_calls": 1,
+        "provider_id": "services_fixture_provider"
+      }
+    },
+    {
+      "id": "multiple_provider_fail_closed",
+      "request": "How much memory is available right now?",
+      "provider_setup": "two_memory",
+      "authorization": {
+        "authorized": true,
+        "mode": "read_only",
+        "allowed_categories": [
+          "memory"
+        ],
+        "allowed_provider_ids": [
+          "memory_fixture_provider_a",
+          "memory_fixture_provider_b"
+        ]
+      },
+      "expected": {
+        "status": "provider_unavailable",
+        "request_class": "explicit_current_state",
+        "category": "memory",
+        "execution_performed": false,
+        "live_evidence": false,
+        "provider_calls": 0
+      }
+    },
+    {
+      "id": "write_capable_provider_rejected",
+      "request": "How much RAM is available now?",
+      "provider_setup": "unapproved_write_provider",
+      "authorization": {
+        "authorized": true,
+        "mode": "read_only",
+        "allowed_categories": [
+          "memory"
+        ],
+        "allowed_provider_ids": [
+          "write_provider"
+        ]
+      },
+      "expected": {
+        "status": "provider_unavailable",
+        "request_class": "explicit_current_state",
+        "category": "memory",
+        "execution_performed": false,
+        "live_evidence": false,
+        "provider_calls": 0
+      }
+    },
+    {
+      "id": "unrelated_request",
+      "request": "Write a poem about foxes.",
+      "provider_setup": "memory",
+      "authorization": {
+        "authorized": true,
+        "mode": "read_only",
+        "allowed_categories": [
+          "memory"
+        ],
+        "allowed_provider_ids": [
+          "memory_fixture_provider"
+        ]
+      },
+      "expected": {
+        "status": "not_applicable",
+        "request_class": "not_applicable",
+        "category": null,
+        "execution_performed": false,
+        "live_evidence": false,
+        "provider_calls": 0
+      }
+    }
+  ]
+}

@@ -1,0 +1,7207 @@
+{
+  "record_count": 1200,
+  "records": [
+    {
+      "language": "python",
+      "line": 294,
+      "path": "ui\\main_window.py",
+      "text": "self.trip_sentry_button.pack(pady=4)"
+    },
+    {
+      "language": "python",
+      "line": 296,
+      "path": "ui\\main_window.py",
+      "text": "self.engineer_button = ctk.CTkButton(self.sidebar, text=\"🛠 ENGINEER\", command=self.show_engineer, width=230)"
+    },
+    {
+      "language": "python",
+      "line": 297,
+      "path": "ui\\main_window.py",
+      "text": "self.engineer_button.pack(pady=4)"
+    },
+    {
+      "language": "python",
+      "line": 299,
+      "path": "ui\\main_window.py",
+      "text": "self.archive_button = ctk.CTkButton(self.sidebar, text=\"▣ MISSION ARCHIVE\", command=self.show_archive, width=230)"
+    },
+    {
+      "language": "python",
+      "line": 300,
+      "path": "ui\\main_window.py",
+      "text": "self.archive_button.pack(pady=4)"
+    },
+    {
+      "language": "python",
+      "line": 302,
+      "path": "ui\\main_window.py",
+      "text": "self.library_button = ctk.CTkButton(self.sidebar, text=\"▤ IRON LIBRARY\", command=self.show_iron_library, width=230)"
+    },
+    {
+      "language": "python",
+      "line": 303,
+      "path": "ui\\main_window.py",
+      "text": "self.library_button.pack(pady=4)"
+    },
+    {
+      "language": "python",
+      "line": 305,
+      "path": "ui\\main_window.py",
+      "text": "self.red_canvas_button = ctk.CTkButton(self.sidebar, text=\"◈ RED CANVAS\", command=self.show_red_canvas, width=230)"
+    },
+    {
+      "language": "python",
+      "line": 306,
+      "path": "ui\\main_window.py",
+      "text": "self.red_canvas_button.pack(pady=4)"
+    },
+    {
+      "language": "python",
+      "line": 308,
+      "path": "ui\\main_window.py",
+      "text": "self.comfy_ops_button = ctk.CTkButton("
+    },
+    {
+      "language": "python",
+      "line": 309,
+      "path": "ui\\main_window.py",
+      "text": "self.sidebar,"
+    },
+    {
+      "language": "python",
+      "line": 310,
+      "path": "ui\\main_window.py",
+      "text": "text=\"▸ COMFYUI OPERATIONS\","
+    },
+    {
+      "language": "python",
+      "line": 311,
+      "path": "ui\\main_window.py",
+      "text": "command=self.show_comfy_operations,"
+    },
+    {
+      "language": "python",
+      "line": 312,
+      "path": "ui\\main_window.py",
+      "text": "width=230,"
+    },
+    {
+      "language": "python",
+      "line": 313,
+      "path": "ui\\main_window.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 314,
+      "path": "ui\\main_window.py",
+      "text": "self.comfy_ops_button.pack(pady=4)"
+    },
+    {
+      "language": "python",
+      "line": 316,
+      "path": "ui\\main_window.py",
+      "text": "self.arsenal_button = ctk.CTkButton(self.sidebar, text=\"⚙ ARSENAL\", command=self.show_arsenal, width=230)"
+    },
+    {
+      "language": "python",
+      "line": 317,
+      "path": "ui\\main_window.py",
+      "text": "self.arsenal_button.pack(pady=4)"
+    },
+    {
+      "language": "python",
+      "line": 319,
+      "path": "ui\\main_window.py",
+      "text": "ctk.CTkLabel(self.sidebar, text=\"MISSION CONTROL\", font=(\"Consolas\", 12, \"bold\")).pack(pady=(14, 8))"
+    },
+    {
+      "language": "python",
+      "line": 321,
+      "path": "ui\\main_window.py",
+      "text": "self.start_button = ctk.CTkButton(self.sidebar, text=\"START MISSION\", command=self.start_ai, width=230)"
+    },
+    {
+      "language": "python",
+      "line": 322,
+      "path": "ui\\main_window.py",
+      "text": "self.start_button.pack(pady=4)"
+    },
+    {
+      "language": "python",
+      "line": 324,
+      "path": "ui\\main_window.py",
+      "text": "self.end_button = ctk.CTkButton(self.sidebar, text=\"END MISSION\", command=self.stop_ai, width=230)"
+    },
+    {
+      "language": "python",
+      "line": 325,
+      "path": "ui\\main_window.py",
+      "text": "self.end_button.pack(pady=4)"
+    },
+    {
+      "language": "python",
+      "line": 327,
+      "path": "ui\\main_window.py",
+      "text": "self.save_button = ctk.CTkButton(self.sidebar, text=\"SAVE MISSION\", command=self.save_mission, width=230)"
+    },
+    {
+      "language": "python",
+      "line": 328,
+      "path": "ui\\main_window.py",
+      "text": "self.save_button.pack(pady=4)"
+    },
+    {
+      "language": "python",
+      "line": 330,
+      "path": "ui\\main_window.py",
+      "text": "def show_comfy_operations(self):"
+    },
+    {
+      "language": "python",
+      "line": 331,
+      "path": "ui\\main_window.py",
+      "text": "\"\"\"Open the lightweight read-only ComfyUI operations viewer.\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 332,
+      "path": "ui\\main_window.py",
+      "text": "if self.comfy_ops_window is not None:"
+    },
+    {
+      "language": "python",
+      "line": 333,
+      "path": "ui\\main_window.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 334,
+      "path": "ui\\main_window.py",
+      "text": "if self.comfy_ops_window.winfo_exists():"
+    },
+    {
+      "language": "python",
+      "line": 335,
+      "path": "ui\\main_window.py",
+      "text": "self.comfy_ops_window.deiconify()"
+    },
+    {
+      "language": "python",
+      "line": 336,
+      "path": "ui\\main_window.py",
+      "text": "self.comfy_ops_window.lift()"
+    },
+    {
+      "language": "python",
+      "line": 337,
+      "path": "ui\\main_window.py",
+      "text": "self.comfy_ops_window.focus_force()"
+    },
+    {
+      "language": "python",
+      "line": 338,
+      "path": "ui\\main_window.py",
+      "text": "return"
+    },
+    {
+      "language": "python",
+      "line": 339,
+      "path": "ui\\main_window.py",
+      "text": "except Exception:"
+    },
+    {
+      "language": "python",
+      "line": 340,
+      "path": "ui\\main_window.py",
+      "text": "pass"
+    },
+    {
+      "language": "python",
+      "line": 342,
+      "path": "ui\\main_window.py",
+      "text": "window = ctk.CTkToplevel(self)"
+    },
+    {
+      "language": "python",
+      "line": 343,
+      "path": "ui\\main_window.py",
+      "text": "self.comfy_ops_window = window"
+    },
+    {
+      "language": "python",
+      "line": 344,
+      "path": "ui\\main_window.py",
+      "text": "window.title(\"FOXAI // ComfyUI Operations\")"
+    },
+    {
+      "language": "python",
+      "line": 345,
+      "path": "ui\\main_window.py",
+      "text": "window.geometry(\"920x560\")"
+    },
+    {
+      "language": "python",
+      "line": 346,
+      "path": "ui\\main_window.py",
+      "text": "window.minsize(700, 420)"
+    },
+    {
+      "language": "python",
+      "line": 347,
+      "path": "ui\\main_window.py",
+      "text": "window.protocol(\"WM_DELETE_WINDOW\", self.hide_comfy_operations)"
+    },
+    {
+      "language": "python",
+      "line": 349,
+      "path": "ui\\main_window.py",
+      "text": "header = ctk.CTkFrame(window)"
+    },
+    {
+      "language": "python",
+      "line": 350,
+      "path": "ui\\main_window.py",
+      "text": "header.pack(fill=\"x\", padx=12, pady=(12, 6))"
+    },
+    {
+      "language": "python",
+      "line": 352,
+      "path": "ui\\main_window.py",
+      "text": "ctk.CTkLabel("
+    },
+    {
+      "language": "python",
+      "line": 353,
+      "path": "ui\\main_window.py",
+      "text": "header,"
+    },
+    {
+      "language": "python",
+      "line": 354,
+      "path": "ui\\main_window.py",
+      "text": "text=\"COMFYUI OPERATIONS\","
+    },
+    {
+      "language": "python",
+      "line": 355,
+      "path": "ui\\main_window.py",
+      "text": "font=(\"Consolas\", 20, \"bold\"),"
+    },
+    {
+      "language": "python",
+      "line": 356,
+      "path": "ui\\main_window.py",
+      "text": "text_color=\"#42ff9e\","
+    },
+    {
+      "language": "python",
+      "line": 357,
+      "path": "ui\\main_window.py",
+      "text": ").pack(side=\"left\", padx=12, pady=10)"
+    },
+    {
+      "language": "python",
+      "line": 359,
+      "path": "ui\\main_window.py",
+      "text": "self.comfy_ops_status_var = ctk.StringVar(value=\"CHECKING\")"
+    },
+    {
+      "language": "python",
+      "line": 360,
+      "path": "ui\\main_window.py",
+      "text": "ctk.CTkLabel("
+    },
+    {
+      "language": "python",
+      "line": 361,
+      "path": "ui\\main_window.py",
+      "text": "header,"
+    },
+    {
+      "language": "python",
+      "line": 362,
+      "path": "ui\\main_window.py",
+      "text": "textvariable=self.comfy_ops_status_var,"
+    },
+    {
+      "language": "python",
+      "line": 363,
+      "path": "ui\\main_window.py",
+      "text": "font=(\"Consolas\", 14, \"bold\"),"
+    },
+    {
+      "language": "python",
+      "line": 364,
+      "path": "ui\\main_window.py",
+      "text": "text_color=\"#42ff9e\","
+    },
+    {
+      "language": "python",
+      "line": 365,
+      "path": "ui\\main_window.py",
+      "text": ").pack(side=\"right\", padx=12, pady=10)"
+    },
+    {
+      "language": "python",
+      "line": 367,
+      "path": "ui\\main_window.py",
+      "text": "self.comfy_ops_progress = ctk.CTkProgressBar(window)"
+    },
+    {
+      "language": "python",
+      "line": 368,
+      "path": "ui\\main_window.py",
+      "text": "self.comfy_ops_progress.pack(fill=\"x\", padx=18, pady=(2, 8))"
+    },
+    {
+      "language": "python",
+      "line": 369,
+      "path": "ui\\main_window.py",
+      "text": "self.comfy_ops_progress.set(0)"
+    },
+    {
+      "language": "python",
+      "line": 371,
+      "path": "ui\\main_window.py",
+      "text": "details = ctk.CTkFrame(window)"
+    },
+    {
+      "language": "python",
+      "line": 372,
+      "path": "ui\\main_window.py",
+      "text": "details.pack(fill=\"x\", padx=12, pady=(0, 6))"
+    },
+    {
+      "language": "python",
+      "line": 373,
+      "path": "ui\\main_window.py",
+      "text": "self.comfy_ops_details_var = ctk.StringVar("
+    },
+    {
+      "language": "python",
+      "line": 374,
+      "path": "ui\\main_window.py",
+      "text": "value=\"Endpoint: 127.0.0.1:8188\""
+    },
+    {
+      "language": "python",
+      "line": 375,
+      "path": "ui\\main_window.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 376,
+      "path": "ui\\main_window.py",
+      "text": "ctk.CTkLabel("
+    },
+    {
+      "language": "python",
+      "line": 377,
+      "path": "ui\\main_window.py",
+      "text": "details,"
+    },
+    {
+      "language": "python",
+      "line": 378,
+      "path": "ui\\main_window.py",
+      "text": "textvariable=self.comfy_ops_details_var,"
+    },
+    {
+      "language": "python",
+      "line": 379,
+      "path": "ui\\main_window.py",
+      "text": "justify=\"left\","
+    },
+    {
+      "language": "python",
+      "line": 380,
+      "path": "ui\\main_window.py",
+      "text": "anchor=\"w\","
+    },
+    {
+      "language": "python",
+      "line": 381,
+      "path": "ui\\main_window.py",
+      "text": "font=(\"Consolas\", 12),"
+    },
+    {
+      "language": "python",
+      "line": 382,
+      "path": "ui\\main_window.py",
+      "text": ").pack(fill=\"x\", padx=12, pady=8)"
+    },
+    {
+      "language": "python",
+      "line": 384,
+      "path": "ui\\main_window.py",
+      "text": "self.comfy_ops_text = ctk.CTkTextbox("
+    },
+    {
+      "language": "python",
+      "line": 385,
+      "path": "ui\\main_window.py",
+      "text": "window,"
+    },
+    {
+      "language": "python",
+      "line": 386,
+      "path": "ui\\main_window.py",
+      "text": "wrap=\"none\","
+    },
+    {
+      "language": "python",
+      "line": 387,
+      "path": "ui\\main_window.py",
+      "text": "font=(\"Consolas\", 12),"
+    },
+    {
+      "language": "python",
+      "line": 388,
+      "path": "ui\\main_window.py",
+      "text": "text_color=\"#42ff9e\","
+    },
+    {
+      "language": "python",
+      "line": 389,
+      "path": "ui\\main_window.py",
+      "text": "fg_color=\"#030805\","
+    },
+    {
+      "language": "python",
+      "line": 390,
+      "path": "ui\\main_window.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 391,
+      "path": "ui\\main_window.py",
+      "text": "self.comfy_ops_text.pack("
+    },
+    {
+      "language": "python",
+      "line": 392,
+      "path": "ui\\main_window.py",
+      "text": "fill=\"both\","
+    },
+    {
+      "language": "python",
+      "line": 393,
+      "path": "ui\\main_window.py",
+      "text": "expand=True,"
+    },
+    {
+      "language": "python",
+      "line": 394,
+      "path": "ui\\main_window.py",
+      "text": "padx=12,"
+    },
+    {
+      "language": "python",
+      "line": 395,
+      "path": "ui\\main_window.py",
+      "text": "pady=(0, 8),"
+    },
+    {
+      "language": "python",
+      "line": 396,
+      "path": "ui\\main_window.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 397,
+      "path": "ui\\main_window.py",
+      "text": "self.comfy_ops_text.insert("
+    },
+    {
+      "language": "python",
+      "line": 398,
+      "path": "ui\\main_window.py",
+      "text": "\"end\","
+    },
+    {
+      "language": "python",
+      "line": 399,
+      "path": "ui\\main_window.py",
+      "text": "\"Waiting for ComfyUI output. This panel is read-only.\\n\","
+    },
+    {
+      "language": "python",
+      "line": 400,
+      "path": "ui\\main_window.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 401,
+      "path": "ui\\main_window.py",
+      "text": "self.comfy_ops_text.configure(state=\"disabled\")"
+    },
+    {
+      "language": "python",
+      "line": 403,
+      "path": "ui\\main_window.py",
+      "text": "controls = ctk.CTkFrame(window)"
+    },
+    {
+      "language": "python",
+      "line": 404,
+      "path": "ui\\main_window.py",
+      "text": "controls.pack(fill=\"x\", padx=12, pady=(0, 12))"
+    },
+    {
+      "language": "python",
+      "line": 405,
+      "path": "ui\\main_window.py",
+      "text": "ctk.CTkButton("
+    },
+    {
+      "language": "python",
+      "line": 406,
+      "path": "ui\\main_window.py",
+      "text": "controls,"
+    },
+    {
+      "language": "python",
+      "line": 407,
+      "path": "ui\\main_window.py",
+      "text": "text=\"REFRESH\","
+    },
+    {
+      "language": "python",
+      "line": 408,
+      "path": "ui\\main_window.py",
+      "text": "width=120,"
+    },
+    {
+      "language": "python",
+      "line": 409,
+      "path": "ui\\main_window.py",
+      "text": "command=self._refresh_comfy_operations,"
+    },
+    {
+      "language": "python",
+      "line": 410,
+      "path": "ui\\main_window.py",
+      "text": ").pack(side=\"left\", padx=8, pady=8)"
+    },
+    {
+      "language": "python",
+      "line": 411,
+      "path": "ui\\main_window.py",
+      "text": "ctk.CTkButton("
+    },
+    {
+      "language": "python",
+      "line": 412,
+      "path": "ui\\main_window.py",
+      "text": "controls,"
+    },
+    {
+      "language": "python",
+      "line": 413,
+      "path": "ui\\main_window.py",
+      "text": "text=\"OPEN COMFYUI\","
+    },
+    {
+      "language": "python",
+      "line": 414,
+      "path": "ui\\main_window.py",
+      "text": "width=150,"
+    },
+    {
+      "language": "python",
+      "line": 415,
+      "path": "ui\\main_window.py",
+      "text": "command=lambda: __import__(\"webbrowser\").open("
+    },
+    {
+      "language": "python",
+      "line": 416,
+      "path": "ui\\main_window.py",
+      "text": "\"http://127.0.0.1:8188\""
+    },
+    {
+      "language": "python",
+      "line": 417,
+      "path": "ui\\main_window.py",
+      "text": "),"
+    },
+    {
+      "language": "python",
+      "line": 418,
+      "path": "ui\\main_window.py",
+      "text": ").pack(side=\"left\", padx=8, pady=8)"
+    },
+    {
+      "language": "python",
+      "line": 419,
+      "path": "ui\\main_window.py",
+      "text": "ctk.CTkButton("
+    },
+    {
+      "language": "python",
+      "line": 420,
+      "path": "ui\\main_window.py",
+      "text": "controls,"
+    },
+    {
+      "language": "python",
+      "line": 421,
+      "path": "ui\\main_window.py",
+      "text": "text=\"HIDE\","
+    },
+    {
+      "language": "python",
+      "line": 422,
+      "path": "ui\\main_window.py",
+      "text": "width=100,"
+    },
+    {
+      "language": "python",
+      "line": 423,
+      "path": "ui\\main_window.py",
+      "text": "command=self.hide_comfy_operations,"
+    },
+    {
+      "language": "python",
+      "line": 424,
+      "path": "ui\\main_window.py",
+      "text": ").pack(side=\"right\", padx=8, pady=8)"
+    },
+    {
+      "language": "python",
+      "line": 426,
+      "path": "ui\\main_window.py",
+      "text": "self._refresh_comfy_operations()"
+    },
+    {
+      "language": "python",
+      "line": 428,
+      "path": "ui\\main_window.py",
+      "text": "def hide_comfy_operations(self):"
+    },
+    {
+      "language": "python",
+      "line": 429,
+      "path": "ui\\main_window.py",
+      "text": "if self.comfy_ops_refresh_job is not None:"
+    },
+    {
+      "language": "python",
+      "line": 430,
+      "path": "ui\\main_window.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 431,
+      "path": "ui\\main_window.py",
+      "text": "self.after_cancel(self.comfy_ops_refresh_job)"
+    },
+    {
+      "language": "python",
+      "line": 432,
+      "path": "ui\\main_window.py",
+      "text": "except Exception:"
+    },
+    {
+      "language": "python",
+      "line": 433,
+      "path": "ui\\main_window.py",
+      "text": "pass"
+    },
+    {
+      "language": "python",
+      "line": 434,
+      "path": "ui\\main_window.py",
+      "text": "self.comfy_ops_refresh_job = None"
+    },
+    {
+      "language": "python",
+      "line": 436,
+      "path": "ui\\main_window.py",
+      "text": "if self.comfy_ops_window is not None:"
+    },
+    {
+      "language": "python",
+      "line": 437,
+      "path": "ui\\main_window.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 438,
+      "path": "ui\\main_window.py",
+      "text": "if self.comfy_ops_window.winfo_exists():"
+    },
+    {
+      "language": "python",
+      "line": 439,
+      "path": "ui\\main_window.py",
+      "text": "self.comfy_ops_window.withdraw()"
+    },
+    {
+      "language": "python",
+      "line": 440,
+      "path": "ui\\main_window.py",
+      "text": "except Exception:"
+    },
+    {
+      "language": "python",
+      "line": 441,
+      "path": "ui\\main_window.py",
+      "text": "self.comfy_ops_window = None"
+    },
+    {
+      "language": "python",
+      "line": 443,
+      "path": "ui\\main_window.py",
+      "text": "def _refresh_comfy_operations(self):"
+    },
+    {
+      "language": "python",
+      "line": 444,
+      "path": "ui\\main_window.py",
+      "text": "if self._closing:"
+    },
+    {
+      "language": "python",
+      "line": 445,
+      "path": "ui\\main_window.py",
+      "text": "return"
+    },
+    {
+      "language": "python",
+      "line": 447,
+      "path": "ui\\main_window.py",
+      "text": "window = self.comfy_ops_window"
+    },
+    {
+      "language": "python",
+      "line": 448,
+      "path": "ui\\main_window.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 449,
+      "path": "ui\\main_window.py",
+      "text": "if ("
+    },
+    {
+      "language": "python",
+      "line": 450,
+      "path": "ui\\main_window.py",
+      "text": "window is None"
+    },
+    {
+      "language": "python",
+      "line": 451,
+      "path": "ui\\main_window.py",
+      "text": "or not window.winfo_exists()"
+    },
+    {
+      "language": "python",
+      "line": 452,
+      "path": "ui\\main_window.py",
+      "text": "or not window.winfo_viewable()"
+    },
+    {
+      "language": "python",
+      "line": 453,
+      "path": "ui\\main_window.py",
+      "text": "):"
+    },
+    {
+      "language": "python",
+      "line": 454,
+      "path": "ui\\main_window.py",
+      "text": "return"
+    },
+    {
+      "language": "python",
+      "line": 455,
+      "path": "ui\\main_window.py",
+      "text": "except Exception:"
+    },
+    {
+      "language": "python",
+      "line": 456,
+      "path": "ui\\main_window.py",
+      "text": "return"
+    },
+    {
+      "language": "python",
+      "line": 458,
+      "path": "ui\\main_window.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 459,
+      "path": "ui\\main_window.py",
+      "text": "snapshot = comfy_operations_snapshot("
+    },
+    {
+      "language": "python",
+      "line": 460,
+      "path": "ui\\main_window.py",
+      "text": "Path(__file__).resolve().parents[1],"
+    },
+    {
+      "language": "python",
+      "line": 461,
+      "path": "ui\\main_window.py",
+      "text": "line_limit=140,"
+    },
+    {
+      "language": "python",
+      "line": 462,
+      "path": "ui\\main_window.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 463,
+      "path": "ui\\main_window.py",
+      "text": "state = str(snapshot.get(\"state\") or \"UNKNOWN\")"
+    },
+    {
+      "language": "python",
+      "line": 464,
+      "path": "ui\\main_window.py",
+      "text": "progress = snapshot.get(\"progress_percent\")"
+    },
+    {
+      "language": "python",
+      "line": 465,
+      "path": "ui\\main_window.py",
+      "text": "online = bool(snapshot.get(\"online\"))"
+    },
+    {
+      "language": "python",
+      "line": 466,
+      "path": "ui\\main_window.py",
+      "text": "log_path = str("
+    },
+    {
+      "language": "python",
+      "line": 467,
+      "path": "ui\\main_window.py",
+      "text": "snapshot.get(\"log_path\") or \"No live log located\""
+    },
+    {
+      "language": "python",
+      "line": 468,
+      "path": "ui\\main_window.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 469,
+      "path": "ui\\main_window.py",
+      "text": "updated = str(snapshot.get(\"log_modified\") or \"—\")"
+    },
+    {
+      "language": "python",
+      "line": 470,
+      "path": "ui\\main_window.py",
+      "text": "tail = str(snapshot.get(\"tail\") or \"\")"
+    },
+    {
+      "language": "python",
+      "line": 471,
+      "path": "ui\\main_window.py",
+      "text": "message = str(snapshot.get(\"message\") or \"\")"
+    },
+    {
+      "language": "python",
+      "line": 473,
+      "path": "ui\\main_window.py",
+      "text": "self.comfy_ops_status_var.set("
+    },
+    {
+      "language": "python",
+      "line": 474,
+      "path": "ui\\main_window.py",
+      "text": "f\"{state}\""
+    },
+    {
+      "language": "python",
+      "line": 475,
+      "path": "ui\\main_window.py",
+      "text": "+ ("
+    },
+    {
+      "language": "python",
+      "line": 476,
+      "path": "ui\\main_window.py",
+      "text": "f\"  {progress}%\""
+    },
+    {
+      "language": "python",
+      "line": 477,
+      "path": "ui\\main_window.py",
+      "text": "if isinstance(progress, int)"
+    },
+    {
+      "language": "python",
+      "line": 478,
+      "path": "ui\\main_window.py",
+      "text": "else \"\""
+    },
+    {
+      "language": "python",
+      "line": 479,
+      "path": "ui\\main_window.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 480,
+      "path": "ui\\main_window.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 481,
+      "path": "ui\\main_window.py",
+      "text": "self.comfy_ops_progress.set("
+    },
+    {
+      "language": "python",
+      "line": 482,
+      "path": "ui\\main_window.py",
+      "text": "max(0.0, min(1.0, (progress or 0) / 100.0))"
+    },
+    {
+      "language": "python",
+      "line": 483,
+      "path": "ui\\main_window.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 484,
+      "path": "ui\\main_window.py",
+      "text": "self.comfy_ops_details_var.set("
+    },
+    {
+      "language": "python",
+      "line": 485,
+      "path": "ui\\main_window.py",
+      "text": "f\"Endpoint: 127.0.0.1:8188  |  \""
+    },
+    {
+      "language": "python",
+      "line": 486,
+      "path": "ui\\main_window.py",
+      "text": "f\"Health: {'ONLINE' if online else 'OFFLINE'}\\n\""
+    },
+    {
+      "language": "python",
+      "line": 487,
+      "path": "ui\\main_window.py",
+      "text": "f\"Log: {log_path}\\nUpdated: {updated}\""
+    },
+    {
+      "language": "python",
+      "line": 488,
+      "path": "ui\\main_window.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 490,
+      "path": "ui\\main_window.py",
+      "text": "display = ("
+    },
+    {
+      "language": "python",
+      "line": 491,
+      "path": "ui\\main_window.py",
+      "text": "tail"
+    },
+    {
+      "language": "python",
+      "line": 492,
+      "path": "ui\\main_window.py",
+      "text": "or message"
+    },
+    {
+      "language": "python",
+      "line": 493,
+      "path": "ui\\main_window.py",
+      "text": "or \"No ComfyUI console output has been captured yet.\""
+    },
+    {
+      "language": "python",
+      "line": 494,
+      "path": "ui\\main_window.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 495,
+      "path": "ui\\main_window.py",
+      "text": "self.comfy_ops_text.configure(state=\"normal\")"
+    },
+    {
+      "language": "python",
+      "line": 496,
+      "path": "ui\\main_window.py",
+      "text": "self.comfy_ops_text.delete(\"1.0\", \"end\")"
+    },
+    {
+      "language": "python",
+      "line": 497,
+      "path": "ui\\main_window.py",
+      "text": "self.comfy_ops_text.insert(\"end\", display)"
+    },
+    {
+      "language": "python",
+      "line": 498,
+      "path": "ui\\main_window.py",
+      "text": "self.comfy_ops_text.see(\"end\")"
+    },
+    {
+      "language": "python",
+      "line": 499,
+      "path": "ui\\main_window.py",
+      "text": "self.comfy_ops_text.configure(state=\"disabled\")"
+    },
+    {
+      "language": "python",
+      "line": 500,
+      "path": "ui\\main_window.py",
+      "text": "except Exception as exc:"
+    },
+    {
+      "language": "python",
+      "line": 501,
+      "path": "ui\\main_window.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 502,
+      "path": "ui\\main_window.py",
+      "text": "self.comfy_ops_status_var.set(\"MONITOR ERROR\")"
+    },
+    {
+      "language": "python",
+      "line": 503,
+      "path": "ui\\main_window.py",
+      "text": "self.comfy_ops_text.configure(state=\"normal\")"
+    },
+    {
+      "language": "python",
+      "line": 504,
+      "path": "ui\\main_window.py",
+      "text": "self.comfy_ops_text.delete(\"1.0\", \"end\")"
+    },
+    {
+      "language": "python",
+      "line": 505,
+      "path": "ui\\main_window.py",
+      "text": "self.comfy_ops_text.insert("
+    },
+    {
+      "language": "python",
+      "line": 506,
+      "path": "ui\\main_window.py",
+      "text": "\"end\","
+    },
+    {
+      "language": "python",
+      "line": 507,
+      "path": "ui\\main_window.py",
+      "text": "f\"ComfyUI monitor error: \""
+    },
+    {
+      "language": "python",
+      "line": 508,
+      "path": "ui\\main_window.py",
+      "text": "f\"{type(exc).__name__}: {exc}\","
+    },
+    {
+      "language": "python",
+      "line": 509,
+      "path": "ui\\main_window.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 510,
+      "path": "ui\\main_window.py",
+      "text": "self.comfy_ops_text.configure(state=\"disabled\")"
+    },
+    {
+      "language": "python",
+      "line": 511,
+      "path": "ui\\main_window.py",
+      "text": "except Exception:"
+    },
+    {
+      "language": "python",
+      "line": 512,
+      "path": "ui\\main_window.py",
+      "text": "pass"
+    },
+    {
+      "language": "python",
+      "line": 514,
+      "path": "ui\\main_window.py",
+      "text": "self.comfy_ops_refresh_job = self.after("
+    },
+    {
+      "language": "python",
+      "line": 515,
+      "path": "ui\\main_window.py",
+      "text": "750,"
+    },
+    {
+      "language": "python",
+      "line": 516,
+      "path": "ui\\main_window.py",
+      "text": "self._refresh_comfy_operations,"
+    },
+    {
+      "language": "python",
+      "line": 517,
+      "path": "ui\\main_window.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 519,
+      "path": "ui\\main_window.py",
+      "text": "def clear_content(self):"
+    },
+    {
+      "language": "python",
+      "line": 520,
+      "path": "ui\\main_window.py",
+      "text": "for widget in self.content.winfo_children():"
+    },
+    {
+      "language": "python",
+      "line": 521,
+      "path": "ui\\main_window.py",
+      "text": "widget.destroy()"
+    },
+    {
+      "language": "python",
+      "line": 523,
+      "path": "ui\\main_window.py",
+      "text": "def make_title(self, title):"
+    },
+    {
+      "language": "python",
+      "line": 524,
+      "path": "ui\\main_window.py",
+      "text": "ctk.CTkLabel(self.content, text=title, font=(\"Consolas\", 24, \"bold\")).pack(pady=(15, 5))"
+    },
+    {
+      "language": "python",
+      "line": 526,
+      "path": "ui\\main_window.py",
+      "text": "def make_status_bar(self):"
+    },
+    {
+      "language": "python",
+      "line": 527,
+      "path": "ui\\main_window.py",
+      "text": "status_frame = ctk.CTkFrame(self.content)"
+    },
+    {
+      "language": "python",
+      "line": 528,
+      "path": "ui\\main_window.py",
+      "text": "status_frame.pack(pady=(0, 8), padx=15, fill=\"x\")"
+    },
+    {
+      "language": "python",
+      "line": 529,
+      "path": "ui\\main_window.py",
+      "text": "self.status_led = ctk.CTkLabel(status_frame, text=\"●\", font=(\"Consolas\", 18, \"bold\"), text_color=\"#666666\")"
+    },
+    {
+      "language": "python",
+      "line": 530,
+      "path": "ui\\main_window.py",
+      "text": "self.status_led.pack(side=\"left\", padx=(10, 6))"
+    },
+    {
+      "language": "python",
+      "line": 531,
+      "path": "ui\\main_window.py",
+      "text": "ctk.CTkLabel(status_frame, textvariable=self.stats, font=(\"Consolas\", 12)).pack(side=\"left\")"
+    },
+    {
+      "language": "python",
+      "line": 533,
+      "path": "ui\\main_window.py",
+      "text": "def show_dashboard(self):"
+    },
+    {
+      "language": "python",
+      "line": 534,
+      "path": "ui\\main_window.py",
+      "text": "self.clear_content()"
+    },
+    {
+      "language": "python",
+      "line": 535,
+      "path": "ui\\main_window.py",
+      "text": "self.make_title(\"MISSION DASHBOARD\")"
+    },
+    {
+      "language": "python",
+      "line": 536,
+      "path": "ui\\main_window.py",
+      "text": "panel = ctk.CTkFrame(self.content)"
+    },
+    {
+      "language": "python",
+      "line": 537,
+      "path": "ui\\main_window.py",
+      "text": "panel.pack(fill=\"both\", expand=True, padx=20, pady=20)"
+    },
+    {
+      "language": "python",
+      "line": 538,
+      "path": "ui\\main_window.py",
+      "text": "cards = ["
+    },
+    {
+      "language": "python",
+      "line": 539,
+      "path": "ui\\main_window.py",
+      "text": "(\"OPERATOR\", self.operator.get(\"operator_name\", \"Operator\")),"
+    },
+    {
+      "language": "python",
+      "line": 540,
+      "path": "ui\\main_window.py",
+      "text": "(\"ASSISTANT\", f\"{self.operator.get('assistant_name', 'Agent Fox')} // {self.status.get()}\"),"
+    },
+    {
+      "language": "python",
+      "line": 541,
+      "path": "ui\\main_window.py",
+      "text": "(\"CURRENT OPERATION\", self.operator.get(\"current_mission\", \"Operation Red Bridge\")),"
+    },
+    {
+      "language": "python",
+      "line": 542,
+      "path": "ui\\main_window.py",
+      "text": "(\"NEURAL ENGINES\", str(len(self.models))),"
+    },
+    {
+      "language": "python",
+      "line": 543,
+      "path": "ui\\main_window.py",
+      "text": "(\"AGENTS\", str(len(self.agents) + 1)),"
+    },
+    {
+      "language": "python",
+      "line": 544,
+      "path": "ui\\main_window.py",
+      "text": "(\"COMFYUI\", \"ONLINE\" if is_comfy_running() else \"OFFLINE\"),"
+    },
+    {
+      "language": "python",
+      "line": 545,
+      "path": "ui\\main_window.py",
+      "text": "]"
+    },
+    {
+      "language": "python",
+      "line": 546,
+      "path": "ui\\main_window.py",
+      "text": "for i, (label, value) in enumerate(cards):"
+    },
+    {
+      "language": "python",
+      "line": 547,
+      "path": "ui\\main_window.py",
+      "text": "card = ctk.CTkFrame(panel)"
+    },
+    {
+      "language": "python",
+      "line": 548,
+      "path": "ui\\main_window.py",
+      "text": "card.grid(row=i // 2, column=i % 2, padx=14, pady=14, sticky=\"nsew\")"
+    },
+    {
+      "language": "python",
+      "line": 549,
+      "path": "ui\\main_window.py",
+      "text": "ctk.CTkLabel(card, text=label, font=(\"Consolas\", 13, \"bold\")).pack(pady=(18, 5))"
+    },
+    {
+      "language": "python",
+      "line": 550,
+      "path": "ui\\main_window.py",
+      "text": "ctk.CTkLabel(card, text=value, font=(\"Consolas\", 18)).pack(pady=(5, 18))"
+    },
+    {
+      "language": "python",
+      "line": 551,
+      "path": "ui\\main_window.py",
+      "text": "panel.grid_columnconfigure(0, weight=1)"
+    },
+    {
+      "language": "python",
+      "line": 552,
+      "path": "ui\\main_window.py",
+      "text": "panel.grid_columnconfigure(1, weight=1)"
+    },
+    {
+      "language": "python",
+      "line": 553,
+      "path": "ui\\main_window.py",
+      "text": "self.make_status_bar()"
+    },
+    {
+      "language": "python",
+      "line": 556,
+      "path": "ui\\main_window.py",
+      "text": "def _load_application_registry_health(self):"
+    },
+    {
+      "language": "python",
+      "line": 557,
+      "path": "ui\\main_window.py",
+      "text": "registry = ApplicationRegistry("
+    },
+    {
+      "language": "python",
+      "line": 558,
+      "path": "ui\\main_window.py",
+      "text": "root=Path(__file__).resolve().parents[1],"
+    },
+    {
+      "language": "python",
+      "line": 559,
+      "path": "ui\\main_window.py",
+      "text": "timeout=0.6,"
+    },
+    {
+      "language": "python",
+      "line": 560,
+      "path": "ui\\main_window.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 561,
+      "path": "ui\\main_window.py",
+      "text": "return registry.snapshot()"
+    },
+    {
+      "language": "python",
+      "line": 563,
+      "path": "ui\\main_window.py",
+      "text": "def _format_application_registry_health(self, snapshot):"
+    },
+    {
+      "language": "python",
+      "line": 564,
+      "path": "ui\\main_window.py",
+      "text": "if snapshot.get(\"error\"):"
+    },
+    {
+      "language": "python",
+      "line": 565,
+      "path": "ui\\main_window.py",
+      "text": "return ("
+    },
+    {
+      "language": "python",
+      "line": 566,
+      "path": "ui\\main_window.py",
+      "text": "\"APPLICATION REGISTRY & HEALTH\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 567,
+      "path": "ui\\main_window.py",
+      "text": "\"State: UNKNOWN\\n\""
+    },
+    {
+      "language": "python",
+      "line": 568,
+      "path": "ui\\main_window.py",
+      "text": "f\"Reason: {snapshot.get('error')}\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 569,
+      "path": "ui\\main_window.py",
+      "text": "\"Telemetry only. No Fox Sentry incident was generated.\""
+    },
+    {
+      "language": "python",
+      "line": 570,
+      "path": "ui\\main_window.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 572,
+      "path": "ui\\main_window.py",
+      "text": "summary = snapshot.get(\"summary\") or {}"
+    },
+    {
+      "language": "python",
+      "line": 573,
+      "path": "ui\\main_window.py",
+      "text": "applications = snapshot.get(\"applications\") or []"
+    },
+    {
+      "language": "python",
+      "line": 574,
+      "path": "ui\\main_window.py",
+      "text": "lines = ["
+    },
+    {
+      "language": "python",
+      "line": 575,
+      "path": "ui\\main_window.py",
+      "text": "\"APPLICATION REGISTRY & HEALTH\","
+    },
+    {
+      "language": "python",
+      "line": 576,
+      "path": "ui\\main_window.py",
+      "text": "\"\","
+    },
+    {
+      "language": "python",
+      "line": 577,
+      "path": "ui\\main_window.py",
+      "text": "\"Boundary: TELEMETRY ONLY — health changes do not create incidents.\","
+    },
+    {
+      "language": "python",
+      "line": 578,
+      "path": "ui\\main_window.py",
+      "text": "f\"Generated: {snapshot.get('generated_at', '')}\","
+    },
+    {
+      "language": "python",
+      "line": 579,
+      "path": "ui\\main_window.py",
+      "text": "f\"Canonical Apps: {summary.get('canonical', 0)}\","
+    },
+    {
+      "language": "python",
+      "line": 580,
+      "path": "ui\\main_window.py",
+      "text": "f\"Fleet Extensions: {summary.get('fleet', 0)}\","
+    },
+    {
+      "language": "python",
+      "line": 581,
+      "path": "ui\\main_window.py",
+      "text": "f\"Online: {summary.get('online', 0)}\","
+    },
+    {
+      "language": "python",
+      "line": 582,
+      "path": "ui\\main_window.py",
+      "text": "f\"Ready: {summary.get('ready', 0)}\","
+    },
+    {
+      "language": "python",
+      "line": 583,
+      "path": "ui\\main_window.py",
+      "text": "f\"Attention: {summary.get('attention', 0)}\","
+    },
+    {
+      "language": "python",
+      "line": 584,
+      "path": "ui\\main_window.py",
+      "text": "f\"Planned: {summary.get('planned', 0)}\","
+    },
+    {
+      "language": "python",
+      "line": 585,
+      "path": "ui\\main_window.py",
+      "text": "\"\","
+    },
+    {
+      "language": "python",
+      "line": 586,
+      "path": "ui\\main_window.py",
+      "text": "]"
+    },
+    {
+      "language": "python",
+      "line": 588,
+      "path": "ui\\main_window.py",
+      "text": "current_department = None"
+    },
+    {
+      "language": "python",
+      "line": 589,
+      "path": "ui\\main_window.py",
+      "text": "for application in applications:"
+    },
+    {
+      "language": "python",
+      "line": 590,
+      "path": "ui\\main_window.py",
+      "text": "department = application.get(\"department\") or \"Unassigned\""
+    },
+    {
+      "language": "python",
+      "line": 591,
+      "path": "ui\\main_window.py",
+      "text": "if department != current_department:"
+    },
+    {
+      "language": "python",
+      "line": 592,
+      "path": "ui\\main_window.py",
+      "text": "if current_department is not None:"
+    },
+    {
+      "language": "python",
+      "line": 593,
+      "path": "ui\\main_window.py",
+      "text": "lines.append(\"\")"
+    },
+    {
+      "language": "python",
+      "line": 594,
+      "path": "ui\\main_window.py",
+      "text": "lines.append(f\"[{department.upper()}]\")"
+    },
+    {
+      "language": "python",
+      "line": 595,
+      "path": "ui\\main_window.py",
+      "text": "current_department = department"
+    },
+    {
+      "language": "python",
+      "line": 597,
+      "path": "ui\\main_window.py",
+      "text": "latency = application.get(\"latency_ms\")"
+    },
+    {
+      "language": "python",
+      "line": 598,
+      "path": "ui\\main_window.py",
+      "text": "latency_text = ("
+    },
+    {
+      "language": "python",
+      "line": 599,
+      "path": "ui\\main_window.py",
+      "text": "f\" // {latency:.1f} ms\""
+    },
+    {
+      "language": "python",
+      "line": 600,
+      "path": "ui\\main_window.py",
+      "text": "if isinstance(latency, (int, float))"
+    },
+    {
+      "language": "python",
+      "line": 601,
+      "path": "ui\\main_window.py",
+      "text": "else \"\""
+    },
+    {
+      "language": "python",
+      "line": 602,
+      "path": "ui\\main_window.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 603,
+      "path": "ui\\main_window.py",
+      "text": "source_label = \"FLEET\" if application.get(\"source\") == \"fleet\" else \"APP\""
+    },
+    {
+      "language": "python",
+      "line": 604,
+      "path": "ui\\main_window.py",
+      "text": "lines.extend(["
+    },
+    {
+      "language": "python",
+      "line": 605,
+      "path": "ui\\main_window.py",
+      "text": "("
+    },
+    {
+      "language": "python",
+      "line": 606,
+      "path": "ui\\main_window.py",
+      "text": "f\"{source_label} [{application.get('status', 'UNKNOWN')}] \""
+    },
+    {
+      "language": "python",
+      "line": 607,
+      "path": "ui\\main_window.py",
+      "text": "f\"{application.get('name', application.get('id', 'Unknown'))}\""
+    },
+    {
+      "language": "python",
+      "line": 608,
+      "path": "ui\\main_window.py",
+      "text": "f\"{latency_text}\""
+    },
+    {
+      "language": "python",
+      "line": 609,
+      "path": "ui\\main_window.py",
+      "text": "),"
+    },
+    {
+      "language": "python",
+      "line": 610,
+      "path": "ui\\main_window.py",
+      "text": "("
+    },
+    {
+      "language": "python",
+      "line": 611,
+      "path": "ui\\main_window.py",
+      "text": "f\"  Lifecycle: {str(application.get('lifecycle', '')).upper()} \""
+    },
+    {
+      "language": "python",
+      "line": 612,
+      "path": "ui\\main_window.py",
+      "text": "f\"// Kind: {application.get('kind', 'application')}\""
+    },
+    {
+      "language": "python",
+      "line": 613,
+      "path": "ui\\main_window.py",
+      "text": "),"
+    },
+    {
+      "language": "python",
+      "line": 614,
+      "path": "ui\\main_window.py",
+      "text": "f\"  {application.get('message', '')}\","
+    },
+    {
+      "language": "python",
+      "line": 615,
+      "path": "ui\\main_window.py",
+      "text": "])"
+    },
+    {
+      "language": "python",
+      "line": 617,
+      "path": "ui\\main_window.py",
+      "text": "return \"\\n\".join(lines)"
+    },
+    {
+      "language": "python",
+      "line": 619,
+      "path": "ui\\main_window.py",
+      "text": "def refresh_application_registry_health(self):"
+    },
+    {
+      "language": "python",
+      "line": 620,
+      "path": "ui\\main_window.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 621,
+      "path": "ui\\main_window.py",
+      "text": "snapshot = self._load_application_registry_health()"
+    },
+    {
+      "language": "python",
+      "line": 622,
+      "path": "ui\\main_window.py",
+      "text": "summary = snapshot.get(\"summary\") or {}"
+    },
+    {
+      "language": "python",
+      "line": 623,
+      "path": "ui\\main_window.py",
+      "text": "status_text = ("
+    },
+    {
+      "language": "python",
+      "line": 624,
+      "path": "ui\\main_window.py",
+      "text": "\"REGISTRY READY // \""
+    },
+    {
+      "language": "python",
+      "line": 625,
+      "path": "ui\\main_window.py",
+      "text": "f\"{summary.get('canonical', 0)} app(s), \""
+    },
+    {
+      "language": "python",
+      "line": 626,
+      "path": "ui\\main_window.py",
+      "text": "f\"{summary.get('fleet', 0)} fleet extension(s), \""
+    },
+    {
+      "language": "python",
+      "line": 627,
+      "path": "ui\\main_window.py",
+      "text": "f\"{summary.get('attention', 0)} attention state(s). \""
+    },
+    {
+      "language": "python",
+      "line": 628,
+      "path": "ui\\main_window.py",
+      "text": "\"Telemetry only.\""
+    },
+    {
+      "language": "python",
+      "line": 629,
+      "path": "ui\\main_window.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 630,
+      "path": "ui\\main_window.py",
+      "text": "except Exception as exc:"
+    },
+    {
+      "language": "python",
+      "line": 631,
+      "path": "ui\\main_window.py",
+      "text": "snapshot = {"
+    },
+    {
+      "language": "python",
+      "line": 632,
+      "path": "ui\\main_window.py",
+      "text": "\"error\": f\"{type(exc).__name__}: {exc}\","
+    },
+    {
+      "language": "python",
+      "line": 633,
+      "path": "ui\\main_window.py",
+      "text": "\"applications\": [],"
+    },
+    {
+      "language": "python",
+      "line": 634,
+      "path": "ui\\main_window.py",
+      "text": "\"summary\": {},"
+    },
+    {
+      "language": "python",
+      "line": 635,
+      "path": "ui\\main_window.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 636,
+      "path": "ui\\main_window.py",
+      "text": "status_text = ("
+    },
+    {
+      "language": "python",
+      "line": 637,
+      "path": "ui\\main_window.py",
+      "text": "\"REGISTRY UNKNOWN // Passive health refresh failed safely. \""
+    },
+    {
+      "language": "python",
+      "line": 638,
+      "path": "ui\\main_window.py",
+      "text": "\"No incident was generated.\""
+    },
+    {
+      "language": "python",
+      "line": 639,
+      "path": "ui\\main_window.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 641,
+      "path": "ui\\main_window.py",
+      "text": "if hasattr(self, \"application_registry_status\"):"
+    },
+    {
+      "language": "python",
+      "line": 642,
+      "path": "ui\\main_window.py",
+      "text": "self.application_registry_status.set(status_text)"
+    },
+    {
+      "language": "python",
+      "line": 644,
+      "path": "ui\\main_window.py",
+      "text": "if hasattr(self, \"application_registry_box\"):"
+    },
+    {
+      "language": "python",
+      "line": 645,
+      "path": "ui\\main_window.py",
+      "text": "self.application_registry_box.configure(state=\"normal\")"
+    },
+    {
+      "language": "python",
+      "line": 646,
+      "path": "ui\\main_window.py",
+      "text": "self.application_registry_box.delete(\"1.0\", \"end\")"
+    },
+    {
+      "language": "python",
+      "line": 647,
+      "path": "ui\\main_window.py",
+      "text": "self.application_registry_box.insert("
+    },
+    {
+      "language": "python",
+      "line": 648,
+      "path": "ui\\main_window.py",
+      "text": "\"end\","
+    },
+    {
+      "language": "python",
+      "line": 649,
+      "path": "ui\\main_window.py",
+      "text": "self._format_application_registry_health(snapshot),"
+    },
+    {
+      "language": "python",
+      "line": 650,
+      "path": "ui\\main_window.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 651,
+      "path": "ui\\main_window.py",
+      "text": "self.application_registry_box.configure(state=\"disabled\")"
+    },
+    {
+      "language": "python",
+      "line": 652,
+      "path": "ui\\main_window.py",
+      "text": "return snapshot"
+    },
+    {
+      "language": "python",
+      "line": 654,
+      "path": "ui\\main_window.py",
+      "text": "def _fox_sentry_audit_log_path(self):"
+    },
+    {
+      "language": "python",
+      "line": 655,
+      "path": "ui\\main_window.py",
+      "text": "return ("
+    },
+    {
+      "language": "python",
+      "line": 656,
+      "path": "ui\\main_window.py",
+      "text": "Path(__file__).resolve().parents[1]"
+    },
+    {
+      "language": "python",
+      "line": 657,
+      "path": "ui\\main_window.py",
+      "text": "/ \"Logs\""
+    },
+    {
+      "language": "python",
+      "line": 658,
+      "path": "ui\\main_window.py",
+      "text": "/ \"Security\""
+    },
+    {
+      "language": "python",
+      "line": 659,
+      "path": "ui\\main_window.py",
+      "text": "/ \"engineering_airlock_events.jsonl\""
+    },
+    {
+      "language": "python",
+      "line": 660,
+      "path": "ui\\main_window.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 662,
+      "path": "ui\\main_window.py",
+      "text": "def _fox_sentry_event_severity(self, event):"
+    },
+    {
+      "language": "python",
+      "line": 663,
+      "path": "ui\\main_window.py",
+      "text": "stored = str(event.get(\"severity\") or \"\").strip().upper()"
+    },
+    {
+      "language": "python",
+      "line": 664,
+      "path": "ui\\main_window.py",
+      "text": "if stored:"
+    },
+    {
+      "language": "python",
+      "line": 665,
+      "path": "ui\\main_window.py",
+      "text": "return stored"
+    },
+    {
+      "language": "python",
+      "line": 666,
+      "path": "ui\\main_window.py",
+      "text": "return \"TEST\" if bool(event.get(\"test_event\")) else \"LEGACY\""
+    },
+    {
+      "language": "python",
+      "line": 669,
+      "path": "ui\\main_window.py",
+      "text": "def _fox_sentry_event_incident_kind(self, event):"
+    },
+    {
+      "language": "python",
+      "line": 670,
+      "path": "ui\\main_window.py",
+      "text": "stored = str(event.get(\"incident_kind\") or \"\").strip()"
+    },
+    {
+      "language": "python",
+      "line": 671,
+      "path": "ui\\main_window.py",
+      "text": "return stored or ("
+    },
+    {
+      "language": "python",
+      "line": 672,
+      "path": "ui\\main_window.py",
+      "text": "\"trip_sentry_test\""
+    },
+    {
+      "language": "python",
+      "line": 673,
+      "path": "ui\\main_window.py",
+      "text": "if bool(event.get(\"test_event\"))"
+    },
+    {
+      "language": "python",
+      "line": 674,
+      "path": "ui\\main_window.py",
+      "text": "else \"legacy_unclassified\""
+    },
+    {
+      "language": "python",
+      "line": 675,
+      "path": "ui\\main_window.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 677,
+      "path": "ui\\main_window.py",
+      "text": "def _load_fox_sentry_incidents(self, incident_filter=\"ALL\", limit=100):"
+    },
+    {
+      "language": "python",
+      "line": 678,
+      "path": "ui\\main_window.py",
+      "text": "log_path = self._fox_sentry_audit_log_path()"
+    },
+    {
+      "language": "python",
+      "line": 679,
+      "path": "ui\\main_window.py",
+      "text": "verification = verify_airlock_audit_log(log_path)"
+    },
+    {
+      "language": "python",
+      "line": 680,
+      "path": "ui\\main_window.py",
+      "text": "result = {"
+    },
+    {
+      "language": "python",
+      "line": 681,
+      "path": "ui\\main_window.py",
+      "text": "\"log_path\": str(log_path),"
+    },
+    {
+      "language": "python",
+      "line": 682,
+      "path": "ui\\main_window.py",
+      "text": "\"exists\": log_path.exists(),"
+    },
+    {
+      "language": "python",
+      "line": 683,
+      "path": "ui\\main_window.py",
+      "text": "\"verification\": verification,"
+    },
+    {
+      "language": "python",
+      "line": 684,
+      "path": "ui\\main_window.py",
+      "text": "\"events\": [],"
+    },
+    {
+      "language": "python",
+      "line": 685,
+      "path": "ui\\main_window.py",
+      "text": "\"redactions\": 0,"
+    },
+    {
+      "language": "python",
+      "line": 686,
+      "path": "ui\\main_window.py",
+      "text": "\"read_error\": \"\","
+    },
+    {
+      "language": "python",
+      "line": 687,
+      "path": "ui\\main_window.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 688,
+      "path": "ui\\main_window.py",
+      "text": "if not log_path.exists():"
+    },
+    {
+      "language": "python",
+      "line": 689,
+      "path": "ui\\main_window.py",
+      "text": "return result"
+    },
+    {
+      "language": "python",
+      "line": 691,
+      "path": "ui\\main_window.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 692,
+      "path": "ui\\main_window.py",
+      "text": "lines = log_path.read_text("
+    },
+    {
+      "language": "python",
+      "line": 693,
+      "path": "ui\\main_window.py",
+      "text": "encoding=\"utf-8\","
+    },
+    {
+      "language": "python",
+      "line": 694,
+      "path": "ui\\main_window.py",
+      "text": "errors=\"strict\","
+    },
+    {
+      "language": "python",
+      "line": 695,
+      "path": "ui\\main_window.py",
+      "text": ").splitlines()"
+    },
+    {
+      "language": "python",
+      "line": 696,
+      "path": "ui\\main_window.py",
+      "text": "except Exception as exc:"
+    },
+    {
+      "language": "python",
+      "line": 697,
+      "path": "ui\\main_window.py",
+      "text": "result[\"read_error\"] = f\"{type(exc).__name__}: {exc}\""
+    },
+    {
+      "language": "python",
+      "line": 698,
+      "path": "ui\\main_window.py",
+      "text": "return result"
+    },
+    {
+      "language": "python",
+      "line": 700,
+      "path": "ui\\main_window.py",
+      "text": "events = []"
+    },
+    {
+      "language": "python",
+      "line": 701,
+      "path": "ui\\main_window.py",
+      "text": "redactions = 0"
+    },
+    {
+      "language": "python",
+      "line": 702,
+      "path": "ui\\main_window.py",
+      "text": "for line_number, line in enumerate(lines, start=1):"
+    },
+    {
+      "language": "python",
+      "line": 703,
+      "path": "ui\\main_window.py",
+      "text": "if not line.strip():"
+    },
+    {
+      "language": "python",
+      "line": 704,
+      "path": "ui\\main_window.py",
+      "text": "continue"
+    },
+    {
+      "language": "python",
+      "line": 705,
+      "path": "ui\\main_window.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 706,
+      "path": "ui\\main_window.py",
+      "text": "event = json.loads(line)"
+    },
+    {
+      "language": "python",
+      "line": 707,
+      "path": "ui\\main_window.py",
+      "text": "except Exception:"
+    },
+    {
+      "language": "python",
+      "line": 708,
+      "path": "ui\\main_window.py",
+      "text": "continue"
+    },
+    {
+      "language": "python",
+      "line": 709,
+      "path": "ui\\main_window.py",
+      "text": "clean_event, count = redact_mapping(event)"
+    },
+    {
+      "language": "python",
+      "line": 710,
+      "path": "ui\\main_window.py",
+      "text": "clean_event[\"_line_number\"] = line_number"
+    },
+    {
+      "language": "python",
+      "line": 711,
+      "path": "ui\\main_window.py",
+      "text": "redactions += count"
+    },
+    {
+      "language": "python",
+      "line": 712,
+      "path": "ui\\main_window.py",
+      "text": "events.append(clean_event)"
+    },
+    {
+      "language": "python",
+      "line": 714,
+      "path": "ui\\main_window.py",
+      "text": "selected = str(incident_filter or \"ALL\").strip().upper()"
+    },
+    {
+      "language": "python",
+      "line": 715,
+      "path": "ui\\main_window.py",
+      "text": "if selected == \"TEST\":"
+    },
+    {
+      "language": "python",
+      "line": 716,
+      "path": "ui\\main_window.py",
+      "text": "events = [event for event in events if bool(event.get(\"test_event\"))]"
+    },
+    {
+      "language": "python",
+      "line": 717,
+      "path": "ui\\main_window.py",
+      "text": "elif selected == \"OPERATIONAL\":"
+    },
+    {
+      "language": "python",
+      "line": 718,
+      "path": "ui\\main_window.py",
+      "text": "events = [event for event in events if not bool(event.get(\"test_event\"))]"
+    },
+    {
+      "language": "python",
+      "line": 719,
+      "path": "ui\\main_window.py",
+      "text": "elif selected in {\"INFO\", \"NOTICE\", \"WARNING\", \"CRITICAL\"}:"
+    },
+    {
+      "language": "python",
+      "line": 720,
+      "path": "ui\\main_window.py",
+      "text": "events = ["
+    },
+    {
+      "language": "python",
+      "line": 721,
+      "path": "ui\\main_window.py",
+      "text": "event for event in events"
+    },
+    {
+      "language": "python",
+      "line": 722,
+      "path": "ui\\main_window.py",
+      "text": "if self._fox_sentry_event_severity(event) == selected"
+    },
+    {
+      "language": "python",
+      "line": 723,
+      "path": "ui\\main_window.py",
+      "text": "]"
+    },
+    {
+      "language": "python",
+      "line": 725,
+      "path": "ui\\main_window.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 726,
+      "path": "ui\\main_window.py",
+      "text": "bounded_limit = max(1, min(int(limit), 500))"
+    },
+    {
+      "language": "python",
+      "line": 727,
+      "path": "ui\\main_window.py",
+      "text": "except Exception:"
+    },
+    {
+      "language": "python",
+      "line": 728,
+      "path": "ui\\main_window.py",
+      "text": "bounded_limit = 100"
+    },
+    {
+      "language": "python",
+      "line": 730,
+      "path": "ui\\main_window.py",
+      "text": "result[\"events\"] = list(reversed(events))[:bounded_limit]"
+    },
+    {
+      "language": "python",
+      "line": 731,
+      "path": "ui\\main_window.py",
+      "text": "result[\"redactions\"] = redactions"
+    },
+    {
+      "language": "python",
+      "line": 732,
+      "path": "ui\\main_window.py",
+      "text": "return result"
+    },
+    {
+      "language": "python",
+      "line": 734,
+      "path": "ui\\main_window.py",
+      "text": "@staticmethod"
+    },
+    {
+      "language": "python",
+      "line": 735,
+      "path": "ui\\main_window.py",
+      "text": "def _short_sentry_hash(value):"
+    },
+    {
+      "language": "python",
+      "line": 736,
+      "path": "ui\\main_window.py",
+      "text": "text = str(value or \"\")"
+    },
+    {
+      "language": "python",
+      "line": 737,
+      "path": "ui\\main_window.py",
+      "text": "if len(text) <= 18:"
+    },
+    {
+      "language": "python",
+      "line": 738,
+      "path": "ui\\main_window.py",
+      "text": "return text"
+    },
+    {
+      "language": "python",
+      "line": 739,
+      "path": "ui\\main_window.py",
+      "text": "return f\"{text[:10]}…{text[-8:]}\""
+    },
+    {
+      "language": "python",
+      "line": 741,
+      "path": "ui\\main_window.py",
+      "text": "def _format_fox_sentry_incidents(self, result):"
+    },
+    {
+      "language": "python",
+      "line": 742,
+      "path": "ui\\main_window.py",
+      "text": "verification = result.get(\"verification\") or {}"
+    },
+    {
+      "language": "python",
+      "line": 743,
+      "path": "ui\\main_window.py",
+      "text": "chain_valid = bool(verification.get(\"valid\"))"
+    },
+    {
+      "language": "python",
+      "line": 744,
+      "path": "ui\\main_window.py",
+      "text": "chain_alert = airlock_chain_alert(verification)"
+    },
+    {
+      "language": "python",
+      "line": 745,
+      "path": "ui\\main_window.py",
+      "text": "events = result.get(\"events\") or []"
+    },
+    {
+      "language": "python",
+      "line": 746,
+      "path": "ui\\main_window.py",
+      "text": "lines = ["
+    },
+    {
+      "language": "python",
+      "line": 747,
+      "path": "ui\\main_window.py",
+      "text": "\"FOX SENTRY INCIDENT VIEWER\","
+    },
+    {
+      "language": "python",
+      "line": 748,
+      "path": "ui\\main_window.py",
+      "text": "\"\","
+    },
+    {
+      "language": "python",
+      "line": 749,
+      "path": "ui\\main_window.py",
+      "text": "f\"Chain Status: {'VERIFIED' if chain_valid else 'INVALID — UNTRUSTED'}\","
+    },
+    {
+      "language": "python",
+      "line": 750,
+      "path": "ui\\main_window.py",
+      "text": "f\"Total Chained Events: {verification.get('event_count', 0)}\","
+    },
+    {
+      "language": "python",
+      "line": 751,
+      "path": "ui\\main_window.py",
+      "text": "f\"Visible Events: {len(events)}\","
+    },
+    {
+      "language": "python",
+      "line": 752,
+      "path": "ui\\main_window.py",
+      "text": "f\"Final Chain Hash: {self._short_sentry_hash(verification.get('final_hash'))}\","
+    },
+    {
+      "language": "python",
+      "line": 753,
+      "path": "ui\\main_window.py",
+      "text": "f\"Log: {result.get('log_path', '')}\","
+    },
+    {
+      "language": "python",
+      "line": 754,
+      "path": "ui\\main_window.py",
+      "text": "]"
+    },
+    {
+      "language": "python",
+      "line": 755,
+      "path": "ui\\main_window.py",
+      "text": "if chain_alert.get(\"active\"):"
+    },
+    {
+      "language": "python",
+      "line": 756,
+      "path": "ui\\main_window.py",
+      "text": "lines.extend(["
+    },
+    {
+      "language": "python",
+      "line": 757,
+      "path": "ui\\main_window.py",
+      "text": "\"\","
+    },
+    {
+      "language": "python",
+      "line": 758,
+      "path": "ui\\main_window.py",
+      "text": "\"[CRITICAL] AUDIT CHAIN INVALID — FOX SENTRY FAIL-CLOSED\","
+    },
+    {
+      "language": "python",
+      "line": 759,
+      "path": "ui\\main_window.py",
+      "text": "str(chain_alert.get(\"message\") or \"Audit chain verification failed.\"),"
+    },
+    {
+      "language": "python",
+      "line": 760,
+      "path": "ui\\main_window.py",
+      "text": "\"This is a synthetic viewer state. Nothing was appended to the untrusted chain.\","
+    },
+    {
+      "language": "python",
+      "line": 761,
+      "path": "ui\\main_window.py",
+      "text": "])"
+    },
+    {
+      "language": "python",
+      "line": 762,
+      "path": "ui\\main_window.py",
+      "text": "if result.get(\"read_error\"):"
+    },
+    {
+      "language": "python",
+      "line": 763,
+      "path": "ui\\main_window.py",
+      "text": "lines.extend([\"\", f\"READ FAILED CLOSED: {result['read_error']}\"])"
+    },
+    {
+      "language": "python",
+      "line": 764,
+      "path": "ui\\main_window.py",
+      "text": "failures = verification.get(\"failures\") or []"
+    },
+    {
+      "language": "python",
+      "line": 765,
+      "path": "ui\\main_window.py",
+      "text": "if failures:"
+    },
+    {
+      "language": "python",
+      "line": 766,
+      "path": "ui\\main_window.py",
+      "text": "lines.extend([\"\", \"CHAIN VERIFICATION FAILURES:\"])"
+    },
+    {
+      "language": "python",
+      "line": 767,
+      "path": "ui\\main_window.py",
+      "text": "for failure in failures[:10]:"
+    },
+    {
+      "language": "python",
+      "line": 768,
+      "path": "ui\\main_window.py",
+      "text": "lines.append("
+    },
+    {
+      "language": "python",
+      "line": 769,
+      "path": "ui\\main_window.py",
+      "text": "f\"• Line {failure.get('line', '?')}: \""
+    },
+    {
+      "language": "python",
+      "line": 770,
+      "path": "ui\\main_window.py",
+      "text": "f\"{failure.get('reason', 'unknown failure')}\""
+    },
+    {
+      "language": "python",
+      "line": 771,
+      "path": "ui\\main_window.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 773,
+      "path": "ui\\main_window.py",
+      "text": "if not result.get(\"exists\"):"
+    },
+    {
+      "language": "python",
+      "line": 774,
+      "path": "ui\\main_window.py",
+      "text": "lines.extend(["
+    },
+    {
+      "language": "python",
+      "line": 775,
+      "path": "ui\\main_window.py",
+      "text": "\"\","
+    },
+    {
+      "language": "python",
+      "line": 776,
+      "path": "ui\\main_window.py",
+      "text": "\"No audit log exists yet.\","
+    },
+    {
+      "language": "python",
+      "line": 777,
+      "path": "ui\\main_window.py",
+      "text": "\"Run Trip Sentry or enter the Engineering Airlock to create the first event.\","
+    },
+    {
+      "language": "python",
+      "line": 778,
+      "path": "ui\\main_window.py",
+      "text": "])"
+    },
+    {
+      "language": "python",
+      "line": 779,
+      "path": "ui\\main_window.py",
+      "text": "return \"\\n\".join(lines)"
+    },
+    {
+      "language": "python",
+      "line": 781,
+      "path": "ui\\main_window.py",
+      "text": "if not events:"
+    },
+    {
+      "language": "python",
+      "line": 782,
+      "path": "ui\\main_window.py",
+      "text": "lines.extend([\"\", \"No incidents match the selected filter.\"])"
+    },
+    {
+      "language": "python",
+      "line": 783,
+      "path": "ui\\main_window.py",
+      "text": "return \"\\n\".join(lines)"
+    },
+    {
+      "language": "python",
+      "line": 785,
+      "path": "ui\\main_window.py",
+      "text": "lines.extend([\"\", \"MOST RECENT FIRST\", \"\"])"
+    },
+    {
+      "language": "python",
+      "line": 786,
+      "path": "ui\\main_window.py",
+      "text": "for event in events:"
+    },
+    {
+      "language": "python",
+      "line": 787,
+      "path": "ui\\main_window.py",
+      "text": "severity = self._fox_sentry_event_severity(event)"
+    },
+    {
+      "language": "python",
+      "line": 788,
+      "path": "ui\\main_window.py",
+      "text": "incident_kind = self._fox_sentry_event_incident_kind(event)"
+    },
+    {
+      "language": "python",
+      "line": 789,
+      "path": "ui\\main_window.py",
+      "text": "event_kind = \"TEST\" if event.get(\"test_event\") else \"OPERATIONAL\""
+    },
+    {
+      "language": "python",
+      "line": 790,
+      "path": "ui\\main_window.py",
+      "text": "verified_label = \"CHAINED\" if chain_valid else \"UNTRUSTED\""
+    },
+    {
+      "language": "python",
+      "line": 791,
+      "path": "ui\\main_window.py",
+      "text": "attempt_count = event.get(\"attempt_count\")"
+    },
+    {
+      "language": "python",
+      "line": 792,
+      "path": "ui\\main_window.py",
+      "text": "context_status = str(event.get(\"context_status\") or \"legacy\").upper()"
+    },
+    {
+      "language": "python",
+      "line": 793,
+      "path": "ui\\main_window.py",
+      "text": "lines.extend(["
+    },
+    {
+      "language": "python",
+      "line": 794,
+      "path": "ui\\main_window.py",
+      "text": "("
+    },
+    {
+      "language": "python",
+      "line": 795,
+      "path": "ui\\main_window.py",
+      "text": "f\"[{severity}] [{event_kind}] [{verified_label}] \""
+    },
+    {
+      "language": "python",
+      "line": 796,
+      "path": "ui\\main_window.py",
+      "text": "f\"{event.get('timestamp', 'unknown time')}\""
+    },
+    {
+      "language": "python",
+      "line": 797,
+      "path": "ui\\main_window.py",
+      "text": "),"
+    },
+    {
+      "language": "python",
+      "line": 798,
+      "path": "ui\\main_window.py",
+      "text": "f\"Incident Kind: {incident_kind}\","
+    },
+    {
+      "language": "python",
+      "line": 799,
+      "path": "ui\\main_window.py",
+      "text": "f\"Decision: {str(event.get('decision', '')).upper()}\","
+    },
+    {
+      "language": "python",
+      "line": 800,
+      "path": "ui\\main_window.py",
+      "text": "f\"Attempt Count: {attempt_count if attempt_count is not None else 'LEGACY'}\","
+    },
+    {
+      "language": "python",
+      "line": 801,
+      "path": "ui\\main_window.py",
+      "text": "f\"Context Status: {context_status}\","
+    },
+    {
+      "language": "python",
+      "line": 802,
+      "path": "ui\\main_window.py",
+      "text": "f\"Actor: {event.get('actor', '')}\","
+    },
+    {
+      "language": "python",
+      "line": 803,
+      "path": "ui\\main_window.py",
+      "text": "f\"Object: {event.get('object', '')}\","
+    },
+    {
+      "language": "python",
+      "line": 804,
+      "path": "ui\\main_window.py",
+      "text": "f\"Action: {event.get('action', '')}\","
+    },
+    {
+      "language": "python",
+      "line": 805,
+      "path": "ui\\main_window.py",
+      "text": "f\"Reason: {event.get('reason', '')}\","
+    },
+    {
+      "language": "python",
+      "line": 806,
+      "path": "ui\\main_window.py",
+      "text": "f\"Policy: {event.get('policy_source', '')}\","
+    },
+    {
+      "language": "python",
+      "line": 807,
+      "path": "ui\\main_window.py",
+      "text": "f\"Event ID: {event.get('event_id', '')}\","
+    },
+    {
+      "language": "python",
+      "line": 808,
+      "path": "ui\\main_window.py",
+      "text": "f\"Correlation ID: {event.get('correlation_id', '')}\","
+    },
+    {
+      "language": "python",
+      "line": 809,
+      "path": "ui\\main_window.py",
+      "text": "f\"Mission ID: {event.get('mission_id', '')}\","
+    },
+    {
+      "language": "python",
+      "line": 810,
+      "path": "ui\\main_window.py",
+      "text": "f\"Approval ID: {event.get('approval_id', '')}\","
+    },
+    {
+      "language": "python",
+      "line": 811,
+      "path": "ui\\main_window.py",
+      "text": "f\"Receipt ID: {event.get('receipt_id', '')}\","
+    },
+    {
+      "language": "python",
+      "line": 812,
+      "path": "ui\\main_window.py",
+      "text": "f\"Previous Hash: {self._short_sentry_hash(event.get('previous_hash'))}\","
+    },
+    {
+      "language": "python",
+      "line": 813,
+      "path": "ui\\main_window.py",
+      "text": "f\"Event Hash: {self._short_sentry_hash(event.get('event_hash'))}\","
+    },
+    {
+      "language": "python",
+      "line": 814,
+      "path": "ui\\main_window.py",
+      "text": "\"-\" * 70,"
+    },
+    {
+      "language": "python",
+      "line": 815,
+      "path": "ui\\main_window.py",
+      "text": "])"
+    },
+    {
+      "language": "python",
+      "line": 816,
+      "path": "ui\\main_window.py",
+      "text": "return \"\\n\".join(lines)"
+    },
+    {
+      "language": "python",
+      "line": 818,
+      "path": "ui\\main_window.py",
+      "text": "def refresh_fox_sentry_incidents(self):"
+    },
+    {
+      "language": "python",
+      "line": 819,
+      "path": "ui\\main_window.py",
+      "text": "incident_filter = ("
+    },
+    {
+      "language": "python",
+      "line": 820,
+      "path": "ui\\main_window.py",
+      "text": "self.fox_sentry_incident_filter.get()"
+    },
+    {
+      "language": "python",
+      "line": 821,
+      "path": "ui\\main_window.py",
+      "text": "if hasattr(self, \"fox_sentry_incident_filter\")"
+    },
+    {
+      "language": "python",
+      "line": 822,
+      "path": "ui\\main_window.py",
+      "text": "else \"ALL\""
+    },
+    {
+      "language": "python",
+      "line": 823,
+      "path": "ui\\main_window.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 824,
+      "path": "ui\\main_window.py",
+      "text": "result = self._load_fox_sentry_incidents(incident_filter, limit=100)"
+    },
+    {
+      "language": "python",
+      "line": 825,
+      "path": "ui\\main_window.py",
+      "text": "verification = result.get(\"verification\") or {}"
+    },
+    {
+      "language": "python",
+      "line": 826,
+      "path": "ui\\main_window.py",
+      "text": "chain_valid = bool(verification.get(\"valid\"))"
+    },
+    {
+      "language": "python",
+      "line": 828,
+      "path": "ui\\main_window.py",
+      "text": "if hasattr(self, \"fox_sentry_chain_status\"):"
+    },
+    {
+      "language": "python",
+      "line": 829,
+      "path": "ui\\main_window.py",
+      "text": "if chain_valid:"
+    },
+    {
+      "language": "python",
+      "line": 830,
+      "path": "ui\\main_window.py",
+      "text": "self.fox_sentry_chain_status.set("
+    },
+    {
+      "language": "python",
+      "line": 831,
+      "path": "ui\\main_window.py",
+      "text": "\"CHAIN VERIFIED // \""
+    },
+    {
+      "language": "python",
+      "line": 832,
+      "path": "ui\\main_window.py",
+      "text": "f\"{verification.get('event_count', 0)} append-only event(s).\""
+    },
+    {
+      "language": "python",
+      "line": 833,
+      "path": "ui\\main_window.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 834,
+      "path": "ui\\main_window.py",
+      "text": "else:"
+    },
+    {
+      "language": "python",
+      "line": 835,
+      "path": "ui\\main_window.py",
+      "text": "self.fox_sentry_chain_status.set("
+    },
+    {
+      "language": "python",
+      "line": 836,
+      "path": "ui\\main_window.py",
+      "text": "\"CRITICAL // CHAIN INVALID // Fox Sentry is fail-closed and incidents are untrusted.\""
+    },
+    {
+      "language": "python",
+      "line": 837,
+      "path": "ui\\main_window.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 839,
+      "path": "ui\\main_window.py",
+      "text": "if hasattr(self, \"fox_sentry_incident_box\"):"
+    },
+    {
+      "language": "python",
+      "line": 840,
+      "path": "ui\\main_window.py",
+      "text": "self.fox_sentry_incident_box.configure(state=\"normal\")"
+    },
+    {
+      "language": "python",
+      "line": 841,
+      "path": "ui\\main_window.py",
+      "text": "self.fox_sentry_incident_box.delete(\"1.0\", \"end\")"
+    },
+    {
+      "language": "python",
+      "line": 842,
+      "path": "ui\\main_window.py",
+      "text": "self.fox_sentry_incident_box.insert("
+    },
+    {
+      "language": "python",
+      "line": 843,
+      "path": "ui\\main_window.py",
+      "text": "\"end\","
+    },
+    {
+      "language": "python",
+      "line": 844,
+      "path": "ui\\main_window.py",
+      "text": "self._format_fox_sentry_incidents(result),"
+    },
+    {
+      "language": "python",
+      "line": 845,
+      "path": "ui\\main_window.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 846,
+      "path": "ui\\main_window.py",
+      "text": "self.fox_sentry_incident_box.configure(state=\"disabled\")"
+    },
+    {
+      "language": "python",
+      "line": 847,
+      "path": "ui\\main_window.py",
+      "text": "return result"
+    },
+    {
+      "language": "python",
+      "line": 849,
+      "path": "ui\\main_window.py",
+      "text": "def show_trip_sentry(self):"
+    },
+    {
+      "language": "python",
+      "line": 850,
+      "path": "ui\\main_window.py",
+      "text": "self.clear_content()"
+    },
+    {
+      "language": "python",
+      "line": 851,
+      "path": "ui\\main_window.py",
+      "text": "self.make_title(\"FOX SENTRY // TRIP SENTRY\")"
+    },
+    {
+      "language": "python",
+      "line": 853,
+      "path": "ui\\main_window.py",
+      "text": "outer = ctk.CTkScrollableFrame(self.content)"
+    },
+    {
+      "language": "python",
+      "line": 854,
+      "path": "ui\\main_window.py",
+      "text": "outer.pack(fill=\"both\", expand=True, padx=20, pady=15)"
+    },
+    {
+      "language": "python",
+      "line": 856,
+      "path": "ui\\main_window.py",
+      "text": "warning = ctk.CTkFrame("
+    },
+    {
+      "language": "python",
+      "line": 857,
+      "path": "ui\\main_window.py",
+      "text": "outer,"
+    },
+    {
+      "language": "python",
+      "line": 858,
+      "path": "ui\\main_window.py",
+      "text": "border_width=2,"
+    },
+    {
+      "language": "python",
+      "line": 859,
+      "path": "ui\\main_window.py",
+      "text": "border_color=\"#ff4d6d\","
+    },
+    {
+      "language": "python",
+      "line": 860,
+      "path": "ui\\main_window.py",
+      "text": "fg_color=\"#220b12\","
+    },
+    {
+      "language": "python",
+      "line": 861,
+      "path": "ui\\main_window.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 862,
+      "path": "ui\\main_window.py",
+      "text": "warning.pack(fill=\"x\", padx=10, pady=(10, 15))"
+    },
+    {
+      "language": "python",
+      "line": 864,
+      "path": "ui\\main_window.py",
+      "text": "ctk.CTkLabel("
+    },
+    {
+      "language": "python",
+      "line": 865,
+      "path": "ui\\main_window.py",
+      "text": "warning,"
+    },
+    {
+      "language": "python",
+      "line": 866,
+      "path": "ui\\main_window.py",
+      "text": "text=\"Ω  OMEGA PROTOCOL  //  TEST MODE\","
+    },
+    {
+      "language": "python",
+      "line": 867,
+      "path": "ui\\main_window.py",
+      "text": "font=(\"Consolas\", 25, \"bold\"),"
+    },
+    {
+      "language": "python",
+      "line": 868,
+      "path": "ui\\main_window.py",
+      "text": "text_color=\"#ffd166\","
+    },
+    {
+      "language": "python",
+      "line": 869,
+      "path": "ui\\main_window.py",
+      "text": ").pack(pady=(20, 4))"
+    },
+    {
+      "language": "python",
+      "line": 870,
+      "path": "ui\\main_window.py",
+      "text": "ctk.CTkLabel("
+    },
+    {
+      "language": "python",
+      "line": 871,
+      "path": "ui\\main_window.py",
+      "text": "warning,"
+    },
+    {
+      "language": "python",
+      "line": 872,
+      "path": "ui\\main_window.py",
+      "text": "text=\"HARMLESS SECURITY DRILL\","
+    },
+    {
+      "language": "python",
+      "line": 873,
+      "path": "ui\\main_window.py",
+      "text": "font=(\"Consolas\", 17, \"bold\"),"
+    },
+    {
+      "language": "python",
+      "line": 874,
+      "path": "ui\\main_window.py",
+      "text": "text_color=\"#ff758f\","
+    },
+    {
+      "language": "python",
+      "line": 875,
+      "path": "ui\\main_window.py",
+      "text": ").pack(pady=(0, 12))"
+    },
+    {
+      "language": "python",
+      "line": 876,
+      "path": "ui\\main_window.py",
+      "text": "ctk.CTkLabel("
+    },
+    {
+      "language": "python",
+      "line": 877,
+      "path": "ui\\main_window.py",
+      "text": "warning,"
+    },
+    {
+      "language": "python",
+      "line": 878,
+      "path": "ui\\main_window.py",
+      "text": "text=("
+    },
+    {
+      "language": "python",
+      "line": 879,
+      "path": "ui\\main_window.py",
+      "text": "\"This test deliberately creates a clearly labeled TEST denial \""
+    },
+    {
+      "language": "python",
+      "line": 880,
+      "path": "ui\\main_window.py",
+      "text": "\"event in the append-only Fox Sentry audit log.\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 881,
+      "path": "ui\\main_window.py",
+      "text": "\"It grants no access, runs no repair, changes no operational \""
+    },
+    {
+      "language": "python",
+      "line": 882,
+      "path": "ui\\main_window.py",
+      "text": "\"project file, and disables nothing. The security log and its \""
+    },
+    {
+      "language": "python",
+      "line": 883,
+      "path": "ui\\main_window.py",
+      "text": "\"lock file may be created or appended.\""
+    },
+    {
+      "language": "python",
+      "line": 884,
+      "path": "ui\\main_window.py",
+      "text": "),"
+    },
+    {
+      "language": "python",
+      "line": 885,
+      "path": "ui\\main_window.py",
+      "text": "justify=\"left\","
+    },
+    {
+      "language": "python",
+      "line": 886,
+      "path": "ui\\main_window.py",
+      "text": "wraplength=760,"
+    },
+    {
+      "language": "python",
+      "line": 887,
+      "path": "ui\\main_window.py",
+      "text": "font=(\"Consolas\", 13),"
+    },
+    {
+      "language": "python",
+      "line": 888,
+      "path": "ui\\main_window.py",
+      "text": "text_color=\"#f4f1ff\","
+    },
+    {
+      "language": "python",
+      "line": 889,
+      "path": "ui\\main_window.py",
+      "text": ").pack(padx=24, pady=(0, 18))"
+    },
+    {
+      "language": "python",
+      "line": 891,
+      "path": "ui\\main_window.py",
+      "text": "controls = ctk.CTkFrame(outer)"
+    },
+    {
+      "language": "python",
+      "line": 892,
+      "path": "ui\\main_window.py",
+      "text": "controls.pack(fill=\"x\", padx=10, pady=(0, 15))"
+    },
+    {
+      "language": "python",
+      "line": 893,
+      "path": "ui\\main_window.py",
+      "text": "ctk.CTkButton("
+    },
+    {
+      "language": "python",
+      "line": 894,
+      "path": "ui\\main_window.py",
+      "text": "controls,"
+    },
+    {
+      "language": "python",
+      "line": 895,
+      "path": "ui\\main_window.py",
+      "text": "text=\"TRIP SENTRY — RUN HARMLESS TEST\","
+    },
+    {
+      "language": "python",
+      "line": 896,
+      "path": "ui\\main_window.py",
+      "text": "command=self.run_trip_sentry_test,"
+    },
+    {
+      "language": "python",
+      "line": 897,
+      "path": "ui\\main_window.py",
+      "text": "width=330,"
+    },
+    {
+      "language": "python",
+      "line": 898,
+      "path": "ui\\main_window.py",
+      "text": "fg_color=\"#a51f3d\","
+    },
+    {
+      "language": "python",
+      "line": 899,
+      "path": "ui\\main_window.py",
+      "text": "hover_color=\"#cc2c52\","
+    },
+    {
+      "language": "python",
+      "line": 900,
+      "path": "ui\\main_window.py",
+      "text": ").pack(pady=16)"
+    },
+    {
+      "language": "python",
+      "line": 902,
+      "path": "ui\\main_window.py",
+      "text": "self.trip_sentry_status = ctk.StringVar("
+    },
+    {
+      "language": "python",
+      "line": 903,
+      "path": "ui\\main_window.py",
+      "text": "value=\"READY // No TEST incident has been generated in this session.\""
+    },
+    {
+      "language": "python",
+      "line": 904,
+      "path": "ui\\main_window.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 905,
+      "path": "ui\\main_window.py",
+      "text": "ctk.CTkLabel("
+    },
+    {
+      "language": "python",
+      "line": 906,
+      "path": "ui\\main_window.py",
+      "text": "controls,"
+    },
+    {
+      "language": "python",
+      "line": 907,
+      "path": "ui\\main_window.py",
+      "text": "textvariable=self.trip_sentry_status,"
+    },
+    {
+      "language": "python",
+      "line": 908,
+      "path": "ui\\main_window.py",
+      "text": "font=(\"Consolas\", 13, \"bold\"),"
+    },
+    {
+      "language": "python",
+      "line": 909,
+      "path": "ui\\main_window.py",
+      "text": "text_color=\"#ffd166\","
+    },
+    {
+      "language": "python",
+      "line": 910,
+      "path": "ui\\main_window.py",
+      "text": "wraplength=760,"
+    },
+    {
+      "language": "python",
+      "line": 911,
+      "path": "ui\\main_window.py",
+      "text": ").pack(padx=20, pady=(0, 14))"
+    },
+    {
+      "language": "python",
+      "line": 913,
+      "path": "ui\\main_window.py",
+      "text": "result_panel = ctk.CTkFrame(outer)"
+    },
+    {
+      "language": "python",
+      "line": 914,
+      "path": "ui\\main_window.py",
+      "text": "result_panel.pack(fill=\"both\", expand=True, padx=10, pady=(0, 15))"
+    },
+    {
+      "language": "python",
+      "line": 915,
+      "path": "ui\\main_window.py",
+      "text": "ctk.CTkLabel("
+    },
+    {
+      "language": "python",
+      "line": 916,
+      "path": "ui\\main_window.py",
+      "text": "result_panel,"
+    },
+    {
+      "language": "python",
+      "line": 917,
+      "path": "ui\\main_window.py",
+      "text": "text=\"TEST INCIDENT RECEIPT\","
+    },
+    {
+      "language": "python",
+      "line": 918,
+      "path": "ui\\main_window.py",
+      "text": "font=(\"Consolas\", 15, \"bold\"),"
+    },
+    {
+      "language": "python",
+      "line": 919,
+      "path": "ui\\main_window.py",
+      "text": "text_color=color(\"cyan\"),"
+    },
+    {
+      "language": "python",
+      "line": 920,
+      "path": "ui\\main_window.py",
+      "text": ").pack(anchor=\"w\", padx=14, pady=(12, 6))"
+    },
+    {
+      "language": "python",
+      "line": 921,
+      "path": "ui\\main_window.py",
+      "text": "self.trip_sentry_result_box = ctk.CTkTextbox("
+    },
+    {
+      "language": "python",
+      "line": 922,
+      "path": "ui\\main_window.py",
+      "text": "result_panel,"
+    },
+    {
+      "language": "python",
+      "line": 923,
+      "path": "ui\\main_window.py",
+      "text": "wrap=\"word\","
+    },
+    {
+      "language": "python",
+      "line": 924,
+      "path": "ui\\main_window.py",
+      "text": "height=260,"
+    },
+    {
+      "language": "python",
+      "line": 925,
+      "path": "ui\\main_window.py",
+      "text": "font=(\"Consolas\", 12),"
+    },
+    {
+      "language": "python",
+      "line": 926,
+      "path": "ui\\main_window.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 927,
+      "path": "ui\\main_window.py",
+      "text": "self.trip_sentry_result_box.pack("
+    },
+    {
+      "language": "python",
+      "line": 928,
+      "path": "ui\\main_window.py",
+      "text": "fill=\"both\", expand=True, padx=14, pady=(0, 14)"
+    },
+    {
+      "language": "python",
+      "line": 929,
+      "path": "ui\\main_window.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 930,
+      "path": "ui\\main_window.py",
+      "text": "self.trip_sentry_result_box.insert("
+    },
+    {
+      "language": "python",
+      "line": 931,
+      "path": "ui\\main_window.py",
+      "text": "\"end\","
+    },
+    {
+      "language": "python",
+      "line": 932,
+      "path": "ui\\main_window.py",
+      "text": "\"Awaiting an operator-initiated harmless TEST event.\\n\","
+    },
+    {
+      "language": "python",
+      "line": 933,
+      "path": "ui\\main_window.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 934,
+      "path": "ui\\main_window.py",
+      "text": "self.trip_sentry_result_box.configure(state=\"disabled\")"
+    },
+    {
+      "language": "python",
+      "line": 936,
+      "path": "ui\\main_window.py",
+      "text": "registry_panel = ctk.CTkFrame(outer)"
+    },
+    {
+      "language": "python",
+      "line": 937,
+      "path": "ui\\main_window.py",
+      "text": "registry_panel.pack(fill=\"both\", expand=True, padx=10, pady=(0, 15))"
+    },
+    {
+      "language": "python",
+      "line": 938,
+      "path": "ui\\main_window.py",
+      "text": "registry_header = ctk.CTkFrame(registry_panel, fg_color=\"transparent\")"
+    },
+    {
+      "language": "python",
+      "line": 939,
+      "path": "ui\\main_window.py",
+      "text": "registry_header.pack(fill=\"x\", padx=14, pady=(12, 6))"
+    },
+    {
+      "language": "python",
+      "line": 940,
+      "path": "ui\\main_window.py",
+      "text": "ctk.CTkLabel("
+    },
+    {
+      "language": "python",
+      "line": 941,
+      "path": "ui\\main_window.py",
+      "text": "registry_header,"
+    },
+    {
+      "language": "python",
+      "line": 942,
+      "path": "ui\\main_window.py",
+      "text": "text=\"APPLICATION REGISTRY & HEALTH\","
+    },
+    {
+      "language": "python",
+      "line": 943,
+      "path": "ui\\main_window.py",
+      "text": "font=(\"Consolas\", 15, \"bold\"),"
+    },
+    {
+      "language": "python",
+      "line": 944,
+      "path": "ui\\main_window.py",
+      "text": "text_color=color(\"cyan\"),"
+    },
+    {
+      "language": "python",
+      "line": 945,
+      "path": "ui\\main_window.py",
+      "text": ").pack(side=\"left\")"
+    },
+    {
+      "language": "python",
+      "line": 946,
+      "path": "ui\\main_window.py",
+      "text": "ctk.CTkButton("
+    },
+    {
+      "language": "python",
+      "line": 947,
+      "path": "ui\\main_window.py",
+      "text": "registry_header,"
+    },
+    {
+      "language": "python",
+      "line": 948,
+      "path": "ui\\main_window.py",
+      "text": "text=\"REFRESH HEALTH\","
+    },
+    {
+      "language": "python",
+      "line": 949,
+      "path": "ui\\main_window.py",
+      "text": "command=self.refresh_application_registry_health,"
+    },
+    {
+      "language": "python",
+      "line": 950,
+      "path": "ui\\main_window.py",
+      "text": "width=160,"
+    },
+    {
+      "language": "python",
+      "line": 951,
+      "path": "ui\\main_window.py",
+      "text": ").pack(side=\"right\")"
+    },
+    {
+      "language": "python",
+      "line": 953,
+      "path": "ui\\main_window.py",
+      "text": "self.application_registry_status = ctk.StringVar("
+    },
+    {
+      "language": "python",
+      "line": 954,
+      "path": "ui\\main_window.py",
+      "text": "value=("
+    },
+    {
+      "language": "python",
+      "line": 955,
+      "path": "ui\\main_window.py",
+      "text": "\"CHECKING REGISTRY // Telemetry only; \""
+    },
+    {
+      "language": "python",
+      "line": 956,
+      "path": "ui\\main_window.py",
+      "text": "\"no security incident will be generated.\""
+    },
+    {
+      "language": "python",
+      "line": 957,
+      "path": "ui\\main_window.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 958,
+      "path": "ui\\main_window.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 959,
+      "path": "ui\\main_window.py",
+      "text": "ctk.CTkLabel("
+    },
+    {
+      "language": "python",
+      "line": 960,
+      "path": "ui\\main_window.py",
+      "text": "registry_panel,"
+    },
+    {
+      "language": "python",
+      "line": 961,
+      "path": "ui\\main_window.py",
+      "text": "textvariable=self.application_registry_status,"
+    },
+    {
+      "language": "python",
+      "line": 962,
+      "path": "ui\\main_window.py",
+      "text": "font=(\"Consolas\", 12, \"bold\"),"
+    },
+    {
+      "language": "python",
+      "line": 963,
+      "path": "ui\\main_window.py",
+      "text": "text_color=\"#ffd166\","
+    },
+    {
+      "language": "python",
+      "line": 964,
+      "path": "ui\\main_window.py",
+      "text": "wraplength=760,"
+    },
+    {
+      "language": "python",
+      "line": 965,
+      "path": "ui\\main_window.py",
+      "text": ").pack(anchor=\"w\", padx=14, pady=(0, 8))"
+    },
+    {
+      "language": "python",
+      "line": 967,
+      "path": "ui\\main_window.py",
+      "text": "self.application_registry_box = ctk.CTkTextbox("
+    },
+    {
+      "language": "python",
+      "line": 968,
+      "path": "ui\\main_window.py",
+      "text": "registry_panel,"
+    },
+    {
+      "language": "python",
+      "line": 969,
+      "path": "ui\\main_window.py",
+      "text": "wrap=\"word\","
+    },
+    {
+      "language": "python",
+      "line": 970,
+      "path": "ui\\main_window.py",
+      "text": "height=320,"
+    },
+    {
+      "language": "python",
+      "line": 971,
+      "path": "ui\\main_window.py",
+      "text": "font=(\"Consolas\", 11),"
+    },
+    {
+      "language": "python",
+      "line": 972,
+      "path": "ui\\main_window.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 973,
+      "path": "ui\\main_window.py",
+      "text": "self.application_registry_box.pack("
+    },
+    {
+      "language": "python",
+      "line": 974,
+      "path": "ui\\main_window.py",
+      "text": "fill=\"both\","
+    },
+    {
+      "language": "python",
+      "line": 975,
+      "path": "ui\\main_window.py",
+      "text": "expand=True,"
+    },
+    {
+      "language": "python",
+      "line": 976,
+      "path": "ui\\main_window.py",
+      "text": "padx=14,"
+    },
+    {
+      "language": "python",
+      "line": 977,
+      "path": "ui\\main_window.py",
+      "text": "pady=(0, 14),"
+    },
+    {
+      "language": "python",
+      "line": 978,
+      "path": "ui\\main_window.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 979,
+      "path": "ui\\main_window.py",
+      "text": "self.application_registry_box.insert("
+    },
+    {
+      "language": "python",
+      "line": 980,
+      "path": "ui\\main_window.py",
+      "text": "\"end\","
+    },
+    {
+      "language": "python",
+      "line": 981,
+      "path": "ui\\main_window.py",
+      "text": "\"Loading passive application health telemetry...\\n\","
+    },
+    {
+      "language": "python",
+      "line": 982,
+      "path": "ui\\main_window.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 983,
+      "path": "ui\\main_window.py",
+      "text": "self.application_registry_box.configure(state=\"disabled\")"
+    },
+    {
+      "language": "python",
+      "line": 985,
+      "path": "ui\\main_window.py",
+      "text": "incident_panel = ctk.CTkFrame(outer)"
+    },
+    {
+      "language": "python",
+      "line": 986,
+      "path": "ui\\main_window.py",
+      "text": "incident_panel.pack(fill=\"both\", expand=True, padx=10, pady=(0, 15))"
+    },
+    {
+      "language": "python",
+      "line": 987,
+      "path": "ui\\main_window.py",
+      "text": "incident_header = ctk.CTkFrame(incident_panel, fg_color=\"transparent\")"
+    },
+    {
+      "language": "python",
+      "line": 988,
+      "path": "ui\\main_window.py",
+      "text": "incident_header.pack(fill=\"x\", padx=14, pady=(12, 6))"
+    },
+    {
+      "language": "python",
+      "line": 989,
+      "path": "ui\\main_window.py",
+      "text": "ctk.CTkLabel("
+    },
+    {
+      "language": "python",
+      "line": 990,
+      "path": "ui\\main_window.py",
+      "text": "incident_header,"
+    },
+    {
+      "language": "python",
+      "line": 991,
+      "path": "ui\\main_window.py",
+      "text": "text=\"FOX SENTRY INCIDENT VIEWER\","
+    },
+    {
+      "language": "python",
+      "line": 992,
+      "path": "ui\\main_window.py",
+      "text": "font=(\"Consolas\", 15, \"bold\"),"
+    },
+    {
+      "language": "python",
+      "line": 993,
+      "path": "ui\\main_window.py",
+      "text": "text_color=\"#ff758f\","
+    },
+    {
+      "language": "python",
+      "line": 994,
+      "path": "ui\\main_window.py",
+      "text": ").pack(side=\"left\")"
+    },
+    {
+      "language": "python",
+      "line": 996,
+      "path": "ui\\main_window.py",
+      "text": "self.fox_sentry_incident_filter = ctk.StringVar(value=\"ALL\")"
+    },
+    {
+      "language": "python",
+      "line": 997,
+      "path": "ui\\main_window.py",
+      "text": "ctk.CTkOptionMenu("
+    },
+    {
+      "language": "python",
+      "line": 998,
+      "path": "ui\\main_window.py",
+      "text": "incident_header,"
+    },
+    {
+      "language": "python",
+      "line": 999,
+      "path": "ui\\main_window.py",
+      "text": "values=[\"ALL\", \"TEST\", \"OPERATIONAL\", \"INFO\", \"NOTICE\", \"WARNING\", \"CRITICAL\"],"
+    },
+    {
+      "language": "python",
+      "line": 1000,
+      "path": "ui\\main_window.py",
+      "text": "variable=self.fox_sentry_incident_filter,"
+    },
+    {
+      "language": "python",
+      "line": 1001,
+      "path": "ui\\main_window.py",
+      "text": "command=lambda _value: self.refresh_fox_sentry_incidents(),"
+    },
+    {
+      "language": "python",
+      "line": 1002,
+      "path": "ui\\main_window.py",
+      "text": "width=150,"
+    },
+    {
+      "language": "python",
+      "line": 1003,
+      "path": "ui\\main_window.py",
+      "text": ").pack(side=\"right\", padx=(8, 0))"
+    },
+    {
+      "language": "python",
+      "line": 1004,
+      "path": "ui\\main_window.py",
+      "text": "ctk.CTkButton("
+    },
+    {
+      "language": "python",
+      "line": 1005,
+      "path": "ui\\main_window.py",
+      "text": "incident_header,"
+    },
+    {
+      "language": "python",
+      "line": 1006,
+      "path": "ui\\main_window.py",
+      "text": "text=\"REFRESH INCIDENTS\","
+    },
+    {
+      "language": "python",
+      "line": 1007,
+      "path": "ui\\main_window.py",
+      "text": "command=self.refresh_fox_sentry_incidents,"
+    },
+    {
+      "language": "python",
+      "line": 1008,
+      "path": "ui\\main_window.py",
+      "text": "width=170,"
+    },
+    {
+      "language": "python",
+      "line": 1009,
+      "path": "ui\\main_window.py",
+      "text": ").pack(side=\"right\")"
+    },
+    {
+      "language": "python",
+      "line": 1011,
+      "path": "ui\\main_window.py",
+      "text": "self.fox_sentry_chain_status = ctk.StringVar("
+    },
+    {
+      "language": "python",
+      "line": 1012,
+      "path": "ui\\main_window.py",
+      "text": "value=\"CHECKING CHAIN // Read-only verification pending.\""
+    },
+    {
+      "language": "python",
+      "line": 1013,
+      "path": "ui\\main_window.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1014,
+      "path": "ui\\main_window.py",
+      "text": "ctk.CTkLabel("
+    },
+    {
+      "language": "python",
+      "line": 1015,
+      "path": "ui\\main_window.py",
+      "text": "incident_panel,"
+    },
+    {
+      "language": "python",
+      "line": 1016,
+      "path": "ui\\main_window.py",
+      "text": "textvariable=self.fox_sentry_chain_status,"
+    },
+    {
+      "language": "python",
+      "line": 1017,
+      "path": "ui\\main_window.py",
+      "text": "font=(\"Consolas\", 12, \"bold\"),"
+    },
+    {
+      "language": "python",
+      "line": 1018,
+      "path": "ui\\main_window.py",
+      "text": "text_color=\"#ffd166\","
+    },
+    {
+      "language": "python",
+      "line": 1019,
+      "path": "ui\\main_window.py",
+      "text": "wraplength=760,"
+    },
+    {
+      "language": "python",
+      "line": 1020,
+      "path": "ui\\main_window.py",
+      "text": ").pack(anchor=\"w\", padx=14, pady=(0, 8))"
+    },
+    {
+      "language": "python",
+      "line": 1022,
+      "path": "ui\\main_window.py",
+      "text": "self.fox_sentry_incident_box = ctk.CTkTextbox("
+    },
+    {
+      "language": "python",
+      "line": 1023,
+      "path": "ui\\main_window.py",
+      "text": "incident_panel,"
+    },
+    {
+      "language": "python",
+      "line": 1024,
+      "path": "ui\\main_window.py",
+      "text": "wrap=\"word\","
+    },
+    {
+      "language": "python",
+      "line": 1025,
+      "path": "ui\\main_window.py",
+      "text": "height=360,"
+    },
+    {
+      "language": "python",
+      "line": 1026,
+      "path": "ui\\main_window.py",
+      "text": "font=(\"Consolas\", 11),"
+    },
+    {
+      "language": "python",
+      "line": 1027,
+      "path": "ui\\main_window.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1028,
+      "path": "ui\\main_window.py",
+      "text": "self.fox_sentry_incident_box.pack("
+    },
+    {
+      "language": "python",
+      "line": 1029,
+      "path": "ui\\main_window.py",
+      "text": "fill=\"both\","
+    },
+    {
+      "language": "python",
+      "line": 1030,
+      "path": "ui\\main_window.py",
+      "text": "expand=True,"
+    },
+    {
+      "language": "python",
+      "line": 1031,
+      "path": "ui\\main_window.py",
+      "text": "padx=14,"
+    },
+    {
+      "language": "python",
+      "line": 1032,
+      "path": "ui\\main_window.py",
+      "text": "pady=(0, 14),"
+    },
+    {
+      "language": "python",
+      "line": 1033,
+      "path": "ui\\main_window.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1034,
+      "path": "ui\\main_window.py",
+      "text": "self.fox_sentry_incident_box.insert("
+    },
+    {
+      "language": "python",
+      "line": 1035,
+      "path": "ui\\main_window.py",
+      "text": "\"end\","
+    },
+    {
+      "language": "python",
+      "line": 1036,
+      "path": "ui\\main_window.py",
+      "text": "\"Loading the read-only Fox Sentry incident chain...\\n\","
+    },
+    {
+      "language": "python",
+      "line": 1037,
+      "path": "ui\\main_window.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1038,
+      "path": "ui\\main_window.py",
+      "text": "self.fox_sentry_incident_box.configure(state=\"disabled\")"
+    },
+    {
+      "language": "python",
+      "line": 1039,
+      "path": "ui\\main_window.py",
+      "text": "self.after(25, self.refresh_application_registry_health)"
+    },
+    {
+      "language": "python",
+      "line": 1040,
+      "path": "ui\\main_window.py",
+      "text": "self.after(50, self.refresh_fox_sentry_incidents)"
+    },
+    {
+      "language": "python",
+      "line": 1041,
+      "path": "ui\\main_window.py",
+      "text": "self.make_status_bar()"
+    },
+    {
+      "language": "python",
+      "line": 1043,
+      "path": "ui\\main_window.py",
+      "text": "def _show_trip_sentry_omega_alert(self, receipt):"
+    },
+    {
+      "language": "python",
+      "line": 1044,
+      "path": "ui\\main_window.py",
+      "text": "event = (receipt.get(\"details\") or {}).get(\"event\") or {}"
+    },
+    {
+      "language": "python",
+      "line": 1045,
+      "path": "ui\\main_window.py",
+      "text": "dialog = ctk.CTkToplevel(self)"
+    },
+    {
+      "language": "python",
+      "line": 1046,
+      "path": "ui\\main_window.py",
+      "text": "dialog.title(\"OMEGA PROTOCOL // TEST INCIDENT\")"
+    },
+    {
+      "language": "python",
+      "line": 1047,
+      "path": "ui\\main_window.py",
+      "text": "dialog.geometry(\"760x500\")"
+    },
+    {
+      "language": "python",
+      "line": 1048,
+      "path": "ui\\main_window.py",
+      "text": "dialog.minsize(660, 430)"
+    },
+    {
+      "language": "python",
+      "line": 1049,
+      "path": "ui\\main_window.py",
+      "text": "dialog.transient(self)"
+    },
+    {
+      "language": "python",
+      "line": 1050,
+      "path": "ui\\main_window.py",
+      "text": "dialog.grab_set()"
+    },
+    {
+      "language": "python",
+      "line": 1052,
+      "path": "ui\\main_window.py",
+      "text": "frame = ctk.CTkFrame("
+    },
+    {
+      "language": "python",
+      "line": 1053,
+      "path": "ui\\main_window.py",
+      "text": "dialog,"
+    },
+    {
+      "language": "python",
+      "line": 1054,
+      "path": "ui\\main_window.py",
+      "text": "border_width=3,"
+    },
+    {
+      "language": "python",
+      "line": 1055,
+      "path": "ui\\main_window.py",
+      "text": "border_color=\"#ff4d6d\","
+    },
+    {
+      "language": "python",
+      "line": 1056,
+      "path": "ui\\main_window.py",
+      "text": "fg_color=\"#16070c\","
+    },
+    {
+      "language": "python",
+      "line": 1057,
+      "path": "ui\\main_window.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1058,
+      "path": "ui\\main_window.py",
+      "text": "frame.pack(fill=\"both\", expand=True, padx=18, pady=18)"
+    },
+    {
+      "language": "python",
+      "line": 1059,
+      "path": "ui\\main_window.py",
+      "text": "ctk.CTkLabel("
+    },
+    {
+      "language": "python",
+      "line": 1060,
+      "path": "ui\\main_window.py",
+      "text": "frame,"
+    },
+    {
+      "language": "python",
+      "line": 1061,
+      "path": "ui\\main_window.py",
+      "text": "text=\"Ω\","
+    },
+    {
+      "language": "python",
+      "line": 1062,
+      "path": "ui\\main_window.py",
+      "text": "font=(\"Consolas\", 70, \"bold\"),"
+    },
+    {
+      "language": "python",
+      "line": 1063,
+      "path": "ui\\main_window.py",
+      "text": "text_color=\"#ff4d6d\","
+    },
+    {
+      "language": "python",
+      "line": 1064,
+      "path": "ui\\main_window.py",
+      "text": ").pack(pady=(18, 0))"
+    },
+    {
+      "language": "python",
+      "line": 1065,
+      "path": "ui\\main_window.py",
+      "text": "ctk.CTkLabel("
+    },
+    {
+      "language": "python",
+      "line": 1066,
+      "path": "ui\\main_window.py",
+      "text": "frame,"
+    },
+    {
+      "language": "python",
+      "line": 1067,
+      "path": "ui\\main_window.py",
+      "text": "text=\"OMEGA PROTOCOL\","
+    },
+    {
+      "language": "python",
+      "line": 1068,
+      "path": "ui\\main_window.py",
+      "text": "font=(\"Consolas\", 29, \"bold\"),"
+    },
+    {
+      "language": "python",
+      "line": 1069,
+      "path": "ui\\main_window.py",
+      "text": "text_color=\"#ffd166\","
+    },
+    {
+      "language": "python",
+      "line": 1070,
+      "path": "ui\\main_window.py",
+      "text": ").pack()"
+    },
+    {
+      "language": "python",
+      "line": 1071,
+      "path": "ui\\main_window.py",
+      "text": "ctk.CTkLabel("
+    },
+    {
+      "language": "python",
+      "line": 1072,
+      "path": "ui\\main_window.py",
+      "text": "frame,"
+    },
+    {
+      "language": "python",
+      "line": 1073,
+      "path": "ui\\main_window.py",
+      "text": "text=\"TEST INCIDENT — FOX SENTRY PATH VERIFIED\","
+    },
+    {
+      "language": "python",
+      "line": 1074,
+      "path": "ui\\main_window.py",
+      "text": "font=(\"Consolas\", 16, \"bold\"),"
+    },
+    {
+      "language": "python",
+      "line": 1075,
+      "path": "ui\\main_window.py",
+      "text": "text_color=\"#ff758f\","
+    },
+    {
+      "language": "python",
+      "line": 1076,
+      "path": "ui\\main_window.py",
+      "text": ").pack(pady=(4, 16))"
+    },
+    {
+      "language": "python",
+      "line": 1077,
+      "path": "ui\\main_window.py",
+      "text": "ctk.CTkLabel("
+    },
+    {
+      "language": "python",
+      "line": 1078,
+      "path": "ui\\main_window.py",
+      "text": "frame,"
+    },
+    {
+      "language": "python",
+      "line": 1079,
+      "path": "ui\\main_window.py",
+      "text": "text=("
+    },
+    {
+      "language": "python",
+      "line": 1080,
+      "path": "ui\\main_window.py",
+      "text": "\"DENIAL EVENT RECORDED\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1081,
+      "path": "ui\\main_window.py",
+      "text": "\"NO ACCESS GRANTED\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1082,
+      "path": "ui\\main_window.py",
+      "text": "\"NO REPAIR EXECUTED\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1083,
+      "path": "ui\\main_window.py",
+      "text": "\"NO OPERATIONAL FILE CHANGED\""
+    },
+    {
+      "language": "python",
+      "line": 1084,
+      "path": "ui\\main_window.py",
+      "text": "),"
+    },
+    {
+      "language": "python",
+      "line": 1085,
+      "path": "ui\\main_window.py",
+      "text": "justify=\"center\","
+    },
+    {
+      "language": "python",
+      "line": 1086,
+      "path": "ui\\main_window.py",
+      "text": "font=(\"Consolas\", 14, \"bold\"),"
+    },
+    {
+      "language": "python",
+      "line": 1087,
+      "path": "ui\\main_window.py",
+      "text": "text_color=\"#f4f1ff\","
+    },
+    {
+      "language": "python",
+      "line": 1088,
+      "path": "ui\\main_window.py",
+      "text": ").pack(pady=8)"
+    },
+    {
+      "language": "python",
+      "line": 1089,
+      "path": "ui\\main_window.py",
+      "text": "ctk.CTkLabel("
+    },
+    {
+      "language": "python",
+      "line": 1090,
+      "path": "ui\\main_window.py",
+      "text": "frame,"
+    },
+    {
+      "language": "python",
+      "line": 1091,
+      "path": "ui\\main_window.py",
+      "text": "text=("
+    },
+    {
+      "language": "python",
+      "line": 1092,
+      "path": "ui\\main_window.py",
+      "text": "f\"Event: {event.get('event_id', 'unknown')}\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1093,
+      "path": "ui\\main_window.py",
+      "text": "f\"Correlation: {event.get('correlation_id', 'unknown')}\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1094,
+      "path": "ui\\main_window.py",
+      "text": "f\"Receipt: {receipt.get('receipt_id', 'unknown')}\""
+    },
+    {
+      "language": "python",
+      "line": 1095,
+      "path": "ui\\main_window.py",
+      "text": "),"
+    },
+    {
+      "language": "python",
+      "line": 1096,
+      "path": "ui\\main_window.py",
+      "text": "justify=\"left\","
+    },
+    {
+      "language": "python",
+      "line": 1097,
+      "path": "ui\\main_window.py",
+      "text": "font=(\"Consolas\", 11),"
+    },
+    {
+      "language": "python",
+      "line": 1098,
+      "path": "ui\\main_window.py",
+      "text": "text_color=\"#aeb2c8\","
+    },
+    {
+      "language": "python",
+      "line": 1099,
+      "path": "ui\\main_window.py",
+      "text": ").pack(padx=20, pady=(12, 14))"
+    },
+    {
+      "language": "python",
+      "line": 1100,
+      "path": "ui\\main_window.py",
+      "text": "ctk.CTkButton("
+    },
+    {
+      "language": "python",
+      "line": 1101,
+      "path": "ui\\main_window.py",
+      "text": "frame,"
+    },
+    {
+      "language": "python",
+      "line": 1102,
+      "path": "ui\\main_window.py",
+      "text": "text=\"ACKNOWLEDGE TEST INCIDENT\","
+    },
+    {
+      "language": "python",
+      "line": 1103,
+      "path": "ui\\main_window.py",
+      "text": "command=dialog.destroy,"
+    },
+    {
+      "language": "python",
+      "line": 1104,
+      "path": "ui\\main_window.py",
+      "text": "width=280,"
+    },
+    {
+      "language": "python",
+      "line": 1105,
+      "path": "ui\\main_window.py",
+      "text": ").pack(pady=(0, 20))"
+    },
+    {
+      "language": "python",
+      "line": 1107,
+      "path": "ui\\main_window.py",
+      "text": "def run_trip_sentry_test(self):"
+    },
+    {
+      "language": "python",
+      "line": 1108,
+      "path": "ui\\main_window.py",
+      "text": "confirmed = messagebox.askyesno("
+    },
+    {
+      "language": "python",
+      "line": 1109,
+      "path": "ui\\main_window.py",
+      "text": "\"Trip Sentry — Harmless TEST\","
+    },
+    {
+      "language": "python",
+      "line": 1110,
+      "path": "ui\\main_window.py",
+      "text": "("
+    },
+    {
+      "language": "python",
+      "line": 1111,
+      "path": "ui\\main_window.py",
+      "text": "\"Generate one clearly labeled TEST denial event?\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1112,
+      "path": "ui\\main_window.py",
+      "text": "\"No access will be granted and no repair will run. \""
+    },
+    {
+      "language": "python",
+      "line": 1113,
+      "path": "ui\\main_window.py",
+      "text": "\"The append-only security audit log and lock file may be \""
+    },
+    {
+      "language": "python",
+      "line": 1114,
+      "path": "ui\\main_window.py",
+      "text": "\"created or updated.\""
+    },
+    {
+      "language": "python",
+      "line": 1115,
+      "path": "ui\\main_window.py",
+      "text": "),"
+    },
+    {
+      "language": "python",
+      "line": 1116,
+      "path": "ui\\main_window.py",
+      "text": "parent=self,"
+    },
+    {
+      "language": "python",
+      "line": 1117,
+      "path": "ui\\main_window.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1118,
+      "path": "ui\\main_window.py",
+      "text": "if not confirmed:"
+    },
+    {
+      "language": "python",
+      "line": 1119,
+      "path": "ui\\main_window.py",
+      "text": "if hasattr(self, \"trip_sentry_status\"):"
+    },
+    {
+      "language": "python",
+      "line": 1120,
+      "path": "ui\\main_window.py",
+      "text": "self.trip_sentry_status.set("
+    },
+    {
+      "language": "python",
+      "line": 1121,
+      "path": "ui\\main_window.py",
+      "text": "\"CANCELLED // No TEST incident was generated.\""
+    },
+    {
+      "language": "python",
+      "line": 1122,
+      "path": "ui\\main_window.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1123,
+      "path": "ui\\main_window.py",
+      "text": "return"
+    },
+    {
+      "language": "python",
+      "line": 1125,
+      "path": "ui\\main_window.py",
+      "text": "correlation_id = new_airlock_correlation_id()"
+    },
+    {
+      "language": "python",
+      "line": 1126,
+      "path": "ui\\main_window.py",
+      "text": "mission_id = f\"desktop_trip_sentry_{time.strftime('%Y%m%dT%H%M%S')}\""
+    },
+    {
+      "language": "python",
+      "line": 1127,
+      "path": "ui\\main_window.py",
+      "text": "receipt = record_trip_sentry_test_event("
+    },
+    {
+      "language": "python",
+      "line": 1128,
+      "path": "ui\\main_window.py",
+      "text": "correlation_id=correlation_id,"
+    },
+    {
+      "language": "python",
+      "line": 1129,
+      "path": "ui\\main_window.py",
+      "text": "mission_id=mission_id,"
+    },
+    {
+      "language": "python",
+      "line": 1130,
+      "path": "ui\\main_window.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1131,
+      "path": "ui\\main_window.py",
+      "text": "verified = bool(receipt.get(\"verified\"))"
+    },
+    {
+      "language": "python",
+      "line": 1132,
+      "path": "ui\\main_window.py",
+      "text": "event = (receipt.get(\"details\") or {}).get(\"event\") or {}"
+    },
+    {
+      "language": "python",
+      "line": 1133,
+      "path": "ui\\main_window.py",
+      "text": "lines = ["
+    },
+    {
+      "language": "python",
+      "line": 1134,
+      "path": "ui\\main_window.py",
+      "text": "f\"State: {receipt.get('state', 'unknown')}\","
+    },
+    {
+      "language": "python",
+      "line": 1135,
+      "path": "ui\\main_window.py",
+      "text": "f\"Verified: {verified}\","
+    },
+    {
+      "language": "python",
+      "line": 1136,
+      "path": "ui\\main_window.py",
+      "text": "f\"Receipt ID: {receipt.get('receipt_id', '')}\","
+    },
+    {
+      "language": "python",
+      "line": 1137,
+      "path": "ui\\main_window.py",
+      "text": "f\"Event ID: {event.get('event_id', '')}\","
+    },
+    {
+      "language": "python",
+      "line": 1138,
+      "path": "ui\\main_window.py",
+      "text": "f\"Correlation ID: {event.get('correlation_id', correlation_id)}\","
+    },
+    {
+      "language": "python",
+      "line": 1139,
+      "path": "ui\\main_window.py",
+      "text": "f\"Mission ID: {event.get('mission_id', mission_id)}\","
+    },
+    {
+      "language": "python",
+      "line": 1140,
+      "path": "ui\\main_window.py",
+      "text": "f\"Decision: {event.get('decision', '')}\","
+    },
+    {
+      "language": "python",
+      "line": 1141,
+      "path": "ui\\main_window.py",
+      "text": "f\"Action: {event.get('action', '')}\","
+    },
+    {
+      "language": "python",
+      "line": 1142,
+      "path": "ui\\main_window.py",
+      "text": "f\"TEST Event: {event.get('test_event', False)}\","
+    },
+    {
+      "language": "python",
+      "line": 1143,
+      "path": "ui\\main_window.py",
+      "text": "f\"Log: {(receipt.get('details') or {}).get('log_path', '')}\","
+    },
+    {
+      "language": "python",
+      "line": 1144,
+      "path": "ui\\main_window.py",
+      "text": "]"
+    },
+    {
+      "language": "python",
+      "line": 1146,
+      "path": "ui\\main_window.py",
+      "text": "if hasattr(self, \"trip_sentry_result_box\"):"
+    },
+    {
+      "language": "python",
+      "line": 1147,
+      "path": "ui\\main_window.py",
+      "text": "self.trip_sentry_result_box.configure(state=\"normal\")"
+    },
+    {
+      "language": "python",
+      "line": 1148,
+      "path": "ui\\main_window.py",
+      "text": "self.trip_sentry_result_box.delete(\"1.0\", \"end\")"
+    },
+    {
+      "language": "python",
+      "line": 1149,
+      "path": "ui\\main_window.py",
+      "text": "self.trip_sentry_result_box.insert(\"end\", \"\\n\".join(lines))"
+    },
+    {
+      "language": "python",
+      "line": 1150,
+      "path": "ui\\main_window.py",
+      "text": "self.trip_sentry_result_box.configure(state=\"disabled\")"
+    },
+    {
+      "language": "python",
+      "line": 1152,
+      "path": "ui\\main_window.py",
+      "text": "if verified:"
+    },
+    {
+      "language": "python",
+      "line": 1153,
+      "path": "ui\\main_window.py",
+      "text": "self.trip_sentry_status.set("
+    },
+    {
+      "language": "python",
+      "line": 1154,
+      "path": "ui\\main_window.py",
+      "text": "\"VERIFIED TEST INCIDENT // Fox Sentry logging and warning \""
+    },
+    {
+      "language": "python",
+      "line": 1155,
+      "path": "ui\\main_window.py",
+      "text": "\"path completed without granting access.\""
+    },
+    {
+      "language": "python",
+      "line": 1156,
+      "path": "ui\\main_window.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1157,
+      "path": "ui\\main_window.py",
+      "text": "self._show_trip_sentry_omega_alert(receipt)"
+    },
+    {
+      "language": "python",
+      "line": 1158,
+      "path": "ui\\main_window.py",
+      "text": "self.refresh_fox_sentry_incidents()"
+    },
+    {
+      "language": "python",
+      "line": 1159,
+      "path": "ui\\main_window.py",
+      "text": "else:"
+    },
+    {
+      "language": "python",
+      "line": 1160,
+      "path": "ui\\main_window.py",
+      "text": "self.trip_sentry_status.set("
+    },
+    {
+      "language": "python",
+      "line": 1161,
+      "path": "ui\\main_window.py",
+      "text": "\"TEST FAILED CLOSED // No verified security receipt was produced.\""
+    },
+    {
+      "language": "python",
+      "line": 1162,
+      "path": "ui\\main_window.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1163,
+      "path": "ui\\main_window.py",
+      "text": "messagebox.showerror("
+    },
+    {
+      "language": "python",
+      "line": 1164,
+      "path": "ui\\main_window.py",
+      "text": "\"Trip Sentry Test Failed Closed\","
+    },
+    {
+      "language": "python",
+      "line": 1165,
+      "path": "ui\\main_window.py",
+      "text": "("
+    },
+    {
+      "language": "python",
+      "line": 1166,
+      "path": "ui\\main_window.py",
+      "text": "\"Fox Sentry did not produce a verified audit receipt. \""
+    },
+    {
+      "language": "python",
+      "line": 1167,
+      "path": "ui\\main_window.py",
+      "text": "\"The test is not being reported as successful.\""
+    },
+    {
+      "language": "python",
+      "line": 1168,
+      "path": "ui\\main_window.py",
+      "text": "),"
+    },
+    {
+      "language": "python",
+      "line": 1169,
+      "path": "ui\\main_window.py",
+      "text": "parent=self,"
+    },
+    {
+      "language": "python",
+      "line": 1170,
+      "path": "ui\\main_window.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1172,
+      "path": "ui\\main_window.py",
+      "text": "def _destroy_mission_context_menus(self):"
+    },
+    {
+      "language": "python",
+      "line": 1173,
+      "path": "ui\\main_window.py",
+      "text": "for menu in getattr(self, \"_mission_context_menus\", []):"
+    },
+    {
+      "language": "python",
+      "line": 1174,
+      "path": "ui\\main_window.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 1175,
+      "path": "ui\\main_window.py",
+      "text": "menu.destroy()"
+    },
+    {
+      "language": "python",
+      "line": 1176,
+      "path": "ui\\main_window.py",
+      "text": "except Exception:"
+    },
+    {
+      "language": "python",
+      "line": 1177,
+      "path": "ui\\main_window.py",
+      "text": "pass"
+    },
+    {
+      "language": "python",
+      "line": 1178,
+      "path": "ui\\main_window.py",
+      "text": "self._mission_context_menus = []"
+    },
+    {
+      "language": "python",
+      "line": 1180,
+      "path": "ui\\main_window.py",
+      "text": "@staticmethod"
+    },
+    {
+      "language": "python",
+      "line": 1181,
+      "path": "ui\\main_window.py",
+      "text": "def _mission_text_widget(textbox):"
+    },
+    {
+      "language": "python",
+      "line": 1182,
+      "path": "ui\\main_window.py",
+      "text": "return getattr(textbox, \"_textbox\", textbox)"
+    },
+    {
+      "language": "python",
+      "line": 1184,
+      "path": "ui\\main_window.py",
+      "text": "@staticmethod"
+    },
+    {
+      "language": "python",
+      "line": 1185,
+      "path": "ui\\main_window.py",
+      "text": "def _select_all_mission_text(text_widget):"
+    },
+    {
+      "language": "python",
+      "line": 1186,
+      "path": "ui\\main_window.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 1187,
+      "path": "ui\\main_window.py",
+      "text": "text_widget.tag_add(\"sel\", \"1.0\", \"end-1c\")"
+    },
+    {
+      "language": "python",
+      "line": 1188,
+      "path": "ui\\main_window.py",
+      "text": "text_widget.mark_set(\"insert\", \"1.0\")"
+    },
+    {
+      "language": "python",
+      "line": 1189,
+      "path": "ui\\main_window.py",
+      "text": "text_widget.see(\"insert\")"
+    },
+    {
+      "language": "python",
+      "line": 1190,
+      "path": "ui\\main_window.py",
+      "text": "except tk.TclError:"
+    },
+    {
+      "language": "python",
+      "line": 1191,
+      "path": "ui\\main_window.py",
+      "text": "pass"
+    },
+    {
+      "language": "python",
+      "line": 1192,
+      "path": "ui\\main_window.py",
+      "text": "return \"break\""
+    },
+    {
+      "language": "python",
+      "line": 1194,
+      "path": "ui\\main_window.py",
+      "text": "def _bind_mission_context_menu(self, textbox, editable):"
+    },
+    {
+      "language": "python",
+      "line": 1195,
+      "path": "ui\\main_window.py",
+      "text": "text_widget = self._mission_text_widget(textbox)"
+    },
+    {
+      "language": "python",
+      "line": 1196,
+      "path": "ui\\main_window.py",
+      "text": "menu = tk.Menu(self, tearoff=False)"
+    },
+    {
+      "language": "python",
+      "line": 1198,
+      "path": "ui\\main_window.py",
+      "text": "if editable:"
+    },
+    {
+      "language": "python",
+      "line": 1199,
+      "path": "ui\\main_window.py",
+      "text": "menu.add_command("
+    },
+    {
+      "language": "python",
+      "line": 1200,
+      "path": "ui\\main_window.py",
+      "text": "label=\"Cut\","
+    },
+    {
+      "language": "python",
+      "line": 1201,
+      "path": "ui\\main_window.py",
+      "text": "command=lambda: text_widget.event_generate(\"<<Cut>>\"),"
+    },
+    {
+      "language": "python",
+      "line": 1202,
+      "path": "ui\\main_window.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1204,
+      "path": "ui\\main_window.py",
+      "text": "menu.add_command("
+    },
+    {
+      "language": "python",
+      "line": 1205,
+      "path": "ui\\main_window.py",
+      "text": "label=\"Copy\","
+    },
+    {
+      "language": "python",
+      "line": 1206,
+      "path": "ui\\main_window.py",
+      "text": "command=lambda: text_widget.event_generate(\"<<Copy>>\"),"
+    },
+    {
+      "language": "python",
+      "line": 1207,
+      "path": "ui\\main_window.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1209,
+      "path": "ui\\main_window.py",
+      "text": "if editable:"
+    },
+    {
+      "language": "python",
+      "line": 1210,
+      "path": "ui\\main_window.py",
+      "text": "menu.add_command("
+    },
+    {
+      "language": "python",
+      "line": 1211,
+      "path": "ui\\main_window.py",
+      "text": "label=\"Paste\","
+    },
+    {
+      "language": "python",
+      "line": 1212,
+      "path": "ui\\main_window.py",
+      "text": "command=lambda: text_widget.event_generate(\"<<Paste>>\"),"
+    },
+    {
+      "language": "python",
+      "line": 1213,
+      "path": "ui\\main_window.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1215,
+      "path": "ui\\main_window.py",
+      "text": "menu.add_separator()"
+    },
+    {
+      "language": "python",
+      "line": 1216,
+      "path": "ui\\main_window.py",
+      "text": "menu.add_command("
+    },
+    {
+      "language": "python",
+      "line": 1217,
+      "path": "ui\\main_window.py",
+      "text": "label=\"Select All\","
+    },
+    {
+      "language": "python",
+      "line": 1218,
+      "path": "ui\\main_window.py",
+      "text": "command=lambda: self._select_all_mission_text(text_widget),"
+    },
+    {
+      "language": "python",
+      "line": 1219,
+      "path": "ui\\main_window.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1221,
+      "path": "ui\\main_window.py",
+      "text": "def show_menu(event):"
+    },
+    {
+      "language": "python",
+      "line": 1222,
+      "path": "ui\\main_window.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 1223,
+      "path": "ui\\main_window.py",
+      "text": "if editable and not text_widget.tag_ranges(\"sel\"):"
+    },
+    {
+      "language": "python",
+      "line": 1224,
+      "path": "ui\\main_window.py",
+      "text": "text_widget.mark_set(\"insert\", f\"@{event.x},{event.y}\")"
+    },
+    {
+      "language": "python",
+      "line": 1225,
+      "path": "ui\\main_window.py",
+      "text": "menu.tk_popup(event.x_root, event.y_root)"
+    },
+    {
+      "language": "python",
+      "line": 1226,
+      "path": "ui\\main_window.py",
+      "text": "finally:"
+    },
+    {
+      "language": "python",
+      "line": 1227,
+      "path": "ui\\main_window.py",
+      "text": "menu.grab_release()"
+    },
+    {
+      "language": "python",
+      "line": 1228,
+      "path": "ui\\main_window.py",
+      "text": "return \"break\""
+    },
+    {
+      "language": "python",
+      "line": 1230,
+      "path": "ui\\main_window.py",
+      "text": "text_widget.bind(\"<Button-3>\", show_menu, add=\"+\")"
+    },
+    {
+      "language": "python",
+      "line": 1231,
+      "path": "ui\\main_window.py",
+      "text": "self._mission_context_menus.append(menu)"
+    },
+    {
+      "language": "python",
+      "line": 1233,
+      "path": "ui\\main_window.py",
+      "text": "def show_mission_console(self):"
+    },
+    {
+      "language": "python",
+      "line": 1234,
+      "path": "ui\\main_window.py",
+      "text": "self.clear_content()"
+    },
+    {
+      "language": "python",
+      "line": 1235,
+      "path": "ui\\main_window.py",
+      "text": "self._destroy_mission_context_menus()"
+    },
+    {
+      "language": "python",
+      "line": 1236,
+      "path": "ui\\main_window.py",
+      "text": "self.make_title(\"MISSION CONSOLE\")"
+    },
+    {
+      "language": "python",
+      "line": 1237,
+      "path": "ui\\main_window.py",
+      "text": "self.chat_box = ctk.CTkTextbox(self.content, wrap=\"word\", state=\"disabled\", font=(\"Consolas\", 13))"
+    },
+    {
+      "language": "python",
+      "line": 1238,
+      "path": "ui\\main_window.py",
+      "text": "self.chat_box.pack(padx=15, pady=10, fill=\"both\", expand=True)"
+    },
+    {
+      "language": "python",
+      "line": 1239,
+      "path": "ui\\main_window.py",
+      "text": "self._bind_mission_context_menu(self.chat_box, editable=False)"
+    },
+    {
+      "language": "python",
+      "line": 1240,
+      "path": "ui\\main_window.py",
+      "text": "bottom = ctk.CTkFrame(self.content)"
+    },
+    {
+      "language": "python",
+      "line": 1241,
+      "path": "ui\\main_window.py",
+      "text": "bottom.pack(padx=15, pady=(0, 10), fill=\"x\")"
+    },
+    {
+      "language": "python",
+      "line": 1242,
+      "path": "ui\\main_window.py",
+      "text": "self.input_box = ctk.CTkTextbox(bottom, height=90, wrap=\"word\", font=(\"Consolas\", 13))"
+    },
+    {
+      "language": "python",
+      "line": 1243,
+      "path": "ui\\main_window.py",
+      "text": "self.input_box.pack(side=\"left\", padx=10, pady=10, fill=\"x\", expand=True)"
+    },
+    {
+      "language": "python",
+      "line": 1244,
+      "path": "ui\\main_window.py",
+      "text": "self._bind_mission_context_menu(self.input_box, editable=True)"
+    },
+    {
+      "language": "python",
+      "line": 1245,
+      "path": "ui\\main_window.py",
+      "text": "self.input_box.bind(\"<Return>\", self.send_message)"
+    },
+    {
+      "language": "python",
+      "line": 1246,
+      "path": "ui\\main_window.py",
+      "text": "self.send_button = ctk.CTkButton(bottom, text=\"SEND\", command=self.send_message, width=100)"
+    },
+    {
+      "language": "python",
+      "line": 1247,
+      "path": "ui\\main_window.py",
+      "text": "self.send_button.pack(side=\"right\", padx=10, pady=10)"
+    },
+    {
+      "language": "python",
+      "line": 1248,
+      "path": "ui\\main_window.py",
+      "text": "self.apply_workshop_state()"
+    },
+    {
+      "language": "python",
+      "line": 1249,
+      "path": "ui\\main_window.py",
+      "text": "self.make_status_bar()"
+    },
+    {
+      "language": "python",
+      "line": 1251,
+      "path": "ui\\main_window.py",
+      "text": "def show_red_canvas(self):"
+    },
+    {
+      "language": "python",
+      "line": 1252,
+      "path": "ui\\main_window.py",
+      "text": "self.clear_content()"
+    },
+    {
+      "language": "python",
+      "line": 1253,
+      "path": "ui\\main_window.py",
+      "text": "self.make_title(\"RED CANVAS // VISUAL OPERATIONS\")"
+    },
+    {
+      "language": "python",
+      "line": 1254,
+      "path": "ui\\main_window.py",
+      "text": "frame = ctk.CTkFrame(self.content)"
+    },
+    {
+      "language": "python",
+      "line": 1255,
+      "path": "ui\\main_window.py",
+      "text": "frame.pack(fill=\"both\", expand=True, padx=20, pady=20)"
+    },
+    {
+      "language": "python",
+      "line": 1256,
+      "path": "ui\\main_window.py",
+      "text": "controls = ctk.CTkScrollableFrame(frame, width=360)"
+    },
+    {
+      "language": "python",
+      "line": 1257,
+      "path": "ui\\main_window.py",
+      "text": "controls.pack(side=\"left\", fill=\"y\", padx=(0, 15), pady=10)"
+    },
+    {
+      "language": "python",
+      "line": 1258,
+      "path": "ui\\main_window.py",
+      "text": "preview = ctk.CTkFrame(frame)"
+    },
+    {
+      "language": "python",
+      "line": 1259,
+      "path": "ui\\main_window.py",
+      "text": "preview.pack(side=\"right\", fill=\"both\", expand=True, padx=(15, 0), pady=10)"
+    },
+    {
+      "language": "python",
+      "line": 1261,
+      "path": "ui\\main_window.py",
+      "text": "ctk.CTkLabel(controls, text=\"CHECKPOINT\", font=(\"Consolas\", 12, \"bold\")).pack(pady=(15, 5))"
+    },
+    {
+      "language": "python",
+      "line": 1262,
+      "path": "ui\\main_window.py",
+      "text": "self.canvas_checkpoint = ctk.CTkOptionMenu("
+    },
+    {
+      "language": "python",
+      "line": 1263,
+      "path": "ui\\main_window.py",
+      "text": "controls,"
+    },
+    {
+      "language": "python",
+      "line": 1264,
+      "path": "ui\\main_window.py",
+      "text": "values=find_checkpoints(),"
+    },
+    {
+      "language": "python",
+      "line": 1265,
+      "path": "ui\\main_window.py",
+      "text": "width=300"
+    },
+    {
+      "language": "python",
+      "line": 1266,
+      "path": "ui\\main_window.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1267,
+      "path": "ui\\main_window.py",
+      "text": "self.canvas_checkpoint.pack(pady=5)"
+    },
+    {
+      "language": "python",
+      "line": 1269,
+      "path": "ui\\main_window.py",
+      "text": "ctk.CTkLabel(controls, text=\"STYLE\", font=(\"Consolas\", 12, \"bold\")).pack(pady=(12, 5))"
+    },
+    {
+      "language": "python",
+      "line": 1270,
+      "path": "ui\\main_window.py",
+      "text": "self.prompt_style = ctk.CTkOptionMenu("
+    },
+    {
+      "language": "python",
+      "line": 1271,
+      "path": "ui\\main_window.py",
+      "text": "controls,"
+    },
+    {
+      "language": "python",
+      "line": 1272,
+      "path": "ui\\main_window.py",
+      "text": "values=[\"Fantasy\", \"Cyberpunk\", \"Creature Design\", \"Photorealistic\"],"
+    },
+    {
+      "language": "python",
+      "line": 1273,
+      "path": "ui\\main_window.py",
+      "text": "width=300"
+    },
+    {
+      "language": "python",
+      "line": 1274,
+      "path": "ui\\main_window.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1275,
+      "path": "ui\\main_window.py",
+      "text": "self.prompt_style.pack(pady=5)"
+    },
+    {
+      "language": "python",
+      "line": 1277,
+      "path": "ui\\main_window.py",
+      "text": "ctk.CTkLabel(controls, text=\"QUALITY\", font=(\"Consolas\", 12, \"bold\")).pack(pady=(12, 5))"
+    },
+    {
+      "language": "python",
+      "line": 1278,
+      "path": "ui\\main_window.py",
+      "text": "self.prompt_quality = ctk.CTkOptionMenu("
+    },
+    {
+      "language": "python",
+      "line": 1279,
+      "path": "ui\\main_window.py",
+      "text": "controls,"
+    },
+    {
+      "language": "python",
+      "line": 1280,
+      "path": "ui\\main_window.py",
+      "text": "values=[\"Fast\", \"Balanced\", \"Masterpiece\"],"
+    },
+    {
+      "language": "python",
+      "line": 1281,
+      "path": "ui\\main_window.py",
+      "text": "width=300"
+    },
+    {
+      "language": "python",
+      "line": 1282,
+      "path": "ui\\main_window.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1283,
+      "path": "ui\\main_window.py",
+      "text": "self.prompt_quality.set(\"Masterpiece\")"
+    },
+    {
+      "language": "python",
+      "line": 1284,
+      "path": "ui\\main_window.py",
+      "text": "self.prompt_quality.pack(pady=5)"
+    },
+    {
+      "language": "python",
+      "line": 1286,
+      "path": "ui\\main_window.py",
+      "text": "ctk.CTkLabel(controls, text=\"PROMPT\", font=(\"Consolas\", 12, \"bold\")).pack(pady=(15, 5))"
+    },
+    {
+      "language": "python",
+      "line": 1287,
+      "path": "ui\\main_window.py",
+      "text": "self.canvas_prompt = ctk.CTkTextbox(controls, height=145, width=300, font=(\"Consolas\", 12))"
+    },
+    {
+      "language": "python",
+      "line": 1288,
+      "path": "ui\\main_window.py",
+      "text": "self.canvas_prompt.pack(pady=5)"
+    },
+    {
+      "language": "python",
+      "line": 1289,
+      "path": "ui\\main_window.py",
+      "text": "self.canvas_prompt.insert(\"1.0\", \"A humanoid Prototaxites wearing ornate medieval plate armor, glowing spores, cinematic lighting, fantasy concept art\")"
+    },
+    {
+      "language": "python",
+      "line": 1291,
+      "path": "ui\\main_window.py",
+      "text": "ctk.CTkLabel(controls, text=\"NEGATIVE PROMPT\", font=(\"Consolas\", 12, \"bold\")).pack(pady=(15, 5))"
+    },
+    {
+      "language": "python",
+      "line": 1292,
+      "path": "ui\\main_window.py",
+      "text": "self.canvas_negative = ctk.CTkTextbox(controls, height=80, width=300, font=(\"Consolas\", 12))"
+    },
+    {
+      "language": "python",
+      "line": 1293,
+      "path": "ui\\main_window.py",
+      "text": "self.canvas_negative.pack(pady=5)"
+    },
+    {
+      "language": "python",
+      "line": 1294,
+      "path": "ui\\main_window.py",
+      "text": "self.canvas_negative.insert(\"1.0\", \"blurry, low quality, watermark, text, deformed, extra limbs\")"
+    },
+    {
+      "language": "python",
+      "line": 1296,
+      "path": "ui\\main_window.py",
+      "text": "ctk.CTkLabel(controls, text=\"SIZE\", font=(\"Consolas\", 12, \"bold\")).pack(pady=(15, 5))"
+    },
+    {
+      "language": "python",
+      "line": 1297,
+      "path": "ui\\main_window.py",
+      "text": "self.canvas_size = ctk.CTkOptionMenu(controls, values=[\"1024x1024\", \"768x768\", \"512x512\"], width=300)"
+    },
+    {
+      "language": "python",
+      "line": 1298,
+      "path": "ui\\main_window.py",
+      "text": "self.canvas_size.pack(pady=5)"
+    },
+    {
+      "language": "python",
+      "line": 1300,
+      "path": "ui\\main_window.py",
+      "text": "ctk.CTkLabel(controls, text=\"SEED\", font=(\"Consolas\", 12, \"bold\")).pack(pady=(15, 5))"
+    },
+    {
+      "language": "python",
+      "line": 1301,
+      "path": "ui\\main_window.py",
+      "text": "self.canvas_seed = ctk.CTkEntry(controls, placeholder_text=\"Leave blank to use workflow seed\", width=300)"
+    },
+    {
+      "language": "python",
+      "line": 1302,
+      "path": "ui\\main_window.py",
+      "text": "self.canvas_seed.pack(pady=5)"
+    },
+    {
+      "language": "python",
+      "line": 1304,
+      "path": "ui\\main_window.py",
+      "text": "self.promptsmith_button = ctk.CTkButton(controls, text=\"PROMPTSMITH\", command=self.run_promptsmith, width=300)"
+    },
+    {
+      "language": "python",
+      "line": 1305,
+      "path": "ui\\main_window.py",
+      "text": "self.promptsmith_button.pack(pady=(20, 5))"
+    },
+    {
+      "language": "python",
+      "line": 1307,
+      "path": "ui\\main_window.py",
+      "text": "self.save_prompt_button = ctk.CTkButton(controls, text=\"SAVE PROMPT\", command=self.save_canvas_prompt, width=300)"
+    },
+    {
+      "language": "python",
+      "line": 1308,
+      "path": "ui\\main_window.py",
+      "text": "self.save_prompt_button.pack(pady=5)"
+    },
+    {
+      "language": "python",
+      "line": 1310,
+      "path": "ui\\main_window.py",
+      "text": "self.generate_button = ctk.CTkButton(controls, text=\"GENERATE\", command=self.generate_red_canvas, width=300)"
+    },
+    {
+      "language": "python",
+      "line": 1311,
+      "path": "ui\\main_window.py",
+      "text": "self.generate_button.pack(pady=5)"
+    },
+    {
+      "language": "python",
+      "line": 1312,
+      "path": "ui\\main_window.py",
+      "text": "self.apply_workshop_state()"
+    },
+    {
+      "language": "python",
+      "line": 1314,
+      "path": "ui\\main_window.py",
+      "text": "comfy_status = \"ONLINE\" if is_comfy_running() else \"OFFLINE\""
+    },
+    {
+      "language": "python",
+      "line": 1315,
+      "path": "ui\\main_window.py",
+      "text": "initial_canvas_text = ("
+    },
+    {
+      "language": "python",
+      "line": 1316,
+      "path": "ui\\main_window.py",
+      "text": "self.red_canvas_progress_text"
+    },
+    {
+      "language": "python",
+      "line": 1317,
+      "path": "ui\\main_window.py",
+      "text": "if self.red_canvas_active and self.red_canvas_progress_text"
+    },
+    {
+      "language": "python",
+      "line": 1318,
+      "path": "ui\\main_window.py",
+      "text": "else f\"COMFYUI STATUS: {comfy_status}\\n\\nReady for Operation Red Bridge.\""
+    },
+    {
+      "language": "python",
+      "line": 1319,
+      "path": "ui\\main_window.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1320,
+      "path": "ui\\main_window.py",
+      "text": "self.canvas_status = ctk.CTkLabel("
+    },
+    {
+      "language": "python",
+      "line": 1321,
+      "path": "ui\\main_window.py",
+      "text": "preview,"
+    },
+    {
+      "language": "python",
+      "line": 1322,
+      "path": "ui\\main_window.py",
+      "text": "text=initial_canvas_text,"
+    },
+    {
+      "language": "python",
+      "line": 1323,
+      "path": "ui\\main_window.py",
+      "text": "font=(\"Consolas\", 14),"
+    },
+    {
+      "language": "python",
+      "line": 1324,
+      "path": "ui\\main_window.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1325,
+      "path": "ui\\main_window.py",
+      "text": "self.canvas_status.pack(pady=(20, 10))"
+    },
+    {
+      "language": "python",
+      "line": 1327,
+      "path": "ui\\main_window.py",
+      "text": "self.canvas_progress = ctk.CTkProgressBar(preview, width=460)"
+    },
+    {
+      "language": "python",
+      "line": 1328,
+      "path": "ui\\main_window.py",
+      "text": "self.canvas_progress.pack(pady=10)"
+    },
+    {
+      "language": "python",
+      "line": 1329,
+      "path": "ui\\main_window.py",
+      "text": "self.canvas_progress.set("
+    },
+    {
+      "language": "python",
+      "line": 1330,
+      "path": "ui\\main_window.py",
+      "text": "self.red_canvas_progress_percent / 100.0"
+    },
+    {
+      "language": "python",
+      "line": 1331,
+      "path": "ui\\main_window.py",
+      "text": "if self.red_canvas_active"
+    },
+    {
+      "language": "python",
+      "line": 1332,
+      "path": "ui\\main_window.py",
+      "text": "else 0"
+    },
+    {
+      "language": "python",
+      "line": 1333,
+      "path": "ui\\main_window.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1335,
+      "path": "ui\\main_window.py",
+      "text": "self.preview_area = preview"
+    },
+    {
+      "language": "python",
+      "line": 1336,
+      "path": "ui\\main_window.py",
+      "text": "ctk.CTkLabel(preview, text=\"IMAGE PREVIEW\", font=(\"Consolas\", 18, \"bold\")).pack(pady=(20, 10))"
+    },
+    {
+      "language": "python",
+      "line": 1337,
+      "path": "ui\\main_window.py",
+      "text": "if self.last_canvas_image and self.last_canvas_image.exists():"
+    },
+    {
+      "language": "python",
+      "line": 1338,
+      "path": "ui\\main_window.py",
+      "text": "self.display_canvas_image(self.last_canvas_image, preview)"
+    },
+    {
+      "language": "python",
+      "line": 1339,
+      "path": "ui\\main_window.py",
+      "text": "else:"
+    },
+    {
+      "language": "python",
+      "line": 1340,
+      "path": "ui\\main_window.py",
+      "text": "ctk.CTkLabel(preview, text=\"Generated images will appear here.\\nOutputs save to Red Canvas\\\\Outputs.\", font=(\"Consolas\", 14)).pack(pady=20)"
+    },
+    {
+      "language": "python",
+      "line": 1341,
+      "path": "ui\\main_window.py",
+      "text": "self.make_status_bar()"
+    },
+    {
+      "language": "python",
+      "line": 1343,
+      "path": "ui\\main_window.py",
+      "text": "def save_canvas_prompt(self):"
+    },
+    {
+      "language": "python",
+      "line": 1344,
+      "path": "ui\\main_window.py",
+      "text": "path = save_prompt("
+    },
+    {
+      "language": "python",
+      "line": 1345,
+      "path": "ui\\main_window.py",
+      "text": "self.canvas_prompt.get(\"1.0\", \"end\").strip(),"
+    },
+    {
+      "language": "python",
+      "line": 1346,
+      "path": "ui\\main_window.py",
+      "text": "self.canvas_negative.get(\"1.0\", \"end\").strip(),"
+    },
+    {
+      "language": "python",
+      "line": 1347,
+      "path": "ui\\main_window.py",
+      "text": "self.canvas_checkpoint.get(),"
+    },
+    {
+      "language": "python",
+      "line": 1348,
+      "path": "ui\\main_window.py",
+      "text": "self.canvas_size.get()"
+    },
+    {
+      "language": "python",
+      "line": 1349,
+      "path": "ui\\main_window.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1350,
+      "path": "ui\\main_window.py",
+      "text": "self.status.set(\"ARCHIVED\")"
+    },
+    {
+      "language": "python",
+      "line": 1351,
+      "path": "ui\\main_window.py",
+      "text": "self.show_mission_console()"
+    },
+    {
+      "language": "python",
+      "line": 1352,
+      "path": "ui\\main_window.py",
+      "text": "self.add_chat(\"RED CANVAS\", f\"Prompt archived:\\n{path}\")"
+    },
+    {
+      "language": "python",
+      "line": 1355,
+      "path": "ui\\main_window.py",
+      "text": "def run_promptsmith(self):"
+    },
+    {
+      "language": "python",
+      "line": 1356,
+      "path": "ui\\main_window.py",
+      "text": "simple_prompt = self.canvas_prompt.get(\"1.0\", \"end\").strip()"
+    },
+    {
+      "language": "python",
+      "line": 1357,
+      "path": "ui\\main_window.py",
+      "text": "style = self.prompt_style.get()"
+    },
+    {
+      "language": "python",
+      "line": 1358,
+      "path": "ui\\main_window.py",
+      "text": "quality = self.prompt_quality.get()"
+    },
+    {
+      "language": "python",
+      "line": 1360,
+      "path": "ui\\main_window.py",
+      "text": "positive, negative = build_prompt("
+    },
+    {
+      "language": "python",
+      "line": 1361,
+      "path": "ui\\main_window.py",
+      "text": "simple_prompt,"
+    },
+    {
+      "language": "python",
+      "line": 1362,
+      "path": "ui\\main_window.py",
+      "text": "style=style,"
+    },
+    {
+      "language": "python",
+      "line": 1363,
+      "path": "ui\\main_window.py",
+      "text": "quality=quality"
+    },
+    {
+      "language": "python",
+      "line": 1364,
+      "path": "ui\\main_window.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1366,
+      "path": "ui\\main_window.py",
+      "text": "self.canvas_prompt.delete(\"1.0\", \"end\")"
+    },
+    {
+      "language": "python",
+      "line": 1367,
+      "path": "ui\\main_window.py",
+      "text": "self.canvas_prompt.insert(\"1.0\", positive)"
+    },
+    {
+      "language": "python",
+      "line": 1369,
+      "path": "ui\\main_window.py",
+      "text": "self.canvas_negative.delete(\"1.0\", \"end\")"
+    },
+    {
+      "language": "python",
+      "line": 1370,
+      "path": "ui\\main_window.py",
+      "text": "self.canvas_negative.insert(\"1.0\", negative)"
+    },
+    {
+      "language": "python",
+      "line": 1372,
+      "path": "ui\\main_window.py",
+      "text": "self.status.set(\"PROMPTSMITH\")"
+    },
+    {
+      "language": "python",
+      "line": 1373,
+      "path": "ui\\main_window.py",
+      "text": "self.canvas_status.configure("
+    },
+    {
+      "language": "python",
+      "line": 1374,
+      "path": "ui\\main_window.py",
+      "text": "text=f\"PROMPTSMITH COMPLETE\\n\\nStyle: {style}\\nQuality: {quality}\\nPrompt upgraded for Red Canvas.\""
+    },
+    {
+      "language": "python",
+      "line": 1375,
+      "path": "ui\\main_window.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1378,
+      "path": "ui\\main_window.py",
+      "text": "def generate_red_canvas(self):"
+    },
+    {
+      "language": "python",
+      "line": 1379,
+      "path": "ui\\main_window.py",
+      "text": "if self.brainstem.is_busy() and self.brainstem.active_specialist != \"Red Canvas\":"
+    },
+    {
+      "language": "python",
+      "line": 1380,
+      "path": "ui\\main_window.py",
+      "text": "self.mission_status(\"MISSION LOCK ACTIVE\\n\\nAnother mission is already in progress.\")"
+    },
+    {
+      "language": "python",
+      "line": 1381,
+      "path": "ui\\main_window.py",
+      "text": "return"
+    },
+    {
+      "language": "python",
+      "line": 1383,
+      "path": "ui\\main_window.py",
+      "text": "if not self.brainstem.is_busy():"
+    },
+    {
+      "language": "python",
+      "line": 1384,
+      "path": "ui\\main_window.py",
+      "text": "self.begin_workshop_mission(\"Creative\", \"Red Canvas\")"
+    },
+    {
+      "language": "python",
+      "line": 1386,
+      "path": "ui\\main_window.py",
+      "text": "prompt = self.canvas_prompt.get(\"1.0\", \"end\").strip()"
+    },
+    {
+      "language": "python",
+      "line": 1387,
+      "path": "ui\\main_window.py",
+      "text": "negative = self.canvas_negative.get(\"1.0\", \"end\").strip()"
+    },
+    {
+      "language": "python",
+      "line": 1388,
+      "path": "ui\\main_window.py",
+      "text": "checkpoint = self.canvas_checkpoint.get()"
+    },
+    {
+      "language": "python",
+      "line": 1389,
+      "path": "ui\\main_window.py",
+      "text": "size = self.canvas_size.get()"
+    },
+    {
+      "language": "python",
+      "line": 1390,
+      "path": "ui\\main_window.py",
+      "text": "seed = self.canvas_seed.get().strip()"
+    },
+    {
+      "language": "python",
+      "line": 1391,
+      "path": "ui\\main_window.py",
+      "text": "if checkpoint == \"Use workflow default\":"
+    },
+    {
+      "language": "python",
+      "line": 1392,
+      "path": "ui\\main_window.py",
+      "text": "checkpoint = None"
+    },
+    {
+      "language": "python",
+      "line": 1393,
+      "path": "ui\\main_window.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 1394,
+      "path": "ui\\main_window.py",
+      "text": "width, height = [int(x) for x in size.lower().split(\"x\")]"
+    },
+    {
+      "language": "python",
+      "line": 1395,
+      "path": "ui\\main_window.py",
+      "text": "except Exception:"
+    },
+    {
+      "language": "python",
+      "line": 1396,
+      "path": "ui\\main_window.py",
+      "text": "width, height = 1024, 1024"
+    },
+    {
+      "language": "python",
+      "line": 1398,
+      "path": "ui\\main_window.py",
+      "text": "save_prompt(prompt, negative, checkpoint or \"workflow default\", size)"
+    },
+    {
+      "language": "python",
+      "line": 1399,
+      "path": "ui\\main_window.py",
+      "text": "self.status.set(\"RENDERING\")"
+    },
+    {
+      "language": "python",
+      "line": 1400,
+      "path": "ui\\main_window.py",
+      "text": "self.canvas_status.configure("
+    },
+    {
+      "language": "python",
+      "line": 1401,
+      "path": "ui\\main_window.py",
+      "text": "text=("
+    },
+    {
+      "language": "python",
+      "line": 1402,
+      "path": "ui\\main_window.py",
+      "text": "\"MISSION ACCEPTED\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1403,
+      "path": "ui\\main_window.py",
+      "text": "\"Sending prompt to ComfyUI...\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1404,
+      "path": "ui\\main_window.py",
+      "text": "\"Waiting for real generation progress.\""
+    },
+    {
+      "language": "python",
+      "line": 1405,
+      "path": "ui\\main_window.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1406,
+      "path": "ui\\main_window.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1407,
+      "path": "ui\\main_window.py",
+      "text": "self.canvas_progress.set(0)"
+    },
+    {
+      "language": "python",
+      "line": 1408,
+      "path": "ui\\main_window.py",
+      "text": "self._start_red_canvas_progress_tracking()"
+    },
+    {
+      "language": "python",
+      "line": 1409,
+      "path": "ui\\main_window.py",
+      "text": "threading.Thread("
+    },
+    {
+      "language": "python",
+      "line": 1410,
+      "path": "ui\\main_window.py",
+      "text": "target=self._generate_red_canvas_thread,"
+    },
+    {
+      "language": "python",
+      "line": 1411,
+      "path": "ui\\main_window.py",
+      "text": "args=(prompt, negative, checkpoint, width, height, seed),"
+    },
+    {
+      "language": "python",
+      "line": 1412,
+      "path": "ui\\main_window.py",
+      "text": "daemon=True"
+    },
+    {
+      "language": "python",
+      "line": 1413,
+      "path": "ui\\main_window.py",
+      "text": ").start()"
+    },
+    {
+      "language": "python",
+      "line": 1415,
+      "path": "ui\\main_window.py",
+      "text": "def _cancel_red_canvas_progress_tracking(self):"
+    },
+    {
+      "language": "python",
+      "line": 1416,
+      "path": "ui\\main_window.py",
+      "text": "if self.red_canvas_progress_job is not None:"
+    },
+    {
+      "language": "python",
+      "line": 1417,
+      "path": "ui\\main_window.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 1418,
+      "path": "ui\\main_window.py",
+      "text": "self.after_cancel(self.red_canvas_progress_job)"
+    },
+    {
+      "language": "python",
+      "line": 1419,
+      "path": "ui\\main_window.py",
+      "text": "except Exception:"
+    },
+    {
+      "language": "python",
+      "line": 1420,
+      "path": "ui\\main_window.py",
+      "text": "pass"
+    },
+    {
+      "language": "python",
+      "line": 1421,
+      "path": "ui\\main_window.py",
+      "text": "self.red_canvas_progress_job = None"
+    },
+    {
+      "language": "python",
+      "line": 1423,
+      "path": "ui\\main_window.py",
+      "text": "def _start_red_canvas_progress_tracking(self):"
+    },
+    {
+      "language": "python",
+      "line": 1424,
+      "path": "ui\\main_window.py",
+      "text": "\"\"\"Track only console output appended after this generation starts.\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 1425,
+      "path": "ui\\main_window.py",
+      "text": "self._cancel_red_canvas_progress_tracking()"
+    },
+    {
+      "language": "python",
+      "line": 1426,
+      "path": "ui\\main_window.py",
+      "text": "self.red_canvas_active = True"
+    },
+    {
+      "language": "python",
+      "line": 1427,
+      "path": "ui\\main_window.py",
+      "text": "self.red_canvas_progress_percent = 0"
+    },
+    {
+      "language": "python",
+      "line": 1428,
+      "path": "ui\\main_window.py",
+      "text": "self.red_canvas_progress_text = ("
+    },
+    {
+      "language": "python",
+      "line": 1429,
+      "path": "ui\\main_window.py",
+      "text": "\"MISSION ACCEPTED\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1430,
+      "path": "ui\\main_window.py",
+      "text": "\"Sending prompt to ComfyUI...\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1431,
+      "path": "ui\\main_window.py",
+      "text": "\"Waiting for real generation progress.\""
+    },
+    {
+      "language": "python",
+      "line": 1432,
+      "path": "ui\\main_window.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1433,
+      "path": "ui\\main_window.py",
+      "text": "self.red_canvas_log_path = None"
+    },
+    {
+      "language": "python",
+      "line": 1434,
+      "path": "ui\\main_window.py",
+      "text": "self.red_canvas_log_offset = 0"
+    },
+    {
+      "language": "python",
+      "line": 1435,
+      "path": "ui\\main_window.py",
+      "text": "self.red_canvas_log_buffer = \"\""
+    },
+    {
+      "language": "python",
+      "line": 1437,
+      "path": "ui\\main_window.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 1438,
+      "path": "ui\\main_window.py",
+      "text": "snapshot = comfy_operations_snapshot("
+    },
+    {
+      "language": "python",
+      "line": 1439,
+      "path": "ui\\main_window.py",
+      "text": "Path(__file__).resolve().parents[1],"
+    },
+    {
+      "language": "python",
+      "line": 1440,
+      "path": "ui\\main_window.py",
+      "text": "line_limit=20,"
+    },
+    {
+      "language": "python",
+      "line": 1441,
+      "path": "ui\\main_window.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1442,
+      "path": "ui\\main_window.py",
+      "text": "log_value = snapshot.get(\"log_path\")"
+    },
+    {
+      "language": "python",
+      "line": 1443,
+      "path": "ui\\main_window.py",
+      "text": "if log_value:"
+    },
+    {
+      "language": "python",
+      "line": 1444,
+      "path": "ui\\main_window.py",
+      "text": "log_path = Path(str(log_value))"
+    },
+    {
+      "language": "python",
+      "line": 1445,
+      "path": "ui\\main_window.py",
+      "text": "if log_path.is_file():"
+    },
+    {
+      "language": "python",
+      "line": 1446,
+      "path": "ui\\main_window.py",
+      "text": "self.red_canvas_log_path = log_path"
+    },
+    {
+      "language": "python",
+      "line": 1447,
+      "path": "ui\\main_window.py",
+      "text": "self.red_canvas_log_offset = log_path.stat().st_size"
+    },
+    {
+      "language": "python",
+      "line": 1448,
+      "path": "ui\\main_window.py",
+      "text": "except Exception:"
+    },
+    {
+      "language": "python",
+      "line": 1449,
+      "path": "ui\\main_window.py",
+      "text": "pass"
+    },
+    {
+      "language": "python",
+      "line": 1451,
+      "path": "ui\\main_window.py",
+      "text": "self.red_canvas_progress_job = self.after("
+    },
+    {
+      "language": "python",
+      "line": 1452,
+      "path": "ui\\main_window.py",
+      "text": "250,"
+    },
+    {
+      "language": "python",
+      "line": 1453,
+      "path": "ui\\main_window.py",
+      "text": "self._poll_red_canvas_progress,"
+    },
+    {
+      "language": "python",
+      "line": 1454,
+      "path": "ui\\main_window.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1456,
+      "path": "ui\\main_window.py",
+      "text": "def _update_red_canvas_progress_widgets(self):"
+    },
+    {
+      "language": "python",
+      "line": 1457,
+      "path": "ui\\main_window.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 1458,
+      "path": "ui\\main_window.py",
+      "text": "if ("
+    },
+    {
+      "language": "python",
+      "line": 1459,
+      "path": "ui\\main_window.py",
+      "text": "hasattr(self, \"canvas_progress\")"
+    },
+    {
+      "language": "python",
+      "line": 1460,
+      "path": "ui\\main_window.py",
+      "text": "and self.canvas_progress.winfo_exists()"
+    },
+    {
+      "language": "python",
+      "line": 1461,
+      "path": "ui\\main_window.py",
+      "text": "):"
+    },
+    {
+      "language": "python",
+      "line": 1462,
+      "path": "ui\\main_window.py",
+      "text": "self.canvas_progress.set("
+    },
+    {
+      "language": "python",
+      "line": 1463,
+      "path": "ui\\main_window.py",
+      "text": "max("
+    },
+    {
+      "language": "python",
+      "line": 1464,
+      "path": "ui\\main_window.py",
+      "text": "0.0,"
+    },
+    {
+      "language": "python",
+      "line": 1465,
+      "path": "ui\\main_window.py",
+      "text": "min("
+    },
+    {
+      "language": "python",
+      "line": 1466,
+      "path": "ui\\main_window.py",
+      "text": "1.0,"
+    },
+    {
+      "language": "python",
+      "line": 1467,
+      "path": "ui\\main_window.py",
+      "text": "self.red_canvas_progress_percent / 100.0,"
+    },
+    {
+      "language": "python",
+      "line": 1468,
+      "path": "ui\\main_window.py",
+      "text": "),"
+    },
+    {
+      "language": "python",
+      "line": 1469,
+      "path": "ui\\main_window.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1470,
+      "path": "ui\\main_window.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1471,
+      "path": "ui\\main_window.py",
+      "text": "if ("
+    },
+    {
+      "language": "python",
+      "line": 1472,
+      "path": "ui\\main_window.py",
+      "text": "hasattr(self, \"canvas_status\")"
+    },
+    {
+      "language": "python",
+      "line": 1473,
+      "path": "ui\\main_window.py",
+      "text": "and self.canvas_status.winfo_exists()"
+    },
+    {
+      "language": "python",
+      "line": 1474,
+      "path": "ui\\main_window.py",
+      "text": "and self.red_canvas_progress_text"
+    },
+    {
+      "language": "python",
+      "line": 1475,
+      "path": "ui\\main_window.py",
+      "text": "):"
+    },
+    {
+      "language": "python",
+      "line": 1476,
+      "path": "ui\\main_window.py",
+      "text": "self.canvas_status.configure("
+    },
+    {
+      "language": "python",
+      "line": 1477,
+      "path": "ui\\main_window.py",
+      "text": "text=self.red_canvas_progress_text"
+    },
+    {
+      "language": "python",
+      "line": 1478,
+      "path": "ui\\main_window.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1479,
+      "path": "ui\\main_window.py",
+      "text": "except Exception:"
+    },
+    {
+      "language": "python",
+      "line": 1480,
+      "path": "ui\\main_window.py",
+      "text": "pass"
+    },
+    {
+      "language": "python",
+      "line": 1482,
+      "path": "ui\\main_window.py",
+      "text": "def _poll_red_canvas_progress(self):"
+    },
+    {
+      "language": "python",
+      "line": 1483,
+      "path": "ui\\main_window.py",
+      "text": "if self._closing or not self.red_canvas_active:"
+    },
+    {
+      "language": "python",
+      "line": 1484,
+      "path": "ui\\main_window.py",
+      "text": "self.red_canvas_progress_job = None"
+    },
+    {
+      "language": "python",
+      "line": 1485,
+      "path": "ui\\main_window.py",
+      "text": "return"
+    },
+    {
+      "language": "python",
+      "line": 1487,
+      "path": "ui\\main_window.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 1488,
+      "path": "ui\\main_window.py",
+      "text": "snapshot = comfy_operations_snapshot("
+    },
+    {
+      "language": "python",
+      "line": 1489,
+      "path": "ui\\main_window.py",
+      "text": "Path(__file__).resolve().parents[1],"
+    },
+    {
+      "language": "python",
+      "line": 1490,
+      "path": "ui\\main_window.py",
+      "text": "line_limit=20,"
+    },
+    {
+      "language": "python",
+      "line": 1491,
+      "path": "ui\\main_window.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1492,
+      "path": "ui\\main_window.py",
+      "text": "log_value = snapshot.get(\"log_path\")"
+    },
+    {
+      "language": "python",
+      "line": 1493,
+      "path": "ui\\main_window.py",
+      "text": "log_path = Path(str(log_value)) if log_value else None"
+    },
+    {
+      "language": "python",
+      "line": 1495,
+      "path": "ui\\main_window.py",
+      "text": "if log_path is not None and log_path.is_file():"
+    },
+    {
+      "language": "python",
+      "line": 1496,
+      "path": "ui\\main_window.py",
+      "text": "if ("
+    },
+    {
+      "language": "python",
+      "line": 1497,
+      "path": "ui\\main_window.py",
+      "text": "self.red_canvas_log_path is None"
+    },
+    {
+      "language": "python",
+      "line": 1498,
+      "path": "ui\\main_window.py",
+      "text": "or log_path != self.red_canvas_log_path"
+    },
+    {
+      "language": "python",
+      "line": 1499,
+      "path": "ui\\main_window.py",
+      "text": "):"
+    },
+    {
+      "language": "python",
+      "line": 1500,
+      "path": "ui\\main_window.py",
+      "text": "self.red_canvas_log_path = log_path"
+    },
+    {
+      "language": "python",
+      "line": 1501,
+      "path": "ui\\main_window.py",
+      "text": "self.red_canvas_log_offset = 0"
+    },
+    {
+      "language": "python",
+      "line": 1502,
+      "path": "ui\\main_window.py",
+      "text": "self.red_canvas_log_buffer = \"\""
+    },
+    {
+      "language": "python",
+      "line": 1504,
+      "path": "ui\\main_window.py",
+      "text": "size = log_path.stat().st_size"
+    },
+    {
+      "language": "python",
+      "line": 1505,
+      "path": "ui\\main_window.py",
+      "text": "if size < self.red_canvas_log_offset:"
+    },
+    {
+      "language": "python",
+      "line": 1506,
+      "path": "ui\\main_window.py",
+      "text": "self.red_canvas_log_offset = 0"
+    },
+    {
+      "language": "python",
+      "line": 1507,
+      "path": "ui\\main_window.py",
+      "text": "self.red_canvas_log_buffer = \"\""
+    },
+    {
+      "language": "python",
+      "line": 1509,
+      "path": "ui\\main_window.py",
+      "text": "if size > self.red_canvas_log_offset:"
+    },
+    {
+      "language": "python",
+      "line": 1510,
+      "path": "ui\\main_window.py",
+      "text": "with log_path.open(\"rb\") as handle:"
+    },
+    {
+      "language": "python",
+      "line": 1511,
+      "path": "ui\\main_window.py",
+      "text": "handle.seek(self.red_canvas_log_offset)"
+    },
+    {
+      "language": "python",
+      "line": 1512,
+      "path": "ui\\main_window.py",
+      "text": "raw = handle.read("
+    },
+    {
+      "language": "python",
+      "line": 1513,
+      "path": "ui\\main_window.py",
+      "text": "min("
+    },
+    {
+      "language": "python",
+      "line": 1514,
+      "path": "ui\\main_window.py",
+      "text": "256 * 1024,"
+    },
+    {
+      "language": "python",
+      "line": 1515,
+      "path": "ui\\main_window.py",
+      "text": "size - self.red_canvas_log_offset,"
+    },
+    {
+      "language": "python",
+      "line": 1516,
+      "path": "ui\\main_window.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1517,
+      "path": "ui\\main_window.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1518,
+      "path": "ui\\main_window.py",
+      "text": "self.red_canvas_log_offset += len(raw)"
+    },
+    {
+      "language": "python",
+      "line": 1519,
+      "path": "ui\\main_window.py",
+      "text": "chunk = raw.decode("
+    },
+    {
+      "language": "python",
+      "line": 1520,
+      "path": "ui\\main_window.py",
+      "text": "\"utf-8\","
+    },
+    {
+      "language": "python",
+      "line": 1521,
+      "path": "ui\\main_window.py",
+      "text": "errors=\"replace\","
+    },
+    {
+      "language": "python",
+      "line": 1522,
+      "path": "ui\\main_window.py",
+      "text": ").replace(\"\\r\", \"\\n\")"
+    },
+    {
+      "language": "python",
+      "line": 1523,
+      "path": "ui\\main_window.py",
+      "text": "self.red_canvas_log_buffer = ("
+    },
+    {
+      "language": "python",
+      "line": 1524,
+      "path": "ui\\main_window.py",
+      "text": "self.red_canvas_log_buffer + chunk"
+    },
+    {
+      "language": "python",
+      "line": 1525,
+      "path": "ui\\main_window.py",
+      "text": ")[-4096:]"
+    },
+    {
+      "language": "python",
+      "line": 1527,
+      "path": "ui\\main_window.py",
+      "text": "# ComfyUI/tqdm lines look like:"
+    },
+    {
+      "language": "python",
+      "line": 1528,
+      "path": "ui\\main_window.py",
+      "text": "# 75%|######5 | 15/20 [02:43<00:55, 11.12s/it]"
+    },
+    {
+      "language": "python",
+      "line": 1529,
+      "path": "ui\\main_window.py",
+      "text": "matches = re.findall("
+    },
+    {
+      "language": "python",
+      "line": 1530,
+      "path": "ui\\main_window.py",
+      "text": "r\"(?<!\\d)(100|[1-9]?\\d)%\\|\""
+    },
+    {
+      "language": "python",
+      "line": 1531,
+      "path": "ui\\main_window.py",
+      "text": "r\"[^\\r\\n]*(?:\\d+/\\d+)\","
+    },
+    {
+      "language": "python",
+      "line": 1532,
+      "path": "ui\\main_window.py",
+      "text": "self.red_canvas_log_buffer,"
+    },
+    {
+      "language": "python",
+      "line": 1533,
+      "path": "ui\\main_window.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1534,
+      "path": "ui\\main_window.py",
+      "text": "if matches:"
+    },
+    {
+      "language": "python",
+      "line": 1535,
+      "path": "ui\\main_window.py",
+      "text": "actual = max(0, min(100, int(matches[-1])))"
+    },
+    {
+      "language": "python",
+      "line": 1536,
+      "path": "ui\\main_window.py",
+      "text": "self.red_canvas_progress_percent = actual"
+    },
+    {
+      "language": "python",
+      "line": 1537,
+      "path": "ui\\main_window.py",
+      "text": "self.red_canvas_progress_text = ("
+    },
+    {
+      "language": "python",
+      "line": 1538,
+      "path": "ui\\main_window.py",
+      "text": "\"MISSION IN PROGRESS\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1539,
+      "path": "ui\\main_window.py",
+      "text": "f\"ComfyUI generation: {actual}%\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1540,
+      "path": "ui\\main_window.py",
+      "text": "\"Progress is coming from the live console.\""
+    },
+    {
+      "language": "python",
+      "line": 1541,
+      "path": "ui\\main_window.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1542,
+      "path": "ui\\main_window.py",
+      "text": "else:"
+    },
+    {
+      "language": "python",
+      "line": 1543,
+      "path": "ui\\main_window.py",
+      "text": "lower = self.red_canvas_log_buffer.casefold()"
+    },
+    {
+      "language": "python",
+      "line": 1544,
+      "path": "ui\\main_window.py",
+      "text": "if \"got prompt\" in lower:"
+    },
+    {
+      "language": "python",
+      "line": 1545,
+      "path": "ui\\main_window.py",
+      "text": "self.red_canvas_progress_text = ("
+    },
+    {
+      "language": "python",
+      "line": 1546,
+      "path": "ui\\main_window.py",
+      "text": "\"PROMPT RECEIVED\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1547,
+      "path": "ui\\main_window.py",
+      "text": "\"ComfyUI accepted the request.\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1548,
+      "path": "ui\\main_window.py",
+      "text": "\"Preparing the image model...\""
+    },
+    {
+      "language": "python",
+      "line": 1549,
+      "path": "ui\\main_window.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1550,
+      "path": "ui\\main_window.py",
+      "text": "if ("
+    },
+    {
+      "language": "python",
+      "line": 1551,
+      "path": "ui\\main_window.py",
+      "text": "\"requested to load\" in lower"
+    },
+    {
+      "language": "python",
+      "line": 1552,
+      "path": "ui\\main_window.py",
+      "text": "or \"model_type\" in lower"
+    },
+    {
+      "language": "python",
+      "line": 1553,
+      "path": "ui\\main_window.py",
+      "text": "or \"loaded completely\" in lower"
+    },
+    {
+      "language": "python",
+      "line": 1554,
+      "path": "ui\\main_window.py",
+      "text": "):"
+    },
+    {
+      "language": "python",
+      "line": 1555,
+      "path": "ui\\main_window.py",
+      "text": "self.red_canvas_progress_text = ("
+    },
+    {
+      "language": "python",
+      "line": 1556,
+      "path": "ui\\main_window.py",
+      "text": "\"LOADING IMAGE MODEL\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1557,
+      "path": "ui\\main_window.py",
+      "text": "\"ComfyUI is preparing SDXL on the CPU.\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1558,
+      "path": "ui\\main_window.py",
+      "text": "\"The percentage will appear when sampling starts.\""
+    },
+    {
+      "language": "python",
+      "line": 1559,
+      "path": "ui\\main_window.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1561,
+      "path": "ui\\main_window.py",
+      "text": "self._update_red_canvas_progress_widgets()"
+    },
+    {
+      "language": "python",
+      "line": 1562,
+      "path": "ui\\main_window.py",
+      "text": "except Exception:"
+    },
+    {
+      "language": "python",
+      "line": 1563,
+      "path": "ui\\main_window.py",
+      "text": "# Progress display must never interfere with generation."
+    },
+    {
+      "language": "python",
+      "line": 1564,
+      "path": "ui\\main_window.py",
+      "text": "pass"
+    },
+    {
+      "language": "python",
+      "line": 1566,
+      "path": "ui\\main_window.py",
+      "text": "self.red_canvas_progress_job = self.after("
+    },
+    {
+      "language": "python",
+      "line": 1567,
+      "path": "ui\\main_window.py",
+      "text": "350,"
+    },
+    {
+      "language": "python",
+      "line": 1568,
+      "path": "ui\\main_window.py",
+      "text": "self._poll_red_canvas_progress,"
+    },
+    {
+      "language": "python",
+      "line": 1569,
+      "path": "ui\\main_window.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1571,
+      "path": "ui\\main_window.py",
+      "text": "def _generate_red_canvas_thread(self, prompt, negative, checkpoint, width, height, seed):"
+    },
+    {
+      "language": "python",
+      "line": 1572,
+      "path": "ui\\main_window.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 1573,
+      "path": "ui\\main_window.py",
+      "text": "images = generate_image(prompt, negative, checkpoint, width, height, seed)"
+    },
+    {
+      "language": "python",
+      "line": 1574,
+      "path": "ui\\main_window.py",
+      "text": "if images:"
+    },
+    {
+      "language": "python",
+      "line": 1575,
+      "path": "ui\\main_window.py",
+      "text": "self.last_canvas_image = images[0]"
+    },
+    {
+      "language": "python",
+      "line": 1576,
+      "path": "ui\\main_window.py",
+      "text": "self.after(0, self._red_canvas_done, images[0])"
+    },
+    {
+      "language": "python",
+      "line": 1577,
+      "path": "ui\\main_window.py",
+      "text": "else:"
+    },
+    {
+      "language": "python",
+      "line": 1578,
+      "path": "ui\\main_window.py",
+      "text": "self.after(0, self._red_canvas_error, \"No image returned from ComfyUI.\")"
+    },
+    {
+      "language": "python",
+      "line": 1579,
+      "path": "ui\\main_window.py",
+      "text": "except Exception as e:"
+    },
+    {
+      "language": "python",
+      "line": 1580,
+      "path": "ui\\main_window.py",
+      "text": "self.after(0, self._red_canvas_error, str(e))"
+    },
+    {
+      "language": "python",
+      "line": 1582,
+      "path": "ui\\main_window.py",
+      "text": "def _red_canvas_done(self, image_path):"
+    },
+    {
+      "language": "python",
+      "line": 1583,
+      "path": "ui\\main_window.py",
+      "text": "self._cancel_red_canvas_progress_tracking()"
+    },
+    {
+      "language": "python",
+      "line": 1584,
+      "path": "ui\\main_window.py",
+      "text": "self.red_canvas_active = False"
+    },
+    {
+      "language": "python",
+      "line": 1585,
+      "path": "ui\\main_window.py",
+      "text": "self.red_canvas_progress_percent = 100"
+    },
+    {
+      "language": "python",
+      "line": 1586,
+      "path": "ui\\main_window.py",
+      "text": "self.red_canvas_progress_text = ("
+    },
+    {
+      "language": "python",
+      "line": 1587,
+      "path": "ui\\main_window.py",
+      "text": "f\"MISSION COMPLETE\\n\\nImage saved:\\n{image_path}\""
+    },
+    {
+      "language": "python",
+      "line": 1588,
+      "path": "ui\\main_window.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1589,
+      "path": "ui\\main_window.py",
+      "text": "self.stop_mission_animation(\"ONLINE\")"
+    },
+    {
+      "language": "python",
+      "line": 1590,
+      "path": "ui\\main_window.py",
+      "text": "self.complete_workshop_mission(\"ONLINE\")"
+    },
+    {
+      "language": "python",
+      "line": 1591,
+      "path": "ui\\main_window.py",
+      "text": "self.mission_status(f\"Red Canvas mission complete.\\n\\nImage saved:\\n{image_path}\")"
+    },
+    {
+      "language": "python",
+      "line": 1592,
+      "path": "ui\\main_window.py",
+      "text": "self.show_red_canvas()"
+    },
+    {
+      "language": "python",
+      "line": 1593,
+      "path": "ui\\main_window.py",
+      "text": "if hasattr(self, \"canvas_progress\") and self.canvas_progress.winfo_exists():"
+    },
+    {
+      "language": "python",
+      "line": 1594,
+      "path": "ui\\main_window.py",
+      "text": "self.canvas_progress.set(1)"
+    },
+    {
+      "language": "python",
+      "line": 1595,
+      "path": "ui\\main_window.py",
+      "text": "if hasattr(self, \"canvas_status\") and self.canvas_status.winfo_exists():"
+    },
+    {
+      "language": "python",
+      "line": 1596,
+      "path": "ui\\main_window.py",
+      "text": "self.canvas_status.configure(text=f\"MISSION COMPLETE\\n\\nImage saved:\\n{image_path}\")"
+    },
+    {
+      "language": "python",
+      "line": 1598,
+      "path": "ui\\main_window.py",
+      "text": "def _red_canvas_error(self, error_text):"
+    },
+    {
+      "language": "python",
+      "line": 1599,
+      "path": "ui\\main_window.py",
+      "text": "self._cancel_red_canvas_progress_tracking()"
+    },
+    {
+      "language": "python",
+      "line": 1600,
+      "path": "ui\\main_window.py",
+      "text": "self.red_canvas_active = False"
+    },
+    {
+      "language": "python",
+      "line": 1601,
+      "path": "ui\\main_window.py",
+      "text": "self.red_canvas_progress_text = ("
+    },
+    {
+      "language": "python",
+      "line": 1602,
+      "path": "ui\\main_window.py",
+      "text": "f\"RED BRIDGE ERROR:\\n{error_text}\""
+    },
+    {
+      "language": "python",
+      "line": 1603,
+      "path": "ui\\main_window.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1604,
+      "path": "ui\\main_window.py",
+      "text": "self.stop_mission_animation(\"ERROR\")"
+    },
+    {
+      "language": "python",
+      "line": 1605,
+      "path": "ui\\main_window.py",
+      "text": "self.fail_workshop_mission(error_text)"
+    },
+    {
+      "language": "python",
+      "line": 1606,
+      "path": "ui\\main_window.py",
+      "text": "self.mission_status(f\"Red Canvas error.\\n\\n{error_text}\")"
+    },
+    {
+      "language": "python",
+      "line": 1607,
+      "path": "ui\\main_window.py",
+      "text": "if hasattr(self, \"canvas_status\") and self.canvas_status.winfo_exists():"
+    },
+    {
+      "language": "python",
+      "line": 1608,
+      "path": "ui\\main_window.py",
+      "text": "self.canvas_status.configure(text=f\"RED BRIDGE ERROR:\\n{error_text}\")"
+    },
+    {
+      "language": "python",
+      "line": 1610,
+      "path": "ui\\main_window.py",
+      "text": "def display_canvas_image(self, image_path, parent):"
+    },
+    {
+      "language": "python",
+      "line": 1611,
+      "path": "ui\\main_window.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 1612,
+      "path": "ui\\main_window.py",
+      "text": "img = Image.open(image_path)"
+    },
+    {
+      "language": "python",
+      "line": 1613,
+      "path": "ui\\main_window.py",
+      "text": "img.thumbnail((560, 420))"
+    },
+    {
+      "language": "python",
+      "line": 1614,
+      "path": "ui\\main_window.py",
+      "text": "ctk_img = ctk.CTkImage(light_image=img, dark_image=img, size=img.size)"
+    },
+    {
+      "language": "python",
+      "line": 1615,
+      "path": "ui\\main_window.py",
+      "text": "label = ctk.CTkLabel(parent, image=ctk_img, text=\"\")"
+    },
+    {
+      "language": "python",
+      "line": 1616,
+      "path": "ui\\main_window.py",
+      "text": "label.image = ctk_img"
+    },
+    {
+      "language": "python",
+      "line": 1617,
+      "path": "ui\\main_window.py",
+      "text": "label.pack(pady=10)"
+    },
+    {
+      "language": "python",
+      "line": 1618,
+      "path": "ui\\main_window.py",
+      "text": "ctk.CTkLabel(parent, text=str(image_path), font=(\"Consolas\", 11)).pack(pady=4)"
+    },
+    {
+      "language": "python",
+      "line": 1619,
+      "path": "ui\\main_window.py",
+      "text": "except Exception as e:"
+    },
+    {
+      "language": "python",
+      "line": 1620,
+      "path": "ui\\main_window.py",
+      "text": "ctk.CTkLabel(parent, text=f\"Could not display image:\\n{e}\", font=(\"Consolas\", 12)).pack(pady=10)"
+    },
+    {
+      "language": "python",
+      "line": 1623,
+      "path": "ui\\main_window.py",
+      "text": "def show_engineer(self):"
+    },
+    {
+      "language": "python",
+      "line": 1624,
+      "path": "ui\\main_window.py",
+      "text": "self.clear_content()"
+    },
+    {
+      "language": "python",
+      "line": 1625,
+      "path": "ui\\main_window.py",
+      "text": "self.make_title(\"ENGINEER // WORKSHOP CODE ANALYSIS\")"
+    },
+    {
+      "language": "python",
+      "line": 1627,
+      "path": "ui\\main_window.py",
+      "text": "frame = ctk.CTkFrame(self.content)"
+    },
+    {
+      "language": "python",
+      "line": 1628,
+      "path": "ui\\main_window.py",
+      "text": "frame.pack(fill=\"both\", expand=True, padx=20, pady=20)"
+    },
+    {
+      "language": "python",
+      "line": 1630,
+      "path": "ui\\main_window.py",
+      "text": "intro = ("
+    },
+    {
+      "language": "python",
+      "line": 1631,
+      "path": "ui\\main_window.py",
+      "text": "\"Engineer is a read-only code and architecture specialist.\\n\\n\""
+    }
+  ],
+  "schema": "foxai.agent_fox.technical_core.v1a2r1.refined_static_bridge.v1",
+  "shard_number": 65
+}

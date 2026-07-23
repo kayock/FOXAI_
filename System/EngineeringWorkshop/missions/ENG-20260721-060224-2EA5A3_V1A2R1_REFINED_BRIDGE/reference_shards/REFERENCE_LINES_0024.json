@@ -1,0 +1,7207 @@
+{
+  "record_count": 1200,
+  "records": [
+    {
+      "language": "python",
+      "line": 441,
+      "path": "core\\server.py",
+      "text": "return self.stop()"
+    },
+    {
+      "language": "python",
+      "line": 443,
+      "path": "core\\server.py",
+      "text": "def is_running(self):"
+    },
+    {
+      "language": "python",
+      "line": 444,
+      "path": "core\\server.py",
+      "text": "return self._health_ok(self.host, self.port) or self.owns_process()"
+    },
+    {
+      "language": "python",
+      "line": 446,
+      "path": "core\\server.py",
+      "text": "def is_healthy(self):"
+    },
+    {
+      "language": "python",
+      "line": 447,
+      "path": "core\\server.py",
+      "text": "return self._health_ok(self.host, self.port)"
+    },
+    {
+      "language": "python",
+      "line": 449,
+      "path": "core\\server.py",
+      "text": "def owns_process(self):"
+    },
+    {
+      "language": "python",
+      "line": 450,
+      "path": "core\\server.py",
+      "text": "return ("
+    },
+    {
+      "language": "python",
+      "line": 451,
+      "path": "core\\server.py",
+      "text": "self.process is not None"
+    },
+    {
+      "language": "python",
+      "line": 452,
+      "path": "core\\server.py",
+      "text": "and self.process.poll() is None"
+    },
+    {
+      "language": "python",
+      "line": 453,
+      "path": "core\\server.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 455,
+      "path": "core\\server.py",
+      "text": "# -------------------------"
+    },
+    {
+      "language": "python",
+      "line": 456,
+      "path": "core\\server.py",
+      "text": "# Shared-state coordination"
+    },
+    {
+      "language": "python",
+      "line": 457,
+      "path": "core\\server.py",
+      "text": "# -------------------------"
+    },
+    {
+      "language": "python",
+      "line": 459,
+      "path": "core\\server.py",
+      "text": "def _attach_to_healthy_runtime(self, state, target):"
+    },
+    {
+      "language": "python",
+      "line": 460,
+      "path": "core\\server.py",
+      "text": "if state and self._same_endpoint(state, target):"
+    },
+    {
+      "language": "python",
+      "line": 461,
+      "path": "core\\server.py",
+      "text": "pid = self._int_or_none(state.get(\"server_pid\"))"
+    },
+    {
+      "language": "python",
+      "line": 462,
+      "path": "core\\server.py",
+      "text": "process_match = self._process_matches_state(pid, state)"
+    },
+    {
+      "language": "python",
+      "line": 464,
+      "path": "core\\server.py",
+      "text": "process_compatible = ("
+    },
+    {
+      "language": "python",
+      "line": 465,
+      "path": "core\\server.py",
+      "text": "process_match is True"
+    },
+    {
+      "language": "python",
+      "line": 466,
+      "path": "core\\server.py",
+      "text": "if target[\"require_verified_settings\"]"
+    },
+    {
+      "language": "python",
+      "line": 467,
+      "path": "core\\server.py",
+      "text": "else process_match is not False"
+    },
+    {
+      "language": "python",
+      "line": 468,
+      "path": "core\\server.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 469,
+      "path": "core\\server.py",
+      "text": "if ("
+    },
+    {
+      "language": "python",
+      "line": 470,
+      "path": "core\\server.py",
+      "text": "self._same_model(state, target)"
+    },
+    {
+      "language": "python",
+      "line": 471,
+      "path": "core\\server.py",
+      "text": "and (pid is None or self._pid_exists(pid))"
+    },
+    {
+      "language": "python",
+      "line": 472,
+      "path": "core\\server.py",
+      "text": "and process_compatible"
+    },
+    {
+      "language": "python",
+      "line": 473,
+      "path": "core\\server.py",
+      "text": "):"
+    },
+    {
+      "language": "python",
+      "line": 474,
+      "path": "core\\server.py",
+      "text": "state[\"status\"] = \"ready\""
+    },
+    {
+      "language": "python",
+      "line": 475,
+      "path": "core\\server.py",
+      "text": "state[\"updated_at\"] = self._now()"
+    },
+    {
+      "language": "python",
+      "line": 476,
+      "path": "core\\server.py",
+      "text": "state = self._register_client(state)"
+    },
+    {
+      "language": "python",
+      "line": 477,
+      "path": "core\\server.py",
+      "text": "self._write_state(state)"
+    },
+    {
+      "language": "python",
+      "line": 478,
+      "path": "core\\server.py",
+      "text": "return RuntimeResult("
+    },
+    {
+      "language": "python",
+      "line": 479,
+      "path": "core\\server.py",
+      "text": "True,"
+    },
+    {
+      "language": "python",
+      "line": 480,
+      "path": "core\\server.py",
+      "text": "\"attached\","
+    },
+    {
+      "language": "python",
+      "line": 481,
+      "path": "core\\server.py",
+      "text": "f\"Attached to the existing shared neural runtime \""
+    },
+    {
+      "language": "python",
+      "line": 482,
+      "path": "core\\server.py",
+      "text": "f\"using {target['model_name']}.\","
+    },
+    {
+      "language": "python",
+      "line": 483,
+      "path": "core\\server.py",
+      "text": "target[\"model_name\"],"
+    },
+    {
+      "language": "python",
+      "line": 484,
+      "path": "core\\server.py",
+      "text": "pid,"
+    },
+    {
+      "language": "python",
+      "line": 485,
+      "path": "core\\server.py",
+      "text": "False,"
+    },
+    {
+      "language": "python",
+      "line": 486,
+      "path": "core\\server.py",
+      "text": "{"
+    },
+    {
+      "language": "python",
+      "line": 487,
+      "path": "core\\server.py",
+      "text": "\"host\": target[\"host\"],"
+    },
+    {
+      "language": "python",
+      "line": 488,
+      "path": "core\\server.py",
+      "text": "\"port\": target[\"port\"],"
+    },
+    {
+      "language": "python",
+      "line": 489,
+      "path": "core\\server.py",
+      "text": "\"active_context\": state.get(\"context\"),"
+    },
+    {
+      "language": "python",
+      "line": 490,
+      "path": "core\\server.py",
+      "text": "\"active_threads\": state.get(\"threads\"),"
+    },
+    {
+      "language": "python",
+      "line": 491,
+      "path": "core\\server.py",
+      "text": "\"requested_context\": target[\"context\"],"
+    },
+    {
+      "language": "python",
+      "line": 492,
+      "path": "core\\server.py",
+      "text": "\"requested_threads\": target[\"threads\"],"
+    },
+    {
+      "language": "python",
+      "line": 493,
+      "path": "core\\server.py",
+      "text": "\"active_projector\": state.get(\"projector_name\"),"
+    },
+    {
+      "language": "python",
+      "line": 494,
+      "path": "core\\server.py",
+      "text": "\"requested_projector\": target[\"projector_name\"],"
+    },
+    {
+      "language": "python",
+      "line": 495,
+      "path": "core\\server.py",
+      "text": "\"active_reasoning_mode\": self._state_reasoning_mode(state),"
+    },
+    {
+      "language": "python",
+      "line": 496,
+      "path": "core\\server.py",
+      "text": "\"active_reasoning_budget\": self._state_reasoning_budget(state),"
+    },
+    {
+      "language": "python",
+      "line": 497,
+      "path": "core\\server.py",
+      "text": "\"requested_reasoning_mode\": target[\"reasoning_mode\"],"
+    },
+    {
+      "language": "python",
+      "line": 498,
+      "path": "core\\server.py",
+      "text": "\"requested_reasoning_budget\": target[\"reasoning_budget\"],"
+    },
+    {
+      "language": "python",
+      "line": 499,
+      "path": "core\\server.py",
+      "text": "\"settings_verified\": target[\"require_verified_settings\"],"
+    },
+    {
+      "language": "python",
+      "line": 500,
+      "path": "core\\server.py",
+      "text": "},"
+    },
+    {
+      "language": "python",
+      "line": 501,
+      "path": "core\\server.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 503,
+      "path": "core\\server.py",
+      "text": "if not self._same_model(state, target):"
+    },
+    {
+      "language": "python",
+      "line": 504,
+      "path": "core\\server.py",
+      "text": "return self._conflict_result("
+    },
+    {
+      "language": "python",
+      "line": 505,
+      "path": "core\\server.py",
+      "text": "target,"
+    },
+    {
+      "language": "python",
+      "line": 506,
+      "path": "core\\server.py",
+      "text": "state,"
+    },
+    {
+      "language": "python",
+      "line": 507,
+      "path": "core\\server.py",
+      "text": "\"A healthy shared neural runtime is using a different \""
+    },
+    {
+      "language": "python",
+      "line": 508,
+      "path": "core\\server.py",
+      "text": "\"model or runtime profile.\","
+    },
+    {
+      "language": "python",
+      "line": 509,
+      "path": "core\\server.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 511,
+      "path": "core\\server.py",
+      "text": "if target[\"require_verified_settings\"]:"
+    },
+    {
+      "language": "python",
+      "line": 512,
+      "path": "core\\server.py",
+      "text": "return RuntimeResult("
+    },
+    {
+      "language": "python",
+      "line": 513,
+      "path": "core\\server.py",
+      "text": "False,"
+    },
+    {
+      "language": "python",
+      "line": 514,
+      "path": "core\\server.py",
+      "text": "\"conflict\","
+    },
+    {
+      "language": "python",
+      "line": 515,
+      "path": "core\\server.py",
+      "text": "\"A healthy neural runtime is already using the configured \""
+    },
+    {
+      "language": "python",
+      "line": 516,
+      "path": "core\\server.py",
+      "text": "\"endpoint, but FOXAI cannot verify its context, thread, and \""
+    },
+    {
+      "language": "python",
+      "line": 517,
+      "path": "core\\server.py",
+      "text": "\"reasoning and projector settings for the selected profile. Stop that \""
+    },
+    {
+      "language": "python",
+      "line": 518,
+      "path": "core\\server.py",
+      "text": "\"runtime before starting this profile.\","
+    },
+    {
+      "language": "python",
+      "line": 519,
+      "path": "core\\server.py",
+      "text": "target[\"model_name\"],"
+    },
+    {
+      "language": "python",
+      "line": 520,
+      "path": "core\\server.py",
+      "text": "self._int_or_none((state or {}).get(\"server_pid\")),"
+    },
+    {
+      "language": "python",
+      "line": 521,
+      "path": "core\\server.py",
+      "text": "False,"
+    },
+    {
+      "language": "python",
+      "line": 522,
+      "path": "core\\server.py",
+      "text": "{"
+    },
+    {
+      "language": "python",
+      "line": 523,
+      "path": "core\\server.py",
+      "text": "\"host\": target[\"host\"],"
+    },
+    {
+      "language": "python",
+      "line": 524,
+      "path": "core\\server.py",
+      "text": "\"port\": target[\"port\"],"
+    },
+    {
+      "language": "python",
+      "line": 525,
+      "path": "core\\server.py",
+      "text": "\"requested_context\": target[\"context\"],"
+    },
+    {
+      "language": "python",
+      "line": 526,
+      "path": "core\\server.py",
+      "text": "\"requested_threads\": target[\"threads\"],"
+    },
+    {
+      "language": "python",
+      "line": 527,
+      "path": "core\\server.py",
+      "text": "\"requested_projector\": target[\"projector_name\"],"
+    },
+    {
+      "language": "python",
+      "line": 528,
+      "path": "core\\server.py",
+      "text": "\"requested_reasoning_mode\": target[\"reasoning_mode\"],"
+    },
+    {
+      "language": "python",
+      "line": 529,
+      "path": "core\\server.py",
+      "text": "\"requested_reasoning_budget\": target[\"reasoning_budget\"],"
+    },
+    {
+      "language": "python",
+      "line": 530,
+      "path": "core\\server.py",
+      "text": "\"settings_verified\": False,"
+    },
+    {
+      "language": "python",
+      "line": 531,
+      "path": "core\\server.py",
+      "text": "},"
+    },
+    {
+      "language": "python",
+      "line": 532,
+      "path": "core\\server.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 534,
+      "path": "core\\server.py",
+      "text": "model_ids = self._probe_model_ids(target[\"host\"], target[\"port\"])"
+    },
+    {
+      "language": "python",
+      "line": 535,
+      "path": "core\\server.py",
+      "text": "if self._model_matches_ids(target[\"model_path\"], model_ids):"
+    },
+    {
+      "language": "python",
+      "line": 536,
+      "path": "core\\server.py",
+      "text": "external_state = state or {"
+    },
+    {
+      "language": "python",
+      "line": 537,
+      "path": "core\\server.py",
+      "text": "\"version\": 1,"
+    },
+    {
+      "language": "python",
+      "line": 538,
+      "path": "core\\server.py",
+      "text": "\"engine_path\": None,"
+    },
+    {
+      "language": "python",
+      "line": 539,
+      "path": "core\\server.py",
+      "text": "\"server_pid\": None,"
+    },
+    {
+      "language": "python",
+      "line": 540,
+      "path": "core\\server.py",
+      "text": "\"owner_interface\": \"External\","
+    },
+    {
+      "language": "python",
+      "line": 541,
+      "path": "core\\server.py",
+      "text": "\"owner_process_pid\": None,"
+    },
+    {
+      "language": "python",
+      "line": 542,
+      "path": "core\\server.py",
+      "text": "\"launched_at\": None,"
+    },
+    {
+      "language": "python",
+      "line": 543,
+      "path": "core\\server.py",
+      "text": "\"clients\": {},"
+    },
+    {
+      "language": "python",
+      "line": 544,
+      "path": "core\\server.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 545,
+      "path": "core\\server.py",
+      "text": "external_state.update("
+    },
+    {
+      "language": "python",
+      "line": 546,
+      "path": "core\\server.py",
+      "text": "{"
+    },
+    {
+      "language": "python",
+      "line": 547,
+      "path": "core\\server.py",
+      "text": "\"status\": \"ready\","
+    },
+    {
+      "language": "python",
+      "line": 548,
+      "path": "core\\server.py",
+      "text": "\"host\": target[\"host\"],"
+    },
+    {
+      "language": "python",
+      "line": 549,
+      "path": "core\\server.py",
+      "text": "\"port\": target[\"port\"],"
+    },
+    {
+      "language": "python",
+      "line": 550,
+      "path": "core\\server.py",
+      "text": "\"model_path\": target[\"model_path\"],"
+    },
+    {
+      "language": "python",
+      "line": 551,
+      "path": "core\\server.py",
+      "text": "\"model_name\": target[\"model_name\"],"
+    },
+    {
+      "language": "python",
+      "line": 552,
+      "path": "core\\server.py",
+      "text": "\"projector_path\": external_state.get(\"projector_path\"),"
+    },
+    {
+      "language": "python",
+      "line": 553,
+      "path": "core\\server.py",
+      "text": "\"projector_name\": external_state.get(\"projector_name\"),"
+    },
+    {
+      "language": "python",
+      "line": 554,
+      "path": "core\\server.py",
+      "text": "\"context\": external_state.get(\"context\"),"
+    },
+    {
+      "language": "python",
+      "line": 555,
+      "path": "core\\server.py",
+      "text": "\"threads\": external_state.get(\"threads\"),"
+    },
+    {
+      "language": "python",
+      "line": 556,
+      "path": "core\\server.py",
+      "text": "\"reasoning_mode\": external_state.get(\"reasoning_mode\"),"
+    },
+    {
+      "language": "python",
+      "line": 557,
+      "path": "core\\server.py",
+      "text": "\"reasoning_budget\": external_state.get(\"reasoning_budget\"),"
+    },
+    {
+      "language": "python",
+      "line": 558,
+      "path": "core\\server.py",
+      "text": "\"updated_at\": self._now(),"
+    },
+    {
+      "language": "python",
+      "line": 559,
+      "path": "core\\server.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 560,
+      "path": "core\\server.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 561,
+      "path": "core\\server.py",
+      "text": "external_state = self._register_client(external_state)"
+    },
+    {
+      "language": "python",
+      "line": 562,
+      "path": "core\\server.py",
+      "text": "self._write_state(external_state)"
+    },
+    {
+      "language": "python",
+      "line": 563,
+      "path": "core\\server.py",
+      "text": "return RuntimeResult("
+    },
+    {
+      "language": "python",
+      "line": 564,
+      "path": "core\\server.py",
+      "text": "True,"
+    },
+    {
+      "language": "python",
+      "line": 565,
+      "path": "core\\server.py",
+      "text": "\"attached\","
+    },
+    {
+      "language": "python",
+      "line": 566,
+      "path": "core\\server.py",
+      "text": "f\"Attached to a healthy compatible neural runtime using \""
+    },
+    {
+      "language": "python",
+      "line": 567,
+      "path": "core\\server.py",
+      "text": "f\"{target['model_name']}.\","
+    },
+    {
+      "language": "python",
+      "line": 568,
+      "path": "core\\server.py",
+      "text": "target[\"model_name\"],"
+    },
+    {
+      "language": "python",
+      "line": 569,
+      "path": "core\\server.py",
+      "text": "self._int_or_none(external_state.get(\"server_pid\")),"
+    },
+    {
+      "language": "python",
+      "line": 570,
+      "path": "core\\server.py",
+      "text": "False,"
+    },
+    {
+      "language": "python",
+      "line": 571,
+      "path": "core\\server.py",
+      "text": "{"
+    },
+    {
+      "language": "python",
+      "line": 572,
+      "path": "core\\server.py",
+      "text": "\"host\": target[\"host\"],"
+    },
+    {
+      "language": "python",
+      "line": 573,
+      "path": "core\\server.py",
+      "text": "\"port\": target[\"port\"],"
+    },
+    {
+      "language": "python",
+      "line": 574,
+      "path": "core\\server.py",
+      "text": "\"model_ids\": model_ids,"
+    },
+    {
+      "language": "python",
+      "line": 575,
+      "path": "core\\server.py",
+      "text": "},"
+    },
+    {
+      "language": "python",
+      "line": 576,
+      "path": "core\\server.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 578,
+      "path": "core\\server.py",
+      "text": "return RuntimeResult("
+    },
+    {
+      "language": "python",
+      "line": 579,
+      "path": "core\\server.py",
+      "text": "False,"
+    },
+    {
+      "language": "python",
+      "line": 580,
+      "path": "core\\server.py",
+      "text": "\"conflict\","
+    },
+    {
+      "language": "python",
+      "line": 581,
+      "path": "core\\server.py",
+      "text": "\"A healthy service is already using the configured neural \""
+    },
+    {
+      "language": "python",
+      "line": 582,
+      "path": "core\\server.py",
+      "text": "\"endpoint, but FOXAI could not verify that it is running the \""
+    },
+    {
+      "language": "python",
+      "line": 583,
+      "path": "core\\server.py",
+      "text": "f\"selected model {target['model_name']}. No duplicate server \""
+    },
+    {
+      "language": "python",
+      "line": 584,
+      "path": "core\\server.py",
+      "text": "\"was launched.\","
+    },
+    {
+      "language": "python",
+      "line": 585,
+      "path": "core\\server.py",
+      "text": "target[\"model_name\"],"
+    },
+    {
+      "language": "python",
+      "line": 586,
+      "path": "core\\server.py",
+      "text": "self._int_or_none((state or {}).get(\"server_pid\")),"
+    },
+    {
+      "language": "python",
+      "line": 587,
+      "path": "core\\server.py",
+      "text": "False,"
+    },
+    {
+      "language": "python",
+      "line": 588,
+      "path": "core\\server.py",
+      "text": "{"
+    },
+    {
+      "language": "python",
+      "line": 589,
+      "path": "core\\server.py",
+      "text": "\"host\": target[\"host\"],"
+    },
+    {
+      "language": "python",
+      "line": 590,
+      "path": "core\\server.py",
+      "text": "\"port\": target[\"port\"],"
+    },
+    {
+      "language": "python",
+      "line": 591,
+      "path": "core\\server.py",
+      "text": "\"detected_model_ids\": model_ids,"
+    },
+    {
+      "language": "python",
+      "line": 592,
+      "path": "core\\server.py",
+      "text": "},"
+    },
+    {
+      "language": "python",
+      "line": 593,
+      "path": "core\\server.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 595,
+      "path": "core\\server.py",
+      "text": "def _conflict_result(self, target, state, reason):"
+    },
+    {
+      "language": "python",
+      "line": 596,
+      "path": "core\\server.py",
+      "text": "return RuntimeResult("
+    },
+    {
+      "language": "python",
+      "line": 597,
+      "path": "core\\server.py",
+      "text": "False,"
+    },
+    {
+      "language": "python",
+      "line": 598,
+      "path": "core\\server.py",
+      "text": "\"conflict\","
+    },
+    {
+      "language": "python",
+      "line": 599,
+      "path": "core\\server.py",
+      "text": "f\"{reason} Selected: {target['model_name']}. \""
+    },
+    {
+      "language": "python",
+      "line": 600,
+      "path": "core\\server.py",
+      "text": "f\"Active: {state.get('model_name') or 'unknown'}. \""
+    },
+    {
+      "language": "python",
+      "line": 601,
+      "path": "core\\server.py",
+      "text": "\"Stop the active runtime or select the same model and profile.\","
+    },
+    {
+      "language": "python",
+      "line": 602,
+      "path": "core\\server.py",
+      "text": "target[\"model_name\"],"
+    },
+    {
+      "language": "python",
+      "line": 603,
+      "path": "core\\server.py",
+      "text": "self._int_or_none(state.get(\"server_pid\")),"
+    },
+    {
+      "language": "python",
+      "line": 604,
+      "path": "core\\server.py",
+      "text": "False,"
+    },
+    {
+      "language": "python",
+      "line": 605,
+      "path": "core\\server.py",
+      "text": "{"
+    },
+    {
+      "language": "python",
+      "line": 606,
+      "path": "core\\server.py",
+      "text": "\"host\": target[\"host\"],"
+    },
+    {
+      "language": "python",
+      "line": 607,
+      "path": "core\\server.py",
+      "text": "\"port\": target[\"port\"],"
+    },
+    {
+      "language": "python",
+      "line": 608,
+      "path": "core\\server.py",
+      "text": "\"active_model\": state.get(\"model_name\"),"
+    },
+    {
+      "language": "python",
+      "line": 609,
+      "path": "core\\server.py",
+      "text": "\"active_context\": state.get(\"context\"),"
+    },
+    {
+      "language": "python",
+      "line": 610,
+      "path": "core\\server.py",
+      "text": "\"active_threads\": state.get(\"threads\"),"
+    },
+    {
+      "language": "python",
+      "line": 611,
+      "path": "core\\server.py",
+      "text": "\"active_projector\": state.get(\"projector_name\"),"
+    },
+    {
+      "language": "python",
+      "line": 612,
+      "path": "core\\server.py",
+      "text": "\"requested_projector\": target[\"projector_name\"],"
+    },
+    {
+      "language": "python",
+      "line": 613,
+      "path": "core\\server.py",
+      "text": "\"requested_reasoning_mode\": target[\"reasoning_mode\"],"
+    },
+    {
+      "language": "python",
+      "line": 614,
+      "path": "core\\server.py",
+      "text": "\"requested_reasoning_budget\": target[\"reasoning_budget\"],"
+    },
+    {
+      "language": "python",
+      "line": 615,
+      "path": "core\\server.py",
+      "text": "\"active_reasoning_mode\": self._state_reasoning_mode(state),"
+    },
+    {
+      "language": "python",
+      "line": 616,
+      "path": "core\\server.py",
+      "text": "\"active_reasoning_budget\": self._state_reasoning_budget(state),"
+    },
+    {
+      "language": "python",
+      "line": 617,
+      "path": "core\\server.py",
+      "text": "\"settings_verified\": False,"
+    },
+    {
+      "language": "python",
+      "line": 618,
+      "path": "core\\server.py",
+      "text": "},"
+    },
+    {
+      "language": "python",
+      "line": 619,
+      "path": "core\\server.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 621,
+      "path": "core\\server.py",
+      "text": "def _target("
+    },
+    {
+      "language": "python",
+      "line": 622,
+      "path": "core\\server.py",
+      "text": "self,"
+    },
+    {
+      "language": "python",
+      "line": 623,
+      "path": "core\\server.py",
+      "text": "model,"
+    },
+    {
+      "language": "python",
+      "line": 624,
+      "path": "core\\server.py",
+      "text": "host,"
+    },
+    {
+      "language": "python",
+      "line": 625,
+      "path": "core\\server.py",
+      "text": "port,"
+    },
+    {
+      "language": "python",
+      "line": 626,
+      "path": "core\\server.py",
+      "text": "context,"
+    },
+    {
+      "language": "python",
+      "line": 627,
+      "path": "core\\server.py",
+      "text": "threads,"
+    },
+    {
+      "language": "python",
+      "line": 628,
+      "path": "core\\server.py",
+      "text": "reasoning_mode=\"current\","
+    },
+    {
+      "language": "python",
+      "line": 629,
+      "path": "core\\server.py",
+      "text": "reasoning_budget=None,"
+    },
+    {
+      "language": "python",
+      "line": 630,
+      "path": "core\\server.py",
+      "text": "require_verified_settings=False,"
+    },
+    {
+      "language": "python",
+      "line": 631,
+      "path": "core\\server.py",
+      "text": "projector=None,"
+    },
+    {
+      "language": "python",
+      "line": 632,
+      "path": "core\\server.py",
+      "text": "):"
+    },
+    {
+      "language": "python",
+      "line": 633,
+      "path": "core\\server.py",
+      "text": "path = Path(model).resolve()"
+    },
+    {
+      "language": "python",
+      "line": 634,
+      "path": "core\\server.py",
+      "text": "projector_path = None"
+    },
+    {
+      "language": "python",
+      "line": 635,
+      "path": "core\\server.py",
+      "text": "projector_name = None"
+    },
+    {
+      "language": "python",
+      "line": 636,
+      "path": "core\\server.py",
+      "text": "if projector not in (None, \"\"):"
+    },
+    {
+      "language": "python",
+      "line": 637,
+      "path": "core\\server.py",
+      "text": "resolved_projector = Path(projector).resolve()"
+    },
+    {
+      "language": "python",
+      "line": 638,
+      "path": "core\\server.py",
+      "text": "if not resolved_projector.is_file():"
+    },
+    {
+      "language": "python",
+      "line": 639,
+      "path": "core\\server.py",
+      "text": "raise FileNotFoundError("
+    },
+    {
+      "language": "python",
+      "line": 640,
+      "path": "core\\server.py",
+      "text": "f\"Missing multimodal projector: {resolved_projector}\""
+    },
+    {
+      "language": "python",
+      "line": 641,
+      "path": "core\\server.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 642,
+      "path": "core\\server.py",
+      "text": "projector_path = str(resolved_projector)"
+    },
+    {
+      "language": "python",
+      "line": 643,
+      "path": "core\\server.py",
+      "text": "projector_name = resolved_projector.name"
+    },
+    {
+      "language": "python",
+      "line": 644,
+      "path": "core\\server.py",
+      "text": "mode = str(reasoning_mode or \"current\").strip().lower()"
+    },
+    {
+      "language": "python",
+      "line": 645,
+      "path": "core\\server.py",
+      "text": "if mode not in {\"current\", \"off\"}:"
+    },
+    {
+      "language": "python",
+      "line": 646,
+      "path": "core\\server.py",
+      "text": "raise ValueError("
+    },
+    {
+      "language": "python",
+      "line": 647,
+      "path": "core\\server.py",
+      "text": "\"Unsupported reasoning mode. Allowed values: current, off.\""
+    },
+    {
+      "language": "python",
+      "line": 648,
+      "path": "core\\server.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 649,
+      "path": "core\\server.py",
+      "text": "if mode == \"off\":"
+    },
+    {
+      "language": "python",
+      "line": 650,
+      "path": "core\\server.py",
+      "text": "budget = 0 if reasoning_budget in (None, \"\") else int("
+    },
+    {
+      "language": "python",
+      "line": 651,
+      "path": "core\\server.py",
+      "text": "reasoning_budget"
+    },
+    {
+      "language": "python",
+      "line": 652,
+      "path": "core\\server.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 653,
+      "path": "core\\server.py",
+      "text": "if budget != 0:"
+    },
+    {
+      "language": "python",
+      "line": 654,
+      "path": "core\\server.py",
+      "text": "raise ValueError("
+    },
+    {
+      "language": "python",
+      "line": 655,
+      "path": "core\\server.py",
+      "text": "\"The approved reasoning-off profile requires budget 0.\""
+    },
+    {
+      "language": "python",
+      "line": 656,
+      "path": "core\\server.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 657,
+      "path": "core\\server.py",
+      "text": "else:"
+    },
+    {
+      "language": "python",
+      "line": 658,
+      "path": "core\\server.py",
+      "text": "if reasoning_budget not in (None, \"\"):"
+    },
+    {
+      "language": "python",
+      "line": 659,
+      "path": "core\\server.py",
+      "text": "raise ValueError("
+    },
+    {
+      "language": "python",
+      "line": 660,
+      "path": "core\\server.py",
+      "text": "\"Reasoning budget must be omitted for current mode.\""
+    },
+    {
+      "language": "python",
+      "line": 661,
+      "path": "core\\server.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 662,
+      "path": "core\\server.py",
+      "text": "budget = None"
+    },
+    {
+      "language": "python",
+      "line": 663,
+      "path": "core\\server.py",
+      "text": "return {"
+    },
+    {
+      "language": "python",
+      "line": 664,
+      "path": "core\\server.py",
+      "text": "\"model_path\": str(path),"
+    },
+    {
+      "language": "python",
+      "line": 665,
+      "path": "core\\server.py",
+      "text": "\"model_name\": path.name,"
+    },
+    {
+      "language": "python",
+      "line": 666,
+      "path": "core\\server.py",
+      "text": "\"projector_path\": projector_path,"
+    },
+    {
+      "language": "python",
+      "line": 667,
+      "path": "core\\server.py",
+      "text": "\"projector_name\": projector_name,"
+    },
+    {
+      "language": "python",
+      "line": 668,
+      "path": "core\\server.py",
+      "text": "\"host\": str(host),"
+    },
+    {
+      "language": "python",
+      "line": 669,
+      "path": "core\\server.py",
+      "text": "\"port\": str(port),"
+    },
+    {
+      "language": "python",
+      "line": 670,
+      "path": "core\\server.py",
+      "text": "\"context\": str(context),"
+    },
+    {
+      "language": "python",
+      "line": 671,
+      "path": "core\\server.py",
+      "text": "\"threads\": str(threads),"
+    },
+    {
+      "language": "python",
+      "line": 672,
+      "path": "core\\server.py",
+      "text": "\"reasoning_mode\": mode,"
+    },
+    {
+      "language": "python",
+      "line": 673,
+      "path": "core\\server.py",
+      "text": "\"reasoning_budget\": budget,"
+    },
+    {
+      "language": "python",
+      "line": 674,
+      "path": "core\\server.py",
+      "text": "\"require_verified_settings\": bool(require_verified_settings),"
+    },
+    {
+      "language": "python",
+      "line": 675,
+      "path": "core\\server.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 677,
+      "path": "core\\server.py",
+      "text": "def _same_endpoint(self, state, target):"
+    },
+    {
+      "language": "python",
+      "line": 678,
+      "path": "core\\server.py",
+      "text": "return ("
+    },
+    {
+      "language": "python",
+      "line": 679,
+      "path": "core\\server.py",
+      "text": "str(state.get(\"host\")) == target[\"host\"]"
+    },
+    {
+      "language": "python",
+      "line": 680,
+      "path": "core\\server.py",
+      "text": "and str(state.get(\"port\")) == target[\"port\"]"
+    },
+    {
+      "language": "python",
+      "line": 681,
+      "path": "core\\server.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 683,
+      "path": "core\\server.py",
+      "text": "def _state_reasoning_mode(self, state):"
+    },
+    {
+      "language": "python",
+      "line": 684,
+      "path": "core\\server.py",
+      "text": "return str(state.get(\"reasoning_mode\") or \"current\").strip().lower()"
+    },
+    {
+      "language": "python",
+      "line": 686,
+      "path": "core\\server.py",
+      "text": "def _state_reasoning_budget(self, state):"
+    },
+    {
+      "language": "python",
+      "line": 687,
+      "path": "core\\server.py",
+      "text": "if self._state_reasoning_mode(state) != \"off\":"
+    },
+    {
+      "language": "python",
+      "line": 688,
+      "path": "core\\server.py",
+      "text": "return None"
+    },
+    {
+      "language": "python",
+      "line": 689,
+      "path": "core\\server.py",
+      "text": "value = state.get(\"reasoning_budget\")"
+    },
+    {
+      "language": "python",
+      "line": 690,
+      "path": "core\\server.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 691,
+      "path": "core\\server.py",
+      "text": "return 0 if value in (None, \"\") else int(value)"
+    },
+    {
+      "language": "python",
+      "line": 692,
+      "path": "core\\server.py",
+      "text": "except Exception:"
+    },
+    {
+      "language": "python",
+      "line": 693,
+      "path": "core\\server.py",
+      "text": "return value"
+    },
+    {
+      "language": "python",
+      "line": 695,
+      "path": "core\\server.py",
+      "text": "def _same_model(self, state, target):"
+    },
+    {
+      "language": "python",
+      "line": 696,
+      "path": "core\\server.py",
+      "text": "state_path = state.get(\"model_path\")"
+    },
+    {
+      "language": "python",
+      "line": 697,
+      "path": "core\\server.py",
+      "text": "if state_path:"
+    },
+    {
+      "language": "python",
+      "line": 698,
+      "path": "core\\server.py",
+      "text": "model_matches = ("
+    },
+    {
+      "language": "python",
+      "line": 699,
+      "path": "core\\server.py",
+      "text": "self._normalized_path(state_path)"
+    },
+    {
+      "language": "python",
+      "line": 700,
+      "path": "core\\server.py",
+      "text": "== self._normalized_path(target[\"model_path\"])"
+    },
+    {
+      "language": "python",
+      "line": 701,
+      "path": "core\\server.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 702,
+      "path": "core\\server.py",
+      "text": "else:"
+    },
+    {
+      "language": "python",
+      "line": 703,
+      "path": "core\\server.py",
+      "text": "model_matches = str("
+    },
+    {
+      "language": "python",
+      "line": 704,
+      "path": "core\\server.py",
+      "text": "state.get(\"model_name\", \"\")"
+    },
+    {
+      "language": "python",
+      "line": 705,
+      "path": "core\\server.py",
+      "text": ").casefold() == target[\"model_name\"].casefold()"
+    },
+    {
+      "language": "python",
+      "line": 706,
+      "path": "core\\server.py",
+      "text": "if not model_matches:"
+    },
+    {
+      "language": "python",
+      "line": 707,
+      "path": "core\\server.py",
+      "text": "return False"
+    },
+    {
+      "language": "python",
+      "line": 708,
+      "path": "core\\server.py",
+      "text": "state_projector = state.get(\"projector_path\")"
+    },
+    {
+      "language": "python",
+      "line": 709,
+      "path": "core\\server.py",
+      "text": "target_projector = target.get(\"projector_path\")"
+    },
+    {
+      "language": "python",
+      "line": 710,
+      "path": "core\\server.py",
+      "text": "if state_projector or target_projector:"
+    },
+    {
+      "language": "python",
+      "line": 711,
+      "path": "core\\server.py",
+      "text": "if not state_projector or not target_projector:"
+    },
+    {
+      "language": "python",
+      "line": 712,
+      "path": "core\\server.py",
+      "text": "return False"
+    },
+    {
+      "language": "python",
+      "line": 713,
+      "path": "core\\server.py",
+      "text": "if ("
+    },
+    {
+      "language": "python",
+      "line": 714,
+      "path": "core\\server.py",
+      "text": "self._normalized_path(state_projector)"
+    },
+    {
+      "language": "python",
+      "line": 715,
+      "path": "core\\server.py",
+      "text": "!= self._normalized_path(target_projector)"
+    },
+    {
+      "language": "python",
+      "line": 716,
+      "path": "core\\server.py",
+      "text": "):"
+    },
+    {
+      "language": "python",
+      "line": 717,
+      "path": "core\\server.py",
+      "text": "return False"
+    },
+    {
+      "language": "python",
+      "line": 718,
+      "path": "core\\server.py",
+      "text": "if not target[\"require_verified_settings\"]:"
+    },
+    {
+      "language": "python",
+      "line": 719,
+      "path": "core\\server.py",
+      "text": "return True"
+    },
+    {
+      "language": "python",
+      "line": 720,
+      "path": "core\\server.py",
+      "text": "return ("
+    },
+    {
+      "language": "python",
+      "line": 721,
+      "path": "core\\server.py",
+      "text": "str(state.get(\"context\")) == target[\"context\"]"
+    },
+    {
+      "language": "python",
+      "line": 722,
+      "path": "core\\server.py",
+      "text": "and str(state.get(\"threads\")) == target[\"threads\"]"
+    },
+    {
+      "language": "python",
+      "line": 723,
+      "path": "core\\server.py",
+      "text": "and self._state_reasoning_mode(state)"
+    },
+    {
+      "language": "python",
+      "line": 724,
+      "path": "core\\server.py",
+      "text": "== target[\"reasoning_mode\"]"
+    },
+    {
+      "language": "python",
+      "line": 725,
+      "path": "core\\server.py",
+      "text": "and self._state_reasoning_budget(state)"
+    },
+    {
+      "language": "python",
+      "line": 726,
+      "path": "core\\server.py",
+      "text": "== target[\"reasoning_budget\"]"
+    },
+    {
+      "language": "python",
+      "line": 727,
+      "path": "core\\server.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 729,
+      "path": "core\\server.py",
+      "text": "def _client_key(self):"
+    },
+    {
+      "language": "python",
+      "line": 730,
+      "path": "core\\server.py",
+      "text": "return f\"{self.interface_name}:{os.getpid()}\""
+    },
+    {
+      "language": "python",
+      "line": 732,
+      "path": "core\\server.py",
+      "text": "def _register_client(self, state):"
+    },
+    {
+      "language": "python",
+      "line": 733,
+      "path": "core\\server.py",
+      "text": "clients = dict(state.get(\"clients\") or {})"
+    },
+    {
+      "language": "python",
+      "line": 734,
+      "path": "core\\server.py",
+      "text": "clients[self._client_key()] = {"
+    },
+    {
+      "language": "python",
+      "line": 735,
+      "path": "core\\server.py",
+      "text": "\"interface\": self.interface_name,"
+    },
+    {
+      "language": "python",
+      "line": 736,
+      "path": "core\\server.py",
+      "text": "\"pid\": os.getpid(),"
+    },
+    {
+      "language": "python",
+      "line": 737,
+      "path": "core\\server.py",
+      "text": "\"attached_at\": clients.get("
+    },
+    {
+      "language": "python",
+      "line": 738,
+      "path": "core\\server.py",
+      "text": "self._client_key(), {}"
+    },
+    {
+      "language": "python",
+      "line": 739,
+      "path": "core\\server.py",
+      "text": ").get(\"attached_at\", self._now()),"
+    },
+    {
+      "language": "python",
+      "line": 740,
+      "path": "core\\server.py",
+      "text": "\"last_seen\": self._now(),"
+    },
+    {
+      "language": "python",
+      "line": 741,
+      "path": "core\\server.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 742,
+      "path": "core\\server.py",
+      "text": "state[\"clients\"] = clients"
+    },
+    {
+      "language": "python",
+      "line": 743,
+      "path": "core\\server.py",
+      "text": "return state"
+    },
+    {
+      "language": "python",
+      "line": 745,
+      "path": "core\\server.py",
+      "text": "def _unregister_client(self, state):"
+    },
+    {
+      "language": "python",
+      "line": 746,
+      "path": "core\\server.py",
+      "text": "clients = dict(state.get(\"clients\") or {})"
+    },
+    {
+      "language": "python",
+      "line": 747,
+      "path": "core\\server.py",
+      "text": "clients.pop(self._client_key(), None)"
+    },
+    {
+      "language": "python",
+      "line": 748,
+      "path": "core\\server.py",
+      "text": "state[\"clients\"] = clients"
+    },
+    {
+      "language": "python",
+      "line": 749,
+      "path": "core\\server.py",
+      "text": "return state"
+    },
+    {
+      "language": "python",
+      "line": 751,
+      "path": "core\\server.py",
+      "text": "def _prune_clients(self, state):"
+    },
+    {
+      "language": "python",
+      "line": 752,
+      "path": "core\\server.py",
+      "text": "if not state:"
+    },
+    {
+      "language": "python",
+      "line": 753,
+      "path": "core\\server.py",
+      "text": "return state"
+    },
+    {
+      "language": "python",
+      "line": 754,
+      "path": "core\\server.py",
+      "text": "clients = {}"
+    },
+    {
+      "language": "python",
+      "line": 755,
+      "path": "core\\server.py",
+      "text": "for key, client in (state.get(\"clients\") or {}).items():"
+    },
+    {
+      "language": "python",
+      "line": 756,
+      "path": "core\\server.py",
+      "text": "pid = self._int_or_none(client.get(\"pid\"))"
+    },
+    {
+      "language": "python",
+      "line": 757,
+      "path": "core\\server.py",
+      "text": "if pid is not None and self._pid_exists(pid):"
+    },
+    {
+      "language": "python",
+      "line": 758,
+      "path": "core\\server.py",
+      "text": "clients[key] = client"
+    },
+    {
+      "language": "python",
+      "line": 759,
+      "path": "core\\server.py",
+      "text": "state[\"clients\"] = clients"
+    },
+    {
+      "language": "python",
+      "line": 760,
+      "path": "core\\server.py",
+      "text": "return state"
+    },
+    {
+      "language": "python",
+      "line": 762,
+      "path": "core\\server.py",
+      "text": "def _read_state(self):"
+    },
+    {
+      "language": "python",
+      "line": 763,
+      "path": "core\\server.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 764,
+      "path": "core\\server.py",
+      "text": "if not self.state_file.exists():"
+    },
+    {
+      "language": "python",
+      "line": 765,
+      "path": "core\\server.py",
+      "text": "return None"
+    },
+    {
+      "language": "python",
+      "line": 766,
+      "path": "core\\server.py",
+      "text": "data = json.loads(self.state_file.read_text(encoding=\"utf-8\"))"
+    },
+    {
+      "language": "python",
+      "line": 767,
+      "path": "core\\server.py",
+      "text": "return data if isinstance(data, dict) else None"
+    },
+    {
+      "language": "python",
+      "line": 768,
+      "path": "core\\server.py",
+      "text": "except Exception:"
+    },
+    {
+      "language": "python",
+      "line": 769,
+      "path": "core\\server.py",
+      "text": "return None"
+    },
+    {
+      "language": "python",
+      "line": 771,
+      "path": "core\\server.py",
+      "text": "def _write_state(self, state):"
+    },
+    {
+      "language": "python",
+      "line": 772,
+      "path": "core\\server.py",
+      "text": "self.state_file.parent.mkdir(parents=True, exist_ok=True)"
+    },
+    {
+      "language": "python",
+      "line": 773,
+      "path": "core\\server.py",
+      "text": "payload = json.dumps(state, indent=2, sort_keys=True)"
+    },
+    {
+      "language": "python",
+      "line": 774,
+      "path": "core\\server.py",
+      "text": "with tempfile.NamedTemporaryFile("
+    },
+    {
+      "language": "python",
+      "line": 775,
+      "path": "core\\server.py",
+      "text": "mode=\"w\","
+    },
+    {
+      "language": "python",
+      "line": 776,
+      "path": "core\\server.py",
+      "text": "encoding=\"utf-8\","
+    },
+    {
+      "language": "python",
+      "line": 777,
+      "path": "core\\server.py",
+      "text": "delete=False,"
+    },
+    {
+      "language": "python",
+      "line": 778,
+      "path": "core\\server.py",
+      "text": "dir=str(self.state_file.parent),"
+    },
+    {
+      "language": "python",
+      "line": 779,
+      "path": "core\\server.py",
+      "text": "prefix=self.state_file.name + \".\","
+    },
+    {
+      "language": "python",
+      "line": 780,
+      "path": "core\\server.py",
+      "text": "suffix=\".tmp\","
+    },
+    {
+      "language": "python",
+      "line": 781,
+      "path": "core\\server.py",
+      "text": ") as handle:"
+    },
+    {
+      "language": "python",
+      "line": 782,
+      "path": "core\\server.py",
+      "text": "temp_path = Path(handle.name)"
+    },
+    {
+      "language": "python",
+      "line": 783,
+      "path": "core\\server.py",
+      "text": "handle.write(payload)"
+    },
+    {
+      "language": "python",
+      "line": 784,
+      "path": "core\\server.py",
+      "text": "temp_path.replace(self.state_file)"
+    },
+    {
+      "language": "python",
+      "line": 786,
+      "path": "core\\server.py",
+      "text": "def _clear_state(self):"
+    },
+    {
+      "language": "python",
+      "line": 787,
+      "path": "core\\server.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 788,
+      "path": "core\\server.py",
+      "text": "self.state_file.unlink(missing_ok=True)"
+    },
+    {
+      "language": "python",
+      "line": 789,
+      "path": "core\\server.py",
+      "text": "except Exception:"
+    },
+    {
+      "language": "python",
+      "line": 790,
+      "path": "core\\server.py",
+      "text": "pass"
+    },
+    {
+      "language": "python",
+      "line": 792,
+      "path": "core\\server.py",
+      "text": "@contextmanager"
+    },
+    {
+      "language": "python",
+      "line": 793,
+      "path": "core\\server.py",
+      "text": "def _runtime_lock(self, timeout=10, stale_after=120):"
+    },
+    {
+      "language": "python",
+      "line": 794,
+      "path": "core\\server.py",
+      "text": "self.lock_file.parent.mkdir(parents=True, exist_ok=True)"
+    },
+    {
+      "language": "python",
+      "line": 795,
+      "path": "core\\server.py",
+      "text": "deadline = time.monotonic() + timeout"
+    },
+    {
+      "language": "python",
+      "line": 796,
+      "path": "core\\server.py",
+      "text": "fd = None"
+    },
+    {
+      "language": "python",
+      "line": 798,
+      "path": "core\\server.py",
+      "text": "while fd is None:"
+    },
+    {
+      "language": "python",
+      "line": 799,
+      "path": "core\\server.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 800,
+      "path": "core\\server.py",
+      "text": "fd = os.open("
+    },
+    {
+      "language": "python",
+      "line": 801,
+      "path": "core\\server.py",
+      "text": "str(self.lock_file),"
+    },
+    {
+      "language": "python",
+      "line": 802,
+      "path": "core\\server.py",
+      "text": "os.O_CREAT | os.O_EXCL | os.O_WRONLY,"
+    },
+    {
+      "language": "python",
+      "line": 803,
+      "path": "core\\server.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 804,
+      "path": "core\\server.py",
+      "text": "os.write("
+    },
+    {
+      "language": "python",
+      "line": 805,
+      "path": "core\\server.py",
+      "text": "fd,"
+    },
+    {
+      "language": "python",
+      "line": 806,
+      "path": "core\\server.py",
+      "text": "json.dumps("
+    },
+    {
+      "language": "python",
+      "line": 807,
+      "path": "core\\server.py",
+      "text": "{"
+    },
+    {
+      "language": "python",
+      "line": 808,
+      "path": "core\\server.py",
+      "text": "\"interface\": self.interface_name,"
+    },
+    {
+      "language": "python",
+      "line": 809,
+      "path": "core\\server.py",
+      "text": "\"pid\": os.getpid(),"
+    },
+    {
+      "language": "python",
+      "line": 810,
+      "path": "core\\server.py",
+      "text": "\"created_at\": self._now(),"
+    },
+    {
+      "language": "python",
+      "line": 811,
+      "path": "core\\server.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 812,
+      "path": "core\\server.py",
+      "text": ").encode(\"utf-8\"),"
+    },
+    {
+      "language": "python",
+      "line": 813,
+      "path": "core\\server.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 814,
+      "path": "core\\server.py",
+      "text": "except FileExistsError:"
+    },
+    {
+      "language": "python",
+      "line": 815,
+      "path": "core\\server.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 816,
+      "path": "core\\server.py",
+      "text": "age = time.time() - self.lock_file.stat().st_mtime"
+    },
+    {
+      "language": "python",
+      "line": 817,
+      "path": "core\\server.py",
+      "text": "if age > stale_after:"
+    },
+    {
+      "language": "python",
+      "line": 818,
+      "path": "core\\server.py",
+      "text": "self.lock_file.unlink(missing_ok=True)"
+    },
+    {
+      "language": "python",
+      "line": 819,
+      "path": "core\\server.py",
+      "text": "continue"
+    },
+    {
+      "language": "python",
+      "line": 820,
+      "path": "core\\server.py",
+      "text": "except Exception:"
+    },
+    {
+      "language": "python",
+      "line": 821,
+      "path": "core\\server.py",
+      "text": "pass"
+    },
+    {
+      "language": "python",
+      "line": 823,
+      "path": "core\\server.py",
+      "text": "if time.monotonic() >= deadline:"
+    },
+    {
+      "language": "python",
+      "line": 824,
+      "path": "core\\server.py",
+      "text": "raise TimeoutError("
+    },
+    {
+      "language": "python",
+      "line": 825,
+      "path": "core\\server.py",
+      "text": "\"Shared neural runtime coordinator is busy. \""
+    },
+    {
+      "language": "python",
+      "line": 826,
+      "path": "core\\server.py",
+      "text": "\"No server was launched.\""
+    },
+    {
+      "language": "python",
+      "line": 827,
+      "path": "core\\server.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 828,
+      "path": "core\\server.py",
+      "text": "time.sleep(0.1)"
+    },
+    {
+      "language": "python",
+      "line": 830,
+      "path": "core\\server.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 831,
+      "path": "core\\server.py",
+      "text": "yield"
+    },
+    {
+      "language": "python",
+      "line": 832,
+      "path": "core\\server.py",
+      "text": "finally:"
+    },
+    {
+      "language": "python",
+      "line": 833,
+      "path": "core\\server.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 834,
+      "path": "core\\server.py",
+      "text": "os.close(fd)"
+    },
+    {
+      "language": "python",
+      "line": 835,
+      "path": "core\\server.py",
+      "text": "except Exception:"
+    },
+    {
+      "language": "python",
+      "line": 836,
+      "path": "core\\server.py",
+      "text": "pass"
+    },
+    {
+      "language": "python",
+      "line": 837,
+      "path": "core\\server.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 838,
+      "path": "core\\server.py",
+      "text": "self.lock_file.unlink(missing_ok=True)"
+    },
+    {
+      "language": "python",
+      "line": 839,
+      "path": "core\\server.py",
+      "text": "except Exception:"
+    },
+    {
+      "language": "python",
+      "line": 840,
+      "path": "core\\server.py",
+      "text": "pass"
+    },
+    {
+      "language": "python",
+      "line": 842,
+      "path": "core\\server.py",
+      "text": "# -------------------------"
+    },
+    {
+      "language": "python",
+      "line": 843,
+      "path": "core\\server.py",
+      "text": "# Process and endpoint checks"
+    },
+    {
+      "language": "python",
+      "line": 844,
+      "path": "core\\server.py",
+      "text": "# -------------------------"
+    },
+    {
+      "language": "python",
+      "line": 846,
+      "path": "core\\server.py",
+      "text": "def _launch_process(self, target):"
+    },
+    {
+      "language": "python",
+      "line": 847,
+      "path": "core\\server.py",
+      "text": "cmd = ["
+    },
+    {
+      "language": "python",
+      "line": 848,
+      "path": "core\\server.py",
+      "text": "str(ENGINE),"
+    },
+    {
+      "language": "python",
+      "line": 849,
+      "path": "core\\server.py",
+      "text": "\"--model\","
+    },
+    {
+      "language": "python",
+      "line": 850,
+      "path": "core\\server.py",
+      "text": "target[\"model_path\"],"
+    },
+    {
+      "language": "python",
+      "line": 851,
+      "path": "core\\server.py",
+      "text": "\"--host\","
+    },
+    {
+      "language": "python",
+      "line": 852,
+      "path": "core\\server.py",
+      "text": "target[\"host\"],"
+    },
+    {
+      "language": "python",
+      "line": 853,
+      "path": "core\\server.py",
+      "text": "\"--port\","
+    },
+    {
+      "language": "python",
+      "line": 854,
+      "path": "core\\server.py",
+      "text": "target[\"port\"],"
+    },
+    {
+      "language": "python",
+      "line": 855,
+      "path": "core\\server.py",
+      "text": "\"--ctx-size\","
+    },
+    {
+      "language": "python",
+      "line": 856,
+      "path": "core\\server.py",
+      "text": "target[\"context\"],"
+    },
+    {
+      "language": "python",
+      "line": 857,
+      "path": "core\\server.py",
+      "text": "\"--threads\","
+    },
+    {
+      "language": "python",
+      "line": 858,
+      "path": "core\\server.py",
+      "text": "target[\"threads\"],"
+    },
+    {
+      "language": "python",
+      "line": 859,
+      "path": "core\\server.py",
+      "text": "]"
+    },
+    {
+      "language": "python",
+      "line": 860,
+      "path": "core\\server.py",
+      "text": "if target.get(\"projector_path\"):"
+    },
+    {
+      "language": "python",
+      "line": 861,
+      "path": "core\\server.py",
+      "text": "cmd.extend([\"--mmproj\", target[\"projector_path\"]])"
+    },
+    {
+      "language": "python",
+      "line": 862,
+      "path": "core\\server.py",
+      "text": "if target[\"reasoning_mode\"] == \"off\":"
+    },
+    {
+      "language": "python",
+      "line": 863,
+      "path": "core\\server.py",
+      "text": "cmd.extend("
+    },
+    {
+      "language": "python",
+      "line": 864,
+      "path": "core\\server.py",
+      "text": "["
+    },
+    {
+      "language": "python",
+      "line": 865,
+      "path": "core\\server.py",
+      "text": "\"--reasoning\","
+    },
+    {
+      "language": "python",
+      "line": 866,
+      "path": "core\\server.py",
+      "text": "\"off\","
+    },
+    {
+      "language": "python",
+      "line": 867,
+      "path": "core\\server.py",
+      "text": "\"--reasoning-budget\","
+    },
+    {
+      "language": "python",
+      "line": 868,
+      "path": "core\\server.py",
+      "text": "str(target[\"reasoning_budget\"]),"
+    },
+    {
+      "language": "python",
+      "line": 869,
+      "path": "core\\server.py",
+      "text": "]"
+    },
+    {
+      "language": "python",
+      "line": 870,
+      "path": "core\\server.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 871,
+      "path": "core\\server.py",
+      "text": "creationflags = ("
+    },
+    {
+      "language": "python",
+      "line": 872,
+      "path": "core\\server.py",
+      "text": "getattr(subprocess, \"CREATE_NEW_CONSOLE\", 0)"
+    },
+    {
+      "language": "python",
+      "line": 873,
+      "path": "core\\server.py",
+      "text": "if self.new_console and os.name == \"nt\""
+    },
+    {
+      "language": "python",
+      "line": 874,
+      "path": "core\\server.py",
+      "text": "else 0"
+    },
+    {
+      "language": "python",
+      "line": 875,
+      "path": "core\\server.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 876,
+      "path": "core\\server.py",
+      "text": "return subprocess.Popen("
+    },
+    {
+      "language": "python",
+      "line": 877,
+      "path": "core\\server.py",
+      "text": "cmd,"
+    },
+    {
+      "language": "python",
+      "line": 878,
+      "path": "core\\server.py",
+      "text": "cwd=str(ENGINE.parent.parent),"
+    },
+    {
+      "language": "python",
+      "line": 879,
+      "path": "core\\server.py",
+      "text": "creationflags=creationflags,"
+    },
+    {
+      "language": "python",
+      "line": 880,
+      "path": "core\\server.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 882,
+      "path": "core\\server.py",
+      "text": "def _health_ok(self, host, port):"
+    },
+    {
+      "language": "python",
+      "line": 883,
+      "path": "core\\server.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 884,
+      "path": "core\\server.py",
+      "text": "url = f\"http://{host}:{port}/health\""
+    },
+    {
+      "language": "python",
+      "line": 885,
+      "path": "core\\server.py",
+      "text": "with urllib.request.urlopen(url, timeout=1.5) as response:"
+    },
+    {
+      "language": "python",
+      "line": 886,
+      "path": "core\\server.py",
+      "text": "response.read(64)"
+    },
+    {
+      "language": "python",
+      "line": 887,
+      "path": "core\\server.py",
+      "text": "return True"
+    },
+    {
+      "language": "python",
+      "line": 888,
+      "path": "core\\server.py",
+      "text": "except Exception:"
+    },
+    {
+      "language": "python",
+      "line": 889,
+      "path": "core\\server.py",
+      "text": "return False"
+    },
+    {
+      "language": "python",
+      "line": 891,
+      "path": "core\\server.py",
+      "text": "def _port_open(self, host, port):"
+    },
+    {
+      "language": "python",
+      "line": 892,
+      "path": "core\\server.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 893,
+      "path": "core\\server.py",
+      "text": "with socket.socket("
+    },
+    {
+      "language": "python",
+      "line": 894,
+      "path": "core\\server.py",
+      "text": "socket.AF_INET,"
+    },
+    {
+      "language": "python",
+      "line": 895,
+      "path": "core\\server.py",
+      "text": "socket.SOCK_STREAM,"
+    },
+    {
+      "language": "python",
+      "line": 896,
+      "path": "core\\server.py",
+      "text": ") as sock:"
+    },
+    {
+      "language": "python",
+      "line": 897,
+      "path": "core\\server.py",
+      "text": "sock.settimeout(0.4)"
+    },
+    {
+      "language": "python",
+      "line": 898,
+      "path": "core\\server.py",
+      "text": "return sock.connect_ex((str(host), int(port))) == 0"
+    },
+    {
+      "language": "python",
+      "line": 899,
+      "path": "core\\server.py",
+      "text": "except Exception:"
+    },
+    {
+      "language": "python",
+      "line": 900,
+      "path": "core\\server.py",
+      "text": "return False"
+    },
+    {
+      "language": "python",
+      "line": 902,
+      "path": "core\\server.py",
+      "text": "def _probe_model_ids(self, host, port):"
+    },
+    {
+      "language": "python",
+      "line": 903,
+      "path": "core\\server.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 904,
+      "path": "core\\server.py",
+      "text": "url = f\"http://{host}:{port}/v1/models\""
+    },
+    {
+      "language": "python",
+      "line": 905,
+      "path": "core\\server.py",
+      "text": "with urllib.request.urlopen(url, timeout=1.5) as response:"
+    },
+    {
+      "language": "python",
+      "line": 906,
+      "path": "core\\server.py",
+      "text": "payload = json.loads("
+    },
+    {
+      "language": "python",
+      "line": 907,
+      "path": "core\\server.py",
+      "text": "response.read().decode(\"utf-8\", errors=\"replace\")"
+    },
+    {
+      "language": "python",
+      "line": 908,
+      "path": "core\\server.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 909,
+      "path": "core\\server.py",
+      "text": "ids = []"
+    },
+    {
+      "language": "python",
+      "line": 910,
+      "path": "core\\server.py",
+      "text": "for item in payload.get(\"data\", []):"
+    },
+    {
+      "language": "python",
+      "line": 911,
+      "path": "core\\server.py",
+      "text": "if isinstance(item, dict) and item.get(\"id\"):"
+    },
+    {
+      "language": "python",
+      "line": 912,
+      "path": "core\\server.py",
+      "text": "ids.append(str(item[\"id\"]))"
+    },
+    {
+      "language": "python",
+      "line": 913,
+      "path": "core\\server.py",
+      "text": "return ids"
+    },
+    {
+      "language": "python",
+      "line": 914,
+      "path": "core\\server.py",
+      "text": "except Exception:"
+    },
+    {
+      "language": "python",
+      "line": 915,
+      "path": "core\\server.py",
+      "text": "return []"
+    },
+    {
+      "language": "python",
+      "line": 917,
+      "path": "core\\server.py",
+      "text": "def _model_matches_ids(self, model_path, model_ids):"
+    },
+    {
+      "language": "python",
+      "line": 918,
+      "path": "core\\server.py",
+      "text": "if not model_ids:"
+    },
+    {
+      "language": "python",
+      "line": 919,
+      "path": "core\\server.py",
+      "text": "return False"
+    },
+    {
+      "language": "python",
+      "line": 920,
+      "path": "core\\server.py",
+      "text": "wanted = self._model_tokens(model_path)"
+    },
+    {
+      "language": "python",
+      "line": 921,
+      "path": "core\\server.py",
+      "text": "generic = {\"model\", \"local-model\", \"local_model\", \"default\"}"
+    },
+    {
+      "language": "python",
+      "line": 922,
+      "path": "core\\server.py",
+      "text": "for model_id in model_ids:"
+    },
+    {
+      "language": "python",
+      "line": 923,
+      "path": "core\\server.py",
+      "text": "tokens = self._model_tokens(model_id)"
+    },
+    {
+      "language": "python",
+      "line": 924,
+      "path": "core\\server.py",
+      "text": "if tokens & generic:"
+    },
+    {
+      "language": "python",
+      "line": 925,
+      "path": "core\\server.py",
+      "text": "continue"
+    },
+    {
+      "language": "python",
+      "line": 926,
+      "path": "core\\server.py",
+      "text": "if wanted & tokens:"
+    },
+    {
+      "language": "python",
+      "line": 927,
+      "path": "core\\server.py",
+      "text": "return True"
+    },
+    {
+      "language": "python",
+      "line": 928,
+      "path": "core\\server.py",
+      "text": "return False"
+    },
+    {
+      "language": "python",
+      "line": 930,
+      "path": "core\\server.py",
+      "text": "def _model_tokens(self, value):"
+    },
+    {
+      "language": "python",
+      "line": 931,
+      "path": "core\\server.py",
+      "text": "raw = str(value or \"\").replace(\"\\\\\", \"/\")"
+    },
+    {
+      "language": "python",
+      "line": 932,
+      "path": "core\\server.py",
+      "text": "name = Path(raw).name.casefold()"
+    },
+    {
+      "language": "python",
+      "line": 933,
+      "path": "core\\server.py",
+      "text": "stem = Path(name).stem.casefold()"
+    },
+    {
+      "language": "python",
+      "line": 934,
+      "path": "core\\server.py",
+      "text": "return {name, stem}"
+    },
+    {
+      "language": "python",
+      "line": 936,
+      "path": "core\\server.py",
+      "text": "def _pid_exists(self, pid):"
+    },
+    {
+      "language": "python",
+      "line": 937,
+      "path": "core\\server.py",
+      "text": "if not pid or pid <= 0:"
+    },
+    {
+      "language": "python",
+      "line": 938,
+      "path": "core\\server.py",
+      "text": "return False"
+    },
+    {
+      "language": "python",
+      "line": 939,
+      "path": "core\\server.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 940,
+      "path": "core\\server.py",
+      "text": "import psutil"
+    },
+    {
+      "language": "python",
+      "line": 941,
+      "path": "core\\server.py",
+      "text": "return psutil.pid_exists(pid)"
+    },
+    {
+      "language": "python",
+      "line": 942,
+      "path": "core\\server.py",
+      "text": "except Exception:"
+    },
+    {
+      "language": "python",
+      "line": 943,
+      "path": "core\\server.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 944,
+      "path": "core\\server.py",
+      "text": "os.kill(pid, 0)"
+    },
+    {
+      "language": "python",
+      "line": 945,
+      "path": "core\\server.py",
+      "text": "return True"
+    },
+    {
+      "language": "python",
+      "line": 946,
+      "path": "core\\server.py",
+      "text": "except Exception:"
+    },
+    {
+      "language": "python",
+      "line": 947,
+      "path": "core\\server.py",
+      "text": "return False"
+    },
+    {
+      "language": "python",
+      "line": 949,
+      "path": "core\\server.py",
+      "text": "def _process_matches_state(self, pid, state):"
+    },
+    {
+      "language": "python",
+      "line": 950,
+      "path": "core\\server.py",
+      "text": "if not pid:"
+    },
+    {
+      "language": "python",
+      "line": 951,
+      "path": "core\\server.py",
+      "text": "return None"
+    },
+    {
+      "language": "python",
+      "line": 952,
+      "path": "core\\server.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 953,
+      "path": "core\\server.py",
+      "text": "import psutil"
+    },
+    {
+      "language": "python",
+      "line": 954,
+      "path": "core\\server.py",
+      "text": "process = psutil.Process(pid)"
+    },
+    {
+      "language": "python",
+      "line": 955,
+      "path": "core\\server.py",
+      "text": "cmdline = [str(arg) for arg in process.cmdline()]"
+    },
+    {
+      "language": "python",
+      "line": 956,
+      "path": "core\\server.py",
+      "text": "if not cmdline:"
+    },
+    {
+      "language": "python",
+      "line": 957,
+      "path": "core\\server.py",
+      "text": "return None"
+    },
+    {
+      "language": "python",
+      "line": 959,
+      "path": "core\\server.py",
+      "text": "executable = self._normalized_path(cmdline[0])"
+    },
+    {
+      "language": "python",
+      "line": 960,
+      "path": "core\\server.py",
+      "text": "expected_engine = self._normalized_path("
+    },
+    {
+      "language": "python",
+      "line": 961,
+      "path": "core\\server.py",
+      "text": "state.get(\"engine_path\") or ENGINE"
+    },
+    {
+      "language": "python",
+      "line": 962,
+      "path": "core\\server.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 963,
+      "path": "core\\server.py",
+      "text": "if executable != expected_engine:"
+    },
+    {
+      "language": "python",
+      "line": 964,
+      "path": "core\\server.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 965,
+      "path": "core\\server.py",
+      "text": "executable = self._normalized_path(process.exe())"
+    },
+    {
+      "language": "python",
+      "line": 966,
+      "path": "core\\server.py",
+      "text": "except Exception:"
+    },
+    {
+      "language": "python",
+      "line": 967,
+      "path": "core\\server.py",
+      "text": "pass"
+    },
+    {
+      "language": "python",
+      "line": 968,
+      "path": "core\\server.py",
+      "text": "if executable != expected_engine:"
+    },
+    {
+      "language": "python",
+      "line": 969,
+      "path": "core\\server.py",
+      "text": "return False"
+    },
+    {
+      "language": "python",
+      "line": 971,
+      "path": "core\\server.py",
+      "text": "model = state.get(\"model_path\")"
+    },
+    {
+      "language": "python",
+      "line": 972,
+      "path": "core\\server.py",
+      "text": "if model:"
+    },
+    {
+      "language": "python",
+      "line": 973,
+      "path": "core\\server.py",
+      "text": "normalized_cmd = {"
+    },
+    {
+      "language": "python",
+      "line": 974,
+      "path": "core\\server.py",
+      "text": "self._normalized_path(arg)"
+    },
+    {
+      "language": "python",
+      "line": 975,
+      "path": "core\\server.py",
+      "text": "for arg in cmdline"
+    },
+    {
+      "language": "python",
+      "line": 976,
+      "path": "core\\server.py",
+      "text": "if arg"
+    },
+    {
+      "language": "python",
+      "line": 977,
+      "path": "core\\server.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 978,
+      "path": "core\\server.py",
+      "text": "if self._normalized_path(model) not in normalized_cmd:"
+    },
+    {
+      "language": "python",
+      "line": 979,
+      "path": "core\\server.py",
+      "text": "return False"
+    },
+    {
+      "language": "python",
+      "line": 981,
+      "path": "core\\server.py",
+      "text": "def flag_value(flag):"
+    },
+    {
+      "language": "python",
+      "line": 982,
+      "path": "core\\server.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 983,
+      "path": "core\\server.py",
+      "text": "index = cmdline.index(flag)"
+    },
+    {
+      "language": "python",
+      "line": 984,
+      "path": "core\\server.py",
+      "text": "except ValueError:"
+    },
+    {
+      "language": "python",
+      "line": 985,
+      "path": "core\\server.py",
+      "text": "return None"
+    },
+    {
+      "language": "python",
+      "line": 986,
+      "path": "core\\server.py",
+      "text": "if index + 1 >= len(cmdline):"
+    },
+    {
+      "language": "python",
+      "line": 987,
+      "path": "core\\server.py",
+      "text": "return None"
+    },
+    {
+      "language": "python",
+      "line": 988,
+      "path": "core\\server.py",
+      "text": "return str(cmdline[index + 1])"
+    },
+    {
+      "language": "python",
+      "line": 990,
+      "path": "core\\server.py",
+      "text": "projector = state.get(\"projector_path\")"
+    },
+    {
+      "language": "python",
+      "line": 991,
+      "path": "core\\server.py",
+      "text": "active_projector = flag_value(\"--mmproj\")"
+    },
+    {
+      "language": "python",
+      "line": 992,
+      "path": "core\\server.py",
+      "text": "if projector:"
+    },
+    {
+      "language": "python",
+      "line": 993,
+      "path": "core\\server.py",
+      "text": "if not active_projector:"
+    },
+    {
+      "language": "python",
+      "line": 994,
+      "path": "core\\server.py",
+      "text": "return False"
+    },
+    {
+      "language": "python",
+      "line": 995,
+      "path": "core\\server.py",
+      "text": "if ("
+    },
+    {
+      "language": "python",
+      "line": 996,
+      "path": "core\\server.py",
+      "text": "self._normalized_path(active_projector)"
+    },
+    {
+      "language": "python",
+      "line": 997,
+      "path": "core\\server.py",
+      "text": "!= self._normalized_path(projector)"
+    },
+    {
+      "language": "python",
+      "line": 998,
+      "path": "core\\server.py",
+      "text": "):"
+    },
+    {
+      "language": "python",
+      "line": 999,
+      "path": "core\\server.py",
+      "text": "return False"
+    },
+    {
+      "language": "python",
+      "line": 1000,
+      "path": "core\\server.py",
+      "text": "elif active_projector is not None:"
+    },
+    {
+      "language": "python",
+      "line": 1001,
+      "path": "core\\server.py",
+      "text": "return False"
+    },
+    {
+      "language": "python",
+      "line": 1003,
+      "path": "core\\server.py",
+      "text": "if state.get(\"context\") is not None:"
+    },
+    {
+      "language": "python",
+      "line": 1004,
+      "path": "core\\server.py",
+      "text": "if flag_value(\"--ctx-size\") != str(state.get(\"context\")):"
+    },
+    {
+      "language": "python",
+      "line": 1005,
+      "path": "core\\server.py",
+      "text": "return False"
+    },
+    {
+      "language": "python",
+      "line": 1006,
+      "path": "core\\server.py",
+      "text": "if state.get(\"threads\") is not None:"
+    },
+    {
+      "language": "python",
+      "line": 1007,
+      "path": "core\\server.py",
+      "text": "if flag_value(\"--threads\") != str(state.get(\"threads\")):"
+    },
+    {
+      "language": "python",
+      "line": 1008,
+      "path": "core\\server.py",
+      "text": "return False"
+    },
+    {
+      "language": "python",
+      "line": 1009,
+      "path": "core\\server.py",
+      "text": "if self._state_reasoning_mode(state) == \"off\":"
+    },
+    {
+      "language": "python",
+      "line": 1010,
+      "path": "core\\server.py",
+      "text": "if flag_value(\"--reasoning\") != \"off\":"
+    },
+    {
+      "language": "python",
+      "line": 1011,
+      "path": "core\\server.py",
+      "text": "return False"
+    },
+    {
+      "language": "python",
+      "line": 1012,
+      "path": "core\\server.py",
+      "text": "if flag_value(\"--reasoning-budget\") != str("
+    },
+    {
+      "language": "python",
+      "line": 1013,
+      "path": "core\\server.py",
+      "text": "self._state_reasoning_budget(state)"
+    },
+    {
+      "language": "python",
+      "line": 1014,
+      "path": "core\\server.py",
+      "text": "):"
+    },
+    {
+      "language": "python",
+      "line": 1015,
+      "path": "core\\server.py",
+      "text": "return False"
+    },
+    {
+      "language": "python",
+      "line": 1016,
+      "path": "core\\server.py",
+      "text": "return True"
+    },
+    {
+      "language": "python",
+      "line": 1017,
+      "path": "core\\server.py",
+      "text": "except Exception:"
+    },
+    {
+      "language": "python",
+      "line": 1018,
+      "path": "core\\server.py",
+      "text": "return None"
+    },
+    {
+      "language": "python",
+      "line": 1020,
+      "path": "core\\server.py",
+      "text": "def _terminate_managed_process(self, state):"
+    },
+    {
+      "language": "python",
+      "line": 1021,
+      "path": "core\\server.py",
+      "text": "pid = self._int_or_none(state.get(\"server_pid\"))"
+    },
+    {
+      "language": "python",
+      "line": 1023,
+      "path": "core\\server.py",
+      "text": "if ("
+    },
+    {
+      "language": "python",
+      "line": 1024,
+      "path": "core\\server.py",
+      "text": "self.process is not None"
+    },
+    {
+      "language": "python",
+      "line": 1025,
+      "path": "core\\server.py",
+      "text": "and self.process.poll() is None"
+    },
+    {
+      "language": "python",
+      "line": 1026,
+      "path": "core\\server.py",
+      "text": "and getattr(self.process, \"pid\", None) == pid"
+    },
+    {
+      "language": "python",
+      "line": 1027,
+      "path": "core\\server.py",
+      "text": "):"
+    },
+    {
+      "language": "python",
+      "line": 1028,
+      "path": "core\\server.py",
+      "text": "self.process.terminate()"
+    },
+    {
+      "language": "python",
+      "line": 1029,
+      "path": "core\\server.py",
+      "text": "return True"
+    },
+    {
+      "language": "python",
+      "line": 1031,
+      "path": "core\\server.py",
+      "text": "if self._process_matches_state(pid, state) is not True:"
+    },
+    {
+      "language": "python",
+      "line": 1032,
+      "path": "core\\server.py",
+      "text": "return False"
+    },
+    {
+      "language": "python",
+      "line": 1034,
+      "path": "core\\server.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 1035,
+      "path": "core\\server.py",
+      "text": "import psutil"
+    },
+    {
+      "language": "python",
+      "line": 1036,
+      "path": "core\\server.py",
+      "text": "psutil.Process(pid).terminate()"
+    },
+    {
+      "language": "python",
+      "line": 1037,
+      "path": "core\\server.py",
+      "text": "return True"
+    },
+    {
+      "language": "python",
+      "line": 1038,
+      "path": "core\\server.py",
+      "text": "except Exception:"
+    },
+    {
+      "language": "python",
+      "line": 1039,
+      "path": "core\\server.py",
+      "text": "return False"
+    },
+    {
+      "language": "python",
+      "line": 1041,
+      "path": "core\\server.py",
+      "text": "def _wait_for_process_exit(self, pid, timeout=5):"
+    },
+    {
+      "language": "python",
+      "line": 1042,
+      "path": "core\\server.py",
+      "text": "if not pid:"
+    },
+    {
+      "language": "python",
+      "line": 1043,
+      "path": "core\\server.py",
+      "text": "return"
+    },
+    {
+      "language": "python",
+      "line": 1044,
+      "path": "core\\server.py",
+      "text": "deadline = time.monotonic() + timeout"
+    },
+    {
+      "language": "python",
+      "line": 1045,
+      "path": "core\\server.py",
+      "text": "while time.monotonic() < deadline:"
+    },
+    {
+      "language": "python",
+      "line": 1046,
+      "path": "core\\server.py",
+      "text": "if not self._pid_exists(pid):"
+    },
+    {
+      "language": "python",
+      "line": 1047,
+      "path": "core\\server.py",
+      "text": "return"
+    },
+    {
+      "language": "python",
+      "line": 1048,
+      "path": "core\\server.py",
+      "text": "time.sleep(0.1)"
+    },
+    {
+      "language": "python",
+      "line": 1050,
+      "path": "core\\server.py",
+      "text": "def _current_server_pid(self):"
+    },
+    {
+      "language": "python",
+      "line": 1051,
+      "path": "core\\server.py",
+      "text": "state = self._read_state() or {}"
+    },
+    {
+      "language": "python",
+      "line": 1052,
+      "path": "core\\server.py",
+      "text": "return self._int_or_none(state.get(\"server_pid\"))"
+    },
+    {
+      "language": "python",
+      "line": 1054,
+      "path": "core\\server.py",
+      "text": "def _normalized_path(self, value):"
+    },
+    {
+      "language": "python",
+      "line": 1055,
+      "path": "core\\server.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 1056,
+      "path": "core\\server.py",
+      "text": "return os.path.normcase("
+    },
+    {
+      "language": "python",
+      "line": 1057,
+      "path": "core\\server.py",
+      "text": "os.path.abspath(os.path.expandvars(str(value)))"
+    },
+    {
+      "language": "python",
+      "line": 1058,
+      "path": "core\\server.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1059,
+      "path": "core\\server.py",
+      "text": "except Exception:"
+    },
+    {
+      "language": "python",
+      "line": 1060,
+      "path": "core\\server.py",
+      "text": "return str(value).casefold()"
+    },
+    {
+      "language": "python",
+      "line": 1062,
+      "path": "core\\server.py",
+      "text": "def _int_or_none(self, value):"
+    },
+    {
+      "language": "python",
+      "line": 1063,
+      "path": "core\\server.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 1064,
+      "path": "core\\server.py",
+      "text": "return int(value)"
+    },
+    {
+      "language": "python",
+      "line": 1065,
+      "path": "core\\server.py",
+      "text": "except (TypeError, ValueError):"
+    },
+    {
+      "language": "python",
+      "line": 1066,
+      "path": "core\\server.py",
+      "text": "return None"
+    },
+    {
+      "language": "python",
+      "line": 1068,
+      "path": "core\\server.py",
+      "text": "def _now(self):"
+    },
+    {
+      "language": "python",
+      "line": 1069,
+      "path": "core\\server.py",
+      "text": "return datetime.now(timezone.utc).isoformat(timespec=\"seconds\")"
+    },
+    {
+      "language": "python",
+      "line": 1,
+      "path": "core\\service_registry.py",
+      "text": "from dataclasses import dataclass, field"
+    },
+    {
+      "language": "python",
+      "line": 2,
+      "path": "core\\service_registry.py",
+      "text": "from datetime import datetime"
+    },
+    {
+      "language": "python",
+      "line": 3,
+      "path": "core\\service_registry.py",
+      "text": "from typing import Dict, List, Any"
+    },
+    {
+      "language": "python",
+      "line": 6,
+      "path": "core\\service_registry.py",
+      "text": "@dataclass"
+    },
+    {
+      "language": "python",
+      "line": 7,
+      "path": "core\\service_registry.py",
+      "text": "class ServiceRecord:"
+    },
+    {
+      "language": "python",
+      "line": 8,
+      "path": "core\\service_registry.py",
+      "text": "\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 9,
+      "path": "core\\service_registry.py",
+      "text": "A registered FOXAI kernel service."
+    },
+    {
+      "language": "python",
+      "line": 10,
+      "path": "core\\service_registry.py",
+      "text": "\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 11,
+      "path": "core\\service_registry.py",
+      "text": "name: str"
+    },
+    {
+      "language": "python",
+      "line": 12,
+      "path": "core\\service_registry.py",
+      "text": "service_type: str"
+    },
+    {
+      "language": "python",
+      "line": 13,
+      "path": "core\\service_registry.py",
+      "text": "version: str = \"RC1\""
+    },
+    {
+      "language": "python",
+      "line": 14,
+      "path": "core\\service_registry.py",
+      "text": "status: str = \"READY\""
+    },
+    {
+      "language": "python",
+      "line": 15,
+      "path": "core\\service_registry.py",
+      "text": "capabilities: List[str] = field(default_factory=list)"
+    },
+    {
+      "language": "python",
+      "line": 16,
+      "path": "core\\service_registry.py",
+      "text": "dependencies: List[str] = field(default_factory=list)"
+    },
+    {
+      "language": "python",
+      "line": 17,
+      "path": "core\\service_registry.py",
+      "text": "detail: str = \"\""
+    },
+    {
+      "language": "python",
+      "line": 18,
+      "path": "core\\service_registry.py",
+      "text": "registered_at: str = field(default_factory=lambda: datetime.now().isoformat(timespec=\"seconds\"))"
+    },
+    {
+      "language": "python",
+      "line": 20,
+      "path": "core\\service_registry.py",
+      "text": "def to_dict(self):"
+    },
+    {
+      "language": "python",
+      "line": 21,
+      "path": "core\\service_registry.py",
+      "text": "return {"
+    },
+    {
+      "language": "python",
+      "line": 22,
+      "path": "core\\service_registry.py",
+      "text": "\"name\": self.name,"
+    },
+    {
+      "language": "python",
+      "line": 23,
+      "path": "core\\service_registry.py",
+      "text": "\"service_type\": self.service_type,"
+    },
+    {
+      "language": "python",
+      "line": 24,
+      "path": "core\\service_registry.py",
+      "text": "\"version\": self.version,"
+    },
+    {
+      "language": "python",
+      "line": 25,
+      "path": "core\\service_registry.py",
+      "text": "\"status\": self.status,"
+    },
+    {
+      "language": "python",
+      "line": 26,
+      "path": "core\\service_registry.py",
+      "text": "\"capabilities\": self.capabilities,"
+    },
+    {
+      "language": "python",
+      "line": 27,
+      "path": "core\\service_registry.py",
+      "text": "\"dependencies\": self.dependencies,"
+    },
+    {
+      "language": "python",
+      "line": 28,
+      "path": "core\\service_registry.py",
+      "text": "\"detail\": self.detail,"
+    },
+    {
+      "language": "python",
+      "line": 29,
+      "path": "core\\service_registry.py",
+      "text": "\"registered_at\": self.registered_at,"
+    },
+    {
+      "language": "python",
+      "line": 30,
+      "path": "core\\service_registry.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 33,
+      "path": "core\\service_registry.py",
+      "text": "class ServiceRegistry:"
+    },
+    {
+      "language": "python",
+      "line": 34,
+      "path": "core\\service_registry.py",
+      "text": "\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 35,
+      "path": "core\\service_registry.py",
+      "text": "Service Registry RC1"
+    },
+    {
+      "language": "python",
+      "line": 37,
+      "path": "core\\service_registry.py",
+      "text": "The kernel roster."
+    },
+    {
+      "language": "python",
+      "line": 39,
+      "path": "core\\service_registry.py",
+      "text": "Records what services exist, what they do, and whether they appear ready."
+    },
+    {
+      "language": "python",
+      "line": 40,
+      "path": "core\\service_registry.py",
+      "text": "This is not a department registry; this is for kernel services."
+    },
+    {
+      "language": "python",
+      "line": 41,
+      "path": "core\\service_registry.py",
+      "text": "\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 43,
+      "path": "core\\service_registry.py",
+      "text": "def __init__(self):"
+    },
+    {
+      "language": "python",
+      "line": 44,
+      "path": "core\\service_registry.py",
+      "text": "self.services: Dict[str, ServiceRecord] = {}"
+    },
+    {
+      "language": "python",
+      "line": 46,
+      "path": "core\\service_registry.py",
+      "text": "def register("
+    },
+    {
+      "language": "python",
+      "line": 47,
+      "path": "core\\service_registry.py",
+      "text": "self,"
+    },
+    {
+      "language": "python",
+      "line": 48,
+      "path": "core\\service_registry.py",
+      "text": "name,"
+    },
+    {
+      "language": "python",
+      "line": 49,
+      "path": "core\\service_registry.py",
+      "text": "service_type,"
+    },
+    {
+      "language": "python",
+      "line": 50,
+      "path": "core\\service_registry.py",
+      "text": "version=\"RC1\","
+    },
+    {
+      "language": "python",
+      "line": 51,
+      "path": "core\\service_registry.py",
+      "text": "status=\"READY\","
+    },
+    {
+      "language": "python",
+      "line": 52,
+      "path": "core\\service_registry.py",
+      "text": "capabilities=None,"
+    },
+    {
+      "language": "python",
+      "line": 53,
+      "path": "core\\service_registry.py",
+      "text": "dependencies=None,"
+    },
+    {
+      "language": "python",
+      "line": 54,
+      "path": "core\\service_registry.py",
+      "text": "detail=\"\","
+    },
+    {
+      "language": "python",
+      "line": 55,
+      "path": "core\\service_registry.py",
+      "text": "):"
+    },
+    {
+      "language": "python",
+      "line": 56,
+      "path": "core\\service_registry.py",
+      "text": "record = ServiceRecord("
+    },
+    {
+      "language": "python",
+      "line": 57,
+      "path": "core\\service_registry.py",
+      "text": "name=name,"
+    },
+    {
+      "language": "python",
+      "line": 58,
+      "path": "core\\service_registry.py",
+      "text": "service_type=service_type,"
+    },
+    {
+      "language": "python",
+      "line": 59,
+      "path": "core\\service_registry.py",
+      "text": "version=version,"
+    },
+    {
+      "language": "python",
+      "line": 60,
+      "path": "core\\service_registry.py",
+      "text": "status=status,"
+    },
+    {
+      "language": "python",
+      "line": 61,
+      "path": "core\\service_registry.py",
+      "text": "capabilities=capabilities or [],"
+    },
+    {
+      "language": "python",
+      "line": 62,
+      "path": "core\\service_registry.py",
+      "text": "dependencies=dependencies or [],"
+    },
+    {
+      "language": "python",
+      "line": 63,
+      "path": "core\\service_registry.py",
+      "text": "detail=detail,"
+    },
+    {
+      "language": "python",
+      "line": 64,
+      "path": "core\\service_registry.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 65,
+      "path": "core\\service_registry.py",
+      "text": "self.services[name] = record"
+    },
+    {
+      "language": "python",
+      "line": 66,
+      "path": "core\\service_registry.py",
+      "text": "return record"
+    },
+    {
+      "language": "python",
+      "line": 68,
+      "path": "core\\service_registry.py",
+      "text": "def unregister(self, name):"
+    },
+    {
+      "language": "python",
+      "line": 69,
+      "path": "core\\service_registry.py",
+      "text": "return self.services.pop(name, None)"
+    },
+    {
+      "language": "python",
+      "line": 71,
+      "path": "core\\service_registry.py",
+      "text": "def get(self, name):"
+    },
+    {
+      "language": "python",
+      "line": 72,
+      "path": "core\\service_registry.py",
+      "text": "return self.services.get(name)"
+    },
+    {
+      "language": "python",
+      "line": 74,
+      "path": "core\\service_registry.py",
+      "text": "def all(self):"
+    },
+    {
+      "language": "python",
+      "line": 75,
+      "path": "core\\service_registry.py",
+      "text": "return list(self.services.values())"
+    },
+    {
+      "language": "python",
+      "line": 77,
+      "path": "core\\service_registry.py",
+      "text": "def ready_services(self):"
+    },
+    {
+      "language": "python",
+      "line": 78,
+      "path": "core\\service_registry.py",
+      "text": "return [service for service in self.all() if service.status.upper() == \"READY\"]"
+    },
+    {
+      "language": "python",
+      "line": 80,
+      "path": "core\\service_registry.py",
+      "text": "def missing_dependencies(self):"
+    },
+    {
+      "language": "python",
+      "line": 81,
+      "path": "core\\service_registry.py",
+      "text": "missing = []"
+    },
+    {
+      "language": "python",
+      "line": 83,
+      "path": "core\\service_registry.py",
+      "text": "for service in self.all():"
+    },
+    {
+      "language": "python",
+      "line": 84,
+      "path": "core\\service_registry.py",
+      "text": "for dependency in service.dependencies:"
+    },
+    {
+      "language": "python",
+      "line": 85,
+      "path": "core\\service_registry.py",
+      "text": "if dependency not in self.services:"
+    },
+    {
+      "language": "python",
+      "line": 86,
+      "path": "core\\service_registry.py",
+      "text": "missing.append({"
+    },
+    {
+      "language": "python",
+      "line": 87,
+      "path": "core\\service_registry.py",
+      "text": "\"service\": service.name,"
+    },
+    {
+      "language": "python",
+      "line": 88,
+      "path": "core\\service_registry.py",
+      "text": "\"missing_dependency\": dependency,"
+    },
+    {
+      "language": "python",
+      "line": 89,
+      "path": "core\\service_registry.py",
+      "text": "})"
+    },
+    {
+      "language": "python",
+      "line": 91,
+      "path": "core\\service_registry.py",
+      "text": "return missing"
+    },
+    {
+      "language": "python",
+      "line": 93,
+      "path": "core\\service_registry.py",
+      "text": "def health(self):"
+    },
+    {
+      "language": "python",
+      "line": 94,
+      "path": "core\\service_registry.py",
+      "text": "services = self.all()"
+    },
+    {
+      "language": "python",
+      "line": 95,
+      "path": "core\\service_registry.py",
+      "text": "missing = self.missing_dependencies()"
+    },
+    {
+      "language": "python",
+      "line": 96,
+      "path": "core\\service_registry.py",
+      "text": "ready = self.ready_services()"
+    },
+    {
+      "language": "python",
+      "line": 98,
+      "path": "core\\service_registry.py",
+      "text": "return {"
+    },
+    {
+      "language": "python",
+      "line": 99,
+      "path": "core\\service_registry.py",
+      "text": "\"total_services\": len(services),"
+    },
+    {
+      "language": "python",
+      "line": 100,
+      "path": "core\\service_registry.py",
+      "text": "\"ready_services\": len(ready),"
+    },
+    {
+      "language": "python",
+      "line": 101,
+      "path": "core\\service_registry.py",
+      "text": "\"missing_dependencies\": missing,"
+    },
+    {
+      "language": "python",
+      "line": 102,
+      "path": "core\\service_registry.py",
+      "text": "\"healthy\": len(missing) == 0 and len(ready) == len(services),"
+    },
+    {
+      "language": "python",
+      "line": 103,
+      "path": "core\\service_registry.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 105,
+      "path": "core\\service_registry.py",
+      "text": "def report(self):"
+    },
+    {
+      "language": "python",
+      "line": 106,
+      "path": "core\\service_registry.py",
+      "text": "health = self.health()"
+    },
+    {
+      "language": "python",
+      "line": 108,
+      "path": "core\\service_registry.py",
+      "text": "lines = ["
+    },
+    {
+      "language": "python",
+      "line": 109,
+      "path": "core\\service_registry.py",
+      "text": "\"SERVICE REGISTRY REPORT\","
+    },
+    {
+      "language": "python",
+      "line": 110,
+      "path": "core\\service_registry.py",
+      "text": "\"\","
+    },
+    {
+      "language": "python",
+      "line": 111,
+      "path": "core\\service_registry.py",
+      "text": "f\"Services Registered: {health['total_services']}\","
+    },
+    {
+      "language": "python",
+      "line": 112,
+      "path": "core\\service_registry.py",
+      "text": "f\"Services Ready: {health['ready_services']}\","
+    },
+    {
+      "language": "python",
+      "line": 113,
+      "path": "core\\service_registry.py",
+      "text": "f\"Healthy: {'YES' if health['healthy'] else 'NO'}\","
+    },
+    {
+      "language": "python",
+      "line": 114,
+      "path": "core\\service_registry.py",
+      "text": "\"\","
+    },
+    {
+      "language": "python",
+      "line": 115,
+      "path": "core\\service_registry.py",
+      "text": "\"Registered Services:\","
+    },
+    {
+      "language": "python",
+      "line": 116,
+      "path": "core\\service_registry.py",
+      "text": "]"
+    },
+    {
+      "language": "python",
+      "line": 118,
+      "path": "core\\service_registry.py",
+      "text": "if not self.services:"
+    },
+    {
+      "language": "python",
+      "line": 119,
+      "path": "core\\service_registry.py",
+      "text": "lines.append(\"• No services registered yet.\")"
+    },
+    {
+      "language": "python",
+      "line": 120,
+      "path": "core\\service_registry.py",
+      "text": "else:"
+    },
+    {
+      "language": "python",
+      "line": 121,
+      "path": "core\\service_registry.py",
+      "text": "for service in self.all():"
+    },
+    {
+      "language": "python",
+      "line": 122,
+      "path": "core\\service_registry.py",
+      "text": "lines.append(f\"--- {service.name} ---\")"
+    },
+    {
+      "language": "python",
+      "line": 123,
+      "path": "core\\service_registry.py",
+      "text": "lines.append(f\"Type: {service.service_type}\")"
+    },
+    {
+      "language": "python",
+      "line": 124,
+      "path": "core\\service_registry.py",
+      "text": "lines.append(f\"Version: {service.version}\")"
+    },
+    {
+      "language": "python",
+      "line": 125,
+      "path": "core\\service_registry.py",
+      "text": "lines.append(f\"Status: {service.status}\")"
+    },
+    {
+      "language": "python",
+      "line": 126,
+      "path": "core\\service_registry.py",
+      "text": "if service.capabilities:"
+    },
+    {
+      "language": "python",
+      "line": 127,
+      "path": "core\\service_registry.py",
+      "text": "lines.append(\"Capabilities:\")"
+    },
+    {
+      "language": "python",
+      "line": 128,
+      "path": "core\\service_registry.py",
+      "text": "for capability in service.capabilities:"
+    },
+    {
+      "language": "python",
+      "line": 129,
+      "path": "core\\service_registry.py",
+      "text": "lines.append(f\"• {capability}\")"
+    },
+    {
+      "language": "python",
+      "line": 130,
+      "path": "core\\service_registry.py",
+      "text": "if service.dependencies:"
+    },
+    {
+      "language": "python",
+      "line": 131,
+      "path": "core\\service_registry.py",
+      "text": "lines.append(\"Dependencies:\")"
+    },
+    {
+      "language": "python",
+      "line": 132,
+      "path": "core\\service_registry.py",
+      "text": "for dependency in service.dependencies:"
+    },
+    {
+      "language": "python",
+      "line": 133,
+      "path": "core\\service_registry.py",
+      "text": "lines.append(f\"• {dependency}\")"
+    },
+    {
+      "language": "python",
+      "line": 134,
+      "path": "core\\service_registry.py",
+      "text": "if service.detail:"
+    },
+    {
+      "language": "python",
+      "line": 135,
+      "path": "core\\service_registry.py",
+      "text": "lines.append(f\"Detail: {service.detail}\")"
+    },
+    {
+      "language": "python",
+      "line": 136,
+      "path": "core\\service_registry.py",
+      "text": "lines.append(\"\")"
+    },
+    {
+      "language": "python",
+      "line": 138,
+      "path": "core\\service_registry.py",
+      "text": "if health[\"missing_dependencies\"]:"
+    },
+    {
+      "language": "python",
+      "line": 139,
+      "path": "core\\service_registry.py",
+      "text": "lines.append(\"Missing Dependencies:\")"
+    },
+    {
+      "language": "python",
+      "line": 140,
+      "path": "core\\service_registry.py",
+      "text": "for item in health[\"missing_dependencies\"]:"
+    },
+    {
+      "language": "python",
+      "line": 141,
+      "path": "core\\service_registry.py",
+      "text": "lines.append(f\"• {item['service']} requires {item['missing_dependency']}\")"
+    },
+    {
+      "language": "python",
+      "line": 143,
+      "path": "core\\service_registry.py",
+      "text": "lines.extend(["
+    },
+    {
+      "language": "python",
+      "line": 144,
+      "path": "core\\service_registry.py",
+      "text": "\"\","
+    },
+    {
+      "language": "python",
+      "line": 145,
+      "path": "core\\service_registry.py",
+      "text": "\"Safety Status:\","
+    },
+    {
+      "language": "python",
+      "line": 146,
+      "path": "core\\service_registry.py",
+      "text": "\"Service Registry records kernel service metadata only.\","
+    },
+    {
+      "language": "python",
+      "line": 147,
+      "path": "core\\service_registry.py",
+      "text": "])"
+    },
+    {
+      "language": "python",
+      "line": 149,
+      "path": "core\\service_registry.py",
+      "text": "return \"\\n\".join(lines)"
+    },
+    {
+      "language": "python",
+      "line": 152,
+      "path": "core\\service_registry.py",
+      "text": "_registry = None"
+    },
+    {
+      "language": "python",
+      "line": 155,
+      "path": "core\\service_registry.py",
+      "text": "def get_service_registry():"
+    },
+    {
+      "language": "python",
+      "line": 156,
+      "path": "core\\service_registry.py",
+      "text": "global _registry"
+    },
+    {
+      "language": "python",
+      "line": 158,
+      "path": "core\\service_registry.py",
+      "text": "if _registry is None:"
+    },
+    {
+      "language": "python",
+      "line": 159,
+      "path": "core\\service_registry.py",
+      "text": "_registry = ServiceRegistry()"
+    },
+    {
+      "language": "python",
+      "line": 161,
+      "path": "core\\service_registry.py",
+      "text": "return _registry"
+    },
+    {
+      "language": "python",
+      "line": 1,
+      "path": "core\\smart_search.py",
+      "text": "import ast"
+    },
+    {
+      "language": "python",
+      "line": 2,
+      "path": "core\\smart_search.py",
+      "text": "import re"
+    },
+    {
+      "language": "python",
+      "line": 3,
+      "path": "core\\smart_search.py",
+      "text": "from pathlib import Path"
+    },
+    {
+      "language": "python",
+      "line": 5,
+      "path": "core\\smart_search.py",
+      "text": "from core.security_containment import is_protected_path, redact_secrets"
+    },
+    {
+      "language": "python",
+      "line": 8,
+      "path": "core\\smart_search.py",
+      "text": "class SmartSearch:"
+    },
+    {
+      "language": "python",
+      "line": 9,
+      "path": "core\\smart_search.py",
+      "text": "\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 10,
+      "path": "core\\smart_search.py",
+      "text": "SmartSearch RC2 - Evidence Intelligence"
+    },
+    {
+      "language": "python",
+      "line": 12,
+      "path": "core\\smart_search.py",
+      "text": "Searches like an engineer, not a grep tool."
+    },
+    {
+      "language": "python",
+      "line": 14,
+      "path": "core\\smart_search.py",
+      "text": "Evidence priority:"
+    },
+    {
+      "language": "python",
+      "line": 15,
+      "path": "core\\smart_search.py",
+      "text": "1. Executable first-party source"
+    },
+    {
+      "language": "python",
+      "line": 16,
+      "path": "core\\smart_search.py",
+      "text": "2. UI source"
+    },
+    {
+      "language": "python",
+      "line": 17,
+      "path": "core\\smart_search.py",
+      "text": "3. Configuration"
+    },
+    {
+      "language": "python",
+      "line": 18,
+      "path": "core\\smart_search.py",
+      "text": "4. Project memory / Forge Journal"
+    },
+    {
+      "language": "python",
+      "line": 19,
+      "path": "core\\smart_search.py",
+      "text": "5. Mission Archive / history"
+    },
+    {
+      "language": "python",
+      "line": 20,
+      "path": "core\\smart_search.py",
+      "text": "6. Vendor / third-party fallback"
+    },
+    {
+      "language": "python",
+      "line": 21,
+      "path": "core\\smart_search.py",
+      "text": "\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 23,
+      "path": "core\\smart_search.py",
+      "text": "VENDOR_DIRS = {"
+    },
+    {
+      "language": "python",
+      "line": 24,
+      "path": "core\\smart_search.py",
+      "text": "\"ComfyUI\","
+    },
+    {
+      "language": "python",
+      "line": 25,
+      "path": "core\\smart_search.py",
+      "text": "\"venv\","
+    },
+    {
+      "language": "python",
+      "line": 26,
+      "path": "core\\smart_search.py",
+      "text": "\".venv\","
+    },
+    {
+      "language": "python",
+      "line": 27,
+      "path": "core\\smart_search.py",
+      "text": "\"env\","
+    },
+    {
+      "language": "python",
+      "line": 28,
+      "path": "core\\smart_search.py",
+      "text": "\"site-packages\","
+    },
+    {
+      "language": "python",
+      "line": 29,
+      "path": "core\\smart_search.py",
+      "text": "\"node_modules\","
+    },
+    {
+      "language": "python",
+      "line": 30,
+      "path": "core\\smart_search.py",
+      "text": "\"__pycache__\","
+    },
+    {
+      "language": "python",
+      "line": 31,
+      "path": "core\\smart_search.py",
+      "text": "\".git\","
+    },
+    {
+      "language": "python",
+      "line": 32,
+      "path": "core\\smart_search.py",
+      "text": "\"Models\","
+    },
+    {
+      "language": "python",
+      "line": 33,
+      "path": "core\\smart_search.py",
+      "text": "\"models\","
+    },
+    {
+      "language": "python",
+      "line": 34,
+      "path": "core\\smart_search.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 36,
+      "path": "core\\smart_search.py",
+      "text": "GENERATED_ARTIFACT_TOP_DIRS = {"
+    },
+    {
+      "language": "python",
+      "line": 37,
+      "path": "core\\smart_search.py",
+      "text": "\"Backup\","
+    },
+    {
+      "language": "python",
+      "line": 38,
+      "path": "core\\smart_search.py",
+      "text": "\"Backups\","
+    },
+    {
+      "language": "python",
+      "line": 39,
+      "path": "core\\smart_search.py",
+      "text": "\"baseline\","
+    },
+    {
+      "language": "python",
+      "line": 40,
+      "path": "core\\smart_search.py",
+      "text": "\"candidate\","
+    },
+    {
+      "language": "python",
+      "line": 41,
+      "path": "core\\smart_search.py",
+      "text": "\"payload\","
+    },
+    {
+      "language": "python",
+      "line": 42,
+      "path": "core\\smart_search.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 44,
+      "path": "core\\smart_search.py",
+      "text": "GENERATED_BUNDLE_MARKERS = ("
+    },
+    {
+      "language": "python",
+      "line": 45,
+      "path": "core\\smart_search.py",
+      "text": "\"_apply_\","
+    },
+    {
+      "language": "python",
+      "line": 46,
+      "path": "core\\smart_search.py",
+      "text": "\"_preview_\","
+    },
+    {
+      "language": "python",
+      "line": 47,
+      "path": "core\\smart_search.py",
+      "text": "\"_patch_bundle_\","
+    },
+    {
+      "language": "python",
+      "line": 48,
+      "path": "core\\smart_search.py",
+      "text": "\"_checkpoint_\","
+    },
+    {
+      "language": "python",
+      "line": 49,
+      "path": "core\\smart_search.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 51,
+      "path": "core\\smart_search.py",
+      "text": "SEARCH_EXTENSIONS = {"
+    },
+    {
+      "language": "python",
+      "line": 52,
+      "path": "core\\smart_search.py",
+      "text": "\".py\", \".json\", \".md\", \".txt\", \".ini\", \".bat\", \".ps1\", \".yaml\", \".yml\""
+    },
+    {
+      "language": "python",
+      "line": 53,
+      "path": "core\\smart_search.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 55,
+      "path": "core\\smart_search.py",
+      "text": "SOURCE_DIRS = {\"core\", \"ui\", \"departments\"}"
+    },
+    {
+      "language": "python",
+      "line": 56,
+      "path": "core\\smart_search.py",
+      "text": "CONFIG_DIRS = {\"config\"}"
+    },
+    {
+      "language": "python",
+      "line": 57,
+      "path": "core\\smart_search.py",
+      "text": "MEMORY_DIRS = {\"Projects\", \"Library\", \"Memory\"}"
+    },
+    {
+      "language": "python",
+      "line": 58,
+      "path": "core\\smart_search.py",
+      "text": "HISTORY_DIRS = {\"Mission Archive\", \"MissionArchive\", \"Archive\"}"
+    },
+    {
+      "language": "python",
+      "line": 60,
+      "path": "core\\smart_search.py",
+      "text": "def __init__(self, root):"
+    },
+    {
+      "language": "python",
+      "line": 61,
+      "path": "core\\smart_search.py",
+      "text": "self.root = Path(root)"
+    },
+    {
+      "language": "python",
+      "line": 63,
+      "path": "core\\smart_search.py",
+      "text": "def rel(self, path):"
+    },
+    {
+      "language": "python",
+      "line": 64,
+      "path": "core\\smart_search.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 65,
+      "path": "core\\smart_search.py",
+      "text": "return str(Path(path).relative_to(self.root)).replace(\"\\\\\", \"/\")"
+    },
+    {
+      "language": "python",
+      "line": 66,
+      "path": "core\\smart_search.py",
+      "text": "except Exception:"
+    },
+    {
+      "language": "python",
+      "line": 67,
+      "path": "core\\smart_search.py",
+      "text": "return str(path).replace(\"\\\\\", \"/\")"
+    },
+    {
+      "language": "python",
+      "line": 69,
+      "path": "core\\smart_search.py",
+      "text": "def top_dir(self, path):"
+    },
+    {
+      "language": "python",
+      "line": 70,
+      "path": "core\\smart_search.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 71,
+      "path": "core\\smart_search.py",
+      "text": "rel = Path(path).relative_to(self.root)"
+    },
+    {
+      "language": "python",
+      "line": 72,
+      "path": "core\\smart_search.py",
+      "text": "except Exception:"
+    },
+    {
+      "language": "python",
+      "line": 73,
+      "path": "core\\smart_search.py",
+      "text": "rel = Path(path)"
+    },
+    {
+      "language": "python",
+      "line": 75,
+      "path": "core\\smart_search.py",
+      "text": "return rel.parts[0] if rel.parts else \"\""
+    },
+    {
+      "language": "python",
+      "line": 77,
+      "path": "core\\smart_search.py",
+      "text": "def is_vendor(self, path):"
+    },
+    {
+      "language": "python",
+      "line": 78,
+      "path": "core\\smart_search.py",
+      "text": "return bool(set(Path(path).parts) & self.VENDOR_DIRS)"
+    },
+    {
+      "language": "python",
+      "line": 80,
+      "path": "core\\smart_search.py",
+      "text": "def is_generated_artifact(self, path):"
+    },
+    {
+      "language": "python",
+      "line": 81,
+      "path": "core\\smart_search.py",
+      "text": "top = self.top_dir(path)"
+    },
+    {
+      "language": "python",
+      "line": 82,
+      "path": "core\\smart_search.py",
+      "text": "normalized = top.casefold()"
+    },
+    {
+      "language": "python",
+      "line": 84,
+      "path": "core\\smart_search.py",
+      "text": "if normalized in {"
+    },
+    {
+      "language": "python",
+      "line": 85,
+      "path": "core\\smart_search.py",
+      "text": "name.casefold() for name in self.GENERATED_ARTIFACT_TOP_DIRS"
+    },
+    {
+      "language": "python",
+      "line": 86,
+      "path": "core\\smart_search.py",
+      "text": "}:"
+    },
+    {
+      "language": "python",
+      "line": 87,
+      "path": "core\\smart_search.py",
+      "text": "return True"
+    },
+    {
+      "language": "python",
+      "line": 89,
+      "path": "core\\smart_search.py",
+      "text": "return ("
+    },
+    {
+      "language": "python",
+      "line": 90,
+      "path": "core\\smart_search.py",
+      "text": "normalized.startswith(\"kayocktheos_\")"
+    },
+    {
+      "language": "python",
+      "line": 91,
+      "path": "core\\smart_search.py",
+      "text": "and any(marker in normalized for marker in self.GENERATED_BUNDLE_MARKERS)"
+    },
+    {
+      "language": "python",
+      "line": 92,
+      "path": "core\\smart_search.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 94,
+      "path": "core\\smart_search.py",
+      "text": "def evidence_class(self, path):"
+    },
+    {
+      "language": "python",
+      "line": 95,
+      "path": "core\\smart_search.py",
+      "text": "top = self.top_dir(path)"
+    },
+    {
+      "language": "python",
+      "line": 96,
+      "path": "core\\smart_search.py",
+      "text": "suffix = Path(path).suffix.lower()"
+    },
+    {
+      "language": "python",
+      "line": 98,
+      "path": "core\\smart_search.py",
+      "text": "if self.is_vendor(path):"
+    },
+    {
+      "language": "python",
+      "line": 99,
+      "path": "core\\smart_search.py",
+      "text": "return {"
+    },
+    {
+      "language": "python",
+      "line": 100,
+      "path": "core\\smart_search.py",
+      "text": "\"class\": \"vendor\","
+    },
+    {
+      "language": "python",
+      "line": 101,
+      "path": "core\\smart_search.py",
+      "text": "\"label\": \"Vendor / third-party\","
+    },
+    {
+      "language": "python",
+      "line": 102,
+      "path": "core\\smart_search.py",
+      "text": "\"priority\": 10,"
+    },
+    {
+      "language": "python",
+      "line": 103,
+      "path": "core\\smart_search.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 105,
+      "path": "core\\smart_search.py",
+      "text": "if top == \"ui\":"
+    },
+    {
+      "language": "python",
+      "line": 106,
+      "path": "core\\smart_search.py",
+      "text": "return {"
+    },
+    {
+      "language": "python",
+      "line": 107,
+      "path": "core\\smart_search.py",
+      "text": "\"class\": \"ui_source\","
+    },
+    {
+      "language": "python",
+      "line": 108,
+      "path": "core\\smart_search.py",
+      "text": "\"label\": \"UI source\","
+    },
+    {
+      "language": "python",
+      "line": 109,
+      "path": "core\\smart_search.py",
+      "text": "\"priority\": 95,"
+    },
+    {
+      "language": "python",
+      "line": 110,
+      "path": "core\\smart_search.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 112,
+      "path": "core\\smart_search.py",
+      "text": "if top == \"core\" or top == \"departments\":"
+    },
+    {
+      "language": "python",
+      "line": 113,
+      "path": "core\\smart_search.py",
+      "text": "return {"
+    },
+    {
+      "language": "python",
+      "line": 114,
+      "path": "core\\smart_search.py",
+      "text": "\"class\": \"source\","
+    },
+    {
+      "language": "python",
+      "line": 115,
+      "path": "core\\smart_search.py",
+      "text": "\"label\": \"Executable source\","
+    },
+    {
+      "language": "python",
+      "line": 116,
+      "path": "core\\smart_search.py",
+      "text": "\"priority\": 100,"
+    },
+    {
+      "language": "python",
+      "line": 117,
+      "path": "core\\smart_search.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 119,
+      "path": "core\\smart_search.py",
+      "text": "if top in self.CONFIG_DIRS or suffix in {\".ini\", \".yaml\", \".yml\"}:"
+    },
+    {
+      "language": "python",
+      "line": 120,
+      "path": "core\\smart_search.py",
+      "text": "return {"
+    },
+    {
+      "language": "python",
+      "line": 121,
+      "path": "core\\smart_search.py",
+      "text": "\"class\": \"config\","
+    },
+    {
+      "language": "python",
+      "line": 122,
+      "path": "core\\smart_search.py",
+      "text": "\"label\": \"Configuration\","
+    },
+    {
+      "language": "python",
+      "line": 123,
+      "path": "core\\smart_search.py",
+      "text": "\"priority\": 80,"
+    },
+    {
+      "language": "python",
+      "line": 124,
+      "path": "core\\smart_search.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 126,
+      "path": "core\\smart_search.py",
+      "text": "if top in self.MEMORY_DIRS:"
+    },
+    {
+      "language": "python",
+      "line": 127,
+      "path": "core\\smart_search.py",
+      "text": "return {"
+    },
+    {
+      "language": "python",
+      "line": 128,
+      "path": "core\\smart_search.py",
+      "text": "\"class\": \"project_memory\","
+    },
+    {
+      "language": "python",
+      "line": 129,
+      "path": "core\\smart_search.py",
+      "text": "\"label\": \"Project memory / knowledge\","
+    },
+    {
+      "language": "python",
+      "line": 130,
+      "path": "core\\smart_search.py",
+      "text": "\"priority\": 55,"
+    },
+    {
+      "language": "python",
+      "line": 131,
+      "path": "core\\smart_search.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 133,
+      "path": "core\\smart_search.py",
+      "text": "if top in self.HISTORY_DIRS:"
+    },
+    {
+      "language": "python",
+      "line": 134,
+      "path": "core\\smart_search.py",
+      "text": "return {"
+    },
+    {
+      "language": "python",
+      "line": 135,
+      "path": "core\\smart_search.py",
+      "text": "\"class\": \"history\","
+    },
+    {
+      "language": "python",
+      "line": 136,
+      "path": "core\\smart_search.py",
+      "text": "\"label\": \"Mission history\","
+    },
+    {
+      "language": "python",
+      "line": 137,
+      "path": "core\\smart_search.py",
+      "text": "\"priority\": 25,"
+    },
+    {
+      "language": "python",
+      "line": 138,
+      "path": "core\\smart_search.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 140,
+      "path": "core\\smart_search.py",
+      "text": "if suffix == \".py\":"
+    },
+    {
+      "language": "python",
+      "line": 141,
+      "path": "core\\smart_search.py",
+      "text": "return {"
+    },
+    {
+      "language": "python",
+      "line": 142,
+      "path": "core\\smart_search.py",
+      "text": "\"class\": \"source_other\","
+    },
+    {
+      "language": "python",
+      "line": 143,
+      "path": "core\\smart_search.py",
+      "text": "\"label\": \"Other source\","
+    },
+    {
+      "language": "python",
+      "line": 144,
+      "path": "core\\smart_search.py",
+      "text": "\"priority\": 65,"
+    },
+    {
+      "language": "python",
+      "line": 145,
+      "path": "core\\smart_search.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 147,
+      "path": "core\\smart_search.py",
+      "text": "return {"
+    },
+    {
+      "language": "python",
+      "line": 148,
+      "path": "core\\smart_search.py",
+      "text": "\"class\": \"document\","
+    },
+    {
+      "language": "python",
+      "line": 149,
+      "path": "core\\smart_search.py",
+      "text": "\"label\": \"Document\","
+    },
+    {
+      "language": "python",
+      "line": 150,
+      "path": "core\\smart_search.py",
+      "text": "\"priority\": 45,"
+    },
+    {
+      "language": "python",
+      "line": 151,
+      "path": "core\\smart_search.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 153,
+      "path": "core\\smart_search.py",
+      "text": "@staticmethod"
+    },
+    {
+      "language": "python",
+      "line": 154,
+      "path": "core\\smart_search.py",
+      "text": "def is_identifier_query(query):"
+    },
+    {
+      "language": "python",
+      "line": 155,
+      "path": "core\\smart_search.py",
+      "text": "return bool(re.fullmatch(r\"[A-Za-z_][A-Za-z0-9_]*\", query or \"\"))"
+    },
+    {
+      "language": "python",
+      "line": 157,
+      "path": "core\\smart_search.py",
+      "text": "@staticmethod"
+    },
+    {
+      "language": "python",
+      "line": 158,
+      "path": "core\\smart_search.py",
+      "text": "def assignment_names(target):"
+    },
+    {
+      "language": "python",
+      "line": 159,
+      "path": "core\\smart_search.py",
+      "text": "if isinstance(target, ast.Name):"
+    },
+    {
+      "language": "python",
+      "line": 160,
+      "path": "core\\smart_search.py",
+      "text": "return [target.id]"
+    },
+    {
+      "language": "python",
+      "line": 162,
+      "path": "core\\smart_search.py",
+      "text": "if isinstance(target, (ast.Tuple, ast.List)):"
+    },
+    {
+      "language": "python",
+      "line": 163,
+      "path": "core\\smart_search.py",
+      "text": "names = []"
+    },
+    {
+      "language": "python",
+      "line": 164,
+      "path": "core\\smart_search.py",
+      "text": "for item in target.elts:"
+    },
+    {
+      "language": "python",
+      "line": 165,
+      "path": "core\\smart_search.py",
+      "text": "names.extend(SmartSearch.assignment_names(item))"
+    },
+    {
+      "language": "python",
+      "line": 166,
+      "path": "core\\smart_search.py",
+      "text": "return names"
+    },
+    {
+      "language": "python",
+      "line": 168,
+      "path": "core\\smart_search.py",
+      "text": "return []"
+    },
+    {
+      "language": "python",
+      "line": 170,
+      "path": "core\\smart_search.py",
+      "text": "@staticmethod"
+    },
+    {
+      "language": "python",
+      "line": 171,
+      "path": "core\\smart_search.py",
+      "text": "def line_index(text, lineno):"
+    },
+    {
+      "language": "python",
+      "line": 172,
+      "path": "core\\smart_search.py",
+      "text": "if not lineno or lineno < 1:"
+    },
+    {
+      "language": "python",
+      "line": 173,
+      "path": "core\\smart_search.py",
+      "text": "return 0"
+    },
+    {
+      "language": "python",
+      "line": 175,
+      "path": "core\\smart_search.py",
+      "text": "lines = text.splitlines(keepends=True)"
+    },
+    {
+      "language": "python",
+      "line": 176,
+      "path": "core\\smart_search.py",
+      "text": "if lineno > len(lines):"
+    },
+    {
+      "language": "python",
+      "line": 177,
+      "path": "core\\smart_search.py",
+      "text": "return len(text)"
+    },
+    {
+      "language": "python",
+      "line": 179,
+      "path": "core\\smart_search.py",
+      "text": "return sum(len(line) for line in lines[:lineno - 1])"
+    },
+    {
+      "language": "python",
+      "line": 181,
+      "path": "core\\smart_search.py",
+      "text": "def python_symbol_evidence(self, text, query):"
+    },
+    {
+      "language": "python",
+      "line": 182,
+      "path": "core\\smart_search.py",
+      "text": "if not self.is_identifier_query(query):"
+    },
+    {
+      "language": "python",
+      "line": 183,
+      "path": "core\\smart_search.py",
+      "text": "return None"
+    },
+    {
+      "language": "python",
+      "line": 185,
+      "path": "core\\smart_search.py",
+      "text": "query_key = query.casefold()"
+    },
+    {
+      "language": "python",
+      "line": 187,
+      "path": "core\\smart_search.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 188,
+      "path": "core\\smart_search.py",
+      "text": "tree = ast.parse(text)"
+    },
+    {
+      "language": "python",
+      "line": 189,
+      "path": "core\\smart_search.py",
+      "text": "except SyntaxError:"
+    },
+    {
+      "language": "python",
+      "line": 190,
+      "path": "core\\smart_search.py",
+      "text": "return {"
+    },
+    {
+      "language": "python",
+      "line": 191,
+      "path": "core\\smart_search.py",
+      "text": "\"kind\": \"text\","
+    },
+    {
+      "language": "python",
+      "line": 192,
+      "path": "core\\smart_search.py",
+      "text": "\"label\": \"Text match\","
+    },
+    {
+      "language": "python",
+      "line": 193,
+      "path": "core\\smart_search.py",
+      "text": "\"bonus\": 0,"
+    },
+    {
+      "language": "python",
+      "line": 194,
+      "path": "core\\smart_search.py",
+      "text": "\"lineno\": None,"
+    },
+    {
+      "language": "python",
+      "line": 195,
+      "path": "core\\smart_search.py",
+      "text": "\"index\": text.casefold().find(query_key),"
+    },
+    {
+      "language": "python",
+      "line": 196,
+      "path": "core\\smart_search.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 198,
+      "path": "core\\smart_search.py",
+      "text": "best = None"
+    },
+    {
+      "language": "python",
+      "line": 200,
+      "path": "core\\smart_search.py",
+      "text": "def consider(kind, label, bonus, name, node):"
+    },
+    {
+      "language": "python",
+      "line": 201,
+      "path": "core\\smart_search.py",
+      "text": "nonlocal best"
+    },
+    {
+      "language": "python",
+      "line": 203,
+      "path": "core\\smart_search.py",
+      "text": "if not name or str(name).casefold() != query_key:"
+    },
+    {
+      "language": "python",
+      "line": 204,
+      "path": "core\\smart_search.py",
+      "text": "return"
+    },
+    {
+      "language": "python",
+      "line": 206,
+      "path": "core\\smart_search.py",
+      "text": "candidate = {"
+    },
+    {
+      "language": "python",
+      "line": 207,
+      "path": "core\\smart_search.py",
+      "text": "\"kind\": kind,"
+    },
+    {
+      "language": "python",
+      "line": 208,
+      "path": "core\\smart_search.py",
+      "text": "\"label\": label,"
+    },
+    {
+      "language": "python",
+      "line": 209,
+      "path": "core\\smart_search.py",
+      "text": "\"bonus\": bonus,"
+    },
+    {
+      "language": "python",
+      "line": 210,
+      "path": "core\\smart_search.py",
+      "text": "\"lineno\": getattr(node, \"lineno\", None),"
+    },
+    {
+      "language": "python",
+      "line": 211,
+      "path": "core\\smart_search.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 213,
+      "path": "core\\smart_search.py",
+      "text": "if best is None or candidate[\"bonus\"] > best[\"bonus\"]:"
+    },
+    {
+      "language": "python",
+      "line": 214,
+      "path": "core\\smart_search.py",
+      "text": "best = candidate"
+    },
+    {
+      "language": "python",
+      "line": 216,
+      "path": "core\\smart_search.py",
+      "text": "for node in ast.walk(tree):"
+    },
+    {
+      "language": "python",
+      "line": 217,
+      "path": "core\\smart_search.py",
+      "text": "if isinstance(node, ast.ClassDef):"
+    },
+    {
+      "language": "python",
+      "line": 218,
+      "path": "core\\smart_search.py",
+      "text": "consider("
+    },
+    {
+      "language": "python",
+      "line": 219,
+      "path": "core\\smart_search.py",
+      "text": "\"class_definition\","
+    },
+    {
+      "language": "python",
+      "line": 220,
+      "path": "core\\smart_search.py",
+      "text": "\"Class definition\","
+    },
+    {
+      "language": "python",
+      "line": 221,
+      "path": "core\\smart_search.py",
+      "text": "40,"
+    },
+    {
+      "language": "python",
+      "line": 222,
+      "path": "core\\smart_search.py",
+      "text": "node.name,"
+    },
+    {
+      "language": "python",
+      "line": 223,
+      "path": "core\\smart_search.py",
+      "text": "node,"
+    },
+    {
+      "language": "python",
+      "line": 224,
+      "path": "core\\smart_search.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 226,
+      "path": "core\\smart_search.py",
+      "text": "elif isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)):"
+    },
+    {
+      "language": "python",
+      "line": 227,
+      "path": "core\\smart_search.py",
+      "text": "consider("
+    },
+    {
+      "language": "python",
+      "line": 228,
+      "path": "core\\smart_search.py",
+      "text": "\"function_definition\","
+    },
+    {
+      "language": "python",
+      "line": 229,
+      "path": "core\\smart_search.py",
+      "text": "\"Function definition\","
+    },
+    {
+      "language": "python",
+      "line": 230,
+      "path": "core\\smart_search.py",
+      "text": "38,"
+    },
+    {
+      "language": "python",
+      "line": 231,
+      "path": "core\\smart_search.py",
+      "text": "node.name,"
+    },
+    {
+      "language": "python",
+      "line": 232,
+      "path": "core\\smart_search.py",
+      "text": "node,"
+    },
+    {
+      "language": "python",
+      "line": 233,
+      "path": "core\\smart_search.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 235,
+      "path": "core\\smart_search.py",
+      "text": "elif isinstance(node, ast.Assign):"
+    },
+    {
+      "language": "python",
+      "line": 236,
+      "path": "core\\smart_search.py",
+      "text": "for target in node.targets:"
+    },
+    {
+      "language": "python",
+      "line": 237,
+      "path": "core\\smart_search.py",
+      "text": "for name in self.assignment_names(target):"
+    },
+    {
+      "language": "python",
+      "line": 238,
+      "path": "core\\smart_search.py",
+      "text": "consider("
+    },
+    {
+      "language": "python",
+      "line": 239,
+      "path": "core\\smart_search.py",
+      "text": "\"assignment\","
+    },
+    {
+      "language": "python",
+      "line": 240,
+      "path": "core\\smart_search.py",
+      "text": "\"Assignment / symbol definition\","
+    },
+    {
+      "language": "python",
+      "line": 241,
+      "path": "core\\smart_search.py",
+      "text": "35,"
+    },
+    {
+      "language": "python",
+      "line": 242,
+      "path": "core\\smart_search.py",
+      "text": "name,"
+    },
+    {
+      "language": "python",
+      "line": 243,
+      "path": "core\\smart_search.py",
+      "text": "node,"
+    },
+    {
+      "language": "python",
+      "line": 244,
+      "path": "core\\smart_search.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 246,
+      "path": "core\\smart_search.py",
+      "text": "elif isinstance(node, ast.AnnAssign):"
+    },
+    {
+      "language": "python",
+      "line": 247,
+      "path": "core\\smart_search.py",
+      "text": "for name in self.assignment_names(node.target):"
+    },
+    {
+      "language": "python",
+      "line": 248,
+      "path": "core\\smart_search.py",
+      "text": "consider("
+    },
+    {
+      "language": "python",
+      "line": 249,
+      "path": "core\\smart_search.py",
+      "text": "\"assignment\","
+    },
+    {
+      "language": "python",
+      "line": 250,
+      "path": "core\\smart_search.py",
+      "text": "\"Assignment / symbol definition\","
+    },
+    {
+      "language": "python",
+      "line": 251,
+      "path": "core\\smart_search.py",
+      "text": "35,"
+    },
+    {
+      "language": "python",
+      "line": 252,
+      "path": "core\\smart_search.py",
+      "text": "name,"
+    },
+    {
+      "language": "python",
+      "line": 253,
+      "path": "core\\smart_search.py",
+      "text": "node,"
+    },
+    {
+      "language": "python",
+      "line": 254,
+      "path": "core\\smart_search.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 256,
+      "path": "core\\smart_search.py",
+      "text": "elif isinstance(node, ast.NamedExpr):"
+    },
+    {
+      "language": "python",
+      "line": 257,
+      "path": "core\\smart_search.py",
+      "text": "for name in self.assignment_names(node.target):"
+    },
+    {
+      "language": "python",
+      "line": 258,
+      "path": "core\\smart_search.py",
+      "text": "consider("
+    },
+    {
+      "language": "python",
+      "line": 259,
+      "path": "core\\smart_search.py",
+      "text": "\"assignment\","
+    },
+    {
+      "language": "python",
+      "line": 260,
+      "path": "core\\smart_search.py",
+      "text": "\"Assignment / symbol definition\","
+    },
+    {
+      "language": "python",
+      "line": 261,
+      "path": "core\\smart_search.py",
+      "text": "33,"
+    },
+    {
+      "language": "python",
+      "line": 262,
+      "path": "core\\smart_search.py",
+      "text": "name,"
+    },
+    {
+      "language": "python",
+      "line": 263,
+      "path": "core\\smart_search.py",
+      "text": "node,"
+    },
+    {
+      "language": "python",
+      "line": 264,
+      "path": "core\\smart_search.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 266,
+      "path": "core\\smart_search.py",
+      "text": "elif isinstance(node, (ast.Import, ast.ImportFrom)):"
+    },
+    {
+      "language": "python",
+      "line": 267,
+      "path": "core\\smart_search.py",
+      "text": "for alias in node.names:"
+    },
+    {
+      "language": "python",
+      "line": 268,
+      "path": "core\\smart_search.py",
+      "text": "imported_name = alias.asname or alias.name.rsplit(\".\", 1)[-1]"
+    },
+    {
+      "language": "python",
+      "line": 269,
+      "path": "core\\smart_search.py",
+      "text": "consider("
+    },
+    {
+      "language": "python",
+      "line": 270,
+      "path": "core\\smart_search.py",
+      "text": "\"import\","
+    },
+    {
+      "language": "python",
+      "line": 271,
+      "path": "core\\smart_search.py",
+      "text": "\"Imported symbol\","
+    },
+    {
+      "language": "python",
+      "line": 272,
+      "path": "core\\smart_search.py",
+      "text": "18,"
+    },
+    {
+      "language": "python",
+      "line": 273,
+      "path": "core\\smart_search.py",
+      "text": "imported_name,"
+    },
+    {
+      "language": "python",
+      "line": 274,
+      "path": "core\\smart_search.py",
+      "text": "node,"
+    },
+    {
+      "language": "python",
+      "line": 275,
+      "path": "core\\smart_search.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 277,
+      "path": "core\\smart_search.py",
+      "text": "elif isinstance(node, ast.Name):"
+    },
+    {
+      "language": "python",
+      "line": 278,
+      "path": "core\\smart_search.py",
+      "text": "consider("
+    },
+    {
+      "language": "python",
+      "line": 279,
+      "path": "core\\smart_search.py",
+      "text": "\"reference\","
+    },
+    {
+      "language": "python",
+      "line": 280,
+      "path": "core\\smart_search.py",
+      "text": "\"Code reference\","
+    },
+    {
+      "language": "python",
+      "line": 281,
+      "path": "core\\smart_search.py",
+      "text": "8,"
+    },
+    {
+      "language": "python",
+      "line": 282,
+      "path": "core\\smart_search.py",
+      "text": "node.id,"
+    },
+    {
+      "language": "python",
+      "line": 283,
+      "path": "core\\smart_search.py",
+      "text": "node,"
+    },
+    {
+      "language": "python",
+      "line": 284,
+      "path": "core\\smart_search.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 286,
+      "path": "core\\smart_search.py",
+      "text": "elif isinstance(node, ast.Attribute):"
+    },
+    {
+      "language": "python",
+      "line": 287,
+      "path": "core\\smart_search.py",
+      "text": "consider("
+    },
+    {
+      "language": "python",
+      "line": 288,
+      "path": "core\\smart_search.py",
+      "text": "\"reference\","
+    },
+    {
+      "language": "python",
+      "line": 289,
+      "path": "core\\smart_search.py",
+      "text": "\"Attribute reference\","
+    },
+    {
+      "language": "python",
+      "line": 290,
+      "path": "core\\smart_search.py",
+      "text": "6,"
+    },
+    {
+      "language": "python",
+      "line": 291,
+      "path": "core\\smart_search.py",
+      "text": "node.attr,"
+    },
+    {
+      "language": "python",
+      "line": 292,
+      "path": "core\\smart_search.py",
+      "text": "node,"
+    },
+    {
+      "language": "python",
+      "line": 293,
+      "path": "core\\smart_search.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 295,
+      "path": "core\\smart_search.py",
+      "text": "if best is not None:"
+    },
+    {
+      "language": "python",
+      "line": 296,
+      "path": "core\\smart_search.py",
+      "text": "best[\"index\"] = self.line_index(text, best[\"lineno\"])"
+    },
+    {
+      "language": "python",
+      "line": 297,
+      "path": "core\\smart_search.py",
+      "text": "return best"
+    },
+    {
+      "language": "python",
+      "line": 299,
+      "path": "core\\smart_search.py",
+      "text": "return {"
+    },
+    {
+      "language": "python",
+      "line": 300,
+      "path": "core\\smart_search.py",
+      "text": "\"kind\": \"text_only\","
+    },
+    {
+      "language": "python",
+      "line": 301,
+      "path": "core\\smart_search.py",
+      "text": "\"label\": \"Text/example only\","
+    },
+    {
+      "language": "python",
+      "line": 302,
+      "path": "core\\smart_search.py",
+      "text": "\"bonus\": -20,"
+    },
+    {
+      "language": "python",
+      "line": 303,
+      "path": "core\\smart_search.py",
+      "text": "\"lineno\": None,"
+    },
+    {
+      "language": "python",
+      "line": 304,
+      "path": "core\\smart_search.py",
+      "text": "\"index\": text.casefold().find(query_key),"
+    },
+    {
+      "language": "python",
+      "line": 305,
+      "path": "core\\smart_search.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 307,
+      "path": "core\\smart_search.py",
+      "text": "def iter_files(self, include_vendor=False, include_history=True):"
+    },
+    {
+      "language": "python",
+      "line": 308,
+      "path": "core\\smart_search.py",
+      "text": "for path in self.root.rglob(\"*\"):"
+    },
+    {
+      "language": "python",
+      "line": 309,
+      "path": "core\\smart_search.py",
+      "text": "if not path.is_file():"
+    },
+    {
+      "language": "python",
+      "line": 310,
+      "path": "core\\smart_search.py",
+      "text": "continue"
+    },
+    {
+      "language": "python",
+      "line": 312,
+      "path": "core\\smart_search.py",
+      "text": "if path.suffix.lower() not in self.SEARCH_EXTENSIONS:"
+    },
+    {
+      "language": "python",
+      "line": 313,
+      "path": "core\\smart_search.py",
+      "text": "continue"
+    },
+    {
+      "language": "python",
+      "line": 315,
+      "path": "core\\smart_search.py",
+      "text": "if is_protected_path(path, self.root):"
+    },
+    {
+      "language": "python",
+      "line": 316,
+      "path": "core\\smart_search.py",
+      "text": "continue"
+    },
+    {
+      "language": "python",
+      "line": 318,
+      "path": "core\\smart_search.py",
+      "text": "if self.is_generated_artifact(path):"
+    },
+    {
+      "language": "python",
+      "line": 319,
+      "path": "core\\smart_search.py",
+      "text": "continue"
+    },
+    {
+      "language": "python",
+      "line": 321,
+      "path": "core\\smart_search.py",
+      "text": "if self.is_vendor(path) and not include_vendor:"
+    },
+    {
+      "language": "python",
+      "line": 322,
+      "path": "core\\smart_search.py",
+      "text": "continue"
+    },
+    {
+      "language": "python",
+      "line": 324,
+      "path": "core\\smart_search.py",
+      "text": "evidence = self.evidence_class(path)"
+    },
+    {
+      "language": "python",
+      "line": 325,
+      "path": "core\\smart_search.py",
+      "text": "if evidence[\"class\"] == \"history\" and not include_history:"
+    },
+    {
+      "language": "python",
+      "line": 326,
+      "path": "core\\smart_search.py",
+      "text": "continue"
+    },
+    {
+      "language": "python",
+      "line": 328,
+      "path": "core\\smart_search.py",
+      "text": "yield path"
+    },
+    {
+      "language": "python",
+      "line": 330,
+      "path": "core\\smart_search.py",
+      "text": "def search(self, query, limit=12, include_vendor=False, include_history=True):"
+    },
+    {
+      "language": "python",
+      "line": 331,
+      "path": "core\\smart_search.py",
+      "text": "query = query or \"\""
+    },
+    {
+      "language": "python",
+      "line": 332,
+      "path": "core\\smart_search.py",
+      "text": "lowered = query.lower()"
+    },
+    {
+      "language": "python",
+      "line": 333,
+      "path": "core\\smart_search.py",
+      "text": "results = []"
+    },
+    {
+      "language": "python",
+      "line": 335,
+      "path": "core\\smart_search.py",
+      "text": "for path in self.iter_files(include_vendor=include_vendor, include_history=include_history):"
+    },
+    {
+      "language": "python",
+      "line": 336,
+      "path": "core\\smart_search.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 337,
+      "path": "core\\smart_search.py",
+      "text": "text = path.read_text(encoding=\"utf-8\", errors=\"replace\")"
+    },
+    {
+      "language": "python",
+      "line": 338,
+      "path": "core\\smart_search.py",
+      "text": "except Exception:"
+    },
+    {
+      "language": "python",
+      "line": 339,
+      "path": "core\\smart_search.py",
+      "text": "continue"
+    },
+    {
+      "language": "python",
+      "line": 341,
+      "path": "core\\smart_search.py",
+      "text": "text_lower = text.lower()"
+    },
+    {
+      "language": "python",
+      "line": 342,
+      "path": "core\\smart_search.py",
+      "text": "idx = text_lower.find(lowered)"
+    },
+    {
+      "language": "python",
+      "line": 344,
+      "path": "core\\smart_search.py",
+      "text": "if idx < 0:"
+    },
+    {
+      "language": "python",
+      "line": 345,
+      "path": "core\\smart_search.py",
+      "text": "continue"
+    },
+    {
+      "language": "python",
+      "line": 347,
+      "path": "core\\smart_search.py",
+      "text": "evidence = self.evidence_class(path)"
+    },
+    {
+      "language": "python",
+      "line": 348,
+      "path": "core\\smart_search.py",
+      "text": "rel = self.rel(path)"
+    },
+    {
+      "language": "python",
+      "line": 350,
+      "path": "core\\smart_search.py",
+      "text": "score = evidence[\"priority\"]"
+    },
+    {
+      "language": "python",
+      "line": 351,
+      "path": "core\\smart_search.py",
+      "text": "match = None"
+    },
+    {
+      "language": "python",
+      "line": 353,
+      "path": "core\\smart_search.py",
+      "text": "# Path/name matches matter, but not enough to make history beat source."
+    },
+    {
+      "language": "python",
+      "line": 354,
+      "path": "core\\smart_search.py",
+      "text": "if lowered in rel.lower():"
+    },
+    {
+      "language": "python",
+      "line": 355,
+      "path": "core\\smart_search.py",
+      "text": "score += 15"
+    },
+    {
+      "language": "python",
+      "line": 357,
+      "path": "core\\smart_search.py",
+      "text": "# Python source is usually stronger implementation evidence."
+    },
+    {
+      "language": "python",
+      "line": 358,
+      "path": "core\\smart_search.py",
+      "text": "if path.suffix.lower() == \".py\":"
+    },
+    {
+      "language": "python",
+      "line": 359,
+      "path": "core\\smart_search.py",
+      "text": "score += 10"
+    },
+    {
+      "language": "python",
+      "line": 360,
+      "path": "core\\smart_search.py",
+      "text": "match = self.python_symbol_evidence(text, query)"
+    },
+    {
+      "language": "python",
+      "line": 361,
+      "path": "core\\smart_search.py",
+      "text": "if match:"
+    },
+    {
+      "language": "python",
+      "line": 362,
+      "path": "core\\smart_search.py",
+      "text": "score += match[\"bonus\"]"
+    },
+    {
+      "language": "python",
+      "line": 363,
+      "path": "core\\smart_search.py",
+      "text": "if match.get(\"index\", -1) >= 0:"
+    },
+    {
+      "language": "python",
+      "line": 364,
+      "path": "core\\smart_search.py",
+      "text": "idx = match[\"index\"]"
+    },
+    {
+      "language": "python",
+      "line": 366,
+      "path": "core\\smart_search.py",
+      "text": "# Mission archives are intentionally weak implementation evidence."
+    },
+    {
+      "language": "python",
+      "line": 367,
+      "path": "core\\smart_search.py",
+      "text": "if evidence[\"class\"] == \"history\":"
+    },
+    {
+      "language": "python",
+      "line": 368,
+      "path": "core\\smart_search.py",
+      "text": "score -= 10"
+    },
+    {
+      "language": "python",
+      "line": 370,
+      "path": "core\\smart_search.py",
+      "text": "start = max(0, idx - 260)"
+    },
+    {
+      "language": "python",
+      "line": 371,
+      "path": "core\\smart_search.py",
+      "text": "end = min(len(text), idx + len(query) + 520)"
+    },
+    {
+      "language": "python",
+      "line": 372,
+      "path": "core\\smart_search.py",
+      "text": "snippet, redaction_count = redact_secrets(text[start:end].strip())"
+    },
+    {
+      "language": "python",
+      "line": 374,
+      "path": "core\\smart_search.py",
+      "text": "results.append({"
+    },
+    {
+      "language": "python",
+      "line": 375,
+      "path": "core\\smart_search.py",
+      "text": "\"file\": rel,"
+    },
+    {
+      "language": "python",
+      "line": 376,
+      "path": "core\\smart_search.py",
+      "text": "\"score\": score,"
+    },
+    {
+      "language": "python",
+      "line": 377,
+      "path": "core\\smart_search.py",
+      "text": "\"evidence_class\": evidence[\"class\"],"
+    },
+    {
+      "language": "python",
+      "line": 378,
+      "path": "core\\smart_search.py",
+      "text": "\"evidence_label\": evidence[\"label\"],"
+    },
+    {
+      "language": "python",
+      "line": 379,
+      "path": "core\\smart_search.py",
+      "text": "\"match_kind\": match[\"kind\"] if match else \"text\","
+    },
+    {
+      "language": "python",
+      "line": 380,
+      "path": "core\\smart_search.py",
+      "text": "\"match_label\": match[\"label\"] if match else \"Text match\","
+    },
+    {
+      "language": "python",
+      "line": 381,
+      "path": "core\\smart_search.py",
+      "text": "\"vendor\": evidence[\"class\"] == \"vendor\","
+    },
+    {
+      "language": "python",
+      "line": 382,
+      "path": "core\\smart_search.py",
+      "text": "\"snippet\": snippet,"
+    },
+    {
+      "language": "python",
+      "line": 383,
+      "path": "core\\smart_search.py",
+      "text": "\"redactions\": redaction_count,"
+    },
+    {
+      "language": "python",
+      "line": 384,
+      "path": "core\\smart_search.py",
+      "text": "})"
+    },
+    {
+      "language": "python",
+      "line": 386,
+      "path": "core\\smart_search.py",
+      "text": "results.sort("
+    },
+    {
+      "language": "python",
+      "line": 387,
+      "path": "core\\smart_search.py",
+      "text": "key=lambda item: (-item[\"score\"], item[\"file\"].casefold())"
+    },
+    {
+      "language": "python",
+      "line": 388,
+      "path": "core\\smart_search.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 389,
+      "path": "core\\smart_search.py",
+      "text": "return results[:limit]"
+    },
+    {
+      "language": "python",
+      "line": 391,
+      "path": "core\\smart_search.py",
+      "text": "def layered_search(self, query, limit=12, include_history=False):"
+    },
+    {
+      "language": "python",
+      "line": 392,
+      "path": "core\\smart_search.py",
+      "text": "# Layer 1: executable source and config, no history, no vendor."
+    },
+    {
+      "language": "python",
+      "line": 393,
+      "path": "core\\smart_search.py",
+      "text": "primary = self.search("
+    },
+    {
+      "language": "python",
+      "line": 394,
+      "path": "core\\smart_search.py",
+      "text": "query,"
+    },
+    {
+      "language": "python",
+      "line": 395,
+      "path": "core\\smart_search.py",
+      "text": "limit=limit,"
+    },
+    {
+      "language": "python",
+      "line": 396,
+      "path": "core\\smart_search.py",
+      "text": "include_vendor=False,"
+    },
+    {
+      "language": "python",
+      "line": 397,
+      "path": "core\\smart_search.py",
+      "text": "include_history=False,"
+    },
+    {
+      "language": "python",
+      "line": 398,
+      "path": "core\\smart_search.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 400,
+      "path": "core\\smart_search.py",
+      "text": "strong = ["
+    },
+    {
+      "language": "python",
+      "line": 401,
+      "path": "core\\smart_search.py",
+      "text": "item for item in primary"
+    },
+    {
+      "language": "python",
+      "line": 402,
+      "path": "core\\smart_search.py",
+      "text": "if item[\"evidence_class\"] in {\"source\", \"ui_source\", \"source_other\", \"config\"}"
+    },
+    {
+      "language": "python",
+      "line": 403,
+      "path": "core\\smart_search.py",
+      "text": "]"
+    },
+    {
+      "language": "python",
+      "line": 405,
+      "path": "core\\smart_search.py",
+      "text": "if strong:"
+    },
+    {
+      "language": "python",
+      "line": 406,
+      "path": "core\\smart_search.py",
+      "text": "return {"
+    },
+    {
+      "language": "python",
+      "line": 407,
+      "path": "core\\smart_search.py",
+      "text": "\"query\": query,"
+    },
+    {
+      "language": "python",
+      "line": 408,
+      "path": "core\\smart_search.py",
+      "text": "\"scope\": \"Executable/source evidence\","
+    },
+    {
+      "language": "python",
+      "line": 409,
+      "path": "core\\smart_search.py",
+      "text": "\"primary\": strong,"
+    },
+    {
+      "language": "python",
+      "line": 410,
+      "path": "core\\smart_search.py",
+      "text": "\"history\": [],"
+    },
+    {
+      "language": "python",
+      "line": 411,
+      "path": "core\\smart_search.py",
+      "text": "\"vendor\": [],"
+    },
+    {
+      "language": "python",
+      "line": 412,
+      "path": "core\\smart_search.py",
+      "text": "\"history_searched\": False,"
+    },
+    {
+      "language": "python",
+      "line": 413,
+      "path": "core\\smart_search.py",
+      "text": "\"vendor_searched\": False,"
+    },
+    {
+      "language": "python",
+      "line": 414,
+      "path": "core\\smart_search.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 416,
+      "path": "core\\smart_search.py",
+      "text": "# Layer 2: project memory / documents, still no vendor."
+    },
+    {
+      "language": "python",
+      "line": 417,
+      "path": "core\\smart_search.py",
+      "text": "with_history = self.search("
+    },
+    {
+      "language": "python",
+      "line": 418,
+      "path": "core\\smart_search.py",
+      "text": "query,"
+    },
+    {
+      "language": "python",
+      "line": 419,
+      "path": "core\\smart_search.py",
+      "text": "limit=limit,"
+    },
+    {
+      "language": "python",
+      "line": 420,
+      "path": "core\\smart_search.py",
+      "text": "include_vendor=False,"
+    },
+    {
+      "language": "python",
+      "line": 421,
+      "path": "core\\smart_search.py",
+      "text": "include_history=True,"
+    },
+    {
+      "language": "python",
+      "line": 422,
+      "path": "core\\smart_search.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 424,
+      "path": "core\\smart_search.py",
+      "text": "history = ["
+    },
+    {
+      "language": "python",
+      "line": 425,
+      "path": "core\\smart_search.py",
+      "text": "item for item in with_history"
+    },
+    {
+      "language": "python",
+      "line": 426,
+      "path": "core\\smart_search.py",
+      "text": "if item[\"evidence_class\"] in {\"project_memory\", \"history\", \"document\"}"
+    },
+    {
+      "language": "python",
+      "line": 427,
+      "path": "core\\smart_search.py",
+      "text": "]"
+    },
+    {
+      "language": "python",
+      "line": 429,
+      "path": "core\\smart_search.py",
+      "text": "if history:"
+    },
+    {
+      "language": "python",
+      "line": 430,
+      "path": "core\\smart_search.py",
+      "text": "return {"
+    },
+    {
+      "language": "python",
+      "line": 431,
+      "path": "core\\smart_search.py",
+      "text": "\"query\": query,"
+    },
+    {
+      "language": "python",
+      "line": 432,
+      "path": "core\\smart_search.py",
+      "text": "\"scope\": \"Project knowledge / history fallback\","
+    },
+    {
+      "language": "python",
+      "line": 433,
+      "path": "core\\smart_search.py",
+      "text": "\"primary\": [],"
+    },
+    {
+      "language": "python",
+      "line": 434,
+      "path": "core\\smart_search.py",
+      "text": "\"history\": history,"
+    },
+    {
+      "language": "python",
+      "line": 435,
+      "path": "core\\smart_search.py",
+      "text": "\"vendor\": [],"
+    },
+    {
+      "language": "python",
+      "line": 436,
+      "path": "core\\smart_search.py",
+      "text": "\"history_searched\": True,"
+    },
+    {
+      "language": "python",
+      "line": 437,
+      "path": "core\\smart_search.py",
+      "text": "\"vendor_searched\": False,"
+    },
+    {
+      "language": "python",
+      "line": 438,
+      "path": "core\\smart_search.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 440,
+      "path": "core\\smart_search.py",
+      "text": "# Layer 3: vendor fallback."
+    },
+    {
+      "language": "python",
+      "line": 441,
+      "path": "core\\smart_search.py",
+      "text": "vendor = self.search("
+    },
+    {
+      "language": "python",
+      "line": 442,
+      "path": "core\\smart_search.py",
+      "text": "query,"
+    },
+    {
+      "language": "python",
+      "line": 443,
+      "path": "core\\smart_search.py",
+      "text": "limit=limit,"
+    },
+    {
+      "language": "python",
+      "line": 444,
+      "path": "core\\smart_search.py",
+      "text": "include_vendor=True,"
+    },
+    {
+      "language": "python",
+      "line": 445,
+      "path": "core\\smart_search.py",
+      "text": "include_history=True,"
+    },
+    {
+      "language": "python",
+      "line": 446,
+      "path": "core\\smart_search.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 448,
+      "path": "core\\smart_search.py",
+      "text": "vendor = [item for item in vendor if item[\"vendor\"]]"
+    },
+    {
+      "language": "python",
+      "line": 450,
+      "path": "core\\smart_search.py",
+      "text": "return {"
+    },
+    {
+      "language": "python",
+      "line": 451,
+      "path": "core\\smart_search.py",
+      "text": "\"query\": query,"
+    },
+    {
+      "language": "python",
+      "line": 452,
+      "path": "core\\smart_search.py",
+      "text": "\"scope\": \"Vendor fallback\","
+    },
+    {
+      "language": "python",
+      "line": 453,
+      "path": "core\\smart_search.py",
+      "text": "\"primary\": [],"
+    },
+    {
+      "language": "python",
+      "line": 454,
+      "path": "core\\smart_search.py",
+      "text": "\"history\": [],"
+    },
+    {
+      "language": "python",
+      "line": 455,
+      "path": "core\\smart_search.py",
+      "text": "\"vendor\": vendor,"
+    },
+    {
+      "language": "python",
+      "line": 456,
+      "path": "core\\smart_search.py",
+      "text": "\"history_searched\": True,"
+    },
+    {
+      "language": "python",
+      "line": 457,
+      "path": "core\\smart_search.py",
+      "text": "\"vendor_searched\": True,"
+    },
+    {
+      "language": "python",
+      "line": 458,
+      "path": "core\\smart_search.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 460,
+      "path": "core\\smart_search.py",
+      "text": "def confidence_hint(self, layered_result):"
+    },
+    {
+      "language": "python",
+      "line": 461,
+      "path": "core\\smart_search.py",
+      "text": "if layered_result[\"primary\"]:"
+    },
+    {
+      "language": "python",
+      "line": 462,
+      "path": "core\\smart_search.py",
+      "text": "best = layered_result[\"primary\"][0]"
+    },
+    {
+      "language": "python",
+      "line": 463,
+      "path": "core\\smart_search.py",
+      "text": "if best[\"evidence_class\"] in {\"source\", \"ui_source\"}:"
+    },
+    {
+      "language": "python",
+      "line": 464,
+      "path": "core\\smart_search.py",
+      "text": "return 88, \"Strong source-code evidence.\""
+    },
+    {
+      "language": "python",
+      "line": 465,
+      "path": "core\\smart_search.py",
+      "text": "return 78, \"First-party evidence found, but not direct UI/core source.\""
+    },
+    {
+      "language": "python",
+      "line": 467,
+      "path": "core\\smart_search.py",
+      "text": "if layered_result[\"history\"]:"
+    },
+    {
+      "language": "python",
+      "line": 468,
+      "path": "core\\smart_search.py",
+      "text": "return 58, \"Only project memory or mission history evidence found.\""
+    },
+    {
+      "language": "python",
+      "line": 470,
+      "path": "core\\smart_search.py",
+      "text": "if layered_result[\"vendor\"]:"
+    },
+    {
+      "language": "python",
+      "line": 471,
+      "path": "core\\smart_search.py",
+      "text": "return 35, \"Only vendor fallback evidence found.\""
+    },
+    {
+      "language": "python",
+      "line": 473,
+      "path": "core\\smart_search.py",
+      "text": "return 20, \"No direct evidence found.\""
+    },
+    {
+      "language": "python",
+      "line": 475,
+      "path": "core\\smart_search.py",
+      "text": "def format_report(self, query, limit=8):"
+    },
+    {
+      "language": "python",
+      "line": 476,
+      "path": "core\\smart_search.py",
+      "text": "data = self.layered_search(query, limit=limit)"
+    },
+    {
+      "language": "python",
+      "line": 478,
+      "path": "core\\smart_search.py",
+      "text": "confidence, reason = self.confidence_hint(data)"
+    },
+    {
+      "language": "python",
+      "line": 480,
+      "path": "core\\smart_search.py",
+      "text": "lines = ["
+    },
+    {
+      "language": "python",
+      "line": 481,
+      "path": "core\\smart_search.py",
+      "text": "\"SMART SEARCH REPORT\","
+    },
+    {
+      "language": "python",
+      "line": 482,
+      "path": "core\\smart_search.py",
+      "text": "\"\","
+    },
+    {
+      "language": "python",
+      "line": 483,
+      "path": "core\\smart_search.py",
+      "text": "f\"Query: {query}\","
+    },
+    {
+      "language": "python",
+      "line": 484,
+      "path": "core\\smart_search.py",
+      "text": "f\"Scope: {data['scope']}\","
+    },
+    {
+      "language": "python",
+      "line": 485,
+      "path": "core\\smart_search.py",
+      "text": "f\"Evidence Confidence Hint: {confidence}%\","
+    },
+    {
+      "language": "python",
+      "line": 486,
+      "path": "core\\smart_search.py",
+      "text": "f\"Reason: {reason}\","
+    },
+    {
+      "language": "python",
+      "line": 487,
+      "path": "core\\smart_search.py",
+      "text": "\"\","
+    },
+    {
+      "language": "python",
+      "line": 488,
+      "path": "core\\smart_search.py",
+      "text": "]"
+    },
+    {
+      "language": "python",
+      "line": 490,
+      "path": "core\\smart_search.py",
+      "text": "if data[\"primary\"]:"
+    },
+    {
+      "language": "python",
+      "line": 491,
+      "path": "core\\smart_search.py",
+      "text": "lines.append(\"Primary evidence:\")"
+    },
+    {
+      "language": "python",
+      "line": 492,
+      "path": "core\\smart_search.py",
+      "text": "lines.append(\"\")"
+    },
+    {
+      "language": "python",
+      "line": 494,
+      "path": "core\\smart_search.py",
+      "text": "for item in data[\"primary\"]:"
+    },
+    {
+      "language": "python",
+      "line": 495,
+      "path": "core\\smart_search.py",
+      "text": "lines.append(f\"--- {item['file']} ---\")"
+    },
+    {
+      "language": "python",
+      "line": 496,
+      "path": "core\\smart_search.py",
+      "text": "lines.append(f\"Class: {item['evidence_label']}\")"
+    },
+    {
+      "language": "python",
+      "line": 497,
+      "path": "core\\smart_search.py",
+      "text": "lines.append(f\"Score: {item['score']}\")"
+    },
+    {
+      "language": "python",
+      "line": 498,
+      "path": "core\\smart_search.py",
+      "text": "lines.append(f\"Match: {item['match_label']}\")"
+    },
+    {
+      "language": "python",
+      "line": 499,
+      "path": "core\\smart_search.py",
+      "text": "lines.append(item[\"snippet\"])"
+    },
+    {
+      "language": "python",
+      "line": 500,
+      "path": "core\\smart_search.py",
+      "text": "lines.append(\"\")"
+    },
+    {
+      "language": "python",
+      "line": 502,
+      "path": "core\\smart_search.py",
+      "text": "lines.append(\"History Search:\")"
+    },
+    {
+      "language": "python",
+      "line": 503,
+      "path": "core\\smart_search.py",
+      "text": "lines.append(\"Skipped because source/config evidence was found.\")"
+    },
+    {
+      "language": "python",
+      "line": 504,
+      "path": "core\\smart_search.py",
+      "text": "lines.append(\"\")"
+    },
+    {
+      "language": "python",
+      "line": 505,
+      "path": "core\\smart_search.py",
+      "text": "lines.append(\"Vendor Search:\")"
+    },
+    {
+      "language": "python",
+      "line": 506,
+      "path": "core\\smart_search.py",
+      "text": "lines.append(\"Skipped because first-party source evidence was found.\")"
+    },
+    {
+      "language": "python",
+      "line": 508,
+      "path": "core\\smart_search.py",
+      "text": "elif data[\"history\"]:"
+    },
+    {
+      "language": "python",
+      "line": 509,
+      "path": "core\\smart_search.py",
+      "text": "lines.append(\"No executable source evidence found.\")"
+    },
+    {
+      "language": "python",
+      "line": 510,
+      "path": "core\\smart_search.py",
+      "text": "lines.append(\"\")"
+    },
+    {
+      "language": "python",
+      "line": 511,
+      "path": "core\\smart_search.py",
+      "text": "lines.append(\"Historical / project knowledge evidence:\")"
+    },
+    {
+      "language": "python",
+      "line": 512,
+      "path": "core\\smart_search.py",
+      "text": "lines.append(\"\")"
+    },
+    {
+      "language": "python",
+      "line": 514,
+      "path": "core\\smart_search.py",
+      "text": "for item in data[\"history\"]:"
+    },
+    {
+      "language": "python",
+      "line": 515,
+      "path": "core\\smart_search.py",
+      "text": "lines.append(f\"--- {item['file']} ---\")"
+    },
+    {
+      "language": "python",
+      "line": 516,
+      "path": "core\\smart_search.py",
+      "text": "lines.append(f\"Class: {item['evidence_label']}\")"
+    },
+    {
+      "language": "python",
+      "line": 517,
+      "path": "core\\smart_search.py",
+      "text": "lines.append(f\"Score: {item['score']}\")"
+    },
+    {
+      "language": "python",
+      "line": 518,
+      "path": "core\\smart_search.py",
+      "text": "lines.append(f\"Match: {item['match_label']}\")"
+    },
+    {
+      "language": "python",
+      "line": 519,
+      "path": "core\\smart_search.py",
+      "text": "lines.append(item[\"snippet\"])"
+    },
+    {
+      "language": "python",
+      "line": 520,
+      "path": "core\\smart_search.py",
+      "text": "lines.append(\"\")"
+    },
+    {
+      "language": "python",
+      "line": 522,
+      "path": "core\\smart_search.py",
+      "text": "lines.append(\"Vendor Search:\")"
+    },
+    {
+      "language": "python",
+      "line": 523,
+      "path": "core\\smart_search.py",
+      "text": "lines.append(\"Skipped because historical evidence was found. Use vendor search explicitly if needed.\")"
+    },
+    {
+      "language": "python",
+      "line": 525,
+      "path": "core\\smart_search.py",
+      "text": "elif data[\"vendor\"]:"
+    },
+    {
+      "language": "python",
+      "line": 526,
+      "path": "core\\smart_search.py",
+      "text": "lines.append(\"No first-party or history evidence found.\")"
+    },
+    {
+      "language": "python",
+      "line": 527,
+      "path": "core\\smart_search.py",
+      "text": "lines.append(\"\")"
+    },
+    {
+      "language": "python",
+      "line": 528,
+      "path": "core\\smart_search.py",
+      "text": "lines.append(\"Vendor fallback evidence:\")"
+    },
+    {
+      "language": "python",
+      "line": 529,
+      "path": "core\\smart_search.py",
+      "text": "lines.append(\"\")"
+    },
+    {
+      "language": "python",
+      "line": 531,
+      "path": "core\\smart_search.py",
+      "text": "for item in data[\"vendor\"]:"
+    },
+    {
+      "language": "python",
+      "line": 532,
+      "path": "core\\smart_search.py",
+      "text": "lines.append(f\"--- {item['file']} ---\")"
+    },
+    {
+      "language": "python",
+      "line": 533,
+      "path": "core\\smart_search.py",
+      "text": "lines.append(f\"Class: {item['evidence_label']}\")"
+    },
+    {
+      "language": "python",
+      "line": 534,
+      "path": "core\\smart_search.py",
+      "text": "lines.append(f\"Score: {item['score']}\")"
+    },
+    {
+      "language": "python",
+      "line": 535,
+      "path": "core\\smart_search.py",
+      "text": "lines.append(f\"Match: {item['match_label']}\")"
+    },
+    {
+      "language": "python",
+      "line": 536,
+      "path": "core\\smart_search.py",
+      "text": "lines.append(item[\"snippet\"])"
+    },
+    {
+      "language": "python",
+      "line": 537,
+      "path": "core\\smart_search.py",
+      "text": "lines.append(\"\")"
+    },
+    {
+      "language": "python",
+      "line": 539,
+      "path": "core\\smart_search.py",
+      "text": "else:"
+    },
+    {
+      "language": "python",
+      "line": 540,
+      "path": "core\\smart_search.py",
+      "text": "lines.append(\"No matches found.\")"
+    },
+    {
+      "language": "python",
+      "line": 542,
+      "path": "core\\smart_search.py",
+      "text": "lines.extend(["
+    },
+    {
+      "language": "python",
+      "line": 543,
+      "path": "core\\smart_search.py",
+      "text": "\"\","
+    },
+    {
+      "language": "python",
+      "line": 544,
+      "path": "core\\smart_search.py",
+      "text": "\"Search Policy:\","
+    },
+    {
+      "language": "python",
+      "line": 545,
+      "path": "core\\smart_search.py",
+      "text": "\"Executable FOXAI source outranks project memory, mission history, and vendor dependencies.\","
+    },
+    {
+      "language": "python",
+      "line": 546,
+      "path": "core\\smart_search.py",
+      "text": "\"Generated apply/preview/checkpoint bundles and backup trees are excluded.\","
+    },
+    {
+      "language": "python",
+      "line": 547,
+      "path": "core\\smart_search.py",
+      "text": "\"Protected credential/key/vault paths are excluded and displayed snippets are secret-redacted.\","
+    },
+    {
+      "language": "python",
+      "line": 548,
+      "path": "core\\smart_search.py",
+      "text": "])"
+    },
+    {
+      "language": "python",
+      "line": 550,
+      "path": "core\\smart_search.py",
+      "text": "return \"\\n\".join(lines)"
+    },
+    {
+      "language": "python",
+      "line": 1,
+      "path": "core\\technical_debt.py",
+      "text": "from pathlib import Path"
+    },
+    {
+      "language": "python",
+      "line": 2,
+      "path": "core\\technical_debt.py",
+      "text": "import ast"
+    },
+    {
+      "language": "python",
+      "line": 5,
+      "path": "core\\technical_debt.py",
+      "text": "class TechnicalDebtEngine:"
+    },
+    {
+      "language": "python",
+      "line": 6,
+      "path": "core\\technical_debt.py",
+      "text": "\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 7,
+      "path": "core\\technical_debt.py",
+      "text": "Read-only technical debt scanner for FOXAI."
+    },
+    {
+      "language": "python",
+      "line": 9,
+      "path": "core\\technical_debt.py",
+      "text": "This engine does not modify files. It looks for structural signals:"
+    },
+    {
+      "language": "python",
+      "line": 10,
+      "path": "core\\technical_debt.py",
+      "text": "- large files"
+    },
+    {
+      "language": "python",
+      "line": 11,
+      "path": "core\\technical_debt.py",
+      "text": "- large classes"
+    },
+    {
+      "language": "python",
+      "line": 12,
+      "path": "core\\technical_debt.py",
+      "text": "- large functions"
+    },
+    {
+      "language": "python",
+      "line": 13,
+      "path": "core\\technical_debt.py",
+      "text": "- parse errors"
+    },
+    {
+      "language": "python",
+      "line": 14,
+      "path": "core\\technical_debt.py",
+      "text": "- possible refactor candidates"
+    },
+    {
+      "language": "python",
+      "line": 15,
+      "path": "core\\technical_debt.py",
+      "text": "\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 17,
+      "path": "core\\technical_debt.py",
+      "text": "IGNORE_DIRS = {"
+    },
+    {
+      "language": "python",
+      "line": 18,
+      "path": "core\\technical_debt.py",
+      "text": "\"__pycache__\", \".git\", \".idea\", \".vscode\", \"Models\", \"models\","
+    },
+    {
+      "language": "python",
+      "line": 19,
+      "path": "core\\technical_debt.py",
+      "text": "\"output\", \"outputs\", \"temp\", \"tmp\", \"Backups\", \"Releases\","
+    },
+    {
+      "language": "python",
+      "line": 20,
+      "path": "core\\technical_debt.py",
+      "text": "\"Mission Archive\", \"ComfyUI\", \"Memory\""
+    },
+    {
+      "language": "python",
+      "line": 21,
+      "path": "core\\technical_debt.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 23,
+      "path": "core\\technical_debt.py",
+      "text": "def __init__(self, root):"
+    },
+    {
+      "language": "python",
+      "line": 24,
+      "path": "core\\technical_debt.py",
+      "text": "self.root = Path(root)"
+    },
+    {
+      "language": "python",
+      "line": 25,
+      "path": "core\\technical_debt.py",
+      "text": "self.files = []"
+    },
+    {
+      "language": "python",
+      "line": 26,
+      "path": "core\\technical_debt.py",
+      "text": "self.functions = []"
+    },
+    {
+      "language": "python",
+      "line": 27,
+      "path": "core\\technical_debt.py",
+      "text": "self.classes = []"
+    },
+    {
+      "language": "python",
+      "line": 28,
+      "path": "core\\technical_debt.py",
+      "text": "self.errors = []"
+    },
+    {
+      "language": "python",
+      "line": 30,
+      "path": "core\\technical_debt.py",
+      "text": "def build(self):"
+    },
+    {
+      "language": "python",
+      "line": 31,
+      "path": "core\\technical_debt.py",
+      "text": "self.files = []"
+    },
+    {
+      "language": "python",
+      "line": 32,
+      "path": "core\\technical_debt.py",
+      "text": "self.functions = []"
+    },
+    {
+      "language": "python",
+      "line": 33,
+      "path": "core\\technical_debt.py",
+      "text": "self.classes = []"
+    },
+    {
+      "language": "python",
+      "line": 34,
+      "path": "core\\technical_debt.py",
+      "text": "self.errors = []"
+    },
+    {
+      "language": "python",
+      "line": 36,
+      "path": "core\\technical_debt.py",
+      "text": "for path in self.iter_python_files():"
+    },
+    {
+      "language": "python",
+      "line": 37,
+      "path": "core\\technical_debt.py",
+      "text": "self.scan_python_file(path)"
+    },
+    {
+      "language": "python",
+      "line": 39,
+      "path": "core\\technical_debt.py",
+      "text": "return self"
+    },
+    {
+      "language": "python",
+      "line": 41,
+      "path": "core\\technical_debt.py",
+      "text": "def iter_python_files(self):"
+    },
+    {
+      "language": "python",
+      "line": 42,
+      "path": "core\\technical_debt.py",
+      "text": "for path in self.root.rglob(\"*.py\"):"
+    },
+    {
+      "language": "python",
+      "line": 43,
+      "path": "core\\technical_debt.py",
+      "text": "if not path.is_file():"
+    },
+    {
+      "language": "python",
+      "line": 44,
+      "path": "core\\technical_debt.py",
+      "text": "continue"
+    },
+    {
+      "language": "python",
+      "line": 46,
+      "path": "core\\technical_debt.py",
+      "text": "if any(part in self.IGNORE_DIRS for part in path.parts):"
+    },
+    {
+      "language": "python",
+      "line": 47,
+      "path": "core\\technical_debt.py",
+      "text": "continue"
+    },
+    {
+      "language": "python",
+      "line": 49,
+      "path": "core\\technical_debt.py",
+      "text": "yield path"
+    }
+  ],
+  "schema": "foxai.agent_fox.technical_core.v1a2r1.refined_static_bridge.v1",
+  "shard_number": 24
+}

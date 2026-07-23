@@ -1,0 +1,53 @@
+{
+  "adoption_mission_interpreter_child_processes": 0,
+  "policy_kind": "corrected_site_policy_and_isolated_probe_validation",
+  "records": [
+    {
+      "executable": "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+      "probe_rerun": false,
+      "required_flags_satisfied": true,
+      "site_policy": "site_disabled_by_probe_flag",
+      "site_policy_evidence": []
+    },
+    {
+      "executable": "Z:\\FOXAI\\env\\python\\python.exe",
+      "probe_rerun": false,
+      "required_flags_satisfied": true,
+      "site_policy": "site_enabled_by_underscore_pth",
+      "site_policy_evidence": [
+        {
+          "executed_by_adoption_mission": false,
+          "line_number": 6,
+          "line_text": "import site",
+          "path": "Z:\\FOXAI\\env\\python\\python314._pth",
+          "sha256": "48d77ccee161647ef7053cb563d3b37b4053938d5ad92ae64ccedc2165bcd42d",
+          "size_bytes": 138
+        }
+      ]
+    },
+    {
+      "executable": "Z:\\FOXAI\\.venv\\Scripts\\python.exe",
+      "probe_rerun": false,
+      "required_flags_satisfied": true,
+      "site_policy": "site_disabled_by_probe_flag",
+      "site_policy_evidence": []
+    },
+    {
+      "executable": "C:\\Python314\\python.exe",
+      "probe_rerun": false,
+      "required_flags_satisfied": true,
+      "site_policy": "site_disabled_by_probe_flag",
+      "site_policy_evidence": []
+    }
+  ],
+  "required_success_flags": {
+    "dont_write_bytecode": 1,
+    "ignore_environment": 1,
+    "isolated": 1,
+    "no_user_site": 1
+  },
+  "schema": "foxai.agent_fox.technical_core.v1a3a_r1.python_runtime_adoption.v1",
+  "site_policy_rule": "no_site may be zero only when the matching verified underscore-PTH file contains an exact noncomment 'import site' line",
+  "source_mission_id": "ENG-20260721-071125-0FB108",
+  "source_probe_processes": 4
+}

@@ -1,0 +1,135 @@
+{
+  "current_state_contract": {
+    "authorization_contract": {
+      "broker_may_self_authorize": false,
+      "required": true,
+      "required_fields": [
+        "authorized",
+        "mode",
+        "allowed_categories",
+        "allowed_provider_ids"
+      ],
+      "required_mode": "read_only",
+      "scope_expansion_allowed": false
+    },
+    "available": true,
+    "mission_id": "ENG-20260723-022511-401206",
+    "parsed": true,
+    "provider_contract": {
+      "dynamic_imports_allowed": false,
+      "filesystem_discovery_allowed": false,
+      "network_allowed": false,
+      "required_fields": [
+        "provider_id",
+        "provider_version",
+        "categories",
+        "read_only",
+        "handler"
+      ],
+      "selection": "exactly one registered provider whose registry key equals provider_id, read_only is true, and category matches",
+      "shell_commands_allowed": false,
+      "user_supplied_provider_selection_allowed": false
+    },
+    "schema": "foxai.agent_fox.current_state_request_broker.contract.v1",
+    "scope": {
+      "desktop_modified": false,
+      "distinguishes_historical_evidence": true,
+      "historical_evidence_used_as_current": false,
+      "labels_live_evidence": true,
+      "live_providers_shipped": 0,
+      "recognizes_explicit_current_state_requests": true,
+      "requires_approved_read_only_authorization": true,
+      "routes_only_to_injected_allowlisted_bounded_providers": true,
+      "safe_passthrough_when_provider_unavailable": true,
+      "safe_passthrough_when_unauthorized": true,
+      "shared_router_modified": false,
+      "webui_modified": false
+    },
+    "statuses": [
+      "not_applicable",
+      "slash_command_bypass",
+      "historical_route_preserved",
+      "authorization_required",
+      "provider_unavailable",
+      "unsupported_live_category",
+      "ambiguous_request",
+      "disallowed_intent",
+      "provider_scope_mismatch",
+      "approved_live_result",
+      "provider_error_safe_passthrough"
+    ]
+  },
+  "historical_evidence_must_never_be_reused_as_current": true,
+  "mission_id": "ENG-20260723-025402-DF9592",
+  "ordinary_chat_must_not_be_intercepted": true,
+  "rows": [
+    {
+      "broker_status": "slash_command_bypass",
+      "integration_action": "preserve_existing_slash_command_precedence",
+      "intercept": false,
+      "live_execution": false
+    },
+    {
+      "broker_status": "historical_route_preserved",
+      "integration_action": "continue_to_completed_v1b2_historical_evidence_route",
+      "intercept": false,
+      "live_execution": false
+    },
+    {
+      "broker_status": "not_applicable",
+      "integration_action": "continue_to_existing_self_knowledge_department_and_model_routes",
+      "intercept": false,
+      "live_execution": false
+    },
+    {
+      "broker_status": "authorization_required",
+      "integration_action": "return_clearly_labeled_non_execution_answer",
+      "intercept": true,
+      "live_execution": false
+    },
+    {
+      "broker_status": "provider_unavailable",
+      "integration_action": "return_clearly_labeled_non_execution_answer",
+      "intercept": true,
+      "live_execution": false
+    },
+    {
+      "broker_status": "unsupported_live_category",
+      "integration_action": "return_clearly_labeled_non_execution_answer",
+      "intercept": true,
+      "live_execution": false
+    },
+    {
+      "broker_status": "ambiguous_request",
+      "integration_action": "safe_pass_through_without_scan_or_current_measurement_claim",
+      "intercept": false,
+      "live_execution": false
+    },
+    {
+      "broker_status": "disallowed_intent",
+      "integration_action": "safe_pass_through_without_scan_repair_diagnosis_or_recommendation",
+      "intercept": false,
+      "live_execution": false
+    },
+    {
+      "broker_status": "provider_scope_mismatch",
+      "integration_action": "return_clearly_labeled_non_execution_answer",
+      "intercept": true,
+      "live_execution": false
+    },
+    {
+      "broker_status": "provider_error_safe_passthrough",
+      "integration_action": "return_safe_provider_error_without_substituting_historical_evidence",
+      "intercept": true,
+      "live_execution": false
+    },
+    {
+      "broker_status": "approved_live_result",
+      "integration_action": "future_only_after_separate_provider_and_authorization_mission",
+      "intercept": true,
+      "live_execution": true
+    }
+  ],
+  "schema": "foxai.agent_fox.technical_core.v1b3b.pass_through_matrix.v1",
+  "slash_commands_must_not_load_broker_or_providers": true
+}

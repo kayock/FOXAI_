@@ -1,0 +1,419 @@
+{
+  "schema": "foxai.agent_fox.technical_core.v1a3f.chat_surface_route_map.v1",
+  "shared_adapter_feasibility": {
+    "classification": "candidate_supported_by_static_shapes",
+    "dynamic_confirmation_required": true,
+    "one_shared_read_only_adapter_possible": true,
+    "reason": "Both surfaces reduce user input to text before model dispatch and can consume a deterministic handled/pass-through result."
+  },
+  "surfaces": [
+    {
+      "ambiguous_request_rule": "return V1A-3E clarification packet and bypass model dispatch",
+      "entry_script": "Z:\\FOXAI\\core\\foxai_web.py",
+      "entry_script_provenance": {
+        "closure_memberships": [
+          "web"
+        ],
+        "source_path": "Z:\\FOXAI\\core\\foxai_web.py",
+        "source_relative_path": "core\\foxai_web.py",
+        "source_sha256": "e4e9fd62e6c4736a18781c6b17184441e8852412867cc95dbca94e570921ba77",
+        "source_size_bytes": 2351757
+      },
+      "recognized_request_rule": "return deterministic V1A-3E answer packet and bypass model dispatch",
+      "route_stages": [
+        {
+          "evidence": [
+            {
+              "classification": "confirmed_static_candidate",
+              "dynamic_behavior_proven": false,
+              "matched_static_signals": [
+                "/api/chat/send",
+                "/api/chat/stream",
+                "do_POST",
+                "handle",
+                "message",
+                "post",
+                "use_active_image"
+              ],
+              "provenance": {
+                "closure_memberships": [
+                  "web"
+                ],
+                "end_line": 13981,
+                "qualified_name": "Handler.do_POST",
+                "source_path": "Z:\\FOXAI\\core\\foxai_web.py",
+                "source_relative_path": "core\\foxai_web.py",
+                "source_sha256": "e4e9fd62e6c4736a18781c6b17184441e8852412867cc95dbca94e570921ba77",
+                "source_size_bytes": 2351757,
+                "start_line": 13315,
+                "statement_locator": {
+                  "line": 13315,
+                  "statement_kind": "FunctionDef",
+                  "statement_sha256": "2f2bf7e46eb21898351e7398ea4a03a7f37d78901ac222b0d20505499296ca04"
+                }
+              },
+              "role": "user_message_ingress",
+              "score": 20,
+              "source_execution_proven": false
+            },
+            {
+              "classification": "confirmed_static_candidate",
+              "dynamic_behavior_proven": false,
+              "matched_static_signals": [
+                "post"
+              ],
+              "provenance": {
+                "closure_memberships": [
+                  "web"
+                ],
+                "end_line": 386,
+                "qualified_name": "post",
+                "source_path": "Z:\\FOXAI\\core\\foxai_web.py",
+                "source_relative_path": "core\\foxai_web.py",
+                "source_sha256": "e4e9fd62e6c4736a18781c6b17184441e8852412867cc95dbca94e570921ba77",
+                "source_size_bytes": 2351757,
+                "start_line": 383,
+                "statement_locator": {
+                  "line": 383,
+                  "statement_kind": "FunctionDef",
+                  "statement_sha256": "d6ba2e8868547995f08e8d95bc3481e284d70bd9377a4c16a0b2af2b982cf978"
+                }
+              },
+              "role": "user_message_ingress",
+              "score": 6,
+              "source_execution_proven": false
+            }
+          ],
+          "stage": "user_message_ingress",
+          "status": "static_candidates_identified"
+        },
+        {
+          "placement_rule": "after request message normalization and before CHAT_API or iter_chat_stream dispatch",
+          "stage": "self_knowledge_adapter",
+          "status": "proposed_not_integrated"
+        },
+        {
+          "evidence": [
+            {
+              "classification": "confirmed_static_candidate",
+              "dynamic_behavior_proven": false,
+              "matched_static_signals": [
+                "CHAT_API",
+                "handle",
+                "iter_chat_stream",
+                "messages",
+                "post"
+              ],
+              "provenance": {
+                "closure_memberships": [
+                  "web"
+                ],
+                "end_line": 13981,
+                "qualified_name": "Handler.do_POST",
+                "source_path": "Z:\\FOXAI\\core\\foxai_web.py",
+                "source_relative_path": "core\\foxai_web.py",
+                "source_sha256": "e4e9fd62e6c4736a18781c6b17184441e8852412867cc95dbca94e570921ba77",
+                "source_size_bytes": 2351757,
+                "start_line": 13315,
+                "statement_locator": {
+                  "line": 13315,
+                  "statement_kind": "FunctionDef",
+                  "statement_sha256": "2f2bf7e46eb21898351e7398ea4a03a7f37d78901ac222b0d20505499296ca04"
+                }
+              },
+              "role": "provider_or_model_dispatch",
+              "score": 15,
+              "source_execution_proven": false
+            },
+            {
+              "classification": "confirmed_static_candidate",
+              "dynamic_behavior_proven": false,
+              "matched_static_signals": [
+                "post",
+                "post_json"
+              ],
+              "provenance": {
+                "closure_memberships": [
+                  "desktop",
+                  "workshop"
+                ],
+                "end_line": 118,
+                "qualified_name": "ChatResilience.post_json",
+                "source_path": "Z:\\FOXAI\\core\\chat_resilience.py",
+                "source_relative_path": "core\\chat_resilience.py",
+                "source_sha256": "af53270881eee1f0c4d23fb3deafed2dceb44bd684d9bd6e66221f3d05a29838",
+                "source_size_bytes": 3991,
+                "start_line": 92,
+                "statement_locator": {
+                  "line": 92,
+                  "statement_kind": "FunctionDef",
+                  "statement_sha256": "92a7ec187de7bfafff65d45014b941768074b87767268fd080c5bc4d78928ba0"
+                }
+              },
+              "role": "provider_or_model_dispatch",
+              "score": 11,
+              "source_execution_proven": false
+            },
+            {
+              "classification": "confirmed_static_candidate",
+              "dynamic_behavior_proven": false,
+              "matched_static_signals": [
+                "iter_chat_stream"
+              ],
+              "provenance": {
+                "closure_memberships": [
+                  "web"
+                ],
+                "end_line": 1414,
+                "qualified_name": "iter_chat_stream",
+                "source_path": "Z:\\FOXAI\\core\\foxai_web.py",
+                "source_relative_path": "core\\foxai_web.py",
+                "source_sha256": "e4e9fd62e6c4736a18781c6b17184441e8852412867cc95dbca94e570921ba77",
+                "source_size_bytes": 2351757,
+                "start_line": 1384,
+                "statement_locator": {
+                  "line": 1384,
+                  "statement_kind": "FunctionDef",
+                  "statement_sha256": "0e8c532f4ad1a936f5d469f7d0c88343dcbdb6335d246e8f9c26b9c2783277d6"
+                }
+              },
+              "role": "provider_or_model_dispatch",
+              "score": 8,
+              "source_execution_proven": false
+            }
+          ],
+          "stage": "provider_or_model_dispatch",
+          "status": "static_candidates_identified"
+        },
+        {
+          "evidence": [
+            {
+              "classification": "confirmed_static_candidate",
+              "dynamic_behavior_proven": false,
+              "matched_static_signals": [
+                "iter_chat_stream",
+                "stream",
+                "text/event-stream"
+              ],
+              "provenance": {
+                "closure_memberships": [
+                  "web"
+                ],
+                "end_line": 1414,
+                "qualified_name": "iter_chat_stream",
+                "source_path": "Z:\\FOXAI\\core\\foxai_web.py",
+                "source_relative_path": "core\\foxai_web.py",
+                "source_sha256": "e4e9fd62e6c4736a18781c6b17184441e8852412867cc95dbca94e570921ba77",
+                "source_size_bytes": 2351757,
+                "start_line": 1384,
+                "statement_locator": {
+                  "line": 1384,
+                  "statement_kind": "FunctionDef",
+                  "statement_sha256": "0e8c532f4ad1a936f5d469f7d0c88343dcbdb6335d246e8f9c26b9c2783277d6"
+                }
+              },
+              "role": "streaming_or_display",
+              "score": 10,
+              "source_execution_proven": false
+            },
+            {
+              "classification": "confirmed_static_candidate",
+              "dynamic_behavior_proven": false,
+              "matched_static_signals": [
+                "guarded_stream_piece",
+                "stream"
+              ],
+              "provenance": {
+                "closure_memberships": [
+                  "web"
+                ],
+                "end_line": 1435,
+                "qualified_name": "guarded_stream_piece",
+                "source_path": "Z:\\FOXAI\\core\\foxai_web.py",
+                "source_relative_path": "core\\foxai_web.py",
+                "source_sha256": "e4e9fd62e6c4736a18781c6b17184441e8852412867cc95dbca94e570921ba77",
+                "source_size_bytes": 2351757,
+                "start_line": 1429,
+                "statement_locator": {
+                  "line": 1429,
+                  "statement_kind": "FunctionDef",
+                  "statement_sha256": "5d28aa19b2ed8bfb20c6a3e706fbc3fd4cad5ef7d865eef0868a5e5b995bca53"
+                }
+              },
+              "role": "streaming_or_display",
+              "score": 8,
+              "source_execution_proven": false
+            },
+            {
+              "classification": "confirmed_static_candidate",
+              "dynamic_behavior_proven": false,
+              "matched_static_signals": [
+                "guarded_stream_piece",
+                "iter_chat_stream",
+                "stream"
+              ],
+              "provenance": {
+                "closure_memberships": [
+                  "web"
+                ],
+                "end_line": 13981,
+                "qualified_name": "Handler.do_POST",
+                "source_path": "Z:\\FOXAI\\core\\foxai_web.py",
+                "source_relative_path": "core\\foxai_web.py",
+                "source_sha256": "e4e9fd62e6c4736a18781c6b17184441e8852412867cc95dbca94e570921ba77",
+                "source_size_bytes": 2351757,
+                "start_line": 13315,
+                "statement_locator": {
+                  "line": 13315,
+                  "statement_kind": "FunctionDef",
+                  "statement_sha256": "2f2bf7e46eb21898351e7398ea4a03a7f37d78901ac222b0d20505499296ca04"
+                }
+              },
+              "role": "streaming_or_display",
+              "score": 8,
+              "source_execution_proven": false
+            }
+          ],
+          "stage": "streaming_or_display",
+          "status": "static_candidates_identified"
+        }
+      ],
+      "surface": "webui",
+      "unrecognized_request_rule": "preserve current chat route unchanged"
+    },
+    {
+      "ambiguous_request_rule": "display V1A-3E clarification packet and do not start model-response thread",
+      "entry_script": "Z:\\FOXAI\\foxai.py",
+      "entry_script_provenance": {
+        "closure_memberships": [
+          "desktop",
+          "workshop"
+        ],
+        "source_path": "Z:\\FOXAI\\foxai.py",
+        "source_relative_path": "foxai.py",
+        "source_sha256": "423bb098170dbaad2b96c6b07e31beee171904d286b8364457ce6357551c33d0",
+        "source_size_bytes": 156
+      },
+      "recognized_request_rule": "display deterministic V1A-3E answer packet and do not start model-response thread",
+      "route_stages": [
+        {
+          "evidence": {
+            "closure_memberships": [
+              "desktop",
+              "workshop"
+            ],
+            "end_line": 2206,
+            "qualified_name": "FoxAIApp.send_message",
+            "source_path": "Z:\\FOXAI\\ui\\main_window.py",
+            "source_relative_path": "ui\\main_window.py",
+            "source_sha256": "cd20a1785a574eae44e290c1af1c1da7ac2bb66559f7d9ce8e93a9b2d6516b36",
+            "source_size_bytes": 96883,
+            "start_line": 2146,
+            "statement_locator": {
+              "line": 2146,
+              "statement_kind": "FunctionDef",
+              "statement_sha256": "29b417c3cc5237e9880b8f81ae93f3871f037c7581572f74cdc48947a7be989e"
+            }
+          },
+          "stage": "user_message_ingress",
+          "status": "confirmed_static_function"
+        },
+        {
+          "evidence": {
+            "closure_memberships": [
+              "desktop",
+              "workshop"
+            ],
+            "end_line": 2206,
+            "qualified_name": "FoxAIApp.send_message",
+            "source_path": "Z:\\FOXAI\\ui\\main_window.py",
+            "source_relative_path": "ui\\main_window.py",
+            "source_sha256": "cd20a1785a574eae44e290c1af1c1da7ac2bb66559f7d9ce8e93a9b2d6516b36",
+            "source_size_bytes": 96883,
+            "start_line": 2146,
+            "statement_locator": {
+              "line": 2146,
+              "statement_kind": "FunctionDef",
+              "statement_sha256": "29b417c3cc5237e9880b8f81ae93f3871f037c7581572f74cdc48947a7be989e"
+            }
+          },
+          "stage": "director_and_specialist_routing",
+          "status": "confirmed_static_function"
+        },
+        {
+          "evidence": {
+            "closure_memberships": [
+              "desktop",
+              "workshop"
+            ],
+            "end_line": 21,
+            "qualified_name": "ChatAgent.handle",
+            "source_path": "Z:\\FOXAI\\core\\chat_agent.py",
+            "source_relative_path": "core\\chat_agent.py",
+            "source_sha256": "7720092b9a6a616c6a572450a64bcb204de1dc40f4375b85a75eba63e58404f9",
+            "source_size_bytes": 571,
+            "start_line": 10,
+            "statement_locator": {
+              "line": 10,
+              "statement_kind": "FunctionDef",
+              "statement_sha256": "ea08628dbb16ededf2dc4014b307d84c4c8d6da41c6dc7771198f2680a6e84d7"
+            }
+          },
+          "stage": "chat_specialist_handle",
+          "status": "confirmed_static_function"
+        },
+        {
+          "placement_rule": "after stripped non-empty message capture and before director/specialist/model dispatch",
+          "stage": "self_knowledge_adapter",
+          "status": "proposed_not_integrated"
+        },
+        {
+          "evidence": {
+            "closure_memberships": [
+              "desktop",
+              "workshop"
+            ],
+            "end_line": 2354,
+            "qualified_name": "FoxAIApp.get_ai_response",
+            "source_path": "Z:\\FOXAI\\ui\\main_window.py",
+            "source_relative_path": "ui\\main_window.py",
+            "source_sha256": "cd20a1785a574eae44e290c1af1c1da7ac2bb66559f7d9ce8e93a9b2d6516b36",
+            "source_size_bytes": 96883,
+            "start_line": 2300,
+            "statement_locator": {
+              "line": 2300,
+              "statement_kind": "FunctionDef",
+              "statement_sha256": "0359b4ebbae64e374e162d7309031fcaf8958e0b315fe4bb866186668b3bc66a"
+            }
+          },
+          "stage": "provider_or_model_dispatch",
+          "status": "confirmed_static_function"
+        },
+        {
+          "evidence": {
+            "closure_memberships": [
+              "desktop",
+              "workshop"
+            ],
+            "end_line": 1931,
+            "qualified_name": "FoxAIApp.add_chat",
+            "source_path": "Z:\\FOXAI\\ui\\main_window.py",
+            "source_relative_path": "ui\\main_window.py",
+            "source_sha256": "cd20a1785a574eae44e290c1af1c1da7ac2bb66559f7d9ce8e93a9b2d6516b36",
+            "source_size_bytes": 96883,
+            "start_line": 1921,
+            "statement_locator": {
+              "line": 1921,
+              "statement_kind": "FunctionDef",
+              "statement_sha256": "904da6e9cbfe2d8e17362e77956300d320b0852e4caf1d56904ce447efa24983"
+            }
+          },
+          "stage": "display",
+          "status": "confirmed_static_function"
+        }
+      ],
+      "surface": "desktop",
+      "unrecognized_request_rule": "preserve current director, specialist, ChatAgent, and model route unchanged"
+    }
+  ]
+}

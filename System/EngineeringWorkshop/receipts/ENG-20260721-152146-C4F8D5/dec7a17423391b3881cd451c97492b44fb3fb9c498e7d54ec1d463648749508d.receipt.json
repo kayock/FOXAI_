@@ -1,0 +1,186 @@
+{
+  "authorized": true,
+  "changes": [
+    {
+      "action": "write_file",
+      "after_sha256": "c660b104395a2c919b1243287cf8176f69a9e6ee9c34acac56a9eb4c2b302b51",
+      "after_size": 28009,
+      "before_sha256": null,
+      "before_size": null,
+      "relative_path": "System\\AgentFoxTechnicalCore\\python_runtime_evidence_adoption_v1.py"
+    },
+    {
+      "action": "write_file",
+      "after_sha256": "7a14aa488ee8470a7d52416474f9c12207cf8336435852474ab53f35506e9013",
+      "after_size": 1642,
+      "before_sha256": null,
+      "before_size": null,
+      "relative_path": "System\\AgentFoxTechnicalCore\\PYTHON_RUNTIME_ADOPTION_CONTRACT_V1.json"
+    },
+    {
+      "action": "write_file",
+      "after_sha256": "edefc7e1c7164256c18721686752e4dfbc33a8e3d2e3d9606f5bc93025716b74",
+      "after_size": 1022,
+      "before_sha256": null,
+      "before_size": null,
+      "relative_path": "System\\AgentFoxTechnicalCore\\README_V1A3A_R1.md"
+    }
+  ],
+  "created_at": "2026-07-21T15:41:13.878853Z",
+  "evidence_is_tool_generated": true,
+  "failure": null,
+  "mission_id": "ENG-20260721-152146-C4F8D5",
+  "mission_title": "Agent Fox Technical Core V1A-3A-R1 \u2014 Python Site-Policy Validation Repair and Evidence Adoption",
+  "mission_type": "implement",
+  "no_deletions": true,
+  "no_renames": true,
+  "plan_path": "Z:\\FOXAI\\AGENT_FOX_V1A3A_R1\\PLAN.json",
+  "plan_sha256": "dec7a17423391b3881cd451c97492b44fb3fb9c498e7d54ec1d463648749508d",
+  "project_root": "Z:\\FOXAI",
+  "result": "applied_verified",
+  "rolled_back": false,
+  "schema": "foxai.engineering.receipt.v1",
+  "snapshot_manifest": "Z:\\FOXAI\\System\\EngineeringWorkshop\\snapshots\\ENG-20260721-152146-C4F8D5\\snapshot_20260721T154112925145Z.manifest.json",
+  "snapshot_path": "Z:\\FOXAI\\System\\EngineeringWorkshop\\snapshots\\ENG-20260721-152146-C4F8D5\\snapshot_20260721T154112925145Z.zip",
+  "snapshot_sha256": "14f756ac25e2215e6f324dead32a48f075c6e2c80fc8fff233e7c5694d4dc348",
+  "validations": [
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nimport ast,hashlib,json\nroot=Path(r\"Z:\\FOXAI\")\ndrop=root/r\"AGENT_FOX_V1A3A_R1\"\ninstalled=root/r\"System\\AgentFoxTechnicalCore\"\nchecks=[\n (drop/r\"python_runtime_evidence_adoption_v1.py\",installed/r\"python_runtime_evidence_adoption_v1.py\",\"c660b104395a2c919b1243287cf8176f69a9e6ee9c34acac56a9eb4c2b302b51\"),\n (drop/r\"PYTHON_RUNTIME_ADOPTION_CONTRACT_V1.json\",installed/r\"PYTHON_RUNTIME_ADOPTION_CONTRACT_V1.json\",\"7a14aa488ee8470a7d52416474f9c12207cf8336435852474ab53f35506e9013\"),\n (drop/r\"README_V1A3A_R1.md\",installed/r\"README_V1A3A_R1.md\",\"edefc7e1c7164256c18721686752e4dfbc33a8e3d2e3d9606f5bc93025716b74\"),\n]\nfor src,dst,expected in checks:\n assert src.is_file() and dst.is_file(),(src,dst)\n assert hashlib.sha256(src.read_bytes()).hexdigest()==expected,src\n assert hashlib.sha256(dst.read_bytes()).hexdigest()==expected,dst\nscript=(installed/r\"python_runtime_evidence_adoption_v1.py\").read_text(encoding=\"utf-8\")\ncompile(script,str(installed/r\"python_runtime_evidence_adoption_v1.py\"),\"exec\")\ntree=ast.parse(script)\nimports=set()\nfor node in ast.walk(tree):\n if isinstance(node,ast.Import): imports.update(a.name.split('.')[0] for a in node.names)\n elif isinstance(node,ast.ImportFrom) and node.module: imports.add(node.module.split('.')[0])\nforbidden={\"subprocess\",\"socket\",\"urllib\",\"http\",\"ftplib\",\"requests\",\"pip\",\"ensurepip\",\"psutil\",\"winreg\",\"ctypes\",\"webbrowser\",\"importlib\"}\nassert not (imports & forbidden),sorted(imports & forbidden)\nlow=script.casefold()\nfor marker in (\"subprocess.\",\"os.system(\",\"popen(\",\"shell=true\",\"pip install\",\"ensurepip\",\"pythonw.exe', '-\"):\n assert marker not in low,marker\ncontract=json.loads((installed/r\"PYTHON_RUNTIME_ADOPTION_CONTRACT_V1.json\").read_text(encoding=\"utf-8\"))\nassert contract.get(\"schema\")==\"foxai.agent_fox.technical_core.v1a3a_r1.python_runtime_adoption_contract.v1\"\nassert contract.get(\"source_mission_id\")==\"ENG-20260721-071125-0FB108\"\nassert contract.get(\"adoption_policy\",{}).get(\"rerun_interpreter_probes\") is False\nassert contract.get(\"adoption_policy\",{}).get(\"interpreter_child_process_count\")==0\nsource=Path(r\"Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260721-071125-0FB108_V1A3A_PYTHON_RUNTIME_MAP\")\nreceipt=json.loads((source/r\"PYTHON_RUNTIME_RECEIPT.json\").read_text(encoding=\"utf-8\"))\nassert receipt.get(\"mission_id\")==\"ENG-20260721-071125-0FB108\"\nassert receipt.get(\"result\")==\"python_runtime_identity_and_path_safety_map_complete\"\nprint(\"AGENT_FOX_V1A3A_R1_INSTALL_PREFLIGHT_OK\")\n"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-21T15:41:13.084459Z",
+      "name": "Verify exact V1A-3A-R1 payloads, syntax, zero-process adoption contract, and source receipt",
+      "returncode": 0,
+      "started_at": "2026-07-21T15:41:12.975775Z",
+      "stderr": "",
+      "stdout": "AGENT_FOX_V1A3A_R1_INSTALL_PREFLIGHT_OK\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\python_runtime_evidence_adoption_v1.py",
+        "self-test"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-21T15:41:13.187492Z",
+      "name": "Run in-memory corrected site-policy and host-base classification self-tests",
+      "returncode": 0,
+      "started_at": "2026-07-21T15:41:13.084826Z",
+      "stderr": "",
+      "stdout": "AGENT_FOX_V1A3A_R1_SELF_TEST_OK\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\python_runtime_evidence_adoption_v1.py",
+        "adopt",
+        "--project-root",
+        "Z:\\FOXAI",
+        "--source-dir",
+        "Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260721-071125-0FB108_V1A3A_PYTHON_RUNTIME_MAP",
+        "--v1a2r2-dir",
+        "Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260721-063725-BFCAB9_V1A2R2_IMMUTABLE_BRIDGE",
+        "--output-dir",
+        "Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260721-152146-C4F8D5_V1A3A_R1_ADOPTED_RUNTIME_MAP",
+        "--mission-id",
+        "ENG-20260721-152146-C4F8D5"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-21T15:41:13.563306Z",
+      "name": "Adopt verified V1A-3A outputs without rerunning interpreter probes and perform hash-only drift checks",
+      "returncode": 0,
+      "started_at": "2026-07-21T15:41:13.187960Z",
+      "stderr": "",
+      "stdout": "AGENT_FOX_V1A3A_R1_EVIDENCE_ADOPTION_COMPLETE\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\python_runtime_evidence_adoption_v1.py",
+        "validate-output",
+        "--index-dir",
+        "Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260721-152146-C4F8D5_V1A3A_R1_ADOPTED_RUNTIME_MAP"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-21T15:41:13.687290Z",
+      "name": "Run built-in V1A-3A-R1 adopted-output, hash, safety, correction, and size validator",
+      "returncode": 0,
+      "started_at": "2026-07-21T15:41:13.563735Z",
+      "stderr": "",
+      "stdout": "AGENT_FOX_V1A3A_R1_OUTPUT_VALIDATED\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nimport json\nout=Path(r\"Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260721-152146-C4F8D5_V1A3A_R1_ADOPTED_RUNTIME_MAP\")\ncorrected=json.loads((out/r\"PYTHON_RUNTIME_MAP_CORRECTED.json\").read_text(encoding=\"utf-8\"))\npolicy=json.loads((out/r\"PROBE_POLICY_REPORT.json\").read_text(encoding=\"utf-8\"))\nassert corrected.get(\"adoption_mission_interpreter_child_process_count\")==0\nassert corrected.get(\"probe_rerun\") is False\nassert policy.get(\"adoption_mission_interpreter_child_processes\")==0\nrecords={str(x.get(\"executable\",\"\")).casefold():x for x in corrected.get(\"records\",[])}\nassert len(records)==4\nfor row in records.values():\n flags=row.get(\"observed_flags\",{})\n for key in (\"isolated\",\"ignore_environment\",\"no_user_site\",\"dont_write_bytecode\"):\n  assert flags.get(key)==1,(row.get(\"executable\"),key,flags.get(key))\nenv=records[r\"z:\\foxai\\env\\python\\python.exe\"]\nassert env.get(\"observed_flags\",{}).get(\"no_site\")==0\nassert env.get(\"site_policy\")==\"site_enabled_by_underscore_pth\"\nsite=env.get(\"site_policy_evidence\",[])\nassert len(site)==1 and site[0].get(\"line_text\")==\"import site\" and site[0].get(\"line_number\")==6\nfor key,row in records.items():\n if key != r\"z:\\foxai\\env\\python\\python.exe\":\n  assert row.get(\"observed_flags\",{}).get(\"no_site\")==1\n  assert row.get(\"site_policy\")==\"site_disabled_by_probe_flag\"\nassert corrected.get(\"active_conflict_proven\") is False\nprint(\"AGENT_FOX_V1A3A_R1_SITE_POLICY_VERIFIED\")\n"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-21T15:41:13.740151Z",
+      "name": "Verify zero child probes and corrected underscore-PTH site-policy evidence",
+      "returncode": 0,
+      "started_at": "2026-07-21T15:41:13.687738Z",
+      "stderr": "",
+      "stdout": "AGENT_FOX_V1A3A_R1_SITE_POLICY_VERIFIED\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nimport json\nout=Path(r\"Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260721-152146-C4F8D5_V1A3A_R1_ADOPTED_RUNTIME_MAP\")\nmanifest=json.loads((out/r\"SOURCE_EVIDENCE_ADOPTION_MANIFEST.json\").read_text(encoding=\"utf-8\"))\nassert manifest.get(\"interpreter_child_process_count\")==0\nassert manifest.get(\"probe_rerun\") is False\nassert manifest.get(\"source_evidence_modified\") is False\nassert all(x.get(\"status\")==\"unchanged\" for x in manifest.get(\"interpreter_and_control_file_hash_checks\",[]))\nassert all(x.get(\"status\")==\"unchanged\" for x in manifest.get(\"protected_known_good_hash_checks\",[]))\ncontrols=json.loads((out/r\"INTERPRETER_CONTROL_FILE_REPORT.json\").read_text(encoding=\"utf-8\"))\nassert controls.get(\"all_unchanged\") is True\nbounds=json.loads((out/r\"PYTHON_PATH_BOUNDARY_REPORT.json\").read_text(encoding=\"utf-8\"))\nhost=bounds.get(\"host_base_dependent_runtimes\",[])\nassert len(host)==1,host\nassert str(host[0].get(\"executable\",\"\")).casefold()==r\"z:\\foxai\\.venv\\scripts\\python.exe\"\nassert str(host[0].get(\"base_prefix\",\"\")).casefold()==r\"c:\\users\\kayoc\\appdata\\local\\python\\pythoncore-3.14-64\"\nassert host[0].get(\"active_conflict_proven\") is False\nprint(\"AGENT_FOX_V1A3A_R1_HASH_AND_PORTABILITY_VERIFIED\")\n"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-21T15:41:13.802406Z",
+      "name": "Verify hash-only interpreter, control, protected-file checks and host-bound project venv classification",
+      "returncode": 0,
+      "started_at": "2026-07-21T15:41:13.741077Z",
+      "stderr": "",
+      "stdout": "AGENT_FOX_V1A3A_R1_HASH_AND_PORTABILITY_VERIFIED\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nimport hashlib,json\nout=Path(r\"Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260721-152146-C4F8D5_V1A3A_R1_ADOPTED_RUNTIME_MAP\")\nrequired={\"PYTHON_RUNTIME_MAP_CORRECTED.json\",\"PROBE_POLICY_REPORT.json\",\"INTERPRETER_CONTROL_FILE_REPORT.json\",\"LAUNCHER_RUNTIME_MAP.json\",\"STATIC_PACKAGE_INVENTORY.json\",\"DUPLICATE_MODULE_CANDIDATES.json\",\"PYTHON_PATH_BOUNDARY_REPORT.json\",\"PYTHON_RUNTIME_COVERAGE.json\",\"SOURCE_EVIDENCE_ADOPTION_MANIFEST.json\",\"PYTHON_RUNTIME_CORRECTION_RECEIPT.json\"}\nassert required.issubset({p.name for p in out.iterdir() if p.is_file()})\nreceipt=json.loads((out/r\"PYTHON_RUNTIME_CORRECTION_RECEIPT.json\").read_text(encoding=\"utf-8\"))\nassert receipt.get(\"mission_id\")==\"ENG-20260721-152146-C4F8D5\"\nassert receipt.get(\"result\")==\"python_site_policy_validation_repaired_and_evidence_adopted\"\nassert receipt.get(\"source_outputs_verified_exact\") is True\nassert receipt.get(\"interpreter_and_control_files_unchanged\") is True\nassert receipt.get(\"protected_known_good_files_unchanged\") is True\nassert receipt.get(\"interpreter_child_process_count\")==0 and receipt.get(\"probe_rerun\") is False\nfor key in (\"network_used\",\"packages_installed\",\"pip_invoked\",\"models_loaded\",\"foxai_source_imported_or_executed\",\"launchers_executed\",\"pythonw_executed\",\"existing_foxai_source_modified\",\"active_conflict_proven\"):\n assert receipt.get(key) is False,(key,receipt.get(key))\nfor item in receipt.get(\"core_outputs_before_receipt\",[]):\n p=out/item[\"name\"]\n assert p.is_file() and p.stat().st_size==item[\"size_bytes\"]\n assert hashlib.sha256(p.read_bytes()).hexdigest()==item[\"sha256\"]\ncoverage=json.loads((out/r\"PYTHON_RUNTIME_COVERAGE.json\").read_text(encoding=\"utf-8\"))\nassert coverage.get(\"source_launcher_record_count\")==536\nassert coverage.get(\"corrected_runtime_record_count\")==4\nassert coverage.get(\"site_enabled_by_underscore_pth_count\")==1\nassert coverage.get(\"host_base_dependent_runtime_count\")==1\nassert coverage.get(\"interpreter_child_process_count\")==0\ntotal=sum(p.stat().st_size for p in out.rglob('*') if p.is_file())\nassert total<=64*1024*1024,total\nprint(\"AGENT_FOX_V1A3A_R1_COMPLETE_OUTPUTS_VERIFIED\")\n"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-21T15:41:13.878658Z",
+      "name": "Verify adopted output hashes, source provenance, safety flags, coverage, and 64 MiB ceiling",
+      "returncode": 0,
+      "started_at": "2026-07-21T15:41:13.802868Z",
+      "stderr": "",
+      "stdout": "AGENT_FOX_V1A3A_R1_COMPLETE_OUTPUTS_VERIFIED\n",
+      "timed_out": false
+    }
+  ]
+}

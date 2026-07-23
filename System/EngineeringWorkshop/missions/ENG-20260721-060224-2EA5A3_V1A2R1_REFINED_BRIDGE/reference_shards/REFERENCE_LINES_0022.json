@@ -1,0 +1,7207 @@
+{
+  "record_count": 1200,
+  "records": [
+    {
+      "language": "python",
+      "line": 1585,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "present.append(f\"{label}: {relative}\")"
+    },
+    {
+      "language": "python",
+      "line": 1586,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "elif missing_severity == \"urgent\":"
+    },
+    {
+      "language": "python",
+      "line": 1587,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "missing_urgent.append(f\"{label}: {relative}\")"
+    },
+    {
+      "language": "python",
+      "line": 1588,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "else:"
+    },
+    {
+      "language": "python",
+      "line": 1589,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "missing_recommended.append(f\"{label}: {relative}\")"
+    },
+    {
+      "language": "python",
+      "line": 1590,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "if missing_urgent:"
+    },
+    {
+      "language": "python",
+      "line": 1591,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "essential_severity = \"urgent\""
+    },
+    {
+      "language": "python",
+      "line": 1592,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "essential_summary = f\"{len(missing_urgent)} essential runtime component(s) are missing.\""
+    },
+    {
+      "language": "python",
+      "line": 1593,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "elif missing_recommended:"
+    },
+    {
+      "language": "python",
+      "line": 1594,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "essential_severity = \"recommended\""
+    },
+    {
+      "language": "python",
+      "line": 1595,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "essential_summary = f\"Core runtime exists, but {len(missing_recommended)} expected component(s) are missing.\""
+    },
+    {
+      "language": "python",
+      "line": 1596,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "else:"
+    },
+    {
+      "language": "python",
+      "line": 1597,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "essential_severity = \"healthy\""
+    },
+    {
+      "language": "python",
+      "line": 1598,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "essential_summary = \"All expected core FOXAI components were found.\""
+    },
+    {
+      "language": "python",
+      "line": 1599,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "findings.append("
+    },
+    {
+      "language": "python",
+      "line": 1600,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "_finding("
+    },
+    {
+      "language": "python",
+      "line": 1601,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "\"essential_components\","
+    },
+    {
+      "language": "python",
+      "line": 1602,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "\"Essential FOXAI components\","
+    },
+    {
+      "language": "python",
+      "line": 1603,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "essential_severity,"
+    },
+    {
+      "language": "python",
+      "line": 1604,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "essential_summary,"
+    },
+    {
+      "language": "python",
+      "line": 1605,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "evidence=missing_urgent + missing_recommended + present,"
+    },
+    {
+      "language": "python",
+      "line": 1606,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "suggested_action=\"Restore only the missing component from a verified package or known-good snapshot after reviewing an exact plan.\","
+    },
+    {
+      "language": "python",
+      "line": 1607,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "category=\"runtime\","
+    },
+    {
+      "language": "python",
+      "line": 1608,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1609,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1611,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "launchers = ["
+    },
+    {
+      "language": "python",
+      "line": 1612,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "\"START_FOXAI_WEB_WITH_COMFYUI.bat\","
+    },
+    {
+      "language": "python",
+      "line": 1613,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "\"START_FOXAI_DESKTOP_TWO_WINDOW_RECOVERY.bat\","
+    },
+    {
+      "language": "python",
+      "line": 1614,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "\"KAYOCKS_STUDY_BIBLIOTHECA_V1/START_KAYOCKS_STUDY.bat\","
+    },
+    {
+      "language": "python",
+      "line": 1615,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "\"KAYOCKS_STUDY_BIBLIOTHECA_V1/VERIFY_KAYOCKS_STUDY.bat\","
+    },
+    {
+      "language": "python",
+      "line": 1616,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "]"
+    },
+    {
+      "language": "python",
+      "line": 1617,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "launcher_evidence: list[str] = []"
+    },
+    {
+      "language": "python",
+      "line": 1618,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "launcher_failures: list[str] = []"
+    },
+    {
+      "language": "python",
+      "line": 1619,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "for relative in launchers:"
+    },
+    {
+      "language": "python",
+      "line": 1620,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "path = project_root / relative"
+    },
+    {
+      "language": "python",
+      "line": 1621,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 1622,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "if not path.is_file():"
+    },
+    {
+      "language": "python",
+      "line": 1623,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "launcher_failures.append(f\"Missing: {relative}\")"
+    },
+    {
+      "language": "python",
+      "line": 1624,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "elif path.stat().st_size == 0:"
+    },
+    {
+      "language": "python",
+      "line": 1625,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "launcher_failures.append(f\"Zero bytes: {relative}\")"
+    },
+    {
+      "language": "python",
+      "line": 1626,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "else:"
+    },
+    {
+      "language": "python",
+      "line": 1627,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "launcher_evidence.append(f\"Present ({path.stat().st_size} bytes): {relative}\")"
+    },
+    {
+      "language": "python",
+      "line": 1628,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "except Exception as exc:"
+    },
+    {
+      "language": "python",
+      "line": 1629,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "launcher_failures.append(f\"Unreadable: {relative}: {type(exc).__name__}: {exc}\")"
+    },
+    {
+      "language": "python",
+      "line": 1630,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "findings.append("
+    },
+    {
+      "language": "python",
+      "line": 1631,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "_finding("
+    },
+    {
+      "language": "python",
+      "line": 1632,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "\"known_good_launchers\","
+    },
+    {
+      "language": "python",
+      "line": 1633,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "\"Known-good launchers\","
+    },
+    {
+      "language": "python",
+      "line": 1634,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "\"recommended\" if launcher_failures else \"healthy\","
+    },
+    {
+      "language": "python",
+      "line": 1635,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "f\"{len(launcher_failures)} launcher issue(s) need review.\" if launcher_failures else \"Known-good WebUI, Desktop recovery, and Study launchers are present and non-empty.\","
+    },
+    {
+      "language": "python",
+      "line": 1636,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "evidence=launcher_failures + launcher_evidence,"
+    },
+    {
+      "language": "python",
+      "line": 1637,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "suggested_action=\"Restore a missing or empty launcher from its known-good archived baseline; do not replace working launchers broadly.\","
+    },
+    {
+      "language": "python",
+      "line": 1638,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "category=\"runtime\","
+    },
+    {
+      "language": "python",
+      "line": 1639,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1640,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1642,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "key_sources = ["
+    },
+    {
+      "language": "python",
+      "line": 1643,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "project_root / \"core\" / \"foxai_web.py\","
+    },
+    {
+      "language": "python",
+      "line": 1644,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "project_root / \"core\" / \"engineer_agent.py\","
+    },
+    {
+      "language": "python",
+      "line": 1645,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "project_root / \"KAYOCKS_STUDY_BIBLIOTHECA_V1\" / \"study_server.py\","
+    },
+    {
+      "language": "python",
+      "line": 1646,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "]"
+    },
+    {
+      "language": "python",
+      "line": 1647,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "syntax_failures: list[str] = []"
+    },
+    {
+      "language": "python",
+      "line": 1648,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "syntax_ok: list[str] = []"
+    },
+    {
+      "language": "python",
+      "line": 1649,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "for path in key_sources:"
+    },
+    {
+      "language": "python",
+      "line": 1650,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "if not path.is_file():"
+    },
+    {
+      "language": "python",
+      "line": 1651,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "continue"
+    },
+    {
+      "language": "python",
+      "line": 1652,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "ok, message = _syntax_result(path)"
+    },
+    {
+      "language": "python",
+      "line": 1653,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "relative = str(path.relative_to(project_root)).replace(\"\\\\\", \"/\")"
+    },
+    {
+      "language": "python",
+      "line": 1654,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "(syntax_ok if ok else syntax_failures).append(f\"{relative}: {message}\")"
+    },
+    {
+      "language": "python",
+      "line": 1655,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "findings.append("
+    },
+    {
+      "language": "python",
+      "line": 1656,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "_finding("
+    },
+    {
+      "language": "python",
+      "line": 1657,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "\"key_source_syntax\","
+    },
+    {
+      "language": "python",
+      "line": 1658,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "\"Key Python source syntax\","
+    },
+    {
+      "language": "python",
+      "line": 1659,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "\"urgent\" if syntax_failures else \"healthy\","
+    },
+    {
+      "language": "python",
+      "line": 1660,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "f\"{len(syntax_failures)} key source file(s) failed syntax parsing.\" if syntax_failures else f\"{len(syntax_ok)} key source file(s) parsed successfully without creating bytecode.\","
+    },
+    {
+      "language": "python",
+      "line": 1661,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "evidence=syntax_failures + syntax_ok,"
+    },
+    {
+      "language": "python",
+      "line": 1662,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "suggested_action=\"Compare the failing source with the latest verified snapshot and prepare an exact targeted restore or correction.\","
+    },
+    {
+      "language": "python",
+      "line": 1663,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "category=\"source\","
+    },
+    {
+      "language": "python",
+      "line": 1664,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1665,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1667,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "models = _count_models(project_root)"
+    },
+    {
+      "language": "python",
+      "line": 1668,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "evidence[\"models\"] = models"
+    },
+    {
+      "language": "python",
+      "line": 1669,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "if models[\"count\"] == 0:"
+    },
+    {
+      "language": "python",
+      "line": 1670,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "model_severity = \"recommended\""
+    },
+    {
+      "language": "python",
+      "line": 1671,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "model_summary = \"No local GGUF models were found under FOXAI/Models.\""
+    },
+    {
+      "language": "python",
+      "line": 1672,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "elif models[\"errors\"]:"
+    },
+    {
+      "language": "python",
+      "line": 1673,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "model_severity = \"recommended\""
+    },
+    {
+      "language": "python",
+      "line": 1674,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "model_summary = f\"Found {models['count']} local model(s), with {len(models['errors'])} metadata read error(s).\""
+    },
+    {
+      "language": "python",
+      "line": 1675,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "else:"
+    },
+    {
+      "language": "python",
+      "line": 1676,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "model_severity = \"healthy\""
+    },
+    {
+      "language": "python",
+      "line": 1677,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "model_summary = f\"Found {models['count']} local GGUF model(s) totaling {models['total_bytes'] / (1024 ** 3):.1f} GB.\""
+    },
+    {
+      "language": "python",
+      "line": 1678,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "findings.append("
+    },
+    {
+      "language": "python",
+      "line": 1679,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "_finding("
+    },
+    {
+      "language": "python",
+      "line": 1680,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "\"local_models\","
+    },
+    {
+      "language": "python",
+      "line": 1681,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "\"Local model library\","
+    },
+    {
+      "language": "python",
+      "line": 1682,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "model_severity,"
+    },
+    {
+      "language": "python",
+      "line": 1683,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "model_summary,"
+    },
+    {
+      "language": "python",
+      "line": 1684,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "evidence=list(models[\"errors\"]),"
+    },
+    {
+      "language": "python",
+      "line": 1685,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "suggested_action=\"Confirm an approved model folder or restore the preferred model reference; never move or delete model files automatically.\","
+    },
+    {
+      "language": "python",
+      "line": 1686,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "category=\"models\","
+    },
+    {
+      "language": "python",
+      "line": 1687,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1688,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1690,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "study_db = project_root / \"KAYOCKS_STUDY_BIBLIOTHECA_V1\" / \"Data\" / \"bibliotheca.sqlite3\""
+    },
+    {
+      "language": "python",
+      "line": 1691,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "if study_db.is_file():"
+    },
+    {
+      "language": "python",
+      "line": 1692,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "db_ok, db_message = _database_quick_check(study_db)"
+    },
+    {
+      "language": "python",
+      "line": 1693,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "findings.append("
+    },
+    {
+      "language": "python",
+      "line": 1694,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "_finding("
+    },
+    {
+      "language": "python",
+      "line": 1695,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "\"bibliotheca_database\","
+    },
+    {
+      "language": "python",
+      "line": 1696,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "\"Bibliotheca database integrity\","
+    },
+    {
+      "language": "python",
+      "line": 1697,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "\"healthy\" if db_ok else \"urgent\","
+    },
+    {
+      "language": "python",
+      "line": 1698,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "\"SQLite quick-check returned OK in read-only mode.\" if db_ok else \"The Bibliotheca database did not pass its read-only quick-check.\","
+    },
+    {
+      "language": "python",
+      "line": 1699,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "evidence=[db_message, str(study_db)],"
+    },
+    {
+      "language": "python",
+      "line": 1700,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "suggested_action=\"Stop Study, preserve the database and WAL files, then review recovery from the latest verified backup before any repair.\","
+    },
+    {
+      "language": "python",
+      "line": 1701,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "category=\"database\","
+    },
+    {
+      "language": "python",
+      "line": 1702,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1703,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1704,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "else:"
+    },
+    {
+      "language": "python",
+      "line": 1705,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "findings.append("
+    },
+    {
+      "language": "python",
+      "line": 1706,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "_finding("
+    },
+    {
+      "language": "python",
+      "line": 1707,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "\"bibliotheca_database\","
+    },
+    {
+      "language": "python",
+      "line": 1708,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "\"Bibliotheca database integrity\","
+    },
+    {
+      "language": "python",
+      "line": 1709,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "\"informational\","
+    },
+    {
+      "language": "python",
+      "line": 1710,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "\"No Bibliotheca database was found, so no database integrity check was run.\","
+    },
+    {
+      "language": "python",
+      "line": 1711,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "evidence=[str(study_db)],"
+    },
+    {
+      "language": "python",
+      "line": 1712,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "category=\"database\","
+    },
+    {
+      "language": "python",
+      "line": 1713,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1714,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1716,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "workshop = _workshop_snapshot(project_root)"
+    },
+    {
+      "language": "python",
+      "line": 1717,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "evidence[\"engineering_workshop\"] = workshop"
+    },
+    {
+      "language": "python",
+      "line": 1718,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "workshop_ok = workshop[\"snapshot_count\"] > 0 and workshop[\"receipt_count\"] > 0"
+    },
+    {
+      "language": "python",
+      "line": 1719,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "findings.append("
+    },
+    {
+      "language": "python",
+      "line": 1720,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "_finding("
+    },
+    {
+      "language": "python",
+      "line": 1721,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "\"engineering_workshop_recovery\","
+    },
+    {
+      "language": "python",
+      "line": 1722,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "\"Engineering Workshop recovery evidence\","
+    },
+    {
+      "language": "python",
+      "line": 1723,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "\"healthy\" if workshop_ok else \"informational\","
+    },
+    {
+      "language": "python",
+      "line": 1724,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "("
+    },
+    {
+      "language": "python",
+      "line": 1725,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "f\"Found {workshop['snapshot_count']} snapshot archive(s) and {workshop['receipt_count']} receipt(s).\""
+    },
+    {
+      "language": "python",
+      "line": 1726,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "if workshop_ok"
+    },
+    {
+      "language": "python",
+      "line": 1727,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "else \"No complete Engineering Workshop snapshot-and-receipt history was found yet.\""
+    },
+    {
+      "language": "python",
+      "line": 1728,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "),"
+    },
+    {
+      "language": "python",
+      "line": 1729,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "evidence=[item for item in [workshop.get(\"latest_snapshot\", \"\"), workshop.get(\"latest_receipt\", \"\")] if item],"
+    },
+    {
+      "language": "python",
+      "line": 1730,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "suggested_action=\"Keep verified snapshots and receipts with each implementation mission.\","
+    },
+    {
+      "language": "python",
+      "line": 1731,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "category=\"recovery\","
+    },
+    {
+      "language": "python",
+      "line": 1732,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1733,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1735,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "if scan_mode == \"full\":"
+    },
+    {
+      "language": "python",
+      "line": 1736,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "python_files = _live_python_files(project_root)"
+    },
+    {
+      "language": "python",
+      "line": 1737,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "full_syntax_failures: list[str] = []"
+    },
+    {
+      "language": "python",
+      "line": 1738,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "for path in python_files:"
+    },
+    {
+      "language": "python",
+      "line": 1739,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "ok, message = _syntax_result(path)"
+    },
+    {
+      "language": "python",
+      "line": 1740,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "if not ok:"
+    },
+    {
+      "language": "python",
+      "line": 1741,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "full_syntax_failures.append("
+    },
+    {
+      "language": "python",
+      "line": 1742,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "f\"{path.relative_to(project_root).as_posix()}: {message}\""
+    },
+    {
+      "language": "python",
+      "line": 1743,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1744,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "if len(full_syntax_failures) >= 30:"
+    },
+    {
+      "language": "python",
+      "line": 1745,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "break"
+    },
+    {
+      "language": "python",
+      "line": 1746,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "findings.append("
+    },
+    {
+      "language": "python",
+      "line": 1747,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "_finding("
+    },
+    {
+      "language": "python",
+      "line": 1748,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "\"full_python_syntax\","
+    },
+    {
+      "language": "python",
+      "line": 1749,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "\"Full live Python syntax scan\","
+    },
+    {
+      "language": "python",
+      "line": 1750,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "\"urgent\" if full_syntax_failures else \"healthy\","
+    },
+    {
+      "language": "python",
+      "line": 1751,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "f\"Scanned {len(python_files)} live Python file(s); {len(full_syntax_failures)} failed.\" if full_syntax_failures else f\"All {len(python_files)} scanned live Python file(s) parsed successfully.\","
+    },
+    {
+      "language": "python",
+      "line": 1752,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "evidence=full_syntax_failures,"
+    },
+    {
+      "language": "python",
+      "line": 1753,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "suggested_action=\"Restore or correct each failing source individually from a verified snapshot; avoid broad rewrites.\","
+    },
+    {
+      "language": "python",
+      "line": 1754,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "category=\"source\","
+    },
+    {
+      "language": "python",
+      "line": 1755,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1756,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1758,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "json_files = _live_json_files(project_root)"
+    },
+    {
+      "language": "python",
+      "line": 1759,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "json_failures: list[str] = []"
+    },
+    {
+      "language": "python",
+      "line": 1760,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "for path in json_files:"
+    },
+    {
+      "language": "python",
+      "line": 1761,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "ok, message = _json_result(path)"
+    },
+    {
+      "language": "python",
+      "line": 1762,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "if not ok:"
+    },
+    {
+      "language": "python",
+      "line": 1763,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "json_failures.append("
+    },
+    {
+      "language": "python",
+      "line": 1764,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "f\"{path.relative_to(project_root).as_posix()}: {message}\""
+    },
+    {
+      "language": "python",
+      "line": 1765,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1766,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "if len(json_failures) >= 30:"
+    },
+    {
+      "language": "python",
+      "line": 1767,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "break"
+    },
+    {
+      "language": "python",
+      "line": 1768,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "findings.append("
+    },
+    {
+      "language": "python",
+      "line": 1769,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "_finding("
+    },
+    {
+      "language": "python",
+      "line": 1770,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "\"configuration_json\","
+    },
+    {
+      "language": "python",
+      "line": 1771,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "\"Configuration JSON validity\","
+    },
+    {
+      "language": "python",
+      "line": 1772,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "\"recommended\" if json_failures else \"healthy\","
+    },
+    {
+      "language": "python",
+      "line": 1773,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "f\"Scanned {len(json_files)} configuration JSON file(s); {len(json_failures)} failed to parse.\" if json_failures else f\"All {len(json_files)} scanned configuration JSON file(s) parsed successfully.\","
+    },
+    {
+      "language": "python",
+      "line": 1774,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "evidence=json_failures,"
+    },
+    {
+      "language": "python",
+      "line": 1775,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "suggested_action=\"Restore or correct only the invalid configuration after reviewing an exact diff and preserving the original.\","
+    },
+    {
+      "language": "python",
+      "line": 1776,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "category=\"configuration\","
+    },
+    {
+      "language": "python",
+      "line": 1777,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1778,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1780,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "zero_byte = _zero_byte_live_files(project_root)"
+    },
+    {
+      "language": "python",
+      "line": 1781,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "suspicious_zero = list(zero_byte.get(\"suspicious\") or [])"
+    },
+    {
+      "language": "python",
+      "line": 1782,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "valid_markers = list(zero_byte.get(\"valid_package_markers\") or [])"
+    },
+    {
+      "language": "python",
+      "line": 1783,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "zero_summary = ("
+    },
+    {
+      "language": "python",
+      "line": 1784,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "f\"Found {len(suspicious_zero)} suspicious zero-byte live file(s).\""
+    },
+    {
+      "language": "python",
+      "line": 1785,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "if suspicious_zero"
+    },
+    {
+      "language": "python",
+      "line": 1786,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "else ("
+    },
+    {
+      "language": "python",
+      "line": 1787,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "f\"No suspicious zero-byte live files were found; {len(valid_markers)} empty __init__.py package marker(s) were recognized as valid.\""
+    },
+    {
+      "language": "python",
+      "line": 1788,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "if valid_markers"
+    },
+    {
+      "language": "python",
+      "line": 1789,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "else \"No zero-byte live source, configuration, or Study launcher files were found.\""
+    },
+    {
+      "language": "python",
+      "line": 1790,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1791,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1792,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "findings.append("
+    },
+    {
+      "language": "python",
+      "line": 1793,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "_finding("
+    },
+    {
+      "language": "python",
+      "line": 1794,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "\"zero_byte_live_files\","
+    },
+    {
+      "language": "python",
+      "line": 1795,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "\"Empty live source or launcher files\","
+    },
+    {
+      "language": "python",
+      "line": 1796,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "\"recommended\" if suspicious_zero else \"healthy\","
+    },
+    {
+      "language": "python",
+      "line": 1797,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "zero_summary,"
+    },
+    {
+      "language": "python",
+      "line": 1798,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "evidence=("
+    },
+    {
+      "language": "python",
+      "line": 1799,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "[f\"Suspicious: {item}\" for item in suspicious_zero]"
+    },
+    {
+      "language": "python",
+      "line": 1800,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "+ [f\"Valid Python package marker: {item}\" for item in valid_markers]"
+    },
+    {
+      "language": "python",
+      "line": 1801,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "),"
+    },
+    {
+      "language": "python",
+      "line": 1802,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "suggested_action=\"Restore each suspicious empty live file from its exact known-good source after confirming the path and hash.\","
+    },
+    {
+      "language": "python",
+      "line": 1803,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "category=\"source\","
+    },
+    {
+      "language": "python",
+      "line": 1804,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1805,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1807,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "logs = _log_snapshot(project_root)"
+    },
+    {
+      "language": "python",
+      "line": 1808,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "evidence[\"logs\"] = logs"
+    },
+    {
+      "language": "python",
+      "line": 1809,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "largest_size = max((item[\"size_bytes\"] for item in logs[\"largest\"]), default=0)"
+    },
+    {
+      "language": "python",
+      "line": 1810,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "logs_need_review = logs[\"total_bytes\"] > 2 * 1024 ** 3 or largest_size > 250 * 1024 ** 2 or bool(logs[\"errors\"])"
+    },
+    {
+      "language": "python",
+      "line": 1811,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "findings.append("
+    },
+    {
+      "language": "python",
+      "line": 1812,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "_finding("
+    },
+    {
+      "language": "python",
+      "line": 1813,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "\"log_growth\","
+    },
+    {
+      "language": "python",
+      "line": 1814,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "\"Log folder growth\","
+    },
+    {
+      "language": "python",
+      "line": 1815,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "\"recommended\" if logs_need_review else \"healthy\","
+    },
+    {
+      "language": "python",
+      "line": 1816,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "f\"Logs contain {logs['files']} file(s) totaling {logs['total_bytes'] / (1024 ** 2):.1f} MB.\","
+    },
+    {
+      "language": "python",
+      "line": 1817,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "evidence=[f\"{item['path']}: {item['size_bytes']} bytes\" for item in logs[\"largest\"]] + list(logs[\"errors\"]),"
+    },
+    {
+      "language": "python",
+      "line": 1818,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "suggested_action=\"Review oversized logs and archive or trim them only through an approved cleanup action.\","
+    },
+    {
+      "language": "python",
+      "line": 1819,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "category=\"storage\","
+    },
+    {
+      "language": "python",
+      "line": 1820,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1821,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1823,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "launcher_inventory = _finalize_launcher_inventory(_launcher_inventory(project_root))"
+    },
+    {
+      "language": "python",
+      "line": 1824,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "evidence[\"launcher_inventory\"] = launcher_inventory"
+    },
+    {
+      "language": "python",
+      "line": 1825,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "launcher_count = int(launcher_inventory.get(\"total\") or 0)"
+    },
+    {
+      "language": "python",
+      "line": 1826,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "duplicate_count = len(launcher_inventory.get(\"exact_duplicate_groups\") or [])"
+    },
+    {
+      "language": "python",
+      "line": 1827,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "edge_count = len(launcher_inventory.get(\"relationship_edges\") or [])"
+    },
+    {
+      "language": "python",
+      "line": 1828,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "receipt_count = len(launcher_inventory.get(\"receipt_backed\") or [])"
+    },
+    {
+      "language": "python",
+      "line": 1829,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "protected_count = len((launcher_inventory.get(\"protected_baseline\") or {}).get(\"root\") or [])"
+    },
+    {
+      "language": "python",
+      "line": 1830,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "candidate_count = len(launcher_inventory.get(\"obsolete_looking_candidates\") or [])"
+    },
+    {
+      "language": "python",
+      "line": 1831,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "unresolved_count = len(launcher_inventory.get(\"unresolved_items\") or [])"
+    },
+    {
+      "language": "python",
+      "line": 1832,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "launcher_review = _launcher_inventory_needs_review(launcher_inventory)"
+    },
+    {
+      "language": "python",
+      "line": 1833,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "raw_unknown_count = len(launcher_inventory.get(\"raw_unknown_items\") or [])"
+    },
+    {
+      "language": "python",
+      "line": 1834,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "launcher_summary = ("
+    },
+    {
+      "language": "python",
+      "line": 1835,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "f\"Mapped {launcher_count} root BAT file(s) from one finalized read-only dataset. \""
+    },
+    {
+      "language": "python",
+      "line": 1836,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "f\"Protected {protected_count} root launcher(s), found {edge_count} child-launcher relationship(s), \""
+    },
+    {
+      "language": "python",
+      "line": 1837,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "f\"{receipt_count} receipt-backed launcher(s), {duplicate_count} exact duplicate group(s), \""
+    },
+    {
+      "language": "python",
+      "line": 1838,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "f\"{candidate_count} low-confidence duplicate-review candidate(s), \""
+    },
+    {
+      "language": "python",
+      "line": 1839,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "f\"{raw_unknown_count} raw unknown classification(s), and {unresolved_count} unresolved-after-resolution item(s).\""
+    },
+    {
+      "language": "python",
+      "line": 1840,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1841,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "findings.append("
+    },
+    {
+      "language": "python",
+      "line": 1842,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "_finding("
+    },
+    {
+      "language": "python",
+      "line": 1843,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "\"root_launcher_inventory\","
+    },
+    {
+      "language": "python",
+      "line": 1844,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "\"FOXAI launcher map and protected baseline\","
+    },
+    {
+      "language": "python",
+      "line": 1845,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "\"recommended\" if launcher_review else \"informational\","
+    },
+    {
+      "language": "python",
+      "line": 1846,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "launcher_summary,"
+    },
+    {
+      "language": "python",
+      "line": 1847,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "evidence=_launcher_inventory_evidence(launcher_inventory),"
+    },
+    {
+      "language": "python",
+      "line": 1848,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "suggested_action=("
+    },
+    {
+      "language": "python",
+      "line": 1849,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "\"Preserve the protected baseline. Review only the exact unresolved items or evidence-backed \""
+    },
+    {
+      "language": "python",
+      "line": 1850,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "\"low-confidence candidates shown in Launcher Index. Do not move, rename, delete, archive, or execute scripts.\""
+    },
+    {
+      "language": "python",
+      "line": 1851,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "if launcher_review"
+    },
+    {
+      "language": "python",
+      "line": 1852,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "else \"No repair is needed. Continue using the approved front-door launchers. Exact duplicate-group \""
+    },
+    {
+      "language": "python",
+      "line": 1853,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "\"details remain informational in Show scan details and Launcher Index.\""
+    },
+    {
+      "language": "python",
+      "line": 1854,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "),"
+    },
+    {
+      "language": "python",
+      "line": 1855,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "category=\"organization\","
+    },
+    {
+      "language": "python",
+      "line": 1856,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1857,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1859,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "counts = {"
+    },
+    {
+      "language": "python",
+      "line": 1860,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "severity: sum(1 for finding in findings if finding[\"severity\"] == severity)"
+    },
+    {
+      "language": "python",
+      "line": 1861,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "for severity in SEVERITIES"
+    },
+    {
+      "language": "python",
+      "line": 1862,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 1863,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "elapsed = round(time.perf_counter() - started, 3)"
+    },
+    {
+      "language": "python",
+      "line": 1864,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "report = {"
+    },
+    {
+      "language": "python",
+      "line": 1865,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "\"ok\": counts[\"urgent\"] == 0,"
+    },
+    {
+      "language": "python",
+      "line": 1866,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "\"version\": SCAN_VERSION,"
+    },
+    {
+      "language": "python",
+      "line": 1867,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "\"title\": \"Repair Bay V1.5 — Healthy Launcher Classification\","
+    },
+    {
+      "language": "python",
+      "line": 1868,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "\"created_at\": _iso_now(),"
+    },
+    {
+      "language": "python",
+      "line": 1869,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "\"mode\": scan_mode,"
+    },
+    {
+      "language": "python",
+      "line": 1870,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "\"root\": str(project_root),"
+    },
+    {
+      "language": "python",
+      "line": 1871,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "\"read_only\": True,"
+    },
+    {
+      "language": "python",
+      "line": 1872,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "\"elapsed_seconds\": elapsed,"
+    },
+    {
+      "language": "python",
+      "line": 1873,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "\"summary\": {"
+    },
+    {
+      "language": "python",
+      "line": 1874,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "\"counts\": counts,"
+    },
+    {
+      "language": "python",
+      "line": 1875,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "\"headline\": _headline(counts),"
+    },
+    {
+      "language": "python",
+      "line": 1876,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "\"overall\": ("
+    },
+    {
+      "language": "python",
+      "line": 1877,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "\"urgent\""
+    },
+    {
+      "language": "python",
+      "line": 1878,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "if counts[\"urgent\"]"
+    },
+    {
+      "language": "python",
+      "line": 1879,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "else \"recommended\""
+    },
+    {
+      "language": "python",
+      "line": 1880,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "if counts[\"recommended\"]"
+    },
+    {
+      "language": "python",
+      "line": 1881,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "else \"healthy\""
+    },
+    {
+      "language": "python",
+      "line": 1882,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "),"
+    },
+    {
+      "language": "python",
+      "line": 1883,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "\"checks\": len(findings),"
+    },
+    {
+      "language": "python",
+      "line": 1884,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "},"
+    },
+    {
+      "language": "python",
+      "line": 1885,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "\"findings\": findings,"
+    },
+    {
+      "language": "python",
+      "line": 1886,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "\"proposed_repair_plan\": _repair_plan(findings),"
+    },
+    {
+      "language": "python",
+      "line": 1887,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "\"evidence\": evidence,"
+    },
+    {
+      "language": "python",
+      "line": 1888,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "\"context\": dict(context or {}),"
+    },
+    {
+      "language": "python",
+      "line": 1889,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "\"safety\": {"
+    },
+    {
+      "language": "python",
+      "line": 1890,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "\"network_used\": False,"
+    },
+    {
+      "language": "python",
+      "line": 1891,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "\"commands_run\": False,"
+    },
+    {
+      "language": "python",
+      "line": 1892,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "\"files_written\": 0,"
+    },
+    {
+      "language": "python",
+      "line": 1893,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "\"registry_written\": False,"
+    },
+    {
+      "language": "python",
+      "line": 1894,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "\"services_changed\": False,"
+    },
+    {
+      "language": "python",
+      "line": 1895,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "\"settings_changed\": False,"
+    },
+    {
+      "language": "python",
+      "line": 1896,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "\"repairs_applied\": 0,"
+    },
+    {
+      "language": "python",
+      "line": 1897,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "\"protected_content_scanned\": False,"
+    },
+    {
+      "language": "python",
+      "line": 1898,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "},"
+    },
+    {
+      "language": "python",
+      "line": 1899,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "\"scope\": {"
+    },
+    {
+      "language": "python",
+      "line": 1900,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "\"whole_drive_scan\": False,"
+    },
+    {
+      "language": "python",
+      "line": 1901,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "\"foxai_root_only\": True,"
+    },
+    {
+      "language": "python",
+      "line": 1902,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "\"protected_locations_excluded\": True,"
+    },
+    {
+      "language": "python",
+      "line": 1903,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "\"database_open_mode\": \"read_only\","
+    },
+    {
+      "language": "python",
+      "line": 1904,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "\"source_validation\": \"AST parse only; no bytecode written\","
+    },
+    {
+      "language": "python",
+      "line": 1905,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "},"
+    },
+    {
+      "language": "python",
+      "line": 1906,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 1907,
+      "path": "core\\repair_bay_diagnostics.py",
+      "text": "return report"
+    },
+    {
+      "language": "python",
+      "line": 1,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "from __future__ import annotations"
+    },
+    {
+      "language": "python",
+      "line": 3,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "import hashlib"
+    },
+    {
+      "language": "python",
+      "line": 4,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "import json"
+    },
+    {
+      "language": "python",
+      "line": 5,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "import re"
+    },
+    {
+      "language": "python",
+      "line": 6,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "from pathlib import Path"
+    },
+    {
+      "language": "python",
+      "line": 7,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "from typing import Any, Iterable"
+    },
+    {
+      "language": "python",
+      "line": 9,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "SCHEMA = \"foxai.repair_bay.guarded_handoff.v2_5\""
+    },
+    {
+      "language": "python",
+      "line": 10,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "MAX_EVIDENCE_ITEMS = 12"
+    },
+    {
+      "language": "python",
+      "line": 11,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "MAX_AFFECTED_PATHS = 24"
+    },
+    {
+      "language": "python",
+      "line": 13,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "SUPPORTED_FINDINGS: dict[str, dict[str, Any]] = {"
+    },
+    {
+      "language": "python",
+      "line": 14,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"known_good_launchers\": {"
+    },
+    {
+      "language": "python",
+      "line": 15,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"repair_kind\": \"restore_known_good_launcher\","
+    },
+    {
+      "language": "python",
+      "line": 16,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"label\": \"Restore one missing or empty known-good launcher\","
+    },
+    {
+      "language": "python",
+      "line": 17,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"backup_required\": True,"
+    },
+    {
+      "language": "python",
+      "line": 18,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"path_required\": True,"
+    },
+    {
+      "language": "python",
+      "line": 19,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "},"
+    },
+    {
+      "language": "python",
+      "line": 20,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"essential_components\": {"
+    },
+    {
+      "language": "python",
+      "line": 21,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"repair_kind\": \"restore_known_good_component\","
+    },
+    {
+      "language": "python",
+      "line": 22,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"label\": \"Restore one clearly identified missing FOXAI component\","
+    },
+    {
+      "language": "python",
+      "line": 23,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"backup_required\": True,"
+    },
+    {
+      "language": "python",
+      "line": 24,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"path_required\": True,"
+    },
+    {
+      "language": "python",
+      "line": 25,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "},"
+    },
+    {
+      "language": "python",
+      "line": 26,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"key_source_syntax\": {"
+    },
+    {
+      "language": "python",
+      "line": 27,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"repair_kind\": \"correct_python_exact_diff\","
+    },
+    {
+      "language": "python",
+      "line": 28,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"label\": \"Correct one damaged key Python file through an exact diff\","
+    },
+    {
+      "language": "python",
+      "line": 29,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"backup_required\": True,"
+    },
+    {
+      "language": "python",
+      "line": 30,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"path_required\": True,"
+    },
+    {
+      "language": "python",
+      "line": 31,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "},"
+    },
+    {
+      "language": "python",
+      "line": 32,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"full_python_syntax\": {"
+    },
+    {
+      "language": "python",
+      "line": 33,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"repair_kind\": \"correct_python_exact_diff\","
+    },
+    {
+      "language": "python",
+      "line": 34,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"label\": \"Correct damaged Python through exact per-file diffs\","
+    },
+    {
+      "language": "python",
+      "line": 35,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"backup_required\": True,"
+    },
+    {
+      "language": "python",
+      "line": 36,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"path_required\": True,"
+    },
+    {
+      "language": "python",
+      "line": 37,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "},"
+    },
+    {
+      "language": "python",
+      "line": 38,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"configuration_json\": {"
+    },
+    {
+      "language": "python",
+      "line": 39,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"repair_kind\": \"correct_json_exact_diff\","
+    },
+    {
+      "language": "python",
+      "line": 40,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"label\": \"Correct one invalid JSON configuration through an exact diff\","
+    },
+    {
+      "language": "python",
+      "line": 41,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"backup_required\": True,"
+    },
+    {
+      "language": "python",
+      "line": 42,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"path_required\": True,"
+    },
+    {
+      "language": "python",
+      "line": 43,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "},"
+    },
+    {
+      "language": "python",
+      "line": 44,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"zero_byte_live_files\": {"
+    },
+    {
+      "language": "python",
+      "line": 45,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"repair_kind\": \"restore_empty_known_good_file\","
+    },
+    {
+      "language": "python",
+      "line": 46,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"label\": \"Restore one suspicious empty live file from verified evidence\","
+    },
+    {
+      "language": "python",
+      "line": 47,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"backup_required\": True,"
+    },
+    {
+      "language": "python",
+      "line": 48,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"path_required\": True,"
+    },
+    {
+      "language": "python",
+      "line": 49,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "},"
+    },
+    {
+      "language": "python",
+      "line": 50,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"log_growth\": {"
+    },
+    {
+      "language": "python",
+      "line": 51,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"repair_kind\": \"prepare_reversible_log_archive_plan\","
+    },
+    {
+      "language": "python",
+      "line": 52,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"label\": \"Prepare a reversible log archive plan\","
+    },
+    {
+      "language": "python",
+      "line": 53,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"backup_required\": True,"
+    },
+    {
+      "language": "python",
+      "line": 54,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"path_required\": False,"
+    },
+    {
+      "language": "python",
+      "line": 55,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "},"
+    },
+    {
+      "language": "python",
+      "line": 56,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"root_launcher_inventory\": {"
+    },
+    {
+      "language": "python",
+      "line": 57,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"repair_kind\": \"review_launcher_duplicate_evidence\","
+    },
+    {
+      "language": "python",
+      "line": 58,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"label\": \"Review launcher duplicate evidence and prepare a reversible proposal\","
+    },
+    {
+      "language": "python",
+      "line": 59,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"backup_required\": True,"
+    },
+    {
+      "language": "python",
+      "line": 60,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"path_required\": False,"
+    },
+    {
+      "language": "python",
+      "line": 61,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "},"
+    },
+    {
+      "language": "python",
+      "line": 62,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 64,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "PROTECTED_PARTS = {"
+    },
+    {
+      "language": "python",
+      "line": 65,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\".ssh\", \".gnupg\", \".aws\", \".azure\", \".kube\","
+    },
+    {
+      "language": "python",
+      "line": 66,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"credentials\", \"credential\", \"secrets\", \"secret\", \"vault\", \"keys\", \"key\","
+    },
+    {
+      "language": "python",
+      "line": 67,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 68,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "PATH_EXTENSIONS = ("
+    },
+    {
+      "language": "python",
+      "line": 69,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"bat\", \"cmd\", \"ps1\", \"py\", \"json\", \"yaml\", \"yml\", \"toml\", \"ini\", \"cfg\","
+    },
+    {
+      "language": "python",
+      "line": 70,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"conf\", \"txt\", \"md\", \"log\", \"sqlite\", \"sqlite3\", \"db\", \"exe\", \"dll\", \"zip\","
+    },
+    {
+      "language": "python",
+      "line": 71,
+      "path": "core\\repair_bay_handoff.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 72,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "PATH_RE = re.compile("
+    },
+    {
+      "language": "python",
+      "line": 73,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "r\"(?i)(?:(?:[A-Z]:[\\\\/])|(?:[A-Za-z0-9_.() -]+[\\\\/])+)[^<>\\\"|\\r\\n:*?]+\\.\""
+    },
+    {
+      "language": "python",
+      "line": 74,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "r\"(?:\" + \"|\".join(PATH_EXTENSIONS) + r\")\""
+    },
+    {
+      "language": "python",
+      "line": 75,
+      "path": "core\\repair_bay_handoff.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 76,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "BARE_PATH_RE = re.compile("
+    },
+    {
+      "language": "python",
+      "line": 77,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "r\"(?i)(?<![A-Za-z0-9_.-])([A-Za-z0-9_.() -]+\\.(?:\""
+    },
+    {
+      "language": "python",
+      "line": 78,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "+ \"|\".join(PATH_EXTENSIONS)"
+    },
+    {
+      "language": "python",
+      "line": 79,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "+ r\"))(?![A-Za-z0-9_.-])\""
+    },
+    {
+      "language": "python",
+      "line": 80,
+      "path": "core\\repair_bay_handoff.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 83,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "def _clean(value: Any, limit: int = 1600) -> str:"
+    },
+    {
+      "language": "python",
+      "line": 84,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "text = \" \".join(str(value or \"\").replace(\"\\x00\", \" \").split())"
+    },
+    {
+      "language": "python",
+      "line": 85,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "return text[:limit]"
+    },
+    {
+      "language": "python",
+      "line": 88,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "def _safe_title(value: Any) -> str:"
+    },
+    {
+      "language": "python",
+      "line": 89,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "text = _clean(value, 100)"
+    },
+    {
+      "language": "python",
+      "line": 90,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "text = re.sub(r\"[^A-Za-z0-9 _().,'’&+\\-—]\", \"\", text).strip(\" .-\")"
+    },
+    {
+      "language": "python",
+      "line": 91,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "return text or \"Repair Bay finding\""
+    },
+    {
+      "language": "python",
+      "line": 94,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "def _inside_root(root: Path, candidate: Path) -> bool:"
+    },
+    {
+      "language": "python",
+      "line": 95,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 96,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "resolved_root = root.resolve()"
+    },
+    {
+      "language": "python",
+      "line": 97,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "resolved = candidate.resolve(strict=False)"
+    },
+    {
+      "language": "python",
+      "line": 98,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "return resolved == resolved_root or resolved_root in resolved.parents"
+    },
+    {
+      "language": "python",
+      "line": 99,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "except Exception:"
+    },
+    {
+      "language": "python",
+      "line": 100,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "return False"
+    },
+    {
+      "language": "python",
+      "line": 103,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "def _protected(relative: str) -> bool:"
+    },
+    {
+      "language": "python",
+      "line": 104,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "parts = {part.casefold() for part in re.split(r\"[\\\\/]\", relative) if part}"
+    },
+    {
+      "language": "python",
+      "line": 105,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "return bool(parts.intersection(PROTECTED_PARTS))"
+    },
+    {
+      "language": "python",
+      "line": 108,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "def _normalize_candidate(root: Path, raw: str) -> str | None:"
+    },
+    {
+      "language": "python",
+      "line": 109,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "value = raw.strip().strip(\"'\\\"`()[]{}<>,;\")"
+    },
+    {
+      "language": "python",
+      "line": 110,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "value = re.sub(r\"\\s+\\((?:missing|empty|invalid|damaged)\\)$\", \"\", value, flags=re.I)"
+    },
+    {
+      "language": "python",
+      "line": 111,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "if not value:"
+    },
+    {
+      "language": "python",
+      "line": 112,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "return None"
+    },
+    {
+      "language": "python",
+      "line": 113,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 114,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "path = Path(value)"
+    },
+    {
+      "language": "python",
+      "line": 115,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "if not path.is_absolute():"
+    },
+    {
+      "language": "python",
+      "line": 116,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "path = root / value.replace(\"\\\\\", \"/\")"
+    },
+    {
+      "language": "python",
+      "line": 117,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "if not _inside_root(root, path):"
+    },
+    {
+      "language": "python",
+      "line": 118,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "return None"
+    },
+    {
+      "language": "python",
+      "line": 119,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "relative = str(path.resolve(strict=False).relative_to(root.resolve())).replace(\"\\\\\", \"/\")"
+    },
+    {
+      "language": "python",
+      "line": 120,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "except Exception:"
+    },
+    {
+      "language": "python",
+      "line": 121,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "return None"
+    },
+    {
+      "language": "python",
+      "line": 122,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "if not relative or relative == \".\" or _protected(relative):"
+    },
+    {
+      "language": "python",
+      "line": 123,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "return None"
+    },
+    {
+      "language": "python",
+      "line": 124,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "return relative"
+    },
+    {
+      "language": "python",
+      "line": 127,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "def _paths_from_text(root: Path, values: Iterable[Any]) -> list[str]:"
+    },
+    {
+      "language": "python",
+      "line": 128,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "result: list[str] = []"
+    },
+    {
+      "language": "python",
+      "line": 129,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "seen: set[str] = set()"
+    },
+    {
+      "language": "python",
+      "line": 130,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "root_text = str(root)"
+    },
+    {
+      "language": "python",
+      "line": 131,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "for value in values:"
+    },
+    {
+      "language": "python",
+      "line": 132,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "text = str(value or \"\")"
+    },
+    {
+      "language": "python",
+      "line": 133,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "candidates = [match.group(0) for match in PATH_RE.finditer(text)]"
+    },
+    {
+      "language": "python",
+      "line": 134,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "candidates.extend(match.group(1) for match in BARE_PATH_RE.finditer(text))"
+    },
+    {
+      "language": "python",
+      "line": 135,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "# Evidence sometimes contains a plain root-relative path with no extension."
+    },
+    {
+      "language": "python",
+      "line": 136,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "if root_text and root_text in text:"
+    },
+    {
+      "language": "python",
+      "line": 137,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "tail = text[text.index(root_text):].split(\" | \", 1)[0]"
+    },
+    {
+      "language": "python",
+      "line": 138,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "candidates.append(tail)"
+    },
+    {
+      "language": "python",
+      "line": 139,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "for candidate in candidates:"
+    },
+    {
+      "language": "python",
+      "line": 140,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "normalized = _normalize_candidate(root, candidate)"
+    },
+    {
+      "language": "python",
+      "line": 141,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "if normalized and normalized.casefold() not in seen:"
+    },
+    {
+      "language": "python",
+      "line": 142,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "seen.add(normalized.casefold())"
+    },
+    {
+      "language": "python",
+      "line": 143,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "result.append(normalized)"
+    },
+    {
+      "language": "python",
+      "line": 144,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "if len(result) >= MAX_AFFECTED_PATHS:"
+    },
+    {
+      "language": "python",
+      "line": 145,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "return result"
+    },
+    {
+      "language": "python",
+      "line": 146,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "return result"
+    },
+    {
+      "language": "python",
+      "line": 149,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "def _finding_paths(root: Path, report: dict[str, Any], finding: dict[str, Any]) -> list[str]:"
+    },
+    {
+      "language": "python",
+      "line": 150,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "finding_id = str(finding.get(\"id\") or \"\")"
+    },
+    {
+      "language": "python",
+      "line": 151,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "evidence = list(finding.get(\"evidence\") or [])"
+    },
+    {
+      "language": "python",
+      "line": 152,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "paths = _paths_from_text(root, evidence)"
+    },
+    {
+      "language": "python",
+      "line": 154,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "report_evidence = report.get(\"evidence\") or {}"
+    },
+    {
+      "language": "python",
+      "line": 155,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "if finding_id == \"root_launcher_inventory\":"
+    },
+    {
+      "language": "python",
+      "line": 156,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "inventory = report_evidence.get(\"launcher_inventory\") or {}"
+    },
+    {
+      "language": "python",
+      "line": 157,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "protected_names = {"
+    },
+    {
+      "language": "python",
+      "line": 158,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "str(item.get(\"name\") or \"\").casefold()"
+    },
+    {
+      "language": "python",
+      "line": 159,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "for item in ((inventory.get(\"protected_baseline\") or {}).get(\"root\") or [])"
+    },
+    {
+      "language": "python",
+      "line": 160,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 161,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "paths = []"
+    },
+    {
+      "language": "python",
+      "line": 162,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "for item in inventory.get(\"obsolete_looking_candidates\") or []:"
+    },
+    {
+      "language": "python",
+      "line": 163,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "name = str(item.get(\"name\") or \"\").strip()"
+    },
+    {
+      "language": "python",
+      "line": 164,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "basis = set(item.get(\"candidate_basis\") or [])"
+    },
+    {
+      "language": "python",
+      "line": 165,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "if ("
+    },
+    {
+      "language": "python",
+      "line": 166,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "not name"
+    },
+    {
+      "language": "python",
+      "line": 167,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "or name.casefold() in protected_names"
+    },
+    {
+      "language": "python",
+      "line": 168,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "or \"exact_duplicate_content\" not in basis"
+    },
+    {
+      "language": "python",
+      "line": 169,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "):"
+    },
+    {
+      "language": "python",
+      "line": 170,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "continue"
+    },
+    {
+      "language": "python",
+      "line": 171,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "normalized = _normalize_candidate(root, name)"
+    },
+    {
+      "language": "python",
+      "line": 172,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "if normalized and normalized not in paths:"
+    },
+    {
+      "language": "python",
+      "line": 173,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "paths.append(normalized)"
+    },
+    {
+      "language": "python",
+      "line": 174,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "if len(paths) >= MAX_AFFECTED_PATHS:"
+    },
+    {
+      "language": "python",
+      "line": 175,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "break"
+    },
+    {
+      "language": "python",
+      "line": 177,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "if finding_id == \"log_growth\" and not paths:"
+    },
+    {
+      "language": "python",
+      "line": 178,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "logs = root / \"Logs\""
+    },
+    {
+      "language": "python",
+      "line": 179,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "if logs.exists():"
+    },
+    {
+      "language": "python",
+      "line": 180,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "paths.append(\"Logs\")"
+    },
+    {
+      "language": "python",
+      "line": 182,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "return paths[:MAX_AFFECTED_PATHS]"
+    },
+    {
+      "language": "python",
+      "line": 185,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "def _support_decision(finding: dict[str, Any], paths: list[str]) -> tuple[bool, str, dict[str, Any] | None]:"
+    },
+    {
+      "language": "python",
+      "line": 186,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "finding_id = str(finding.get(\"id\") or \"\")"
+    },
+    {
+      "language": "python",
+      "line": 187,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "severity = str(finding.get(\"severity\") or \"informational\").casefold()"
+    },
+    {
+      "language": "python",
+      "line": 188,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "profile = SUPPORTED_FINDINGS.get(finding_id)"
+    },
+    {
+      "language": "python",
+      "line": 189,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "if severity not in {\"urgent\", \"recommended\"}:"
+    },
+    {
+      "language": "python",
+      "line": 190,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "return False, \"Only urgent or recommended findings can request an exact repair plan.\", profile"
+    },
+    {
+      "language": "python",
+      "line": 191,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "if profile is None:"
+    },
+    {
+      "language": "python",
+      "line": 192,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "return False, \"This finding is advisory or too broad for the initial guarded repair set.\", None"
+    },
+    {
+      "language": "python",
+      "line": 193,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "if profile.get(\"path_required\") and not paths:"
+    },
+    {
+      "language": "python",
+      "line": 194,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "return False, \"The finding does not identify a bounded FOXAI path clearly enough for an exact plan.\", profile"
+    },
+    {
+      "language": "python",
+      "line": 195,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "return True, \"This finding fits the initial bounded low-risk planning set.\", profile"
+    },
+    {
+      "language": "python",
+      "line": 198,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "_ROUTE_SEARCH = re.compile(r\"\\b(find|locate|search|where is|show references?|grep)\\b\", re.I)"
+    },
+    {
+      "language": "python",
+      "line": 199,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "_ROUTE_DIAGNOSE = re.compile(r\"\\b(inspect|diagnose|analy[sz]e|why|determine|review)\\b\", re.I)"
+    },
+    {
+      "language": "python",
+      "line": 200,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "_ROUTE_PLAN = re.compile(r\"\\b(plan|preview|propose|what would change|do not modify|read[- ]only)\\b\", re.I)"
+    },
+    {
+      "language": "python",
+      "line": 201,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "_ROUTE_IMPLEMENT = re.compile(r\"\\b(build|implement|create|add|integrate|patch|update|deploy|install feature)\\b\", re.I)"
+    },
+    {
+      "language": "python",
+      "line": 202,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "_ROUTE_REPAIR = re.compile(r\"\\b(fix|repair|apply|proceed with the approved|execute the approved)\\b\", re.I)"
+    },
+    {
+      "language": "python",
+      "line": 203,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "_ROUTE_AUTH = re.compile("
+    },
+    {
+      "language": "python",
+      "line": 204,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "r\"\\b(authoriz(?:e|ed|ation)|approved|proceed|apply|implement|targeted source changes|do not stop at planning)\\b\","
+    },
+    {
+      "language": "python",
+      "line": 205,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "re.I,"
+    },
+    {
+      "language": "python",
+      "line": 206,
+      "path": "core\\repair_bay_handoff.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 208,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "_ROUTER_SAFE_REPLACEMENTS: tuple[tuple[re.Pattern[str], str], ...] = ("
+    },
+    {
+      "language": "python",
+      "line": 209,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "(re.compile(r\"\\bauthoriz(?:e|ed|ation)\\b\", re.I), \"permission\"),"
+    },
+    {
+      "language": "python",
+      "line": 210,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "(re.compile(r\"\\bapproved\\b\", re.I), \"verified\"),"
+    },
+    {
+      "language": "python",
+      "line": 211,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "(re.compile(r\"\\bproceed\\b\", re.I), \"continue later\"),"
+    },
+    {
+      "language": "python",
+      "line": 212,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "(re.compile(r\"\\bapply\\b\", re.I), \"carry out\"),"
+    },
+    {
+      "language": "python",
+      "line": 213,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "(re.compile(r\"\\bimplement(?:ation|ed|ing)?\\b\", re.I), \"put into place\"),"
+    },
+    {
+      "language": "python",
+      "line": 214,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "(re.compile(r\"\\bbuild\\b\", re.I), \"assemble\"),"
+    },
+    {
+      "language": "python",
+      "line": 215,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "(re.compile(r\"\\bcreate\\b\", re.I), \"produce\"),"
+    },
+    {
+      "language": "python",
+      "line": 216,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "(re.compile(r\"\\badd\\b\", re.I), \"include\"),"
+    },
+    {
+      "language": "python",
+      "line": 217,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "(re.compile(r\"\\bintegrate\\b\", re.I), \"connect\"),"
+    },
+    {
+      "language": "python",
+      "line": 218,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "(re.compile(r\"\\bpatch\\b\", re.I), \"correction package\"),"
+    },
+    {
+      "language": "python",
+      "line": 219,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "(re.compile(r\"\\bupdate\\b\", re.I), \"refresh\"),"
+    },
+    {
+      "language": "python",
+      "line": 220,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "(re.compile(r\"\\bdeploy\\b\", re.I), \"release\"),"
+    },
+    {
+      "language": "python",
+      "line": 221,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "(re.compile(r\"\\binstall feature\\b\", re.I), \"enable capability\"),"
+    },
+    {
+      "language": "python",
+      "line": 222,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "(re.compile(r\"\\bfix\\b\", re.I), \"correction\"),"
+    },
+    {
+      "language": "python",
+      "line": 223,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "(re.compile(r\"\\brepair\\b\", re.I), \"remediation\"),"
+    },
+    {
+      "language": "python",
+      "line": 224,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "(re.compile(r\"\\btargeted source changes\\b\", re.I), \"bounded file edits\"),"
+    },
+    {
+      "language": "python",
+      "line": 225,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "(re.compile(r\"\\bdo not stop at planning\\b\", re.I), \"planning ends here\"),"
+    },
+    {
+      "language": "python",
+      "line": 226,
+      "path": "core\\repair_bay_handoff.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 229,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "def predict_engineer_route(text: str) -> dict[str, Any]:"
+    },
+    {
+      "language": "python",
+      "line": 230,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "normalized = str(text or \"\").strip()"
+    },
+    {
+      "language": "python",
+      "line": 231,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "scores = {"
+    },
+    {
+      "language": "python",
+      "line": 232,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"search\": 35 if _ROUTE_SEARCH.search(normalized) else 0,"
+    },
+    {
+      "language": "python",
+      "line": 233,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"diagnose\": 30 if _ROUTE_DIAGNOSE.search(normalized) else 0,"
+    },
+    {
+      "language": "python",
+      "line": 234,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"plan\": 45 if _ROUTE_PLAN.search(normalized) else 0,"
+    },
+    {
+      "language": "python",
+      "line": 235,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"implement\": 60 if _ROUTE_IMPLEMENT.search(normalized) else 0,"
+    },
+    {
+      "language": "python",
+      "line": 236,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"repair\": 55 if _ROUTE_REPAIR.search(normalized) else 0,"
+    },
+    {
+      "language": "python",
+      "line": 237,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 238,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "authorized = bool(_ROUTE_AUTH.search(normalized))"
+    },
+    {
+      "language": "python",
+      "line": 239,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "if authorized and scores[\"implement\"]:"
+    },
+    {
+      "language": "python",
+      "line": 240,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "scores[\"implement\"] += 25"
+    },
+    {
+      "language": "python",
+      "line": 241,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "if authorized and scores[\"repair\"]:"
+    },
+    {
+      "language": "python",
+      "line": 242,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "scores[\"repair\"] += 20"
+    },
+    {
+      "language": "python",
+      "line": 243,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "if not any(scores.values()):"
+    },
+    {
+      "language": "python",
+      "line": 244,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "return {"
+    },
+    {
+      "language": "python",
+      "line": 245,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"route\": \"unknown\","
+    },
+    {
+      "language": "python",
+      "line": 246,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"implementation_authorized\": authorized,"
+    },
+    {
+      "language": "python",
+      "line": 247,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"scores\": scores,"
+    },
+    {
+      "language": "python",
+      "line": 248,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"safe_for_repair_bay_send\": False,"
+    },
+    {
+      "language": "python",
+      "line": 249,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 250,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "route = max((\"search\", \"diagnose\", \"plan\", \"implement\", \"repair\"), key=lambda key: scores[key])"
+    },
+    {
+      "language": "python",
+      "line": 251,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "return {"
+    },
+    {
+      "language": "python",
+      "line": 252,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"route\": route,"
+    },
+    {
+      "language": "python",
+      "line": 253,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"implementation_authorized\": authorized,"
+    },
+    {
+      "language": "python",
+      "line": 254,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"scores\": scores,"
+    },
+    {
+      "language": "python",
+      "line": 255,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"safe_for_repair_bay_send\": route == \"plan\" and not authorized,"
+    },
+    {
+      "language": "python",
+      "line": 256,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 259,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "def _router_safe(value: Any, limit: int) -> str:"
+    },
+    {
+      "language": "python",
+      "line": 260,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "text = _clean(value, limit)"
+    },
+    {
+      "language": "python",
+      "line": 261,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "for pattern, replacement in _ROUTER_SAFE_REPLACEMENTS:"
+    },
+    {
+      "language": "python",
+      "line": 262,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "text = pattern.sub(replacement, text)"
+    },
+    {
+      "language": "python",
+      "line": 263,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "return text"
+    },
+    {
+      "language": "python",
+      "line": 266,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "def _command_text(packet: dict[str, Any]) -> str:"
+    },
+    {
+      "language": "python",
+      "line": 267,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "finding = packet[\"finding\"]"
+    },
+    {
+      "language": "python",
+      "line": 268,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "paths = packet.get(\"affected_paths\") or []"
+    },
+    {
+      "language": "python",
+      "line": 269,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "evidence = packet.get(\"technical_evidence\") or []"
+    },
+    {
+      "language": "python",
+      "line": 270,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "title = _router_safe(_safe_title(finding.get(\"title\")), 120)"
+    },
+    {
+      "language": "python",
+      "line": 271,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "finding_id = _router_safe(finding.get(\"id\"), 80)"
+    },
+    {
+      "language": "python",
+      "line": 272,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "severity = _router_safe(finding.get(\"severity\"), 30)"
+    },
+    {
+      "language": "python",
+      "line": 273,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "explanation = _router_safe(packet.get(\"plain_english_explanation\"), 650)"
+    },
+    {
+      "language": "python",
+      "line": 274,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "proposed = _router_safe(packet.get(\"proposed_action\"), 650)"
+    },
+    {
+      "language": "python",
+      "line": 275,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "path_text = _router_safe("
+    },
+    {
+      "language": "python",
+      "line": 276,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\", \".join(paths) if paths else \"No path is bounded yet; keep all paths advisory.\","
+    },
+    {
+      "language": "python",
+      "line": 277,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "1200,"
+    },
+    {
+      "language": "python",
+      "line": 278,
+      "path": "core\\repair_bay_handoff.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 279,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "evidence_text = _router_safe("
+    },
+    {
+      "language": "python",
+      "line": 280,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\" | \".join(evidence[:6]) or \"No additional evidence supplied.\","
+    },
+    {
+      "language": "python",
+      "line": 281,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "1400,"
+    },
+    {
+      "language": "python",
+      "line": 282,
+      "path": "core\\repair_bay_handoff.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 283,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "review_kind = \"Planning Review\" if packet.get(\"eligible\") else \"Advisory Planning Review\""
+    },
+    {
+      "language": "python",
+      "line": 284,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "return ("
+    },
+    {
+      "language": "python",
+      "line": 285,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "f\"/engineer workshop begin System Health {review_kind} — {title} :: \""
+    },
+    {
+      "language": "python",
+      "line": 286,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"Read-only plan request. Inspect this finding and produce a proposed exact JSON plan draft for human review. \""
+    },
+    {
+      "language": "python",
+      "line": 287,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"No file changes are permitted in this request. No file writes, moves, renames, deletions, package actions, \""
+    },
+    {
+      "language": "python",
+      "line": 288,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"restarts, command execution, or network access. \""
+    },
+    {
+      "language": "python",
+      "line": 289,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "f\"Finding ID: {finding_id}. Severity: {severity}. \""
+    },
+    {
+      "language": "python",
+      "line": 290,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "f\"Plain explanation: {explanation}. \""
+    },
+    {
+      "language": "python",
+      "line": 291,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "f\"Proposed next step: {proposed}. \""
+    },
+    {
+      "language": "python",
+      "line": 292,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "f\"Affected FOXAI paths: {path_text}. \""
+    },
+    {
+      "language": "python",
+      "line": 293,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "f\"Technical evidence: {evidence_text}. \""
+    },
+    {
+      "language": "python",
+      "line": 294,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"The draft should list exact before hashes, a targeted snapshot approach, validation, rollback protection, \""
+    },
+    {
+      "language": "python",
+      "line": 295,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"and a final receipt. A later separate operator decision is required before any file change. \""
+    },
+    {
+      "language": "python",
+      "line": 296,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"Uncertain paths must remain advisory.\""
+    },
+    {
+      "language": "python",
+      "line": 297,
+      "path": "core\\repair_bay_handoff.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 299,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "def _finding_is_actionable(report: dict[str, Any], finding: dict[str, Any]) -> bool:"
+    },
+    {
+      "language": "python",
+      "line": 300,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "severity = str(finding.get(\"severity\") or \"\").strip().casefold()"
+    },
+    {
+      "language": "python",
+      "line": 301,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "if severity not in {\"urgent\", \"recommended\"}:"
+    },
+    {
+      "language": "python",
+      "line": 302,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "return False"
+    },
+    {
+      "language": "python",
+      "line": 303,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "if str(finding.get(\"id\") or \"\") != \"root_launcher_inventory\":"
+    },
+    {
+      "language": "python",
+      "line": 304,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "return True"
+    },
+    {
+      "language": "python",
+      "line": 305,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "inventory = (report.get(\"evidence\") or {}).get(\"launcher_inventory\") or {}"
+    },
+    {
+      "language": "python",
+      "line": 306,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "return bool("
+    },
+    {
+      "language": "python",
+      "line": 307,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "list(inventory.get(\"unresolved_items\") or [])"
+    },
+    {
+      "language": "python",
+      "line": 308,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "or list(inventory.get(\"obsolete_looking_candidates\") or [])"
+    },
+    {
+      "language": "python",
+      "line": 309,
+      "path": "core\\repair_bay_handoff.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 312,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "def build_repair_handoff("
+    },
+    {
+      "language": "python",
+      "line": 313,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "root: str | Path,"
+    },
+    {
+      "language": "python",
+      "line": 314,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "report: dict[str, Any],"
+    },
+    {
+      "language": "python",
+      "line": 315,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "finding_id: str | None = None,"
+    },
+    {
+      "language": "python",
+      "line": 316,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "*,"
+    },
+    {
+      "language": "python",
+      "line": 317,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "level: str = \"guided\","
+    },
+    {
+      "language": "python",
+      "line": 318,
+      "path": "core\\repair_bay_handoff.py",
+      "text": ") -> dict[str, Any]:"
+    },
+    {
+      "language": "python",
+      "line": 319,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "root_path = Path(root)"
+    },
+    {
+      "language": "python",
+      "line": 320,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "findings = list(report.get(\"findings\") or [])"
+    },
+    {
+      "language": "python",
+      "line": 321,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "selected = None"
+    },
+    {
+      "language": "python",
+      "line": 322,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "requested = str(finding_id or \"\").strip()"
+    },
+    {
+      "language": "python",
+      "line": 323,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "if requested:"
+    },
+    {
+      "language": "python",
+      "line": 324,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "selected = next((item for item in findings if str(item.get(\"id\") or \"\") == requested), None)"
+    },
+    {
+      "language": "python",
+      "line": 325,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "if selected is None:"
+    },
+    {
+      "language": "python",
+      "line": 326,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "return {"
+    },
+    {
+      "language": "python",
+      "line": 327,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"ok\": False,"
+    },
+    {
+      "language": "python",
+      "line": 328,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"schema\": SCHEMA,"
+    },
+    {
+      "language": "python",
+      "line": 329,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"message\": \"The selected Repair Bay finding could not be resolved from the latest read-only scan.\","
+    },
+    {
+      "language": "python",
+      "line": 330,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"requested_finding_id\": _clean(requested, 100),"
+    },
+    {
+      "language": "python",
+      "line": 331,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"read_only\": True,"
+    },
+    {
+      "language": "python",
+      "line": 332,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"changes_applied\": 0,"
+    },
+    {
+      "language": "python",
+      "line": 333,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"mission_staged\": False,"
+    },
+    {
+      "language": "python",
+      "line": 334,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"implementation_authorized\": False,"
+    },
+    {
+      "language": "python",
+      "line": 335,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 336,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "else:"
+    },
+    {
+      "language": "python",
+      "line": 337,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "selected = next("
+    },
+    {
+      "language": "python",
+      "line": 338,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "(item for item in findings if str(item.get(\"severity\") or \"\") == \"urgent\"),"
+    },
+    {
+      "language": "python",
+      "line": 339,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "None,"
+    },
+    {
+      "language": "python",
+      "line": 340,
+      "path": "core\\repair_bay_handoff.py",
+      "text": ") or next("
+    },
+    {
+      "language": "python",
+      "line": 341,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "(item for item in findings if str(item.get(\"severity\") or \"\") == \"recommended\"),"
+    },
+    {
+      "language": "python",
+      "line": 342,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "None,"
+    },
+    {
+      "language": "python",
+      "line": 343,
+      "path": "core\\repair_bay_handoff.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 344,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "if selected is None:"
+    },
+    {
+      "language": "python",
+      "line": 345,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "return {"
+    },
+    {
+      "language": "python",
+      "line": 346,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"ok\": False,"
+    },
+    {
+      "language": "python",
+      "line": 347,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"schema\": SCHEMA,"
+    },
+    {
+      "language": "python",
+      "line": 348,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"message\": \"No urgent or recommended Repair Bay finding is available for handoff.\","
+    },
+    {
+      "language": "python",
+      "line": 349,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"read_only\": True,"
+    },
+    {
+      "language": "python",
+      "line": 350,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"changes_applied\": 0,"
+    },
+    {
+      "language": "python",
+      "line": 351,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"mission_staged\": False,"
+    },
+    {
+      "language": "python",
+      "line": 352,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"implementation_authorized\": False,"
+    },
+    {
+      "language": "python",
+      "line": 353,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 355,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "if not _finding_is_actionable(report, selected):"
+    },
+    {
+      "language": "python",
+      "line": 356,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "return {"
+    },
+    {
+      "language": "python",
+      "line": 357,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"ok\": False,"
+    },
+    {
+      "language": "python",
+      "line": 358,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"schema\": SCHEMA,"
+    },
+    {
+      "language": "python",
+      "line": 359,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"message\": ("
+    },
+    {
+      "language": "python",
+      "line": 360,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"No repair is needed for this item. Launcher quantity, raw unknown classification, \""
+    },
+    {
+      "language": "python",
+      "line": 361,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"and exact duplicate content are informational unless the finalized scan contains an \""
+    },
+    {
+      "language": "python",
+      "line": 362,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"unresolved item or an evidence-backed review candidate.\""
+    },
+    {
+      "language": "python",
+      "line": 363,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "),"
+    },
+    {
+      "language": "python",
+      "line": 364,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"requested_finding_id\": _clean(requested or selected.get(\"id\"), 100),"
+    },
+    {
+      "language": "python",
+      "line": 365,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"finding\": {"
+    },
+    {
+      "language": "python",
+      "line": 366,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"id\": _clean(selected.get(\"id\"), 100),"
+    },
+    {
+      "language": "python",
+      "line": 367,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"title\": _safe_title(selected.get(\"title\") or selected.get(\"id\")),"
+    },
+    {
+      "language": "python",
+      "line": 368,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"severity\": _clean(selected.get(\"severity\"), 30).casefold(),"
+    },
+    {
+      "language": "python",
+      "line": 369,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "},"
+    },
+    {
+      "language": "python",
+      "line": 370,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"read_only\": True,"
+    },
+    {
+      "language": "python",
+      "line": 371,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"changes_applied\": 0,"
+    },
+    {
+      "language": "python",
+      "line": 372,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"mission_staged\": False,"
+    },
+    {
+      "language": "python",
+      "line": 373,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"implementation_authorized\": False,"
+    },
+    {
+      "language": "python",
+      "line": 374,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 376,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "evidence = [_clean(item, 900) for item in list(selected.get(\"evidence\") or [])[:MAX_EVIDENCE_ITEMS]]"
+    },
+    {
+      "language": "python",
+      "line": 377,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "paths = _finding_paths(root_path, report, selected)"
+    },
+    {
+      "language": "python",
+      "line": 378,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "eligible, reason, profile = _support_decision(selected, paths)"
+    },
+    {
+      "language": "python",
+      "line": 379,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "finding = {"
+    },
+    {
+      "language": "python",
+      "line": 380,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"id\": _clean(selected.get(\"id\"), 100),"
+    },
+    {
+      "language": "python",
+      "line": 381,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"title\": _safe_title(selected.get(\"title\") or selected.get(\"id\")),"
+    },
+    {
+      "language": "python",
+      "line": 382,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"severity\": _clean(selected.get(\"severity\"), 30).casefold(),"
+    },
+    {
+      "language": "python",
+      "line": 383,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 384,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "plain = _clean(selected.get(\"summary\") or \"Repair Bay found an item that deserves review.\", 1200)"
+    },
+    {
+      "language": "python",
+      "line": 385,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "proposed = _clean(selected.get(\"suggested_action\") or \"Review the evidence before any change.\", 1200)"
+    },
+    {
+      "language": "python",
+      "line": 386,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "packet: dict[str, Any] = {"
+    },
+    {
+      "language": "python",
+      "line": 387,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"ok\": True,"
+    },
+    {
+      "language": "python",
+      "line": 388,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"schema\": SCHEMA,"
+    },
+    {
+      "language": "python",
+      "line": 389,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"version\": \"2.5\","
+    },
+    {
+      "language": "python",
+      "line": 390,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"level\": \"advanced\" if str(level).casefold() == \"advanced\" else \"guided\","
+    },
+    {
+      "language": "python",
+      "line": 391,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"read_only\": True,"
+    },
+    {
+      "language": "python",
+      "line": 392,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"eligible\": eligible,"
+    },
+    {
+      "language": "python",
+      "line": 393,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"status\": \"ready_for_engineer_review\" if eligible else \"advisory_only\","
+    },
+    {
+      "language": "python",
+      "line": 394,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"eligibility_reason\": reason,"
+    },
+    {
+      "language": "python",
+      "line": 395,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"finding\": finding,"
+    },
+    {
+      "language": "python",
+      "line": 396,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"plain_english_explanation\": plain,"
+    },
+    {
+      "language": "python",
+      "line": 397,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"technical_evidence\": evidence,"
+    },
+    {
+      "language": "python",
+      "line": 398,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"affected_paths\": paths,"
+    },
+    {
+      "language": "python",
+      "line": 399,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"proposed_action\": proposed,"
+    },
+    {
+      "language": "python",
+      "line": 400,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"repair_kind\": profile.get(\"repair_kind\") if profile else None,"
+    },
+    {
+      "language": "python",
+      "line": 401,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"repair_label\": profile.get(\"label\") if profile else \"Advisory review only\","
+    },
+    {
+      "language": "python",
+      "line": 402,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"backup_required\": bool(profile and profile.get(\"backup_required\")),"
+    },
+    {
+      "language": "python",
+      "line": 403,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"safety_limits\": {"
+    },
+    {
+      "language": "python",
+      "line": 404,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"repair_bay_may_modify\": False,"
+    },
+    {
+      "language": "python",
+      "line": 405,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"mission_staged\": False,"
+    },
+    {
+      "language": "python",
+      "line": 406,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"exact_plan_created\": False,"
+    },
+    {
+      "language": "python",
+      "line": 407,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"network_allowed\": False,"
+    },
+    {
+      "language": "python",
+      "line": 408,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"commands_allowed\": False,"
+    },
+    {
+      "language": "python",
+      "line": 409,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"restart_allowed\": False,"
+    },
+    {
+      "language": "python",
+      "line": 410,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"install_allowed\": False,"
+    },
+    {
+      "language": "python",
+      "line": 411,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"delete_allowed\": False,"
+    },
+    {
+      "language": "python",
+      "line": 412,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"move_allowed\": False,"
+    },
+    {
+      "language": "python",
+      "line": 413,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"rename_allowed\": False,"
+    },
+    {
+      "language": "python",
+      "line": 414,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"automatic_apply_allowed\": False,"
+    },
+    {
+      "language": "python",
+      "line": 415,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "},"
+    },
+    {
+      "language": "python",
+      "line": 416,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"exact_plan_requirements\": ["
+    },
+    {
+      "language": "python",
+      "line": 417,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"Resolve every affected path from verified evidence.\","
+    },
+    {
+      "language": "python",
+      "line": 418,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"Show exact before hashes and the complete proposed diff or move list.\","
+    },
+    {
+      "language": "python",
+      "line": 419,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"Create a targeted snapshot before any later implementation.\","
+    },
+    {
+      "language": "python",
+      "line": 420,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"Require a separate exact APPLY hash and explicit operator approval.\","
+    },
+    {
+      "language": "python",
+      "line": 421,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"Validate the result and roll back automatically on failure.\","
+    },
+    {
+      "language": "python",
+      "line": 422,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"Preserve a final receipt with before-and-after evidence.\","
+    },
+    {
+      "language": "python",
+      "line": 423,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "],"
+    },
+    {
+      "language": "python",
+      "line": 424,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"changes_applied\": 0,"
+    },
+    {
+      "language": "python",
+      "line": 425,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"mission_staged\": False,"
+    },
+    {
+      "language": "python",
+      "line": 426,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"operator_next_step\": ("
+    },
+    {
+      "language": "python",
+      "line": 427,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"Review the handoff in Mission Console and press Send to stage a planning mission.\""
+    },
+    {
+      "language": "python",
+      "line": 428,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "if eligible"
+    },
+    {
+      "language": "python",
+      "line": 429,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "else \"Review the advisory explanation in Mission Console; no exact repair plan is authorized.\""
+    },
+    {
+      "language": "python",
+      "line": 430,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "),"
+    },
+    {
+      "language": "python",
+      "line": 431,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 432,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "packet[\"engineer_command\"] = _command_text(packet)"
+    },
+    {
+      "language": "python",
+      "line": 433,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "packet[\"implementation_authorized\"] = False"
+    },
+    {
+      "language": "python",
+      "line": 434,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "packet[\"expected_workshop_route\"] = \"plan\""
+    },
+    {
+      "language": "python",
+      "line": 435,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "packet[\"expected_implementation_authorized\"] = False"
+    },
+    {
+      "language": "python",
+      "line": 436,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "packet[\"route_guard\"] = predict_engineer_route(packet[\"engineer_command\"])"
+    },
+    {
+      "language": "python",
+      "line": 437,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "if not packet[\"route_guard\"].get(\"safe_for_repair_bay_send\"):"
+    },
+    {
+      "language": "python",
+      "line": 438,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "return {"
+    },
+    {
+      "language": "python",
+      "line": 439,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"ok\": False,"
+    },
+    {
+      "language": "python",
+      "line": 440,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"schema\": SCHEMA,"
+    },
+    {
+      "language": "python",
+      "line": 441,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"message\": ("
+    },
+    {
+      "language": "python",
+      "line": 442,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"The generated Engineer request did not satisfy the Repair Bay planning-only route guard. \""
+    },
+    {
+      "language": "python",
+      "line": 443,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"Nothing was staged or changed.\""
+    },
+    {
+      "language": "python",
+      "line": 444,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "),"
+    },
+    {
+      "language": "python",
+      "line": 445,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"finding\": finding,"
+    },
+    {
+      "language": "python",
+      "line": 446,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"read_only\": True,"
+    },
+    {
+      "language": "python",
+      "line": 447,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"changes_applied\": 0,"
+    },
+    {
+      "language": "python",
+      "line": 448,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"mission_staged\": False,"
+    },
+    {
+      "language": "python",
+      "line": 449,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"implementation_authorized\": False,"
+    },
+    {
+      "language": "python",
+      "line": 450,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"route_guard\": packet[\"route_guard\"],"
+    },
+    {
+      "language": "python",
+      "line": 451,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 452,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "packet[\"handoff_id\"] = hashlib.sha256("
+    },
+    {
+      "language": "python",
+      "line": 453,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "json.dumps("
+    },
+    {
+      "language": "python",
+      "line": 454,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "{"
+    },
+    {
+      "language": "python",
+      "line": 455,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"finding\": finding,"
+    },
+    {
+      "language": "python",
+      "line": 456,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"paths\": paths,"
+    },
+    {
+      "language": "python",
+      "line": 457,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"repair_kind\": packet.get(\"repair_kind\"),"
+    },
+    {
+      "language": "python",
+      "line": 458,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "\"command\": packet[\"engineer_command\"],"
+    },
+    {
+      "language": "python",
+      "line": 459,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "},"
+    },
+    {
+      "language": "python",
+      "line": 460,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "ensure_ascii=False,"
+    },
+    {
+      "language": "python",
+      "line": 461,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "sort_keys=True,"
+    },
+    {
+      "language": "python",
+      "line": 462,
+      "path": "core\\repair_bay_handoff.py",
+      "text": ").encode(\"utf-8\")"
+    },
+    {
+      "language": "python",
+      "line": 463,
+      "path": "core\\repair_bay_handoff.py",
+      "text": ").hexdigest()[:20]"
+    },
+    {
+      "language": "python",
+      "line": 464,
+      "path": "core\\repair_bay_handoff.py",
+      "text": "return packet"
+    },
+    {
+      "language": "python",
+      "line": 1,
+      "path": "core\\runtime_graph.py",
+      "text": "from pathlib import Path"
+    },
+    {
+      "language": "python",
+      "line": 2,
+      "path": "core\\runtime_graph.py",
+      "text": "import ast"
+    },
+    {
+      "language": "python",
+      "line": 3,
+      "path": "core\\runtime_graph.py",
+      "text": "from collections import defaultdict"
+    },
+    {
+      "language": "python",
+      "line": 6,
+      "path": "core\\runtime_graph.py",
+      "text": "class RuntimeGraph:"
+    },
+    {
+      "language": "python",
+      "line": 7,
+      "path": "core\\runtime_graph.py",
+      "text": "\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 8,
+      "path": "core\\runtime_graph.py",
+      "text": "Read-only runtime relationship scanner for FOXAI."
+    },
+    {
+      "language": "python",
+      "line": 10,
+      "path": "core\\runtime_graph.py",
+      "text": "Unlike DependencyGraph, this looks for object relationships and call sites:"
+    },
+    {
+      "language": "python",
+      "line": 11,
+      "path": "core\\runtime_graph.py",
+      "text": "- self.app.brainstem"
+    },
+    {
+      "language": "python",
+      "line": 12,
+      "path": "core\\runtime_graph.py",
+      "text": "- app.brainstem"
+    },
+    {
+      "language": "python",
+      "line": 13,
+      "path": "core\\runtime_graph.py",
+      "text": "- self.specialists[\"red_canvas\"]"
+    },
+    {
+      "language": "python",
+      "line": 14,
+      "path": "core\\runtime_graph.py",
+      "text": "- diagnostics.run_full_inspection(...)"
+    },
+    {
+      "language": "python",
+      "line": 15,
+      "path": "core\\runtime_graph.py",
+      "text": "- generate_image(...)"
+    },
+    {
+      "language": "python",
+      "line": 16,
+      "path": "core\\runtime_graph.py",
+      "text": "- build_prompt(...)"
+    },
+    {
+      "language": "python",
+      "line": 17,
+      "path": "core\\runtime_graph.py",
+      "text": "\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 19,
+      "path": "core\\runtime_graph.py",
+      "text": "IGNORE_DIRS = {"
+    },
+    {
+      "language": "python",
+      "line": 20,
+      "path": "core\\runtime_graph.py",
+      "text": "\"__pycache__\", \".git\", \".idea\", \".vscode\", \"Models\", \"models\","
+    },
+    {
+      "language": "python",
+      "line": 21,
+      "path": "core\\runtime_graph.py",
+      "text": "\"output\", \"outputs\", \"temp\", \"tmp\", \"Backups\", \"Releases\","
+    },
+    {
+      "language": "python",
+      "line": 22,
+      "path": "core\\runtime_graph.py",
+      "text": "\"Mission Archive\""
+    },
+    {
+      "language": "python",
+      "line": 23,
+      "path": "core\\runtime_graph.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 25,
+      "path": "core\\runtime_graph.py",
+      "text": "KNOWN_TARGETS = {"
+    },
+    {
+      "language": "python",
+      "line": 26,
+      "path": "core\\runtime_graph.py",
+      "text": "\"brainstem\": [\"brainstem\"],"
+    },
+    {
+      "language": "python",
+      "line": 27,
+      "path": "core\\runtime_graph.py",
+      "text": "\"director\": [\"direct\"],"
+    },
+    {
+      "language": "python",
+      "line": 28,
+      "path": "core\\runtime_graph.py",
+      "text": "\"diagnostics\": [\"diagnostics\", \"run_full_inspection\", \"hardware_status\", \"neural_status\", \"creative_status\"],"
+    },
+    {
+      "language": "python",
+      "line": 29,
+      "path": "core\\runtime_graph.py",
+      "text": "\"red canvas\": [\"red_canvas\", \"RedCanvasAgent\", \"generate_red_canvas\", \"route_image_request\", \"generate_image\"],"
+    },
+    {
+      "language": "python",
+      "line": 30,
+      "path": "core\\runtime_graph.py",
+      "text": "\"iron library\": [\"iron_library\", \"LibraryAgent\", \"search_documents\", \"list_documents\", \"ensure_library\"],"
+    },
+    {
+      "language": "python",
+      "line": 31,
+      "path": "core\\runtime_graph.py",
+      "text": "\"promptsmith\": [\"promptsmith\", \"build_prompt\", \"run_promptsmith\"],"
+    },
+    {
+      "language": "python",
+      "line": 32,
+      "path": "core\\runtime_graph.py",
+      "text": "\"comfy\": [\"comfy\", \"ComfyUI\", \"generate_image\", \"is_comfy_running\"],"
+    },
+    {
+      "language": "python",
+      "line": 33,
+      "path": "core\\runtime_graph.py",
+      "text": "\"engineer\": [\"engineer\", \"EngineerAgent\", \"ProjectIndex\", \"DependencyGraph\", \"RuntimeGraph\"],"
+    },
+    {
+      "language": "python",
+      "line": 34,
+      "path": "core\\runtime_graph.py",
+      "text": "\"mission control\": [\"mission_status\", \"add_chat\", \"start_mission_animation\", \"stop_mission_animation\"],"
+    },
+    {
+      "language": "python",
+      "line": 35,
+      "path": "core\\runtime_graph.py",
+      "text": "\"workshop state\": [\"begin_workshop_mission\", \"complete_workshop_mission\", \"fail_workshop_mission\", \"apply_workshop_state\"],"
+    },
+    {
+      "language": "python",
+      "line": 36,
+      "path": "core\\runtime_graph.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 38,
+      "path": "core\\runtime_graph.py",
+      "text": "def __init__(self, root):"
+    },
+    {
+      "language": "python",
+      "line": 39,
+      "path": "core\\runtime_graph.py",
+      "text": "self.root = Path(root)"
+    },
+    {
+      "language": "python",
+      "line": 40,
+      "path": "core\\runtime_graph.py",
+      "text": "self.references = defaultdict(list)"
+    },
+    {
+      "language": "python",
+      "line": 41,
+      "path": "core\\runtime_graph.py",
+      "text": "self.calls = defaultdict(list)"
+    },
+    {
+      "language": "python",
+      "line": 42,
+      "path": "core\\runtime_graph.py",
+      "text": "self.attributes = defaultdict(list)"
+    },
+    {
+      "language": "python",
+      "line": 43,
+      "path": "core\\runtime_graph.py",
+      "text": "self.errors = []"
+    },
+    {
+      "language": "python",
+      "line": 45,
+      "path": "core\\runtime_graph.py",
+      "text": "def build(self):"
+    },
+    {
+      "language": "python",
+      "line": 46,
+      "path": "core\\runtime_graph.py",
+      "text": "self.references = defaultdict(list)"
+    },
+    {
+      "language": "python",
+      "line": 47,
+      "path": "core\\runtime_graph.py",
+      "text": "self.calls = defaultdict(list)"
+    },
+    {
+      "language": "python",
+      "line": 48,
+      "path": "core\\runtime_graph.py",
+      "text": "self.attributes = defaultdict(list)"
+    },
+    {
+      "language": "python",
+      "line": 49,
+      "path": "core\\runtime_graph.py",
+      "text": "self.errors = []"
+    },
+    {
+      "language": "python",
+      "line": 51,
+      "path": "core\\runtime_graph.py",
+      "text": "for path in self.iter_python_files():"
+    },
+    {
+      "language": "python",
+      "line": 52,
+      "path": "core\\runtime_graph.py",
+      "text": "self.scan_file(path)"
+    },
+    {
+      "language": "python",
+      "line": 54,
+      "path": "core\\runtime_graph.py",
+      "text": "return self"
+    },
+    {
+      "language": "python",
+      "line": 56,
+      "path": "core\\runtime_graph.py",
+      "text": "def iter_python_files(self):"
+    },
+    {
+      "language": "python",
+      "line": 57,
+      "path": "core\\runtime_graph.py",
+      "text": "for path in self.root.rglob(\"*.py\"):"
+    },
+    {
+      "language": "python",
+      "line": 58,
+      "path": "core\\runtime_graph.py",
+      "text": "if not path.is_file():"
+    },
+    {
+      "language": "python",
+      "line": 59,
+      "path": "core\\runtime_graph.py",
+      "text": "continue"
+    },
+    {
+      "language": "python",
+      "line": 61,
+      "path": "core\\runtime_graph.py",
+      "text": "if any(part in self.IGNORE_DIRS for part in path.parts):"
+    },
+    {
+      "language": "python",
+      "line": 62,
+      "path": "core\\runtime_graph.py",
+      "text": "continue"
+    },
+    {
+      "language": "python",
+      "line": 64,
+      "path": "core\\runtime_graph.py",
+      "text": "yield path"
+    },
+    {
+      "language": "python",
+      "line": 66,
+      "path": "core\\runtime_graph.py",
+      "text": "def rel(self, path):"
+    },
+    {
+      "language": "python",
+      "line": 67,
+      "path": "core\\runtime_graph.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 68,
+      "path": "core\\runtime_graph.py",
+      "text": "return str(Path(path).relative_to(self.root)).replace(\"\\\\\", \"/\")"
+    },
+    {
+      "language": "python",
+      "line": 69,
+      "path": "core\\runtime_graph.py",
+      "text": "except Exception:"
+    },
+    {
+      "language": "python",
+      "line": 70,
+      "path": "core\\runtime_graph.py",
+      "text": "return str(path)"
+    },
+    {
+      "language": "python",
+      "line": 72,
+      "path": "core\\runtime_graph.py",
+      "text": "def scan_file(self, path):"
+    },
+    {
+      "language": "python",
+      "line": 73,
+      "path": "core\\runtime_graph.py",
+      "text": "rel = self.rel(path)"
+    },
+    {
+      "language": "python",
+      "line": 75,
+      "path": "core\\runtime_graph.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 76,
+      "path": "core\\runtime_graph.py",
+      "text": "source = path.read_text(encoding=\"utf-8\", errors=\"replace\")"
+    },
+    {
+      "language": "python",
+      "line": 77,
+      "path": "core\\runtime_graph.py",
+      "text": "tree = ast.parse(source)"
+    },
+    {
+      "language": "python",
+      "line": 78,
+      "path": "core\\runtime_graph.py",
+      "text": "except Exception as error:"
+    },
+    {
+      "language": "python",
+      "line": 79,
+      "path": "core\\runtime_graph.py",
+      "text": "self.errors.append({\"file\": rel, \"error\": str(error)})"
+    },
+    {
+      "language": "python",
+      "line": 80,
+      "path": "core\\runtime_graph.py",
+      "text": "return"
+    },
+    {
+      "language": "python",
+      "line": 82,
+      "path": "core\\runtime_graph.py",
+      "text": "for node in ast.walk(tree):"
+    },
+    {
+      "language": "python",
+      "line": 83,
+      "path": "core\\runtime_graph.py",
+      "text": "if isinstance(node, ast.Attribute):"
+    },
+    {
+      "language": "python",
+      "line": 84,
+      "path": "core\\runtime_graph.py",
+      "text": "name = self.attribute_name(node)"
+    },
+    {
+      "language": "python",
+      "line": 85,
+      "path": "core\\runtime_graph.py",
+      "text": "if name:"
+    },
+    {
+      "language": "python",
+      "line": 86,
+      "path": "core\\runtime_graph.py",
+      "text": "self.record_reference(name, rel, getattr(node, \"lineno\", None), \"attribute\")"
+    },
+    {
+      "language": "python",
+      "line": 87,
+      "path": "core\\runtime_graph.py",
+      "text": "self.attributes[name].append({"
+    },
+    {
+      "language": "python",
+      "line": 88,
+      "path": "core\\runtime_graph.py",
+      "text": "\"file\": rel,"
+    },
+    {
+      "language": "python",
+      "line": 89,
+      "path": "core\\runtime_graph.py",
+      "text": "\"line\": getattr(node, \"lineno\", None),"
+    },
+    {
+      "language": "python",
+      "line": 90,
+      "path": "core\\runtime_graph.py",
+      "text": "})"
+    },
+    {
+      "language": "python",
+      "line": 92,
+      "path": "core\\runtime_graph.py",
+      "text": "elif isinstance(node, ast.Call):"
+    },
+    {
+      "language": "python",
+      "line": 93,
+      "path": "core\\runtime_graph.py",
+      "text": "call_name = self.call_name(node.func)"
+    },
+    {
+      "language": "python",
+      "line": 94,
+      "path": "core\\runtime_graph.py",
+      "text": "if call_name:"
+    },
+    {
+      "language": "python",
+      "line": 95,
+      "path": "core\\runtime_graph.py",
+      "text": "self.record_reference(call_name, rel, getattr(node, \"lineno\", None), \"call\")"
+    },
+    {
+      "language": "python",
+      "line": 96,
+      "path": "core\\runtime_graph.py",
+      "text": "self.calls[call_name].append({"
+    },
+    {
+      "language": "python",
+      "line": 97,
+      "path": "core\\runtime_graph.py",
+      "text": "\"file\": rel,"
+    },
+    {
+      "language": "python",
+      "line": 98,
+      "path": "core\\runtime_graph.py",
+      "text": "\"line\": getattr(node, \"lineno\", None),"
+    },
+    {
+      "language": "python",
+      "line": 99,
+      "path": "core\\runtime_graph.py",
+      "text": "})"
+    },
+    {
+      "language": "python",
+      "line": 101,
+      "path": "core\\runtime_graph.py",
+      "text": "elif isinstance(node, ast.Constant):"
+    },
+    {
+      "language": "python",
+      "line": 102,
+      "path": "core\\runtime_graph.py",
+      "text": "if isinstance(node.value, str):"
+    },
+    {
+      "language": "python",
+      "line": 103,
+      "path": "core\\runtime_graph.py",
+      "text": "value = node.value"
+    },
+    {
+      "language": "python",
+      "line": 104,
+      "path": "core\\runtime_graph.py",
+      "text": "self.record_reference(value, rel, getattr(node, \"lineno\", None), \"string\")"
+    },
+    {
+      "language": "python",
+      "line": 106,
+      "path": "core\\runtime_graph.py",
+      "text": "def attribute_name(self, node):"
+    },
+    {
+      "language": "python",
+      "line": 107,
+      "path": "core\\runtime_graph.py",
+      "text": "parts = []"
+    },
+    {
+      "language": "python",
+      "line": 109,
+      "path": "core\\runtime_graph.py",
+      "text": "current = node"
+    },
+    {
+      "language": "python",
+      "line": 110,
+      "path": "core\\runtime_graph.py",
+      "text": "while isinstance(current, ast.Attribute):"
+    },
+    {
+      "language": "python",
+      "line": 111,
+      "path": "core\\runtime_graph.py",
+      "text": "parts.append(current.attr)"
+    },
+    {
+      "language": "python",
+      "line": 112,
+      "path": "core\\runtime_graph.py",
+      "text": "current = current.value"
+    },
+    {
+      "language": "python",
+      "line": 114,
+      "path": "core\\runtime_graph.py",
+      "text": "if isinstance(current, ast.Name):"
+    },
+    {
+      "language": "python",
+      "line": 115,
+      "path": "core\\runtime_graph.py",
+      "text": "parts.append(current.id)"
+    },
+    {
+      "language": "python",
+      "line": 117,
+      "path": "core\\runtime_graph.py",
+      "text": "if not parts:"
+    },
+    {
+      "language": "python",
+      "line": 118,
+      "path": "core\\runtime_graph.py",
+      "text": "return None"
+    },
+    {
+      "language": "python",
+      "line": 120,
+      "path": "core\\runtime_graph.py",
+      "text": "return \".\".join(reversed(parts))"
+    },
+    {
+      "language": "python",
+      "line": 122,
+      "path": "core\\runtime_graph.py",
+      "text": "def call_name(self, node):"
+    },
+    {
+      "language": "python",
+      "line": 123,
+      "path": "core\\runtime_graph.py",
+      "text": "if isinstance(node, ast.Name):"
+    },
+    {
+      "language": "python",
+      "line": 124,
+      "path": "core\\runtime_graph.py",
+      "text": "return node.id"
+    },
+    {
+      "language": "python",
+      "line": 126,
+      "path": "core\\runtime_graph.py",
+      "text": "if isinstance(node, ast.Attribute):"
+    },
+    {
+      "language": "python",
+      "line": 127,
+      "path": "core\\runtime_graph.py",
+      "text": "return self.attribute_name(node)"
+    },
+    {
+      "language": "python",
+      "line": 129,
+      "path": "core\\runtime_graph.py",
+      "text": "return None"
+    },
+    {
+      "language": "python",
+      "line": 131,
+      "path": "core\\runtime_graph.py",
+      "text": "def record_reference(self, value, rel, line, kind):"
+    },
+    {
+      "language": "python",
+      "line": 132,
+      "path": "core\\runtime_graph.py",
+      "text": "lowered = str(value).lower()"
+    },
+    {
+      "language": "python",
+      "line": 134,
+      "path": "core\\runtime_graph.py",
+      "text": "for target, patterns in self.KNOWN_TARGETS.items():"
+    },
+    {
+      "language": "python",
+      "line": 135,
+      "path": "core\\runtime_graph.py",
+      "text": "for pattern in patterns:"
+    },
+    {
+      "language": "python",
+      "line": 136,
+      "path": "core\\runtime_graph.py",
+      "text": "if pattern.lower() in lowered:"
+    },
+    {
+      "language": "python",
+      "line": 137,
+      "path": "core\\runtime_graph.py",
+      "text": "self.references[target].append({"
+    },
+    {
+      "language": "python",
+      "line": 138,
+      "path": "core\\runtime_graph.py",
+      "text": "\"value\": value,"
+    },
+    {
+      "language": "python",
+      "line": 139,
+      "path": "core\\runtime_graph.py",
+      "text": "\"file\": rel,"
+    },
+    {
+      "language": "python",
+      "line": 140,
+      "path": "core\\runtime_graph.py",
+      "text": "\"line\": line,"
+    },
+    {
+      "language": "python",
+      "line": 141,
+      "path": "core\\runtime_graph.py",
+      "text": "\"kind\": kind,"
+    },
+    {
+      "language": "python",
+      "line": 142,
+      "path": "core\\runtime_graph.py",
+      "text": "\"pattern\": pattern,"
+    },
+    {
+      "language": "python",
+      "line": 143,
+      "path": "core\\runtime_graph.py",
+      "text": "})"
+    },
+    {
+      "language": "python",
+      "line": 144,
+      "path": "core\\runtime_graph.py",
+      "text": "break"
+    },
+    {
+      "language": "python",
+      "line": 146,
+      "path": "core\\runtime_graph.py",
+      "text": "def summary(self):"
+    },
+    {
+      "language": "python",
+      "line": 147,
+      "path": "core\\runtime_graph.py",
+      "text": "total_refs = sum(len(items) for items in self.references.values())"
+    },
+    {
+      "language": "python",
+      "line": 148,
+      "path": "core\\runtime_graph.py",
+      "text": "return {"
+    },
+    {
+      "language": "python",
+      "line": 149,
+      "path": "core\\runtime_graph.py",
+      "text": "\"targets\": len(self.references),"
+    },
+    {
+      "language": "python",
+      "line": 150,
+      "path": "core\\runtime_graph.py",
+      "text": "\"references\": total_refs,"
+    },
+    {
+      "language": "python",
+      "line": 151,
+      "path": "core\\runtime_graph.py",
+      "text": "\"calls\": sum(len(items) for items in self.calls.values()),"
+    },
+    {
+      "language": "python",
+      "line": 152,
+      "path": "core\\runtime_graph.py",
+      "text": "\"attributes\": sum(len(items) for items in self.attributes.values()),"
+    },
+    {
+      "language": "python",
+      "line": 153,
+      "path": "core\\runtime_graph.py",
+      "text": "\"parse_errors\": len(self.errors),"
+    },
+    {
+      "language": "python",
+      "line": 154,
+      "path": "core\\runtime_graph.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 156,
+      "path": "core\\runtime_graph.py",
+      "text": "def report(self):"
+    },
+    {
+      "language": "python",
+      "line": 157,
+      "path": "core\\runtime_graph.py",
+      "text": "summary = self.summary()"
+    },
+    {
+      "language": "python",
+      "line": 159,
+      "path": "core\\runtime_graph.py",
+      "text": "lines = ["
+    },
+    {
+      "language": "python",
+      "line": 160,
+      "path": "core\\runtime_graph.py",
+      "text": "\"RUNTIME RELATIONSHIP GRAPH\","
+    },
+    {
+      "language": "python",
+      "line": 161,
+      "path": "core\\runtime_graph.py",
+      "text": "\"\","
+    },
+    {
+      "language": "python",
+      "line": 162,
+      "path": "core\\runtime_graph.py",
+      "text": "f\"Targets detected: {summary['targets']}\","
+    },
+    {
+      "language": "python",
+      "line": 163,
+      "path": "core\\runtime_graph.py",
+      "text": "f\"Runtime references: {summary['references']}\","
+    },
+    {
+      "language": "python",
+      "line": 164,
+      "path": "core\\runtime_graph.py",
+      "text": "f\"Call sites detected: {summary['calls']}\","
+    },
+    {
+      "language": "python",
+      "line": 165,
+      "path": "core\\runtime_graph.py",
+      "text": "f\"Attribute references detected: {summary['attributes']}\","
+    },
+    {
+      "language": "python",
+      "line": 166,
+      "path": "core\\runtime_graph.py",
+      "text": "f\"Parse errors: {summary['parse_errors']}\","
+    },
+    {
+      "language": "python",
+      "line": 167,
+      "path": "core\\runtime_graph.py",
+      "text": "\"\","
+    },
+    {
+      "language": "python",
+      "line": 168,
+      "path": "core\\runtime_graph.py",
+      "text": "\"Known Workshop relationships:\","
+    },
+    {
+      "language": "python",
+      "line": 169,
+      "path": "core\\runtime_graph.py",
+      "text": "]"
+    },
+    {
+      "language": "python",
+      "line": 171,
+      "path": "core\\runtime_graph.py",
+      "text": "for target in sorted(self.KNOWN_TARGETS):"
+    },
+    {
+      "language": "python",
+      "line": 172,
+      "path": "core\\runtime_graph.py",
+      "text": "refs = self.references.get(target, [])"
+    },
+    {
+      "language": "python",
+      "line": 173,
+      "path": "core\\runtime_graph.py",
+      "text": "files = sorted({item[\"file\"] for item in refs})"
+    },
+    {
+      "language": "python",
+      "line": 174,
+      "path": "core\\runtime_graph.py",
+      "text": "lines.append(f\"• {target}: {len(refs)} reference(s) across {len(files)} file(s)\")"
+    },
+    {
+      "language": "python",
+      "line": 176,
+      "path": "core\\runtime_graph.py",
+      "text": "lines.append(\"\")"
+    },
+    {
+      "language": "python",
+      "line": 177,
+      "path": "core\\runtime_graph.py",
+      "text": "lines.append(\"Safety Status:\")"
+    },
+    {
+      "language": "python",
+      "line": 178,
+      "path": "core\\runtime_graph.py",
+      "text": "lines.append(\"Read-only. No files were modified.\")"
+    },
+    {
+      "language": "python",
+      "line": 180,
+      "path": "core\\runtime_graph.py",
+      "text": "return \"\\n\".join(lines)"
+    },
+    {
+      "language": "python",
+      "line": 182,
+      "path": "core\\runtime_graph.py",
+      "text": "def relationship_answer(self, query):"
+    },
+    {
+      "language": "python",
+      "line": 183,
+      "path": "core\\runtime_graph.py",
+      "text": "target = self.extract_target(query)"
+    },
+    {
+      "language": "python",
+      "line": 184,
+      "path": "core\\runtime_graph.py",
+      "text": "refs = self.references.get(target, [])"
+    },
+    {
+      "language": "python",
+      "line": 186,
+      "path": "core\\runtime_graph.py",
+      "text": "lines = ["
+    },
+    {
+      "language": "python",
+      "line": 187,
+      "path": "core\\runtime_graph.py",
+      "text": "\"RUNTIME RELATIONSHIP ANALYSIS\","
+    },
+    {
+      "language": "python",
+      "line": 188,
+      "path": "core\\runtime_graph.py",
+      "text": "\"\","
+    },
+    {
+      "language": "python",
+      "line": 189,
+      "path": "core\\runtime_graph.py",
+      "text": "f\"Target: {target}\","
+    },
+    {
+      "language": "python",
+      "line": 190,
+      "path": "core\\runtime_graph.py",
+      "text": "\"\","
+    },
+    {
+      "language": "python",
+      "line": 191,
+      "path": "core\\runtime_graph.py",
+      "text": "]"
+    },
+    {
+      "language": "python",
+      "line": 193,
+      "path": "core\\runtime_graph.py",
+      "text": "if not refs:"
+    },
+    {
+      "language": "python",
+      "line": 194,
+      "path": "core\\runtime_graph.py",
+      "text": "lines.append(\"No runtime references were detected for this target.\")"
+    },
+    {
+      "language": "python",
+      "line": 195,
+      "path": "core\\runtime_graph.py",
+      "text": "else:"
+    },
+    {
+      "language": "python",
+      "line": 196,
+      "path": "core\\runtime_graph.py",
+      "text": "grouped = defaultdict(list)"
+    },
+    {
+      "language": "python",
+      "line": 197,
+      "path": "core\\runtime_graph.py",
+      "text": "for item in refs:"
+    },
+    {
+      "language": "python",
+      "line": 198,
+      "path": "core\\runtime_graph.py",
+      "text": "grouped[item[\"file\"]].append(item)"
+    },
+    {
+      "language": "python",
+      "line": 200,
+      "path": "core\\runtime_graph.py",
+      "text": "lines.append(f\"References found: {len(refs)}\")"
+    },
+    {
+      "language": "python",
+      "line": 201,
+      "path": "core\\runtime_graph.py",
+      "text": "lines.append(f\"Files involved: {len(grouped)}\")"
+    },
+    {
+      "language": "python",
+      "line": 202,
+      "path": "core\\runtime_graph.py",
+      "text": "lines.append(\"\")"
+    },
+    {
+      "language": "python",
+      "line": 204,
+      "path": "core\\runtime_graph.py",
+      "text": "for file, items in sorted(grouped.items())[:20]:"
+    },
+    {
+      "language": "python",
+      "line": 205,
+      "path": "core\\runtime_graph.py",
+      "text": "lines.append(f\"--- {file} ---\")"
+    },
+    {
+      "language": "python",
+      "line": 206,
+      "path": "core\\runtime_graph.py",
+      "text": "for item in items[:12]:"
+    },
+    {
+      "language": "python",
+      "line": 207,
+      "path": "core\\runtime_graph.py",
+      "text": "lines.append("
+    },
+    {
+      "language": "python",
+      "line": 208,
+      "path": "core\\runtime_graph.py",
+      "text": "f\"• line {item.get('line')}: {item.get('kind')} → {item.get('value')}\""
+    },
+    {
+      "language": "python",
+      "line": 209,
+      "path": "core\\runtime_graph.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 210,
+      "path": "core\\runtime_graph.py",
+      "text": "if len(items) > 12:"
+    },
+    {
+      "language": "python",
+      "line": 211,
+      "path": "core\\runtime_graph.py",
+      "text": "lines.append(f\"• ... {len(items) - 12} more\")"
+    },
+    {
+      "language": "python",
+      "line": 212,
+      "path": "core\\runtime_graph.py",
+      "text": "lines.append(\"\")"
+    },
+    {
+      "language": "python",
+      "line": 214,
+      "path": "core\\runtime_graph.py",
+      "text": "lines.append(\"Interpretation:\")"
+    },
+    {
+      "language": "python",
+      "line": 215,
+      "path": "core\\runtime_graph.py",
+      "text": "lines.append(self.interpret_target(target))"
+    },
+    {
+      "language": "python",
+      "line": 217,
+      "path": "core\\runtime_graph.py",
+      "text": "lines.append(\"\")"
+    },
+    {
+      "language": "python",
+      "line": 218,
+      "path": "core\\runtime_graph.py",
+      "text": "lines.append(\"Safety Status:\")"
+    },
+    {
+      "language": "python",
+      "line": 219,
+      "path": "core\\runtime_graph.py",
+      "text": "lines.append(\"Read-only. No files were modified.\")"
+    },
+    {
+      "language": "python",
+      "line": 221,
+      "path": "core\\runtime_graph.py",
+      "text": "return \"\\n\".join(lines)"
+    },
+    {
+      "language": "python",
+      "line": 223,
+      "path": "core\\runtime_graph.py",
+      "text": "def extract_target(self, query):"
+    },
+    {
+      "language": "python",
+      "line": 224,
+      "path": "core\\runtime_graph.py",
+      "text": "lowered = query.lower()"
+    },
+    {
+      "language": "python",
+      "line": 226,
+      "path": "core\\runtime_graph.py",
+      "text": "for target in self.KNOWN_TARGETS:"
+    },
+    {
+      "language": "python",
+      "line": 227,
+      "path": "core\\runtime_graph.py",
+      "text": "if target in lowered:"
+    },
+    {
+      "language": "python",
+      "line": 228,
+      "path": "core\\runtime_graph.py",
+      "text": "return target"
+    },
+    {
+      "language": "python",
+      "line": 230,
+      "path": "core\\runtime_graph.py",
+      "text": "aliases = {"
+    },
+    {
+      "language": "python",
+      "line": 231,
+      "path": "core\\runtime_graph.py",
+      "text": "\"brainstem\": \"brainstem\","
+    },
+    {
+      "language": "python",
+      "line": 232,
+      "path": "core\\runtime_graph.py",
+      "text": "\"state\": \"workshop state\","
+    },
+    {
+      "language": "python",
+      "line": 233,
+      "path": "core\\runtime_graph.py",
+      "text": "\"busy\": \"workshop state\","
+    },
+    {
+      "language": "python",
+      "line": 234,
+      "path": "core\\runtime_graph.py",
+      "text": "\"red\": \"red canvas\","
+    },
+    {
+      "language": "python",
+      "line": 235,
+      "path": "core\\runtime_graph.py",
+      "text": "\"canvas\": \"red canvas\","
+    },
+    {
+      "language": "python",
+      "line": 236,
+      "path": "core\\runtime_graph.py",
+      "text": "\"library\": \"iron library\","
+    },
+    {
+      "language": "python",
+      "line": 237,
+      "path": "core\\runtime_graph.py",
+      "text": "\"diagnostic\": \"diagnostics\","
+    },
+    {
+      "language": "python",
+      "line": 238,
+      "path": "core\\runtime_graph.py",
+      "text": "\"diag\": \"diagnostics\","
+    },
+    {
+      "language": "python",
+      "line": 239,
+      "path": "core\\runtime_graph.py",
+      "text": "\"comfyui\": \"comfy\","
+    },
+    {
+      "language": "python",
+      "line": 240,
+      "path": "core\\runtime_graph.py",
+      "text": "\"comfy\": \"comfy\","
+    },
+    {
+      "language": "python",
+      "line": 241,
+      "path": "core\\runtime_graph.py",
+      "text": "\"prompt\": \"promptsmith\","
+    },
+    {
+      "language": "python",
+      "line": 242,
+      "path": "core\\runtime_graph.py",
+      "text": "\"engineer\": \"engineer\","
+    },
+    {
+      "language": "python",
+      "line": 243,
+      "path": "core\\runtime_graph.py",
+      "text": "\"mission\": \"mission control\","
+    },
+    {
+      "language": "python",
+      "line": 244,
+      "path": "core\\runtime_graph.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 246,
+      "path": "core\\runtime_graph.py",
+      "text": "for key, value in aliases.items():"
+    },
+    {
+      "language": "python",
+      "line": 247,
+      "path": "core\\runtime_graph.py",
+      "text": "if key in lowered:"
+    },
+    {
+      "language": "python",
+      "line": 248,
+      "path": "core\\runtime_graph.py",
+      "text": "return value"
+    },
+    {
+      "language": "python",
+      "line": 250,
+      "path": "core\\runtime_graph.py",
+      "text": "return \"brainstem\""
+    },
+    {
+      "language": "python",
+      "line": 252,
+      "path": "core\\runtime_graph.py",
+      "text": "def interpret_target(self, target):"
+    },
+    {
+      "language": "python",
+      "line": 253,
+      "path": "core\\runtime_graph.py",
+      "text": "explanations = {"
+    },
+    {
+      "language": "python",
+      "line": 254,
+      "path": "core\\runtime_graph.py",
+      "text": "\"brainstem\": \"Brainstem is the Workshop state manager. Runtime references usually indicate state checks, mission locks, readiness checks, or active mission tracking.\","
+    },
+    {
+      "language": "python",
+      "line": 255,
+      "path": "core\\runtime_graph.py",
+      "text": "\"director\": \"Director is responsible for classifying operator requests and choosing the correct department.\","
+    },
+    {
+      "language": "python",
+      "line": 256,
+      "path": "core\\runtime_graph.py",
+      "text": "\"diagnostics\": \"Diagnostics gathers Workshop health information for the Diagnostics department, Advisor, and future Engineer troubleshooting.\","
+    },
+    {
+      "language": "python",
+      "line": 257,
+      "path": "core\\runtime_graph.py",
+      "text": "\"red canvas\": \"Red Canvas handles image-generation missions, including prompt preparation, ComfyUI submission, and output display.\","
+    },
+    {
+      "language": "python",
+      "line": 258,
+      "path": "core\\runtime_graph.py",
+      "text": "\"iron library\": \"Iron Library handles local document and code search.\","
+    },
+    {
+      "language": "python",
+      "line": 259,
+      "path": "core\\runtime_graph.py",
+      "text": "\"promptsmith\": \"PromptSmith enhances visual prompts before Red Canvas sends them to ComfyUI.\","
+    },
+    {
+      "language": "python",
+      "line": 260,
+      "path": "core\\runtime_graph.py",
+      "text": "\"comfy\": \"ComfyUI is the image-generation backend used by Red Canvas.\","
+    },
+    {
+      "language": "python",
+      "line": 261,
+      "path": "core\\runtime_graph.py",
+      "text": "\"engineer\": \"Engineer analyzes the project in read-only mode and uses ProjectIndex, DependencyGraph, and RuntimeGraph.\","
+    },
+    {
+      "language": "python",
+      "line": 262,
+      "path": "core\\runtime_graph.py",
+      "text": "\"mission control\": \"Mission Control is the narration layer that reports what FOXAI is doing.\","
+    },
+    {
+      "language": "python",
+      "line": 263,
+      "path": "core\\runtime_graph.py",
+      "text": "\"workshop state\": \"Workshop state methods lock/unlock controls, track active missions, and prevent overlapping operations.\","
+    },
+    {
+      "language": "python",
+      "line": 264,
+      "path": "core\\runtime_graph.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 266,
+      "path": "core\\runtime_graph.py",
+      "text": "return explanations.get(target, \"No interpretation is available for this target yet.\")"
+    },
+    {
+      "language": "python",
+      "line": 1,
+      "path": "core\\security_containment.py",
+      "text": "from __future__ import annotations"
+    },
+    {
+      "language": "python",
+      "line": 3,
+      "path": "core\\security_containment.py",
+      "text": "\"\"\"KayocktheOS Phase 1 security-containment helpers."
+    },
+    {
+      "language": "python",
+      "line": 5,
+      "path": "core\\security_containment.py",
+      "text": "This module is deliberately deterministic. Model text is never treated as"
+    },
+    {
+      "language": "python",
+      "line": 6,
+      "path": "core\\security_containment.py",
+      "text": "operator approval. Casbin support is optional and defaults to the hard-coded,"
+    },
+    {
+      "language": "python",
+      "line": 7,
+      "path": "core\\security_containment.py",
+      "text": "default-deny fallback until the dependency is installed and the policy files"
+    },
+    {
+      "language": "python",
+      "line": 8,
+      "path": "core\\security_containment.py",
+      "text": "are present."
+    },
+    {
+      "language": "python",
+      "line": 9,
+      "path": "core\\security_containment.py",
+      "text": "\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 11,
+      "path": "core\\security_containment.py",
+      "text": "from contextlib import contextmanager"
+    },
+    {
+      "language": "python",
+      "line": 12,
+      "path": "core\\security_containment.py",
+      "text": "from dataclasses import asdict, dataclass"
+    },
+    {
+      "language": "python",
+      "line": 13,
+      "path": "core\\security_containment.py",
+      "text": "from datetime import datetime, timezone"
+    },
+    {
+      "language": "python",
+      "line": 14,
+      "path": "core\\security_containment.py",
+      "text": "from functools import lru_cache"
+    },
+    {
+      "language": "python",
+      "line": 15,
+      "path": "core\\security_containment.py",
+      "text": "from hashlib import sha256"
+    },
+    {
+      "language": "python",
+      "line": 16,
+      "path": "core\\security_containment.py",
+      "text": "import json"
+    },
+    {
+      "language": "python",
+      "line": 17,
+      "path": "core\\security_containment.py",
+      "text": "import os"
+    },
+    {
+      "language": "python",
+      "line": 18,
+      "path": "core\\security_containment.py",
+      "text": "from pathlib import Path"
+    },
+    {
+      "language": "python",
+      "line": 19,
+      "path": "core\\security_containment.py",
+      "text": "import re"
+    },
+    {
+      "language": "python",
+      "line": 20,
+      "path": "core\\security_containment.py",
+      "text": "import secrets"
+    },
+    {
+      "language": "python",
+      "line": 21,
+      "path": "core\\security_containment.py",
+      "text": "from threading import RLock"
+    },
+    {
+      "language": "python",
+      "line": 22,
+      "path": "core\\security_containment.py",
+      "text": "import time"
+    },
+    {
+      "language": "python",
+      "line": 23,
+      "path": "core\\security_containment.py",
+      "text": "from typing import Any, Iterable"
+    },
+    {
+      "language": "python",
+      "line": 25,
+      "path": "core\\security_containment.py",
+      "text": "OPERATOR_ACTORS = {\"operator\", \"human_operator\", \"eric\", \"ui_operator\"}"
+    },
+    {
+      "language": "python",
+      "line": 26,
+      "path": "core\\security_containment.py",
+      "text": "MODEL_ACTORS = {"
+    },
+    {
+      "language": "python",
+      "line": 27,
+      "path": "core\\security_containment.py",
+      "text": "\"agent_fox\", \"assistant\", \"model\", \"llm\", \"professor\", \"mission_console\","
+    },
+    {
+      "language": "python",
+      "line": 28,
+      "path": "core\\security_containment.py",
+      "text": "\"unknown_model\", \"generated_prompt\","
+    },
+    {
+      "language": "python",
+      "line": 29,
+      "path": "core\\security_containment.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 30,
+      "path": "core\\security_containment.py",
+      "text": "PRIVILEGED_DEPARTMENTS = {"
+    },
+    {
+      "language": "python",
+      "line": 31,
+      "path": "core\\security_containment.py",
+      "text": "\"engineer\", \"engineering_airlock\", \"repair_bay\", \"repair_chamber\","
+    },
+    {
+      "language": "python",
+      "line": 32,
+      "path": "core\\security_containment.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 34,
+      "path": "core\\security_containment.py",
+      "text": "PROTECTED_DIR_NAMES = {"
+    },
+    {
+      "language": "python",
+      "line": 35,
+      "path": "core\\security_containment.py",
+      "text": "\".ssh\", \".gnupg\", \".aws\", \".azure\", \".kube\","
+    },
+    {
+      "language": "python",
+      "line": 36,
+      "path": "core\\security_containment.py",
+      "text": "\"credentials\", \"credential\", \"secrets\", \"secret\","
+    },
+    {
+      "language": "python",
+      "line": 37,
+      "path": "core\\security_containment.py",
+      "text": "\"vault\", \"vaults\", \"keystore\", \"keyring\", \"keyrings\","
+    },
+    {
+      "language": "python",
+      "line": 38,
+      "path": "core\\security_containment.py",
+      "text": "\"passwords\", \"private_keys\", \"windows_credentials\","
+    },
+    {
+      "language": "python",
+      "line": 39,
+      "path": "core\\security_containment.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 40,
+      "path": "core\\security_containment.py",
+      "text": "PROTECTED_FILE_NAMES = {"
+    },
+    {
+      "language": "python",
+      "line": 41,
+      "path": "core\\security_containment.py",
+      "text": "\".env\", \"credentials.json\", \"credential.json\", \"client_secret.json\","
+    },
+    {
+      "language": "python",
+      "line": 42,
+      "path": "core\\security_containment.py",
+      "text": "\"client_secrets.json\", \"secrets.json\", \"secret.json\", \"token.json\","
+    },
+    {
+      "language": "python",
+      "line": 43,
+      "path": "core\\security_containment.py",
+      "text": "\"tokens.json\", \"id_rsa\", \"id_dsa\", \"id_ecdsa\", \"id_ed25519\","
+    },
+    {
+      "language": "python",
+      "line": 44,
+      "path": "core\\security_containment.py",
+      "text": "\"authorized_keys\", \"passwords.txt\", \"passwords.csv\","
+    },
+    {
+      "language": "python",
+      "line": 45,
+      "path": "core\\security_containment.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 46,
+      "path": "core\\security_containment.py",
+      "text": "PROTECTED_SUFFIXES = {"
+    },
+    {
+      "language": "python",
+      "line": 47,
+      "path": "core\\security_containment.py",
+      "text": "\".pem\", \".key\", \".p12\", \".pfx\", \".kdbx\", \".jks\", \".keystore\","
+    },
+    {
+      "language": "python",
+      "line": 48,
+      "path": "core\\security_containment.py",
+      "text": "\".ovpn\", \".ppk\","
+    },
+    {
+      "language": "python",
+      "line": 49,
+      "path": "core\\security_containment.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 51,
+      "path": "core\\security_containment.py",
+      "text": "_EXPLICIT_ENGINEER = re.compile(r\"^\\s*(?:/engineer(?:\\s+|$)|engineer\\s*[:,]\\s*\\S)\", re.I)"
+    },
+    {
+      "language": "python",
+      "line": 53,
+      "path": "core\\security_containment.py",
+      "text": "_SECRET_PATTERNS: list[tuple[re.Pattern[str], str]] = ["
+    },
+    {
+      "language": "python",
+      "line": 54,
+      "path": "core\\security_containment.py",
+      "text": "(re.compile(r\"-----BEGIN [A-Z0-9 ]*PRIVATE KEY-----.*?-----END [A-Z0-9 ]*PRIVATE KEY-----\", re.S), \"[REDACTED PRIVATE KEY]\"),"
+    },
+    {
+      "language": "python",
+      "line": 55,
+      "path": "core\\security_containment.py",
+      "text": "(re.compile(r\"\\bsk-(?:proj-)?[A-Za-z0-9_-]{16,}\\b\"), \"[REDACTED OPENAI KEY]\"),"
+    },
+    {
+      "language": "python",
+      "line": 56,
+      "path": "core\\security_containment.py",
+      "text": "(re.compile(r\"\\b(?:ghp|gho|ghu|ghs|github_pat)_[A-Za-z0-9_]{16,}\\b\"), \"[REDACTED GITHUB TOKEN]\"),"
+    },
+    {
+      "language": "python",
+      "line": 57,
+      "path": "core\\security_containment.py",
+      "text": "(re.compile(r\"\\bAKIA[0-9A-Z]{16}\\b\"), \"[REDACTED AWS ACCESS KEY]\"),"
+    },
+    {
+      "language": "python",
+      "line": 58,
+      "path": "core\\security_containment.py",
+      "text": "(re.compile(r\"\\bAIza[0-9A-Za-z_-]{20,}\\b\"), \"[REDACTED GOOGLE API KEY]\"),"
+    },
+    {
+      "language": "python",
+      "line": 59,
+      "path": "core\\security_containment.py",
+      "text": "(re.compile(r\"\\beyJ[A-Za-z0-9_-]{8,}\\.[A-Za-z0-9_-]{8,}\\.[A-Za-z0-9_-]{8,}\\b\"), \"[REDACTED JWT]\"),"
+    },
+    {
+      "language": "python",
+      "line": 60,
+      "path": "core\\security_containment.py",
+      "text": "(re.compile(r\"(?i)\\bBearer\\s+[A-Za-z0-9._~+/=-]{12,}\"), \"Bearer [REDACTED TOKEN]\"),"
+    },
+    {
+      "language": "python",
+      "line": 61,
+      "path": "core\\security_containment.py",
+      "text": "(re.compile(r\"(?i)(\\b(?:password|passwd|pwd|api[_-]?key|secret|token|client[_-]?secret|access[_-]?key|private[_-]?key)\\b\\s*[:=]\\s*[\\\"']?)([^\\s,;\\\"']{4,})\"), r\"\\1[REDACTED]\"),"
+    },
+    {
+      "language": "python",
+      "line": 62,
+      "path": "core\\security_containment.py",
+      "text": "(re.compile(r\"(?i)([a-z][a-z0-9+.-]*://[^\\s:/@]+:)([^\\s/@]+)(@)\"), r\"\\1[REDACTED]\\3\"),"
+    },
+    {
+      "language": "python",
+      "line": 63,
+      "path": "core\\security_containment.py",
+      "text": "]"
+    },
+    {
+      "language": "python",
+      "line": 65,
+      "path": "core\\security_containment.py",
+      "text": "_ACTION_CLAIM = re.compile("
+    },
+    {
+      "language": "python",
+      "line": 66,
+      "path": "core\\security_containment.py",
+      "text": "r\"(?i)\\b(?:I|we|the system|FOXAI|Agent Fox)\\s+(?:have\\s+)?(?:successfully\\s+)?\""
+    },
+    {
+      "language": "python",
+      "line": 67,
+      "path": "core\\security_containment.py",
+      "text": "r\"(?:opened|launched|created|deleted|removed|moved|installed|modified|overwrote|saved|fixed|repaired|applied|executed|completed|restored|rolled back)\\b\""
+    },
+    {
+      "language": "python",
+      "line": 68,
+      "path": "core\\security_containment.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 71,
+      "path": "core\\security_containment.py",
+      "text": "AIRLOCK_AUDIT_RELATIVE_PATH = ("
+    },
+    {
+      "language": "python",
+      "line": 72,
+      "path": "core\\security_containment.py",
+      "text": "Path(\"Logs\") / \"Security\" / \"engineering_airlock_events.jsonl\""
+    },
+    {
+      "language": "python",
+      "line": 73,
+      "path": "core\\security_containment.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 75,
+      "path": "core\\security_containment.py",
+      "text": "_MUTATING_REPAIR_ACTIONS = {"
+    },
+    {
+      "language": "python",
+      "line": 76,
+      "path": "core\\security_containment.py",
+      "text": "\"apply\","
+    },
+    {
+      "language": "python",
+      "line": 77,
+      "path": "core\\security_containment.py",
+      "text": "\"execute_structured_action\","
+    },
+    {
+      "language": "python",
+      "line": 78,
+      "path": "core\\security_containment.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 81,
+      "path": "core\\security_containment.py",
+      "text": "_AIRLOCK_PROCESS_LOCK = RLock()"
+    },
+    {
+      "language": "python",
+      "line": 82,
+      "path": "core\\security_containment.py",
+      "text": "_AIRLOCK_LOCK_TIMEOUT_SECONDS = 5.0"
+    },
+    {
+      "language": "python",
+      "line": 85,
+      "path": "core\\security_containment.py",
+      "text": "@contextmanager"
+    },
+    {
+      "language": "python",
+      "line": 86,
+      "path": "core\\security_containment.py",
+      "text": "def _airlock_audit_lock("
+    },
+    {
+      "language": "python",
+      "line": 87,
+      "path": "core\\security_containment.py",
+      "text": "path: str | Path,"
+    },
+    {
+      "language": "python",
+      "line": 88,
+      "path": "core\\security_containment.py",
+      "text": "*,"
+    },
+    {
+      "language": "python",
+      "line": 89,
+      "path": "core\\security_containment.py",
+      "text": "timeout_seconds: float = _AIRLOCK_LOCK_TIMEOUT_SECONDS,"
+    },
+    {
+      "language": "python",
+      "line": 90,
+      "path": "core\\security_containment.py",
+      "text": "):"
+    },
+    {
+      "language": "python",
+      "line": 91,
+      "path": "core\\security_containment.py",
+      "text": "\"\"\"Serialize the shared audit chain across threads and processes.\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 92,
+      "path": "core\\security_containment.py",
+      "text": "audit_path = Path(path)"
+    },
+    {
+      "language": "python",
+      "line": 93,
+      "path": "core\\security_containment.py",
+      "text": "lock_path = audit_path.with_name(audit_path.name + \".lock\")"
+    },
+    {
+      "language": "python",
+      "line": 94,
+      "path": "core\\security_containment.py",
+      "text": "lock_path.parent.mkdir(parents=True, exist_ok=True)"
+    },
+    {
+      "language": "python",
+      "line": 96,
+      "path": "core\\security_containment.py",
+      "text": "with _AIRLOCK_PROCESS_LOCK:"
+    },
+    {
+      "language": "python",
+      "line": 97,
+      "path": "core\\security_containment.py",
+      "text": "with lock_path.open(\"a+b\") as handle:"
+    },
+    {
+      "language": "python",
+      "line": 98,
+      "path": "core\\security_containment.py",
+      "text": "handle.seek(0, 2)"
+    },
+    {
+      "language": "python",
+      "line": 99,
+      "path": "core\\security_containment.py",
+      "text": "if handle.tell() == 0:"
+    },
+    {
+      "language": "python",
+      "line": 100,
+      "path": "core\\security_containment.py",
+      "text": "handle.write(b\"\\0\")"
+    },
+    {
+      "language": "python",
+      "line": 101,
+      "path": "core\\security_containment.py",
+      "text": "handle.flush()"
+    },
+    {
+      "language": "python",
+      "line": 102,
+      "path": "core\\security_containment.py",
+      "text": "os.fsync(handle.fileno())"
+    },
+    {
+      "language": "python",
+      "line": 103,
+      "path": "core\\security_containment.py",
+      "text": "handle.seek(0)"
+    },
+    {
+      "language": "python",
+      "line": 105,
+      "path": "core\\security_containment.py",
+      "text": "deadline = time.monotonic() + max("
+    },
+    {
+      "language": "python",
+      "line": 106,
+      "path": "core\\security_containment.py",
+      "text": "0.1,"
+    },
+    {
+      "language": "python",
+      "line": 107,
+      "path": "core\\security_containment.py",
+      "text": "float(timeout_seconds),"
+    },
+    {
+      "language": "python",
+      "line": 108,
+      "path": "core\\security_containment.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 109,
+      "path": "core\\security_containment.py",
+      "text": "lock_kind = \"process_only\""
+    },
+    {
+      "language": "python",
+      "line": 110,
+      "path": "core\\security_containment.py",
+      "text": "lock_module = None"
+    },
+    {
+      "language": "python",
+      "line": 112,
+      "path": "core\\security_containment.py",
+      "text": "if os.name == \"nt\":"
+    },
+    {
+      "language": "python",
+      "line": 113,
+      "path": "core\\security_containment.py",
+      "text": "import msvcrt  # type: ignore"
+    },
+    {
+      "language": "python",
+      "line": 115,
+      "path": "core\\security_containment.py",
+      "text": "while True:"
+    },
+    {
+      "language": "python",
+      "line": 116,
+      "path": "core\\security_containment.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 117,
+      "path": "core\\security_containment.py",
+      "text": "handle.seek(0)"
+    },
+    {
+      "language": "python",
+      "line": 118,
+      "path": "core\\security_containment.py",
+      "text": "msvcrt.locking("
+    },
+    {
+      "language": "python",
+      "line": 119,
+      "path": "core\\security_containment.py",
+      "text": "handle.fileno(),"
+    },
+    {
+      "language": "python",
+      "line": 120,
+      "path": "core\\security_containment.py",
+      "text": "msvcrt.LK_NBLCK,"
+    },
+    {
+      "language": "python",
+      "line": 121,
+      "path": "core\\security_containment.py",
+      "text": "1,"
+    },
+    {
+      "language": "python",
+      "line": 122,
+      "path": "core\\security_containment.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 123,
+      "path": "core\\security_containment.py",
+      "text": "lock_kind = \"msvcrt\""
+    },
+    {
+      "language": "python",
+      "line": 124,
+      "path": "core\\security_containment.py",
+      "text": "lock_module = msvcrt"
+    },
+    {
+      "language": "python",
+      "line": 125,
+      "path": "core\\security_containment.py",
+      "text": "break"
+    },
+    {
+      "language": "python",
+      "line": 126,
+      "path": "core\\security_containment.py",
+      "text": "except OSError:"
+    },
+    {
+      "language": "python",
+      "line": 127,
+      "path": "core\\security_containment.py",
+      "text": "if time.monotonic() >= deadline:"
+    },
+    {
+      "language": "python",
+      "line": 128,
+      "path": "core\\security_containment.py",
+      "text": "raise TimeoutError("
+    },
+    {
+      "language": "python",
+      "line": 129,
+      "path": "core\\security_containment.py",
+      "text": "\"Timed out waiting for the shared \""
+    },
+    {
+      "language": "python",
+      "line": 130,
+      "path": "core\\security_containment.py",
+      "text": "\"Airlock audit lock.\""
+    },
+    {
+      "language": "python",
+      "line": 131,
+      "path": "core\\security_containment.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 132,
+      "path": "core\\security_containment.py",
+      "text": "time.sleep(0.05)"
+    },
+    {
+      "language": "python",
+      "line": 133,
+      "path": "core\\security_containment.py",
+      "text": "else:"
+    },
+    {
+      "language": "python",
+      "line": 134,
+      "path": "core\\security_containment.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 135,
+      "path": "core\\security_containment.py",
+      "text": "import fcntl  # type: ignore"
+    },
+    {
+      "language": "python",
+      "line": 136,
+      "path": "core\\security_containment.py",
+      "text": "except ImportError:"
+    },
+    {
+      "language": "python",
+      "line": 137,
+      "path": "core\\security_containment.py",
+      "text": "fcntl = None"
+    },
+    {
+      "language": "python",
+      "line": 139,
+      "path": "core\\security_containment.py",
+      "text": "if fcntl is not None:"
+    },
+    {
+      "language": "python",
+      "line": 140,
+      "path": "core\\security_containment.py",
+      "text": "while True:"
+    },
+    {
+      "language": "python",
+      "line": 141,
+      "path": "core\\security_containment.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 142,
+      "path": "core\\security_containment.py",
+      "text": "fcntl.flock("
+    },
+    {
+      "language": "python",
+      "line": 143,
+      "path": "core\\security_containment.py",
+      "text": "handle.fileno(),"
+    },
+    {
+      "language": "python",
+      "line": 144,
+      "path": "core\\security_containment.py",
+      "text": "fcntl.LOCK_EX | fcntl.LOCK_NB,"
+    },
+    {
+      "language": "python",
+      "line": 145,
+      "path": "core\\security_containment.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 146,
+      "path": "core\\security_containment.py",
+      "text": "lock_kind = \"fcntl\""
+    },
+    {
+      "language": "python",
+      "line": 147,
+      "path": "core\\security_containment.py",
+      "text": "lock_module = fcntl"
+    },
+    {
+      "language": "python",
+      "line": 148,
+      "path": "core\\security_containment.py",
+      "text": "break"
+    },
+    {
+      "language": "python",
+      "line": 149,
+      "path": "core\\security_containment.py",
+      "text": "except BlockingIOError:"
+    },
+    {
+      "language": "python",
+      "line": 150,
+      "path": "core\\security_containment.py",
+      "text": "if time.monotonic() >= deadline:"
+    },
+    {
+      "language": "python",
+      "line": 151,
+      "path": "core\\security_containment.py",
+      "text": "raise TimeoutError("
+    },
+    {
+      "language": "python",
+      "line": 152,
+      "path": "core\\security_containment.py",
+      "text": "\"Timed out waiting for the shared \""
+    },
+    {
+      "language": "python",
+      "line": 153,
+      "path": "core\\security_containment.py",
+      "text": "\"Airlock audit lock.\""
+    },
+    {
+      "language": "python",
+      "line": 154,
+      "path": "core\\security_containment.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 155,
+      "path": "core\\security_containment.py",
+      "text": "time.sleep(0.05)"
+    },
+    {
+      "language": "python",
+      "line": 157,
+      "path": "core\\security_containment.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 158,
+      "path": "core\\security_containment.py",
+      "text": "yield {"
+    },
+    {
+      "language": "python",
+      "line": 159,
+      "path": "core\\security_containment.py",
+      "text": "\"lock_path\": str(lock_path),"
+    },
+    {
+      "language": "python",
+      "line": 160,
+      "path": "core\\security_containment.py",
+      "text": "\"lock_kind\": lock_kind,"
+    },
+    {
+      "language": "python",
+      "line": 161,
+      "path": "core\\security_containment.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 162,
+      "path": "core\\security_containment.py",
+      "text": "finally:"
+    },
+    {
+      "language": "python",
+      "line": 163,
+      "path": "core\\security_containment.py",
+      "text": "if lock_kind == \"msvcrt\" and lock_module is not None:"
+    },
+    {
+      "language": "python",
+      "line": 164,
+      "path": "core\\security_containment.py",
+      "text": "handle.seek(0)"
+    },
+    {
+      "language": "python",
+      "line": 165,
+      "path": "core\\security_containment.py",
+      "text": "lock_module.locking("
+    },
+    {
+      "language": "python",
+      "line": 166,
+      "path": "core\\security_containment.py",
+      "text": "handle.fileno(),"
+    },
+    {
+      "language": "python",
+      "line": 167,
+      "path": "core\\security_containment.py",
+      "text": "lock_module.LK_UNLCK,"
+    },
+    {
+      "language": "python",
+      "line": 168,
+      "path": "core\\security_containment.py",
+      "text": "1,"
+    },
+    {
+      "language": "python",
+      "line": 169,
+      "path": "core\\security_containment.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 170,
+      "path": "core\\security_containment.py",
+      "text": "elif lock_kind == \"fcntl\" and lock_module is not None:"
+    },
+    {
+      "language": "python",
+      "line": 171,
+      "path": "core\\security_containment.py",
+      "text": "lock_module.flock("
+    },
+    {
+      "language": "python",
+      "line": 172,
+      "path": "core\\security_containment.py",
+      "text": "handle.fileno(),"
+    },
+    {
+      "language": "python",
+      "line": 173,
+      "path": "core\\security_containment.py",
+      "text": "lock_module.LOCK_UN,"
+    },
+    {
+      "language": "python",
+      "line": 174,
+      "path": "core\\security_containment.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 177,
+      "path": "core\\security_containment.py",
+      "text": "def normalize_actor(actor: str | None) -> str:"
+    },
+    {
+      "language": "python",
+      "line": 178,
+      "path": "core\\security_containment.py",
+      "text": "return (actor or \"unknown\").strip().lower().replace(\" \", \"_\")"
+    },
+    {
+      "language": "python",
+      "line": 181,
+      "path": "core\\security_containment.py",
+      "text": "def is_explicit_engineer_command(text: str | None) -> bool:"
+    },
+    {
+      "language": "python",
+      "line": 182,
+      "path": "core\\security_containment.py",
+      "text": "return bool(_EXPLICIT_ENGINEER.search(text or \"\"))"
+    },
+    {
+      "language": "python",
+      "line": 185,
+      "path": "core\\security_containment.py",
+      "text": "@dataclass(frozen=True)"
+    },
+    {
+      "language": "python",
+      "line": 186,
+      "path": "core\\security_containment.py",
+      "text": "class AuthorizationDecision:"
+    },
+    {
+      "language": "python",
+      "line": 187,
+      "path": "core\\security_containment.py",
+      "text": "allowed: bool"
+    },
+    {
+      "language": "python",
+      "line": 188,
+      "path": "core\\security_containment.py",
+      "text": "actor: str"
+    },
+    {
+      "language": "python",
+      "line": 189,
+      "path": "core\\security_containment.py",
+      "text": "object: str"
+    },
+    {
+      "language": "python",
+      "line": 190,
+      "path": "core\\security_containment.py",
+      "text": "action: str"
+    },
+    {
+      "language": "python",
+      "line": 191,
+      "path": "core\\security_containment.py",
+      "text": "reason: str"
+    },
+    {
+      "language": "python",
+      "line": 192,
+      "path": "core\\security_containment.py",
+      "text": "policy_source: str = \"deterministic_fallback\""
+    },
+    {
+      "language": "python",
+      "line": 194,
+      "path": "core\\security_containment.py",
+      "text": "def to_dict(self) -> dict[str, Any]:"
+    },
+    {
+      "language": "python",
+      "line": 195,
+      "path": "core\\security_containment.py",
+      "text": "return asdict(self)"
+    },
+    {
+      "language": "python",
+      "line": 198,
+      "path": "core\\security_containment.py",
+      "text": "def _hard_deny(actor: str, obj: str) -> AuthorizationDecision | None:"
+    },
+    {
+      "language": "python",
+      "line": 199,
+      "path": "core\\security_containment.py",
+      "text": "if actor in MODEL_ACTORS and obj in PRIVILEGED_DEPARTMENTS:"
+    },
+    {
+      "language": "python",
+      "line": 200,
+      "path": "core\\security_containment.py",
+      "text": "return AuthorizationDecision("
+    },
+    {
+      "language": "python",
+      "line": 201,
+      "path": "core\\security_containment.py",
+      "text": "False, actor, obj, \"invoke\","
+    },
+    {
+      "language": "python",
+      "line": 202,
+      "path": "core\\security_containment.py",
+      "text": "\"Model and prompt actors cannot invoke privileged departments. Operator approval must come from a trusted UI workflow.\","
+    },
+    {
+      "language": "python",
+      "line": 203,
+      "path": "core\\security_containment.py",
+      "text": "\"hard_deny\","
+    },
+    {
+      "language": "python",
+      "line": 204,
+      "path": "core\\security_containment.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 205,
+      "path": "core\\security_containment.py",
+      "text": "return None"
+    },
+    {
+      "language": "python",
+      "line": 208,
+      "path": "core\\security_containment.py",
+      "text": "@lru_cache(maxsize=1)"
+    },
+    {
+      "language": "python",
+      "line": 209,
+      "path": "core\\security_containment.py",
+      "text": "def _casbin_enforcer():"
+    },
+    {
+      "language": "python",
+      "line": 210,
+      "path": "core\\security_containment.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 211,
+      "path": "core\\security_containment.py",
+      "text": "import casbin  # type: ignore"
+    },
+    {
+      "language": "python",
+      "line": 212,
+      "path": "core\\security_containment.py",
+      "text": "except Exception:"
+    },
+    {
+      "language": "python",
+      "line": 213,
+      "path": "core\\security_containment.py",
+      "text": "return None"
+    },
+    {
+      "language": "python",
+      "line": 214,
+      "path": "core\\security_containment.py",
+      "text": "root = Path(__file__).resolve().parents[1]"
+    },
+    {
+      "language": "python",
+      "line": 215,
+      "path": "core\\security_containment.py",
+      "text": "model = root / \"Config\" / \"engineering_airlock_model.conf\""
+    },
+    {
+      "language": "python",
+      "line": 216,
+      "path": "core\\security_containment.py",
+      "text": "policy = root / \"Config\" / \"engineering_airlock_policy.csv\""
+    },
+    {
+      "language": "python",
+      "line": 217,
+      "path": "core\\security_containment.py",
+      "text": "if not model.exists() or not policy.exists():"
+    },
+    {
+      "language": "python",
+      "line": 218,
+      "path": "core\\security_containment.py",
+      "text": "return None"
+    },
+    {
+      "language": "python",
+      "line": 219,
+      "path": "core\\security_containment.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 220,
+      "path": "core\\security_containment.py",
+      "text": "return casbin.Enforcer(str(model), str(policy))"
+    },
+    {
+      "language": "python",
+      "line": 221,
+      "path": "core\\security_containment.py",
+      "text": "except Exception:"
+    },
+    {
+      "language": "python",
+      "line": 222,
+      "path": "core\\security_containment.py",
+      "text": "return None"
+    },
+    {
+      "language": "python",
+      "line": 225,
+      "path": "core\\security_containment.py",
+      "text": "def authorize_department_route("
+    },
+    {
+      "language": "python",
+      "line": 226,
+      "path": "core\\security_containment.py",
+      "text": "actor: str | None,"
+    },
+    {
+      "language": "python",
+      "line": 227,
+      "path": "core\\security_containment.py",
+      "text": "department: str,"
+    },
+    {
+      "language": "python",
+      "line": 228,
+      "path": "core\\security_containment.py",
+      "text": "action: str = \"route\","
+    },
+    {
+      "language": "python",
+      "line": 229,
+      "path": "core\\security_containment.py",
+      "text": "*,"
+    },
+    {
+      "language": "python",
+      "line": 230,
+      "path": "core\\security_containment.py",
+      "text": "operator_approved: bool = False,"
+    },
+    {
+      "language": "python",
+      "line": 231,
+      "path": "core\\security_containment.py",
+      "text": ") -> AuthorizationDecision:"
+    },
+    {
+      "language": "python",
+      "line": 232,
+      "path": "core\\security_containment.py",
+      "text": "\"\"\"Authorize routing and read-only access."
+    },
+    {
+      "language": "python",
+      "line": 234,
+      "path": "core\\security_containment.py",
+      "text": "Mutating Repair Chamber actions are deliberately denied here, even when"
+    },
+    {
+      "language": "python",
+      "line": 235,
+      "path": "core\\security_containment.py",
+      "text": "``operator_approved=True``. They must pass through the exact-phrase"
+    },
+    {
+      "language": "python",
+      "line": 236,
+      "path": "core\\security_containment.py",
+      "text": "``authorize_repair_action`` gate so a caller cannot turn a Boolean into"
+    },
+    {
+      "language": "python",
+      "line": 237,
+      "path": "core\\security_containment.py",
+      "text": "operator consent."
+    },
+    {
+      "language": "python",
+      "line": 238,
+      "path": "core\\security_containment.py",
+      "text": "\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 239,
+      "path": "core\\security_containment.py",
+      "text": "subject = normalize_actor(actor)"
+    },
+    {
+      "language": "python",
+      "line": 240,
+      "path": "core\\security_containment.py",
+      "text": "obj = (department or \"\").strip().lower()"
+    },
+    {
+      "language": "python",
+      "line": 241,
+      "path": "core\\security_containment.py",
+      "text": "normalized_action = (action or \"\").strip().lower()"
+    },
+    {
+      "language": "python",
+      "line": 243,
+      "path": "core\\security_containment.py",
+      "text": "deny = _hard_deny(subject, obj)"
+    },
+    {
+      "language": "python",
+      "line": 244,
+      "path": "core\\security_containment.py",
+      "text": "if deny:"
+    },
+    {
+      "language": "python",
+      "line": 245,
+      "path": "core\\security_containment.py",
+      "text": "return AuthorizationDecision("
+    },
+    {
+      "language": "python",
+      "line": 246,
+      "path": "core\\security_containment.py",
+      "text": "False,"
+    },
+    {
+      "language": "python",
+      "line": 247,
+      "path": "core\\security_containment.py",
+      "text": "subject,"
+    },
+    {
+      "language": "python",
+      "line": 248,
+      "path": "core\\security_containment.py",
+      "text": "obj,"
+    },
+    {
+      "language": "python",
+      "line": 249,
+      "path": "core\\security_containment.py",
+      "text": "normalized_action,"
+    },
+    {
+      "language": "python",
+      "line": 250,
+      "path": "core\\security_containment.py",
+      "text": "deny.reason,"
+    },
+    {
+      "language": "python",
+      "line": 251,
+      "path": "core\\security_containment.py",
+      "text": "deny.policy_source,"
+    },
+    {
+      "language": "python",
+      "line": 252,
+      "path": "core\\security_containment.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 254,
+      "path": "core\\security_containment.py",
+      "text": "if obj not in PRIVILEGED_DEPARTMENTS:"
+    },
+    {
+      "language": "python",
+      "line": 255,
+      "path": "core\\security_containment.py",
+      "text": "return AuthorizationDecision("
+    },
+    {
+      "language": "python",
+      "line": 256,
+      "path": "core\\security_containment.py",
+      "text": "True,"
+    },
+    {
+      "language": "python",
+      "line": 257,
+      "path": "core\\security_containment.py",
+      "text": "subject,"
+    },
+    {
+      "language": "python",
+      "line": 258,
+      "path": "core\\security_containment.py",
+      "text": "obj,"
+    },
+    {
+      "language": "python",
+      "line": 259,
+      "path": "core\\security_containment.py",
+      "text": "normalized_action,"
+    },
+    {
+      "language": "python",
+      "line": 260,
+      "path": "core\\security_containment.py",
+      "text": "\"Non-privileged route.\","
+    },
+    {
+      "language": "python",
+      "line": 261,
+      "path": "core\\security_containment.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 263,
+      "path": "core\\security_containment.py",
+      "text": "if ("
+    },
+    {
+      "language": "python",
+      "line": 264,
+      "path": "core\\security_containment.py",
+      "text": "obj in {\"repair_bay\", \"repair_chamber\"}"
+    },
+    {
+      "language": "python",
+      "line": 265,
+      "path": "core\\security_containment.py",
+      "text": "and normalized_action in _MUTATING_REPAIR_ACTIONS"
+    },
+    {
+      "language": "python",
+      "line": 266,
+      "path": "core\\security_containment.py",
+      "text": "):"
+    },
+    {
+      "language": "python",
+      "line": 267,
+      "path": "core\\security_containment.py",
+      "text": "return AuthorizationDecision("
+    },
+    {
+      "language": "python",
+      "line": 268,
+      "path": "core\\security_containment.py",
+      "text": "False,"
+    },
+    {
+      "language": "python",
+      "line": 269,
+      "path": "core\\security_containment.py",
+      "text": "subject,"
+    },
+    {
+      "language": "python",
+      "line": 270,
+      "path": "core\\security_containment.py",
+      "text": "obj,"
+    },
+    {
+      "language": "python",
+      "line": 271,
+      "path": "core\\security_containment.py",
+      "text": "normalized_action,"
+    },
+    {
+      "language": "python",
+      "line": 272,
+      "path": "core\\security_containment.py",
+      "text": "("
+    },
+    {
+      "language": "python",
+      "line": 273,
+      "path": "core\\security_containment.py",
+      "text": "\"Structured approval required: mutating Repair Chamber \""
+    },
+    {
+      "language": "python",
+      "line": 274,
+      "path": "core\\security_containment.py",
+      "text": "\"actions must use authorize_repair_action with the exact \""
+    },
+    {
+      "language": "python",
+      "line": 275,
+      "path": "core\\security_containment.py",
+      "text": "\"operator UI confirmation phrase.\""
+    },
+    {
+      "language": "python",
+      "line": 276,
+      "path": "core\\security_containment.py",
+      "text": "),"
+    },
+    {
+      "language": "python",
+      "line": 277,
+      "path": "core\\security_containment.py",
+      "text": "\"structured_approval_gate\","
+    },
+    {
+      "language": "python",
+      "line": 278,
+      "path": "core\\security_containment.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 280,
+      "path": "core\\security_containment.py",
+      "text": "enforcer = _casbin_enforcer()"
+    },
+    {
+      "language": "python",
+      "line": 281,
+      "path": "core\\security_containment.py",
+      "text": "if enforcer is not None:"
+    },
+    {
+      "language": "python",
+      "line": 282,
+      "path": "core\\security_containment.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 283,
+      "path": "core\\security_containment.py",
+      "text": "allowed = bool("
+    }
+  ],
+  "schema": "foxai.agent_fox.technical_core.v1a2r1.refined_static_bridge.v1",
+  "shard_number": 22
+}

@@ -1,0 +1,68 @@
+{
+  "allowed_drive_roots": [
+    "C:/",
+    "Z:/",
+    "S:/ when present"
+  ],
+  "collection_domains": [
+    "host_and_windows_identity",
+    "hardware_memory_pagefile_and_display",
+    "bounded_drive_capacity",
+    "active_foxai_workspace_identity",
+    "python_runtime_inventory",
+    "running_process_resource_snapshot",
+    "windows_service_and_startup_snapshot",
+    "local_tcp_udp_listener_snapshot",
+    "evidence_bounded_attention_observations"
+  ],
+  "excluded_storage": [
+    "rollback drive K: must not be queried or opened"
+  ],
+  "mission_id": "ENG-20260722-043649-699E75",
+  "mode": "read_only_evidence_collection",
+  "observation_labels": [
+    "observed_fact",
+    "potential_attention_item",
+    "unavailable",
+    "not_evaluated"
+  ],
+  "output_ceiling_bytes": 16777216,
+  "output_names": [
+    "HOST_AND_WINDOWS_BASELINE.json",
+    "ACTIVE_DRIVE_BASELINE.json",
+    "FOXAI_ACTIVE_WORKSPACE_BASELINE.json",
+    "PYTHON_RUNTIME_INVENTORY.json",
+    "PROCESS_RESOURCE_BASELINE.json",
+    "SERVICE_STARTUP_AND_LISTENER_BASELINE.json",
+    "PC_BASELINE_OBSERVATIONS.json",
+    "PC_BASELINE_RECEIPT.json"
+  ],
+  "overall_health_label_permitted": false,
+  "privacy": {
+    "browser_history_or_credentials_inspected": false,
+    "device_serials_macs_or_persistent_hardware_ids_recorded": false,
+    "environment_variable_values_recorded": false,
+    "full_process_command_lines_recorded": false,
+    "personal_documents_inspected": false,
+    "startup_arguments_recorded": false,
+    "windows_profile_names_redacted": true
+  },
+  "prohibited_actions": [
+    "diagnosis_or_health_verdict",
+    "repair_or_optimization",
+    "package_installation_or_removal",
+    "service_start_stop_or_configuration",
+    "startup_item_change",
+    "process_termination_or_priority_change",
+    "registry_write",
+    "firewall_or_network_configuration_change",
+    "remote_connection_or_packet_capture",
+    "full_foxai_tree_hash",
+    "live_foxai_module_import",
+    "gui_or_model_launch"
+  ],
+  "purpose": "Capture a bounded first-party baseline of the current Windows host and active Z:/FOXAI workspace without diagnosing, tuning, repairing, or changing the machine.",
+  "schema": "foxai.agent_fox.technical_core.v1b0.pc_foxai_baseline_contract.v1",
+  "serialization": "deterministic UTF-8 JSON, sorted keys, two-space indentation, one LF terminator, Path.write_bytes",
+  "title": "Agent Fox Technical Core V1B-0 — Read-Only PC and FOXAI Baseline Discovery"
+}

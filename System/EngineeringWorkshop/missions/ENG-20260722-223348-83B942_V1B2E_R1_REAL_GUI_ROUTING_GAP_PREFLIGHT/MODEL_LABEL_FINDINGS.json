@@ -1,0 +1,142 @@
+{
+  "candidate_label_site_count": 3,
+  "candidate_label_sites": [
+    {
+      "finding_id": "MODEL-LABEL-0D146AE0D79D7F0F",
+      "line": 2099,
+      "matched_terms": [
+        "Initializing neural engine"
+      ],
+      "path": "Z:\\FOXAI\\ui\\main_window.py",
+      "snippet": {
+        "end_line": 2102,
+        "lines": [
+          {
+            "line": 2096,
+            "text": "                f\"Shared neural engine is already starting: {model.name}\","
+          },
+          {
+            "line": 2097,
+            "text": "            )"
+          },
+          {
+            "line": 2098,
+            "text": "        else:"
+          },
+          {
+            "line": 2099,
+            "text": "            self.add_chat(\"SYSTEM\", f\"Initializing neural engine: {model.name}\")"
+          },
+          {
+            "line": 2100,
+            "text": ""
+          },
+          {
+            "line": 2101,
+            "text": "        threading.Thread(target=self.wait_for_server, daemon=True).start()"
+          },
+          {
+            "line": 2102,
+            "text": ""
+          }
+        ],
+        "path": "Z:\\FOXAI\\ui\\main_window.py",
+        "start_line": 2096
+      },
+      "text": "            self.add_chat(\"SYSTEM\", f\"Initializing neural engine: {model.name}\")"
+    },
+    {
+      "finding_id": "MODEL-LABEL-4A1A49C7A59B6CB1",
+      "line": 2115,
+      "matched_terms": [
+        "Shared neural engine online"
+      ],
+      "path": "Z:\\FOXAI\\ui\\main_window.py",
+      "snippet": {
+        "end_line": 2118,
+        "lines": [
+          {
+            "line": 2112,
+            "text": "                \"AGENT FOX\","
+          },
+          {
+            "line": 2113,
+            "text": "                f\"Good morning, {name}.\\n\\n\""
+          },
+          {
+            "line": 2114,
+            "text": "                \"All systems operational.\\n\""
+          },
+          {
+            "line": 2115,
+            "text": "                \"Shared neural engine online.\\n\\n\""
+          },
+          {
+            "line": 2116,
+            "text": "                f\"Mission:\\n{mission}\\n\\n\""
+          },
+          {
+            "line": 2117,
+            "text": "                \"Awaiting your orders.\","
+          },
+          {
+            "line": 2118,
+            "text": "            )"
+          }
+        ],
+        "path": "Z:\\FOXAI\\ui\\main_window.py",
+        "start_line": 2112
+      },
+      "text": "                \"Shared neural engine online.\\n\\n\""
+    },
+    {
+      "finding_id": "MODEL-LABEL-9D73FEEFB85DE7A1",
+      "line": 2359,
+      "matched_terms": [
+        "[Model:"
+      ],
+      "path": "Z:\\FOXAI\\ui\\main_window.py",
+      "snippet": {
+        "end_line": 2362,
+        "lines": [
+          {
+            "line": 2356,
+            "text": "            if not answer:"
+          },
+          {
+            "line": 2357,
+            "text": "                answer = \"[BLANK RESPONSE]\\nThe model returned no text. Try restarting the mission or lowering context/max tokens.\""
+          },
+          {
+            "line": 2358,
+            "text": ""
+          },
+          {
+            "line": 2359,
+            "text": "            answer = f\"[Model: {model_used}]\\n\\n{answer}\""
+          },
+          {
+            "line": 2360,
+            "text": "            self.messages.append({\"role\": \"assistant\", \"content\": answer})"
+          },
+          {
+            "line": 2361,
+            "text": "            self.add_chat(\"AGENT FOX\", answer)"
+          },
+          {
+            "line": 2362,
+            "text": "            self.mission_memory.save()"
+          }
+        ],
+        "path": "Z:\\FOXAI\\ui\\main_window.py",
+        "start_line": 2356
+      },
+      "text": "            answer = f\"[Model: {model_used}]\\n\\n{answer}\""
+    }
+  ],
+  "implementation_constraint": "The renderer should add at most one model label and should not prepend when the response already begins with a model label.",
+  "mission_id": "ENG-20260722-223348-83B942",
+  "observed_gui_symptom": "Desktop transcript accumulated repeated [Model: ...] prefixes across later responses.",
+  "schema": "foxai.agent_fox.technical_core.v1b2e.model_labels.v1",
+  "static_only": true
+}

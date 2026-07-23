@@ -1,0 +1,65 @@
+{
+  "authorization_source_proven": false,
+  "blockers": [],
+  "classification_only_behavior": {
+    "broker_authorization": null,
+    "can_execute_live_provider": false,
+    "diagnosis_or_repair_not_executed": true,
+    "historical_route_preserved": true,
+    "may_return_authorization_required": true,
+    "may_return_provider_unavailable": true,
+    "ordinary_chat_pass_through": true,
+    "provider_registry": {}
+  },
+  "do_not_change_in_next_classification_only_stage": [
+    "core/foxai_web.py",
+    "ui/main_window.py",
+    "System/AgentFoxTechnicalCore/desktop_self_knowledge_integration_v1.py",
+    "System/AgentFoxTechnicalCore/webui_self_knowledge_integration_v1.py",
+    "System/AgentFoxTechnicalCore/resource_evidence_provider_v1.py",
+    "System/AgentFoxTechnicalCore/current_state_request_broker_v1.py"
+  ],
+  "exact_routing_anchor": {
+    "after_line": 544,
+    "before_line": 547,
+    "rule": "After exact slash-command bypass and required request normalization, before historical resource-evidence loading/catalog matching."
+  },
+  "future_separate_missions_required_for": [
+    "request-scoped approved read-only authorization source",
+    "each bounded approved live-state provider",
+    "approved_live_result user-facing rendering",
+    "live Desktop and WebUI verification"
+  ],
+  "integration_scope": {
+    "current_state_broker_change_required": false,
+    "desktop_helper_change_expected": false,
+    "desktop_source_change_required": false,
+    "historical_resource_provider_change_required": false,
+    "modify_only_shared_adapter": true,
+    "webui_helper_change_expected": false,
+    "webui_source_change_required": false
+  },
+  "live_provider_registry_available": false,
+  "mission_id": "ENG-20260723-025402-DF9592",
+  "non_goals": [
+    "live-state provider implementation",
+    "automatic scans",
+    "background monitoring",
+    "process inspection",
+    "service inspection",
+    "listener or port inspection",
+    "memory or storage measurement",
+    "startup or registry inspection",
+    "network access",
+    "diagnosis",
+    "repair",
+    "optimization",
+    "recommendations",
+    "model calls",
+    "GUI launches",
+    "K drive access"
+  ],
+  "recommended_next_stage": "V1B-3C classification-only shared-router integration",
+  "schema": "foxai.agent_fox.technical_core.v1b3b.minimal_integration_recommendation.v1",
+  "status": "preflight_complete_ready_for_classification_only_integration"
+}

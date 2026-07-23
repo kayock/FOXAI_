@@ -1,0 +1,3729 @@
+{
+  "capabilities": {
+    "can_apply_repairs": false,
+    "can_execute_foxai_source": false,
+    "can_inventory_paths_and_metadata": true,
+    "can_parse_selected_python_source_without_importing": true,
+    "can_read_static_dist_info_metadata": true,
+    "can_statically_trace_launcher_text": true
+  },
+  "evidence_class": "observed_live_metadata_and_static_live_source",
+  "generated_at": "2026-07-21T05:08:57.055710+00:00",
+  "missing_evidence": [
+    "Exact runtime versions, sys.path, prefixes and host-versus-portable behavior were deliberately not executed in R2.",
+    "Windows live processes, services, startup, tasks, ports, event failures and signatures were deliberately deferred.",
+    "A static launcher reference is not proof that the referenced component is currently active.",
+    "Repository evidence is reference evidence and is not treated as proof of the live installation."
+  ],
+  "mission_id": "ENG-20260721-042128-CF3008",
+  "project_root": "Z:\\FOXAI",
+  "protected_candidates": [
+    {
+      "exists": true,
+      "modified_ns": 1784605762000000000,
+      "path": "Z:\\FOXAI\\core\\foxai_web.py",
+      "sha256": "e4e9fd62e6c4736a18781c6b17184441e8852412867cc95dbca94e570921ba77",
+      "size_bytes": 2351757
+    },
+    {
+      "exists": true,
+      "modified_ns": 1784234564000000000,
+      "path": "Z:\\FOXAI\\Config\\model_sources.json",
+      "sha256": "c17eb3b8b6c93734f7e117522213c95af6c105fe26400d0560768fe586e21c91",
+      "size_bytes": 1775
+    },
+    {
+      "exists": true,
+      "modified_ns": 1784349782000000000,
+      "path": "Z:\\FOXAI\\Launch FOXAI Workshop.bat",
+      "sha256": "c438259fb5a24476373c677a43999344a6e1fc550e50a6e7d2fc590147784af7",
+      "size_bytes": 808
+    },
+    {
+      "exists": true,
+      "modified_ns": 1784227622000000000,
+      "path": "Z:\\FOXAI\\START_FOXAI_WEB_PORTABLE.bat",
+      "sha256": "834e129be2d41405be40e1ea5aeca6d7a96b4faaf3b72c906487e902a9dca3b1",
+      "size_bytes": 121
+    },
+    {
+      "exists": true,
+      "modified_ns": 1784393472000000000,
+      "path": "Z:\\FOXAI\\START_FOXAI_WEB_WITH_COMFYUI.bat",
+      "sha256": "e93618e7f702241519fdb855b234d3c83e020bc57adefa54944fcc7c4ae150cc",
+      "size_bytes": 1722
+    },
+    {
+      "exists": true,
+      "modified_ns": 1784393472000000000,
+      "path": "Z:\\FOXAI\\START_FOXAI_DESKTOP_TWO_WINDOW_RECOVERY.bat",
+      "sha256": "9bbf09e917a5bfd4202395467d7ff4777964d290c8bec7e2944914365ca13901",
+      "size_bytes": 1681
+    }
+  ],
+  "protected_candidates_unchanged": {
+    "changes": [],
+    "unchanged": true
+  },
+  "repository_reference": {
+    "data": {
+      "design_decision": "Reuse FOXAI Engineering, Repair Bay, manifests, source locator, evidence, validation, rollback and receipt architecture. Do not add a giant agent framework.",
+      "evidence_class": "repository_reference_not_live_proof",
+      "network_required_on_foxai": false,
+      "notes": [
+        "Repository content must be reconciled against live files and must not override verified live known-good baselines.",
+        "The original V1A-0 package is superseded and must not be previewed or applied."
+      ],
+      "prepared_for_mission": "ENG-20260721-042128-CF3008",
+      "r2_scope": "Static live baseline only. No interpreter discovery subprocesses, no Windows live process collection, no model loading, no package installation.",
+      "repository_url": "https://github.com/kayock/FOXAI_",
+      "research_completed_before_mission": true,
+      "schema": "foxai.agent_fox.repository_reference.v1"
+    },
+    "path": "Z:\\FOXAI\\AGENT_FOX_V1A0_R2\\REPOSITORY_REFERENCE.json",
+    "sha256": "f198e70104f099f801159514a51f806c9a313ec12da4d4ae19423aa001431395",
+    "status": "loaded"
+  },
+  "safety": {
+    "additional_python_interpreters_launched_by_collector": false,
+    "elevation_requested": false,
+    "existing_files_deleted_or_renamed": false,
+    "existing_foxai_source_files_modified": false,
+    "foxai_launchers_executed": false,
+    "foxai_source_imported_or_executed": false,
+    "mission_workspace_written": true,
+    "models_loaded": false,
+    "network_used": false,
+    "output_ceiling_bytes": 33554432,
+    "output_root": "Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260721-042128-CF3008_V1A0_R2_STATIC_AUDIT",
+    "packages_installed": false,
+    "services_or_processes_changed": false
+  },
+  "schema": "foxai.agent_fox.technical_core.v1a0.r2.static_baseline.v1",
+  "top_level_inventory": [
+    {
+      "kind": "directory",
+      "modified_ns": 1783213793500000000,
+      "path": "Z:\\FOXAI\\.git",
+      "relative_path": ".git",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1784393998000000000,
+      "path": "Z:\\FOXAI\\.gitignore",
+      "relative_path": ".gitignore",
+      "size_bytes": 1606,
+      "suffix": ""
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783818168420000000,
+      "path": "Z:\\FOXAI\\.gitkeep",
+      "relative_path": ".gitkeep",
+      "size_bytes": 0,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1783295471660000000,
+      "path": "Z:\\FOXAI\\.venv",
+      "relative_path": ".venv",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1783818168420000000,
+      "path": "Z:\\FOXAI\\00_START_HERE",
+      "relative_path": "00_START_HERE",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1782594182000000000,
+      "path": "Z:\\FOXAI\\__pycache__",
+      "relative_path": "__pycache__",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1783482450770000000,
+      "path": "Z:\\FOXAI\\_downloads",
+      "relative_path": "_downloads",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1783389310000000000,
+      "path": "Z:\\FOXAI\\_purple_payload",
+      "relative_path": "_purple_payload",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1783818168710000000,
+      "path": "Z:\\FOXAI\\Academy",
+      "relative_path": "Academy",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784608686000000000,
+      "path": "Z:\\FOXAI\\AGENT_FOX_TECHNICAL_CORE_V1A0_ENG-20260721-042128-CF3008",
+      "relative_path": "AGENT_FOX_TECHNICAL_CORE_V1A0_ENG-20260721-042128-CF3008",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784608867840000000,
+      "path": "Z:\\FOXAI\\AGENT_FOX_V1A0",
+      "relative_path": "AGENT_FOX_V1A0",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784610480000000000,
+      "path": "Z:\\FOXAI\\AGENT_FOX_V1A0_R2",
+      "relative_path": "AGENT_FOX_V1A0_R2",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1782569521130000000,
+      "path": "Z:\\FOXAI\\agents",
+      "relative_path": "agents",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1783818168430000000,
+      "path": "Z:\\FOXAI\\AI",
+      "relative_path": "AI",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783819382000000000,
+      "path": "Z:\\FOXAI\\APPLY_PHASE1.bat",
+      "relative_path": "APPLY_PHASE1.bat",
+      "size_bytes": 353,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783389310000000000,
+      "path": "Z:\\FOXAI\\APPLY_PURPLE_DESKTOP.bat",
+      "relative_path": "APPLY_PURPLE_DESKTOP.bat",
+      "size_bytes": 446,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783389310000000000,
+      "path": "Z:\\FOXAI\\APPLY_PURPLE_DESKTOP.py",
+      "relative_path": "APPLY_PURPLE_DESKTOP.py",
+      "size_bytes": 13314,
+      "suffix": ".py"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783384402000000000,
+      "path": "Z:\\FOXAI\\APPLY_UPDATE.py",
+      "relative_path": "APPLY_UPDATE.py",
+      "size_bytes": 1334,
+      "suffix": ".py"
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1783366964000000000,
+      "path": "Z:\\FOXAI\\Architecture",
+      "relative_path": "Architecture",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1783959094400000000,
+      "path": "Z:\\FOXAI\\Archive",
+      "relative_path": "Archive",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1782569534300000000,
+      "path": "Z:\\FOXAI\\assets",
+      "relative_path": "assets",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1782547142300000000,
+      "path": "Z:\\FOXAI\\Backups",
+      "relative_path": "Backups",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1783818920000000000,
+      "path": "Z:\\FOXAI\\baseline",
+      "relative_path": "baseline",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783819382000000000,
+      "path": "Z:\\FOXAI\\baseline_manifest.json",
+      "relative_path": "baseline_manifest.json",
+      "size_bytes": 2057,
+      "suffix": ".json"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783818172000000000,
+      "path": "Z:\\FOXAI\\bootstrap_kayocktheos.bat",
+      "relative_path": "bootstrap_kayocktheos.bat",
+      "size_bytes": 244,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1783818168820000000,
+      "path": "Z:\\FOXAI\\Bridge",
+      "relative_path": "Bridge",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783358326000000000,
+      "path": "Z:\\FOXAI\\BRIDGE_COMMAND.bat",
+      "relative_path": "BRIDGE_COMMAND.bat",
+      "size_bytes": 337,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783361868000000000,
+      "path": "Z:\\FOXAI\\BRIDGE_COMMAND.py",
+      "relative_path": "BRIDGE_COMMAND.py",
+      "size_bytes": 2841,
+      "suffix": ".py"
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1783369326000000000,
+      "path": "Z:\\FOXAI\\BridgeUI",
+      "relative_path": "BridgeUI",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783385792000000000,
+      "path": "Z:\\FOXAI\\BUILD_BRIDGE_FEED.bat",
+      "relative_path": "BUILD_BRIDGE_FEED.bat",
+      "size_bytes": 400,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783385792000000000,
+      "path": "Z:\\FOXAI\\BUILD_BRIDGE_FEED.py",
+      "relative_path": "BUILD_BRIDGE_FEED.py",
+      "size_bytes": 1392,
+      "suffix": ".py"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783386702000000000,
+      "path": "Z:\\FOXAI\\BUILD_FOXAI.bat",
+      "relative_path": "BUILD_FOXAI.bat",
+      "size_bytes": 371,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783386702000000000,
+      "path": "Z:\\FOXAI\\BUILD_FOXAI.py",
+      "relative_path": "BUILD_FOXAI.py",
+      "size_bytes": 1270,
+      "suffix": ".py"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783819382000000000,
+      "path": "Z:\\FOXAI\\BUNDLE_VERIFICATION_RECEIPT.json",
+      "relative_path": "BUNDLE_VERIFICATION_RECEIPT.json",
+      "size_bytes": 2303,
+      "suffix": ".json"
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1783821184000000000,
+      "path": "Z:\\FOXAI\\candidate",
+      "relative_path": "candidate",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1783291548000000000,
+      "path": "Z:\\FOXAI\\Capabilities",
+      "relative_path": "Capabilities",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783370564000000000,
+      "path": "Z:\\FOXAI\\CAPTAINS_LOG_VIEW.bat",
+      "relative_path": "CAPTAINS_LOG_VIEW.bat",
+      "size_bytes": 335,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783370564000000000,
+      "path": "Z:\\FOXAI\\CAPTAINS_LOG_VIEW.py",
+      "relative_path": "CAPTAINS_LOG_VIEW.py",
+      "size_bytes": 193,
+      "suffix": ".py"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783066740000000000,
+      "path": "Z:\\FOXAI\\CHANGELOG_2.2_MISSION_CONTROL.md",
+      "relative_path": "CHANGELOG_2.2_MISSION_CONTROL.md",
+      "size_bytes": 1021,
+      "suffix": ".md"
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1782594605190000000,
+      "path": "Z:\\FOXAI\\ComfyUI",
+      "relative_path": "ComfyUI",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1784369110000000000,
+      "path": "Z:\\FOXAI\\COMFYUI_PORTABILITY_READY.txt",
+      "relative_path": "COMFYUI_PORTABILITY_READY.txt",
+      "size_bytes": 848,
+      "suffix": ".txt"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783368640000000000,
+      "path": "Z:\\FOXAI\\COMMISSION_ENGINEERING.bat",
+      "relative_path": "COMMISSION_ENGINEERING.bat",
+      "size_bytes": 423,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783368640000000000,
+      "path": "Z:\\FOXAI\\COMMISSION_ENGINEERING.py",
+      "relative_path": "COMMISSION_ENGINEERING.py",
+      "size_bytes": 1528,
+      "suffix": ".py"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1784267610000000000,
+      "path": "Z:\\FOXAI\\COMMISSION_FOXAI_USB.bat",
+      "relative_path": "COMMISSION_FOXAI_USB.bat",
+      "size_bytes": 988,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1782544508220000000,
+      "path": "Z:\\FOXAI\\Config",
+      "relative_path": "Config",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1782569512880000000,
+      "path": "Z:\\FOXAI\\core",
+      "relative_path": "core",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1783265836000000000,
+      "path": "Z:\\FOXAI\\core_v10",
+      "relative_path": "core_v10",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783821448000000000,
+      "path": "Z:\\FOXAI\\CORRECTED_PREVIEW_RECEIPT.json",
+      "relative_path": "CORRECTED_PREVIEW_RECEIPT.json",
+      "size_bytes": 615,
+      "suffix": ".json"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783819382000000000,
+      "path": "Z:\\FOXAI\\CORRECTION_NOTE.md",
+      "relative_path": "CORRECTION_NOTE.md",
+      "size_bytes": 652,
+      "suffix": ".md"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1782615782000000000,
+      "path": "Z:\\FOXAI\\Create Desktop Shortcut.ps1",
+      "relative_path": "Create Desktop Shortcut.ps1",
+      "size_bytes": 425,
+      "suffix": ".ps1"
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1783818168850000000,
+      "path": "Z:\\FOXAI\\CreativeStudio",
+      "relative_path": "CreativeStudio",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784591960000000000,
+      "path": "Z:\\FOXAI\\CREATOR_1_2",
+      "relative_path": "CREATOR_1_2",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784589824000000000,
+      "path": "Z:\\FOXAI\\CREATOR_TYPE_1_2",
+      "relative_path": "CREATOR_TYPE_1_2",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1782541425450000000,
+      "path": "Z:\\FOXAI\\Data",
+      "relative_path": "Data",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1783368640000000000,
+      "path": "Z:\\FOXAI\\Departments",
+      "relative_path": "Departments",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783363648000000000,
+      "path": "Z:\\FOXAI\\DEPENDENCY_ARBITER.bat",
+      "relative_path": "DEPENDENCY_ARBITER.bat",
+      "size_bytes": 367,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783363648000000000,
+      "path": "Z:\\FOXAI\\DEPENDENCY_ARBITER.py",
+      "relative_path": "DEPENDENCY_ARBITER.py",
+      "size_bytes": 1343,
+      "suffix": ".py"
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1783818168970000000,
+      "path": "Z:\\FOXAI\\Docs",
+      "relative_path": "Docs",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1782541436590000000,
+      "path": "Z:\\FOXAI\\Downloads",
+      "relative_path": "Downloads",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784154046000000000,
+      "path": "Z:\\FOXAI\\EMI1A",
+      "relative_path": "EMI1A",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784153658000000000,
+      "path": "Z:\\FOXAI\\EMI1P",
+      "relative_path": "EMI1P",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784183778000000000,
+      "path": "Z:\\FOXAI\\EMS21A",
+      "relative_path": "EMS21A",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784179092000000000,
+      "path": "Z:\\FOXAI\\EMS21P",
+      "relative_path": "EMS21P",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784183042000000000,
+      "path": "Z:\\FOXAI\\EMS21P_R2",
+      "relative_path": "EMS21P_R2",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784163818000000000,
+      "path": "Z:\\FOXAI\\EMS2A",
+      "relative_path": "EMS2A",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784160174000000000,
+      "path": "Z:\\FOXAI\\EMS2P",
+      "relative_path": "EMS2P",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784161742000000000,
+      "path": "Z:\\FOXAI\\EMS2P_R2",
+      "relative_path": "EMS2P_R2",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1782541406740000000,
+      "path": "Z:\\FOXAI\\Engine",
+      "relative_path": "Engine",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783322730000000000,
+      "path": "Z:\\FOXAI\\ENGINEERING_REPORT.bat",
+      "relative_path": "ENGINEERING_REPORT.bat",
+      "size_bytes": 347,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783322730000000000,
+      "path": "Z:\\FOXAI\\ENGINEERING_REPORT.py",
+      "relative_path": "ENGINEERING_REPORT.py",
+      "size_bytes": 2551,
+      "suffix": ".py"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783368640000000000,
+      "path": "Z:\\FOXAI\\ENGINEERING_STATUS.bat",
+      "relative_path": "ENGINEERING_STATUS.bat",
+      "size_bytes": 369,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783368640000000000,
+      "path": "Z:\\FOXAI\\ENGINEERING_STATUS.py",
+      "relative_path": "ENGINEERING_STATUS.py",
+      "size_bytes": 917,
+      "suffix": ".py"
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1783482450780000000,
+      "path": "Z:\\FOXAI\\env",
+      "relative_path": "env",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783370564000000000,
+      "path": "Z:\\FOXAI\\EVENT_BUS_DEMO.bat",
+      "relative_path": "EVENT_BUS_DEMO.bat",
+      "size_bytes": 369,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783370564000000000,
+      "path": "Z:\\FOXAI\\EVENT_BUS_DEMO.py",
+      "relative_path": "EVENT_BUS_DEMO.py",
+      "size_bytes": 1702,
+      "suffix": ".py"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783329060000000000,
+      "path": "Z:\\FOXAI\\EXECUTE_MISSION.bat",
+      "relative_path": "EXECUTE_MISSION.bat",
+      "size_bytes": 359,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783329060000000000,
+      "path": "Z:\\FOXAI\\EXECUTE_MISSION.py",
+      "relative_path": "EXECUTE_MISSION.py",
+      "size_bytes": 2509,
+      "suffix": ".py"
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1783302440000000000,
+      "path": "Z:\\FOXAI\\Extensions",
+      "relative_path": "Extensions",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783819382000000000,
+      "path": "Z:\\FOXAI\\FIXED_GATE_SIMULATION_RECEIPT.json",
+      "relative_path": "FIXED_GATE_SIMULATION_RECEIPT.json",
+      "size_bytes": 765,
+      "suffix": ".json"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783357220000000000,
+      "path": "Z:\\FOXAI\\FLEET_COMMAND.bat",
+      "relative_path": "FLEET_COMMAND.bat",
+      "size_bytes": 333,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783357220000000000,
+      "path": "Z:\\FOXAI\\FLEET_COMMAND.py",
+      "relative_path": "FLEET_COMMAND.py",
+      "size_bytes": 2870,
+      "suffix": ".py"
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1783818169030000000,
+      "path": "Z:\\FOXAI\\Forge",
+      "relative_path": "Forge",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1783818169190000000,
+      "path": "Z:\\FOXAI\\Foundry",
+      "relative_path": "Foundry",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1782615782000000000,
+      "path": "Z:\\FOXAI\\foxai.py",
+      "relative_path": "foxai.py",
+      "size_bytes": 156,
+      "suffix": ".py"
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784520948000000000,
+      "path": "Z:\\FOXAI\\FOXAI_Bibliotheca_V1_2_1_Search_Recipe_Layout",
+      "relative_path": "FOXAI_Bibliotheca_V1_2_1_Search_Recipe_Layout",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784522810000000000,
+      "path": "Z:\\FOXAI\\FOXAI_Bibliotheca_V1_2_2_Search_API_Reliability",
+      "relative_path": "FOXAI_Bibliotheca_V1_2_2_Search_API_Reliability",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784518920000000000,
+      "path": "Z:\\FOXAI\\FOXAI_Bibliotheca_V1_2_Exact_Page_Recipe_Intelligence",
+      "relative_path": "FOXAI_Bibliotheca_V1_2_Exact_Page_Recipe_Intelligence",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784387916000000000,
+      "path": "Z:\\FOXAI\\FOXAI_COMFY_OPS_OFFLINE_HOTFIX",
+      "relative_path": "FOXAI_COMFY_OPS_OFFLINE_HOTFIX",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784387328000000000,
+      "path": "Z:\\FOXAI\\FOXAI_COMFY_OPS_QUICK_PANEL",
+      "relative_path": "FOXAI_COMFY_OPS_QUICK_PANEL",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784388338000000000,
+      "path": "Z:\\FOXAI\\FOXAI_COMFY_STARTING_STATUS_FIX",
+      "relative_path": "FOXAI_COMFY_STARTING_STATUS_FIX",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1782590210000000000,
+      "path": "Z:\\FOXAI\\FoxAI_Desktop.py",
+      "relative_path": "FoxAI_Desktop.py",
+      "size_bytes": 6541,
+      "suffix": ".py"
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784481024000000000,
+      "path": "Z:\\FOXAI\\FOXAI_Engineering_Workshop_V1",
+      "relative_path": "FOXAI_Engineering_Workshop_V1",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784486764000000000,
+      "path": "Z:\\FOXAI\\FOXAI_Engineering_Workshop_V1_1_1_WebUI_Route_Hotfix",
+      "relative_path": "FOXAI_Engineering_Workshop_V1_1_1_WebUI_Route_Hotfix",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784484888000000000,
+      "path": "Z:\\FOXAI\\FOXAI_Engineering_Workshop_V1_1_Integration",
+      "relative_path": "FOXAI_Engineering_Workshop_V1_1_Integration",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784489870000000000,
+      "path": "Z:\\FOXAI\\FOXAI_Engineering_Workshop_V1_2_1_Casbin_Preview_Policy",
+      "relative_path": "FOXAI_Engineering_Workshop_V1_2_1_Casbin_Preview_Policy",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784490314000000000,
+      "path": "Z:\\FOXAI\\FOXAI_Engineering_Workshop_V1_2_2_Casbin_Policy_Runtime_Fix",
+      "relative_path": "FOXAI_Engineering_Workshop_V1_2_2_Casbin_Policy_Runtime_Fix",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784490528000000000,
+      "path": "Z:\\FOXAI\\FOXAI_Engineering_Workshop_V1_2_3_Casbin_Policy_Import_Path_Fix",
+      "relative_path": "FOXAI_Engineering_Workshop_V1_2_3_Casbin_Policy_Import_Path_Fix",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784489178000000000,
+      "path": "Z:\\FOXAI\\FOXAI_Engineering_Workshop_V1_2_Analyze_Route",
+      "relative_path": "FOXAI_Engineering_Workshop_V1_2_Analyze_Route",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784402454000000000,
+      "path": "Z:\\FOXAI\\FOXAI_ERIC_VOICE_EXACT_LIVE_FIX",
+      "relative_path": "FOXAI_ERIC_VOICE_EXACT_LIVE_FIX",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783817084000000000,
+      "path": "Z:\\FOXAI\\FOXAI_folder_tree.txt",
+      "relative_path": "FOXAI_folder_tree.txt",
+      "size_bytes": 5042,
+      "suffix": ".txt"
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784393998000000000,
+      "path": "Z:\\FOXAI\\FOXAI_GITHUB_SOURCE_UPLOADER",
+      "relative_path": "FOXAI_GITHUB_SOURCE_UPLOADER",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784132740000000000,
+      "path": "Z:\\FOXAI\\FOXAI_Guarded_Streaming_PHASE2_EXACT_PREVIEW_20260715",
+      "relative_path": "FOXAI_Guarded_Streaming_PHASE2_EXACT_PREVIEW_20260715",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784395804000000000,
+      "path": "Z:\\FOXAI\\FOXAI_KAYOCK_WRITER_CALM_HOME",
+      "relative_path": "FOXAI_KAYOCK_WRITER_CALM_HOME",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784422990000000000,
+      "path": "Z:\\FOXAI\\FOXAI_KAYOCK_WRITER_GUIDED_CLEANUP_V1_LIVE_COMPATIBLE",
+      "relative_path": "FOXAI_KAYOCK_WRITER_GUIDED_CLEANUP_V1_LIVE_COMPATIBLE",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784515304000000000,
+      "path": "Z:\\FOXAI\\FOXAI_Kayock_Writer_V2_Calm_Guided_Interface",
+      "relative_path": "FOXAI_Kayock_Writer_V2_Calm_Guided_Interface",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784475022000000000,
+      "path": "Z:\\FOXAI\\FOXAI_KAYOCKS_STUDY_INTEGRATION_V1_LIVE_COMPATIBLE",
+      "relative_path": "FOXAI_KAYOCKS_STUDY_INTEGRATION_V1_LIVE_COMPATIBLE",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784493834000000000,
+      "path": "Z:\\FOXAI\\FOXAI_Kayocks_Study_V1_6_Controlled_Research_Desk_Plan",
+      "relative_path": "FOXAI_Kayocks_Study_V1_6_Controlled_Research_Desk_Plan",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784494556000000000,
+      "path": "Z:\\FOXAI\\FOXAI_Kayocks_Study_V1_6_Controlled_Research_Desk_R2",
+      "relative_path": "FOXAI_Kayocks_Study_V1_6_Controlled_Research_Desk_R2",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784495308000000000,
+      "path": "Z:\\FOXAI\\FOXAI_Kayocks_Study_V1_6_Controlled_Research_Desk_R3_OCR_Aware",
+      "relative_path": "FOXAI_Kayocks_Study_V1_6_Controlled_Research_Desk_R3_OCR_Aware",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784495874000000000,
+      "path": "Z:\\FOXAI\\FOXAI_Kayocks_Study_V1_6_Controlled_Research_Desk_R4_Known_Good_Recipe",
+      "relative_path": "FOXAI_Kayocks_Study_V1_6_Controlled_Research_Desk_R4_Known_Good_Recipe",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784496632000000000,
+      "path": "Z:\\FOXAI\\FOXAI_Kayocks_Study_V1_6_Controlled_Research_Desk_R5_Degree_Symbol_Fix",
+      "relative_path": "FOXAI_Kayocks_Study_V1_6_Controlled_Research_Desk_R5_Degree_Symbol_Fix",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784560016000000000,
+      "path": "Z:\\FOXAI\\FOXAI_Kayocks_Study_V2A_1_Tiled_Library_Browser_Shell",
+      "relative_path": "FOXAI_Kayocks_Study_V2A_1_Tiled_Library_Browser_Shell",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784565896000000000,
+      "path": "Z:\\FOXAI\\FOXAI_Kayocks_Study_V2B_1_1_Title_Pages_Tile_Actions_Scan_Feedback",
+      "relative_path": "FOXAI_Kayocks_Study_V2B_1_1_Title_Pages_Tile_Actions_Scan_Feedback",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784562760000000000,
+      "path": "Z:\\FOXAI\\FOXAI_Kayocks_Study_V2B_1_Native_EPUB_Starfleet_Catalog",
+      "relative_path": "FOXAI_Kayocks_Study_V2B_1_Native_EPUB_Starfleet_Catalog",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784567728000000000,
+      "path": "Z:\\FOXAI\\FOXAI_Kayocks_Study_V2B_2_Native_In_App_EPUB_Reader",
+      "relative_path": "FOXAI_Kayocks_Study_V2B_2_Native_In_App_EPUB_Reader",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784570906000000000,
+      "path": "Z:\\FOXAI\\FOXAI_Kayocks_Study_V2B_3_Local_Read_Aloud_Synchronized_Highlighting",
+      "relative_path": "FOXAI_Kayocks_Study_V2B_3_Local_Read_Aloud_Synchronized_Highlighting",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784572082000000000,
+      "path": "Z:\\FOXAI\\FOXAI_Kayocks_Study_V2B_3_R2_Local_Read_Aloud_Compatible_Regression",
+      "relative_path": "FOXAI_Kayocks_Study_V2B_3_R2_Local_Read_Aloud_Compatible_Regression",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784574152000000000,
+      "path": "Z:\\FOXAI\\FOXAI_Kayocks_Study_V2C_1_Read_Only_Multi_Drive_Library_Discovery",
+      "relative_path": "FOXAI_Kayocks_Study_V2C_1_Read_Only_Multi_Drive_Library_Discovery",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1782568102000000000,
+      "path": "Z:\\FOXAI\\FoxAI_Launcher.py",
+      "relative_path": "FoxAI_Launcher.py",
+      "size_bytes": 6042,
+      "suffix": ".py"
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784425940000000000,
+      "path": "Z:\\FOXAI\\FOXAI_MASTERBOOK_CARD_DECK_CHAPTER_EXPORTER_V1",
+      "relative_path": "FOXAI_MASTERBOOK_CARD_DECK_CHAPTER_EXPORTER_V1",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784405106000000000,
+      "path": "Z:\\FOXAI\\FOXAI_MY_POEMS_LEGACY_ARCHIVE_V1",
+      "relative_path": "FOXAI_MY_POEMS_LEGACY_ARCHIVE_V1",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784421212000000000,
+      "path": "Z:\\FOXAI\\FOXAI_NECROSCOPE_CAMPAIGN_ROOM_V1",
+      "relative_path": "FOXAI_NECROSCOPE_CAMPAIGN_ROOM_V1",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784423564000000000,
+      "path": "Z:\\FOXAI\\FOXAI_NECROSCOPE_COREBOOK_OCR_REFRESH_V1",
+      "relative_path": "FOXAI_NECROSCOPE_COREBOOK_OCR_REFRESH_V1",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784425050000000000,
+      "path": "Z:\\FOXAI\\FOXAI_NECROSCOPE_COREBOOK_OCR_REFRESH_V1_1_WINDOWS_FIX",
+      "relative_path": "FOXAI_NECROSCOPE_COREBOOK_OCR_REFRESH_V1_1_WINDOWS_FIX",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784419992000000000,
+      "path": "Z:\\FOXAI\\FOXAI_NECROSCOPE_PORTABLE_PDF_INDEX_V1",
+      "relative_path": "FOXAI_NECROSCOPE_PORTABLE_PDF_INDEX_V1",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784420536000000000,
+      "path": "Z:\\FOXAI\\FOXAI_NECROSCOPE_RULES_PACKET_EXPORTER_V1",
+      "relative_path": "FOXAI_NECROSCOPE_RULES_PACKET_EXPORTER_V1",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784418830000000000,
+      "path": "Z:\\FOXAI\\FOXAI_NECROSCOPE_SOURCE_PREFLIGHT_V1",
+      "relative_path": "FOXAI_NECROSCOPE_SOURCE_PREFLIGHT_V1",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784408702000000000,
+      "path": "Z:\\FOXAI\\FOXAI_OPEN_POEM_PROJECT_V1",
+      "relative_path": "FOXAI_OPEN_POEM_PROJECT_V1",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784246454000000000,
+      "path": "Z:\\FOXAI\\FOXAI_PDR3B_CORRECTED_DESIGN",
+      "relative_path": "FOXAI_PDR3B_CORRECTED_DESIGN",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784246636000000000,
+      "path": "Z:\\FOXAI\\FOXAI_PDR3B_CORRECTED_DESIGN_FIX1",
+      "relative_path": "FOXAI_PDR3B_CORRECTED_DESIGN_FIX1",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784243544000000000,
+      "path": "Z:\\FOXAI\\FOXAI_PDR3B_R1_SHORTCUT_INVENTORY_READONLY_PROBE_20260716",
+      "relative_path": "FOXAI_PDR3B_R1_SHORTCUT_INVENTORY_READONLY_PROBE_20260716",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784244264000000000,
+      "path": "Z:\\FOXAI\\FOXAI_PDR3B_R2_FIXED",
+      "relative_path": "FOXAI_PDR3B_R2_FIXED",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784244042000000000,
+      "path": "Z:\\FOXAI\\FOXAI_PDR3B_R2_USB_ROOT_SHORTCUT_CONTRACT_READONLY_PROBE_20260716",
+      "relative_path": "FOXAI_PDR3B_R2_USB_ROOT_SHORTCUT_CONTRACT_READONLY_PROBE_20260716",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784245442000000000,
+      "path": "Z:\\FOXAI\\FOXAI_PDR3B_R3_FAST",
+      "relative_path": "FOXAI_PDR3B_R3_FAST",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784254124000000000,
+      "path": "Z:\\FOXAI\\FOXAI_PHASE4A_REPAIR_OPTIMIZATION_PREFLIGHT",
+      "relative_path": "FOXAI_PHASE4A_REPAIR_OPTIMIZATION_PREFLIGHT",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784254468000000000,
+      "path": "Z:\\FOXAI\\FOXAI_PHASE4A_REPAIR_OPTIMIZATION_PREFLIGHT_FIX1",
+      "relative_path": "FOXAI_PHASE4A_REPAIR_OPTIMIZATION_PREFLIGHT_FIX1",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784255104000000000,
+      "path": "Z:\\FOXAI\\FOXAI_PHASE4B_WEBUI_COMFY_LAUNCH_INSPECTION",
+      "relative_path": "FOXAI_PHASE4B_WEBUI_COMFY_LAUNCH_INSPECTION",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784255794000000000,
+      "path": "Z:\\FOXAI\\FOXAI_PHASE4B_WEBUI_COMFY_LAUNCH_INSPECTION_FIX1",
+      "relative_path": "FOXAI_PHASE4B_WEBUI_COMFY_LAUNCH_INSPECTION_FIX1",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784257696000000000,
+      "path": "Z:\\FOXAI\\FOXAI_PHASE4C_WEBUI_COMFY_PATCH_APPLY_729AF0685C9C",
+      "relative_path": "FOXAI_PHASE4C_WEBUI_COMFY_PATCH_APPLY_729AF0685C9C",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784257008000000000,
+      "path": "Z:\\FOXAI\\FOXAI_PHASE4C_WEBUI_COMFY_PATCH_PREVIEW",
+      "relative_path": "FOXAI_PHASE4C_WEBUI_COMFY_PATCH_PREVIEW",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784587926000000000,
+      "path": "Z:\\FOXAI\\FOXAI_POEM_CREATOR_GUIDED_V1_1",
+      "relative_path": "FOXAI_POEM_CREATOR_GUIDED_V1_1",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784406244000000000,
+      "path": "Z:\\FOXAI\\FOXAI_POEM_SELECTION_MATCH_FIX",
+      "relative_path": "FOXAI_POEM_SELECTION_MATCH_FIX",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784407742000000000,
+      "path": "Z:\\FOXAI\\FOXAI_POEM_SELECTION_SCOPE_FIX",
+      "relative_path": "FOXAI_POEM_SELECTION_SCOPE_FIX",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784405732000000000,
+      "path": "Z:\\FOXAI\\FOXAI_POEM_SELECTION_WORKSHOP_V1",
+      "relative_path": "FOXAI_POEM_SELECTION_WORKSHOP_V1",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784415008000000000,
+      "path": "Z:\\FOXAI\\FOXAI_POETRY_HOLIDAY_VOICE_PACK_V1",
+      "relative_path": "FOXAI_POETRY_HOLIDAY_VOICE_PACK_V1",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784415462000000000,
+      "path": "Z:\\FOXAI\\FOXAI_POETRY_HOLIDAY_VOICE_PACK_V1_LIVE_COMPATIBLE",
+      "relative_path": "FOXAI_POETRY_HOLIDAY_VOICE_PACK_V1_LIVE_COMPATIBLE",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784399188000000000,
+      "path": "Z:\\FOXAI\\FOXAI_POETRY_STUDIO_V1_FINISH",
+      "relative_path": "FOXAI_POETRY_STUDIO_V1_FINISH",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784401062000000000,
+      "path": "Z:\\FOXAI\\FOXAI_POETRY_STUDIO_V1_UX_CLEANUP",
+      "relative_path": "FOXAI_POETRY_STUDIO_V1_UX_CLEANUP",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784393472000000000,
+      "path": "Z:\\FOXAI\\FOXAI_QUIET_COMFYUI_STARTUP",
+      "relative_path": "FOXAI_QUIET_COMFYUI_STARTUP",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784392406000000000,
+      "path": "Z:\\FOXAI\\FOXAI_RED_CANVAS_LIVE_PROGRESS",
+      "relative_path": "FOXAI_RED_CANVAS_LIVE_PROGRESS",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784427618000000000,
+      "path": "Z:\\FOXAI\\FOXAI_REPAIR_BAY_GUIDED_CLEANUP_V1_LIVE_COMPATIBLE",
+      "relative_path": "FOXAI_REPAIR_BAY_GUIDED_CLEANUP_V1_LIVE_COMPATIBLE",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784500214000000000,
+      "path": "Z:\\FOXAI\\FOXAI_Repair_Bay_V1_1_Diagnostic_Accuracy_Launcher_Inventory",
+      "relative_path": "FOXAI_Repair_Bay_V1_1_Diagnostic_Accuracy_Launcher_Inventory",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784428942000000000,
+      "path": "Z:\\FOXAI\\FOXAI_REPAIR_BAY_V1_2_DIRECT_ONE_LINE_FIX",
+      "relative_path": "FOXAI_REPAIR_BAY_V1_2_DIRECT_ONE_LINE_FIX",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784501276000000000,
+      "path": "Z:\\FOXAI\\FOXAI_Repair_Bay_V1_2_Launcher_Map_Protected_Baseline",
+      "relative_path": "FOXAI_Repair_Bay_V1_2_Launcher_Map_Protected_Baseline",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784502168000000000,
+      "path": "Z:\\FOXAI\\FOXAI_Repair_Bay_V1_3_Launcher_Index_Unknown_Resolution",
+      "relative_path": "FOXAI_Repair_Bay_V1_3_Launcher_Index_Unknown_Resolution",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784503014000000000,
+      "path": "Z:\\FOXAI\\FOXAI_Repair_Bay_V1_4_Calm_Guided_Self_Repair_Advanced",
+      "relative_path": "FOXAI_Repair_Bay_V1_4_Calm_Guided_Self_Repair_Advanced",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784498414000000000,
+      "path": "Z:\\FOXAI\\FOXAI_Repair_Bay_V1_Read_Only_Scan_Diagnose",
+      "relative_path": "FOXAI_Repair_Bay_V1_Read_Only_Scan_Diagnose",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784504890000000000,
+      "path": "Z:\\FOXAI\\FOXAI_Repair_Bay_V2_1_Handoff_Readiness_Guard",
+      "relative_path": "FOXAI_Repair_Bay_V2_1_Handoff_Readiness_Guard",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784506432000000000,
+      "path": "Z:\\FOXAI\\FOXAI_Repair_Bay_V2_2_Reliable_Mission_Console_Transfer",
+      "relative_path": "FOXAI_Repair_Bay_V2_2_Reliable_Mission_Console_Transfer",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784507880000000000,
+      "path": "Z:\\FOXAI\\FOXAI_Repair_Bay_V2_3_Planning_Only_Authorization_Guard",
+      "relative_path": "FOXAI_Repair_Bay_V2_3_Planning_Only_Authorization_Guard",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784511280000000000,
+      "path": "Z:\\FOXAI\\FOXAI_Repair_Bay_V2_4_Launcher_Evidence_Consistency",
+      "relative_path": "FOXAI_Repair_Bay_V2_4_Launcher_Evidence_Consistency",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784511726000000000,
+      "path": "Z:\\FOXAI\\FOXAI_Repair_Bay_V2_4_R2_Launcher_Evidence_Consistency",
+      "relative_path": "FOXAI_Repair_Bay_V2_4_R2_Launcher_Evidence_Consistency",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784513086000000000,
+      "path": "Z:\\FOXAI\\FOXAI_Repair_Bay_V2_5_Healthy_Launcher_Summary",
+      "relative_path": "FOXAI_Repair_Bay_V2_5_Healthy_Launcher_Summary",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784504000000000000,
+      "path": "Z:\\FOXAI\\FOXAI_Repair_Bay_V2_Guarded_Repair_Handoff",
+      "relative_path": "FOXAI_Repair_Bay_V2_Guarded_Repair_Handoff",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784410570000000000,
+      "path": "Z:\\FOXAI\\FOXAI_RHYME_COACH_CLARITY_FIX",
+      "relative_path": "FOXAI_RHYME_COACH_CLARITY_FIX",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784409974000000000,
+      "path": "Z:\\FOXAI\\FOXAI_RHYME_RHYTHM_COACH_V1",
+      "relative_path": "FOXAI_RHYME_RHYTHM_COACH_V1",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783051636000000000,
+      "path": "Z:\\FOXAI\\FOXAI_TREE.txt",
+      "relative_path": "FOXAI_TREE.txt",
+      "size_bytes": 185894,
+      "suffix": ".txt"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783818170000000000,
+      "path": "Z:\\FOXAI\\FOXAI_TREE_WITH_SIZES.csv",
+      "relative_path": "FOXAI_TREE_WITH_SIZES.csv",
+      "size_bytes": 257680,
+      "suffix": ".csv"
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784267578000000000,
+      "path": "Z:\\FOXAI\\FOXAI_USBC2_PORTABLE_PATH_PATCH_APPLY_391F401AD6B9",
+      "relative_path": "FOXAI_USBC2_PORTABLE_PATH_PATCH_APPLY_391F401AD6B9",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784265774000000000,
+      "path": "Z:\\FOXAI\\FOXAI_USBC2_PORTABLE_PATH_PATCH_PREVIEW",
+      "relative_path": "FOXAI_USBC2_PORTABLE_PATH_PATCH_PREVIEW",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784266304000000000,
+      "path": "Z:\\FOXAI\\FOXAI_USBC2_PORTABLE_PATH_PATCH_PREVIEW_FIX1",
+      "relative_path": "FOXAI_USBC2_PORTABLE_PATH_PATCH_PREVIEW_FIX1",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784266526000000000,
+      "path": "Z:\\FOXAI\\FOXAI_USBC2_PORTABLE_PATH_PATCH_PREVIEW_FIX2",
+      "relative_path": "FOXAI_USBC2_PORTABLE_PATH_PATCH_PREVIEW_FIX2",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784265324000000000,
+      "path": "Z:\\FOXAI\\FOXAI_USBC2_PORTABLE_PATH_SOURCE_CAPTURE",
+      "relative_path": "FOXAI_USBC2_PORTABLE_PATH_SOURCE_CAPTURE",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784270616000000000,
+      "path": "Z:\\FOXAI\\FOXAI_USBC3_COMFYUI_PORTABILITY_PREFLIGHT",
+      "relative_path": "FOXAI_USBC3_COMFYUI_PORTABILITY_PREFLIGHT",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784299024000000000,
+      "path": "Z:\\FOXAI\\FOXAI_USBC3A_COMFYUI_DEPENDENCY_PREFLIGHT",
+      "relative_path": "FOXAI_USBC3A_COMFYUI_DEPENDENCY_PREFLIGHT",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784309632000000000,
+      "path": "Z:\\FOXAI\\FOXAI_USBC3B_EXACT_ISOLATED_CLOSURE_PLAN",
+      "relative_path": "FOXAI_USBC3B_EXACT_ISOLATED_CLOSURE_PLAN",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784311370000000000,
+      "path": "Z:\\FOXAI\\FOXAI_USBC3C_EXACT_WHEEL_ACQUISITION",
+      "relative_path": "FOXAI_USBC3C_EXACT_WHEEL_ACQUISITION",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784314632000000000,
+      "path": "Z:\\FOXAI\\FOXAI_USBC3D_EXACT_ISOLATED_INSTALL_PLAN",
+      "relative_path": "FOXAI_USBC3D_EXACT_ISOLATED_INSTALL_PLAN",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784321488000000000,
+      "path": "Z:\\FOXAI\\FOXAI_USBC3E_EXACT_ISOLATED_INSTALL",
+      "relative_path": "FOXAI_USBC3E_EXACT_ISOLATED_INSTALL",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784343874000000000,
+      "path": "Z:\\FOXAI\\FOXAI_USBC3F_CONTROLLED_ACTIVATION_PREFLIGHT",
+      "relative_path": "FOXAI_USBC3F_CONTROLLED_ACTIVATION_PREFLIGHT",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784345866000000000,
+      "path": "Z:\\FOXAI\\FOXAI_USBC3G_CONTROLLED_INTEGRATION",
+      "relative_path": "FOXAI_USBC3G_CONTROLLED_INTEGRATION",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784347260000000000,
+      "path": "Z:\\FOXAI\\FOXAI_USBC3H_CONTROLLED_FIRST_START",
+      "relative_path": "FOXAI_USBC3H_CONTROLLED_FIRST_START",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784348138000000000,
+      "path": "Z:\\FOXAI\\FOXAI_USBC3I_NORMAL_ENABLEMENT_REVIEW",
+      "relative_path": "FOXAI_USBC3I_NORMAL_ENABLEMENT_REVIEW",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784349782000000000,
+      "path": "Z:\\FOXAI\\FOXAI_USBC3J_NORMAL_ENABLEMENT_APPLY",
+      "relative_path": "FOXAI_USBC3J_NORMAL_ENABLEMENT_APPLY",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784350718000000000,
+      "path": "Z:\\FOXAI\\FOXAI_USBC3K_CONTROLLED_NORMAL_LIFECYCLE_TEST",
+      "relative_path": "FOXAI_USBC3K_CONTROLLED_NORMAL_LIFECYCLE_TEST",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784351990000000000,
+      "path": "Z:\\FOXAI\\FOXAI_USBC3L_PORTABILITY_CLOSURE_SEAL",
+      "relative_path": "FOXAI_USBC3L_PORTABILITY_CLOSURE_SEAL",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784353306000000000,
+      "path": "Z:\\FOXAI\\FOXAI_USBC4A_CUSTOM_NODE_AIRLOCK_PREFLIGHT",
+      "relative_path": "FOXAI_USBC4A_CUSTOM_NODE_AIRLOCK_PREFLIGHT",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784355178000000000,
+      "path": "Z:\\FOXAI\\FOXAI_USBC4B_ALLOWLISTED_NODE_LIFECYCLE_TEST",
+      "relative_path": "FOXAI_USBC4B_ALLOWLISTED_NODE_LIFECYCLE_TEST",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784356744000000000,
+      "path": "Z:\\FOXAI\\FOXAI_USBC4C_WEBUI_APPROVED_NODE_PROFILE_REVIEW",
+      "relative_path": "FOXAI_USBC4C_WEBUI_APPROVED_NODE_PROFILE_REVIEW",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784357914000000000,
+      "path": "Z:\\FOXAI\\FOXAI_USBC4D_WEBUI_APPROVED_NODE_PROFILE_APPLY",
+      "relative_path": "FOXAI_USBC4D_WEBUI_APPROVED_NODE_PROFILE_APPLY",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784359646000000000,
+      "path": "Z:\\FOXAI\\FOXAI_USBC4E_WEBUI_TWO_PROFILE_LIFECYCLE_TEST",
+      "relative_path": "FOXAI_USBC4E_WEBUI_TWO_PROFILE_LIFECYCLE_TEST",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784369020000000000,
+      "path": "Z:\\FOXAI\\FOXAI_USBC4F_DUAL_PROFILE_BASELINE_SEAL",
+      "relative_path": "FOXAI_USBC4F_DUAL_PROFILE_BASELINE_SEAL",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784496166000000000,
+      "path": "Z:\\FOXAI\\FOXAI_White_Bread_Page7_ReadOnly_Diagnostic",
+      "relative_path": "FOXAI_White_Bread_Page7_ReadOnly_Diagnostic",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783363138000000000,
+      "path": "Z:\\FOXAI\\FOXKERNEL_COMMAND.bat",
+      "relative_path": "FOXKERNEL_COMMAND.bat",
+      "size_bytes": 233,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783363138000000000,
+      "path": "Z:\\FOXAI\\FOXKERNEL_COMMAND.py",
+      "relative_path": "FOXKERNEL_COMMAND.py",
+      "size_bytes": 1282,
+      "suffix": ".py"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783363138000000000,
+      "path": "Z:\\FOXAI\\FOXKERNEL_STATUS.bat",
+      "relative_path": "FOXKERNEL_STATUS.bat",
+      "size_bytes": 371,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783363138000000000,
+      "path": "Z:\\FOXAI\\FOXKERNEL_STATUS.py",
+      "relative_path": "FOXKERNEL_STATUS.py",
+      "size_bytes": 2287,
+      "suffix": ".py"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783314564000000000,
+      "path": "Z:\\FOXAI\\GENERATE_HANGAR_BAY_ADAPTERS.bat",
+      "relative_path": "GENERATE_HANGAR_BAY_ADAPTERS.bat",
+      "size_bytes": 483,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783314564000000000,
+      "path": "Z:\\FOXAI\\GENERATE_HANGAR_BAY_ADAPTERS.py",
+      "relative_path": "GENERATE_HANGAR_BAY_ADAPTERS.py",
+      "size_bytes": 5106,
+      "suffix": ".py"
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784134196000000000,
+      "path": "Z:\\FOXAI\\GS2A",
+      "relative_path": "GS2A",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783362302000000000,
+      "path": "Z:\\FOXAI\\HANGAR_BAY_INVENTORY.bat",
+      "relative_path": "HANGAR_BAY_INVENTORY.bat",
+      "size_bytes": 371,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783362302000000000,
+      "path": "Z:\\FOXAI\\HANGAR_BAY_INVENTORY.py",
+      "relative_path": "HANGAR_BAY_INVENTORY.py",
+      "size_bytes": 311,
+      "suffix": ".py"
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1783818169520000000,
+      "path": "Z:\\FOXAI\\Hanger Bay",
+      "relative_path": "Hanger Bay",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784241325910000000,
+      "path": "Z:\\FOXAI\\Icons",
+      "relative_path": "Icons",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1784346062000000000,
+      "path": "Z:\\FOXAI\\Install ComfyUI Requirements.bat",
+      "relative_path": "Install ComfyUI Requirements.bat",
+      "size_bytes": 240,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783066740000000000,
+      "path": "Z:\\FOXAI\\Install FOXAI Requirements.bat",
+      "relative_path": "Install FOXAI Requirements.bat",
+      "size_bytes": 105,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1782615782000000000,
+      "path": "Z:\\FOXAI\\Install Requirements.bat",
+      "relative_path": "Install Requirements.bat",
+      "size_bytes": 72,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783366964000000000,
+      "path": "Z:\\FOXAI\\INSTALL_ARCHITECTURE_PACK.bat",
+      "relative_path": "INSTALL_ARCHITECTURE_PACK.bat",
+      "size_bytes": 532,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783385792000000000,
+      "path": "Z:\\FOXAI\\INSTALL_BRIDGE_FEED_UI.bat",
+      "relative_path": "INSTALL_BRIDGE_FEED_UI.bat",
+      "size_bytes": 586,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783370920000000000,
+      "path": "Z:\\FOXAI\\INSTALL_BRIDGE_LIVE_LOG.bat",
+      "relative_path": "INSTALL_BRIDGE_LIVE_LOG.bat",
+      "size_bytes": 626,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783369326000000000,
+      "path": "Z:\\FOXAI\\INSTALL_BRIDGE_STATUS_PANEL.bat",
+      "relative_path": "INSTALL_BRIDGE_STATUS_PANEL.bat",
+      "size_bytes": 690,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783323792000000000,
+      "path": "Z:\\FOXAI\\INSTALL_CONVERSATION_SHUTTLE.bat",
+      "relative_path": "INSTALL_CONVERSATION_SHUTTLE.bat",
+      "size_bytes": 247,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783323792000000000,
+      "path": "Z:\\FOXAI\\INSTALL_CONVERSATION_SHUTTLE.py",
+      "relative_path": "INSTALL_CONVERSATION_SHUTTLE.py",
+      "size_bytes": 2332,
+      "suffix": ".py"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783315832000000000,
+      "path": "Z:\\FOXAI\\INSTALL_DATABASE_SHUTTLE.bat",
+      "relative_path": "INSTALL_DATABASE_SHUTTLE.bat",
+      "size_bytes": 236,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783315832000000000,
+      "path": "Z:\\FOXAI\\INSTALL_DATABASE_SHUTTLE.py",
+      "relative_path": "INSTALL_DATABASE_SHUTTLE.py",
+      "size_bytes": 1372,
+      "suffix": ".py"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783266130000000000,
+      "path": "Z:\\FOXAI\\INSTALL_MISSION_BUS.bat",
+      "relative_path": "INSTALL_MISSION_BUS.bat",
+      "size_bytes": 508,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783482436000000000,
+      "path": "Z:\\FOXAI\\INSTALL_PORTABLE_PYTHON_3146.bat",
+      "relative_path": "INSTALL_PORTABLE_PYTHON_3146.bat",
+      "size_bytes": 3778,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783316816000000000,
+      "path": "Z:\\FOXAI\\INSTALL_UI_FOUNDATION.bat",
+      "relative_path": "INSTALL_UI_FOUNDATION.bat",
+      "size_bytes": 451,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783384402000000000,
+      "path": "Z:\\FOXAI\\INSTALL_UPDATE.bat",
+      "relative_path": "INSTALL_UPDATE.bat",
+      "size_bytes": 333,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1783818169540000000,
+      "path": "Z:\\FOXAI\\Interface",
+      "relative_path": "Interface",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784605276000000000,
+      "path": "Z:\\FOXAI\\KAYOCK_WRITER_CALM_CLEANUP_1_0",
+      "relative_path": "KAYOCK_WRITER_CALM_CLEANUP_1_0",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784605714000000000,
+      "path": "Z:\\FOXAI\\KAYOCK_WRITER_CALM_CLEANUP_1_0_R2",
+      "relative_path": "KAYOCK_WRITER_CALM_CLEANUP_1_0_R2",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784430986000000000,
+      "path": "Z:\\FOXAI\\KAYOCKS_STUDY_BIBLIOTHECA_V1",
+      "relative_path": "KAYOCKS_STUDY_BIBLIOTHECA_V1",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784434474000000000,
+      "path": "Z:\\FOXAI\\KAYOCKS_STUDY_BIBLIOTHECA_V1_1_UPGRADE",
+      "relative_path": "KAYOCKS_STUDY_BIBLIOTHECA_V1_1_UPGRADE",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784437694000000000,
+      "path": "Z:\\FOXAI\\KAYOCKS_STUDY_BIBLIOTHECA_V1_2_GROUNDING_UPGRADE",
+      "relative_path": "KAYOCKS_STUDY_BIBLIOTHECA_V1_2_GROUNDING_UPGRADE",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784439158000000000,
+      "path": "Z:\\FOXAI\\KAYOCKS_STUDY_BIBLIOTHECA_V1_3_RECIPE_HEADING_FIX",
+      "relative_path": "KAYOCKS_STUDY_BIBLIOTHECA_V1_3_RECIPE_HEADING_FIX",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784472104000000000,
+      "path": "Z:\\FOXAI\\KAYOCKS_STUDY_BIBLIOTHECA_V1_4_MULTI_RECIPE_PAGE_FIX",
+      "relative_path": "KAYOCKS_STUDY_BIBLIOTHECA_V1_4_MULTI_RECIPE_PAGE_FIX",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784473412000000000,
+      "path": "Z:\\FOXAI\\KAYOCKS_STUDY_BIBLIOTHECA_V1_5_LIVE_MODEL_CITATION_FIX",
+      "relative_path": "KAYOCKS_STUDY_BIBLIOTHECA_V1_5_LIVE_MODEL_CITATION_FIX",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1783818170320000000,
+      "path": "Z:\\FOXAI\\Knowledge",
+      "relative_path": "Knowledge",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1784349782000000000,
+      "path": "Z:\\FOXAI\\Launch FOXAI Workshop.bat",
+      "relative_path": "Launch FOXAI Workshop.bat",
+      "size_bytes": 808,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783818172000000000,
+      "path": "Z:\\FOXAI\\Launch_KayocktheOS_Workshop.bat",
+      "relative_path": "Launch_KayocktheOS_Workshop.bat",
+      "size_bytes": 1303,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1783483744210000000,
+      "path": "Z:\\FOXAI\\LegacyLaunchers",
+      "relative_path": "LegacyLaunchers",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1782594182000000000,
+      "path": "Z:\\FOXAI\\Library",
+      "relative_path": "Library",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783818172000000000,
+      "path": "Z:\\FOXAI\\LICENSE",
+      "relative_path": "LICENSE",
+      "size_bytes": 256,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1782542290840000000,
+      "path": "Z:\\FOXAI\\Logs",
+      "relative_path": "Logs",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1782596972000000000,
+      "path": "Z:\\FOXAI\\make_icon.py",
+      "relative_path": "make_icon.py",
+      "size_bytes": 306,
+      "suffix": ".py"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783490472000000000,
+      "path": "Z:\\FOXAI\\manifest.json",
+      "relative_path": "manifest.json",
+      "size_bytes": 1595,
+      "suffix": ".json"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783818172000000000,
+      "path": "Z:\\FOXAI\\manifest.yaml",
+      "relative_path": "manifest.yaml",
+      "size_bytes": 2411,
+      "suffix": ".yaml"
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1782544455980000000,
+      "path": "Z:\\FOXAI\\Memory",
+      "relative_path": "Memory",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784141288000000000,
+      "path": "Z:\\FOXAI\\MIA1A",
+      "relative_path": "MIA1A",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784139230000000000,
+      "path": "Z:\\FOXAI\\MIA1P",
+      "relative_path": "MIA1P",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784147304000000000,
+      "path": "Z:\\FOXAI\\MICR1A",
+      "relative_path": "MICR1A",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784146798000000000,
+      "path": "Z:\\FOXAI\\MICR1P",
+      "relative_path": "MICR1P",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1782569543710000000,
+      "path": "Z:\\FOXAI\\Mission Archive",
+      "relative_path": "Mission Archive",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783316816000000000,
+      "path": "Z:\\FOXAI\\MISSION_CONTROL_REPORT.bat",
+      "relative_path": "MISSION_CONTROL_REPORT.bat",
+      "size_bytes": 369,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783316816000000000,
+      "path": "Z:\\FOXAI\\MISSION_CONTROL_REPORT.py",
+      "relative_path": "MISSION_CONTROL_REPORT.py",
+      "size_bytes": 330,
+      "suffix": ".py"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1782595456000000000,
+      "path": "Z:\\FOXAI\\MISSION_LOG.md",
+      "relative_path": "MISSION_LOG.md",
+      "size_bytes": 343,
+      "suffix": ".md"
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784135824000000000,
+      "path": "Z:\\FOXAI\\MMQ8A",
+      "relative_path": "MMQ8A",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1782541415090000000,
+      "path": "Z:\\FOXAI\\Models",
+      "relative_path": "Models",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1783469260070000000,
+      "path": "Z:\\FOXAI\\Modules",
+      "relative_path": "Modules",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784237418000000000,
+      "path": "Z:\\FOXAI\\MSC2C4",
+      "relative_path": "MSC2C4",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784239212000000000,
+      "path": "Z:\\FOXAI\\MSC2C4_APPLY",
+      "relative_path": "MSC2C4_APPLY",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1783439944170000000,
+      "path": "Z:\\FOXAI\\NovelForge",
+      "relative_path": "NovelForge",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783360316000000000,
+      "path": "Z:\\FOXAI\\OPS_BRIDGE.bat",
+      "relative_path": "OPS_BRIDGE.bat",
+      "size_bytes": 183,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783360316000000000,
+      "path": "Z:\\FOXAI\\OPS_BRIDGE.py",
+      "relative_path": "OPS_BRIDGE.py",
+      "size_bytes": 1621,
+      "suffix": ".py"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783360316000000000,
+      "path": "Z:\\FOXAI\\OPS_BRIDGE_JSON.bat",
+      "relative_path": "OPS_BRIDGE_JSON.bat",
+      "size_bytes": 173,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783361172000000000,
+      "path": "Z:\\FOXAI\\OPS_BRIDGE_STATUS.bat",
+      "relative_path": "OPS_BRIDGE_STATUS.bat",
+      "size_bytes": 171,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1783360340830000000,
+      "path": "Z:\\FOXAI\\OpsBridge",
+      "relative_path": "OpsBridge",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783364608000000000,
+      "path": "Z:\\FOXAI\\PATCH_ACADEMY_REGISTRAR.bat",
+      "relative_path": "PATCH_ACADEMY_REGISTRAR.bat",
+      "size_bytes": 385,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783364608000000000,
+      "path": "Z:\\FOXAI\\PATCH_ACADEMY_REGISTRAR.py",
+      "relative_path": "PATCH_ACADEMY_REGISTRAR.py",
+      "size_bytes": 438,
+      "suffix": ".py"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783292214000000000,
+      "path": "Z:\\FOXAI\\PATCH_CAPABILITY_MANAGER_V2.bat",
+      "relative_path": "PATCH_CAPABILITY_MANAGER_V2.bat",
+      "size_bytes": 456,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783292214000000000,
+      "path": "Z:\\FOXAI\\PATCH_CAPABILITY_MANAGER_V2.py",
+      "relative_path": "PATCH_CAPABILITY_MANAGER_V2.py",
+      "size_bytes": 5312,
+      "suffix": ".py"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783356434000000000,
+      "path": "Z:\\FOXAI\\PATCH_CONVERSATION_INVOKE_ARBITER.bat",
+      "relative_path": "PATCH_CONVERSATION_INVOKE_ARBITER.bat",
+      "size_bytes": 411,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783356434000000000,
+      "path": "Z:\\FOXAI\\PATCH_CONVERSATION_INVOKE_ARBITER.py",
+      "relative_path": "PATCH_CONVERSATION_INVOKE_ARBITER.py",
+      "size_bytes": 5230,
+      "suffix": ".py"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783346068000000000,
+      "path": "Z:\\FOXAI\\PATCH_CONVERSATION_MANIFEST_SERVICE_KIND.bat",
+      "relative_path": "PATCH_CONVERSATION_MANIFEST_SERVICE_KIND.bat",
+      "size_bytes": 274,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783346068000000000,
+      "path": "Z:\\FOXAI\\PATCH_CONVERSATION_MANIFEST_SERVICE_KIND.py",
+      "relative_path": "PATCH_CONVERSATION_MANIFEST_SERVICE_KIND.py",
+      "size_bytes": 581,
+      "suffix": ".py"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783327792000000000,
+      "path": "Z:\\FOXAI\\PATCH_EXTENSION_HEALTH_ARBITER.bat",
+      "relative_path": "PATCH_EXTENSION_HEALTH_ARBITER.bat",
+      "size_bytes": 405,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783327792000000000,
+      "path": "Z:\\FOXAI\\PATCH_EXTENSION_HEALTH_ARBITER.py",
+      "relative_path": "PATCH_EXTENSION_HEALTH_ARBITER.py",
+      "size_bytes": 5123,
+      "suffix": ".py"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783265398000000000,
+      "path": "Z:\\FOXAI\\PATCH_FOXAI_V10.bat",
+      "relative_path": "PATCH_FOXAI_V10.bat",
+      "size_bytes": 455,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783265398000000000,
+      "path": "Z:\\FOXAI\\PATCH_FOXAI_V10.py",
+      "relative_path": "PATCH_FOXAI_V10.py",
+      "size_bytes": 14839,
+      "suffix": ".py"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783264768000000000,
+      "path": "Z:\\FOXAI\\PATCH_FOXAI_V9_2.bat",
+      "relative_path": "PATCH_FOXAI_V9_2.bat",
+      "size_bytes": 497,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783264768000000000,
+      "path": "Z:\\FOXAI\\PATCH_FOXAI_V9_2.py",
+      "relative_path": "PATCH_FOXAI_V9_2.py",
+      "size_bytes": 8112,
+      "suffix": ".py"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783268572000000000,
+      "path": "Z:\\FOXAI\\PATCH_GROUNDED_MEMORY_V10_1.bat",
+      "relative_path": "PATCH_GROUNDED_MEMORY_V10_1.bat",
+      "size_bytes": 506,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783268572000000000,
+      "path": "Z:\\FOXAI\\PATCH_GROUNDED_MEMORY_V10_1.py",
+      "relative_path": "PATCH_GROUNDED_MEMORY_V10_1.py",
+      "size_bytes": 5854,
+      "suffix": ".py"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783269930000000000,
+      "path": "Z:\\FOXAI\\PATCH_MEMORY_GUARDRAILS_V10_2.bat",
+      "relative_path": "PATCH_MEMORY_GUARDRAILS_V10_2.bat",
+      "size_bytes": 440,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783269930000000000,
+      "path": "Z:\\FOXAI\\PATCH_MEMORY_GUARDRAILS_V10_2.py",
+      "relative_path": "PATCH_MEMORY_GUARDRAILS_V10_2.py",
+      "size_bytes": 5464,
+      "suffix": ".py"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783313878000000000,
+      "path": "Z:\\FOXAI\\PATCH_NO_LAUNCH_LIFECYCLE_GUARD.bat",
+      "relative_path": "PATCH_NO_LAUNCH_LIFECYCLE_GUARD.bat",
+      "size_bytes": 647,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783313878000000000,
+      "path": "Z:\\FOXAI\\PATCH_NO_LAUNCH_LIFECYCLE_GUARD.py",
+      "relative_path": "PATCH_NO_LAUNCH_LIFECYCLE_GUARD.py",
+      "size_bytes": 14807,
+      "suffix": ".py"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783270584000000000,
+      "path": "Z:\\FOXAI\\PATCH_REMEMBERED_ONLY_ROUTE_V10_3.bat",
+      "relative_path": "PATCH_REMEMBERED_ONLY_ROUTE_V10_3.bat",
+      "size_bytes": 517,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783270584000000000,
+      "path": "Z:\\FOXAI\\PATCH_REMEMBERED_ONLY_ROUTE_V10_3.py",
+      "relative_path": "PATCH_REMEMBERED_ONLY_ROUTE_V10_3.py",
+      "size_bytes": 3565,
+      "suffix": ".py"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783307004000000000,
+      "path": "Z:\\FOXAI\\PATCH_SAFE_FLEET_OPERATIONS.bat",
+      "relative_path": "PATCH_SAFE_FLEET_OPERATIONS.bat",
+      "size_bytes": 576,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783307004000000000,
+      "path": "Z:\\FOXAI\\PATCH_SAFE_FLEET_OPERATIONS.py",
+      "relative_path": "PATCH_SAFE_FLEET_OPERATIONS.py",
+      "size_bytes": 5333,
+      "suffix": ".py"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783364178000000000,
+      "path": "Z:\\FOXAI\\PATCH_SERVICE_CONTRACTS.bat",
+      "relative_path": "PATCH_SERVICE_CONTRACTS.bat",
+      "size_bytes": 389,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783364178000000000,
+      "path": "Z:\\FOXAI\\PATCH_SERVICE_CONTRACTS.py",
+      "relative_path": "PATCH_SERVICE_CONTRACTS.py",
+      "size_bytes": 2942,
+      "suffix": ".py"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783294410000000000,
+      "path": "Z:\\FOXAI\\PATCH_WEB_CAPABILITY_DEPARTMENT_API.bat",
+      "relative_path": "PATCH_WEB_CAPABILITY_DEPARTMENT_API.bat",
+      "size_bytes": 450,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783294410000000000,
+      "path": "Z:\\FOXAI\\PATCH_WEB_CAPABILITY_DEPARTMENT_API.py",
+      "relative_path": "PATCH_WEB_CAPABILITY_DEPARTMENT_API.py",
+      "size_bytes": 5427,
+      "suffix": ".py"
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1783818170490000000,
+      "path": "Z:\\FOXAI\\Patches",
+      "relative_path": "Patches",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1783818920000000000,
+      "path": "Z:\\FOXAI\\payload",
+      "relative_path": "payload",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784130288000000000,
+      "path": "Z:\\FOXAI\\PCTQ1",
+      "relative_path": "PCTQ1",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784240370000000000,
+      "path": "Z:\\FOXAI\\PDR3A",
+      "relative_path": "PDR3A",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784242212000000000,
+      "path": "Z:\\FOXAI\\PDR3B",
+      "relative_path": "PDR3B",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784242604000000000,
+      "path": "Z:\\FOXAI\\PDR3B_R2",
+      "relative_path": "PDR3B_R2",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784247540000000000,
+      "path": "Z:\\FOXAI\\PDR3C_QUARANTINE",
+      "relative_path": "PDR3C_QUARANTINE",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784249812000000000,
+      "path": "Z:\\FOXAI\\PDR3D_APPLY_7123A2A06AA7",
+      "relative_path": "PDR3D_APPLY_7123A2A06AA7",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784248006000000000,
+      "path": "Z:\\FOXAI\\PDR3D_PREVIEW",
+      "relative_path": "PDR3D_PREVIEW",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784248280000000000,
+      "path": "Z:\\FOXAI\\PDR3D_PREVIEW_FIX1",
+      "relative_path": "PDR3D_PREVIEW_FIX1",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784251186000000000,
+      "path": "Z:\\FOXAI\\PDR3E_APPLY_F7B8EF66EEBB",
+      "relative_path": "PDR3E_APPLY_F7B8EF66EEBB",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784250840000000000,
+      "path": "Z:\\FOXAI\\PDR3E_LAUNCHER_PREVIEW",
+      "relative_path": "PDR3E_LAUNCHER_PREVIEW",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784253044000000000,
+      "path": "Z:\\FOXAI\\PDR3F_APPLY_9418899AB4F8",
+      "relative_path": "PDR3F_APPLY_9418899AB4F8",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784252772000000000,
+      "path": "Z:\\FOXAI\\PDR3F_COMBINED_LAUNCHER_PREVIEW",
+      "relative_path": "PDR3F_COMBINED_LAUNCHER_PREVIEW",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784252206000000000,
+      "path": "Z:\\FOXAI\\PDR3F_DISCOVERY",
+      "relative_path": "PDR3F_DISCOVERY",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783819382000000000,
+      "path": "Z:\\FOXAI\\PHASE1_EXACT.diff",
+      "relative_path": "PHASE1_EXACT.diff",
+      "size_bytes": 73099,
+      "suffix": ".diff"
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784229178000000000,
+      "path": "Z:\\FOXAI\\PHM2C1",
+      "relative_path": "PHM2C1",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784231604000000000,
+      "path": "Z:\\FOXAI\\PHM2C2",
+      "relative_path": "PHM2C2",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784234516000000000,
+      "path": "Z:\\FOXAI\\PHM2C2_APPLY",
+      "relative_path": "PHM2C2_APPLY",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784232164000000000,
+      "path": "Z:\\FOXAI\\PHM2C2_R2",
+      "relative_path": "PHM2C2_R2",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784235442000000000,
+      "path": "Z:\\FOXAI\\PHM2C3",
+      "relative_path": "PHM2C3",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784236666000000000,
+      "path": "Z:\\FOXAI\\PHM2C3_R2",
+      "relative_path": "PHM2C3_R2",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783324978000000000,
+      "path": "Z:\\FOXAI\\PLUGIN_DIAGNOSTICS.bat",
+      "relative_path": "PLUGIN_DIAGNOSTICS.bat",
+      "size_bytes": 353,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783324978000000000,
+      "path": "Z:\\FOXAI\\PLUGIN_DIAGNOSTICS.py",
+      "relative_path": "PLUGIN_DIAGNOSTICS.py",
+      "size_bytes": 2696,
+      "suffix": ".py"
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1782546626680000000,
+      "path": "Z:\\FOXAI\\Plugins",
+      "relative_path": "Plugins",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783821448000000000,
+      "path": "Z:\\FOXAI\\PORTABLE_PYTHON_COMPATIBILITY_EXACT.diff",
+      "relative_path": "PORTABLE_PYTHON_COMPATIBILITY_EXACT.diff",
+      "size_bytes": 1269,
+      "suffix": ".diff"
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784224802000000000,
+      "path": "Z:\\FOXAI\\PR2B1",
+      "relative_path": "PR2B1",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784225376000000000,
+      "path": "Z:\\FOXAI\\PR2B2",
+      "relative_path": "PR2B2",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784225944000000000,
+      "path": "Z:\\FOXAI\\PR2B3",
+      "relative_path": "PR2B3",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784226368000000000,
+      "path": "Z:\\FOXAI\\PR2B3_APPLY",
+      "relative_path": "PR2B3_APPLY",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784227210000000000,
+      "path": "Z:\\FOXAI\\PR2B3_APPLY_R2",
+      "relative_path": "PR2B3_APPLY_R2",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784227622000000000,
+      "path": "Z:\\FOXAI\\PR2B3_APPLY_R3",
+      "relative_path": "PR2B3_APPLY_R3",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783821448000000000,
+      "path": "Z:\\FOXAI\\PREVIEW_BUNDLE_RECEIPT.json",
+      "relative_path": "PREVIEW_BUNDLE_RECEIPT.json",
+      "size_bytes": 4754,
+      "suffix": ".json"
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1783818983760000000,
+      "path": "Z:\\FOXAI\\preview_output",
+      "relative_path": "preview_output",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783819382000000000,
+      "path": "Z:\\FOXAI\\PREVIEW_PHASE1.bat",
+      "relative_path": "PREVIEW_PHASE1.bat",
+      "size_bytes": 374,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783821448000000000,
+      "path": "Z:\\FOXAI\\PREVIEW_PORTABLE_PYTHON_FIX.bat",
+      "relative_path": "PREVIEW_PORTABLE_PYTHON_FIX.bat",
+      "size_bytes": 487,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783384402000000000,
+      "path": "Z:\\FOXAI\\PREVIEW_UPDATE.bat",
+      "relative_path": "PREVIEW_UPDATE.bat",
+      "size_bytes": 357,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1783123394690000000,
+      "path": "Z:\\FOXAI\\Projects",
+      "relative_path": "Projects",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1782544240960000000,
+      "path": "Z:\\FOXAI\\Prompts",
+      "relative_path": "Prompts",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784223246000000000,
+      "path": "Z:\\FOXAI\\PRP2A",
+      "relative_path": "PRP2A",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1784393998000000000,
+      "path": "Z:\\FOXAI\\PUSH_TO_GITHUB.bat",
+      "relative_path": "PUSH_TO_GITHUB.bat",
+      "size_bytes": 656,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784579880000000000,
+      "path": "Z:\\FOXAI\\RBV3",
+      "relative_path": "RBV3",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783818172000000000,
+      "path": "Z:\\FOXAI\\README.md",
+      "relative_path": "README.md",
+      "size_bytes": 730,
+      "suffix": ".md"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783808576000000000,
+      "path": "Z:\\FOXAI\\README.txt",
+      "relative_path": "README.txt",
+      "size_bytes": 1194,
+      "suffix": ".txt"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783821448000000000,
+      "path": "Z:\\FOXAI\\README_FIXED_PREVIEW.md",
+      "relative_path": "README_FIXED_PREVIEW.md",
+      "size_bytes": 734,
+      "suffix": ".md"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1782625418000000000,
+      "path": "Z:\\FOXAI\\README_INSTALL.txt",
+      "relative_path": "README_INSTALL.txt",
+      "size_bytes": 516,
+      "suffix": ".txt"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783819382000000000,
+      "path": "Z:\\FOXAI\\README_PHASE1.md",
+      "relative_path": "README_PHASE1.md",
+      "size_bytes": 3175,
+      "suffix": ".md"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783821448000000000,
+      "path": "Z:\\FOXAI\\README_PORTABLE_PYTHON_FIX.md",
+      "relative_path": "README_PORTABLE_PYTHON_FIX.md",
+      "size_bytes": 3068,
+      "suffix": ".md"
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1782594182000000000,
+      "path": "Z:\\FOXAI\\Red Canvas",
+      "relative_path": "Red Canvas",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1783818170560000000,
+      "path": "Z:\\FOXAI\\RepairBay",
+      "relative_path": "RepairBay",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1783470355830000000,
+      "path": "Z:\\FOXAI\\Reports",
+      "relative_path": "Reports",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783296186000000000,
+      "path": "Z:\\FOXAI\\requirements-dev.txt",
+      "relative_path": "requirements-dev.txt",
+      "size_bytes": 19,
+      "suffix": ".txt"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783316816000000000,
+      "path": "Z:\\FOXAI\\requirements-ui.txt",
+      "relative_path": "requirements-ui.txt",
+      "size_bytes": 13,
+      "suffix": ".txt"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783295992000000000,
+      "path": "Z:\\FOXAI\\requirements.txt",
+      "relative_path": "requirements.txt",
+      "size_bytes": 97,
+      "suffix": ".txt"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783364608000000000,
+      "path": "Z:\\FOXAI\\RESTORE_ACADEMY_REGISTRAR.bat",
+      "relative_path": "RESTORE_ACADEMY_REGISTRAR.bat",
+      "size_bytes": 375,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783364608000000000,
+      "path": "Z:\\FOXAI\\RESTORE_ACADEMY_REGISTRAR.py",
+      "relative_path": "RESTORE_ACADEMY_REGISTRAR.py",
+      "size_bytes": 883,
+      "suffix": ".py"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783356434000000000,
+      "path": "Z:\\FOXAI\\RESTORE_CONVERSATION_INVOKE_ARBITER.bat",
+      "relative_path": "RESTORE_CONVERSATION_INVOKE_ARBITER.bat",
+      "size_bytes": 415,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783356434000000000,
+      "path": "Z:\\FOXAI\\RESTORE_CONVERSATION_INVOKE_ARBITER.py",
+      "relative_path": "RESTORE_CONVERSATION_INVOKE_ARBITER.py",
+      "size_bytes": 854,
+      "suffix": ".py"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783327792000000000,
+      "path": "Z:\\FOXAI\\RESTORE_EXTENSION_HEALTH_ARBITER.bat",
+      "relative_path": "RESTORE_EXTENSION_HEALTH_ARBITER.bat",
+      "size_bytes": 403,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783327792000000000,
+      "path": "Z:\\FOXAI\\RESTORE_EXTENSION_HEALTH_ARBITER.py",
+      "relative_path": "RESTORE_EXTENSION_HEALTH_ARBITER.py",
+      "size_bytes": 845,
+      "suffix": ".py"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783327258000000000,
+      "path": "Z:\\FOXAI\\RESTORE_IMPORT_PATH_DIAGNOSTIC.bat",
+      "relative_path": "RESTORE_IMPORT_PATH_DIAGNOSTIC.bat",
+      "size_bytes": 395,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783327258000000000,
+      "path": "Z:\\FOXAI\\RESTORE_IMPORT_PATH_DIAGNOSTIC.py",
+      "relative_path": "RESTORE_IMPORT_PATH_DIAGNOSTIC.py",
+      "size_bytes": 1019,
+      "suffix": ".py"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783364178000000000,
+      "path": "Z:\\FOXAI\\RESTORE_SERVICE_CONTRACTS.bat",
+      "relative_path": "RESTORE_SERVICE_CONTRACTS.bat",
+      "size_bytes": 375,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783364178000000000,
+      "path": "Z:\\FOXAI\\RESTORE_SERVICE_CONTRACTS.py",
+      "relative_path": "RESTORE_SERVICE_CONTRACTS.py",
+      "size_bytes": 825,
+      "suffix": ".py"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1782615782000000000,
+      "path": "Z:\\FOXAI\\ROADMAP.MD",
+      "relative_path": "ROADMAP.MD",
+      "size_bytes": 387,
+      "suffix": ".md"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783294766000000000,
+      "path": "Z:\\FOXAI\\ROLLBACK_WEB_CAPABILITY_API_PATCH.bat",
+      "relative_path": "ROLLBACK_WEB_CAPABILITY_API_PATCH.bat",
+      "size_bytes": 444,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783294766000000000,
+      "path": "Z:\\FOXAI\\ROLLBACK_WEB_CAPABILITY_API_PATCH.py",
+      "relative_path": "ROLLBACK_WEB_CAPABILITY_API_PATCH.py",
+      "size_bytes": 1170,
+      "suffix": ".py"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783327258000000000,
+      "path": "Z:\\FOXAI\\RUN_IMPORT_PATH_DIAGNOSTIC.bat",
+      "relative_path": "RUN_IMPORT_PATH_DIAGNOSTIC.bat",
+      "size_bytes": 371,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783327258000000000,
+      "path": "Z:\\FOXAI\\RUN_IMPORT_PATH_DIAGNOSTIC.py",
+      "relative_path": "RUN_IMPORT_PATH_DIAGNOSTIC.py",
+      "size_bytes": 2701,
+      "suffix": ".py"
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784227253010000000,
+      "path": "Z:\\FOXAI\\Runtime",
+      "relative_path": "Runtime",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783815688000000000,
+      "path": "Z:\\FOXAI\\sectest2.txt",
+      "relative_path": "sectest2.txt",
+      "size_bytes": 119926,
+      "suffix": ".txt"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783818172000000000,
+      "path": "Z:\\FOXAI\\SETUP_GITHUB_REMOTE.bat",
+      "relative_path": "SETUP_GITHUB_REMOTE.bat",
+      "size_bytes": 368,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1783818170690000000,
+      "path": "Z:\\FOXAI\\Shell",
+      "relative_path": "Shell",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784595414000000000,
+      "path": "Z:\\FOXAI\\SHORT_STORY_POLISHER_1_0",
+      "relative_path": "SHORT_STORY_POLISHER_1_0",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784598378000000000,
+      "path": "Z:\\FOXAI\\SHORT_STORY_POLISHER_1_1",
+      "relative_path": "SHORT_STORY_POLISHER_1_1",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783819382000000000,
+      "path": "Z:\\FOXAI\\SIMULATED_APPLY_TEST_RECEIPT.json",
+      "relative_path": "SIMULATED_APPLY_TEST_RECEIPT.json",
+      "size_bytes": 761,
+      "suffix": ".json"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1784349782000000000,
+      "path": "Z:\\FOXAI\\Start ComfyUI CPU.bat",
+      "relative_path": "Start ComfyUI CPU.bat",
+      "size_bytes": 131,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1782593510000000000,
+      "path": "Z:\\FOXAI\\start FoxAI 3 Alpha.bat",
+      "relative_path": "start FoxAI 3 Alpha.bat",
+      "size_bytes": 46,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1782568492000000000,
+      "path": "Z:\\FOXAI\\Start FoxAI Desktop.bat",
+      "relative_path": "Start FoxAI Desktop.bat",
+      "size_bytes": 56,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1782567200000000000,
+      "path": "Z:\\FOXAI\\Start FoxAI v1.1.bat",
+      "relative_path": "Start FoxAI v1.1.bat",
+      "size_bytes": 57,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1782615782000000000,
+      "path": "Z:\\FOXAI\\Start FoxAI.bat",
+      "relative_path": "Start FoxAI.bat",
+      "size_bytes": 46,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783818172000000000,
+      "path": "Z:\\FOXAI\\Start_Bridge.bat",
+      "relative_path": "Start_Bridge.bat",
+      "size_bytes": 179,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1784357914000000000,
+      "path": "Z:\\FOXAI\\START_COMFYUI_APPROVED_NODES.bat",
+      "relative_path": "START_COMFYUI_APPROVED_NODES.bat",
+      "size_bytes": 841,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1784349782000000000,
+      "path": "Z:\\FOXAI\\START_COMFYUI_ISOLATED.bat",
+      "relative_path": "START_COMFYUI_ISOLATED.bat",
+      "size_bytes": 115,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1784349782000000000,
+      "path": "Z:\\FOXAI\\START_COMFYUI_NORMAL.bat",
+      "relative_path": "START_COMFYUI_NORMAL.bat",
+      "size_bytes": 759,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1784349782000000000,
+      "path": "Z:\\FOXAI\\START_FOXAI_CLEAN.bat",
+      "relative_path": "START_FOXAI_CLEAN.bat",
+      "size_bytes": 4368,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1784251222000000000,
+      "path": "Z:\\FOXAI\\START_FOXAI_DESKTOP_PORTABLE.bat",
+      "relative_path": "START_FOXAI_DESKTOP_PORTABLE.bat",
+      "size_bytes": 1020,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1784249862000000000,
+      "path": "Z:\\FOXAI\\START_FOXAI_DESKTOP_PORTABLE_DIAGNOSTIC.bat",
+      "relative_path": "START_FOXAI_DESKTOP_PORTABLE_DIAGNOSTIC.bat",
+      "size_bytes": 884,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1784393472000000000,
+      "path": "Z:\\FOXAI\\START_FOXAI_DESKTOP_TWO_WINDOW_RECOVERY.bat",
+      "relative_path": "START_FOXAI_DESKTOP_TWO_WINDOW_RECOVERY.bat",
+      "size_bytes": 1681,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783263714000000000,
+      "path": "Z:\\FOXAI\\START_FOXAI_WEB.bat",
+      "relative_path": "START_FOXAI_WEB.bat",
+      "size_bytes": 942,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1784227622000000000,
+      "path": "Z:\\FOXAI\\START_FOXAI_WEB_PORTABLE.bat",
+      "relative_path": "START_FOXAI_WEB_PORTABLE.bat",
+      "size_bytes": 121,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1784393472000000000,
+      "path": "Z:\\FOXAI\\START_FOXAI_WEB_WITH_COMFYUI.bat",
+      "relative_path": "START_FOXAI_WEB_WITH_COMFYUI.bat",
+      "size_bytes": 1722,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1784349782000000000,
+      "path": "Z:\\FOXAI\\START_FOXAI_WORKSHOP_PORTABLE.bat",
+      "relative_path": "START_FOXAI_WORKSHOP_PORTABLE.bat",
+      "size_bytes": 2670,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783818172000000000,
+      "path": "Z:\\FOXAI\\Start_KayocktheOS.bat",
+      "relative_path": "Start_KayocktheOS.bat",
+      "size_bytes": 388,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1784349782000000000,
+      "path": "Z:\\FOXAI\\STATUS_COMFYUI_NORMAL.bat",
+      "relative_path": "STATUS_COMFYUI_NORMAL.bat",
+      "size_bytes": 611,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783325676000000000,
+      "path": "Z:\\FOXAI\\STEVEDORE_INSPECTOR.bat",
+      "relative_path": "STEVEDORE_INSPECTOR.bat",
+      "size_bytes": 365,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783325676000000000,
+      "path": "Z:\\FOXAI\\STEVEDORE_INSPECTOR.py",
+      "relative_path": "STEVEDORE_INSPECTOR.py",
+      "size_bytes": 2699,
+      "suffix": ".py"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1784349782000000000,
+      "path": "Z:\\FOXAI\\STOP_COMFYUI_NORMAL.bat",
+      "relative_path": "STOP_COMFYUI_NORMAL.bat",
+      "size_bytes": 609,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783264088000000000,
+      "path": "Z:\\FOXAI\\STOP_FOXAI_CHAT_ENGINE.bat",
+      "relative_path": "STOP_FOXAI_CHAT_ENGINE.bat",
+      "size_bytes": 514,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783264088000000000,
+      "path": "Z:\\FOXAI\\STOP_FOXAI_CHAT_ENGINE_PORT_8080.bat",
+      "relative_path": "STOP_FOXAI_CHAT_ENGINE_PORT_8080.bat",
+      "size_bytes": 451,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1783818170860000000,
+      "path": "Z:\\FOXAI\\System",
+      "relative_path": "System",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783387720000000000,
+      "path": "Z:\\FOXAI\\TEST_ACADEMY_UNIFICATION.bat",
+      "relative_path": "TEST_ACADEMY_UNIFICATION.bat",
+      "size_bytes": 404,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783387720000000000,
+      "path": "Z:\\FOXAI\\TEST_ACADEMY_UNIFICATION.py",
+      "relative_path": "TEST_ACADEMY_UNIFICATION.py",
+      "size_bytes": 972,
+      "suffix": ".py"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783813750000000000,
+      "path": "Z:\\FOXAI\\TEST_API_KEY=PURPLE-FOX-CANARY-7391.txt",
+      "relative_path": "TEST_API_KEY=PURPLE-FOX-CANARY-7391.txt",
+      "size_bytes": 35,
+      "suffix": ".txt"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783358326000000000,
+      "path": "Z:\\FOXAI\\TEST_BRIDGE_OFFICERS.bat",
+      "relative_path": "TEST_BRIDGE_OFFICERS.bat",
+      "size_bytes": 379,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783358326000000000,
+      "path": "Z:\\FOXAI\\TEST_BRIDGE_OFFICERS.py",
+      "relative_path": "TEST_BRIDGE_OFFICERS.py",
+      "size_bytes": 608,
+      "suffix": ".py"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783292214000000000,
+      "path": "Z:\\FOXAI\\TEST_CAPABILITY_BUS.bat",
+      "relative_path": "TEST_CAPABILITY_BUS.bat",
+      "size_bytes": 334,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783292214000000000,
+      "path": "Z:\\FOXAI\\TEST_CAPABILITY_BUS.py",
+      "relative_path": "TEST_CAPABILITY_BUS.py",
+      "size_bytes": 1596,
+      "suffix": ".py"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783318922000000000,
+      "path": "Z:\\FOXAI\\TEST_CAPABILITY_GAP_ANALYZER.bat",
+      "relative_path": "TEST_CAPABILITY_GAP_ANALYZER.bat",
+      "size_bytes": 393,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783318922000000000,
+      "path": "Z:\\FOXAI\\TEST_CAPABILITY_GAP_ANALYZER.py",
+      "relative_path": "TEST_CAPABILITY_GAP_ANALYZER.py",
+      "size_bytes": 699,
+      "suffix": ".py"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783291548000000000,
+      "path": "Z:\\FOXAI\\TEST_CAPABILITY_MANAGER.bat",
+      "relative_path": "TEST_CAPABILITY_MANAGER.bat",
+      "size_bytes": 356,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783291548000000000,
+      "path": "Z:\\FOXAI\\TEST_CAPABILITY_MANAGER.py",
+      "relative_path": "TEST_CAPABILITY_MANAGER.py",
+      "size_bytes": 916,
+      "suffix": ".py"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783323792000000000,
+      "path": "Z:\\FOXAI\\TEST_CONVERSATION_SHUTTLE.bat",
+      "relative_path": "TEST_CONVERSATION_SHUTTLE.bat",
+      "size_bytes": 393,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783323792000000000,
+      "path": "Z:\\FOXAI\\TEST_CONVERSATION_SHUTTLE.py",
+      "relative_path": "TEST_CONVERSATION_SHUTTLE.py",
+      "size_bytes": 1242,
+      "suffix": ".py"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783265836000000000,
+      "path": "Z:\\FOXAI\\TEST_CORE_V10.bat",
+      "relative_path": "TEST_CORE_V10.bat",
+      "size_bytes": 321,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783265836000000000,
+      "path": "Z:\\FOXAI\\TEST_CORE_V10.py",
+      "relative_path": "TEST_CORE_V10.py",
+      "size_bytes": 1019,
+      "suffix": ".py"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783302440000000000,
+      "path": "Z:\\FOXAI\\TEST_EXTENSION_MANAGER.bat",
+      "relative_path": "TEST_EXTENSION_MANAGER.bat",
+      "size_bytes": 482,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783302440000000000,
+      "path": "Z:\\FOXAI\\TEST_EXTENSION_MANAGER.py",
+      "relative_path": "TEST_EXTENSION_MANAGER.py",
+      "size_bytes": 788,
+      "suffix": ".py"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783303592000000000,
+      "path": "Z:\\FOXAI\\TEST_EXTENSION_MANAGER_V2.bat",
+      "relative_path": "TEST_EXTENSION_MANAGER_V2.bat",
+      "size_bytes": 491,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783303592000000000,
+      "path": "Z:\\FOXAI\\TEST_EXTENSION_MANAGER_V2.py",
+      "relative_path": "TEST_EXTENSION_MANAGER_V2.py",
+      "size_bytes": 1316,
+      "suffix": ".py"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783304454000000000,
+      "path": "Z:\\FOXAI\\TEST_EXTENSION_MANIFESTS.bat",
+      "relative_path": "TEST_EXTENSION_MANIFESTS.bat",
+      "size_bytes": 500,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783304454000000000,
+      "path": "Z:\\FOXAI\\TEST_EXTENSION_MANIFESTS.py",
+      "relative_path": "TEST_EXTENSION_MANIFESTS.py",
+      "size_bytes": 1005,
+      "suffix": ".py"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783357220000000000,
+      "path": "Z:\\FOXAI\\TEST_FLEET_COMMAND.bat",
+      "relative_path": "TEST_FLEET_COMMAND.bat",
+      "size_bytes": 363,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783357220000000000,
+      "path": "Z:\\FOXAI\\TEST_FLEET_COMMAND.py",
+      "relative_path": "TEST_FLEET_COMMAND.py",
+      "size_bytes": 592,
+      "suffix": ".py"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783306168000000000,
+      "path": "Z:\\FOXAI\\TEST_FLEET_REGISTRY.bat",
+      "relative_path": "TEST_FLEET_REGISTRY.bat",
+      "size_bytes": 467,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783306168000000000,
+      "path": "Z:\\FOXAI\\TEST_FLEET_REGISTRY.py",
+      "relative_path": "TEST_FLEET_REGISTRY.py",
+      "size_bytes": 1527,
+      "suffix": ".py"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783324242000000000,
+      "path": "Z:\\FOXAI\\TEST_FLEET_SYNC_CONVERSATION.bat",
+      "relative_path": "TEST_FLEET_SYNC_CONVERSATION.bat",
+      "size_bytes": 400,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783324242000000000,
+      "path": "Z:\\FOXAI\\TEST_FLEET_SYNC_CONVERSATION.py",
+      "relative_path": "TEST_FLEET_SYNC_CONVERSATION.py",
+      "size_bytes": 1304,
+      "suffix": ".py"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783363138000000000,
+      "path": "Z:\\FOXAI\\TEST_FOXKERNEL.bat",
+      "relative_path": "TEST_FOXKERNEL.bat",
+      "size_bytes": 564,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783317862000000000,
+      "path": "Z:\\FOXAI\\TEST_INTENT_ENGINE.bat",
+      "relative_path": "TEST_INTENT_ENGINE.bat",
+      "size_bytes": 379,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783317862000000000,
+      "path": "Z:\\FOXAI\\TEST_INTENT_ENGINE.py",
+      "relative_path": "TEST_INTENT_ENGINE.py",
+      "size_bytes": 1298,
+      "suffix": ".py"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783269930000000000,
+      "path": "Z:\\FOXAI\\TEST_MEMORY_GUARDRAILS.bat",
+      "relative_path": "TEST_MEMORY_GUARDRAILS.bat",
+      "size_bytes": 356,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783269930000000000,
+      "path": "Z:\\FOXAI\\TEST_MEMORY_GUARDRAILS.py",
+      "relative_path": "TEST_MEMORY_GUARDRAILS.py",
+      "size_bytes": 1143,
+      "suffix": ".py"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783266130000000000,
+      "path": "Z:\\FOXAI\\TEST_MISSION_BUS.bat",
+      "relative_path": "TEST_MISSION_BUS.bat",
+      "size_bytes": 357,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783266130000000000,
+      "path": "Z:\\FOXAI\\TEST_MISSION_BUS.py",
+      "relative_path": "TEST_MISSION_BUS.py",
+      "size_bytes": 1098,
+      "suffix": ".py"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783329060000000000,
+      "path": "Z:\\FOXAI\\TEST_MISSION_EXECUTOR.bat",
+      "relative_path": "TEST_MISSION_EXECUTOR.bat",
+      "size_bytes": 375,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783329060000000000,
+      "path": "Z:\\FOXAI\\TEST_MISSION_EXECUTOR.py",
+      "relative_path": "TEST_MISSION_EXECUTOR.py",
+      "size_bytes": 606,
+      "suffix": ".py"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783314408000000000,
+      "path": "Z:\\FOXAI\\TEST_MISSION_PLANNER.bat",
+      "relative_path": "TEST_MISSION_PLANNER.bat",
+      "size_bytes": 466,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783314408000000000,
+      "path": "Z:\\FOXAI\\TEST_MISSION_PLANNER.py",
+      "relative_path": "TEST_MISSION_PLANNER.py",
+      "size_bytes": 594,
+      "suffix": ".py"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783313878000000000,
+      "path": "Z:\\FOXAI\\TEST_NO_LAUNCH_LIFECYCLE_GUARD.bat",
+      "relative_path": "TEST_NO_LAUNCH_LIFECYCLE_GUARD.bat",
+      "size_bytes": 514,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783313878000000000,
+      "path": "Z:\\FOXAI\\TEST_NO_LAUNCH_LIFECYCLE_GUARD.py",
+      "relative_path": "TEST_NO_LAUNCH_LIFECYCLE_GUARD.py",
+      "size_bytes": 890,
+      "suffix": ".py"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783361172000000000,
+      "path": "Z:\\FOXAI\\TEST_OPS_BRIDGE.bat",
+      "relative_path": "TEST_OPS_BRIDGE.bat",
+      "size_bytes": 645,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783362302000000000,
+      "path": "Z:\\FOXAI\\TEST_RUNTIME_DETECTION.bat",
+      "relative_path": "TEST_RUNTIME_DETECTION.bat",
+      "size_bytes": 391,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783362302000000000,
+      "path": "Z:\\FOXAI\\TEST_RUNTIME_DETECTION.py",
+      "relative_path": "TEST_RUNTIME_DETECTION.py",
+      "size_bytes": 427,
+      "suffix": ".py"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783346068000000000,
+      "path": "Z:\\FOXAI\\TEST_SERVICE_SHUTTLE_ARCHITECTURE.bat",
+      "relative_path": "TEST_SERVICE_SHUTTLE_ARCHITECTURE.bat",
+      "size_bytes": 419,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783346068000000000,
+      "path": "Z:\\FOXAI\\TEST_SERVICE_SHUTTLE_ARCHITECTURE.py",
+      "relative_path": "TEST_SERVICE_SHUTTLE_ARCHITECTURE.py",
+      "size_bytes": 1373,
+      "suffix": ".py"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783326806000000000,
+      "path": "Z:\\FOXAI\\TEST_SHUTTLE_POD_COMMISSIONING.bat",
+      "relative_path": "TEST_SHUTTLE_POD_COMMISSIONING.bat",
+      "size_bytes": 528,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783326806000000000,
+      "path": "Z:\\FOXAI\\TEST_SHUTTLE_POD_COMMISSIONING.py",
+      "relative_path": "TEST_SHUTTLE_POD_COMMISSIONING.py",
+      "size_bytes": 1426,
+      "suffix": ".py"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783315832000000000,
+      "path": "Z:\\FOXAI\\TEST_VAULT_DATABASE_SHUTTLE.bat",
+      "relative_path": "TEST_VAULT_DATABASE_SHUTTLE.bat",
+      "size_bytes": 395,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783315832000000000,
+      "path": "Z:\\FOXAI\\TEST_VAULT_DATABASE_SHUTTLE.py",
+      "relative_path": "TEST_VAULT_DATABASE_SHUTTLE.py",
+      "size_bytes": 1266,
+      "suffix": ".py"
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1783818920000000000,
+      "path": "Z:\\FOXAI\\tests",
+      "relative_path": "tests",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1783818171110000000,
+      "path": "Z:\\FOXAI\\The_Forge",
+      "relative_path": "The_Forge",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784601678000000000,
+      "path": "Z:\\FOXAI\\THE_WEAVER_1_0",
+      "relative_path": "THE_WEAVER_1_0",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1783818920000000000,
+      "path": "Z:\\FOXAI\\tools",
+      "relative_path": "tools",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1782570502850000000,
+      "path": "Z:\\FOXAI\\ui",
+      "relative_path": "ui",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1784191214000000000,
+      "path": "Z:\\FOXAI\\USB_TREE.txt",
+      "relative_path": "USB_TREE.txt",
+      "size_bytes": 792628,
+      "suffix": ".txt"
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784220866000000000,
+      "path": "Z:\\FOXAI\\USBC1_APPLY",
+      "relative_path": "USBC1_APPLY",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784215314000000000,
+      "path": "Z:\\FOXAI\\USBC1P",
+      "relative_path": "USBC1P",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784215850000000000,
+      "path": "Z:\\FOXAI\\USBC1P_R2",
+      "relative_path": "USBC1P_R2",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784218910000000000,
+      "path": "Z:\\FOXAI\\USBC1P_R3",
+      "relative_path": "USBC1P_R3",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784219814000000000,
+      "path": "Z:\\FOXAI\\USBC1P_R4",
+      "relative_path": "USBC1P_R4",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784577310000000000,
+      "path": "Z:\\FOXAI\\V2C11",
+      "relative_path": "V2C11",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1783315859080000000,
+      "path": "Z:\\FOXAI\\Vault",
+      "relative_path": "Vault",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1784369020000000000,
+      "path": "Z:\\FOXAI\\VERIFY_COMFYUI_KNOWN_GOOD.bat",
+      "relative_path": "VERIFY_COMFYUI_KNOWN_GOOD.bat",
+      "size_bytes": 692,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "file",
+      "modified_ns": 1783482460000000000,
+      "path": "Z:\\FOXAI\\VERIFY_PORTABLE_PYTHON.bat",
+      "relative_path": "VERIFY_PORTABLE_PYTHON.bat",
+      "size_bytes": 245,
+      "suffix": ".bat"
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784135156000000000,
+      "path": "Z:\\FOXAI\\VIT1",
+      "relative_path": "VIT1",
+      "size_bytes": null,
+      "suffix": ""
+    },
+    {
+      "kind": "directory",
+      "modified_ns": 1784225414290000000,
+      "path": "Z:\\FOXAI\\Wheelhouse",
+      "relative_path": "Wheelhouse",
+      "size_bytes": null,
+      "suffix": ""
+    }
+  ]
+}

@@ -1,0 +1,118 @@
+{
+  "collected_at": "2026-07-22T05:28:07.435635Z",
+  "records": [
+    {
+      "availability_status": "available",
+      "collected_at": "2026-07-22T05:28:07.435635Z",
+      "collection_method": "Python os/platform",
+      "facts": {
+        "architecture": "AMD64",
+        "computer_name": "DESKTOP-G9ERN9B",
+        "environment_variable_name_count": 53,
+        "environment_variable_values_recorded": false,
+        "python_collector_architecture_bits": 64
+      },
+      "provenance": {
+        "api": [
+          "os.environ names/count",
+          "platform.machine",
+          "ctypes pointer size"
+        ]
+      },
+      "record_id": "HOST-67426AAF565A37DD",
+      "subject": "host_identity"
+    },
+    {
+      "availability_status": "available",
+      "collected_at": "2026-07-22T05:28:07.435635Z",
+      "collection_method": "Python platform plus HKLM read-only registry",
+      "facts": {
+        "build_number": "26200",
+        "display_version": "25H2",
+        "edition": "Windows 10 Pro",
+        "edition_id": "Professional",
+        "platform_release": "11",
+        "platform_system": "Windows",
+        "platform_version": "10.0.26200",
+        "update_build_revision": 8894
+      },
+      "provenance": {
+        "platform_api": "platform",
+        "registry_values": [
+          "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\ProductName",
+          "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\DisplayVersion",
+          "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\CurrentBuildNumber",
+          "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\UBR",
+          "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\EditionID"
+        ]
+      },
+      "record_id": "WINDOWS-CC55DBA55F53DC52",
+      "subject": "windows_identity"
+    },
+    {
+      "availability_status": "available",
+      "collected_at": "2026-07-22T05:28:07.435635Z",
+      "collection_method": "PowerShell Get-CimInstance read-only",
+      "facts": {
+        "available_physical_memory_bytes": 4713541632,
+        "cpus": [
+          {
+            "logical_processors": 12,
+            "max_clock_mhz": 3000,
+            "name": "12th Gen Intel(R) Core(TM) i5-12500",
+            "physical_cores": 6
+          }
+        ],
+        "free_physical_memory_kib": 4603068,
+        "gpus": [
+          {
+            "adapter_ram_bytes": 2147479552,
+            "driver_version": "32.0.101.7085",
+            "name": "Intel(R) UHD Graphics 770"
+          }
+        ],
+        "last_boot_utc": "2026-07-21T21:17:54.5000000Z",
+        "logical_processor_count": 12,
+        "logical_processors": 12,
+        "memory_used_percent": 90.8,
+        "os_build": "26200",
+        "os_caption": "Microsoft Windows 11 Pro",
+        "os_version": "10.0.26200",
+        "page_files": [
+          {
+            "allocated_mib": 8192,
+            "current_usage_mib": 8191,
+            "name": "C:\\pagefile.sys",
+            "peak_usage_mib": 8191
+          }
+        ],
+        "physical_core_count": 6,
+        "physical_processor_packages": 1,
+        "total_physical_memory_bytes": 51213217792,
+        "total_visible_memory_kib": 50012908,
+        "uptime_seconds": 29414,
+        "used_physical_memory_bytes": 46499676160
+      },
+      "provenance": {
+        "cim_classes": [
+          "Win32_OperatingSystem",
+          "Win32_ComputerSystem",
+          "Win32_Processor",
+          "Win32_VideoController",
+          "Win32_PageFileUsage"
+        ]
+      },
+      "record_id": "HARDWARE-F09BA18F4D799588",
+      "subject": "hardware_memory_and_display"
+    }
+  ],
+  "schema": "foxai.agent_fox.technical_core.v1b0.host_and_windows_baseline.v1",
+  "sensitive_identifiers_excluded": [
+    "product_keys",
+    "device_serial_numbers",
+    "motherboard_uuid",
+    "mac_addresses",
+    "credentials",
+    "account_tokens"
+  ]
+}

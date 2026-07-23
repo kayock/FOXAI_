@@ -1,0 +1,52 @@
+{
+  "schema": "foxai.agent_fox.technical_core.evidence_contract.v1",
+  "purpose": "Canonical evidence and path-classification contract for Agent Fox Technical Core V1A-1.",
+  "evidence_classes": {
+    "observed_live": "Metadata directly observed from the live installation by a bounded collector.",
+    "static_live_source": "Information parsed from a current live source or launcher file without importing or executing it.",
+    "declared_manifest": "A capability, dependency, path, or setting asserted by a manifest or configuration and not automatically proven active.",
+    "known_good_baseline": "Evidence from a protected baseline, backup, or snapshot whose historical identity is preserved.",
+    "historical_receipt": "An unchanged Engineering or Repair Bay receipt describing a prior mission or result.",
+    "repository_reference": "Evidence from the public repository; useful for comparison but not proof of live installation state.",
+    "inference": "A conclusion derived from evidence that must be labeled as an inference.",
+    "missing_evidence": "Evidence that is absent, denied, unresolved, incomplete, stale, or not collected."
+  },
+  "path_categories": [
+    "live_candidate",
+    "launcher",
+    "runtime",
+    "model",
+    "database",
+    "index",
+    "generated_output",
+    "personal_content",
+    "protected_location",
+    "archive",
+    "package",
+    "backup",
+    "snapshot",
+    "receipt",
+    "mission_workspace",
+    "unresolved_reference"
+  ],
+  "response_contract": [
+    "Finding",
+    "Evidence and paths",
+    "Confidence",
+    "Missing evidence",
+    "Recommendation",
+    "Risk",
+    "Network used: Yes/No",
+    "System modified: Yes/No",
+    "Exact Engineering Workshop handoff when a change is warranted"
+  ],
+  "rules": [
+    "Current observed evidence outranks repository and historical evidence for current-state questions.",
+    "A declared capability is not proof that the capability is active or healthy.",
+    "A filename, size, path, or symptom similarity is not proof of identical content or root cause.",
+    "Missing, denied, unresolved, partial, historical, or inferred evidence must never be presented as current proof.",
+    "Agent Fox may inspect, explain, compare, and recommend but may not apply repairs outside Engineering Workshop authorization."
+  ],
+  "network_required": false,
+  "third_party_dependencies_required": false
+}

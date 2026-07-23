@@ -1,0 +1,7207 @@
+{
+  "record_count": 1200,
+  "records": [
+    {
+      "language": "python",
+      "line": 1573,
+      "path": "core\\engineer_agent.py",
+      "text": "def symbol_search(self, query):"
+    },
+    {
+      "language": "python",
+      "line": 1574,
+      "path": "core\\engineer_agent.py",
+      "text": "index = self.get_index()"
+    },
+    {
+      "language": "python",
+      "line": 1575,
+      "path": "core\\engineer_agent.py",
+      "text": "terms = self.extract_terms(query)"
+    },
+    {
+      "language": "python",
+      "line": 1577,
+      "path": "core\\engineer_agent.py",
+      "text": "# Prefer last meaningful token as likely symbol name."
+    },
+    {
+      "language": "python",
+      "line": 1578,
+      "path": "core\\engineer_agent.py",
+      "text": "symbol = terms[-1] if terms else query.strip()"
+    },
+    {
+      "language": "python",
+      "line": 1579,
+      "path": "core\\engineer_agent.py",
+      "text": "hits = index.find_symbol(symbol)"
+    },
+    {
+      "language": "python",
+      "line": 1581,
+      "path": "core\\engineer_agent.py",
+      "text": "lines = ["
+    },
+    {
+      "language": "python",
+      "line": 1582,
+      "path": "core\\engineer_agent.py",
+      "text": "\"ENGINEER SYMBOL SEARCH\","
+    },
+    {
+      "language": "python",
+      "line": 1583,
+      "path": "core\\engineer_agent.py",
+      "text": "\"\","
+    },
+    {
+      "language": "python",
+      "line": 1584,
+      "path": "core\\engineer_agent.py",
+      "text": "f\"Symbol Query: {symbol}\","
+    },
+    {
+      "language": "python",
+      "line": 1585,
+      "path": "core\\engineer_agent.py",
+      "text": "\"\","
+    },
+    {
+      "language": "python",
+      "line": 1586,
+      "path": "core\\engineer_agent.py",
+      "text": "]"
+    },
+    {
+      "language": "python",
+      "line": 1588,
+      "path": "core\\engineer_agent.py",
+      "text": "for label, key in ["
+    },
+    {
+      "language": "python",
+      "line": 1589,
+      "path": "core\\engineer_agent.py",
+      "text": "(\"Classes\", \"classes\"),"
+    },
+    {
+      "language": "python",
+      "line": 1590,
+      "path": "core\\engineer_agent.py",
+      "text": "(\"Functions\", \"functions\"),"
+    },
+    {
+      "language": "python",
+      "line": 1591,
+      "path": "core\\engineer_agent.py",
+      "text": "(\"Imports\", \"imports\"),"
+    },
+    {
+      "language": "python",
+      "line": 1592,
+      "path": "core\\engineer_agent.py",
+      "text": "(\"Files\", \"files\"),"
+    },
+    {
+      "language": "python",
+      "line": 1593,
+      "path": "core\\engineer_agent.py",
+      "text": "]:"
+    },
+    {
+      "language": "python",
+      "line": 1594,
+      "path": "core\\engineer_agent.py",
+      "text": "values = hits[key]"
+    },
+    {
+      "language": "python",
+      "line": 1595,
+      "path": "core\\engineer_agent.py",
+      "text": "lines.append(f\"{label}: {len(values)}\")"
+    },
+    {
+      "language": "python",
+      "line": 1596,
+      "path": "core\\engineer_agent.py",
+      "text": "for item in values[:10]:"
+    },
+    {
+      "language": "python",
+      "line": 1597,
+      "path": "core\\engineer_agent.py",
+      "text": "if key == \"files\":"
+    },
+    {
+      "language": "python",
+      "line": 1598,
+      "path": "core\\engineer_agent.py",
+      "text": "lines.append(f\"• {item['relative']}\")"
+    },
+    {
+      "language": "python",
+      "line": 1599,
+      "path": "core\\engineer_agent.py",
+      "text": "elif key == \"imports\":"
+    },
+    {
+      "language": "python",
+      "line": 1600,
+      "path": "core\\engineer_agent.py",
+      "text": "lines.append(f\"• {item['module']} in {item['file']}:{item.get('line')}\")"
+    },
+    {
+      "language": "python",
+      "line": 1601,
+      "path": "core\\engineer_agent.py",
+      "text": "else:"
+    },
+    {
+      "language": "python",
+      "line": 1602,
+      "path": "core\\engineer_agent.py",
+      "text": "lines.append(f\"• {item['name']} in {item['file']}:{item.get('line')}\")"
+    },
+    {
+      "language": "python",
+      "line": 1603,
+      "path": "core\\engineer_agent.py",
+      "text": "lines.append(\"\")"
+    },
+    {
+      "language": "python",
+      "line": 1605,
+      "path": "core\\engineer_agent.py",
+      "text": "lines.append(\"\")"
+    },
+    {
+      "language": "python",
+      "line": 1606,
+      "path": "core\\engineer_agent.py",
+      "text": "lines.append(self.confidence_card("
+    },
+    {
+      "language": "python",
+      "line": 1607,
+      "path": "core\\engineer_agent.py",
+      "text": "evidence=["
+    },
+    {
+      "language": "python",
+      "line": 1608,
+      "path": "core\\engineer_agent.py",
+      "text": "{\"type\": \"project_index\", \"detail\": \"Symbol lookup uses the Project Index.\"},"
+    },
+    {
+      "language": "python",
+      "line": 1609,
+      "path": "core\\engineer_agent.py",
+      "text": "],"
+    },
+    {
+      "language": "python",
+      "line": 1610,
+      "path": "core\\engineer_agent.py",
+      "text": "base=70,"
+    },
+    {
+      "language": "python",
+      "line": 1611,
+      "path": "core\\engineer_agent.py",
+      "text": "reason=\"Symbol search results are based on the read-only project index.\""
+    },
+    {
+      "language": "python",
+      "line": 1612,
+      "path": "core\\engineer_agent.py",
+      "text": "))"
+    },
+    {
+      "language": "python",
+      "line": 1613,
+      "path": "core\\engineer_agent.py",
+      "text": "lines.append(\"\")"
+    },
+    {
+      "language": "python",
+      "line": 1614,
+      "path": "core\\engineer_agent.py",
+      "text": "lines.append(\"\")"
+    },
+    {
+      "language": "python",
+      "line": 1615,
+      "path": "core\\engineer_agent.py",
+      "text": "lines.append(self.confidence_card("
+    },
+    {
+      "language": "python",
+      "line": 1616,
+      "path": "core\\engineer_agent.py",
+      "text": "evidence=["
+    },
+    {
+      "language": "python",
+      "line": 1617,
+      "path": "core\\engineer_agent.py",
+      "text": "{\"type\": \"direct_file_match\", \"detail\": \"Search results come from direct file text matches.\"},"
+    },
+    {
+      "language": "python",
+      "line": 1618,
+      "path": "core\\engineer_agent.py",
+      "text": "{\"type\": \"project_index\", \"detail\": \"Files are filtered through Engineer project scanning.\"},"
+    },
+    {
+      "language": "python",
+      "line": 1619,
+      "path": "core\\engineer_agent.py",
+      "text": "],"
+    },
+    {
+      "language": "python",
+      "line": 1620,
+      "path": "core\\engineer_agent.py",
+      "text": "base=65,"
+    },
+    {
+      "language": "python",
+      "line": 1621,
+      "path": "core\\engineer_agent.py",
+      "text": "reason=\"Project search confidence depends on direct text matches, not semantic understanding.\""
+    },
+    {
+      "language": "python",
+      "line": 1622,
+      "path": "core\\engineer_agent.py",
+      "text": "))"
+    },
+    {
+      "language": "python",
+      "line": 1623,
+      "path": "core\\engineer_agent.py",
+      "text": "lines.append(\"\")"
+    },
+    {
+      "language": "python",
+      "line": 1624,
+      "path": "core\\engineer_agent.py",
+      "text": "lines.append(\"Safety Status:\")"
+    },
+    {
+      "language": "python",
+      "line": 1625,
+      "path": "core\\engineer_agent.py",
+      "text": "lines.append(\"Read-only. No files were modified.\")"
+    },
+    {
+      "language": "python",
+      "line": 1627,
+      "path": "core\\engineer_agent.py",
+      "text": "return \"\\n\".join(lines)"
+    },
+    {
+      "language": "python",
+      "line": 1629,
+      "path": "core\\engineer_agent.py",
+      "text": "def search_project(self, query):"
+    },
+    {
+      "language": "python",
+      "line": 1630,
+      "path": "core\\engineer_agent.py",
+      "text": "terms = self.extract_terms(query)"
+    },
+    {
+      "language": "python",
+      "line": 1631,
+      "path": "core\\engineer_agent.py",
+      "text": "if not terms:"
+    },
+    {
+      "language": "python",
+      "line": 1632,
+      "path": "core\\engineer_agent.py",
+      "text": "terms = [query.lower()]"
+    },
+    {
+      "language": "python",
+      "line": 1634,
+      "path": "core\\engineer_agent.py",
+      "text": "results = []"
+    },
+    {
+      "language": "python",
+      "line": 1636,
+      "path": "core\\engineer_agent.py",
+      "text": "for path in self.iter_project_files():"
+    },
+    {
+      "language": "python",
+      "line": 1637,
+      "path": "core\\engineer_agent.py",
+      "text": "text = self.read_text_safely(path)"
+    },
+    {
+      "language": "python",
+      "line": 1638,
+      "path": "core\\engineer_agent.py",
+      "text": "lowered = text.lower()"
+    },
+    {
+      "language": "python",
+      "line": 1639,
+      "path": "core\\engineer_agent.py",
+      "text": "score = 0"
+    },
+    {
+      "language": "python",
+      "line": 1641,
+      "path": "core\\engineer_agent.py",
+      "text": "for term in terms:"
+    },
+    {
+      "language": "python",
+      "line": 1642,
+      "path": "core\\engineer_agent.py",
+      "text": "if term and term in lowered:"
+    },
+    {
+      "language": "python",
+      "line": 1643,
+      "path": "core\\engineer_agent.py",
+      "text": "score += lowered.count(term)"
+    },
+    {
+      "language": "python",
+      "line": 1645,
+      "path": "core\\engineer_agent.py",
+      "text": "if score:"
+    },
+    {
+      "language": "python",
+      "line": 1646,
+      "path": "core\\engineer_agent.py",
+      "text": "snippet = self.make_snippet(text, terms)"
+    },
+    {
+      "language": "python",
+      "line": 1647,
+      "path": "core\\engineer_agent.py",
+      "text": "results.append((score, path, snippet))"
+    },
+    {
+      "language": "python",
+      "line": 1649,
+      "path": "core\\engineer_agent.py",
+      "text": "results.sort(key=lambda item: item[0], reverse=True)"
+    },
+    {
+      "language": "python",
+      "line": 1651,
+      "path": "core\\engineer_agent.py",
+      "text": "if not results:"
+    },
+    {
+      "language": "python",
+      "line": 1652,
+      "path": "core\\engineer_agent.py",
+      "text": "return ("
+    },
+    {
+      "language": "python",
+      "line": 1653,
+      "path": "core\\engineer_agent.py",
+      "text": "\"ENGINEER REPORT\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1654,
+      "path": "core\\engineer_agent.py",
+      "text": "f\"Query:\\n{query}\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1655,
+      "path": "core\\engineer_agent.py",
+      "text": "\"No matching project files were found.\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 1656,
+      "path": "core\\engineer_agent.py",
+      "text": "\"Safety Status:\\nRead-only. No files were modified.\""
+    },
+    {
+      "language": "python",
+      "line": 1657,
+      "path": "core\\engineer_agent.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1659,
+      "path": "core\\engineer_agent.py",
+      "text": "lines = ["
+    },
+    {
+      "language": "python",
+      "line": 1660,
+      "path": "core\\engineer_agent.py",
+      "text": "\"ENGINEER REPORT\","
+    },
+    {
+      "language": "python",
+      "line": 1661,
+      "path": "core\\engineer_agent.py",
+      "text": "\"\","
+    },
+    {
+      "language": "python",
+      "line": 1662,
+      "path": "core\\engineer_agent.py",
+      "text": "\"Mission:\","
+    },
+    {
+      "language": "python",
+      "line": 1663,
+      "path": "core\\engineer_agent.py",
+      "text": "\"Project search\","
+    },
+    {
+      "language": "python",
+      "line": 1664,
+      "path": "core\\engineer_agent.py",
+      "text": "\"\","
+    },
+    {
+      "language": "python",
+      "line": 1665,
+      "path": "core\\engineer_agent.py",
+      "text": "\"Query:\","
+    },
+    {
+      "language": "python",
+      "line": 1666,
+      "path": "core\\engineer_agent.py",
+      "text": "query,"
+    },
+    {
+      "language": "python",
+      "line": 1667,
+      "path": "core\\engineer_agent.py",
+      "text": "\"\","
+    },
+    {
+      "language": "python",
+      "line": 1668,
+      "path": "core\\engineer_agent.py",
+      "text": "f\"Matches found: {len(results)}\","
+    },
+    {
+      "language": "python",
+      "line": 1669,
+      "path": "core\\engineer_agent.py",
+      "text": "\"\","
+    },
+    {
+      "language": "python",
+      "line": 1670,
+      "path": "core\\engineer_agent.py",
+      "text": "\"Top results:\","
+    },
+    {
+      "language": "python",
+      "line": 1671,
+      "path": "core\\engineer_agent.py",
+      "text": "\"\","
+    },
+    {
+      "language": "python",
+      "line": 1672,
+      "path": "core\\engineer_agent.py",
+      "text": "]"
+    },
+    {
+      "language": "python",
+      "line": 1674,
+      "path": "core\\engineer_agent.py",
+      "text": "for score, path, snippet in results[:8]:"
+    },
+    {
+      "language": "python",
+      "line": 1675,
+      "path": "core\\engineer_agent.py",
+      "text": "rel = path.relative_to(self.project_root)"
+    },
+    {
+      "language": "python",
+      "line": 1676,
+      "path": "core\\engineer_agent.py",
+      "text": "lines.append(f\"--- {rel} ---\")"
+    },
+    {
+      "language": "python",
+      "line": 1677,
+      "path": "core\\engineer_agent.py",
+      "text": "lines.append(f\"Score: {score}\")"
+    },
+    {
+      "language": "python",
+      "line": 1678,
+      "path": "core\\engineer_agent.py",
+      "text": "lines.append(snippet.strip() or \"[No readable snippet]\")"
+    },
+    {
+      "language": "python",
+      "line": 1679,
+      "path": "core\\engineer_agent.py",
+      "text": "lines.append(\"\")"
+    },
+    {
+      "language": "python",
+      "line": 1681,
+      "path": "core\\engineer_agent.py",
+      "text": "lines.append(\"Safety Status:\")"
+    },
+    {
+      "language": "python",
+      "line": 1682,
+      "path": "core\\engineer_agent.py",
+      "text": "lines.append(\"Read-only. No files were modified.\")"
+    },
+    {
+      "language": "python",
+      "line": 1684,
+      "path": "core\\engineer_agent.py",
+      "text": "return \"\\n\".join(lines)"
+    },
+    {
+      "language": "python",
+      "line": 1686,
+      "path": "core\\engineer_agent.py",
+      "text": "def extract_terms(self, query):"
+    },
+    {
+      "language": "python",
+      "line": 1687,
+      "path": "core\\engineer_agent.py",
+      "text": "lowered = query.lower()"
+    },
+    {
+      "language": "python",
+      "line": 1689,
+      "path": "core\\engineer_agent.py",
+      "text": "stop_words = {"
+    },
+    {
+      "language": "python",
+      "line": 1690,
+      "path": "core\\engineer_agent.py",
+      "text": "\"engineer\", \"please\", \"can\", \"you\", \"your\", \"own\", \"code\","
+    },
+    {
+      "language": "python",
+      "line": 1691,
+      "path": "core\\engineer_agent.py",
+      "text": "\"find\", \"where\", \"what\", \"why\", \"how\", \"the\", \"is\", \"are\","
+    },
+    {
+      "language": "python",
+      "line": 1692,
+      "path": "core\\engineer_agent.py",
+      "text": "\"to\", \"in\", \"of\", \"for\", \"with\", \"and\", \"or\", \"a\", \"an\","
+    },
+    {
+      "language": "python",
+      "line": 1693,
+      "path": "core\\engineer_agent.py",
+      "text": "\"symbol\", \"function\", \"class\""
+    },
+    {
+      "language": "python",
+      "line": 1694,
+      "path": "core\\engineer_agent.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 1696,
+      "path": "core\\engineer_agent.py",
+      "text": "quoted = re.findall(r'\"([^\"]+)\"', lowered)"
+    },
+    {
+      "language": "python",
+      "line": 1697,
+      "path": "core\\engineer_agent.py",
+      "text": "words = re.findall(r\"[a-zA-Z0-9_\\\\-]+\", lowered)"
+    },
+    {
+      "language": "python",
+      "line": 1699,
+      "path": "core\\engineer_agent.py",
+      "text": "terms = quoted[:]"
+    },
+    {
+      "language": "python",
+      "line": 1700,
+      "path": "core\\engineer_agent.py",
+      "text": "terms.extend(w for w in words if len(w) > 2 and w not in stop_words)"
+    },
+    {
+      "language": "python",
+      "line": 1702,
+      "path": "core\\engineer_agent.py",
+      "text": "compounds = ["
+    },
+    {
+      "language": "python",
+      "line": 1703,
+      "path": "core\\engineer_agent.py",
+      "text": "\"red canvas\", \"iron library\", \"mission control\", \"workshop advisor\","
+    },
+    {
+      "language": "python",
+      "line": 1704,
+      "path": "core\\engineer_agent.py",
+      "text": "\"brainstem\", \"promptsmith\", \"comfyui\", \"director\", \"diagnostics\","
+    },
+    {
+      "language": "python",
+      "line": 1705,
+      "path": "core\\engineer_agent.py",
+      "text": "\"project index\", \"kayock's forge\""
+    },
+    {
+      "language": "python",
+      "line": 1706,
+      "path": "core\\engineer_agent.py",
+      "text": "]"
+    },
+    {
+      "language": "python",
+      "line": 1708,
+      "path": "core\\engineer_agent.py",
+      "text": "for compound in compounds:"
+    },
+    {
+      "language": "python",
+      "line": 1709,
+      "path": "core\\engineer_agent.py",
+      "text": "if compound in lowered and compound not in terms:"
+    },
+    {
+      "language": "python",
+      "line": 1710,
+      "path": "core\\engineer_agent.py",
+      "text": "terms.append(compound)"
+    },
+    {
+      "language": "python",
+      "line": 1712,
+      "path": "core\\engineer_agent.py",
+      "text": "return list(dict.fromkeys(terms))"
+    },
+    {
+      "language": "python",
+      "line": 1714,
+      "path": "core\\engineer_agent.py",
+      "text": "def make_snippet(self, text, terms, radius=350):"
+    },
+    {
+      "language": "python",
+      "line": 1715,
+      "path": "core\\engineer_agent.py",
+      "text": "lowered = text.lower()"
+    },
+    {
+      "language": "python",
+      "line": 1717,
+      "path": "core\\engineer_agent.py",
+      "text": "for term in terms:"
+    },
+    {
+      "language": "python",
+      "line": 1718,
+      "path": "core\\engineer_agent.py",
+      "text": "if not term:"
+    },
+    {
+      "language": "python",
+      "line": 1719,
+      "path": "core\\engineer_agent.py",
+      "text": "continue"
+    },
+    {
+      "language": "python",
+      "line": 1721,
+      "path": "core\\engineer_agent.py",
+      "text": "index = lowered.find(term.lower())"
+    },
+    {
+      "language": "python",
+      "line": 1722,
+      "path": "core\\engineer_agent.py",
+      "text": "if index >= 0:"
+    },
+    {
+      "language": "python",
+      "line": 1723,
+      "path": "core\\engineer_agent.py",
+      "text": "start = max(0, index - radius)"
+    },
+    {
+      "language": "python",
+      "line": 1724,
+      "path": "core\\engineer_agent.py",
+      "text": "end = min(len(text), index + len(term) + radius)"
+    },
+    {
+      "language": "python",
+      "line": 1725,
+      "path": "core\\engineer_agent.py",
+      "text": "snippet = text[start:end]"
+    },
+    {
+      "language": "python",
+      "line": 1726,
+      "path": "core\\engineer_agent.py",
+      "text": "return snippet.replace(\"\\r\\n\", \"\\n\")"
+    },
+    {
+      "language": "python",
+      "line": 1728,
+      "path": "core\\engineer_agent.py",
+      "text": "return text[:700].replace(\"\\r\\n\", \"\\n\")"
+    },
+    {
+      "language": "python",
+      "line": 1,
+      "path": "core\\engineer_intent.py",
+      "text": "class EngineerIntent:"
+    },
+    {
+      "language": "python",
+      "line": 2,
+      "path": "core\\engineer_intent.py",
+      "text": "\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 3,
+      "path": "core\\engineer_intent.py",
+      "text": "Engineer Intent Classifier RC2"
+    },
+    {
+      "language": "python",
+      "line": 5,
+      "path": "core\\engineer_intent.py",
+      "text": "Classifies engineering questions before falling back to raw project search."
+    },
+    {
+      "language": "python",
+      "line": 6,
+      "path": "core\\engineer_intent.py",
+      "text": "\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 8,
+      "path": "core\\engineer_intent.py",
+      "text": "ARCHITECTURE_TERMS = ["
+    },
+    {
+      "language": "python",
+      "line": 9,
+      "path": "core\\engineer_intent.py",
+      "text": "\"review your code\", \"evaluate your code\", \"review the workshop\","
+    },
+    {
+      "language": "python",
+      "line": 10,
+      "path": "core\\engineer_intent.py",
+      "text": "\"evaluate the workshop\", \"architecture review\", \"design review\","
+    },
+    {
+      "language": "python",
+      "line": 11,
+      "path": "core\\engineer_intent.py",
+      "text": "\"code and design\", \"recommendations for upgrade\","
+    },
+    {
+      "language": "python",
+      "line": 12,
+      "path": "core\\engineer_intent.py",
+      "text": "\"recommendations for smoothness\", \"smoothness\", \"prominent detail\","
+    },
+    {
+      "language": "python",
+      "line": 13,
+      "path": "core\\engineer_intent.py",
+      "text": "\"prominate detail\", \"overall design\""
+    },
+    {
+      "language": "python",
+      "line": 14,
+      "path": "core\\engineer_intent.py",
+      "text": "]"
+    },
+    {
+      "language": "python",
+      "line": 16,
+      "path": "core\\engineer_intent.py",
+      "text": "UI_INVESTIGATION_TERMS = ["
+    },
+    {
+      "language": "python",
+      "line": 17,
+      "path": "core\\engineer_intent.py",
+      "text": "\"right click\", \"right-click\", \"context menu\", \"menu comes up\","
+    },
+    {
+      "language": "python",
+      "line": 18,
+      "path": "core\\engineer_intent.py",
+      "text": "\"popup menu\", \"spell check menu\", \"ui menu\", \"mouse menu\", \"button-3\""
+    },
+    {
+      "language": "python",
+      "line": 19,
+      "path": "core\\engineer_intent.py",
+      "text": "]"
+    },
+    {
+      "language": "python",
+      "line": 21,
+      "path": "core\\engineer_intent.py",
+      "text": "PERFORMANCE_TERMS = ["
+    },
+    {
+      "language": "python",
+      "line": 22,
+      "path": "core\\engineer_intent.py",
+      "text": "\"slow\", \"lag\", \"freeze\", \"frozen\", \"performance\","
+    },
+    {
+      "language": "python",
+      "line": 23,
+      "path": "core\\engineer_intent.py",
+      "text": "\"takes too long\", \"stutter\", \"startup time\""
+    },
+    {
+      "language": "python",
+      "line": 24,
+      "path": "core\\engineer_intent.py",
+      "text": "]"
+    },
+    {
+      "language": "python",
+      "line": 26,
+      "path": "core\\engineer_intent.py",
+      "text": "SECURITY_TERMS = ["
+    },
+    {
+      "language": "python",
+      "line": 27,
+      "path": "core\\engineer_intent.py",
+      "text": "\"security\", \"safe\", \"unsafe\", \"risk\", \"permission\","
+    },
+    {
+      "language": "python",
+      "line": 28,
+      "path": "core\\engineer_intent.py",
+      "text": "\"admin\", \"sandbox\", \"password\", \"credentials\""
+    },
+    {
+      "language": "python",
+      "line": 29,
+      "path": "core\\engineer_intent.py",
+      "text": "]"
+    },
+    {
+      "language": "python",
+      "line": 31,
+      "path": "core\\engineer_intent.py",
+      "text": "BUG_TERMS = ["
+    },
+    {
+      "language": "python",
+      "line": 32,
+      "path": "core\\engineer_intent.py",
+      "text": "\"bug\", \"broken\", \"error\", \"doesn't work\", \"does not work\","
+    },
+    {
+      "language": "python",
+      "line": 33,
+      "path": "core\\engineer_intent.py",
+      "text": "\"not working\", \"fails\", \"crash\""
+    },
+    {
+      "language": "python",
+      "line": 34,
+      "path": "core\\engineer_intent.py",
+      "text": "]"
+    },
+    {
+      "language": "python",
+      "line": 36,
+      "path": "core\\engineer_intent.py",
+      "text": "SEARCH_TERMS = ["
+    },
+    {
+      "language": "python",
+      "line": 37,
+      "path": "core\\engineer_intent.py",
+      "text": "\"find\", \"where is\", \"where are\", \"search\", \"locate\", \"defined\""
+    },
+    {
+      "language": "python",
+      "line": 38,
+      "path": "core\\engineer_intent.py",
+      "text": "]"
+    },
+    {
+      "language": "python",
+      "line": 40,
+      "path": "core\\engineer_intent.py",
+      "text": "FORGE_TERMS = ["
+    },
+    {
+      "language": "python",
+      "line": 41,
+      "path": "core\\engineer_intent.py",
+      "text": "\"forge sprint\","
+    },
+    {
+      "language": "python",
+      "line": 42,
+      "path": "core\\engineer_intent.py",
+      "text": "\"begin forge\","
+    },
+    {
+      "language": "python",
+      "line": 43,
+      "path": "core\\engineer_intent.py",
+      "text": "\"start forge\","
+    },
+    {
+      "language": "python",
+      "line": 44,
+      "path": "core\\engineer_intent.py",
+      "text": "\"build component\","
+    },
+    {
+      "language": "python",
+      "line": 45,
+      "path": "core\\engineer_intent.py",
+      "text": "\"create component\","
+    },
+    {
+      "language": "python",
+      "line": 46,
+      "path": "core\\engineer_intent.py",
+      "text": "\"create a new file\","
+    },
+    {
+      "language": "python",
+      "line": 47,
+      "path": "core\\engineer_intent.py",
+      "text": "\"new file\","
+    },
+    {
+      "language": "python",
+      "line": 48,
+      "path": "core\\engineer_intent.py",
+      "text": "\"generate implementation\","
+    },
+    {
+      "language": "python",
+      "line": 49,
+      "path": "core\\engineer_intent.py",
+      "text": "\"implement\","
+    },
+    {
+      "language": "python",
+      "line": 50,
+      "path": "core\\engineer_intent.py",
+      "text": "\"write the code\","
+    },
+    {
+      "language": "python",
+      "line": 51,
+      "path": "core\\engineer_intent.py",
+      "text": "\"build the skeleton\","
+    },
+    {
+      "language": "python",
+      "line": 52,
+      "path": "core\\engineer_intent.py",
+      "text": "\"kernel component\","
+    },
+    {
+      "language": "python",
+      "line": 53,
+      "path": "core\\engineer_intent.py",
+      "text": "\"create core/\","
+    },
+    {
+      "language": "python",
+      "line": 54,
+      "path": "core\\engineer_intent.py",
+      "text": "\"create core\\\\\","
+    },
+    {
+      "language": "python",
+      "line": 55,
+      "path": "core\\engineer_intent.py",
+      "text": "\"investigation_engine.py\","
+    },
+    {
+      "language": "python",
+      "line": 56,
+      "path": "core\\engineer_intent.py",
+      "text": "]"
+    },
+    {
+      "language": "python",
+      "line": 58,
+      "path": "core\\engineer_intent.py",
+      "text": "def classify(self, query):"
+    },
+    {
+      "language": "python",
+      "line": 59,
+      "path": "core\\engineer_intent.py",
+      "text": "lowered = (query or \"\").lower()"
+    },
+    {
+      "language": "python",
+      "line": 61,
+      "path": "core\\engineer_intent.py",
+      "text": "if self.has_any(lowered, self.FORGE_TERMS):"
+    },
+    {
+      "language": "python",
+      "line": 62,
+      "path": "core\\engineer_intent.py",
+      "text": "return {"
+    },
+    {
+      "language": "python",
+      "line": 63,
+      "path": "core\\engineer_intent.py",
+      "text": "\"intent\": \"forge_build\","
+    },
+    {
+      "language": "python",
+      "line": 64,
+      "path": "core\\engineer_intent.py",
+      "text": "\"label\": \"Forge Build\","
+    },
+    {
+      "language": "python",
+      "line": 65,
+      "path": "core\\engineer_intent.py",
+      "text": "\"reason\": \"Operator requested implementation of a new component or Forge Sprint.\","
+    },
+    {
+      "language": "python",
+      "line": 66,
+      "path": "core\\engineer_intent.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 68,
+      "path": "core\\engineer_intent.py",
+      "text": "if self.has_any(lowered, self.UI_INVESTIGATION_TERMS):"
+    },
+    {
+      "language": "python",
+      "line": 69,
+      "path": "core\\engineer_intent.py",
+      "text": "return {"
+    },
+    {
+      "language": "python",
+      "line": 70,
+      "path": "core\\engineer_intent.py",
+      "text": "\"intent\": \"ui_investigation\","
+    },
+    {
+      "language": "python",
+      "line": 71,
+      "path": "core\\engineer_intent.py",
+      "text": "\"label\": \"UI Investigation\","
+    },
+    {
+      "language": "python",
+      "line": 72,
+      "path": "core\\engineer_intent.py",
+      "text": "\"reason\": \"Question mentions context menu / right-click UI behavior.\","
+    },
+    {
+      "language": "python",
+      "line": 73,
+      "path": "core\\engineer_intent.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 75,
+      "path": "core\\engineer_intent.py",
+      "text": "if self.has_any(lowered, self.ARCHITECTURE_TERMS):"
+    },
+    {
+      "language": "python",
+      "line": 76,
+      "path": "core\\engineer_intent.py",
+      "text": "return {"
+    },
+    {
+      "language": "python",
+      "line": 77,
+      "path": "core\\engineer_intent.py",
+      "text": "\"intent\": \"architecture_review\","
+    },
+    {
+      "language": "python",
+      "line": 78,
+      "path": "core\\engineer_intent.py",
+      "text": "\"label\": \"Architecture Review\","
+    },
+    {
+      "language": "python",
+      "line": 79,
+      "path": "core\\engineer_intent.py",
+      "text": "\"reason\": \"Question asks for overall code/design evaluation.\","
+    },
+    {
+      "language": "python",
+      "line": 80,
+      "path": "core\\engineer_intent.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 82,
+      "path": "core\\engineer_intent.py",
+      "text": "if self.has_any(lowered, self.PERFORMANCE_TERMS):"
+    },
+    {
+      "language": "python",
+      "line": 83,
+      "path": "core\\engineer_intent.py",
+      "text": "return {"
+    },
+    {
+      "language": "python",
+      "line": 84,
+      "path": "core\\engineer_intent.py",
+      "text": "\"intent\": \"performance_review\","
+    },
+    {
+      "language": "python",
+      "line": 85,
+      "path": "core\\engineer_intent.py",
+      "text": "\"label\": \"Performance Review\","
+    },
+    {
+      "language": "python",
+      "line": 86,
+      "path": "core\\engineer_intent.py",
+      "text": "\"reason\": \"Question mentions speed, lag, freezing, or performance.\","
+    },
+    {
+      "language": "python",
+      "line": 87,
+      "path": "core\\engineer_intent.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 89,
+      "path": "core\\engineer_intent.py",
+      "text": "if self.has_any(lowered, self.SECURITY_TERMS):"
+    },
+    {
+      "language": "python",
+      "line": 90,
+      "path": "core\\engineer_intent.py",
+      "text": "return {"
+    },
+    {
+      "language": "python",
+      "line": 91,
+      "path": "core\\engineer_intent.py",
+      "text": "\"intent\": \"security_review\","
+    },
+    {
+      "language": "python",
+      "line": 92,
+      "path": "core\\engineer_intent.py",
+      "text": "\"label\": \"Security Review\","
+    },
+    {
+      "language": "python",
+      "line": 93,
+      "path": "core\\engineer_intent.py",
+      "text": "\"reason\": \"Question mentions safety, security, permissions, or credentials.\","
+    },
+    {
+      "language": "python",
+      "line": 94,
+      "path": "core\\engineer_intent.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 96,
+      "path": "core\\engineer_intent.py",
+      "text": "if self.has_any(lowered, self.BUG_TERMS):"
+    },
+    {
+      "language": "python",
+      "line": 97,
+      "path": "core\\engineer_intent.py",
+      "text": "return {"
+    },
+    {
+      "language": "python",
+      "line": 98,
+      "path": "core\\engineer_intent.py",
+      "text": "\"intent\": \"bug_investigation\","
+    },
+    {
+      "language": "python",
+      "line": 99,
+      "path": "core\\engineer_intent.py",
+      "text": "\"label\": \"Bug Investigation\","
+    },
+    {
+      "language": "python",
+      "line": 100,
+      "path": "core\\engineer_intent.py",
+      "text": "\"reason\": \"Question describes broken behavior or an error.\","
+    },
+    {
+      "language": "python",
+      "line": 101,
+      "path": "core\\engineer_intent.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 103,
+      "path": "core\\engineer_intent.py",
+      "text": "if self.has_any(lowered, self.SEARCH_TERMS):"
+    },
+    {
+      "language": "python",
+      "line": 104,
+      "path": "core\\engineer_intent.py",
+      "text": "return {"
+    },
+    {
+      "language": "python",
+      "line": 105,
+      "path": "core\\engineer_intent.py",
+      "text": "\"intent\": \"project_search\","
+    },
+    {
+      "language": "python",
+      "line": 106,
+      "path": "core\\engineer_intent.py",
+      "text": "\"label\": \"Project Search\","
+    },
+    {
+      "language": "python",
+      "line": 107,
+      "path": "core\\engineer_intent.py",
+      "text": "\"reason\": \"Question asks to find or locate something.\","
+    },
+    {
+      "language": "python",
+      "line": 108,
+      "path": "core\\engineer_intent.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 110,
+      "path": "core\\engineer_intent.py",
+      "text": "return {"
+    },
+    {
+      "language": "python",
+      "line": 111,
+      "path": "core\\engineer_intent.py",
+      "text": "\"intent\": \"project_search\","
+    },
+    {
+      "language": "python",
+      "line": 112,
+      "path": "core\\engineer_intent.py",
+      "text": "\"label\": \"Project Search\","
+    },
+    {
+      "language": "python",
+      "line": 113,
+      "path": "core\\engineer_intent.py",
+      "text": "\"reason\": \"No specialized intent matched. Falling back to project search.\","
+    },
+    {
+      "language": "python",
+      "line": 114,
+      "path": "core\\engineer_intent.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 116,
+      "path": "core\\engineer_intent.py",
+      "text": "def has_any(self, text, terms):"
+    },
+    {
+      "language": "python",
+      "line": 117,
+      "path": "core\\engineer_intent.py",
+      "text": "return any(term in text for term in terms)"
+    },
+    {
+      "language": "python",
+      "line": 119,
+      "path": "core\\engineer_intent.py",
+      "text": "def report(self, query):"
+    },
+    {
+      "language": "python",
+      "line": 120,
+      "path": "core\\engineer_intent.py",
+      "text": "result = self.classify(query)"
+    },
+    {
+      "language": "python",
+      "line": 121,
+      "path": "core\\engineer_intent.py",
+      "text": "return ("
+    },
+    {
+      "language": "python",
+      "line": 122,
+      "path": "core\\engineer_intent.py",
+      "text": "\"ENGINEER INTENT\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 123,
+      "path": "core\\engineer_intent.py",
+      "text": "f\"Intent: {result['label']}\\n\""
+    },
+    {
+      "language": "python",
+      "line": 124,
+      "path": "core\\engineer_intent.py",
+      "text": "f\"Reason: {result['reason']}\""
+    },
+    {
+      "language": "python",
+      "line": 125,
+      "path": "core\\engineer_intent.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1,
+      "path": "core\\engineering_assessment.py",
+      "text": "from __future__ import annotations"
+    },
+    {
+      "language": "python",
+      "line": 3,
+      "path": "core\\engineering_assessment.py",
+      "text": "from dataclasses import dataclass, field"
+    },
+    {
+      "language": "python",
+      "line": 4,
+      "path": "core\\engineering_assessment.py",
+      "text": "from typing import Any, Dict, List"
+    },
+    {
+      "language": "python",
+      "line": 7,
+      "path": "core\\engineering_assessment.py",
+      "text": "@dataclass(frozen=True)"
+    },
+    {
+      "language": "python",
+      "line": 8,
+      "path": "core\\engineering_assessment.py",
+      "text": "class EngineeringAssessment:"
+    },
+    {
+      "language": "python",
+      "line": 9,
+      "path": "core\\engineering_assessment.py",
+      "text": "\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 10,
+      "path": "core\\engineering_assessment.py",
+      "text": "Engineering Assessment RC1"
+    },
+    {
+      "language": "python",
+      "line": 12,
+      "path": "core\\engineering_assessment.py",
+      "text": "A structured judgment produced from evidence, ranking, and heuristics."
+    },
+    {
+      "language": "python",
+      "line": 14,
+      "path": "core\\engineering_assessment.py",
+      "text": "This object is intentionally department-neutral so Engineer, Repair Bay,"
+    },
+    {
+      "language": "python",
+      "line": 15,
+      "path": "core\\engineering_assessment.py",
+      "text": "Comic Forge, Dungeon Master, and future departments can all use it."
+    },
+    {
+      "language": "python",
+      "line": 16,
+      "path": "core\\engineering_assessment.py",
+      "text": "\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 17,
+      "path": "core\\engineering_assessment.py",
+      "text": "finding: str"
+    },
+    {
+      "language": "python",
+      "line": 18,
+      "path": "core\\engineering_assessment.py",
+      "text": "confidence: int"
+    },
+    {
+      "language": "python",
+      "line": 19,
+      "path": "core\\engineering_assessment.py",
+      "text": "reasoning: List[str] = field(default_factory=list)"
+    },
+    {
+      "language": "python",
+      "line": 20,
+      "path": "core\\engineering_assessment.py",
+      "text": "evidence_summary: List[str] = field(default_factory=list)"
+    },
+    {
+      "language": "python",
+      "line": 21,
+      "path": "core\\engineering_assessment.py",
+      "text": "contradictions: List[str] = field(default_factory=list)"
+    },
+    {
+      "language": "python",
+      "line": 22,
+      "path": "core\\engineering_assessment.py",
+      "text": "missing_evidence: List[str] = field(default_factory=list)"
+    },
+    {
+      "language": "python",
+      "line": 23,
+      "path": "core\\engineering_assessment.py",
+      "text": "suggested_actions: List[str] = field(default_factory=list)"
+    },
+    {
+      "language": "python",
+      "line": 24,
+      "path": "core\\engineering_assessment.py",
+      "text": "alternatives: List[str] = field(default_factory=list)"
+    },
+    {
+      "language": "python",
+      "line": 25,
+      "path": "core\\engineering_assessment.py",
+      "text": "risk: str = \"unknown\""
+    },
+    {
+      "language": "python",
+      "line": 26,
+      "path": "core\\engineering_assessment.py",
+      "text": "impact: str = \"unknown\""
+    },
+    {
+      "language": "python",
+      "line": 27,
+      "path": "core\\engineering_assessment.py",
+      "text": "operator_summary: str = \"\""
+    },
+    {
+      "language": "python",
+      "line": 28,
+      "path": "core\\engineering_assessment.py",
+      "text": "metadata: Dict[str, Any] = field(default_factory=dict)"
+    },
+    {
+      "language": "python",
+      "line": 30,
+      "path": "core\\engineering_assessment.py",
+      "text": "def report(self) -> str:"
+    },
+    {
+      "language": "python",
+      "line": 31,
+      "path": "core\\engineering_assessment.py",
+      "text": "lines = ["
+    },
+    {
+      "language": "python",
+      "line": 32,
+      "path": "core\\engineering_assessment.py",
+      "text": "\"ENGINEERING ASSESSMENT\","
+    },
+    {
+      "language": "python",
+      "line": 33,
+      "path": "core\\engineering_assessment.py",
+      "text": "\"\","
+    },
+    {
+      "language": "python",
+      "line": 34,
+      "path": "core\\engineering_assessment.py",
+      "text": "\"Finding:\","
+    },
+    {
+      "language": "python",
+      "line": 35,
+      "path": "core\\engineering_assessment.py",
+      "text": "self.finding,"
+    },
+    {
+      "language": "python",
+      "line": 36,
+      "path": "core\\engineering_assessment.py",
+      "text": "\"\","
+    },
+    {
+      "language": "python",
+      "line": 37,
+      "path": "core\\engineering_assessment.py",
+      "text": "\"Confidence:\","
+    },
+    {
+      "language": "python",
+      "line": 38,
+      "path": "core\\engineering_assessment.py",
+      "text": "f\"{self.confidence}%\","
+    },
+    {
+      "language": "python",
+      "line": 39,
+      "path": "core\\engineering_assessment.py",
+      "text": "\"\","
+    },
+    {
+      "language": "python",
+      "line": 40,
+      "path": "core\\engineering_assessment.py",
+      "text": "\"Reasoning:\","
+    },
+    {
+      "language": "python",
+      "line": 41,
+      "path": "core\\engineering_assessment.py",
+      "text": "]"
+    },
+    {
+      "language": "python",
+      "line": 43,
+      "path": "core\\engineering_assessment.py",
+      "text": "lines.extend(self._bullets(self.reasoning, empty=\"No reasoning recorded.\"))"
+    },
+    {
+      "language": "python",
+      "line": 45,
+      "path": "core\\engineering_assessment.py",
+      "text": "lines.extend([\"\", \"Evidence Summary:\"])"
+    },
+    {
+      "language": "python",
+      "line": 46,
+      "path": "core\\engineering_assessment.py",
+      "text": "lines.extend(self._bullets(self.evidence_summary, empty=\"No evidence summarized.\"))"
+    },
+    {
+      "language": "python",
+      "line": 48,
+      "path": "core\\engineering_assessment.py",
+      "text": "lines.extend([\"\", \"Contradictions:\"])"
+    },
+    {
+      "language": "python",
+      "line": 49,
+      "path": "core\\engineering_assessment.py",
+      "text": "lines.extend(self._bullets(self.contradictions, empty=\"None found.\"))"
+    },
+    {
+      "language": "python",
+      "line": 51,
+      "path": "core\\engineering_assessment.py",
+      "text": "lines.extend([\"\", \"Missing Evidence:\"])"
+    },
+    {
+      "language": "python",
+      "line": 52,
+      "path": "core\\engineering_assessment.py",
+      "text": "lines.extend(self._bullets(self.missing_evidence, empty=\"None identified.\"))"
+    },
+    {
+      "language": "python",
+      "line": 54,
+      "path": "core\\engineering_assessment.py",
+      "text": "lines.extend([\"\", \"Suggested Actions:\"])"
+    },
+    {
+      "language": "python",
+      "line": 55,
+      "path": "core\\engineering_assessment.py",
+      "text": "lines.extend(self._bullets(self.suggested_actions, empty=\"No actions suggested.\"))"
+    },
+    {
+      "language": "python",
+      "line": 57,
+      "path": "core\\engineering_assessment.py",
+      "text": "lines.extend([\"\", \"Alternatives:\"])"
+    },
+    {
+      "language": "python",
+      "line": 58,
+      "path": "core\\engineering_assessment.py",
+      "text": "lines.extend(self._bullets(self.alternatives, empty=\"No alternatives recorded.\"))"
+    },
+    {
+      "language": "python",
+      "line": 60,
+      "path": "core\\engineering_assessment.py",
+      "text": "lines.extend(["
+    },
+    {
+      "language": "python",
+      "line": 61,
+      "path": "core\\engineering_assessment.py",
+      "text": "\"\","
+    },
+    {
+      "language": "python",
+      "line": 62,
+      "path": "core\\engineering_assessment.py",
+      "text": "\"Risk:\","
+    },
+    {
+      "language": "python",
+      "line": 63,
+      "path": "core\\engineering_assessment.py",
+      "text": "self.risk,"
+    },
+    {
+      "language": "python",
+      "line": 64,
+      "path": "core\\engineering_assessment.py",
+      "text": "\"\","
+    },
+    {
+      "language": "python",
+      "line": 65,
+      "path": "core\\engineering_assessment.py",
+      "text": "\"Impact:\","
+    },
+    {
+      "language": "python",
+      "line": 66,
+      "path": "core\\engineering_assessment.py",
+      "text": "self.impact,"
+    },
+    {
+      "language": "python",
+      "line": 67,
+      "path": "core\\engineering_assessment.py",
+      "text": "\"\","
+    },
+    {
+      "language": "python",
+      "line": 68,
+      "path": "core\\engineering_assessment.py",
+      "text": "\"Operator Summary:\","
+    },
+    {
+      "language": "python",
+      "line": 69,
+      "path": "core\\engineering_assessment.py",
+      "text": "self.operator_summary or \"No operator summary provided.\","
+    },
+    {
+      "language": "python",
+      "line": 70,
+      "path": "core\\engineering_assessment.py",
+      "text": "])"
+    },
+    {
+      "language": "python",
+      "line": 72,
+      "path": "core\\engineering_assessment.py",
+      "text": "return \"\\n\".join(lines)"
+    },
+    {
+      "language": "python",
+      "line": 74,
+      "path": "core\\engineering_assessment.py",
+      "text": "def _bullets(self, items: List[str], empty: str) -> List[str]:"
+    },
+    {
+      "language": "python",
+      "line": 75,
+      "path": "core\\engineering_assessment.py",
+      "text": "if not items:"
+    },
+    {
+      "language": "python",
+      "line": 76,
+      "path": "core\\engineering_assessment.py",
+      "text": "return [f\"• {empty}\"]"
+    },
+    {
+      "language": "python",
+      "line": 77,
+      "path": "core\\engineering_assessment.py",
+      "text": "return [f\"• {item}\" for item in items]"
+    },
+    {
+      "language": "python",
+      "line": 1,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "from __future__ import annotations"
+    },
+    {
+      "language": "python",
+      "line": 3,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "import json"
+    },
+    {
+      "language": "python",
+      "line": 4,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "import re"
+    },
+    {
+      "language": "python",
+      "line": 5,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "import shlex"
+    },
+    {
+      "language": "python",
+      "line": 6,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "from datetime import datetime, timezone"
+    },
+    {
+      "language": "python",
+      "line": 7,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "from pathlib import Path"
+    },
+    {
+      "language": "python",
+      "line": 8,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "from typing import Any"
+    },
+    {
+      "language": "python",
+      "line": 9,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "from uuid import uuid4"
+    },
+    {
+      "language": "python",
+      "line": 11,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "from Departments.Engineering.evidence import sha256_json, utc_now, write_json"
+    },
+    {
+      "language": "python",
+      "line": 12,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "from Departments.Engineering.workshop import EngineeringWorkshop, WorkshopError"
+    },
+    {
+      "language": "python",
+      "line": 13,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "from core.security_containment import ("
+    },
+    {
+      "language": "python",
+      "line": 14,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "authorize_department_route,"
+    },
+    {
+      "language": "python",
+      "line": 15,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "authorize_repair_action,"
+    },
+    {
+      "language": "python",
+      "line": 16,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 19,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "class EngineeringWorkshopBridge:"
+    },
+    {
+      "language": "python",
+      "line": 20,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "\"\"\"Expose the controlled Engineering Workshop through explicit /engineer commands."
+    },
+    {
+      "language": "python",
+      "line": 22,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "Ordinary Engineer analysis remains read-only. Project writes are possible only"
+    },
+    {
+      "language": "python",
+      "line": 23,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "through an exact JSON plan that has already been previewed and whose SHA-256 is"
+    },
+    {
+      "language": "python",
+      "line": 24,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "repeated in the operator's exact APPLY confirmation."
+    },
+    {
+      "language": "python",
+      "line": 25,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 27,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "_PREFIX = re.compile(r\"^(?:/engineer\\s+)?workshop\\b\", re.IGNORECASE)"
+    },
+    {
+      "language": "python",
+      "line": 28,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "_OPERATORS = {\"operator\", \"human_operator\", \"eric\", \"ui_operator\"}"
+    },
+    {
+      "language": "python",
+      "line": 30,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "def __init__(self, engineer_agent: Any):"
+    },
+    {
+      "language": "python",
+      "line": 31,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "self.engineer_agent = engineer_agent"
+    },
+    {
+      "language": "python",
+      "line": 32,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "self.project_root = Path(__file__).resolve().parents[1]"
+    },
+    {
+      "language": "python",
+      "line": 33,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "self.data_root = self.project_root / \"System\" / \"EngineeringWorkshop\""
+    },
+    {
+      "language": "python",
+      "line": 34,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "self.workshop = EngineeringWorkshop(self.data_root)"
+    },
+    {
+      "language": "python",
+      "line": 35,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "self.plan_root = self.data_root / \"plans\""
+    },
+    {
+      "language": "python",
+      "line": 36,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "self.plan_root.mkdir(parents=True, exist_ok=True)"
+    },
+    {
+      "language": "python",
+      "line": 38,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "def handle("
+    },
+    {
+      "language": "python",
+      "line": 39,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "self,"
+    },
+    {
+      "language": "python",
+      "line": 40,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "query: str,"
+    },
+    {
+      "language": "python",
+      "line": 41,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "*,"
+    },
+    {
+      "language": "python",
+      "line": 42,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "caller: str = \"operator\","
+    },
+    {
+      "language": "python",
+      "line": 43,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "operator_approved: bool = False,"
+    },
+    {
+      "language": "python",
+      "line": 44,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": ") -> str | None:"
+    },
+    {
+      "language": "python",
+      "line": 45,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "text = (query or \"\").strip()"
+    },
+    {
+      "language": "python",
+      "line": 46,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "match = self._PREFIX.match(text)"
+    },
+    {
+      "language": "python",
+      "line": 47,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "if not match:"
+    },
+    {
+      "language": "python",
+      "line": 48,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "return None"
+    },
+    {
+      "language": "python",
+      "line": 49,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "remainder = text[match.end() :].strip()"
+    },
+    {
+      "language": "python",
+      "line": 50,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "if not remainder or remainder.lower() in {\"help\", \"?\"}:"
+    },
+    {
+      "language": "python",
+      "line": 51,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "return self.help_report()"
+    },
+    {
+      "language": "python",
+      "line": 53,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "command, _, payload = remainder.partition(\" \")"
+    },
+    {
+      "language": "python",
+      "line": 54,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "command = command.strip().lower()"
+    },
+    {
+      "language": "python",
+      "line": 55,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "payload = payload.strip()"
+    },
+    {
+      "language": "python",
+      "line": 57,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 58,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "if command in {\"status\", \"continue\", \"resume\"}:"
+    },
+    {
+      "language": "python",
+      "line": 59,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "return self.status_report(payload or None)"
+    },
+    {
+      "language": "python",
+      "line": 60,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "if command in {\"begin\", \"stage\"}:"
+    },
+    {
+      "language": "python",
+      "line": 61,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "return self.begin_report(payload, caller=caller)"
+    },
+    {
+      "language": "python",
+      "line": 62,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "if command == \"locate\":"
+    },
+    {
+      "language": "python",
+      "line": 63,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "return self.locate_report(payload, caller=caller)"
+    },
+    {
+      "language": "python",
+      "line": 64,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "if command in {\"save-plan\", \"saveplan\"}:"
+    },
+    {
+      "language": "python",
+      "line": 65,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "return self.save_plan_report(payload, caller=caller)"
+    },
+    {
+      "language": "python",
+      "line": 66,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "if command == \"preview\":"
+    },
+    {
+      "language": "python",
+      "line": 67,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "return self.preview_report(payload, caller=caller)"
+    },
+    {
+      "language": "python",
+      "line": 68,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "if command == \"apply\":"
+    },
+    {
+      "language": "python",
+      "line": 69,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "return self.apply_report(payload, caller=caller)"
+    },
+    {
+      "language": "python",
+      "line": 70,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "if command == \"rollback\":"
+    },
+    {
+      "language": "python",
+      "line": 71,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "return self.rollback_report(payload, caller=caller)"
+    },
+    {
+      "language": "python",
+      "line": 72,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "if command == \"capabilities\":"
+    },
+    {
+      "language": "python",
+      "line": 73,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "return self.capabilities_report()"
+    },
+    {
+      "language": "python",
+      "line": 74,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "return ("
+    },
+    {
+      "language": "python",
+      "line": 75,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "\"ENGINEERING WORKSHOP\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 76,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "f\"Unknown Workshop command: {command}\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 77,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "+ self.help_report()"
+    },
+    {
+      "language": "python",
+      "line": 78,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 79,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "except (WorkshopError, ValueError, OSError, KeyError, json.JSONDecodeError) as exc:"
+    },
+    {
+      "language": "python",
+      "line": 80,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "return ("
+    },
+    {
+      "language": "python",
+      "line": 81,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "\"ENGINEERING WORKSHOP\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 82,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "\"Result: BLOCKED — NOTHING CHANGED\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 83,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "f\"{type(exc).__name__}: {exc}\""
+    },
+    {
+      "language": "python",
+      "line": 84,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 86,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "def help_report(self) -> str:"
+    },
+    {
+      "language": "python",
+      "line": 87,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "return ("
+    },
+    {
+      "language": "python",
+      "line": 88,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "\"ENGINEERING WORKSHOP V1.1\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 89,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "\"Ordinary Engineer analysis remains read-only. Controlled project changes \""
+    },
+    {
+      "language": "python",
+      "line": 90,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "\"use an exact plan, preview hash, targeted snapshot, explicit approval, \""
+    },
+    {
+      "language": "python",
+      "line": 91,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "\"validation, receipt, and rollback on failure.\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 92,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "\"Commands:\\n\""
+    },
+    {
+      "language": "python",
+      "line": 93,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "\"/engineer workshop status\\n\""
+    },
+    {
+      "language": "python",
+      "line": 94,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "\"/engineer workshop begin TITLE :: IMPLEMENTATION MISSION\\n\""
+    },
+    {
+      "language": "python",
+      "line": 95,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "\"/engineer workshop locate MISSION-ID :: term one | term two\\n\""
+    },
+    {
+      "language": "python",
+      "line": 96,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "\"/engineer workshop save-plan MISSION-ID :: {JSON PLAN}\\n\""
+    },
+    {
+      "language": "python",
+      "line": 97,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "\"/engineer workshop preview \\\"ABSOLUTE PLAN PATH\\\"\\n\""
+    },
+    {
+      "language": "python",
+      "line": 98,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "\"/engineer workshop apply \\\"ABSOLUTE PLAN PATH\\\" :: APPLY PLAN-SHA256\\n\""
+    },
+    {
+      "language": "python",
+      "line": 99,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "\"/engineer workshop rollback MISSION-ID :: ROLLBACK MISSION-ID\\n\""
+    },
+    {
+      "language": "python",
+      "line": 100,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "\"/engineer workshop capabilities\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 101,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "\"No natural-language request is allowed to write files by itself.\""
+    },
+    {
+      "language": "python",
+      "line": 102,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 104,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "def _authorize_preview(self, caller: str) -> None:"
+    },
+    {
+      "language": "python",
+      "line": 105,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "decision = authorize_department_route("
+    },
+    {
+      "language": "python",
+      "line": 106,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "caller,"
+    },
+    {
+      "language": "python",
+      "line": 107,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "\"engineering_airlock\","
+    },
+    {
+      "language": "python",
+      "line": 108,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "\"preview\","
+    },
+    {
+      "language": "python",
+      "line": 109,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "operator_approved=False,"
+    },
+    {
+      "language": "python",
+      "line": 110,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 111,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "if not decision.allowed:"
+    },
+    {
+      "language": "python",
+      "line": 112,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "raise WorkshopError(decision.reason)"
+    },
+    {
+      "language": "python",
+      "line": 114,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "def _require_operator(self, caller: str) -> None:"
+    },
+    {
+      "language": "python",
+      "line": 115,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "if (caller or \"\").strip().lower() not in self._OPERATORS:"
+    },
+    {
+      "language": "python",
+      "line": 116,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "raise WorkshopError(\"Only the trusted operator UI may control Workshop state\")"
+    },
+    {
+      "language": "python",
+      "line": 118,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "def _new_mission_id(self) -> str:"
+    },
+    {
+      "language": "python",
+      "line": 119,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "stamp = datetime.now(timezone.utc).strftime(\"%Y%m%d-%H%M%S\")"
+    },
+    {
+      "language": "python",
+      "line": 120,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "return f\"ENG-{stamp}-{uuid4().hex[:6].upper()}\""
+    },
+    {
+      "language": "python",
+      "line": 122,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "def begin_report(self, payload: str, *, caller: str) -> str:"
+    },
+    {
+      "language": "python",
+      "line": 123,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "self._require_operator(caller)"
+    },
+    {
+      "language": "python",
+      "line": 124,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "self._authorize_preview(caller)"
+    },
+    {
+      "language": "python",
+      "line": 125,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "title, sep, mission_text = payload.partition(\"::\")"
+    },
+    {
+      "language": "python",
+      "line": 126,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "if not sep or not title.strip() or not mission_text.strip():"
+    },
+    {
+      "language": "python",
+      "line": 127,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "raise ValueError(\"Use: workshop begin TITLE :: IMPLEMENTATION MISSION\")"
+    },
+    {
+      "language": "python",
+      "line": 128,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "mission_id = self._new_mission_id()"
+    },
+    {
+      "language": "python",
+      "line": 129,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "state = self.workshop.begin_mission("
+    },
+    {
+      "language": "python",
+      "line": 130,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "mission_id,"
+    },
+    {
+      "language": "python",
+      "line": 131,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "title.strip(),"
+    },
+    {
+      "language": "python",
+      "line": 132,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "mission_text.strip(),"
+    },
+    {
+      "language": "python",
+      "line": 133,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "self.project_root,"
+    },
+    {
+      "language": "python",
+      "line": 134,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 135,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "return ("
+    },
+    {
+      "language": "python",
+      "line": 136,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "\"ENGINEERING WORKSHOP — MISSION STAGED\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 137,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "f\"Mission ID: {state.mission_id}\\n\""
+    },
+    {
+      "language": "python",
+      "line": 138,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "f\"Title: {state.title}\\n\""
+    },
+    {
+      "language": "python",
+      "line": 139,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "f\"Route: {state.mission_type}\\n\""
+    },
+    {
+      "language": "python",
+      "line": 140,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "f\"Explicit implementation authorization detected: {state.authorized}\\n\""
+    },
+    {
+      "language": "python",
+      "line": 141,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "f\"Project root: {state.project_root}\\n\""
+    },
+    {
+      "language": "python",
+      "line": 142,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "f\"Stage: {state.stage}\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 143,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "\"No project files were changed. Next: locate relevant source or save an exact JSON plan.\""
+    },
+    {
+      "language": "python",
+      "line": 144,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 146,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "def status_report(self, mission_id: str | None = None) -> str:"
+    },
+    {
+      "language": "python",
+      "line": 147,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "state = ("
+    },
+    {
+      "language": "python",
+      "line": 148,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "self.workshop.state_store.load(self._clean_token(mission_id))"
+    },
+    {
+      "language": "python",
+      "line": 149,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "if mission_id"
+    },
+    {
+      "language": "python",
+      "line": 150,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "else self.workshop.state_store.load_active()"
+    },
+    {
+      "language": "python",
+      "line": 151,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 152,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "if state is None:"
+    },
+    {
+      "language": "python",
+      "line": 153,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "return \"ENGINEERING WORKSHOP STATUS\\n\\nNo active mission.\""
+    },
+    {
+      "language": "python",
+      "line": 154,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "data = state.to_dict()"
+    },
+    {
+      "language": "python",
+      "line": 155,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "lines = ["
+    },
+    {
+      "language": "python",
+      "line": 156,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "\"ENGINEERING WORKSHOP STATUS\","
+    },
+    {
+      "language": "python",
+      "line": 157,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "\"\","
+    },
+    {
+      "language": "python",
+      "line": 158,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "f\"Mission ID: {data['mission_id']}\","
+    },
+    {
+      "language": "python",
+      "line": 159,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "f\"Title: {data['title']}\","
+    },
+    {
+      "language": "python",
+      "line": 160,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "f\"Route: {data['mission_type']}\","
+    },
+    {
+      "language": "python",
+      "line": 161,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "f\"Authorized: {data['authorized']}\","
+    },
+    {
+      "language": "python",
+      "line": 162,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "f\"Stage: {data['stage']}\","
+    },
+    {
+      "language": "python",
+      "line": 163,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "f\"Plan SHA-256: {data.get('plan_sha256') or '[none]'}\","
+    },
+    {
+      "language": "python",
+      "line": 164,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "f\"Snapshot: {data.get('snapshot_path') or '[none]'}\","
+    },
+    {
+      "language": "python",
+      "line": 165,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "f\"Receipt: {data.get('receipt_path') or '[none]'}\","
+    },
+    {
+      "language": "python",
+      "line": 166,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "f\"Blocker: {data.get('blocker') or '[none]'}\","
+    },
+    {
+      "language": "python",
+      "line": 167,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "]"
+    },
+    {
+      "language": "python",
+      "line": 168,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "if data.get(\"discovered_files\"):"
+    },
+    {
+      "language": "python",
+      "line": 169,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "lines.extend([\"\", \"Located source:\"])"
+    },
+    {
+      "language": "python",
+      "line": 170,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "lines.extend(f\"• {path}\" for path in data[\"discovered_files\"][:20])"
+    },
+    {
+      "language": "python",
+      "line": 171,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "if data.get(\"outstanding_validations\"):"
+    },
+    {
+      "language": "python",
+      "line": 172,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "lines.extend([\"\", \"Outstanding validations:\"])"
+    },
+    {
+      "language": "python",
+      "line": 173,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "lines.extend(f\"• {item}\" for item in data[\"outstanding_validations\"])"
+    },
+    {
+      "language": "python",
+      "line": 174,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "return \"\\n\".join(lines)"
+    },
+    {
+      "language": "python",
+      "line": 176,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "def locate_report(self, payload: str, *, caller: str) -> str:"
+    },
+    {
+      "language": "python",
+      "line": 177,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "self._require_operator(caller)"
+    },
+    {
+      "language": "python",
+      "line": 178,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "self._authorize_preview(caller)"
+    },
+    {
+      "language": "python",
+      "line": 179,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "mission_id, sep, terms_text = payload.partition(\"::\")"
+    },
+    {
+      "language": "python",
+      "line": 180,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "mission_id = self._clean_token(mission_id)"
+    },
+    {
+      "language": "python",
+      "line": 181,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "terms = [term.strip() for term in terms_text.split(\"|\") if term.strip()]"
+    },
+    {
+      "language": "python",
+      "line": 182,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "if not sep or not mission_id or not terms:"
+    },
+    {
+      "language": "python",
+      "line": 183,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "raise ValueError(\"Use: workshop locate MISSION-ID :: term one | term two\")"
+    },
+    {
+      "language": "python",
+      "line": 184,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "results = self.workshop.locate(mission_id, terms)"
+    },
+    {
+      "language": "python",
+      "line": 185,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "lines = ["
+    },
+    {
+      "language": "python",
+      "line": 186,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "\"ENGINEERING WORKSHOP — LIVE SOURCE DISCOVERY\","
+    },
+    {
+      "language": "python",
+      "line": 187,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "\"\","
+    },
+    {
+      "language": "python",
+      "line": 188,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "f\"Mission ID: {mission_id}\","
+    },
+    {
+      "language": "python",
+      "line": 189,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "f\"Terms: {', '.join(terms)}\","
+    },
+    {
+      "language": "python",
+      "line": 190,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "f\"Matches: {len(results)}\","
+    },
+    {
+      "language": "python",
+      "line": 191,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "\"\","
+    },
+    {
+      "language": "python",
+      "line": 192,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "]"
+    },
+    {
+      "language": "python",
+      "line": 193,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "if results:"
+    },
+    {
+      "language": "python",
+      "line": 194,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "for item in results[:30]:"
+    },
+    {
+      "language": "python",
+      "line": 195,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "lines.append("
+    },
+    {
+      "language": "python",
+      "line": 196,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "f\"• {item['relative_path']} — score {item['score']} ({item['reason']})\""
+    },
+    {
+      "language": "python",
+      "line": 197,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 198,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "else:"
+    },
+    {
+      "language": "python",
+      "line": 199,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "lines.append(\"No matching live source found inside the approved project root.\")"
+    },
+    {
+      "language": "python",
+      "line": 200,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "lines.extend([\"\", \"Safety: read-only discovery; no project files changed.\"])"
+    },
+    {
+      "language": "python",
+      "line": 201,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "return \"\\n\".join(lines)"
+    },
+    {
+      "language": "python",
+      "line": 203,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "def save_plan_report(self, payload: str, *, caller: str) -> str:"
+    },
+    {
+      "language": "python",
+      "line": 204,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "self._require_operator(caller)"
+    },
+    {
+      "language": "python",
+      "line": 205,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "self._authorize_preview(caller)"
+    },
+    {
+      "language": "python",
+      "line": 206,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "mission_id, sep, json_text = payload.partition(\"::\")"
+    },
+    {
+      "language": "python",
+      "line": 207,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "mission_id = self._clean_token(mission_id)"
+    },
+    {
+      "language": "python",
+      "line": 208,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "if not sep or not mission_id or not json_text.strip():"
+    },
+    {
+      "language": "python",
+      "line": 209,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "raise ValueError(\"Use: workshop save-plan MISSION-ID :: {JSON PLAN}\")"
+    },
+    {
+      "language": "python",
+      "line": 210,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "state = self.workshop.state_store.load(mission_id)"
+    },
+    {
+      "language": "python",
+      "line": 211,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "if state is None:"
+    },
+    {
+      "language": "python",
+      "line": 212,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "raise WorkshopError(f\"Unknown mission: {mission_id}\")"
+    },
+    {
+      "language": "python",
+      "line": 213,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "plan = json.loads(json_text.strip())"
+    },
+    {
+      "language": "python",
+      "line": 214,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "if not isinstance(plan, dict):"
+    },
+    {
+      "language": "python",
+      "line": 215,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "raise ValueError(\"Plan JSON must be one object\")"
+    },
+    {
+      "language": "python",
+      "line": 216,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "supplied_mission = str(plan.get(\"mission_id\") or mission_id)"
+    },
+    {
+      "language": "python",
+      "line": 217,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "if supplied_mission != mission_id:"
+    },
+    {
+      "language": "python",
+      "line": 218,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "raise WorkshopError(\"Plan mission_id does not match the staged mission\")"
+    },
+    {
+      "language": "python",
+      "line": 219,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "plan[\"schema\"] = \"foxai.engineering.plan.v1\""
+    },
+    {
+      "language": "python",
+      "line": 220,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "plan[\"mission_id\"] = mission_id"
+    },
+    {
+      "language": "python",
+      "line": 221,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "plan[\"project_root\"] = str(self.project_root)"
+    },
+    {
+      "language": "python",
+      "line": 222,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "mission_dir = self.plan_root / mission_id"
+    },
+    {
+      "language": "python",
+      "line": 223,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "mission_dir.mkdir(parents=True, exist_ok=True)"
+    },
+    {
+      "language": "python",
+      "line": 224,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "plan_sha = sha256_json(plan)"
+    },
+    {
+      "language": "python",
+      "line": 225,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "path = mission_dir / f\"{plan_sha}.plan.json\""
+    },
+    {
+      "language": "python",
+      "line": 226,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "write_json(path, plan)"
+    },
+    {
+      "language": "python",
+      "line": 227,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "preview = self.workshop.preview_plan(path)"
+    },
+    {
+      "language": "python",
+      "line": 228,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "return self._format_preview(preview, saved_plan=path)"
+    },
+    {
+      "language": "python",
+      "line": 230,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "def preview_report(self, payload: str, *, caller: str) -> str:"
+    },
+    {
+      "language": "python",
+      "line": 231,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "self._require_operator(caller)"
+    },
+    {
+      "language": "python",
+      "line": 232,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "self._authorize_preview(caller)"
+    },
+    {
+      "language": "python",
+      "line": 233,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "path = self._parse_path(payload)"
+    },
+    {
+      "language": "python",
+      "line": 234,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "preview = self.workshop.preview_plan(path)"
+    },
+    {
+      "language": "python",
+      "line": 235,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "return self._format_preview(preview, saved_plan=path)"
+    },
+    {
+      "language": "python",
+      "line": 237,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "def _format_preview(self, preview: dict[str, Any], *, saved_plan: Path) -> str:"
+    },
+    {
+      "language": "python",
+      "line": 238,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "changed = preview.get(\"changed_paths\") or []"
+    },
+    {
+      "language": "python",
+      "line": 239,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "lines = ["
+    },
+    {
+      "language": "python",
+      "line": 240,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "\"ENGINEERING WORKSHOP — EXACT PLAN PREVIEW\","
+    },
+    {
+      "language": "python",
+      "line": 241,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "\"\","
+    },
+    {
+      "language": "python",
+      "line": 242,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "f\"Mission ID: {preview['mission_id']}\","
+    },
+    {
+      "language": "python",
+      "line": 243,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "f\"Plan: {saved_plan}\","
+    },
+    {
+      "language": "python",
+      "line": 244,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "f\"Plan SHA-256: {preview['plan_sha256']}\","
+    },
+    {
+      "language": "python",
+      "line": 245,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "f\"Diff: {preview['diff_path']}\","
+    },
+    {
+      "language": "python",
+      "line": 246,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "f\"Changed paths: {len(changed)}\","
+    },
+    {
+      "language": "python",
+      "line": 247,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "]"
+    },
+    {
+      "language": "python",
+      "line": 248,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "lines.extend(f\"• {path}\" for path in changed)"
+    },
+    {
+      "language": "python",
+      "line": 249,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "lines.extend("
+    },
+    {
+      "language": "python",
+      "line": 250,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "["
+    },
+    {
+      "language": "python",
+      "line": 251,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "\"\","
+    },
+    {
+      "language": "python",
+      "line": 252,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "\"Nothing has been applied.\","
+    },
+    {
+      "language": "python",
+      "line": 253,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "\"To approve this exact plan, enter:\","
+    },
+    {
+      "language": "python",
+      "line": 254,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "f'/engineer workshop apply \"{saved_plan}\" :: APPLY {preview[\"plan_sha256\"]}',"
+    },
+    {
+      "language": "python",
+      "line": 255,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "]"
+    },
+    {
+      "language": "python",
+      "line": 256,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 257,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "return \"\\n\".join(lines)"
+    },
+    {
+      "language": "python",
+      "line": 259,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "def apply_report(self, payload: str, *, caller: str) -> str:"
+    },
+    {
+      "language": "python",
+      "line": 260,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "self._require_operator(caller)"
+    },
+    {
+      "language": "python",
+      "line": 261,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "path_text, sep, confirmation = payload.partition(\"::\")"
+    },
+    {
+      "language": "python",
+      "line": 262,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "if not sep:"
+    },
+    {
+      "language": "python",
+      "line": 263,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "raise ValueError("
+    },
+    {
+      "language": "python",
+      "line": 264,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "'Use: workshop apply \"ABSOLUTE PLAN PATH\" :: APPLY PLAN-SHA256'"
+    },
+    {
+      "language": "python",
+      "line": 265,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 266,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "path = self._parse_path(path_text)"
+    },
+    {
+      "language": "python",
+      "line": 267,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "plan, plan_sha = self.workshop.patch_engine.load_plan(path)"
+    },
+    {
+      "language": "python",
+      "line": 268,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "decision = authorize_repair_action("
+    },
+    {
+      "language": "python",
+      "line": 269,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "caller,"
+    },
+    {
+      "language": "python",
+      "line": 270,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "\"ui_operator\","
+    },
+    {
+      "language": "python",
+      "line": 271,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "confirmation.strip(),"
+    },
+    {
+      "language": "python",
+      "line": 272,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "plan_sha,"
+    },
+    {
+      "language": "python",
+      "line": 273,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 274,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "if not decision.allowed:"
+    },
+    {
+      "language": "python",
+      "line": 275,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "raise WorkshopError(decision.reason)"
+    },
+    {
+      "language": "python",
+      "line": 276,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "receipt = self.workshop.apply_plan(path, plan_sha)"
+    },
+    {
+      "language": "python",
+      "line": 277,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "lines = ["
+    },
+    {
+      "language": "python",
+      "line": 278,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "\"ENGINEERING WORKSHOP — IMPLEMENTATION RECEIPT\","
+    },
+    {
+      "language": "python",
+      "line": 279,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "\"\","
+    },
+    {
+      "language": "python",
+      "line": 280,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "f\"Result: {receipt['result']}\","
+    },
+    {
+      "language": "python",
+      "line": 281,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "f\"Mission ID: {receipt['mission_id']}\","
+    },
+    {
+      "language": "python",
+      "line": 282,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "f\"Plan SHA-256: {receipt['plan_sha256']}\","
+    },
+    {
+      "language": "python",
+      "line": 283,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "f\"Snapshot: {receipt['snapshot_path']}\","
+    },
+    {
+      "language": "python",
+      "line": 284,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "f\"Snapshot SHA-256: {receipt['snapshot_sha256']}\","
+    },
+    {
+      "language": "python",
+      "line": 285,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "f\"Receipt: {receipt['receipt_path']}\","
+    },
+    {
+      "language": "python",
+      "line": 286,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "f\"Rolled back: {receipt['rolled_back']}\","
+    },
+    {
+      "language": "python",
+      "line": 287,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "f\"Changes recorded: {len(receipt.get('changes') or [])}\","
+    },
+    {
+      "language": "python",
+      "line": 288,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "f\"Validations recorded: {len(receipt.get('validations') or [])}\","
+    },
+    {
+      "language": "python",
+      "line": 289,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "]"
+    },
+    {
+      "language": "python",
+      "line": 290,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "if receipt.get(\"failure\"):"
+    },
+    {
+      "language": "python",
+      "line": 291,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "lines.extend([\"\", f\"Failure: {receipt['failure']}\"])"
+    },
+    {
+      "language": "python",
+      "line": 292,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "return \"\\n\".join(lines)"
+    },
+    {
+      "language": "python",
+      "line": 294,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "def rollback_report(self, payload: str, *, caller: str) -> str:"
+    },
+    {
+      "language": "python",
+      "line": 295,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "self._require_operator(caller)"
+    },
+    {
+      "language": "python",
+      "line": 296,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "mission_text, sep, confirmation = payload.partition(\"::\")"
+    },
+    {
+      "language": "python",
+      "line": 297,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "mission_id = self._clean_token(mission_text)"
+    },
+    {
+      "language": "python",
+      "line": 298,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "expected = f\"ROLLBACK {mission_id}\".upper()"
+    },
+    {
+      "language": "python",
+      "line": 299,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "if not sep or confirmation.strip().upper() != expected:"
+    },
+    {
+      "language": "python",
+      "line": 300,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "raise WorkshopError(f\"Exact confirmation required: {expected}\")"
+    },
+    {
+      "language": "python",
+      "line": 301,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "result = self.workshop.rollback(mission_id)"
+    },
+    {
+      "language": "python",
+      "line": 302,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "return ("
+    },
+    {
+      "language": "python",
+      "line": 303,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "\"ENGINEERING WORKSHOP — ROLLBACK RECEIPT\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 304,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "f\"Mission ID: {result['mission_id']}\\n\""
+    },
+    {
+      "language": "python",
+      "line": 305,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "f\"Result: {result['result']}\\n\""
+    },
+    {
+      "language": "python",
+      "line": 306,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "f\"Snapshot: {result['snapshot_path']}\\n\""
+    },
+    {
+      "language": "python",
+      "line": 307,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "f\"Restored paths: {len(result.get('restored_paths') or [])}\\n\""
+    },
+    {
+      "language": "python",
+      "line": 308,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "f\"Completed: {result['completed_at']}\""
+    },
+    {
+      "language": "python",
+      "line": 309,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 311,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "def capabilities_report(self) -> str:"
+    },
+    {
+      "language": "python",
+      "line": 312,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "capabilities = self.workshop.capabilities(self.project_root)"
+    },
+    {
+      "language": "python",
+      "line": 313,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "return ("
+    },
+    {
+      "language": "python",
+      "line": 314,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "\"ENGINEERING WORKSHOP CAPABILITIES\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 315,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "+ json.dumps(capabilities, indent=2, sort_keys=True)"
+    },
+    {
+      "language": "python",
+      "line": 316,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 318,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "@staticmethod"
+    },
+    {
+      "language": "python",
+      "line": 319,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "def _clean_token(value: str | None) -> str:"
+    },
+    {
+      "language": "python",
+      "line": 320,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "return (value or \"\").strip().strip('\"').strip(\"'\")"
+    },
+    {
+      "language": "python",
+      "line": 322,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "@staticmethod"
+    },
+    {
+      "language": "python",
+      "line": 323,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "def _parse_path(value: str) -> Path:"
+    },
+    {
+      "language": "python",
+      "line": 324,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "text = value.strip()"
+    },
+    {
+      "language": "python",
+      "line": 325,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "if not text:"
+    },
+    {
+      "language": "python",
+      "line": 326,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "raise ValueError(\"No plan path supplied\")"
+    },
+    {
+      "language": "python",
+      "line": 327,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 328,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "parts = shlex.split(text, posix=False)"
+    },
+    {
+      "language": "python",
+      "line": 329,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "except ValueError as exc:"
+    },
+    {
+      "language": "python",
+      "line": 330,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "raise ValueError(f\"Invalid quoted path: {exc}\") from exc"
+    },
+    {
+      "language": "python",
+      "line": 331,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "if len(parts) != 1:"
+    },
+    {
+      "language": "python",
+      "line": 332,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "raise ValueError(\"Supply exactly one absolute plan path\")"
+    },
+    {
+      "language": "python",
+      "line": 333,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "cleaned = parts[0].strip().strip('\"').strip(\"'\")"
+    },
+    {
+      "language": "python",
+      "line": 334,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "path = Path(cleaned).expanduser().resolve(strict=False)"
+    },
+    {
+      "language": "python",
+      "line": 335,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "if not path.exists() or not path.is_file():"
+    },
+    {
+      "language": "python",
+      "line": 336,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "raise ValueError(f\"Plan file does not exist: {path}\")"
+    },
+    {
+      "language": "python",
+      "line": 337,
+      "path": "core\\engineering_workshop_bridge.py",
+      "text": "return path"
+    },
+    {
+      "language": "python",
+      "line": 1,
+      "path": "core\\evidence_drivers\\__init__.py",
+      "text": "from core.evidence_drivers.timeout_driver import TimeoutDriver"
+    },
+    {
+      "language": "python",
+      "line": 2,
+      "path": "core\\evidence_drivers\\__init__.py",
+      "text": "from core.evidence_drivers.context_menu_driver import ContextMenuDriver"
+    },
+    {
+      "language": "python",
+      "line": 3,
+      "path": "core\\evidence_drivers\\__init__.py",
+      "text": "from core.evidence_drivers.spellcheck_driver import SpellcheckDriver"
+    },
+    {
+      "language": "python",
+      "line": 5,
+      "path": "core\\evidence_drivers\\__init__.py",
+      "text": "DEFAULT_ENGINEER_DRIVERS = ["
+    },
+    {
+      "language": "python",
+      "line": 6,
+      "path": "core\\evidence_drivers\\__init__.py",
+      "text": "TimeoutDriver,"
+    },
+    {
+      "language": "python",
+      "line": 7,
+      "path": "core\\evidence_drivers\\__init__.py",
+      "text": "ContextMenuDriver,"
+    },
+    {
+      "language": "python",
+      "line": 8,
+      "path": "core\\evidence_drivers\\__init__.py",
+      "text": "SpellcheckDriver,"
+    },
+    {
+      "language": "python",
+      "line": 9,
+      "path": "core\\evidence_drivers\\__init__.py",
+      "text": "]"
+    },
+    {
+      "language": "python",
+      "line": 1,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "from __future__ import annotations"
+    },
+    {
+      "language": "python",
+      "line": 3,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "from typing import List"
+    },
+    {
+      "language": "python",
+      "line": 5,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "from core.investigation_engine import Evidence, EvidenceDriver, Mission"
+    },
+    {
+      "language": "python",
+      "line": 8,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "class SmartSearchEvidenceDriver(EvidenceDriver):"
+    },
+    {
+      "language": "python",
+      "line": 9,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 10,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "Base class for SmartSearch-backed evidence drivers."
+    },
+    {
+      "language": "python",
+      "line": 12,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "RC2 adds search waves:"
+    },
+    {
+      "language": "python",
+      "line": 13,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "1. preferred live source"
+    },
+    {
+      "language": "python",
+      "line": 14,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "2. broader current project source"
+    },
+    {
+      "language": "python",
+      "line": 15,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "3. history/vendor fallback only if needed"
+    },
+    {
+      "language": "python",
+      "line": 16,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 18,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "name = \"SmartSearchEvidenceDriver\""
+    },
+    {
+      "language": "python",
+      "line": 19,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "domain = \"generic\""
+    },
+    {
+      "language": "python",
+      "line": 20,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "search_terms: List[str] = []"
+    },
+    {
+      "language": "python",
+      "line": 22,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "preferred_markers: List[str] = []"
+    },
+    {
+      "language": "python",
+      "line": 23,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "live_source_markers: List[str] = ["
+    },
+    {
+      "language": "python",
+      "line": 24,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "\"core/\","
+    },
+    {
+      "language": "python",
+      "line": 25,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "\"ui/\","
+    },
+    {
+      "language": "python",
+      "line": 26,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "\"Memory/ui/\","
+    },
+    {
+      "language": "python",
+      "line": 27,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "\"FoxAI_Desktop.py\","
+    },
+    {
+      "language": "python",
+      "line": 28,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "\"foxai.py\","
+    },
+    {
+      "language": "python",
+      "line": 29,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "]"
+    },
+    {
+      "language": "python",
+      "line": 30,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "avoid_markers: List[str] = ["
+    },
+    {
+      "language": "python",
+      "line": 31,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "\"ComfyUI\","
+    },
+    {
+      "language": "python",
+      "line": 32,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "\"Mission Archive\","
+    },
+    {
+      "language": "python",
+      "line": 33,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "\"Backups\","
+    },
+    {
+      "language": "python",
+      "line": 34,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "\"site-packages\","
+    },
+    {
+      "language": "python",
+      "line": 35,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "\"node_modules\","
+    },
+    {
+      "language": "python",
+      "line": 36,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "\".venv\","
+    },
+    {
+      "language": "python",
+      "line": 37,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "\"venv\","
+    },
+    {
+      "language": "python",
+      "line": 38,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "]"
+    },
+    {
+      "language": "python",
+      "line": 40,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "def __init__(self, smart_search):"
+    },
+    {
+      "language": "python",
+      "line": 41,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "self.smart_search = smart_search"
+    },
+    {
+      "language": "python",
+      "line": 43,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "def can_handle(self, mission: Mission) -> bool:"
+    },
+    {
+      "language": "python",
+      "line": 44,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "lowered = mission.query.lower()"
+    },
+    {
+      "language": "python",
+      "line": 45,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "return self.domain.lower() in lowered"
+    },
+    {
+      "language": "python",
+      "line": 47,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "def collect(self, mission: Mission) -> List[Evidence]:"
+    },
+    {
+      "language": "python",
+      "line": 48,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "terms = self.terms_for(mission)"
+    },
+    {
+      "language": "python",
+      "line": 50,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "for wave_name, mode in ["
+    },
+    {
+      "language": "python",
+      "line": 51,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "(\"preferred_live_source\", \"preferred\"),"
+    },
+    {
+      "language": "python",
+      "line": 52,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "(\"live_project_source\", \"live\"),"
+    },
+    {
+      "language": "python",
+      "line": 53,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "(\"fallback_history_vendor\", \"fallback\"),"
+    },
+    {
+      "language": "python",
+      "line": 54,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "]:"
+    },
+    {
+      "language": "python",
+      "line": 55,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "evidence = self._collect_wave(terms, wave_name, mode)"
+    },
+    {
+      "language": "python",
+      "line": 56,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "if evidence:"
+    },
+    {
+      "language": "python",
+      "line": 57,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "return self._sort_evidence(evidence)"
+    },
+    {
+      "language": "python",
+      "line": 59,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "return []"
+    },
+    {
+      "language": "python",
+      "line": 61,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "def terms_for(self, mission: Mission) -> List[str]:"
+    },
+    {
+      "language": "python",
+      "line": 62,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "return self.search_terms or [mission.query]"
+    },
+    {
+      "language": "python",
+      "line": 64,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "def _collect_wave(self, terms: List[str], wave_name: str, mode: str) -> List[Evidence]:"
+    },
+    {
+      "language": "python",
+      "line": 65,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "evidence: List[Evidence] = []"
+    },
+    {
+      "language": "python",
+      "line": 67,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "for term in terms:"
+    },
+    {
+      "language": "python",
+      "line": 68,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "result = self.smart_search.layered_search(term, limit=12)"
+    },
+    {
+      "language": "python",
+      "line": 70,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "if mode == \"preferred\":"
+    },
+    {
+      "language": "python",
+      "line": 71,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "categories = [\"primary\"]"
+    },
+    {
+      "language": "python",
+      "line": 72,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "elif mode == \"live\":"
+    },
+    {
+      "language": "python",
+      "line": 73,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "categories = [\"primary\"]"
+    },
+    {
+      "language": "python",
+      "line": 74,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "else:"
+    },
+    {
+      "language": "python",
+      "line": 75,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "categories = [\"history\", \"vendor\"]"
+    },
+    {
+      "language": "python",
+      "line": 77,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "for category in categories:"
+    },
+    {
+      "language": "python",
+      "line": 78,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "for item in result.get(category, []):"
+    },
+    {
+      "language": "python",
+      "line": 79,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "path = item.get(\"file\", \"\")"
+    },
+    {
+      "language": "python",
+      "line": 81,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "if mode == \"preferred\" and not self._is_preferred(path):"
+    },
+    {
+      "language": "python",
+      "line": 82,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "continue"
+    },
+    {
+      "language": "python",
+      "line": 84,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "if mode == \"live\":"
+    },
+    {
+      "language": "python",
+      "line": 85,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "if self._is_avoided(path):"
+    },
+    {
+      "language": "python",
+      "line": 86,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "continue"
+    },
+    {
+      "language": "python",
+      "line": 87,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "if not self._is_live_source(path):"
+    },
+    {
+      "language": "python",
+      "line": 88,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "continue"
+    },
+    {
+      "language": "python",
+      "line": 90,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "if mode == \"fallback\":"
+    },
+    {
+      "language": "python",
+      "line": 91,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "# Fallback is allowed, but still records weak confidence."
+    },
+    {
+      "language": "python",
+      "line": 92,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "pass"
+    },
+    {
+      "language": "python",
+      "line": 94,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "evidence.append(self._from_item(term, item, category, wave_name))"
+    },
+    {
+      "language": "python",
+      "line": 96,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "if evidence:"
+    },
+    {
+      "language": "python",
+      "line": 97,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "break"
+    },
+    {
+      "language": "python",
+      "line": 99,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "return evidence"
+    },
+    {
+      "language": "python",
+      "line": 101,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "def _from_item(self, term: str, item: dict, category: str, wave_name: str) -> Evidence:"
+    },
+    {
+      "language": "python",
+      "line": 102,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "path = item.get(\"file\", \"\")"
+    },
+    {
+      "language": "python",
+      "line": 104,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "confidence = {"
+    },
+    {
+      "language": "python",
+      "line": 105,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "\"primary\": 82,"
+    },
+    {
+      "language": "python",
+      "line": 106,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "\"history\": 42,"
+    },
+    {
+      "language": "python",
+      "line": 107,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "\"vendor\": 18,"
+    },
+    {
+      "language": "python",
+      "line": 108,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "}.get(category, 30)"
+    },
+    {
+      "language": "python",
+      "line": 110,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "weight = {"
+    },
+    {
+      "language": "python",
+      "line": 111,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "\"primary\": 88,"
+    },
+    {
+      "language": "python",
+      "line": 112,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "\"history\": 30,"
+    },
+    {
+      "language": "python",
+      "line": 113,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "\"vendor\": 8,"
+    },
+    {
+      "language": "python",
+      "line": 114,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "}.get(category, 20)"
+    },
+    {
+      "language": "python",
+      "line": 116,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "if wave_name == \"preferred_live_source\":"
+    },
+    {
+      "language": "python",
+      "line": 117,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "confidence += 10"
+    },
+    {
+      "language": "python",
+      "line": 118,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "weight += 10"
+    },
+    {
+      "language": "python",
+      "line": 119,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "elif wave_name == \"fallback_history_vendor\":"
+    },
+    {
+      "language": "python",
+      "line": 120,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "confidence -= 12"
+    },
+    {
+      "language": "python",
+      "line": 121,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "weight -= 12"
+    },
+    {
+      "language": "python",
+      "line": 123,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "if self._is_preferred(path):"
+    },
+    {
+      "language": "python",
+      "line": 124,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "confidence += 8"
+    },
+    {
+      "language": "python",
+      "line": 125,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "weight += 8"
+    },
+    {
+      "language": "python",
+      "line": 127,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "if self._is_avoided(path):"
+    },
+    {
+      "language": "python",
+      "line": 128,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "confidence -= 25"
+    },
+    {
+      "language": "python",
+      "line": 129,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "weight -= 30"
+    },
+    {
+      "language": "python",
+      "line": 131,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "return Evidence("
+    },
+    {
+      "language": "python",
+      "line": 132,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "source=self.name,"
+    },
+    {
+      "language": "python",
+      "line": 133,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "category=\"source\" if category == \"primary\" else category,"
+    },
+    {
+      "language": "python",
+      "line": 134,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "path=path,"
+    },
+    {
+      "language": "python",
+      "line": 135,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "snippet=item.get(\"snippet\", \"\"),"
+    },
+    {
+      "language": "python",
+      "line": 136,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "confidence=max(0, min(100, confidence)),"
+    },
+    {
+      "language": "python",
+      "line": 137,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "weight=max(0, min(100, weight)),"
+    },
+    {
+      "language": "python",
+      "line": 138,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "metadata={"
+    },
+    {
+      "language": "python",
+      "line": 139,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "\"driver\": self.name,"
+    },
+    {
+      "language": "python",
+      "line": 140,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "\"domain\": self.domain,"
+    },
+    {
+      "language": "python",
+      "line": 141,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "\"search_term\": term,"
+    },
+    {
+      "language": "python",
+      "line": 142,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "\"search_wave\": wave_name,"
+    },
+    {
+      "language": "python",
+      "line": 143,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "\"raw_category\": category,"
+    },
+    {
+      "language": "python",
+      "line": 144,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "\"evidence_class\": item.get(\"evidence_class\", \"\"),"
+    },
+    {
+      "language": "python",
+      "line": 145,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "\"evidence_label\": item.get(\"evidence_label\", \"\"),"
+    },
+    {
+      "language": "python",
+      "line": 146,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "\"score\": item.get(\"score\", 0),"
+    },
+    {
+      "language": "python",
+      "line": 147,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "\"preferred\": self._is_preferred(path),"
+    },
+    {
+      "language": "python",
+      "line": 148,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "\"live_source\": self._is_live_source(path),"
+    },
+    {
+      "language": "python",
+      "line": 149,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "\"avoided\": self._is_avoided(path),"
+    },
+    {
+      "language": "python",
+      "line": 150,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "},"
+    },
+    {
+      "language": "python",
+      "line": 151,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 153,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "def _sort_evidence(self, evidence: List[Evidence]) -> List[Evidence]:"
+    },
+    {
+      "language": "python",
+      "line": 154,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "return sorted("
+    },
+    {
+      "language": "python",
+      "line": 155,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "evidence,"
+    },
+    {
+      "language": "python",
+      "line": 156,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "key=lambda item: ("
+    },
+    {
+      "language": "python",
+      "line": 157,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "item.metadata.get(\"preferred\", False),"
+    },
+    {
+      "language": "python",
+      "line": 158,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "item.metadata.get(\"live_source\", False),"
+    },
+    {
+      "language": "python",
+      "line": 159,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "not item.metadata.get(\"avoided\", False),"
+    },
+    {
+      "language": "python",
+      "line": 160,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "item.confidence,"
+    },
+    {
+      "language": "python",
+      "line": 161,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "item.weight,"
+    },
+    {
+      "language": "python",
+      "line": 162,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "),"
+    },
+    {
+      "language": "python",
+      "line": 163,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "reverse=True,"
+    },
+    {
+      "language": "python",
+      "line": 164,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 166,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "def _is_preferred(self, path: str) -> bool:"
+    },
+    {
+      "language": "python",
+      "line": 167,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "normalized = path.replace(\"\\\\\", \"/\").lower()"
+    },
+    {
+      "language": "python",
+      "line": 168,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "return any(marker.lower() in normalized for marker in self.preferred_markers)"
+    },
+    {
+      "language": "python",
+      "line": 170,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "def _is_live_source(self, path: str) -> bool:"
+    },
+    {
+      "language": "python",
+      "line": 171,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "normalized = path.replace(\"\\\\\", \"/\")"
+    },
+    {
+      "language": "python",
+      "line": 172,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "lowered = normalized.lower()"
+    },
+    {
+      "language": "python",
+      "line": 174,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "if self._is_avoided(normalized):"
+    },
+    {
+      "language": "python",
+      "line": 175,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "return False"
+    },
+    {
+      "language": "python",
+      "line": 177,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "if any(marker.lower() in lowered for marker in self.live_source_markers):"
+    },
+    {
+      "language": "python",
+      "line": 178,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "return True"
+    },
+    {
+      "language": "python",
+      "line": 180,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "# Root-level active Python files are considered live source."
+    },
+    {
+      "language": "python",
+      "line": 181,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "return \"/\" not in normalized and normalized.endswith(\".py\")"
+    },
+    {
+      "language": "python",
+      "line": 183,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "def _is_avoided(self, path: str) -> bool:"
+    },
+    {
+      "language": "python",
+      "line": 184,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "normalized = path.replace(\"\\\\\", \"/\").lower()"
+    },
+    {
+      "language": "python",
+      "line": 185,
+      "path": "core\\evidence_drivers\\base.py",
+      "text": "return any(marker.lower() in normalized for marker in self.avoid_markers)"
+    },
+    {
+      "language": "python",
+      "line": 1,
+      "path": "core\\evidence_drivers\\context_menu_driver.py",
+      "text": "from __future__ import annotations"
+    },
+    {
+      "language": "python",
+      "line": 3,
+      "path": "core\\evidence_drivers\\context_menu_driver.py",
+      "text": "from core.evidence_drivers.base import SmartSearchEvidenceDriver"
+    },
+    {
+      "language": "python",
+      "line": 4,
+      "path": "core\\evidence_drivers\\context_menu_driver.py",
+      "text": "from core.investigation_engine import Mission"
+    },
+    {
+      "language": "python",
+      "line": 7,
+      "path": "core\\evidence_drivers\\context_menu_driver.py",
+      "text": "class ContextMenuDriver(SmartSearchEvidenceDriver):"
+    },
+    {
+      "language": "python",
+      "line": 8,
+      "path": "core\\evidence_drivers\\context_menu_driver.py",
+      "text": "name = \"ContextMenuDriver\""
+    },
+    {
+      "language": "python",
+      "line": 9,
+      "path": "core\\evidence_drivers\\context_menu_driver.py",
+      "text": "domain = \"context_menu\""
+    },
+    {
+      "language": "python",
+      "line": 11,
+      "path": "core\\evidence_drivers\\context_menu_driver.py",
+      "text": "search_terms = ["
+    },
+    {
+      "language": "python",
+      "line": 12,
+      "path": "core\\evidence_drivers\\context_menu_driver.py",
+      "text": "\"bind(\\\"<Button-3>\\\"\","
+    },
+    {
+      "language": "python",
+      "line": 13,
+      "path": "core\\evidence_drivers\\context_menu_driver.py",
+      "text": "\"bind('<Button-3>'\","
+    },
+    {
+      "language": "python",
+      "line": 14,
+      "path": "core\\evidence_drivers\\context_menu_driver.py",
+      "text": "\"<Button-3>\","
+    },
+    {
+      "language": "python",
+      "line": 15,
+      "path": "core\\evidence_drivers\\context_menu_driver.py",
+      "text": "\"<ButtonRelease-3>\","
+    },
+    {
+      "language": "python",
+      "line": 16,
+      "path": "core\\evidence_drivers\\context_menu_driver.py",
+      "text": "\"tk.Menu\","
+    },
+    {
+      "language": "python",
+      "line": 17,
+      "path": "core\\evidence_drivers\\context_menu_driver.py",
+      "text": "\"context menu\","
+    },
+    {
+      "language": "python",
+      "line": 18,
+      "path": "core\\evidence_drivers\\context_menu_driver.py",
+      "text": "\"right-click\","
+    },
+    {
+      "language": "python",
+      "line": 19,
+      "path": "core\\evidence_drivers\\context_menu_driver.py",
+      "text": "\"right click\","
+    },
+    {
+      "language": "python",
+      "line": 20,
+      "path": "core\\evidence_drivers\\context_menu_driver.py",
+      "text": "\"CTkTextbox\","
+    },
+    {
+      "language": "python",
+      "line": 21,
+      "path": "core\\evidence_drivers\\context_menu_driver.py",
+      "text": "\"event_generate\","
+    },
+    {
+      "language": "python",
+      "line": 22,
+      "path": "core\\evidence_drivers\\context_menu_driver.py",
+      "text": "\"input_box\","
+    },
+    {
+      "language": "python",
+      "line": 23,
+      "path": "core\\evidence_drivers\\context_menu_driver.py",
+      "text": "\"chat_box\","
+    },
+    {
+      "language": "python",
+      "line": 24,
+      "path": "core\\evidence_drivers\\context_menu_driver.py",
+      "text": "\"popup menu\","
+    },
+    {
+      "language": "python",
+      "line": 25,
+      "path": "core\\evidence_drivers\\context_menu_driver.py",
+      "text": "]"
+    },
+    {
+      "language": "python",
+      "line": 27,
+      "path": "core\\evidence_drivers\\context_menu_driver.py",
+      "text": "preferred_markers = ["
+    },
+    {
+      "language": "python",
+      "line": 28,
+      "path": "core\\evidence_drivers\\context_menu_driver.py",
+      "text": "\"ui/\","
+    },
+    {
+      "language": "python",
+      "line": 29,
+      "path": "core\\evidence_drivers\\context_menu_driver.py",
+      "text": "\"Memory/ui/\","
+    },
+    {
+      "language": "python",
+      "line": 30,
+      "path": "core\\evidence_drivers\\context_menu_driver.py",
+      "text": "\"main_window.py\","
+    },
+    {
+      "language": "python",
+      "line": 31,
+      "path": "core\\evidence_drivers\\context_menu_driver.py",
+      "text": "\"widgets\","
+    },
+    {
+      "language": "python",
+      "line": 32,
+      "path": "core\\evidence_drivers\\context_menu_driver.py",
+      "text": "\"textbox\","
+    },
+    {
+      "language": "python",
+      "line": 33,
+      "path": "core\\evidence_drivers\\context_menu_driver.py",
+      "text": "\"input\","
+    },
+    {
+      "language": "python",
+      "line": 34,
+      "path": "core\\evidence_drivers\\context_menu_driver.py",
+      "text": "\"chat\","
+    },
+    {
+      "language": "python",
+      "line": 35,
+      "path": "core\\evidence_drivers\\context_menu_driver.py",
+      "text": "\"core/\","
+    },
+    {
+      "language": "python",
+      "line": 36,
+      "path": "core\\evidence_drivers\\context_menu_driver.py",
+      "text": "]"
+    },
+    {
+      "language": "python",
+      "line": 38,
+      "path": "core\\evidence_drivers\\context_menu_driver.py",
+      "text": "def can_handle(self, mission: Mission) -> bool:"
+    },
+    {
+      "language": "python",
+      "line": 39,
+      "path": "core\\evidence_drivers\\context_menu_driver.py",
+      "text": "lowered = mission.query.lower()"
+    },
+    {
+      "language": "python",
+      "line": 40,
+      "path": "core\\evidence_drivers\\context_menu_driver.py",
+      "text": "return any(term in lowered for term in ["
+    },
+    {
+      "language": "python",
+      "line": 41,
+      "path": "core\\evidence_drivers\\context_menu_driver.py",
+      "text": "\"right click\","
+    },
+    {
+      "language": "python",
+      "line": 42,
+      "path": "core\\evidence_drivers\\context_menu_driver.py",
+      "text": "\"right-click\","
+    },
+    {
+      "language": "python",
+      "line": 43,
+      "path": "core\\evidence_drivers\\context_menu_driver.py",
+      "text": "\"context menu\","
+    },
+    {
+      "language": "python",
+      "line": 44,
+      "path": "core\\evidence_drivers\\context_menu_driver.py",
+      "text": "\"mouse menu\","
+    },
+    {
+      "language": "python",
+      "line": 45,
+      "path": "core\\evidence_drivers\\context_menu_driver.py",
+      "text": "\"popup menu\","
+    },
+    {
+      "language": "python",
+      "line": 46,
+      "path": "core\\evidence_drivers\\context_menu_driver.py",
+      "text": "\"menu not appearing\","
+    },
+    {
+      "language": "python",
+      "line": 47,
+      "path": "core\\evidence_drivers\\context_menu_driver.py",
+      "text": "\"button-3\","
+    },
+    {
+      "language": "python",
+      "line": 48,
+      "path": "core\\evidence_drivers\\context_menu_driver.py",
+      "text": "])"
+    },
+    {
+      "language": "python",
+      "line": 1,
+      "path": "core\\evidence_drivers\\spellcheck_driver.py",
+      "text": "from __future__ import annotations"
+    },
+    {
+      "language": "python",
+      "line": 3,
+      "path": "core\\evidence_drivers\\spellcheck_driver.py",
+      "text": "from core.evidence_drivers.base import SmartSearchEvidenceDriver"
+    },
+    {
+      "language": "python",
+      "line": 4,
+      "path": "core\\evidence_drivers\\spellcheck_driver.py",
+      "text": "from core.investigation_engine import Mission"
+    },
+    {
+      "language": "python",
+      "line": 7,
+      "path": "core\\evidence_drivers\\spellcheck_driver.py",
+      "text": "class SpellcheckDriver(SmartSearchEvidenceDriver):"
+    },
+    {
+      "language": "python",
+      "line": 8,
+      "path": "core\\evidence_drivers\\spellcheck_driver.py",
+      "text": "name = \"SpellcheckDriver\""
+    },
+    {
+      "language": "python",
+      "line": 9,
+      "path": "core\\evidence_drivers\\spellcheck_driver.py",
+      "text": "domain = \"spellcheck\""
+    },
+    {
+      "language": "python",
+      "line": 11,
+      "path": "core\\evidence_drivers\\spellcheck_driver.py",
+      "text": "search_terms = ["
+    },
+    {
+      "language": "python",
+      "line": 12,
+      "path": "core\\evidence_drivers\\spellcheck_driver.py",
+      "text": "\"spellcheck\","
+    },
+    {
+      "language": "python",
+      "line": 13,
+      "path": "core\\evidence_drivers\\spellcheck_driver.py",
+      "text": "\"spell check\","
+    },
+    {
+      "language": "python",
+      "line": 14,
+      "path": "core\\evidence_drivers\\spellcheck_driver.py",
+      "text": "\"SpellChecker\","
+    },
+    {
+      "language": "python",
+      "line": 15,
+      "path": "core\\evidence_drivers\\spellcheck_driver.py",
+      "text": "\"Hunspell\","
+    },
+    {
+      "language": "python",
+      "line": 16,
+      "path": "core\\evidence_drivers\\spellcheck_driver.py",
+      "text": "\"en_US\","
+    },
+    {
+      "language": "python",
+      "line": 17,
+      "path": "core\\evidence_drivers\\spellcheck_driver.py",
+      "text": "\"dictionary\","
+    },
+    {
+      "language": "python",
+      "line": 18,
+      "path": "core\\evidence_drivers\\spellcheck_driver.py",
+      "text": "\"misspelled\","
+    },
+    {
+      "language": "python",
+      "line": 19,
+      "path": "core\\evidence_drivers\\spellcheck_driver.py",
+      "text": "\"squiggle\","
+    },
+    {
+      "language": "python",
+      "line": 20,
+      "path": "core\\evidence_drivers\\spellcheck_driver.py",
+      "text": "\"red underline\","
+    },
+    {
+      "language": "python",
+      "line": 21,
+      "path": "core\\evidence_drivers\\spellcheck_driver.py",
+      "text": "\"right-click\","
+    },
+    {
+      "language": "python",
+      "line": 22,
+      "path": "core\\evidence_drivers\\spellcheck_driver.py",
+      "text": "]"
+    },
+    {
+      "language": "python",
+      "line": 24,
+      "path": "core\\evidence_drivers\\spellcheck_driver.py",
+      "text": "preferred_markers = ["
+    },
+    {
+      "language": "python",
+      "line": 25,
+      "path": "core\\evidence_drivers\\spellcheck_driver.py",
+      "text": "\"ui/\","
+    },
+    {
+      "language": "python",
+      "line": 26,
+      "path": "core\\evidence_drivers\\spellcheck_driver.py",
+      "text": "\"Memory/ui/\","
+    },
+    {
+      "language": "python",
+      "line": 27,
+      "path": "core\\evidence_drivers\\spellcheck_driver.py",
+      "text": "\"main_window.py\","
+    },
+    {
+      "language": "python",
+      "line": 28,
+      "path": "core\\evidence_drivers\\spellcheck_driver.py",
+      "text": "\"editor\","
+    },
+    {
+      "language": "python",
+      "line": 29,
+      "path": "core\\evidence_drivers\\spellcheck_driver.py",
+      "text": "\"textbox\","
+    },
+    {
+      "language": "python",
+      "line": 30,
+      "path": "core\\evidence_drivers\\spellcheck_driver.py",
+      "text": "\"input\","
+    },
+    {
+      "language": "python",
+      "line": 31,
+      "path": "core\\evidence_drivers\\spellcheck_driver.py",
+      "text": "\"core/\","
+    },
+    {
+      "language": "python",
+      "line": 32,
+      "path": "core\\evidence_drivers\\spellcheck_driver.py",
+      "text": "]"
+    },
+    {
+      "language": "python",
+      "line": 34,
+      "path": "core\\evidence_drivers\\spellcheck_driver.py",
+      "text": "def can_handle(self, mission: Mission) -> bool:"
+    },
+    {
+      "language": "python",
+      "line": 35,
+      "path": "core\\evidence_drivers\\spellcheck_driver.py",
+      "text": "lowered = mission.query.lower()"
+    },
+    {
+      "language": "python",
+      "line": 36,
+      "path": "core\\evidence_drivers\\spellcheck_driver.py",
+      "text": "return any(term in lowered for term in ["
+    },
+    {
+      "language": "python",
+      "line": 37,
+      "path": "core\\evidence_drivers\\spellcheck_driver.py",
+      "text": "\"spellcheck\","
+    },
+    {
+      "language": "python",
+      "line": 38,
+      "path": "core\\evidence_drivers\\spellcheck_driver.py",
+      "text": "\"spell check\","
+    },
+    {
+      "language": "python",
+      "line": 39,
+      "path": "core\\evidence_drivers\\spellcheck_driver.py",
+      "text": "\"spell checker\","
+    },
+    {
+      "language": "python",
+      "line": 40,
+      "path": "core\\evidence_drivers\\spellcheck_driver.py",
+      "text": "\"misspelled\","
+    },
+    {
+      "language": "python",
+      "line": 41,
+      "path": "core\\evidence_drivers\\spellcheck_driver.py",
+      "text": "\"dictionary\","
+    },
+    {
+      "language": "python",
+      "line": 42,
+      "path": "core\\evidence_drivers\\spellcheck_driver.py",
+      "text": "\"squiggle\","
+    },
+    {
+      "language": "python",
+      "line": 43,
+      "path": "core\\evidence_drivers\\spellcheck_driver.py",
+      "text": "])"
+    },
+    {
+      "language": "python",
+      "line": 1,
+      "path": "core\\evidence_drivers\\timeout_driver.py",
+      "text": "from __future__ import annotations"
+    },
+    {
+      "language": "python",
+      "line": 3,
+      "path": "core\\evidence_drivers\\timeout_driver.py",
+      "text": "from core.evidence_drivers.base import SmartSearchEvidenceDriver"
+    },
+    {
+      "language": "python",
+      "line": 4,
+      "path": "core\\evidence_drivers\\timeout_driver.py",
+      "text": "from core.investigation_engine import Mission"
+    },
+    {
+      "language": "python",
+      "line": 7,
+      "path": "core\\evidence_drivers\\timeout_driver.py",
+      "text": "class TimeoutDriver(SmartSearchEvidenceDriver):"
+    },
+    {
+      "language": "python",
+      "line": 8,
+      "path": "core\\evidence_drivers\\timeout_driver.py",
+      "text": "name = \"TimeoutDriver\""
+    },
+    {
+      "language": "python",
+      "line": 9,
+      "path": "core\\evidence_drivers\\timeout_driver.py",
+      "text": "domain = \"timeout\""
+    },
+    {
+      "language": "python",
+      "line": 11,
+      "path": "core\\evidence_drivers\\timeout_driver.py",
+      "text": "search_terms = ["
+    },
+    {
+      "language": "python",
+      "line": 12,
+      "path": "core\\evidence_drivers\\timeout_driver.py",
+      "text": "\"timeout=300\","
+    },
+    {
+      "language": "python",
+      "line": 13,
+      "path": "core\\evidence_drivers\\timeout_driver.py",
+      "text": "\"timeout = 300\","
+    },
+    {
+      "language": "python",
+      "line": 14,
+      "path": "core\\evidence_drivers\\timeout_driver.py",
+      "text": "\"requests.post\","
+    },
+    {
+      "language": "python",
+      "line": 15,
+      "path": "core\\evidence_drivers\\timeout_driver.py",
+      "text": "\"read timeout\","
+    },
+    {
+      "language": "python",
+      "line": 16,
+      "path": "core\\evidence_drivers\\timeout_driver.py",
+      "text": "\"HTTPConnectionPool\","
+    },
+    {
+      "language": "python",
+      "line": 17,
+      "path": "core\\evidence_drivers\\timeout_driver.py",
+      "text": "\"ChatTimeoutError\","
+    },
+    {
+      "language": "python",
+      "line": 18,
+      "path": "core\\evidence_drivers\\timeout_driver.py",
+      "text": "\"request_timeout_seconds\","
+    },
+    {
+      "language": "python",
+      "line": 19,
+      "path": "core\\evidence_drivers\\timeout_driver.py",
+      "text": "]"
+    },
+    {
+      "language": "python",
+      "line": 21,
+      "path": "core\\evidence_drivers\\timeout_driver.py",
+      "text": "preferred_markers = ["
+    },
+    {
+      "language": "python",
+      "line": 22,
+      "path": "core\\evidence_drivers\\timeout_driver.py",
+      "text": "\"core/\","
+    },
+    {
+      "language": "python",
+      "line": 23,
+      "path": "core\\evidence_drivers\\timeout_driver.py",
+      "text": "\"ui/\","
+    },
+    {
+      "language": "python",
+      "line": 24,
+      "path": "core\\evidence_drivers\\timeout_driver.py",
+      "text": "\"Memory/ui/\","
+    },
+    {
+      "language": "python",
+      "line": 25,
+      "path": "core\\evidence_drivers\\timeout_driver.py",
+      "text": "\"FoxAI_Desktop.py\","
+    },
+    {
+      "language": "python",
+      "line": 26,
+      "path": "core\\evidence_drivers\\timeout_driver.py",
+      "text": "\"main_window.py\","
+    },
+    {
+      "language": "python",
+      "line": 27,
+      "path": "core\\evidence_drivers\\timeout_driver.py",
+      "text": "\"chat\","
+    },
+    {
+      "language": "python",
+      "line": 28,
+      "path": "core\\evidence_drivers\\timeout_driver.py",
+      "text": "\"kernel\","
+    },
+    {
+      "language": "python",
+      "line": 29,
+      "path": "core\\evidence_drivers\\timeout_driver.py",
+      "text": "]"
+    },
+    {
+      "language": "python",
+      "line": 31,
+      "path": "core\\evidence_drivers\\timeout_driver.py",
+      "text": "def can_handle(self, mission: Mission) -> bool:"
+    },
+    {
+      "language": "python",
+      "line": 32,
+      "path": "core\\evidence_drivers\\timeout_driver.py",
+      "text": "lowered = mission.query.lower()"
+    },
+    {
+      "language": "python",
+      "line": 33,
+      "path": "core\\evidence_drivers\\timeout_driver.py",
+      "text": "return any(term in lowered for term in [\"timeout\", \"read timed out\", \"httpconnectionpool\", \"slow response\"])"
+    },
+    {
+      "language": "python",
+      "line": 1,
+      "path": "core\\evidence_ranker.py",
+      "text": "from __future__ import annotations"
+    },
+    {
+      "language": "python",
+      "line": 3,
+      "path": "core\\evidence_ranker.py",
+      "text": "from dataclasses import dataclass, field"
+    },
+    {
+      "language": "python",
+      "line": 4,
+      "path": "core\\evidence_ranker.py",
+      "text": "from pathlib import PurePath"
+    },
+    {
+      "language": "python",
+      "line": 5,
+      "path": "core\\evidence_ranker.py",
+      "text": "from typing import Any, Dict, List, Tuple"
+    },
+    {
+      "language": "python",
+      "line": 8,
+      "path": "core\\evidence_ranker.py",
+      "text": "@dataclass(frozen=True)"
+    },
+    {
+      "language": "python",
+      "line": 9,
+      "path": "core\\evidence_ranker.py",
+      "text": "class RankingProfile:"
+    },
+    {
+      "language": "python",
+      "line": 10,
+      "path": "core\\evidence_ranker.py",
+      "text": "\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 11,
+      "path": "core\\evidence_ranker.py",
+      "text": "Evidence ranking profile."
+    },
+    {
+      "language": "python",
+      "line": 13,
+      "path": "core\\evidence_ranker.py",
+      "text": "Profiles allow future departments to tune ranking without rewriting"
+    },
+    {
+      "language": "python",
+      "line": 14,
+      "path": "core\\evidence_ranker.py",
+      "text": "the Investigation Engine."
+    },
+    {
+      "language": "python",
+      "line": 15,
+      "path": "core\\evidence_ranker.py",
+      "text": "\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 16,
+      "path": "core\\evidence_ranker.py",
+      "text": "name: str = \"default\""
+    },
+    {
+      "language": "python",
+      "line": 17,
+      "path": "core\\evidence_ranker.py",
+      "text": "location_weights: Dict[str, int] = field(default_factory=lambda: {"
+    },
+    {
+      "language": "python",
+      "line": 18,
+      "path": "core\\evidence_ranker.py",
+      "text": "\"core\": 100,"
+    },
+    {
+      "language": "python",
+      "line": 19,
+      "path": "core\\evidence_ranker.py",
+      "text": "\"ui\": 95,"
+    },
+    {
+      "language": "python",
+      "line": 20,
+      "path": "core\\evidence_ranker.py",
+      "text": "\"departments\": 90,"
+    },
+    {
+      "language": "python",
+      "line": 21,
+      "path": "core\\evidence_ranker.py",
+      "text": "\"config\": 85,"
+    },
+    {
+      "language": "python",
+      "line": 22,
+      "path": "core\\evidence_ranker.py",
+      "text": "\"root\": 70,"
+    },
+    {
+      "language": "python",
+      "line": 23,
+      "path": "core\\evidence_ranker.py",
+      "text": "\"Projects\": 65,"
+    },
+    {
+      "language": "python",
+      "line": 24,
+      "path": "core\\evidence_ranker.py",
+      "text": "\"Memory\": 55,"
+    },
+    {
+      "language": "python",
+      "line": 25,
+      "path": "core\\evidence_ranker.py",
+      "text": "\"Library\": 50,"
+    },
+    {
+      "language": "python",
+      "line": 26,
+      "path": "core\\evidence_ranker.py",
+      "text": "\"Mission Archive\": 30,"
+    },
+    {
+      "language": "python",
+      "line": 27,
+      "path": "core\\evidence_ranker.py",
+      "text": "\"Backups\": 20,"
+    },
+    {
+      "language": "python",
+      "line": 28,
+      "path": "core\\evidence_ranker.py",
+      "text": "\"ComfyUI\": 5,"
+    },
+    {
+      "language": "python",
+      "line": 29,
+      "path": "core\\evidence_ranker.py",
+      "text": "\"vendor\": 5,"
+    },
+    {
+      "language": "python",
+      "line": 30,
+      "path": "core\\evidence_ranker.py",
+      "text": "})"
+    },
+    {
+      "language": "python",
+      "line": 31,
+      "path": "core\\evidence_ranker.py",
+      "text": "category_weights: Dict[str, int] = field(default_factory=lambda: {"
+    },
+    {
+      "language": "python",
+      "line": 32,
+      "path": "core\\evidence_ranker.py",
+      "text": "\"source\": 90,"
+    },
+    {
+      "language": "python",
+      "line": 33,
+      "path": "core\\evidence_ranker.py",
+      "text": "\"config\": 80,"
+    },
+    {
+      "language": "python",
+      "line": 34,
+      "path": "core\\evidence_ranker.py",
+      "text": "\"project_memory\": 65,"
+    },
+    {
+      "language": "python",
+      "line": 35,
+      "path": "core\\evidence_ranker.py",
+      "text": "\"history\": 35,"
+    },
+    {
+      "language": "python",
+      "line": 36,
+      "path": "core\\evidence_ranker.py",
+      "text": "\"vendor\": 15,"
+    },
+    {
+      "language": "python",
+      "line": 37,
+      "path": "core\\evidence_ranker.py",
+      "text": "\"unknown\": 25,"
+    },
+    {
+      "language": "python",
+      "line": 38,
+      "path": "core\\evidence_ranker.py",
+      "text": "})"
+    },
+    {
+      "language": "python",
+      "line": 39,
+      "path": "core\\evidence_ranker.py",
+      "text": "exact_match_bonus: int = 25"
+    },
+    {
+      "language": "python",
+      "line": 40,
+      "path": "core\\evidence_ranker.py",
+      "text": "filename_match_bonus: int = 20"
+    },
+    {
+      "language": "python",
+      "line": 41,
+      "path": "core\\evidence_ranker.py",
+      "text": "current_source_bonus: int = 15"
+    },
+    {
+      "language": "python",
+      "line": 42,
+      "path": "core\\evidence_ranker.py",
+      "text": "backup_penalty: int = -40"
+    },
+    {
+      "language": "python",
+      "line": 43,
+      "path": "core\\evidence_ranker.py",
+      "text": "vendor_penalty: int = -60"
+    },
+    {
+      "language": "python",
+      "line": 44,
+      "path": "core\\evidence_ranker.py",
+      "text": "history_penalty: int = -25"
+    },
+    {
+      "language": "python",
+      "line": 47,
+      "path": "core\\evidence_ranker.py",
+      "text": "@dataclass(frozen=True)"
+    },
+    {
+      "language": "python",
+      "line": 48,
+      "path": "core\\evidence_ranker.py",
+      "text": "class RankedEvidence:"
+    },
+    {
+      "language": "python",
+      "line": 49,
+      "path": "core\\evidence_ranker.py",
+      "text": "\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 50,
+      "path": "core\\evidence_ranker.py",
+      "text": "Evidence plus ranking metadata."
+    },
+    {
+      "language": "python",
+      "line": 52,
+      "path": "core\\evidence_ranker.py",
+      "text": "The original evidence object is intentionally stored as Any so this ranker"
+    },
+    {
+      "language": "python",
+      "line": 53,
+      "path": "core\\evidence_ranker.py",
+      "text": "can work with InvestigationEngine.Evidence and future evidence types."
+    },
+    {
+      "language": "python",
+      "line": 54,
+      "path": "core\\evidence_ranker.py",
+      "text": "\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 55,
+      "path": "core\\evidence_ranker.py",
+      "text": "evidence: Any"
+    },
+    {
+      "language": "python",
+      "line": 56,
+      "path": "core\\evidence_ranker.py",
+      "text": "score: int"
+    },
+    {
+      "language": "python",
+      "line": 57,
+      "path": "core\\evidence_ranker.py",
+      "text": "reasons: List[str]"
+    },
+    {
+      "language": "python",
+      "line": 58,
+      "path": "core\\evidence_ranker.py",
+      "text": "metadata: Dict[str, Any] = field(default_factory=dict)"
+    },
+    {
+      "language": "python",
+      "line": 61,
+      "path": "core\\evidence_ranker.py",
+      "text": "class EvidenceRanker:"
+    },
+    {
+      "language": "python",
+      "line": 62,
+      "path": "core\\evidence_ranker.py",
+      "text": "\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 63,
+      "path": "core\\evidence_ranker.py",
+      "text": "Evidence Ranker RC1"
+    },
+    {
+      "language": "python",
+      "line": 65,
+      "path": "core\\evidence_ranker.py",
+      "text": "Scores and sorts evidence by engineering usefulness."
+    },
+    {
+      "language": "python",
+      "line": 67,
+      "path": "core\\evidence_ranker.py",
+      "text": "This module does not search, read files, call AI, or modify anything."
+    },
+    {
+      "language": "python",
+      "line": 68,
+      "path": "core\\evidence_ranker.py",
+      "text": "It only ranks evidence that was already collected."
+    },
+    {
+      "language": "python",
+      "line": 69,
+      "path": "core\\evidence_ranker.py",
+      "text": "\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 71,
+      "path": "core\\evidence_ranker.py",
+      "text": "VENDOR_MARKERS = {\"ComfyUI\", \"venv\", \".venv\", \"site-packages\", \"node_modules\"}"
+    },
+    {
+      "language": "python",
+      "line": 72,
+      "path": "core\\evidence_ranker.py",
+      "text": "BACKUP_MARKERS = {\"Backups\", \"Backup\", \"backup\", \"old\", \"archive\"}"
+    },
+    {
+      "language": "python",
+      "line": 73,
+      "path": "core\\evidence_ranker.py",
+      "text": "HISTORY_MARKERS = {\"Mission Archive\", \"MissionArchive\", \"Archive\"}"
+    },
+    {
+      "language": "python",
+      "line": 75,
+      "path": "core\\evidence_ranker.py",
+      "text": "def __init__(self, profile: RankingProfile | None = None):"
+    },
+    {
+      "language": "python",
+      "line": 76,
+      "path": "core\\evidence_ranker.py",
+      "text": "self.profile = profile or RankingProfile()"
+    },
+    {
+      "language": "python",
+      "line": 78,
+      "path": "core\\evidence_ranker.py",
+      "text": "def rank(self, evidence: List[Any], query: str = \"\", department: str = \"\") -> List[RankedEvidence]:"
+    },
+    {
+      "language": "python",
+      "line": 79,
+      "path": "core\\evidence_ranker.py",
+      "text": "ranked = [self.score(item, query=query, department=department) for item in evidence]"
+    },
+    {
+      "language": "python",
+      "line": 80,
+      "path": "core\\evidence_ranker.py",
+      "text": "ranked.sort(key=lambda item: item.score, reverse=True)"
+    },
+    {
+      "language": "python",
+      "line": 81,
+      "path": "core\\evidence_ranker.py",
+      "text": "return ranked"
+    },
+    {
+      "language": "python",
+      "line": 83,
+      "path": "core\\evidence_ranker.py",
+      "text": "def score(self, evidence: Any, query: str = \"\", department: str = \"\") -> RankedEvidence:"
+    },
+    {
+      "language": "python",
+      "line": 84,
+      "path": "core\\evidence_ranker.py",
+      "text": "path = self._get(evidence, \"path\", \"\") or \"\""
+    },
+    {
+      "language": "python",
+      "line": 85,
+      "path": "core\\evidence_ranker.py",
+      "text": "category = self._get(evidence, \"category\", \"unknown\") or \"unknown\""
+    },
+    {
+      "language": "python",
+      "line": 86,
+      "path": "core\\evidence_ranker.py",
+      "text": "confidence = int(self._get(evidence, \"confidence\", 0) or 0)"
+    },
+    {
+      "language": "python",
+      "line": 87,
+      "path": "core\\evidence_ranker.py",
+      "text": "weight = int(self._get(evidence, \"weight\", 0) or 0)"
+    },
+    {
+      "language": "python",
+      "line": 88,
+      "path": "core\\evidence_ranker.py",
+      "text": "snippet = self._get(evidence, \"snippet\", \"\") or \"\""
+    },
+    {
+      "language": "python",
+      "line": 90,
+      "path": "core\\evidence_ranker.py",
+      "text": "score = 0"
+    },
+    {
+      "language": "python",
+      "line": 91,
+      "path": "core\\evidence_ranker.py",
+      "text": "reasons: List[str] = []"
+    },
+    {
+      "language": "python",
+      "line": 93,
+      "path": "core\\evidence_ranker.py",
+      "text": "location_score, location_reason = self._location_score(path)"
+    },
+    {
+      "language": "python",
+      "line": 94,
+      "path": "core\\evidence_ranker.py",
+      "text": "score += location_score"
+    },
+    {
+      "language": "python",
+      "line": 95,
+      "path": "core\\evidence_ranker.py",
+      "text": "reasons.append(location_reason)"
+    },
+    {
+      "language": "python",
+      "line": 97,
+      "path": "core\\evidence_ranker.py",
+      "text": "category_score = self.profile.category_weights.get(category, self.profile.category_weights[\"unknown\"])"
+    },
+    {
+      "language": "python",
+      "line": 98,
+      "path": "core\\evidence_ranker.py",
+      "text": "score += category_score"
+    },
+    {
+      "language": "python",
+      "line": 99,
+      "path": "core\\evidence_ranker.py",
+      "text": "reasons.append(f\"category '{category}' score {category_score}\")"
+    },
+    {
+      "language": "python",
+      "line": 101,
+      "path": "core\\evidence_ranker.py",
+      "text": "score += confidence"
+    },
+    {
+      "language": "python",
+      "line": 102,
+      "path": "core\\evidence_ranker.py",
+      "text": "reasons.append(f\"evidence confidence {confidence}\")"
+    },
+    {
+      "language": "python",
+      "line": 104,
+      "path": "core\\evidence_ranker.py",
+      "text": "score += weight"
+    },
+    {
+      "language": "python",
+      "line": 105,
+      "path": "core\\evidence_ranker.py",
+      "text": "reasons.append(f\"evidence weight {weight}\")"
+    },
+    {
+      "language": "python",
+      "line": 107,
+      "path": "core\\evidence_ranker.py",
+      "text": "exact_bonus = self._exact_match_bonus(query, path, snippet)"
+    },
+    {
+      "language": "python",
+      "line": 108,
+      "path": "core\\evidence_ranker.py",
+      "text": "if exact_bonus:"
+    },
+    {
+      "language": "python",
+      "line": 109,
+      "path": "core\\evidence_ranker.py",
+      "text": "score += exact_bonus"
+    },
+    {
+      "language": "python",
+      "line": 110,
+      "path": "core\\evidence_ranker.py",
+      "text": "reasons.append(f\"exact/path match bonus {exact_bonus}\")"
+    },
+    {
+      "language": "python",
+      "line": 112,
+      "path": "core\\evidence_ranker.py",
+      "text": "if self._is_current_source(path):"
+    },
+    {
+      "language": "python",
+      "line": 113,
+      "path": "core\\evidence_ranker.py",
+      "text": "score += self.profile.current_source_bonus"
+    },
+    {
+      "language": "python",
+      "line": 114,
+      "path": "core\\evidence_ranker.py",
+      "text": "reasons.append(f\"current source bonus {self.profile.current_source_bonus}\")"
+    },
+    {
+      "language": "python",
+      "line": 116,
+      "path": "core\\evidence_ranker.py",
+      "text": "if self._is_backup(path):"
+    },
+    {
+      "language": "python",
+      "line": 117,
+      "path": "core\\evidence_ranker.py",
+      "text": "score += self.profile.backup_penalty"
+    },
+    {
+      "language": "python",
+      "line": 118,
+      "path": "core\\evidence_ranker.py",
+      "text": "reasons.append(f\"backup penalty {self.profile.backup_penalty}\")"
+    },
+    {
+      "language": "python",
+      "line": 120,
+      "path": "core\\evidence_ranker.py",
+      "text": "if self._is_vendor(path):"
+    },
+    {
+      "language": "python",
+      "line": 121,
+      "path": "core\\evidence_ranker.py",
+      "text": "score += self.profile.vendor_penalty"
+    },
+    {
+      "language": "python",
+      "line": 122,
+      "path": "core\\evidence_ranker.py",
+      "text": "reasons.append(f\"vendor penalty {self.profile.vendor_penalty}\")"
+    },
+    {
+      "language": "python",
+      "line": 124,
+      "path": "core\\evidence_ranker.py",
+      "text": "if self._is_history(path):"
+    },
+    {
+      "language": "python",
+      "line": 125,
+      "path": "core\\evidence_ranker.py",
+      "text": "score += self.profile.history_penalty"
+    },
+    {
+      "language": "python",
+      "line": 126,
+      "path": "core\\evidence_ranker.py",
+      "text": "reasons.append(f\"history penalty {self.profile.history_penalty}\")"
+    },
+    {
+      "language": "python",
+      "line": 128,
+      "path": "core\\evidence_ranker.py",
+      "text": "department_bonus = self._department_bonus(path, department)"
+    },
+    {
+      "language": "python",
+      "line": 129,
+      "path": "core\\evidence_ranker.py",
+      "text": "if department_bonus:"
+    },
+    {
+      "language": "python",
+      "line": 130,
+      "path": "core\\evidence_ranker.py",
+      "text": "score += department_bonus"
+    },
+    {
+      "language": "python",
+      "line": 131,
+      "path": "core\\evidence_ranker.py",
+      "text": "reasons.append(f\"department bonus {department_bonus}\")"
+    },
+    {
+      "language": "python",
+      "line": 133,
+      "path": "core\\evidence_ranker.py",
+      "text": "return RankedEvidence("
+    },
+    {
+      "language": "python",
+      "line": 134,
+      "path": "core\\evidence_ranker.py",
+      "text": "evidence=evidence,"
+    },
+    {
+      "language": "python",
+      "line": 135,
+      "path": "core\\evidence_ranker.py",
+      "text": "score=score,"
+    },
+    {
+      "language": "python",
+      "line": 136,
+      "path": "core\\evidence_ranker.py",
+      "text": "reasons=reasons,"
+    },
+    {
+      "language": "python",
+      "line": 137,
+      "path": "core\\evidence_ranker.py",
+      "text": "metadata={"
+    },
+    {
+      "language": "python",
+      "line": 138,
+      "path": "core\\evidence_ranker.py",
+      "text": "\"path\": path,"
+    },
+    {
+      "language": "python",
+      "line": 139,
+      "path": "core\\evidence_ranker.py",
+      "text": "\"category\": category,"
+    },
+    {
+      "language": "python",
+      "line": 140,
+      "path": "core\\evidence_ranker.py",
+      "text": "\"department\": department,"
+    },
+    {
+      "language": "python",
+      "line": 141,
+      "path": "core\\evidence_ranker.py",
+      "text": "\"profile\": self.profile.name,"
+    },
+    {
+      "language": "python",
+      "line": 142,
+      "path": "core\\evidence_ranker.py",
+      "text": "},"
+    },
+    {
+      "language": "python",
+      "line": 143,
+      "path": "core\\evidence_ranker.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 145,
+      "path": "core\\evidence_ranker.py",
+      "text": "def explain(self, ranked: List[RankedEvidence], limit: int = 8) -> str:"
+    },
+    {
+      "language": "python",
+      "line": 146,
+      "path": "core\\evidence_ranker.py",
+      "text": "lines = ["
+    },
+    {
+      "language": "python",
+      "line": 147,
+      "path": "core\\evidence_ranker.py",
+      "text": "\"EVIDENCE RANKING REPORT\","
+    },
+    {
+      "language": "python",
+      "line": 148,
+      "path": "core\\evidence_ranker.py",
+      "text": "\"\","
+    },
+    {
+      "language": "python",
+      "line": 149,
+      "path": "core\\evidence_ranker.py",
+      "text": "f\"Profile: {self.profile.name}\","
+    },
+    {
+      "language": "python",
+      "line": 150,
+      "path": "core\\evidence_ranker.py",
+      "text": "f\"Evidence Items: {len(ranked)}\","
+    },
+    {
+      "language": "python",
+      "line": 151,
+      "path": "core\\evidence_ranker.py",
+      "text": "\"\","
+    },
+    {
+      "language": "python",
+      "line": 152,
+      "path": "core\\evidence_ranker.py",
+      "text": "]"
+    },
+    {
+      "language": "python",
+      "line": 154,
+      "path": "core\\evidence_ranker.py",
+      "text": "if not ranked:"
+    },
+    {
+      "language": "python",
+      "line": 155,
+      "path": "core\\evidence_ranker.py",
+      "text": "lines.append(\"No evidence to rank.\")"
+    },
+    {
+      "language": "python",
+      "line": 156,
+      "path": "core\\evidence_ranker.py",
+      "text": "return \"\\n\".join(lines)"
+    },
+    {
+      "language": "python",
+      "line": 158,
+      "path": "core\\evidence_ranker.py",
+      "text": "for index, item in enumerate(ranked[:limit], start=1):"
+    },
+    {
+      "language": "python",
+      "line": 159,
+      "path": "core\\evidence_ranker.py",
+      "text": "path = item.metadata.get(\"path\", \"\")"
+    },
+    {
+      "language": "python",
+      "line": 160,
+      "path": "core\\evidence_ranker.py",
+      "text": "category = item.metadata.get(\"category\", \"unknown\")"
+    },
+    {
+      "language": "python",
+      "line": 162,
+      "path": "core\\evidence_ranker.py",
+      "text": "lines.append(f\"{index}. {path or '[No path]'}\")"
+    },
+    {
+      "language": "python",
+      "line": 163,
+      "path": "core\\evidence_ranker.py",
+      "text": "lines.append(f\"   Score: {item.score}\")"
+    },
+    {
+      "language": "python",
+      "line": 164,
+      "path": "core\\evidence_ranker.py",
+      "text": "lines.append(f\"   Category: {category}\")"
+    },
+    {
+      "language": "python",
+      "line": 165,
+      "path": "core\\evidence_ranker.py",
+      "text": "lines.append(\"   Reasons:\")"
+    },
+    {
+      "language": "python",
+      "line": 166,
+      "path": "core\\evidence_ranker.py",
+      "text": "for reason in item.reasons:"
+    },
+    {
+      "language": "python",
+      "line": 167,
+      "path": "core\\evidence_ranker.py",
+      "text": "lines.append(f\"   • {reason}\")"
+    },
+    {
+      "language": "python",
+      "line": 168,
+      "path": "core\\evidence_ranker.py",
+      "text": "lines.append(\"\")"
+    },
+    {
+      "language": "python",
+      "line": 170,
+      "path": "core\\evidence_ranker.py",
+      "text": "return \"\\n\".join(lines)"
+    },
+    {
+      "language": "python",
+      "line": 172,
+      "path": "core\\evidence_ranker.py",
+      "text": "def _location_score(self, path: str) -> Tuple[int, str]:"
+    },
+    {
+      "language": "python",
+      "line": 173,
+      "path": "core\\evidence_ranker.py",
+      "text": "top = self._top_dir(path)"
+    },
+    {
+      "language": "python",
+      "line": 175,
+      "path": "core\\evidence_ranker.py",
+      "text": "if not top:"
+    },
+    {
+      "language": "python",
+      "line": 176,
+      "path": "core\\evidence_ranker.py",
+      "text": "score = self.profile.location_weights.get(\"root\", 70)"
+    },
+    {
+      "language": "python",
+      "line": 177,
+      "path": "core\\evidence_ranker.py",
+      "text": "return score, f\"root/unknown location score {score}\""
+    },
+    {
+      "language": "python",
+      "line": 179,
+      "path": "core\\evidence_ranker.py",
+      "text": "score = self.profile.location_weights.get(top)"
+    },
+    {
+      "language": "python",
+      "line": 181,
+      "path": "core\\evidence_ranker.py",
+      "text": "if score is None:"
+    },
+    {
+      "language": "python",
+      "line": 182,
+      "path": "core\\evidence_ranker.py",
+      "text": "if self._is_vendor(path):"
+    },
+    {
+      "language": "python",
+      "line": 183,
+      "path": "core\\evidence_ranker.py",
+      "text": "score = self.profile.location_weights.get(\"vendor\", 5)"
+    },
+    {
+      "language": "python",
+      "line": 184,
+      "path": "core\\evidence_ranker.py",
+      "text": "return score, f\"vendor location score {score}\""
+    },
+    {
+      "language": "python",
+      "line": 186,
+      "path": "core\\evidence_ranker.py",
+      "text": "score = 40"
+    },
+    {
+      "language": "python",
+      "line": 187,
+      "path": "core\\evidence_ranker.py",
+      "text": "return score, f\"unclassified location '{top}' score {score}\""
+    },
+    {
+      "language": "python",
+      "line": 189,
+      "path": "core\\evidence_ranker.py",
+      "text": "return score, f\"location '{top}' score {score}\""
+    },
+    {
+      "language": "python",
+      "line": 191,
+      "path": "core\\evidence_ranker.py",
+      "text": "def _exact_match_bonus(self, query: str, path: str, snippet: str) -> int:"
+    },
+    {
+      "language": "python",
+      "line": 192,
+      "path": "core\\evidence_ranker.py",
+      "text": "lowered = (query or \"\").lower().strip()"
+    },
+    {
+      "language": "python",
+      "line": 193,
+      "path": "core\\evidence_ranker.py",
+      "text": "if not lowered:"
+    },
+    {
+      "language": "python",
+      "line": 194,
+      "path": "core\\evidence_ranker.py",
+      "text": "return 0"
+    },
+    {
+      "language": "python",
+      "line": 196,
+      "path": "core\\evidence_ranker.py",
+      "text": "bonus = 0"
+    },
+    {
+      "language": "python",
+      "line": 198,
+      "path": "core\\evidence_ranker.py",
+      "text": "# Use meaningful tokens rather than requiring the whole query."
+    },
+    {
+      "language": "python",
+      "line": 199,
+      "path": "core\\evidence_ranker.py",
+      "text": "tokens = ["
+    },
+    {
+      "language": "python",
+      "line": 200,
+      "path": "core\\evidence_ranker.py",
+      "text": "token for token in lowered.replace(\",\", \" \").replace(\".\", \" \").split()"
+    },
+    {
+      "language": "python",
+      "line": 201,
+      "path": "core\\evidence_ranker.py",
+      "text": "if len(token) > 3 and token not in {\"engineer\", \"investigate\", \"where\", \"what\", \"that\", \"this\"}"
+    },
+    {
+      "language": "python",
+      "line": 202,
+      "path": "core\\evidence_ranker.py",
+      "text": "]"
+    },
+    {
+      "language": "python",
+      "line": 204,
+      "path": "core\\evidence_ranker.py",
+      "text": "path_lower = path.lower()"
+    },
+    {
+      "language": "python",
+      "line": 205,
+      "path": "core\\evidence_ranker.py",
+      "text": "snippet_lower = snippet.lower()"
+    },
+    {
+      "language": "python",
+      "line": 207,
+      "path": "core\\evidence_ranker.py",
+      "text": "for token in tokens:"
+    },
+    {
+      "language": "python",
+      "line": 208,
+      "path": "core\\evidence_ranker.py",
+      "text": "if token in path_lower:"
+    },
+    {
+      "language": "python",
+      "line": 209,
+      "path": "core\\evidence_ranker.py",
+      "text": "bonus += self.profile.filename_match_bonus"
+    },
+    {
+      "language": "python",
+      "line": 210,
+      "path": "core\\evidence_ranker.py",
+      "text": "elif token in snippet_lower:"
+    },
+    {
+      "language": "python",
+      "line": 211,
+      "path": "core\\evidence_ranker.py",
+      "text": "bonus += self.profile.exact_match_bonus // 2"
+    },
+    {
+      "language": "python",
+      "line": 213,
+      "path": "core\\evidence_ranker.py",
+      "text": "return min(60, bonus)"
+    },
+    {
+      "language": "python",
+      "line": 215,
+      "path": "core\\evidence_ranker.py",
+      "text": "def _department_bonus(self, path: str, department: str) -> int:"
+    },
+    {
+      "language": "python",
+      "line": 216,
+      "path": "core\\evidence_ranker.py",
+      "text": "lowered = (department or \"\").lower()"
+    },
+    {
+      "language": "python",
+      "line": 217,
+      "path": "core\\evidence_ranker.py",
+      "text": "path_lower = (path or \"\").lower()"
+    },
+    {
+      "language": "python",
+      "line": 219,
+      "path": "core\\evidence_ranker.py",
+      "text": "if not lowered:"
+    },
+    {
+      "language": "python",
+      "line": 220,
+      "path": "core\\evidence_ranker.py",
+      "text": "return 0"
+    },
+    {
+      "language": "python",
+      "line": 222,
+      "path": "core\\evidence_ranker.py",
+      "text": "if \"engineer\" in lowered and (path_lower.startswith(\"core/\") or path_lower.startswith(\"ui/\")):"
+    },
+    {
+      "language": "python",
+      "line": 223,
+      "path": "core\\evidence_ranker.py",
+      "text": "return 20"
+    },
+    {
+      "language": "python",
+      "line": 225,
+      "path": "core\\evidence_ranker.py",
+      "text": "if \"repair\" in lowered and any(term in path_lower for term in [\"repair\", \"windows\", \"diagnostic\", \"driver\"]):"
+    },
+    {
+      "language": "python",
+      "line": 226,
+      "path": "core\\evidence_ranker.py",
+      "text": "return 20"
+    },
+    {
+      "language": "python",
+      "line": 228,
+      "path": "core\\evidence_ranker.py",
+      "text": "if \"comic\" in lowered and any(term in path_lower for term in [\"comic\", \"canvas\", \"story\", \"character\"]):"
+    },
+    {
+      "language": "python",
+      "line": 229,
+      "path": "core\\evidence_ranker.py",
+      "text": "return 20"
+    },
+    {
+      "language": "python",
+      "line": 231,
+      "path": "core\\evidence_ranker.py",
+      "text": "return 0"
+    },
+    {
+      "language": "python",
+      "line": 233,
+      "path": "core\\evidence_ranker.py",
+      "text": "def _top_dir(self, path: str) -> str:"
+    },
+    {
+      "language": "python",
+      "line": 234,
+      "path": "core\\evidence_ranker.py",
+      "text": "if not path:"
+    },
+    {
+      "language": "python",
+      "line": 235,
+      "path": "core\\evidence_ranker.py",
+      "text": "return \"\""
+    },
+    {
+      "language": "python",
+      "line": 237,
+      "path": "core\\evidence_ranker.py",
+      "text": "normalized = path.replace(\"\\\\\", \"/\")"
+    },
+    {
+      "language": "python",
+      "line": 238,
+      "path": "core\\evidence_ranker.py",
+      "text": "parts = [part for part in normalized.split(\"/\") if part]"
+    },
+    {
+      "language": "python",
+      "line": 240,
+      "path": "core\\evidence_ranker.py",
+      "text": "if not parts:"
+    },
+    {
+      "language": "python",
+      "line": 241,
+      "path": "core\\evidence_ranker.py",
+      "text": "return \"\""
+    },
+    {
+      "language": "python",
+      "line": 243,
+      "path": "core\\evidence_ranker.py",
+      "text": "return parts[0]"
+    },
+    {
+      "language": "python",
+      "line": 245,
+      "path": "core\\evidence_ranker.py",
+      "text": "def _is_vendor(self, path: str) -> bool:"
+    },
+    {
+      "language": "python",
+      "line": 246,
+      "path": "core\\evidence_ranker.py",
+      "text": "parts = set(PurePath(path.replace(\"\\\\\", \"/\")).parts)"
+    },
+    {
+      "language": "python",
+      "line": 247,
+      "path": "core\\evidence_ranker.py",
+      "text": "return bool(parts & self.VENDOR_MARKERS)"
+    },
+    {
+      "language": "python",
+      "line": 249,
+      "path": "core\\evidence_ranker.py",
+      "text": "def _is_backup(self, path: str) -> bool:"
+    },
+    {
+      "language": "python",
+      "line": 250,
+      "path": "core\\evidence_ranker.py",
+      "text": "parts = set(PurePath(path.replace(\"\\\\\", \"/\")).parts)"
+    },
+    {
+      "language": "python",
+      "line": 251,
+      "path": "core\\evidence_ranker.py",
+      "text": "return bool(parts & self.BACKUP_MARKERS)"
+    },
+    {
+      "language": "python",
+      "line": 253,
+      "path": "core\\evidence_ranker.py",
+      "text": "def _is_history(self, path: str) -> bool:"
+    },
+    {
+      "language": "python",
+      "line": 254,
+      "path": "core\\evidence_ranker.py",
+      "text": "normalized = path.replace(\"\\\\\", \"/\")"
+    },
+    {
+      "language": "python",
+      "line": 255,
+      "path": "core\\evidence_ranker.py",
+      "text": "return any(marker in normalized for marker in self.HISTORY_MARKERS)"
+    },
+    {
+      "language": "python",
+      "line": 257,
+      "path": "core\\evidence_ranker.py",
+      "text": "def _is_current_source(self, path: str) -> bool:"
+    },
+    {
+      "language": "python",
+      "line": 258,
+      "path": "core\\evidence_ranker.py",
+      "text": "normalized = path.replace(\"\\\\\", \"/\")"
+    },
+    {
+      "language": "python",
+      "line": 259,
+      "path": "core\\evidence_ranker.py",
+      "text": "if self._is_backup(normalized) or self._is_vendor(normalized) or self._is_history(normalized):"
+    },
+    {
+      "language": "python",
+      "line": 260,
+      "path": "core\\evidence_ranker.py",
+      "text": "return False"
+    },
+    {
+      "language": "python",
+      "line": 262,
+      "path": "core\\evidence_ranker.py",
+      "text": "return normalized.endswith(\".py\") and ("
+    },
+    {
+      "language": "python",
+      "line": 263,
+      "path": "core\\evidence_ranker.py",
+      "text": "normalized.startswith(\"core/\")"
+    },
+    {
+      "language": "python",
+      "line": 264,
+      "path": "core\\evidence_ranker.py",
+      "text": "or normalized.startswith(\"ui/\")"
+    },
+    {
+      "language": "python",
+      "line": 265,
+      "path": "core\\evidence_ranker.py",
+      "text": "or normalized.startswith(\"departments/\")"
+    },
+    {
+      "language": "python",
+      "line": 266,
+      "path": "core\\evidence_ranker.py",
+      "text": "or \"/\" not in normalized"
+    },
+    {
+      "language": "python",
+      "line": 267,
+      "path": "core\\evidence_ranker.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 269,
+      "path": "core\\evidence_ranker.py",
+      "text": "def _get(self, item: Any, name: str, default: Any = None) -> Any:"
+    },
+    {
+      "language": "python",
+      "line": 270,
+      "path": "core\\evidence_ranker.py",
+      "text": "if isinstance(item, dict):"
+    },
+    {
+      "language": "python",
+      "line": 271,
+      "path": "core\\evidence_ranker.py",
+      "text": "return item.get(name, default)"
+    },
+    {
+      "language": "python",
+      "line": 273,
+      "path": "core\\evidence_ranker.py",
+      "text": "return getattr(item, name, default)"
+    },
+    {
+      "language": "python",
+      "line": 1,
+      "path": "core\\execution_planner.py",
+      "text": "from core.capability_graph import CapabilityGraph"
+    },
+    {
+      "language": "python",
+      "line": 4,
+      "path": "core\\execution_planner.py",
+      "text": "class ExecutionPlanner:"
+    },
+    {
+      "language": "python",
+      "line": 5,
+      "path": "core\\execution_planner.py",
+      "text": "\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 6,
+      "path": "core\\execution_planner.py",
+      "text": "Execution Planner RC1"
+    },
+    {
+      "language": "python",
+      "line": 8,
+      "path": "core\\execution_planner.py",
+      "text": "Converts a mission into a multi-step departmental plan."
+    },
+    {
+      "language": "python",
+      "line": 9,
+      "path": "core\\execution_planner.py",
+      "text": "This is the first step toward orchestration in Decision Layer 3.0."
+    },
+    {
+      "language": "python",
+      "line": 10,
+      "path": "core\\execution_planner.py",
+      "text": "\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 12,
+      "path": "core\\execution_planner.py",
+      "text": "def __init__(self):"
+    },
+    {
+      "language": "python",
+      "line": 13,
+      "path": "core\\execution_planner.py",
+      "text": "self.graph = CapabilityGraph()"
+    },
+    {
+      "language": "python",
+      "line": 15,
+      "path": "core\\execution_planner.py",
+      "text": "def classify_steps(self, query):"
+    },
+    {
+      "language": "python",
+      "line": 16,
+      "path": "core\\execution_planner.py",
+      "text": "q = query.lower()"
+    },
+    {
+      "language": "python",
+      "line": 18,
+      "path": "core\\execution_planner.py",
+      "text": "steps = []"
+    },
+    {
+      "language": "python",
+      "line": 20,
+      "path": "core\\execution_planner.py",
+      "text": "# Engineering-heavy"
+    },
+    {
+      "language": "python",
+      "line": 21,
+      "path": "core\\execution_planner.py",
+      "text": "if any(x in q for x in [\"engineer\", \"code\", \"architecture\", \"refactor\", \"system\"]):"
+    },
+    {
+      "language": "python",
+      "line": 22,
+      "path": "core\\execution_planner.py",
+      "text": "steps.append((\"engineer\", \"architecture_review\"))"
+    },
+    {
+      "language": "python",
+      "line": 24,
+      "path": "core\\execution_planner.py",
+      "text": "# Prompt / creative enhancement"
+    },
+    {
+      "language": "python",
+      "line": 25,
+      "path": "core\\execution_planner.py",
+      "text": "if any(x in q for x in [\"prompt\", \"improve\", \"optimize text\"]):"
+    },
+    {
+      "language": "python",
+      "line": 26,
+      "path": "core\\execution_planner.py",
+      "text": "steps.append((\"promptsmith\", \"prompt_optimization\"))"
+    },
+    {
+      "language": "python",
+      "line": 28,
+      "path": "core\\execution_planner.py",
+      "text": "# Visual generation"
+    },
+    {
+      "language": "python",
+      "line": 29,
+      "path": "core\\execution_planner.py",
+      "text": "if any(x in q for x in [\"image\", \"draw\", \"render\", \"visual\"]):"
+    },
+    {
+      "language": "python",
+      "line": 30,
+      "path": "core\\execution_planner.py",
+      "text": "steps.append((\"red_canvas\", \"image_generation\"))"
+    },
+    {
+      "language": "python",
+      "line": 32,
+      "path": "core\\execution_planner.py",
+      "text": "# Knowledge retrieval"
+    },
+    {
+      "language": "python",
+      "line": 33,
+      "path": "core\\execution_planner.py",
+      "text": "if any(x in q for x in [\"search\", \"find\", \"library\", \"docs\"]):"
+    },
+    {
+      "language": "python",
+      "line": 34,
+      "path": "core\\execution_planner.py",
+      "text": "steps.append((\"iron_library\", \"knowledge_retrieval\"))"
+    },
+    {
+      "language": "python",
+      "line": 36,
+      "path": "core\\execution_planner.py",
+      "text": "# Diagnostics"
+    },
+    {
+      "language": "python",
+      "line": 37,
+      "path": "core\\execution_planner.py",
+      "text": "if any(x in q for x in [\"status\", \"health\", \"cpu\", \"diagnostic\"]):"
+    },
+    {
+      "language": "python",
+      "line": 38,
+      "path": "core\\execution_planner.py",
+      "text": "steps.append((\"diagnostics\", \"system_health\"))"
+    },
+    {
+      "language": "python",
+      "line": 40,
+      "path": "core\\execution_planner.py",
+      "text": "# Default fallback"
+    },
+    {
+      "language": "python",
+      "line": 41,
+      "path": "core\\execution_planner.py",
+      "text": "if not steps:"
+    },
+    {
+      "language": "python",
+      "line": 42,
+      "path": "core\\execution_planner.py",
+      "text": "steps.append((\"chat\", \"conversation\"))"
+    },
+    {
+      "language": "python",
+      "line": 44,
+      "path": "core\\execution_planner.py",
+      "text": "return steps"
+    },
+    {
+      "language": "python",
+      "line": 46,
+      "path": "core\\execution_planner.py",
+      "text": "def build_plan(self, query):"
+    },
+    {
+      "language": "python",
+      "line": 47,
+      "path": "core\\execution_planner.py",
+      "text": "steps = self.classify_steps(query)"
+    },
+    {
+      "language": "python",
+      "line": 49,
+      "path": "core\\execution_planner.py",
+      "text": "plan = {"
+    },
+    {
+      "language": "python",
+      "line": 50,
+      "path": "core\\execution_planner.py",
+      "text": "\"mission\": query,"
+    },
+    {
+      "language": "python",
+      "line": 51,
+      "path": "core\\execution_planner.py",
+      "text": "\"steps\": [],"
+    },
+    {
+      "language": "python",
+      "line": 52,
+      "path": "core\\execution_planner.py",
+      "text": "\"automation\": False,"
+    },
+    {
+      "language": "python",
+      "line": 53,
+      "path": "core\\execution_planner.py",
+      "text": "\"confidence\": 0.85,"
+    },
+    {
+      "language": "python",
+      "line": 54,
+      "path": "core\\execution_planner.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 56,
+      "path": "core\\execution_planner.py",
+      "text": "for i, (dept, capability) in enumerate(steps, 1):"
+    },
+    {
+      "language": "python",
+      "line": 57,
+      "path": "core\\execution_planner.py",
+      "text": "plan[\"steps\"].append({"
+    },
+    {
+      "language": "python",
+      "line": 58,
+      "path": "core\\execution_planner.py",
+      "text": "\"step\": i,"
+    },
+    {
+      "language": "python",
+      "line": 59,
+      "path": "core\\execution_planner.py",
+      "text": "\"department\": dept,"
+    },
+    {
+      "language": "python",
+      "line": 60,
+      "path": "core\\execution_planner.py",
+      "text": "\"capability\": capability,"
+    },
+    {
+      "language": "python",
+      "line": 61,
+      "path": "core\\execution_planner.py",
+      "text": "\"model_hint\": self._model_hint(dept),"
+    },
+    {
+      "language": "python",
+      "line": 62,
+      "path": "core\\execution_planner.py",
+      "text": "})"
+    },
+    {
+      "language": "python",
+      "line": 64,
+      "path": "core\\execution_planner.py",
+      "text": "return plan"
+    },
+    {
+      "language": "python",
+      "line": 66,
+      "path": "core\\execution_planner.py",
+      "text": "def _model_hint(self, department):"
+    },
+    {
+      "language": "python",
+      "line": 67,
+      "path": "core\\execution_planner.py",
+      "text": "mapping = {"
+    },
+    {
+      "language": "python",
+      "line": 68,
+      "path": "core\\execution_planner.py",
+      "text": "\"engineer\": \"Qwen3-Coder\","
+    },
+    {
+      "language": "python",
+      "line": 69,
+      "path": "core\\execution_planner.py",
+      "text": "\"red_canvas\": \"Qwen3-VL / DeepSeek\","
+    },
+    {
+      "language": "python",
+      "line": 70,
+      "path": "core\\execution_planner.py",
+      "text": "\"promptsmith\": \"DeepSeek\","
+    },
+    {
+      "language": "python",
+      "line": 71,
+      "path": "core\\execution_planner.py",
+      "text": "\"iron_library\": \"DeepSeek / Qwen\","
+    },
+    {
+      "language": "python",
+      "line": 72,
+      "path": "core\\execution_planner.py",
+      "text": "\"diagnostics\": \"Lightweight model or none\","
+    },
+    {
+      "language": "python",
+      "line": 73,
+      "path": "core\\execution_planner.py",
+      "text": "\"chat\": \"General model\","
+    },
+    {
+      "language": "python",
+      "line": 74,
+      "path": "core\\execution_planner.py",
+      "text": "\"soul_forge\": \"Qwen / DeepSeek\","
+    },
+    {
+      "language": "python",
+      "line": 75,
+      "path": "core\\execution_planner.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 76,
+      "path": "core\\execution_planner.py",
+      "text": "return mapping.get(department, \"General model\")"
+    },
+    {
+      "language": "python",
+      "line": 78,
+      "path": "core\\execution_planner.py",
+      "text": "def format_plan(self, plan):"
+    },
+    {
+      "language": "python",
+      "line": 79,
+      "path": "core\\execution_planner.py",
+      "text": "lines = ["
+    },
+    {
+      "language": "python",
+      "line": 80,
+      "path": "core\\execution_planner.py",
+      "text": "\"EXECUTION PLAN (RC1)\","
+    },
+    {
+      "language": "python",
+      "line": 81,
+      "path": "core\\execution_planner.py",
+      "text": "\"\","
+    },
+    {
+      "language": "python",
+      "line": 82,
+      "path": "core\\execution_planner.py",
+      "text": "f\"Mission: {plan['mission']}\","
+    },
+    {
+      "language": "python",
+      "line": 83,
+      "path": "core\\execution_planner.py",
+      "text": "\"\","
+    },
+    {
+      "language": "python",
+      "line": 84,
+      "path": "core\\execution_planner.py",
+      "text": "\"Steps:\","
+    },
+    {
+      "language": "python",
+      "line": 85,
+      "path": "core\\execution_planner.py",
+      "text": "]"
+    },
+    {
+      "language": "python",
+      "line": 87,
+      "path": "core\\execution_planner.py",
+      "text": "for step in plan[\"steps\"]:"
+    },
+    {
+      "language": "python",
+      "line": 88,
+      "path": "core\\execution_planner.py",
+      "text": "lines.append("
+    },
+    {
+      "language": "python",
+      "line": 89,
+      "path": "core\\execution_planner.py",
+      "text": "f\"{step['step']}. {step['department']} \""
+    },
+    {
+      "language": "python",
+      "line": 90,
+      "path": "core\\execution_planner.py",
+      "text": "f\"-> {step['capability']} \""
+    },
+    {
+      "language": "python",
+      "line": 91,
+      "path": "core\\execution_planner.py",
+      "text": "f\"(Model Hint: {step['model_hint']})\""
+    },
+    {
+      "language": "python",
+      "line": 92,
+      "path": "core\\execution_planner.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 94,
+      "path": "core\\execution_planner.py",
+      "text": "lines.extend(["
+    },
+    {
+      "language": "python",
+      "line": 95,
+      "path": "core\\execution_planner.py",
+      "text": "\"\","
+    },
+    {
+      "language": "python",
+      "line": 96,
+      "path": "core\\execution_planner.py",
+      "text": "f\"Automation: {'ON' if plan['automation'] else 'OFF'}\","
+    },
+    {
+      "language": "python",
+      "line": 97,
+      "path": "core\\execution_planner.py",
+      "text": "f\"Base Confidence: {int(plan['confidence'] * 100)}%\","
+    },
+    {
+      "language": "python",
+      "line": 98,
+      "path": "core\\execution_planner.py",
+      "text": "\"\","
+    },
+    {
+      "language": "python",
+      "line": 99,
+      "path": "core\\execution_planner.py",
+      "text": "\"Status: Advisory only (RC1)\","
+    },
+    {
+      "language": "python",
+      "line": 100,
+      "path": "core\\execution_planner.py",
+      "text": "])"
+    },
+    {
+      "language": "python",
+      "line": 102,
+      "path": "core\\execution_planner.py",
+      "text": "return \"\\n\".join(lines)"
+    },
+    {
+      "language": "python",
+      "line": 1,
+      "path": "core\\forge_journal.py",
+      "text": "from datetime import datetime"
+    },
+    {
+      "language": "python",
+      "line": 3,
+      "path": "core\\forge_journal.py",
+      "text": "from core.project_memory import ProjectMemory"
+    },
+    {
+      "language": "python",
+      "line": 6,
+      "path": "core\\forge_journal.py",
+      "text": "class ForgeJournal:"
+    },
+    {
+      "language": "python",
+      "line": 7,
+      "path": "core\\forge_journal.py",
+      "text": "\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 8,
+      "path": "core\\forge_journal.py",
+      "text": "Forge Journal RC1"
+    },
+    {
+      "language": "python",
+      "line": 10,
+      "path": "core\\forge_journal.py",
+      "text": "Human-readable project memory interface."
+    },
+    {
+      "language": "python",
+      "line": 12,
+      "path": "core\\forge_journal.py",
+      "text": "Records:"
+    },
+    {
+      "language": "python",
+      "line": 13,
+      "path": "core\\forge_journal.py",
+      "text": "- forge entries"
+    },
+    {
+      "language": "python",
+      "line": 14,
+      "path": "core\\forge_journal.py",
+      "text": "- engineering decisions"
+    },
+    {
+      "language": "python",
+      "line": 15,
+      "path": "core\\forge_journal.py",
+      "text": "- lessons learned"
+    },
+    {
+      "language": "python",
+      "line": 16,
+      "path": "core\\forge_journal.py",
+      "text": "\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 18,
+      "path": "core\\forge_journal.py",
+      "text": "def __init__(self, root=None):"
+    },
+    {
+      "language": "python",
+      "line": 19,
+      "path": "core\\forge_journal.py",
+      "text": "self.memory = ProjectMemory(root=root)"
+    },
+    {
+      "language": "python",
+      "line": 21,
+      "path": "core\\forge_journal.py",
+      "text": "def open_project(self, project_name, charter=None):"
+    },
+    {
+      "language": "python",
+      "line": 22,
+      "path": "core\\forge_journal.py",
+      "text": "path = self.memory.create_project(project_name, charter=charter)"
+    },
+    {
+      "language": "python",
+      "line": 23,
+      "path": "core\\forge_journal.py",
+      "text": "return ("
+    },
+    {
+      "language": "python",
+      "line": 24,
+      "path": "core\\forge_journal.py",
+      "text": "\"FORGE JOURNAL\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 25,
+      "path": "core\\forge_journal.py",
+      "text": "f\"Project opened:\\n{project_name}\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 26,
+      "path": "core\\forge_journal.py",
+      "text": "f\"Path:\\n{path}\\n\\n\""
+    },
+    {
+      "language": "python",
+      "line": 27,
+      "path": "core\\forge_journal.py",
+      "text": "\"Memory tablets created:\\n\""
+    },
+    {
+      "language": "python",
+      "line": 28,
+      "path": "core\\forge_journal.py",
+      "text": "\"• charter.json\\n\""
+    },
+    {
+      "language": "python",
+      "line": 29,
+      "path": "core\\forge_journal.py",
+      "text": "\"• status.json\\n\""
+    },
+    {
+      "language": "python",
+      "line": 30,
+      "path": "core\\forge_journal.py",
+      "text": "\"• decisions.json\\n\""
+    },
+    {
+      "language": "python",
+      "line": 31,
+      "path": "core\\forge_journal.py",
+      "text": "\"• lessons.json\\n\""
+    },
+    {
+      "language": "python",
+      "line": 32,
+      "path": "core\\forge_journal.py",
+      "text": "\"• forge_log.json\""
+    },
+    {
+      "language": "python",
+      "line": 33,
+      "path": "core\\forge_journal.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 35,
+      "path": "core\\forge_journal.py",
+      "text": "def log_forge(self, project_name, summary, artifacts=None, lessons=None, next_hammer=\"\"):"
+    },
+    {
+      "language": "python",
+      "line": 36,
+      "path": "core\\forge_journal.py",
+      "text": "entry = self.memory.add_forge_entry(project_name, {"
+    },
+    {
+      "language": "python",
+      "line": 37,
+      "path": "core\\forge_journal.py",
+      "text": "\"project\": project_name,"
+    },
+    {
+      "language": "python",
+      "line": 38,
+      "path": "core\\forge_journal.py",
+      "text": "\"summary\": summary,"
+    },
+    {
+      "language": "python",
+      "line": 39,
+      "path": "core\\forge_journal.py",
+      "text": "\"phase\": \"Forge Logged\","
+    },
+    {
+      "language": "python",
+      "line": 40,
+      "path": "core\\forge_journal.py",
+      "text": "\"artifacts\": artifacts or [],"
+    },
+    {
+      "language": "python",
+      "line": 41,
+      "path": "core\\forge_journal.py",
+      "text": "\"lessons\": lessons or [],"
+    },
+    {
+      "language": "python",
+      "line": 42,
+      "path": "core\\forge_journal.py",
+      "text": "\"next_hammer\": next_hammer,"
+    },
+    {
+      "language": "python",
+      "line": 43,
+      "path": "core\\forge_journal.py",
+      "text": "\"result\": \"Recorded\","
+    },
+    {
+      "language": "python",
+      "line": 44,
+      "path": "core\\forge_journal.py",
+      "text": "\"timestamp\": datetime.now().isoformat(timespec=\"seconds\"),"
+    },
+    {
+      "language": "python",
+      "line": 45,
+      "path": "core\\forge_journal.py",
+      "text": "})"
+    }
+  ],
+  "schema": "foxai.agent_fox.technical_core.v1a2r2.immutable_static_bridge.v1",
+  "shard_number": 12
+}

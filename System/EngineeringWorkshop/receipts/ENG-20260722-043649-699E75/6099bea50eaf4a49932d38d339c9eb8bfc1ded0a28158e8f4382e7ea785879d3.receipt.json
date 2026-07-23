@@ -1,0 +1,66 @@
+{
+  "authorized": true,
+  "changes": [
+    {
+      "action": "write_file",
+      "after_sha256": "a76b04dc326c5fce9a78bfc0ac94b76376389c3c602993c7ab3239ad37485e4d",
+      "after_size": 59407,
+      "before_sha256": null,
+      "before_size": null,
+      "relative_path": "System\\AgentFoxTechnicalCore\\pc_foxai_baseline_v1.py"
+    },
+    {
+      "action": "write_file",
+      "after_sha256": "b5acf4057471c96c4236c6e2bfda85174e4d20d567b0f4a9047c178664350b52",
+      "after_size": 2459,
+      "before_sha256": null,
+      "before_size": null,
+      "relative_path": "System\\AgentFoxTechnicalCore\\PC_FOXAI_BASELINE_CONTRACT_V1.json"
+    },
+    {
+      "action": "write_file",
+      "after_sha256": "279b999820eed14c22d840eed4ba47e3eee79ad47a33e28188874d10bc3342db",
+      "after_size": 1274,
+      "before_sha256": null,
+      "before_size": null,
+      "relative_path": "System\\AgentFoxTechnicalCore\\README_V1B0.md"
+    }
+  ],
+  "created_at": "2026-07-22T04:53:57.448078Z",
+  "evidence_is_tool_generated": true,
+  "failure": "Validation failed: Verify exact V1B-0 support payloads, unchanged live integrations, and three-path snapshot (return code 1)",
+  "mission_id": "ENG-20260722-043649-699E75",
+  "mission_title": "Agent Fox Technical Core V1B-0 \u2014 Read-Only PC and FOXAI Baseline Discovery",
+  "mission_type": "implement",
+  "no_deletions": true,
+  "no_renames": true,
+  "plan_path": "Z:\\FOXAI\\AGENT_FOX_V1B0\\PLAN.json",
+  "plan_sha256": "6099bea50eaf4a49932d38d339c9eb8bfc1ded0a28158e8f4382e7ea785879d3",
+  "project_root": "Z:\\FOXAI",
+  "result": "rolled_back",
+  "rolled_back": true,
+  "schema": "foxai.engineering.receipt.v1",
+  "snapshot_manifest": "Z:\\FOXAI\\System\\EngineeringWorkshop\\snapshots\\ENG-20260722-043649-699E75\\snapshot_20260722T045357216269Z.manifest.json",
+  "snapshot_path": "Z:\\FOXAI\\System\\EngineeringWorkshop\\snapshots\\ENG-20260722-043649-699E75\\snapshot_20260722T045357216269Z.zip",
+  "snapshot_sha256": "cbc47589a30ea0300efa207152f290286fd545e7438a8ee1e4086a5444026946",
+  "validations": [
+    {
+      "argv": [
+        "Z:/FOXAI/Runtime/Desktop/python/python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nimport hashlib,json\nchecks={\n r\"Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\pc_foxai_baseline_v1.py\":(59407,\"a76b04dc326c5fce9a78bfc0ac94b76376389c3c602993c7ab3239ad37485e4d\"),\n r\"Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\PC_FOXAI_BASELINE_CONTRACT_V1.json\":(2459,\"b5acf4057471c96c4236c6e2bfda85174e4d20d567b0f4a9047c178664350b52\"),\n r\"Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\README_V1B0.md\":(1274,\"279b999820eed14c22d840eed4ba47e3eee79ad47a33e28188874d10bc3342db\"),\n}\nfor name,(size,digest) in checks.items():\n p=Path(name); data=p.read_bytes(); assert len(data)==size,(name,len(data)); assert hashlib.sha256(data).hexdigest()==digest,name\ncompile(Path(r\"Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\pc_foxai_baseline_v1.py\").read_text(encoding=\"utf-8\"),\"<v1b0-collector>\",\"exec\")\nunchanged={\n r\"Z:\\FOXAI\\core\\foxai_web.py\":\"d7bf0a2042d55ef7f0a5869556015e42c7427e7ff88636b28e1795f3adf7b952\",\n r\"Z:\\FOXAI\\ui\\main_window.py\":\"a9c5bb86878e5f0cd27d221dbb32688b337e6026073a4b66d83339e0aef294a3\",\n r\"Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\self_knowledge_chat_adapter_v1.py\":\"a80a9047e0eebd9ac87fe4d656c565bc6534563bb3c97e1ad9b59823a36804f7\",\n r\"Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\webui_self_knowledge_integration_v1.py\":\"765983b563f8495138c9670849de5c4703f4735a0ddc9324efd6580606fc517b\",\n r\"Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\desktop_self_knowledge_integration_v1.py\":\"e420706136b4902d82d8dbf1fecc64ae70fb8bc639106db41033545f8c196c30\",\n}\nfor name,digest in unchanged.items(): assert hashlib.sha256(Path(name).read_bytes()).hexdigest()==digest,name\nsnap=Path(r\"Z:\\FOXAI\\System\\EngineeringWorkshop\\snapshots\\ENG-20260722-043649-699E75\")\nmanifests=sorted(snap.glob(\"snapshot_*.manifest.json\")); assert manifests\nmanifest=json.loads(manifests[-1].read_text(encoding=\"utf-8\")); entries=manifest[\"entries\"]\nexpected=[\"System/AgentFoxTechnicalCore/PC_FOXAI_BASELINE_CONTRACT_V1.json\",\"System/AgentFoxTechnicalCore/README_V1B0.md\",\"System/AgentFoxTechnicalCore/pc_foxai_baseline_v1.py\"]\nassert sorted(row[\"relative_path\"] for row in entries)==expected\nassert all(row[\"existed\"] is False and row.get(\"sha256\") is None and row.get(\"size\") is None for row in entries)\nprint(\"AGENT_FOX_V1B0_SUPPORT_AND_SNAPSHOT_OK\")"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-22T04:53:57.439032Z",
+      "name": "Verify exact V1B-0 support payloads, unchanged live integrations, and three-path snapshot",
+      "returncode": 1,
+      "started_at": "2026-07-22T04:53:57.249147Z",
+      "stderr": "Traceback (most recent call last):\n  File \"<string>\", line 23, in <module>\n    assert sorted(row[\"relative_path\"] for row in entries)==expected\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n",
+      "stdout": "",
+      "timed_out": false
+    }
+  ]
+}

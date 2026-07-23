@@ -1,0 +1,137 @@
+{
+  "authorized": true,
+  "changes": [
+    {
+      "action": "write_file",
+      "after_sha256": "2786d9104e7561780aafaccb59c337f92c2d807cbc69cc3cb2684b7a9c00a471",
+      "after_size": 70968,
+      "before_sha256": null,
+      "before_size": null,
+      "relative_path": "System\\AgentFoxTechnicalCore\\static_code_launcher_bridge_v1r1.py"
+    },
+    {
+      "action": "write_file",
+      "after_sha256": "df340e43e3940a66952652c62887fca8c3106bdfda4f0b193f18d6605417b24c",
+      "after_size": 2197,
+      "before_sha256": null,
+      "before_size": null,
+      "relative_path": "System\\AgentFoxTechnicalCore\\STATIC_CODE_LAUNCHER_CONTRACT_V1R1.json"
+    },
+    {
+      "action": "write_file",
+      "after_sha256": "4b24bff5c18ee389a54be6e452112f7d1c75c57f3fd4e99e902c920a39c40259",
+      "after_size": 1208,
+      "before_sha256": null,
+      "before_size": null,
+      "relative_path": "System\\AgentFoxTechnicalCore\\README_V1A2R1.md"
+    }
+  ],
+  "created_at": "2026-07-21T06:23:16.565023Z",
+  "evidence_is_tool_generated": true,
+  "failure": "Validation failed: Repeat refined build and require byte-for-byte deterministic core and shard output (return code 1)",
+  "mission_id": "ENG-20260721-060224-2EA5A3",
+  "mission_title": "Agent Fox Technical Core V1A-2R1 \u2014 Launcher Trace Precision and Complete Reference Sharding",
+  "mission_type": "implement",
+  "no_deletions": true,
+  "no_renames": true,
+  "plan_path": "Z:\\FOXAI\\AGENT_FOX_V1A2R1\\PLAN.json",
+  "plan_sha256": "2d512ca26c61783aa740f17ba0b5a1f06c3367698cd5a8bfedab494eb4442c5a",
+  "project_root": "Z:\\FOXAI",
+  "result": "rolled_back",
+  "rolled_back": true,
+  "schema": "foxai.engineering.receipt.v1",
+  "snapshot_manifest": "Z:\\FOXAI\\System\\EngineeringWorkshop\\snapshots\\ENG-20260721-060224-2EA5A3\\snapshot_20260721T062307330578Z.manifest.json",
+  "snapshot_path": "Z:\\FOXAI\\System\\EngineeringWorkshop\\snapshots\\ENG-20260721-060224-2EA5A3\\snapshot_20260721T062307330578Z.zip",
+  "snapshot_sha256": "093fbbbc9ff593214645a58a7a8c7defaa1064370a8b14983ca7e53c9464c90e",
+  "validations": [
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nimport ast, hashlib, json\nroot=Path(r\"Z:\\FOXAI\")\ndrop=root/r\"AGENT_FOX_V1A2R1\"\ninstalled=root/r\"System\\AgentFoxTechnicalCore\"\nchecks=[\n    (drop/r\"static_code_launcher_bridge_v1r1.py\", installed/r\"static_code_launcher_bridge_v1r1.py\", \"2786d9104e7561780aafaccb59c337f92c2d807cbc69cc3cb2684b7a9c00a471\"),\n    (drop/r\"STATIC_CODE_LAUNCHER_CONTRACT_V1R1.json\", installed/r\"STATIC_CODE_LAUNCHER_CONTRACT_V1R1.json\", \"df340e43e3940a66952652c62887fca8c3106bdfda4f0b193f18d6605417b24c\"),\n    (drop/r\"README_V1A2R1.md\", installed/r\"README_V1A2R1.md\", \"4b24bff5c18ee389a54be6e452112f7d1c75c57f3fd4e99e902c920a39c40259\"),\n]\nfor source,target,expected in checks:\n    assert source.is_file(), f\"missing package file: {source}\"\n    assert target.is_file(), f\"missing installed file: {target}\"\n    assert hashlib.sha256(source.read_bytes()).hexdigest()==expected, f\"package hash mismatch: {source}\"\n    assert hashlib.sha256(target.read_bytes()).hexdigest()==expected, f\"installed hash mismatch: {target}\"\nscript_path=installed/r\"static_code_launcher_bridge_v1r1.py\"\nscript=script_path.read_text(encoding=\"utf-8\")\ncompile(script,str(script_path),\"exec\")\ntree=ast.parse(script)\nimports=set()\nfor node in ast.walk(tree):\n    if isinstance(node,ast.Import):\n        imports.update(alias.name.split('.')[0] for alias in node.names)\n    elif isinstance(node,ast.ImportFrom) and node.module:\n        imports.add(node.module.split('.')[0])\nforbidden={\"subprocess\",\"socket\",\"urllib\",\"http\",\"ftplib\",\"requests\",\"pip\",\"ensurepip\",\"psutil\",\"winreg\",\"ctypes\",\"webbrowser\",\"importlib\"}\nbad=sorted(imports & forbidden)\nassert not bad, \"forbidden imports: \"+\", \".join(bad)\nfor marker in (\"subprocess.run(\",\"subprocess.Popen(\",\"os.system(\",\"shell=True\",\"requests.\",\"urlopen(\",\"socket.\",\"pip install\",\"Path.unlink(\",\"shutil.rmtree(\",\"os.remove(\",\"os.rename(\",\"importlib.import_module(\",\"__import__(\", \"exec(\"):\n    assert marker not in script, \"forbidden operation marker: \"+marker\ncontract=json.loads((installed/r\"STATIC_CODE_LAUNCHER_CONTRACT_V1R1.json\").read_text(encoding=\"utf-8\"))\nassert contract.get(\"schema\")==\"foxai.agent_fox.technical_core.v1a2r1.refined_static_bridge_contract.v1\"\nsafety=contract.get(\"safety\",{})\nassert safety.get(\"network_required\") is False\nassert safety.get(\"third_party_dependencies_required\") is False\nassert safety.get(\"subprocess_launches\") is False\nassert safety.get(\"launcher_execution\") is False\nassert safety.get(\"python_interpreter_probes\") is False\nassert safety.get(\"foxai_imports_or_execution\") is False\nassert safety.get(\"existing_foxai_source_modified\") is False\nprior=root/r\"System\\EngineeringWorkshop\\missions\\ENG-20260721-053749-E3BE2A_V1A2_STATIC_BRIDGE\"\nprior_receipt=json.loads((prior/r\"STATIC_BRIDGE_RECEIPT.json\").read_text(encoding=\"utf-8\"))\nassert prior_receipt.get(\"result\")==\"static_code_and_launcher_bridge_complete\"\nassert prior_receipt.get(\"mission_id\")==\"ENG-20260721-053749-E3BE2A\"\nprint(\"AGENT_FOX_V1A2R1_INSTALL_PREFLIGHT_OK\")\n"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-21T06:23:07.539775Z",
+      "name": "Verify exact V1A-2R1 payloads, syntax, standard-library safety boundary, and verified V1A-2 prerequisite",
+      "returncode": 0,
+      "started_at": "2026-07-21T06:23:07.381535Z",
+      "stderr": "",
+      "stdout": "AGENT_FOX_V1A2R1_INSTALL_PREFLIGHT_OK\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\static_code_launcher_bridge_v1r1.py",
+        "--self-test"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-21T06:23:07.724501Z",
+      "name": "Run launcher precision, variable expansion, URL classification, redaction, and fixture self-tests",
+      "returncode": 0,
+      "started_at": "2026-07-21T06:23:07.540160Z",
+      "stderr": "",
+      "stdout": "AGENT_FOX_V1A2R1_SELF_TEST_OK\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\static_code_launcher_bridge_v1r1.py",
+        "build",
+        "--project-root",
+        "Z:\\FOXAI",
+        "--v1a2-dir",
+        "Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260721-053749-E3BE2A_V1A2_STATIC_BRIDGE",
+        "--output-dir",
+        "Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260721-060224-2EA5A3_V1A2R1_REFINED_BRIDGE",
+        "--mission-id",
+        "ENG-20260721-060224-2EA5A3"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-21T06:23:11.772646Z",
+      "name": "Build refined launcher traces and deterministic per-file sharded reference evidence",
+      "returncode": 0,
+      "started_at": "2026-07-21T06:23:07.724928Z",
+      "stderr": "",
+      "stdout": "{\n  \"result\": \"launcher_trace_precision_and_reference_sharding_complete\",\n  \"output_dir\": \"Z:\\\\FOXAI\\\\System\\\\EngineeringWorkshop\\\\missions\\\\ENG-20260721-060224-2EA5A3_V1A2R1_REFINED_BRIDGE\",\n  \"output_files\": 73,\n  \"output_bytes\": 39785280,\n  \"network_used\": false,\n  \"launchers_executed\": false\n}\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\static_code_launcher_bridge_v1r1.py",
+        "build",
+        "--project-root",
+        "Z:\\FOXAI",
+        "--v1a2-dir",
+        "Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260721-053749-E3BE2A_V1A2_STATIC_BRIDGE",
+        "--output-dir",
+        "Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260721-060224-2EA5A3_V1A2R1_REFINED_BRIDGE",
+        "--mission-id",
+        "ENG-20260721-060224-2EA5A3",
+        "--verify-existing"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-21T06:23:16.556893Z",
+      "name": "Repeat refined build and require byte-for-byte deterministic core and shard output",
+      "returncode": 1,
+      "started_at": "2026-07-21T06:23:11.773134Z",
+      "stderr": "Traceback (most recent call last):\n  File \"Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\static_code_launcher_bridge_v1r1.py\", line 1380, in <module>\n    raise SystemExit(main())\n                     ~~~~^^\n  File \"Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\static_code_launcher_bridge_v1r1.py\", line 1361, in main\n    write_outputs(args.output_dir, serialized, args.verify_existing)\n    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\static_code_launcher_bridge_v1r1.py\", line 1049, in write_outputs\n    raise ValueError(f\"determinism_check_failed:missing={missing}:mismatches={mismatches}\")\nValueError: determinism_check_failed:missing=[]:mismatches=['REFINED_STATIC_LAUNCHER_INDEX.json', 'REFINED_BRIDGE_RECEIPT.json']\n",
+      "stdout": "",
+      "timed_out": false
+    }
+  ]
+}

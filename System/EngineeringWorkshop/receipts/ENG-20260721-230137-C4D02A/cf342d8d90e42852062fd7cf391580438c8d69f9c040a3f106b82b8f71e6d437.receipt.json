@@ -1,0 +1,190 @@
+{
+  "authorized": true,
+  "changes": [
+    {
+      "action": "write_file",
+      "after_sha256": "4de5b362a62d018dcaa375ab5e60413209c9abe00e2bfd36c15468dc1d8aebd2",
+      "after_size": 99420,
+      "before_sha256": null,
+      "before_size": null,
+      "relative_path": "System\\AgentFoxTechnicalCore\\workshop_main_dependency_closure_v1.py"
+    },
+    {
+      "action": "write_file",
+      "after_sha256": "2002bc4655bffa93b708770ea7c60b5c47dd7a8ace88a5f938847684e09acd53",
+      "after_size": 2590,
+      "before_sha256": null,
+      "before_size": null,
+      "relative_path": "System\\AgentFoxTechnicalCore\\WORKSHOP_MAIN_DEPENDENCY_CONTRACT_V1.json"
+    },
+    {
+      "action": "write_file",
+      "after_sha256": "aecf02bf946c97130d5f4c4d4e1f9d961a637db3c52c7de6521bd1834177339f",
+      "after_size": 1162,
+      "before_sha256": null,
+      "before_size": null,
+      "relative_path": "System\\AgentFoxTechnicalCore\\README_V1A3C4.md"
+    }
+  ],
+  "created_at": "2026-07-21T23:19:46.152496Z",
+  "evidence_is_tool_generated": true,
+  "failure": "Validation failed: Validate exact eight-file closure, runtime uncertainty, deterministic hashes, and safety boundaries (return code 1)",
+  "mission_id": "ENG-20260721-230137-C4D02A",
+  "mission_title": "Agent Fox Technical Core V1A-3C4 \u2014 Workshop Main foxai.py Dependency Closure",
+  "mission_type": "implement",
+  "no_deletions": true,
+  "no_renames": true,
+  "plan_path": "Z:\\FOXAI\\AGENT_FOX_V1A3C4\\PLAN.json",
+  "plan_sha256": "cf342d8d90e42852062fd7cf391580438c8d69f9c040a3f106b82b8f71e6d437",
+  "project_root": "Z:\\FOXAI",
+  "result": "rolled_back",
+  "rolled_back": true,
+  "schema": "foxai.engineering.receipt.v1",
+  "snapshot_manifest": "Z:\\FOXAI\\System\\EngineeringWorkshop\\snapshots\\ENG-20260721-230137-C4D02A\\snapshot_20260721T231941308909Z.manifest.json",
+  "snapshot_path": "Z:\\FOXAI\\System\\EngineeringWorkshop\\snapshots\\ENG-20260721-230137-C4D02A\\snapshot_20260721T231941308909Z.zip",
+  "snapshot_sha256": "cc0fc8a3c40e10af8fa27571031d1058def006fec8f10caff4325c2e8a53d5f3",
+  "validations": [
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nimport ast\nimport hashlib\nimport json\n\nroot = Path(\"Z:/FOXAI\")\ndrop = root / \"AGENT_FOX_V1A3C4\"\ninstalled = root / \"System/AgentFoxTechnicalCore\"\nchecks = [\n    (drop / \"workshop_main_dependency_closure_v1.py\", installed / \"workshop_main_dependency_closure_v1.py\", \"4de5b362a62d018dcaa375ab5e60413209c9abe00e2bfd36c15468dc1d8aebd2\"),\n    (drop / \"WORKSHOP_MAIN_DEPENDENCY_CONTRACT_V1.json\", installed / \"WORKSHOP_MAIN_DEPENDENCY_CONTRACT_V1.json\", \"2002bc4655bffa93b708770ea7c60b5c47dd7a8ace88a5f938847684e09acd53\"),\n    (drop / \"README_V1A3C4.md\", installed / \"README_V1A3C4.md\", \"aecf02bf946c97130d5f4c4d4e1f9d961a637db3c52c7de6521bd1834177339f\"),\n]\nfor source, target, expected_hash in checks:\n    assert source.is_file(), source\n    assert target.is_file(), target\n    assert hashlib.sha256(source.read_bytes()).hexdigest() == expected_hash\n    assert hashlib.sha256(target.read_bytes()).hexdigest() == expected_hash\n\nscript_text = (installed / \"workshop_main_dependency_closure_v1.py\").read_text(encoding=\"utf-8\")\ncompile(script_text, str(installed / \"workshop_main_dependency_closure_v1.py\"), \"exec\")\ntree = ast.parse(script_text)\nimports = set()\nfor node in ast.walk(tree):\n    if isinstance(node, ast.Import):\n        imports.update(alias.name.split(\".\")[0] for alias in node.names)\n    elif isinstance(node, ast.ImportFrom) and node.module:\n        imports.add(node.module.split(\".\")[0])\nforbidden = {\n    \"subprocess\", \"socket\", \"urllib\", \"http\", \"ftplib\", \"requests\",\n    \"pip\", \"ensurepip\", \"psutil\", \"winreg\", \"ctypes\", \"webbrowser\",\n    \"importlib\",\n}\nassert not (imports & forbidden), sorted(imports & forbidden)\n\ncontract = json.loads((installed / \"WORKSHOP_MAIN_DEPENDENCY_CONTRACT_V1.json\").read_text(encoding=\"utf-8\"))\nassert contract[\"mission_id\"] == \"ENG-20260721-230137-C4D02A\"\nassert contract[\"protected_direct_context_count\"] == 1\nassert contract[\"target\"][\"context_id\"] == \"CTX-68030A15EE97A526\"\nassert contract[\"target\"][\"path_group_id\"] == \"PATHGROUP-266CA7411F12A68D\"\nassert contract[\"target\"][\"resolved_interpreter_path\"] is None\nassert contract[\"target\"][\"runtime_id\"] is None\nassert contract[\"scope\"][\"runtime_alias_must_remain_unresolved\"] is True\nassert contract[\"scope\"][\"live_path_query_allowed\"] is False\nassert contract[\"scope\"][\"python_alias_execution_allowed\"] is False\nassert contract[\"scope\"][\"manager_context_rebuilt\"] is False\nassert contract[\"scope\"][\"maximum_reads_per_reached_source\"] == 1\nassert contract[\"scope\"][\"source_buffer_ceiling_bytes\"] == 8388608\nassert contract[\"scope\"][\"total_output_ceiling_bytes\"] == 8388608\nprint(\"AGENT_FOX_V1A3C4_INSTALL_PREFLIGHT_OK\")"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-21T23:19:41.657615Z",
+      "name": "Verify exact V1A-3C4 payloads, syntax, unresolved-runtime contract, and zero forbidden imports",
+      "returncode": 0,
+      "started_at": "2026-07-21T23:19:41.327459Z",
+      "stderr": "",
+      "stdout": "AGENT_FOX_V1A3C4_INSTALL_PREFLIGHT_OK\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\workshop_main_dependency_closure_v1.py",
+        "self-test"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-21T23:19:41.846927Z",
+      "name": "Run zero-byte and unresolved-runtime regression self-tests",
+      "returncode": 0,
+      "started_at": "2026-07-21T23:19:41.658109Z",
+      "stderr": "",
+      "stdout": "V1A3C4_ZERO_BYTE_SELF_TEST_OK\nV1A3C4_RUNTIME_UNCERTAINTY_SELF_TEST_OK\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\workshop_main_dependency_closure_v1.py",
+        "verify-inputs",
+        "--v1a2r2-dir",
+        "Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260721-063725-BFCAB9_V1A2R2_IMMUTABLE_BRIDGE",
+        "--v1a3a-r1-dir",
+        "Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260721-152146-C4F8D5_V1A3A_R1_ADOPTED_RUNTIME_MAP",
+        "--v1a3b-dir",
+        "Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260721-154935-FF96C4_V1A3B_EFFECTIVE_IMPORT_MAP",
+        "--manager-baseline-dir",
+        "Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260721-224437-0FDDE1_V1A3C3_WORKSHOP_COMFYUI_MANAGER_CLOSURE"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-21T23:19:42.376659Z",
+      "name": "Verify immutable evidence, exact Workshop Main context, unresolved alias, and completed manager baseline",
+      "returncode": 0,
+      "started_at": "2026-07-21T23:19:41.847385Z",
+      "stderr": "",
+      "stdout": "{\"context_id\": \"CTX-68030A15EE97A526\", \"interpreter_reference\": \"python\", \"interpreter_reference_kind\": \"command_alias_requires_path_resolution\", \"known_runtime_identity_count\": 4, \"launcher\": \"Z:\\\\FOXAI\\\\Launch FOXAI Workshop.bat\", \"launcher_line\": 24, \"manager_baseline_context_id\": \"CTX-EEC78B5B382B239D\", \"manager_baseline_mission_id\": \"ENG-20260721-224437-0FDDE1\", \"manager_baseline_receipt_sha256\": \"52da5eb6c3ec649b39c5f961acbacb4059b91e21a5e13d4734f5445d75288014\", \"manager_context_built\": false, \"path_group_id\": \"PATHGROUP-266CA7411F12A68D\", \"resolved_interpreter_path\": null, \"runtime_id\": null, \"script\": \"Z:\\\\FOXAI\\\\foxai.py\", \"selected_runtime_candidate_count\": 0, \"source_code_file_count\": 565, \"source_kind\": \"nested_shell\", \"source_launcher_record_count\": 536, \"status\": \"verified\", \"uncertainty\": [\"interpreter_command_alias_not_resolved\", \"runtime_sys_path_unavailable\"], \"working_directory\": \"Z:\\\\FOXAI\"}\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\workshop_main_dependency_closure_v1.py",
+        "verify-topology",
+        "--v1a2r2-dir",
+        "Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260721-063725-BFCAB9_V1A2R2_IMMUTABLE_BRIDGE",
+        "--v1a3a-r1-dir",
+        "Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260721-152146-C4F8D5_V1A3A_R1_ADOPTED_RUNTIME_MAP",
+        "--v1a3b-dir",
+        "Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260721-154935-FF96C4_V1A3B_EFFECTIVE_IMPORT_MAP",
+        "--manager-baseline-dir",
+        "Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260721-224437-0FDDE1_V1A3C3_WORKSHOP_COMFYUI_MANAGER_CLOSURE"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-21T23:19:42.686015Z",
+      "name": "Verify exact 70-node 205-edge 15-unresolved Workshop Main preliminary topology",
+      "returncode": 0,
+      "started_at": "2026-07-21T23:19:42.377132Z",
+      "stderr": "",
+      "stdout": "{\"context_id\": \"CTX-68030A15EE97A526\", \"dependency_edge_count\": 205, \"known_runtime_identity_count\": 4, \"linked_manager_context_id\": \"CTX-EEC78B5B382B239D\", \"linked_manager_context_nodes_or_edges_included\": false, \"path_group_id\": \"PATHGROUP-266CA7411F12A68D\", \"preliminary_unresolved_branch_count\": 15, \"reached_source_count\": 70, \"runtime_resolution_status\": \"unresolved_command_alias\", \"selected_runtime_candidate_count\": 0, \"status\": \"verified\", \"zero_byte_source\": \"Z:\\\\FOXAI\\\\core\\\\__init__.py\", \"zero_byte_source_sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\", \"zero_byte_source_size\": 0}\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\workshop_main_dependency_closure_v1.py",
+        "build",
+        "--project-root",
+        "Z:\\FOXAI",
+        "--project-root-win",
+        "Z:\\FOXAI",
+        "--v1a2r2-dir",
+        "Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260721-063725-BFCAB9_V1A2R2_IMMUTABLE_BRIDGE",
+        "--v1a3a-r1-dir",
+        "Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260721-152146-C4F8D5_V1A3A_R1_ADOPTED_RUNTIME_MAP",
+        "--v1a3b-dir",
+        "Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260721-154935-FF96C4_V1A3B_EFFECTIVE_IMPORT_MAP",
+        "--manager-baseline-dir",
+        "Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260721-224437-0FDDE1_V1A3C3_WORKSHOP_COMFYUI_MANAGER_CLOSURE",
+        "--output-dir",
+        "Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260721-230137-C4D02A_V1A3C4_WORKSHOP_MAIN_CLOSURE",
+        "--mission-id",
+        "ENG-20260721-230137-C4D02A"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-21T23:19:45.990540Z",
+      "name": "Build one bounded Workshop Main foxai.py dependency closure without resolving the python alias",
+      "returncode": 0,
+      "started_at": "2026-07-21T23:19:42.686444Z",
+      "stderr": "",
+      "stdout": "{\"context_id\": \"CTX-68030A15EE97A526\", \"linked_manager_context_id\": \"CTX-EEC78B5B382B239D\", \"output_dir\": \"Z:\\\\FOXAI\\\\System\\\\EngineeringWorkshop\\\\missions\\\\ENG-20260721-230137-C4D02A_V1A3C4_WORKSHOP_MAIN_CLOSURE\", \"path_group_id\": \"PATHGROUP-266CA7411F12A68D\", \"preliminary_dependency_edge_count\": 205, \"preliminary_reached_source_count\": 70, \"preliminary_unresolved_branch_count\": 15, \"runtime_resolution_status\": \"unresolved_command_alias\", \"status\": \"built\"}\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\workshop_main_dependency_closure_v1.py",
+        "validate-output",
+        "--index-dir",
+        "Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260721-230137-C4D02A_V1A3C4_WORKSHOP_MAIN_CLOSURE"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-21T23:19:46.148807Z",
+      "name": "Validate exact eight-file closure, runtime uncertainty, deterministic hashes, and safety boundaries",
+      "returncode": 1,
+      "started_at": "2026-07-21T23:19:45.990962Z",
+      "stderr": "Traceback (most recent call last):\n  File \"Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\workshop_main_dependency_closure_v1.py\", line 2058, in <module>\n    raise SystemExit(main())\n                     ~~~~^^\n  File \"Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\workshop_main_dependency_closure_v1.py\", line 2051, in main\n    validate_output(Path(args.index_dir))\n    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^\n  File \"Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\workshop_main_dependency_closure_v1.py\", line 1792, in validate_output\n    runtime_uncertainty = read_json(index_dir / \"WORKSHOP_MAIN_RUNTIME_UNCERTAINTY.json\")\n  File \"Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\workshop_main_dependency_closure_v1.py\", line 111, in read_json\n    return json.loads(path.read_text(encoding=\"utf-8\"))\n                      ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^\n  File \"Z:\\FOXAI\\Runtime\\Desktop\\python\\Lib\\pathlib\\__init__.py\", line 787, in read_text\n    with self.open(mode='r', encoding=encoding, errors=errors, newline=newline) as f:\n         ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"Z:\\FOXAI\\Runtime\\Desktop\\python\\Lib\\pathlib\\__init__.py\", line 771, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: 'Z:\\\\FOXAI\\\\System\\\\EngineeringWorkshop\\\\missions\\\\ENG-20260721-230137-C4D02A_V1A3C4_WORKSHOP_MAIN_CLOSURE\\\\WORKSHOP_MAIN_RUNTIME_UNCERTAINTY.json'\n",
+      "stdout": "",
+      "timed_out": false
+    }
+  ]
+}

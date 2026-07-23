@@ -1,0 +1,7207 @@
+{
+  "record_count": 1200,
+  "records": [
+    {
+      "language": "python",
+      "line": 147,
+      "path": "core\\model_sources.py",
+      "text": "'usb_roots': ["
+    },
+    {
+      "language": "python",
+      "line": 148,
+      "path": "core\\model_sources.py",
+      "text": "{'id': 'usb_chat', 'path': 'Models/Chat', 'enabled': True, 'recursive': True},"
+    },
+    {
+      "language": "python",
+      "line": 149,
+      "path": "core\\model_sources.py",
+      "text": "{'id': 'usb_models', 'path': 'Models', 'enabled': True, 'recursive': True},"
+    },
+    {
+      "language": "python",
+      "line": 150,
+      "path": "core\\model_sources.py",
+      "text": "{'id': 'usb_models_legacy', 'path': 'models', 'enabled': True, 'recursive': True},"
+    },
+    {
+      "language": "python",
+      "line": 151,
+      "path": "core\\model_sources.py",
+      "text": "{'id': 'usb_engine', 'path': 'Engine', 'enabled': True, 'recursive': True},"
+    },
+    {
+      "language": "python",
+      "line": 152,
+      "path": "core\\model_sources.py",
+      "text": "],"
+    },
+    {
+      "language": "python",
+      "line": 153,
+      "path": "core\\model_sources.py",
+      "text": "'machines': {},"
+    },
+    {
+      "language": "python",
+      "line": 154,
+      "path": "core\\model_sources.py",
+      "text": "'reserved_source_types': {"
+    },
+    {
+      "language": "python",
+      "line": 155,
+      "path": "core\\model_sources.py",
+      "text": "'LAN_OPENAI_COMPATIBLE': {'enabled': False},"
+    },
+    {
+      "language": "python",
+      "line": 156,
+      "path": "core\\model_sources.py",
+      "text": "'ONLINE_PROVIDER': {'enabled': False},"
+    },
+    {
+      "language": "python",
+      "line": 157,
+      "path": "core\\model_sources.py",
+      "text": "},"
+    },
+    {
+      "language": "python",
+      "line": 158,
+      "path": "core\\model_sources.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 160,
+      "path": "core\\model_sources.py",
+      "text": "def _load(self) -> dict[str, Any]:"
+    },
+    {
+      "language": "python",
+      "line": 161,
+      "path": "core\\model_sources.py",
+      "text": "if not self.config_path.is_file():"
+    },
+    {
+      "language": "python",
+      "line": 162,
+      "path": "core\\model_sources.py",
+      "text": "return self._empty_config()"
+    },
+    {
+      "language": "python",
+      "line": 163,
+      "path": "core\\model_sources.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 164,
+      "path": "core\\model_sources.py",
+      "text": "data = json.loads(self.config_path.read_text(encoding='utf-8'))"
+    },
+    {
+      "language": "python",
+      "line": 165,
+      "path": "core\\model_sources.py",
+      "text": "except Exception as exc:"
+    },
+    {
+      "language": "python",
+      "line": 166,
+      "path": "core\\model_sources.py",
+      "text": "raise ModelSourceError("
+    },
+    {
+      "language": "python",
+      "line": 167,
+      "path": "core\\model_sources.py",
+      "text": "f'Model-source registry could not be read: {type(exc).__name__}: {exc}'"
+    },
+    {
+      "language": "python",
+      "line": 168,
+      "path": "core\\model_sources.py",
+      "text": ") from exc"
+    },
+    {
+      "language": "python",
+      "line": 169,
+      "path": "core\\model_sources.py",
+      "text": "if not isinstance(data, dict) or data.get('schema') != 'foxai.model-sources.v1':"
+    },
+    {
+      "language": "python",
+      "line": 170,
+      "path": "core\\model_sources.py",
+      "text": "raise ModelSourceError('Model-source registry schema is invalid.')"
+    },
+    {
+      "language": "python",
+      "line": 171,
+      "path": "core\\model_sources.py",
+      "text": "policy = data.get('policy') or {}"
+    },
+    {
+      "language": "python",
+      "line": 172,
+      "path": "core\\model_sources.py",
+      "text": "if not policy.get('no_whole_drive_scan'):"
+    },
+    {
+      "language": "python",
+      "line": 173,
+      "path": "core\\model_sources.py",
+      "text": "raise ModelSourceError('Model-source registry must prohibit whole-drive scanning.')"
+    },
+    {
+      "language": "python",
+      "line": 174,
+      "path": "core\\model_sources.py",
+      "text": "if not policy.get('never_modify_model_files'):"
+    },
+    {
+      "language": "python",
+      "line": 175,
+      "path": "core\\model_sources.py",
+      "text": "raise ModelSourceError('Model-source registry must prohibit model-file modification.')"
+    },
+    {
+      "language": "python",
+      "line": 176,
+      "path": "core\\model_sources.py",
+      "text": "return data"
+    },
+    {
+      "language": "python",
+      "line": 178,
+      "path": "core\\model_sources.py",
+      "text": "def _save(self, data: dict[str, Any]) -> None:"
+    },
+    {
+      "language": "python",
+      "line": 179,
+      "path": "core\\model_sources.py",
+      "text": "self.config_path.parent.mkdir(parents=True, exist_ok=True)"
+    },
+    {
+      "language": "python",
+      "line": 180,
+      "path": "core\\model_sources.py",
+      "text": "payload = (json.dumps(data, indent=2) + '\\n').encode('utf-8')"
+    },
+    {
+      "language": "python",
+      "line": 181,
+      "path": "core\\model_sources.py",
+      "text": "fd, temp_name = tempfile.mkstemp("
+    },
+    {
+      "language": "python",
+      "line": 182,
+      "path": "core\\model_sources.py",
+      "text": "prefix=self.config_path.name + '.',"
+    },
+    {
+      "language": "python",
+      "line": 183,
+      "path": "core\\model_sources.py",
+      "text": "suffix='.tmp',"
+    },
+    {
+      "language": "python",
+      "line": 184,
+      "path": "core\\model_sources.py",
+      "text": "dir=str(self.config_path.parent),"
+    },
+    {
+      "language": "python",
+      "line": 185,
+      "path": "core\\model_sources.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 186,
+      "path": "core\\model_sources.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 187,
+      "path": "core\\model_sources.py",
+      "text": "with os.fdopen(fd, 'wb') as handle:"
+    },
+    {
+      "language": "python",
+      "line": 188,
+      "path": "core\\model_sources.py",
+      "text": "handle.write(payload)"
+    },
+    {
+      "language": "python",
+      "line": 189,
+      "path": "core\\model_sources.py",
+      "text": "handle.flush()"
+    },
+    {
+      "language": "python",
+      "line": 190,
+      "path": "core\\model_sources.py",
+      "text": "os.fsync(handle.fileno())"
+    },
+    {
+      "language": "python",
+      "line": 191,
+      "path": "core\\model_sources.py",
+      "text": "os.replace(temp_name, self.config_path)"
+    },
+    {
+      "language": "python",
+      "line": 192,
+      "path": "core\\model_sources.py",
+      "text": "except Exception:"
+    },
+    {
+      "language": "python",
+      "line": 193,
+      "path": "core\\model_sources.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 194,
+      "path": "core\\model_sources.py",
+      "text": "os.unlink(temp_name)"
+    },
+    {
+      "language": "python",
+      "line": 195,
+      "path": "core\\model_sources.py",
+      "text": "except OSError:"
+    },
+    {
+      "language": "python",
+      "line": 196,
+      "path": "core\\model_sources.py",
+      "text": "pass"
+    },
+    {
+      "language": "python",
+      "line": 197,
+      "path": "core\\model_sources.py",
+      "text": "raise"
+    },
+    {
+      "language": "python",
+      "line": 198,
+      "path": "core\\model_sources.py",
+      "text": "self.invalidate()"
+    },
+    {
+      "language": "python",
+      "line": 200,
+      "path": "core\\model_sources.py",
+      "text": "def invalidate(self) -> None:"
+    },
+    {
+      "language": "python",
+      "line": 201,
+      "path": "core\\model_sources.py",
+      "text": "self._cache = None"
+    },
+    {
+      "language": "python",
+      "line": 202,
+      "path": "core\\model_sources.py",
+      "text": "self._cache_time = 0.0"
+    },
+    {
+      "language": "python",
+      "line": 204,
+      "path": "core\\model_sources.py",
+      "text": "def _machine_profile(self, data: dict[str, Any]) -> dict[str, Any] | None:"
+    },
+    {
+      "language": "python",
+      "line": 205,
+      "path": "core\\model_sources.py",
+      "text": "machines = data.get('machines') or {}"
+    },
+    {
+      "language": "python",
+      "line": 206,
+      "path": "core\\model_sources.py",
+      "text": "profile = machines.get(self.machine_name)"
+    },
+    {
+      "language": "python",
+      "line": 207,
+      "path": "core\\model_sources.py",
+      "text": "return profile if isinstance(profile, dict) else None"
+    },
+    {
+      "language": "python",
+      "line": 209,
+      "path": "core\\model_sources.py",
+      "text": "def _ensure_machine_profile(self, data: dict[str, Any]) -> dict[str, Any]:"
+    },
+    {
+      "language": "python",
+      "line": 210,
+      "path": "core\\model_sources.py",
+      "text": "machines = data.setdefault('machines', {})"
+    },
+    {
+      "language": "python",
+      "line": 211,
+      "path": "core\\model_sources.py",
+      "text": "profile = machines.get(self.machine_name)"
+    },
+    {
+      "language": "python",
+      "line": 212,
+      "path": "core\\model_sources.py",
+      "text": "if not isinstance(profile, dict):"
+    },
+    {
+      "language": "python",
+      "line": 213,
+      "path": "core\\model_sources.py",
+      "text": "profile = {"
+    },
+    {
+      "language": "python",
+      "line": 214,
+      "path": "core\\model_sources.py",
+      "text": "'display_name': self.machine_name,"
+    },
+    {
+      "language": "python",
+      "line": 215,
+      "path": "core\\model_sources.py",
+      "text": "'machine_name': self.machine_name,"
+    },
+    {
+      "language": "python",
+      "line": 216,
+      "path": "core\\model_sources.py",
+      "text": "'machine_key': self.machine_key,"
+    },
+    {
+      "language": "python",
+      "line": 217,
+      "path": "core\\model_sources.py",
+      "text": "'approved_host_roots': [],"
+    },
+    {
+      "language": "python",
+      "line": 218,
+      "path": "core\\model_sources.py",
+      "text": "'preferred_models': {},"
+    },
+    {
+      "language": "python",
+      "line": 219,
+      "path": "core\\model_sources.py",
+      "text": "'fallback_policy': 'ASK_OR_APPROVED_USB',"
+    },
+    {
+      "language": "python",
+      "line": 220,
+      "path": "core\\model_sources.py",
+      "text": "'prompt_for_host_models': True,"
+    },
+    {
+      "language": "python",
+      "line": 221,
+      "path": "core\\model_sources.py",
+      "text": "'allow_online_sources': False,"
+    },
+    {
+      "language": "python",
+      "line": 222,
+      "path": "core\\model_sources.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 223,
+      "path": "core\\model_sources.py",
+      "text": "machines[self.machine_name] = profile"
+    },
+    {
+      "language": "python",
+      "line": 224,
+      "path": "core\\model_sources.py",
+      "text": "profile['machine_name'] = self.machine_name"
+    },
+    {
+      "language": "python",
+      "line": 225,
+      "path": "core\\model_sources.py",
+      "text": "profile['machine_key'] = self.machine_key"
+    },
+    {
+      "language": "python",
+      "line": 226,
+      "path": "core\\model_sources.py",
+      "text": "profile.setdefault('approved_host_roots', [])"
+    },
+    {
+      "language": "python",
+      "line": 227,
+      "path": "core\\model_sources.py",
+      "text": "profile.setdefault('preferred_models', {})"
+    },
+    {
+      "language": "python",
+      "line": 228,
+      "path": "core\\model_sources.py",
+      "text": "profile.setdefault('fallback_policy', 'ASK_OR_APPROVED_USB')"
+    },
+    {
+      "language": "python",
+      "line": 229,
+      "path": "core\\model_sources.py",
+      "text": "profile.setdefault('prompt_for_host_models', True)"
+    },
+    {
+      "language": "python",
+      "line": 230,
+      "path": "core\\model_sources.py",
+      "text": "profile['allow_online_sources'] = False"
+    },
+    {
+      "language": "python",
+      "line": 231,
+      "path": "core\\model_sources.py",
+      "text": "return profile"
+    },
+    {
+      "language": "python",
+      "line": 233,
+      "path": "core\\model_sources.py",
+      "text": "def _validate_host_folder(self, value: str | Path) -> Path:"
+    },
+    {
+      "language": "python",
+      "line": 234,
+      "path": "core\\model_sources.py",
+      "text": "raw = str(value or '').strip().strip('\"')"
+    },
+    {
+      "language": "python",
+      "line": 235,
+      "path": "core\\model_sources.py",
+      "text": "if not raw:"
+    },
+    {
+      "language": "python",
+      "line": 236,
+      "path": "core\\model_sources.py",
+      "text": "raise ModelSourceError('Choose a host model folder first.')"
+    },
+    {
+      "language": "python",
+      "line": 237,
+      "path": "core\\model_sources.py",
+      "text": "path = Path(raw).expanduser()"
+    },
+    {
+      "language": "python",
+      "line": 238,
+      "path": "core\\model_sources.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 239,
+      "path": "core\\model_sources.py",
+      "text": "resolved = path.resolve(strict=True)"
+    },
+    {
+      "language": "python",
+      "line": 240,
+      "path": "core\\model_sources.py",
+      "text": "except Exception as exc:"
+    },
+    {
+      "language": "python",
+      "line": 241,
+      "path": "core\\model_sources.py",
+      "text": "raise ModelSourceError(f'Host model folder is unavailable: {raw}') from exc"
+    },
+    {
+      "language": "python",
+      "line": 242,
+      "path": "core\\model_sources.py",
+      "text": "if not resolved.is_dir():"
+    },
+    {
+      "language": "python",
+      "line": 243,
+      "path": "core\\model_sources.py",
+      "text": "raise ModelSourceError('The selected host model path is not a folder.')"
+    },
+    {
+      "language": "python",
+      "line": 244,
+      "path": "core\\model_sources.py",
+      "text": "anchor = Path(resolved.anchor)"
+    },
+    {
+      "language": "python",
+      "line": 245,
+      "path": "core\\model_sources.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 246,
+      "path": "core\\model_sources.py",
+      "text": "anchor_resolved = anchor.resolve()"
+    },
+    {
+      "language": "python",
+      "line": 247,
+      "path": "core\\model_sources.py",
+      "text": "except Exception:"
+    },
+    {
+      "language": "python",
+      "line": 248,
+      "path": "core\\model_sources.py",
+      "text": "anchor_resolved = anchor"
+    },
+    {
+      "language": "python",
+      "line": 249,
+      "path": "core\\model_sources.py",
+      "text": "if resolved == anchor_resolved:"
+    },
+    {
+      "language": "python",
+      "line": 250,
+      "path": "core\\model_sources.py",
+      "text": "raise ModelSourceError('Whole-drive model scanning is prohibited. Choose a specific folder.')"
+    },
+    {
+      "language": "python",
+      "line": 251,
+      "path": "core\\model_sources.py",
+      "text": "if _is_relative_to(resolved, self.root):"
+    },
+    {
+      "language": "python",
+      "line": 252,
+      "path": "core\\model_sources.py",
+      "text": "raise ModelSourceError('USB model folders are already approved and do not need host registration.')"
+    },
+    {
+      "language": "python",
+      "line": 253,
+      "path": "core\\model_sources.py",
+      "text": "return resolved"
+    },
+    {
+      "language": "python",
+      "line": 255,
+      "path": "core\\model_sources.py",
+      "text": "def _scan_root("
+    },
+    {
+      "language": "python",
+      "line": 256,
+      "path": "core\\model_sources.py",
+      "text": "self,"
+    },
+    {
+      "language": "python",
+      "line": 257,
+      "path": "core\\model_sources.py",
+      "text": "root: Path,"
+    },
+    {
+      "language": "python",
+      "line": 258,
+      "path": "core\\model_sources.py",
+      "text": "*,"
+    },
+    {
+      "language": "python",
+      "line": 259,
+      "path": "core\\model_sources.py",
+      "text": "source: str,"
+    },
+    {
+      "language": "python",
+      "line": 260,
+      "path": "core\\model_sources.py",
+      "text": "source_id: str,"
+    },
+    {
+      "language": "python",
+      "line": 261,
+      "path": "core\\model_sources.py",
+      "text": "remembered: bool,"
+    },
+    {
+      "language": "python",
+      "line": 262,
+      "path": "core\\model_sources.py",
+      "text": "session_only: bool,"
+    },
+    {
+      "language": "python",
+      "line": 263,
+      "path": "core\\model_sources.py",
+      "text": ") -> list[dict[str, Any]]:"
+    },
+    {
+      "language": "python",
+      "line": 264,
+      "path": "core\\model_sources.py",
+      "text": "records: list[dict[str, Any]] = []"
+    },
+    {
+      "language": "python",
+      "line": 265,
+      "path": "core\\model_sources.py",
+      "text": "if not root.is_dir():"
+    },
+    {
+      "language": "python",
+      "line": 266,
+      "path": "core\\model_sources.py",
+      "text": "return records"
+    },
+    {
+      "language": "python",
+      "line": 267,
+      "path": "core\\model_sources.py",
+      "text": "scanned = 0"
+    },
+    {
+      "language": "python",
+      "line": 268,
+      "path": "core\\model_sources.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 269,
+      "path": "core\\model_sources.py",
+      "text": "iterator = root.rglob('*')"
+    },
+    {
+      "language": "python",
+      "line": 270,
+      "path": "core\\model_sources.py",
+      "text": "for path in iterator:"
+    },
+    {
+      "language": "python",
+      "line": 271,
+      "path": "core\\model_sources.py",
+      "text": "if scanned >= MAX_MODELS_PER_ROOT:"
+    },
+    {
+      "language": "python",
+      "line": 272,
+      "path": "core\\model_sources.py",
+      "text": "break"
+    },
+    {
+      "language": "python",
+      "line": 273,
+      "path": "core\\model_sources.py",
+      "text": "if not path.is_file() or path.suffix.lower() not in MODEL_SUFFIXES:"
+    },
+    {
+      "language": "python",
+      "line": 274,
+      "path": "core\\model_sources.py",
+      "text": "continue"
+    },
+    {
+      "language": "python",
+      "line": 275,
+      "path": "core\\model_sources.py",
+      "text": "lowered = path.name.casefold()"
+    },
+    {
+      "language": "python",
+      "line": 276,
+      "path": "core\\model_sources.py",
+      "text": "if 'mmproj' in lowered or 'projector' in lowered:"
+    },
+    {
+      "language": "python",
+      "line": 277,
+      "path": "core\\model_sources.py",
+      "text": "continue"
+    },
+    {
+      "language": "python",
+      "line": 278,
+      "path": "core\\model_sources.py",
+      "text": "scanned += 1"
+    },
+    {
+      "language": "python",
+      "line": 279,
+      "path": "core\\model_sources.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 280,
+      "path": "core\\model_sources.py",
+      "text": "resolved = path.resolve()"
+    },
+    {
+      "language": "python",
+      "line": 281,
+      "path": "core\\model_sources.py",
+      "text": "stat = resolved.stat()"
+    },
+    {
+      "language": "python",
+      "line": 282,
+      "path": "core\\model_sources.py",
+      "text": "except OSError:"
+    },
+    {
+      "language": "python",
+      "line": 283,
+      "path": "core\\model_sources.py",
+      "text": "continue"
+    },
+    {
+      "language": "python",
+      "line": 284,
+      "path": "core\\model_sources.py",
+      "text": "records.append({"
+    },
+    {
+      "language": "python",
+      "line": 285,
+      "path": "core\\model_sources.py",
+      "text": "'name': resolved.name,"
+    },
+    {
+      "language": "python",
+      "line": 286,
+      "path": "core\\model_sources.py",
+      "text": "'path': str(resolved),"
+    },
+    {
+      "language": "python",
+      "line": 287,
+      "path": "core\\model_sources.py",
+      "text": "'source': source,"
+    },
+    {
+      "language": "python",
+      "line": 288,
+      "path": "core\\model_sources.py",
+      "text": "'source_label': 'USB' if source == 'USB' else 'HOST PC',"
+    },
+    {
+      "language": "python",
+      "line": 289,
+      "path": "core\\model_sources.py",
+      "text": "'source_id': source_id,"
+    },
+    {
+      "language": "python",
+      "line": 290,
+      "path": "core\\model_sources.py",
+      "text": "'machine_name': self.machine_name if source == 'HOST_PC' else None,"
+    },
+    {
+      "language": "python",
+      "line": 291,
+      "path": "core\\model_sources.py",
+      "text": "'approved': True,"
+    },
+    {
+      "language": "python",
+      "line": 292,
+      "path": "core\\model_sources.py",
+      "text": "'remembered': bool(remembered),"
+    },
+    {
+      "language": "python",
+      "line": 293,
+      "path": "core\\model_sources.py",
+      "text": "'session_only': bool(session_only),"
+    },
+    {
+      "language": "python",
+      "line": 294,
+      "path": "core\\model_sources.py",
+      "text": "'available': True,"
+    },
+    {
+      "language": "python",
+      "line": 295,
+      "path": "core\\model_sources.py",
+      "text": "'readable': os.access(resolved, os.R_OK),"
+    },
+    {
+      "language": "python",
+      "line": 296,
+      "path": "core\\model_sources.py",
+      "text": "'size_bytes': stat.st_size,"
+    },
+    {
+      "language": "python",
+      "line": 297,
+      "path": "core\\model_sources.py",
+      "text": "'modified_utc': datetime.fromtimestamp("
+    },
+    {
+      "language": "python",
+      "line": 298,
+      "path": "core\\model_sources.py",
+      "text": "stat.st_mtime,"
+    },
+    {
+      "language": "python",
+      "line": 299,
+      "path": "core\\model_sources.py",
+      "text": "tz=timezone.utc,"
+    },
+    {
+      "language": "python",
+      "line": 300,
+      "path": "core\\model_sources.py",
+      "text": ").isoformat(),"
+    },
+    {
+      "language": "python",
+      "line": 301,
+      "path": "core\\model_sources.py",
+      "text": "'full_sha256': None,"
+    },
+    {
+      "language": "python",
+      "line": 302,
+      "path": "core\\model_sources.py",
+      "text": "'hash_policy': 'deferred_for_large_model',"
+    },
+    {
+      "language": "python",
+      "line": 303,
+      "path": "core\\model_sources.py",
+      "text": "})"
+    },
+    {
+      "language": "python",
+      "line": 304,
+      "path": "core\\model_sources.py",
+      "text": "except OSError:"
+    },
+    {
+      "language": "python",
+      "line": 305,
+      "path": "core\\model_sources.py",
+      "text": "return records"
+    },
+    {
+      "language": "python",
+      "line": 306,
+      "path": "core\\model_sources.py",
+      "text": "return records"
+    },
+    {
+      "language": "python",
+      "line": 308,
+      "path": "core\\model_sources.py",
+      "text": "def _root_records(self) -> list[dict[str, Any]]:"
+    },
+    {
+      "language": "python",
+      "line": 309,
+      "path": "core\\model_sources.py",
+      "text": "data = self._load()"
+    },
+    {
+      "language": "python",
+      "line": 310,
+      "path": "core\\model_sources.py",
+      "text": "roots: list[dict[str, Any]] = []"
+    },
+    {
+      "language": "python",
+      "line": 311,
+      "path": "core\\model_sources.py",
+      "text": "for spec in data.get('usb_roots') or []:"
+    },
+    {
+      "language": "python",
+      "line": 312,
+      "path": "core\\model_sources.py",
+      "text": "if not isinstance(spec, dict) or not spec.get('enabled', True):"
+    },
+    {
+      "language": "python",
+      "line": 313,
+      "path": "core\\model_sources.py",
+      "text": "continue"
+    },
+    {
+      "language": "python",
+      "line": 314,
+      "path": "core\\model_sources.py",
+      "text": "relative = str(spec.get('path') or '').strip()"
+    },
+    {
+      "language": "python",
+      "line": 315,
+      "path": "core\\model_sources.py",
+      "text": "if not relative:"
+    },
+    {
+      "language": "python",
+      "line": 316,
+      "path": "core\\model_sources.py",
+      "text": "continue"
+    },
+    {
+      "language": "python",
+      "line": 317,
+      "path": "core\\model_sources.py",
+      "text": "path = (self.root / relative).resolve()"
+    },
+    {
+      "language": "python",
+      "line": 318,
+      "path": "core\\model_sources.py",
+      "text": "if not _is_relative_to(path, self.root):"
+    },
+    {
+      "language": "python",
+      "line": 319,
+      "path": "core\\model_sources.py",
+      "text": "continue"
+    },
+    {
+      "language": "python",
+      "line": 320,
+      "path": "core\\model_sources.py",
+      "text": "roots.append({"
+    },
+    {
+      "language": "python",
+      "line": 321,
+      "path": "core\\model_sources.py",
+      "text": "'id': str(spec.get('id') or relative),"
+    },
+    {
+      "language": "python",
+      "line": 322,
+      "path": "core\\model_sources.py",
+      "text": "'path': path,"
+    },
+    {
+      "language": "python",
+      "line": 323,
+      "path": "core\\model_sources.py",
+      "text": "'source': 'USB',"
+    },
+    {
+      "language": "python",
+      "line": 324,
+      "path": "core\\model_sources.py",
+      "text": "'remembered': True,"
+    },
+    {
+      "language": "python",
+      "line": 325,
+      "path": "core\\model_sources.py",
+      "text": "'session_only': False,"
+    },
+    {
+      "language": "python",
+      "line": 326,
+      "path": "core\\model_sources.py",
+      "text": "})"
+    },
+    {
+      "language": "python",
+      "line": 327,
+      "path": "core\\model_sources.py",
+      "text": "profile = self._machine_profile(data)"
+    },
+    {
+      "language": "python",
+      "line": 328,
+      "path": "core\\model_sources.py",
+      "text": "if profile:"
+    },
+    {
+      "language": "python",
+      "line": 329,
+      "path": "core\\model_sources.py",
+      "text": "for spec in profile.get('approved_host_roots') or []:"
+    },
+    {
+      "language": "python",
+      "line": 330,
+      "path": "core\\model_sources.py",
+      "text": "if not isinstance(spec, dict) or not spec.get('enabled', True):"
+    },
+    {
+      "language": "python",
+      "line": 331,
+      "path": "core\\model_sources.py",
+      "text": "continue"
+    },
+    {
+      "language": "python",
+      "line": 332,
+      "path": "core\\model_sources.py",
+      "text": "path_text = str(spec.get('path') or '').strip()"
+    },
+    {
+      "language": "python",
+      "line": 333,
+      "path": "core\\model_sources.py",
+      "text": "if not path_text:"
+    },
+    {
+      "language": "python",
+      "line": 334,
+      "path": "core\\model_sources.py",
+      "text": "continue"
+    },
+    {
+      "language": "python",
+      "line": 335,
+      "path": "core\\model_sources.py",
+      "text": "roots.append({"
+    },
+    {
+      "language": "python",
+      "line": 336,
+      "path": "core\\model_sources.py",
+      "text": "'id': str(spec.get('id') or 'host_models'),"
+    },
+    {
+      "language": "python",
+      "line": 337,
+      "path": "core\\model_sources.py",
+      "text": "'path': Path(path_text),"
+    },
+    {
+      "language": "python",
+      "line": 338,
+      "path": "core\\model_sources.py",
+      "text": "'source': 'HOST_PC',"
+    },
+    {
+      "language": "python",
+      "line": 339,
+      "path": "core\\model_sources.py",
+      "text": "'remembered': True,"
+    },
+    {
+      "language": "python",
+      "line": 340,
+      "path": "core\\model_sources.py",
+      "text": "'session_only': False,"
+    },
+    {
+      "language": "python",
+      "line": 341,
+      "path": "core\\model_sources.py",
+      "text": "})"
+    },
+    {
+      "language": "python",
+      "line": 342,
+      "path": "core\\model_sources.py",
+      "text": "roots.extend(self._session_roots.values())"
+    },
+    {
+      "language": "python",
+      "line": 343,
+      "path": "core\\model_sources.py",
+      "text": "return roots"
+    },
+    {
+      "language": "python",
+      "line": 345,
+      "path": "core\\model_sources.py",
+      "text": "def catalog(self, *, force: bool = False) -> list[dict[str, Any]]:"
+    },
+    {
+      "language": "python",
+      "line": 346,
+      "path": "core\\model_sources.py",
+      "text": "now = time.monotonic()"
+    },
+    {
+      "language": "python",
+      "line": 347,
+      "path": "core\\model_sources.py",
+      "text": "if ("
+    },
+    {
+      "language": "python",
+      "line": 348,
+      "path": "core\\model_sources.py",
+      "text": "not force"
+    },
+    {
+      "language": "python",
+      "line": 349,
+      "path": "core\\model_sources.py",
+      "text": "and self._cache is not None"
+    },
+    {
+      "language": "python",
+      "line": 350,
+      "path": "core\\model_sources.py",
+      "text": "and now - self._cache_time < CATALOG_CACHE_SECONDS"
+    },
+    {
+      "language": "python",
+      "line": 351,
+      "path": "core\\model_sources.py",
+      "text": "):"
+    },
+    {
+      "language": "python",
+      "line": 352,
+      "path": "core\\model_sources.py",
+      "text": "return [dict(item) for item in self._cache]"
+    },
+    {
+      "language": "python",
+      "line": 353,
+      "path": "core\\model_sources.py",
+      "text": "output: list[dict[str, Any]] = []"
+    },
+    {
+      "language": "python",
+      "line": 354,
+      "path": "core\\model_sources.py",
+      "text": "seen: set[str] = set()"
+    },
+    {
+      "language": "python",
+      "line": 355,
+      "path": "core\\model_sources.py",
+      "text": "for root in self._root_records():"
+    },
+    {
+      "language": "python",
+      "line": 356,
+      "path": "core\\model_sources.py",
+      "text": "path = Path(root['path'])"
+    },
+    {
+      "language": "python",
+      "line": 357,
+      "path": "core\\model_sources.py",
+      "text": "for item in self._scan_root("
+    },
+    {
+      "language": "python",
+      "line": 358,
+      "path": "core\\model_sources.py",
+      "text": "path,"
+    },
+    {
+      "language": "python",
+      "line": 359,
+      "path": "core\\model_sources.py",
+      "text": "source=str(root['source']),"
+    },
+    {
+      "language": "python",
+      "line": 360,
+      "path": "core\\model_sources.py",
+      "text": "source_id=str(root['id']),"
+    },
+    {
+      "language": "python",
+      "line": 361,
+      "path": "core\\model_sources.py",
+      "text": "remembered=bool(root['remembered']),"
+    },
+    {
+      "language": "python",
+      "line": 362,
+      "path": "core\\model_sources.py",
+      "text": "session_only=bool(root['session_only']),"
+    },
+    {
+      "language": "python",
+      "line": 363,
+      "path": "core\\model_sources.py",
+      "text": "):"
+    },
+    {
+      "language": "python",
+      "line": 364,
+      "path": "core\\model_sources.py",
+      "text": "key = _path_key(Path(item['path']))"
+    },
+    {
+      "language": "python",
+      "line": 365,
+      "path": "core\\model_sources.py",
+      "text": "if key in seen:"
+    },
+    {
+      "language": "python",
+      "line": 366,
+      "path": "core\\model_sources.py",
+      "text": "continue"
+    },
+    {
+      "language": "python",
+      "line": 367,
+      "path": "core\\model_sources.py",
+      "text": "seen.add(key)"
+    },
+    {
+      "language": "python",
+      "line": 368,
+      "path": "core\\model_sources.py",
+      "text": "output.append(item)"
+    },
+    {
+      "language": "python",
+      "line": 369,
+      "path": "core\\model_sources.py",
+      "text": "source_order = {'USB': 0, 'HOST_PC': 1}"
+    },
+    {
+      "language": "python",
+      "line": 370,
+      "path": "core\\model_sources.py",
+      "text": "output.sort("
+    },
+    {
+      "language": "python",
+      "line": 371,
+      "path": "core\\model_sources.py",
+      "text": "key=lambda item: ("
+    },
+    {
+      "language": "python",
+      "line": 372,
+      "path": "core\\model_sources.py",
+      "text": "source_order.get(str(item.get('source')), 9),"
+    },
+    {
+      "language": "python",
+      "line": 373,
+      "path": "core\\model_sources.py",
+      "text": "str(item.get('name') or '').casefold(),"
+    },
+    {
+      "language": "python",
+      "line": 374,
+      "path": "core\\model_sources.py",
+      "text": "str(item.get('path') or '').casefold(),"
+    },
+    {
+      "language": "python",
+      "line": 375,
+      "path": "core\\model_sources.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 376,
+      "path": "core\\model_sources.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 377,
+      "path": "core\\model_sources.py",
+      "text": "self._cache = [dict(item) for item in output]"
+    },
+    {
+      "language": "python",
+      "line": 378,
+      "path": "core\\model_sources.py",
+      "text": "self._cache_time = now"
+    },
+    {
+      "language": "python",
+      "line": 379,
+      "path": "core\\model_sources.py",
+      "text": "return [dict(item) for item in output]"
+    },
+    {
+      "language": "python",
+      "line": 381,
+      "path": "core\\model_sources.py",
+      "text": "def record_for_path(self, value: str | Path) -> dict[str, Any] | None:"
+    },
+    {
+      "language": "python",
+      "line": 382,
+      "path": "core\\model_sources.py",
+      "text": "key = _path_key(Path(value))"
+    },
+    {
+      "language": "python",
+      "line": 383,
+      "path": "core\\model_sources.py",
+      "text": "return next("
+    },
+    {
+      "language": "python",
+      "line": 384,
+      "path": "core\\model_sources.py",
+      "text": "("
+    },
+    {
+      "language": "python",
+      "line": 385,
+      "path": "core\\model_sources.py",
+      "text": "item"
+    },
+    {
+      "language": "python",
+      "line": 386,
+      "path": "core\\model_sources.py",
+      "text": "for item in self.catalog()"
+    },
+    {
+      "language": "python",
+      "line": 387,
+      "path": "core\\model_sources.py",
+      "text": "if _path_key(Path(item['path'])) == key"
+    },
+    {
+      "language": "python",
+      "line": 388,
+      "path": "core\\model_sources.py",
+      "text": "),"
+    },
+    {
+      "language": "python",
+      "line": 389,
+      "path": "core\\model_sources.py",
+      "text": "None,"
+    },
+    {
+      "language": "python",
+      "line": 390,
+      "path": "core\\model_sources.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 392,
+      "path": "core\\model_sources.py",
+      "text": "def approve_folder("
+    },
+    {
+      "language": "python",
+      "line": 393,
+      "path": "core\\model_sources.py",
+      "text": "self,"
+    },
+    {
+      "language": "python",
+      "line": 394,
+      "path": "core\\model_sources.py",
+      "text": "value: str | Path,"
+    },
+    {
+      "language": "python",
+      "line": 395,
+      "path": "core\\model_sources.py",
+      "text": "*,"
+    },
+    {
+      "language": "python",
+      "line": 396,
+      "path": "core\\model_sources.py",
+      "text": "remember: bool,"
+    },
+    {
+      "language": "python",
+      "line": 397,
+      "path": "core\\model_sources.py",
+      "text": "confirm: bool,"
+    },
+    {
+      "language": "python",
+      "line": 398,
+      "path": "core\\model_sources.py",
+      "text": ") -> dict[str, Any]:"
+    },
+    {
+      "language": "python",
+      "line": 399,
+      "path": "core\\model_sources.py",
+      "text": "if not confirm:"
+    },
+    {
+      "language": "python",
+      "line": 400,
+      "path": "core\\model_sources.py",
+      "text": "raise ModelSourceError('Explicit folder approval was not confirmed.')"
+    },
+    {
+      "language": "python",
+      "line": 401,
+      "path": "core\\model_sources.py",
+      "text": "path = self._validate_host_folder(value)"
+    },
+    {
+      "language": "python",
+      "line": 402,
+      "path": "core\\model_sources.py",
+      "text": "key = _path_key(path)"
+    },
+    {
+      "language": "python",
+      "line": 403,
+      "path": "core\\model_sources.py",
+      "text": "if remember:"
+    },
+    {
+      "language": "python",
+      "line": 404,
+      "path": "core\\model_sources.py",
+      "text": "data = self._load()"
+    },
+    {
+      "language": "python",
+      "line": 405,
+      "path": "core\\model_sources.py",
+      "text": "profile = self._ensure_machine_profile(data)"
+    },
+    {
+      "language": "python",
+      "line": 406,
+      "path": "core\\model_sources.py",
+      "text": "roots = profile.setdefault('approved_host_roots', [])"
+    },
+    {
+      "language": "python",
+      "line": 407,
+      "path": "core\\model_sources.py",
+      "text": "if not any(_path_key(Path(str(item.get('path') or ''))) == key for item in roots if isinstance(item, dict)):"
+    },
+    {
+      "language": "python",
+      "line": 408,
+      "path": "core\\model_sources.py",
+      "text": "roots.append({"
+    },
+    {
+      "language": "python",
+      "line": 409,
+      "path": "core\\model_sources.py",
+      "text": "'id': 'host_' + hashlib.sha256(key.encode('utf-8')).hexdigest()[:12],"
+    },
+    {
+      "language": "python",
+      "line": 410,
+      "path": "core\\model_sources.py",
+      "text": "'path': str(path),"
+    },
+    {
+      "language": "python",
+      "line": 411,
+      "path": "core\\model_sources.py",
+      "text": "'enabled': True,"
+    },
+    {
+      "language": "python",
+      "line": 412,
+      "path": "core\\model_sources.py",
+      "text": "'remembered': True,"
+    },
+    {
+      "language": "python",
+      "line": 413,
+      "path": "core\\model_sources.py",
+      "text": "})"
+    },
+    {
+      "language": "python",
+      "line": 414,
+      "path": "core\\model_sources.py",
+      "text": "self._save(data)"
+    },
+    {
+      "language": "python",
+      "line": 415,
+      "path": "core\\model_sources.py",
+      "text": "scope = 'remembered'"
+    },
+    {
+      "language": "python",
+      "line": 416,
+      "path": "core\\model_sources.py",
+      "text": "else:"
+    },
+    {
+      "language": "python",
+      "line": 417,
+      "path": "core\\model_sources.py",
+      "text": "self._session_roots[key] = {"
+    },
+    {
+      "language": "python",
+      "line": 418,
+      "path": "core\\model_sources.py",
+      "text": "'id': 'session_' + hashlib.sha256(key.encode('utf-8')).hexdigest()[:12],"
+    },
+    {
+      "language": "python",
+      "line": 419,
+      "path": "core\\model_sources.py",
+      "text": "'path': path,"
+    },
+    {
+      "language": "python",
+      "line": 420,
+      "path": "core\\model_sources.py",
+      "text": "'source': 'HOST_PC',"
+    },
+    {
+      "language": "python",
+      "line": 421,
+      "path": "core\\model_sources.py",
+      "text": "'remembered': False,"
+    },
+    {
+      "language": "python",
+      "line": 422,
+      "path": "core\\model_sources.py",
+      "text": "'session_only': True,"
+    },
+    {
+      "language": "python",
+      "line": 423,
+      "path": "core\\model_sources.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 424,
+      "path": "core\\model_sources.py",
+      "text": "self.invalidate()"
+    },
+    {
+      "language": "python",
+      "line": 425,
+      "path": "core\\model_sources.py",
+      "text": "scope = 'session'"
+    },
+    {
+      "language": "python",
+      "line": 426,
+      "path": "core\\model_sources.py",
+      "text": "models = ["
+    },
+    {
+      "language": "python",
+      "line": 427,
+      "path": "core\\model_sources.py",
+      "text": "item for item in self.catalog(force=True)"
+    },
+    {
+      "language": "python",
+      "line": 428,
+      "path": "core\\model_sources.py",
+      "text": "if item['source'] == 'HOST_PC'"
+    },
+    {
+      "language": "python",
+      "line": 429,
+      "path": "core\\model_sources.py",
+      "text": "and _is_relative_to(Path(item['path']).resolve(), path)"
+    },
+    {
+      "language": "python",
+      "line": 430,
+      "path": "core\\model_sources.py",
+      "text": "]"
+    },
+    {
+      "language": "python",
+      "line": 431,
+      "path": "core\\model_sources.py",
+      "text": "return {"
+    },
+    {
+      "language": "python",
+      "line": 432,
+      "path": "core\\model_sources.py",
+      "text": "'ok': True,"
+    },
+    {
+      "language": "python",
+      "line": 433,
+      "path": "core\\model_sources.py",
+      "text": "'message': ("
+    },
+    {
+      "language": "python",
+      "line": 434,
+      "path": "core\\model_sources.py",
+      "text": "f'Approved host model folder for this {scope}: {path}. '"
+    },
+    {
+      "language": "python",
+      "line": 435,
+      "path": "core\\model_sources.py",
+      "text": "f'Found {len(models)} GGUF model(s). No model file was changed.'"
+    },
+    {
+      "language": "python",
+      "line": 436,
+      "path": "core\\model_sources.py",
+      "text": "),"
+    },
+    {
+      "language": "python",
+      "line": 437,
+      "path": "core\\model_sources.py",
+      "text": "'path': str(path),"
+    },
+    {
+      "language": "python",
+      "line": 438,
+      "path": "core\\model_sources.py",
+      "text": "'scope': scope,"
+    },
+    {
+      "language": "python",
+      "line": 439,
+      "path": "core\\model_sources.py",
+      "text": "'model_count': len(models),"
+    },
+    {
+      "language": "python",
+      "line": 440,
+      "path": "core\\model_sources.py",
+      "text": "'models': models,"
+    },
+    {
+      "language": "python",
+      "line": 441,
+      "path": "core\\model_sources.py",
+      "text": "'model_files_modified': False,"
+    },
+    {
+      "language": "python",
+      "line": 442,
+      "path": "core\\model_sources.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 444,
+      "path": "core\\model_sources.py",
+      "text": "def forget_folder(self, value: str | Path, *, confirm: bool) -> dict[str, Any]:"
+    },
+    {
+      "language": "python",
+      "line": 445,
+      "path": "core\\model_sources.py",
+      "text": "if not confirm:"
+    },
+    {
+      "language": "python",
+      "line": 446,
+      "path": "core\\model_sources.py",
+      "text": "raise ModelSourceError('Forget-folder action was not confirmed.')"
+    },
+    {
+      "language": "python",
+      "line": 447,
+      "path": "core\\model_sources.py",
+      "text": "raw = str(value or '').strip()"
+    },
+    {
+      "language": "python",
+      "line": 448,
+      "path": "core\\model_sources.py",
+      "text": "if not raw:"
+    },
+    {
+      "language": "python",
+      "line": 449,
+      "path": "core\\model_sources.py",
+      "text": "raise ModelSourceError('No folder was selected to forget.')"
+    },
+    {
+      "language": "python",
+      "line": 450,
+      "path": "core\\model_sources.py",
+      "text": "key = _path_key(Path(raw))"
+    },
+    {
+      "language": "python",
+      "line": 451,
+      "path": "core\\model_sources.py",
+      "text": "session_removed = self._session_roots.pop(key, None) is not None"
+    },
+    {
+      "language": "python",
+      "line": 452,
+      "path": "core\\model_sources.py",
+      "text": "data = self._load()"
+    },
+    {
+      "language": "python",
+      "line": 453,
+      "path": "core\\model_sources.py",
+      "text": "profile = self._machine_profile(data)"
+    },
+    {
+      "language": "python",
+      "line": 454,
+      "path": "core\\model_sources.py",
+      "text": "remembered_removed = False"
+    },
+    {
+      "language": "python",
+      "line": 455,
+      "path": "core\\model_sources.py",
+      "text": "preferences_removed: list[str] = []"
+    },
+    {
+      "language": "python",
+      "line": 456,
+      "path": "core\\model_sources.py",
+      "text": "if profile:"
+    },
+    {
+      "language": "python",
+      "line": 457,
+      "path": "core\\model_sources.py",
+      "text": "roots = profile.get('approved_host_roots') or []"
+    },
+    {
+      "language": "python",
+      "line": 458,
+      "path": "core\\model_sources.py",
+      "text": "kept = []"
+    },
+    {
+      "language": "python",
+      "line": 459,
+      "path": "core\\model_sources.py",
+      "text": "for item in roots:"
+    },
+    {
+      "language": "python",
+      "line": 460,
+      "path": "core\\model_sources.py",
+      "text": "if isinstance(item, dict) and _path_key(Path(str(item.get('path') or ''))) == key:"
+    },
+    {
+      "language": "python",
+      "line": 461,
+      "path": "core\\model_sources.py",
+      "text": "remembered_removed = True"
+    },
+    {
+      "language": "python",
+      "line": 462,
+      "path": "core\\model_sources.py",
+      "text": "continue"
+    },
+    {
+      "language": "python",
+      "line": 463,
+      "path": "core\\model_sources.py",
+      "text": "kept.append(item)"
+    },
+    {
+      "language": "python",
+      "line": 464,
+      "path": "core\\model_sources.py",
+      "text": "profile['approved_host_roots'] = kept"
+    },
+    {
+      "language": "python",
+      "line": 465,
+      "path": "core\\model_sources.py",
+      "text": "preferred = profile.get('preferred_models') or {}"
+    },
+    {
+      "language": "python",
+      "line": 466,
+      "path": "core\\model_sources.py",
+      "text": "for role, model_path in list(preferred.items()):"
+    },
+    {
+      "language": "python",
+      "line": 467,
+      "path": "core\\model_sources.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 468,
+      "path": "core\\model_sources.py",
+      "text": "if _is_relative_to(Path(model_path).resolve(), Path(raw).resolve()):"
+    },
+    {
+      "language": "python",
+      "line": 469,
+      "path": "core\\model_sources.py",
+      "text": "preferred.pop(role, None)"
+    },
+    {
+      "language": "python",
+      "line": 470,
+      "path": "core\\model_sources.py",
+      "text": "preferences_removed.append(str(role))"
+    },
+    {
+      "language": "python",
+      "line": 471,
+      "path": "core\\model_sources.py",
+      "text": "except Exception:"
+    },
+    {
+      "language": "python",
+      "line": 472,
+      "path": "core\\model_sources.py",
+      "text": "continue"
+    },
+    {
+      "language": "python",
+      "line": 473,
+      "path": "core\\model_sources.py",
+      "text": "profile['preferred_models'] = preferred"
+    },
+    {
+      "language": "python",
+      "line": 474,
+      "path": "core\\model_sources.py",
+      "text": "if remembered_removed or preferences_removed:"
+    },
+    {
+      "language": "python",
+      "line": 475,
+      "path": "core\\model_sources.py",
+      "text": "self._save(data)"
+    },
+    {
+      "language": "python",
+      "line": 476,
+      "path": "core\\model_sources.py",
+      "text": "self.invalidate()"
+    },
+    {
+      "language": "python",
+      "line": 477,
+      "path": "core\\model_sources.py",
+      "text": "removed = session_removed or remembered_removed"
+    },
+    {
+      "language": "python",
+      "line": 478,
+      "path": "core\\model_sources.py",
+      "text": "return {"
+    },
+    {
+      "language": "python",
+      "line": 479,
+      "path": "core\\model_sources.py",
+      "text": "'ok': removed,"
+    },
+    {
+      "language": "python",
+      "line": 480,
+      "path": "core\\model_sources.py",
+      "text": "'message': ("
+    },
+    {
+      "language": "python",
+      "line": 481,
+      "path": "core\\model_sources.py",
+      "text": "'FOXAI forgot the folder reference. No folder or model file was deleted.'"
+    },
+    {
+      "language": "python",
+      "line": 482,
+      "path": "core\\model_sources.py",
+      "text": "if removed"
+    },
+    {
+      "language": "python",
+      "line": 483,
+      "path": "core\\model_sources.py",
+      "text": "else 'That folder was not registered for this computer or session.'"
+    },
+    {
+      "language": "python",
+      "line": 484,
+      "path": "core\\model_sources.py",
+      "text": "),"
+    },
+    {
+      "language": "python",
+      "line": 485,
+      "path": "core\\model_sources.py",
+      "text": "'path': raw,"
+    },
+    {
+      "language": "python",
+      "line": 486,
+      "path": "core\\model_sources.py",
+      "text": "'session_reference_removed': session_removed,"
+    },
+    {
+      "language": "python",
+      "line": 487,
+      "path": "core\\model_sources.py",
+      "text": "'remembered_reference_removed': remembered_removed,"
+    },
+    {
+      "language": "python",
+      "line": 488,
+      "path": "core\\model_sources.py",
+      "text": "'preferred_roles_removed': preferences_removed,"
+    },
+    {
+      "language": "python",
+      "line": 489,
+      "path": "core\\model_sources.py",
+      "text": "'model_files_modified': False,"
+    },
+    {
+      "language": "python",
+      "line": 490,
+      "path": "core\\model_sources.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 492,
+      "path": "core\\model_sources.py",
+      "text": "def forget_model(self, value: str | Path, *, confirm: bool) -> dict[str, Any]:"
+    },
+    {
+      "language": "python",
+      "line": 493,
+      "path": "core\\model_sources.py",
+      "text": "if not confirm:"
+    },
+    {
+      "language": "python",
+      "line": 494,
+      "path": "core\\model_sources.py",
+      "text": "raise ModelSourceError('Forget-model action was not confirmed.')"
+    },
+    {
+      "language": "python",
+      "line": 495,
+      "path": "core\\model_sources.py",
+      "text": "raw = str(value or '').strip()"
+    },
+    {
+      "language": "python",
+      "line": 496,
+      "path": "core\\model_sources.py",
+      "text": "if not raw:"
+    },
+    {
+      "language": "python",
+      "line": 497,
+      "path": "core\\model_sources.py",
+      "text": "raise ModelSourceError('No model was selected to forget.')"
+    },
+    {
+      "language": "python",
+      "line": 498,
+      "path": "core\\model_sources.py",
+      "text": "key = _path_key(Path(raw))"
+    },
+    {
+      "language": "python",
+      "line": 499,
+      "path": "core\\model_sources.py",
+      "text": "data = self._load()"
+    },
+    {
+      "language": "python",
+      "line": 500,
+      "path": "core\\model_sources.py",
+      "text": "profile = self._machine_profile(data)"
+    },
+    {
+      "language": "python",
+      "line": 501,
+      "path": "core\\model_sources.py",
+      "text": "roles_removed: list[str] = []"
+    },
+    {
+      "language": "python",
+      "line": 502,
+      "path": "core\\model_sources.py",
+      "text": "if profile:"
+    },
+    {
+      "language": "python",
+      "line": 503,
+      "path": "core\\model_sources.py",
+      "text": "preferred = profile.get('preferred_models') or {}"
+    },
+    {
+      "language": "python",
+      "line": 504,
+      "path": "core\\model_sources.py",
+      "text": "for role, model_path in list(preferred.items()):"
+    },
+    {
+      "language": "python",
+      "line": 505,
+      "path": "core\\model_sources.py",
+      "text": "if _path_key(Path(str(model_path))) == key:"
+    },
+    {
+      "language": "python",
+      "line": 506,
+      "path": "core\\model_sources.py",
+      "text": "preferred.pop(role, None)"
+    },
+    {
+      "language": "python",
+      "line": 507,
+      "path": "core\\model_sources.py",
+      "text": "roles_removed.append(str(role))"
+    },
+    {
+      "language": "python",
+      "line": 508,
+      "path": "core\\model_sources.py",
+      "text": "profile['preferred_models'] = preferred"
+    },
+    {
+      "language": "python",
+      "line": 509,
+      "path": "core\\model_sources.py",
+      "text": "if roles_removed:"
+    },
+    {
+      "language": "python",
+      "line": 510,
+      "path": "core\\model_sources.py",
+      "text": "self._save(data)"
+    },
+    {
+      "language": "python",
+      "line": 511,
+      "path": "core\\model_sources.py",
+      "text": "return {"
+    },
+    {
+      "language": "python",
+      "line": 512,
+      "path": "core\\model_sources.py",
+      "text": "'ok': bool(roles_removed),"
+    },
+    {
+      "language": "python",
+      "line": 513,
+      "path": "core\\model_sources.py",
+      "text": "'message': ("
+    },
+    {
+      "language": "python",
+      "line": 514,
+      "path": "core\\model_sources.py",
+      "text": "'FOXAI forgot the preferred-model reference. The model file remains untouched.'"
+    },
+    {
+      "language": "python",
+      "line": 515,
+      "path": "core\\model_sources.py",
+      "text": "if roles_removed"
+    },
+    {
+      "language": "python",
+      "line": 516,
+      "path": "core\\model_sources.py",
+      "text": "else 'The selected model was not stored as a preferred model.'"
+    },
+    {
+      "language": "python",
+      "line": 517,
+      "path": "core\\model_sources.py",
+      "text": "),"
+    },
+    {
+      "language": "python",
+      "line": 518,
+      "path": "core\\model_sources.py",
+      "text": "'path': raw,"
+    },
+    {
+      "language": "python",
+      "line": 519,
+      "path": "core\\model_sources.py",
+      "text": "'preferred_roles_removed': roles_removed,"
+    },
+    {
+      "language": "python",
+      "line": 520,
+      "path": "core\\model_sources.py",
+      "text": "'model_files_modified': False,"
+    },
+    {
+      "language": "python",
+      "line": 521,
+      "path": "core\\model_sources.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 523,
+      "path": "core\\model_sources.py",
+      "text": "def forget_machine(self, *, confirm: bool) -> dict[str, Any]:"
+    },
+    {
+      "language": "python",
+      "line": 524,
+      "path": "core\\model_sources.py",
+      "text": "if not confirm:"
+    },
+    {
+      "language": "python",
+      "line": 525,
+      "path": "core\\model_sources.py",
+      "text": "raise ModelSourceError('Forget-computer action was not confirmed.')"
+    },
+    {
+      "language": "python",
+      "line": 526,
+      "path": "core\\model_sources.py",
+      "text": "data = self._load()"
+    },
+    {
+      "language": "python",
+      "line": 527,
+      "path": "core\\model_sources.py",
+      "text": "machines = data.setdefault('machines', {})"
+    },
+    {
+      "language": "python",
+      "line": 528,
+      "path": "core\\model_sources.py",
+      "text": "removed = machines.pop(self.machine_name, None) is not None"
+    },
+    {
+      "language": "python",
+      "line": 529,
+      "path": "core\\model_sources.py",
+      "text": "session_count = len(self._session_roots)"
+    },
+    {
+      "language": "python",
+      "line": 530,
+      "path": "core\\model_sources.py",
+      "text": "self._session_roots.clear()"
+    },
+    {
+      "language": "python",
+      "line": 531,
+      "path": "core\\model_sources.py",
+      "text": "if removed:"
+    },
+    {
+      "language": "python",
+      "line": 532,
+      "path": "core\\model_sources.py",
+      "text": "self._save(data)"
+    },
+    {
+      "language": "python",
+      "line": 533,
+      "path": "core\\model_sources.py",
+      "text": "else:"
+    },
+    {
+      "language": "python",
+      "line": 534,
+      "path": "core\\model_sources.py",
+      "text": "self.invalidate()"
+    },
+    {
+      "language": "python",
+      "line": 535,
+      "path": "core\\model_sources.py",
+      "text": "return {"
+    },
+    {
+      "language": "python",
+      "line": 536,
+      "path": "core\\model_sources.py",
+      "text": "'ok': removed or bool(session_count),"
+    },
+    {
+      "language": "python",
+      "line": 537,
+      "path": "core\\model_sources.py",
+      "text": "'message': ("
+    },
+    {
+      "language": "python",
+      "line": 538,
+      "path": "core\\model_sources.py",
+      "text": "f'FOXAI forgot the model-source profile for {self.machine_name}. '"
+    },
+    {
+      "language": "python",
+      "line": 539,
+      "path": "core\\model_sources.py",
+      "text": "'USB models remain available; no model file was changed.'"
+    },
+    {
+      "language": "python",
+      "line": 540,
+      "path": "core\\model_sources.py",
+      "text": "),"
+    },
+    {
+      "language": "python",
+      "line": 541,
+      "path": "core\\model_sources.py",
+      "text": "'machine_name': self.machine_name,"
+    },
+    {
+      "language": "python",
+      "line": 542,
+      "path": "core\\model_sources.py",
+      "text": "'remembered_profile_removed': removed,"
+    },
+    {
+      "language": "python",
+      "line": 543,
+      "path": "core\\model_sources.py",
+      "text": "'session_roots_removed': session_count,"
+    },
+    {
+      "language": "python",
+      "line": 544,
+      "path": "core\\model_sources.py",
+      "text": "'model_files_modified': False,"
+    },
+    {
+      "language": "python",
+      "line": 545,
+      "path": "core\\model_sources.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 547,
+      "path": "core\\model_sources.py",
+      "text": "def state(self, *, include_catalog: bool = True) -> dict[str, Any]:"
+    },
+    {
+      "language": "python",
+      "line": 548,
+      "path": "core\\model_sources.py",
+      "text": "data = self._load()"
+    },
+    {
+      "language": "python",
+      "line": 549,
+      "path": "core\\model_sources.py",
+      "text": "profile = self._machine_profile(data)"
+    },
+    {
+      "language": "python",
+      "line": 550,
+      "path": "core\\model_sources.py",
+      "text": "roots = []"
+    },
+    {
+      "language": "python",
+      "line": 551,
+      "path": "core\\model_sources.py",
+      "text": "if profile:"
+    },
+    {
+      "language": "python",
+      "line": 552,
+      "path": "core\\model_sources.py",
+      "text": "for item in profile.get('approved_host_roots') or []:"
+    },
+    {
+      "language": "python",
+      "line": 553,
+      "path": "core\\model_sources.py",
+      "text": "if not isinstance(item, dict):"
+    },
+    {
+      "language": "python",
+      "line": 554,
+      "path": "core\\model_sources.py",
+      "text": "continue"
+    },
+    {
+      "language": "python",
+      "line": 555,
+      "path": "core\\model_sources.py",
+      "text": "path = str(item.get('path') or '')"
+    },
+    {
+      "language": "python",
+      "line": 556,
+      "path": "core\\model_sources.py",
+      "text": "roots.append({"
+    },
+    {
+      "language": "python",
+      "line": 557,
+      "path": "core\\model_sources.py",
+      "text": "'id': str(item.get('id') or 'host_models'),"
+    },
+    {
+      "language": "python",
+      "line": 558,
+      "path": "core\\model_sources.py",
+      "text": "'path': path,"
+    },
+    {
+      "language": "python",
+      "line": 559,
+      "path": "core\\model_sources.py",
+      "text": "'scope': 'remembered',"
+    },
+    {
+      "language": "python",
+      "line": 560,
+      "path": "core\\model_sources.py",
+      "text": "'remembered': True,"
+    },
+    {
+      "language": "python",
+      "line": 561,
+      "path": "core\\model_sources.py",
+      "text": "'available': Path(path).is_dir(),"
+    },
+    {
+      "language": "python",
+      "line": 562,
+      "path": "core\\model_sources.py",
+      "text": "})"
+    },
+    {
+      "language": "python",
+      "line": 563,
+      "path": "core\\model_sources.py",
+      "text": "for item in self._session_roots.values():"
+    },
+    {
+      "language": "python",
+      "line": 564,
+      "path": "core\\model_sources.py",
+      "text": "path = str(item['path'])"
+    },
+    {
+      "language": "python",
+      "line": 565,
+      "path": "core\\model_sources.py",
+      "text": "roots.append({"
+    },
+    {
+      "language": "python",
+      "line": 566,
+      "path": "core\\model_sources.py",
+      "text": "'id': str(item['id']),"
+    },
+    {
+      "language": "python",
+      "line": 567,
+      "path": "core\\model_sources.py",
+      "text": "'path': path,"
+    },
+    {
+      "language": "python",
+      "line": 568,
+      "path": "core\\model_sources.py",
+      "text": "'scope': 'session',"
+    },
+    {
+      "language": "python",
+      "line": 569,
+      "path": "core\\model_sources.py",
+      "text": "'remembered': False,"
+    },
+    {
+      "language": "python",
+      "line": 570,
+      "path": "core\\model_sources.py",
+      "text": "'available': Path(path).is_dir(),"
+    },
+    {
+      "language": "python",
+      "line": 571,
+      "path": "core\\model_sources.py",
+      "text": "})"
+    },
+    {
+      "language": "python",
+      "line": 572,
+      "path": "core\\model_sources.py",
+      "text": "result = {"
+    },
+    {
+      "language": "python",
+      "line": 573,
+      "path": "core\\model_sources.py",
+      "text": "'ok': True,"
+    },
+    {
+      "language": "python",
+      "line": 574,
+      "path": "core\\model_sources.py",
+      "text": "'schema': data.get('schema'),"
+    },
+    {
+      "language": "python",
+      "line": 575,
+      "path": "core\\model_sources.py",
+      "text": "'machine': {"
+    },
+    {
+      "language": "python",
+      "line": 576,
+      "path": "core\\model_sources.py",
+      "text": "'name': self.machine_name,"
+    },
+    {
+      "language": "python",
+      "line": 577,
+      "path": "core\\model_sources.py",
+      "text": "'key': self.machine_key,"
+    },
+    {
+      "language": "python",
+      "line": 578,
+      "path": "core\\model_sources.py",
+      "text": "'configured': profile is not None,"
+    },
+    {
+      "language": "python",
+      "line": 579,
+      "path": "core\\model_sources.py",
+      "text": "'display_name': ("
+    },
+    {
+      "language": "python",
+      "line": 580,
+      "path": "core\\model_sources.py",
+      "text": "str(profile.get('display_name') or self.machine_name)"
+    },
+    {
+      "language": "python",
+      "line": 581,
+      "path": "core\\model_sources.py",
+      "text": "if profile else self.machine_name"
+    },
+    {
+      "language": "python",
+      "line": 582,
+      "path": "core\\model_sources.py",
+      "text": "),"
+    },
+    {
+      "language": "python",
+      "line": 583,
+      "path": "core\\model_sources.py",
+      "text": "},"
+    },
+    {
+      "language": "python",
+      "line": 584,
+      "path": "core\\model_sources.py",
+      "text": "'approved_host_roots': roots,"
+    },
+    {
+      "language": "python",
+      "line": 585,
+      "path": "core\\model_sources.py",
+      "text": "'preferred_models': dict((profile or {}).get('preferred_models') or {}),"
+    },
+    {
+      "language": "python",
+      "line": 586,
+      "path": "core\\model_sources.py",
+      "text": "'fallback_policy': str((profile or {}).get('fallback_policy') or 'ASK_OR_APPROVED_USB'),"
+    },
+    {
+      "language": "python",
+      "line": 587,
+      "path": "core\\model_sources.py",
+      "text": "'prompt_for_host_models': bool((profile or {}).get('prompt_for_host_models', True)),"
+    },
+    {
+      "language": "python",
+      "line": 588,
+      "path": "core\\model_sources.py",
+      "text": "'allow_online_sources': False,"
+    },
+    {
+      "language": "python",
+      "line": 589,
+      "path": "core\\model_sources.py",
+      "text": "'reserved_source_types': data.get('reserved_source_types') or {},"
+    },
+    {
+      "language": "python",
+      "line": 590,
+      "path": "core\\model_sources.py",
+      "text": "'policy': data.get('policy') or {},"
+    },
+    {
+      "language": "python",
+      "line": 591,
+      "path": "core\\model_sources.py",
+      "text": "'session_only_reference_count': len(self._session_roots),"
+    },
+    {
+      "language": "python",
+      "line": 592,
+      "path": "core\\model_sources.py",
+      "text": "'model_files_modified': False,"
+    },
+    {
+      "language": "python",
+      "line": 593,
+      "path": "core\\model_sources.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 594,
+      "path": "core\\model_sources.py",
+      "text": "if include_catalog:"
+    },
+    {
+      "language": "python",
+      "line": 595,
+      "path": "core\\model_sources.py",
+      "text": "catalog = self.catalog()"
+    },
+    {
+      "language": "python",
+      "line": 596,
+      "path": "core\\model_sources.py",
+      "text": "result['models'] = catalog"
+    },
+    {
+      "language": "python",
+      "line": 597,
+      "path": "core\\model_sources.py",
+      "text": "result['counts'] = {"
+    },
+    {
+      "language": "python",
+      "line": 598,
+      "path": "core\\model_sources.py",
+      "text": "'total': len(catalog),"
+    },
+    {
+      "language": "python",
+      "line": 599,
+      "path": "core\\model_sources.py",
+      "text": "'usb': sum(item['source'] == 'USB' for item in catalog),"
+    },
+    {
+      "language": "python",
+      "line": 600,
+      "path": "core\\model_sources.py",
+      "text": "'host_pc': sum(item['source'] == 'HOST_PC' for item in catalog),"
+    },
+    {
+      "language": "python",
+      "line": 601,
+      "path": "core\\model_sources.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 602,
+      "path": "core\\model_sources.py",
+      "text": "return result"
+    },
+    {
+      "language": "python",
+      "line": 1,
+      "path": "core\\models.py",
+      "text": "from core.paths import MODELS"
+    },
+    {
+      "language": "python",
+      "line": 3,
+      "path": "core\\models.py",
+      "text": "def find_models():"
+    },
+    {
+      "language": "python",
+      "line": 4,
+      "path": "core\\models.py",
+      "text": "if not MODELS.exists():"
+    },
+    {
+      "language": "python",
+      "line": 5,
+      "path": "core\\models.py",
+      "text": "return []"
+    },
+    {
+      "language": "python",
+      "line": 6,
+      "path": "core\\models.py",
+      "text": "return sorted(MODELS.rglob(\"*.gguf\"))"
+    },
+    {
+      "language": "python",
+      "line": 1,
+      "path": "core\\paths.py",
+      "text": "from pathlib import Path"
+    },
+    {
+      "language": "python",
+      "line": 3,
+      "path": "core\\paths.py",
+      "text": "BASE = Path(__file__).resolve().parent.parent"
+    },
+    {
+      "language": "python",
+      "line": 4,
+      "path": "core\\paths.py",
+      "text": "ENGINE = BASE / \"Engine\" / \"llama-server.exe\""
+    },
+    {
+      "language": "python",
+      "line": 5,
+      "path": "core\\paths.py",
+      "text": "MODELS = BASE / \"Models\""
+    },
+    {
+      "language": "python",
+      "line": 6,
+      "path": "core\\paths.py",
+      "text": "PROMPTS = BASE / \"Prompts\""
+    },
+    {
+      "language": "python",
+      "line": 7,
+      "path": "core\\paths.py",
+      "text": "CONFIG = BASE / \"Config\""
+    },
+    {
+      "language": "python",
+      "line": 8,
+      "path": "core\\paths.py",
+      "text": "LOGS = BASE / \"Logs\""
+    },
+    {
+      "language": "python",
+      "line": 9,
+      "path": "core\\paths.py",
+      "text": "MEMORY = BASE / \"Memory\""
+    },
+    {
+      "language": "python",
+      "line": 10,
+      "path": "core\\paths.py",
+      "text": "ARCHIVE = BASE / \"Mission Archive\""
+    },
+    {
+      "language": "python",
+      "line": 11,
+      "path": "core\\paths.py",
+      "text": "LIBRARY = BASE / \"Library\""
+    },
+    {
+      "language": "python",
+      "line": 12,
+      "path": "core\\paths.py",
+      "text": "RED_CANVAS = BASE / \"Red Canvas\""
+    },
+    {
+      "language": "python",
+      "line": 13,
+      "path": "core\\paths.py",
+      "text": "ASSETS = BASE / \"assets\""
+    },
+    {
+      "language": "python",
+      "line": 1,
+      "path": "core\\project_charter.py",
+      "text": "from dataclasses import dataclass, field"
+    },
+    {
+      "language": "python",
+      "line": 2,
+      "path": "core\\project_charter.py",
+      "text": "from datetime import datetime"
+    },
+    {
+      "language": "python",
+      "line": 3,
+      "path": "core\\project_charter.py",
+      "text": "from typing import List, Dict"
+    },
+    {
+      "language": "python",
+      "line": 6,
+      "path": "core\\project_charter.py",
+      "text": "@dataclass"
+    },
+    {
+      "language": "python",
+      "line": 7,
+      "path": "core\\project_charter.py",
+      "text": "class ProjectCharter:"
+    },
+    {
+      "language": "python",
+      "line": 8,
+      "path": "core\\project_charter.py",
+      "text": "\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 9,
+      "path": "core\\project_charter.py",
+      "text": "Project Charter RC1"
+    },
+    {
+      "language": "python",
+      "line": 11,
+      "path": "core\\project_charter.py",
+      "text": "A structured agreement for a project before code is forged."
+    },
+    {
+      "language": "python",
+      "line": 12,
+      "path": "core\\project_charter.py",
+      "text": "It is advisory and does not execute or modify files."
+    },
+    {
+      "language": "python",
+      "line": 13,
+      "path": "core\\project_charter.py",
+      "text": "\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 15,
+      "path": "core\\project_charter.py",
+      "text": "project_name: str"
+    },
+    {
+      "language": "python",
+      "line": 16,
+      "path": "core\\project_charter.py",
+      "text": "mission_type: str"
+    },
+    {
+      "language": "python",
+      "line": 17,
+      "path": "core\\project_charter.py",
+      "text": "objective: str"
+    },
+    {
+      "language": "python",
+      "line": 18,
+      "path": "core\\project_charter.py",
+      "text": "in_scope: List[str] = field(default_factory=list)"
+    },
+    {
+      "language": "python",
+      "line": 19,
+      "path": "core\\project_charter.py",
+      "text": "out_of_scope: List[str] = field(default_factory=list)"
+    },
+    {
+      "language": "python",
+      "line": 20,
+      "path": "core\\project_charter.py",
+      "text": "success_criteria: List[str] = field(default_factory=list)"
+    },
+    {
+      "language": "python",
+      "line": 21,
+      "path": "core\\project_charter.py",
+      "text": "departments: List[str] = field(default_factory=list)"
+    },
+    {
+      "language": "python",
+      "line": 22,
+      "path": "core\\project_charter.py",
+      "text": "risks: List[str] = field(default_factory=list)"
+    },
+    {
+      "language": "python",
+      "line": 23,
+      "path": "core\\project_charter.py",
+      "text": "milestones: List[str] = field(default_factory=list)"
+    },
+    {
+      "language": "python",
+      "line": 24,
+      "path": "core\\project_charter.py",
+      "text": "artifacts: List[str] = field(default_factory=list)"
+    },
+    {
+      "language": "python",
+      "line": 25,
+      "path": "core\\project_charter.py",
+      "text": "approval_status: str = \"Pending\""
+    },
+    {
+      "language": "python",
+      "line": 26,
+      "path": "core\\project_charter.py",
+      "text": "created_at: str = field(default_factory=lambda: datetime.now().isoformat(timespec=\"seconds\"))"
+    },
+    {
+      "language": "python",
+      "line": 28,
+      "path": "core\\project_charter.py",
+      "text": "def to_dict(self) -> Dict:"
+    },
+    {
+      "language": "python",
+      "line": 29,
+      "path": "core\\project_charter.py",
+      "text": "return {"
+    },
+    {
+      "language": "python",
+      "line": 30,
+      "path": "core\\project_charter.py",
+      "text": "\"project_name\": self.project_name,"
+    },
+    {
+      "language": "python",
+      "line": 31,
+      "path": "core\\project_charter.py",
+      "text": "\"mission_type\": self.mission_type,"
+    },
+    {
+      "language": "python",
+      "line": 32,
+      "path": "core\\project_charter.py",
+      "text": "\"objective\": self.objective,"
+    },
+    {
+      "language": "python",
+      "line": 33,
+      "path": "core\\project_charter.py",
+      "text": "\"in_scope\": self.in_scope,"
+    },
+    {
+      "language": "python",
+      "line": 34,
+      "path": "core\\project_charter.py",
+      "text": "\"out_of_scope\": self.out_of_scope,"
+    },
+    {
+      "language": "python",
+      "line": 35,
+      "path": "core\\project_charter.py",
+      "text": "\"success_criteria\": self.success_criteria,"
+    },
+    {
+      "language": "python",
+      "line": 36,
+      "path": "core\\project_charter.py",
+      "text": "\"departments\": self.departments,"
+    },
+    {
+      "language": "python",
+      "line": 37,
+      "path": "core\\project_charter.py",
+      "text": "\"risks\": self.risks,"
+    },
+    {
+      "language": "python",
+      "line": 38,
+      "path": "core\\project_charter.py",
+      "text": "\"milestones\": self.milestones,"
+    },
+    {
+      "language": "python",
+      "line": 39,
+      "path": "core\\project_charter.py",
+      "text": "\"artifacts\": self.artifacts,"
+    },
+    {
+      "language": "python",
+      "line": 40,
+      "path": "core\\project_charter.py",
+      "text": "\"approval_status\": self.approval_status,"
+    },
+    {
+      "language": "python",
+      "line": 41,
+      "path": "core\\project_charter.py",
+      "text": "\"created_at\": self.created_at,"
+    },
+    {
+      "language": "python",
+      "line": 42,
+      "path": "core\\project_charter.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 44,
+      "path": "core\\project_charter.py",
+      "text": "def format(self) -> str:"
+    },
+    {
+      "language": "python",
+      "line": 45,
+      "path": "core\\project_charter.py",
+      "text": "lines = ["
+    },
+    {
+      "language": "python",
+      "line": 46,
+      "path": "core\\project_charter.py",
+      "text": "\"PROJECT CHARTER\","
+    },
+    {
+      "language": "python",
+      "line": 47,
+      "path": "core\\project_charter.py",
+      "text": "\"\","
+    },
+    {
+      "language": "python",
+      "line": 48,
+      "path": "core\\project_charter.py",
+      "text": "f\"Project: {self.project_name}\","
+    },
+    {
+      "language": "python",
+      "line": 49,
+      "path": "core\\project_charter.py",
+      "text": "f\"Mission Type: {self.mission_type}\","
+    },
+    {
+      "language": "python",
+      "line": 50,
+      "path": "core\\project_charter.py",
+      "text": "f\"Created: {self.created_at}\","
+    },
+    {
+      "language": "python",
+      "line": 51,
+      "path": "core\\project_charter.py",
+      "text": "f\"Approval Status: {self.approval_status}\","
+    },
+    {
+      "language": "python",
+      "line": 52,
+      "path": "core\\project_charter.py",
+      "text": "\"\","
+    },
+    {
+      "language": "python",
+      "line": 53,
+      "path": "core\\project_charter.py",
+      "text": "\"Objective:\","
+    },
+    {
+      "language": "python",
+      "line": 54,
+      "path": "core\\project_charter.py",
+      "text": "self.objective,"
+    },
+    {
+      "language": "python",
+      "line": 55,
+      "path": "core\\project_charter.py",
+      "text": "\"\","
+    },
+    {
+      "language": "python",
+      "line": 56,
+      "path": "core\\project_charter.py",
+      "text": "\"In Scope:\","
+    },
+    {
+      "language": "python",
+      "line": 57,
+      "path": "core\\project_charter.py",
+      "text": "]"
+    },
+    {
+      "language": "python",
+      "line": 59,
+      "path": "core\\project_charter.py",
+      "text": "lines.extend([f\"• {item}\" for item in self.in_scope] or [\"• None listed\"])"
+    },
+    {
+      "language": "python",
+      "line": 61,
+      "path": "core\\project_charter.py",
+      "text": "lines.extend(["
+    },
+    {
+      "language": "python",
+      "line": 62,
+      "path": "core\\project_charter.py",
+      "text": "\"\","
+    },
+    {
+      "language": "python",
+      "line": 63,
+      "path": "core\\project_charter.py",
+      "text": "\"Out of Scope:\","
+    },
+    {
+      "language": "python",
+      "line": 64,
+      "path": "core\\project_charter.py",
+      "text": "])"
+    },
+    {
+      "language": "python",
+      "line": 66,
+      "path": "core\\project_charter.py",
+      "text": "lines.extend([f\"• {item}\" for item in self.out_of_scope] or [\"• None listed\"])"
+    },
+    {
+      "language": "python",
+      "line": 68,
+      "path": "core\\project_charter.py",
+      "text": "lines.extend(["
+    },
+    {
+      "language": "python",
+      "line": 69,
+      "path": "core\\project_charter.py",
+      "text": "\"\","
+    },
+    {
+      "language": "python",
+      "line": 70,
+      "path": "core\\project_charter.py",
+      "text": "\"Success Criteria:\","
+    },
+    {
+      "language": "python",
+      "line": 71,
+      "path": "core\\project_charter.py",
+      "text": "])"
+    },
+    {
+      "language": "python",
+      "line": 73,
+      "path": "core\\project_charter.py",
+      "text": "lines.extend([f\"• {item}\" for item in self.success_criteria] or [\"• None listed\"])"
+    },
+    {
+      "language": "python",
+      "line": 75,
+      "path": "core\\project_charter.py",
+      "text": "lines.extend(["
+    },
+    {
+      "language": "python",
+      "line": 76,
+      "path": "core\\project_charter.py",
+      "text": "\"\","
+    },
+    {
+      "language": "python",
+      "line": 77,
+      "path": "core\\project_charter.py",
+      "text": "\"Departments Required:\","
+    },
+    {
+      "language": "python",
+      "line": 78,
+      "path": "core\\project_charter.py",
+      "text": "])"
+    },
+    {
+      "language": "python",
+      "line": 80,
+      "path": "core\\project_charter.py",
+      "text": "lines.extend([f\"• {item}\" for item in self.departments] or [\"• None listed\"])"
+    },
+    {
+      "language": "python",
+      "line": 82,
+      "path": "core\\project_charter.py",
+      "text": "lines.extend(["
+    },
+    {
+      "language": "python",
+      "line": 83,
+      "path": "core\\project_charter.py",
+      "text": "\"\","
+    },
+    {
+      "language": "python",
+      "line": 84,
+      "path": "core\\project_charter.py",
+      "text": "\"Risks:\","
+    },
+    {
+      "language": "python",
+      "line": 85,
+      "path": "core\\project_charter.py",
+      "text": "])"
+    },
+    {
+      "language": "python",
+      "line": 87,
+      "path": "core\\project_charter.py",
+      "text": "lines.extend([f\"• {item}\" for item in self.risks] or [\"• None listed\"])"
+    },
+    {
+      "language": "python",
+      "line": 89,
+      "path": "core\\project_charter.py",
+      "text": "lines.extend(["
+    },
+    {
+      "language": "python",
+      "line": 90,
+      "path": "core\\project_charter.py",
+      "text": "\"\","
+    },
+    {
+      "language": "python",
+      "line": 91,
+      "path": "core\\project_charter.py",
+      "text": "\"Milestones:\","
+    },
+    {
+      "language": "python",
+      "line": 92,
+      "path": "core\\project_charter.py",
+      "text": "])"
+    },
+    {
+      "language": "python",
+      "line": 94,
+      "path": "core\\project_charter.py",
+      "text": "for index, item in enumerate(self.milestones, start=1):"
+    },
+    {
+      "language": "python",
+      "line": 95,
+      "path": "core\\project_charter.py",
+      "text": "lines.append(f\"{index}. {item}\")"
+    },
+    {
+      "language": "python",
+      "line": 97,
+      "path": "core\\project_charter.py",
+      "text": "if not self.milestones:"
+    },
+    {
+      "language": "python",
+      "line": 98,
+      "path": "core\\project_charter.py",
+      "text": "lines.append(\"• None listed\")"
+    },
+    {
+      "language": "python",
+      "line": 100,
+      "path": "core\\project_charter.py",
+      "text": "lines.extend(["
+    },
+    {
+      "language": "python",
+      "line": 101,
+      "path": "core\\project_charter.py",
+      "text": "\"\","
+    },
+    {
+      "language": "python",
+      "line": 102,
+      "path": "core\\project_charter.py",
+      "text": "\"Likely Artifacts:\","
+    },
+    {
+      "language": "python",
+      "line": 103,
+      "path": "core\\project_charter.py",
+      "text": "])"
+    },
+    {
+      "language": "python",
+      "line": 105,
+      "path": "core\\project_charter.py",
+      "text": "lines.extend([f\"• {item}\" for item in self.artifacts] or [\"• None listed\"])"
+    },
+    {
+      "language": "python",
+      "line": 107,
+      "path": "core\\project_charter.py",
+      "text": "lines.extend(["
+    },
+    {
+      "language": "python",
+      "line": 108,
+      "path": "core\\project_charter.py",
+      "text": "\"\","
+    },
+    {
+      "language": "python",
+      "line": 109,
+      "path": "core\\project_charter.py",
+      "text": "\"Operator Approval:\","
+    },
+    {
+      "language": "python",
+      "line": 110,
+      "path": "core\\project_charter.py",
+      "text": "\"Required before files are written or modified.\","
+    },
+    {
+      "language": "python",
+      "line": 111,
+      "path": "core\\project_charter.py",
+      "text": "])"
+    },
+    {
+      "language": "python",
+      "line": 113,
+      "path": "core\\project_charter.py",
+      "text": "return \"\\n\".join(lines)"
+    },
+    {
+      "language": "python",
+      "line": 116,
+      "path": "core\\project_charter.py",
+      "text": "class ProjectCharterFactory:"
+    },
+    {
+      "language": "python",
+      "line": 117,
+      "path": "core\\project_charter.py",
+      "text": "\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 118,
+      "path": "core\\project_charter.py",
+      "text": "Creates project charters from natural-language project descriptions."
+    },
+    {
+      "language": "python",
+      "line": 119,
+      "path": "core\\project_charter.py",
+      "text": "RC1 uses simple deterministic rules."
+    },
+    {
+      "language": "python",
+      "line": 120,
+      "path": "core\\project_charter.py",
+      "text": "\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 122,
+      "path": "core\\project_charter.py",
+      "text": "def create(self, mission: str) -> ProjectCharter:"
+    },
+    {
+      "language": "python",
+      "line": 123,
+      "path": "core\\project_charter.py",
+      "text": "text = (mission or \"\").lower()"
+    },
+    {
+      "language": "python",
+      "line": 125,
+      "path": "core\\project_charter.py",
+      "text": "if any(word in text for word in [\"spider\", \"crawler\", \"crawl\", \"web pages\", \"web spider\"]):"
+    },
+    {
+      "language": "python",
+      "line": 126,
+      "path": "core\\project_charter.py",
+      "text": "return self.web_spider_charter(mission)"
+    },
+    {
+      "language": "python",
+      "line": 128,
+      "path": "core\\project_charter.py",
+      "text": "if any(word in text for word in [\"kayock\", \"identity\", \"profile\", \"forge red\", \"theme\"]):"
+    },
+    {
+      "language": "python",
+      "line": 129,
+      "path": "core\\project_charter.py",
+      "text": "return self.identity_charter(mission)"
+    },
+    {
+      "language": "python",
+      "line": 131,
+      "path": "core\\project_charter.py",
+      "text": "if any(word in text for word in [\"repair bay\", \"repair\", \"windows recovery\"]):"
+    },
+    {
+      "language": "python",
+      "line": 132,
+      "path": "core\\project_charter.py",
+      "text": "return self.repair_bay_charter(mission)"
+    },
+    {
+      "language": "python",
+      "line": 134,
+      "path": "core\\project_charter.py",
+      "text": "return self.generic_feature_charter(mission)"
+    },
+    {
+      "language": "python",
+      "line": 136,
+      "path": "core\\project_charter.py",
+      "text": "def web_spider_charter(self, mission: str) -> ProjectCharter:"
+    },
+    {
+      "language": "python",
+      "line": 137,
+      "path": "core\\project_charter.py",
+      "text": "return ProjectCharter("
+    },
+    {
+      "language": "python",
+      "line": 138,
+      "path": "core\\project_charter.py",
+      "text": "project_name=\"Web Spider Toolkit\","
+    },
+    {
+      "language": "python",
+      "line": 139,
+      "path": "core\\project_charter.py",
+      "text": "mission_type=\"Feature Development / Research Tool\","
+    },
+    {
+      "language": "python",
+      "line": 140,
+      "path": "core\\project_charter.py",
+      "text": "objective=("
+    },
+    {
+      "language": "python",
+      "line": 141,
+      "path": "core\\project_charter.py",
+      "text": "\"Build a polite, bounded web spider toolkit in Python and Java that can crawl allowed \""
+    },
+    {
+      "language": "python",
+      "line": 142,
+      "path": "core\\project_charter.py",
+      "text": "\"web pages, collect discovered links, filter target domains such as .com and .org, \""
+    },
+    {
+      "language": "python",
+      "line": 143,
+      "path": "core\\project_charter.py",
+      "text": "\"and write an index to a text file.\""
+    },
+    {
+      "language": "python",
+      "line": 144,
+      "path": "core\\project_charter.py",
+      "text": "),"
+    },
+    {
+      "language": "python",
+      "line": 145,
+      "path": "core\\project_charter.py",
+      "text": "in_scope=["
+    },
+    {
+      "language": "python",
+      "line": 146,
+      "path": "core\\project_charter.py",
+      "text": "\"Python crawler implementation\","
+    },
+    {
+      "language": "python",
+      "line": 147,
+      "path": "core\\project_charter.py",
+      "text": "\"Java crawler implementation\","
+    },
+    {
+      "language": "python",
+      "line": 148,
+      "path": "core\\project_charter.py",
+      "text": "\"Seed URL input\","
+    },
+    {
+      "language": "python",
+      "line": 149,
+      "path": "core\\project_charter.py",
+      "text": "\"Depth limit\","
+    },
+    {
+      "language": "python",
+      "line": 150,
+      "path": "core\\project_charter.py",
+      "text": "\"Page count limit\","
+    },
+    {
+      "language": "python",
+      "line": 151,
+      "path": "core\\project_charter.py",
+      "text": "\"Request delay / rate limiting\","
+    },
+    {
+      "language": "python",
+      "line": 152,
+      "path": "core\\project_charter.py",
+      "text": "\"robots.txt awareness\","
+    },
+    {
+      "language": "python",
+      "line": 153,
+      "path": "core\\project_charter.py",
+      "text": "\"Domain suffix filtering such as .com and .org\","
+    },
+    {
+      "language": "python",
+      "line": 154,
+      "path": "core\\project_charter.py",
+      "text": "\"TXT index output\","
+    },
+    {
+      "language": "python",
+      "line": 155,
+      "path": "core\\project_charter.py",
+      "text": "\"Clear documentation and usage examples\","
+    },
+    {
+      "language": "python",
+      "line": 156,
+      "path": "core\\project_charter.py",
+      "text": "],"
+    },
+    {
+      "language": "python",
+      "line": 157,
+      "path": "core\\project_charter.py",
+      "text": "out_of_scope=["
+    },
+    {
+      "language": "python",
+      "line": 158,
+      "path": "core\\project_charter.py",
+      "text": "\"Bypassing login pages\","
+    },
+    {
+      "language": "python",
+      "line": 159,
+      "path": "core\\project_charter.py",
+      "text": "\"Ignoring robots.txt\","
+    },
+    {
+      "language": "python",
+      "line": 160,
+      "path": "core\\project_charter.py",
+      "text": "\"High-speed scraping\","
+    },
+    {
+      "language": "python",
+      "line": 161,
+      "path": "core\\project_charter.py",
+      "text": "\"Collecting private personal data\","
+    },
+    {
+      "language": "python",
+      "line": 162,
+      "path": "core\\project_charter.py",
+      "text": "\"Credential harvesting\","
+    },
+    {
+      "language": "python",
+      "line": 163,
+      "path": "core\\project_charter.py",
+      "text": "\"Distributed crawling\","
+    },
+    {
+      "language": "python",
+      "line": 164,
+      "path": "core\\project_charter.py",
+      "text": "\"Denial-of-service behavior\","
+    },
+    {
+      "language": "python",
+      "line": 165,
+      "path": "core\\project_charter.py",
+      "text": "],"
+    },
+    {
+      "language": "python",
+      "line": 166,
+      "path": "core\\project_charter.py",
+      "text": "success_criteria=["
+    },
+    {
+      "language": "python",
+      "line": 167,
+      "path": "core\\project_charter.py",
+      "text": "\"Crawler accepts seed URLs safely\","
+    },
+    {
+      "language": "python",
+      "line": 168,
+      "path": "core\\project_charter.py",
+      "text": "\"Crawler respects configured depth and page limits\","
+    },
+    {
+      "language": "python",
+      "line": 169,
+      "path": "core\\project_charter.py",
+      "text": "\"Crawler writes discovered URLs to a text file\","
+    },
+    {
+      "language": "python",
+      "line": 170,
+      "path": "core\\project_charter.py",
+      "text": "\"Crawler avoids duplicate URLs\","
+    },
+    {
+      "language": "python",
+      "line": 171,
+      "path": "core\\project_charter.py",
+      "text": "\"Crawler waits between requests\","
+    },
+    {
+      "language": "python",
+      "line": 172,
+      "path": "core\\project_charter.py",
+      "text": "\"Crawler can be stopped safely\","
+    },
+    {
+      "language": "python",
+      "line": 173,
+      "path": "core\\project_charter.py",
+      "text": "\"Both Python and Java versions produce comparable output\","
+    },
+    {
+      "language": "python",
+      "line": 174,
+      "path": "core\\project_charter.py",
+      "text": "\"Default settings are conservative\","
+    },
+    {
+      "language": "python",
+      "line": 175,
+      "path": "core\\project_charter.py",
+      "text": "],"
+    },
+    {
+      "language": "python",
+      "line": 176,
+      "path": "core\\project_charter.py",
+      "text": "departments=["
+    },
+    {
+      "language": "python",
+      "line": 177,
+      "path": "core\\project_charter.py",
+      "text": "\"Forge Master\","
+    },
+    {
+      "language": "python",
+      "line": 178,
+      "path": "core\\project_charter.py",
+      "text": "\"Engineer\","
+    },
+    {
+      "language": "python",
+      "line": 179,
+      "path": "core\\project_charter.py",
+      "text": "\"Decision Layer\","
+    },
+    {
+      "language": "python",
+      "line": 180,
+      "path": "core\\project_charter.py",
+      "text": "\"Confidence Engine\","
+    },
+    {
+      "language": "python",
+      "line": 181,
+      "path": "core\\project_charter.py",
+      "text": "\"Iron Library\","
+    },
+    {
+      "language": "python",
+      "line": 182,
+      "path": "core\\project_charter.py",
+      "text": "\"Diagnostics\","
+    },
+    {
+      "language": "python",
+      "line": 183,
+      "path": "core\\project_charter.py",
+      "text": "],"
+    },
+    {
+      "language": "python",
+      "line": 184,
+      "path": "core\\project_charter.py",
+      "text": "risks=["
+    },
+    {
+      "language": "python",
+      "line": 185,
+      "path": "core\\project_charter.py",
+      "text": "\"Accidental over-crawling\","
+    },
+    {
+      "language": "python",
+      "line": 186,
+      "path": "core\\project_charter.py",
+      "text": "\"Websites blocking requests\","
+    },
+    {
+      "language": "python",
+      "line": 187,
+      "path": "core\\project_charter.py",
+      "text": "\"Malformed URLs\","
+    },
+    {
+      "language": "python",
+      "line": 188,
+      "path": "core\\project_charter.py",
+      "text": "\"Infinite crawl loops\","
+    },
+    {
+      "language": "python",
+      "line": 189,
+      "path": "core\\project_charter.py",
+      "text": "\"Large output files\","
+    },
+    {
+      "language": "python",
+      "line": 190,
+      "path": "core\\project_charter.py",
+      "text": "\"Legal or ethical misuse if safety limits are removed\","
+    },
+    {
+      "language": "python",
+      "line": 191,
+      "path": "core\\project_charter.py",
+      "text": "],"
+    },
+    {
+      "language": "python",
+      "line": 192,
+      "path": "core\\project_charter.py",
+      "text": "milestones=["
+    },
+    {
+      "language": "python",
+      "line": 193,
+      "path": "core\\project_charter.py",
+      "text": "\"Requirements and safety boundaries\","
+    },
+    {
+      "language": "python",
+      "line": 194,
+      "path": "core\\project_charter.py",
+      "text": "\"Output format definition\","
+    },
+    {
+      "language": "python",
+      "line": 195,
+      "path": "core\\project_charter.py",
+      "text": "\"Python crawler prototype\","
+    },
+    {
+      "language": "python",
+      "line": 196,
+      "path": "core\\project_charter.py",
+      "text": "\"Java crawler prototype\","
+    },
+    {
+      "language": "python",
+      "line": 197,
+      "path": "core\\project_charter.py",
+      "text": "\"Robots.txt and rate-limit review\","
+    },
+    {
+      "language": "python",
+      "line": 198,
+      "path": "core\\project_charter.py",
+      "text": "\"Test against a safe local or allowed website\","
+    },
+    {
+      "language": "python",
+      "line": 199,
+      "path": "core\\project_charter.py",
+      "text": "\"Documentation\","
+    },
+    {
+      "language": "python",
+      "line": 200,
+      "path": "core\\project_charter.py",
+      "text": "\"Final confidence review\","
+    },
+    {
+      "language": "python",
+      "line": 201,
+      "path": "core\\project_charter.py",
+      "text": "],"
+    },
+    {
+      "language": "python",
+      "line": 202,
+      "path": "core\\project_charter.py",
+      "text": "artifacts=["
+    },
+    {
+      "language": "python",
+      "line": 203,
+      "path": "core\\project_charter.py",
+      "text": "\"web_spider_python.py\","
+    },
+    {
+      "language": "python",
+      "line": 204,
+      "path": "core\\project_charter.py",
+      "text": "\"WebSpider.java\","
+    },
+    {
+      "language": "python",
+      "line": 205,
+      "path": "core\\project_charter.py",
+      "text": "\"README_web_spider.md\","
+    },
+    {
+      "language": "python",
+      "line": 206,
+      "path": "core\\project_charter.py",
+      "text": "\"output/index.txt\","
+    },
+    {
+      "language": "python",
+      "line": 207,
+      "path": "core\\project_charter.py",
+      "text": "\"config/spider_config.json\","
+    },
+    {
+      "language": "python",
+      "line": 208,
+      "path": "core\\project_charter.py",
+      "text": "],"
+    },
+    {
+      "language": "python",
+      "line": 209,
+      "path": "core\\project_charter.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 211,
+      "path": "core\\project_charter.py",
+      "text": "def identity_charter(self, mission: str) -> ProjectCharter:"
+    },
+    {
+      "language": "python",
+      "line": 212,
+      "path": "core\\project_charter.py",
+      "text": "return ProjectCharter("
+    },
+    {
+      "language": "python",
+      "line": 213,
+      "path": "core\\project_charter.py",
+      "text": "project_name=\"Kayock's Forge Identity Profile\","
+    },
+    {
+      "language": "python",
+      "line": 214,
+      "path": "core\\project_charter.py",
+      "text": "mission_type=\"Identity Profile\","
+    },
+    {
+      "language": "python",
+      "line": 215,
+      "path": "core\\project_charter.py",
+      "text": "objective=\"Create a configurable Workshop identity without changing core Workshop logic.\","
+    },
+    {
+      "language": "python",
+      "line": 216,
+      "path": "core\\project_charter.py",
+      "text": "in_scope=["
+    },
+    {
+      "language": "python",
+      "line": 217,
+      "path": "core\\project_charter.py",
+      "text": "\"Workshop name\","
+    },
+    {
+      "language": "python",
+      "line": 218,
+      "path": "core\\project_charter.py",
+      "text": "\"Assistant name\","
+    },
+    {
+      "language": "python",
+      "line": 219,
+      "path": "core\\project_charter.py",
+      "text": "\"Theme colors\","
+    },
+    {
+      "language": "python",
+      "line": 220,
+      "path": "core\\project_charter.py",
+      "text": "\"Startup greeting\","
+    },
+    {
+      "language": "python",
+      "line": 221,
+      "path": "core\\project_charter.py",
+      "text": "\"Profile file\","
+    },
+    {
+      "language": "python",
+      "line": 222,
+      "path": "core\\project_charter.py",
+      "text": "\"Preview support\","
+    },
+    {
+      "language": "python",
+      "line": 223,
+      "path": "core\\project_charter.py",
+      "text": "],"
+    },
+    {
+      "language": "python",
+      "line": 224,
+      "path": "core\\project_charter.py",
+      "text": "out_of_scope=["
+    },
+    {
+      "language": "python",
+      "line": 225,
+      "path": "core\\project_charter.py",
+      "text": "\"Changing neural engine behavior\","
+    },
+    {
+      "language": "python",
+      "line": 226,
+      "path": "core\\project_charter.py",
+      "text": "\"Changing core mission routing\","
+    },
+    {
+      "language": "python",
+      "line": 227,
+      "path": "core\\project_charter.py",
+      "text": "\"Forking the codebase\","
+    },
+    {
+      "language": "python",
+      "line": 228,
+      "path": "core\\project_charter.py",
+      "text": "],"
+    },
+    {
+      "language": "python",
+      "line": 229,
+      "path": "core\\project_charter.py",
+      "text": "success_criteria=["
+    },
+    {
+      "language": "python",
+      "line": 230,
+      "path": "core\\project_charter.py",
+      "text": "\"Identity loads from profile data\","
+    },
+    {
+      "language": "python",
+      "line": 231,
+      "path": "core\\project_charter.py",
+      "text": "\"FOXAI profile remains available\","
+    },
+    {
+      "language": "python",
+      "line": 232,
+      "path": "core\\project_charter.py",
+      "text": "\"Kayock's Forge can be selected\","
+    },
+    {
+      "language": "python",
+      "line": 233,
+      "path": "core\\project_charter.py",
+      "text": "\"No core logic depends on hardcoded branding\","
+    },
+    {
+      "language": "python",
+      "line": 234,
+      "path": "core\\project_charter.py",
+      "text": "],"
+    },
+    {
+      "language": "python",
+      "line": 235,
+      "path": "core\\project_charter.py",
+      "text": "departments=["
+    },
+    {
+      "language": "python",
+      "line": 236,
+      "path": "core\\project_charter.py",
+      "text": "\"Forge Master\","
+    },
+    {
+      "language": "python",
+      "line": 237,
+      "path": "core\\project_charter.py",
+      "text": "\"Engineer\","
+    },
+    {
+      "language": "python",
+      "line": 238,
+      "path": "core\\project_charter.py",
+      "text": "\"Settings\","
+    },
+    {
+      "language": "python",
+      "line": 239,
+      "path": "core\\project_charter.py",
+      "text": "\"Soul Forge\","
+    },
+    {
+      "language": "python",
+      "line": 240,
+      "path": "core\\project_charter.py",
+      "text": "\"Diagnostics\","
+    },
+    {
+      "language": "python",
+      "line": 241,
+      "path": "core\\project_charter.py",
+      "text": "],"
+    },
+    {
+      "language": "python",
+      "line": 242,
+      "path": "core\\project_charter.py",
+      "text": "risks=["
+    },
+    {
+      "language": "python",
+      "line": 243,
+      "path": "core\\project_charter.py",
+      "text": "\"Hardcoded branding remains\","
+    },
+    {
+      "language": "python",
+      "line": 244,
+      "path": "core\\project_charter.py",
+      "text": "\"Theme changes leak into logic\","
+    },
+    {
+      "language": "python",
+      "line": 245,
+      "path": "core\\project_charter.py",
+      "text": "\"Profile path issues on cloned drives\","
+    },
+    {
+      "language": "python",
+      "line": 246,
+      "path": "core\\project_charter.py",
+      "text": "],"
+    },
+    {
+      "language": "python",
+      "line": 247,
+      "path": "core\\project_charter.py",
+      "text": "milestones=["
+    },
+    {
+      "language": "python",
+      "line": 248,
+      "path": "core\\project_charter.py",
+      "text": "\"Profile schema\","
+    },
+    {
+      "language": "python",
+      "line": 249,
+      "path": "core\\project_charter.py",
+      "text": "\"Identity loader\","
+    },
+    {
+      "language": "python",
+      "line": 250,
+      "path": "core\\project_charter.py",
+      "text": "\"Theme loader\","
+    },
+    {
+      "language": "python",
+      "line": 251,
+      "path": "core\\project_charter.py",
+      "text": "\"Settings integration\","
+    },
+    {
+      "language": "python",
+      "line": 252,
+      "path": "core\\project_charter.py",
+      "text": "\"Diagnostics validation\","
+    },
+    {
+      "language": "python",
+      "line": 253,
+      "path": "core\\project_charter.py",
+      "text": "],"
+    },
+    {
+      "language": "python",
+      "line": 254,
+      "path": "core\\project_charter.py",
+      "text": "artifacts=["
+    },
+    {
+      "language": "python",
+      "line": 255,
+      "path": "core\\project_charter.py",
+      "text": "\"core/identity.py\","
+    },
+    {
+      "language": "python",
+      "line": 256,
+      "path": "core\\project_charter.py",
+      "text": "\"Profiles/KayocksForge/identity.json\","
+    },
+    {
+      "language": "python",
+      "line": 257,
+      "path": "core\\project_charter.py",
+      "text": "\"ui/settings_panel.py\","
+    },
+    {
+      "language": "python",
+      "line": 258,
+      "path": "core\\project_charter.py",
+      "text": "],"
+    },
+    {
+      "language": "python",
+      "line": 259,
+      "path": "core\\project_charter.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 261,
+      "path": "core\\project_charter.py",
+      "text": "def repair_bay_charter(self, mission: str) -> ProjectCharter:"
+    },
+    {
+      "language": "python",
+      "line": 262,
+      "path": "core\\project_charter.py",
+      "text": "return ProjectCharter("
+    },
+    {
+      "language": "python",
+      "line": 263,
+      "path": "core\\project_charter.py",
+      "text": "project_name=\"Repair Bay\","
+    },
+    {
+      "language": "python",
+      "line": 264,
+      "path": "core\\project_charter.py",
+      "text": "mission_type=\"Future Department\","
+    },
+    {
+      "language": "python",
+      "line": 265,
+      "path": "core\\project_charter.py",
+      "text": "objective=\"Create a safe offline diagnostics and repair-assistance department for machines connected to the Workshop.\","
+    },
+    {
+      "language": "python",
+      "line": 266,
+      "path": "core\\project_charter.py",
+      "text": "in_scope=["
+    },
+    {
+      "language": "python",
+      "line": 267,
+      "path": "core\\project_charter.py",
+      "text": "\"Read-only system scans\","
+    },
+    {
+      "language": "python",
+      "line": 268,
+      "path": "core\\project_charter.py",
+      "text": "\"Log collection\","
+    },
+    {
+      "language": "python",
+      "line": 269,
+      "path": "core\\project_charter.py",
+      "text": "\"Drive health checks\","
+    },
+    {
+      "language": "python",
+      "line": 270,
+      "path": "core\\project_charter.py",
+      "text": "\"Windows repair guidance\","
+    },
+    {
+      "language": "python",
+      "line": 271,
+      "path": "core\\project_charter.py",
+      "text": "\"Report generation\","
+    },
+    {
+      "language": "python",
+      "line": 272,
+      "path": "core\\project_charter.py",
+      "text": "],"
+    },
+    {
+      "language": "python",
+      "line": 273,
+      "path": "core\\project_charter.py",
+      "text": "out_of_scope=["
+    },
+    {
+      "language": "python",
+      "line": 274,
+      "path": "core\\project_charter.py",
+      "text": "\"Automatic destructive repair\","
+    },
+    {
+      "language": "python",
+      "line": 275,
+      "path": "core\\project_charter.py",
+      "text": "\"Registry modification without approval\","
+    },
+    {
+      "language": "python",
+      "line": 276,
+      "path": "core\\project_charter.py",
+      "text": "\"Credential extraction\","
+    },
+    {
+      "language": "python",
+      "line": 277,
+      "path": "core\\project_charter.py",
+      "text": "\"Bypassing operating system security\","
+    },
+    {
+      "language": "python",
+      "line": 278,
+      "path": "core\\project_charter.py",
+      "text": "],"
+    },
+    {
+      "language": "python",
+      "line": 279,
+      "path": "core\\project_charter.py",
+      "text": "success_criteria=["
+    },
+    {
+      "language": "python",
+      "line": 280,
+      "path": "core\\project_charter.py",
+      "text": "\"Repair Bay can run read-only diagnostics\","
+    },
+    {
+      "language": "python",
+      "line": 281,
+      "path": "core\\project_charter.py",
+      "text": "\"Reports are understandable\","
+    },
+    {
+      "language": "python",
+      "line": 282,
+      "path": "core\\project_charter.py",
+      "text": "\"High-risk actions require explicit approval\","
+    },
+    {
+      "language": "python",
+      "line": 283,
+      "path": "core\\project_charter.py",
+      "text": "\"All actions are logged\","
+    },
+    {
+      "language": "python",
+      "line": 284,
+      "path": "core\\project_charter.py",
+      "text": "],"
+    },
+    {
+      "language": "python",
+      "line": 285,
+      "path": "core\\project_charter.py",
+      "text": "departments=["
+    },
+    {
+      "language": "python",
+      "line": 286,
+      "path": "core\\project_charter.py",
+      "text": "\"Forge Master\","
+    },
+    {
+      "language": "python",
+      "line": 287,
+      "path": "core\\project_charter.py",
+      "text": "\"Engineer\","
+    },
+    {
+      "language": "python",
+      "line": 288,
+      "path": "core\\project_charter.py",
+      "text": "\"Diagnostics\","
+    },
+    {
+      "language": "python",
+      "line": 289,
+      "path": "core\\project_charter.py",
+      "text": "\"Iron Library\","
+    },
+    {
+      "language": "python",
+      "line": 290,
+      "path": "core\\project_charter.py",
+      "text": "\"Confidence Engine\","
+    },
+    {
+      "language": "python",
+      "line": 291,
+      "path": "core\\project_charter.py",
+      "text": "],"
+    },
+    {
+      "language": "python",
+      "line": 292,
+      "path": "core\\project_charter.py",
+      "text": "risks=["
+    },
+    {
+      "language": "python",
+      "line": 293,
+      "path": "core\\project_charter.py",
+      "text": "\"Accidental destructive changes\","
+    },
+    {
+      "language": "python",
+      "line": 294,
+      "path": "core\\project_charter.py",
+      "text": "\"Misdiagnosis\","
+    },
+    {
+      "language": "python",
+      "line": 295,
+      "path": "core\\project_charter.py",
+      "text": "\"Hardware-dependent behavior\","
+    },
+    {
+      "language": "python",
+      "line": 296,
+      "path": "core\\project_charter.py",
+      "text": "],"
+    },
+    {
+      "language": "python",
+      "line": 297,
+      "path": "core\\project_charter.py",
+      "text": "milestones=["
+    },
+    {
+      "language": "python",
+      "line": 298,
+      "path": "core\\project_charter.py",
+      "text": "\"Safety model\","
+    },
+    {
+      "language": "python",
+      "line": 299,
+      "path": "core\\project_charter.py",
+      "text": "\"Read-only scanner\","
+    },
+    {
+      "language": "python",
+      "line": 300,
+      "path": "core\\project_charter.py",
+      "text": "\"Report format\","
+    },
+    {
+      "language": "python",
+      "line": 301,
+      "path": "core\\project_charter.py",
+      "text": "\"Guided repair suggestions\","
+    },
+    {
+      "language": "python",
+      "line": 302,
+      "path": "core\\project_charter.py",
+      "text": "\"Approval gates\","
+    },
+    {
+      "language": "python",
+      "line": 303,
+      "path": "core\\project_charter.py",
+      "text": "],"
+    },
+    {
+      "language": "python",
+      "line": 304,
+      "path": "core\\project_charter.py",
+      "text": "artifacts=["
+    },
+    {
+      "language": "python",
+      "line": 305,
+      "path": "core\\project_charter.py",
+      "text": "\"core/repair_bay.py\","
+    },
+    {
+      "language": "python",
+      "line": 306,
+      "path": "core\\project_charter.py",
+      "text": "\"core/repair_scanner.py\","
+    },
+    {
+      "language": "python",
+      "line": 307,
+      "path": "core\\project_charter.py",
+      "text": "\"ui/repair_bay_panel.py\","
+    },
+    {
+      "language": "python",
+      "line": 308,
+      "path": "core\\project_charter.py",
+      "text": "],"
+    },
+    {
+      "language": "python",
+      "line": 309,
+      "path": "core\\project_charter.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 311,
+      "path": "core\\project_charter.py",
+      "text": "def generic_feature_charter(self, mission: str) -> ProjectCharter:"
+    },
+    {
+      "language": "python",
+      "line": 312,
+      "path": "core\\project_charter.py",
+      "text": "return ProjectCharter("
+    },
+    {
+      "language": "python",
+      "line": 313,
+      "path": "core\\project_charter.py",
+      "text": "project_name=\"New Workshop Project\","
+    },
+    {
+      "language": "python",
+      "line": 314,
+      "path": "core\\project_charter.py",
+      "text": "mission_type=\"Feature Development\","
+    },
+    {
+      "language": "python",
+      "line": 315,
+      "path": "core\\project_charter.py",
+      "text": "objective=f\"Define and plan the requested project: {mission}\","
+    },
+    {
+      "language": "python",
+      "line": 316,
+      "path": "core\\project_charter.py",
+      "text": "in_scope=["
+    },
+    {
+      "language": "python",
+      "line": 317,
+      "path": "core\\project_charter.py",
+      "text": "\"Requirements definition\","
+    },
+    {
+      "language": "python",
+      "line": 318,
+      "path": "core\\project_charter.py",
+      "text": "\"Architecture planning\","
+    },
+    {
+      "language": "python",
+      "line": 319,
+      "path": "core\\project_charter.py",
+      "text": "\"Safe implementation plan\","
+    },
+    {
+      "language": "python",
+      "line": 320,
+      "path": "core\\project_charter.py",
+      "text": "\"Diagnostics review\","
+    },
+    {
+      "language": "python",
+      "line": 321,
+      "path": "core\\project_charter.py",
+      "text": "],"
+    },
+    {
+      "language": "python",
+      "line": 322,
+      "path": "core\\project_charter.py",
+      "text": "out_of_scope=["
+    },
+    {
+      "language": "python",
+      "line": 323,
+      "path": "core\\project_charter.py",
+      "text": "\"Unapproved file modification\","
+    },
+    {
+      "language": "python",
+      "line": 324,
+      "path": "core\\project_charter.py",
+      "text": "\"Unsafe automation\","
+    },
+    {
+      "language": "python",
+      "line": 325,
+      "path": "core\\project_charter.py",
+      "text": "],"
+    },
+    {
+      "language": "python",
+      "line": 326,
+      "path": "core\\project_charter.py",
+      "text": "success_criteria=["
+    },
+    {
+      "language": "python",
+      "line": 327,
+      "path": "core\\project_charter.py",
+      "text": "\"Project goal is clearly defined\","
+    },
+    {
+      "language": "python",
+      "line": 328,
+      "path": "core\\project_charter.py",
+      "text": "\"Scope is agreed\","
+    },
+    {
+      "language": "python",
+      "line": 329,
+      "path": "core\\project_charter.py",
+      "text": "\"Risks are identified\","
+    },
+    {
+      "language": "python",
+      "line": 330,
+      "path": "core\\project_charter.py",
+      "text": "\"Operator approves before forging\","
+    },
+    {
+      "language": "python",
+      "line": 331,
+      "path": "core\\project_charter.py",
+      "text": "],"
+    },
+    {
+      "language": "python",
+      "line": 332,
+      "path": "core\\project_charter.py",
+      "text": "departments=["
+    },
+    {
+      "language": "python",
+      "line": 333,
+      "path": "core\\project_charter.py",
+      "text": "\"Forge Master\","
+    },
+    {
+      "language": "python",
+      "line": 334,
+      "path": "core\\project_charter.py",
+      "text": "\"Engineer\","
+    },
+    {
+      "language": "python",
+      "line": 335,
+      "path": "core\\project_charter.py",
+      "text": "\"Decision Layer\","
+    },
+    {
+      "language": "python",
+      "line": 336,
+      "path": "core\\project_charter.py",
+      "text": "\"Confidence Engine\","
+    },
+    {
+      "language": "python",
+      "line": 337,
+      "path": "core\\project_charter.py",
+      "text": "],"
+    },
+    {
+      "language": "python",
+      "line": 338,
+      "path": "core\\project_charter.py",
+      "text": "risks=["
+    },
+    {
+      "language": "python",
+      "line": 339,
+      "path": "core\\project_charter.py",
+      "text": "\"Unclear scope\","
+    },
+    {
+      "language": "python",
+      "line": 340,
+      "path": "core\\project_charter.py",
+      "text": "\"Feature creep\","
+    },
+    {
+      "language": "python",
+      "line": 341,
+      "path": "core\\project_charter.py",
+      "text": "\"Integration complexity\","
+    },
+    {
+      "language": "python",
+      "line": 342,
+      "path": "core\\project_charter.py",
+      "text": "],"
+    },
+    {
+      "language": "python",
+      "line": 343,
+      "path": "core\\project_charter.py",
+      "text": "milestones=["
+    },
+    {
+      "language": "python",
+      "line": 344,
+      "path": "core\\project_charter.py",
+      "text": "\"Requirements\","
+    },
+    {
+      "language": "python",
+      "line": 345,
+      "path": "core\\project_charter.py",
+      "text": "\"Blueprint\","
+    },
+    {
+      "language": "python",
+      "line": 346,
+      "path": "core\\project_charter.py",
+      "text": "\"Implementation plan\","
+    },
+    {
+      "language": "python",
+      "line": 347,
+      "path": "core\\project_charter.py",
+      "text": "\"Validation plan\","
+    },
+    {
+      "language": "python",
+      "line": 348,
+      "path": "core\\project_charter.py",
+      "text": "],"
+    },
+    {
+      "language": "python",
+      "line": 349,
+      "path": "core\\project_charter.py",
+      "text": "artifacts=["
+    },
+    {
+      "language": "python",
+      "line": 350,
+      "path": "core\\project_charter.py",
+      "text": "\"core/<new_module>.py\","
+    },
+    {
+      "language": "python",
+      "line": 351,
+      "path": "core\\project_charter.py",
+      "text": "\"ui/<optional_panel>.py\","
+    },
+    {
+      "language": "python",
+      "line": 352,
+      "path": "core\\project_charter.py",
+      "text": "\"README_<project>.md\","
+    },
+    {
+      "language": "python",
+      "line": 353,
+      "path": "core\\project_charter.py",
+      "text": "],"
+    },
+    {
+      "language": "python",
+      "line": 354,
+      "path": "core\\project_charter.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 1,
+      "path": "core\\project_index.py",
+      "text": "from pathlib import Path"
+    },
+    {
+      "language": "python",
+      "line": 2,
+      "path": "core\\project_index.py",
+      "text": "import ast"
+    },
+    {
+      "language": "python",
+      "line": 3,
+      "path": "core\\project_index.py",
+      "text": "import time"
+    },
+    {
+      "language": "python",
+      "line": 6,
+      "path": "core\\project_index.py",
+      "text": "class ProjectIndex:"
+    },
+    {
+      "language": "python",
+      "line": 7,
+      "path": "core\\project_index.py",
+      "text": "\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 8,
+      "path": "core\\project_index.py",
+      "text": "Read-only project index for Engineer."
+    },
+    {
+      "language": "python",
+      "line": 10,
+      "path": "core\\project_index.py",
+      "text": "This scans source files and extracts simple structural facts:"
+    },
+    {
+      "language": "python",
+      "line": 11,
+      "path": "core\\project_index.py",
+      "text": "- files"
+    },
+    {
+      "language": "python",
+      "line": 12,
+      "path": "core\\project_index.py",
+      "text": "- Python classes"
+    },
+    {
+      "language": "python",
+      "line": 13,
+      "path": "core\\project_index.py",
+      "text": "- Python functions"
+    },
+    {
+      "language": "python",
+      "line": 14,
+      "path": "core\\project_index.py",
+      "text": "- imports"
+    },
+    {
+      "language": "python",
+      "line": 15,
+      "path": "core\\project_index.py",
+      "text": "- largest files"
+    },
+    {
+      "language": "python",
+      "line": 16,
+      "path": "core\\project_index.py",
+      "text": "\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 18,
+      "path": "core\\project_index.py",
+      "text": "CODE_EXTENSIONS = {"
+    },
+    {
+      "language": "python",
+      "line": 19,
+      "path": "core\\project_index.py",
+      "text": "\".py\", \".md\", \".txt\", \".json\", \".ini\", \".bat\", \".ps1\", \".yaml\", \".yml\""
+    },
+    {
+      "language": "python",
+      "line": 20,
+      "path": "core\\project_index.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 22,
+      "path": "core\\project_index.py",
+      "text": "IGNORE_DIRS = {"
+    },
+    {
+      "language": "python",
+      "line": 23,
+      "path": "core\\project_index.py",
+      "text": "\"__pycache__\", \".git\", \".idea\", \".vscode\", \"Models\", \"models\","
+    },
+    {
+      "language": "python",
+      "line": 24,
+      "path": "core\\project_index.py",
+      "text": "\"output\", \"outputs\", \"temp\", \"tmp\", \"Backups\", \"Releases\","
+    },
+    {
+      "language": "python",
+      "line": 25,
+      "path": "core\\project_index.py",
+      "text": "\"Mission Archive\""
+    },
+    {
+      "language": "python",
+      "line": 26,
+      "path": "core\\project_index.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 28,
+      "path": "core\\project_index.py",
+      "text": "IGNORE_SUFFIXES = {"
+    },
+    {
+      "language": "python",
+      "line": 29,
+      "path": "core\\project_index.py",
+      "text": "\".pyc\", \".pyo\", \".zip\", \".rar\", \".7z\", \".png\", \".jpg\", \".jpeg\", \".webp\", \".ico\""
+    },
+    {
+      "language": "python",
+      "line": 30,
+      "path": "core\\project_index.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 32,
+      "path": "core\\project_index.py",
+      "text": "def __init__(self, root):"
+    },
+    {
+      "language": "python",
+      "line": 33,
+      "path": "core\\project_index.py",
+      "text": "self.root = Path(root)"
+    },
+    {
+      "language": "python",
+      "line": 34,
+      "path": "core\\project_index.py",
+      "text": "self.created_at = time.time()"
+    },
+    {
+      "language": "python",
+      "line": 35,
+      "path": "core\\project_index.py",
+      "text": "self.files = []"
+    },
+    {
+      "language": "python",
+      "line": 36,
+      "path": "core\\project_index.py",
+      "text": "self.python_files = []"
+    },
+    {
+      "language": "python",
+      "line": 37,
+      "path": "core\\project_index.py",
+      "text": "self.classes = []"
+    },
+    {
+      "language": "python",
+      "line": 38,
+      "path": "core\\project_index.py",
+      "text": "self.functions = []"
+    },
+    {
+      "language": "python",
+      "line": 39,
+      "path": "core\\project_index.py",
+      "text": "self.imports = []"
+    },
+    {
+      "language": "python",
+      "line": 40,
+      "path": "core\\project_index.py",
+      "text": "self.errors = []"
+    },
+    {
+      "language": "python",
+      "line": 42,
+      "path": "core\\project_index.py",
+      "text": "def build(self):"
+    },
+    {
+      "language": "python",
+      "line": 43,
+      "path": "core\\project_index.py",
+      "text": "self.files = []"
+    },
+    {
+      "language": "python",
+      "line": 44,
+      "path": "core\\project_index.py",
+      "text": "self.python_files = []"
+    },
+    {
+      "language": "python",
+      "line": 45,
+      "path": "core\\project_index.py",
+      "text": "self.classes = []"
+    },
+    {
+      "language": "python",
+      "line": 46,
+      "path": "core\\project_index.py",
+      "text": "self.functions = []"
+    },
+    {
+      "language": "python",
+      "line": 47,
+      "path": "core\\project_index.py",
+      "text": "self.imports = []"
+    },
+    {
+      "language": "python",
+      "line": 48,
+      "path": "core\\project_index.py",
+      "text": "self.errors = []"
+    },
+    {
+      "language": "python",
+      "line": 50,
+      "path": "core\\project_index.py",
+      "text": "for path in self.iter_files():"
+    },
+    {
+      "language": "python",
+      "line": 51,
+      "path": "core\\project_index.py",
+      "text": "info = self.file_info(path)"
+    },
+    {
+      "language": "python",
+      "line": 52,
+      "path": "core\\project_index.py",
+      "text": "self.files.append(info)"
+    },
+    {
+      "language": "python",
+      "line": 54,
+      "path": "core\\project_index.py",
+      "text": "if path.suffix.lower() == \".py\":"
+    },
+    {
+      "language": "python",
+      "line": 55,
+      "path": "core\\project_index.py",
+      "text": "self.python_files.append(info)"
+    },
+    {
+      "language": "python",
+      "line": 56,
+      "path": "core\\project_index.py",
+      "text": "self.scan_python(path)"
+    },
+    {
+      "language": "python",
+      "line": 58,
+      "path": "core\\project_index.py",
+      "text": "return self"
+    },
+    {
+      "language": "python",
+      "line": 60,
+      "path": "core\\project_index.py",
+      "text": "def iter_files(self):"
+    },
+    {
+      "language": "python",
+      "line": 61,
+      "path": "core\\project_index.py",
+      "text": "for path in self.root.rglob(\"*\"):"
+    },
+    {
+      "language": "python",
+      "line": 62,
+      "path": "core\\project_index.py",
+      "text": "if not path.is_file():"
+    },
+    {
+      "language": "python",
+      "line": 63,
+      "path": "core\\project_index.py",
+      "text": "continue"
+    },
+    {
+      "language": "python",
+      "line": 65,
+      "path": "core\\project_index.py",
+      "text": "if any(part in self.IGNORE_DIRS for part in path.parts):"
+    },
+    {
+      "language": "python",
+      "line": 66,
+      "path": "core\\project_index.py",
+      "text": "continue"
+    },
+    {
+      "language": "python",
+      "line": 68,
+      "path": "core\\project_index.py",
+      "text": "if path.suffix.lower() in self.IGNORE_SUFFIXES:"
+    },
+    {
+      "language": "python",
+      "line": 69,
+      "path": "core\\project_index.py",
+      "text": "continue"
+    },
+    {
+      "language": "python",
+      "line": 71,
+      "path": "core\\project_index.py",
+      "text": "if path.suffix.lower() not in self.CODE_EXTENSIONS:"
+    },
+    {
+      "language": "python",
+      "line": 72,
+      "path": "core\\project_index.py",
+      "text": "continue"
+    },
+    {
+      "language": "python",
+      "line": 74,
+      "path": "core\\project_index.py",
+      "text": "yield path"
+    },
+    {
+      "language": "python",
+      "line": 76,
+      "path": "core\\project_index.py",
+      "text": "def rel(self, path):"
+    },
+    {
+      "language": "python",
+      "line": 77,
+      "path": "core\\project_index.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 78,
+      "path": "core\\project_index.py",
+      "text": "return str(Path(path).relative_to(self.root)).replace(\"\\\\\", \"/\")"
+    },
+    {
+      "language": "python",
+      "line": 79,
+      "path": "core\\project_index.py",
+      "text": "except Exception:"
+    },
+    {
+      "language": "python",
+      "line": 80,
+      "path": "core\\project_index.py",
+      "text": "return str(path)"
+    },
+    {
+      "language": "python",
+      "line": 82,
+      "path": "core\\project_index.py",
+      "text": "def file_info(self, path):"
+    },
+    {
+      "language": "python",
+      "line": 83,
+      "path": "core\\project_index.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 84,
+      "path": "core\\project_index.py",
+      "text": "size = path.stat().st_size"
+    },
+    {
+      "language": "python",
+      "line": 85,
+      "path": "core\\project_index.py",
+      "text": "except Exception:"
+    },
+    {
+      "language": "python",
+      "line": 86,
+      "path": "core\\project_index.py",
+      "text": "size = 0"
+    },
+    {
+      "language": "python",
+      "line": 88,
+      "path": "core\\project_index.py",
+      "text": "return {"
+    },
+    {
+      "language": "python",
+      "line": 89,
+      "path": "core\\project_index.py",
+      "text": "\"path\": path,"
+    },
+    {
+      "language": "python",
+      "line": 90,
+      "path": "core\\project_index.py",
+      "text": "\"relative\": self.rel(path),"
+    },
+    {
+      "language": "python",
+      "line": 91,
+      "path": "core\\project_index.py",
+      "text": "\"suffix\": path.suffix.lower(),"
+    },
+    {
+      "language": "python",
+      "line": 92,
+      "path": "core\\project_index.py",
+      "text": "\"size\": size,"
+    },
+    {
+      "language": "python",
+      "line": 93,
+      "path": "core\\project_index.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 95,
+      "path": "core\\project_index.py",
+      "text": "def scan_python(self, path):"
+    },
+    {
+      "language": "python",
+      "line": 96,
+      "path": "core\\project_index.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 97,
+      "path": "core\\project_index.py",
+      "text": "source = path.read_text(encoding=\"utf-8\", errors=\"replace\")"
+    },
+    {
+      "language": "python",
+      "line": 98,
+      "path": "core\\project_index.py",
+      "text": "tree = ast.parse(source)"
+    },
+    {
+      "language": "python",
+      "line": 99,
+      "path": "core\\project_index.py",
+      "text": "except Exception as error:"
+    },
+    {
+      "language": "python",
+      "line": 100,
+      "path": "core\\project_index.py",
+      "text": "self.errors.append({"
+    },
+    {
+      "language": "python",
+      "line": 101,
+      "path": "core\\project_index.py",
+      "text": "\"file\": self.rel(path),"
+    },
+    {
+      "language": "python",
+      "line": 102,
+      "path": "core\\project_index.py",
+      "text": "\"error\": str(error),"
+    },
+    {
+      "language": "python",
+      "line": 103,
+      "path": "core\\project_index.py",
+      "text": "})"
+    },
+    {
+      "language": "python",
+      "line": 104,
+      "path": "core\\project_index.py",
+      "text": "return"
+    },
+    {
+      "language": "python",
+      "line": 106,
+      "path": "core\\project_index.py",
+      "text": "rel = self.rel(path)"
+    },
+    {
+      "language": "python",
+      "line": 108,
+      "path": "core\\project_index.py",
+      "text": "for node in ast.walk(tree):"
+    },
+    {
+      "language": "python",
+      "line": 109,
+      "path": "core\\project_index.py",
+      "text": "if isinstance(node, ast.ClassDef):"
+    },
+    {
+      "language": "python",
+      "line": 110,
+      "path": "core\\project_index.py",
+      "text": "self.classes.append({"
+    },
+    {
+      "language": "python",
+      "line": 111,
+      "path": "core\\project_index.py",
+      "text": "\"name\": node.name,"
+    },
+    {
+      "language": "python",
+      "line": 112,
+      "path": "core\\project_index.py",
+      "text": "\"file\": rel,"
+    },
+    {
+      "language": "python",
+      "line": 113,
+      "path": "core\\project_index.py",
+      "text": "\"line\": getattr(node, \"lineno\", None),"
+    },
+    {
+      "language": "python",
+      "line": 114,
+      "path": "core\\project_index.py",
+      "text": "})"
+    },
+    {
+      "language": "python",
+      "line": 116,
+      "path": "core\\project_index.py",
+      "text": "elif isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)):"
+    },
+    {
+      "language": "python",
+      "line": 117,
+      "path": "core\\project_index.py",
+      "text": "self.functions.append({"
+    },
+    {
+      "language": "python",
+      "line": 118,
+      "path": "core\\project_index.py",
+      "text": "\"name\": node.name,"
+    },
+    {
+      "language": "python",
+      "line": 119,
+      "path": "core\\project_index.py",
+      "text": "\"file\": rel,"
+    },
+    {
+      "language": "python",
+      "line": 120,
+      "path": "core\\project_index.py",
+      "text": "\"line\": getattr(node, \"lineno\", None),"
+    },
+    {
+      "language": "python",
+      "line": 121,
+      "path": "core\\project_index.py",
+      "text": "\"async\": isinstance(node, ast.AsyncFunctionDef),"
+    },
+    {
+      "language": "python",
+      "line": 122,
+      "path": "core\\project_index.py",
+      "text": "})"
+    },
+    {
+      "language": "python",
+      "line": 124,
+      "path": "core\\project_index.py",
+      "text": "elif isinstance(node, ast.Import):"
+    },
+    {
+      "language": "python",
+      "line": 125,
+      "path": "core\\project_index.py",
+      "text": "for alias in node.names:"
+    },
+    {
+      "language": "python",
+      "line": 126,
+      "path": "core\\project_index.py",
+      "text": "self.imports.append({"
+    },
+    {
+      "language": "python",
+      "line": 127,
+      "path": "core\\project_index.py",
+      "text": "\"module\": alias.name,"
+    },
+    {
+      "language": "python",
+      "line": 128,
+      "path": "core\\project_index.py",
+      "text": "\"file\": rel,"
+    },
+    {
+      "language": "python",
+      "line": 129,
+      "path": "core\\project_index.py",
+      "text": "\"line\": getattr(node, \"lineno\", None),"
+    },
+    {
+      "language": "python",
+      "line": 130,
+      "path": "core\\project_index.py",
+      "text": "})"
+    },
+    {
+      "language": "python",
+      "line": 132,
+      "path": "core\\project_index.py",
+      "text": "elif isinstance(node, ast.ImportFrom):"
+    },
+    {
+      "language": "python",
+      "line": 133,
+      "path": "core\\project_index.py",
+      "text": "module = node.module or \"\""
+    },
+    {
+      "language": "python",
+      "line": 134,
+      "path": "core\\project_index.py",
+      "text": "for alias in node.names:"
+    },
+    {
+      "language": "python",
+      "line": 135,
+      "path": "core\\project_index.py",
+      "text": "name = f\"{module}.{alias.name}\" if module else alias.name"
+    },
+    {
+      "language": "python",
+      "line": 136,
+      "path": "core\\project_index.py",
+      "text": "self.imports.append({"
+    },
+    {
+      "language": "python",
+      "line": 137,
+      "path": "core\\project_index.py",
+      "text": "\"module\": name,"
+    },
+    {
+      "language": "python",
+      "line": 138,
+      "path": "core\\project_index.py",
+      "text": "\"file\": rel,"
+    },
+    {
+      "language": "python",
+      "line": 139,
+      "path": "core\\project_index.py",
+      "text": "\"line\": getattr(node, \"lineno\", None),"
+    },
+    {
+      "language": "python",
+      "line": 140,
+      "path": "core\\project_index.py",
+      "text": "})"
+    },
+    {
+      "language": "python",
+      "line": 142,
+      "path": "core\\project_index.py",
+      "text": "def largest_files(self, limit=10):"
+    },
+    {
+      "language": "python",
+      "line": 143,
+      "path": "core\\project_index.py",
+      "text": "return sorted(self.files, key=lambda item: item[\"size\"], reverse=True)[:limit]"
+    },
+    {
+      "language": "python",
+      "line": 145,
+      "path": "core\\project_index.py",
+      "text": "def find_symbol(self, symbol):"
+    },
+    {
+      "language": "python",
+      "line": 146,
+      "path": "core\\project_index.py",
+      "text": "lowered = symbol.lower()"
+    },
+    {
+      "language": "python",
+      "line": 147,
+      "path": "core\\project_index.py",
+      "text": "class_hits = [c for c in self.classes if lowered in c[\"name\"].lower()]"
+    },
+    {
+      "language": "python",
+      "line": 148,
+      "path": "core\\project_index.py",
+      "text": "function_hits = [f for f in self.functions if lowered in f[\"name\"].lower()]"
+    },
+    {
+      "language": "python",
+      "line": 149,
+      "path": "core\\project_index.py",
+      "text": "import_hits = [i for i in self.imports if lowered in i[\"module\"].lower()]"
+    },
+    {
+      "language": "python",
+      "line": 150,
+      "path": "core\\project_index.py",
+      "text": "file_hits = [f for f in self.files if lowered in f[\"relative\"].lower()]"
+    },
+    {
+      "language": "python",
+      "line": 151,
+      "path": "core\\project_index.py",
+      "text": "return {"
+    },
+    {
+      "language": "python",
+      "line": 152,
+      "path": "core\\project_index.py",
+      "text": "\"classes\": class_hits,"
+    },
+    {
+      "language": "python",
+      "line": 153,
+      "path": "core\\project_index.py",
+      "text": "\"functions\": function_hits,"
+    },
+    {
+      "language": "python",
+      "line": 154,
+      "path": "core\\project_index.py",
+      "text": "\"imports\": import_hits,"
+    },
+    {
+      "language": "python",
+      "line": 155,
+      "path": "core\\project_index.py",
+      "text": "\"files\": file_hits,"
+    },
+    {
+      "language": "python",
+      "line": 156,
+      "path": "core\\project_index.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 158,
+      "path": "core\\project_index.py",
+      "text": "def summary(self):"
+    },
+    {
+      "language": "python",
+      "line": 159,
+      "path": "core\\project_index.py",
+      "text": "return {"
+    },
+    {
+      "language": "python",
+      "line": 160,
+      "path": "core\\project_index.py",
+      "text": "\"root\": str(self.root),"
+    },
+    {
+      "language": "python",
+      "line": 161,
+      "path": "core\\project_index.py",
+      "text": "\"file_count\": len(self.files),"
+    },
+    {
+      "language": "python",
+      "line": 162,
+      "path": "core\\project_index.py",
+      "text": "\"python_file_count\": len(self.python_files),"
+    },
+    {
+      "language": "python",
+      "line": 163,
+      "path": "core\\project_index.py",
+      "text": "\"class_count\": len(self.classes),"
+    },
+    {
+      "language": "python",
+      "line": 164,
+      "path": "core\\project_index.py",
+      "text": "\"function_count\": len(self.functions),"
+    },
+    {
+      "language": "python",
+      "line": 165,
+      "path": "core\\project_index.py",
+      "text": "\"import_count\": len(self.imports),"
+    },
+    {
+      "language": "python",
+      "line": 166,
+      "path": "core\\project_index.py",
+      "text": "\"parse_error_count\": len(self.errors),"
+    },
+    {
+      "language": "python",
+      "line": 167,
+      "path": "core\\project_index.py",
+      "text": "\"largest_files\": self.largest_files(),"
+    },
+    {
+      "language": "python",
+      "line": 168,
+      "path": "core\\project_index.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 170,
+      "path": "core\\project_index.py",
+      "text": "def architecture_report(self):"
+    },
+    {
+      "language": "python",
+      "line": 171,
+      "path": "core\\project_index.py",
+      "text": "summary = self.summary()"
+    },
+    {
+      "language": "python",
+      "line": 173,
+      "path": "core\\project_index.py",
+      "text": "core_files = [f for f in self.files if f[\"relative\"].startswith(\"core/\")]"
+    },
+    {
+      "language": "python",
+      "line": 174,
+      "path": "core\\project_index.py",
+      "text": "ui_files = [f for f in self.files if f[\"relative\"].startswith(\"ui/\")]"
+    },
+    {
+      "language": "python",
+      "line": 175,
+      "path": "core\\project_index.py",
+      "text": "agent_files = [f for f in self.files if \"agent\" in f[\"relative\"].lower()]"
+    },
+    {
+      "language": "python",
+      "line": 177,
+      "path": "core\\project_index.py",
+      "text": "lines = ["
+    },
+    {
+      "language": "python",
+      "line": 178,
+      "path": "core\\project_index.py",
+      "text": "\"PROJECT INDEX REPORT\","
+    },
+    {
+      "language": "python",
+      "line": 179,
+      "path": "core\\project_index.py",
+      "text": "\"\","
+    },
+    {
+      "language": "python",
+      "line": 180,
+      "path": "core\\project_index.py",
+      "text": "f\"Root: {summary['root']}\","
+    },
+    {
+      "language": "python",
+      "line": 181,
+      "path": "core\\project_index.py",
+      "text": "\"\","
+    },
+    {
+      "language": "python",
+      "line": 182,
+      "path": "core\\project_index.py",
+      "text": "f\"Files indexed: {summary['file_count']}\","
+    },
+    {
+      "language": "python",
+      "line": 183,
+      "path": "core\\project_index.py",
+      "text": "f\"Python files: {summary['python_file_count']}\","
+    },
+    {
+      "language": "python",
+      "line": 184,
+      "path": "core\\project_index.py",
+      "text": "f\"Classes detected: {summary['class_count']}\","
+    },
+    {
+      "language": "python",
+      "line": 185,
+      "path": "core\\project_index.py",
+      "text": "f\"Functions detected: {summary['function_count']}\","
+    },
+    {
+      "language": "python",
+      "line": 186,
+      "path": "core\\project_index.py",
+      "text": "f\"Imports detected: {summary['import_count']}\","
+    },
+    {
+      "language": "python",
+      "line": 187,
+      "path": "core\\project_index.py",
+      "text": "f\"Parse errors: {summary['parse_error_count']}\","
+    },
+    {
+      "language": "python",
+      "line": 188,
+      "path": "core\\project_index.py",
+      "text": "\"\","
+    },
+    {
+      "language": "python",
+      "line": 189,
+      "path": "core\\project_index.py",
+      "text": "\"Module groups:\","
+    },
+    {
+      "language": "python",
+      "line": 190,
+      "path": "core\\project_index.py",
+      "text": "f\"• core/: {len(core_files)} files\","
+    },
+    {
+      "language": "python",
+      "line": 191,
+      "path": "core\\project_index.py",
+      "text": "f\"• ui/: {len(ui_files)} files\","
+    },
+    {
+      "language": "python",
+      "line": 192,
+      "path": "core\\project_index.py",
+      "text": "f\"• agent-related: {len(agent_files)} files\","
+    },
+    {
+      "language": "python",
+      "line": 193,
+      "path": "core\\project_index.py",
+      "text": "\"\","
+    },
+    {
+      "language": "python",
+      "line": 194,
+      "path": "core\\project_index.py",
+      "text": "\"Largest indexed files:\","
+    },
+    {
+      "language": "python",
+      "line": 195,
+      "path": "core\\project_index.py",
+      "text": "]"
+    },
+    {
+      "language": "python",
+      "line": 197,
+      "path": "core\\project_index.py",
+      "text": "for item in summary[\"largest_files\"][:8]:"
+    },
+    {
+      "language": "python",
+      "line": 198,
+      "path": "core\\project_index.py",
+      "text": "kb = item[\"size\"] / 1024"
+    },
+    {
+      "language": "python",
+      "line": 199,
+      "path": "core\\project_index.py",
+      "text": "lines.append(f\"• {item['relative']} ({kb:.1f} KB)\")"
+    },
+    {
+      "language": "python",
+      "line": 201,
+      "path": "core\\project_index.py",
+      "text": "if summary[\"parse_error_count\"]:"
+    },
+    {
+      "language": "python",
+      "line": 202,
+      "path": "core\\project_index.py",
+      "text": "lines.append(\"\")"
+    },
+    {
+      "language": "python",
+      "line": 203,
+      "path": "core\\project_index.py",
+      "text": "lines.append(\"Parse warnings:\")"
+    },
+    {
+      "language": "python",
+      "line": 204,
+      "path": "core\\project_index.py",
+      "text": "for error in self.errors[:5]:"
+    },
+    {
+      "language": "python",
+      "line": 205,
+      "path": "core\\project_index.py",
+      "text": "lines.append(f\"• {error['file']}: {error['error']}\")"
+    },
+    {
+      "language": "python",
+      "line": 207,
+      "path": "core\\project_index.py",
+      "text": "lines.append(\"\")"
+    },
+    {
+      "language": "python",
+      "line": 208,
+      "path": "core\\project_index.py",
+      "text": "lines.append(\"Safety Status:\")"
+    },
+    {
+      "language": "python",
+      "line": 209,
+      "path": "core\\project_index.py",
+      "text": "lines.append(\"Read-only. No files were modified.\")"
+    },
+    {
+      "language": "python",
+      "line": 211,
+      "path": "core\\project_index.py",
+      "text": "return \"\\n\".join(lines)"
+    },
+    {
+      "language": "python",
+      "line": 1,
+      "path": "core\\project_memory.py",
+      "text": "import json"
+    },
+    {
+      "language": "python",
+      "line": 2,
+      "path": "core\\project_memory.py",
+      "text": "import re"
+    },
+    {
+      "language": "python",
+      "line": 3,
+      "path": "core\\project_memory.py",
+      "text": "from datetime import datetime"
+    },
+    {
+      "language": "python",
+      "line": 4,
+      "path": "core\\project_memory.py",
+      "text": "from pathlib import Path"
+    },
+    {
+      "language": "python",
+      "line": 7,
+      "path": "core\\project_memory.py",
+      "text": "class ProjectMemory:"
+    },
+    {
+      "language": "python",
+      "line": 8,
+      "path": "core\\project_memory.py",
+      "text": "\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 9,
+      "path": "core\\project_memory.py",
+      "text": "Project Memory RC1"
+    },
+    {
+      "language": "python",
+      "line": 11,
+      "path": "core\\project_memory.py",
+      "text": "Persistent engineering memory for FOXAI projects."
+    },
+    {
+      "language": "python",
+      "line": 13,
+      "path": "core\\project_memory.py",
+      "text": "Stores structured project records under:"
+    },
+    {
+      "language": "python",
+      "line": 15,
+      "path": "core\\project_memory.py",
+      "text": "Projects/<ProjectName>/"
+    },
+    {
+      "language": "python",
+      "line": 16,
+      "path": "core\\project_memory.py",
+      "text": "charter.json"
+    },
+    {
+      "language": "python",
+      "line": 17,
+      "path": "core\\project_memory.py",
+      "text": "status.json"
+    },
+    {
+      "language": "python",
+      "line": 18,
+      "path": "core\\project_memory.py",
+      "text": "decisions.json"
+    },
+    {
+      "language": "python",
+      "line": 19,
+      "path": "core\\project_memory.py",
+      "text": "lessons.json"
+    },
+    {
+      "language": "python",
+      "line": 20,
+      "path": "core\\project_memory.py",
+      "text": "forge_log.json"
+    },
+    {
+      "language": "python",
+      "line": 22,
+      "path": "core\\project_memory.py",
+      "text": "This module writes only to the Projects folder."
+    },
+    {
+      "language": "python",
+      "line": 23,
+      "path": "core\\project_memory.py",
+      "text": "\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 25,
+      "path": "core\\project_memory.py",
+      "text": "def __init__(self, root=None):"
+    },
+    {
+      "language": "python",
+      "line": 26,
+      "path": "core\\project_memory.py",
+      "text": "self.root = Path(root) if root else Path(__file__).resolve().parents[1]"
+    },
+    {
+      "language": "python",
+      "line": 27,
+      "path": "core\\project_memory.py",
+      "text": "self.projects_dir = self.root / \"Projects\""
+    },
+    {
+      "language": "python",
+      "line": 28,
+      "path": "core\\project_memory.py",
+      "text": "self.projects_dir.mkdir(parents=True, exist_ok=True)"
+    },
+    {
+      "language": "python",
+      "line": 30,
+      "path": "core\\project_memory.py",
+      "text": "def slug(self, name):"
+    },
+    {
+      "language": "python",
+      "line": 31,
+      "path": "core\\project_memory.py",
+      "text": "name = name or \"UntitledProject\""
+    },
+    {
+      "language": "python",
+      "line": 32,
+      "path": "core\\project_memory.py",
+      "text": "cleaned = re.sub(r\"[^A-Za-z0-9]+\", \"\", name)"
+    },
+    {
+      "language": "python",
+      "line": 33,
+      "path": "core\\project_memory.py",
+      "text": "return cleaned or \"UntitledProject\""
+    },
+    {
+      "language": "python",
+      "line": 35,
+      "path": "core\\project_memory.py",
+      "text": "def project_dir(self, project_name):"
+    },
+    {
+      "language": "python",
+      "line": 36,
+      "path": "core\\project_memory.py",
+      "text": "path = self.projects_dir / self.slug(project_name)"
+    },
+    {
+      "language": "python",
+      "line": 37,
+      "path": "core\\project_memory.py",
+      "text": "path.mkdir(parents=True, exist_ok=True)"
+    },
+    {
+      "language": "python",
+      "line": 38,
+      "path": "core\\project_memory.py",
+      "text": "return path"
+    },
+    {
+      "language": "python",
+      "line": 40,
+      "path": "core\\project_memory.py",
+      "text": "def read_json(self, path, default):"
+    },
+    {
+      "language": "python",
+      "line": 41,
+      "path": "core\\project_memory.py",
+      "text": "if not path.exists():"
+    },
+    {
+      "language": "python",
+      "line": 42,
+      "path": "core\\project_memory.py",
+      "text": "return default"
+    },
+    {
+      "language": "python",
+      "line": 44,
+      "path": "core\\project_memory.py",
+      "text": "try:"
+    },
+    {
+      "language": "python",
+      "line": 45,
+      "path": "core\\project_memory.py",
+      "text": "return json.loads(path.read_text(encoding=\"utf-8\"))"
+    },
+    {
+      "language": "python",
+      "line": 46,
+      "path": "core\\project_memory.py",
+      "text": "except Exception:"
+    },
+    {
+      "language": "python",
+      "line": 47,
+      "path": "core\\project_memory.py",
+      "text": "return default"
+    },
+    {
+      "language": "python",
+      "line": 49,
+      "path": "core\\project_memory.py",
+      "text": "def write_json(self, path, data):"
+    },
+    {
+      "language": "python",
+      "line": 50,
+      "path": "core\\project_memory.py",
+      "text": "path.parent.mkdir(parents=True, exist_ok=True)"
+    },
+    {
+      "language": "python",
+      "line": 51,
+      "path": "core\\project_memory.py",
+      "text": "path.write_text(json.dumps(data, indent=2), encoding=\"utf-8\")"
+    },
+    {
+      "language": "python",
+      "line": 52,
+      "path": "core\\project_memory.py",
+      "text": "return path"
+    },
+    {
+      "language": "python",
+      "line": 54,
+      "path": "core\\project_memory.py",
+      "text": "def create_project(self, project_name, charter=None):"
+    },
+    {
+      "language": "python",
+      "line": 55,
+      "path": "core\\project_memory.py",
+      "text": "project_path = self.project_dir(project_name)"
+    },
+    {
+      "language": "python",
+      "line": 56,
+      "path": "core\\project_memory.py",
+      "text": "now = datetime.now().isoformat(timespec=\"seconds\")"
+    },
+    {
+      "language": "python",
+      "line": 58,
+      "path": "core\\project_memory.py",
+      "text": "if charter is None:"
+    },
+    {
+      "language": "python",
+      "line": 59,
+      "path": "core\\project_memory.py",
+      "text": "charter = {"
+    },
+    {
+      "language": "python",
+      "line": 60,
+      "path": "core\\project_memory.py",
+      "text": "\"project_name\": project_name,"
+    },
+    {
+      "language": "python",
+      "line": 61,
+      "path": "core\\project_memory.py",
+      "text": "\"created_at\": now,"
+    },
+    {
+      "language": "python",
+      "line": 62,
+      "path": "core\\project_memory.py",
+      "text": "\"approval_status\": \"Pending\","
+    },
+    {
+      "language": "python",
+      "line": 63,
+      "path": "core\\project_memory.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 65,
+      "path": "core\\project_memory.py",
+      "text": "status = {"
+    },
+    {
+      "language": "python",
+      "line": 66,
+      "path": "core\\project_memory.py",
+      "text": "\"project_name\": project_name,"
+    },
+    {
+      "language": "python",
+      "line": 67,
+      "path": "core\\project_memory.py",
+      "text": "\"created_at\": now,"
+    },
+    {
+      "language": "python",
+      "line": 68,
+      "path": "core\\project_memory.py",
+      "text": "\"last_activity\": now,"
+    },
+    {
+      "language": "python",
+      "line": 69,
+      "path": "core\\project_memory.py",
+      "text": "\"current_phase\": \"Charter\","
+    },
+    {
+      "language": "python",
+      "line": 70,
+      "path": "core\\project_memory.py",
+      "text": "\"current_milestone\": \"Project created\","
+    },
+    {
+      "language": "python",
+      "line": 71,
+      "path": "core\\project_memory.py",
+      "text": "\"completion_percent\": 0,"
+    },
+    {
+      "language": "python",
+      "line": 72,
+      "path": "core\\project_memory.py",
+      "text": "\"status\": \"Active\","
+    },
+    {
+      "language": "python",
+      "line": 73,
+      "path": "core\\project_memory.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 75,
+      "path": "core\\project_memory.py",
+      "text": "self.write_json(project_path / \"charter.json\", charter)"
+    },
+    {
+      "language": "python",
+      "line": 76,
+      "path": "core\\project_memory.py",
+      "text": "self.write_json(project_path / \"status.json\", status)"
+    },
+    {
+      "language": "python",
+      "line": 77,
+      "path": "core\\project_memory.py",
+      "text": "self.write_json(project_path / \"decisions.json\", [])"
+    },
+    {
+      "language": "python",
+      "line": 78,
+      "path": "core\\project_memory.py",
+      "text": "self.write_json(project_path / \"lessons.json\", [])"
+    },
+    {
+      "language": "python",
+      "line": 79,
+      "path": "core\\project_memory.py",
+      "text": "self.write_json(project_path / \"forge_log.json\", [])"
+    },
+    {
+      "language": "python",
+      "line": 81,
+      "path": "core\\project_memory.py",
+      "text": "return project_path"
+    },
+    {
+      "language": "python",
+      "line": 83,
+      "path": "core\\project_memory.py",
+      "text": "def ensure_project(self, project_name):"
+    },
+    {
+      "language": "python",
+      "line": 84,
+      "path": "core\\project_memory.py",
+      "text": "project_path = self.project_dir(project_name)"
+    },
+    {
+      "language": "python",
+      "line": 85,
+      "path": "core\\project_memory.py",
+      "text": "if not (project_path / \"status.json\").exists():"
+    },
+    {
+      "language": "python",
+      "line": 86,
+      "path": "core\\project_memory.py",
+      "text": "self.create_project(project_name)"
+    },
+    {
+      "language": "python",
+      "line": 87,
+      "path": "core\\project_memory.py",
+      "text": "return project_path"
+    },
+    {
+      "language": "python",
+      "line": 89,
+      "path": "core\\project_memory.py",
+      "text": "def list_projects(self):"
+    },
+    {
+      "language": "python",
+      "line": 90,
+      "path": "core\\project_memory.py",
+      "text": "projects = []"
+    },
+    {
+      "language": "python",
+      "line": 92,
+      "path": "core\\project_memory.py",
+      "text": "for path in sorted(self.projects_dir.iterdir()):"
+    },
+    {
+      "language": "python",
+      "line": 93,
+      "path": "core\\project_memory.py",
+      "text": "if not path.is_dir():"
+    },
+    {
+      "language": "python",
+      "line": 94,
+      "path": "core\\project_memory.py",
+      "text": "continue"
+    },
+    {
+      "language": "python",
+      "line": 96,
+      "path": "core\\project_memory.py",
+      "text": "status = self.read_json(path / \"status.json\", {})"
+    },
+    {
+      "language": "python",
+      "line": 97,
+      "path": "core\\project_memory.py",
+      "text": "projects.append({"
+    },
+    {
+      "language": "python",
+      "line": 98,
+      "path": "core\\project_memory.py",
+      "text": "\"name\": status.get(\"project_name\", path.name),"
+    },
+    {
+      "language": "python",
+      "line": 99,
+      "path": "core\\project_memory.py",
+      "text": "\"slug\": path.name,"
+    },
+    {
+      "language": "python",
+      "line": 100,
+      "path": "core\\project_memory.py",
+      "text": "\"status\": status.get(\"status\", \"Unknown\"),"
+    },
+    {
+      "language": "python",
+      "line": 101,
+      "path": "core\\project_memory.py",
+      "text": "\"phase\": status.get(\"current_phase\", \"Unknown\"),"
+    },
+    {
+      "language": "python",
+      "line": 102,
+      "path": "core\\project_memory.py",
+      "text": "\"milestone\": status.get(\"current_milestone\", \"Unknown\"),"
+    },
+    {
+      "language": "python",
+      "line": 103,
+      "path": "core\\project_memory.py",
+      "text": "\"completion_percent\": status.get(\"completion_percent\", 0),"
+    },
+    {
+      "language": "python",
+      "line": 104,
+      "path": "core\\project_memory.py",
+      "text": "\"last_activity\": status.get(\"last_activity\", \"Unknown\"),"
+    },
+    {
+      "language": "python",
+      "line": 105,
+      "path": "core\\project_memory.py",
+      "text": "})"
+    },
+    {
+      "language": "python",
+      "line": 107,
+      "path": "core\\project_memory.py",
+      "text": "return projects"
+    },
+    {
+      "language": "python",
+      "line": 109,
+      "path": "core\\project_memory.py",
+      "text": "def add_decision(self, project_name, title, reason, applies_to=None, status=\"Active\"):"
+    },
+    {
+      "language": "python",
+      "line": 110,
+      "path": "core\\project_memory.py",
+      "text": "project_path = self.ensure_project(project_name)"
+    },
+    {
+      "language": "python",
+      "line": 111,
+      "path": "core\\project_memory.py",
+      "text": "decisions_path = project_path / \"decisions.json\""
+    },
+    {
+      "language": "python",
+      "line": 112,
+      "path": "core\\project_memory.py",
+      "text": "decisions = self.read_json(decisions_path, [])"
+    },
+    {
+      "language": "python",
+      "line": 114,
+      "path": "core\\project_memory.py",
+      "text": "decision = {"
+    },
+    {
+      "language": "python",
+      "line": 115,
+      "path": "core\\project_memory.py",
+      "text": "\"decision_id\": f\"DEC-{len(decisions) + 1:05d}\","
+    },
+    {
+      "language": "python",
+      "line": 116,
+      "path": "core\\project_memory.py",
+      "text": "\"date\": datetime.now().isoformat(timespec=\"seconds\"),"
+    },
+    {
+      "language": "python",
+      "line": 117,
+      "path": "core\\project_memory.py",
+      "text": "\"title\": title,"
+    },
+    {
+      "language": "python",
+      "line": 118,
+      "path": "core\\project_memory.py",
+      "text": "\"reason\": reason,"
+    },
+    {
+      "language": "python",
+      "line": 119,
+      "path": "core\\project_memory.py",
+      "text": "\"applies_to\": applies_to or [],"
+    },
+    {
+      "language": "python",
+      "line": 120,
+      "path": "core\\project_memory.py",
+      "text": "\"status\": status,"
+    },
+    {
+      "language": "python",
+      "line": 121,
+      "path": "core\\project_memory.py",
+      "text": "\"superseded\": False,"
+    },
+    {
+      "language": "python",
+      "line": 122,
+      "path": "core\\project_memory.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 124,
+      "path": "core\\project_memory.py",
+      "text": "decisions.append(decision)"
+    },
+    {
+      "language": "python",
+      "line": 125,
+      "path": "core\\project_memory.py",
+      "text": "self.write_json(decisions_path, decisions)"
+    },
+    {
+      "language": "python",
+      "line": 126,
+      "path": "core\\project_memory.py",
+      "text": "self.touch(project_name, phase=\"Decision Logged\", milestone=title)"
+    },
+    {
+      "language": "python",
+      "line": 127,
+      "path": "core\\project_memory.py",
+      "text": "return decision"
+    },
+    {
+      "language": "python",
+      "line": 129,
+      "path": "core\\project_memory.py",
+      "text": "def add_lesson(self, project_name, lesson, reason=\"\", applies_to=None, source=\"Forge Journal\"):"
+    },
+    {
+      "language": "python",
+      "line": 130,
+      "path": "core\\project_memory.py",
+      "text": "project_path = self.ensure_project(project_name)"
+    },
+    {
+      "language": "python",
+      "line": 131,
+      "path": "core\\project_memory.py",
+      "text": "lessons_path = project_path / \"lessons.json\""
+    },
+    {
+      "language": "python",
+      "line": 132,
+      "path": "core\\project_memory.py",
+      "text": "lessons = self.read_json(lessons_path, [])"
+    },
+    {
+      "language": "python",
+      "line": 134,
+      "path": "core\\project_memory.py",
+      "text": "item = {"
+    },
+    {
+      "language": "python",
+      "line": 135,
+      "path": "core\\project_memory.py",
+      "text": "\"lesson_id\": f\"LESSON-{len(lessons) + 1:05d}\","
+    },
+    {
+      "language": "python",
+      "line": 136,
+      "path": "core\\project_memory.py",
+      "text": "\"date\": datetime.now().isoformat(timespec=\"seconds\"),"
+    },
+    {
+      "language": "python",
+      "line": 137,
+      "path": "core\\project_memory.py",
+      "text": "\"lesson\": lesson,"
+    },
+    {
+      "language": "python",
+      "line": 138,
+      "path": "core\\project_memory.py",
+      "text": "\"reason\": reason,"
+    },
+    {
+      "language": "python",
+      "line": 139,
+      "path": "core\\project_memory.py",
+      "text": "\"applies_to\": applies_to or [],"
+    },
+    {
+      "language": "python",
+      "line": 140,
+      "path": "core\\project_memory.py",
+      "text": "\"source\": source,"
+    },
+    {
+      "language": "python",
+      "line": 141,
+      "path": "core\\project_memory.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 143,
+      "path": "core\\project_memory.py",
+      "text": "lessons.append(item)"
+    },
+    {
+      "language": "python",
+      "line": 144,
+      "path": "core\\project_memory.py",
+      "text": "self.write_json(lessons_path, lessons)"
+    },
+    {
+      "language": "python",
+      "line": 145,
+      "path": "core\\project_memory.py",
+      "text": "self.touch(project_name, phase=\"Lesson Logged\", milestone=lesson)"
+    },
+    {
+      "language": "python",
+      "line": 146,
+      "path": "core\\project_memory.py",
+      "text": "return item"
+    },
+    {
+      "language": "python",
+      "line": 148,
+      "path": "core\\project_memory.py",
+      "text": "def add_forge_entry(self, project_name, entry):"
+    },
+    {
+      "language": "python",
+      "line": 149,
+      "path": "core\\project_memory.py",
+      "text": "project_path = self.ensure_project(project_name)"
+    },
+    {
+      "language": "python",
+      "line": 150,
+      "path": "core\\project_memory.py",
+      "text": "log_path = project_path / \"forge_log.json\""
+    },
+    {
+      "language": "python",
+      "line": 151,
+      "path": "core\\project_memory.py",
+      "text": "log = self.read_json(log_path, [])"
+    },
+    {
+      "language": "python",
+      "line": 153,
+      "path": "core\\project_memory.py",
+      "text": "entry = dict(entry)"
+    },
+    {
+      "language": "python",
+      "line": 154,
+      "path": "core\\project_memory.py",
+      "text": "entry.setdefault(\"mission_id\", f\"FM-{datetime.now().strftime('%Y%m%d')}-{len(log) + 1:05d}\")"
+    },
+    {
+      "language": "python",
+      "line": 155,
+      "path": "core\\project_memory.py",
+      "text": "entry.setdefault(\"date\", datetime.now().isoformat(timespec=\"seconds\"))"
+    },
+    {
+      "language": "python",
+      "line": 157,
+      "path": "core\\project_memory.py",
+      "text": "log.append(entry)"
+    },
+    {
+      "language": "python",
+      "line": 158,
+      "path": "core\\project_memory.py",
+      "text": "self.write_json(log_path, log)"
+    },
+    {
+      "language": "python",
+      "line": 160,
+      "path": "core\\project_memory.py",
+      "text": "self.touch("
+    },
+    {
+      "language": "python",
+      "line": 161,
+      "path": "core\\project_memory.py",
+      "text": "project_name,"
+    },
+    {
+      "language": "python",
+      "line": 162,
+      "path": "core\\project_memory.py",
+      "text": "phase=entry.get(\"phase\", \"Forge Journal\"),"
+    },
+    {
+      "language": "python",
+      "line": 163,
+      "path": "core\\project_memory.py",
+      "text": "milestone=entry.get(\"summary\", \"Forge entry recorded\"),"
+    },
+    {
+      "language": "python",
+      "line": 164,
+      "path": "core\\project_memory.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 166,
+      "path": "core\\project_memory.py",
+      "text": "return entry"
+    },
+    {
+      "language": "python",
+      "line": 168,
+      "path": "core\\project_memory.py",
+      "text": "def touch(self, project_name, phase=None, milestone=None, completion_percent=None):"
+    },
+    {
+      "language": "python",
+      "line": 169,
+      "path": "core\\project_memory.py",
+      "text": "project_path = self.ensure_project(project_name)"
+    },
+    {
+      "language": "python",
+      "line": 170,
+      "path": "core\\project_memory.py",
+      "text": "status_path = project_path / \"status.json\""
+    },
+    {
+      "language": "python",
+      "line": 171,
+      "path": "core\\project_memory.py",
+      "text": "status = self.read_json(status_path, {})"
+    },
+    {
+      "language": "python",
+      "line": 173,
+      "path": "core\\project_memory.py",
+      "text": "status[\"last_activity\"] = datetime.now().isoformat(timespec=\"seconds\")"
+    },
+    {
+      "language": "python",
+      "line": 175,
+      "path": "core\\project_memory.py",
+      "text": "if phase is not None:"
+    },
+    {
+      "language": "python",
+      "line": 176,
+      "path": "core\\project_memory.py",
+      "text": "status[\"current_phase\"] = phase"
+    },
+    {
+      "language": "python",
+      "line": 178,
+      "path": "core\\project_memory.py",
+      "text": "if milestone is not None:"
+    },
+    {
+      "language": "python",
+      "line": 179,
+      "path": "core\\project_memory.py",
+      "text": "status[\"current_milestone\"] = milestone"
+    },
+    {
+      "language": "python",
+      "line": 181,
+      "path": "core\\project_memory.py",
+      "text": "if completion_percent is not None:"
+    },
+    {
+      "language": "python",
+      "line": 182,
+      "path": "core\\project_memory.py",
+      "text": "status[\"completion_percent\"] = completion_percent"
+    },
+    {
+      "language": "python",
+      "line": 184,
+      "path": "core\\project_memory.py",
+      "text": "self.write_json(status_path, status)"
+    },
+    {
+      "language": "python",
+      "line": 185,
+      "path": "core\\project_memory.py",
+      "text": "return status"
+    },
+    {
+      "language": "python",
+      "line": 187,
+      "path": "core\\project_memory.py",
+      "text": "def report(self):"
+    },
+    {
+      "language": "python",
+      "line": 188,
+      "path": "core\\project_memory.py",
+      "text": "projects = self.list_projects()"
+    },
+    {
+      "language": "python",
+      "line": 190,
+      "path": "core\\project_memory.py",
+      "text": "lines = ["
+    },
+    {
+      "language": "python",
+      "line": 191,
+      "path": "core\\project_memory.py",
+      "text": "\"PROJECT MEMORY\","
+    },
+    {
+      "language": "python",
+      "line": 192,
+      "path": "core\\project_memory.py",
+      "text": "\"\","
+    },
+    {
+      "language": "python",
+      "line": 193,
+      "path": "core\\project_memory.py",
+      "text": "f\"Projects Folder: {self.projects_dir}\","
+    },
+    {
+      "language": "python",
+      "line": 194,
+      "path": "core\\project_memory.py",
+      "text": "f\"Projects Tracked: {len(projects)}\","
+    },
+    {
+      "language": "python",
+      "line": 195,
+      "path": "core\\project_memory.py",
+      "text": "\"\","
+    },
+    {
+      "language": "python",
+      "line": 196,
+      "path": "core\\project_memory.py",
+      "text": "]"
+    },
+    {
+      "language": "python",
+      "line": 198,
+      "path": "core\\project_memory.py",
+      "text": "if not projects:"
+    },
+    {
+      "language": "python",
+      "line": 199,
+      "path": "core\\project_memory.py",
+      "text": "lines.append(\"No projects tracked yet.\")"
+    },
+    {
+      "language": "python",
+      "line": 200,
+      "path": "core\\project_memory.py",
+      "text": "else:"
+    },
+    {
+      "language": "python",
+      "line": 201,
+      "path": "core\\project_memory.py",
+      "text": "for project in projects:"
+    },
+    {
+      "language": "python",
+      "line": 202,
+      "path": "core\\project_memory.py",
+      "text": "lines.append(f\"--- {project['name']} ---\")"
+    },
+    {
+      "language": "python",
+      "line": 203,
+      "path": "core\\project_memory.py",
+      "text": "lines.append(f\"Status: {project['status']}\")"
+    },
+    {
+      "language": "python",
+      "line": 204,
+      "path": "core\\project_memory.py",
+      "text": "lines.append(f\"Phase: {project['phase']}\")"
+    },
+    {
+      "language": "python",
+      "line": 205,
+      "path": "core\\project_memory.py",
+      "text": "lines.append(f\"Milestone: {project['milestone']}\")"
+    },
+    {
+      "language": "python",
+      "line": 206,
+      "path": "core\\project_memory.py",
+      "text": "lines.append(f\"Completion: {project['completion_percent']}%\")"
+    },
+    {
+      "language": "python",
+      "line": 207,
+      "path": "core\\project_memory.py",
+      "text": "lines.append(f\"Last Activity: {project['last_activity']}\")"
+    },
+    {
+      "language": "python",
+      "line": 208,
+      "path": "core\\project_memory.py",
+      "text": "lines.append(\"\")"
+    },
+    {
+      "language": "python",
+      "line": 210,
+      "path": "core\\project_memory.py",
+      "text": "lines.append(\"Safety Status:\")"
+    },
+    {
+      "language": "python",
+      "line": 211,
+      "path": "core\\project_memory.py",
+      "text": "lines.append(\"Project Memory writes only to the Projects folder.\")"
+    },
+    {
+      "language": "python",
+      "line": 213,
+      "path": "core\\project_memory.py",
+      "text": "return \"\\n\".join(lines)"
+    },
+    {
+      "language": "python",
+      "line": 1,
+      "path": "core\\promptsmith.py",
+      "text": "STYLE_PACKS = {"
+    },
+    {
+      "language": "python",
+      "line": 2,
+      "path": "core\\promptsmith.py",
+      "text": "\"Fantasy\": {"
+    },
+    {
+      "language": "python",
+      "line": 3,
+      "path": "core\\promptsmith.py",
+      "text": "\"positive\": \"fantasy concept art, ornate details, dramatic lighting, epic atmosphere, medieval realism\","
+    },
+    {
+      "language": "python",
+      "line": 4,
+      "path": "core\\promptsmith.py",
+      "text": "\"negative\": \"modern clothing, guns, cars, text, watermark, blurry, low quality\""
+    },
+    {
+      "language": "python",
+      "line": 5,
+      "path": "core\\promptsmith.py",
+      "text": "},"
+    },
+    {
+      "language": "python",
+      "line": 6,
+      "path": "core\\promptsmith.py",
+      "text": "\"Cyberpunk\": {"
+    },
+    {
+      "language": "python",
+      "line": 7,
+      "path": "core\\promptsmith.py",
+      "text": "\"positive\": \"cyberpunk, neon lighting, futuristic city, high tech, cinematic shadows, rain, glowing accents\","
+    },
+    {
+      "language": "python",
+      "line": 8,
+      "path": "core\\promptsmith.py",
+      "text": "\"negative\": \"medieval, rustic, low quality, blurry, watermark, bad anatomy\""
+    },
+    {
+      "language": "python",
+      "line": 9,
+      "path": "core\\promptsmith.py",
+      "text": "},"
+    },
+    {
+      "language": "python",
+      "line": 10,
+      "path": "core\\promptsmith.py",
+      "text": "\"Creature Design\": {"
+    },
+    {
+      "language": "python",
+      "line": 11,
+      "path": "core\\promptsmith.py",
+      "text": "\"positive\": \"creature design, biological detail, alien anatomy, natural textures, concept art, highly detailed\","
+    },
+    {
+      "language": "python",
+      "line": 12,
+      "path": "core\\promptsmith.py",
+      "text": "\"negative\": \"cartoon, cute, blurry, low detail, watermark, text\""
+    },
+    {
+      "language": "python",
+      "line": 13,
+      "path": "core\\promptsmith.py",
+      "text": "},"
+    },
+    {
+      "language": "python",
+      "line": 14,
+      "path": "core\\promptsmith.py",
+      "text": "\"Photorealistic\": {"
+    },
+    {
+      "language": "python",
+      "line": 15,
+      "path": "core\\promptsmith.py",
+      "text": "\"positive\": \"photorealistic, realistic lighting, sharp focus, detailed textures, cinematic photography\","
+    },
+    {
+      "language": "python",
+      "line": 16,
+      "path": "core\\promptsmith.py",
+      "text": "\"negative\": \"painting, cartoon, anime, low quality, blurry, distorted face, watermark\""
+    },
+    {
+      "language": "python",
+      "line": 17,
+      "path": "core\\promptsmith.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 18,
+      "path": "core\\promptsmith.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 20,
+      "path": "core\\promptsmith.py",
+      "text": "QUALITY_PACKS = {"
+    },
+    {
+      "language": "python",
+      "line": 21,
+      "path": "core\\promptsmith.py",
+      "text": "\"Fast\": \"clean composition, clear subject\","
+    },
+    {
+      "language": "python",
+      "line": 22,
+      "path": "core\\promptsmith.py",
+      "text": "\"Balanced\": \"highly detailed, cinematic lighting, sharp focus, professional composition\","
+    },
+    {
+      "language": "python",
+      "line": 23,
+      "path": "core\\promptsmith.py",
+      "text": "\"Masterpiece\": \"masterpiece, award-winning, ultra detailed, dramatic composition, volumetric lighting, 8k, sharp focus\""
+    },
+    {
+      "language": "python",
+      "line": 24,
+      "path": "core\\promptsmith.py",
+      "text": "}"
+    },
+    {
+      "language": "python",
+      "line": 26,
+      "path": "core\\promptsmith.py",
+      "text": "DEFAULT_NEGATIVE = \"blurry, low quality, watermark, text, deformed, extra limbs, bad anatomy\""
+    },
+    {
+      "language": "python",
+      "line": 29,
+      "path": "core\\promptsmith.py",
+      "text": "def build_prompt(simple_prompt, style=\"Fantasy\", quality=\"Balanced\"):"
+    },
+    {
+      "language": "python",
+      "line": 30,
+      "path": "core\\promptsmith.py",
+      "text": "style_data = STYLE_PACKS.get(style, STYLE_PACKS[\"Fantasy\"])"
+    },
+    {
+      "language": "python",
+      "line": 31,
+      "path": "core\\promptsmith.py",
+      "text": "quality_text = QUALITY_PACKS.get(quality, QUALITY_PACKS[\"Balanced\"])"
+    },
+    {
+      "language": "python",
+      "line": 33,
+      "path": "core\\promptsmith.py",
+      "text": "positive = ("
+    },
+    {
+      "language": "python",
+      "line": 34,
+      "path": "core\\promptsmith.py",
+      "text": "f\"{quality_text}, \""
+    },
+    {
+      "language": "python",
+      "line": 35,
+      "path": "core\\promptsmith.py",
+      "text": "f\"{simple_prompt}, \""
+    },
+    {
+      "language": "python",
+      "line": 36,
+      "path": "core\\promptsmith.py",
+      "text": "f\"{style_data['positive']}\""
+    },
+    {
+      "language": "python",
+      "line": 37,
+      "path": "core\\promptsmith.py",
+      "text": ")"
+    },
+    {
+      "language": "python",
+      "line": 39,
+      "path": "core\\promptsmith.py",
+      "text": "negative = f\"{DEFAULT_NEGATIVE}, {style_data['negative']}\""
+    },
+    {
+      "language": "python",
+      "line": 41,
+      "path": "core\\promptsmith.py",
+      "text": "return positive, negative"
+    },
+    {
+      "language": "python",
+      "line": 1,
+      "path": "core\\recommendation_engine.py",
+      "text": "from __future__ import annotations"
+    },
+    {
+      "language": "python",
+      "line": 3,
+      "path": "core\\recommendation_engine.py",
+      "text": "from typing import Any, List"
+    },
+    {
+      "language": "python",
+      "line": 5,
+      "path": "core\\recommendation_engine.py",
+      "text": "from core.engineering_assessment import EngineeringAssessment"
+    },
+    {
+      "language": "python",
+      "line": 6,
+      "path": "core\\recommendation_engine.py",
+      "text": "from core.heuristics import DEFAULT_HEURISTICS, Heuristic, HeuristicMatch"
+    },
+    {
+      "language": "python",
+      "line": 9,
+      "path": "core\\recommendation_engine.py",
+      "text": "class RecommendationEngine:"
+    },
+    {
+      "language": "python",
+      "line": 10,
+      "path": "core\\recommendation_engine.py",
+      "text": "\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 11,
+      "path": "core\\recommendation_engine.py",
+      "text": "Recommendation Engine RC1"
+    },
+    {
+      "language": "python",
+      "line": 13,
+      "path": "core\\recommendation_engine.py",
+      "text": "Converts ranked evidence into a structured EngineeringAssessment."
+    },
+    {
+      "language": "python",
+      "line": 15,
+      "path": "core\\recommendation_engine.py",
+      "text": "This engine does not search, rank, write files, or call AI. It applies"
+    },
+    {
+      "language": "python",
+      "line": 16,
+      "path": "core\\recommendation_engine.py",
+      "text": "explicit heuristics so recommendations remain explainable."
+    },
+    {
+      "language": "python",
+      "line": 17,
+      "path": "core\\recommendation_engine.py",
+      "text": "\"\"\""
+    },
+    {
+      "language": "python",
+      "line": 19,
+      "path": "core\\recommendation_engine.py",
+      "text": "def __init__(self, heuristics: List[Heuristic] | None = None):"
+    },
+    {
+      "language": "python",
+      "line": 20,
+      "path": "core\\recommendation_engine.py",
+      "text": "self.heuristics = heuristics or DEFAULT_HEURISTICS"
+    },
+    {
+      "language": "python",
+      "line": 22,
+      "path": "core\\recommendation_engine.py",
+      "text": "def assess("
+    },
+    {
+      "language": "python",
+      "line": 23,
+      "path": "core\\recommendation_engine.py",
+      "text": "self,"
+    },
+    {
+      "language": "python",
+      "line": 24,
+      "path": "core\\recommendation_engine.py",
+      "text": "mission: Any,"
+    },
+    {
+      "language": "python",
+      "line": 25,
+      "path": "core\\recommendation_engine.py",
+      "text": "ranked_evidence: List[Any],"
+    },
+    {
+      "language": "python",
+      "line": 26,
+      "path": "core\\recommendation_engine.py",
+      "text": "confidence_report: Any = None,"
+    },
+    {
+      "language": "python",
+      "line": 27,
+      "path": "core\\recommendation_engine.py",
+      "text": "gaps: List[Any] | None = None,"
+    },
+    {
+      "language": "python",
+      "line": 28,
+      "path": "core\\recommendation_engine.py",
+      "text": ") -> EngineeringAssessment:"
+    },
+    {
+      "language": "python",
+      "line": 29,
+      "path": "core\\recommendation_engine.py",
+      "text": "gaps = gaps or []"
+    },
+    {
+      "language": "python",
+      "line": 31,
+      "path": "core\\recommendation_engine.py",
+      "text": "match = self._first_match(mission, ranked_evidence)"
+    },
+    {
+      "language": "python",
+      "line": 33,
+      "path": "core\\recommendation_engine.py",
+      "text": "evidence_summary = self._summarize_evidence(ranked_evidence)"
+    },
+    {
+      "language": "python",
+      "line": 34,
+      "path": "core\\recommendation_engine.py",
+      "text": "missing_evidence = self._summarize_gaps(gaps)"
+    },
+    {
+      "language": "python",
+      "line": 36,
+      "path": "core\\recommendation_engine.py",
+      "text": "confidence = self._combine_confidence(match, confidence_report, ranked_evidence, gaps)"
+    },
+    {
+      "language": "python",
+      "line": 38,
+      "path": "core\\recommendation_engine.py",
+      "text": "return EngineeringAssessment("
+    },
+    {
+      "language": "python",
+      "line": 39,
+      "path": "core\\recommendation_engine.py",
+      "text": "finding=match.finding,"
+    },
+    {
+      "language": "python",
+      "line": 40,
+      "path": "core\\recommendation_engine.py",
+      "text": "confidence=confidence,"
+    },
+    {
+      "language": "python",
+      "line": 41,
+      "path": "core\\recommendation_engine.py",
+      "text": "reasoning=match.reasoning,"
+    },
+    {
+      "language": "python",
+      "line": 42,
+      "path": "core\\recommendation_engine.py",
+      "text": "evidence_summary=evidence_summary,"
+    },
+    {
+      "language": "python",
+      "line": 43,
+      "path": "core\\recommendation_engine.py",
+      "text": "contradictions=[],"
+    },
+    {
+      "language": "python",
+      "line": 44,
+      "path": "core\\recommendation_engine.py",
+      "text": "missing_evidence=missing_evidence,"
+    },
+    {
+      "language": "python",
+      "line": 45,
+      "path": "core\\recommendation_engine.py",
+      "text": "suggested_actions=match.suggested_actions,"
+    },
+    {
+      "language": "python",
+      "line": 46,
+      "path": "core\\recommendation_engine.py",
+      "text": "alternatives=match.alternatives,"
+    },
+    {
+      "language": "python",
+      "line": 47,
+      "path": "core\\recommendation_engine.py",
+      "text": "risk=match.risk,"
+    },
+    {
+      "language": "python",
+      "line": 48,
+      "path": "core\\recommendation_engine.py",
+      "text": "impact=match.impact,"
+    },
+    {
+      "language": "python",
+      "line": 49,
+      "path": "core\\recommendation_engine.py",
+      "text": "operator_summary=self._operator_summary(match, confidence),"
+    },
+    {
+      "language": "python",
+      "line": 50,
+      "path": "core\\recommendation_engine.py",
+      "text": "metadata={"
+    },
+    {
+      "language": "python",
+      "line": 51,
+      "path": "core\\recommendation_engine.py",
+      "text": "\"heuristic\": match.name,"
+    },
+    {
+      "language": "python",
+      "line": 52,
+      "path": "core\\recommendation_engine.py",
+      "text": "\"heuristic_confidence\": match.confidence,"
+    },
+    {
+      "language": "python",
+      "line": 53,
+      "path": "core\\recommendation_engine.py",
+      "text": "\"evidence_count\": len(ranked_evidence),"
+    },
+    {
+      "language": "python",
+      "line": 54,
+      "path": "core\\recommendation_engine.py",
+      "text": "\"gap_count\": len(gaps),"
+    }
+  ],
+  "schema": "foxai.agent_fox.technical_core.v1a2r1.refined_static_bridge.v1",
+  "shard_number": 19
+}

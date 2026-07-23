@@ -1,0 +1,83 @@
+{
+  "proposed_module": "Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\self_knowledge_chat_adapter_v1.py",
+  "request_shape": {
+    "message": "non-empty user text",
+    "optional_selectors": [
+      "context",
+      "contexts",
+      "launcher",
+      "fact_locator"
+    ],
+    "request_id": "surface-generated deterministic identifier",
+    "surface": "webui|desktop"
+  },
+  "result_shape": {
+    "answer_packet": "V1A-3E packet or null",
+    "answer_text": "string or null",
+    "diagnostic": "bounded non-secret diagnostic or null",
+    "handled": "boolean",
+    "model_bypass": "boolean",
+    "ordinary_chat_pass_through": "boolean",
+    "status": "answered|clarification_required|pass_through|evidence_error"
+  },
+  "routing_rules": [
+    {
+      "condition": "recognized exact self-knowledge request",
+      "handled": true,
+      "model_bypass": true,
+      "ordinary_chat_pass_through": false,
+      "result": "answered"
+    },
+    {
+      "condition": "ambiguous self-knowledge request",
+      "handled": true,
+      "model_bypass": true,
+      "ordinary_chat_pass_through": false,
+      "result": "clarification_required"
+    },
+    {
+      "condition": "unrecognized ordinary chat",
+      "handled": false,
+      "model_bypass": false,
+      "ordinary_chat_pass_through": true,
+      "result": "pass_through"
+    },
+    {
+      "condition": "evidence verification fails after self-knowledge recognition",
+      "handled": true,
+      "model_bypass": true,
+      "ordinary_chat_pass_through": false,
+      "result": "evidence_error"
+    },
+    {
+      "condition": "adapter unavailable before recognition",
+      "handled": false,
+      "model_bypass": false,
+      "ordinary_chat_pass_through": true,
+      "result": "pass_through with local diagnostic"
+    }
+  ],
+  "safety": {
+    "model_call_used_for_self_knowledge": false,
+    "pythonw_identity_directly_probed": false,
+    "runtime_facts_inferred_across_contexts": false,
+    "unresolved_candidate_promoted_to_confirmed": false,
+    "workshop_python_alias_resolved": false
+  },
+  "schema": "foxai.agent_fox.technical_core.v1a3f.proposed_self_knowledge_adapter_contract.v1",
+  "status": "proposal_only_not_integrated",
+  "supported_intent_count": 11,
+  "supported_intents": [
+    "list_protected_contexts",
+    "contexts_for_launcher",
+    "launcher_runtime_entry_mapping",
+    "summarize_context",
+    "list_unresolved_branches",
+    "show_package_candidates",
+    "explain_runtime_uncertainty",
+    "show_linked_contexts",
+    "locate_authoritative_evidence",
+    "compare_contexts",
+    "summarize_technical_core_coverage"
+  ]
+}

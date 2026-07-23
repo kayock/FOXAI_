@@ -1,0 +1,229 @@
+--- a/System/AgentFoxTechnicalCore/self_knowledge_chat_adapter_v1.py
++++ b/System/AgentFoxTechnicalCore/self_knowledge_chat_adapter_v1.py
+@@ -543,6 +543,141 @@
+     slash_rid = str(request_id).strip() if request_id is not None and str(request_id).strip() else _deterministic_request_id(normalized_surface, normalized_message, {})
+     if normalized_message.lstrip().startswith("/"):
+         return _pass_through_result(normalized_surface, slash_rid, "SK-PASS-SLASH-COMMAND")
++
++    # FOXAI_CURRENT_STATE_CLASSIFICATION_V1B3C_BEGIN
++    _v1b3c_packet = None
++    try:
++        import importlib.util as _v1b3c_importlib_util
++        import sys as _v1b3c_sys
++
++        _v1b3c_module = globals().get("_FOXAI_V1B3C_BROKER_MODULE")
++        if _v1b3c_module is None:
++            _v1b3c_path = Path(__file__).resolve().with_name("current_state_request_broker_v1.py")
++            _v1b3c_spec = _v1b3c_importlib_util.spec_from_file_location(
++                "foxai_current_state_request_broker_v1",
++                _v1b3c_path,
++            )
++            if _v1b3c_spec is None or _v1b3c_spec.loader is None:
++                raise RuntimeError("current_state_broker_loader_unavailable")
++            _v1b3c_module = _v1b3c_importlib_util.module_from_spec(_v1b3c_spec)
++            _v1b3c_sys.modules[_v1b3c_spec.name] = _v1b3c_module
++            try:
++                _v1b3c_spec.loader.exec_module(_v1b3c_module)
++            except Exception:
++                _v1b3c_sys.modules.pop(_v1b3c_spec.name, None)
++                raise
++            globals()["_FOXAI_V1B3C_BROKER_MODULE"] = _v1b3c_module
++
++        _v1b3c_packet = _v1b3c_module.broker_request(
++            normalized_message,
++            authorization=None,
++            providers={},
++            request_context={
++                "surface": normalized_surface,
++                "request_id": slash_rid,
++                "integration_mode": "classification_only",
++            },
++        )
++    except Exception:
++        _v1b3c_packet = None
++
++    if isinstance(_v1b3c_packet, dict):
++        _v1b3c_status = str(_v1b3c_packet.get("status") or "")
++        _v1b3c_intercept_statuses = {
++            "authorization_required",
++            "provider_unavailable",
++            "unsupported_live_category",
++            "provider_scope_mismatch",
++            "provider_error_safe_passthrough",
++        }
++        _v1b3c_intercept = _v1b3c_status in _v1b3c_intercept_statuses
++        if _v1b3c_status == "unsupported_live_category":
++            _v1b3c_text = normalized_message.casefold()
++            _v1b3c_strong_live_cues = (
++                "right now",
++                "at this moment",
++                " is running",
++                " are running",
++                " is open",
++                " are open",
++                " is connected",
++                " are connected",
++                " is listening",
++                " are listening",
++            )
++            _v1b3c_intercept = any(cue in _v1b3c_text for cue in _v1b3c_strong_live_cues)
++
++        if _v1b3c_intercept:
++            _v1b3c_category = str(_v1b3c_packet.get("category") or "unspecified")
++            _v1b3c_lead = {
++                "authorization_required": (
++                    "This is a current-state request, but explicit read-only authorization "
++                    "is required before a future approved provider may be used."
++                ),
++                "provider_unavailable": (
++                    "This is a current-state request, but no bounded approved read-only "
++                    "provider is available for the requested category."
++                ),
++                "unsupported_live_category": (
++                    "This is a current-state request, but its live evidence category is not "
++                    "supported by the approved broker contract."
++                ),
++                "provider_scope_mismatch": (
++                    "This current-state request is outside the approved provider or category scope."
++                ),
++                "provider_error_safe_passthrough": (
++                    "The current-state provider path failed safely and supplied no live evidence."
++                ),
++            }[_v1b3c_status]
++            _v1b3c_answer = (
++                "CURRENT-STATE CLASSIFICATION ONLY\n\n"
++                + _v1b3c_lead
++                + "\n\nCategory: "
++                + _v1b3c_category
++                + "\nStatus: "
++                + _v1b3c_status
++                + "\n\nV1B-3C connected no live provider and performed no live inspection, "
++                "scan, model call, diagnosis, repair, optimization, or recommendation. "
++                "No current-state measurement is claimed."
++            )
++            _v1b3c_answer_packet = dict(_v1b3c_packet)
++            _v1b3c_answer_packet.update(
++                {
++                    "integration_id": "classification_only_shared_router_v1b3c",
++                    "integration_mode": "classification_only",
++                    "answer_text": _v1b3c_answer,
++                    "authorization_supplied": False,
++                    "provider_registry_supplied": False,
++                    "provider_invoked": False,
++                    "live_inspection_performed": False,
++                    "live_scan_performed": False,
++                    "model_call_performed": False,
++                    "diagnosis_performed": False,
++                    "repair_performed": False,
++                    "optimization_performed": False,
++                    "recommendation_performed": False,
++                    "current_state_claimed": False,
++                }
++            )
++            _v1b3c_result = _pass_through_result(
++                normalized_surface,
++                slash_rid,
++                "V1B-3C classification-only current-state boundary",
++            )
++            _v1b3c_result.update(
++                {
++                    "handled": True,
++                    "status": _v1b3c_status,
++                    "model_bypass": True,
++                    "ordinary_chat_pass_through": False,
++                    "answer_text": _v1b3c_answer,
++                    "answer_packet": _v1b3c_answer_packet,
++                    "diagnostic": "V1B-3C classification-only current-state boundary",
++                }
++            )
++            return _v1b3c_result
++    # FOXAI_CURRENT_STATE_CLASSIFICATION_V1B3C_END
++
+     try:
+         normalized_selectors = _normalize_selectors(selectors)
+     except Exception as error:
+--- /dev/null
++++ b/System/AgentFoxTechnicalCore/CURRENT_STATE_SHARED_ROUTER_INTEGRATION_CONTRACT_V1.json
+@@ -0,0 +1,55 @@
++{
++  "schema": "foxai.agent_fox.technical_core.v1b3c.integration_contract.v1",
++  "mission_id": "ENG-20260723-031118-BF49AE",
++  "title": "Agent Fox Technical Core V1B-3C Classification-Only Shared-Router Integration",
++  "integration_id": "classification_only_shared_router_v1b3c",
++  "target": "Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\self_knowledge_chat_adapter_v1.py",
++  "target_before_sha256": "1563a0f3275eb7516006c8f608ef595f693a85fcb9cba60f2610ca053b25f275",
++  "confirmed_anchor": {
++    "after_line": 544,
++    "before_line": 547,
++    "slash_precedence_preserved": true,
++    "placement": "after exact slash-command bypass and before selector normalization"
++  },
++  "broker": {
++    "path": "Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\current_state_request_broker_v1.py",
++    "sha256": "9ae4812e63d080e533bec97c6fd7d870bea04f96a1eba7ab578bc441a065a676",
++    "authorization_argument": null,
++    "providers_argument": {},
++    "provider_count": 0
++  },
++  "intercept_statuses": [
++    "authorization_required",
++    "provider_unavailable",
++    "unsupported_live_category",
++    "provider_scope_mismatch",
++    "provider_error_safe_passthrough"
++  ],
++  "preserved_statuses": [
++    "not_applicable",
++    "historical_route_preserved",
++    "slash_command_bypass",
++    "ambiguous_request",
++    "disallowed_intent"
++  ],
++  "unsupported_category_guard": "Only strong explicit live cues are intercepted when the broker category is absent; bare current/currently architecture wording continues to the proven historical self-knowledge route.",
++  "answer_behavior": {
++    "handled": true,
++    "model_bypass": true,
++    "ordinary_chat_pass_through": false,
++    "classification_only_label_required": true,
++    "current_state_claimed": false
++  },
++  "excluded": {
++    "live_provider": true,
++    "live_inspection": true,
++    "scans": true,
++    "process_or_service_or_listener_queries": true,
++    "network": true,
++    "model_calls": true,
++    "diagnosis": true,
++    "repair": true,
++    "optimization": true,
++    "recommendations": true
++  }
++}
+--- /dev/null
++++ b/System/AgentFoxTechnicalCore/README_V1B3C.md
+@@ -0,0 +1,24 @@
++# Agent Fox Technical Core V1B-3C
++
++Mission: `ENG-20260723-031118-BF49AE`
++
++This mission integrates the already installed V1B-3A current-state request broker into
++the canonical shared chat adapter in classification-only mode. The confirmed seam is
++after the adapter's exact slash-command bypass and before selector normalization.
++
++## Behavior
++
++- Slash commands still pass through first.
++- The broker is called with `authorization=None` and `providers={}`.
++- Recognized current-state requests receive a clearly labeled non-execution answer.
++- Historical/resource, unrelated, ambiguous, and disallowed requests continue through
++  the existing proven adapter route.
++- Unsupported-category interception requires a strong explicit live cue so phrases such
++  as “which Python currently runs Workshop Main?” remain historical self-knowledge.
++
++## Safety boundary
++
++No live provider is connected. No live inspection, scan, process/service/listener query,
++network access, model call, diagnosis, repair, optimization, recommendation, install,
++service/startup/registry change, K: access, move, rename, or deletion occurs. No
++current-state measurement is claimed.

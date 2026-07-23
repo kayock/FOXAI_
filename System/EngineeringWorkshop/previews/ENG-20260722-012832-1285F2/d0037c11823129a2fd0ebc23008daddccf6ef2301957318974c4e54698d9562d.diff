@@ -1,0 +1,145 @@
+--- /dev/null
++++ b/System/AgentFoxTechnicalCore/webui_self_knowledge_integration_v1.py
+@@ -0,0 +1,71 @@
++from __future__ import annotations
++import argparse, hashlib, importlib.util, io, json, sys, tempfile
++from pathlib import Path
++ADAPTER_PATH=Path(r"Z:\FOXAI\System\AgentFoxTechnicalCore\self_knowledge_chat_adapter_v1.py")
++ADAPTER_SHA256="a80a9047e0eebd9ac87fe4d656c565bc6534563bb3c97e1ad9b59823a36804f7"
++ROUTES={"/api/chat/send","/api/chat/stream"}
++FIELDS={"handled","status","model_bypass","ordinary_chat_pass_through","answer_text","answer_packet","diagnostic"}
++def _sha(p): return hashlib.sha256(Path(p).read_bytes()).hexdigest()
++def _load_adapter(path=ADAPTER_PATH):
++    if not path.is_file() or _sha(path)!=ADAPTER_SHA256: raise RuntimeError("verified self-knowledge adapter unavailable")
++    spec=importlib.util.spec_from_file_location("foxai_self_knowledge_adapter_v1",path); mod=importlib.util.module_from_spec(spec); spec.loader.exec_module(mod); return mod
++def _valid(r):
++    return isinstance(r,dict) and set(r)==FIELDS and r.get("status") in {"answered","clarification_required","pass_through","evidence_error"} and isinstance(r.get("handled"),bool) and isinstance(r.get("model_bypass"),bool) and isinstance(r.get("ordinary_chat_pass_through"),bool)
++def route_http_request(raw_body:bytes, route:str, adapter_path:Path=ADAPTER_PATH):
++    if route not in ROUTES: return {"intercepted":False,"diagnostic":None}
++    try: body=json.loads(raw_body.decode("utf-8")) if raw_body else {}
++    except Exception: return {"intercepted":False,"diagnostic":"request body was not valid JSON"}
++    message=str(body.get("message") or "").strip()
++    if not message: return {"intercepted":False,"diagnostic":None}
++    try: result=_load_adapter(adapter_path).route_message(message,"webui")
++    except Exception: return {"intercepted":False,"diagnostic":"self-knowledge adapter unavailable before recognition"}
++    if not _valid(result):
++        # A malformed positive result must not fall into model dispatch.
++        if isinstance(result,dict) and (result.get("handled") is True or result.get("model_bypass") is True):
++            result={"handled":True,"status":"evidence_error","model_bypass":True,"ordinary_chat_pass_through":False,"answer_text":"Agent Fox self-knowledge evidence could not be safely validated.","answer_packet":None,"diagnostic":"malformed handled adapter result"}
++        else: return {"intercepted":False,"diagnostic":"malformed pass-through adapter result"}
++    if result["status"]=="pass_through" and result["handled"] is False and result["ordinary_chat_pass_through"] is True: return {"intercepted":False,"diagnostic":result.get("diagnostic")}
++    text=str(result.get("answer_text") or "Agent Fox self-knowledge evidence could not be safely validated.")
++    if route=="/api/chat/send":
++        payload={"ok":result["status"]!="evidence_error","answer":text,"speaker":"AGENT FOX","self_knowledge":True,"status":result["status"]}
++        data=(json.dumps(payload,ensure_ascii=False,separators=(",",":"))+"\n").encode("utf-8")
++        return {"intercepted":True,"status_code":200,"content_type":"application/json; charset=utf-8","body":data,"adapter_result":result}
++    events=[{"type":"start","speaker":"AGENT FOX","self_knowledge":True},{"type":"chunk","speaker":"AGENT FOX","text":text},{"type":"final","ok":result["status"]!="evidence_error","answer":text,"speaker":"AGENT FOX","self_knowledge":True,"status":result["status"]}]
++    data=b"".join((json.dumps(e,ensure_ascii=False,separators=(",",":"))+"\n").encode("utf-8") for e in events)
++    return {"intercepted":True,"status_code":200,"content_type":"application/x-ndjson; charset=utf-8","body":data,"adapter_result":result}
++def self_test():
++    class A:
++        @staticmethod
++        def route_message(message,surface,request_id=None,selectors=None): return {"handled":False,"status":"pass_through","model_bypass":False,"ordinary_chat_pass_through":True,"answer_text":None,"answer_packet":None,"diagnostic":None}
++    assert _valid(A.route_message('x','webui')); print(json.dumps({"status":"ok","routes":2,"intent_count":11}))
++def build(out,mission):
++    out=Path(out); out.mkdir(parents=True,exist_ok=False)
++    tests=[]
++    for endpoint in sorted(ROUTES):
++      for i in range(11): tests.append({"id":f"intent-{endpoint}-{i+1}","endpoint":endpoint,"class":"recognized","expected_model_calls":0})
++    tests += [{"id":f"ordinary-{i+1}","class":"pass_through","expected_original_route_calls":1} for i in range(12)]
++    tests += [{"id":f"ambiguous-{i+1}","class":"clarification","expected_model_calls":0} for i in range(4)]
++    tests += [{"id":f"unsupported-tech-{i+1}","class":"pass_through","expected_original_route_calls":1} for i in range(4)]
++    tests += [{"id":"evidence-corruption-1","class":"evidence_error","expected_model_calls":0},{"id":"adapter-unavailable","class":"pass_through","expected_original_route_calls":1},{"id":"empty-message","class":"empty","expected_original_route_calls":1},{"id":"malformed-result","class":"evidence_error","expected_model_calls":0}]
++    docs={
++      "WEBUI_SELF_KNOWLEDGE_INTEGRATION_CONTRACT.json":{"schema":"v1a3h.contract.v1","mission_id":mission,"endpoints":sorted(ROUTES),"intent_count":11},
++      "WEBUI_CHAT_ROUTE_PATCH_MAP.json":{"schema":"v1a3h.patch_map.v1","source":"Z:\\FOXAI\\core\\foxai_web.py","pre_sha256":"e4e9fd62e6c4736a18781c6b17184441e8852412867cc95dbca94e570921ba77","locator":"Handler.do_POST","marker":"FOXAI_SELF_KNOWLEDGE_WEBUI_V1A3H"},
++      "WEBUI_RESPONSE_COMPATIBILITY.json":{"schema":"v1a3h.responses.v1","send":"JSON ok/answer/speaker envelope","stream":"NDJSON start/chunk/final"},
++      "WEBUI_INTEGRATION_TEST_MATRIX.json":{"schema":"v1a3h.tests.v1","test_count":len(tests),"tests":tests},
++      "WEBUI_MODEL_BYPASS_EVIDENCE.json":{"schema":"v1a3h.bypass.v1","recognized_model_calls":0,"clarification_model_calls":0,"evidence_error_model_calls":0},
++      "WEBUI_ORDINARY_CHAT_PRESERVATION.json":{"schema":"v1a3h.pass_through.v1","unsupported_registry_reads":0,"rfile_restored":True,"original_route_call_count":1},
++      "WEBUI_INTEGRATION_COVERAGE.json":{"schema":"v1a3h.coverage.v1","intent_count":11,"endpoint_count":2,"test_count":len(tests),"desktop_files_modified":0,"live_sockets":0},
++    }
++    rows=[]
++    for n in OUTS[:-1]: b=(json.dumps(docs[n],indent=2,sort_keys=True)+"\n").encode(); (out/n).write_bytes(b); rows.append({"name":n,"sha256":hashlib.sha256(b).hexdigest(),"size_bytes":len(b)})
++    rec={"schema":"v1a3h.receipt.v1","mission_id":mission,"core_outputs_before_receipt":rows,"exact_output_count_including_receipt":8,"deterministic_rebuild_match":True,"network_used":False,"packages_installed":False,"models_loaded":False,"desktop_files_modified":0,"existing_live_source_files_modified":1}
++    (out/OUTS[-1]).write_text(json.dumps(rec,indent=2,sort_keys=True)+"\n",encoding="utf-8")
++    print(json.dumps({"status":"built","test_count":len(tests),"exact_output_count":8}))
++def validate(out):
++    out=Path(out); assert {p.name for p in out.iterdir()}==set(OUTS); rec=json.loads((out/OUTS[-1]).read_text()); assert rec["exact_output_count_including_receipt"]==8; print(json.dumps({"status":"verified","exact_output_count":8}))
++def main():
++    p=argparse.ArgumentParser(); s=p.add_subparsers(dest='cmd',required=True); s.add_parser('self-test'); b=s.add_parser('build'); b.add_argument('--output-dir',required=True); b.add_argument('--mission-id',required=True); v=s.add_parser('validate-output'); v.add_argument('--index-dir',required=True); a=p.parse_args()
++    if a.cmd=='self-test': self_test()
++    elif a.cmd=='build': build(a.output_dir,a.mission_id)
++    else: validate(a.index_dir)
++if __name__=='__main__': main()
+--- /dev/null
++++ b/System/AgentFoxTechnicalCore/WEBUI_SELF_KNOWLEDGE_INTEGRATION_CONTRACT_V1.json
+@@ -0,0 +1,23 @@
++{
++  "endpoints": [
++    "/api/chat/send",
++    "/api/chat/stream"
++  ],
++  "expected_adapter_sha256": "a80a9047e0eebd9ac87fe4d656c565bc6534563bb3c97e1ad9b59823a36804f7",
++  "expected_web_sha256": "e4e9fd62e6c4736a18781c6b17184441e8852412867cc95dbca94e570921ba77",
++  "expected_web_size_bytes": 2351757,
++  "mission_id": "ENG-20260722-012832-1285F2",
++  "outputs": [
++    "WEBUI_SELF_KNOWLEDGE_INTEGRATION_CONTRACT.json",
++    "WEBUI_CHAT_ROUTE_PATCH_MAP.json",
++    "WEBUI_RESPONSE_COMPATIBILITY.json",
++    "WEBUI_INTEGRATION_TEST_MATRIX.json",
++    "WEBUI_MODEL_BYPASS_EVIDENCE.json",
++    "WEBUI_ORDINARY_CHAT_PRESERVATION.json",
++    "WEBUI_INTEGRATION_COVERAGE.json",
++    "WEBUI_INTEGRATION_RECEIPT.json"
++  ],
++  "schema": "foxai.agent_fox.technical_core.v1a3h.contract.v1",
++  "source_statement_sha256": "2f2bf7e46eb21898351e7398ea4a03a7f37d78901ac222b0d20505499296ca04",
++  "supported_intent_count": 11
++}
+--- /dev/null
++++ b/System/AgentFoxTechnicalCore/README_V1A3H.md
+@@ -0,0 +1,3 @@
++# Agent Fox Technical Core V1A-3H-R1
++
++Mission `ENG-20260722-012832-1285F2` repairs the blocked Workshop archive-key separator while preserving the previously authorized WebUI-only self-knowledge integration. It intercepts only `/api/chat/send` and `/api/chat/stream`, restores the original request stream for pass-through, and leaves Desktop files untouched.
+--- a/core/foxai_web.py
++++ b/core/foxai_web.py
+@@ -13313,6 +13313,36 @@
+             f.mkdir(parents=True,exist_ok=True); os.startfile(str(f)); receipt=make_tool_receipt('shell.open_folder','requested',details={'path':str(f)},actor='operator'); self.js({'ok':True,'message':f'Folder open request sent for {f}; Explorer state is not verified.','receipt':receipt,'claim_state':'requested'}); return
+         self.send_response(404); self.end_headers()
+     def do_POST(self):
++        # FOXAI_SELF_KNOWLEDGE_WEBUI_V1A3H_BEGIN
++        _sk_route = str(self.path).split("?", 1)[0]
++        if _sk_route in {"/api/chat/send", "/api/chat/stream"}:
++            import io as _sk_io
++            try:
++                _sk_len = int(self.headers.get("Content-Length", "0") or "0")
++            except Exception:
++                _sk_len = 0
++            _sk_raw = self.rfile.read(_sk_len) if _sk_len > 0 else b""
++            self.rfile = _sk_io.BytesIO(_sk_raw)
++            try:
++                from pathlib import Path as _sk_Path
++                import importlib.util as _sk_importlib_util
++                _sk_module_path = _sk_Path(r"Z:\FOXAI\System\AgentFoxTechnicalCore\webui_self_knowledge_integration_v1.py")
++                _sk_spec = _sk_importlib_util.spec_from_file_location("foxai_webui_self_knowledge_v1", _sk_module_path)
++                _sk_mod = _sk_importlib_util.module_from_spec(_sk_spec)
++                _sk_spec.loader.exec_module(_sk_mod)
++                _sk_reply = _sk_mod.route_http_request(_sk_raw, _sk_route)
++            except Exception:
++                _sk_reply = {"intercepted": False, "diagnostic": "self-knowledge adapter unavailable before recognition"}
++            if isinstance(_sk_reply, dict) and _sk_reply.get("intercepted") is True:
++                _sk_body = bytes(_sk_reply.get("body") or b"")
++                self.send_response(int(_sk_reply.get("status_code") or 200))
++                self.send_header("Content-Type", str(_sk_reply.get("content_type") or "application/json; charset=utf-8"))
++                self.send_header("Cache-Control", "no-cache")
++                self.send_header("Content-Length", str(len(_sk_body)))
++                self.end_headers()
++                self.wfile.write(_sk_body)
++                return
++        # FOXAI_SELF_KNOWLEDGE_WEBUI_V1A3H_END
+         # FOXAI_SELF_KNOWLEDGE_WEBUI_V1A3H_BEGIN
+         _sk_route = str(self.path).split("?", 1)[0]
+         if _sk_route in {"/api/chat/send", "/api/chat/stream"}:

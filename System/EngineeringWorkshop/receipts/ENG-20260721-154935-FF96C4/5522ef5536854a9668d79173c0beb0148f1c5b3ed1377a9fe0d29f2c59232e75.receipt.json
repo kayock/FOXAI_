@@ -1,0 +1,208 @@
+{
+  "authorized": true,
+  "changes": [
+    {
+      "action": "write_file",
+      "after_sha256": "e96cf5a8bb01616d6c04ca04089e03beb7c16dde22178a015b238c206db869da",
+      "after_size": 58196,
+      "before_sha256": null,
+      "before_size": null,
+      "relative_path": "System\\AgentFoxTechnicalCore\\effective_import_resolution_map_v1.py"
+    },
+    {
+      "action": "write_file",
+      "after_sha256": "d081f81ab7c943cd765878ba31af79c1cf595a9fb45583585fee97cfc0d7124c",
+      "after_size": 1587,
+      "before_sha256": null,
+      "before_size": null,
+      "relative_path": "System\\AgentFoxTechnicalCore\\EFFECTIVE_IMPORT_MAP_CONTRACT_V1.json"
+    },
+    {
+      "action": "write_file",
+      "after_sha256": "acccd3a766483f66bdad08bdc9e769b12510a8bff9bd74272e4fb8c5ae5845dd",
+      "after_size": 1013,
+      "before_sha256": null,
+      "before_size": null,
+      "relative_path": "System\\AgentFoxTechnicalCore\\README_V1A3B.md"
+    }
+  ],
+  "created_at": "2026-07-21T16:06:15.093226Z",
+  "evidence_is_tool_generated": true,
+  "failure": null,
+  "mission_id": "ENG-20260721-154935-FF96C4",
+  "mission_title": "Agent Fox Technical Core V1A-3B \u2014 Effective Import Path and Dependency Resolution Map",
+  "mission_type": "implement",
+  "no_deletions": true,
+  "no_renames": true,
+  "plan_path": "Z:\\FOXAI\\AGENT_FOX_V1A3B\\PLAN.json",
+  "plan_sha256": "5522ef5536854a9668d79173c0beb0148f1c5b3ed1377a9fe0d29f2c59232e75",
+  "project_root": "Z:\\FOXAI",
+  "result": "applied_verified",
+  "rolled_back": false,
+  "schema": "foxai.engineering.receipt.v1",
+  "snapshot_manifest": "Z:\\FOXAI\\System\\EngineeringWorkshop\\snapshots\\ENG-20260721-154935-FF96C4\\snapshot_20260721T160611801943Z.manifest.json",
+  "snapshot_path": "Z:\\FOXAI\\System\\EngineeringWorkshop\\snapshots\\ENG-20260721-154935-FF96C4\\snapshot_20260721T160611801943Z.zip",
+  "snapshot_sha256": "a384179a74162c3f926a108d103f664b570a2f55a16d827752880be1d20815b4",
+  "validations": [
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nimport ast,hashlib,json\nroot=Path(r\"Z:\\FOXAI\")\ndrop=root/r\"AGENT_FOX_V1A3B\"\ninstalled=root/r\"System\\AgentFoxTechnicalCore\"\nchecks=[\n (drop/r\"effective_import_resolution_map_v1.py\",installed/r\"effective_import_resolution_map_v1.py\",\"e96cf5a8bb01616d6c04ca04089e03beb7c16dde22178a015b238c206db869da\"),\n (drop/r\"EFFECTIVE_IMPORT_MAP_CONTRACT_V1.json\",installed/r\"EFFECTIVE_IMPORT_MAP_CONTRACT_V1.json\",\"d081f81ab7c943cd765878ba31af79c1cf595a9fb45583585fee97cfc0d7124c\"),\n (drop/r\"README_V1A3B.md\",installed/r\"README_V1A3B.md\",\"acccd3a766483f66bdad08bdc9e769b12510a8bff9bd74272e4fb8c5ae5845dd\"),\n]\nfor src,dst,expected in checks:\n assert src.is_file() and dst.is_file(),(src,dst)\n assert hashlib.sha256(src.read_bytes()).hexdigest()==expected,src\n assert hashlib.sha256(dst.read_bytes()).hexdigest()==expected,dst\nscript=(installed/r\"effective_import_resolution_map_v1.py\").read_text(encoding=\"utf-8\")\ncompile(script,str(installed/r\"effective_import_resolution_map_v1.py\"),\"exec\")\ntree=ast.parse(script)\nimports=set()\nfor node in ast.walk(tree):\n if isinstance(node,ast.Import): imports.update(a.name.split('.')[0] for a in node.names)\n elif isinstance(node,ast.ImportFrom) and node.module: imports.add(node.module.split('.')[0])\nforbidden={\"subprocess\",\"socket\",\"urllib\",\"http\",\"ftplib\",\"requests\",\"pip\",\"ensurepip\",\"psutil\",\"winreg\",\"ctypes\",\"webbrowser\",\"importlib\"}\nassert not (imports & forbidden),sorted(imports & forbidden)\ncontract=json.loads((installed/r\"EFFECTIVE_IMPORT_MAP_CONTRACT_V1.json\").read_text(encoding=\"utf-8\"))\nassert contract.get(\"schema\")==\"foxai.agent_fox.technical_core.v1a3b.effective_import_map_contract.v1\"\nassert contract.get(\"mission_id\")==\"ENG-20260721-154935-FF96C4\"\nbound=contract.get(\"execution_boundary\",{})\nfor key in (\"foxai_source_execution\",\"launcher_execution\",\"pythonw_execution\",\"package_imports\",\"pip_invocation\",\"network_use\",\"model_loading\"):\n assert bound.get(key) is False,(key,bound.get(key))\nassert bound.get(\"interpreter_child_processes_spawned_by_payload\")==0\nassert bound.get(\"shell_child_processes_spawned_by_payload\")==0\nfor source_dir,receipt_name,result in [\n (Path(r\"Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260721-063725-BFCAB9_V1A2R2_IMMUTABLE_BRIDGE\"),\"REFINED_BRIDGE_RECEIPT.json\",\"immutable_input_determinism_repair_complete\"),\n (Path(r\"Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260721-152146-C4F8D5_V1A3A_R1_ADOPTED_RUNTIME_MAP\"),\"PYTHON_RUNTIME_CORRECTION_RECEIPT.json\",\"python_site_policy_validation_repaired_and_evidence_adopted\"),\n]:\n receipt=json.loads((source_dir/receipt_name).read_text(encoding=\"utf-8\"))\n assert receipt.get(\"result\")==result,(receipt_name,receipt.get(\"result\"))\nprint(\"AGENT_FOX_V1A3B_INSTALL_PREFLIGHT_OK\")\n"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-21T16:06:11.978782Z",
+      "name": "Verify exact V1A-3B payloads, syntax, source receipts, and zero-execution contract",
+      "returncode": 0,
+      "started_at": "2026-07-21T16:06:11.852274Z",
+      "stderr": "",
+      "stdout": "AGENT_FOX_V1A3B_INSTALL_PREFLIGHT_OK\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\effective_import_resolution_map_v1.py",
+        "self-test"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-21T16:06:12.089898Z",
+      "name": "Run in-memory effective import mapping self-tests",
+      "returncode": 0,
+      "started_at": "2026-07-21T16:06:11.979227Z",
+      "stderr": "",
+      "stdout": "AGENT_FOX_V1A3B_SELF_TEST_OK\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\effective_import_resolution_map_v1.py",
+        "build",
+        "--project-root",
+        "Z:\\FOXAI",
+        "--v1a2r2-dir",
+        "Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260721-063725-BFCAB9_V1A2R2_IMMUTABLE_BRIDGE",
+        "--v1a3a-r1-dir",
+        "Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260721-152146-C4F8D5_V1A3A_R1_ADOPTED_RUNTIME_MAP",
+        "--output-dir",
+        "Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260721-154935-FF96C4_V1A3B_EFFECTIVE_IMPORT_MAP",
+        "--mission-id",
+        "ENG-20260721-154935-FF96C4"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-21T16:06:14.452768Z",
+      "name": "Build deterministic effective import contexts and dependency candidates from verified evidence only",
+      "returncode": 0,
+      "started_at": "2026-07-21T16:06:12.090400Z",
+      "stderr": "",
+      "stdout": "",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\effective_import_resolution_map_v1.py",
+        "validate-output",
+        "--index-dir",
+        "Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260721-154935-FF96C4_V1A3B_EFFECTIVE_IMPORT_MAP"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-21T16:06:14.680445Z",
+      "name": "Run built-in V1A-3B output, hash, coverage, safety, and size validator",
+      "returncode": 0,
+      "started_at": "2026-07-21T16:06:14.453235Z",
+      "stderr": "",
+      "stdout": "AGENT_FOX_V1A3B_OUTPUTS_VERIFIED\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nimport json\nout=Path(r\"Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260721-154935-FF96C4_V1A3B_EFFECTIVE_IMPORT_MAP\")\ncontexts=json.loads((out/r\"EFFECTIVE_IMPORT_CONTEXTS.json\").read_text(encoding=\"utf-8\"))\nlaunchers=json.loads((out/r\"LAUNCHER_IMPORT_PATH_MAP.json\").read_text(encoding=\"utf-8\"))\nrows=contexts.get(\"contexts\",[])\ndef selected(path): return [x for x in rows if str(x.get(\"launcher_path\",\"\")).casefold()==path.casefold()]\nwork=selected(r\"Z:\\FOXAI\\Launch FOXAI Workshop.bat\")\nassert len(work)==2,work\nalias=[x for x in work if x.get(\"interpreter_reference_kind\")==\"command_alias_requires_path_resolution\"]\nassert len(alias)==1 and alias[0].get(\"interpreter_reference\").casefold()==\"python\"\nassert alias[0].get(\"resolved_interpreter_path\") is None\nassert all(str(x.get(\"resolved_interpreter_path\",\"\")).casefold()!=r\"z:\\foxai\\python\" for x in work)\nweb=selected(r\"Z:\\FOXAI\\START_FOXAI_WEB_PORTABLE.bat\")\nassert len(web)==1 and web[0].get(\"runtime_id\")==\"portable_env\"\nwebpaths=[str(x.get(\"path\",\"\")).casefold() for x in web[0].get(\"effective_path_entries\",[])]\nassert r\"z:\\foxai\\runtime\\core\\site-packages\" in webpaths\nassert webpaths[0]==r\"z:\\foxai\"\ncombo=selected(r\"Z:\\FOXAI\\START_FOXAI_WEB_WITH_COMFYUI.bat\")\nassert len(combo)==1 and combo[0].get(\"runtime_id\")==\"portable_desktop\" and \"-I\" in combo[0].get(\"flags\",[])\nassert not any(x.get(\"source\")==\"launcher_pythonpath\" for x in combo[0].get(\"effective_path_entries\",[]))\ncombo_map=next(x for x in launchers.get(\"records\",[]) if str(x.get(\"launcher_path\",\"\")).casefold()==r\"z:\\foxai\\start_foxai_web_with_comfyui.bat\")\nassert len(combo_map.get(\"called_launchers\",[]))==1\nassert combo_map[\"called_launchers\"][0].get(\"called_context_ids\")==[web[0][\"context_id\"]]\ndesk=selected(r\"Z:\\FOXAI\\START_FOXAI_DESKTOP_TWO_WINDOW_RECOVERY.bat\")\nassert len(desk)==2\nhelper=next(x for x in desk if x.get(\"runtime_identity_directly_observed\") is True)\ngui=next(x for x in desk if x.get(\"interpreter_reference_kind\")==\"pythonw_static_sibling_of_observed_python\")\nassert \"-I\" in helper.get(\"flags\",[]) and not any(x.get(\"source\")==\"launcher_pythonpath\" for x in helper.get(\"effective_path_entries\",[]))\nassert gui.get(\"pythonw_identity_directly_observed\") is False\npaths=[str(x.get(\"path\",\"\")).casefold() for x in gui.get(\"effective_path_entries\",[])]\nassert paths[:3]==[r\"z:\\foxai\",r\"z:\\foxai\\runtime\\desktop\\site-packages\",r\"z:\\foxai\\runtime\\core\\site-packages\"],paths[:3]\nprint(\"AGENT_FOX_V1A3B_PROTECTED_CONTEXTS_VERIFIED\")\n"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-21T16:06:14.742836Z",
+      "name": "Verify separate protected launcher import contexts, unresolved Workshop alias, and pythonw boundary",
+      "returncode": 0,
+      "started_at": "2026-07-21T16:06:14.680826Z",
+      "stderr": "",
+      "stdout": "AGENT_FOX_V1A3B_PROTECTED_CONTEXTS_VERIFIED\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nimport json\nout=Path(r\"Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260721-154935-FF96C4_V1A3B_EFFECTIVE_IMPORT_MAP\")\nproviders=json.loads((out/r\"NORMALIZED_PACKAGE_PROVIDERS.json\").read_text(encoding=\"utf-8\"))\nconflicts=json.loads((out/r\"REFINED_DEPENDENCY_CONFLICT_CANDIDATES.json\").read_text(encoding=\"utf-8\"))\nresolution=json.loads((out/r\"STATIC_IMPORT_RESOLUTION.json\").read_text(encoding=\"utf-8\"))\nfor row in providers.get(\"providers\",[]):\n name=str(row.get(\"module\",\"\")).casefold()\n assert name!=\"__pycache__\" and not name.endswith((\".dist-info\",\".egg-info\",\".data\")),row\nassert providers.get(\"packages_imported\") is False and providers.get(\"pip_invoked\") is False\nassert conflicts.get(\"active_collision_proven\") is False\nassert all(x.get(\"active_or_successful_import_conflict_proven\") is False for x in conflicts.get(\"same_effective_context_collision_candidates\",[]))\nassert all(x.get(\"active_or_successful_import_conflict_proven\") is False for x in conflicts.get(\"separate_runtime_version_or_provider_differences\",[]))\nassert resolution.get(\"imports_performed\") is False and resolution.get(\"import_success_proven\") is False\nassert resolution.get(\"resolved_live_path_group_count\",0)>0\nassert resolution.get(\"historical_path_group_count_preserved_without_expansion\",0)>0\nprint(\"AGENT_FOX_V1A3B_PROVIDER_AND_CONFLICT_RULES_VERIFIED\")\n"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-21T16:06:14.905006Z",
+      "name": "Verify normalized package providers and nonactive dependency-conflict classifications",
+      "returncode": 0,
+      "started_at": "2026-07-21T16:06:14.743227Z",
+      "stderr": "",
+      "stdout": "AGENT_FOX_V1A3B_PROVIDER_AND_CONFLICT_RULES_VERIFIED\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nimport hashlib,json\nout=Path(r\"Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260721-154935-FF96C4_V1A3B_EFFECTIVE_IMPORT_MAP\")\nrequired={\"EFFECTIVE_IMPORT_CONTEXTS.json\",\"LAUNCHER_IMPORT_PATH_MAP.json\",\"NORMALIZED_PACKAGE_PROVIDERS.json\",\"STATIC_IMPORT_RESOLUTION.json\",\"REFINED_DEPENDENCY_CONFLICT_CANDIDATES.json\",\"DYNAMIC_IMPORT_AND_PATH_MUTATION_REPORT.json\",\"IMPORT_RESOLUTION_COVERAGE.json\",\"EFFECTIVE_IMPORT_MAP_RECEIPT.json\"}\nassert required.issubset({p.name for p in out.iterdir() if p.is_file()})\nreceipt=json.loads((out/r\"EFFECTIVE_IMPORT_MAP_RECEIPT.json\").read_text(encoding=\"utf-8\"))\nassert receipt.get(\"mission_id\")==\"ENG-20260721-154935-FF96C4\"\nassert receipt.get(\"result\")==\"effective_import_path_and_dependency_resolution_map_complete\"\nassert receipt.get(\"source_outputs_verified_exact\") is True\nassert receipt.get(\"internal_deterministic_rebuild_match\") is True\nassert receipt.get(\"compared_output_count\")==7\nfor key in (\"network_used\",\"packages_imported\",\"pip_invoked\",\"models_loaded\",\"launchers_executed\",\"foxai_source_imported_or_executed\",\"pythonw_executed\",\"existing_foxai_source_modified\",\"active_collision_proven\"):\n assert receipt.get(key) is False,(key,receipt.get(key))\nassert receipt.get(\"interpreter_child_processes\")==0 and receipt.get(\"shell_child_processes\")==0\nassert receipt.get(\"source_launcher_record_count\")==536\nassert receipt.get(\"source_code_file_count\")==565\nfor item in receipt.get(\"core_outputs_before_receipt\",[]):\n p=out/item[\"name\"]\n assert p.is_file() and p.stat().st_size==item[\"size_bytes\"]\n assert hashlib.sha256(p.read_bytes()).hexdigest()==item[\"sha256\"]\ntotal=sum(p.stat().st_size for p in out.rglob('*') if p.is_file())\nassert total<=64*1024*1024,total\nprint(\"AGENT_FOX_V1A3B_COMPLETE_OUTPUTS_VERIFIED\")\n"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-21T16:06:14.984239Z",
+      "name": "Verify deterministic receipt, exact output hashes, zero child processes, and 64 MiB ceiling",
+      "returncode": 0,
+      "started_at": "2026-07-21T16:06:14.905381Z",
+      "stderr": "",
+      "stdout": "AGENT_FOX_V1A3B_COMPLETE_OUTPUTS_VERIFIED\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\effective_import_resolution_map_v1.py",
+        "compare-runtime-versions",
+        "--index-dir",
+        "Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260721-154935-FF96C4_V1A3B_EFFECTIVE_IMPORT_MAP",
+        "--module",
+        "charset_normalizer"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-21T16:06:15.093134Z",
+      "name": "Exercise read-only compare-runtime-versions query over generated indexes",
+      "returncode": 0,
+      "started_at": "2026-07-21T16:06:14.984611Z",
+      "stderr": "",
+      "stdout": "{\n  \"active_collision_proven\": false,\n  \"module\": \"charset_normalizer\",\n  \"providers\": [\n    {\n      \"distributions\": [\n        \"charset-normalizer\"\n      ],\n      \"owner\": \"host_user_site\",\n      \"site_root\": \"C:\\\\Users\\\\kayoc\\\\AppData\\\\Roaming\\\\Python\\\\Python314\\\\site-packages\",\n      \"versions\": [\n        \"3.4.7\"\n      ]\n    },\n    {\n      \"distributions\": [\n        \"charset-normalizer\"\n      ],\n      \"owner\": \"virtual_environment\",\n      \"site_root\": \"Z:\\\\FOXAI\\\\.venv\\\\Lib\\\\site-packages\",\n      \"versions\": [\n        \"3.4.7\"\n      ]\n    },\n    {\n      \"distributions\": [\n        \"charset-normalizer\"\n      ],\n      \"owner\": \"ComfyUI\",\n      \"site_root\": \"Z:\\\\FOXAI\\\\Runtime\\\\ComfyUI\\\\site-packages\",\n      \"versions\": [\n        \"3.4.7\"\n      ]\n    },\n    {\n      \"distributions\": [\n        \"charset-normalizer\"\n      ],\n      \"owner\": \"Core\",\n      \"site_root\": \"Z:\\\\FOXAI\\\\Runtime\\\\Core\\\\site-packages\",\n      \"versions\": [\n        \"3.4.9\"\n      ]\n    }\n  ]\n}\n",
+      "timed_out": false
+    }
+  ]
+}

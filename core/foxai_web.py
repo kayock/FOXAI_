@@ -13313,6 +13313,36 @@ class Handler(BaseHTTPRequestHandler):
             f.mkdir(parents=True,exist_ok=True); os.startfile(str(f)); receipt=make_tool_receipt('shell.open_folder','requested',details={'path':str(f)},actor='operator'); self.js({'ok':True,'message':f'Folder open request sent for {f}; Explorer state is not verified.','receipt':receipt,'claim_state':'requested'}); return
         self.send_response(404); self.end_headers()
     def do_POST(self):
+        # FOXAI_SELF_KNOWLEDGE_WEBUI_V1A3H_BEGIN
+        _sk_route = str(self.path).split("?", 1)[0]
+        if _sk_route in {"/api/chat/send", "/api/chat/stream"}:
+            import io as _sk_io
+            try:
+                _sk_len = int(self.headers.get("Content-Length", "0") or "0")
+            except Exception:
+                _sk_len = 0
+            _sk_raw = self.rfile.read(_sk_len) if _sk_len > 0 else b""
+            self.rfile = _sk_io.BytesIO(_sk_raw)
+            try:
+                from pathlib import Path as _sk_Path
+                import importlib.util as _sk_importlib_util
+                _sk_module_path = _sk_Path(r"Z:\FOXAI\System\AgentFoxTechnicalCore\webui_self_knowledge_integration_v1.py")
+                _sk_spec = _sk_importlib_util.spec_from_file_location("foxai_webui_self_knowledge_v1", _sk_module_path)
+                _sk_mod = _sk_importlib_util.module_from_spec(_sk_spec)
+                _sk_spec.loader.exec_module(_sk_mod)
+                _sk_reply = _sk_mod.route_http_request(_sk_raw, _sk_route)
+            except Exception:
+                _sk_reply = {"intercepted": False, "diagnostic": "self-knowledge adapter unavailable before recognition"}
+            if isinstance(_sk_reply, dict) and _sk_reply.get("intercepted") is True:
+                _sk_body = bytes(_sk_reply.get("body") or b"")
+                self.send_response(int(_sk_reply.get("status_code") or 200))
+                self.send_header("Content-Type", str(_sk_reply.get("content_type") or "application/json; charset=utf-8"))
+                self.send_header("Cache-Control", "no-cache")
+                self.send_header("Content-Length", str(len(_sk_body)))
+                self.end_headers()
+                self.wfile.write(_sk_body)
+                return
+        # FOXAI_SELF_KNOWLEDGE_WEBUI_V1A3H_END
         global prof, active_project, chat_model, chat_process, chat_profile_id
         path=urlparse(self.path).path
         try:

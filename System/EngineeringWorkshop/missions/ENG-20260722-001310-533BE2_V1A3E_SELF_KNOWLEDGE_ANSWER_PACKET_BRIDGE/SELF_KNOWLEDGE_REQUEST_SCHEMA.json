@@ -1,0 +1,53 @@
+{
+  "$id": "foxai.agent_fox.technical_core.v1a3e.request_schema.v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "context": {
+      "type": "string"
+    },
+    "contexts": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 2,
+      "minItems": 2,
+      "type": "array"
+    },
+    "fact": {
+      "type": "string"
+    },
+    "intent": {
+      "enum": [
+        "list_protected_contexts",
+        "contexts_for_launcher",
+        "launcher_runtime_entry_mapping",
+        "summarize_context",
+        "list_unresolved_branches",
+        "show_package_candidates",
+        "explain_runtime_uncertainty",
+        "show_linked_contexts",
+        "locate_authoritative_evidence",
+        "compare_contexts",
+        "summarize_technical_core_coverage"
+      ],
+      "type": "string"
+    },
+    "launcher": {
+      "type": "string"
+    },
+    "request_id": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "text": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "request_id",
+    "intent"
+  ],
+  "title": "Agent Fox Provenance Self-Knowledge Request",
+  "type": "object"
+}

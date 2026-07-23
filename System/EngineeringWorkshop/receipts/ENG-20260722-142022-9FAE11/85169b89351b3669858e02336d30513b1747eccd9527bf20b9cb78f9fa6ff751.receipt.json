@@ -1,0 +1,196 @@
+{
+  "authorized": true,
+  "changes": [
+    {
+      "action": "write_file",
+      "after_sha256": "74c42992fac82d71846c40ac8d0fb776ace93a4a6bb4202e492a0fd56a8662c7",
+      "after_size": 41291,
+      "before_sha256": null,
+      "before_size": null,
+      "relative_path": "System\\AgentFoxTechnicalCore\\pc_resource_baseline_comparison_v1.py"
+    },
+    {
+      "action": "write_file",
+      "after_sha256": "d89c0487cf535af58a4cb673161dbde36ff836baf1c45de29903bd006d2cd6d9",
+      "after_size": 3297,
+      "before_sha256": null,
+      "before_size": null,
+      "relative_path": "System\\AgentFoxTechnicalCore\\PC_RESOURCE_BASELINE_COMPARISON_CONTRACT_V1.json"
+    },
+    {
+      "action": "write_file",
+      "after_sha256": "c3764a576524dbde3428008825a5b50401515e4c26130f66e8baffce03231bf3",
+      "after_size": 835,
+      "before_sha256": null,
+      "before_size": null,
+      "relative_path": "System\\AgentFoxTechnicalCore\\README_V1B1C.md"
+    }
+  ],
+  "created_at": "2026-07-22T14:37:55.626215Z",
+  "evidence_is_tool_generated": true,
+  "failure": null,
+  "mission_id": "ENG-20260722-142022-9FAE11",
+  "mission_title": "Agent Fox Technical Core V1B-1C \u2014 Baseline Comparison and Safe Capacity Guidance",
+  "mission_type": "implement",
+  "no_deletions": true,
+  "no_renames": true,
+  "plan_path": "Z:\\FOXAI\\AGENT_FOX_V1B1C\\PLAN.json",
+  "plan_sha256": "85169b89351b3669858e02336d30513b1747eccd9527bf20b9cb78f9fa6ff751",
+  "project_root": "Z:\\FOXAI",
+  "result": "applied_verified",
+  "rolled_back": false,
+  "schema": "foxai.engineering.receipt.v1",
+  "snapshot_manifest": "Z:\\FOXAI\\System\\EngineeringWorkshop\\snapshots\\ENG-20260722-142022-9FAE11\\snapshot_20260722T143755105489Z.manifest.json",
+  "snapshot_path": "Z:\\FOXAI\\System\\EngineeringWorkshop\\snapshots\\ENG-20260722-142022-9FAE11\\snapshot_20260722T143755105489Z.zip",
+  "snapshot_sha256": "84eed88803957cbefd48e66e60f7196dafaa972ff23df3de1495baab6a284ecd",
+  "validations": [
+    {
+      "argv": [
+        "Z:/FOXAI/Runtime/Desktop/python/python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nimport hashlib,json\nsupport={\"Z:\\\\\\\\FOXAI\\\\\\\\System\\\\\\\\AgentFoxTechnicalCore\\\\\\\\PC_RESOURCE_BASELINE_COMPARISON_CONTRACT_V1.json\": [3297, \"d89c0487cf535af58a4cb673161dbde36ff836baf1c45de29903bd006d2cd6d9\"], \"Z:\\\\\\\\FOXAI\\\\\\\\System\\\\\\\\AgentFoxTechnicalCore\\\\\\\\README_V1B1C.md\": [835, \"c3764a576524dbde3428008825a5b50401515e4c26130f66e8baffce03231bf3\"], \"Z:\\\\\\\\FOXAI\\\\\\\\System\\\\\\\\AgentFoxTechnicalCore\\\\\\\\pc_resource_baseline_comparison_v1.py\": [41291, \"74c42992fac82d71846c40ac8d0fb776ace93a4a6bb4202e492a0fd56a8662c7\"]}\nfor name,(size,digest) in support.items():\n p=Path(name); data=p.read_bytes()\n assert len(data)==size,(name,len(data),size)\n assert hashlib.sha256(data).hexdigest()==digest,name\ncompile(Path(r\"Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\pc_resource_baseline_comparison_v1.py\").read_text(encoding=\"utf-8\"),\"<v1b1c>\",\"exec\")\nunchanged={\"Z:\\\\FOXAI\\\\System\\\\AgentFoxTechnicalCore\\\\desktop_self_knowledge_integration_v1.py\": \"e420706136b4902d82d8dbf1fecc64ae70fb8bc639106db41033545f8c196c30\", \"Z:\\\\FOXAI\\\\System\\\\AgentFoxTechnicalCore\\\\pc_foxai_baseline_v1.py\": \"8c3af6d6f8d5a21a03fbd5c97eabd58280718a195c65f51a2b9201ff84ec798b\", \"Z:\\\\FOXAI\\\\System\\\\AgentFoxTechnicalCore\\\\pc_loaded_resource_capture_v1.py\": \"1dee5e6e0870a75a7a38181095849880f43acd78caf6782ea17cf932e5ddb146\", \"Z:\\\\FOXAI\\\\System\\\\AgentFoxTechnicalCore\\\\pc_resource_comparison_v1.py\": \"04669d22982315e902abba818c1c2c44a4f622997c9b8346cc0357cf0306fbdc\", \"Z:\\\\FOXAI\\\\System\\\\AgentFoxTechnicalCore\\\\self_knowledge_chat_adapter_v1.py\": \"a80a9047e0eebd9ac87fe4d656c565bc6534563bb3c97e1ad9b59823a36804f7\", \"Z:\\\\FOXAI\\\\System\\\\AgentFoxTechnicalCore\\\\webui_self_knowledge_integration_v1.py\": \"765983b563f8495138c9670849de5c4703f4735a0ddc9324efd6580606fc517b\", \"Z:\\\\FOXAI\\\\core\\\\foxai_web.py\": \"d7bf0a2042d55ef7f0a5869556015e42c7427e7ff88636b28e1795f3adf7b952\", \"Z:\\\\FOXAI\\\\ui\\\\main_window.py\": \"a9c5bb86878e5f0cd27d221dbb32688b337e6026073a4b66d83339e0aef294a3\"}\nfor name,digest in unchanged.items():\n assert hashlib.sha256(Path(name).read_bytes()).hexdigest()==digest,name\nsources=[(Path(r\"Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260722-062243-69C555_V1B1A_R2_MINIMAL_LOAD_RESOURCE_BASELINE\"),{\"MINIMAL_LOAD_CAPTURE_RECEIPT.json\": \"19a76bef2adf4f88ba495ed8abcf48e356b52f628de97eccabaf6a334fbd7c82\", \"MINIMAL_LOAD_PROCESS_SUMMARY.json\": \"83b37ebcdb6b5882573f74e96f81b42296e4d6a6fc7a2f1e9a9158c8546ae76f\", \"MINIMAL_LOAD_QUALIFICATION.json\": \"c300ef1e519b0dc0be949d528034ad8548392e0791e544ce70e4a650f7a09026\", \"MINIMAL_LOAD_RESOURCE_SNAPSHOT.json\": \"5ca895a436b91047b095a97efaaa7de2e23ea35555c9b17664a844826db1c639\"}),(Path(r\"Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260722-140518-F13169_V1B1B_R1_NORMAL_LOADED_RESOURCE_BASELINE\"),{\"NORMAL_LOADED_CAPTURE_RECEIPT.json\": \"d061a6d75417debea27b7fcd4be552aa99009058eece6f47fcd8e1a4e3150685\", \"NORMAL_LOADED_PROCESS_SUMMARY.json\": \"58e1d3be02d064066b9bec96aca551ea98c4d8fac2e537e8e50847f85eac4c5f\", \"NORMAL_LOADED_QUALIFICATION.json\": \"79d1589bc0d2787f6effddab1eb432eed90ca4523e7b74f8b2b0037def691b45\", \"NORMAL_LOADED_RESOURCE_SNAPSHOT.json\": \"cf415b6aaa2eb6a6b52ccfbc27ff99e0b5a79b6cd5ad060a3597ba86d0ba4fcb\"})]\nfor root,expected in sources:\n for name,digest in expected.items():\n  assert hashlib.sha256((root/name).read_bytes()).hexdigest()==digest,(root,name)\nsnap=Path(r\"Z:\\FOXAI\\System\\EngineeringWorkshop\\snapshots\\ENG-20260722-142022-9FAE11\")\nmanifests=sorted(snap.glob(\"snapshot_*.manifest.json\")); assert manifests\nmanifest=json.loads(manifests[-1].read_text(encoding=\"utf-8\"))\nentries=manifest[\"entries\"]\nexpected=[\n \"System/AgentFoxTechnicalCore/PC_RESOURCE_BASELINE_COMPARISON_CONTRACT_V1.json\",\n \"System/AgentFoxTechnicalCore/README_V1B1C.md\",\n \"System/AgentFoxTechnicalCore/pc_resource_baseline_comparison_v1.py\",\n]\nnormalized=sorted(row[\"relative_path\"].replace(\"\\\\\",\"/\") for row in entries)\nassert len(entries)==3 and normalized==expected,(normalized,expected)\nassert all(row[\"existed\"] is False and row.get(\"sha256\") is None and row.get(\"size\") is None for row in entries)\nprint(\"AGENT_FOX_V1B1C_SUPPORT_INPUTS_ISOLATION_AND_SNAPSHOT_OK\")"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-22T14:37:55.206321Z",
+      "name": "Verify exact V1B-1C support payloads, authoritative inputs, unchanged integrations, and normalized snapshot",
+      "returncode": 0,
+      "started_at": "2026-07-22T14:37:55.120997Z",
+      "stderr": "",
+      "stdout": "AGENT_FOX_V1B1C_SUPPORT_INPUTS_ISOLATION_AND_SNAPSHOT_OK\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:/FOXAI/Runtime/Desktop/python/python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nimport json,subprocess\np=Path(r\"Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\pc_resource_baseline_comparison_v1.py\")\nr=subprocess.run([r\"Z:/FOXAI/Runtime/Desktop/python/python.exe\",\"-I\",\"-B\",\"-S\",str(p),\"self-test\"],cwd=r\"Z:\\FOXAI\",capture_output=True,text=True,timeout=45)\nassert r.returncode==0,(r.stdout,r.stderr)\nobj=json.loads(r.stdout)\nassert obj[\"status\"]==\"ok\" and obj[\"output_count\"]==5\nassert obj[\"authoritative_input_count\"]==8\nassert obj[\"stable_ids\"] is True and obj[\"canonical_lf_only\"] is True\nassert obj[\"arithmetic_delta_consistency\"] is True\nassert obj[\"qualified_minimal_fixture\"] is True\nassert obj[\"qualified_loaded_fixture\"] is True\nassert obj[\"receipt_relationship_fixture\"] is True\nassert obj[\"no_live_scan_design\"] is True\nassert obj[\"recommendations_excluded\"] is True\nassert obj[\"diagnosis_excluded\"] is True\nassert obj[\"k_path_excluded\"] is True\nprint(json.dumps(obj,sort_keys=True))"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-22T14:37:55.318425Z",
+      "name": "Run isolated V1B-1C comparison component self-test",
+      "returncode": 0,
+      "started_at": "2026-07-22T14:37:55.206716Z",
+      "stderr": "",
+      "stdout": "{\"arithmetic_delta_consistency\": true, \"authoritative_input_count\": 8, \"canonical_lf_only\": true, \"diagnosis_excluded\": true, \"k_path_excluded\": true, \"no_live_scan_design\": true, \"output_count\": 5, \"qualified_loaded_fixture\": true, \"qualified_minimal_fixture\": true, \"receipt_relationship_fixture\": true, \"recommendations_excluded\": true, \"stable_ids\": true, \"status\": \"ok\"}\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:/FOXAI/Runtime/Desktop/python/python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "Z:/FOXAI/System/AgentFoxTechnicalCore/pc_resource_baseline_comparison_v1.py",
+        "compare",
+        "--mission-id",
+        "ENG-20260722-142022-9FAE11",
+        "--output-dir",
+        "Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260722-142022-9FAE11_V1B1C_BASELINE_COMPARISON_AND_CAPACITY_GUIDANCE"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-22T14:37:55.397277Z",
+      "name": "Generate authoritative offline baseline comparison and capacity observations",
+      "returncode": 0,
+      "started_at": "2026-07-22T14:37:55.318847Z",
+      "stderr": "",
+      "stdout": "{\"authoritative_input_count\": 8, \"automatic_process_changes_performed\": false, \"minimal_qualification\": \"qualified_minimal_load\", \"mission_id\": \"ENG-20260722-142022-9FAE11\", \"network_connections_initiated\": false, \"new_live_scan_performed\": false, \"normal_loaded_qualification\": \"qualified_normal_loaded\", \"output_count\": 5, \"rollback_drive_k_accessed\": false, \"status\": \"compared_and_verified\"}\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:/FOXAI/Runtime/Desktop/python/python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nimport json\nout=Path(r\"Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260722-142022-9FAE11_V1B1C_BASELINE_COMPARISON_AND_CAPACITY_GUIDANCE\")\nexpected=[\"RESOURCE_BASELINE_COMPARISON.json\", \"FOXAI_COMPONENT_RESOURCE_ATTRIBUTION.json\", \"CAPACITY_HEADROOM_OBSERVATIONS.json\", \"BASELINE_COMPARISON_REPORT.md\", \"BASELINE_COMPARISON_RECEIPT.json\"]\nfiles=sorted(p.name for p in out.iterdir() if p.is_file())\nassert files==sorted(expected),(files,expected)\nfor name in expected:\n p=out/name; data=p.read_bytes()\n assert b\"\\r\" not in data,name\n data.decode(\"utf-8\")\n if name.endswith(\".json\"):\n  obj=json.loads(data.decode(\"utf-8\"))\n  canonical=(json.dumps(obj,indent=2,sort_keys=True,ensure_ascii=False)+\"\\n\").encode(\"utf-8\")\n  assert data==canonical,name\nassert sum((out/name).stat().st_size for name in expected)<4*1024*1024\nprint(\"AGENT_FOX_V1B1C_EXACT_FIVE_UTF8_LF_OUTPUTS_OK\")"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-22T14:37:55.466263Z",
+      "name": "Validate exactly five deterministic UTF-8 LF-only outputs",
+      "returncode": 0,
+      "started_at": "2026-07-22T14:37:55.397664Z",
+      "stderr": "",
+      "stdout": "AGENT_FOX_V1B1C_EXACT_FIVE_UTF8_LF_OUTPUTS_OK\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:/FOXAI/Runtime/Desktop/python/python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nimport hashlib,json\nout=Path(r\"Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260722-142022-9FAE11_V1B1C_BASELINE_COMPARISON_AND_CAPACITY_GUIDANCE\")\ncomparison=json.loads((out/\"RESOURCE_BASELINE_COMPARISON.json\").read_text(encoding=\"utf-8\"))\nsource=comparison[\"source_evidence\"]\nassert source[\"verified_input_count\"]==8\nassert len(source[\"verified_inputs\"])==8\nassert all(row[\"sha256_matches_expected\"] is True for row in source[\"verified_inputs\"])\nassert source[\"minimal_qualification_status\"]==\"qualified_minimal_load\"\nassert source[\"normal_loaded_qualification_status\"]==\"qualified_normal_loaded\"\nassert len(source[\"capture_relationships\"])==2\nassert all(row[\"output_relationship_verified\"] is True and row[\"blocker_count\"]==0 for row in source[\"capture_relationships\"])\nroots=[(Path(r\"Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260722-062243-69C555_V1B1A_R2_MINIMAL_LOAD_RESOURCE_BASELINE\"),{\"MINIMAL_LOAD_CAPTURE_RECEIPT.json\": \"19a76bef2adf4f88ba495ed8abcf48e356b52f628de97eccabaf6a334fbd7c82\", \"MINIMAL_LOAD_PROCESS_SUMMARY.json\": \"83b37ebcdb6b5882573f74e96f81b42296e4d6a6fc7a2f1e9a9158c8546ae76f\", \"MINIMAL_LOAD_QUALIFICATION.json\": \"c300ef1e519b0dc0be949d528034ad8548392e0791e544ce70e4a650f7a09026\", \"MINIMAL_LOAD_RESOURCE_SNAPSHOT.json\": \"5ca895a436b91047b095a97efaaa7de2e23ea35555c9b17664a844826db1c639\"}),(Path(r\"Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260722-140518-F13169_V1B1B_R1_NORMAL_LOADED_RESOURCE_BASELINE\"),{\"NORMAL_LOADED_CAPTURE_RECEIPT.json\": \"d061a6d75417debea27b7fcd4be552aa99009058eece6f47fcd8e1a4e3150685\", \"NORMAL_LOADED_PROCESS_SUMMARY.json\": \"58e1d3be02d064066b9bec96aca551ea98c4d8fac2e537e8e50847f85eac4c5f\", \"NORMAL_LOADED_QUALIFICATION.json\": \"79d1589bc0d2787f6effddab1eb432eed90ca4523e7b74f8b2b0037def691b45\", \"NORMAL_LOADED_RESOURCE_SNAPSHOT.json\": \"cf415b6aaa2eb6a6b52ccfbc27ff99e0b5a79b6cd5ad060a3597ba86d0ba4fcb\"})]\nfor root,expected in roots:\n for name,digest in expected.items():\n  assert hashlib.sha256((root/name).read_bytes()).hexdigest()==digest,(root,name)\nprint(\"AGENT_FOX_V1B1C_EIGHT_INPUTS_QUALIFICATIONS_AND_RELATIONSHIPS_OK\")"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-22T14:37:55.506694Z",
+      "name": "Validate all eight authoritative inputs, qualifications, and capture-receipt relationships",
+      "returncode": 0,
+      "started_at": "2026-07-22T14:37:55.466618Z",
+      "stderr": "",
+      "stdout": "AGENT_FOX_V1B1C_EIGHT_INPUTS_QUALIFICATIONS_AND_RELATIONSHIPS_OK\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:/FOXAI/Runtime/Desktop/python/python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nimport json\nout=Path(r\"Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260722-142022-9FAE11_V1B1C_BASELINE_COMPARISON_AND_CAPACITY_GUIDANCE\")\nc=json.loads((out/\"RESOURCE_BASELINE_COMPARISON.json\").read_text(encoding=\"utf-8\"))\nmetrics={row[\"metric\"]:row for row in c[\"metric_comparisons\"]}\ndef delta(name): return metrics[name][\"delta_loaded_minus_minimal\"][\"value\"]\nassert delta(\"total_physical_memory_bytes\")==0\nassert delta(\"available_physical_memory_bytes\")==-33886953472\nassert delta(\"physical_memory_in_use_bytes\")==33886953472\nassert abs(delta(\"memory_load_percent\")-66.17)<1e-9\nassert delta(\"committed_bytes\")==19086704640\nassert delta(\"commit_limit_bytes\")==0\nassert delta(\"page_file_allocated_mib\")==0\nassert delta(\"page_file_current_usage_mib\")==-80\nassert delta(\"page_file_peak_usage_mib\")==0\nassert delta(\"process_count\")==12\nassert delta(\"foxai_workspace_process_count\")==3\na=json.loads((out/\"FOXAI_COMPONENT_RESOURCE_ATTRIBUTION.json\").read_text(encoding=\"utf-8\"))\ncomponents={row[\"component\"]:row for row in a[\"component_working_set_comparisons\"]}\nassert components[\"shared_model_runtime\"][\"normal_loaded\"][\"value\"]==29876736000\nassert components[\"comfyui_idle_runtime\"][\"normal_loaded\"][\"value\"]==567324672\nassert components[\"foxai_desktop\"][\"normal_loaded\"][\"value\"]==94650368\nassert components[\"foxai_webui\"][\"minimal_load\"][\"value\"]==76312576\nassert components[\"foxai_webui\"][\"normal_loaded\"][\"value\"]==82599936\nh=json.loads((out/\"CAPACITY_HEADROOM_OBSERVATIONS.json\").read_text(encoding=\"utf-8\"))\nobs={row[\"observation\"]:row for row in h[\"observations\"]}\nassert obs[\"normal_loaded_available_physical_memory\"][\"value_bytes\"]==8379232256\nassert obs[\"normal_loaded_physical_memory_headroom_percent\"][\"value_percent\"]==16.36\nassert obs[\"normal_loaded_commit_headroom\"][\"value_bytes\"]==26655019008\nassert h[\"recommendations_issued\"] is False and h[\"diagnosis_issued\"] is False\nprint(\"AGENT_FOX_V1B1C_ARITHMETIC_ATTRIBUTION_AND_HEADROOM_OK\")"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-22T14:37:55.541641Z",
+      "name": "Validate arithmetic deltas, component attribution, and bounded headroom observations",
+      "returncode": 0,
+      "started_at": "2026-07-22T14:37:55.507079Z",
+      "stderr": "",
+      "stdout": "AGENT_FOX_V1B1C_ARITHMETIC_ATTRIBUTION_AND_HEADROOM_OK\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:/FOXAI/Runtime/Desktop/python/python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nimport hashlib,json\nout=Path(r\"Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260722-142022-9FAE11_V1B1C_BASELINE_COMPARISON_AND_CAPACITY_GUIDANCE\")\npayload=b\"\\n\".join(p.read_bytes() for p in out.iterdir() if p.is_file()).lower()\nfor token in (\n b\"c:\\\\users\\\\\",b'\"commandline\"',b'\"process_arguments\"',b'\"environment_values\"',\n b'\"api_key\"',b'\"token_value\"',b'\"cookie\"',b'\"credential\"',b'\"product_key\"',\n b'\"mac_address\"',b'\"motherboard_uuid\"',b'\"drive_serial\"',b\"k:\\\\\",b\"k:/\"\n):\n assert token not in payload,token\nscript=Path(r\"Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\pc_resource_baseline_comparison_v1.py\").read_text(encoding=\"utf-8\").lower()\nfor token in (\"import subprocess\",\"import socket\",\"import psutil\",\"import winreg\",\"import requests\",\"get-ciminstance\",\"get-nettcpconnection\"):\n assert token not in script,token\nr=json.loads((out/\"BASELINE_COMPARISON_RECEIPT.json\").read_text(encoding=\"utf-8\"))\nfor key in (\"read_only_evidence_comparison\",\"authoritative_inputs_verified\",\"minimal_qualification_verified\",\"normal_loaded_qualification_verified\",\"capture_receipt_relationships_verified\",\"privacy_validation_passed\",\"deterministic_utf8_lf_serialization\"):\n assert r[key] is True,key\nfor key in (\"new_live_scan_performed\",\"live_process_inspection_performed\",\"live_listener_inspection_performed\",\"network_connections_initiated\",\"live_foxai_modules_imported\",\"automatic_process_changes_performed\",\"services_changed\",\"startup_items_changed\",\"registry_writes\",\"minimal_load_evidence_modified\",\"normal_loaded_evidence_modified\",\"webui_or_desktop_integration_modified\",\"rollback_drive_k_accessed\",\"diagnosis_issued\",\"recommendations_issued\"):\n assert r[key] is False,key\nunchanged={\"Z:\\\\FOXAI\\\\System\\\\AgentFoxTechnicalCore\\\\desktop_self_knowledge_integration_v1.py\": \"e420706136b4902d82d8dbf1fecc64ae70fb8bc639106db41033545f8c196c30\", \"Z:\\\\FOXAI\\\\System\\\\AgentFoxTechnicalCore\\\\pc_foxai_baseline_v1.py\": \"8c3af6d6f8d5a21a03fbd5c97eabd58280718a195c65f51a2b9201ff84ec798b\", \"Z:\\\\FOXAI\\\\System\\\\AgentFoxTechnicalCore\\\\pc_loaded_resource_capture_v1.py\": \"1dee5e6e0870a75a7a38181095849880f43acd78caf6782ea17cf932e5ddb146\", \"Z:\\\\FOXAI\\\\System\\\\AgentFoxTechnicalCore\\\\pc_resource_comparison_v1.py\": \"04669d22982315e902abba818c1c2c44a4f622997c9b8346cc0357cf0306fbdc\", \"Z:\\\\FOXAI\\\\System\\\\AgentFoxTechnicalCore\\\\self_knowledge_chat_adapter_v1.py\": \"a80a9047e0eebd9ac87fe4d656c565bc6534563bb3c97e1ad9b59823a36804f7\", \"Z:\\\\FOXAI\\\\System\\\\AgentFoxTechnicalCore\\\\webui_self_knowledge_integration_v1.py\": \"765983b563f8495138c9670849de5c4703f4735a0ddc9324efd6580606fc517b\", \"Z:\\\\FOXAI\\\\core\\\\foxai_web.py\": \"d7bf0a2042d55ef7f0a5869556015e42c7427e7ff88636b28e1795f3adf7b952\", \"Z:\\\\FOXAI\\\\ui\\\\main_window.py\": \"a9c5bb86878e5f0cd27d221dbb32688b337e6026073a4b66d83339e0aef294a3\"}\nfor name,digest in unchanged.items():\n assert hashlib.sha256(Path(name).read_bytes()).hexdigest()==digest,name\nprint(\"AGENT_FOX_V1B1C_PRIVACY_OFFLINE_READ_ONLY_AND_INTEGRATIONS_OK\")"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-22T14:37:55.585964Z",
+      "name": "Validate privacy, offline read-only design, K exclusion, and unchanged integrations",
+      "returncode": 0,
+      "started_at": "2026-07-22T14:37:55.542025Z",
+      "stderr": "",
+      "stdout": "AGENT_FOX_V1B1C_PRIVACY_OFFLINE_READ_ONLY_AND_INTEGRATIONS_OK\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:/FOXAI/Runtime/Desktop/python/python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nimport hashlib,json\nout=Path(r\"Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260722-142022-9FAE11_V1B1C_BASELINE_COMPARISON_AND_CAPACITY_GUIDANCE\")\nr=json.loads((out/\"BASELINE_COMPARISON_RECEIPT.json\").read_text(encoding=\"utf-8\"))\nassert r[\"status\"]==\"compared_and_verified\"\nassert r[\"mission_id\"]==\"ENG-20260722-142022-9FAE11\"\nassert r[\"output_count\"]==5 and r[\"authoritative_input_count\"]==8\nassert len(r[\"outputs_before_receipt\"])==4\nfor row in r[\"outputs_before_receipt\"]:\n data=(out/row[\"name\"]).read_bytes()\n assert len(data)==row[\"size_bytes\"]\n assert hashlib.sha256(data).hexdigest()==row[\"sha256\"]\nsources=[(Path(r\"Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260722-062243-69C555_V1B1A_R2_MINIMAL_LOAD_RESOURCE_BASELINE\"),{\"MINIMAL_LOAD_CAPTURE_RECEIPT.json\": \"19a76bef2adf4f88ba495ed8abcf48e356b52f628de97eccabaf6a334fbd7c82\", \"MINIMAL_LOAD_PROCESS_SUMMARY.json\": \"83b37ebcdb6b5882573f74e96f81b42296e4d6a6fc7a2f1e9a9158c8546ae76f\", \"MINIMAL_LOAD_QUALIFICATION.json\": \"c300ef1e519b0dc0be949d528034ad8548392e0791e544ce70e4a650f7a09026\", \"MINIMAL_LOAD_RESOURCE_SNAPSHOT.json\": \"5ca895a436b91047b095a97efaaa7de2e23ea35555c9b17664a844826db1c639\"}),(Path(r\"Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260722-140518-F13169_V1B1B_R1_NORMAL_LOADED_RESOURCE_BASELINE\"),{\"NORMAL_LOADED_CAPTURE_RECEIPT.json\": \"d061a6d75417debea27b7fcd4be552aa99009058eece6f47fcd8e1a4e3150685\", \"NORMAL_LOADED_PROCESS_SUMMARY.json\": \"58e1d3be02d064066b9bec96aca551ea98c4d8fac2e537e8e50847f85eac4c5f\", \"NORMAL_LOADED_QUALIFICATION.json\": \"79d1589bc0d2787f6effddab1eb432eed90ca4523e7b74f8b2b0037def691b45\", \"NORMAL_LOADED_RESOURCE_SNAPSHOT.json\": \"cf415b6aaa2eb6a6b52ccfbc27ff99e0b5a79b6cd5ad060a3597ba86d0ba4fcb\"})]\nfor root,expected in sources:\n for name,digest in expected.items():\n  assert hashlib.sha256((root/name).read_bytes()).hexdigest()==digest,(root,name)\nassert sum(p.stat().st_size for p in out.iterdir() if p.is_file())<4*1024*1024\nprint(\"AGENT_FOX_V1B1C_RECEIPT_SOURCE_PRESERVATION_AND_SIZE_OK\")"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-22T14:37:55.626129Z",
+      "name": "Validate comparison receipt, authoritative source preservation, and output size ceiling",
+      "returncode": 0,
+      "started_at": "2026-07-22T14:37:55.586372Z",
+      "stderr": "",
+      "stdout": "AGENT_FOX_V1B1C_RECEIPT_SOURCE_PRESERVATION_AND_SIZE_OK\n",
+      "timed_out": false
+    }
+  ]
+}

@@ -1,0 +1,212 @@
+{
+  "authorized": true,
+  "changes": [
+    {
+      "action": "write_file",
+      "after_sha256": "ad501eff2f8162a319085aa4eb6368039e9757e89ee4eaccb11e5f6e446ca6a7",
+      "after_size": 46204,
+      "before_sha256": null,
+      "before_size": null,
+      "relative_path": "System\\AgentFoxTechnicalCore\\provenance_self_knowledge_answer_packet_bridge_v1.py"
+    },
+    {
+      "action": "write_file",
+      "after_sha256": "0afdc9d5527d9b906e328bec951f3e21ffa9ebd041f427f505d3386ddef1510a",
+      "after_size": 2212,
+      "before_sha256": null,
+      "before_size": null,
+      "relative_path": "System\\AgentFoxTechnicalCore\\SELF_KNOWLEDGE_BRIDGE_CONTRACT_V1.json"
+    },
+    {
+      "action": "write_file",
+      "after_sha256": "b10285df2ee17d411168b959ceb010bebfd9e77739f54110eb1fc4807e514f18",
+      "after_size": 1085,
+      "before_sha256": null,
+      "before_size": null,
+      "relative_path": "System\\AgentFoxTechnicalCore\\README_V1A3E.md"
+    }
+  ],
+  "created_at": "2026-07-22T00:27:23.275568Z",
+  "evidence_is_tool_generated": true,
+  "failure": null,
+  "mission_id": "ENG-20260722-001310-533BE2",
+  "mission_title": "Agent Fox Technical Core V1A-3E \u2014 Provenance Self-Knowledge Answer Packet Bridge",
+  "mission_type": "implement",
+  "no_deletions": true,
+  "no_renames": true,
+  "plan_path": "Z:\\FOXAI\\AGENT_FOX_V1A3E\\PLAN.json",
+  "plan_sha256": "db23fc2d53419178e23ffded79095ec6b684ac946857c85b2de1189f325d9e25",
+  "project_root": "Z:\\FOXAI",
+  "result": "applied_verified",
+  "rolled_back": false,
+  "schema": "foxai.engineering.receipt.v1",
+  "snapshot_manifest": "Z:\\FOXAI\\System\\EngineeringWorkshop\\snapshots\\ENG-20260722-001310-533BE2\\snapshot_20260722T002722512390Z.manifest.json",
+  "snapshot_path": "Z:\\FOXAI\\System\\EngineeringWorkshop\\snapshots\\ENG-20260722-001310-533BE2\\snapshot_20260722T002722512390Z.zip",
+  "snapshot_sha256": "3d0925db5ec9f59f3b3933e4263f7f2ff8ae1f409aab952af340813874d835d8",
+  "validations": [
+    {
+      "argv": [
+        "Z:/FOXAI/Runtime/Desktop/python/python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nimport ast\nimport hashlib\nimport json\n\nroot = Path(\"Z:/FOXAI\")\ndrop = root / \"AGENT_FOX_V1A3E\"\ninstalled = root / \"System/AgentFoxTechnicalCore\"\nchecks = [\n    (drop / \"provenance_self_knowledge_answer_packet_bridge_v1.py\", installed / \"provenance_self_knowledge_answer_packet_bridge_v1.py\", \"ad501eff2f8162a319085aa4eb6368039e9757e89ee4eaccb11e5f6e446ca6a7\"),\n    (drop / \"SELF_KNOWLEDGE_BRIDGE_CONTRACT_V1.json\", installed / \"SELF_KNOWLEDGE_BRIDGE_CONTRACT_V1.json\", \"0afdc9d5527d9b906e328bec951f3e21ffa9ebd041f427f505d3386ddef1510a\"),\n    (drop / \"README_V1A3E.md\", installed / \"README_V1A3E.md\", \"b10285df2ee17d411168b959ceb010bebfd9e77739f54110eb1fc4807e514f18\"),\n]\nfor source, target, expected_hash in checks:\n    assert source.is_file(), source\n    assert target.is_file(), target\n    assert hashlib.sha256(source.read_bytes()).hexdigest() == expected_hash\n    assert hashlib.sha256(target.read_bytes()).hexdigest() == expected_hash\n\nscript_text = (installed / \"provenance_self_knowledge_answer_packet_bridge_v1.py\").read_text(encoding=\"utf-8\")\ncompile(script_text, str(installed / \"provenance_self_knowledge_answer_packet_bridge_v1.py\"), \"exec\")\ntree = ast.parse(script_text)\nimports = set()\nfor node in ast.walk(tree):\n    if isinstance(node, ast.Import):\n        imports.update(alias.name.split(\".\")[0] for alias in node.names)\n    elif isinstance(node, ast.ImportFrom) and node.module:\n        imports.add(node.module.split(\".\")[0])\nforbidden = {\n    \"subprocess\", \"socket\", \"urllib\", \"http\", \"ftplib\", \"requests\",\n    \"pip\", \"ensurepip\", \"psutil\", \"winreg\", \"ctypes\", \"webbrowser\", \"importlib\",\n}\nassert not (imports & forbidden), sorted(imports & forbidden)\ncontract = json.loads((installed / \"SELF_KNOWLEDGE_BRIDGE_CONTRACT_V1.json\").read_text(encoding=\"utf-8\"))\nassert contract[\"mission_id\"] == \"ENG-20260722-001310-533BE2\"\nassert contract[\"source_registry_mission_id\"] == \"ENG-20260721-235244-7594A9\"\nassert contract[\"supported_intent_count\"] == 11\nassert len(contract[\"supported_intents\"]) == 11\nassert contract[\"minimum_test_request_count\"] == 24\nassert contract[\"locally_verified_test_request_count\"] >= 24\nassert len(contract[\"outputs\"]) == 6\nassert contract[\"scope\"][\"claim_level_provenance_required\"] is True\nassert contract[\"scope\"][\"runtime_facts_inferred_across_contexts\"] is False\nassert contract[\"scope\"][\"closure_node_records_copied\"] == 0\nassert contract[\"scope\"][\"closure_edge_records_copied\"] == 0\nassert contract[\"scope\"][\"live_source_files_scanned_or_parsed\"] == 0\nprint(\"AGENT_FOX_V1A3E_INSTALL_PREFLIGHT_OK\")"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-22T00:27:22.648429Z",
+      "name": "Verify exact V1A-3E payloads, syntax, eleven-intent contract, and zero forbidden imports",
+      "returncode": 0,
+      "started_at": "2026-07-22T00:27:22.539294Z",
+      "stderr": "",
+      "stdout": "AGENT_FOX_V1A3E_INSTALL_PREFLIGHT_OK\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:/FOXAI/Runtime/Desktop/python/python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "Z:/FOXAI/System/AgentFoxTechnicalCore/provenance_self_knowledge_answer_packet_bridge_v1.py",
+        "self-test"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-22T00:27:22.729130Z",
+      "name": "Run request normalization, provenance, intent-count, and test-count self-tests",
+      "returncode": 0,
+      "started_at": "2026-07-22T00:27:22.648898Z",
+      "stderr": "",
+      "stdout": "V1A3E_SELF_KNOWLEDGE_SELF_TEST_OK\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:/FOXAI/Runtime/Desktop/python/python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "Z:/FOXAI/System/AgentFoxTechnicalCore/provenance_self_knowledge_answer_packet_bridge_v1.py",
+        "verify-inputs",
+        "--registry-dir",
+        "Z:/FOXAI/System/EngineeringWorkshop/missions/ENG-20260721-235244-7594A9_V1A3D_PROTECTED_CONTEXT_REGISTRY"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-22T00:27:22.817615Z",
+      "name": "Hash-verify the seven authoritative V1A-3D registry inputs before answering",
+      "returncode": 0,
+      "started_at": "2026-07-22T00:27:22.729538Z",
+      "stderr": "",
+      "stdout": "{\"protected_context_count\": 6, \"source_registry_mission_id\": \"ENG-20260721-235244-7594A9\", \"status\": \"verified\", \"unique_launcher_count\": 4, \"unique_path_group_count\": 5, \"verified_input_count\": 7}\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:/FOXAI/Runtime/Desktop/python/python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "Z:/FOXAI/System/AgentFoxTechnicalCore/provenance_self_knowledge_answer_packet_bridge_v1.py",
+        "build",
+        "--registry-dir",
+        "Z:/FOXAI/System/EngineeringWorkshop/missions/ENG-20260721-235244-7594A9_V1A3D_PROTECTED_CONTEXT_REGISTRY",
+        "--output-dir",
+        "Z:/FOXAI/System/EngineeringWorkshop/missions/ENG-20260722-001310-533BE2_V1A3E_SELF_KNOWLEDGE_ANSWER_PACKET_BRIDGE",
+        "--mission-id",
+        "ENG-20260722-001310-533BE2"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-22T00:27:22.910849Z",
+      "name": "Build deterministic schemas, intent catalog, tests, examples, and bridge receipt",
+      "returncode": 0,
+      "started_at": "2026-07-22T00:27:22.817999Z",
+      "stderr": "",
+      "stdout": "{\"output_count\": 6, \"output_dir\": \"Z:\\\\FOXAI\\\\System\\\\EngineeringWorkshop\\\\missions\\\\ENG-20260722-001310-533BE2_V1A3E_SELF_KNOWLEDGE_ANSWER_PACKET_BRIDGE\", \"status\": \"built\", \"total_output_bytes\": 25484}\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:/FOXAI/Runtime/Desktop/python/python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "Z:/FOXAI/System/AgentFoxTechnicalCore/provenance_self_knowledge_answer_packet_bridge_v1.py",
+        "validate-output",
+        "--index-dir",
+        "Z:/FOXAI/System/EngineeringWorkshop/missions/ENG-20260722-001310-533BE2_V1A3E_SELF_KNOWLEDGE_ANSWER_PACKET_BRIDGE"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-22T00:27:22.999426Z",
+      "name": "Validate exact six-output set, eleven intents, thirty-four tests, provenance, and safety boundaries",
+      "returncode": 0,
+      "started_at": "2026-07-22T00:27:22.911284Z",
+      "stderr": "",
+      "stdout": "{\"context_coverage_count\": 6, \"launcher_coverage_count\": 4, \"output_count\": 6, \"status\": \"verified\", \"supported_intent_count\": 11, \"test_case_count\": 34, \"total_output_bytes\": 25484}\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:/FOXAI/Runtime/Desktop/python/python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "Z:/FOXAI/System/AgentFoxTechnicalCore/provenance_self_knowledge_answer_packet_bridge_v1.py",
+        "validate-only",
+        "--registry-dir",
+        "Z:/FOXAI/System/EngineeringWorkshop/missions/ENG-20260721-235244-7594A9_V1A3D_PROTECTED_CONTEXT_REGISTRY"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-22T00:27:23.089292Z",
+      "name": "Run validation-only mode across all six contexts and four launchers",
+      "returncode": 0,
+      "started_at": "2026-07-22T00:27:22.999830Z",
+      "stderr": "",
+      "stdout": "{\"claim_provenance_record_count\": 240, \"clarification_packet_count\": 2, \"context_coverage_count\": 6, \"launcher_coverage_count\": 4, \"protected_context_count\": 6, \"source_registry_mission_id\": \"ENG-20260721-235244-7594A9\", \"status\": \"verified\", \"supported_intent_count\": 11, \"test_case_count\": 34, \"unique_launcher_count\": 4, \"unique_path_group_count\": 5, \"verified_input_count\": 7}\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:/FOXAI/Runtime/Desktop/python/python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "Z:/FOXAI/System/AgentFoxTechnicalCore/provenance_self_knowledge_answer_packet_bridge_v1.py",
+        "answer-json",
+        "--registry-dir",
+        "Z:/FOXAI/System/EngineeringWorkshop/missions/ENG-20260721-235244-7594A9_V1A3D_PROTECTED_CONTEXT_REGISTRY",
+        "--request-json",
+        "{\"request_id\":\"WORKSHOP-RUNTIME\",\"intent\":\"explain_runtime_uncertainty\",\"context\":\"workshop_main\"}"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-22T00:27:23.179241Z",
+      "name": "Generate deterministic Workshop Main runtime-uncertainty answer packet without alias resolution",
+      "returncode": 0,
+      "started_at": "2026-07-22T00:27:23.089760Z",
+      "stderr": "",
+      "stdout": "{\n  \"answer_text\": \"Runtime evidence is reported without resolving aliases, probing pythonw, or borrowing facts from another context.\",\n  \"answer_text_claim_ids\": [\n    \"workshop_main.runtime_uncertainty\"\n  ],\n  \"clarification\": null,\n  \"linked_context_references\": [],\n  \"normalized_intent\": \"explain_runtime_uncertainty\",\n  \"request_id\": \"WORKSHOP-RUNTIME\",\n  \"resolved_selectors\": {\n    \"context\": \"workshop_main\",\n    \"context_id\": \"CTX-68030A15EE97A526\"\n  },\n  \"safety\": {\n    \"dependency_nodes_or_edges_copied\": false,\n    \"runtime_facts_inferred_across_contexts\": false,\n    \"unresolved_candidates_presented_as_confirmed\": false\n  },\n  \"schema\": \"foxai.agent_fox.technical_core.v1a3e.answer_packet.v1\",\n  \"status\": \"answered\",\n  \"structured_claims\": [],\n  \"uncertainty_statements\": [\n    {\n      \"claim_id\": \"workshop_main.runtime_uncertainty\",\n      \"provenance\": [\n        {\n          \"evidence_filename\": \"WORKSHOP_MAIN_RUNTIME_UNCERTAINTY.json\",\n          \"evidence_sha256\": \"03c28243f296174085d5022b103202b7c9a641446fbef81e17f89c2666d4bdce\",\n          \"json_field_path\": \"$\",\n          \"record_locator\": null,\n          \"source_mission_id\": \"ENG-20260721-232230-72B494\",\n          \"source_receipt_sha256\": \"e08b259f16aee4dd2041c313343905ceb6634788beda12648aeac37a4aa8a2dc\"\n        }\n      ],\n      \"text\": \"Runtime resolution status and uncertainty are preserved exactly from the registry.\",\n      \"value\": {\n        \"context_id\": \"CTX-68030A15EE97A526\",\n        \"interpreter_reference\": \"python\",\n        \"interpreter_reference_kind\": \"command_alias_requires_path_resolution\",\n        \"known_runtime_identities_not_linked_to_alias\": [\n          {\n            \"candidate_basis\": \"known runtime identity from prior verified evidence only\",\n            \"executable\": \"C:\\\\Python314\\\\python.exe\",\n            \"host_base_dependent\": false,\n            \"launcher_alias_link_proven\": false,\n            \"owner\": \"host\",\n            \"portability_classification\": \"host_runtime\",\n            \"present_on_live_PATH_proven\": false,\n            \"probe_status\": \"probe_succeeded\",\n            \"runtime_id\": \"host_python314\",\n            \"selected_for_context\": false,\n            \"site_policy\": \"site_disabled_by_probe_flag\"\n          },\n          {\n            \"candidate_basis\": \"known runtime identity from prior verified evidence only\",\n            \"executable\": \"Z:\\\\FOXAI\\\\.venv\\\\Scripts\\\\python.exe\",\n            \"host_base_dependent\": true,\n            \"launcher_alias_link_proven\": false,\n            \"owner\": \"virtual_environment\",\n            \"portability_classification\": \"host_base_dependent\",\n            \"present_on_live_PATH_proven\": false,\n            \"probe_status\": \"probe_succeeded\",\n            \"runtime_id\": \"project_venv\",\n            \"selected_for_context\": false,\n            \"site_policy\": \"site_disabled_by_probe_flag\"\n          },\n          {\n            \"candidate_basis\": \"known runtime identity from prior verified evidence only\",\n            \"executable\": \"Z:\\\\FOXAI\\\\env\\\\python\\\\python.exe\",\n            \"host_base_dependent\": false,\n            \"launcher_alias_link_proven\": false,\n            \"owner\": \"legacy_or_general_env\",\n            \"portability_classification\": \"project_root_runtime\",\n            \"present_on_live_PATH_proven\": false,\n            \"probe_status\": \"probe_succeeded\",\n            \"runtime_id\": \"portable_env\",\n            \"selected_for_context\": false,\n            \"site_policy\": \"site_enabled_by_underscore_pth\"\n          },\n          {\n            \"candidate_basis\": \"known runtime identity from prior verified evidence only\",\n            \"executable\": \"Z:\\\\FOXAI\\\\Runtime\\\\Desktop\\\\python\\\\python.exe\",\n            \"host_base_dependent\": false,\n            \"launcher_alias_link_proven\": false,\n            \"owner\": \"Desktop\",\n            \"portability_classification\": \"project_root_runtime\",\n            \"present_on_live_PATH_proven\": false,\n            \"probe_status\": \"probe_succeeded\",\n            \"runtime_id\": \"portable_desktop\",\n            \"selected_for_context\": false,\n            \"site_policy\": \"site_disabled_by_probe_flag\"\n          }\n        ],\n        \"known_runtime_identity_count\": 4,\n        \"launcher_line\": 24,\n        \"launcher_path\": \"Z:\\\\FOXAI\\\\Launch FOXAI Workshop.bat\",\n        \"live_path_queried\": false,\n        \"mission_id\": \"ENG-20260721-232230-72B494\",\n        \"path_group_entries\": [\n          {\n            \"evidence\": \"launcher script path and flags\",\n            \"order\": 0,\n            \"path\": \"Z:\\\\FOXAI\",\n            \"source\": \"script_directory\",\n            \"status\": \"candidate\",\n            \"within_project_root\": true\n          }\n        ],\n        \"path_group_id\": \"PATHGROUP-266CA7411F12A68D\",\n        \"proven_alias_candidate_count\": 0,\n        \"python_alias_executed\": false,\n        \"resolved_interpreter_path\": null,\n        \"runtime_assignment_inferred_from_neighbor_context\": false,\n        \"runtime_id\": null,\n        \"runtime_identity_directly_observed\": false,\n        \"runtime_probe_executed\": false,\n        \"runtime_resolution_status\": \"unresolved_command_alias\",\n        \"runtime_sys_path\": null,\n        \"schema\": \"foxai.agent_fox.technical_core.v1a3c4_r1.workshop_main_runtime_uncertainty.v1\",\n        \"selected_runtime_candidate_count\": 0,\n        \"single_runtime_proven\": false,\n        \"uncertainty\": [\n          \"interpreter_command_alias_not_resolved\",\n          \"runtime_sys_path_unavailable\"\n        ],\n        \"why_no_single_runtime_is_proven\": [\n          \"The launcher invokes the command alias python rather than an exact executable path.\",\n          \"Verified launcher evidence did not capture a PATH or PATHEXT resolution for this invocation.\",\n          \"Runtime sys.path is unavailable because no runtime identity was directly resolved.\",\n          \"The separate manager invocation in the same launcher uses an explicit runtime but does not prove this alias resolves to that runtime.\",\n          \"No live PATH query or command execution is authorized by this mission.\"\n        ],\n        \"working_directory\": \"Z:\\\\FOXAI\"\n      }\n    }\n  ],\n  \"unresolved_items\": []\n}\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:/FOXAI/Runtime/Desktop/python/python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "Z:/FOXAI/System/AgentFoxTechnicalCore/provenance_self_knowledge_answer_packet_bridge_v1.py",
+        "answer-json",
+        "--registry-dir",
+        "Z:/FOXAI/System/EngineeringWorkshop/missions/ENG-20260721-235244-7594A9_V1A3D_PROTECTED_CONTEXT_REGISTRY",
+        "--request-json",
+        "{\"request_id\":\"COMPARE-FOXAI\",\"intent\":\"compare_contexts\",\"contexts\":[\"workshop_main\",\"desktop_recovery_gui\"]}"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-22T00:27:23.275494Z",
+      "name": "Generate deterministic cross-context comparison with separate provenance and no merged records",
+      "returncode": 0,
+      "started_at": "2026-07-22T00:27:23.179649Z",
+      "stderr": "",
+      "stdout": "{\n  \"answer_text\": \"Two contexts were compared side by side with separate provenance; no runtime facts or closure records were merged.\",\n  \"answer_text_claim_ids\": [\n    \"workshop_main.launcher_path\",\n    \"workshop_main.launcher_line\",\n    \"workshop_main.interpreter_reference\",\n    \"workshop_main.resolved_interpreter_path\",\n    \"workshop_main.runtime_id\",\n    \"workshop_main.runtime_resolution_status\",\n    \"workshop_main.entry_script\",\n    \"workshop_main.closure_node_count\",\n    \"workshop_main.closure_edge_count\",\n    \"workshop_main.unresolved_branch_count\",\n    \"desktop_recovery_gui.launcher_path\",\n    \"desktop_recovery_gui.launcher_line\",\n    \"desktop_recovery_gui.interpreter_reference\",\n    \"desktop_recovery_gui.resolved_interpreter_path\",\n    \"desktop_recovery_gui.runtime_id\",\n    \"desktop_recovery_gui.runtime_resolution_status\",\n    \"desktop_recovery_gui.entry_script\",\n    \"desktop_recovery_gui.closure_node_count\",\n    \"desktop_recovery_gui.closure_edge_count\",\n    \"desktop_recovery_gui.unresolved_branch_count\"\n  ],\n  \"clarification\": null,\n  \"linked_context_references\": [],\n  \"normalized_intent\": \"compare_contexts\",\n  \"request_id\": \"COMPARE-FOXAI\",\n  \"resolved_selectors\": {\n    \"contexts\": [\n      \"workshop_main\",\n      \"desktop_recovery_gui\"\n    ]\n  },\n  \"safety\": {\n    \"dependency_nodes_or_edges_copied\": false,\n    \"runtime_facts_inferred_across_contexts\": false,\n    \"unresolved_candidates_presented_as_confirmed\": false\n  },\n  \"schema\": \"foxai.agent_fox.technical_core.v1a3e.answer_packet.v1\",\n  \"status\": \"answered\",\n  \"structured_claims\": [\n    {\n      \"claim_id\": \"workshop_main.launcher_path\",\n      \"provenance\": [\n        {\n          \"evidence_filename\": \"WORKSHOP_MAIN_CONTEXT.json\",\n          \"evidence_sha256\": \"23d45f82b8b41cc10ebded1e1b5de37e5968fb550fa7995b18fbce5900ae863a\",\n          \"json_field_path\": \"$.context.launcher_path\",\n          \"record_locator\": null,\n          \"source_mission_id\": \"ENG-20260721-232230-72B494\",\n          \"source_receipt_sha256\": \"e08b259f16aee4dd2041c313343905ceb6634788beda12648aeac37a4aa8a2dc\"\n        }\n      ],\n      \"text\": \"launcher path: Z:\\\\FOXAI\\\\Launch FOXAI Workshop.bat\",\n      \"value\": \"Z:\\\\FOXAI\\\\Launch FOXAI Workshop.bat\"\n    },\n    {\n      \"claim_id\": \"workshop_main.launcher_line\",\n      \"provenance\": [\n        {\n          \"evidence_filename\": \"WORKSHOP_MAIN_CONTEXT.json\",\n          \"evidence_sha256\": \"23d45f82b8b41cc10ebded1e1b5de37e5968fb550fa7995b18fbce5900ae863a\",\n          \"json_field_path\": \"$.context.line\",\n          \"record_locator\": null,\n          \"source_mission_id\": \"ENG-20260721-232230-72B494\",\n          \"source_receipt_sha256\": \"e08b259f16aee4dd2041c313343905ceb6634788beda12648aeac37a4aa8a2dc\"\n        }\n      ],\n      \"text\": \"launcher line: 24\",\n      \"value\": 24\n    },\n    {\n      \"claim_id\": \"workshop_main.interpreter_reference\",\n      \"provenance\": [\n        {\n          \"evidence_filename\": \"WORKSHOP_MAIN_CONTEXT.json\",\n          \"evidence_sha256\": \"23d45f82b8b41cc10ebded1e1b5de37e5968fb550fa7995b18fbce5900ae863a\",\n          \"json_field_path\": \"$.context.interpreter_reference\",\n          \"record_locator\": null,\n          \"source_mission_id\": \"ENG-20260721-232230-72B494\",\n          \"source_receipt_sha256\": \"e08b259f16aee4dd2041c313343905ceb6634788beda12648aeac37a4aa8a2dc\"\n        }\n      ],\n      \"text\": \"interpreter reference: python\",\n      \"value\": \"python\"\n    },\n    {\n      \"claim_id\": \"workshop_main.resolved_interpreter_path\",\n      \"provenance\": [\n        {\n          \"evidence_filename\": \"WORKSHOP_MAIN_CONTEXT.json\",\n          \"evidence_sha256\": \"23d45f82b8b41cc10ebded1e1b5de37e5968fb550fa7995b18fbce5900ae863a\",\n          \"json_field_path\": \"$.context.resolved_interpreter_path\",\n          \"record_locator\": null,\n          \"source_mission_id\": \"ENG-20260721-232230-72B494\",\n          \"source_receipt_sha256\": \"e08b259f16aee4dd2041c313343905ceb6634788beda12648aeac37a4aa8a2dc\"\n        }\n      ],\n      \"text\": \"resolved interpreter path: None\",\n      \"value\": null\n    },\n    {\n      \"claim_id\": \"workshop_main.runtime_id\",\n      \"provenance\": [\n        {\n          \"evidence_filename\": \"WORKSHOP_MAIN_CONTEXT.json\",\n          \"evidence_sha256\": \"23d45f82b8b41cc10ebded1e1b5de37e5968fb550fa7995b18fbce5900ae863a\",\n          \"json_field_path\": \"$.context.runtime_id\",\n          \"record_locator\": null,\n          \"source_mission_id\": \"ENG-20260721-232230-72B494\",\n          \"source_receipt_sha256\": \"e08b259f16aee4dd2041c313343905ceb6634788beda12648aeac37a4aa8a2dc\"\n        }\n      ],\n      \"text\": \"runtime id: None\",\n      \"value\": null\n    },\n    {\n      \"claim_id\": \"workshop_main.runtime_resolution_status\",\n      \"provenance\": [\n        {\n          \"evidence_filename\": \"WORKSHOP_MAIN_CONTEXT.json\",\n          \"evidence_sha256\": \"23d45f82b8b41cc10ebded1e1b5de37e5968fb550fa7995b18fbce5900ae863a\",\n          \"json_field_path\": \"$.context.runtime_resolution_status\",\n          \"record_locator\": null,\n          \"source_mission_id\": \"ENG-20260721-232230-72B494\",\n          \"source_receipt_sha256\": \"e08b259f16aee4dd2041c313343905ceb6634788beda12648aeac37a4aa8a2dc\"\n        }\n      ],\n      \"text\": \"runtime resolution status: unresolved_command_alias\",\n      \"value\": \"unresolved_command_alias\"\n    },\n    {\n      \"claim_id\": \"workshop_main.entry_script\",\n      \"provenance\": [\n        {\n          \"evidence_filename\": \"WORKSHOP_MAIN_CONTEXT.json\",\n          \"evidence_sha256\": \"23d45f82b8b41cc10ebded1e1b5de37e5968fb550fa7995b18fbce5900ae863a\",\n          \"json_field_path\": \"$.context.script_path\",\n          \"record_locator\": null,\n          \"source_mission_id\": \"ENG-20260721-232230-72B494\",\n          \"source_receipt_sha256\": \"e08b259f16aee4dd2041c313343905ceb6634788beda12648aeac37a4aa8a2dc\"\n        }\n      ],\n      \"text\": \"entry script: Z:\\\\FOXAI\\\\foxai.py\",\n      \"value\": \"Z:\\\\FOXAI\\\\foxai.py\"\n    },\n    {\n      \"claim_id\": \"workshop_main.closure_node_count\",\n      \"provenance\": [\n        {\n          \"evidence_filename\": \"WORKSHOP_MAIN_COVERAGE.json\",\n          \"evidence_sha256\": \"24b53f765d49a72c34dbe52511047f20c6679e8a95bc41bf8f00295c442f00d6\",\n          \"json_field_path\": \"$.closure_node_count\",\n          \"record_locator\": null,\n          \"source_mission_id\": \"ENG-20260721-232230-72B494\",\n          \"source_receipt_sha256\": \"e08b259f16aee4dd2041c313343905ceb6634788beda12648aeac37a4aa8a2dc\"\n        }\n      ],\n      \"text\": \"closure node count: 70\",\n      \"value\": 70\n    },\n    {\n      \"claim_id\": \"workshop_main.closure_edge_count\",\n      \"provenance\": [\n        {\n          \"evidence_filename\": \"WORKSHOP_MAIN_COVERAGE.json\",\n          \"evidence_sha256\": \"24b53f765d49a72c34dbe52511047f20c6679e8a95bc41bf8f00295c442f00d6\",\n          \"json_field_path\": \"$.closure_edge_count\",\n          \"record_locator\": null,\n          \"source_mission_id\": \"ENG-20260721-232230-72B494\",\n          \"source_receipt_sha256\": \"e08b259f16aee4dd2041c313343905ceb6634788beda12648aeac37a4aa8a2dc\"\n        }\n      ],\n      \"text\": \"closure edge count: 205\",\n      \"value\": 205\n    },\n    {\n      \"claim_id\": \"workshop_main.unresolved_branch_count\",\n      \"provenance\": [\n        {\n          \"evidence_filename\": \"WORKSHOP_MAIN_COVERAGE.json\",\n          \"evidence_sha256\": \"24b53f765d49a72c34dbe52511047f20c6679e8a95bc41bf8f00295c442f00d6\",\n          \"json_field_path\": \"$.unresolved_branch_count\",\n          \"record_locator\": null,\n          \"source_mission_id\": \"ENG-20260721-232230-72B494\",\n          \"source_receipt_sha256\": \"e08b259f16aee4dd2041c313343905ceb6634788beda12648aeac37a4aa8a2dc\"\n        }\n      ],\n      \"text\": \"unresolved branch count: 15\",\n      \"value\": 15\n    },\n    {\n      \"claim_id\": \"desktop_recovery_gui.launcher_path\",\n      \"provenance\": [\n        {\n          \"evidence_filename\": \"DESKTOP_RECOVERY_GUI_CONTEXT.json\",\n          \"evidence_sha256\": \"33bb07e1f9374b0fd79b2315559778280429b5bf5a0a0b043399eced52887e09\",\n          \"json_field_path\": \"$.context.launcher_path\",\n          \"record_locator\": null,\n          \"source_mission_id\": \"ENG-20260721-234311-5F92E4\",\n          \"source_receipt_sha256\": \"3d0ecabad4f3422abcff268b2498094ccc021f2831a2b6c972e47848bf970896\"\n        }\n      ],\n      \"text\": \"launcher path: Z:\\\\FOXAI\\\\START_FOXAI_DESKTOP_TWO_WINDOW_RECOVERY.bat\",\n      \"value\": \"Z:\\\\FOXAI\\\\START_FOXAI_DESKTOP_TWO_WINDOW_RECOVERY.bat\"\n    },\n    {\n      \"claim_id\": \"desktop_recovery_gui.launcher_line\",\n      \"provenance\": [\n        {\n          \"evidence_filename\": \"DESKTOP_RECOVERY_GUI_CONTEXT.json\",\n          \"evidence_sha256\": \"33bb07e1f9374b0fd79b2315559778280429b5bf5a0a0b043399eced52887e09\",\n          \"json_field_path\": \"$.context.line\",\n          \"record_locator\": null,\n          \"source_mission_id\": \"ENG-20260721-234311-5F92E4\",\n          \"source_receipt_sha256\": \"3d0ecabad4f3422abcff268b2498094ccc021f2831a2b6c972e47848bf970896\"\n        }\n      ],\n      \"text\": \"launcher line: 54\",\n      \"value\": 54\n    },\n    {\n      \"claim_id\": \"desktop_recovery_gui.interpreter_reference\",\n      \"provenance\": [\n        {\n          \"evidence_filename\": \"DESKTOP_RECOVERY_GUI_CONTEXT.json\",\n          \"evidence_sha256\": \"33bb07e1f9374b0fd79b2315559778280429b5bf5a0a0b043399eced52887e09\",\n          \"json_field_path\": \"$.context.interpreter_reference\",\n          \"record_locator\": null,\n          \"source_mission_id\": \"ENG-20260721-234311-5F92E4\",\n          \"source_receipt_sha256\": \"3d0ecabad4f3422abcff268b2498094ccc021f2831a2b6c972e47848bf970896\"\n        }\n      ],\n      \"text\": \"interpreter reference: %PYTHONW%\",\n      \"value\": \"%PYTHONW%\"\n    },\n    {\n      \"claim_id\": \"desktop_recovery_gui.resolved_interpreter_path\",\n      \"provenance\": [\n        {\n          \"evidence_filename\": \"DESKTOP_RECOVERY_GUI_CONTEXT.json\",\n          \"evidence_sha256\": \"33bb07e1f9374b0fd79b2315559778280429b5bf5a0a0b043399eced52887e09\",\n          \"json_field_path\": \"$.context.resolved_interpreter_path\",\n          \"record_locator\": null,\n          \"source_mission_id\": \"ENG-20260721-234311-5F92E4\",\n          \"source_receipt_sha256\": \"3d0ecabad4f3422abcff268b2498094ccc021f2831a2b6c972e47848bf970896\"\n        }\n      ],\n      \"text\": \"resolved interpreter path: Z:\\\\FOXAI\\\\Runtime\\\\Desktop\\\\python\\\\pythonw.exe\",\n      \"value\": \"Z:\\\\FOXAI\\\\Runtime\\\\Desktop\\\\python\\\\pythonw.exe\"\n    },\n    {\n      \"claim_id\": \"desktop_recovery_gui.runtime_id\",\n      \"provenance\": [\n        {\n          \"evidence_filename\": \"DESKTOP_RECOVERY_GUI_CONTEXT.json\",\n          \"evidence_sha256\": \"33bb07e1f9374b0fd79b2315559778280429b5bf5a0a0b043399eced52887e09\",\n          \"json_field_path\": \"$.context.runtime_id\",\n          \"record_locator\": null,\n          \"source_mission_id\": \"ENG-20260721-234311-5F92E4\",\n          \"source_receipt_sha256\": \"3d0ecabad4f3422abcff268b2498094ccc021f2831a2b6c972e47848bf970896\"\n        }\n      ],\n      \"text\": \"runtime id: portable_desktop\",\n      \"value\": \"portable_desktop\"\n    },\n    {\n      \"claim_id\": \"desktop_recovery_gui.runtime_resolution_status\",\n      \"provenance\": [\n        {\n          \"evidence_filename\": \"DESKTOP_RECOVERY_GUI_CONTEXT.json\",\n          \"evidence_sha256\": \"33bb07e1f9374b0fd79b2315559778280429b5bf5a0a0b043399eced52887e09\",\n          \"json_field_path\": \"$.context.runtime_resolution_status\",\n          \"record_locator\": null,\n          \"source_mission_id\": \"ENG-20260721-234311-5F92E4\",\n          \"source_receipt_sha256\": \"3d0ecabad4f3422abcff268b2498094ccc021f2831a2b6c972e47848bf970896\"\n        }\n      ],\n      \"text\": \"runtime resolution status: statically_inferred_pythonw_sibling_not_directly_probed\",\n      \"value\": \"statically_inferred_pythonw_sibling_not_directly_probed\"\n    },\n    {\n      \"claim_id\": \"desktop_recovery_gui.entry_script\",\n      \"provenance\": [\n        {\n          \"evidence_filename\": \"DESKTOP_RECOVERY_GUI_CONTEXT.json\",\n          \"evidence_sha256\": \"33bb07e1f9374b0fd79b2315559778280429b5bf5a0a0b043399eced52887e09\",\n          \"json_field_path\": \"$.context.script_path\",\n          \"record_locator\": null,\n          \"source_mission_id\": \"ENG-20260721-234311-5F92E4\",\n          \"source_receipt_sha256\": \"3d0ecabad4f3422abcff268b2498094ccc021f2831a2b6c972e47848bf970896\"\n        }\n      ],\n      \"text\": \"entry script: Z:\\\\FOXAI\\\\foxai.py\",\n      \"value\": \"Z:\\\\FOXAI\\\\foxai.py\"\n    },\n    {\n      \"claim_id\": \"desktop_recovery_gui.closure_node_count\",\n      \"provenance\": [\n        {\n          \"evidence_filename\": \"DESKTOP_RECOVERY_GUI_COVERAGE.json\",\n          \"evidence_sha256\": \"52c9e019f497e5cf6bd48147472ef45ceb7b9f655319afeebf994094a5cf80fd\",\n          \"json_field_path\": \"$.closure_node_count\",\n          \"record_locator\": null,\n          \"source_mission_id\": \"ENG-20260721-234311-5F92E4\",\n          \"source_receipt_sha256\": \"3d0ecabad4f3422abcff268b2498094ccc021f2831a2b6c972e47848bf970896\"\n        }\n      ],\n      \"text\": \"closure node count: 70\",\n      \"value\": 70\n    },\n    {\n      \"claim_id\": \"desktop_recovery_gui.closure_edge_count\",\n      \"provenance\": [\n        {\n          \"evidence_filename\": \"DESKTOP_RECOVERY_GUI_COVERAGE.json\",\n          \"evidence_sha256\": \"52c9e019f497e5cf6bd48147472ef45ceb7b9f655319afeebf994094a5cf80fd\",\n          \"json_field_path\": \"$.closure_edge_count\",\n          \"record_locator\": null,\n          \"source_mission_id\": \"ENG-20260721-234311-5F92E4\",\n          \"source_receipt_sha256\": \"3d0ecabad4f3422abcff268b2498094ccc021f2831a2b6c972e47848bf970896\"\n        }\n      ],\n      \"text\": \"closure edge count: 205\",\n      \"value\": 205\n    },\n    {\n      \"claim_id\": \"desktop_recovery_gui.unresolved_branch_count\",\n      \"provenance\": [\n        {\n          \"evidence_filename\": \"DESKTOP_RECOVERY_GUI_COVERAGE.json\",\n          \"evidence_sha256\": \"52c9e019f497e5cf6bd48147472ef45ceb7b9f655319afeebf994094a5cf80fd\",\n          \"json_field_path\": \"$.unresolved_branch_count\",\n          \"record_locator\": null,\n          \"source_mission_id\": \"ENG-20260721-234311-5F92E4\",\n          \"source_receipt_sha256\": \"3d0ecabad4f3422abcff268b2498094ccc021f2831a2b6c972e47848bf970896\"\n        }\n      ],\n      \"text\": \"unresolved branch count: 1\",\n      \"value\": 1\n    }\n  ],\n  \"uncertainty_statements\": [\n    {\n      \"claim_id\": \"workshop_main.uncertainty\",\n      \"provenance\": [\n        {\n          \"evidence_filename\": \"WORKSHOP_MAIN_CONTEXT.json\",\n          \"evidence_sha256\": \"23d45f82b8b41cc10ebded1e1b5de37e5968fb550fa7995b18fbce5900ae863a\",\n          \"json_field_path\": \"$.context.uncertainty\",\n          \"record_locator\": null,\n          \"source_mission_id\": \"ENG-20260721-232230-72B494\",\n          \"source_receipt_sha256\": \"e08b259f16aee4dd2041c313343905ceb6634788beda12648aeac37a4aa8a2dc\"\n        }\n      ],\n      \"text\": \"uncertainty: ['interpreter_command_alias_not_resolved', 'runtime_sys_path_unavailable']\",\n      \"value\": [\n        \"interpreter_command_alias_not_resolved\",\n        \"runtime_sys_path_unavailable\"\n      ]\n    },\n    {\n      \"claim_id\": \"desktop_recovery_gui.uncertainty\",\n      \"provenance\": [\n        {\n          \"evidence_filename\": \"DESKTOP_RECOVERY_GUI_CONTEXT.json\",\n          \"evidence_sha256\": \"33bb07e1f9374b0fd79b2315559778280429b5bf5a0a0b043399eced52887e09\",\n          \"json_field_path\": \"$.context.uncertainty\",\n          \"record_locator\": null,\n          \"source_mission_id\": \"ENG-20260721-234311-5F92E4\",\n          \"source_receipt_sha256\": \"3d0ecabad4f3422abcff268b2498094ccc021f2831a2b6c972e47848bf970896\"\n        }\n      ],\n      \"text\": \"uncertainty: ['pythonw_runtime_identity_not_directly_probed']\",\n      \"value\": [\n        \"pythonw_runtime_identity_not_directly_probed\"\n      ]\n    }\n  ],\n  \"unresolved_items\": []\n}\n",
+      "timed_out": false
+    }
+  ]
+}

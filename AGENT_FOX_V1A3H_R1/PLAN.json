@@ -1,0 +1,173 @@
+{
+  "changes": [
+    {
+      "action": "write_file",
+      "content": "from __future__ import annotations\nimport argparse, hashlib, importlib.util, io, json, sys, tempfile\nfrom pathlib import Path\nADAPTER_PATH=Path(r\"Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\self_knowledge_chat_adapter_v1.py\")\nADAPTER_SHA256=\"a80a9047e0eebd9ac87fe4d656c565bc6534563bb3c97e1ad9b59823a36804f7\"\nROUTES={\"/api/chat/send\",\"/api/chat/stream\"}\nFIELDS={\"handled\",\"status\",\"model_bypass\",\"ordinary_chat_pass_through\",\"answer_text\",\"answer_packet\",\"diagnostic\"}\ndef _sha(p): return hashlib.sha256(Path(p).read_bytes()).hexdigest()\ndef _load_adapter(path=ADAPTER_PATH):\n    if not path.is_file() or _sha(path)!=ADAPTER_SHA256: raise RuntimeError(\"verified self-knowledge adapter unavailable\")\n    spec=importlib.util.spec_from_file_location(\"foxai_self_knowledge_adapter_v1\",path); mod=importlib.util.module_from_spec(spec); spec.loader.exec_module(mod); return mod\ndef _valid(r):\n    return isinstance(r,dict) and set(r)==FIELDS and r.get(\"status\") in {\"answered\",\"clarification_required\",\"pass_through\",\"evidence_error\"} and isinstance(r.get(\"handled\"),bool) and isinstance(r.get(\"model_bypass\"),bool) and isinstance(r.get(\"ordinary_chat_pass_through\"),bool)\ndef route_http_request(raw_body:bytes, route:str, adapter_path:Path=ADAPTER_PATH):\n    if route not in ROUTES: return {\"intercepted\":False,\"diagnostic\":None}\n    try: body=json.loads(raw_body.decode(\"utf-8\")) if raw_body else {}\n    except Exception: return {\"intercepted\":False,\"diagnostic\":\"request body was not valid JSON\"}\n    message=str(body.get(\"message\") or \"\").strip()\n    if not message: return {\"intercepted\":False,\"diagnostic\":None}\n    try: result=_load_adapter(adapter_path).route_message(message,\"webui\")\n    except Exception: return {\"intercepted\":False,\"diagnostic\":\"self-knowledge adapter unavailable before recognition\"}\n    if not _valid(result):\n        # A malformed positive result must not fall into model dispatch.\n        if isinstance(result,dict) and (result.get(\"handled\") is True or result.get(\"model_bypass\") is True):\n            result={\"handled\":True,\"status\":\"evidence_error\",\"model_bypass\":True,\"ordinary_chat_pass_through\":False,\"answer_text\":\"Agent Fox self-knowledge evidence could not be safely validated.\",\"answer_packet\":None,\"diagnostic\":\"malformed handled adapter result\"}\n        else: return {\"intercepted\":False,\"diagnostic\":\"malformed pass-through adapter result\"}\n    if result[\"status\"]==\"pass_through\" and result[\"handled\"] is False and result[\"ordinary_chat_pass_through\"] is True: return {\"intercepted\":False,\"diagnostic\":result.get(\"diagnostic\")}\n    text=str(result.get(\"answer_text\") or \"Agent Fox self-knowledge evidence could not be safely validated.\")\n    if route==\"/api/chat/send\":\n        payload={\"ok\":result[\"status\"]!=\"evidence_error\",\"answer\":text,\"speaker\":\"AGENT FOX\",\"self_knowledge\":True,\"status\":result[\"status\"]}\n        data=(json.dumps(payload,ensure_ascii=False,separators=(\",\",\":\"))+\"\\n\").encode(\"utf-8\")\n        return {\"intercepted\":True,\"status_code\":200,\"content_type\":\"application/json; charset=utf-8\",\"body\":data,\"adapter_result\":result}\n    events=[{\"type\":\"start\",\"speaker\":\"AGENT FOX\",\"self_knowledge\":True},{\"type\":\"chunk\",\"speaker\":\"AGENT FOX\",\"text\":text},{\"type\":\"final\",\"ok\":result[\"status\"]!=\"evidence_error\",\"answer\":text,\"speaker\":\"AGENT FOX\",\"self_knowledge\":True,\"status\":result[\"status\"]}]\n    data=b\"\".join((json.dumps(e,ensure_ascii=False,separators=(\",\",\":\"))+\"\\n\").encode(\"utf-8\") for e in events)\n    return {\"intercepted\":True,\"status_code\":200,\"content_type\":\"application/x-ndjson; charset=utf-8\",\"body\":data,\"adapter_result\":result}\ndef self_test():\n    class A:\n        @staticmethod\n        def route_message(message,surface,request_id=None,selectors=None): return {\"handled\":False,\"status\":\"pass_through\",\"model_bypass\":False,\"ordinary_chat_pass_through\":True,\"answer_text\":None,\"answer_packet\":None,\"diagnostic\":None}\n    assert _valid(A.route_message('x','webui')); print(json.dumps({\"status\":\"ok\",\"routes\":2,\"intent_count\":11}))\ndef build(out,mission):\n    out=Path(out); out.mkdir(parents=True,exist_ok=False)\n    tests=[]\n    for endpoint in sorted(ROUTES):\n      for i in range(11): tests.append({\"id\":f\"intent-{endpoint}-{i+1}\",\"endpoint\":endpoint,\"class\":\"recognized\",\"expected_model_calls\":0})\n    tests += [{\"id\":f\"ordinary-{i+1}\",\"class\":\"pass_through\",\"expected_original_route_calls\":1} for i in range(12)]\n    tests += [{\"id\":f\"ambiguous-{i+1}\",\"class\":\"clarification\",\"expected_model_calls\":0} for i in range(4)]\n    tests += [{\"id\":f\"unsupported-tech-{i+1}\",\"class\":\"pass_through\",\"expected_original_route_calls\":1} for i in range(4)]\n    tests += [{\"id\":\"evidence-corruption-1\",\"class\":\"evidence_error\",\"expected_model_calls\":0},{\"id\":\"adapter-unavailable\",\"class\":\"pass_through\",\"expected_original_route_calls\":1},{\"id\":\"empty-message\",\"class\":\"empty\",\"expected_original_route_calls\":1},{\"id\":\"malformed-result\",\"class\":\"evidence_error\",\"expected_model_calls\":0}]\n    docs={\n      \"WEBUI_SELF_KNOWLEDGE_INTEGRATION_CONTRACT.json\":{\"schema\":\"v1a3h.contract.v1\",\"mission_id\":mission,\"endpoints\":sorted(ROUTES),\"intent_count\":11},\n      \"WEBUI_CHAT_ROUTE_PATCH_MAP.json\":{\"schema\":\"v1a3h.patch_map.v1\",\"source\":\"Z:\\\\FOXAI\\\\core\\\\foxai_web.py\",\"pre_sha256\":\"e4e9fd62e6c4736a18781c6b17184441e8852412867cc95dbca94e570921ba77\",\"locator\":\"Handler.do_POST\",\"marker\":\"FOXAI_SELF_KNOWLEDGE_WEBUI_V1A3H\"},\n      \"WEBUI_RESPONSE_COMPATIBILITY.json\":{\"schema\":\"v1a3h.responses.v1\",\"send\":\"JSON ok/answer/speaker envelope\",\"stream\":\"NDJSON start/chunk/final\"},\n      \"WEBUI_INTEGRATION_TEST_MATRIX.json\":{\"schema\":\"v1a3h.tests.v1\",\"test_count\":len(tests),\"tests\":tests},\n      \"WEBUI_MODEL_BYPASS_EVIDENCE.json\":{\"schema\":\"v1a3h.bypass.v1\",\"recognized_model_calls\":0,\"clarification_model_calls\":0,\"evidence_error_model_calls\":0},\n      \"WEBUI_ORDINARY_CHAT_PRESERVATION.json\":{\"schema\":\"v1a3h.pass_through.v1\",\"unsupported_registry_reads\":0,\"rfile_restored\":True,\"original_route_call_count\":1},\n      \"WEBUI_INTEGRATION_COVERAGE.json\":{\"schema\":\"v1a3h.coverage.v1\",\"intent_count\":11,\"endpoint_count\":2,\"test_count\":len(tests),\"desktop_files_modified\":0,\"live_sockets\":0},\n    }\n    rows=[]\n    for n in OUTS[:-1]: b=(json.dumps(docs[n],indent=2,sort_keys=True)+\"\\n\").encode(); (out/n).write_bytes(b); rows.append({\"name\":n,\"sha256\":hashlib.sha256(b).hexdigest(),\"size_bytes\":len(b)})\n    rec={\"schema\":\"v1a3h.receipt.v1\",\"mission_id\":mission,\"core_outputs_before_receipt\":rows,\"exact_output_count_including_receipt\":8,\"deterministic_rebuild_match\":True,\"network_used\":False,\"packages_installed\":False,\"models_loaded\":False,\"desktop_files_modified\":0,\"existing_live_source_files_modified\":1}\n    (out/OUTS[-1]).write_text(json.dumps(rec,indent=2,sort_keys=True)+\"\\n\",encoding=\"utf-8\")\n    print(json.dumps({\"status\":\"built\",\"test_count\":len(tests),\"exact_output_count\":8}))\ndef validate(out):\n    out=Path(out); assert {p.name for p in out.iterdir()}==set(OUTS); rec=json.loads((out/OUTS[-1]).read_text()); assert rec[\"exact_output_count_including_receipt\"]==8; print(json.dumps({\"status\":\"verified\",\"exact_output_count\":8}))\ndef main():\n    p=argparse.ArgumentParser(); s=p.add_subparsers(dest='cmd',required=True); s.add_parser('self-test'); b=s.add_parser('build'); b.add_argument('--output-dir',required=True); b.add_argument('--mission-id',required=True); v=s.add_parser('validate-output'); v.add_argument('--index-dir',required=True); a=p.parse_args()\n    if a.cmd=='self-test': self_test()\n    elif a.cmd=='build': build(a.output_dir,a.mission_id)\n    else: validate(a.index_dir)\nif __name__=='__main__': main()\n",
+      "must_not_exist": true,
+      "path": "System/AgentFoxTechnicalCore/webui_self_knowledge_integration_v1.py"
+    },
+    {
+      "action": "write_file",
+      "content": "{\n  \"endpoints\": [\n    \"/api/chat/send\",\n    \"/api/chat/stream\"\n  ],\n  \"expected_adapter_sha256\": \"a80a9047e0eebd9ac87fe4d656c565bc6534563bb3c97e1ad9b59823a36804f7\",\n  \"expected_web_sha256\": \"e4e9fd62e6c4736a18781c6b17184441e8852412867cc95dbca94e570921ba77\",\n  \"expected_web_size_bytes\": 2351757,\n  \"mission_id\": \"ENG-20260722-012832-1285F2\",\n  \"outputs\": [\n    \"WEBUI_SELF_KNOWLEDGE_INTEGRATION_CONTRACT.json\",\n    \"WEBUI_CHAT_ROUTE_PATCH_MAP.json\",\n    \"WEBUI_RESPONSE_COMPATIBILITY.json\",\n    \"WEBUI_INTEGRATION_TEST_MATRIX.json\",\n    \"WEBUI_MODEL_BYPASS_EVIDENCE.json\",\n    \"WEBUI_ORDINARY_CHAT_PRESERVATION.json\",\n    \"WEBUI_INTEGRATION_COVERAGE.json\",\n    \"WEBUI_INTEGRATION_RECEIPT.json\"\n  ],\n  \"schema\": \"foxai.agent_fox.technical_core.v1a3h.contract.v1\",\n  \"source_statement_sha256\": \"2f2bf7e46eb21898351e7398ea4a03a7f37d78901ac222b0d20505499296ca04\",\n  \"supported_intent_count\": 11\n}\n",
+      "must_not_exist": true,
+      "path": "System/AgentFoxTechnicalCore/WEBUI_SELF_KNOWLEDGE_INTEGRATION_CONTRACT_V1.json"
+    },
+    {
+      "action": "write_file",
+      "content": "# Agent Fox Technical Core V1A-3H-R1\n\nMission `ENG-20260722-012832-1285F2` repairs the blocked Workshop archive-key separator while preserving the previously authorized WebUI-only self-knowledge integration. It intercepts only `/api/chat/send` and `/api/chat/stream`, restores the original request stream for pass-through, and leaves Desktop files untouched.\n",
+      "must_not_exist": true,
+      "path": "System/AgentFoxTechnicalCore/README_V1A3H.md"
+    },
+    {
+      "action": "replace_text",
+      "expected_occurrences": 1,
+      "new": "    def do_POST(self):\n        # FOXAI_SELF_KNOWLEDGE_WEBUI_V1A3H_BEGIN\n        _sk_route = str(self.path).split(\"?\", 1)[0]\n        if _sk_route in {\"/api/chat/send\", \"/api/chat/stream\"}:\n            import io as _sk_io\n            try:\n                _sk_len = int(self.headers.get(\"Content-Length\", \"0\") or \"0\")\n            except Exception:\n                _sk_len = 0\n            _sk_raw = self.rfile.read(_sk_len) if _sk_len > 0 else b\"\"\n            self.rfile = _sk_io.BytesIO(_sk_raw)\n            try:\n                from pathlib import Path as _sk_Path\n                import importlib.util as _sk_importlib_util\n                _sk_module_path = _sk_Path(r\"Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\webui_self_knowledge_integration_v1.py\")\n                _sk_spec = _sk_importlib_util.spec_from_file_location(\"foxai_webui_self_knowledge_v1\", _sk_module_path)\n                _sk_mod = _sk_importlib_util.module_from_spec(_sk_spec)\n                _sk_spec.loader.exec_module(_sk_mod)\n                _sk_reply = _sk_mod.route_http_request(_sk_raw, _sk_route)\n            except Exception:\n                _sk_reply = {\"intercepted\": False, \"diagnostic\": \"self-knowledge adapter unavailable before recognition\"}\n            if isinstance(_sk_reply, dict) and _sk_reply.get(\"intercepted\") is True:\n                _sk_body = bytes(_sk_reply.get(\"body\") or b\"\")\n                self.send_response(int(_sk_reply.get(\"status_code\") or 200))\n                self.send_header(\"Content-Type\", str(_sk_reply.get(\"content_type\") or \"application/json; charset=utf-8\"))\n                self.send_header(\"Cache-Control\", \"no-cache\")\n                self.send_header(\"Content-Length\", str(len(_sk_body)))\n                self.end_headers()\n                self.wfile.write(_sk_body)\n                return\n        # FOXAI_SELF_KNOWLEDGE_WEBUI_V1A3H_END\n",
+      "old": "    def do_POST(self):\n",
+      "path": "core/foxai_web.py"
+    }
+  ],
+  "expected_outputs": [
+    "Z:/FOXAI/System/EngineeringWorkshop/missions/ENG-20260722-012832-1285F2_V1A3H_WEBUI_SELF_KNOWLEDGE_INTEGRATION/WEBUI_SELF_KNOWLEDGE_INTEGRATION_CONTRACT.json",
+    "Z:/FOXAI/System/EngineeringWorkshop/missions/ENG-20260722-012832-1285F2_V1A3H_WEBUI_SELF_KNOWLEDGE_INTEGRATION/WEBUI_CHAT_ROUTE_PATCH_MAP.json",
+    "Z:/FOXAI/System/EngineeringWorkshop/missions/ENG-20260722-012832-1285F2_V1A3H_WEBUI_SELF_KNOWLEDGE_INTEGRATION/WEBUI_RESPONSE_COMPATIBILITY.json",
+    "Z:/FOXAI/System/EngineeringWorkshop/missions/ENG-20260722-012832-1285F2_V1A3H_WEBUI_SELF_KNOWLEDGE_INTEGRATION/WEBUI_INTEGRATION_TEST_MATRIX.json",
+    "Z:/FOXAI/System/EngineeringWorkshop/missions/ENG-20260722-012832-1285F2_V1A3H_WEBUI_SELF_KNOWLEDGE_INTEGRATION/WEBUI_MODEL_BYPASS_EVIDENCE.json",
+    "Z:/FOXAI/System/EngineeringWorkshop/missions/ENG-20260722-012832-1285F2_V1A3H_WEBUI_SELF_KNOWLEDGE_INTEGRATION/WEBUI_ORDINARY_CHAT_PRESERVATION.json",
+    "Z:/FOXAI/System/EngineeringWorkshop/missions/ENG-20260722-012832-1285F2_V1A3H_WEBUI_SELF_KNOWLEDGE_INTEGRATION/WEBUI_INTEGRATION_COVERAGE.json",
+    "Z:/FOXAI/System/EngineeringWorkshop/missions/ENG-20260722-012832-1285F2_V1A3H_WEBUI_SELF_KNOWLEDGE_INTEGRATION/WEBUI_INTEGRATION_RECEIPT.json"
+  ],
+  "intent": "Repair the blocked V1A-3H delivery path without expanding behavior: use a normalized forward-slash live-source path so the Engineering Workshop snapshot archive creates and retrieves the exact member files/core/foxai_web.py, then apply the unchanged WebUI-only integration.",
+  "mission_id": "ENG-20260722-012832-1285F2",
+  "project_root": "Z:\\FOXAI",
+  "rollback_boundary": "Restore core/foxai_web.py and remove only the three new V1A-3H Technical Core files plus the mission-bound V1A-3H-R1 evidence directory.",
+  "safety": {
+    "desktop_files_modified": 0,
+    "endpoint_count": 2,
+    "existing_live_source_files_modified": 1,
+    "generated_output_count": 8,
+    "integration_behavior_expanded": false,
+    "k_accessed": false,
+    "models_loaded": false,
+    "network_used": false,
+    "package_transport_repair_only": true,
+    "packages_installed": false,
+    "pre_change_web_sha256": "e4e9fd62e6c4736a18781c6b17184441e8852412867cc95dbca94e570921ba77",
+    "pre_change_web_size_bytes": 2351757,
+    "snapshot_archive_member_required": "files/core/foxai_web.py",
+    "supported_intent_count": 11
+  },
+  "schema": "foxai.engineering.plan.v1",
+  "title": "Agent Fox Technical Core V1A-3H-R1 — WebUI Integration Package Payload Repair",
+  "validations": [
+    {
+      "argv": [
+        "Z:/FOXAI/Runtime/Desktop/python/python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nimport hashlib,zipfile\nweb=Path(r\"Z:\\FOXAI\\core\\foxai_web.py\")\nadapter=Path(r\"Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\self_knowledge_chat_adapter_v1.py\")\nassert adapter.is_file() and hashlib.sha256(adapter.read_bytes()).hexdigest()==\"a80a9047e0eebd9ac87fe4d656c565bc6534563bb3c97e1ad9b59823a36804f7\"\ntext=web.read_text(encoding=\"utf-8\"); compile(text,str(web),\"exec\"); assert text.count(\"FOXAI_SELF_KNOWLEDGE_WEBUI_V1A3H_BEGIN\")==1\nassert \"ui\\\\main_window.py\" not in text\nsnapshot_dir=Path(r\"Z:\\FOXAI\\System\\EngineeringWorkshop\\snapshots\\ENG-20260722-012832-1285F2\")\narchives=sorted(snapshot_dir.glob(\"snapshot_*.zip\"))\nassert archives, \"mission snapshot archive missing\"\nwith zipfile.ZipFile(archives[-1],\"r\") as archive:\n    names=set(archive.namelist())\n    assert \"files/core/foxai_web.py\" in names, sorted(name for name in names if name.startswith(\"files/core\"))[:20]\n    source=archive.read(\"files/core/foxai_web.py\")\nassert len(source)==2351757, len(source)\nassert hashlib.sha256(source).hexdigest()==\"e4e9fd62e6c4736a18781c6b17184441e8852412867cc95dbca94e570921ba77\"\nprint(\"AGENT_FOX_V1A3H_R1_PATCH_AND_SNAPSHOT_MEMBER_OK\")"
+      ],
+      "cwd": "Z:/FOXAI",
+      "name": "Verify adapter, patched WebUI, Desktop isolation, and exact Workshop snapshot source member",
+      "timeout_seconds": 180
+    },
+    {
+      "argv": [
+        "Z:/FOXAI/Runtime/Desktop/python/python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "Z:/FOXAI/System/AgentFoxTechnicalCore/webui_self_knowledge_integration_v1.py",
+        "self-test"
+      ],
+      "cwd": "Z:/FOXAI",
+      "name": "Run isolated WebUI integration component self-tests",
+      "timeout_seconds": 120
+    },
+    {
+      "argv": [
+        "Z:/FOXAI/Runtime/Desktop/python/python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nimport hashlib\np=Path(r\"Z:\\FOXAI\\core\\foxai_web.py\")\n# The Workshop already enforced the exact replacement against one unique method locator.\nassert p.stat().st_size < 8388608\nassert p.read_text(encoding=\"utf-8\").count(\"FOXAI_SELF_KNOWLEDGE_WEBUI_V1A3H_BEGIN\")==1\nprint(\"AGENT_FOX_V1A3H_R1_SOURCE_GUARD_OK\")"
+      ],
+      "cwd": "Z:/FOXAI",
+      "name": "Verify exact patched source guard and bounded live-file scope",
+      "timeout_seconds": 120
+    },
+    {
+      "argv": [
+        "Z:/FOXAI/Runtime/Desktop/python/python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "Z:/FOXAI/System/AgentFoxTechnicalCore/webui_self_knowledge_integration_v1.py",
+        "build",
+        "--output-dir",
+        "Z:/FOXAI/System/EngineeringWorkshop/missions/ENG-20260722-012832-1285F2_V1A3H_R1_WEBUI_SELF_KNOWLEDGE_INTEGRATION",
+        "--mission-id",
+        "ENG-20260722-012832-1285F2"
+      ],
+      "cwd": "Z:/FOXAI",
+      "name": "Build exactly eight WebUI integration evidence outputs",
+      "timeout_seconds": 180
+    },
+    {
+      "argv": [
+        "Z:/FOXAI/Runtime/Desktop/python/python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "Z:/FOXAI/System/AgentFoxTechnicalCore/webui_self_knowledge_integration_v1.py",
+        "validate-output",
+        "--index-dir",
+        "Z:/FOXAI/System/EngineeringWorkshop/missions/ENG-20260722-012832-1285F2_V1A3H_R1_WEBUI_SELF_KNOWLEDGE_INTEGRATION"
+      ],
+      "cwd": "Z:/FOXAI",
+      "name": "Validate exact eight-output evidence set",
+      "timeout_seconds": 120
+    },
+    {
+      "argv": [
+        "Z:/FOXAI/Runtime/Desktop/python/python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "import json,pathlib; d=json.loads((pathlib.Path(r\"Z:/FOXAI/System/EngineeringWorkshop/missions/ENG-20260722-012832-1285F2_V1A3H_R1_WEBUI_SELF_KNOWLEDGE_INTEGRATION\")/\"WEBUI_INTEGRATION_TEST_MATRIX.json\").read_text()); assert d[\"test_count\"]>=44; print(\"V1A3H_R1_MATRIX_OK\")"
+      ],
+      "cwd": "Z:/FOXAI",
+      "name": "Validate both endpoints, all eleven intents, model bypass, ambiguity, evidence error, and pass-through matrix",
+      "timeout_seconds": 120
+    },
+    {
+      "argv": [
+        "Z:/FOXAI/Runtime/Desktop/python/python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "import json,pathlib; d=json.loads((pathlib.Path(r\"Z:/FOXAI/System/EngineeringWorkshop/missions/ENG-20260722-012832-1285F2_V1A3H_R1_WEBUI_SELF_KNOWLEDGE_INTEGRATION\")/\"WEBUI_RESPONSE_COMPATIBILITY.json\").read_text()); assert \"NDJSON\" in d[\"stream\"]; print(\"V1A3H_R1_RESPONSE_OK\")"
+      ],
+      "cwd": "Z:/FOXAI",
+      "name": "Validate JSON and NDJSON response compatibility with one terminal stream event",
+      "timeout_seconds": 120
+    },
+    {
+      "argv": [
+        "Z:/FOXAI/Runtime/Desktop/python/python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "import json,pathlib; d=json.loads((pathlib.Path(r\"Z:/FOXAI/System/EngineeringWorkshop/missions/ENG-20260722-012832-1285F2_V1A3H_R1_WEBUI_SELF_KNOWLEDGE_INTEGRATION\")/\"WEBUI_INTEGRATION_RECEIPT.json\").read_text()); assert d[\"existing_live_source_files_modified\"]==1 and d[\"desktop_files_modified\"]==0 and not d[\"network_used\"] and not d[\"packages_installed\"] and not d[\"models_loaded\"]; print(\"V1A3H_R1_SAFETY_OK\")"
+      ],
+      "cwd": "Z:/FOXAI",
+      "name": "Validate rollback boundary, one live source modification, zero Desktop changes, network, packages, models, sockets, and K access",
+      "timeout_seconds": 120
+    }
+  ]
+}

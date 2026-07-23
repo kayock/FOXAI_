@@ -1,0 +1,40 @@
+{
+  "schema": "foxai.agent_fox.technical_core.v1a3b.effective_import_map_contract.v1",
+  "mission_id": "ENG-20260721-154935-FF96C4",
+  "source_missions": {
+    "immutable_static_bridge": "ENG-20260721-063725-BFCAB9",
+    "corrected_runtime_map": "ENG-20260721-152146-C4F8D5"
+  },
+  "execution_boundary": {
+    "interpreter_child_processes_spawned_by_payload": 0,
+    "shell_child_processes_spawned_by_payload": 0,
+    "foxai_source_execution": false,
+    "launcher_execution": false,
+    "pythonw_execution": false,
+    "package_imports": false,
+    "pip_invocation": false,
+    "network_use": false,
+    "model_loading": false
+  },
+  "evidence_rules": {
+    "one_context_per_static_python_invocation": true,
+    "called_launcher_contexts_remain_separate": true,
+    "bare_python_commands_remain_unresolved_aliases": true,
+    "pythonw_identity_is_static_sibling_only": true,
+    "provider_existence_does_not_prove_import_success": true,
+    "duplicate_versions_are_candidates_not_active_conflicts": true,
+    "historical_launcher_contexts_are_preserved_without_full_resolution_expansion": true,
+    "live_first_party_imports_are_resolved_against_live_effective_path_groups": true
+  },
+  "required_outputs": [
+    "EFFECTIVE_IMPORT_CONTEXTS.json",
+    "LAUNCHER_IMPORT_PATH_MAP.json",
+    "NORMALIZED_PACKAGE_PROVIDERS.json",
+    "STATIC_IMPORT_RESOLUTION.json",
+    "REFINED_DEPENDENCY_CONFLICT_CANDIDATES.json",
+    "DYNAMIC_IMPORT_AND_PATH_MUTATION_REPORT.json",
+    "IMPORT_RESOLUTION_COVERAGE.json",
+    "EFFECTIVE_IMPORT_MAP_RECEIPT.json"
+  ],
+  "output_ceiling_bytes": 67108864
+}

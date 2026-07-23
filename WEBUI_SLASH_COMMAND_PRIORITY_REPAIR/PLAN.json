@@ -1,0 +1,122 @@
+{
+  "changes": [
+    {
+      "action": "replace_text",
+      "expected_occurrences": 1,
+      "new": "    message=str(body.get(\"message\") or \"\")\n    if not message.strip(): return {\"intercepted\":False,\"diagnostic\":None}\n    if message.startswith(\"/\"): return {\"intercepted\":False,\"diagnostic\":\"slash command bypassed self-knowledge interception\"}\n    message=message.strip()\n    try: result=_load_adapter(adapter_path).route_message(message,\"webui\")\n",
+      "old": "    message=str(body.get(\"message\") or \"\").strip()\n    if not message: return {\"intercepted\":False,\"diagnostic\":None}\n    try: result=_load_adapter(adapter_path).route_message(message,\"webui\")\n",
+      "path": "System/AgentFoxTechnicalCore/webui_self_knowledge_integration_v1.py"
+    }
+  ],
+  "expected_outputs": [
+    "Z:/FOXAI/System/EngineeringWorkshop/missions/ENG-20260722-035904-291200_WEBUI_SLASH_COMMAND_PRIORITY_REPAIR/SLASH_COMMAND_PRIORITY_TEST_MATRIX.json",
+    "Z:/FOXAI/System/EngineeringWorkshop/missions/ENG-20260722-035904-291200_WEBUI_SLASH_COMMAND_PRIORITY_REPAIR/SLASH_COMMAND_ROUTE_PRESERVATION.json",
+    "Z:/FOXAI/System/EngineeringWorkshop/missions/ENG-20260722-035904-291200_WEBUI_SLASH_COMMAND_PRIORITY_REPAIR/SLASH_COMMAND_PRIORITY_CONTRACT.json",
+    "Z:/FOXAI/System/EngineeringWorkshop/missions/ENG-20260722-035904-291200_WEBUI_SLASH_COMMAND_PRIORITY_REPAIR/SLASH_COMMAND_PRIORITY_RECEIPT.json"
+  ],
+  "intent": "Restore slash-command routing priority by bypassing the WebUI self-knowledge adapter before recognition whenever the first message character is /, while preserving the verified WebUI seam, normal self-knowledge answers, ordinary chat, Desktop, and K: isolation.",
+  "mission_id": "ENG-20260722-035904-291200",
+  "project_root": "Z:\\FOXAI",
+  "rollback_boundary": "Restore only System/AgentFoxTechnicalCore/webui_self_knowledge_integration_v1.py from the one-file mission snapshot and remove only the mission-bound slash-priority evidence directory.",
+  "safety": {
+    "adapter_loads_for_slash_commands": 0,
+    "bounded_test_count": 12,
+    "changed_path_count": 1,
+    "comfyui_launched": false,
+    "desktop_files_modified": 0,
+    "endpoint_count": 2,
+    "existing_live_source_files_modified": 0,
+    "existing_support_files_modified": 1,
+    "generated_output_count": 4,
+    "k_accessed": false,
+    "models_loaded": false,
+    "network_used": false,
+    "packages_installed": false,
+    "registry_modified": false,
+    "shared_adapter_modified": false,
+    "slash_command_first_character_rule": "/",
+    "webui_source_modified": false
+  },
+  "schema": "foxai.engineering.plan.v1",
+  "title": "WebUI Slash Command Priority Repair",
+  "validations": [
+    {
+      "argv": [
+        "Z:/FOXAI/Runtime/Desktop/python/python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nimport hashlib,json,textwrap\ncomponent=Path(r\"Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\webui_self_knowledge_integration_v1.py\"); data=component.read_bytes(); text=data.decode(\"utf-8\"); compile(text,str(component),\"exec\")\nassert len(data)==7742 and hashlib.sha256(data).hexdigest()==\"765983b563f8495138c9670849de5c4703f4735a0ddc9324efd6580606fc517b\"\nassert text.count('if message.startswith(\"/\"): return {\"intercepted\":False,\"diagnostic\":\"slash command bypassed self-knowledge interception\"}')==1\nassert text.index('if message.startswith(\"/\")') < text.index('try: result=_load_adapter(adapter_path).route_message(message,\"webui\")')\nweb=Path(r\"Z:\\FOXAI\\core\\foxai_web.py\"); webdata=web.read_bytes(); assert hashlib.sha256(webdata).hexdigest()==\"d7bf0a2042d55ef7f0a5869556015e42c7427e7ff88636b28e1795f3adf7b952\"\nbegin=b\"        # FOXAI_SELF_KNOWLEDGE_WEBUI_V1A3H_BEGIN\\n\"; end=b\"        # FOXAI_SELF_KNOWLEDGE_WEBUI_V1A3H_END\\n\"; assert webdata.count(begin)==1 and webdata.count(end)==1\ns=webdata.index(begin); e=webdata.index(end,s)+len(end); seam=webdata[s:e]; assert len(seam)==1824 and hashlib.sha256(seam).hexdigest()==\"36195f2bec555a2c9ec9fc6d9f981d0522f059fb0e069a3f5143cdcd5ad54961\"\nassert hashlib.sha256(Path(r\"Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\self_knowledge_chat_adapter_v1.py\").read_bytes()).hexdigest()==\"a80a9047e0eebd9ac87fe4d656c565bc6534563bb3c97e1ad9b59823a36804f7\"\nassert hashlib.sha256(Path(r\"Z:\\FOXAI\\ui\\main_window.py\").read_bytes()).hexdigest()==\"cd20a1785a574eae44e290c1af1c1da7ac2bb66559f7d9ce8e93a9b2d6516b36\"\nsnap=Path(r\"Z:\\FOXAI\\System\\EngineeringWorkshop\\snapshots\\ENG-20260722-035904-291200\"); manifests=sorted(snap.glob(\"snapshot_*.manifest.json\")); assert manifests\nm=json.loads(manifests[-1].read_text(encoding=\"utf-8\")); entries=m[\"entries\"]; assert len(entries)==1\nrow=entries[0]; assert row[\"relative_path\"]==\"System/AgentFoxTechnicalCore/webui_self_knowledge_integration_v1.py\" and row[\"existed\"] is True and row[\"sha256\"]==\"ed20fce59691875ff409caef0a879243e277d4628e73fcf0981b3e8387fb599c\" and row[\"size\"]==7587\nprint(\"WEBUI_SLASH_PRIORITY_PREIMAGE_POSTIMAGE_SNAPSHOT_OK\")"
+      ],
+      "cwd": "Z:/FOXAI",
+      "name": "Verify exact component postimage, one-file snapshot preimage, WebUI seam, adapter, and Desktop isolation",
+      "timeout_seconds": 180
+    },
+    {
+      "argv": [
+        "Z:/FOXAI/Runtime/Desktop/python/python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nimport importlib.util,io,json\np=Path(r\"Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\webui_self_knowledge_integration_v1.py\"); spec=importlib.util.spec_from_file_location(\"slash_priority_component\",p); mod=importlib.util.module_from_spec(spec); spec.loader.exec_module(mod)\nclass Fake:\n calls=[]\n @staticmethod\n def route_message(message,surface,request_id=None,selectors=None):\n  Fake.calls.append((message,surface))\n  if message==\"Agent Fox, list protected contexts\": return {\"handled\":True,\"status\":\"answered\",\"model_bypass\":True,\"ordinary_chat_pass_through\":False,\"answer_text\":\"Six protected contexts.\",\"answer_packet\":{\"verified\":True},\"diagnostic\":None}\n  return {\"handled\":False,\"status\":\"pass_through\",\"model_bypass\":False,\"ordinary_chat_pass_through\":True,\"answer_text\":None,\"answer_packet\":None,\"diagnostic\":None}\norig=mod._load_adapter\ntry:\n mod._load_adapter=lambda path=mod.ADAPTER_PATH: Fake\n rows=[]\n commands=[\"/engineer workshop begin Test :: list protected contexts\",\"/engineer workshop preview \\\"Z:\\\\FOXAI\\\\PLAN.json\\\"\",\"/engineer workshop apply deadbeef\",\"/help\"]\n for route in sorted(mod.ROUTES):\n  for command in commands:\n   body=(json.dumps({\"message\":command},separators=(\",\",\":\"))+\"\\n\").encode(); result=mod.route_http_request(body,route)\n   assert result[\"intercepted\"] is False and result[\"diagnostic\"]==\"slash command bypassed self-knowledge interception\"\n   rows.append({\"route\":route,\"command\":command,\"passed\":True})\n  recognized=mod.route_http_request((json.dumps({\"message\":\"Agent Fox, list protected contexts\"})+\"\\n\").encode(),route); assert recognized[\"intercepted\"] is True\n  ordinary=mod.route_http_request((json.dumps({\"message\":\"Tell me a joke\"})+\"\\n\").encode(),route); assert ordinary[\"intercepted\"] is False\n assert all(not message.startswith(\"/\") for message,surface in Fake.calls)\nfinally: mod._load_adapter=orig\nprint(json.dumps({\"status\":\"component_priority_tests_passed\",\"slash_cases\":len(rows),\"adapter_calls_for_slash\":0}))"
+      ],
+      "cwd": "Z:/FOXAI",
+      "name": "Validate slash-command bypass occurs before adapter loading and preserves other component routes",
+      "timeout_seconds": 180
+    },
+    {
+      "argv": [
+        "Z:/FOXAI/Runtime/Desktop/python/python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nimport hashlib,importlib.util,io,json,textwrap\nweb=Path(r\"Z:\\FOXAI\\core\\foxai_web.py\"); raw=web.read_bytes(); begin=b\"        # FOXAI_SELF_KNOWLEDGE_WEBUI_V1A3H_BEGIN\\n\"; end=b\"        # FOXAI_SELF_KNOWLEDGE_WEBUI_V1A3H_END\\n\"; s=raw.index(begin); e=raw.index(end,s)+len(end)\nseam=textwrap.dedent(raw[s:e].decode(\"utf-8\")); source=\"def run(self):\\n\"+textwrap.indent(seam,\"    \")+\"    self.original_route_calls += 1\\n\"; ns={}; exec(compile(source,\"<slash-priority-live-seam>\",\"exec\"),ns); run=ns[\"run\"]\nclass H:\n def __init__(self,route,body): self.path=route; self.headers={\"Content-Length\":str(len(body))}; self.rfile=io.BytesIO(body); self.wfile=io.BytesIO(); self.status=[]; self.headers_out=[]; self.ends=0; self.original_route_calls=0\n def send_response(self,x): self.status.append(x)\n def send_header(self,k,v): self.headers_out.append((k,v))\n def end_headers(self): self.ends+=1\ncommands=[\"/engineer workshop begin Test :: list protected contexts\",\"/engineer workshop preview \\\"Z:\\\\FOXAI\\\\PLAN.json\\\"\",\"/engineer workshop apply deadbeef\",\"/help\"]\nrows=[]\nfor route in (\"/api/chat/send\",\"/api/chat/stream\"):\n for command in commands:\n  body=(json.dumps({\"message\":command},separators=(\",\",\":\"))+\"\\n\").encode(); h=H(route,body); run(h)\n  assert h.original_route_calls==1 and h.wfile.getvalue()==b\"\" and h.status==[] and h.rfile.getvalue()==body\n  rows.append({\"class\":\"slash_command\",\"endpoint\":route,\"command\":command,\"original_route_calls\":1,\"message_preserved\":True,\"passed\":True})\n recognized_body=(json.dumps({\"message\":\"Agent Fox, list protected contexts\"},separators=(\",\",\":\"))+\"\\n\").encode(); h=H(route,recognized_body); run(h); assert h.original_route_calls==0 and h.status==[200] and h.wfile.getvalue()\n rows.append({\"class\":\"recognized_self_knowledge\",\"endpoint\":route,\"original_route_calls\":0,\"passed\":True})\n ordinary_body=(json.dumps({\"message\":\"Tell me a joke\"},separators=(\",\",\":\"))+\"\\n\").encode(); h=H(route,ordinary_body); run(h); assert h.original_route_calls==1 and h.rfile.getvalue()==ordinary_body and h.wfile.getvalue()==b\"\"\n rows.append({\"class\":\"ordinary_chat\",\"endpoint\":route,\"original_route_calls\":1,\"message_preserved\":True,\"passed\":True})\nout=Path(r\"Z:/FOXAI/System/EngineeringWorkshop/missions/ENG-20260722-035904-291200_WEBUI_SLASH_COMMAND_PRIORITY_REPAIR\"); out.mkdir(parents=True,exist_ok=False)\ndef write(name,obj): (out/name).write_bytes((json.dumps(obj,indent=2,sort_keys=True)+\"\\n\").encode(\"utf-8\"))\nwrite(\"SLASH_COMMAND_PRIORITY_TEST_MATRIX.json\",{\"schema\":\"slash_priority.tests.v1\",\"mission_id\":\"ENG-20260722-035904-291200\",\"test_count\":len(rows),\"slash_command_case_count\":8,\"recognized_case_count\":2,\"ordinary_case_count\":2,\"all_passed\":all(r[\"passed\"] for r in rows),\"rows\":rows})\nwrite(\"SLASH_COMMAND_ROUTE_PRESERVATION.json\",{\"schema\":\"slash_priority.preservation.v1\",\"mission_id\":\"ENG-20260722-035904-291200\",\"slash_commands_intercepted\":0,\"slash_commands_original_route_exactly_once\":8,\"request_bytes_preserved\":True,\"adapter_loads_for_slash_commands\":0,\"webui_seam_modified\":False})\nprint(json.dumps({\"status\":\"exact_live_seam_priority_tests_passed\",\"cases\":len(rows)}))"
+      ],
+      "cwd": "Z:/FOXAI",
+      "name": "Execute exact live WebUI seam for slash commands, recognized self-knowledge, and ordinary chat",
+      "timeout_seconds": 180
+    },
+    {
+      "argv": [
+        "Z:/FOXAI/Runtime/Desktop/python/python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nimport hashlib,json\nout=Path(r\"Z:/FOXAI/System/EngineeringWorkshop/missions/ENG-20260722-035904-291200_WEBUI_SLASH_COMMAND_PRIORITY_REPAIR\")\ndef canon(obj): return (json.dumps(obj,indent=2,sort_keys=True)+\"\\n\").encode(\"utf-8\")\ndef write(name,obj):\n data=canon(obj); assert b\"\\r\" not in data; (out/name).write_bytes(data)\nmatrix=json.loads((out/\"SLASH_COMMAND_PRIORITY_TEST_MATRIX.json\").read_text(encoding=\"utf-8\")); preserve=json.loads((out/\"SLASH_COMMAND_ROUTE_PRESERVATION.json\").read_text(encoding=\"utf-8\")); assert matrix[\"all_passed\"] and matrix[\"test_count\"]==12\nwrite(\"SLASH_COMMAND_PRIORITY_CONTRACT.json\",{\"schema\":\"slash_priority.contract.v1\",\"mission_id\":\"ENG-20260722-035904-291200\",\"rule\":\"first message character slash bypasses self-knowledge before adapter load\",\"endpoints\":[\"/api/chat/send\",\"/api/chat/stream\"],\"ordinary_chat_behavior_changed\":False,\"recognized_self_knowledge_behavior_changed\":False,\"webui_seam_modified\":False,\"desktop_modified\":False})\nwrite(\"SLASH_COMMAND_PRIORITY_RECEIPT.json\",{\"schema\":\"slash_priority.receipt.v1\",\"mission_id\":\"ENG-20260722-035904-291200\",\"status\":\"built_and_verified\",\"changed_paths\":[\"System/AgentFoxTechnicalCore/webui_self_knowledge_integration_v1.py\"],\"pre_sha256\":\"ed20fce59691875ff409caef0a879243e277d4628e73fcf0981b3e8387fb599c\",\"post_sha256\":\"765983b563f8495138c9670849de5c4703f4735a0ddc9324efd6580606fc517b\",\"slash_command_case_count\":8,\"total_case_count\":12,\"adapter_loads_for_slash_commands\":0,\"webui_source_modified\":False,\"desktop_modified\":False,\"network_used\":False,\"packages_installed\":False,\"models_loaded\":False,\"comfyui_launched\":False,\"k_accessed\":False})\nfiles=sorted(out.glob(\"*.json\")); assert len(files)==4\nfor p in files:\n data=p.read_bytes(); obj=json.loads(data); assert data==canon(obj) and b\"\\r\" not in data\nprint(json.dumps({\"status\":\"four_evidence_outputs_built\",\"count\":4,\"total_bytes\":sum(p.stat().st_size for p in files)}))"
+      ],
+      "cwd": "Z:/FOXAI",
+      "name": "Build deterministic LF-only slash-command priority evidence outputs",
+      "timeout_seconds": 180
+    },
+    {
+      "argv": [
+        "Z:/FOXAI/Runtime/Desktop/python/python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nimport hashlib,importlib.util,json\ncomponent=Path(r\"Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\webui_self_knowledge_integration_v1.py\"); data=component.read_bytes(); assert len(data)==7742 and hashlib.sha256(data).hexdigest()==\"765983b563f8495138c9670849de5c4703f4735a0ddc9324efd6580606fc517b\"\nspec=importlib.util.spec_from_file_location(\"slash_priority_final\",component); mod=importlib.util.module_from_spec(spec); spec.loader.exec_module(mod)\nclass Fail:\n @staticmethod\n def route_message(*a,**k): raise AssertionError(\"adapter must not run for slash command\")\norig=mod._load_adapter\ntry:\n mod._load_adapter=lambda path=mod.ADAPTER_PATH: Fail\n for route in sorted(mod.ROUTES):\n  raw=(json.dumps({\"message\":\"/engineer workshop begin X :: Agent Fox, list protected contexts\"},separators=(\",\",\":\"))+\"\\n\").encode(); result=mod.route_http_request(raw,route); assert result[\"intercepted\"] is False\nfinally: mod._load_adapter=orig\nassert hashlib.sha256(Path(r\"Z:\\FOXAI\\core\\foxai_web.py\").read_bytes()).hexdigest()==\"d7bf0a2042d55ef7f0a5869556015e42c7427e7ff88636b28e1795f3adf7b952\"\nassert hashlib.sha256(Path(r\"Z:\\FOXAI\\ui\\main_window.py\").read_bytes()).hexdigest()==\"cd20a1785a574eae44e290c1af1c1da7ac2bb66559f7d9ce8e93a9b2d6516b36\"\nprint(\"WEBUI_SLASH_COMMAND_PRIORITY_FINAL_BOUNDARIES_OK\")"
+      ],
+      "cwd": "Z:/FOXAI",
+      "name": "Prove slash commands cannot invoke the adapter and unrelated live sources remain unchanged",
+      "timeout_seconds": 180
+    },
+    {
+      "argv": [
+        "Z:/FOXAI/Runtime/Desktop/python/python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nimport json\nout=Path(r\"Z:/FOXAI/System/EngineeringWorkshop/missions/ENG-20260722-035904-291200_WEBUI_SLASH_COMMAND_PRIORITY_REPAIR\"); names={\"SLASH_COMMAND_PRIORITY_TEST_MATRIX.json\",\"SLASH_COMMAND_ROUTE_PRESERVATION.json\",\"SLASH_COMMAND_PRIORITY_CONTRACT.json\",\"SLASH_COMMAND_PRIORITY_RECEIPT.json\"}\nassert {p.name for p in out.iterdir()}==names\nassert sum(p.stat().st_size for p in out.iterdir())<8*1024*1024\nfor p in out.iterdir():\n data=p.read_bytes(); assert b\"\\r\" not in data; json.loads(data)\nprint(json.dumps({\"status\":\"slash_command_priority_repair_verified\",\"outputs\":4,\"k_accessed\":False}))"
+      ],
+      "cwd": "Z:/FOXAI",
+      "name": "Validate exact evidence output set, canonical bytes, size ceiling, and safety boundary",
+      "timeout_seconds": 180
+    }
+  ]
+}

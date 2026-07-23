@@ -1,0 +1,75 @@
+{
+  "authorized": true,
+  "changes": [
+    {
+      "action": "write_file",
+      "after_sha256": "efe6da3660a8cff536d31e6afcf33899702cd9d13425e9edbfac2dc80e532943",
+      "after_size": 33946,
+      "before_sha256": null,
+      "before_size": null,
+      "relative_path": "System\\EngineeringWorkshop\\missions\\ENG-20260721-042128-CF3008_V1A0_R2_STATIC_AUDIT.py"
+    }
+  ],
+  "created_at": "2026-07-21T05:08:57.106768Z",
+  "evidence_is_tool_generated": true,
+  "failure": null,
+  "mission_id": "ENG-20260721-042128-CF3008",
+  "mission_title": "Agent Fox Technical Core V1A-0 \u2014 Read-Only Live Baseline and Reuse Audit",
+  "mission_type": "repair",
+  "no_deletions": true,
+  "no_renames": true,
+  "plan_path": "Z:\\FOXAI\\AGENT_FOX_V1A0_R2\\PLAN.json",
+  "plan_sha256": "840e06e549ccc539ffcfb13a0f778e3cfa48ddd90b0ca4ff5b77f0d9669cf02f",
+  "project_root": "Z:\\FOXAI",
+  "result": "applied_verified",
+  "rolled_back": false,
+  "schema": "foxai.engineering.receipt.v1",
+  "snapshot_manifest": "Z:\\FOXAI\\System\\EngineeringWorkshop\\snapshots\\ENG-20260721-042128-CF3008\\snapshot_20260721T050845205864Z.manifest.json",
+  "snapshot_path": "Z:\\FOXAI\\System\\EngineeringWorkshop\\snapshots\\ENG-20260721-042128-CF3008\\snapshot_20260721T050845205864Z.zip",
+  "snapshot_sha256": "077f60dd909ec52787a797ac056225161c2f8f2de034398dd31a1f236c581695",
+  "validations": [
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nimport ast, hashlib, json\npayload=Path(r\"Z:\\FOXAI\\AGENT_FOX_V1A0_R2\\V1A0_R2_STATIC_AUDIT.py\")\ninstalled=Path(r\"Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260721-042128-CF3008_V1A0_R2_STATIC_AUDIT.py\")\nrepo=Path(r\"Z:\\FOXAI\\AGENT_FOX_V1A0_R2\\REPOSITORY_REFERENCE.json\")\nassert installed.is_file(), f\"missing installed audit payload: {installed}\"\nactual=hashlib.sha256(installed.read_bytes()).hexdigest()\nexpected=\"efe6da3660a8cff536d31e6afcf33899702cd9d13425e9edbfac2dc80e532943\"\nassert actual==expected, f\"payload hash mismatch: {actual}\"\nsource=installed.read_text(encoding=\"utf-8\")\ncompile(source,str(installed),\"exec\")\ntree=ast.parse(source)\nimports=set()\nfor node in ast.walk(tree):\n    if isinstance(node,ast.Import):\n        imports.update(alias.name.split('.')[0] for alias in node.names)\n    elif isinstance(node,ast.ImportFrom) and node.module:\n        imports.add(node.module.split('.')[0])\nforbidden_imports={\"subprocess\",\"socket\",\"urllib\",\"http\",\"ftplib\",\"requests\",\"pip\",\"ensurepip\",\"psutil\",\"winreg\"}\nbad=sorted(imports & forbidden_imports)\nassert not bad, \"forbidden imports: \"+\", \".join(bad)\nfor marker in (\"subprocess.run(\",\"subprocess.Popen(\",\"os.system(\",\"shell=True\",\"requests.\",\"urlopen(\",\"pip install\",\"Path.unlink(\",\"shutil.rmtree(\"):\n    assert marker not in source, \"forbidden operation marker: \"+marker\nassert repo.is_file(), f\"missing repository reference: {repo}\"\nassert hashlib.sha256(repo.read_bytes()).hexdigest()==\"f198e70104f099f801159514a51f806c9a313ec12da4d4ae19423aa001431395\"\nrepo_data=json.loads(repo.read_text(encoding=\"utf-8\"))\nassert repo_data.get(\"network_required_on_foxai\") is False\nassert repo_data.get(\"prepared_for_mission\")==\"ENG-20260721-042128-CF3008\"\nprint(\"AGENT_FOX_V1A0_R2_STATIC_PREFLIGHT_OK\")\n"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-21T05:08:45.455415Z",
+      "name": "Verify exact R2 payload, syntax, static safety boundary, and repository reference",
+      "returncode": 0,
+      "started_at": "2026-07-21T05:08:45.232250Z",
+      "stderr": "",
+      "stdout": "AGENT_FOX_V1A0_R2_STATIC_PREFLIGHT_OK\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260721-042128-CF3008_V1A0_R2_STATIC_AUDIT.py",
+        "--root",
+        "Z:\\FOXAI",
+        "--mission-id",
+        "ENG-20260721-042128-CF3008",
+        "--output-relative",
+        "System\\EngineeringWorkshop\\missions\\ENG-20260721-042128-CF3008_V1A0_R2_STATIC_AUDIT",
+        "--repository-reference",
+        "Z:\\FOXAI\\AGENT_FOX_V1A0_R2\\REPOSITORY_REFERENCE.json"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-21T05:08:57.106706Z",
+      "name": "Run bounded Agent Fox V1A-0 R2 static baseline audit",
+      "returncode": 0,
+      "started_at": "2026-07-21T05:08:45.455789Z",
+      "stderr": "",
+      "stdout": "{\n  \"result\": \"static_baseline_complete\",\n  \"mission_id\": \"ENG-20260721-042128-CF3008\",\n  \"output_root\": \"Z:\\\\FOXAI\\\\System\\\\EngineeringWorkshop\\\\missions\\\\ENG-20260721-042128-CF3008_V1A0_R2_STATIC_AUDIT\",\n  \"output_total_bytes\": 1182895,\n  \"audit_receipt\": {\n    \"path\": \"Z:\\\\FOXAI\\\\System\\\\EngineeringWorkshop\\\\missions\\\\ENG-20260721-042128-CF3008_V1A0_R2_STATIC_AUDIT\\\\AUDIT_RECEIPT.json\",\n    \"size_bytes\": 3310,\n    \"sha256\": \"acbbaf3c896caa4b79cb3566cf18e547e38c90031cc0e807776674d67c65c11e\"\n  },\n  \"network_used\": false,\n  \"live_foxai_source_modified\": false,\n  \"additional_python_interpreters_launched_by_collector\": false\n}\n",
+      "timed_out": false
+    }
+  ]
+}

@@ -1,0 +1,127 @@
+{
+  "authorized": true,
+  "changes": [
+    {
+      "action": "write_file",
+      "after_sha256": "05e9b43aaa7da0f02626d61635b4af07e88529d217e62b3d2ebba3288789308a",
+      "after_size": 40070,
+      "before_sha256": null,
+      "before_size": null,
+      "relative_path": "System\\AgentFoxTechnicalCore\\static_manifest_normalizer_v1.py"
+    },
+    {
+      "action": "write_file",
+      "after_sha256": "497745d0bf7638b3c09e039d54c666f125b818fa038ddaf1d6a590ef1ebce842",
+      "after_size": 2387,
+      "before_sha256": null,
+      "before_size": null,
+      "relative_path": "System\\AgentFoxTechnicalCore\\EVIDENCE_CONTRACT_V1.json"
+    },
+    {
+      "action": "write_file",
+      "after_sha256": "e15e26da2083430acaa71868b6f0e639528750fcff3767299fd626d887d915a5",
+      "after_size": 1064,
+      "before_sha256": null,
+      "before_size": null,
+      "relative_path": "System\\AgentFoxTechnicalCore\\README_V1A1.md"
+    }
+  ],
+  "created_at": "2026-07-21T05:33:30.866181Z",
+  "evidence_is_tool_generated": true,
+  "failure": null,
+  "mission_id": "ENG-20260721-051832-1CAA3F",
+  "mission_title": "Agent Fox Technical Core V1A-1 \u2014 Evidence Contract and Static Manifest Normalizer",
+  "mission_type": "implement",
+  "no_deletions": true,
+  "no_renames": true,
+  "plan_path": "Z:\\FOXAI\\AGENT_FOX_V1A1\\PLAN.json",
+  "plan_sha256": "99b56c189c7b54a72d29f5408178769ed524efba52333d8b4d2a12201a68b81d",
+  "project_root": "Z:\\FOXAI",
+  "result": "applied_verified",
+  "rolled_back": false,
+  "schema": "foxai.engineering.receipt.v1",
+  "snapshot_manifest": "Z:\\FOXAI\\System\\EngineeringWorkshop\\snapshots\\ENG-20260721-051832-1CAA3F\\snapshot_20260721T053330216774Z.manifest.json",
+  "snapshot_path": "Z:\\FOXAI\\System\\EngineeringWorkshop\\snapshots\\ENG-20260721-051832-1CAA3F\\snapshot_20260721T053330216774Z.zip",
+  "snapshot_sha256": "55b921c4f4c9af1e2b84c7fb267db49dcf797755d3629118651ce3e5ecc7547f",
+  "validations": [
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nimport ast, hashlib, json\nroot=Path(r\"Z:\\FOXAI\")\ndrop=root/r\"AGENT_FOX_V1A1\"\ninstalled=root/r\"System\\AgentFoxTechnicalCore\"\nchecks=[\n    (drop/r\"static_manifest_normalizer_v1.py\", installed/r\"static_manifest_normalizer_v1.py\", \"05e9b43aaa7da0f02626d61635b4af07e88529d217e62b3d2ebba3288789308a\"),\n    (drop/r\"EVIDENCE_CONTRACT_V1.json\", installed/r\"EVIDENCE_CONTRACT_V1.json\", \"497745d0bf7638b3c09e039d54c666f125b818fa038ddaf1d6a590ef1ebce842\"),\n    (drop/r\"README_V1A1.md\", installed/r\"README_V1A1.md\", \"e15e26da2083430acaa71868b6f0e639528750fcff3767299fd626d887d915a5\"),\n]\nfor source,target,expected in checks:\n    assert source.is_file(), f\"missing package file: {source}\"\n    assert target.is_file(), f\"missing installed file: {target}\"\n    assert hashlib.sha256(source.read_bytes()).hexdigest()==expected, f\"package hash mismatch: {source}\"\n    assert hashlib.sha256(target.read_bytes()).hexdigest()==expected, f\"installed hash mismatch: {target}\"\nscript=(installed/r\"static_manifest_normalizer_v1.py\").read_text(encoding=\"utf-8\")\ncompile(script,str(installed/r\"static_manifest_normalizer_v1.py\"),\"exec\")\ntree=ast.parse(script)\nimports=set()\nfor node in ast.walk(tree):\n    if isinstance(node,ast.Import):\n        imports.update(alias.name.split('.')[0] for alias in node.names)\n    elif isinstance(node,ast.ImportFrom) and node.module:\n        imports.add(node.module.split('.')[0])\nforbidden={\"subprocess\",\"socket\",\"urllib\",\"http\",\"ftplib\",\"requests\",\"pip\",\"ensurepip\",\"psutil\",\"winreg\",\"ctypes\"}\nbad=sorted(imports & forbidden)\nassert not bad, \"forbidden imports: \"+\", \".join(bad)\nfor marker in (\"subprocess.run(\",\"subprocess.Popen(\",\"os.system(\",\"shell=True\",\"requests.\",\"urlopen(\",\"pip install\",\"Path.unlink(\",\"shutil.rmtree(\",\"os.remove(\",\"os.rename(\"):\n    assert marker not in script, \"forbidden operation marker: \"+marker\ncontract=json.loads((installed/r\"EVIDENCE_CONTRACT_V1.json\").read_text(encoding=\"utf-8\"))\nassert contract.get(\"schema\")==\"foxai.agent_fox.technical_core.evidence_contract.v1\"\nassert contract.get(\"network_required\") is False\nassert contract.get(\"third_party_dependencies_required\") is False\nprint(\"AGENT_FOX_V1A1_INSTALL_PREFLIGHT_OK\")\n"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-21T05:33:30.419648Z",
+      "name": "Verify exact V1A-1 payloads, syntax, standard-library safety boundary, and evidence contract",
+      "returncode": 0,
+      "started_at": "2026-07-21T05:33:30.296857Z",
+      "stderr": "",
+      "stdout": "AGENT_FOX_V1A1_INSTALL_PREFLIGHT_OK\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\static_manifest_normalizer_v1.py",
+        "--self-test"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-21T05:33:30.533356Z",
+      "name": "Run deterministic classifier and runtime-reference self-tests",
+      "returncode": 0,
+      "started_at": "2026-07-21T05:33:30.420072Z",
+      "stderr": "",
+      "stdout": "AGENT_FOX_V1A1_NORMALIZER_SELF_TEST_OK\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\static_manifest_normalizer_v1.py",
+        "--input-dir",
+        "Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260721-042128-CF3008_V1A0_R2_STATIC_AUDIT",
+        "--output-dir",
+        "Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260721-051832-1CAA3F_V1A1_NORMALIZED",
+        "--project-root",
+        "Z:\\FOXAI",
+        "--mission-id",
+        "ENG-20260721-051832-1CAA3F"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-21T05:33:30.740794Z",
+      "name": "Normalize completed V1A-0 evidence into the V1A-1 mission workspace",
+      "returncode": 0,
+      "started_at": "2026-07-21T05:33:30.533738Z",
+      "stderr": "",
+      "stdout": "{\n  \"actual_existing_python_executable_count\": 4,\n  \"existing_foxai_source_modified\": false,\n  \"mission_id\": \"ENG-20260721-051832-1CAA3F\",\n  \"network_used\": false,\n  \"normalization_receipt\": {\n    \"name\": \"NORMALIZATION_RECEIPT.json\",\n    \"sha256\": \"4626b29c1191ed75b3f30e915c10cf97dc06e7d5fa7365d515ddd336ea976c28\",\n    \"size_bytes\": 2717\n  },\n  \"output_directory\": \"Z:\\\\FOXAI\\\\System\\\\EngineeringWorkshop\\\\missions\\\\ENG-20260721-051832-1CAA3F_V1A1_NORMALIZED\",\n  \"output_total_bytes\": 1336978,\n  \"protected_candidates_unchanged\": true,\n  \"result\": \"normalized_static_manifest_complete\",\n  \"unresolved_runtime_references_misreported_as_installed\": 0\n}\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nimport hashlib, json\ninput_dir=Path(r\"Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260721-042128-CF3008_V1A0_R2_STATIC_AUDIT\")\nout=Path(r\"Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260721-051832-1CAA3F_V1A1_NORMALIZED\")\nrequired={\"NORMALIZED_WHOLE_FOXAI_STATIC_MANIFEST.json\",\"LAUNCHER_CLASSIFICATION_REPORT.json\",\"RUNTIME_REFERENCE_REPORT.json\",\"COVERAGE_REPORT.json\",\"MISSING_EVIDENCE_REPORT.json\",\"NORMALIZATION_RECEIPT.json\"}\nactual={p.name for p in out.iterdir() if p.is_file()}\nassert required.issubset(actual), f\"missing outputs: {sorted(required-actual)}\"\nloaded={name:json.loads((out/name).read_text(encoding=\"utf-8\")) for name in required}\nreceipt=loaded[\"NORMALIZATION_RECEIPT.json\"]\nassert receipt.get(\"result\")==\"normalized_static_manifest_complete\"\nassert receipt.get(\"mission_id\")==\"ENG-20260721-051832-1CAA3F\"\nassert receipt.get(\"source_evidence_unchanged\") is True\nassert receipt.get(\"protected_candidates_unchanged\") is True\nassert receipt.get(\"network_used\") is False\nassert receipt.get(\"packages_installed\") is False\nassert receipt.get(\"runtime_probes_executed\") is False\nassert receipt.get(\"foxai_source_or_launchers_executed\") is False\nassert receipt.get(\"existing_foxai_source_modified\") is False\nruntime=loaded[\"RUNTIME_REFERENCE_REPORT.json\"]\nassert runtime.get(\"actual_existing_executable_count\")==4\nassert runtime.get(\"zero_unresolved_references_misreported_as_installed_runtimes\") is True\nassert runtime.get(\"misreported_installed_runtime_records\")==[]\nassert all(item.get(\"reference_status\")==\"actual_existing_executable_file\" for item in runtime.get(\"installed_runtime_candidates\",[]))\nlaunch=loaded[\"LAUNCHER_CLASSIFICATION_REPORT.json\"]\nassert launch.get(\"source_launcher_count\")==536\nassert launch.get(\"unique_path_count\")==536\nassert launch.get(\"root_level_count\")==116\nmanifest=loaded[\"NORMALIZED_WHOLE_FOXAI_STATIC_MANIFEST.json\"]\nassert manifest.get(\"reusable_components\",{}).get(\"live_source_candidate_count\")==13\nassert manifest.get(\"reusable_components\",{}).get(\"known_good_or_historical_count\")==46\nassert manifest.get(\"storage\",{}).get(\"model_count\")==3\nassert manifest.get(\"storage\",{}).get(\"database_and_index_count\")==6\nassert manifest.get(\"storage\",{}).get(\"model_coverage_complete\") is False\nfor name,expected in receipt.get(\"input_sha256\",{}).items():\n    path=input_dir/name\n    assert path.is_file(), f\"source evidence missing: {path}\"\n    assert hashlib.sha256(path.read_bytes()).hexdigest()==expected, f\"source evidence changed: {name}\"\ntotal=sum(p.stat().st_size for p in out.iterdir() if p.is_file())\nassert total <= 24*1024*1024, f\"output ceiling exceeded: {total}\"\nprint(\"AGENT_FOX_V1A1_NORMALIZED_OUTPUTS_VERIFIED\")\n"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-21T05:33:30.866110Z",
+      "name": "Verify normalized JSON, coverage boundaries, protected hashes, source evidence immutability, and zero runtime-reference false positives",
+      "returncode": 0,
+      "started_at": "2026-07-21T05:33:30.741198Z",
+      "stderr": "",
+      "stdout": "AGENT_FOX_V1A1_NORMALIZED_OUTPUTS_VERIFIED\n",
+      "timed_out": false
+    }
+  ]
+}

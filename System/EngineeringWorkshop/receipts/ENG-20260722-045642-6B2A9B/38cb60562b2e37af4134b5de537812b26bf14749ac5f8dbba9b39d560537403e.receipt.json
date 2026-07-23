@@ -1,0 +1,106 @@
+{
+  "authorized": true,
+  "changes": [
+    {
+      "action": "write_file",
+      "after_sha256": "a76b04dc326c5fce9a78bfc0ac94b76376389c3c602993c7ab3239ad37485e4d",
+      "after_size": 59407,
+      "before_sha256": null,
+      "before_size": null,
+      "relative_path": "System\\AgentFoxTechnicalCore\\pc_foxai_baseline_v1.py"
+    },
+    {
+      "action": "write_file",
+      "after_sha256": "b5acf4057471c96c4236c6e2bfda85174e4d20d567b0f4a9047c178664350b52",
+      "after_size": 2459,
+      "before_sha256": null,
+      "before_size": null,
+      "relative_path": "System\\AgentFoxTechnicalCore\\PC_FOXAI_BASELINE_CONTRACT_V1.json"
+    },
+    {
+      "action": "write_file",
+      "after_sha256": "279b999820eed14c22d840eed4ba47e3eee79ad47a33e28188874d10bc3342db",
+      "after_size": 1274,
+      "before_sha256": null,
+      "before_size": null,
+      "relative_path": "System\\AgentFoxTechnicalCore\\README_V1B0.md"
+    }
+  ],
+  "created_at": "2026-07-22T05:14:46.927228Z",
+  "evidence_is_tool_generated": true,
+  "failure": "Validation failed: Collect bounded read-only PC and FOXAI baseline evidence (return code 1)",
+  "mission_id": "ENG-20260722-045642-6B2A9B",
+  "mission_title": "Agent Fox Technical Core V1B-0-R1 \u2014 Snapshot Path Separator Normalization Repair",
+  "mission_type": "implement",
+  "no_deletions": true,
+  "no_renames": true,
+  "plan_path": "Z:\\FOXAI\\AGENT_FOX_V1B0_R1\\PLAN.json",
+  "plan_sha256": "38cb60562b2e37af4134b5de537812b26bf14749ac5f8dbba9b39d560537403e",
+  "project_root": "Z:\\FOXAI",
+  "result": "rolled_back",
+  "rolled_back": true,
+  "schema": "foxai.engineering.receipt.v1",
+  "snapshot_manifest": "Z:\\FOXAI\\System\\EngineeringWorkshop\\snapshots\\ENG-20260722-045642-6B2A9B\\snapshot_20260722T051439638652Z.manifest.json",
+  "snapshot_path": "Z:\\FOXAI\\System\\EngineeringWorkshop\\snapshots\\ENG-20260722-045642-6B2A9B\\snapshot_20260722T051439638652Z.zip",
+  "snapshot_sha256": "0f97a6371055eb34e1f52110c12d1cf203cac48a4a2ba715fe3e91529dd1e5ba",
+  "validations": [
+    {
+      "argv": [
+        "Z:/FOXAI/Runtime/Desktop/python/python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nimport hashlib,json\nchecks={\n r\"Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\pc_foxai_baseline_v1.py\":(59407,\"a76b04dc326c5fce9a78bfc0ac94b76376389c3c602993c7ab3239ad37485e4d\"),\n r\"Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\PC_FOXAI_BASELINE_CONTRACT_V1.json\":(2459,\"b5acf4057471c96c4236c6e2bfda85174e4d20d567b0f4a9047c178664350b52\"),\n r\"Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\README_V1B0.md\":(1274,\"279b999820eed14c22d840eed4ba47e3eee79ad47a33e28188874d10bc3342db\"),\n}\nfor name,(size,digest) in checks.items():\n p=Path(name); data=p.read_bytes(); assert len(data)==size,(name,len(data)); assert hashlib.sha256(data).hexdigest()==digest,name\ncompile(Path(r\"Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\pc_foxai_baseline_v1.py\").read_text(encoding=\"utf-8\"),\"<v1b0-collector>\",\"exec\")\nunchanged={\n r\"Z:\\FOXAI\\core\\foxai_web.py\":\"d7bf0a2042d55ef7f0a5869556015e42c7427e7ff88636b28e1795f3adf7b952\",\n r\"Z:\\FOXAI\\ui\\main_window.py\":\"a9c5bb86878e5f0cd27d221dbb32688b337e6026073a4b66d83339e0aef294a3\",\n r\"Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\self_knowledge_chat_adapter_v1.py\":\"a80a9047e0eebd9ac87fe4d656c565bc6534563bb3c97e1ad9b59823a36804f7\",\n r\"Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\webui_self_knowledge_integration_v1.py\":\"765983b563f8495138c9670849de5c4703f4735a0ddc9324efd6580606fc517b\",\n r\"Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\desktop_self_knowledge_integration_v1.py\":\"e420706136b4902d82d8dbf1fecc64ae70fb8bc639106db41033545f8c196c30\",\n}\nfor name,digest in unchanged.items(): assert hashlib.sha256(Path(name).read_bytes()).hexdigest()==digest,name\nsnap=Path(r\"Z:\\FOXAI\\System\\EngineeringWorkshop\\snapshots\\ENG-20260722-045642-6B2A9B\")\nmanifests=sorted(snap.glob(\"snapshot_*.manifest.json\")); assert manifests\nmanifest=json.loads(manifests[-1].read_text(encoding=\"utf-8\")); entries=manifest[\"entries\"]\nexpected=[\"System/AgentFoxTechnicalCore/PC_FOXAI_BASELINE_CONTRACT_V1.json\",\"System/AgentFoxTechnicalCore/README_V1B0.md\",\"System/AgentFoxTechnicalCore/pc_foxai_baseline_v1.py\"]\nassert len(entries)==3,len(entries)\nnormalized=sorted(row[\"relative_path\"].replace(\"\\\\\",\"/\") for row in entries)\nassert normalized==expected,(normalized,expected)\nassert all(row[\"existed\"] is False and row.get(\"sha256\") is None and row.get(\"size\") is None for row in entries)\nprint(\"AGENT_FOX_V1B0_R1_SUPPORT_AND_NORMALIZED_SNAPSHOT_OK\")"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-22T05:14:39.745243Z",
+      "name": "Verify exact V1B-0 payloads, unchanged integrations, and normalized three-path snapshot",
+      "returncode": 0,
+      "started_at": "2026-07-22T05:14:39.655293Z",
+      "stderr": "",
+      "stdout": "AGENT_FOX_V1B0_R1_SUPPORT_AND_NORMALIZED_SNAPSHOT_OK\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:/FOXAI/Runtime/Desktop/python/python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "Z:/FOXAI/System/AgentFoxTechnicalCore/pc_foxai_baseline_v1.py",
+        "self-test"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-22T05:14:39.864270Z",
+      "name": "Run isolated V1B-0 collector self-test",
+      "returncode": 0,
+      "started_at": "2026-07-22T05:14:39.745641Z",
+      "stderr": "",
+      "stdout": "{\"canonical_lf_only\": true, \"listener_classification\": true, \"output_count\": 8, \"privacy_redaction\": true, \"stable_ids\": true, \"startup_argument_stripping\": true, \"status\": \"ok\"}\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:/FOXAI/Runtime/Desktop/python/python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "Z:/FOXAI/System/AgentFoxTechnicalCore/pc_foxai_baseline_v1.py",
+        "collect",
+        "--mission-id",
+        "ENG-20260722-045642-6B2A9B",
+        "--output-dir",
+        "Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260722-045642-6B2A9B_V1B0_R1_PC_AND_FOXAI_BASELINE"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-22T05:14:46.923349Z",
+      "name": "Collect bounded read-only PC and FOXAI baseline evidence",
+      "returncode": 1,
+      "started_at": "2026-07-22T05:14:39.864746Z",
+      "stderr": "Traceback (most recent call last):\n  File \"Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\pc_foxai_baseline_v1.py\", line 1412, in <module>\n    raise SystemExit(main())\n                     ~~~~^^\n  File \"Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\pc_foxai_baseline_v1.py\", line 1406, in main\n    result = collect(args.mission_id, Path(args.output_dir))\n  File \"Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\pc_foxai_baseline_v1.py\", line 1343, in collect\n    _privacy_assertions(payloads)\n    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^\n  File \"Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\pc_foxai_baseline_v1.py\", line 1256, in _privacy_assertions\n    raise AssertionError(f\"forbidden evidence token: {token!r}\")\nAssertionError: forbidden evidence token: b'\"motherboard_uuid\"'\n",
+      "stdout": "",
+      "timed_out": false
+    }
+  ]
+}

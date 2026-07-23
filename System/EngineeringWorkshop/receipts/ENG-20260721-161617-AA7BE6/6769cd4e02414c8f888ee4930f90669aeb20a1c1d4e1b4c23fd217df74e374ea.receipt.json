@@ -1,0 +1,114 @@
+{
+  "authorized": true,
+  "changes": [
+    {
+      "action": "write_file",
+      "after_sha256": "a8d084f9fe70b2adb0f342ecff6741224f729fbe1c6030b79fe2581ae7da4f44",
+      "after_size": 55346,
+      "before_sha256": null,
+      "before_size": null,
+      "relative_path": "System\\AgentFoxTechnicalCore\\live_dependency_closure_map_v1.py"
+    },
+    {
+      "action": "write_file",
+      "after_sha256": "90705fa00084e014297e0baea41cbb6934b8277a99d58395aa9d806ea4609d1b",
+      "after_size": 1310,
+      "before_sha256": null,
+      "before_size": null,
+      "relative_path": "System\\AgentFoxTechnicalCore\\LIVE_DEPENDENCY_CONTRACT_V1.json"
+    },
+    {
+      "action": "write_file",
+      "after_sha256": "e7aea4e08adc8d2691cc77298ad3d2fdf866662737666492eb3cc7f8e46e39d9",
+      "after_size": 1059,
+      "before_sha256": null,
+      "before_size": null,
+      "relative_path": "System\\AgentFoxTechnicalCore\\README_V1A3C.md"
+    }
+  ],
+  "created_at": "2026-07-21T16:31:15.582729Z",
+  "evidence_is_tool_generated": true,
+  "failure": "Validation failed: Build six protected static dependency closures from verified immutable evidence (return code 1)",
+  "mission_id": "ENG-20260721-161617-AA7BE6",
+  "mission_title": "Agent Fox Technical Core V1A-3C \u2014 Live Python Dependency Closure and Conditional Import Map",
+  "mission_type": "implement",
+  "no_deletions": true,
+  "no_renames": true,
+  "plan_path": "Z:\\FOXAI\\AGENT_FOX_V1A3C\\PLAN.json",
+  "plan_sha256": "6769cd4e02414c8f888ee4930f90669aeb20a1c1d4e1b4c23fd217df74e374ea",
+  "project_root": "Z:\\FOXAI",
+  "result": "rolled_back",
+  "rolled_back": true,
+  "schema": "foxai.engineering.receipt.v1",
+  "snapshot_manifest": "Z:\\FOXAI\\System\\EngineeringWorkshop\\snapshots\\ENG-20260721-161617-AA7BE6\\snapshot_20260721T163112524509Z.manifest.json",
+  "snapshot_path": "Z:\\FOXAI\\System\\EngineeringWorkshop\\snapshots\\ENG-20260721-161617-AA7BE6\\snapshot_20260721T163112524509Z.zip",
+  "snapshot_sha256": "3a952af86a03beb3173fcc43367107beb0694f3e79982d36b5a15f593279b1e2",
+  "validations": [
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nimport ast,hashlib,json\nroot=Path(r\"Z:\\FOXAI\")\ndrop=root/r\"AGENT_FOX_V1A3C\"\ninstalled=root/r\"System\\AgentFoxTechnicalCore\"\nchecks=[\n (drop/r\"live_dependency_closure_map_v1.py\",installed/r\"live_dependency_closure_map_v1.py\",\"a8d084f9fe70b2adb0f342ecff6741224f729fbe1c6030b79fe2581ae7da4f44\"),\n (drop/r\"LIVE_DEPENDENCY_CONTRACT_V1.json\",installed/r\"LIVE_DEPENDENCY_CONTRACT_V1.json\",\"90705fa00084e014297e0baea41cbb6934b8277a99d58395aa9d806ea4609d1b\"),\n (drop/r\"README_V1A3C.md\",installed/r\"README_V1A3C.md\",\"e7aea4e08adc8d2691cc77298ad3d2fdf866662737666492eb3cc7f8e46e39d9\"),\n]\nfor src,dst,expected in checks:\n assert src.is_file() and dst.is_file(),(src,dst)\n assert hashlib.sha256(src.read_bytes()).hexdigest()==expected,src\n assert hashlib.sha256(dst.read_bytes()).hexdigest()==expected,dst\nscript=(installed/r\"live_dependency_closure_map_v1.py\").read_text(encoding=\"utf-8\")\ncompile(script,str(installed/r\"live_dependency_closure_map_v1.py\"),\"exec\")\ntree=ast.parse(script)\nimports=set()\nfor node in ast.walk(tree):\n if isinstance(node,ast.Import): imports.update(a.name.split('.')[0] for a in node.names)\n elif isinstance(node,ast.ImportFrom) and node.module: imports.add(node.module.split('.')[0])\nforbidden={\"subprocess\",\"socket\",\"urllib\",\"http\",\"ftplib\",\"requests\",\"pip\",\"ensurepip\",\"psutil\",\"winreg\",\"ctypes\",\"webbrowser\",\"importlib\"}\nassert not (imports & forbidden),sorted(imports & forbidden)\ncontract=json.loads((installed/r\"LIVE_DEPENDENCY_CONTRACT_V1.json\").read_text(encoding=\"utf-8\"))\nassert contract.get(\"schema\")==\"foxai.agent_fox.technical_core.v1a3c.live_dependency_contract.v1\"\nassert contract.get(\"mission_id\")==\"ENG-20260721-161617-AA7BE6\"\nassert contract.get(\"protected_direct_context_count\")==6\nassert contract.get(\"source_capture\",{}).get(\"single_read_immutable_in_memory\") is True\nassert contract.get(\"source_capture\",{}).get(\"second_build_rereads_live_tree\") is False\nassert contract.get(\"payload_interpreter_child_processes\")==0\nassert contract.get(\"payload_shell_child_processes\")==0\nprint(\"AGENT_FOX_V1A3C_PAYLOAD_CONTRACT_VERIFIED\")\n"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-21T16:31:12.705634Z",
+      "name": "Verify exact V1A-3C payloads, syntax, source-only imports, and immutable-capture contract",
+      "returncode": 0,
+      "started_at": "2026-07-21T16:31:12.567852Z",
+      "stderr": "",
+      "stdout": "AGENT_FOX_V1A3C_PAYLOAD_CONTRACT_VERIFIED\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\live_dependency_closure_map_v1.py",
+        "self-test"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-21T16:31:12.847668Z",
+      "name": "Run in-memory dependency guard and relative-import self-tests",
+      "returncode": 0,
+      "started_at": "2026-07-21T16:31:12.706026Z",
+      "stderr": "",
+      "stdout": "AGENT_FOX_V1A3C_SELF_TEST_PASSED\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\live_dependency_closure_map_v1.py",
+        "build",
+        "--project-root",
+        "Z:\\FOXAI",
+        "--v1a2r2-dir",
+        "Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260721-063725-BFCAB9_V1A2R2_IMMUTABLE_BRIDGE",
+        "--v1a3a-r1-dir",
+        "Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260721-152146-C4F8D5_V1A3A_R1_ADOPTED_RUNTIME_MAP",
+        "--v1a3b-dir",
+        "Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260721-154935-FF96C4_V1A3B_EFFECTIVE_IMPORT_MAP",
+        "--output-dir",
+        "Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260721-161617-AA7BE6_V1A3C_LIVE_DEPENDENCY_MAP",
+        "--mission-id",
+        "ENG-20260721-161617-AA7BE6"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-21T16:31:15.576285Z",
+      "name": "Build six protected static dependency closures from verified immutable evidence",
+      "returncode": 1,
+      "started_at": "2026-07-21T16:31:12.848090Z",
+      "stderr": "Traceback (most recent call last):\n  File \"Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\live_dependency_closure_map_v1.py\", line 1115, in <module>\n    raise SystemExit(main())\n                     ~~~~^^\n  File \"Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\live_dependency_closure_map_v1.py\", line 1100, in main\n    first = build_outputs(project_root_path, args.project_root, source, args.mission_id, captured_sources)\n  File \"Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\live_dependency_closure_map_v1.py\", line 861, in build_outputs\n    selection = select_protected_contexts(source)\n  File \"Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\live_dependency_closure_map_v1.py\", line 236, in select_protected_contexts\n    raise ValueError(\"Web With ComfyUI called-launcher relationship to Web Portable is missing\")\nValueError: Web With ComfyUI called-launcher relationship to Web Portable is missing\n",
+      "stdout": "",
+      "timed_out": false
+    }
+  ]
+}

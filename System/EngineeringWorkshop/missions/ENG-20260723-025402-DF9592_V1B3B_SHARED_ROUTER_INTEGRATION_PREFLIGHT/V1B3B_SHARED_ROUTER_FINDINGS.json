@@ -1,0 +1,2930 @@
+{
+  "catalog_match_lines": [
+    561
+  ],
+  "desktop_helper": {
+    "bounded_route_hits": [
+      {
+        "line": 14,
+        "terms": [
+          "self_knowledge"
+        ],
+        "text": "ADAPTER_PATH = Path(r\"Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\self_knowledge_chat_adapter_v1.py\")"
+      },
+      {
+        "line": 21,
+        "terms": [
+          "self_knowledge"
+        ],
+        "text": "BEGIN_MARKER = \"        # FOXAI_SELF_KNOWLEDGE_DESKTOP_V1A3I_BEGIN\\n\""
+      },
+      {
+        "line": 22,
+        "terms": [
+          "self_knowledge"
+        ],
+        "text": "END_MARKER = \"        # FOXAI_SELF_KNOWLEDGE_DESKTOP_V1A3I_END\\n\""
+      },
+      {
+        "line": 27,
+        "terms": [
+          "model"
+        ],
+        "text": "    \"model_bypass\","
+      },
+      {
+        "line": 34,
+        "terms": [
+          "self_knowledge"
+        ],
+        "text": "    \"DESKTOP_SELF_KNOWLEDGE_INTEGRATION_CONTRACT.json\","
+      },
+      {
+        "line": 38,
+        "terms": [
+          "model"
+        ],
+        "text": "    \"DESKTOP_MODEL_BYPASS_EVIDENCE.json\","
+      },
+      {
+        "line": 72,
+        "terms": [
+          "self_knowledge"
+        ],
+        "text": "    spec = importlib.util.spec_from_file_location(\"foxai_desktop_self_knowledge_adapter_v1\", path)"
+      },
+      {
+        "line": 91,
+        "terms": [
+          "model"
+        ],
+        "text": "        and isinstance(result.get(\"model_bypass\"), bool)"
+      },
+      {
+        "line": 102,
+        "terms": [
+          "model"
+        ],
+        "text": "        \"model_bypass\": True,"
+      },
+      {
+        "line": 123,
+        "terms": [
+          "model"
+        ],
+        "text": "            \"model_bypass\": False,"
+      },
+      {
+        "line": 136,
+        "terms": [
+          "route_message("
+        ],
+        "text": "        result = adapter.route_message(normalized, \"desktop\")"
+      },
+      {
+        "line": 143,
+        "terms": [
+          "model"
+        ],
+        "text": "            \"model_bypass\": False,"
+      },
+      {
+        "line": 147,
+        "terms": [
+          "model"
+        ],
+        "text": "        if isinstance(result, dict) and (result.get(\"handled\") is True or result.get(\"model_bypass\") is True):"
+      },
+      {
+        "line": 154,
+        "terms": [
+          "model"
+        ],
+        "text": "            \"model_bypass\": False,"
+      },
+      {
+        "line": 160,
+        "terms": [
+          "model"
+        ],
+        "text": "        and result[\"model_bypass\"] is False"
+      },
+      {
+        "line": 168,
+        "terms": [
+          "model"
+        ],
+        "text": "            \"model_bypass\": False,"
+      },
+      {
+        "line": 174,
+        "terms": [
+          "model"
+        ],
+        "text": "        and result[\"model_bypass\"] is True"
+      },
+      {
+        "line": 185,
+        "terms": [
+          "model"
+        ],
+        "text": "            \"model_bypass\": True,"
+      },
+      {
+        "line": 243,
+        "terms": [
+          "director"
+        ],
+        "text": "        self.director_calls = 0"
+      },
+      {
+        "line": 246,
+        "terms": [
+          "model"
+        ],
+        "text": "        self.model_thread_calls = 0"
+      },
+      {
+        "line": 248,
+        "terms": [
+          "model"
+        ],
+        "text": "        self.model_calls = 0"
+      },
+      {
+        "line": 250,
+        "terms": [
+          "self_knowledge"
+        ],
+        "text": "            self._foxai_self_knowledge_desktop_module = component_module"
+      },
+      {
+        "line": 293,
+        "terms": [
+          "model"
+        ],
+        "text": "        raise AssertionError(\"handled model history changed\")"
+      },
+      {
+        "line": 295,
+        "terms": [
+          "model"
+        ],
+        "text": "        raise AssertionError(\"assistant model history changed\")"
+      },
+      {
+        "line": 300,
+        "terms": [
+          "director",
+          "model"
+        ],
+        "text": "    if any((app.director_calls, app.specialist_calls, app.get_ai_response_calls, app.model_thread_calls, app.provider_calls, app.model_calls)):"
+      },
+      {
+        "line": 354,
+        "terms": [
+          "model"
+        ],
+        "text": "            \"model_calls\": 0,"
+      },
+      {
+        "line": 369,
+        "terms": [
+          "model"
+        ],
+        "text": "        rows.append({\"id\": f\"ambiguous-{index}\", \"class\": \"ambiguous\", \"status\": \"clarification_required\", \"passed\": True, \"model_calls\": 0})"
+      },
+      {
+        "line": 417,
+        "terms": [
+          "model"
+        ],
+        "text": "            return {\"intercepted\": False, \"status\": \"adapter_unavailable\", \"answer_text\": None, \"diagnostic\": \"synthetic unavailable\", \"model_bypass\": False, \"ordinary_chat_pass_through\": True}"
+      },
+      {
+        "line": 437,
+        "terms": [
+          "model"
+        ],
+        "text": "    rows.append({\"id\": \"malformed-handled\", \"class\": \"malformed\", \"status\": \"evidence_error\", \"passed\": True, \"model_calls\": 0})"
+      },
+      {
+        "line": 442,
+        "terms": [
+          "director"
+        ],
+        "text": "    with tempfile.TemporaryDirectory(prefix=\"foxai_v1a3i_corrupt_\") as temp_name:"
+      },
+      {
+        "line": 456,
+        "terms": [
+          "model"
+        ],
+        "text": "    rows.append({\"id\": \"copied-fixture-corruption\", \"class\": \"evidence_corruption\", \"status\": \"evidence_error\", \"passed\": True, \"model_calls\": 0})"
+      },
+      {
+        "line": 460,
+        "terms": [
+          "route_message("
+        ],
+        "text": "    workshop_full = adapter.route_message("
+      },
+      {
+        "line": 466,
+        "terms": [
+          "route_message("
+        ],
+        "text": "    desktop_full = adapter.route_message("
+      },
+      {
+        "line": 472,
+        "terms": [
+          "route_message("
+        ],
+        "text": "    mapping_full = adapter.route_message("
+      },
+      {
+        "line": 523,
+        "terms": [
+          "self_knowledge"
+        ],
+        "text": "        \"DESKTOP_SELF_KNOWLEDGE_INTEGRATION_CONTRACT.json\": {"
+      },
+      {
+        "line": 528,
+        "terms": [
+          "model"
+        ],
+        "text": "            \"recognized_model_bypass\": True,"
+      },
+      {
+        "line": 529,
+        "terms": [
+          "model"
+        ],
+        "text": "            \"clarification_model_bypass\": True,"
+      },
+      {
+        "line": 530,
+        "terms": [
+          "model"
+        ],
+        "text": "            \"evidence_error_model_bypass\": True,"
+      },
+      {
+        "line": 547,
+        "terms": [
+          "self_knowledge"
+        ],
+        "text": "            \"seam_marker\": \"FOXAI_SELF_KNOWLEDGE_DESKTOP_V1A3I\","
+      },
+      {
+        "line": 579,
+        "terms": [
+          "model"
+        ],
+        "text": "        \"DESKTOP_MODEL_BYPASS_EVIDENCE.json\": {"
+      },
+      {
+        "line": 580,
+        "terms": [
+          "model"
+        ],
+        "text": "            \"schema\": \"foxai.agent_fox.technical_core.v1a3i.model_bypass.v1\","
+      },
+      {
+        "line": 583,
+        "terms": [
+          "director"
+        ],
+        "text": "            \"director_calls_for_handled\": 0,"
+      },
+      {
+        "line": 586,
+        "terms": [
+          "model"
+        ],
+        "text": "            \"model_thread_calls_for_handled\": 0,"
+      },
+      {
+        "line": 588,
+        "terms": [
+          "model"
+        ],
+        "text": "            \"model_calls_for_handled\": 0,"
+      },
+      {
+        "line": 623,
+        "terms": [
+          "model"
+        ],
+        "text": "            \"models_loaded\": False,"
+      },
+      {
+        "line": 651,
+        "terms": [
+          "model"
+        ],
+        "text": "        \"model_calls_for_handled\": 0,"
+      },
+      {
+        "line": 659,
+        "terms": [
+          "model"
+        ],
+        "text": "        \"models_loaded\": False,"
+      },
+      {
+        "line": 702,
+        "terms": [
+          "model"
+        ],
+        "text": "        \"model_bypass\": False,"
+      }
+    ],
+    "function_count": 30,
+    "logical_name": "desktop_helper",
+    "parse_error": null,
+    "parsed": true,
+    "route_message_call_lines": [
+      136,
+      460,
+      466,
+      472
+    ]
+  },
+  "desktop_source": {
+    "bounded_route_hits": [
+      {
+        "line": 16,
+        "terms": [
+          "model"
+        ],
+        "text": "from core.models import find_models"
+      },
+      {
+        "line": 23,
+        "terms": [
+          "model"
+        ],
+        "text": "from core.image_models import find_checkpoints"
+      },
+      {
+        "line": 24,
+        "terms": [
+          "director"
+        ],
+        "text": "from core.director import direct"
+      },
+      {
+        "line": 68,
+        "terms": [
+          "model"
+        ],
+        "text": "        self.models = find_models()"
+      },
+      {
+        "line": 161,
+        "terms": [
+          "department"
+        ],
+        "text": "            (\"Departments\", summary.get(\"department_count\", \"—\")),"
+      },
+      {
+        "line": 162,
+        "terms": [
+          "department"
+        ],
+        "text": "            (\"Online\", summary.get(\"departments_online\", \"—\")),"
+      },
+      {
+        "line": 174,
+        "terms": [
+          "department"
+        ],
+        "text": "        ctk.CTkLabel(dept_panel, text=\"DEPARTMENTS\", font=(\"Consolas\", 16, \"bold\"), text_color=color(\"cyan\")).pack(anchor=\"w\", padx=14, pady=(12, 6))"
+      },
+      {
+        "line": 176,
+        "terms": [
+          "department"
+        ],
+        "text": "        cards = (feed or {}).get(\"department_cards\", [])"
+      },
+      {
+        "line": 188,
+        "terms": [
+          "department"
+        ],
+        "text": "                ctk.CTkLabel(panel, text=card.get(\"title\", \"Department\"), font=(\"Consolas\", 15, \"bold\")).pack(anchor=\"w\", padx=14, pady=(12, 2))"
+      },
+      {
+        "line": 262,
+        "terms": [
+          "model"
+        ],
+        "text": "        self.model_menu = ctk.CTkOptionMenu(self.sidebar, values=[m.name for m in self.models] or [\"No engines found\"], width=250)"
+      },
+      {
+        "line": 263,
+        "terms": [
+          "model"
+        ],
+        "text": "        self.model_menu.pack(pady=5)"
+      },
+      {
+        "line": 272,
+        "terms": [
+          "department"
+        ],
+        "text": "        ctk.CTkLabel(self.sidebar, text=\"DEPARTMENTS\", font=(\"Consolas\", 12, \"bold\")).pack(pady=(18, 8))"
+      },
+      {
+        "line": 542,
+        "terms": [
+          "model"
+        ],
+        "text": "            (\"NEURAL ENGINES\", str(len(self.models))),"
+      },
+      {
+        "line": 588,
+        "terms": [
+          "department"
+        ],
+        "text": "        current_department = None"
+      },
+      {
+        "line": 590,
+        "terms": [
+          "department"
+        ],
+        "text": "            department = application.get(\"department\") or \"Unassigned\""
+      },
+      {
+        "line": 591,
+        "terms": [
+          "department"
+        ],
+        "text": "            if department != current_department:"
+      },
+      {
+        "line": 592,
+        "terms": [
+          "department"
+        ],
+        "text": "                if current_department is not None:"
+      },
+      {
+        "line": 594,
+        "terms": [
+          "department"
+        ],
+        "text": "                lines.append(f\"[{department.upper()}]\")"
+      },
+      {
+        "line": 595,
+        "terms": [
+          "department"
+        ],
+        "text": "                current_department = department"
+      },
+      {
+        "line": 1548,
+        "terms": [
+          "model"
+        ],
+        "text": "                                \"Preparing the image model...\""
+      },
+      {
+        "line": 1552,
+        "terms": [
+          "model"
+        ],
+        "text": "                            or \"model_type\" in lower"
+      },
+      {
+        "line": 1556,
+        "terms": [
+          "model"
+        ],
+        "text": "                                \"LOADING IMAGE MODEL\\n\\n\""
+      },
+      {
+        "line": 1816,
+        "terms": [
+          "model"
+        ],
+        "text": "            f\"Selected Model: {neural.get('selected_model') or 'None'}\\n\""
+      },
+      {
+        "line": 1817,
+        "terms": [
+          "model"
+        ],
+        "text": "            f\"Models Found: {neural['model_count']}\\n\""
+      },
+      {
+        "line": 1847,
+        "terms": [
+          "model"
+        ],
+        "text": "            f\"Recommended Model:\\n{advisor.get('recommended_model') or 'None'}\\n\\n\""
+      },
+      {
+        "line": 1896,
+        "terms": [
+          "model"
+        ],
+        "text": "            f\"Model: {advisor.get('recommended_model') or 'None'}\\n\""
+      },
+      {
+        "line": 1918,
+        "terms": [
+          "model"
+        ],
+        "text": "        box.insert(\"end\", f\"Language models detected: {len(self.models)}\\nComfyUI: {'ONLINE' if is_comfy_running() else 'OFFLINE'}\")"
+      },
+      {
+        "line": 2017,
+        "terms": [
+          "director"
+        ],
+        "text": "    def format_director_analysis(self, mission):"
+      },
+      {
+        "line": 2022,
+        "terms": [
+          "department"
+        ],
+        "text": "        department_names = {"
+      },
+      {
+        "line": 2040,
+        "terms": [
+          "director"
+        ],
+        "text": "            \"DIRECTOR ANALYSIS\\n\\n\""
+      },
+      {
+        "line": 2044,
+        "terms": [
+          "department"
+        ],
+        "text": "            f\"Selected Department:\\n{department_names.get(agent, agent.title())}\""
+      },
+      {
+        "line": 2048,
+        "terms": [
+          "model"
+        ],
+        "text": "        model_name = self.model_menu.get()"
+      },
+      {
+        "line": 2049,
+        "terms": [
+          "model"
+        ],
+        "text": "        model = next((m for m in self.models if m.name == model_name), None)"
+      },
+      {
+        "line": 2050,
+        "terms": [
+          "model"
+        ],
+        "text": "        if not model:"
+      },
+      {
+        "line": 2072,
+        "terms": [
+          "model"
+        ],
+        "text": "            model,"
+      },
+      {
+        "line": 2091,
+        "terms": [
+          "model"
+        ],
+        "text": "                f\"Attaching to shared neural engine: {model.name}\","
+      },
+      {
+        "line": 2096,
+        "terms": [
+          "model"
+        ],
+        "text": "                f\"Shared neural engine is already starting: {model.name}\","
+      },
+      {
+        "line": 2099,
+        "terms": [
+          "model"
+        ],
+        "text": "            self.add_chat(\"SYSTEM\", f\"Initializing neural engine: {model.name}\")"
+      },
+      {
+        "line": 2161,
+        "terms": [
+          "self_knowledge"
+        ],
+        "text": "        # FOXAI_SELF_KNOWLEDGE_DESKTOP_V1A3I_BEGIN"
+      },
+      {
+        "line": 2165,
+        "terms": [
+          "self_knowledge"
+        ],
+        "text": "            _foxai_sk_module = getattr(self, \"_foxai_self_knowledge_desktop_module\", None)"
+      },
+      {
+        "line": 2167,
+        "terms": [
+          "self_knowledge"
+        ],
+        "text": "                _foxai_sk_path = _foxai_sk_Path(r\"Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\desktop_self_knowledge_integration_v1.py\")"
+      },
+      {
+        "line": 2168,
+        "terms": [
+          "self_knowledge"
+        ],
+        "text": "                _foxai_sk_spec = _foxai_sk_importlib_util.spec_from_file_location(\"foxai_desktop_self_knowledge_integration_v1\", _foxai_sk_path)"
+      },
+      {
+        "line": 2173,
+        "terms": [
+          "self_knowledge"
+        ],
+        "text": "                setattr(self, \"_foxai_self_knowledge_desktop_module\", _foxai_sk_module)"
+      },
+      {
+        "line": 2191,
+        "terms": [
+          "self_knowledge"
+        ],
+        "text": "        # FOXAI_SELF_KNOWLEDGE_DESKTOP_V1A3I_END"
+      },
+      {
+        "line": 2192,
+        "terms": [
+          "director"
+        ],
+        "text": "        self.mission_status(\"Receiving request...\\n\\nDirector analyzing mission parameters.\")"
+      },
+      {
+        "line": 2193,
+        "terms": [
+          "director"
+        ],
+        "text": "        self.start_mission_animation(\"Director analyzing\")"
+      },
+      {
+        "line": 2203,
+        "terms": [
+          "director"
+        ],
+        "text": "        self.mission_status(self.format_director_analysis(mission))"
+      },
+      {
+        "line": 2242,
+        "terms": [
+          "director"
+        ],
+        "text": "            \"DIRECTOR\","
+      },
+      {
+        "line": 2258,
+        "terms": [
+          "model"
+        ],
+        "text": "    def start_chat_heartbeat(self, model_name=None, mission_type=\"conversation\"):"
+      },
+      {
+        "line": 2281,
+        "terms": [
+          "model"
+        ],
+        "text": "                    f\"Model: {model_name or self.model_menu.get()}\\n\""
+      },
+      {
+        "line": 2306,
+        "terms": [
+          "model"
+        ],
+        "text": "                    f\"Model: {model_name or self.model_menu.get()}\\n\""
+      },
+      {
+        "line": 2334,
+        "terms": [
+          "model"
+        ],
+        "text": "            model_used = self.model_menu.get()"
+      },
+      {
+        "line": 2337,
+        "terms": [
+          "model"
+        ],
+        "text": "                \"model\": \"local-model\","
+      },
+      {
+        "line": 2344,
+        "terms": [
+          "model"
+        ],
+        "text": "            self.after(0, lambda: self.start_chat_heartbeat(model_name=model_used, mission_type=\"conversation\"))"
+      },
+      {
+        "line": 2351,
+        "terms": [
+          "model"
+        ],
+        "text": "                model_name=model_used,"
+      },
+      {
+        "line": 2357,
+        "terms": [
+          "model"
+        ],
+        "text": "                answer = \"[BLANK RESPONSE]\\nThe model returned no text. Try restarting the mission or lowering context/max tokens.\""
+      },
+      {
+        "line": 2359,
+        "terms": [
+          "model"
+        ],
+        "text": "            if not answer.lstrip().startswith(\"[Model:\"):"
+      },
+      {
+        "line": 2360,
+        "terms": [
+          "model"
+        ],
+        "text": "                answer = f\"[Model: {model_used}]\\n\\n{answer}\""
+      },
+      {
+        "line": 2385,
+        "terms": [
+          "model"
+        ],
+        "text": "                \"• Try a smaller model or shorter response.\""
+      }
+    ],
+    "function_count": 80,
+    "logical_name": "desktop_source",
+    "parse_error": null,
+    "parsed": true,
+    "route_message_call_lines": []
+  },
+  "existing_current_state_broker_lines": [],
+  "function_inventory": [
+    {
+      "arguments": [
+        "value"
+      ],
+      "end_line": 124,
+      "kind": "sync",
+      "line": 123,
+      "name": "canonical_bytes"
+    },
+    {
+      "arguments": [
+        "path"
+      ],
+      "end_line": 132,
+      "kind": "sync",
+      "line": 127,
+      "name": "sha256_file"
+    },
+    {
+      "arguments": [
+        "path"
+      ],
+      "end_line": 136,
+      "kind": "sync",
+      "line": 135,
+      "name": "read_json"
+    },
+    {
+      "arguments": [
+        "bridge_path",
+        "registry_dir",
+        "resource_provider_path",
+        "resource_source_dir"
+      ],
+      "end_line": 159,
+      "kind": "sync",
+      "line": 139,
+      "name": "_configure_paths_for_tests"
+    },
+    {
+      "arguments": [],
+      "end_line": 164,
+      "kind": "sync",
+      "line": 162,
+      "name": "_reset_audit_for_tests"
+    },
+    {
+      "arguments": [],
+      "end_line": 168,
+      "kind": "sync",
+      "line": 167,
+      "name": "_audit_snapshot"
+    },
+    {
+      "arguments": [
+        "path"
+      ],
+      "end_line": 177,
+      "kind": "sync",
+      "line": 171,
+      "name": "_verify_bridge_hash"
+    },
+    {
+      "arguments": [],
+      "end_line": 211,
+      "kind": "sync",
+      "line": 180,
+      "name": "_load_bridge_namespace"
+    },
+    {
+      "arguments": [
+        "path"
+      ],
+      "end_line": 220,
+      "kind": "sync",
+      "line": 214,
+      "name": "_verify_resource_provider_hash"
+    },
+    {
+      "arguments": [],
+      "end_line": 256,
+      "kind": "sync",
+      "line": 223,
+      "name": "_load_resource_provider_namespace"
+    },
+    {
+      "arguments": [
+        "bridge"
+      ],
+      "end_line": 261,
+      "kind": "sync",
+      "line": 259,
+      "name": "_verify_registry"
+    },
+    {
+      "arguments": [
+        "message"
+      ],
+      "end_line": 267,
+      "kind": "sync",
+      "line": 264,
+      "name": "_normalize_message"
+    },
+    {
+      "arguments": [
+        "surface"
+      ],
+      "end_line": 271,
+      "kind": "sync",
+      "line": 270,
+      "name": "_normalize_surface"
+    },
+    {
+      "arguments": [
+        "selectors"
+      ],
+      "end_line": 282,
+      "kind": "sync",
+      "line": 274,
+      "name": "_normalize_selectors"
+    },
+    {
+      "arguments": [
+        "surface",
+        "message",
+        "selectors"
+      ],
+      "end_line": 291,
+      "kind": "sync",
+      "line": 285,
+      "name": "_deterministic_request_id"
+    },
+    {
+      "arguments": [
+        "message"
+      ],
+      "end_line": 306,
+      "kind": "sync",
+      "line": 294,
+      "name": "_implicit_protected_selectors"
+    },
+    {
+      "arguments": [
+        "message",
+        "selectors",
+        "bridge"
+      ],
+      "end_line": 328,
+      "kind": "sync",
+      "line": 309,
+      "name": "_catalog_matches"
+    },
+    {
+      "arguments": [
+        "surface",
+        "request_id",
+        "error"
+      ],
+      "end_line": 349,
+      "kind": "sync",
+      "line": 331,
+      "name": "_safe_error_result"
+    },
+    {
+      "arguments": [
+        "provenance"
+      ],
+      "end_line": 365,
+      "kind": "sync",
+      "line": 352,
+      "name": "_provenance_text"
+    },
+    {
+      "arguments": [
+        "item",
+        "label"
+      ],
+      "end_line": 380,
+      "kind": "sync",
+      "line": 368,
+      "name": "_claim_block"
+    },
+    {
+      "arguments": [
+        "packet"
+      ],
+      "end_line": 416,
+      "kind": "sync",
+      "line": 383,
+      "name": "render_answer_packet"
+    },
+    {
+      "arguments": [
+        "surface",
+        "request_id",
+        "reason"
+      ],
+      "end_line": 434,
+      "kind": "sync",
+      "line": 419,
+      "name": "_pass_through_result"
+    },
+    {
+      "arguments": [
+        "surface",
+        "request_id",
+        "error"
+      ],
+      "end_line": 455,
+      "kind": "sync",
+      "line": 437,
+      "name": "_safe_resource_error_result"
+    },
+    {
+      "arguments": [
+        "packet"
+      ],
+      "end_line": 477,
+      "kind": "sync",
+      "line": 458,
+      "name": "_render_resource_answer_packet"
+    },
+    {
+      "arguments": [
+        "message",
+        "surface",
+        "request_id"
+      ],
+      "end_line": 534,
+      "kind": "sync",
+      "line": 480,
+      "name": "_route_resource_message"
+    },
+    {
+      "arguments": [
+        "message",
+        "surface",
+        "request_id",
+        "selectors"
+      ],
+      "end_line": 632,
+      "kind": "sync",
+      "line": 537,
+      "name": "route_message"
+    },
+    {
+      "arguments": [
+        "directory",
+        "spec"
+      ],
+      "end_line": 658,
+      "kind": "sync",
+      "line": 635,
+      "name": "verify_evidence_directory"
+    },
+    {
+      "arguments": [
+        "v1a3d_dir",
+        "v1a3e_dir",
+        "v1a3f_dir",
+        "bridge_path"
+      ],
+      "end_line": 687,
+      "kind": "sync",
+      "line": 661,
+      "name": "verify_authoritative_inputs"
+    },
+    {
+      "arguments": [
+        "packet"
+      ],
+      "end_line": 694,
+      "kind": "sync",
+      "line": 690,
+      "name": "_iter_claim_items"
+    },
+    {
+      "arguments": [
+        "packet"
+      ],
+      "end_line": 719,
+      "kind": "sync",
+      "line": 697,
+      "name": "_validate_packet_safety"
+    },
+    {
+      "arguments": [
+        "v1a3d_dir",
+        "v1a3e_dir",
+        "bridge_path"
+      ],
+      "end_line": 925,
+      "kind": "sync",
+      "line": 722,
+      "name": "run_adapter_test_suite"
+    },
+    {
+      "arguments": [
+        "mission_id",
+        "verification",
+        "suite",
+        "bridge_path",
+        "registry_dir"
+      ],
+      "end_line": 1059,
+      "kind": "sync",
+      "line": 928,
+      "name": "build_core_outputs"
+    },
+    {
+      "arguments": [
+        "mission_id",
+        "output_dir",
+        "verification",
+        "suite",
+        "bridge_path",
+        "registry_dir"
+      ],
+      "end_line": 1132,
+      "kind": "sync",
+      "line": 1062,
+      "name": "write_build"
+    },
+    {
+      "arguments": [
+        "index_dir"
+      ],
+      "end_line": 1178,
+      "kind": "sync",
+      "line": 1135,
+      "name": "validate_output"
+    },
+    {
+      "arguments": [],
+      "end_line": 1221,
+      "kind": "sync",
+      "line": 1181,
+      "name": "self_test"
+    },
+    {
+      "arguments": [
+        "parser"
+      ],
+      "end_line": 1228,
+      "kind": "sync",
+      "line": 1224,
+      "name": "add_input_args"
+    },
+    {
+      "arguments": [],
+      "end_line": 1277,
+      "kind": "sync",
+      "line": 1231,
+      "name": "main"
+    }
+  ],
+  "historical_resource_or_render_lines": [],
+  "mission_id": "ENG-20260723-025402-DF9592",
+  "normalization_and_request_id_lines": [
+    543,
+    547,
+    551
+  ],
+  "parse_error": null,
+  "parsed": true,
+  "proposed_integration_anchor": {
+    "after_line": 544,
+    "before_line": 547,
+    "rule": "After exact slash-command bypass and required request normalization, before historical resource-evidence loading/catalog matching."
+  },
+  "reference_verified": true,
+  "route_calls_in_order": [
+    {
+      "call": "_normalize_surface",
+      "line": 538
+    },
+    {
+      "call": "_normalize_message",
+      "line": 539
+    },
+    {
+      "call": "str",
+      "line": 541
+    },
+    {
+      "call": "ValueError",
+      "line": 542
+    },
+    {
+      "call": "_safe_error_result",
+      "line": 542
+    },
+    {
+      "call": "_deterministic_request_id",
+      "line": 543
+    },
+    {
+      "call": "str",
+      "line": 543
+    },
+    {
+      "call": "str",
+      "line": 543
+    },
+    {
+      "call": "strip",
+      "line": 543
+    },
+    {
+      "call": "strip",
+      "line": 543
+    },
+    {
+      "call": "normalized_message.lstrip",
+      "line": 544
+    },
+    {
+      "call": "startswith",
+      "line": 544
+    },
+    {
+      "call": "_pass_through_result",
+      "line": 545
+    },
+    {
+      "call": "_normalize_selectors",
+      "line": 547
+    },
+    {
+      "call": "str",
+      "line": 549
+    },
+    {
+      "call": "_safe_error_result",
+      "line": 550
+    },
+    {
+      "call": "_deterministic_request_id",
+      "line": 551
+    },
+    {
+      "call": "str",
+      "line": 551
+    },
+    {
+      "call": "str",
+      "line": 551
+    },
+    {
+      "call": "strip",
+      "line": 551
+    },
+    {
+      "call": "strip",
+      "line": 551
+    },
+    {
+      "call": "len",
+      "line": 553
+    },
+    {
+      "call": "_pass_through_result",
+      "line": 554
+    },
+    {
+      "call": "_load_bridge_namespace",
+      "line": 557
+    },
+    {
+      "call": "dict",
+      "line": 558
+    },
+    {
+      "call": "_implicit_protected_selectors",
+      "line": 560
+    },
+    {
+      "call": "_catalog_matches",
+      "line": 561
+    },
+    {
+      "call": "_pass_through_result",
+      "line": 564
+    },
+    {
+      "call": "_route_resource_message",
+      "line": 565
+    },
+    {
+      "call": "len",
+      "line": 566
+    },
+    {
+      "call": "Subscript",
+      "line": 567
+    },
+    {
+      "call": "render_answer_packet",
+      "line": 577
+    },
+    {
+      "call": "canonical_bytes",
+      "line": 594
+    },
+    {
+      "call": "len",
+      "line": 594
+    },
+    {
+      "call": "ValueError",
+      "line": 595
+    },
+    {
+      "call": "Path",
+      "line": 598
+    },
+    {
+      "call": "_verify_bridge_hash",
+      "line": 598
+    },
+    {
+      "call": "_verify_registry",
+      "line": 599
+    },
+    {
+      "call": "dict",
+      "line": 601
+    },
+    {
+      "call": "request.setdefault",
+      "line": 603
+    },
+    {
+      "call": "Subscript",
+      "line": 605
+    },
+    {
+      "call": "Subscript",
+      "line": 605
+    },
+    {
+      "call": "Subscript",
+      "line": 607
+    },
+    {
+      "call": "packet.get",
+      "line": 608
+    },
+    {
+      "call": "str",
+      "line": 608
+    },
+    {
+      "call": "ValueError",
+      "line": 610
+    },
+    {
+      "call": "render_answer_packet",
+      "line": 611
+    },
+    {
+      "call": "packet.get",
+      "line": 625
+    },
+    {
+      "call": "canonical_bytes",
+      "line": 628
+    },
+    {
+      "call": "len",
+      "line": 628
+    },
+    {
+      "call": "ValueError",
+      "line": 629
+    },
+    {
+      "call": "_safe_error_result",
+      "line": 632
+    }
+  ],
+  "route_excerpt": [
+    {
+      "line": 540,
+      "text": "    if normalized_surface not in SUPPORTED_SURFACES:"
+    },
+    {
+      "line": 541,
+      "text": "        rid = str(request_id or \"CHAT-UNSUPPORTED-SURFACE\")"
+    },
+    {
+      "line": 542,
+      "text": "        return _safe_error_result(normalized_surface, rid, ValueError(\"unsupported_surface\"))"
+    },
+    {
+      "line": 543,
+      "text": "    slash_rid = str(request_id).strip() if request_id is not None and str(request_id).strip() else _deterministic_request_id(normalized_surface, normalized_message, {})"
+    },
+    {
+      "line": 544,
+      "text": "    if normalized_message.lstrip().startswith(\"/\"):"
+    },
+    {
+      "line": 545,
+      "text": "        return _pass_through_result(normalized_surface, slash_rid, \"SK-PASS-SLASH-COMMAND\")"
+    },
+    {
+      "line": 546,
+      "text": "    try:"
+    },
+    {
+      "line": 547,
+      "text": "        normalized_selectors = _normalize_selectors(selectors)"
+    },
+    {
+      "line": 548,
+      "text": "    except Exception as error:"
+    },
+    {
+      "line": 549,
+      "text": "        rid = str(request_id or \"CHAT-INVALID-SELECTORS\")"
+    },
+    {
+      "line": 550,
+      "text": "        return _safe_error_result(normalized_surface, rid, error)"
+    },
+    {
+      "line": 551,
+      "text": "    rid = str(request_id).strip() if request_id is not None and str(request_id).strip() else _deterministic_request_id(normalized_surface, normalized_message, normalized_selectors)"
+    },
+    {
+      "line": 552,
+      "text": ""
+    },
+    {
+      "line": 553,
+      "text": "    if len(normalized_message) > MAX_MESSAGE_CHARS:"
+    },
+    {
+      "line": 554,
+      "text": "        return _pass_through_result(normalized_surface, rid, \"SK-PASS-INPUT-BOUND\")"
+    },
+    {
+      "line": 555,
+      "text": ""
+    }
+  ],
+  "route_message": {
+    "arguments": [
+      "message",
+      "surface",
+      "request_id",
+      "selectors"
+    ],
+    "end_line": 632,
+    "kind": "sync",
+    "line": 537,
+    "name": "route_message"
+  },
+  "route_message_found": true,
+  "routing_term_hits": [
+    {
+      "line": 17,
+      "terms": [
+        "resource_evidence_provider_v1"
+      ],
+      "text": "DEFAULT_RESOURCE_PROVIDER_PATH = Path(__file__).with_name(\"resource_evidence_provider_v1.py\")"
+    },
+    {
+      "line": 223,
+      "terms": [
+        "_load_resource"
+      ],
+      "text": "def _load_resource_provider_namespace() -> dict[str, Any]:"
+    },
+    {
+      "line": 309,
+      "terms": [
+        "_catalog_matches"
+      ],
+      "text": "def _catalog_matches(message: str, selectors: dict[str, Any], bridge: dict[str, Any]) -> list[str]:"
+    },
+    {
+      "line": 336,
+      "terms": [
+        "model_bypass"
+      ],
+      "text": "        \"model_bypass\": True,"
+    },
+    {
+      "line": 337,
+      "terms": [
+        "ordinary_chat_pass_through"
+      ],
+      "text": "        \"ordinary_chat_pass_through\": False,"
+    },
+    {
+      "line": 419,
+      "terms": [
+        "_pass_through_result"
+      ],
+      "text": "def _pass_through_result(surface: str, request_id: str, reason: str) -> dict[str, Any]:"
+    },
+    {
+      "line": 423,
+      "terms": [
+        "model_bypass"
+      ],
+      "text": "        \"model_bypass\": False,"
+    },
+    {
+      "line": 424,
+      "terms": [
+        "ordinary_chat_pass_through"
+      ],
+      "text": "        \"ordinary_chat_pass_through\": True,"
+    },
+    {
+      "line": 442,
+      "terms": [
+        "model_bypass"
+      ],
+      "text": "        \"model_bypass\": True,"
+    },
+    {
+      "line": 443,
+      "terms": [
+        "ordinary_chat_pass_through"
+      ],
+      "text": "        \"ordinary_chat_pass_through\": False,"
+    },
+    {
+      "line": 458,
+      "terms": [
+        "_render_resource"
+      ],
+      "text": "def _render_resource_answer_packet(packet: dict[str, Any]) -> str:"
+    },
+    {
+      "line": 482,
+      "terms": [
+        "_load_resource"
+      ],
+      "text": "        provider = _load_resource_provider_namespace()"
+    },
+    {
+      "line": 485,
+      "terms": [
+        "_pass_through_result"
+      ],
+      "text": "        return _pass_through_result(surface, request_id, \"RESOURCE-PASS-PROVIDER-UNAVAILABLE-BEFORE-RECOGNITION\")"
+    },
+    {
+      "line": 491,
+      "terms": [
+        "_pass_through_result"
+      ],
+      "text": "            return _pass_through_result(surface, request_id, \"RESOURCE-PASS-SLASH-COMMAND\")"
+    },
+    {
+      "line": 494,
+      "terms": [
+        "_pass_through_result"
+      ],
+      "text": "            return _pass_through_result(surface, request_id, \"RESOURCE-PASS-\" + reason.upper())"
+    },
+    {
+      "line": 510,
+      "terms": [
+        "_render_resource"
+      ],
+      "text": "        rendered = _render_resource_answer_packet(packet)"
+    },
+    {
+      "line": 514,
+      "terms": [
+        "model_bypass"
+      ],
+      "text": "            \"model_bypass\": True,"
+    },
+    {
+      "line": 515,
+      "terms": [
+        "ordinary_chat_pass_through"
+      ],
+      "text": "            \"ordinary_chat_pass_through\": False,"
+    },
+    {
+      "line": 537,
+      "terms": [
+        "route_message("
+      ],
+      "text": "def route_message(message: str, surface: str, request_id: str | None = None, selectors: dict[str, Any] | None = None) -> dict[str, Any]:"
+    },
+    {
+      "line": 544,
+      "terms": [
+        "startswith(\"/\")"
+      ],
+      "text": "    if normalized_message.lstrip().startswith(\"/\"):"
+    },
+    {
+      "line": 545,
+      "terms": [
+        "_pass_through_result"
+      ],
+      "text": "        return _pass_through_result(normalized_surface, slash_rid, \"SK-PASS-SLASH-COMMAND\")"
+    },
+    {
+      "line": 554,
+      "terms": [
+        "_pass_through_result"
+      ],
+      "text": "        return _pass_through_result(normalized_surface, rid, \"SK-PASS-INPUT-BOUND\")"
+    },
+    {
+      "line": 561,
+      "terms": [
+        "_catalog_matches"
+      ],
+      "text": "        candidates = _catalog_matches(normalized_message, effective_selectors, bridge)"
+    },
+    {
+      "line": 564,
+      "terms": [
+        "_pass_through_result"
+      ],
+      "text": "                return _pass_through_result(normalized_surface, rid, \"SK-PASS-NO-MATCH\")"
+    },
+    {
+      "line": 581,
+      "terms": [
+        "model_bypass"
+      ],
+      "text": "                \"model_bypass\": True,"
+    },
+    {
+      "line": 582,
+      "terms": [
+        "ordinary_chat_pass_through"
+      ],
+      "text": "                \"ordinary_chat_pass_through\": False,"
+    },
+    {
+      "line": 615,
+      "terms": [
+        "model_bypass"
+      ],
+      "text": "            \"model_bypass\": True,"
+    },
+    {
+      "line": 616,
+      "terms": [
+        "ordinary_chat_pass_through"
+      ],
+      "text": "            \"ordinary_chat_pass_through\": False,"
+    },
+    {
+      "line": 740,
+      "terms": [
+        "route_message("
+      ],
+      "text": "                first = route_message(message, surface, rid, selectors)"
+    },
+    {
+      "line": 741,
+      "terms": [
+        "route_message("
+      ],
+      "text": "                second = route_message(message, surface, rid, selectors)"
+    },
+    {
+      "line": 747,
+      "terms": [
+        "model_bypass",
+        "ordinary_chat_pass_through"
+      ],
+      "text": "                if first[\"handled\"] is not True or first[\"model_bypass\"] is not True or first[\"ordinary_chat_pass_through\"] is not False:"
+    },
+    {
+      "line": 783,
+      "terms": [
+        "route_message("
+      ],
+      "text": "                result = route_message(message, surface)"
+    },
+    {
+      "line": 785,
+      "terms": [
+        "model_bypass",
+        "ordinary_chat_pass_through"
+      ],
+      "text": "                if result[\"status\"] != \"pass_through\" or result[\"handled\"] is not False or result[\"model_bypass\"] is not False or result[\"ordinary_chat_pass_through\"] is not True:"
+    },
+    {
+      "line": 791,
+      "terms": [
+        "ordinary_chat_pass_through"
+      ],
+      "text": "                    \"category\": \"ordinary_chat_pass_through\","
+    },
+    {
+      "line": 805,
+      "terms": [
+        "route_message("
+      ],
+      "text": "                result = route_message(message, surface)"
+    },
+    {
+      "line": 806,
+      "terms": [
+        "model_bypass"
+      ],
+      "text": "                if result[\"status\"] != \"clarification_required\" or result[\"model_bypass\"] is not True:"
+    },
+    {
+      "line": 807,
+      "terms": [
+        "model_bypass"
+      ],
+      "text": "                    raise AssertionError(\"ambiguous_model_bypass_failed\")"
+    },
+    {
+      "line": 827,
+      "terms": [
+        "route_message("
+      ],
+      "text": "                result = route_message(message, surface)"
+    },
+    {
+      "line": 848,
+      "terms": [
+        "route_message("
+      ],
+      "text": "            result = route_message(\"Agent Fox, list protected contexts.\", \"webui\", \"CORRUPT-REGISTRY\", {\"intent\": \"list_protected_contexts\"})"
+    },
+    {
+      "line": 849,
+      "terms": [
+        "ordinary_chat_pass_through"
+      ],
+      "text": "            if result[\"status\"] != \"evidence_error\" or result[\"ordinary_chat_pass_through\"] is not False:"
+    },
+    {
+      "line": 864,
+      "terms": [
+        "route_message("
+      ],
+      "text": "            result = route_message(\"Agent Fox, list protected contexts.\", \"desktop\", \"CORRUPT-BRIDGE\", {\"intent\": \"list_protected_contexts\"})"
+    },
+    {
+      "line": 865,
+      "terms": [
+        "ordinary_chat_pass_through"
+      ],
+      "text": "            if result[\"status\"] != \"evidence_error\" or result[\"ordinary_chat_pass_through\"] is not False:"
+    },
+    {
+      "line": 877,
+      "terms": [
+        "route_message("
+      ],
+      "text": "        workshop = route_message(\"Structured Agent Fox self-knowledge request\", \"webui\", \"WORKSHOP-UNCERTAINTY\", {\"intent\": \"explain_runtime_uncertainty\", \"context\": \"workshop_main\"})"
+    },
+    {
+      "line": 878,
+      "terms": [
+        "route_message("
+      ],
+      "text": "        desktop = route_message(\"Structured Agent Fox self-knowledge request\", \"desktop\", \"DESKTOP-UNCERTAINTY\", {\"intent\": \"explain_runtime_uncertainty\", \"context\": \"desktop_recovery_gui\"})"
+    },
+    {
+      "line": 903,
+      "terms": [
+        "ordinary_chat_pass_through"
+      ],
+      "text": "            \"ordinary_chat_pass_through_count\": 12,"
+    },
+    {
+      "line": 913,
+      "terms": [
+        "model_bypass"
+      ],
+      "text": "            \"recognized_model_bypass\": True,"
+    },
+    {
+      "line": 914,
+      "terms": [
+        "model_bypass"
+      ],
+      "text": "            \"ambiguous_model_bypass\": True,"
+    },
+    {
+      "line": 940,
+      "terms": [
+        "route_message("
+      ],
+      "text": "        result = route_message(message, surface, f\"EXAMPLE-{index:02d}\", selectors)"
+    },
+    {
+      "line": 947,
+      "terms": [
+        "model_bypass"
+      ],
+      "text": "            \"model_bypass\": result[\"model_bypass\"],"
+    },
+    {
+      "line": 948,
+      "terms": [
+        "ordinary_chat_pass_through"
+      ],
+      "text": "            \"ordinary_chat_pass_through\": result[\"ordinary_chat_pass_through\"],"
+    },
+    {
+      "line": 957,
+      "terms": [
+        "route_message("
+      ],
+      "text": "        \"callable\": \"route_message(message, surface, request_id=None, selectors=None)\","
+    },
+    {
+      "line": 959,
+      "terms": [
+        "model_bypass",
+        "ordinary_chat_pass_through"
+      ],
+      "text": "        \"top_level_result_fields\": [\"handled\", \"status\", \"model_bypass\", \"ordinary_chat_pass_through\", \"answer_text\", \"answer_packet\", \"diagnostic\"],"
+    },
+    {
+      "line": 983,
+      "terms": [
+        "model_bypass",
+        "ordinary_chat_pass_through"
+      ],
+      "text": "            {\"class\": \"recognized\", \"registry_verification\": True, \"handled\": True, \"model_bypass\": True, \"ordinary_chat_pass_through\": False},"
+    },
+    {
+      "line": 984,
+      "terms": [
+        "model_bypass",
+        "ordinary_chat_pass_through"
+      ],
+      "text": "            {\"class\": \"ambiguous_supported\", \"registry_verification\": \"only when selector resolution requires it\", \"handled\": True, \"model_bypass\": True, \"ordinary_chat_pass_through\": False},"
+    },
+    {
+      "line": 985,
+      "terms": [
+        "model_bypass",
+        "ordinary_chat_pass_through"
+      ],
+      "text": "            {\"class\": \"unsupported_ordinary\", \"registry_verification\": False, \"handled\": False, \"model_bypass\": False, \"ordinary_chat_pass_through\": True},"
+    },
+    {
+      "line": 986,
+      "terms": [
+        "model_bypass",
+        "ordinary_chat_pass_through"
+      ],
+      "text": "            {\"class\": \"recognized_evidence_failure\", \"registry_verification\": \"failed\", \"handled\": True, \"model_bypass\": True, \"ordinary_chat_pass_through\": False},"
+    },
+    {
+      "line": 1026,
+      "terms": [
+        "ordinary_chat_pass_through"
+      ],
+      "text": "        \"ordinary_chat_pass_through_count\": suite[\"ordinary_chat_pass_through_count\"],"
+    },
+    {
+      "line": 1035,
+      "terms": [
+        "model_bypass"
+      ],
+      "text": "        \"recognized_model_bypass\": suite[\"recognized_model_bypass\"],"
+    },
+    {
+      "line": 1036,
+      "terms": [
+        "model_bypass"
+      ],
+      "text": "        \"ambiguous_model_bypass\": suite[\"ambiguous_model_bypass\"],"
+    },
+    {
+      "line": 1088,
+      "terms": [
+        "model_bypass"
+      ],
+      "text": "        \"recognized_model_bypass\": True,"
+    },
+    {
+      "line": 1089,
+      "terms": [
+        "model_bypass"
+      ],
+      "text": "        \"ambiguous_model_bypass\": True,"
+    },
+    {
+      "line": 1194,
+      "terms": [
+        "_catalog_matches"
+      ],
+      "text": "    if _catalog_matches(\"Which Python version should I install?\", {}, fake_bridge):"
+    },
+    {
+      "line": 1196,
+      "terms": [
+        "_catalog_matches"
+      ],
+      "text": "    if _catalog_matches(\"Agent Fox, which Python runs Workshop Main?\", {}, fake_bridge) != [\"launcher_runtime_entry_mapping\"]:"
+    },
+    {
+      "line": 1198,
+      "terms": [
+        "_catalog_matches"
+      ],
+      "text": "    if _catalog_matches(\"List protected contexts\", {}, fake_bridge) != [\"list_protected_contexts\"]:"
+    },
+    {
+      "line": 1217,
+      "terms": [
+        "startswith(\"/\")"
+      ],
+      "text": "        \"first_non_whitespace_slash_guard\": _normalize_message(\"   /engineer workshop begin test\").lstrip().startswith(\"/\"),"
+    },
+    {
+      "line": 1220,
+      "terms": [
+        "ordinary_chat_pass_through"
+      ],
+      "text": "        \"ordinary_chat_pass_through_preserved\": True,"
+    },
+    {
+      "line": 1261,
+      "terms": [
+        "route_message("
+      ],
+      "text": "        result = route_message(args.message, args.surface, args.request_id, selectors)"
+    }
+  ],
+  "schema": "foxai.agent_fox.technical_core.v1b3b.shared_router_findings.v1",
+  "shared_adapter_path": "Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\self_knowledge_chat_adapter_v1.py",
+  "shared_adapter_sha256": "1563a0f3275eb7516006c8f608ef595f693a85fcb9cba60f2610ca053b25f275",
+  "slash_command_lines": [
+    544
+  ],
+  "webui_helper": {
+    "bounded_route_hits": [
+      {
+        "line": 4,
+        "terms": [
+          "self_knowledge"
+        ],
+        "text": "ADAPTER_PATH=Path(r\"Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\self_knowledge_chat_adapter_v1.py\")"
+      },
+      {
+        "line": 7,
+        "terms": [
+          "model"
+        ],
+        "text": "FIELDS={\"handled\",\"status\",\"model_bypass\",\"ordinary_chat_pass_through\",\"answer_text\",\"answer_packet\",\"diagnostic\"}"
+      },
+      {
+        "line": 11,
+        "terms": [
+          "self_knowledge"
+        ],
+        "text": "    spec=importlib.util.spec_from_file_location(\"foxai_self_knowledge_adapter_v1\",path); mod=importlib.util.module_from_spec(spec); spec.loader.exec_module(mod); return mod"
+      },
+      {
+        "line": 13,
+        "terms": [
+          "model"
+        ],
+        "text": "    return isinstance(r,dict) and set(r)==FIELDS and r.get(\"status\") in {\"answered\",\"clarification_required\",\"pass_through\",\"evidence_error\"} and isinstance(r.get(\"handled\"),bool) and isinstance(r.get(\"model_bypass\"),bool) and isinstance(r.get(\"ordinary_chat_pass_through\"),bool)"
+      },
+      {
+        "line": 20,
+        "terms": [
+          "slash"
+        ],
+        "text": "    if message.startswith(\"/\"): return {\"intercepted\":False,\"diagnostic\":\"slash command bypassed self-knowledge interception\"}"
+      },
+      {
+        "line": 28,
+        "terms": [
+          "route_message("
+        ],
+        "text": "        result=adapter.route_message(message,\"webui\")"
+      },
+      {
+        "line": 31,
+        "terms": [
+          "model"
+        ],
+        "text": "        # A malformed positive result must not fall into model dispatch."
+      },
+      {
+        "line": 32,
+        "terms": [
+          "model"
+        ],
+        "text": "        if isinstance(result,dict) and (result.get(\"handled\") is True or result.get(\"model_bypass\") is True):"
+      },
+      {
+        "line": 33,
+        "terms": [
+          "model"
+        ],
+        "text": "            result={\"handled\":True,\"status\":\"evidence_error\",\"model_bypass\":True,\"ordinary_chat_pass_through\":False,\"answer_text\":\"Agent Fox self-knowledge evidence could not be safely validated.\",\"answer_packet\":None,\"diagnostic\":\"malformed handled adapter result\"}"
+      },
+      {
+        "line": 38,
+        "terms": [
+          "self_knowledge"
+        ],
+        "text": "        payload={\"ok\":result[\"status\"]!=\"evidence_error\",\"answer\":text,\"speaker\":\"AGENT FOX\",\"self_knowledge\":True,\"status\":result[\"status\"]}"
+      },
+      {
+        "line": 41,
+        "terms": [
+          "self_knowledge"
+        ],
+        "text": "    events=[{\"type\":\"start\",\"speaker\":\"AGENT FOX\",\"self_knowledge\":True},{\"type\":\"chunk\",\"speaker\":\"AGENT FOX\",\"text\":text},{\"type\":\"final\",\"ok\":result[\"status\"]!=\"evidence_error\",\"answer\":text,\"speaker\":\"AGENT FOX\",\"self_knowledge\":True,\"status\":result[\"status\"]}]"
+      },
+      {
+        "line": 47,
+        "terms": [
+          "model",
+          "route_message("
+        ],
+        "text": "        def route_message(message,surface,request_id=None,selectors=None): return {\"handled\":False,\"status\":\"pass_through\",\"model_bypass\":False,\"ordinary_chat_pass_through\":True,\"answer_text\":None,\"answer_packet\":None,\"diagnostic\":None}"
+      },
+      {
+        "line": 48,
+        "terms": [
+          "route_message("
+        ],
+        "text": "    assert _valid(A.route_message('x','webui')); print(json.dumps({\"status\":\"ok\",\"routes\":2,\"intent_count\":11}))"
+      },
+      {
+        "line": 53,
+        "terms": [
+          "model"
+        ],
+        "text": "      for i in range(11): tests.append({\"id\":f\"intent-{endpoint}-{i+1}\",\"endpoint\":endpoint,\"class\":\"recognized\",\"expected_model_calls\":0})"
+      },
+      {
+        "line": 55,
+        "terms": [
+          "model"
+        ],
+        "text": "    tests += [{\"id\":f\"ambiguous-{i+1}\",\"class\":\"clarification\",\"expected_model_calls\":0} for i in range(4)]"
+      },
+      {
+        "line": 57,
+        "terms": [
+          "model"
+        ],
+        "text": "    tests += [{\"id\":\"evidence-corruption-1\",\"class\":\"evidence_error\",\"expected_model_calls\":0},{\"id\":\"adapter-unavailable\",\"class\":\"pass_through\",\"expected_original_route_calls\":1},{\"id\":\"empty-message\",\"class\":\"empty\",\"expected_original_route_calls\":1},{\"id\":\"malformed-result\",\"class\":\"evidence_error\",\"expected_model_calls\":0}]"
+      },
+      {
+        "line": 59,
+        "terms": [
+          "self_knowledge"
+        ],
+        "text": "      \"WEBUI_SELF_KNOWLEDGE_INTEGRATION_CONTRACT.json\":{\"schema\":\"v1a3h.contract.v1\",\"mission_id\":mission,\"endpoints\":sorted(ROUTES),\"intent_count\":11},"
+      },
+      {
+        "line": 60,
+        "terms": [
+          "self_knowledge"
+        ],
+        "text": "      \"WEBUI_CHAT_ROUTE_PATCH_MAP.json\":{\"schema\":\"v1a3h.patch_map.v1\",\"source\":\"Z:\\\\FOXAI\\\\core\\\\foxai_web.py\",\"pre_sha256\":\"e4e9fd62e6c4736a18781c6b17184441e8852412867cc95dbca94e570921ba77\",\"locator\":\"Handler.do_POST\",\"marker\":\"FOXAI_SELF_KNOWLEDGE_WEBUI_V1A3H\"},"
+      },
+      {
+        "line": 63,
+        "terms": [
+          "model"
+        ],
+        "text": "      \"WEBUI_MODEL_BYPASS_EVIDENCE.json\":{\"schema\":\"v1a3h.bypass.v1\",\"recognized_model_calls\":0,\"clarification_model_calls\":0,\"evidence_error_model_calls\":0},"
+      },
+      {
+        "line": 69,
+        "terms": [
+          "model"
+        ],
+        "text": "    rec={\"schema\":\"v1a3h.receipt.v1\",\"mission_id\":mission,\"core_outputs_before_receipt\":rows,\"exact_output_count_including_receipt\":8,\"deterministic_rebuild_match\":True,\"network_used\":False,\"packages_installed\":False,\"models_loaded\":False,\"desktop_files_modified\":0,\"existing_live_source_files_modified\":1}"
+      }
+    ],
+    "function_count": 9,
+    "logical_name": "webui_helper",
+    "parse_error": null,
+    "parsed": true,
+    "route_message_call_lines": [
+      28,
+      47,
+      48
+    ]
+  },
+  "webui_source": {
+    "bounded_route_hits": [
+      {
+        "line": 23,
+        "terms": [
+          "department"
+        ],
+        "text": "        airlock_chain_alert, authorize_department_route, authorize_repair_action,"
+      },
+      {
+        "line": 24,
+        "terms": [
+          "model"
+        ],
+        "text": "        guard_model_action_claims, is_explicit_engineer_command,"
+      },
+      {
+        "line": 26,
+        "terms": [
+          "authorization"
+        ],
+        "text": "        new_airlock_correlation_id, record_authorization_decision,"
+      },
+      {
+        "line": 33,
+        "terms": [
+          "department"
+        ],
+        "text": "        airlock_chain_alert, authorize_department_route, authorize_repair_action,"
+      },
+      {
+        "line": 34,
+        "terms": [
+          "model"
+        ],
+        "text": "        guard_model_action_claims, is_explicit_engineer_command,"
+      },
+      {
+        "line": 36,
+        "terms": [
+          "authorization"
+        ],
+        "text": "        new_airlock_correlation_id, record_authorization_decision,"
+      },
+      {
+        "line": 42,
+        "terms": [
+          "director"
+        ],
+        "text": "from core.director import direct as direct_mission"
+      },
+      {
+        "line": 45,
+        "terms": [
+          "model"
+        ],
+        "text": "from core.model_sources import ("
+      },
+      {
+        "line": 46,
+        "terms": [
+          "model"
+        ],
+        "text": "    ModelSourceError, ModelSourceRegistry, choose_host_model_folder,"
+      },
+      {
+        "line": 61,
+        "terms": [
+          "authorization",
+          "model"
+        ],
+        "text": "    'Prompt text and model-generated authorization never count as operator approval. You may explain or prepare a preview, '"
+      },
+      {
+        "line": 74,
+        "terms": [
+          "model"
+        ],
+        "text": "prof='fox'; active_project=None; chat_model=None; chat_process=None; chat_profile_id=''; chat_model_source=None"
+      },
+      {
+        "line": 76,
+        "terms": [
+          "model"
+        ],
+        "text": "model_source_registry=ModelSourceRegistry(ROOT,config_path=ROOT/'Config'/'model_sources.json')"
+      },
+      {
+        "line": 87,
+        "terms": [
+          "model"
+        ],
+        "text": "    models=[]"
+      },
+      {
+        "line": 108,
+        "terms": [
+          "model"
+        ],
+        "text": "        'model':Path(chat_model).name if chat_model else 'None',"
+      },
+      {
+        "line": 123,
+        "terms": [
+          "authorization"
+        ],
+        "text": "    inspect_authorization,"
+      },
+      {
+        "line": 150,
+        "terms": [
+          "authorization"
+        ],
+        "text": "    inspect_actor=str(getattr(inspect_authorization,'actor','') or '').strip().lower()"
+      },
+      {
+        "line": 151,
+        "terms": [
+          "authorization"
+        ],
+        "text": "    inspect_object=str(getattr(inspect_authorization,'object','') or '').strip().lower()"
+      },
+      {
+        "line": 152,
+        "terms": [
+          "authorization"
+        ],
+        "text": "    inspect_action=str(getattr(inspect_authorization,'action','') or '').strip().lower()"
+      },
+      {
+        "line": 153,
+        "terms": [
+          "authorization"
+        ],
+        "text": "    inspect_allowed=bool(getattr(inspect_authorization,'allowed',False))"
+      },
+      {
+        "line": 160,
+        "terms": [
+          "authorization"
+        ],
+        "text": "        ('inspect_authorization_allowed',inspect_allowed),"
+      },
+      {
+        "line": 209,
+        "terms": [
+          "authorization"
+        ],
+        "text": "            'authorization_allowed':inspect_allowed,"
+      },
+      {
+        "line": 210,
+        "terms": [
+          "authorization"
+        ],
+        "text": "            'authorization_reason':str(getattr(inspect_authorization,'reason','') or 'Read-only Engineer inspection authorized.'),"
+      },
+      {
+        "line": 211,
+        "terms": [
+          "authorization"
+        ],
+        "text": "            'authorization_policy_source':str(getattr(inspect_authorization,'policy_source','') or ''),"
+      },
+      {
+        "line": 224,
+        "terms": [
+          "model"
+        ],
+        "text": "FOLDERS={'root':ROOT,'models':ROOT/'Models','chat_models':ROOT/'Models'/'Chat','comfy_output':COMFY/'output','library':LIB,'projects':PROJECTS,'prompts':ROOT/'Prompts','novel_forge':ROOT/'NovelForge','novel_exports':ROOT/'NovelForge'/'Exports','logs':LOGS,'config':ROOT/'Config','reports':ROOT/'Reports','repair_reports':ROOT/'Reports'/'RepairActions','repair_ops_dashboard':ROOT/'Reports'/'RepairActions'/'OperationsDashboard','repair_action_details':ROOT/'Reports'/'RepairActions'/'ActionDetails','"
+      },
+      {
+        "line": 256,
+        "terms": [
+          "model"
+        ],
+        "text": "        m={'project':p.name,'created':now(),'last_opened':now(),'active_professor':prof,'active_professor_name':active_prof()[0],'active_model':chat_model,'active_model_name':Path(chat_model).name if chat_model else None,'current_task':'Getting started','notes_file':'FOXAI_PROJECT_NOTES.md'}"
+      },
+      {
+        "line": 262,
+        "terms": [
+          "model"
+        ],
+        "text": "    m.update({'last_opened':now(),'active_professor':prof,'active_professor_name':active_prof()[0],'active_model':chat_model,'active_model_name':Path(chat_model).name if chat_model else None})"
+      },
+      {
+        "line": 268,
+        "terms": [
+          "model"
+        ],
+        "text": "def models():"
+      },
+      {
+        "line": 269,
+        "terms": [
+          "model"
+        ],
+        "text": "    bases=[ROOT/'Models'/'Chat',ROOT/'Models',ROOT/'models',ROOT/'Engine']; out=[]; seen=set()"
+      },
+      {
+        "line": 281,
+        "terms": [
+          "model"
+        ],
+        "text": "def model_source_catalog():"
+      },
+      {
+        "line": 283,
+        "terms": [
+          "model"
+        ],
+        "text": "        return model_source_registry.catalog()"
+      },
+      {
+        "line": 284,
+        "terms": [
+          "model"
+        ],
+        "text": "    except ModelSourceError:"
+      },
+      {
+        "line": 288,
+        "terms": [
+          "model"
+        ],
+        "text": "def model_source_state(include_catalog=True):"
+      },
+      {
+        "line": 290,
+        "terms": [
+          "model"
+        ],
+        "text": "        return model_source_registry.state(include_catalog=bool(include_catalog))"
+      },
+      {
+        "line": 291,
+        "terms": [
+          "model"
+        ],
+        "text": "    except ModelSourceError as exc:"
+      },
+      {
+        "line": 292,
+        "terms": [
+          "model"
+        ],
+        "text": "        return {'ok':False,'message':str(exc),'models':[],'counts':{'total':0,'usb':0,'host_pc':0}}"
+      },
+      {
+        "line": 295,
+        "terms": [
+          "model"
+        ],
+        "text": "def model_source_choose_folder():"
+      },
+      {
+        "line": 296,
+        "terms": [
+          "model"
+        ],
+        "text": "    result=choose_host_model_folder()"
+      },
+      {
+        "line": 297,
+        "terms": [
+          "model"
+        ],
+        "text": "    result['model_files_modified']=False"
+      },
+      {
+        "line": 302,
+        "terms": [
+          "model"
+        ],
+        "text": "def model_source_approve_folder(data):"
+      },
+      {
+        "line": 305,
+        "terms": [
+          "model"
+        ],
+        "text": "        result=model_source_registry.approve_folder("
+      },
+      {
+        "line": 310,
+        "terms": [
+          "model"
+        ],
+        "text": "    except ModelSourceError as exc:"
+      },
+      {
+        "line": 311,
+        "terms": [
+          "model"
+        ],
+        "text": "        return {'ok':False,'message':str(exc),'model_files_modified':False,'registry_modified':False}"
+      },
+      {
+        "line": 314,
+        "terms": [
+          "model"
+        ],
+        "text": "        'model_sources.approve_folder',"
+      },
+      {
+        "line": 319,
+        "terms": [
+          "model"
+        ],
+        "text": "            {'id':'model_files_unchanged','ok':True,'message':'No model file was modified.'},"
+      },
+      {
+        "line": 321,
+        "terms": [
+          "model"
+        ],
+        "text": "        details={'path':result.get('path'),'scope':result.get('scope'),'model_count':result.get('model_count',0)},"
+      },
+      {
+        "line": 327,
+        "terms": [
+          "model"
+        ],
+        "text": "def model_source_forget_folder(data):"
+      },
+      {
+        "line": 329,
+        "terms": [
+          "model"
+        ],
+        "text": "        result=model_source_registry.forget_folder("
+      },
+      {
+        "line": 333,
+        "terms": [
+          "model"
+        ],
+        "text": "    except ModelSourceError as exc:"
+      },
+      {
+        "line": 334,
+        "terms": [
+          "model"
+        ],
+        "text": "        return {'ok':False,'message':str(exc),'model_files_modified':False}"
+      },
+      {
+        "line": 337,
+        "terms": [
+          "model"
+        ],
+        "text": "            'model_sources.forget_folder',"
+      },
+      {
+        "line": 340,
+        "terms": [
+          "model"
+        ],
+        "text": "            details={'path':result.get('path'),'model_files_modified':False},"
+      },
+      {
+        "line": 346,
+        "terms": [
+          "model"
+        ],
+        "text": "def model_source_forget_model(data):"
+      },
+      {
+        "line": 348,
+        "terms": [
+          "model"
+        ],
+        "text": "        result=model_source_registry.forget_model("
+      },
+      {
+        "line": 352,
+        "terms": [
+          "model"
+        ],
+        "text": "    except ModelSourceError as exc:"
+      },
+      {
+        "line": 353,
+        "terms": [
+          "model"
+        ],
+        "text": "        return {'ok':False,'message':str(exc),'model_files_modified':False}"
+      },
+      {
+        "line": 356,
+        "terms": [
+          "model"
+        ],
+        "text": "            'model_sources.forget_model',"
+      },
+      {
+        "line": 358,
+        "terms": [
+          "model"
+        ],
+        "text": "            checks=[{'id':'preference_only','ok':True,'message':'Only the preferred-model reference was removed.'}],"
+      },
+      {
+        "line": 359,
+        "terms": [
+          "model"
+        ],
+        "text": "            details={'path':result.get('path'),'model_files_modified':False},"
+      },
+      {
+        "line": 365,
+        "terms": [
+          "model"
+        ],
+        "text": "def model_source_forget_machine(data):"
+      },
+      {
+        "line": 367,
+        "terms": [
+          "model"
+        ],
+        "text": "        result=model_source_registry.forget_machine(confirm=bool(data.get('confirm')))"
+      },
+      {
+        "line": 368,
+        "terms": [
+          "model"
+        ],
+        "text": "    except ModelSourceError as exc:"
+      },
+      {
+        "line": 369,
+        "terms": [
+          "model"
+        ],
+        "text": "        return {'ok':False,'message':str(exc),'model_files_modified':False}"
+      },
+      {
+        "line": 372,
+        "terms": [
+          "model"
+        ],
+        "text": "            'model_sources.forget_machine',"
+      },
+      {
+        "line": 375,
+        "terms": [
+          "model"
+        ],
+        "text": "            details={'machine_name':result.get('machine_name'),'model_files_modified':False},"
+      },
+      {
+        "line": 438,
+        "terms": [
+          "model"
+        ],
+        "text": "    result={'ok':True,'installed':installed,'online':False,'url':BIBLIOTHECA_URL,'version':'','model_online':False,'model_name':'','indexing':False,'summary':summary,'shelves':shelves,'message':\"Kayock's Study is ready to start.\" if installed else \"Kayock's Study files were not found.\",'database':str(BIBLIOTHECA_DATABASE),'database_preserved':True,'network_scope':'localhost_only'}"
+      },
+      {
+        "line": 444,
+        "terms": [
+          "model"
+        ],
+        "text": "        result.update({'online':bool(status.get('ok')),'version':str(status.get('version') or ''),'model_online':bool(status.get('model_online')),'model_name':str(status.get('model_name') or ''),'indexing':bool((status.get('state') or {}).get('indexing')),'summary':status.get('summary') or summary,'shelves':shelf_data.get('shelves') or shelves,'message':\"Kayock's Study and The Bibliotheca are online.\"})"
+      },
+      {
+        "line": 1117,
+        "terms": [
+          "model"
+        ],
+        "text": "        ROOT/'Models'/'Chat'/VISION_PROJECTOR_FILENAME,"
+      },
+      {
+        "line": 1118,
+        "terms": [
+          "model"
+        ],
+        "text": "        ROOT/'Models'/VISION_PROJECTOR_FILENAME,"
+      },
+      {
+        "line": 1119,
+        "terms": [
+          "model"
+        ],
+        "text": "        ROOT/'models'/VISION_PROJECTOR_FILENAME,"
+      },
+      {
+        "line": 1138,
+        "terms": [
+          "model"
+        ],
+        "text": "    profile=WEB_MODEL_PROFILE_RUNTIME.get(chat_profile_id) if chat_profile_id else None"
+      },
+      {
+        "line": 1430,
+        "terms": [
+          "model"
+        ],
+        "text": "    result=guard_model_action_claims(raw_piece)"
+      },
+      {
+        "line": 1586,
+        "terms": [
+          "model"
+        ],
+        "text": ".modelprofileintro{border:1px solid #8f5cff35;background:#8f5cff0c;border-radius:16px;padding:12px;margin:8px 0 12px}.modelprofileintro b{color:var(--p2)}"
+      },
+      {
+        "line": 1587,
+        "terms": [
+          "model"
+        ],
+        "text": ".modelprofilegrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin:12px 0}"
+      },
+      {
+        "line": 1588,
+        "terms": [
+          "model"
+        ],
+        "text": ".modelprofile{display:block;width:100%;min-height:194px;text-align:left;margin:0;padding:14px;border:1px solid #8f5cff35;border-radius:17px;background:linear-gradient(180deg,#171a29,#10121d);color:var(--t);box-shadow:none;transform:none}"
+      },
+      {
+        "line": 1589,
+        "terms": [
+          "model"
+        ],
+        "text": ".modelprofile:hover:not(:disabled){background:linear-gradient(180deg,#201b35,#151526);border-color:#8f5cff88;transform:translateY(-1px)}"
+      },
+      {
+        "line": 1590,
+        "terms": [
+          "model"
+        ],
+        "text": ".modelprofile.selected{border-color:#42ff9e99;background:linear-gradient(180deg,#12271f,#111a19);box-shadow:0 0 24px #42ff9e18}"
+      },
+      {
+        "line": 1591,
+        "terms": [
+          "model"
+        ],
+        "text": ".modelprofile:disabled{opacity:.42;cursor:not-allowed}"
+      },
+      {
+        "line": 1592,
+        "terms": [
+          "model"
+        ],
+        "text": ".modelprofilehead{display:flex;justify-content:space-between;gap:8px;align-items:flex-start;margin-bottom:9px}"
+      },
+      {
+        "line": 1593,
+        "terms": [
+          "model"
+        ],
+        "text": ".modelprofiletitle{font-size:18px;font-weight:900;color:#fff}"
+      },
+      {
+        "line": 1594,
+        "terms": [
+          "model"
+        ],
+        "text": ".modelprofilebadge{display:inline-block;border:1px solid #42ff9e66;border-radius:999px;padding:4px 8px;color:var(--g);font-family:Consolas,monospace;font-size:10px;font-weight:900;text-align:center}"
+      },
+      {
+        "line": 1595,
+        "terms": [
+          "model"
+        ],
+        "text": ".modelprofilebadge.pending{border-color:#ffd16666;color:var(--w)}"
+      },
+      {
+        "line": 1596,
+        "terms": [
+          "model"
+        ],
+        "text": ".modelprofilebest{color:#f0eaff;font-size:13px;line-height:1.35;margin-bottom:9px}"
+      },
+      {
+        "line": 1597,
+        "terms": [
+          "model"
+        ],
+        "text": ".modelprofilemeta{display:grid;gap:4px;color:var(--m);font-family:Consolas,monospace;font-size:11px;overflow-wrap:anywhere}"
+      },
+      {
+        "line": 1598,
+        "terms": [
+          "model"
+        ],
+        "text": ".modelprofilestatus{border:1px solid #8f5cff35;background:#090b14;border-radius:14px;padding:10px 12px;color:#e7dcff;font-family:Consolas,monospace;font-size:12px;white-space:pre-wrap}"
+      },
+      {
+        "line": 1599,
+        "terms": [
+          "model"
+        ],
+        "text": ".modelfallback{margin:10px 0;border:1px solid #8f5cff28;border-radius:14px;padding:8px 10px;background:#ffffff04}"
+      },
+      {
+        "line": 1600,
+        "terms": [
+          "model"
+        ],
+        "text": ".modelfallback summary{cursor:pointer;color:var(--m);font-size:12px;font-weight:800}"
+      },
+      {
+        "line": 1601,
+        "terms": [
+          "model"
+        ],
+        "text": ".modelsourcebox{border:1px solid #4dc9ff44;background:#07121a;border-radius:14px;padding:11px;margin:10px 0;color:#d9f5ff;font-family:Consolas,monospace;font-size:12px;white-space:pre-wrap;overflow-wrap:anywhere}.modelsourcecontrols{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:9px 0}.modelsourcecontrols input{min-width:320px;flex:1}.modelsourceroot{border-left:3px solid var(--c);padding:8px 10px;margin:7px 0;background:#4dc9ff0a;border-radius:0 10px 10px 0}.sourcebadge{display:i"
+      },
+      {
+        "line": 1692,
+        "terms": [
+          "model"
+        ],
+        "text": ".libresult{border:1px solid #8f5cff2f;background:#ffffff05;border-radius:16px;padding:12px;margin:8px 0}.libresult h4{margin:0 0 5px;color:var(--p2)}.libmeta{color:var(--m);font-family:Consolas,monospace;font-size:12px}.libbadge{display:inline-block;border:1px solid #8f5cff45;border-radius:999px;padding:3px 8px;margin:3px 4px 6px 0;color:var(--p2);font-size:12px}.previewbox{background:#070913;border:1px solid #8f5cff30;border-radius:16px;padding:14px;max-height:520px;overflow:auto;white-space:pr"
+      },
+      {
+        "line": 1713,
+        "terms": [
+          "model"
+        ],
+        "text": "</style></head><body><div class=app><aside><div class=logo>K</div><h1>KAYOCK</h1><div class=sub>Command OS · FOXAI Core</div><button class=\"nav command active\" onclick=\"pg('dash',this)\">🚀 Command Bridge</button><button class=nav onclick=\"pg('commandcenter',this)\">🛰️ Command Center</button><button class=nav onclick=\"pg('commanddetail',this)\">🔎 Command Detail</button><button class=nav onclick=\"pg('commandarchive',this)\">🗄️ Command Archive</button><button class=nav onclick=\"pg('commandfreeze',this)"
+      },
+      {
+        "line": 1716,
+        "terms": [
+          "department"
+        ],
+        "text": "<div class=card><h3>Resume Mission</h3><div id=resume class=status>No active mission.</div><button onclick=\"goMemory()\">Open Mission Memory</button><button onclick=\"resumeMission()\">Resume in Console</button></div><div class=card><h3>Projects</h3><button onclick=\"go('projects')\">Open Projects</button></div><div class=card><h3>Artificial Minds</h3><button onclick=\"go('mission')\">Open Mission Console</button></div><div class=card><h3>PromptSmith</h3><button onclick=\"go('prompts')\">Open PromptSmith"
+      },
+      {
+        "line": 1719,
+        "terms": [
+          "model"
+        ],
+        "text": "<section id=mission class=page><div class=hero><h2>Artificial Minds</h2><p>Choose a task profile, then explicitly start the selected local GGUF model.</p></div><div class=\"card wide\"><h3><span id=pulse></span> <span id=mtitle>Agent Fox</span></h3><div class=modelprofileintro><b>Choose by task, not filename.</b><div class=small>Recommended for ordinary chat: ⚡ Fast Text. Selecting a profile changes only the pending choice; FOXAI never starts, stops, restarts, or silently switches the running engi"
+      },
+      {
+        "line": 1721,
+        "terms": [
+          "model"
+        ],
+        "text": "<section id=commandcenter class=page><div class=hero><h2>Command Center Foundation</h2><p>One command screen for the major Kayock Command OS foundations: Repair Shop, Recovery, Build, Environment, Portable readiness, Models, Scan Bridge, Project Docs, and Extensions.</p></div><div class=grid><div class=\"card wide\"><h3>Command Center Controls</h3><button onclick=\"loadCommandCenter(false)\">Load Command Center</button><button onclick=\"loadCommandCenter(true)\">Export Command Center Report</button><b"
+      },
+      {
+        "line": 1815,
+        "terms": [
+          "model"
+        ],
+        "text": "<details id=poemRhymeCoachPanel class=rhymeCoach><summary>Rhyme &amp; Rhythm Coach</summary><div class=rhymeCoachBody><p class=rhymeCoachIntro>Check stanza shape before rewriting anything. FOXAI estimates syllables, identifies spelling-based rhyme families, and shows where line lengths drift. Use your ear as the final judge.</p><div class=poemOpenNotice><b>Analysis and revision are separate.</b> Changing the target below does not alter the analysis. It changes the instruction used after you pres"
+      },
+      {
+        "line": 1920,
+        "terms": [
+          "model"
+        ],
+        "text": "<section id=chapterdraftworkspace class=page><div class=hero><h2>Chapter Draft Workspace</h2><p>Read-only workspace that turns saved chapter cards into prose drafting briefs, beat sheets, continuity guardrails, and model-ready writing prompts.</p></div><div class=grid><div class=\"card wide\"><h3>Draft Workspace Controls</h3><select id=chapterDraftBook><option value=\"book_1\">Book 1</option><option value=\"book_2\" selected>Book 2</option></select><select id=chapterDraftChapter><option value=\"1\">Chap"
+      },
+      {
+        "line": 1935,
+        "terms": [
+          "model"
+        ],
+        "text": "<section id=draftcontinueworkspace class=page><div class=hero><h2>Draft Continue Workspace</h2><p>Read-only workspace that uses the latest saved draft, chapter card, metadata, evidence, and version history to build continuation briefs and model-ready continuation prompts.</p></div><div class=grid><div class=\"card wide\"><h3>Continue Workspace Controls</h3><select id=draftContinueBook><option value=\"book_1\">Book 1</option><option value=\"book_2\" selected>Book 2</option></select><select id=draftCont"
+      },
+      {
+        "line": 1988,
+        "terms": [
+          "model"
+        ],
+        "text": "<section id=prompts class=page><div class=hero><h2>PromptSmith</h2><p>Build, organize, save, search, and send prompts into the Mission Console. Stored locally in the FOXAI Prompts folder.</p></div><div class=grid><div class=\"card wide\"><h3>Prompt Workshop</h3><div class=grid><div><div class=small>Title</div><input id=promptTitle placeholder=\"Example: Novel Forge Continuity Check\"></div><div><div class=small>Category</div><select id=promptCategory><option>General</option><option>Coding</option><o"
+      },
+      {
+        "line": 1990,
+        "terms": [
+          "model"
+        ],
+        "text": "Compare Models"
+      },
+      {
+        "line": 2004,
+        "terms": [
+          "model"
+        ],
+        "text": "<div class=studystats><div class=studystat><span>Service</span><b id=studyService>Checking</b></div><div class=studystat><span>Local model</span><b id=studyModel>Checking</b></div><div class=studystat><span>Documents</span><b id=studyDocuments>—</b></div><div class=studystat><span>Indexed pages</span><b id=studyPages>—</b></div><div class=studystat><span>Shelves</span><b id=studyShelves>—</b></div><div class=studystat><span>Saved research</span><b id=studyResearch>—</b></div><div class=studystat"
+      },
+      {
+        "line": 2031,
+        "terms": [
+          "model"
+        ],
+        "text": "<div class=repairCalmHead><div><h3 id=repairCalmTitle>Ready for a safe check</h3><p id=repairCalmMessage>Repair Bay can check FOXAI and Windows without changing files, settings, services, models, or launchers.</p></div><span id=repairCalmBadge class=repairCalmBadge>READY</span></div>"
+      },
+      {
+        "line": 2074,
+        "terms": [
+          "model"
+        ],
+        "text": "<div class=\"repairTaskCard check\"><div class=repairTaskIcon>🩺</div><h3>Check FOXAI Status</h3><p>Refresh the current engine, model, library, project, and Creative Studio status without changing anything.</p><button onclick=\"refreshRepairBayStatus()\">Run Read-Only Check</button></div>"
+      },
+      {
+        "line": 2116,
+        "terms": [
+          "model"
+        ],
+        "text": "<div class=repairAdvancedGroup><h3>Inspection and readiness</h3><div class=repairAdvancedButtons><button onclick=\"go('extensions')\">Extensions</button><button onclick=\"go('projectgen')\">Project Docs</button><button onclick=\"go('buildverify')\">Build Verify</button><button onclick=\"go('envverify')\">Environment Verify</button><button onclick=\"go('portable')\">Portable Readiness</button><button onclick=\"go('modelcheck')\">Model Check</button></div></div>"
+      },
+      {
+        "line": 2122,
+        "terms": [
+          "department"
+        ],
+        "text": "<section id=extensions class=page><div class=hero><h2>Extension Manager</h2><p>Inventory, health, and guarded optional-extension state. Phase 2 keeps discovery passive and requires an exact preview plus typed operator approval before any state override is written.</p><div class=exthelpbar><button onclick=\"openExtensionHelp('quick')\">Quick Cheat Sheet</button><button onclick=\"openExtensionHelp('manual')\">Operator Manual</button></div></div><div class=grid><div class=\"card wide\"><h3>Inventory &amp"
+      },
+      {
+        "line": 2123,
+        "terms": [
+          "department"
+        ],
+        "text": "Required / core / department state is blocked"
+      },
+      {
+        "line": 2136,
+        "terms": [
+          "department",
+          "model"
+        ],
+        "text": "<section id=scanbridge class=page><div class=hero><h2>Folder Scan Bridge</h2><p>Read-only folder scanner. Kayock scans allowed FOXAI folders, creates a safe report, then the Mission Console can send that report to the local model.</p></div><div class=grid><div class=\"card wide\"><h3>Scan Control</h3><div class=grid><div><div class=small>Folder / Path / Key</div><input id=scanPath placeholder=\"extensions, modules, reports, or Z:\\FOXAI\\Departments\\Engineering\"></div><div><div class=small>Max Files<"
+      },
+      {
+        "line": 2140,
+        "terms": [
+          "model"
+        ],
+        "text": "Model receives summary/report path</div></div><div class=card><h3>Ignored Folders</h3><div class=status>node_modules"
+      },
+      {
+        "line": 2148,
+        "terms": [
+          "department",
+          "model"
+        ],
+        "text": "<section id=projectgen class=page><div class=hero><h2>Project Manifest + README Generator</h2><p>Generate safe project documentation from discovered modules and scan reports. Preview first, then write with backup.</p></div><div class=grid><div class=\"card wide\"><h3>Documentation Status</h3><div id=docsStatus class=status>Documentation status not checked yet.</div><div class=previewhead><button onclick=\"refreshProjectDocsStatus()\">Refresh Docs Status</button><button onclick=\"loadRootManifestFile("
+      },
+      {
+        "line": 2155,
+        "terms": [
+          "model"
+        ],
+        "text": "<section id=buildverify class=page><div class=hero><h2>Build Verification Lite</h2><p>Report-only verification. Checks manifests, docs, expected paths, scan summaries, and Python compile status without modifying project files.</p></div><div class=grid><div class=\"card wide\"><h3>Verification Control</h3><button onclick=\"runBuildVerification()\">Run Build Verification</button><button onclick=\"api('/api/open/build_reports')\">Open Build Reports</button><button onclick=\"sendBuildVerificationToMission("
+      },
+      {
+        "line": 2160,
+        "terms": [
+          "model"
+        ],
+        "text": "Export report before model review</div></div></div></section>"
+      },
+      {
+        "line": 2163,
+        "terms": [
+          "model"
+        ],
+        "text": "<section id=envverify class=page><div class=hero><h2>Environment + Dependency Verification</h2><p>Report-only environment check. Verifies Python runtime, optional Repair Bay imports, Node/npm presence, key folders, models, BAT files, and report paths.</p></div><div class=grid><div class=\"card wide\"><h3>Environment Control</h3><button onclick=\"runEnvVerification()\">Run Environment Verification</button><button onclick=\"api('/api/open/env_reports')\">Open Environment Reports</button><button onclick="
+      },
+      {
+        "line": 2171,
+        "terms": [
+          "model"
+        ],
+        "text": "<section id=portable class=page><div class=hero><h2>Runtime Lock + Portable Readiness</h2><p>Checks whether Kayock is actually running from the portable FOXAI runtime and identifies what still blocks USB workstation readiness.</p></div><div class=grid><div class=\"card wide\"><h3>Portable Readiness Control</h3><button onclick=\"runPortableReadiness()\">Run Portable Readiness</button><button onclick=\"api('/api/open/portable_reports')\">Open Portable Reports</button><button onclick=\"sendPortableReadine"
+      },
+      {
+        "line": 2174,
+        "terms": [
+          "model"
+        ],
+        "text": "No model deletion"
+      },
+      {
+        "line": 2179,
+        "terms": [
+          "model"
+        ],
+        "text": "<section id=modelcheck class=page><div class=hero><h2>Model Duplicate Truth Check</h2><p>Separates true duplicate GGUF files from Windows folder casing aliases. Generates a cleanup plan without deleting or moving anything.</p></div><div class=grid><div class=\"card wide\"><h3>Model Check Control</h3><button onclick=\"runModelDuplicateTruth()\">Run Model Duplicate Truth Check</button><button onclick=\"api('/api/open/model_reports')\">Open Model Reports</button><button onclick=\"sendModelDuplicateTruthTo"
+      },
+      {
+        "line": 2182,
+        "terms": [
+          "model"
+        ],
+        "text": "No model cleanup action"
+      },
+      {
+        "line": 2187,
+        "terms": [
+          "model"
+        ],
+        "text": "<section id=repairactions class=page><div class=hero><h2>User-Approved Repair Bay Actions</h2><p>Low-risk action mode. Build a plan first, then apply one confirmed action at a time with logs and backups.</p></div><div class=grid><div class=\"card wide\"><h3>Action Control</h3><button onclick=\"buildRepairActionPlan()\">Build Repair Action Plan</button><button onclick=\"api('/api/open/repair_reports')\">Open Repair Logs</button><button onclick=\"sendRepairActionPlanToMission()\">Send Plan to Mission</but"
+      },
+      {
+        "line": 2193,
+        "terms": [
+          "model"
+        ],
+        "text": "No model deletion"
+      },
+      {
+        "line": 2197,
+        "terms": [
+          "model"
+        ],
+        "text": "<section id=repairhistory class=page><div class=hero><h2>Repair Bay Action History</h2><p>Audit trail for user-approved Repair Bay actions. Review logs, targets, backups, success/failure counts, and post-action verification before expanding repair powers.</p></div><div class=grid><div class=\"card wide\"><h3>History Control</h3><div class=grid><div><div class=small>Action Filter</div><input id=repairHistoryFilter placeholder=\"optional, e.g. readme or manifest\"></div><div><div class=small>Limit</di"
+      },
+      {
+        "line": 2211,
+        "terms": [
+          "model"
+        ],
+        "text": "No model cleanup</div></div></div></section>"
+      },
+      {
+        "line": 2221,
+        "terms": [
+          "model"
+        ],
+        "text": "No model cleanup"
+      },
+      {
+        "line": 2235,
+        "terms": [
+          "model"
+        ],
+        "text": "No model cleanup</div></div></div></section>"
+      },
+      {
+        "line": 2239,
+        "terms": [
+          "model"
+        ],
+        "text": "<section id=restoreaudit class=page><div class=hero><h2>Post-Restore Audit Viewer</h2><p>Read-only audit view for completed restore actions, live-target backups, verification reports, and current target hash state.</p></div><div class=grid><div class=\"card wide\"><h3>Audit Control</h3><div class=grid><div><div class=small>Filter</div><input id=restoreAuditFilter placeholder=\"optional: README, target, backup\"></div><div><div class=small>Limit</div><input id=restoreAuditLimit value=\"1000\"></div></d"
+      }
+    ],
+    "function_count": 460,
+    "logical_name": "webui_source",
+    "parse_error": null,
+    "parsed": true,
+    "route_message_call_lines": []
+  }
+}

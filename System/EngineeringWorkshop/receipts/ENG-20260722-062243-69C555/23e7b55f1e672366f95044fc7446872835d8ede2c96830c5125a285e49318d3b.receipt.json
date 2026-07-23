@@ -1,0 +1,196 @@
+{
+  "authorized": true,
+  "changes": [
+    {
+      "action": "write_file",
+      "after_sha256": "04669d22982315e902abba818c1c2c44a4f622997c9b8346cc0357cf0306fbdc",
+      "after_size": 43512,
+      "before_sha256": null,
+      "before_size": null,
+      "relative_path": "System\\AgentFoxTechnicalCore\\pc_resource_comparison_v1.py"
+    },
+    {
+      "action": "write_file",
+      "after_sha256": "1a97abaa271a1c28923c6393d9bf731c1fbe2ae114916837df966157943a1da0",
+      "after_size": 1502,
+      "before_sha256": null,
+      "before_size": null,
+      "relative_path": "System\\AgentFoxTechnicalCore\\PC_RESOURCE_COMPARISON_CONTRACT_V1.json"
+    },
+    {
+      "action": "write_file",
+      "after_sha256": "27f2d91854fb12ea122478cc262bd4bc38b6b5c4d59000f456a571de736f941e",
+      "after_size": 846,
+      "before_sha256": null,
+      "before_size": null,
+      "relative_path": "System\\AgentFoxTechnicalCore\\README_V1B1.md"
+    }
+  ],
+  "created_at": "2026-07-22T06:41:49.089158Z",
+  "evidence_is_tool_generated": true,
+  "failure": null,
+  "mission_id": "ENG-20260722-062243-69C555",
+  "mission_title": "Agent Fox Technical Core V1B-1A-R2 \u2014 Structured Profile Redaction Repair",
+  "mission_type": "implement",
+  "no_deletions": true,
+  "no_renames": true,
+  "plan_path": "Z:\\FOXAI\\AGENT_FOX_V1B1A_R2\\PLAN.json",
+  "plan_sha256": "23e7b55f1e672366f95044fc7446872835d8ede2c96830c5125a285e49318d3b",
+  "project_root": "Z:\\FOXAI",
+  "result": "applied_verified",
+  "rolled_back": false,
+  "schema": "foxai.engineering.receipt.v1",
+  "snapshot_manifest": "Z:\\FOXAI\\System\\EngineeringWorkshop\\snapshots\\ENG-20260722-062243-69C555\\snapshot_20260722T064146427930Z.manifest.json",
+  "snapshot_path": "Z:\\FOXAI\\System\\EngineeringWorkshop\\snapshots\\ENG-20260722-062243-69C555\\snapshot_20260722T064146427930Z.zip",
+  "snapshot_sha256": "005b6703c628b0e27a46f8b4c413774f252163fb71c5ef3d2f4e50df1c46940a",
+  "validations": [
+    {
+      "argv": [
+        "Z:/FOXAI/Runtime/Desktop/python/python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nimport hashlib,json\nchecks={\n r\"Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\pc_resource_comparison_v1.py\":(43512,\"04669d22982315e902abba818c1c2c44a4f622997c9b8346cc0357cf0306fbdc\"),\n r\"Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\PC_RESOURCE_COMPARISON_CONTRACT_V1.json\":(1502,\"1a97abaa271a1c28923c6393d9bf731c1fbe2ae114916837df966157943a1da0\"),\n r\"Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\README_V1B1.md\":(846,\"27f2d91854fb12ea122478cc262bd4bc38b6b5c4d59000f456a571de736f941e\"),\n}\nfor name,(size,digest) in checks.items():\n p=Path(name); data=p.read_bytes(); assert len(data)==size,(name,len(data)); assert hashlib.sha256(data).hexdigest()==digest,name\ncompile(Path(r\"Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\pc_resource_comparison_v1.py\").read_text(encoding=\"utf-8\"),\"<v1b1a-collector>\",\"exec\")\nunchanged={\n r\"Z:\\FOXAI\\core\\foxai_web.py\":\"d7bf0a2042d55ef7f0a5869556015e42c7427e7ff88636b28e1795f3adf7b952\",\n r\"Z:\\FOXAI\\ui\\main_window.py\":\"a9c5bb86878e5f0cd27d221dbb32688b337e6026073a4b66d83339e0aef294a3\",\n r\"Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\self_knowledge_chat_adapter_v1.py\":\"a80a9047e0eebd9ac87fe4d656c565bc6534563bb3c97e1ad9b59823a36804f7\",\n r\"Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\webui_self_knowledge_integration_v1.py\":\"765983b563f8495138c9670849de5c4703f4735a0ddc9324efd6580606fc517b\",\n r\"Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\desktop_self_knowledge_integration_v1.py\":\"e420706136b4902d82d8dbf1fecc64ae70fb8bc639106db41033545f8c196c30\",\n r\"Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\pc_foxai_baseline_v1.py\":\"8c3af6d6f8d5a21a03fbd5c97eabd58280718a195c65f51a2b9201ff84ec798b\",\n}\nfor name,digest in unchanged.items(): assert hashlib.sha256(Path(name).read_bytes()).hexdigest()==digest,name\nsnap=Path(r\"Z:\\FOXAI\\System\\EngineeringWorkshop\\snapshots\\ENG-20260722-062243-69C555\"); manifests=sorted(snap.glob(\"snapshot_*.manifest.json\")); assert manifests\nmanifest=json.loads(manifests[-1].read_text(encoding=\"utf-8\")); entries=manifest[\"entries\"]\nexpected=[\"System/AgentFoxTechnicalCore/PC_RESOURCE_COMPARISON_CONTRACT_V1.json\",\"System/AgentFoxTechnicalCore/README_V1B1.md\",\"System/AgentFoxTechnicalCore/pc_resource_comparison_v1.py\"]\nassert len(entries)==3,len(entries)\nnormalized=sorted(row[\"relative_path\"].replace(\"\\\\\",\"/\") for row in entries)\nassert normalized==expected,(normalized,expected)\nassert all(row[\"existed\"] is False and row.get(\"sha256\") is None and row.get(\"size\") is None for row in entries)\nprint(\"AGENT_FOX_V1B1A_SUPPORT_SNAPSHOT_AND_ISOLATION_OK\")"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-22T06:41:46.523466Z",
+      "name": "Verify exact V1B-1A support payloads, unchanged integrations, and normalized three-path snapshot",
+      "returncode": 0,
+      "started_at": "2026-07-22T06:41:46.443391Z",
+      "stderr": "",
+      "stdout": "AGENT_FOX_V1B1A_SUPPORT_SNAPSHOT_AND_ISOLATION_OK\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:/FOXAI/Runtime/Desktop/python/python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nimport json,subprocess\np=Path(r\"Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\pc_resource_comparison_v1.py\")\nr=subprocess.run([r\"Z:/FOXAI/Runtime/Desktop/python/python.exe\",\"-I\",\"-B\",\"-S\",str(p),\"self-test\"],cwd=r\"Z:\\FOXAI\",capture_output=True,text=True,timeout=45)\nassert r.returncode==0,(r.stdout,r.stderr)\nobj=json.loads(r.stdout)\nassert obj[\"status\"]==\"ok\" and obj[\"output_count\"]==4\nassert obj[\"precondition_blocking\"] is True and obj[\"qualified_fixture\"] is True\nassert obj[\"process_arguments_excluded\"] is True and obj[\"k_path_excluded\"] is True\nassert obj[\"structured_profile_redaction\"] is True\nassert obj[\"harmless_profile_substring_accepted\"] is True\nassert obj[\"profile_diagnostic_field_path_only\"] is True\nprint(json.dumps(obj,sort_keys=True))"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-22T06:41:46.668022Z",
+      "name": "Run isolated V1B-1A comparison collector self-test",
+      "returncode": 0,
+      "started_at": "2026-07-22T06:41:46.523903Z",
+      "stderr": "",
+      "stdout": "{\"canonical_lf_only\": true, \"harmless_profile_substring_accepted\": true, \"k_path_excluded\": true, \"output_count\": 4, \"precondition_blocking\": true, \"privacy_redaction\": true, \"process_arguments_excluded\": true, \"profile_diagnostic_field_path_only\": true, \"qualified_fixture\": true, \"stable_ids\": true, \"status\": \"ok\", \"structured_profile_redaction\": true}\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:/FOXAI/Runtime/Desktop/python/python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "Z:/FOXAI/System/AgentFoxTechnicalCore/pc_resource_comparison_v1.py",
+        "collect",
+        "--mission-id",
+        "ENG-20260722-062243-69C555",
+        "--output-dir",
+        "Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260722-062243-69C555_V1B1A_R2_MINIMAL_LOAD_RESOURCE_BASELINE"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-22T06:41:48.891908Z",
+      "name": "Capture qualified minimal-load read-only resource evidence",
+      "returncode": 0,
+      "started_at": "2026-07-22T06:41:46.668493Z",
+      "stderr": "",
+      "stdout": "{\"memory_load_percent\": 17.47, \"mission_id\": \"ENG-20260722-062243-69C555\", \"output_count\": 4, \"output_dir\": \"Z:\\\\FOXAI\\\\System\\\\EngineeringWorkshop\\\\missions\\\\ENG-20260722-062243-69C555_V1B1A_R2_MINIMAL_LOAD_RESOURCE_BASELINE\", \"page_file_current_usage_mib\": 773, \"process_count\": 276, \"status\": \"qualified_minimal_load_captured\"}\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:/FOXAI/Runtime/Desktop/python/python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nimport json\nout=Path(r\"Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260722-062243-69C555_V1B1A_R2_MINIMAL_LOAD_RESOURCE_BASELINE\")\nexpected=[\"MINIMAL_LOAD_CAPTURE_RECEIPT.json\",\"MINIMAL_LOAD_PROCESS_SUMMARY.json\",\"MINIMAL_LOAD_QUALIFICATION.json\",\"MINIMAL_LOAD_RESOURCE_SNAPSHOT.json\"]\nfiles=sorted(p.name for p in out.iterdir() if p.is_file()); assert files==expected,files\npayloads=[]\nfor name in expected:\n p=out/name; data=p.read_bytes(); assert b\"\\r\" not in data; obj=json.loads(data.decode(\"utf-8\")); canonical=(json.dumps(obj,indent=2,sort_keys=True,ensure_ascii=False)+\"\\n\").encode(\"utf-8\"); assert data==canonical,name; payloads.append(data)\nassert sum(map(len,payloads))<8*1024*1024\nprint(json.dumps({\"status\":\"four_canonical_outputs_verified\",\"count\":4,\"total_bytes\":sum(map(len,payloads))}))"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-22T06:41:48.928871Z",
+      "name": "Validate exactly four deterministic UTF-8 LF-only evidence outputs",
+      "returncode": 0,
+      "started_at": "2026-07-22T06:41:48.892277Z",
+      "stderr": "",
+      "stdout": "{\"status\": \"four_canonical_outputs_verified\", \"count\": 4, \"total_bytes\": 201031}\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:/FOXAI/Runtime/Desktop/python/python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nimport json\nout=Path(r\"Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260722-062243-69C555_V1B1A_R2_MINIMAL_LOAD_RESOURCE_BASELINE\")\nq=json.loads((out/\"MINIMAL_LOAD_QUALIFICATION.json\").read_text(encoding=\"utf-8\"))\np=json.loads((out/\"MINIMAL_LOAD_PROCESS_SUMMARY.json\").read_text(encoding=\"utf-8\"))\nassert q[\"status\"]==\"qualified_minimal_load\" and q[\"blocker_count\"]==0 and q[\"blockers\"]==[]\nassert q[\"automatic_process_changes_performed\"] is False\npresence=p[\"workload_presence\"]\nassert presence[\"llama_server_present\"] is False\nassert presence[\"foxai_desktop_pythonw_present\"] is False\nassert presence[\"comfyui_listener_8188_present\"] is False\nassert p[\"process_arguments_recorded\"] is False and p[\"full_executable_paths_recorded\"] is False\nassert p[\"top_working_set_process_count\"]<=15 and p[\"process_table_count\"]==len(p[\"process_table\"])\nassert p[\"process_count\"]>=p[\"process_table_count\"]\nprint(json.dumps({\"status\":\"minimal_load_qualification_verified\",\"process_count\":p[\"process_count\"]}))"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-22T06:41:48.964334Z",
+      "name": "Validate minimal-load qualification and workload absence",
+      "returncode": 0,
+      "started_at": "2026-07-22T06:41:48.929235Z",
+      "stderr": "",
+      "stdout": "{\"status\": \"minimal_load_qualification_verified\", \"process_count\": 276}\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:/FOXAI/Runtime/Desktop/python/python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nimport json\nout=Path(r\"Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260722-062243-69C555_V1B1A_R2_MINIMAL_LOAD_RESOURCE_BASELINE\")\ns=json.loads((out/\"MINIMAL_LOAD_RESOURCE_SNAPSHOT.json\").read_text(encoding=\"utf-8\"))\nassert s[\"qualification_status\"]==\"qualified_minimal_load\"\nmem=s[\"memory\"]; assert mem[\"availability_status\"]==\"available\" and mem[\"total_physical_memory_bytes\"]>0 and mem[\"available_physical_memory_bytes\"]>=0\nassert 0<=mem[\"memory_load_percent\"]<=100 and mem[\"page_file_allocated_mib\"]>=0 and mem[\"page_file_current_usage_mib\"]>=0\nroots={row[\"drive_root\"] for row in s[\"drives\"]}; assert roots=={\"C:\\\\\",\"Z:\\\\\",\"S:\\\\\"},roots\nworkspace=s[\"active_workspace\"]; assert workspace[\"root\"]==r\"Z:\\FOXAI\" and workspace[\"full_tree_hash_performed\"] is False\nverified=workspace[\"verified_files\"]; assert len(verified)==6 and all(row.get(\"sha256_matches_expected\") is True for row in verified)\nhist=s[\"historical_loaded_state_reference\"]; assert hist[\"mission_id\"]==\"ENG-20260722-051940-8477D9\" and hist[\"historical_evidence_modified\"] is False\nassert set(s[\"known_local_listeners\"])=={\"8080\",\"8188\",\"8765\"}\nprint(json.dumps({\"status\":\"resource_drive_workspace_coverage_verified\",\"memory_load_percent\":mem[\"memory_load_percent\"]}))"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-22T06:41:48.999017Z",
+      "name": "Validate memory, page-file, drive, listener, workspace, and historical-reference coverage",
+      "returncode": 0,
+      "started_at": "2026-07-22T06:41:48.964721Z",
+      "stderr": "",
+      "stdout": "{\"status\": \"resource_drive_workspace_coverage_verified\", \"memory_load_percent\": 17.47}\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:/FOXAI/Runtime/Desktop/python/python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nimport json,os,re\nout=Path(r\"Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260722-062243-69C555_V1B1A_R2_MINIMAL_LOAD_RESOURCE_BASELINE\")\ndocuments=[json.loads(p.read_text(encoding=\"utf-8\")) for p in sorted(out.iterdir()) if p.is_file()]\npayloads=[p.read_bytes() for p in sorted(out.iterdir()) if p.is_file()]\nroots=[]\nfor key in (\"USERPROFILE\",\"HOME\"):\n value=os.environ.get(key)\n if value and len(value.rstrip(\"\\\\/\"))>=3: roots.append(value.rstrip(\"\\\\/\"))\nusernames=[]\nfor key in (\"USERNAME\",\"USER\"):\n value=os.environ.get(key)\n if value and len(value)>=2: usernames.append(value)\ndef walk(value,path=()):\n if isinstance(value,dict):\n  for key,item in value.items(): yield from walk(item,path+(key,))\n elif isinstance(value,list):\n  for index,item in enumerate(value): yield from walk(item,path+(index,))\n elif isinstance(value,str): yield path,value\ndef process_name_path(path): return bool(path) and str(path[-1]) in {\"name\",\"process_name\",\"owning_process_name\"}\nfor document in documents:\n for path,text in walk(document):\n  folded=text.casefold()\n  for root in roots:\n   for variant in {root,root.replace(\"\\\\\",\"/\"),root.replace(\"/\",\"\\\\\")}:\n    assert variant.casefold() not in folded,(path,\"profile_root\")\n  assert re.search(r\"(?i)[A-Za-z]:[\\\\/]+Users[\\\\/]+(?!<REDACTED_PROFILE(?:_ROOT|_NAME)?>)[^\\\\/\\s\\\"']+\",text) is None,(path,\"windows_profile_path\")\n  for username in usernames:\n   assert text.casefold()!=username.casefold(),(path,\"exact_profile_name\")\n   if not process_name_path(path):\n    pattern=rf\"(?i)(?<![A-Za-z0-9_]){re.escape(username)}(?![A-Za-z0-9_])\"\n    assert re.search(pattern,text) is None,(path,\"profile_name_token\")\njoined=b\"\\n\".join(payloads); lower=joined.lower()\nfor token in (b'\"process_arguments\"',b'\"full_process_arguments\"',b'\"environment_values\"',b'\"product_key\"',b'\"mac_address\"',b'\"motherboard_uuid\"',b'\"drive_serial\"',b'\"account_identifier\"'):\n assert token not in lower,token\nassert b\"k:\\\\\" not in lower and b\"k:/\" not in lower\nfor data in payloads: assert b\"\\r\" not in data\nreceipt=next(doc for doc in documents if doc.get(\"schema\",\"\").endswith(\"minimal_load_capture_receipt.v1\"))\nassert receipt[\"profile_redaction_mode\"]==\"structured_recursive_field_aware\"\nassert receipt[\"prior_failure_classification\"]==\"profile_marker_raw_substring_false_positive\"\nassert receipt[\"collector_behavior_changed\"] is False\nprint(json.dumps({\"status\":\"structured_profile_redaction_verified\",\"output_count\":len(payloads)}))"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-22T06:41:49.044876Z",
+      "name": "Validate structured profile redaction, harmless-substring allowance, canonical bytes, and K exclusion",
+      "returncode": 0,
+      "started_at": "2026-07-22T06:41:48.999396Z",
+      "stderr": "",
+      "stdout": "{\"status\": \"structured_profile_redaction_verified\", \"output_count\": 4}\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:/FOXAI/Runtime/Desktop/python/python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nimport hashlib,json\nout=Path(r\"Z:\\FOXAI\\System\\EngineeringWorkshop\\missions\\ENG-20260722-062243-69C555_V1B1A_R2_MINIMAL_LOAD_RESOURCE_BASELINE\")\nr=json.loads((out/\"MINIMAL_LOAD_CAPTURE_RECEIPT.json\").read_text(encoding=\"utf-8\"))\nassert r[\"status\"]==\"captured_and_verified\" and r[\"qualification_status\"]==\"qualified_minimal_load\" and r[\"output_count\"]==4\nfor key in (\"automatic_process_changes_performed\",\"services_changed\",\"startup_items_changed\",\"registry_writes\",\"network_connections_initiated\",\"remote_hosts_probed\",\"packet_capture_performed\",\"models_loaded\",\"comfyui_launched\",\"gui_launched\",\"live_foxai_modules_imported\",\"historical_v1b0_evidence_modified\",\"rollback_drive_k_accessed\",\"personal_documents_inspected\",\"process_arguments_recorded\",\"environment_variable_values_recorded\",\"persistent_device_identifiers_recorded\"):\n assert r[key] is False,key\nassert r[\"read_only_collection\"] is True and r[\"deterministic_utf8_lf_serialization\"] is True and r[\"privacy_validation_passed\"] is True\nassert r[\"profile_redaction_mode\"]==\"structured_recursive_field_aware\"\nassert r[\"prior_failure_classification\"]==\"profile_marker_raw_substring_false_positive\"\nassert r[\"collector_behavior_changed\"] is False\nassert len(r[\"outputs_before_receipt\"])==3\nunchanged={\n r\"Z:\\FOXAI\\core\\foxai_web.py\":\"d7bf0a2042d55ef7f0a5869556015e42c7427e7ff88636b28e1795f3adf7b952\",\n r\"Z:\\FOXAI\\ui\\main_window.py\":\"a9c5bb86878e5f0cd27d221dbb32688b337e6026073a4b66d83339e0aef294a3\",\n r\"Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\pc_foxai_baseline_v1.py\":\"8c3af6d6f8d5a21a03fbd5c97eabd58280718a195c65f51a2b9201ff84ec798b\",\n}\nfor name,digest in unchanged.items(): assert hashlib.sha256(Path(name).read_bytes()).hexdigest()==digest,name\nassert sum(p.stat().st_size for p in out.iterdir() if p.is_file())<8*1024*1024\nprint(json.dumps({\"status\":\"read_only_receipt_and_boundaries_verified\",\"output_count\":4}))"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-22T06:41:49.089084Z",
+      "name": "Validate read-only receipt, unchanged V1A/V1B-0 baselines, and size ceiling",
+      "returncode": 0,
+      "started_at": "2026-07-22T06:41:49.045265Z",
+      "stderr": "",
+      "stdout": "{\"status\": \"read_only_receipt_and_boundaries_verified\", \"output_count\": 4}\n",
+      "timed_out": false
+    }
+  ]
+}

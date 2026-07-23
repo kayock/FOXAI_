@@ -1,0 +1,55 @@
+{
+  "correction": {
+    "defect": "final validator compared a normalized Windows path to raw strings containing doubled separators",
+    "diagnostic_capture_logic_changed": false,
+    "fix": "normalize actual and expected paths with pathlib.PureWindowsPath before case-insensitive comparison"
+  },
+  "corrects_mission_id": "ENG-20260721-212836-2DBDA9",
+  "mission_id": "ENG-20260721-214211-558DBA",
+  "outputs": [
+    "V1A3C1_FAILURE_DIAGNOSTIC.json",
+    "V1A3C1_FAILURE_TRACEBACK.txt",
+    "V1A3C1_DIAGNOSTIC_RECEIPT.json"
+  ],
+  "protected_direct_context_count": 1,
+  "schema": "foxai.agent_fox.technical_core.v1a3c1d_r1.failure_diagnostic_contract.v1",
+  "scope": {
+    "diagnostic_output_ceiling_bytes": 1048576,
+    "diagnostic_returns_success_after_capture": true,
+    "foxai_source_or_launcher_execution": false,
+    "maximum_reads_per_reached_source": 1,
+    "models_loaded": false,
+    "network_used": false,
+    "normal_closure_outputs_generated": false,
+    "only_one_protected_context": true,
+    "only_verified_evidence_and_reached_first_party_sources": true,
+    "packages_installed": false,
+    "payload_interpreter_child_processes": 0,
+    "payload_shell_child_processes": 0,
+    "raw_source_content_persisted": false,
+    "source_buffer_ceiling_bytes": 8388608,
+    "source_or_package_imports_executed": false
+  },
+  "source_missions": [
+    "ENG-20260721-063725-BFCAB9",
+    "ENG-20260721-152146-C4F8D5",
+    "ENG-20260721-154935-FF96C4"
+  ],
+  "subject_builder_path": "Z:\\FOXAI\\AGENT_FOX_V1A3C1\\web_portable_dependency_closure_v1.py",
+  "subject_builder_sha256": "da458a9a2eeca42b86d43b13ffb113a8417f182399683e758e56b74d8317f322",
+  "subject_mission_id": "ENG-20260721-172935-37F095",
+  "subject_plan_sha256": "23ec8fc9bcc9e9c6dafb4375430c6f867c612735f157a19c52d6af07f042449a",
+  "target_entry_script": "Z:\\FOXAI\\core\\foxai_web.py",
+  "target_launcher": "Z:\\FOXAI\\START_FOXAI_WEB_PORTABLE.bat",
+  "target_runtime": "Z:\\FOXAI\\env\\python\\python.exe",
+  "title": "Agent Fox Technical Core V1A-3C1D-R1 \u2014 Retain Web Portable Failure Diagnostic",
+  "writes": {
+    "deletions": false,
+    "existing_foxai_source_modified": false,
+    "new_isolated_technical_core_files": true,
+    "new_mission_diagnostic_evidence_only": true,
+    "normal_closure_outputs_written": false,
+    "renames": false,
+    "rollback_t7_k_modified": false
+  }
+}

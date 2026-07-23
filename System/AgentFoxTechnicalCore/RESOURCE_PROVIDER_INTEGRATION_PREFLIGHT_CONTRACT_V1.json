@@ -1,0 +1,69 @@
+{
+  "comparison_source_mission": "ENG-20260722-142022-9FAE11",
+  "compatibility_hashes": {
+    "core/foxai_web.py": "d7bf0a2042d55ef7f0a5869556015e42c7427e7ff88636b28e1795f3adf7b952",
+    "desktop_self_knowledge_integration_v1.py": "e420706136b4902d82d8dbf1fecc64ae70fb8bc639106db41033545f8c196c30",
+    "protected_context_registry_query_bridge_v1.py": "96edd665af8eea2aca3563074f0e894607b03b53c22ac13d36cddc0bd58460f1",
+    "provenance_self_knowledge_answer_packet_bridge_v1.py": "ad501eff2f8162a319085aa4eb6368039e9757e89ee4eaccb11e5f6e446ca6a7",
+    "self_knowledge_chat_adapter_v1.py": "a80a9047e0eebd9ac87fe4d656c565bc6534563bb3c97e1ad9b59823a36804f7",
+    "ui/main_window.py": "a9c5bb86878e5f0cd27d221dbb32688b337e6026073a4b66d83339e0aef294a3",
+    "webui_self_knowledge_integration_v1.py": "765983b563f8495138c9670849de5c4703f4735a0ddc9324efd6580606fc517b"
+  },
+  "engineered_overlap_probe_count": 4,
+  "exact_output_count": 3,
+  "fixture_count": 8,
+  "mission_id": "ENG-20260722-154330-42BAE0",
+  "mode": "read_only_static_and_callable_integration_preflight",
+  "output_ceiling_bytes": 2097152,
+  "outputs": [
+    "RESOURCE_PROVIDER_INTEGRATION_SEAM_MAP.json",
+    "RESOURCE_PROVIDER_ROUTING_PREFLIGHT_FIXTURES.json",
+    "RESOURCE_PROVIDER_INTEGRATION_PREFLIGHT_RECEIPT.json"
+  ],
+  "proposed_routing_order": [
+    "first-non-whitespace slash-command bypass",
+    "existing protected-context self-knowledge provider",
+    "bounded historical resource-evidence provider",
+    "ordinary Director/model chat pass-through"
+  ],
+  "provider": {
+    "callables": [
+      "classify_question(message)",
+      "answer_question(message, request_id=None, source_dir=None)"
+    ],
+    "module": "resource_evidence_provider_v1.py",
+    "sha256": "41a1663cd30af8a3800c8082d351f8d0338e75cd1df39d3c801a39cc3075f680",
+    "supported_category_count": 18
+  },
+  "provider_source_mission": "ENG-20260722-153014-F39AF7",
+  "provider_verification_outputs": {
+    "RESOURCE_EVIDENCE_PROVIDER_RECEIPT.json": "a660a47f3597531a5e603cddd6069d85c9d68cccec6b59521a489ecf5ed5c3db",
+    "RESOURCE_EVIDENCE_REGISTRY.json": "6e9c3eaea722cb5260f9f0df35d6ea90f37e83697e1b83592670d6599c33e1aa",
+    "RESOURCE_QUERY_FIXTURE_RESULTS.json": "554631166de3da90ad54f737df2b81621fbd55eafef6b553d0fb9f96c6502bd6"
+  },
+  "routing_surface_case_count": 16,
+  "schema": "foxai.agent_fox.technical_core.v1b2b.integration_preflight_contract.v1",
+  "scope": {
+    "gui_launch": false,
+    "integration_performed": false,
+    "live_desktop_source_modified": false,
+    "live_listener_inspection": false,
+    "live_process_inspection": false,
+    "live_scan": false,
+    "live_webui_source_modified": false,
+    "model_calls": false,
+    "network_access": false,
+    "process_changes": false,
+    "provider_modified": false,
+    "registry_writes": false,
+    "rollback_drive_k_accessed": false,
+    "services_changed": false,
+    "shared_adapter_modified": false,
+    "source_evidence_modified": false,
+    "startup_items_changed": false
+  },
+  "serialization": "UTF-8 LF-only canonical sorted JSON using Path.write_bytes",
+  "smallest_safe_shared_seam": "self_knowledge_chat_adapter_v1.route_message",
+  "surface_count": 2,
+  "title": "Agent Fox Technical Core V1B-2B — Resource Provider Integration Seam Preflight"
+}

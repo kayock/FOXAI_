@@ -1,0 +1,138 @@
+{
+  "authorized": true,
+  "changes": [
+    {
+      "action": "write_file",
+      "after_sha256": "ed20fce59691875ff409caef0a879243e277d4628e73fcf0981b3e8387fb599c",
+      "after_size": 7587,
+      "before_sha256": null,
+      "before_size": null,
+      "relative_path": "System/AgentFoxTechnicalCore/webui_self_knowledge_integration_v1.py"
+    },
+    {
+      "action": "write_file",
+      "after_sha256": "44e52bfbcabe9efee87d6a95a797a076d893eb963df33b676ae98e0b85fc0cd3",
+      "after_size": 894,
+      "before_sha256": null,
+      "before_size": null,
+      "relative_path": "System/AgentFoxTechnicalCore/WEBUI_SELF_KNOWLEDGE_INTEGRATION_CONTRACT_V1.json"
+    },
+    {
+      "action": "write_file",
+      "after_sha256": "4c273d5464ffc81fbb004c23fb0ea658a0379540ebc84c3437d29c3d74863870",
+      "after_size": 359,
+      "before_sha256": null,
+      "before_size": null,
+      "relative_path": "System/AgentFoxTechnicalCore/README_V1A3H.md"
+    }
+  ],
+  "created_at": "2026-07-22T02:46:10.381963Z",
+  "evidence_is_tool_generated": true,
+  "failure": "Validation failed: Build deterministic exact eight-output V1A-3H-R4 evidence set (return code 1)",
+  "mission_id": "ENG-20260722-023918-962D1D",
+  "mission_title": "Agent Fox Technical Core V1A-3H-R4 \u2014 WebUI Adapter-Unavailable Harness State Repair",
+  "mission_type": "implement",
+  "no_deletions": true,
+  "no_renames": true,
+  "plan_path": "Z:\\FOXAI\\AGENT_FOX_V1A3H_R4\\PLAN.json",
+  "plan_sha256": "b6c7c9ffbf2a2934d3b4bdef2285edd8fde211d58d195f87a810280d6a5a0da3",
+  "project_root": "Z:\\FOXAI",
+  "result": "rolled_back",
+  "rolled_back": true,
+  "schema": "foxai.engineering.receipt.v1",
+  "snapshot_manifest": "Z:\\FOXAI\\System\\EngineeringWorkshop\\snapshots\\ENG-20260722-023918-962D1D\\snapshot_20260722T024605429351Z.manifest.json",
+  "snapshot_path": "Z:\\FOXAI\\System\\EngineeringWorkshop\\snapshots\\ENG-20260722-023918-962D1D\\snapshot_20260722T024605429351Z.zip",
+  "snapshot_sha256": "8137c65129541b4aadc5a67b0e0bd167e1fb7133a69b6abfca36f81ad6b226a0",
+  "validations": [
+    {
+      "argv": [
+        "Z:/FOXAI/Runtime/Desktop/python/python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nimport hashlib,json,zipfile,textwrap\nweb=Path(r\"Z:\\FOXAI\\core\\foxai_web.py\"); raw=web.read_bytes()\nassert len(raw)==2353581, len(raw)\nassert hashlib.sha256(raw).hexdigest()==\"d7bf0a2042d55ef7f0a5869556015e42c7427e7ff88636b28e1795f3adf7b952\"\ntext=raw.decode(\"utf-8\"); compile(text,str(web),\"exec\")\nbegin=b\"        # FOXAI_SELF_KNOWLEDGE_WEBUI_V1A3H_BEGIN\\n\"; end=b\"        # FOXAI_SELF_KNOWLEDGE_WEBUI_V1A3H_END\\n\"\nassert raw.count(begin)==1 and raw.count(end)==1\nstart=raw.index(begin); finish=raw.index(end,start)+len(end); block=raw[start:finish]\nassert len(block)==1824 and hashlib.sha256(block).hexdigest()==\"36195f2bec555a2c9ec9fc6d9f981d0522f059fb0e069a3f5143cdcd5ad54961\"\ndedented=textwrap.dedent(block.decode(\"utf-8\"))\nharness_source=\"def run(self):\\n\"+textwrap.indent(dedented,\"    \")+\"    self.original_route_calls += 1\\n\"\ncompile(harness_source,\"<v1a3h-r3-preflight>\",\"exec\")\nassert raw[:start].count(b\"\\n\")+1==13316 and raw[:finish].count(b\"\\n\")==13345\nbase=raw[:start]+raw[finish:]\nassert len(base)==2351757 and hashlib.sha256(base).hexdigest()==\"e4e9fd62e6c4736a18781c6b17184441e8852412867cc95dbca94e570921ba77\"\nchecks={\n r\"Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\webui_self_knowledge_integration_v1.py\":(7587,\"ed20fce59691875ff409caef0a879243e277d4628e73fcf0981b3e8387fb599c\"),\n r\"Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\WEBUI_SELF_KNOWLEDGE_INTEGRATION_CONTRACT_V1.json\":(894,\"44e52bfbcabe9efee87d6a95a797a076d893eb963df33b676ae98e0b85fc0cd3\"),\n r\"Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\README_V1A3H.md\":(359,\"4c273d5464ffc81fbb004c23fb0ea658a0379540ebc84c3437d29c3d74863870\"),\n r\"Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\self_knowledge_chat_adapter_v1.py\":(None,\"a80a9047e0eebd9ac87fe4d656c565bc6534563bb3c97e1ad9b59823a36804f7\"),\n}\nfor name,(size,sha) in checks.items():\n p=Path(name); data=p.read_bytes(); assert size is None or len(data)==size, (name,len(data)); assert hashlib.sha256(data).hexdigest()==sha, name\nsnap=Path(r\"Z:\\FOXAI\\System\\EngineeringWorkshop\\snapshots\\ENG-20260722-023918-962D1D\")\nmanifests=sorted(snap.glob(\"snapshot_*.manifest.json\")); assert manifests\nm=json.loads(manifests[-1].read_text(encoding=\"utf-8\")); entries=m[\"entries\"]\nexpected=[\"System/AgentFoxTechnicalCore/README_V1A3H.md\", \"System/AgentFoxTechnicalCore/WEBUI_SELF_KNOWLEDGE_INTEGRATION_CONTRACT_V1.json\", \"System/AgentFoxTechnicalCore/webui_self_knowledge_integration_v1.py\"]\nassert sorted(e[\"relative_path\"] for e in entries)==expected\nassert all(e[\"existed\"] is False for e in entries)\nprint(\"AGENT_FOX_V1A3H_R4_ADOPTED_SEAM_AND_SUPPORT_OK\")"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-22T02:46:08.315251Z",
+      "name": "Preflight-compile exact seam harness and verify support hashes, adapter, snapshot, and unchanged WebUI",
+      "returncode": 0,
+      "started_at": "2026-07-22T02:46:05.442731Z",
+      "stderr": "",
+      "stdout": "AGENT_FOX_V1A3H_R4_ADOPTED_SEAM_AND_SUPPORT_OK\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:/FOXAI/Runtime/Desktop/python/python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "Z:/FOXAI/System/AgentFoxTechnicalCore/webui_self_knowledge_integration_v1.py",
+        "self-test"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-22T02:46:08.388953Z",
+      "name": "Run isolated unchanged V1A-3H integration component self-test",
+      "returncode": 0,
+      "started_at": "2026-07-22T02:46:08.315644Z",
+      "stderr": "",
+      "stdout": "{\"status\": \"ok\", \"routes\": 2, \"intent_count\": 11}\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:/FOXAI/Runtime/Desktop/python/python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nimport hashlib,importlib.util,io,json,textwrap\nweb=Path(r\"Z:\\FOXAI\\core\\foxai_web.py\"); raw=web.read_bytes(); assert hashlib.sha256(raw).hexdigest()==\"d7bf0a2042d55ef7f0a5869556015e42c7427e7ff88636b28e1795f3adf7b952\"\nbegin=b\"        # FOXAI_SELF_KNOWLEDGE_WEBUI_V1A3H_BEGIN\\n\"; end=b\"        # FOXAI_SELF_KNOWLEDGE_WEBUI_V1A3H_END\\n\"\ns=raw.index(begin); e=raw.index(end,s)+len(end); block=raw[s:e].decode(\"utf-8\")\ndedented=textwrap.dedent(block)\nsource=\"def run(self):\\n\"+textwrap.indent(dedented,\"    \")+\"    self.original_route_calls += 1\\n\"\ncompiled=compile(source,\"<exact-v1a3h-seam-r3>\",\"exec\")\nns={}; exec(compiled,ns); run=ns[\"run\"]\nclass H:\n def __init__(self,route,body):\n  self.path=route; self.headers={\"Content-Length\":str(len(body))}; self.rfile=io.BytesIO(body); self.wfile=io.BytesIO(); self.status=[]; self.out_headers=[]; self.end_count=0; self.original_route_calls=0\n def send_response(self,x): self.status.append(x)\n def send_header(self,k,v): self.out_headers.append((k,v))\n def end_headers(self): self.end_count+=1\nmessages={\n \"list_protected_contexts\":\"Agent Fox, list protected contexts\",\n \"contexts_for_launcher\":\"Agent Fox, contexts for launcher START_FOXAI_WEB_PORTABLE.bat\",\n \"launcher_runtime_entry_mapping\":\"Agent Fox, which python runs Workshop Main foxai.py\",\n \"summarize_context\":\"Agent Fox, summarize context Web Portable\",\n \"list_unresolved_branches\":\"Agent Fox, unresolved imports for Web Portable\",\n \"show_package_candidates\":\"Agent Fox, package candidates for Web Portable\",\n \"explain_runtime_uncertainty\":\"Agent Fox, runtime uncertainty for Workshop Main foxai.py\",\n \"show_linked_contexts\":\"Agent Fox, linked contexts for Workshop Main foxai.py\",\n \"locate_authoritative_evidence\":\"Agent Fox, where did this fact come from for Workshop Main foxai.py runtime id\",\n \"compare_contexts\":\"Agent Fox, compare contexts Workshop Main foxai.py and Desktop Recovery GUI foxai.py\",\n \"summarize_technical_core_coverage\":\"Agent Fox, technical core coverage\",\n}\nrows=[]; compatibility={}\nfor route in (\"/api/chat/send\",\"/api/chat/stream\"):\n for intent,message in messages.items():\n  body=(json.dumps({\"message\":message},separators=(\",\",\":\"))+\"\\n\").encode(\"utf-8\")\n  h1=H(route,body); run(h1); out1=h1.wfile.getvalue(); h2=H(route,body); run(h2); out2=h2.wfile.getvalue()\n  assert out1==out2 and h1.original_route_calls==0 and h2.original_route_calls==0\n  assert h1.status==[200] and h1.end_count==1 and h1.rfile.getvalue()==body and b\"answer_packet\" not in out1\n  headers=dict(h1.out_headers); assert int(headers[\"Content-Length\"])==len(out1)\n  if route.endswith(\"send\"):\n   payload=json.loads(out1); assert payload[\"self_knowledge\"] is True and payload[\"status\"]==\"answered\" and payload[\"answer\"]\n   shape=\"single_json\"\n  else:\n   events=[json.loads(line) for line in out1.splitlines()]; assert [x[\"type\"] for x in events]==[\"start\",\"chunk\",\"final\"]\n   assert sum(x[\"type\"]==\"final\" for x in events)==1 and events[-1][\"status\"]==\"answered\" and events[1][\"text\"]==events[-1][\"answer\"]\n   shape=\"ndjson_start_chunk_final\"\n  rows.append({\"id\":f\"recognized-{route.rsplit('/',1)[-1]}-{intent}\",\"class\":\"recognized\",\"endpoint\":route,\"intent\":intent,\"passed\":True,\"original_route_calls\":0,\"dispatch_sentinel_calls\":0,\"deterministic_equal\":True})\n  compatibility[route]={\"shape\":shape,\"content_type\":headers[\"Content-Type\"],\"terminal_event_count\":1 if route.endswith(\"stream\") else 0}\nout=Path(r\"Z:/FOXAI/System/EngineeringWorkshop/missions/ENG-20260722-023918-962D1D_V1A3H_R4_WEBUI_SELF_KNOWLEDGE_INTEGRATION\"); out.mkdir(parents=True,exist_ok=False)\ndef write(name,obj): (out/name).write_text(json.dumps(obj,indent=2,sort_keys=True)+\"\\n\",encoding=\"utf-8\")\nwrite(\"WEBUI_RESPONSE_COMPATIBILITY.json\",{\"schema\":\"v1a3h_r4.responses.v1\",\"mission_id\":\"ENG-20260722-023918-962D1D\",\"existing_seam_adopted\":True,\"endpoints\":compatibility,\"deterministic_repeated_request_equality\":True,\"duplicate_assistant_answers\":0,\"answer_packet_leaks\":0})\nwrite(\"WEBUI_MODEL_BYPASS_EVIDENCE.json\",{\"schema\":\"v1a3h_r4.model_bypass.v1\",\"mission_id\":\"ENG-20260722-023918-962D1D\",\"recognized_case_count\":len(rows),\"supported_intent_count\":11,\"endpoint_count\":2,\"chat_api_calls\":0,\"iter_chat_stream_calls\":0,\"provider_calls\":0,\"model_calls\":0,\"rows\":rows})\nprint(json.dumps({\"status\":\"recognized_seam_tests_passed\",\"cases\":len(rows),\"intents\":11,\"endpoints\":2}))"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-22T02:46:09.734979Z",
+      "name": "Execute exact adopted seam for all eleven intents on both WebUI endpoints",
+      "returncode": 0,
+      "started_at": "2026-07-22T02:46:08.389349Z",
+      "stderr": "",
+      "stdout": "{\"status\": \"recognized_seam_tests_passed\", \"cases\": 22, \"intents\": 11, \"endpoints\": 2}\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:/FOXAI/Runtime/Desktop/python/python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nimport hashlib,importlib.util,io,json,shutil,tempfile,textwrap\nweb=Path(r\"Z:\\FOXAI\\core\\foxai_web.py\"); raw=web.read_bytes(); assert hashlib.sha256(raw).hexdigest()==\"d7bf0a2042d55ef7f0a5869556015e42c7427e7ff88636b28e1795f3adf7b952\"\nbegin=b\"        # FOXAI_SELF_KNOWLEDGE_WEBUI_V1A3H_BEGIN\\n\"; end=b\"        # FOXAI_SELF_KNOWLEDGE_WEBUI_V1A3H_END\\n\"; s=raw.index(begin); e=raw.index(end,s)+len(end)\nblock=raw[s:e].decode(\"utf-8\"); dedented=textwrap.dedent(block); source=\"def run(self):\\n\"+textwrap.indent(dedented,\"    \")+\"    self.original_route_calls += 1\\n\"; compiled=compile(source,\"<exact-v1a3h-seam-r3>\",\"exec\"); ns={}; exec(compiled,ns); run=ns[\"run\"]\nclass H:\n def __init__(self,route,body): self.path=route; self.headers={\"Content-Length\":str(len(body))}; self.rfile=io.BytesIO(body); self.wfile=io.BytesIO(); self.status=[]; self.out_headers=[]; self.end_count=0; self.original_route_calls=0\n def send_response(self,x): self.status.append(x)\n def send_header(self,k,v): self.out_headers.append((k,v))\n def end_headers(self): self.end_count+=1\ndef body(message): return (json.dumps({\"message\":message},separators=(\",\",\":\"))+\"\\n\").encode()\nordinary=[\"Hello Agent Fox\",\"Write a short poem\",\"Tell me a joke\",\"Help me plan dinner\",\"How are you today?\",\"Summarize this paragraph\",\"Start a science-fiction story\",\"Explain gravity simply\",\"Thank you\",\"Open the Writer home\",\"Help me name a character\",\"What should I cook tonight?\"]\nunsupported=[\"How do I install Python?\",\"What is a CPU thread?\",\"Why is my browser slow?\",\"Explain JSON syntax\"]\nrows=[]\nfor i,message in enumerate(ordinary+unsupported):\n route=(\"/api/chat/send\",\"/api/chat/stream\")[i%2]; b=body(message); h=H(route,b); run(h)\n assert h.original_route_calls==1 and h.wfile.getvalue()==b\"\" and h.status==[] and h.rfile.getvalue()==b\n rows.append({\"id\":f\"pass-through-{i+1}\",\"class\":\"ordinary\" if i<len(ordinary) else \"unsupported_technical\",\"endpoint\":route,\"passed\":True,\"original_route_calls\":1,\"message_preserved\":True})\nambiguous=[\"Agent Fox, summarize context\",\"Agent Fox, compare contexts Workshop Main foxai.py\",\"Agent Fox, contexts for launcher\",\"Agent Fox, where did this fact come from\"]\nfor i,message in enumerate(ambiguous):\n route=(\"/api/chat/send\",\"/api/chat/stream\")[i%2]; h=H(route,body(message)); run(h); assert h.original_route_calls==0\n data=h.wfile.getvalue(); status=json.loads(data)[\"status\"] if route.endswith(\"send\") else json.loads(data.splitlines()[-1])[\"status\"]\n assert status==\"clarification_required\"\n rows.append({\"id\":f\"ambiguous-{i+1}\",\"class\":\"clarification\",\"endpoint\":route,\"passed\":True,\"original_route_calls\":0})\nfor route in (\"/api/chat/send\",\"/api/chat/stream\"):\n b=body(\"   \"); h=H(route,b); run(h); assert h.original_route_calls==1 and h.wfile.getvalue()==b\"\" and h.rfile.getvalue()==b\n rows.append({\"id\":f\"empty-{route.rsplit('/',1)[-1]}\",\"class\":\"empty\",\"endpoint\":route,\"passed\":True,\"original_route_calls\":1})\ncomp_path=Path(r\"Z:\\FOXAI\\System\\AgentFoxTechnicalCore\\webui_self_knowledge_integration_v1.py\")\nspec=importlib.util.spec_from_file_location(\"v1a3h_r4_component\",comp_path); comp=importlib.util.module_from_spec(spec); spec.loader.exec_module(comp)\nshared=comp._load_adapter(); original_loader=comp._load_adapter\ntry:\n comp._load_adapter=lambda path=comp.ADAPTER_PATH: shared\n shared._reset_audit_for_tests()\n for message in ordinary+unsupported:\n  result=comp.route_http_request(body(message),\"/api/chat/send\"); assert result[\"intercepted\"] is False\n assert shared._audit_snapshot()[\"registry_verify_calls\"]==0\n comp._load_adapter=original_loader\n missing=Path(tempfile.gettempdir())/\"foxai_v1a3h_r4_missing_adapter.py\"\n if missing.exists(): missing.unlink()\n loader_paths=[]\n def traced_loader(path=comp.ADAPTER_PATH):\n  loader_paths.append(str(path)); return original_loader(path)\n comp._load_adapter=traced_loader\n for route,message in zip((\"/api/chat/send\",\"/api/chat/stream\"),(ordinary[0],\"Agent Fox, list protected contexts\")):\n  result=comp.route_http_request(body(message),route,missing)\n  assert result[\"intercepted\"] is False and result[\"diagnostic\"]==\"self-knowledge adapter unavailable before recognition\"\n  rows.append({\"id\":\"adapter-unavailable-\"+str(len(rows)+1),\"class\":\"adapter_unavailable\",\"endpoint\":route,\"passed\":True,\"original_route_calls\":1})\n assert loader_paths==[str(missing),str(missing)], loader_paths\n class Bad:\n  @staticmethod\n  def route_message(*a,**k): return {\"handled\":True,\"status\":\"answered\"}\n comp._load_adapter=lambda path=comp.ADAPTER_PATH: Bad\n mal=comp.route_http_request(body(\"Agent Fox, list protected contexts\"),\"/api/chat/send\"); assert mal[\"intercepted\"] is True and mal[\"adapter_result\"][\"status\"]==\"evidence_error\"\n rows.append({\"id\":\"malformed-positive-result\",\"class\":\"evidence_error\",\"endpoint\":\"/api/chat/send\",\"passed\":True,\"original_route_calls\":0})\n comp._load_adapter=lambda path=comp.ADAPTER_PATH: shared\n with tempfile.TemporaryDirectory(prefix=\"foxai_v1a3h_r4_corrupt_\") as td:\n  bad=Path(td)/\"registry\"; shutil.copytree(Path(shared.DEFAULT_REGISTRY_DIR),bad)\n  target=bad/\"PROTECTED_CONTEXT_REGISTRY.json\"; target.write_bytes(target.read_bytes()+b\" \")\n  shared._configure_paths_for_tests(shared.DEFAULT_BRIDGE_PATH,bad)\n  corrupt=comp.route_http_request(body(\"Agent Fox, list protected contexts\"),\"/api/chat/send\")\n  assert corrupt[\"intercepted\"] is True and corrupt[\"adapter_result\"][\"status\"]==\"evidence_error\" and corrupt[\"adapter_result\"][\"model_bypass\"] is True\n  rows.append({\"id\":\"copied-fixture-evidence-corruption\",\"class\":\"evidence_error\",\"endpoint\":\"/api/chat/send\",\"passed\":True,\"original_route_calls\":0})\nfinally:\n shared._configure_paths_for_tests(shared.DEFAULT_BRIDGE_PATH,shared.DEFAULT_REGISTRY_DIR)\n comp._load_adapter=original_loader\nout=Path(r\"Z:/FOXAI/System/EngineeringWorkshop/missions/ENG-20260722-023918-962D1D_V1A3H_R4_WEBUI_SELF_KNOWLEDGE_INTEGRATION\"); bypass=json.loads((out/\"WEBUI_MODEL_BYPASS_EVIDENCE.json\").read_text()); allrows=bypass[\"rows\"]+rows\ndef write(name,obj): (out/name).write_text(json.dumps(obj,indent=2,sort_keys=True)+\"\\n\",encoding=\"utf-8\")\nwrite(\"WEBUI_ORDINARY_CHAT_PRESERVATION.json\",{\"schema\":\"v1a3h_r4.pass_through.v1\",\"mission_id\":\"ENG-20260722-023918-962D1D\",\"ordinary_case_count\":len(ordinary),\"unsupported_technical_case_count\":len(unsupported),\"registry_reads_for_unsupported_chat\":0,\"original_request_body_restored\":True,\"original_route_exactly_once\":True,\"adapter_unavailable_before_recognition_passes_through\":True,\"empty_messages_pass_through\":True})\nwrite(\"WEBUI_INTEGRATION_TEST_MATRIX.json\",{\"schema\":\"v1a3h_r4.tests.v1\",\"mission_id\":\"ENG-20260722-023918-962D1D\",\"test_count\":len(allrows),\"recognized_case_count\":len(bypass[\"rows\"]),\"clarification_case_count\":4,\"ordinary_case_count\":12,\"unsupported_technical_case_count\":4,\"empty_case_count\":2,\"adapter_unavailable_case_count\":2,\"malformed_result_case_count\":1,\"evidence_corruption_case_count\":1,\"all_passed\":all(x[\"passed\"] for x in allrows),\"rows\":allrows})\nprint(json.dumps({\"status\":\"fallback_and_failure_tests_passed\",\"total_cases\":len(allrows),\"registry_reads_for_unsupported\":0}))"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-22T02:46:10.304008Z",
+      "name": "Validate scoped loader restoration, pass-through, clarification, evidence error, and failure behavior",
+      "returncode": 0,
+      "started_at": "2026-07-22T02:46:09.735366Z",
+      "stderr": "",
+      "stdout": "{\"status\": \"fallback_and_failure_tests_passed\", \"total_cases\": 48, \"registry_reads_for_unsupported\": 0}\n",
+      "timed_out": false
+    },
+    {
+      "argv": [
+        "Z:/FOXAI/Runtime/Desktop/python/python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nimport hashlib,json\nout=Path(r\"Z:/FOXAI/System/EngineeringWorkshop/missions/ENG-20260722-023918-962D1D_V1A3H_R4_WEBUI_SELF_KNOWLEDGE_INTEGRATION\")\ndef canon(x): return (json.dumps(x,indent=2,sort_keys=True)+\"\\n\").encode()\ndef write(name,obj):\n a=canon(obj); b=canon(obj); assert a==b; (out/name).write_bytes(a)\nfor name in (\"WEBUI_RESPONSE_COMPATIBILITY.json\",\"WEBUI_MODEL_BYPASS_EVIDENCE.json\",\"WEBUI_ORDINARY_CHAT_PRESERVATION.json\",\"WEBUI_INTEGRATION_TEST_MATRIX.json\"):\n p=out/name; obj=json.loads(p.read_text()); assert p.read_bytes()==canon(obj)\nmatrix=json.loads((out/\"WEBUI_INTEGRATION_TEST_MATRIX.json\").read_text()); assert matrix[\"all_passed\"] is True and matrix[\"test_count\"]==48\nwrite(\"WEBUI_SELF_KNOWLEDGE_INTEGRATION_CONTRACT.json\",{\"schema\":\"v1a3h_r4.contract.v1\",\"mission_id\":\"ENG-20260722-023918-962D1D\",\"endpoints\":[\"/api/chat/send\",\"/api/chat/stream\"],\"supported_intent_count\":11,\"existing_seam_adopted\":True,\"live_webui_patch_performed\":False,\"recognized_model_bypass\":True,\"clarification_model_bypass\":True,\"evidence_error_model_bypass\":True,\"ordinary_chat_pass_through\":True})\nwrite(\"WEBUI_CHAT_ROUTE_PATCH_MAP.json\",{\"schema\":\"v1a3h_r4.patch_map.v1\",\"mission_id\":\"ENG-20260722-023918-962D1D\",\"source\":'Z:\\\\FOXAI\\\\core\\\\foxai_web.py',\"source_sha256_before\":\"d7bf0a2042d55ef7f0a5869556015e42c7427e7ff88636b28e1795f3adf7b952\",\"source_sha256_after\":\"d7bf0a2042d55ef7f0a5869556015e42c7427e7ff88636b28e1795f3adf7b952\",\"source_size_bytes\":2353581,\"action\":\"adopt_existing_single_seam_no_source_write\",\"marker\":\"FOXAI_SELF_KNOWLEDGE_WEBUI_V1A3H\",\"block_sha256\":\"36195f2bec555a2c9ec9fc6d9f981d0522f059fb0e069a3f5143cdcd5ad54961\",\"block_size_bytes\":1824,\"start_line\":13316,\"end_line\":13345,\"reconstructed_original_sha256\":\"e4e9fd62e6c4736a18781c6b17184441e8852412867cc95dbca94e570921ba77\",\"reconstructed_original_size_bytes\":2351757})\nwrite(\"WEBUI_INTEGRATION_COVERAGE.json\",{\"schema\":\"v1a3h_r4.coverage.v1\",\"mission_id\":\"ENG-20260722-023918-962D1D\",\"supported_intent_count\":11,\"endpoint_count\":2,\"test_count\":48,\"changed_path_count\":3,\"existing_live_source_files_modified\":0,\"desktop_files_modified\":0,\"live_foxai_source_scans\":0,\"source_execution\":0,\"imported_live_foxai_modules\":0,\"live_sockets\":0,\"child_processes\":0,\"network_used\":False,\"packages_installed\":False,\"models_loaded\":False,\"comfyui_launched\":False,\"k_accessed\":False,\"deterministic_repeated_request_equality\":True,\"prior_r2_failure_classification\":\"validation_harness_indentation_defect_before_request_execution\",\"prior_r3_failure_classification\":\"validation_harness_loader_monkeypatch_leak\",\"loader_state_repair\":\"restore_original_loader_before_missing_adapter_tests_and_use_try_finally\",\"integration_behavior_changed\":False,\"harness_preflight_compile_passed\":True})\ncore=[n for n in [\"WEBUI_SELF_KNOWLEDGE_INTEGRATION_CONTRACT.json\", \"WEBUI_CHAT_ROUTE_PATCH_MAP.json\", \"WEBUI_RESPONSE_COMPATIBILITY.json\", \"WEBUI_INTEGRATION_TEST_MATRIX.json\", \"WEBUI_MODEL_BYPASS_EVIDENCE.json\", \"WEBUI_ORDINARY_CHAT_PRESERVATION.json\", \"WEBUI_INTEGRATION_COVERAGE.json\", \"WEBUI_INTEGRATION_RECEIPT.json\"] if n!=\"WEBUI_INTEGRATION_RECEIPT.json\"]\nassert {p.name for p in out.iterdir()}==set(core)\nrows=[]\nfor name in core:\n data=(out/name).read_bytes(); rows.append({\"name\":name,\"sha256\":hashlib.sha256(data).hexdigest(),\"size_bytes\":len(data)})\nreceipt={\"schema\":\"v1a3h_r4.receipt.v1\",\"mission_id\":\"ENG-20260722-023918-962D1D\",\"status\":\"built_and_verified\",\"prior_r2_failure_classification\":\"validation_harness_indentation_defect_before_request_execution\",\"prior_r3_failure_classification\":\"validation_harness_loader_monkeypatch_leak\",\"harness_repair\":\"textwrap_dedent_then_four_space_reindent\",\"loader_state_repair\":\"restore_original_loader_before_missing_adapter_tests_and_use_try_finally\",\"integration_behavior_changed\":False,\"existing_seam_adopted\":True,\"live_webui_patch_performed\":False,\"web_sha256_before\":\"d7bf0a2042d55ef7f0a5869556015e42c7427e7ff88636b28e1795f3adf7b952\",\"web_sha256_after\":\"d7bf0a2042d55ef7f0a5869556015e42c7427e7ff88636b28e1795f3adf7b952\",\"changed_paths\":[\"System/AgentFoxTechnicalCore/webui_self_knowledge_integration_v1.py\", \"System/AgentFoxTechnicalCore/WEBUI_SELF_KNOWLEDGE_INTEGRATION_CONTRACT_V1.json\", \"System/AgentFoxTechnicalCore/README_V1A3H.md\"],\"changed_path_count\":3,\"existing_live_source_files_modified\":0,\"desktop_files_modified\":0,\"core_outputs_before_receipt\":rows,\"exact_output_count_including_receipt\":8,\"supported_intent_count\":11,\"endpoint_count\":2,\"test_count\":48,\"deterministic_rebuild_equality\":True,\"deterministic_repeated_request_equality\":True,\"registry_reads_for_unsupported_chat\":0,\"chat_api_calls_for_handled\":0,\"iter_chat_stream_calls_for_handled\":0,\"provider_calls_for_handled\":0,\"model_calls_for_handled\":0,\"duplicate_assistant_answers\":0,\"duplicate_terminal_stream_events\":0,\"answer_packet_leaks\":0,\"user_message_mutations\":0,\"source_execution\":0,\"imported_live_foxai_modules\":0,\"live_sockets\":0,\"child_processes\":0,\"network_used\":False,\"packages_installed\":False,\"models_loaded\":False,\"comfyui_launched\":False,\"k_accessed\":False}\nwrite(\"WEBUI_INTEGRATION_RECEIPT.json\",receipt)\nprint(json.dumps({\"status\":\"eight_outputs_built\",\"count\":8,\"test_count\":48}))"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-22T02:46:10.378392Z",
+      "name": "Build deterministic exact eight-output V1A-3H-R4 evidence set",
+      "returncode": 1,
+      "started_at": "2026-07-22T02:46:10.304403Z",
+      "stderr": "Traceback (most recent call last):\n  File \"<string>\", line 8, in <module>\n    p=out/name; obj=json.loads(p.read_text()); assert p.read_bytes()==canon(obj)\n                                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n",
+      "stdout": "",
+      "timed_out": false
+    }
+  ]
+}

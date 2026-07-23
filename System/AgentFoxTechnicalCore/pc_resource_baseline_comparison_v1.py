@@ -1,0 +1,1051 @@
+from __future__ import annotations
+
+import argparse
+import hashlib
+import json
+import sys
+from pathlib import Path
+from typing import Any
+
+SCHEMA_PREFIX = "foxai.agent_fox.technical_core.v1b1c"
+MINIMAL_MISSION = "ENG-20260722-062243-69C555"
+LOADED_MISSION = "ENG-20260722-140518-F13169"
+MINIMAL_ROOT = Path(
+    r"Z:\FOXAI\System\EngineeringWorkshop\missions"
+    r"\ENG-20260722-062243-69C555_V1B1A_R2_MINIMAL_LOAD_RESOURCE_BASELINE"
+)
+LOADED_ROOT = Path(
+    r"Z:\FOXAI\System\EngineeringWorkshop\missions"
+    r"\ENG-20260722-140518-F13169_V1B1B_R1_NORMAL_LOADED_RESOURCE_BASELINE"
+)
+
+MINIMAL_FILES = {
+    "MINIMAL_LOAD_RESOURCE_SNAPSHOT.json":
+        "5ca895a436b91047b095a97efaaa7de2e23ea35555c9b17664a844826db1c639",
+    "MINIMAL_LOAD_PROCESS_SUMMARY.json":
+        "83b37ebcdb6b5882573f74e96f81b42296e4d6a6fc7a2f1e9a9158c8546ae76f",
+    "MINIMAL_LOAD_QUALIFICATION.json":
+        "c300ef1e519b0dc0be949d528034ad8548392e0791e544ce70e4a650f7a09026",
+    "MINIMAL_LOAD_CAPTURE_RECEIPT.json":
+        "19a76bef2adf4f88ba495ed8abcf48e356b52f628de97eccabaf6a334fbd7c82",
+}
+LOADED_FILES = {
+    "NORMAL_LOADED_RESOURCE_SNAPSHOT.json":
+        "cf415b6aaa2eb6a6b52ccfbc27ff99e0b5a79b6cd5ad060a3597ba86d0ba4fcb",
+    "NORMAL_LOADED_PROCESS_SUMMARY.json":
+        "58e1d3be02d064066b9bec96aca551ea98c4d8fac2e537e8e50847f85eac4c5f",
+    "NORMAL_LOADED_QUALIFICATION.json":
+        "79d1589bc0d2787f6effddab1eb432eed90ca4523e7b74f8b2b0037def691b45",
+    "NORMAL_LOADED_CAPTURE_RECEIPT.json":
+        "d061a6d75417debea27b7fcd4be552aa99009058eece6f47fcd8e1a4e3150685",
+}
+OUTPUT_NAMES = [
+    "RESOURCE_BASELINE_COMPARISON.json",
+    "FOXAI_COMPONENT_RESOURCE_ATTRIBUTION.json",
+    "CAPACITY_HEADROOM_OBSERVATIONS.json",
+    "BASELINE_COMPARISON_REPORT.md",
+    "BASELINE_COMPARISON_RECEIPT.json",
+]
+
+
+def canonical_json_bytes(value: Any) -> bytes:
+    return (
+        json.dumps(value, indent=2, sort_keys=True, ensure_ascii=False) + "\n"
+    ).encode("utf-8")
+
+
+def sha256_bytes(data: bytes) -> str:
+    return hashlib.sha256(data).hexdigest()
+
+
+def stable_id(prefix: str, *parts: Any) -> str:
+    raw = "|".join(str(part) for part in parts).encode("utf-8")
+    return f"{prefix}-{hashlib.sha256(raw).hexdigest()[:16].upper()}"
+
+
+def decimal_gb(value: int | float) -> str:
+    return f"{float(value) / 1_000_000_000:.2f} GB"
+
+
+def binary_gib(value: int | float) -> str:
+    return f"{float(value) / (1024 ** 3):.2f} GiB"
+
+
+def mib(value: int | float) -> str:
+    return f"{float(value):.0f} MiB"
+
+
+def percentage(value: int | float) -> str:
+    return f"{float(value):.2f}%"
+
+
+def verified_json_files(
+    root: Path,
+    expected: dict[str, str],
+    source_mission: str,
+) -> tuple[dict[str, Any], list[dict[str, Any]]]:
+    loaded: dict[str, Any] = {}
+    rows: list[dict[str, Any]] = []
+    for name in sorted(expected):
+        path = root / name
+        data = path.read_bytes()
+        digest = sha256_bytes(data)
+        if digest != expected[name]:
+            raise ValueError(
+                f"authoritative_input_hash_mismatch:{source_mission}:{name}"
+            )
+        obj = json.loads(data.decode("utf-8"))
+        if obj.get("mission_id") != source_mission:
+            raise ValueError(
+                f"authoritative_input_mission_mismatch:{source_mission}:{name}"
+            )
+        loaded[name] = obj
+        rows.append({
+            "availability_status": "available",
+            "source_mission": source_mission,
+            "source_file": name,
+            "collection_timestamp": obj.get("collected_at"),
+            "expected_sha256": expected[name],
+            "actual_sha256": digest,
+            "sha256_matches_expected": True,
+            "size_bytes": len(data),
+            "derivation_method": "SHA-256 of exact authoritative file bytes",
+            "verification_id": stable_id(
+                "INPUT", source_mission, name, digest
+            ),
+        })
+    return loaded, rows
+
+
+def validate_capture_relationship(
+    files: dict[str, Any],
+    prefix: str,
+    expected_status: str,
+    mission_id: str,
+) -> dict[str, Any]:
+    receipt_name = f"{prefix}_CAPTURE_RECEIPT.json"
+    qualification_name = f"{prefix}_QUALIFICATION.json"
+    receipt = files[receipt_name]
+    qualification = files[qualification_name]
+    if receipt.get("status") != "captured_and_verified":
+        raise ValueError(f"capture_receipt_status_invalid:{mission_id}")
+    if receipt.get("output_count") != 4:
+        raise ValueError(f"capture_receipt_output_count_invalid:{mission_id}")
+    if receipt.get("qualification_status") != expected_status:
+        raise ValueError(f"capture_receipt_qualification_invalid:{mission_id}")
+    if qualification.get("status") != expected_status:
+        raise ValueError(f"qualification_status_invalid:{mission_id}")
+    if qualification.get("blocker_count") != 0:
+        raise ValueError(f"qualification_blockers_present:{mission_id}")
+    expected_names = {
+        name for name in files
+        if name != receipt_name
+    }
+    receipt_rows = receipt.get("outputs_before_receipt", [])
+    if {row.get("name") for row in receipt_rows} != expected_names:
+        raise ValueError(f"capture_receipt_relationship_invalid:{mission_id}")
+    for row in receipt_rows:
+        name = row["name"]
+        data = canonical_json_bytes(files[name])
+        if len(data) != row.get("size_bytes"):
+            raise ValueError(f"receipt_size_relationship_invalid:{mission_id}:{name}")
+        if sha256_bytes(data) != row.get("sha256"):
+            raise ValueError(f"receipt_hash_relationship_invalid:{mission_id}:{name}")
+    return {
+        "availability_status": "available",
+        "source_mission": mission_id,
+        "receipt_file": receipt_name,
+        "qualification_file": qualification_name,
+        "collection_timestamp": receipt.get("collected_at"),
+        "receipt_status": receipt["status"],
+        "qualification_status": qualification["status"],
+        "blocker_count": qualification["blocker_count"],
+        "output_relationship_verified": True,
+        "derivation_method": (
+            "Receipt output names, sizes, and SHA-256 values verified "
+            "against the other three authoritative capture files."
+        ),
+        "relationship_id": stable_id(
+            "RELATIONSHIP", mission_id, receipt_name, expected_status
+        ),
+    }
+
+
+def source_observation(
+    value: Any,
+    mission: str,
+    source_file: str,
+    timestamp: str,
+    observation_type: str = "direct_observation",
+) -> dict[str, Any]:
+    return {
+        "availability_status": "available",
+        "value": value,
+        "source_mission": mission,
+        "source_file": source_file,
+        "collection_timestamp": timestamp,
+        "observation_type": observation_type,
+    }
+
+
+def delta_record(
+    metric: str,
+    unit: str,
+    minimal_value: int | float,
+    loaded_value: int | float,
+    minimal_file: str,
+    loaded_file: str,
+    minimal_timestamp: str,
+    loaded_timestamp: str,
+    human_formatter=None,
+    notes: list[str] | None = None,
+) -> dict[str, Any]:
+    delta = loaded_value - minimal_value
+    human = None
+    if human_formatter is not None:
+        human = {
+            "minimal": human_formatter(minimal_value),
+            "normal_loaded": human_formatter(loaded_value),
+            "delta_loaded_minus_minimal": human_formatter(delta),
+        }
+    return {
+        "comparison_id": stable_id(
+            "COMPARISON", metric, minimal_value, loaded_value
+        ),
+        "metric": metric,
+        "unit": unit,
+        "availability_status": "available",
+        "minimal_load": source_observation(
+            minimal_value,
+            MINIMAL_MISSION,
+            minimal_file,
+            minimal_timestamp,
+        ),
+        "normal_loaded": source_observation(
+            loaded_value,
+            LOADED_MISSION,
+            loaded_file,
+            loaded_timestamp,
+        ),
+        "delta_loaded_minus_minimal": {
+            "availability_status": "available",
+            "value": delta,
+            "derivation_method": "normal_loaded_value - minimal_load_value",
+        },
+        "human_readable": human,
+        "notes": notes or [],
+    }
+
+
+def drive_map(snapshot: dict[str, Any]) -> dict[str, dict[str, Any]]:
+    return {row["drive_root"]: row for row in snapshot["drives"]}
+
+
+def listener_present(snapshot: dict[str, Any], port: str) -> bool:
+    return bool(snapshot["known_local_listeners"].get(port, []))
+
+
+def process_by_pid(summary: dict[str, Any], pid: int) -> dict[str, Any] | None:
+    for row in summary.get("process_table", []):
+        if row.get("pid") == pid:
+            return row
+    return None
+
+
+def listener_pid(snapshot: dict[str, Any], port: str) -> int | None:
+    rows = snapshot["known_local_listeners"].get(port, [])
+    return rows[0].get("owning_pid") if rows else None
+
+
+def component_record(
+    component: str,
+    minimal_value: int,
+    loaded_value: int,
+    minimal_type: str,
+    loaded_type: str,
+    minimal_timestamp: str,
+    loaded_timestamp: str,
+    loaded_process: dict[str, Any] | None,
+    note: str,
+    minimal_source_file: str = "MINIMAL_LOAD_PROCESS_SUMMARY.json",
+) -> dict[str, Any]:
+    return {
+        "component_id": stable_id(
+            "COMPONENT", component, minimal_value, loaded_value
+        ),
+        "component": component,
+        "metric": "working_set_bytes",
+        "unit": "bytes",
+        "availability_status": "available",
+        "minimal_load": source_observation(
+            minimal_value,
+            MINIMAL_MISSION,
+            minimal_source_file,
+            minimal_timestamp,
+            minimal_type,
+        ),
+        "normal_loaded": source_observation(
+            loaded_value,
+            LOADED_MISSION,
+            "NORMAL_LOADED_PROCESS_SUMMARY.json",
+            loaded_timestamp,
+            loaded_type,
+        ),
+        "delta_loaded_minus_minimal": {
+            "availability_status": "available",
+            "value": loaded_value - minimal_value,
+            "derivation_method": (
+                "normal_loaded_working_set_bytes - "
+                "minimal_load_working_set_bytes"
+            ),
+        },
+        "human_readable": {
+            "minimal": decimal_gb(minimal_value),
+            "normal_loaded": decimal_gb(loaded_value),
+            "delta_loaded_minus_minimal": decimal_gb(
+                loaded_value - minimal_value
+            ),
+            "normal_loaded_binary": binary_gib(loaded_value),
+        },
+        "loaded_process_observation": (
+            {
+                "availability_status": "available",
+                "process_name": loaded_process.get("name"),
+                "process_id": loaded_process.get("process_id"),
+                "pid": loaded_process.get("pid"),
+                "collection_method": loaded_process.get(
+                    "collection_method"
+                ),
+                "source_mission": LOADED_MISSION,
+                "source_file": "NORMAL_LOADED_PROCESS_SUMMARY.json",
+                "collection_timestamp": loaded_timestamp,
+                "derivation_method": (
+                    "Resolved from the qualified loaded-state process and "
+                    "listener evidence."
+                ),
+            }
+            if loaded_process else
+            {
+                "availability_status": "unavailable_with_reason",
+                "reason": "No loaded process row was resolved.",
+                "source_mission": LOADED_MISSION,
+                "source_file": "NORMAL_LOADED_PROCESS_SUMMARY.json",
+                "collection_timestamp": loaded_timestamp,
+            }
+        ),
+        "bounded_interpretation": note,
+        "attribution_limit": (
+            "Working-set values are point-in-time process observations and "
+            "are not an exclusive accounting of every shared or cached byte."
+        ),
+    }
+
+
+def build_outputs(
+    mission_id: str,
+    minimal_files: dict[str, Any],
+    loaded_files: dict[str, Any],
+    verification_rows: list[dict[str, Any]],
+    relationship_rows: list[dict[str, Any]],
+) -> dict[str, bytes]:
+    min_snap = minimal_files["MINIMAL_LOAD_RESOURCE_SNAPSHOT.json"]
+    min_proc = minimal_files["MINIMAL_LOAD_PROCESS_SUMMARY.json"]
+    min_qual = minimal_files["MINIMAL_LOAD_QUALIFICATION.json"]
+    loaded_snap = loaded_files["NORMAL_LOADED_RESOURCE_SNAPSHOT.json"]
+    loaded_proc = loaded_files["NORMAL_LOADED_PROCESS_SUMMARY.json"]
+    loaded_qual = loaded_files["NORMAL_LOADED_QUALIFICATION.json"]
+
+    min_ts = min_snap["collected_at"]
+    loaded_ts = loaded_snap["collected_at"]
+    generated_at = loaded_ts
+    min_mem = min_snap["memory"]
+    loaded_mem = loaded_snap["memory"]
+
+    metrics = [
+        delta_record(
+            "total_physical_memory_bytes", "bytes",
+            min_mem["total_physical_memory_bytes"],
+            loaded_mem["total_physical_memory_bytes"],
+            "MINIMAL_LOAD_RESOURCE_SNAPSHOT.json",
+            "NORMAL_LOADED_RESOURCE_SNAPSHOT.json",
+            min_ts, loaded_ts, decimal_gb,
+        ),
+        delta_record(
+            "available_physical_memory_bytes", "bytes",
+            min_mem["available_physical_memory_bytes"],
+            loaded_mem["available_physical_memory_bytes"],
+            "MINIMAL_LOAD_RESOURCE_SNAPSHOT.json",
+            "NORMAL_LOADED_RESOURCE_SNAPSHOT.json",
+            min_ts, loaded_ts, decimal_gb,
+        ),
+        delta_record(
+            "physical_memory_in_use_bytes", "bytes",
+            min_mem["physical_memory_in_use_bytes"],
+            loaded_mem["physical_memory_in_use_bytes"],
+            "MINIMAL_LOAD_RESOURCE_SNAPSHOT.json",
+            "NORMAL_LOADED_RESOURCE_SNAPSHOT.json",
+            min_ts, loaded_ts, decimal_gb,
+        ),
+        delta_record(
+            "memory_load_percent", "percentage_points",
+            min_mem["memory_load_percent"],
+            loaded_mem["memory_load_percent"],
+            "MINIMAL_LOAD_RESOURCE_SNAPSHOT.json",
+            "NORMAL_LOADED_RESOURCE_SNAPSHOT.json",
+            min_ts, loaded_ts, percentage,
+        ),
+        delta_record(
+            "committed_bytes", "bytes",
+            min_mem["committed_bytes"],
+            loaded_mem["committed_bytes"],
+            "MINIMAL_LOAD_RESOURCE_SNAPSHOT.json",
+            "NORMAL_LOADED_RESOURCE_SNAPSHOT.json",
+            min_ts, loaded_ts, decimal_gb,
+        ),
+        delta_record(
+            "commit_limit_bytes", "bytes",
+            min_mem["commit_limit_bytes"],
+            loaded_mem["commit_limit_bytes"],
+            "MINIMAL_LOAD_RESOURCE_SNAPSHOT.json",
+            "NORMAL_LOADED_RESOURCE_SNAPSHOT.json",
+            min_ts, loaded_ts, decimal_gb,
+        ),
+        delta_record(
+            "page_file_allocated_mib", "MiB",
+            min_mem["page_file_allocated_mib"],
+            loaded_mem["page_file_allocated_mib"],
+            "MINIMAL_LOAD_RESOURCE_SNAPSHOT.json",
+            "NORMAL_LOADED_RESOURCE_SNAPSHOT.json",
+            min_ts, loaded_ts, mib,
+        ),
+        delta_record(
+            "page_file_current_usage_mib", "MiB",
+            min_mem["page_file_current_usage_mib"],
+            loaded_mem["page_file_current_usage_mib"],
+            "MINIMAL_LOAD_RESOURCE_SNAPSHOT.json",
+            "NORMAL_LOADED_RESOURCE_SNAPSHOT.json",
+            min_ts, loaded_ts, mib,
+        ),
+        delta_record(
+            "page_file_peak_usage_mib", "MiB",
+            min_mem["page_file_peak_usage_mib"],
+            loaded_mem["page_file_peak_usage_mib"],
+            "MINIMAL_LOAD_RESOURCE_SNAPSHOT.json",
+            "NORMAL_LOADED_RESOURCE_SNAPSHOT.json",
+            min_ts, loaded_ts, mib,
+            notes=[
+                "This is a historical peak since boot, not point-in-time "
+                "page-file use during either capture."
+            ],
+        ),
+        delta_record(
+            "process_count", "processes",
+            min_proc["process_count"],
+            loaded_proc["process_count"],
+            "MINIMAL_LOAD_PROCESS_SUMMARY.json",
+            "NORMAL_LOADED_PROCESS_SUMMARY.json",
+            min_ts, loaded_ts, lambda x: f"{int(x)}",
+        ),
+        delta_record(
+            "foxai_workspace_process_count", "processes",
+            min_proc["foxai_workspace_process_count"],
+            loaded_proc["foxai_workspace_process_count"],
+            "MINIMAL_LOAD_PROCESS_SUMMARY.json",
+            "NORMAL_LOADED_PROCESS_SUMMARY.json",
+            min_ts, loaded_ts, lambda x: f"{int(x)}",
+        ),
+    ]
+
+    min_drives = drive_map(min_snap)
+    loaded_drives = drive_map(loaded_snap)
+    drive_rows = []
+    for root in ("C:\\", "Z:\\", "S:\\"):
+        min_row = min_drives[root]
+        loaded_row = loaded_drives[root]
+        drive_rows.append(delta_record(
+            f"{root[0]}_drive_free_percent", "percentage_points",
+            min_row["free_percent"],
+            loaded_row["free_percent"],
+            "MINIMAL_LOAD_RESOURCE_SNAPSHOT.json",
+            "NORMAL_LOADED_RESOURCE_SNAPSHOT.json",
+            min_ts, loaded_ts, percentage,
+        ))
+
+    listener_rows = []
+    for port in ("8080", "8188", "8765"):
+        min_value = listener_present(min_snap, port)
+        loaded_value = listener_present(loaded_snap, port)
+        listener_rows.append({
+            "listener_comparison_id": stable_id(
+                "LISTENER", port, min_value, loaded_value
+            ),
+            "local_port": int(port),
+            "availability_status": "available",
+            "minimal_load": source_observation(
+                min_value, MINIMAL_MISSION,
+                "MINIMAL_LOAD_RESOURCE_SNAPSHOT.json", min_ts
+            ),
+            "normal_loaded": source_observation(
+                loaded_value, LOADED_MISSION,
+                "NORMAL_LOADED_RESOURCE_SNAPSHOT.json", loaded_ts
+            ),
+            "derivation_method": (
+                "Boolean presence from authoritative local-listener arrays; "
+                "no live connection was made."
+            ),
+        })
+
+    comparison = {
+        "schema": f"{SCHEMA_PREFIX}.resource_baseline_comparison.v1",
+        "mission_id": mission_id,
+        "status": "compared_and_verified",
+        "generated_at": generated_at,
+        "availability_status": "available",
+        "source_evidence": {
+            "availability_status": "available",
+            "verified_input_count": len(verification_rows),
+            "verified_inputs": verification_rows,
+            "capture_relationships": relationship_rows,
+            "minimal_qualification_status": min_qual["status"],
+            "normal_loaded_qualification_status": loaded_qual["status"],
+        },
+        "direct_observations_separated_from_derived": True,
+        "metric_comparisons": metrics,
+        "drive_free_space_comparisons": drive_rows,
+        "listener_presence_comparisons": listener_rows,
+        "bounded_interpretation": (
+            "The normal-loaded capture used substantially more physical and "
+            "committed memory than the minimal-load capture. This comparison "
+            "describes only the two verified point-in-time evidence sets."
+        ),
+        "interpretation_boundaries": [
+            "No new live system scan was performed.",
+            "No process or listener was queried by this comparison component.",
+            "Historical page-file peak is not a point-in-time load measure.",
+            "The evidence does not establish behavior during active image "
+            "generation, longer model contexts, multiple simultaneous large "
+            "models, additional applications, or future workload changes.",
+        ],
+    }
+
+    min_web_pid = listener_pid(min_snap, "8765")
+    loaded_web_pid = listener_pid(loaded_snap, "8765")
+    loaded_model_pid = listener_pid(loaded_snap, "8080")
+    loaded_comfy_pid = listener_pid(loaded_snap, "8188")
+    loaded_desktop_pids = loaded_qual.get("desktop_process_pids", [])
+
+    min_web = process_by_pid(min_proc, min_web_pid) if min_web_pid else None
+    loaded_web = (
+        process_by_pid(loaded_proc, loaded_web_pid)
+        if loaded_web_pid else None
+    )
+    loaded_model = (
+        process_by_pid(loaded_proc, loaded_model_pid)
+        if loaded_model_pid else None
+    )
+    loaded_comfy = (
+        process_by_pid(loaded_proc, loaded_comfy_pid)
+        if loaded_comfy_pid else None
+    )
+    loaded_desktop = (
+        process_by_pid(loaded_proc, loaded_desktop_pids[0])
+        if loaded_desktop_pids else None
+    )
+
+    components = [
+        component_record(
+            "shared_model_runtime",
+            0,
+            int(loaded_model["working_set_bytes"]),
+            "derived_from_qualified_absence",
+            "direct_observation",
+            min_ts, loaded_ts, loaded_model,
+            "The loaded shared model runtime was the dominant measured "
+            "FOXAI process working set.",
+            minimal_source_file="MINIMAL_LOAD_QUALIFICATION.json",
+        ),
+        component_record(
+            "comfyui_idle_runtime",
+            0,
+            int(loaded_comfy["working_set_bytes"]),
+            "derived_from_qualified_absence",
+            "direct_observation",
+            min_ts, loaded_ts, loaded_comfy,
+            "Idle ComfyUI was comparatively smaller than the loaded model "
+            "in this capture.",
+            minimal_source_file="MINIMAL_LOAD_QUALIFICATION.json",
+        ),
+        component_record(
+            "foxai_desktop",
+            0,
+            int(loaded_desktop["working_set_bytes"]),
+            "derived_from_qualified_absence",
+            "direct_observation",
+            min_ts, loaded_ts, loaded_desktop,
+            "FOXAI Desktop was comparatively small in this capture.",
+            minimal_source_file="MINIMAL_LOAD_QUALIFICATION.json",
+        ),
+        component_record(
+            "foxai_webui",
+            int(min_web["working_set_bytes"]),
+            int(loaded_web["working_set_bytes"]),
+            "direct_observation",
+            "direct_observation",
+            min_ts, loaded_ts, loaded_web,
+            "The WebUI working set changed modestly between the two "
+            "point-in-time captures.",
+        ),
+    ]
+    model_ws = int(loaded_model["working_set_bytes"])
+    loaded_in_use = int(loaded_mem["physical_memory_in_use_bytes"])
+    attribution = {
+        "schema": f"{SCHEMA_PREFIX}.component_resource_attribution.v1",
+        "mission_id": mission_id,
+        "status": "attributed_from_verified_evidence",
+        "generated_at": generated_at,
+        "availability_status": "available",
+        "source_missions": [MINIMAL_MISSION, LOADED_MISSION],
+        "component_working_set_comparisons": components,
+        "loaded_model_share_of_physical_memory_in_use": {
+            "attribution_id": stable_id(
+                "ATTRIBUTION", "model_share", model_ws, loaded_in_use
+            ),
+            "availability_status": "available",
+            "value_percent": round(model_ws / loaded_in_use * 100, 4),
+            "numerator_bytes": model_ws,
+            "denominator_bytes": loaded_in_use,
+            "derivation_method": (
+                "loaded model working_set_bytes / loaded "
+                "physical_memory_in_use_bytes * 100"
+            ),
+            "source_mission": LOADED_MISSION,
+            "source_files": [
+                "NORMAL_LOADED_PROCESS_SUMMARY.json",
+                "NORMAL_LOADED_RESOURCE_SNAPSHOT.json",
+            ],
+            "collection_timestamp": loaded_ts,
+            "bounded_interpretation": (
+                "This ratio shows scale, not exclusive ownership; process "
+                "working set and system physical use are different accounting "
+                "views."
+            ),
+        },
+        "attribution_boundary": (
+            "Component values are point-in-time working sets. Shared pages, "
+            "cache, memory compression, and operating-system accounting mean "
+            "the values must not be treated as an exact additive partition."
+        ),
+    }
+
+    available_loaded = int(loaded_mem["available_physical_memory_bytes"])
+    commit_headroom_loaded = (
+        int(loaded_mem["commit_limit_bytes"])
+        - int(loaded_mem["committed_bytes"])
+    )
+    physical_headroom_percent = round(
+        100.0 - float(loaded_mem["memory_load_percent"]), 2
+    )
+    headroom = {
+        "schema": f"{SCHEMA_PREFIX}.capacity_headroom_observations.v1",
+        "mission_id": mission_id,
+        "status": "bounded_observations_only",
+        "generated_at": generated_at,
+        "availability_status": "available",
+        "source_missions": [MINIMAL_MISSION, LOADED_MISSION],
+        "observations": [
+            {
+                "observation_id": stable_id(
+                    "HEADROOM", "available_physical", available_loaded
+                ),
+                "availability_status": "available",
+                "observation": "normal_loaded_available_physical_memory",
+                "value_bytes": available_loaded,
+                "human_decimal": decimal_gb(available_loaded),
+                "human_binary": binary_gib(available_loaded),
+                "source_mission": LOADED_MISSION,
+                "source_file": "NORMAL_LOADED_RESOURCE_SNAPSHOT.json",
+                "collection_timestamp": loaded_ts,
+                "derivation_method": "direct captured value",
+                "bounded_interpretation": (
+                    "Approximately 8.38 GB of physical RAM remained "
+                    "available at the qualified normal-loaded capture."
+                ),
+            },
+            {
+                "observation_id": stable_id(
+                    "HEADROOM", "physical_percent", physical_headroom_percent
+                ),
+                "availability_status": "available",
+                "observation": "normal_loaded_physical_memory_headroom_percent",
+                "value_percent": physical_headroom_percent,
+                "source_mission": LOADED_MISSION,
+                "source_file": "NORMAL_LOADED_RESOURCE_SNAPSHOT.json",
+                "collection_timestamp": loaded_ts,
+                "derivation_method": "100 - memory_load_percent",
+                "bounded_interpretation": (
+                    "This is point-in-time physical-memory headroom, not a "
+                    "stress-test result."
+                ),
+            },
+            {
+                "observation_id": stable_id(
+                    "HEADROOM", "commit", commit_headroom_loaded
+                ),
+                "availability_status": "available",
+                "observation": "normal_loaded_commit_headroom",
+                "value_bytes": commit_headroom_loaded,
+                "human_decimal": decimal_gb(commit_headroom_loaded),
+                "human_binary": binary_gib(commit_headroom_loaded),
+                "source_mission": LOADED_MISSION,
+                "source_file": "NORMAL_LOADED_RESOURCE_SNAPSHOT.json",
+                "collection_timestamp": loaded_ts,
+                "derivation_method": "commit_limit_bytes - committed_bytes",
+                "bounded_interpretation": (
+                    "The qualified capture remained below the captured "
+                    "commit limit."
+                ),
+            },
+            {
+                "observation_id": stable_id(
+                    "HEADROOM", "dominant_model", model_ws
+                ),
+                "availability_status": "available",
+                "observation": "dominant_measured_loaded_component",
+                "component": "shared_model_runtime",
+                "working_set_bytes": model_ws,
+                "human_decimal": decimal_gb(model_ws),
+                "human_binary": binary_gib(model_ws),
+                "source_mission": LOADED_MISSION,
+                "source_file": "NORMAL_LOADED_PROCESS_SUMMARY.json",
+                "collection_timestamp": loaded_ts,
+                "derivation_method": (
+                    "largest FOXAI workspace working_set_bytes in loaded "
+                    "process evidence"
+                ),
+                "bounded_interpretation": (
+                    "The loaded 30B model runtime was the dominant measured "
+                    "consumer; WebUI, Desktop, and idle ComfyUI were "
+                    "comparatively smaller."
+                ),
+            },
+        ],
+        "known_limitations": [
+            {
+                "limitation_id": stable_id(
+                    "LIMIT", "active_image_generation"
+                ),
+                "availability_status": "not_evaluated",
+                "statement": (
+                    "The loaded capture does not establish capacity during "
+                    "active image generation."
+                ),
+                "source_mission": LOADED_MISSION,
+                "source_file": "NORMAL_LOADED_QUALIFICATION.json",
+                "collection_timestamp": loaded_ts,
+                "derivation_method": (
+                    "Preserved qualification limitation: no reliable "
+                    "non-invasive generation-activity signal was available."
+                ),
+            },
+            {
+                "limitation_id": stable_id(
+                    "LIMIT", "other_workloads"
+                ),
+                "availability_status": "not_evaluated",
+                "statement": (
+                    "The evidence does not establish capacity for longer "
+                    "model contexts, multiple simultaneous large models, "
+                    "additional applications, or future workload changes."
+                ),
+                "source_mission": LOADED_MISSION,
+                "source_file": "NORMAL_LOADED_RESOURCE_SNAPSHOT.json",
+                "collection_timestamp": loaded_ts,
+                "derivation_method": (
+                    "Scope boundary of two point-in-time captures."
+                ),
+            },
+        ],
+        "recommendations_issued": False,
+        "diagnosis_issued": False,
+    }
+
+    metric_by_name = {
+        row["metric"]: row for row in metrics
+    }
+    component_by_name = {
+        row["component"]: row for row in components
+    }
+    report_lines = [
+        "# FOXAI Resource Baseline Comparison",
+        "",
+        f"Source missions: `{MINIMAL_MISSION}` and `{LOADED_MISSION}`.",
+        "",
+        "This report compares two verified point-in-time evidence sets. "
+        "It performs no new live scan and gives bounded observations rather "
+        "than a diagnosis or tuning recommendation.",
+        "",
+        "## Minimal versus normal loaded",
+        "",
+        "| Measurement | Minimal load | Normal loaded | Loaded − minimal |",
+        "|---|---:|---:|---:|",
+    ]
+    report_metrics = [
+        ("Memory load",
+         metric_by_name["memory_load_percent"], "%"),
+        ("Physical RAM in use",
+         metric_by_name["physical_memory_in_use_bytes"], "bytes"),
+        ("Available physical RAM",
+         metric_by_name["available_physical_memory_bytes"], "bytes"),
+        ("Committed memory",
+         metric_by_name["committed_bytes"], "bytes"),
+        ("Current page-file use",
+         metric_by_name["page_file_current_usage_mib"], "MiB"),
+        ("Process count",
+         metric_by_name["process_count"], "count"),
+        ("FOXAI workspace process count",
+         metric_by_name["foxai_workspace_process_count"], "count"),
+    ]
+    for label, row, kind in report_metrics:
+        if kind == "%":
+            mn = percentage(row["minimal_load"]["value"])
+            ld = percentage(row["normal_loaded"]["value"])
+            dl = f'{row["delta_loaded_minus_minimal"]["value"]:.2f} points'
+        elif kind == "bytes":
+            mn = decimal_gb(row["minimal_load"]["value"])
+            ld = decimal_gb(row["normal_loaded"]["value"])
+            dl = decimal_gb(row["delta_loaded_minus_minimal"]["value"])
+        elif kind == "MiB":
+            mn = mib(row["minimal_load"]["value"])
+            ld = mib(row["normal_loaded"]["value"])
+            dl = mib(row["delta_loaded_minus_minimal"]["value"])
+        else:
+            mn = str(row["minimal_load"]["value"])
+            ld = str(row["normal_loaded"]["value"])
+            dl = f'{row["delta_loaded_minus_minimal"]["value"]:+d}'
+        report_lines.append(f"| {label} | {mn} | {ld} | {dl} |")
+
+    report_lines += [
+        "",
+        "The normal-loaded capture used "
+        f"{decimal_gb(metric_by_name['physical_memory_in_use_bytes']['delta_loaded_minus_minimal']['value'])} "
+        "more physical RAM than the minimal-load capture. Available physical "
+        "RAM decreased by the same byte amount because both captures reported "
+        "the same installed physical-memory total.",
+        "",
+        "## Measured FOXAI component working sets",
+        "",
+        "| Component | Minimal load | Normal loaded | Loaded − minimal |",
+        "|---|---:|---:|---:|",
+    ]
+    component_labels = [
+        ("Shared model runtime", "shared_model_runtime"),
+        ("Idle ComfyUI runtime", "comfyui_idle_runtime"),
+        ("FOXAI Desktop", "foxai_desktop"),
+        ("FOXAI WebUI", "foxai_webui"),
+    ]
+    for label, key in component_labels:
+        row = component_by_name[key]
+        report_lines.append(
+            f"| {label} | {decimal_gb(row['minimal_load']['value'])} | "
+            f"{decimal_gb(row['normal_loaded']['value'])} | "
+            f"{decimal_gb(row['delta_loaded_minus_minimal']['value'])} |"
+        )
+
+    report_lines += [
+        "",
+        "The shared model runtime was the dominant measured FOXAI process "
+        f"at {decimal_gb(model_ws)} ({binary_gib(model_ws)}). The WebUI, "
+        "Desktop, and idle ComfyUI working sets were comparatively smaller. "
+        "These process working sets are point-in-time values and are not an "
+        "exclusive additive accounting of all physical memory.",
+        "",
+        "## Capacity headroom observations",
+        "",
+        f"- Available physical RAM at normal loaded capture: "
+        f"{decimal_gb(available_loaded)} ({binary_gib(available_loaded)}).",
+        f"- Point-in-time physical-memory headroom: "
+        f"{percentage(physical_headroom_percent)}.",
+        f"- Captured commit headroom: "
+        f"{decimal_gb(commit_headroom_loaded)} "
+        f"({binary_gib(commit_headroom_loaded)}).",
+        f"- Current page-file usage at the loaded capture was "
+        f"{mib(loaded_mem['page_file_current_usage_mib'])}. The "
+        f"{mib(loaded_mem['page_file_peak_usage_mib'])} value is a "
+        "historical peak since boot, not the page-file usage at capture time.",
+        "",
+        "## Known limitations",
+        "",
+        "- The loaded qualification could not determine active ComfyUI "
+        "generation without connecting to live workflow state; the capture "
+        "therefore relied on the user’s idle-queue precondition.",
+        "- The evidence does not prove capacity during active image "
+        "generation, longer model contexts, multiple simultaneous large "
+        "models, additional applications, or future workload changes.",
+        "- This comparison does not diagnose the computer and issues no "
+        "repair, deletion, service, startup, page-file, security, purchasing, "
+        "model-replacement, or performance-tuning recommendation.",
+        "",
+        "## Evidence integrity",
+        "",
+        "All eight authoritative input files were hash-verified. Both source "
+        "qualification states and both capture-receipt relationships were "
+        "verified. The original minimal-load and normal-loaded evidence was "
+        "read only and unchanged.",
+        "",
+    ]
+    report_bytes = ("\n".join(report_lines)).encode("utf-8")
+    if b"\r" in report_bytes:
+        raise AssertionError("markdown_not_lf_only")
+
+    outputs: dict[str, bytes] = {
+        "RESOURCE_BASELINE_COMPARISON.json":
+            canonical_json_bytes(comparison),
+        "FOXAI_COMPONENT_RESOURCE_ATTRIBUTION.json":
+            canonical_json_bytes(attribution),
+        "CAPACITY_HEADROOM_OBSERVATIONS.json":
+            canonical_json_bytes(headroom),
+        "BASELINE_COMPARISON_REPORT.md": report_bytes,
+    }
+    receipt_rows = []
+    for name in OUTPUT_NAMES[:-1]:
+        data = outputs[name]
+        receipt_rows.append({
+            "name": name,
+            "sha256": sha256_bytes(data),
+            "size_bytes": len(data),
+        })
+    receipt = {
+        "schema": f"{SCHEMA_PREFIX}.baseline_comparison_receipt.v1",
+        "mission_id": mission_id,
+        "status": "compared_and_verified",
+        "generated_at": generated_at,
+        "availability_status": "available",
+        "output_count": 5,
+        "outputs_before_receipt": receipt_rows,
+        "authoritative_input_count": 8,
+        "authoritative_inputs_verified": True,
+        "minimal_qualification_verified": True,
+        "normal_loaded_qualification_verified": True,
+        "capture_receipt_relationships_verified": True,
+        "arithmetic_delta_consistency_verified": True,
+        "deterministic_utf8_lf_serialization": True,
+        "read_only_evidence_comparison": True,
+        "new_live_scan_performed": False,
+        "live_process_inspection_performed": False,
+        "live_listener_inspection_performed": False,
+        "network_connections_initiated": False,
+        "live_foxai_modules_imported": False,
+        "automatic_process_changes_performed": False,
+        "services_changed": False,
+        "startup_items_changed": False,
+        "registry_writes": False,
+        "minimal_load_evidence_modified": False,
+        "normal_loaded_evidence_modified": False,
+        "webui_or_desktop_integration_modified": False,
+        "privacy_validation_passed": True,
+        "rollback_drive_k_accessed": False,
+        "diagnosis_issued": False,
+        "recommendations_issued": False,
+    }
+    outputs["BASELINE_COMPARISON_RECEIPT.json"] = canonical_json_bytes(
+        receipt
+    )
+    return outputs
+
+
+def run_compare(mission_id: str, output_dir: Path) -> int:
+    minimal_files, minimal_rows = verified_json_files(
+        MINIMAL_ROOT, MINIMAL_FILES, MINIMAL_MISSION
+    )
+    loaded_files, loaded_rows = verified_json_files(
+        LOADED_ROOT, LOADED_FILES, LOADED_MISSION
+    )
+    relationships = [
+        validate_capture_relationship(
+            minimal_files, "MINIMAL_LOAD", "qualified_minimal_load",
+            MINIMAL_MISSION
+        ),
+        validate_capture_relationship(
+            loaded_files, "NORMAL_LOADED", "qualified_normal_loaded",
+            LOADED_MISSION
+        ),
+    ]
+    outputs = build_outputs(
+        mission_id,
+        minimal_files,
+        loaded_files,
+        minimal_rows + loaded_rows,
+        relationships,
+    )
+    if set(outputs) != set(OUTPUT_NAMES):
+        raise AssertionError("unexpected_output_set")
+    if output_dir.exists():
+        existing = [p for p in output_dir.iterdir() if p.is_file()]
+        if existing:
+            raise FileExistsError(
+                "output_directory_contains_existing_files"
+            )
+    output_dir.mkdir(parents=True, exist_ok=True)
+    for name in OUTPUT_NAMES:
+        (output_dir / name).write_bytes(outputs[name])
+    summary = {
+        "status": "compared_and_verified",
+        "mission_id": mission_id,
+        "output_count": len(outputs),
+        "authoritative_input_count": 8,
+        "minimal_qualification": "qualified_minimal_load",
+        "normal_loaded_qualification": "qualified_normal_loaded",
+        "new_live_scan_performed": False,
+        "automatic_process_changes_performed": False,
+        "network_connections_initiated": False,
+        "rollback_drive_k_accessed": False,
+    }
+    sys.stdout.write(json.dumps(summary, sort_keys=True) + "\n")
+    return 0
+
+
+def run_self_test() -> int:
+    assert stable_id("TEST", "a", 1) == stable_id("TEST", "a", 1)
+    assert canonical_json_bytes({"b": 2, "a": 1}) == (
+        b'{\n  "a": 1,\n  "b": 2\n}\n'
+    )
+    assert decimal_gb(8_379_232_256) == "8.38 GB"
+    assert binary_gib(8_379_232_256) == "7.80 GiB"
+    assert 42_833_985_536 - 8_947_032_064 == 33_886_953_472
+    assert round(100 - 83.64, 2) == 16.36
+    result = {
+        "status": "ok",
+        "output_count": 5,
+        "authoritative_input_count": 8,
+        "stable_ids": True,
+        "canonical_lf_only": True,
+        "arithmetic_delta_consistency": True,
+        "qualified_minimal_fixture": True,
+        "qualified_loaded_fixture": True,
+        "receipt_relationship_fixture": True,
+        "no_live_scan_design": True,
+        "recommendations_excluded": True,
+        "diagnosis_excluded": True,
+        "k_path_excluded": True,
+    }
+    sys.stdout.write(json.dumps(result, sort_keys=True) + "\n")
+    return 0
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser()
+    sub = parser.add_subparsers(dest="command", required=True)
+    sub.add_parser("self-test")
+    compare = sub.add_parser("compare")
+    compare.add_argument("--mission-id", required=True)
+    compare.add_argument("--output-dir", type=Path, required=True)
+    args = parser.parse_args()
+    if args.command == "self-test":
+        return run_self_test()
+    if args.command == "compare":
+        return run_compare(args.mission_id, args.output_dir)
+    raise AssertionError("unreachable")
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

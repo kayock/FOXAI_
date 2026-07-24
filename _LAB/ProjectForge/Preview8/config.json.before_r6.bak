@@ -1,0 +1,30 @@
+{
+  "source_root": "Z:\\FOXAI\\_LAB\\DirtyPythonLab",
+  "workspace_root": "Z:\\FOXAI\\_LAB\\ProjectForge\\Preview8Workspaces",
+  "endpoint": "http://127.0.0.1:8080/v1",
+  "model_id": "Z:\\FOXAI\\Models\\Chat\\Qwen3-Coder-30B-A3B-Instruct-Q4_K_M.gguf",
+  "context_limit": 16384,
+  "output_limit": 4096,
+  "target_file": "dirty_python_lab.py",
+  "max_rounds": 3,
+  "opencode_timeout_seconds": 900,
+  "test_timeout_seconds": 300,
+  "initial_symbol_limit": 14,
+  "repair_symbol_limit": 10,
+  "seed_symbols": [
+    "DirtyPythonLabEngine",
+    "LabApplication",
+    "LabRequestHandler",
+    "run_code_in_background",
+    "handle_run_request",
+    "handle_poll_request",
+    "save_result",
+    "main"
+  ],
+  "opencode_command": ["opencode"],
+  "test_commands": [
+    ["{python}", "-m", "unittest", "discover", "-s", "tests", "-v"]
+  ],
+  "host": "127.0.0.1",
+  "port": 8788
+}

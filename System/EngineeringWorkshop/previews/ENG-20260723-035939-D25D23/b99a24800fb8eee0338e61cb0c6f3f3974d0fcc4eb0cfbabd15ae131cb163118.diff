@@ -1,0 +1,1515 @@
+--- /dev/null
++++ b/System/EngineeringWorkshop/ContractBridge/CONTRACT_BRIDGE_CONTRACT_V1.json
+@@ -0,0 +1,57 @@
++{
++  "schema": "foxai.engineering.contract_bridge.contract.v1",
++  "mission_id": "ENG-20260723-035939-D25D23",
++  "version": "1.0.1",
++  "installation_root": "System/EngineeringWorkshop/ContractBridge",
++  "frozen_reference_unchanged": true,
++  "explicit_refresh_only": true,
++  "fixed_source_candidates": [
++    "core/engineering_workshop_bridge.py",
++    "core/engineer_agent.py",
++    "Departments/Engineering/patch_engine.py",
++    "Departments/Engineering/workshop.py",
++    "Departments/Engineering/models.py",
++    "Departments/Engineering/validator.py",
++    "Departments/Engineering/mission_router.py",
++    "Departments/Engineering/mission_state.py",
++    "System/AgentFoxTechnicalCore/Reference/TECHNICAL_CORE_REFERENCE_MANIFEST.json",
++    "System/AgentFoxTechnicalCore/Reference/TECHNICAL_CORE_REFERENCE_GUIDE.md"
++  ],
++  "authoritative_reference_hashes": {
++    "System/AgentFoxTechnicalCore/Reference/TECHNICAL_CORE_REFERENCE_MANIFEST.json": "459b1d16af76af323fdd5037af7f044c7accf19db7e40652c3c7a6bb0d883737",
++    "System/AgentFoxTechnicalCore/Reference/TECHNICAL_CORE_REFERENCE_GUIDE.md": "d194b5c649e29a06b1b5d2b8438185b35674318d5c5410f1583df59b3782d570"
++  },
++  "commands": [
++    "validate-plan",
++    "check-folder",
++    "check-zip",
++    "inspect-current",
++    "symbol-inventory",
++    "export-capsule",
++    "validate-patch",
++    "explain-receipt",
++    "self-test"
++  ],
++  "non_goals": [
++    "modify Workshop parser or executor",
++    "background monitoring",
++    "filesystem walking or glob search",
++    "network access",
++    "package installation",
++    "live system measurement",
++    "diagnosis",
++    "repair",
++    "optimization",
++    "recommendations",
++    "model calls",
++    "GUI launches",
++    "K drive access"
++  ],
++  "r1_correction": {
++    "reason": "Windows CRLF temporary-source fixture caused an LF-only anchor comparison failure.",
++    "newline_normalized_comparison": true,
++    "original_newline_style_preserved": true,
++    "lf_fixture": true,
++    "crlf_fixture": true
++  }
++}
+--- /dev/null
++++ b/System/EngineeringWorkshop/ContractBridge/CONTRACT_BRIDGE_FIXTURES_V1.json
+@@ -0,0 +1,48 @@
++{
++  "schema": "foxai.engineering.contract_bridge.fixtures.v1",
++  "cases": [
++    {
++      "id": "replace_text_old_new_valid",
++      "expect": "pass",
++      "change": {
++        "action": "replace_text",
++        "path": "module.py",
++        "must_exist": true,
++        "expected_before_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
++        "old": "before",
++        "new": "after"
++      }
++    },
++    {
++      "id": "replace_text_old_text_new_text_rejected",
++      "expect": "fail",
++      "change": {
++        "action": "replace_text",
++        "path": "module.py",
++        "must_exist": true,
++        "expected_before_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
++        "old_text": "before",
++        "new_text": "after"
++      }
++    },
++    {
++      "id": "write_file_valid",
++      "expect": "pass",
++      "change": {
++        "action": "write_file",
++        "path": "new.txt",
++        "must_exist": false,
++        "expected_before_sha256": null,
++        "content": "hello\n"
++      }
++    },
++    {
++      "id": "unsupported_action_rejected",
++      "expect": "fail",
++      "change": {
++        "action": "delete_file",
++        "path": "bad.txt"
++      }
++    }
++  ]
++}
+--- /dev/null
++++ b/System/EngineeringWorkshop/ContractBridge/Current/README.md
+@@ -0,0 +1,9 @@
++# Explicitly Refreshed Current Reference Layer
++
++This directory is intentionally separate from the frozen authoritative Technical Core
++manifest and guide.
++
++Run `..\RUN_REFERENCE_REFRESH.bat` to regenerate
++`CURRENT_WORKSHOP_SOURCE_CONTRACT.json` from the fixed approved source list.
++
++No refresh runs automatically.
+--- /dev/null
++++ b/System/EngineeringWorkshop/ContractBridge/README.md
+@@ -0,0 +1,49 @@
++# Engineering Workshop Contract and Reference Bridge V1
++
++Mission: `ENG-20260723-035939-D25D23`
++
++This add-only foundation installs a shared machine-readable contract layer for the
++Engineering Workshop and future Agent Fox Technical Core work.
++
++## What it fixes
++
++- Exact Workshop plan fields are validated before a package is delivered.
++- `replace_text` requires `old` and `new`; `old_text` and `new_text` fail clearly.
++- Package ZIP and extracted-folder roots are checked before preview.
++- Real Python source symbols and helper signatures can be exported with hashes.
++- Proposed patches can be applied to a temporary copy of the actual source.
++- Workshop receipt failures can be reduced to the exact failing validation and traceback.
++- Small mission-specific reference capsules can be uploaded instead of manually pasting
++  long source files and receipts.
++
++## Installed commands
++
++Use:
++
++```bat
++RUN_CONTRACT_BRIDGE.bat validate-plan "Z:\FOXAI\PACKAGE\PLAN.json"
++RUN_CONTRACT_BRIDGE.bat inspect-current --project-root "Z:\FOXAI"
++RUN_CONTRACT_BRIDGE.bat check-folder "Z:\FOXAI\PACKAGE" --expected-name "PACKAGE"
++RUN_CONTRACT_BRIDGE.bat explain-receipt "Z:\FOXAI\System\EngineeringWorkshop\receipts\...\receipt.json"
++RUN_REFERENCE_REFRESH.bat
++```
++
++The refresh command is explicit. There is no background scan or monitoring.
++
++## Safety boundary
++
++The bridge uses fixed files or an explicit caller-supplied file list. It does not walk the
++filesystem, use the network, install packages, inspect live processes/services/listeners,
++measure live resources, call a model, launch a GUI, diagnose, repair, optimize, recommend
++system changes, or access `K:`.
++
++The existing Workshop parser, executor, shared Agent Fox adapter, Desktop, WebUI, V1B-3A
++broker, V1B-2 provider, and frozen Technical Core manifest/guide are unchanged.
++
++## R1 Windows newline correction
++
++The temporary real-source patch harness now compares replacement anchors using
++normalized line endings while writing the patched temporary copy back with the
++source file's original LF, CRLF, or CR newline style. Permanent self-tests cover
++both LF and CRLF source files. The original project source remains byte-for-byte
++unchanged during temporary validation.
+--- /dev/null
++++ b/System/EngineeringWorkshop/ContractBridge/REFERENCE_CAPSULE_REQUEST_TEMPLATE_V1.json
+@@ -0,0 +1,22 @@
++{
++  "schema": "foxai.engineering.reference_capsule.request.v1",
++  "project_root": "Z:\\FOXAI",
++  "capsule_id": "EXAMPLE-CAPSULE",
++  "files": [
++    {
++      "path": "System/AgentFoxTechnicalCore/self_knowledge_chat_adapter_v1.py",
++      "line_ranges": [
++        [
++          520,
++          700
++        ]
++      ]
++    },
++    {
++      "path": "System/AgentFoxTechnicalCore/current_state_request_broker_v1.py",
++      "line_ranges": []
++    }
++  ],
++  "include_plan_schema": true,
++  "include_command_grammar": true
++}
+--- /dev/null
++++ b/System/EngineeringWorkshop/ContractBridge/RUN_CONTRACT_BRIDGE.bat
+@@ -0,0 +1,11 @@
++@echo off
++setlocal
++set "BRIDGE_DIR=%~dp0"
++set "FOXAI_ROOT=%BRIDGE_DIR%..\..\..\"
++set "PY=%FOXAI_ROOT%Runtime\Desktop\python\python.exe"
++if not exist "%PY%" (
++  echo Contract Bridge Python not found: %PY%
++  exit /b 2
++)
++"%PY%" -I -B -S "%BRIDGE_DIR%contract_bridge_v1.py" %*
++exit /b %ERRORLEVEL%
+--- /dev/null
++++ b/System/EngineeringWorkshop/ContractBridge/RUN_REFERENCE_REFRESH.bat
+@@ -0,0 +1,10 @@
++@echo off
++setlocal
++set "BRIDGE_DIR=%~dp0"
++set "FOXAI_ROOT=%BRIDGE_DIR%..\..\..\"
++set "OUT=%BRIDGE_DIR%Current\CURRENT_WORKSHOP_SOURCE_CONTRACT.json"
++call "%BRIDGE_DIR%RUN_CONTRACT_BRIDGE.bat" inspect-current --project-root "%FOXAI_ROOT%" --output "%OUT%"
++if errorlevel 1 exit /b %ERRORLEVEL%
++echo.
++echo Current Workshop source contract written to:
++echo %OUT%
+--- /dev/null
++++ b/System/EngineeringWorkshop/ContractBridge/WORKSHOP_COMMAND_GRAMMAR_V1.json
+@@ -0,0 +1,54 @@
++{
++  "schema": "foxai.engineering.workshop.command_grammar.v1",
++  "purpose": "Machine-readable command forms and examples. Current-source evidence can be regenerated explicitly.",
++  "prefixes": [
++    "/engineer workshop",
++    "workshop"
++  ],
++  "commands": {
++    "begin": {
++      "syntax": "workshop begin TITLE :: IMPLEMENTATION MISSION",
++      "example": "workshop begin Example Mission :: Implement an add-only example.",
++      "required_separator": "::"
++    },
++    "locate": {
++      "syntax": "workshop locate MISSION-ID :: term one | term two",
++      "example": "workshop locate ENG-20260723-000000-ABC123 :: patch_engine | replace_text",
++      "required_separators": [
++        "::",
++        "|"
++      ]
++    },
++    "save-plan": {
++      "syntax": "workshop save-plan MISSION-ID :: {JSON PLAN}",
++      "example": "workshop save-plan ENG-20260723-000000-ABC123 :: {\"changes\":[]}",
++      "required_separator": "::"
++    },
++    "preview": {
++      "syntax": "workshop preview \"ABSOLUTE PLAN PATH\"",
++      "example": "workshop preview \"Z:\\FOXAI\\PACKAGE\\PLAN.json\""
++    },
++    "apply": {
++      "syntax": "workshop apply \"ABSOLUTE PLAN PATH\" :: APPLY PLAN-SHA256",
++      "example": "workshop apply \"Z:\\FOXAI\\PACKAGE\\PLAN.json\" :: APPLY 0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
++      "required_separator": "::"
++    },
++    "status": {
++      "syntax": "workshop status",
++      "example": "workshop status",
++      "note": "Confirm current behavior through explicit current-source extraction."
++    },
++    "continue": {
++      "syntax": "workshop continue MISSION-ID",
++      "example": "workshop continue ENG-20260723-000000-ABC123",
++      "note": "Confirm current behavior through explicit current-source extraction."
++    }
++  },
++  "authoritative_source_candidates": [
++    "core/engineering_workshop_bridge.py",
++    "core/engineer_agent.py",
++    "Departments/Engineering/patch_engine.py",
++    "Departments/Engineering/workshop.py",
++    "Departments/Engineering/mission_router.py"
++  ]
++}
+--- /dev/null
++++ b/System/EngineeringWorkshop/ContractBridge/WORKSHOP_PLAN_SCHEMA_V1.json
+@@ -0,0 +1,203 @@
++{
++  "$schema": "https://json-schema.org/draft/2020-12/schema",
++  "$id": "foxai://engineering/workshop/plan/v1",
++  "title": "FOXAI Engineering Workshop Exact Plan V1",
++  "type": "object",
++  "required": [
++    "schema",
++    "mission_id",
++    "title",
++    "project_root",
++    "changes",
++    "validations"
++  ],
++  "properties": {
++    "schema": {
++      "const": "foxai.engineering.plan.v1"
++    },
++    "mission_id": {
++      "type": "string",
++      "pattern": "^ENG-[A-Za-z0-9-]+$"
++    },
++    "title": {
++      "type": "string",
++      "minLength": 1
++    },
++    "project_root": {
++      "type": "string",
++      "minLength": 3
++    },
++    "changes": {
++      "type": "array",
++      "minItems": 1,
++      "items": {
++        "oneOf": [
++          {
++            "$ref": "#/$defs/write_file"
++          },
++          {
++            "$ref": "#/$defs/replace_text"
++          }
++        ]
++      }
++    },
++    "validations": {
++      "type": "array",
++      "minItems": 1,
++      "items": {
++        "$ref": "#/$defs/validation"
++      }
++    },
++    "constraints": {
++      "type": "object"
++    }
++  },
++  "additionalProperties": true,
++  "$defs": {
++    "sha256_or_null": {
++      "oneOf": [
++        {
++          "type": "null"
++        },
++        {
++          "type": "string",
++          "pattern": "^[0-9a-fA-F]{64}$"
++        }
++      ]
++    },
++    "write_file": {
++      "type": "object",
++      "required": [
++        "action",
++        "path",
++        "must_exist",
++        "expected_before_sha256",
++        "content"
++      ],
++      "properties": {
++        "action": {
++          "const": "write_file"
++        },
++        "path": {
++          "type": "string",
++          "minLength": 1
++        },
++        "must_exist": {
++          "type": "boolean"
++        },
++        "expected_before_sha256": {
++          "$ref": "#/$defs/sha256_or_null"
++        },
++        "content": {
++          "type": "string"
++        }
++      },
++      "not": {
++        "anyOf": [
++          {
++            "required": [
++              "old"
++            ]
++          },
++          {
++            "required": [
++              "new"
++            ]
++          },
++          {
++            "required": [
++              "old_text"
++            ]
++          },
++          {
++            "required": [
++              "new_text"
++            ]
++          }
++        ]
++      },
++      "additionalProperties": true
++    },
++    "replace_text": {
++      "type": "object",
++      "required": [
++        "action",
++        "path",
++        "must_exist",
++        "expected_before_sha256",
++        "old",
++        "new"
++      ],
++      "properties": {
++        "action": {
++          "const": "replace_text"
++        },
++        "path": {
++          "type": "string",
++          "minLength": 1
++        },
++        "must_exist": {
++          "const": true
++        },
++        "expected_before_sha256": {
++          "type": "string",
++          "pattern": "^[0-9a-fA-F]{64}$"
++        },
++        "old": {
++          "type": "string",
++          "minLength": 1
++        },
++        "new": {
++          "type": "string"
++        }
++      },
++      "not": {
++        "anyOf": [
++          {
++            "required": [
++              "old_text"
++            ]
++          },
++          {
++            "required": [
++              "new_text"
++            ]
++          }
++        ]
++      },
++      "additionalProperties": true
++    },
++    "validation": {
++      "type": "object",
++      "required": [
++        "name",
++        "argv",
++        "cwd",
++        "timeout_seconds"
++      ],
++      "properties": {
++        "name": {
++          "type": "string",
++          "minLength": 1
++        },
++        "argv": {
++          "type": "array",
++          "minItems": 1,
++          "items": {
++            "type": "string"
++          }
++        },
++        "cwd": {
++          "type": "string",
++          "minLength": 1
++        },
++        "timeout_seconds": {
++          "type": "integer",
++          "minimum": 1,
++          "maximum": 86400
++        }
++      },
++      "additionalProperties": true
++    }
++  }
++}
+--- /dev/null
++++ b/System/EngineeringWorkshop/ContractBridge/contract_bridge_v1.py
+@@ -0,0 +1,1022 @@
++from __future__ import annotations
++
++import argparse
++import ast
++import builtins
++import hashlib
++import json
++from pathlib import Path, PurePosixPath
++import re
++import shutil
++import subprocess
++import sys
++import tempfile
++import zipfile
++from typing import Any, Iterable, Mapping, Optional
++
++
++BRIDGE_ID = "engineering_workshop_contract_reference_bridge_v1"
++BRIDGE_VERSION = "1.0.1"
++PLAN_SCHEMA_NAME = "WORKSHOP_PLAN_SCHEMA_V1.json"
++COMMAND_GRAMMAR_NAME = "WORKSHOP_COMMAND_GRAMMAR_V1.json"
++FIXTURES_NAME = "CONTRACT_BRIDGE_FIXTURES_V1.json"
++
++FIXED_CURRENT_SOURCE_CANDIDATES = (
++    "core/engineering_workshop_bridge.py",
++    "core/engineer_agent.py",
++    "Departments/Engineering/patch_engine.py",
++    "Departments/Engineering/workshop.py",
++    "Departments/Engineering/models.py",
++    "Departments/Engineering/validator.py",
++    "Departments/Engineering/mission_router.py",
++    "Departments/Engineering/mission_state.py",
++    "System/AgentFoxTechnicalCore/Reference/TECHNICAL_CORE_REFERENCE_MANIFEST.json",
++    "System/AgentFoxTechnicalCore/Reference/TECHNICAL_CORE_REFERENCE_GUIDE.md",
++)
++
++AUTHORITATIVE_REFERENCE_HASHES = {
++    "System/AgentFoxTechnicalCore/Reference/TECHNICAL_CORE_REFERENCE_MANIFEST.json":
++        "459b1d16af76af323fdd5037af7f044c7accf19db7e40652c3c7a6bb0d883737",
++    "System/AgentFoxTechnicalCore/Reference/TECHNICAL_CORE_REFERENCE_GUIDE.md":
++        "d194b5c649e29a06b1b5d2b8438185b35674318d5c5410f1583df59b3782d570",
++}
++
++SHA256_RE = re.compile(r"^[0-9a-fA-F]{64}$")
++WINDOWS_ABS_RE = re.compile(r"^[A-Za-z]:[\\/]")
++
++
++class ContractError(ValueError):
++    pass
++
++
++def _json_load(path: Path) -> Any:
++    return json.loads(path.read_text(encoding="utf-8"))
++
++
++def _json_write(path: Path, value: Any) -> None:
++    path.parent.mkdir(parents=True, exist_ok=True)
++    path.write_text(
++        json.dumps(value, indent=2, sort_keys=True, ensure_ascii=False) + "\n",
++        encoding="utf-8",
++        newline="\n",
++    )
++
++
++def _sha256(data: bytes) -> str:
++    return hashlib.sha256(data).hexdigest()
++
++
++def _require(condition: bool, message: str, errors: list[str]) -> None:
++    if not condition:
++        errors.append(message)
++
++
++def validate_change(change: Any, index: int = 0) -> list[str]:
++    errors: list[str] = []
++    prefix = f"changes[{index}]"
++    if not isinstance(change, Mapping):
++        return [f"{prefix} must be an object"]
++    action = change.get("action")
++    _require(isinstance(action, str) and bool(action), f"{prefix}.action is required", errors)
++    _require(
++        isinstance(change.get("path"), str) and bool(str(change.get("path") or "").strip()),
++        f"{prefix}.path is required",
++        errors,
++    )
++
++    if action == "write_file":
++        _require(isinstance(change.get("must_exist"), bool), f"{prefix}.must_exist must be boolean", errors)
++        before = change.get("expected_before_sha256")
++        _require(
++            before is None or (isinstance(before, str) and bool(SHA256_RE.fullmatch(before))),
++            f"{prefix}.expected_before_sha256 must be null or SHA-256",
++            errors,
++        )
++        _require(isinstance(change.get("content"), str), f"{prefix}.content must be a string", errors)
++        for forbidden in ("old", "new", "old_text", "new_text"):
++            _require(forbidden not in change, f"{prefix}.{forbidden} is not valid for write_file", errors)
++
++    elif action == "replace_text":
++        _require(change.get("must_exist") is True, f"{prefix}.must_exist must be true", errors)
++        before = change.get("expected_before_sha256")
++        _require(
++            isinstance(before, str) and bool(SHA256_RE.fullmatch(before)),
++            f"{prefix}.expected_before_sha256 must be a SHA-256 string",
++            errors,
++        )
++        _require(
++            isinstance(change.get("old"), str) and bool(change.get("old")),
++            f"{prefix}.old must be a non-empty string",
++            errors,
++        )
++        _require(isinstance(change.get("new"), str), f"{prefix}.new must be a string", errors)
++        _require("old_text" not in change, f"{prefix}.old_text is invalid; use old", errors)
++        _require("new_text" not in change, f"{prefix}.new_text is invalid; use new", errors)
++
++    else:
++        errors.append(f"{prefix}.action unsupported: {action!r}")
++    return errors
++
++
++def validate_plan_document(plan: Any) -> dict[str, Any]:
++    errors: list[str] = []
++    if not isinstance(plan, Mapping):
++        return {"valid": False, "errors": ["Plan must be one JSON object."]}
++
++    _require(plan.get("schema") == "foxai.engineering.plan.v1", "schema must be foxai.engineering.plan.v1", errors)
++    mission = plan.get("mission_id")
++    _require(
++        isinstance(mission, str) and mission.startswith("ENG-"),
++        "mission_id must be a non-empty ENG- identifier",
++        errors,
++    )
++    _require(isinstance(plan.get("title"), str) and bool(plan.get("title")), "title is required", errors)
++    root = plan.get("project_root")
++    _require(
++        isinstance(root, str) and bool(WINDOWS_ABS_RE.match(root)),
++        "project_root must be an absolute Windows path",
++        errors,
++    )
++
++    changes = plan.get("changes")
++    _require(isinstance(changes, list) and bool(changes), "changes must be a non-empty list", errors)
++    if isinstance(changes, list):
++        for index, change in enumerate(changes):
++            errors.extend(validate_change(change, index))
++
++    validations = plan.get("validations")
++    _require(isinstance(validations, list) and bool(validations), "validations must be a non-empty list", errors)
++    if isinstance(validations, list):
++        for index, validation in enumerate(validations):
++            prefix = f"validations[{index}]"
++            if not isinstance(validation, Mapping):
++                errors.append(f"{prefix} must be an object")
++                continue
++            _require(
++                isinstance(validation.get("name"), str) and bool(validation.get("name")),
++                f"{prefix}.name is required",
++                errors,
++            )
++            argv = validation.get("argv")
++            _require(
++                isinstance(argv, list)
++                and bool(argv)
++                and all(isinstance(item, str) for item in argv),
++                f"{prefix}.argv must be a non-empty list of strings",
++                errors,
++            )
++            _require(
++                isinstance(validation.get("cwd"), str) and bool(validation.get("cwd")),
++                f"{prefix}.cwd is required",
++                errors,
++            )
++            timeout = validation.get("timeout_seconds")
++            _require(
++                isinstance(timeout, int) and 1 <= timeout <= 86400,
++                f"{prefix}.timeout_seconds must be 1..86400",
++                errors,
++            )
++
++    return {
++        "schema": "foxai.engineering.contract_bridge.plan_validation.v1",
++        "bridge_id": BRIDGE_ID,
++        "bridge_version": BRIDGE_VERSION,
++        "valid": not errors,
++        "errors": errors,
++        "mission_id": plan.get("mission_id") if isinstance(plan, Mapping) else None,
++        "actions": [
++            change.get("action")
++            for change in changes
++            if isinstance(change, Mapping)
++        ] if isinstance(changes, list) else [],
++    }
++
++
++def validate_plan_file(path: Path) -> dict[str, Any]:
++    try:
++        plan = _json_load(path)
++    except Exception as exc:
++        return {
++            "schema": "foxai.engineering.contract_bridge.plan_validation.v1",
++            "valid": False,
++            "errors": [f"{type(exc).__name__}: {exc}"],
++            "path": str(path),
++        }
++    result = validate_plan_document(plan)
++    result["path"] = str(path)
++    result["sha256"] = _sha256(path.read_bytes())
++    return result
++
++
++def check_folder(folder: Path, expected_name: str, required_file: str = "PLAN.json") -> dict[str, Any]:
++    errors: list[str] = []
++    _require(folder.is_dir(), f"Folder does not exist: {folder}", errors)
++    if folder.is_dir():
++        _require(folder.name == expected_name, f"Expected folder name {expected_name}, found {folder.name}", errors)
++        _require((folder / required_file).is_file(), f"Missing {required_file} directly inside {folder}", errors)
++    return {
++        "schema": "foxai.engineering.contract_bridge.folder_check.v1",
++        "valid": not errors,
++        "errors": errors,
++        "folder": str(folder),
++        "expected_name": expected_name,
++        "required_file": required_file,
++    }
++
++
++def check_zip(path: Path, expected_root: str, required_file: str = "PLAN.json") -> dict[str, Any]:
++    errors: list[str] = []
++    members: list[str] = []
++    if not path.is_file():
++        errors.append(f"ZIP does not exist: {path}")
++    else:
++        try:
++            with zipfile.ZipFile(path) as archive:
++                members = archive.namelist()
++        except Exception as exc:
++            errors.append(f"{type(exc).__name__}: {exc}")
++
++    normalized_root = expected_root.rstrip("/") + "/"
++    for member in members:
++        pure = PurePosixPath(member)
++        if pure.is_absolute() or ".." in pure.parts:
++            errors.append(f"Unsafe ZIP member: {member}")
++        if not member.startswith(normalized_root):
++            errors.append(f"Member outside expected root {expected_root}: {member}")
++    if members:
++        _require(
++            f"{normalized_root}{required_file}" in members,
++            f"Missing {expected_root}/{required_file}",
++            errors,
++        )
++    return {
++        "schema": "foxai.engineering.contract_bridge.zip_check.v1",
++        "valid": not errors,
++        "errors": sorted(set(errors)),
++        "path": str(path),
++        "expected_root": expected_root,
++        "members": members,
++    }
++
++
++def _ast_inventory(path: Path, text: str) -> dict[str, Any]:
++    try:
++        tree = ast.parse(text, filename=str(path))
++    except Exception as exc:
++        return {
++            "parsed": False,
++            "parse_error": f"{type(exc).__name__}: {exc}",
++            "module_names": [],
++            "functions": [],
++            "classes": [],
++            "imports": [],
++        }
++
++    module_names: set[str] = set()
++    imports: list[dict[str, Any]] = []
++    functions: list[dict[str, Any]] = []
++    classes: list[dict[str, Any]] = []
++
++    for node in tree.body:
++        if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)):
++            module_names.add(node.name)
++            functions.append({
++                "name": node.name,
++                "line": node.lineno,
++                "end_line": getattr(node, "end_lineno", node.lineno),
++                "arguments": [
++                    arg.arg for arg in (
++                        list(node.args.posonlyargs)
++                        + list(node.args.args)
++                        + list(node.args.kwonlyargs)
++                    )
++                ],
++                "vararg": node.args.vararg.arg if node.args.vararg else None,
++                "kwarg": node.args.kwarg.arg if node.args.kwarg else None,
++            })
++        elif isinstance(node, ast.ClassDef):
++            module_names.add(node.name)
++            classes.append({
++                "name": node.name,
++                "line": node.lineno,
++                "end_line": getattr(node, "end_lineno", node.lineno),
++                "methods": [
++                    child.name
++                    for child in node.body
++                    if isinstance(child, (ast.FunctionDef, ast.AsyncFunctionDef))
++                ],
++            })
++        elif isinstance(node, (ast.Assign, ast.AnnAssign)):
++            targets = node.targets if isinstance(node, ast.Assign) else [node.target]
++            for target in targets:
++                for name in _target_names(target):
++                    module_names.add(name)
++        elif isinstance(node, ast.Import):
++            for alias in node.names:
++                name = alias.asname or alias.name.split(".")[0]
++                module_names.add(name)
++                imports.append({"module": alias.name, "as": alias.asname, "line": node.lineno})
++        elif isinstance(node, ast.ImportFrom):
++            for alias in node.names:
++                name = alias.asname or alias.name
++                module_names.add(name)
++                imports.append({
++                    "module": node.module,
++                    "name": alias.name,
++                    "as": alias.asname,
++                    "line": node.lineno,
++                })
++
++    return {
++        "parsed": True,
++        "parse_error": None,
++        "module_names": sorted(module_names),
++        "functions": functions,
++        "classes": classes,
++        "imports": imports,
++    }
++
++
++def _target_names(target: ast.AST) -> set[str]:
++    names: set[str] = set()
++    if isinstance(target, ast.Name):
++        names.add(target.id)
++    elif isinstance(target, (ast.Tuple, ast.List)):
++        for item in target.elts:
++            names.update(_target_names(item))
++    return names
++
++
++def _file_record(project_root: Path, relative_path: str) -> dict[str, Any]:
++    path = project_root / Path(relative_path)
++    record: dict[str, Any] = {
++        "relative_path": relative_path,
++        "path": str(path),
++        "exists": path.is_file(),
++    }
++    if not path.is_file():
++        record.update({"size_bytes": None, "sha256": None})
++        return record
++    data = path.read_bytes()
++    record.update({"size_bytes": len(data), "sha256": _sha256(data)})
++    try:
++        text = data.decode("utf-8")
++        record["utf8"] = True
++    except UnicodeDecodeError as exc:
++        record.update({"utf8": False, "decode_error": str(exc)})
++        return record
++    if path.suffix.casefold() == ".py":
++        record["python"] = _ast_inventory(path, text)
++    return record
++
++
++def _usage_strings(text: str) -> list[dict[str, Any]]:
++    rows: list[dict[str, Any]] = []
++    for number, line in enumerate(text.splitlines(), 1):
++        if "Use: workshop " in line:
++            start = line.find("Use: workshop ")
++            value = line[start:].strip().strip("'\" )")
++            rows.append({"line": number, "usage": value, "source_line": line[:500]})
++    return rows
++
++
++def _action_evidence(text: str) -> list[dict[str, Any]]:
++    patterns = (
++        "write_file",
++        "replace_text",
++        "old_text",
++        "new_text",
++        'get("old")',
++        "get('old')",
++        'get("new")',
++        "get('new')",
++        "requires non-empty old",
++    )
++    rows: list[dict[str, Any]] = []
++    for number, line in enumerate(text.splitlines(), 1):
++        hits = [pattern for pattern in patterns if pattern in line]
++        if hits:
++            rows.append({"line": number, "hits": hits, "text": line[:600]})
++    return rows
++
++
++def inspect_current(project_root: Path) -> dict[str, Any]:
++    files = [_file_record(project_root, rel) for rel in FIXED_CURRENT_SOURCE_CANDIDATES]
++    by_rel = {row["relative_path"]: row for row in files}
++
++    bridge_path = project_root / "core/engineering_workshop_bridge.py"
++    patch_path = project_root / "Departments/Engineering/patch_engine.py"
++    bridge_text = bridge_path.read_text(encoding="utf-8") if bridge_path.is_file() else ""
++    patch_text = patch_path.read_text(encoding="utf-8") if patch_path.is_file() else ""
++
++    reference_checks = {}
++    for relative, expected in AUTHORITATIVE_REFERENCE_HASHES.items():
++        actual = by_rel.get(relative, {}).get("sha256")
++        reference_checks[relative] = {
++            "expected_sha256": expected,
++            "actual_sha256": actual,
++            "verified": actual == expected,
++        }
++
++    action_evidence = _action_evidence(patch_text)
++    actions_seen = sorted({
++        action
++        for action in ("write_file", "replace_text")
++        if any(action in row["hits"] or action in row["text"] for row in action_evidence)
++    })
++    usage = _usage_strings(bridge_text)
++
++    return {
++        "schema": "foxai.engineering.contract_bridge.current_inspection.v1",
++        "bridge_id": BRIDGE_ID,
++        "bridge_version": BRIDGE_VERSION,
++        "project_root": str(project_root),
++        "fixed_file_list_only": True,
++        "filesystem_walk_performed": False,
++        "files": files,
++        "workshop_bridge_found": bridge_path.is_file(),
++        "patch_engine_found": patch_path.is_file(),
++        "action_evidence": action_evidence,
++        "actions_seen": actions_seen,
++        "command_usage_evidence": usage,
++        "reference_checks": reference_checks,
++        "all_reference_hashes_verified": all(row["verified"] for row in reference_checks.values()),
++    }
++
++
++def _function_context(tree: ast.Module, target_line: int) -> Optional[ast.AST]:
++    candidates: list[ast.AST] = []
++    for node in ast.walk(tree):
++        if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)):
++            start = node.lineno
++            end = getattr(node, "end_lineno", start)
++            if start <= target_line <= end:
++                candidates.append(node)
++    if not candidates:
++        return None
++    candidates.sort(key=lambda node: getattr(node, "end_lineno", node.lineno) - node.lineno)
++    return candidates[0]
++
++
++def _scope_names(node: Optional[ast.AST]) -> set[str]:
++    if node is None:
++        return set()
++    names: set[str] = set()
++    if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)):
++        for arg in list(node.args.posonlyargs) + list(node.args.args) + list(node.args.kwonlyargs):
++            names.add(arg.arg)
++        if node.args.vararg:
++            names.add(node.args.vararg.arg)
++        if node.args.kwarg:
++            names.add(node.args.kwarg.arg)
++    for child in ast.walk(node):
++        if isinstance(child, (ast.Assign, ast.AnnAssign, ast.NamedExpr)):
++            targets = child.targets if isinstance(child, ast.Assign) else [child.target]
++            for target in targets:
++                names.update(_target_names(target))
++        elif isinstance(child, ast.For):
++            names.update(_target_names(child.target))
++        elif isinstance(child, ast.With):
++            for item in child.items:
++                if item.optional_vars:
++                    names.update(_target_names(item.optional_vars))
++        elif isinstance(child, ast.ExceptHandler) and child.name:
++            names.add(child.name)
++        elif isinstance(child, (ast.Import, ast.ImportFrom)):
++            if isinstance(child, ast.Import):
++                for alias in child.names:
++                    names.add(alias.asname or alias.name.split(".")[0])
++            else:
++                for alias in child.names:
++                    names.add(alias.asname or alias.name)
++    return names
++
++
++def assumed_symbols_for_replacement(source_text: str, old: str, new: str) -> dict[str, Any]:
++    if source_text.count(old) != 1:
++        return {
++            "valid_anchor": False,
++            "error": f"Expected old text exactly once, found {source_text.count(old)}",
++            "missing_assumed_symbols": [],
++        }
++    old_start_line = source_text[:source_text.index(old)].count("\n") + 1
++    source_tree = ast.parse(source_text)
++    inventory = _ast_inventory(Path("<source>"), source_text)
++    module_names = set(inventory.get("module_names") or [])
++    context = _function_context(source_tree, old_start_line)
++    context_names = _scope_names(context)
++
++    wrapper = "def __contract_bridge_snippet__():\n" + textwrap_indent(new, "    ")
++    snippet_tree = ast.parse(wrapper)
++    function = snippet_tree.body[0]
++    snippet_assigned = _scope_names(function)
++    snippet_loaded = {
++        node.id
++        for node in ast.walk(function)
++        if isinstance(node, ast.Name) and isinstance(node.ctx, ast.Load)
++    }
++    allowed = (
++        module_names
++        | context_names
++        | snippet_assigned
++        | set(dir(builtins))
++        | {"True", "False", "None"}
++    )
++    missing = sorted(snippet_loaded - allowed)
++    return {
++        "valid_anchor": True,
++        "old_start_line": old_start_line,
++        "context_function": getattr(context, "name", None),
++        "module_names_available": sorted(module_names),
++        "context_names_available": sorted(context_names),
++        "snippet_loaded_names": sorted(snippet_loaded),
++        "snippet_assigned_names": sorted(snippet_assigned),
++        "missing_assumed_symbols": missing,
++    }
++
++
++def textwrap_indent(text: str, prefix: str) -> str:
++    return "".join(prefix + line if line.strip() else prefix.rstrip() + "\n" for line in text.splitlines(True))
++
++
++def apply_plan_to_temp(plan: Mapping[str, Any], project_root: Path) -> dict[str, Any]:
++    validation = validate_plan_document(plan)
++    if not validation["valid"]:
++        return {
++            "schema": "foxai.engineering.contract_bridge.patch_validation.v1",
++            "valid": False,
++            "errors": validation["errors"],
++        }
++
++    temp_root = Path(tempfile.mkdtemp(prefix="foxai_contract_bridge_patch_"))
++    errors: list[str] = []
++    changed: list[dict[str, Any]] = []
++    assumed_symbol_findings: list[dict[str, Any]] = []
++
++    try:
++        for index, change in enumerate(plan["changes"]):
++            relative = str(change["path"]).replace("\\", "/")
++            source = project_root / Path(relative)
++            target = temp_root / Path(relative)
++            target.parent.mkdir(parents=True, exist_ok=True)
++
++            if source.is_file():
++                data = source.read_bytes()
++                target.write_bytes(data)
++            elif change["action"] == "replace_text" or change.get("must_exist"):
++                errors.append(f"Required source missing: {relative}")
++                continue
++
++            if change["action"] == "write_file":
++                before = target.read_bytes() if target.is_file() else None
++                expected = change.get("expected_before_sha256")
++                if expected is not None:
++                    actual = _sha256(before or b"")
++                    if actual != expected:
++                        errors.append(f"Preimage hash mismatch: {relative}")
++                        continue
++                target.write_text(change["content"], encoding="utf-8", newline="\n")
++
++            elif change["action"] == "replace_text":
++                before = target.read_bytes()
++                actual = _sha256(before)
++                if actual != change["expected_before_sha256"]:
++                    errors.append(f"Preimage hash mismatch: {relative}")
++                    continue
++
++                source_text = before.decode("utf-8")
++                if "\r\n" in source_text:
++                    newline_style = "\r\n"
++                elif "\r" in source_text:
++                    newline_style = "\r"
++                else:
++                    newline_style = "\n"
++
++                normalized_source = (
++                    source_text.replace("\r\n", "\n").replace("\r", "\n")
++                )
++                normalized_old = (
++                    change["old"].replace("\r\n", "\n").replace("\r", "\n")
++                )
++                normalized_new = (
++                    change["new"].replace("\r\n", "\n").replace("\r", "\n")
++                )
++
++                symbol_finding = assumed_symbols_for_replacement(
++                    normalized_source,
++                    normalized_old,
++                    normalized_new,
++                )
++                symbol_finding["path"] = relative
++                symbol_finding["source_newline_style"] = {
++                    "\r\n": "CRLF",
++                    "\r": "CR",
++                    "\n": "LF",
++                }[newline_style]
++                assumed_symbol_findings.append(symbol_finding)
++
++                if symbol_finding.get("missing_assumed_symbols"):
++                    errors.append(
++                        f"Undefined/assumed symbols in replacement {relative}: "
++                        + ", ".join(symbol_finding["missing_assumed_symbols"])
++                    )
++                    continue
++
++                anchor_count = normalized_source.count(normalized_old)
++                if anchor_count != 1:
++                    errors.append(
++                        f"Replace anchor count is not one: {relative} "
++                        f"(normalized count {anchor_count})"
++                    )
++                    continue
++
++                patched_normalized = normalized_source.replace(
++                    normalized_old,
++                    normalized_new,
++                    1,
++                )
++                if newline_style == "\r\n":
++                    patched_text = patched_normalized.replace("\n", "\r\n")
++                elif newline_style == "\r":
++                    patched_text = patched_normalized.replace("\n", "\r")
++                else:
++                    patched_text = patched_normalized
++
++                target.write_bytes(patched_text.encode("utf-8"))
++
++            if target.suffix.casefold() == ".py":
++                try:
++                    compile(target.read_text(encoding="utf-8"), str(target), "exec")
++                except Exception as exc:
++                    errors.append(f"Compile failed {relative}: {type(exc).__name__}: {exc}")
++
++            changed.append({
++                "path": relative,
++                "temporary_path": str(target),
++                "sha256": _sha256(target.read_bytes()) if target.is_file() else None,
++            })
++
++        return {
++            "schema": "foxai.engineering.contract_bridge.patch_validation.v1",
++            "valid": not errors,
++            "errors": errors,
++            "temporary_root": str(temp_root),
++            "project_modified": False,
++            "changes_tested": changed,
++            "assumed_symbol_findings": assumed_symbol_findings,
++        }
++    except Exception:
++        shutil.rmtree(temp_root, ignore_errors=True)
++        raise
++
++
++def symbol_inventory(project_root: Path, files: Iterable[str]) -> dict[str, Any]:
++    rows = [_file_record(project_root, str(relative)) for relative in files]
++    return {
++        "schema": "foxai.engineering.contract_bridge.symbol_inventory.v1",
++        "project_root": str(project_root),
++        "fixed_file_list_only": True,
++        "filesystem_walk_performed": False,
++        "files": rows,
++    }
++
++
++def _safe_relative(project_root: Path, relative: str) -> Path:
++    normalized = relative.replace("\\", "/")
++    pure = PurePosixPath(normalized)
++    if pure.is_absolute() or ".." in pure.parts:
++        raise ContractError(f"Unsafe relative path: {relative}")
++    path = project_root / Path(*pure.parts)
++    try:
++        path.resolve().relative_to(project_root.resolve())
++    except Exception as exc:
++        raise ContractError(f"Path escapes project root: {relative}") from exc
++    return path
++
++
++def export_capsule(request_path: Path, output_path: Path, bridge_root: Path) -> dict[str, Any]:
++    request = _json_load(request_path)
++    if not isinstance(request, Mapping):
++        raise ContractError("Capsule request must be one JSON object.")
++    project_root = Path(str(request.get("project_root") or ""))
++    files = request.get("files")
++    if not isinstance(files, list) or not files:
++        raise ContractError("Capsule request files must be a non-empty list.")
++
++    records: list[dict[str, Any]] = []
++    for item in files:
++        if not isinstance(item, Mapping):
++            raise ContractError("Each capsule file entry must be an object.")
++        relative = str(item.get("path") or "")
++        path = _safe_relative(project_root, relative)
++        record = _file_record(project_root, relative)
++        if not path.is_file():
++            records.append(record)
++            continue
++        text = path.read_text(encoding="utf-8")
++        ranges = item.get("line_ranges") or []
++        excerpts: list[dict[str, Any]] = []
++        lines = text.splitlines()
++        if ranges:
++            for pair in ranges:
++                if (
++                    not isinstance(pair, list)
++                    or len(pair) != 2
++                    or not all(isinstance(value, int) for value in pair)
++                ):
++                    raise ContractError(f"Invalid line range for {relative}: {pair!r}")
++                start, end = pair
++                if start < 1 or end < start:
++                    raise ContractError(f"Invalid line range for {relative}: {pair!r}")
++                excerpts.append({
++                    "start_line": start,
++                    "end_line": min(end, len(lines)),
++                    "lines": [
++                        {"line": number, "text": lines[number - 1]}
++                        for number in range(start, min(end, len(lines)) + 1)
++                    ],
++                })
++        record["excerpts"] = excerpts
++        records.append(record)
++
++    capsule: dict[str, Any] = {
++        "schema": "foxai.engineering.reference_capsule.v1",
++        "capsule_id": request.get("capsule_id"),
++        "project_root": str(project_root),
++        "fixed_file_list_only": True,
++        "filesystem_walk_performed": False,
++        "files": records,
++    }
++    if request.get("include_plan_schema"):
++        capsule["plan_schema"] = _json_load(bridge_root / PLAN_SCHEMA_NAME)
++    if request.get("include_command_grammar"):
++        capsule["command_grammar"] = _json_load(bridge_root / COMMAND_GRAMMAR_NAME)
++
++    capsule_bytes = (
++        json.dumps(capsule, indent=2, sort_keys=True, ensure_ascii=False) + "\n"
++    ).encode("utf-8")
++    output_path.parent.mkdir(parents=True, exist_ok=True)
++    output_path.write_bytes(capsule_bytes)
++    receipt = {
++        "schema": "foxai.engineering.reference_capsule.receipt.v1",
++        "capsule_path": str(output_path),
++        "capsule_sha256": _sha256(capsule_bytes),
++        "file_count": len(records),
++        "fixed_file_list_only": True,
++        "filesystem_walk_performed": False,
++        "network_used": False,
++        "project_modified": False,
++    }
++    _json_write(output_path.with_suffix(output_path.suffix + ".receipt.json"), receipt)
++    return receipt
++
++
++def explain_receipt(path: Path) -> dict[str, Any]:
++    receipt = _json_load(path)
++    validations = receipt.get("validations") if isinstance(receipt, Mapping) else None
++    failed = []
++    if isinstance(validations, list):
++        for index, row in enumerate(validations):
++            if not isinstance(row, Mapping):
++                continue
++            return_code = row.get("returncode")
++            if return_code not in (None, 0):
++                failed.append({
++                    "index": index,
++                    "name": row.get("name"),
++                    "returncode": return_code,
++                    "stdout": row.get("stdout"),
++                    "stderr": row.get("stderr"),
++                    "timed_out": row.get("timed_out"),
++                    "argv": row.get("argv"),
++                    "cwd": row.get("cwd"),
++                })
++    return {
++        "schema": "foxai.engineering.contract_bridge.failure_explanation.v1",
++        "receipt_path": str(path),
++        "mission_id": receipt.get("mission_id") if isinstance(receipt, Mapping) else None,
++        "result": receipt.get("result") if isinstance(receipt, Mapping) else None,
++        "rolled_back": receipt.get("rolled_back") if isinstance(receipt, Mapping) else None,
++        "failure": receipt.get("failure") if isinstance(receipt, Mapping) else None,
++        "failed_validation_count": len(failed),
++        "failed_validations": failed,
++    }
++
++
++def self_test(bridge_root: Path) -> dict[str, Any]:
++    fixtures = _json_load(bridge_root / FIXTURES_NAME)
++    failures: list[str] = []
++    cases = fixtures.get("cases") or []
++
++    base_plan = {
++        "schema": "foxai.engineering.plan.v1",
++        "mission_id": "ENG-TEST-0001",
++        "title": "Fixture",
++        "project_root": r"Z:\FOXAI",
++        "changes": [],
++        "validations": [{
++            "name": "fixture",
++            "argv": ["python", "-c", "print('ok')"],
++            "cwd": r"Z:\FOXAI",
++            "timeout_seconds": 30,
++        }],
++    }
++    for case in cases:
++        plan = dict(base_plan)
++        plan["changes"] = [case["change"]]
++        result = validate_plan_document(plan)
++        expected = case["expect"] == "pass"
++        if result["valid"] is not expected:
++            failures.append(case["id"])
++
++    temp = Path(tempfile.mkdtemp(prefix="contract_bridge_self_test_"))
++    try:
++        wrong_root_zip = temp / "wrong.zip"
++        with zipfile.ZipFile(wrong_root_zip, "w") as archive:
++            archive.writestr("WRONG/PLAN.json", "{}")
++        if check_zip(wrong_root_zip, "RIGHT")["valid"]:
++            failures.append("wrong_zip_root_not_rejected")
++
++        good_folder = temp / "RIGHT"
++        good_folder.mkdir()
++        (good_folder / "PLAN.json").write_text("{}", encoding="utf-8")
++        if not check_folder(good_folder, "RIGHT")["valid"]:
++            failures.append("correct_folder_rejected")
++
++        source = (
++            "from pathlib import Path\n"
++            "KNOWN = 1\n"
++            "def route_message(message):\n"
++            "    value = message\n"
++            "    return value\n"
++        )
++        old = "    value = message\n    return value"
++        bad_new = "    value = message\n    return ADAPTER_ID"
++        finding = assumed_symbols_for_replacement(source, old, bad_new)
++        if "ADAPTER_ID" not in finding["missing_assumed_symbols"]:
++            failures.append("undefined_symbol_not_detected")
++
++        real_contract = {"required": ["handled", "status"]}
++        mapping = {"handled": True, "status": "ok"}
++        if not all(field in mapping for field in real_contract["required"]):
++            failures.append("optional_fields_incorrectly_required")
++
++        failure_details: list[dict[str, Any]] = []
++
++        good_new = "    value = message\n    return KNOWN"
++        for newline_name, source_bytes in (
++            ("LF", source.encode("utf-8")),
++            ("CRLF", source.replace("\n", "\r\n").encode("utf-8")),
++        ):
++            project = temp / f"project_{newline_name.lower()}"
++            project.mkdir()
++            module = project / "module.py"
++            module.write_bytes(source_bytes)
++            original_bytes = module.read_bytes()
++
++            plan = dict(base_plan)
++            plan["project_root"] = r"Z:\FOXAI"
++            plan["changes"] = [{
++                "action": "replace_text",
++                "path": "module.py",
++                "must_exist": True,
++                "expected_before_sha256": _sha256(original_bytes),
++                "old": old,
++                "new": good_new,
++            }]
++
++            patch_result = apply_plan_to_temp(plan, project)
++            if not patch_result["valid"]:
++                failure_id = f"real_source_temp_patch_failed_{newline_name.lower()}"
++                failures.append(failure_id)
++                failure_details.append({
++                    "id": failure_id,
++                    "patch_result": patch_result,
++                })
++
++            if module.read_bytes() != original_bytes:
++                failure_id = f"project_was_modified_by_temp_patch_{newline_name.lower()}"
++                failures.append(failure_id)
++                failure_details.append({"id": failure_id})
++
++            temporary_root = patch_result.get("temporary_root")
++            if temporary_root:
++                temporary_module = Path(temporary_root) / "module.py"
++                if patch_result["valid"] and temporary_module.is_file():
++                    patched_bytes = temporary_module.read_bytes()
++                    if newline_name == "CRLF" and b"\r\n" not in patched_bytes:
++                        failure_id = "crlf_style_not_preserved"
++                        failures.append(failure_id)
++                        failure_details.append({"id": failure_id})
++                    if newline_name == "LF" and b"\r\n" in patched_bytes:
++                        failure_id = "lf_style_not_preserved"
++                        failures.append(failure_id)
++                        failure_details.append({"id": failure_id})
++                shutil.rmtree(Path(temporary_root), ignore_errors=True)
++    finally:
++        shutil.rmtree(temp, ignore_errors=True)
++
++    return {
++        "schema": "foxai.engineering.contract_bridge.self_test.v1",
++        "bridge_id": BRIDGE_ID,
++        "bridge_version": BRIDGE_VERSION,
++        "passed": not failures,
++        "fixture_cases": len(cases),
++        "newline_patch_cases": 2,
++        "failures": failures,
++        "failure_details": failure_details if "failure_details" in locals() else [],
++    }
++
++
++def _print(value: Any) -> None:
++    print(json.dumps(value, indent=2, sort_keys=True, ensure_ascii=False))
++
++
++def main(argv: Optional[list[str]] = None) -> int:
++    parser = argparse.ArgumentParser(description="FOXAI Workshop Contract and Reference Bridge V1")
++    sub = parser.add_subparsers(dest="command", required=True)
++
++    p = sub.add_parser("validate-plan")
++    p.add_argument("plan")
++
++    p = sub.add_parser("check-folder")
++    p.add_argument("folder")
++    p.add_argument("--expected-name", required=True)
++    p.add_argument("--required-file", default="PLAN.json")
++
++    p = sub.add_parser("check-zip")
++    p.add_argument("zip")
++    p.add_argument("--expected-root", required=True)
++    p.add_argument("--required-file", default="PLAN.json")
++
++    p = sub.add_parser("inspect-current")
++    p.add_argument("--project-root", required=True)
++    p.add_argument("--output")
++
++    p = sub.add_parser("symbol-inventory")
++    p.add_argument("--project-root", required=True)
++    p.add_argument("--files-json", required=True)
++    p.add_argument("--output")
++
++    p = sub.add_parser("export-capsule")
++    p.add_argument("--request", required=True)
++    p.add_argument("--output", required=True)
++
++    p = sub.add_parser("validate-patch")
++    p.add_argument("--plan", required=True)
++    p.add_argument("--project-root", required=True)
++    p.add_argument("--output")
++
++    p = sub.add_parser("explain-receipt")
++    p.add_argument("receipt")
++    p.add_argument("--output")
++
++    sub.add_parser("self-test")
++
++    args = parser.parse_args(argv)
++    bridge_root = Path(__file__).resolve().parent
++
++    if args.command == "validate-plan":
++        result = validate_plan_file(Path(args.plan))
++    elif args.command == "check-folder":
++        result = check_folder(Path(args.folder), args.expected_name, args.required_file)
++    elif args.command == "check-zip":
++        result = check_zip(Path(args.zip), args.expected_root, args.required_file)
++    elif args.command == "inspect-current":
++        result = inspect_current(Path(args.project_root))
++        if args.output:
++            _json_write(Path(args.output), result)
++    elif args.command == "symbol-inventory":
++        value = _json_load(Path(args.files_json))
++        files = value.get("files") if isinstance(value, Mapping) else value
++        if not isinstance(files, list):
++            raise ContractError("files-json must be a list or an object containing files.")
++        result = symbol_inventory(Path(args.project_root), [str(item) for item in files])
++        if args.output:
++            _json_write(Path(args.output), result)
++    elif args.command == "export-capsule":
++        result = export_capsule(
++            Path(args.request),
++            Path(args.output),
++            bridge_root,
++        )
++    elif args.command == "validate-patch":
++        plan = _json_load(Path(args.plan))
++        result = apply_plan_to_temp(plan, Path(args.project_root))
++        if args.output:
++            _json_write(Path(args.output), result)
++    elif args.command == "explain-receipt":
++        result = explain_receipt(Path(args.receipt))
++        if args.output:
++            _json_write(Path(args.output), result)
++    elif args.command == "self-test":
++        result = self_test(bridge_root)
++    else:
++        raise AssertionError(args.command)
++
++    _print(result)
++    return 0 if result.get("valid", result.get("passed", True)) else 1
++
++
++if __name__ == "__main__":
++    raise SystemExit(main())

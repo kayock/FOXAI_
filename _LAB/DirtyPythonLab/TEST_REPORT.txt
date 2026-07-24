@@ -1,0 +1,66 @@
+FOXAI DIRTY PYTHON LAB 0.2.0 - PACKAGE TEST REPORT
+===================================================
+
+BUILD RULES VERIFIED
+--------------------
+- Standalone local browser application.
+- Python standard library runtime only.
+- No tkinter import or dependency.
+- No Flask, FastAPI, Requests, PyQt, or other GUI/web package.
+- No installer.
+- No Workshop mission flow.
+- One-click Windows launcher targets:
+  Z:\Hanger Bay\Development\Python\python.exe
+- Fixed workspace target:
+  Z:\FOXAI\_LAB\DirtyPythonLab
+- Fixed Qwen chat endpoint:
+  http://127.0.0.1:8080/v1/chat/completions
+- Portable VS Code discovery is restricted to:
+  Z:\Hanger Bay\Development\VSCode\4fe60c8b1c
+
+AUTOMATED TESTS PASSED
+----------------------
+1. Python code extraction from Qwen fenced output.
+2. Full generation -> failed execution -> stderr capture -> repair -> rerun -> success loop.
+3. Browser home page and status API.
+4. Browser RUN button API through the same automatic repair loop.
+5. Runtime import audit confirms standard-library-only imports and no tkinter.
+6. Automatic local model ID discovery through /v1/models.
+7. Separate, non-overwriting run folders and saved RESULT.json evidence.
+8. Recent-run history skips incomplete folders and returns valid saved runs.
+9. Portable VS Code discovery chooses the shallow verified Code.exe.
+10. Verified Code.exe is remembered in lab_state.json.
+11. OPEN IN PORTABLE VS CODE uses the exact verified executable and workspace.
+12. Browser readiness API reports Python, Qwen, and portable VS Code status.
+13. One-click live acceptance CLI uses the same generate/repair/rerun engine.
+14. Embedded browser JavaScript passes Node syntax validation.
+15. All Python files pass bytecode compilation.
+
+TEST RESULT
+-----------
+8 unittest cases passed.
+Embedded JavaScript syntax check passed.
+Python compileall check passed.
+Build test interpreter: CPython 3.13.5.
+Target compatibility: written for CPython 3.12.4 and newer.
+
+LIMITS OF THIS TEST
+-------------------
+The package build environment cannot access Eric's Z: drive, the actual Hanger
+Bay Python executable, Windows Explorer, the real portable VS Code executable,
+or the live Qwen process at 127.0.0.1:8080. Those exact-machine checks remain
+the live acceptance test. The Windows .bat files were inspected but cannot be
+executed in this Linux build environment.
+
+SAFETY / ROLLBACK CHARACTERISTICS
+---------------------------------
+- Every generated attempt is add-only inside a unique runs folder.
+- Existing attempts are not overwritten.
+- Generated scripts run with shell=False, isolated Python mode (-I), a fixed
+  timeout, captured stdout/stderr, and the run folder as working directory.
+- Portable VS Code is launched only after a real Code.exe file is found.
+- The verified Code.exe path is saved in a small replace-safe state file.
+- No services, registry entries, startup entries, Python packages, or GUI
+  frameworks are installed.
+- This is not a full operating-system sandbox; generated Python remains real
+  executable code.

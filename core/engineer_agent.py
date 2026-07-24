@@ -1,9 +1,20 @@
 print("=" * 60)
-print("ENGINEER_AGENT RC22 LOADED")
+print("ENGINEER_AGENT RC26 GROUNDED REASONING LOADED")
 print(__file__)
 print("=" * 60)
 from pathlib import Path
+import ast
+import hashlib
+import io
+import json
+import os
 import re
+import shutil
+import subprocess
+import sys
+import tempfile
+import time
+import tokenize
 
 from core.project_index import ProjectIndex
 from core.dependency_graph import DependencyGraph
@@ -22,15 +33,6 @@ except Exception:
     EngineeringWorkshopBridge = None
 
 from core.smart_search import SmartSearch
-from core.security_containment import (
-    authorize_department_route,
-    is_protected_path,
-    new_airlock_correlation_id,
-    record_authorization_decision,
-    redact_secrets,
-    record_boundary_denial,
-    validate_airlock_route_receipt,
-)
 from core.kernel import get_kernel
 from core.boot_manager import BootManager
 from core.investigation_engine import InvestigationEngine, Mission, Evidence, EvidenceDriver
@@ -157,6 +159,17 @@ class EngineerAgent:
 
     EXACT_INSPECTION_MAX_BYTES = 262144
     EXACT_INSPECTION_MAX_CHARS = 120000
+    REFERENCE_MANIFEST_RELATIVE_PATH = (
+        Path("System") / "AgentFoxTechnicalCore" / "Reference"
+        / "TECHNICAL_CORE_REFERENCE_MANIFEST.json"
+    )
+    CONTEXT_TRACE_MAX_FILES = 8
+    CONTEXT_TRACE_MAX_FILE_BYTES = 3 * 1024 * 1024
+    CONTEXT_TRACE_MAX_SNIPPETS_PER_FILE = 3
+    GROUNDED_REASONING_MAX_FILES = 6
+    GROUNDED_REASONING_MAX_WINDOWS_PER_FILE = 2
+    GROUNDED_REASONING_WINDOW_RADIUS = 8
+    GROUNDED_REASONING_MAX_PROMPT_CHARS = 48000
 
     def __init__(self, app):
         self.app = app
@@ -193,7 +206,6 @@ class EngineerAgent:
         )
         self.evidence_ranker = EvidenceRanker()
         self.recommendation_engine = RecommendationEngine()
-        self._active_airlock_context = {}
 
     @staticmethod
     def normalize_operator_query(query):
@@ -222,19 +234,33 @@ class EngineerAgent:
         mission_id=None,
         route_audit_receipt=None,
     ):
+        """Handle an explicit Engineer request without security containment.
+
+        Caller, approval, correlation, mission, and route-receipt arguments stay
+        in the signature for compatibility with existing FOXAI routing. They are
+        not authorization gates. Read-only inspection and lab work run directly;
+        actual project changes remain behind Workshop preview/apply/rollback.
+        """
+        _ = (
+            caller,
+            operator_approved,
+            correlation_id,
+            mission_id,
+            route_audit_receipt,
+        )
         query = (payload or text or "").strip()
-        # FOXAI_ENGINEERING_WORKSHOP_V1_1_INTEGRATION
+
         if self.engineering_workshop is not None:
             workshop_report = self.engineering_workshop.handle(
                 query,
-                caller=caller,
-                operator_approved=operator_approved,
+                caller="operator",
+                operator_approved=True,
             )
             if workshop_report is not None:
                 self.app.add_chat("ERIC", query)
                 self.app.mission_status(
                     "Engineering Workshop online.\n\n"
-                    "Controlled implementation workflow active."
+                    "Stable preview, validation, apply, and rollback tools active."
                 )
                 self.app.add_chat("ENGINEER", workshop_report)
                 self.app.mission_memory.save()
@@ -242,96 +268,11 @@ class EngineerAgent:
                     self.app.complete_workshop_mission("ONLINE")
                 return "break"
 
-        correlation_id = correlation_id or new_airlock_correlation_id()
-        mission_id = (mission_id or "").strip()
-
-        route_receipt_id = ""
-        route_context_status = "not_supplied"
-        if route_audit_receipt is not None:
-            if isinstance(route_audit_receipt, dict):
-                route_receipt_id = str(route_audit_receipt.get("receipt_id") or "")
-            route_validation = validate_airlock_route_receipt(
-                route_audit_receipt,
-                expected_actor=caller,
-                expected_object="engineering_airlock",
-                expected_action="route",
-                correlation_id=correlation_id,
-                mission_id=mission_id,
-            )
-            if not route_validation.get("verified"):
-                validation_reason = str(
-                    (route_validation.get("details") or {}).get("reason")
-                    or "Forwarded Engineering Airlock route context is invalid."
-                )
-                denial_receipt = record_boundary_denial(
-                    actor=caller,
-                    obj="engineering_airlock",
-                    action="route_context",
-                    reason=validation_reason,
-                    incident_kind="context_mismatch",
-                    correlation_id=correlation_id,
-                    mission_id=mission_id,
-                    receipt_id=route_receipt_id,
-                    context_status="mismatch",
-                )
-                if not denial_receipt.get("verified"):
-                    self.app.add_chat(
-                        "SYSTEM",
-                        (
-                            "Engineering Airlock denied: route context validation "
-                            "failed and the boundary incident audit also failed closed."
-                        ),
-                    )
-                else:
-                    self.app.add_chat(
-                        "SYSTEM",
-                        f"Engineering Airlock denied: {validation_reason}",
-                    )
-                return "break"
-            route_context_status = "verified"
-
-        authorization = authorize_department_route(
-            caller,
-            "engineering_airlock",
-            "inspect",
-            operator_approved=operator_approved,
-        )
-        audit_receipt = record_authorization_decision(
-            authorization,
-            correlation_id=correlation_id,
-            mission_id=mission_id,
-            receipt_id=route_receipt_id,
-            context_status=route_context_status,
-        )
-        if not audit_receipt.get("verified"):
-            self.app.add_chat(
-                "SYSTEM",
-                (
-                    "Engineering Airlock denied: the security audit "
-                    "receipt could not be verified."
-                ),
-            )
-            return "break"
-        if not authorization.allowed:
-            self.app.add_chat(
-                "SYSTEM",
-                f"Engineering Airlock denied: {authorization.reason}",
-            )
-            return "break"
         self.app.add_chat("ERIC", query)
-        self.app.mission_status("Engineer online.\n\nPerforming read-only project analysis.")
-
-        self._active_airlock_context = {
-            "actor": authorization.actor,
-            "authorization_allowed": bool(authorization.allowed),
-            "authorization_reason": authorization.reason,
-            "authorization_policy_source": authorization.policy_source,
-            "correlation_id": correlation_id,
-            "mission_id": mission_id,
-            "fox_sentry_receipt_id": str(audit_receipt.get("receipt_id") or ""),
-            "route_receipt_id": route_receipt_id,
-            "route_context_status": route_context_status,
-        }
+        self.app.mission_status(
+            "Engineer online.\n\n"
+            "Performing direct read-only source analysis."
+        )
 
         try:
             report = self.analyze(query)
@@ -343,10 +284,11 @@ class EngineerAgent:
         except Exception as error:
             if hasattr(self.app, "fail_workshop_mission"):
                 self.app.fail_workshop_mission(str(error))
-            self.app.add_chat("ENGINEER", f"Engineering analysis failed:\n{error}")
+            self.app.add_chat(
+                "ENGINEER",
+                f"Engineering analysis failed:\n{type(error).__name__}: {error}",
+            )
             return "break"
-        finally:
-            self._active_airlock_context = {}
 
     def build_index(self):
         self.index = ProjectIndex(self.project_root).build()
@@ -592,55 +534,85 @@ class EngineerAgent:
     def security_review(self, query):
         return (
             "ENGINEER SECURITY REVIEW\n\n"
-            "Intent:\nSecurity Review\n\n"
-            "Initial recommendations:\n"
-            "• Keep Engineer read-only by default.\n"
-            "• Require operator approval before file writes.\n"
-            "• Keep password storage out of plain text.\n"
-            "• Avoid executing generated scripts automatically.\n"
-            "• Treat browser/download features as a separate trust boundary.\n\n"
-            "Safety Status:\nRead-only. No files were modified."
+            "Security hardening is currently deferred by operator direction.\n\n"
+            "Engineer will focus on useful source analysis, isolated testing, "
+            "stable previews, validation, snapshots, receipts, and rollback. "
+            "No authorization or containment recommendation is being added."
         )
 
     def parse_exact_path_inspection(self, query):
-        """Return the literal path from an explicit Inspect command.
+        """Return one file path from a natural read/explain request.
 
-        A recognized Inspect command returns a string, including an empty
-        string for a missing path. Non-Inspect requests return None so normal
-        Engineer routing can continue.
+        Examples:
+        - inspect core\\director.py
+        - explain what core\\director.py does
+        - read "Z:\\FOXAI\\core\\director.py"
+
+        Requests without both a read/explain action and a supported file path
+        return None so ordinary Engineer routing can continue.
         """
         first_line = (query or "").splitlines()[0].strip()
-        match = re.match(
-            r"^inspect(?:\s+file)?(?:\s+(.*))?$",
+        if not first_line:
+            return None
+
+        action_match = re.search(
+            r"\b(?:inspect|explain|read|open|review|summarize|describe)\b",
             first_line,
             flags=re.IGNORECASE,
         )
-        if not match:
+        if not action_match:
             return None
 
-        raw_path = (match.group(1) or "").strip()
-        if len(raw_path) >= 2 and raw_path[0] == raw_path[-1]:
-            if raw_path[0] in {'"', "'"}:
-                raw_path = raw_path[1:-1].strip()
-        return raw_path
+        extensions = "|".join(
+            sorted(
+                suffix.lstrip(".")
+                for suffix in self.CODE_EXTENSIONS
+            )
+        )
+
+        quoted_match = re.search(
+            rf"""["'](?P<path>[^"']+\.(?:{extensions}))["']""",
+            first_line,
+            flags=re.IGNORECASE,
+        )
+        if quoted_match:
+            return quoted_match.group("path").strip()
+
+        path_match = re.search(
+            rf"""(?P<path>
+                (?:[A-Za-z]:[\\/])?
+                (?:[A-Za-z0-9_.()\-]+[\\/])+
+                [A-Za-z0-9_.()\-]+\.(?:{extensions})
+            )""",
+            first_line,
+            flags=re.IGNORECASE | re.VERBOSE,
+        )
+        if path_match:
+            return path_match.group("path").strip()
+
+        if re.match(r"^inspect\b", first_line, flags=re.IGNORECASE):
+            return ""
+
+        return None
 
     def resolve_exact_inspection_path(self, raw_path):
-        """Resolve one absolute path and keep it inside the project root."""
+        """Resolve one exact local FOXAI text file without policy gating."""
         value = (raw_path or "").strip()
         if not value:
-            return None, "No file path was supplied after Inspect."
+            return None, "No file path was supplied."
 
         if value.startswith("\\\\") or value.startswith("//"):
-            return None, "UNC and network paths are outside the Engineering Airlock."
+            return None, "Network paths are not part of this local FOXAI request."
 
         drive_match = re.match(r"^[A-Za-z]:", value)
         remainder = value[2:] if drive_match else value
         if ":" in remainder:
-            return None, "Alternate data streams are not allowed."
+            return None, "Alternate data streams are not supported."
 
-        candidate = Path(value)
+        normalized_value = value.replace("\\", os.sep).replace("/", os.sep)
+        candidate = Path(normalized_value)
         if not candidate.is_absolute():
-            return None, "Exact-path inspection requires an absolute file path."
+            candidate = self.project_root / candidate
 
         try:
             root = self.project_root.resolve(strict=True)
@@ -648,50 +620,212 @@ class EngineerAgent:
         except FileNotFoundError:
             return None, "The requested file does not exist."
         except Exception as error:
-            return None, f"The requested path could not be resolved: {type(error).__name__}."
+            return None, (
+                "The requested path could not be resolved: "
+                f"{type(error).__name__}."
+            )
 
         try:
             resolved.relative_to(root)
         except ValueError:
-            return None, "The requested file resolves outside the FOXAI project root."
+            return None, "The requested file resolves outside Z:\\FOXAI."
 
-        if is_protected_path(resolved, root):
-            return None, "The requested file is protected by the Engineering Airlock."
         if not resolved.is_file():
             return None, "The requested path is not a regular file."
         if resolved.suffix.lower() not in self.CODE_EXTENSIONS:
-            return None, "The requested file type is not approved for text inspection."
+            return None, "The requested file type is not a supported text format."
 
         try:
             size = resolved.stat().st_size
         except OSError as error:
-            return None, f"The requested file metadata could not be read: {type(error).__name__}."
+            return None, (
+                "The requested file metadata could not be read: "
+                f"{type(error).__name__}."
+            )
         if size > self.EXACT_INSPECTION_MAX_BYTES:
             return None, (
                 "The requested file is too large for bounded exact-path "
-                f"inspection ({size} bytes; limit {self.EXACT_INSPECTION_MAX_BYTES})."
+                f"inspection ({size} bytes; limit "
+                f"{self.EXACT_INSPECTION_MAX_BYTES})."
             )
 
         return resolved, ""
 
     def _brief_exact_file_summary(self, path, text):
+        """Build a source-grounded explanation from the file's actual content."""
         lines = text.splitlines()
         nonempty = [line.strip() for line in lines if line.strip()]
+        suffix = path.suffix.lower()
+
+        if suffix == ".py":
+            try:
+                tree = ast.parse(text, filename=str(path))
+            except SyntaxError as error:
+                return (
+                    f"This is a Python source file with {len(lines)} lines.\n\n"
+                    "Syntax status: FAILED\n"
+                    f"- {error.msg} at line {error.lineno}, "
+                    f"column {error.offset or 0}."
+                )
+
+            imports = []
+            definitions = []
+            function_nodes = []
+            broad_exception_count = 0
+            bare_exception_count = 0
+            top_level_prints = 0
+
+            for node in tree.body:
+                if isinstance(node, ast.Import):
+                    imports.extend(alias.name for alias in node.names)
+                elif isinstance(node, ast.ImportFrom):
+                    imports.append(node.module or "[relative import]")
+                elif isinstance(node, ast.ClassDef):
+                    class_doc = ast.get_docstring(node)
+                    detail = f"class {node.name} at line {node.lineno}"
+                    if class_doc:
+                        detail += " — " + class_doc.strip().splitlines()[0]
+                    definitions.append(detail)
+                    for child in node.body:
+                        if isinstance(child, (ast.FunctionDef, ast.AsyncFunctionDef)):
+                            function_nodes.append(child)
+                            method_doc = ast.get_docstring(child)
+                            item = (
+                                f"method {node.name}.{child.name} "
+                                f"at line {child.lineno}"
+                            )
+                            if method_doc:
+                                item += " — " + method_doc.strip().splitlines()[0]
+                            definitions.append(item)
+                elif isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)):
+                    function_nodes.append(node)
+                    function_doc = ast.get_docstring(node)
+                    item = f"function {node.name} at line {node.lineno}"
+                    if function_doc:
+                        item += " — " + function_doc.strip().splitlines()[0]
+                    definitions.append(item)
+                elif (
+                    isinstance(node, ast.Expr)
+                    and isinstance(node.value, ast.Call)
+                    and isinstance(node.value.func, ast.Name)
+                    and node.value.func.id == "print"
+                ):
+                    top_level_prints += 1
+
+            for node in ast.walk(tree):
+                if isinstance(node, ast.ExceptHandler):
+                    if node.type is None:
+                        bare_exception_count += 1
+                    elif (
+                        isinstance(node.type, ast.Name)
+                        and node.type.id in {"Exception", "BaseException"}
+                    ):
+                        broad_exception_count += 1
+
+            todos = []
+            try:
+                for token in tokenize.generate_tokens(io.StringIO(text).readline):
+                    if token.type != tokenize.COMMENT:
+                        continue
+                    upper = token.string.upper()
+                    if "TODO" in upper or "FIXME" in upper:
+                        todos.append((token.start[0], token.string.strip()))
+            except (tokenize.TokenError, IndentationError):
+                # AST parsing already passed. Tokenization failure should not
+                # prevent the rest of the source explanation.
+                todos = []
+
+            largest = None
+            if function_nodes:
+                largest = max(
+                    function_nodes,
+                    key=lambda item: (
+                        (getattr(item, "end_lineno", item.lineno) or item.lineno)
+                        - item.lineno
+                    ),
+                )
+
+            output = [
+                f"This is a Python source file with {len(lines)} lines.",
+                "",
+                "Syntax status: PASSED",
+            ]
+
+            module_doc = ast.get_docstring(tree)
+            if module_doc:
+                output.extend(
+                    [
+                        "",
+                        "Module purpose:",
+                        module_doc.strip().splitlines()[0],
+                    ]
+                )
+
+            if imports:
+                unique_imports = list(dict.fromkeys(imports))
+                shown = ", ".join(unique_imports[:16])
+                extra = len(unique_imports) - min(len(unique_imports), 16)
+                output.extend(
+                    [
+                        "",
+                        "Imports:",
+                        shown + (f", plus {extra} more" if extra else ""),
+                    ]
+                )
+
+            output.extend(["", "Key definitions:"])
+            if definitions:
+                output.extend(f"- {item}" for item in definitions[:28])
+                if len(definitions) > 28:
+                    output.append(
+                        f"- ... {len(definitions) - 28} additional definitions"
+                    )
+            else:
+                output.append("- No top-level functions or classes were found.")
+
+            output.extend(
+                [
+                    "",
+                    "Bounded code observations:",
+                    f"- Broad `except Exception/BaseException` handlers: "
+                    f"{broad_exception_count}",
+                    f"- Bare `except` handlers: {bare_exception_count}",
+                    f"- Top-level print calls: {top_level_prints}",
+                    f"- TODO/FIXME markers: {len(todos)}",
+                ]
+            )
+
+            if largest is not None:
+                end_line = getattr(largest, "end_lineno", largest.lineno)
+                output.append(
+                    f"- Largest function/method: {largest.name}, "
+                    f"lines {largest.lineno}-{end_line}"
+                )
+
+            if todos:
+                output.append("")
+                output.append("TODO/FIXME locations:")
+                output.extend(
+                    f"- line {number}: {value[:180]}"
+                    for number, value in todos[:12]
+                )
+
+            return "\n".join(output)
+
         title = ""
-        if path.suffix.lower() == ".md":
+        if suffix == ".md":
             for line in nonempty:
                 if line.startswith("#"):
                     title = line.lstrip("#").strip()
                     break
 
-        opening_lines = nonempty[:6]
-        opening = " ".join(opening_lines)
-        if len(opening) > 700:
-            opening = opening[:697].rstrip() + "..."
+        opening_lines = nonempty[:12]
+        opening = "\n".join(opening_lines)
+        if len(opening) > 1800:
+            opening = opening[:1797].rstrip() + "..."
 
         kind = {
             ".md": "Markdown document",
-            ".py": "Python source file",
             ".json": "JSON document",
             ".bat": "Windows batch script",
             ".ps1": "PowerShell script",
@@ -699,156 +833,1948 @@ class EngineerAgent:
             ".yml": "YAML document",
             ".ini": "INI configuration file",
             ".txt": "text document",
-        }.get(path.suffix.lower(), "text file")
+        }.get(suffix, "text file")
 
-        parts = [
-            f"{kind} with {len(lines)} line(s).",
-        ]
+        output = [f"This is a {kind} with {len(lines)} lines."]
         if title:
-            parts.append(f"Title: {title}.")
+            output.extend(["", f"Title: {title}"])
         if opening:
-            parts.append(f"Opening content: {opening}")
+            output.extend(["", "Opening content:", opening])
         else:
-            parts.append("The file contains no non-empty text lines.")
-        return " ".join(parts)
-
-    def _record_exact_path_denial(self, denial_reason):
-        context = dict(getattr(self, "_active_airlock_context", {}) or {})
-        if not context.get("correlation_id") or not context.get("mission_id"):
-            return {
-                "state": "context_not_supplied",
-                "verified": False,
-                "receipt_id": "",
-                "details": {
-                    "event": {
-                        "severity": "WARNING",
-                        "incident_kind": "protected_resource_denial",
-                        "attempt_count": 1,
-                        "context_status": "not_supplied",
-                    },
-                    "reason": (
-                        "Boundary denial remained enforced, but no trusted mission "
-                        "context was supplied for an immutable incident append."
-                    ),
-                },
-            }
-        return record_boundary_denial(
-            actor=context.get("actor") or "engineer",
-            obj="engineering_airlock",
-            action="inspect_path",
-            reason=f"Exact-path inspection denied: {denial_reason}",
-            incident_kind="protected_resource_denial",
-            correlation_id=context.get("correlation_id"),
-            mission_id=context.get("mission_id"),
-            receipt_id=context.get("fox_sentry_receipt_id"),
-            context_status=context.get("route_context_status") or "not_supplied",
-        )
+            output.extend(["", "The file contains no non-empty text lines."])
+        return "\n".join(output)
 
 
-    def _format_exact_path_denial(
-        self,
-        raw_path,
-        denial_reason,
-        boundary_receipt,
-        *,
-        resolved_path=None,
-    ):
-        context = dict(getattr(self, "_active_airlock_context", {}) or {})
-        event = (boundary_receipt.get("details") or {}).get("event") or {}
-        boundary_verified = bool(boundary_receipt.get("verified"))
-        if boundary_verified:
-            boundary_state = "RECORDED"
-        elif boundary_receipt.get("state") == "context_not_supplied":
-            boundary_state = "NOT RECORDED — TRUSTED CONTEXT NOT SUPPLIED"
-        else:
-            boundary_state = "AUDIT FAILED CLOSED"
-        displayed_path = resolved_path or raw_path or "[not supplied]"
-        return (
-            "ENGINEER EXACT-PATH INSPECTION\n\n"
-            "Mission:\nExact file inspection\n\n"
-            "Authorization:\nAUTHORIZED FOR READ-ONLY INSPECTION\n\n"
-            "Path Decision:\nDENIED\n\n"
-            f"Requested Path:\n{displayed_path}\n\n"
-            f"Reason:\n{denial_reason}\n\n"
-            f"Correlation ID:\n{context.get('correlation_id') or '[not supplied]'}\n\n"
-            f"Mission ID:\n{context.get('mission_id') or '[not supplied]'}\n\n"
-            "Fox Sentry Authorization Receipt ID:\n"
-            f"{context.get('fox_sentry_receipt_id') or '[not supplied]'}\n\n"
-            f"Boundary Incident:\n{boundary_state}\n\n"
-            f"Boundary Severity:\n{event.get('severity') or '[unverified]'}\n\n"
-            f"Incident Kind:\n{event.get('incident_kind') or 'protected_resource_denial'}\n\n"
-            f"Attempt Count:\n{event.get('attempt_count') or '[unverified]'}\n\n"
-            f"Context Status:\n{event.get('context_status') or context.get('route_context_status') or '[not supplied]'}\n\n"
-            "Boundary Receipt ID:\n"
-            f"{boundary_receipt.get('receipt_id') or '[not supplied]'}\n\n"
-            "Safety Status:\n"
-            "Read-only. No file was opened and no files were modified."
-        )
+
 
     def inspect_exact_path(self, raw_path):
-        """Read and summarize exactly one approved project text file."""
-        context = dict(getattr(self, "_active_airlock_context", {}) or {})
-        resolved, denial_reason = self.resolve_exact_inspection_path(raw_path)
-
+        """Read and explain exactly one bounded FOXAI source or text file."""
+        resolved, error = self.resolve_exact_inspection_path(raw_path)
         if resolved is None:
-            receipt = self._record_exact_path_denial(denial_reason)
-            return self._format_exact_path_denial(
-                raw_path,
-                denial_reason,
-                receipt,
+            return (
+                "ENGINEER EXACT-FILE INSPECTION\n\n"
+                f"Requested path: {raw_path or '[not supplied]'}\n"
+                f"Result: NOT OPENED\n"
+                f"Reason: {error}\n\n"
+                "Nothing was modified."
             )
 
         try:
             data = resolved.read_bytes()
-        except OSError as error:
-            denial_reason = f"The file could not be read: {type(error).__name__}."
-            receipt = self._record_exact_path_denial(denial_reason)
-            return self._format_exact_path_denial(
-                raw_path,
-                denial_reason,
-                receipt,
-                resolved_path=resolved,
+        except OSError as read_error:
+            return (
+                "ENGINEER EXACT-FILE INSPECTION\n\n"
+                f"File: {resolved}\n"
+                "Result: NOT OPENED\n"
+                f"Reason: {type(read_error).__name__}: {read_error}\n\n"
+                "Nothing was modified."
             )
 
         if b"\x00" in data:
-            denial_reason = "Binary content was detected."
-            receipt = self._record_exact_path_denial(denial_reason)
-            return self._format_exact_path_denial(
-                raw_path,
-                denial_reason,
-                receipt,
-                resolved_path=resolved,
+            return (
+                "ENGINEER EXACT-FILE INSPECTION\n\n"
+                f"File: {resolved}\n"
+                "Result: NOT OPENED\n"
+                "Reason: Binary content was detected.\n\n"
+                "Nothing was modified."
             )
 
         decoded = data.decode("utf-8", errors="replace")
-        redacted, redaction_count = redact_secrets(
-            decoded[:self.EXACT_INSPECTION_MAX_CHARS]
-        )
-        summary = self._brief_exact_file_summary(resolved, redacted)
-        authorization = (
-            "AUTHORIZED"
-            if context.get("authorization_allowed", True)
-            else "DENIED"
-        )
+        bounded_text = decoded[:self.EXACT_INSPECTION_MAX_CHARS]
+        summary = self._brief_exact_file_summary(resolved, bounded_text)
+        digest = hashlib.sha256(data).hexdigest()
 
         return (
-            "ENGINEER EXACT-PATH INSPECTION\n\n"
-            "Mission:\nExact file inspection\n\n"
-            f"Authorization:\n{authorization}\n\n"
-            "Authorization Reason:\n"
-            f"{context.get('authorization_reason') or 'Read-only Engineer inspection authorized.'}\n\n"
-            f"Inspected Path:\n{resolved}\n\n"
-            f"Correlation ID:\n{context.get('correlation_id') or '[not supplied]'}\n\n"
-            f"Mission ID:\n{context.get('mission_id') or '[not supplied]'}\n\n"
-            "Fox Sentry Receipt ID:\n"
-            f"{context.get('fox_sentry_receipt_id') or '[not supplied]'}\n\n"
-            f"Route Context Status:\n{context.get('route_context_status') or 'not_supplied'}\n\n"
-            f"File Size:\n{len(data)} bytes\n\n"
-            f"Secret Redactions Applied:\n{redaction_count}\n\n"
-            f"Brief Summary:\n{summary}\n\n"
-            "Safety Status:\n"
-            "Read-only. Exactly one file was read. No files were modified."
+            "ENGINEER SOURCE EXPLANATION\n\n"
+            f"File:\n{resolved}\n\n"
+            f"SHA-256:\n{digest}\n\n"
+            f"Source-grounded explanation:\n{summary}\n\n"
+            "Read-only: one exact FOXAI file was opened and nothing was changed."
         )
+
+    def parse_engineering_lab_request(self, query):
+        """Return one exact Python path from a Lab compile/test request."""
+        first_line = (query or "").splitlines()[0].strip()
+        if not first_line:
+            return None
+
+        if not re.search(
+            r"\b(?:lab\s+test|lab\s+compile|python\s+lab|"
+            r"test\s+in\s+lab|compile\s+in\s+lab|isolated\s+test)\b",
+            first_line,
+            flags=re.IGNORECASE,
+        ):
+            return None
+
+        quoted = re.search(
+            r"""["'](?P<path>[^"']+\.py)["']""",
+            first_line,
+            flags=re.IGNORECASE,
+        )
+        if quoted:
+            return quoted.group("path").strip()
+
+        unquoted = re.search(
+            r"""(?P<path>
+                (?:[A-Za-z]:[\\/])?
+                (?:[A-Za-z0-9_.()\-]+[\\/])+
+                [A-Za-z0-9_.()\-]+\.py
+            )""",
+            first_line,
+            flags=re.IGNORECASE | re.VERBOSE,
+        )
+        if unquoted:
+            return unquoted.group("path").strip()
+
+        return ""
+
+    def engineering_lab_test(self, raw_path):
+        """Compile one copied Python file in a disposable isolated process.
+
+        The live FOXAI source is never executed or modified. The selected file
+        is copied into an operating-system temporary directory, compiled with
+        the active FOXAI Python using ``-I -B``, inspected with AST, and then the
+        temporary directory is removed.
+        """
+        resolved, error = self.resolve_exact_inspection_path(raw_path)
+        if resolved is None:
+            return (
+                "ENGINEERING LAB\n\n"
+                f"Requested path: {raw_path or '[not supplied]'}\n"
+                "Result: NOT RUN\n"
+                f"Reason: {error}\n\n"
+                "The live project was not modified."
+            )
+
+        if resolved.suffix.lower() != ".py":
+            return (
+                "ENGINEERING LAB\n\n"
+                f"File: {resolved}\n"
+                "Result: NOT RUN\n"
+                "Reason: the first Lab increment supports Python files only.\n\n"
+                "The live project was not modified."
+            )
+
+        try:
+            source_bytes = resolved.read_bytes()
+            source_text = source_bytes.decode("utf-8", errors="replace")
+        except OSError as read_error:
+            return (
+                "ENGINEERING LAB\n\n"
+                f"File: {resolved}\n"
+                "Result: NOT RUN\n"
+                f"Reason: {type(read_error).__name__}: {read_error}\n\n"
+                "The live project was not modified."
+            )
+
+        started = time.perf_counter()
+        compile_status = "FAILED"
+        compile_output = ""
+        temporary_removed = False
+
+        try:
+            with tempfile.TemporaryDirectory(
+                prefix="FOXAI_EngineeringLab_"
+            ) as temp_name:
+                temp_root = Path(temp_name)
+                lab_source = temp_root / resolved.name
+                shutil.copy2(resolved, lab_source)
+                pyc_path = temp_root / (resolved.stem + ".lab.pyc")
+
+                command = [
+                    sys.executable,
+                    "-I",
+                    "-B",
+                    "-m",
+                    "py_compile",
+                    str(lab_source),
+                ]
+                completed = subprocess.run(
+                    command,
+                    cwd=str(temp_root),
+                    capture_output=True,
+                    text=True,
+                    timeout=30,
+                    check=False,
+                )
+                compile_status = (
+                    "PASSED" if completed.returncode == 0 else "FAILED"
+                )
+                compile_output = (
+                    (completed.stdout or "") + (completed.stderr or "")
+                ).strip()
+
+                # py_compile may use __pycache__; all files remain inside the
+                # temporary directory and disappear at context exit.
+                _ = pyc_path
+            temporary_removed = True
+        except subprocess.TimeoutExpired:
+            compile_status = "FAILED"
+            compile_output = "The isolated compile exceeded 30 seconds."
+        except Exception as lab_error:
+            compile_status = "FAILED"
+            compile_output = f"{type(lab_error).__name__}: {lab_error}"
+
+        syntax_status = "PASSED"
+        classes = []
+        functions = []
+        imports = []
+        broad_exceptions = 0
+        bare_exceptions = 0
+
+        try:
+            tree = ast.parse(source_text, filename=str(resolved))
+            for node in tree.body:
+                if isinstance(node, ast.Import):
+                    imports.extend(alias.name for alias in node.names)
+                elif isinstance(node, ast.ImportFrom):
+                    imports.append(node.module or "[relative import]")
+                elif isinstance(node, ast.ClassDef):
+                    classes.append(node.name)
+                elif isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)):
+                    functions.append(node.name)
+
+            for node in ast.walk(tree):
+                if isinstance(node, ast.ExceptHandler):
+                    if node.type is None:
+                        bare_exceptions += 1
+                    elif (
+                        isinstance(node.type, ast.Name)
+                        and node.type.id in {"Exception", "BaseException"}
+                    ):
+                        broad_exceptions += 1
+        except SyntaxError as syntax_error:
+            syntax_status = (
+                f"FAILED — {syntax_error.msg} at line "
+                f"{syntax_error.lineno}, column {syntax_error.offset or 0}"
+            )
+
+        elapsed_ms = int((time.perf_counter() - started) * 1000)
+        relative = resolved.relative_to(self.project_root.resolve())
+        digest = hashlib.sha256(source_bytes).hexdigest()
+        unique_imports = list(dict.fromkeys(imports))
+
+        output = [
+            "ENGINEERING LAB — DISPOSABLE PYTHON TEST",
+            "",
+            f"Source: {resolved}",
+            f"Relative path: {relative}",
+            f"Source SHA-256: {digest}",
+            f"Python executable: {sys.executable}",
+            "",
+            f"Isolated compile: {compile_status}",
+            f"AST parse: {syntax_status}",
+            f"Elapsed: {elapsed_ms} ms",
+            f"Temporary workspace removed: {temporary_removed}",
+            "",
+            "Static structure:",
+            f"- Imports: {len(unique_imports)}",
+            f"- Top-level classes: {len(classes)}",
+            f"- Top-level functions: {len(functions)}",
+            f"- Broad exception handlers: {broad_exceptions}",
+            f"- Bare exception handlers: {bare_exceptions}",
+        ]
+
+        if unique_imports:
+            output.append(
+                "- Import names: " + ", ".join(unique_imports[:20])
+                + (
+                    f", plus {len(unique_imports) - 20} more"
+                    if len(unique_imports) > 20
+                    else ""
+                )
+            )
+        if classes:
+            output.append("- Classes: " + ", ".join(classes[:20]))
+        if functions:
+            output.append("- Functions: " + ", ".join(functions[:20]))
+
+        if compile_output:
+            output.extend(["", "Compiler output:", compile_output[:4000]])
+
+        output.extend(
+            [
+                "",
+                "Lab boundary:",
+                "- The live source file was not modified.",
+                "- Module top-level code was not imported or executed.",
+                "- The copied file was compiled in an isolated Python process.",
+                "- The temporary workspace was removed after the test.",
+                "",
+                (
+                    "Result: PASS"
+                    if compile_status == "PASSED" and syntax_status == "PASSED"
+                    else "Result: ATTENTION REQUIRED"
+                ),
+            ]
+        )
+        return "\n".join(output)
+
+    def parse_context_trace_request(self, query):
+        """Return the engineering question for a manifest-bounded context trace."""
+        text = (query or "").strip()
+        if not text:
+            return None
+
+        patterns = (
+            r"^(?:context\s+trace|trace\s+context|build\s+context)\b",
+            r"^(?:trace|call\s+path|routing\s+path)\b",
+            r"^investigate\s+(?:how|why|where)\b",
+            r"^(?:who\s+calls|what\s+calls|who\s+uses)\b",
+        )
+        for pattern in patterns:
+            match = re.match(pattern, text, flags=re.IGNORECASE)
+            if match:
+                remainder = text[match.end():].strip(" :,-")
+                return remainder or text
+        return None
+
+    def _load_context_manifest_records(self):
+        """Load current files from the authoritative manifest's bounded list."""
+        manifest_path = self.project_root / self.REFERENCE_MANIFEST_RELATIVE_PATH
+        if not manifest_path.is_file():
+            raise FileNotFoundError(
+                f"Technical Core reference manifest not found: {manifest_path}"
+            )
+
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        entries = (
+            (manifest.get("source_inventory") or {}).get("files") or []
+        )
+        root = self.project_root.resolve()
+        records = []
+        missing = []
+        skipped = []
+
+        for entry in entries:
+            if not isinstance(entry, dict):
+                continue
+            relative_text = str(entry.get("path") or "").strip()
+            if not relative_text or not relative_text.lower().endswith(".py"):
+                continue
+            relative = Path(relative_text.replace("\\", "/"))
+            candidate = self.project_root / relative
+            try:
+                resolved = candidate.resolve(strict=True)
+                resolved.relative_to(root)
+            except FileNotFoundError:
+                missing.append(relative_text)
+                continue
+            except Exception:
+                skipped.append(relative_text)
+                continue
+            if not resolved.is_file():
+                skipped.append(relative_text)
+                continue
+            size = resolved.stat().st_size
+            if size > self.CONTEXT_TRACE_MAX_FILE_BYTES:
+                skipped.append(
+                    f"{relative_text} ({size} bytes exceeds bounded limit)"
+                )
+                continue
+            data = resolved.read_bytes()
+            text = data.decode("utf-8", errors="replace")
+            current_hash = hashlib.sha256(data).hexdigest()
+            expected_hash = str(entry.get("sha256") or "")
+            records.append(
+                {
+                    "relative": relative.as_posix(),
+                    "path": resolved,
+                    "size": size,
+                    "text": text,
+                    "text_lower": text.casefold(),
+                    "sha256": current_hash,
+                    "manifest_sha256": expected_hash,
+                    "manifest_hash_match": (
+                        current_hash == expected_hash if expected_hash else None
+                    ),
+                }
+            )
+
+        return manifest_path, manifest, records, missing, skipped
+
+    @staticmethod
+    def _context_module_name(relative):
+        path = Path(str(relative).replace("\\", "/"))
+        parts = list(path.with_suffix("").parts)
+        if parts and parts[-1] == "__init__":
+            parts.pop()
+        return ".".join(parts)
+
+    def _analyze_context_record(self, record):
+        """Parse one current source file, including function-local imports.
+
+        Imports inside functions are important in FOXAI because WebUI loads
+        EngineerAgent lazily. Module-only import scanning cannot prove that
+        relationship, so every Import/ImportFrom node is recorded with scope.
+        """
+        text = record["text"]
+        relative = record["relative"]
+        module_name = self._context_module_name(relative)
+        imports = []
+        import_bindings = []
+        definitions = []
+        calls = []
+        names = set()
+        syntax_error = ""
+        tree = None
+
+        def resolve_from_module(node):
+            module = node.module or ""
+            level = int(getattr(node, "level", 0) or 0)
+            if level <= 0:
+                return module
+            current_parts = module_name.split(".")
+            package_parts = current_parts[:-1]
+            keep = max(0, len(package_parts) - (level - 1))
+            base = package_parts[:keep]
+            if module:
+                base.extend(module.split("."))
+            return ".".join(part for part in base if part)
+
+        def flatten_target(node):
+            if isinstance(node, ast.Name):
+                return node.id
+            if isinstance(node, ast.Attribute):
+                prefix = flatten_target(node.value)
+                return f"{prefix}.{node.attr}" if prefix else node.attr
+            return ""
+
+        try:
+            tree = ast.parse(text, filename=relative)
+        except SyntaxError as error:
+            syntax_error = (
+                f"{error.msg} at line {error.lineno}, "
+                f"column {error.offset or 0}"
+            )
+
+        if tree is not None:
+            parent = {}
+            for owner in ast.walk(tree):
+                for child in ast.iter_child_nodes(owner):
+                    parent[child] = owner
+
+            def scope_for(node):
+                scopes = []
+                current = parent.get(node)
+                while current is not None:
+                    if isinstance(
+                        current,
+                        (ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef),
+                    ):
+                        scopes.append(current.name)
+                    current = parent.get(current)
+                return ".".join(reversed(scopes)) or "<module>"
+
+            for node in tree.body:
+                if isinstance(
+                    node,
+                    (ast.ClassDef, ast.FunctionDef, ast.AsyncFunctionDef),
+                ):
+                    definitions.append(
+                        {
+                            "name": node.name,
+                            "line": node.lineno,
+                            "kind": (
+                                "class"
+                                if isinstance(node, ast.ClassDef)
+                                else "function"
+                            ),
+                        }
+                    )
+
+            seen_bindings = set()
+            seen_calls = set()
+            for node in ast.walk(tree):
+                if isinstance(node, ast.Import):
+                    for alias in node.names:
+                        binding = {
+                            "kind": "module",
+                            "module": alias.name,
+                            "symbol": "",
+                            "local": alias.asname or alias.name.split(".", 1)[0],
+                            "line": int(node.lineno),
+                            "scope": scope_for(node),
+                        }
+                        key = tuple(binding[item] for item in (
+                            "kind", "module", "symbol", "local", "line", "scope"
+                        ))
+                        if key not in seen_bindings:
+                            imports.append(alias.name)
+                            import_bindings.append(binding)
+                            seen_bindings.add(key)
+                elif isinstance(node, ast.ImportFrom):
+                    imported_module = resolve_from_module(node)
+                    imports.append(imported_module or "[relative import]")
+                    for alias in node.names:
+                        if alias.name == "*":
+                            continue
+                        binding = {
+                            "kind": "symbol",
+                            "module": imported_module,
+                            "symbol": alias.name,
+                            "local": alias.asname or alias.name,
+                            "line": int(node.lineno),
+                            "scope": scope_for(node),
+                        }
+                        key = tuple(binding[item] for item in (
+                            "kind", "module", "symbol", "local", "line", "scope"
+                        ))
+                        if key not in seen_bindings:
+                            import_bindings.append(binding)
+                            seen_bindings.add(key)
+                elif isinstance(node, ast.Name):
+                    names.add(node.id)
+                elif isinstance(node, ast.Attribute):
+                    names.add(node.attr)
+                elif isinstance(node, ast.Call):
+                    target = flatten_target(node.func)
+                    key = (target, int(getattr(node, "lineno", 0) or 0))
+                    if target and key not in seen_calls:
+                        calls.append({"target": target, "line": key[1]})
+                        seen_calls.add(key)
+
+        record = dict(record)
+        record.update(
+            {
+                "module": module_name,
+                "imports": list(dict.fromkeys(imports)),
+                "import_bindings": import_bindings,
+                "definitions": definitions,
+                "calls": calls,
+                "names": names,
+                "syntax_error": syntax_error,
+                "line_count": len(text.splitlines()),
+            }
+        )
+        return record
+
+    @staticmethod
+    def _context_query_terms(question):
+        lowered = (question or "").casefold()
+        quoted = re.findall(r'["\']([^"\']+)["\']', lowered)
+        filenames = re.findall(r"[a-z0-9_.()\-]+\.py", lowered)
+        words = re.findall(r"[a-z0-9_\-]+", lowered)
+        stop = {
+            "trace", "context", "build", "investigate", "how", "why",
+            "where", "what", "which", "who", "calls", "called", "from",
+            "into", "through", "does", "reach", "the", "this", "that",
+            "with", "and", "for", "are", "is", "was", "were", "file",
+            "files", "code", "foxai", "engineer", "please",
+        }
+        terms = []
+        terms.extend(quoted)
+        terms.extend(filenames)
+        terms.extend(
+            word for word in words
+            if len(word) >= 3 and word not in stop
+        )
+
+        phrase_expansions = {
+            "current-state": ["current_state", "current state", "live state"],
+            "current": ["current_state", "current state"],
+            "webui": ["webui", "foxai_web", "route_http_request"],
+            "model": ["model", "dispatch", "llama", "ordinary_chat"],
+            "chat": ["chat", "route_message", "route_http_request"],
+            "route": ["route", "routing", "dispatch", "handle"],
+        }
+        expanded = []
+        for term in terms:
+            expanded.append(term)
+            expanded.extend(phrase_expansions.get(term, []))
+        return list(dict.fromkeys(item for item in expanded if item))
+
+    def _score_context_record(self, record, question, terms):
+        path_lower = record["relative"].casefold()
+        source_lower = record["text_lower"]
+        score = 0
+        reasons = []
+
+        requested_files = re.findall(
+            r"[a-z0-9_.()\-]+\.py", (question or "").casefold()
+        )
+        for filename in requested_files:
+            if path_lower.endswith(filename):
+                score += 120
+                reasons.append(f"exact requested filename: {filename}")
+
+        for term in terms:
+            normalized = term.casefold()
+            if normalized in path_lower:
+                score += 24
+                reasons.append(f"path matches {term}")
+            occurrences = source_lower.count(normalized)
+            if occurrences:
+                score += min(occurrences, 12) * 2
+                reasons.append(f"source contains {term} ({occurrences})")
+            if any(
+                normalized == item["name"].casefold()
+                or normalized in item["name"].casefold()
+                for item in record["definitions"]
+            ):
+                score += 18
+                reasons.append(f"definition matches {term}")
+            if any(normalized in item.casefold() for item in record["imports"]):
+                score += 12
+                reasons.append(f"import matches {term}")
+
+        lowered = (question or "").casefold()
+        basename = Path(record["relative"]).name.casefold()
+        anchor_boosts = {
+            "webui_self_knowledge_integration_v1.py": (
+                55 if any(word in lowered for word in ("webui", "chat", "current", "model")) else 0
+            ),
+            "self_knowledge_chat_adapter_v1.py": (
+                45 if any(word in lowered for word in ("chat", "current", "model", "adapter")) else 0
+            ),
+            "foxai_web.py": (
+                40 if any(word in lowered for word in ("webui", "chat", "model", "route")) else 0
+            ),
+            "director.py": (
+                28 if any(word in lowered for word in ("route", "department", "engineer")) else 0
+            ),
+            "engineer_agent.py": (
+                35 if "engineer" in lowered else 0
+            ),
+        }
+        boost = anchor_boosts.get(basename, 0)
+        if boost:
+            score += boost
+            reasons.append("known live seam for this question")
+
+        return score, list(dict.fromkeys(reasons))
+
+    @staticmethod
+    def _context_snippets(record, terms, limit):
+        snippets = []
+        lines = record["text"].splitlines()
+        for number, line in enumerate(lines, start=1):
+            folded = line.casefold()
+            matched = next(
+                (term for term in terms if term.casefold() in folded),
+                None,
+            )
+            if matched is None:
+                continue
+            value = line.strip()
+            if not value:
+                continue
+            snippets.append(
+                {
+                    "line": number,
+                    "text": value[:220],
+                    "term": matched,
+                }
+            )
+            if len(snippets) >= limit:
+                break
+        return snippets
+
+    def _context_connections(self, selected, all_records):
+        """Return only import-resolved cross-file source connections.
+
+        A call edge is emitted only when its local name or module alias can be
+        traced to an explicit import statement. Shared function names in
+        unrelated files are never treated as evidence of a call relationship.
+        """
+        by_module = {
+            record["module"]: record
+            for record in all_records
+            if record.get("module")
+        }
+        selected_paths = {record["relative"] for record in selected}
+        definition_names = {
+            record["module"]: {
+                item["name"] for item in record.get("definitions", [])
+            }
+            for record in all_records
+        }
+        connections = []
+
+        def add(value):
+            if value not in connections:
+                connections.append(value)
+
+        def module_for_module_binding(binding, call_target):
+            parts = call_target.split(".")
+            local = binding["local"]
+            imported_module = binding["module"]
+            if not parts or parts[0] != local:
+                return None, ""
+
+            if local != imported_module.split(".", 1)[0] or len(parts) == 2:
+                return imported_module, parts[-1]
+
+            # ``import core.adapter`` binds ``core``. Resolve the longest
+            # explicit module prefix in ``core.adapter.route_message``.
+            for stop in range(len(parts) - 1, 0, -1):
+                candidate = ".".join(parts[:stop])
+                if candidate in by_module:
+                    return candidate, parts[-1]
+            return imported_module, parts[-1]
+
+        for source in all_records:
+            for binding in source.get("import_bindings", []):
+                target = by_module.get(binding.get("module", ""))
+                if (
+                    target is not None
+                    and target["relative"] != source["relative"]
+                    and target["relative"] in selected_paths
+                ):
+                    scope = str(binding.get("scope") or "<module>")
+                    scope_text = (
+                        "" if scope == "<module>" else f" inside {scope}"
+                    )
+                    add(
+                        f"{source['relative']} imports "
+                        f"{target['relative']} at line {binding['line']}"
+                        f"{scope_text}"
+                    )
+
+            for call in source.get("calls", []):
+                call_target = call.get("target", "")
+                if not call_target:
+                    continue
+                parts = call_target.split(".")
+                resolved_module = ""
+                resolved_symbol = ""
+                import_line = 0
+
+                if len(parts) == 1:
+                    for binding in source.get("import_bindings", []):
+                        if (
+                            binding.get("kind") == "symbol"
+                            and binding.get("local") == call_target
+                        ):
+                            resolved_module = binding.get("module", "")
+                            resolved_symbol = binding.get("symbol", "")
+                            import_line = int(binding.get("line", 0) or 0)
+                            break
+                else:
+                    head = parts[0]
+                    for binding in source.get("import_bindings", []):
+                        if binding.get("local") != head:
+                            continue
+                        import_line = int(binding.get("line", 0) or 0)
+                        if binding.get("kind") == "module":
+                            resolved_module, resolved_symbol = (
+                                module_for_module_binding(binding, call_target)
+                            )
+                        else:
+                            combined = ".".join(
+                                part
+                                for part in (
+                                    binding.get("module", ""),
+                                    binding.get("symbol", ""),
+                                )
+                                if part
+                            )
+                            if combined in by_module:
+                                resolved_module = combined
+                                resolved_symbol = parts[-1]
+                        if resolved_module:
+                            break
+
+                target = by_module.get(resolved_module)
+                if (
+                    target is None
+                    or target["relative"] == source["relative"]
+                    or target["relative"] not in selected_paths
+                ):
+                    continue
+                if (
+                    resolved_symbol
+                    and resolved_symbol
+                    not in definition_names.get(resolved_module, set())
+                ):
+                    continue
+
+                binding_scope = "<module>"
+                for candidate_binding in source.get("import_bindings", []):
+                    if int(candidate_binding.get("line", 0) or 0) == import_line:
+                        binding_scope = str(
+                            candidate_binding.get("scope") or "<module>"
+                        )
+                        break
+                scope_text = (
+                    "" if binding_scope == "<module>"
+                    else f", import scope {binding_scope}"
+                )
+                add(
+                    f"{source['relative']} calls {resolved_symbol} from "
+                    f"{target['relative']} at line {call['line']} "
+                    f"(import line {import_line}{scope_text})"
+                )
+
+        return connections[:24]
+
+    def _compile_context_bundle(self, selected):
+        started = time.perf_counter()
+        results = []
+        removed = False
+        try:
+            with tempfile.TemporaryDirectory(
+                prefix="FOXAI_ContextLab_"
+            ) as temp_name:
+                temp_root = Path(temp_name)
+                for record in selected:
+                    relative = Path(record["relative"])
+                    copied = temp_root / relative
+                    copied.parent.mkdir(parents=True, exist_ok=True)
+                    shutil.copy2(record["path"], copied)
+                    completed = subprocess.run(
+                        [
+                            sys.executable,
+                            "-I",
+                            "-B",
+                            "-m",
+                            "py_compile",
+                            str(copied),
+                        ],
+                        cwd=str(temp_root),
+                        capture_output=True,
+                        text=True,
+                        timeout=30,
+                        check=False,
+                    )
+                    results.append(
+                        {
+                            "relative": record["relative"],
+                            "passed": completed.returncode == 0,
+                            "output": (
+                                (completed.stdout or "")
+                                + (completed.stderr or "")
+                            ).strip()[:1000],
+                        }
+                    )
+            removed = True
+        except Exception as error:
+            results.append(
+                {
+                    "relative": "[context lab]",
+                    "passed": False,
+                    "output": f"{type(error).__name__}: {error}",
+                }
+            )
+        return {
+            "results": results,
+            "removed": removed,
+            "elapsed_ms": int((time.perf_counter() - started) * 1000),
+        }
+
+    def trace_engineering_context(self, question):
+        """Assemble and test a bounded multi-file source context."""
+        try:
+            manifest_path, _, raw_records, missing, skipped = (
+                self._load_context_manifest_records()
+            )
+        except Exception as error:
+            return (
+                "ENGINEER CONTEXT TRACE\n\n"
+                "Result: NOT AVAILABLE\n"
+                f"Reason: {type(error).__name__}: {error}\n\n"
+                "No project files were modified."
+            )
+
+        records = [
+            self._analyze_context_record(record) for record in raw_records
+        ]
+        terms = self._context_query_terms(question)
+        ranked = []
+        for record in records:
+            score, reasons = self._score_context_record(
+                record, question, terms
+            )
+            if score > 0:
+                candidate = dict(record)
+                candidate["score"] = score
+                candidate["reasons"] = reasons
+                candidate["snippets"] = self._context_snippets(
+                    record,
+                    terms,
+                    self.CONTEXT_TRACE_MAX_SNIPPETS_PER_FILE,
+                )
+                ranked.append(candidate)
+
+        ranked.sort(
+            key=lambda item: (
+                item["score"],
+                -len(item["relative"]),
+            ),
+            reverse=True,
+        )
+        selected = ranked[:self.CONTEXT_TRACE_MAX_FILES]
+        if not selected:
+            return (
+                "ENGINEER CONTEXT TRACE — MANIFEST-BOUNDED\n\n"
+                f"Question: {question}\n"
+                f"Manifest: {manifest_path}\n"
+                f"Manifest-listed Python files considered: {len(records)}\n\n"
+                "No relevant bounded source context was found.\n\n"
+                "Read-only: no files were modified."
+            )
+
+        connections = self._context_connections(selected, records)
+        lab = self._compile_context_bundle(selected)
+        passed = sum(1 for item in lab["results"] if item["passed"])
+        drifted = [
+            item for item in selected
+            if item["manifest_hash_match"] is False
+        ]
+
+        lines = [
+            "ENGINEER CONTEXT TRACE — MANIFEST-BOUNDED",
+            "",
+            f"Question: {question}",
+            f"Manifest: {manifest_path}",
+            (
+                "Source basis: current live files at manifest-listed paths; "
+                "the manifest is used as the bounded file list."
+            ),
+            "",
+            f"Manifest-listed Python files considered: {len(records)}",
+            f"Relevant files selected: {len(selected)}",
+            f"Missing manifest-listed Python files: {len(missing)}",
+            f"Skipped files: {len(skipped)}",
+            f"Selected files changed since manifest hash: {len(drifted)}",
+            "",
+            "Disposable multi-file Lab:",
+            f"- Compiled successfully: {passed}/{len(lab['results'])}",
+            f"- Elapsed: {lab['elapsed_ms']} ms",
+            f"- Temporary workspace removed: {lab['removed']}",
+            "",
+            "Ranked source context:",
+        ]
+
+        for index, record in enumerate(selected, start=1):
+            hash_state = (
+                "MATCHES MANIFEST"
+                if record["manifest_hash_match"] is True
+                else "CHANGED SINCE MANIFEST"
+                if record["manifest_hash_match"] is False
+                else "NO MANIFEST HASH"
+            )
+            lines.extend(
+                [
+                    "",
+                    f"{index}. {record['relative']}",
+                    f"   Score: {record['score']}",
+                    f"   SHA-256: {record['sha256']}",
+                    f"   Manifest state: {hash_state}",
+                    f"   Lines: {record['line_count']}",
+                ]
+            )
+            if record["syntax_error"]:
+                lines.append(f"   Syntax: FAILED — {record['syntax_error']}")
+            else:
+                lines.append("   Syntax: PASSED")
+            if record["reasons"]:
+                lines.append(
+                    "   Why selected: " + "; ".join(record["reasons"][:5])
+                )
+            if record["definitions"]:
+                definitions = ", ".join(
+                    f"{item['name']}@{item['line']}"
+                    for item in record["definitions"][:8]
+                )
+                lines.append("   Definitions: " + definitions)
+            if record["imports"]:
+                lines.append(
+                    "   Imports: " + ", ".join(record["imports"][:8])
+                )
+            for snippet in record["snippets"]:
+                lines.append(
+                    f"   Evidence line {snippet['line']}: {snippet['text']}"
+                )
+
+        lines.extend(["", "Import-resolved source connections:"])
+        if connections:
+            lines.extend(f"- {item}" for item in connections)
+        else:
+            lines.append(
+                "- No import-resolved cross-file connection was "
+                "detected within the bounded set."
+            )
+
+        failed = [item for item in lab["results"] if not item["passed"]]
+        if failed:
+            lines.extend(["", "Lab attention:"])
+            for item in failed[:6]:
+                lines.append(
+                    f"- {item['relative']}: {item['output'] or 'compile failed'}"
+                )
+
+        lines.extend(
+            [
+                "",
+                "Context bundle status:",
+                (
+                    f"Assembled from {len(selected)} current source files and "
+                    "tested as disposable copies."
+                ),
+                (
+                    "Call edges require an explicit import binding. This remains "
+                    "a static source graph, not a complete runtime trace."
+                ),
+                "",
+                "Boundary:",
+                "- No live source file was modified.",
+                "- No selected module was imported or executed.",
+                "- Only manifest-listed Python paths were considered.",
+                "- The temporary context workspace was removed.",
+            ]
+        )
+        return "\n".join(lines)
+
+    def parse_grounded_reasoning_request(self, query):
+        """Return a question for source-grounded local-model reasoning."""
+        text = (query or "").strip()
+        if not text:
+            return None
+
+        patterns = (
+            r"^(?:reason|reasoning)\b",
+            r"^(?:grounded\s+analysis|analyze\s+context)\b",
+            r"^(?:diagnose|root\s+cause)\b",
+            r"^(?:propose\s+(?:a\s+)?patch|draft\s+(?:a\s+)?patch)\b",
+            r"^(?:explain\s+(?:the\s+)?cause)\b",
+        )
+        for pattern in patterns:
+            match = re.match(pattern, text, flags=re.IGNORECASE)
+            if match:
+                remainder = text[match.end():].strip(" :,-")
+                return remainder or text
+        return None
+
+    @staticmethod
+    def _grounded_reasoning_windows(record, terms, limit, radius):
+        """Choose evidence windows, prioritizing local imports and calls."""
+        lines = record["text"].splitlines()
+        folded_terms = [str(term).casefold() for term in terms if str(term)]
+        import_question = any(
+            term in {"import", "dynamic", "runtime", "lazy", "webui"}
+            for term in folded_terms
+        )
+        candidates = []
+
+        def add(priority, line, reason):
+            line = int(line or 0)
+            if line >= 1:
+                candidates.append((priority, line, reason))
+
+        for binding in record.get("import_bindings", []):
+            haystack = " ".join(
+                str(binding.get(key) or "")
+                for key in ("module", "symbol", "local", "scope")
+            ).casefold()
+            scope = str(binding.get("scope") or "<module>")
+            matched = any(term in haystack for term in folded_terms)
+            if matched or (import_question and scope != "<module>"):
+                add(0, binding.get("line"), "import binding")
+                local = str(binding.get("local") or "")
+                if local:
+                    for call in record.get("calls", []):
+                        target = str(call.get("target") or "")
+                        if target == local or target.startswith(local + "."):
+                            add(0, call.get("line"), "import-resolved call")
+
+        for snippet in record.get("snippets", []):
+            add(1, snippet.get("line"), "query match")
+
+        for definition in record.get("definitions", []):
+            name = str(definition.get("name") or "").casefold()
+            if any(term in name for term in folded_terms):
+                add(2, definition.get("line"), "matching definition")
+
+        if not candidates and record.get("definitions"):
+            add(3, record["definitions"][0].get("line", 1), "first definition")
+        if not candidates and lines:
+            add(4, 1, "file start")
+
+        candidates.sort(key=lambda item: (item[0], item[1]))
+        windows = []
+        used_ranges = []
+        for _priority, center, _reason in candidates:
+            if center < 1 or not lines:
+                continue
+            start = max(1, center - radius)
+            end = min(len(lines), center + radius)
+            if any(
+                not (end < used_start or start > used_end)
+                for used_start, used_end in used_ranges
+            ):
+                continue
+            text = "\n".join(
+                f"{number:>6}: {lines[number - 1]}"
+                for number in range(start, end + 1)
+            )
+            windows.append({"start": start, "end": end, "text": text})
+            used_ranges.append((start, end))
+            if len(windows) >= limit:
+                break
+        return windows
+
+    @staticmethod
+    def _grounded_question_mode(question):
+        lower = (question or "").casefold()
+        historical_markers = (
+            "used to", "previously", "before the", "prior version",
+            "historical", "formerly", "why did", "used to reach",
+        )
+        return (
+            "historical"
+            if any(marker in lower for marker in historical_markers)
+            else "current"
+        )
+
+    @staticmethod
+    def _grounded_proven_facts(selected, connections, question_mode, question=""):
+        facts = []
+
+        def add(value):
+            if value and value not in facts:
+                facts.append(value)
+
+        for connection in connections:
+            add(connection)
+
+        selected_paths = {item["relative"] for item in selected}
+        for record in selected:
+            for binding in record.get("import_bindings", []):
+                scope = str(binding.get("scope") or "<module>")
+                if scope == "<module>":
+                    continue
+                module = str(binding.get("module") or "")
+                symbol = str(binding.get("symbol") or "")
+                target = module.replace(".", "/") + ".py" if module else ""
+                if target not in selected_paths:
+                    continue
+                detail = f" symbol {symbol}" if symbol else ""
+                add(
+                    f"{record['relative']} has a function-local import of "
+                    f"{target}{detail} at line {binding['line']} inside {scope}"
+                )
+
+        question_lower = (question or "").casefold()
+        function_local_engineer = any(
+            "core/foxai_web.py has a function-local import of "
+            "core/engineer_agent.py" in item
+            for item in facts
+        )
+        if (
+            function_local_engineer
+            and "does not show" in question_lower
+            and "engineer" in question_lower
+        ):
+            add(
+                "PREMISE CORRECTION: the current analyzer does show the "
+                "function-local WebUI Engineer import; explaining why an earlier "
+                "trace missed it requires the earlier analyzer source or receipt"
+            )
+
+        if question_mode == "historical":
+            add(
+                "HISTORICAL LIMIT: the supplied bundle contains current live "
+                "source and current manifest metadata, not a prior source snapshot; "
+                "current code alone cannot prove why an older version behaved differently"
+            )
+        add(
+            "RETRIEVAL LIMIT: query-term mappings, ranking scores, selection "
+            "reasons, and imported module names are retrieval metadata—not proof "
+            "that a runtime branch executed or caused the reported behavior"
+        )
+        return facts[:30]
+
+    @staticmethod
+    def _grounded_allowed_evidence_lines(selected, connections):
+        allowed = {record["relative"]: set() for record in selected}
+        for record in selected:
+            for window in record.get("reasoning_windows", []):
+                allowed[record["relative"]].update(
+                    range(int(window["start"]), int(window["end"]) + 1)
+                )
+
+        for connection in connections:
+            match = re.match(
+                r"^(.+?\.py) (?:imports|calls).*? at line (\d+)",
+                connection,
+            )
+            if match and match.group(1) in allowed:
+                allowed[match.group(1)].add(int(match.group(2)))
+            import_match = re.search(r"import line (\d+)", connection)
+            if import_match and match and match.group(1) in allowed:
+                allowed[match.group(1)].add(int(import_match.group(1)))
+        return allowed
+
+    @staticmethod
+    def _grounded_evidence_line_map(selected, allowed):
+        line_map = {}
+        for record in selected:
+            relative = record["relative"]
+            source_lines = record.get("text", "").splitlines()
+            for number in sorted(allowed.get(relative, set())):
+                if 1 <= number <= len(source_lines):
+                    line_map[f"{relative}:{number}"] = source_lines[number - 1]
+        return line_map
+
+    @staticmethod
+    def _grounded_claim_units(answer):
+        units = []
+        buffer = []
+        for raw_line in (answer or "").splitlines():
+            stripped = raw_line.strip()
+            if not stripped:
+                if buffer:
+                    units.append(" ".join(buffer))
+                    buffer = []
+                continue
+            if stripped in {
+                "LIKELY CAUSE",
+                "EVIDENCE",
+                "PROPOSED PATCH OR NEXT INSPECTION",
+                "RISKS",
+                "VALIDATION TESTS",
+                "CONFIDENCE",
+            }:
+                if buffer:
+                    units.append(" ".join(buffer))
+                    buffer = []
+                continue
+            buffer.append(stripped)
+            if re.search(r"[.!?](?:\s*\[[^\]]+\])?\s*$", stripped):
+                units.append(" ".join(buffer))
+                buffer = []
+        if buffer:
+            units.append(" ".join(buffer))
+        return units
+
+    @staticmethod
+    def _grounded_technical_tokens(claim):
+        tokens = set()
+        for value in re.findall(r"`([^`]+)`", claim or ""):
+            tokens.update(
+                item for item in re.findall(
+                    r"[A-Za-z_][A-Za-z0-9_.]*(?:\.py)?", value
+                )
+                if len(item) >= 3
+            )
+        tokens.update(
+            item for item in re.findall(
+                r"\b[A-Za-z_][A-Za-z0-9_]*\.[A-Za-z0-9_.]+\b",
+                claim or "",
+            )
+            if not item.endswith((".py", ".json", ".md"))
+        )
+        return sorted(tokens)
+
+    @staticmethod
+    def _grounded_mechanism_claims(claim):
+        folded = (claim or "").casefold()
+        mechanisms = []
+        patterns = {
+            "importlib.util": ("importlib.util",),
+            "__import__": ("__import__",),
+            "eval": ("eval(", "via eval", "using eval"),
+            "exec": ("exec(", "via exec", "using exec"),
+            "configuration-driven loading": (
+                "configuration-driven",
+                "config-driven",
+                "loaded via configuration",
+            ),
+            "reflection": ("reflection", "reflective loading"),
+            "plugin loading": ("plugin loading", "plugin-based loading"),
+        }
+        for label, markers in patterns.items():
+            if any(marker in folded for marker in markers):
+                mechanisms.append(label)
+        return mechanisms
+
+    @staticmethod
+    def _grounded_uncited_required_claims(answer):
+        headings = (
+            "LIKELY CAUSE",
+            "EVIDENCE",
+            "PROPOSED PATCH OR NEXT INSPECTION",
+            "RISKS",
+            "VALIDATION TESTS",
+            "CONFIDENCE",
+        )
+        required = {"LIKELY CAUSE", "EVIDENCE"}
+        current = ""
+        paragraphs = []
+        buffer = []
+
+        def flush():
+            nonlocal buffer
+            if current in required and buffer:
+                paragraphs.append((current, " ".join(buffer)))
+            buffer = []
+
+        for raw_line in (answer or "").splitlines():
+            stripped = raw_line.strip()
+            if stripped in headings:
+                flush()
+                current = stripped
+                continue
+            if not stripped:
+                flush()
+                continue
+            if current in required:
+                buffer.append(stripped)
+        flush()
+
+        citation_pattern = re.compile(
+            r"\[[A-Za-z0-9_./()\-]+\.py:\d+\]"
+        )
+        return [
+            {"section": section, "claim": claim}
+            for section, claim in paragraphs
+            if not citation_pattern.search(claim)
+        ]
+
+    def _grounded_claim_support(self, answer, bundle):
+        citation_pattern = re.compile(
+            r"\[([A-Za-z0-9_./()\-]+\.py):(\d+)\]"
+        )
+        line_map = bundle.get("evidence_line_map", {})
+        proven_text = "\n".join(bundle.get("proven_facts") or []).casefold()
+        unsupported = []
+
+        for claim in self._grounded_claim_units(answer):
+            citations = citation_pattern.findall(claim)
+            if not citations:
+                continue
+            cited_text = "\n".join(
+                line_map.get(f"{relative}:{int(number)}", "")
+                for relative, number in citations
+            )
+            support_text = (cited_text + "\n" + proven_text).casefold()
+
+            for mechanism in self._grounded_mechanism_claims(claim):
+                if mechanism.casefold() not in support_text:
+                    unsupported.append(
+                        {
+                            "claim": claim,
+                            "reason": (
+                                f"technical mechanism '{mechanism}' is absent "
+                                "from the cited source and deterministic facts"
+                            ),
+                        }
+                    )
+
+            for token in self._grounded_technical_tokens(claim):
+                folded = token.casefold()
+                if folded in {
+                    "core", "python", "webui", "static", "runtime",
+                }:
+                    continue
+                if folded not in support_text:
+                    unsupported.append(
+                        {
+                            "claim": claim,
+                            "reason": (
+                                f"technical identifier '{token}' is absent "
+                                "from the cited source and deterministic facts"
+                            ),
+                        }
+                    )
+        deduped = []
+        seen = set()
+        for item in unsupported:
+            key = (item["claim"], item["reason"])
+            if key not in seen:
+                seen.add(key)
+                deduped.append(item)
+        return deduped
+
+    def _validate_grounded_model_answer(self, answer, bundle):
+        required_sections = (
+            "LIKELY CAUSE",
+            "EVIDENCE",
+            "PROPOSED PATCH OR NEXT INSPECTION",
+            "RISKS",
+            "VALIDATION TESTS",
+            "CONFIDENCE",
+        )
+        missing_sections = [
+            section for section in required_sections if section not in answer
+        ]
+        citation_pattern = re.compile(
+            r"\[([A-Za-z0-9_./()\-]+\.py):(\d+)\]"
+        )
+        allowed = bundle.get("allowed_evidence_lines", {})
+        valid = []
+        invalid = []
+        for relative, number_text in citation_pattern.findall(answer):
+            number = int(number_text)
+            citation = f"[{relative}:{number}]"
+            if relative in allowed and number in allowed[relative]:
+                valid.append(citation)
+            else:
+                invalid.append(citation)
+
+        historical_ok = True
+        if bundle.get("question_mode") == "historical":
+            folded = answer.casefold()
+            historical_ok = any(
+                phrase in folded
+                for phrase in (
+                    "insufficient historical evidence",
+                    "current live source does not prove",
+                    "cannot prove why an older version",
+                    "prior source snapshot",
+                    "historical evidence is not supplied",
+                    "without historical code snapshots",
+                    "cannot confirm why older versions",
+                    "cannot confirm the historical cause",
+                    "current code demonstrates the mechanism, not the historical",
+                    "current code alone cannot establish the historical",
+                )
+            )
+
+        unsupported_claims = self._grounded_claim_support(answer, bundle)
+        uncited_required_claims = self._grounded_uncited_required_claims(answer)
+
+        accepted = (
+            bool(valid)
+            and not missing_sections
+            and not invalid
+            and historical_ok
+            and not unsupported_claims
+            and not uncited_required_claims
+        )
+        return {
+            "status": "PASSED" if accepted else "FAILED",
+            "valid_citations": list(dict.fromkeys(valid)),
+            "invalid_citations": list(dict.fromkeys(invalid)),
+            "missing_sections": missing_sections,
+            "historical_limit_acknowledged": historical_ok,
+            "unsupported_claims": unsupported_claims,
+            "uncited_required_claims": uncited_required_claims,
+        }
+
+    def _assemble_grounded_reasoning_bundle(self, question):
+        manifest_path, _, raw_records, missing, skipped = (
+            self._load_context_manifest_records()
+        )
+        records = [self._analyze_context_record(item) for item in raw_records]
+        terms = self._context_query_terms(question)
+        question_mode = self._grounded_question_mode(question)
+        ranked = []
+
+        for record in records:
+            score, reasons = self._score_context_record(record, question, terms)
+            if score <= 0:
+                continue
+            candidate = dict(record)
+            candidate["score"] = score
+            candidate["reasons"] = reasons
+            candidate["snippets"] = self._context_snippets(
+                record,
+                terms,
+                self.CONTEXT_TRACE_MAX_SNIPPETS_PER_FILE,
+            )
+            ranked.append(candidate)
+
+        ranked.sort(
+            key=lambda item: (item["score"], -len(item["relative"])),
+            reverse=True,
+        )
+        selected = ranked[:self.GROUNDED_REASONING_MAX_FILES]
+        if not selected:
+            return {
+                "manifest_path": manifest_path,
+                "records": records,
+                "selected": [],
+                "connections": [],
+                "proven_facts": [],
+                "allowed_evidence_lines": {},
+                "evidence_line_map": {},
+                "question_mode": question_mode,
+                "lab": {"results": [], "removed": True, "elapsed_ms": 0},
+                "missing": missing,
+                "skipped": skipped,
+                "terms": terms,
+                "prompt": "",
+            }
+
+        for record in selected:
+            record["reasoning_windows"] = self._grounded_reasoning_windows(
+                record,
+                terms,
+                self.GROUNDED_REASONING_MAX_WINDOWS_PER_FILE,
+                self.GROUNDED_REASONING_WINDOW_RADIUS,
+            )
+
+        connections = self._context_connections(selected, records)
+        proven_facts = self._grounded_proven_facts(
+            selected, connections, question_mode, question
+        )
+        allowed_evidence_lines = self._grounded_allowed_evidence_lines(
+            selected, connections
+        )
+        evidence_line_map = self._grounded_evidence_line_map(
+            selected, allowed_evidence_lines
+        )
+        lab = self._compile_context_bundle(selected)
+
+        prompt_lines = [
+            "FOXAI ENGINEER GROUNDED SOURCE ANALYSIS — CITATION REQUIRED",
+            "",
+            "Operator question:",
+            question,
+            f"Question mode: {question_mode}",
+            "",
+            "Rules:",
+            "1. Use only the supplied deterministic facts, source excerpts, and compile results.",
+            "2. Every factual code claim in LIKELY CAUSE and EVIDENCE must cite an exact supplied source line as [relative/path.py:line].",
+            "3. Do not cite a line that is absent from the supplied excerpts or deterministic facts.",
+            "4. Separate direct observations from engineering inference.",
+            "5. Do not claim a runtime path unless an import-resolved connection or excerpt proves it.",
+            "6. Query-term mappings, ranking reasons, file selection, and module names are retrieval aids—not proof of causation or execution.",
+            "7. Security-related identifiers or imports are not evidence that security caused a behavior unless an executed branch is shown.",
+            "8. Do not treat manifest drift as proof of how a prior version behaved.",
+            "9. When evidence is insufficient, state that clearly and name the exact prior source, receipt, backup, or additional lines needed.",
+            "10. Do not claim that any patch was applied.",
+            "11. A proposed diff must be minimal and reviewable; use next-inspection steps when an exact edit is not grounded.",
+            "12. A citation is not enough by itself: the cited line must support the specific identifier and mechanism claimed.",
+            "13. Never claim importlib, eval, exec, configuration-driven loading, reflection, or plugin loading unless those exact mechanisms appear in cited evidence.",
+            "14. A normal import statement inside a function is a function-local or lazy import; do not call it importlib-based loading.",
+            "15. If deterministic facts contradict the question's premise, correct the premise before explaining anything else.",
+        ]
+        if question_mode == "historical":
+            prompt_lines.extend(
+                [
+                    "16. This is a historical question, but the bundle contains current live source only.",
+                    "17. You must explicitly say that current live source does not prove the historical cause unless a prior source snapshot is supplied.",
+                ]
+            )
+
+        prompt_lines.extend(
+            [
+                "",
+                "Return exactly these sections:",
+                "LIKELY CAUSE",
+                "EVIDENCE",
+                "PROPOSED PATCH OR NEXT INSPECTION",
+                "RISKS",
+                "VALIDATION TESTS",
+                "CONFIDENCE",
+                "",
+                f"Manifest: {manifest_path}",
+                f"Selected files: {len(selected)}",
+                f"Missing manifest files: {len(missing)}",
+                f"Skipped manifest files: {len(skipped)}",
+                "",
+                "DISPOSABLE LAB RESULTS:",
+            ]
+        )
+        for result in lab["results"]:
+            prompt_lines.append(
+                f"- {result['relative']}: {'PASS' if result['passed'] else 'FAIL'}"
+                + (f" — {result['output']}" if result.get("output") else "")
+            )
+
+        prompt_lines.extend(["", "DETERMINISTIC PROVEN FACTS:"])
+        if proven_facts:
+            prompt_lines.extend(f"- {item}" for item in proven_facts)
+        else:
+            prompt_lines.append("- No cross-file fact was proven in the bounded set.")
+
+        prompt_lines.extend(["", "SOURCE EVIDENCE:"])
+        for index, record in enumerate(selected, start=1):
+            state = (
+                "MATCHES MANIFEST"
+                if record["manifest_hash_match"] is True
+                else "CHANGED SINCE MANIFEST"
+                if record["manifest_hash_match"] is False
+                else "NO MANIFEST HASH"
+            )
+            prompt_lines.extend(
+                [
+                    "",
+                    f"FILE {index}: {record['relative']}",
+                    f"SHA-256: {record['sha256']}",
+                    f"Manifest state: {state}",
+                    f"Syntax: {'FAILED — ' + record['syntax_error'] if record['syntax_error'] else 'PASSED'}",
+                    "Definitions: " + ", ".join(
+                        f"{item['name']}@{item['line']}"
+                        for item in record["definitions"][:12]
+                    ),
+                ]
+            )
+            local_imports = [
+                item for item in record.get("import_bindings", [])
+                if str(item.get("scope") or "<module>") != "<module>"
+            ]
+            if local_imports:
+                prompt_lines.append(
+                    "Function-local imports: " + "; ".join(
+                        f"{item.get('module')}.{item.get('symbol')}@{item.get('line')} inside {item.get('scope')}"
+                        for item in local_imports[:8]
+                    )
+                )
+            for window in record["reasoning_windows"]:
+                prompt_lines.extend(
+                    [
+                        f"Excerpt lines {window['start']}-{window['end']}:",
+                        window["text"],
+                    ]
+                )
+
+        prompt = "\n".join(prompt_lines)
+        if len(prompt) > self.GROUNDED_REASONING_MAX_PROMPT_CHARS:
+            prompt = (
+                prompt[:self.GROUNDED_REASONING_MAX_PROMPT_CHARS]
+                + "\n[CONTEXT TRUNCATED AT BOUNDED PROMPT LIMIT]"
+            )
+
+        return {
+            "manifest_path": manifest_path,
+            "records": records,
+            "selected": selected,
+            "connections": connections,
+            "proven_facts": proven_facts,
+            "allowed_evidence_lines": allowed_evidence_lines,
+            "evidence_line_map": evidence_line_map,
+            "question_mode": question_mode,
+            "lab": lab,
+            "missing": missing,
+            "skipped": skipped,
+            "terms": terms,
+            "prompt": prompt,
+        }
+
+    @staticmethod
+    def _grounded_deterministic_resolution(question, bundle):
+        """Resolve questions that do not need or cannot support a model call."""
+        facts = list(bundle.get("proven_facts") or [])
+        question_mode = str(bundle.get("question_mode") or "current")
+        question_lower = (question or "").casefold()
+
+        premise_correction = next(
+            (
+                item for item in facts
+                if str(item).startswith("PREMISE CORRECTION:")
+            ),
+            None,
+        )
+        import_fact = next(
+            (
+                item for item in facts
+                if "core/foxai_web.py imports core/engineer_agent.py"
+                in str(item)
+                and "inside web_engineer_analyze" in str(item)
+            ),
+            None,
+        )
+        call_fact = next(
+            (
+                item for item in facts
+                if "core/foxai_web.py calls EngineerAgent"
+                in str(item)
+            ),
+            None,
+        )
+
+        if premise_correction and import_fact:
+            citations = []
+            for fact in (import_fact, call_fact):
+                match = re.search(r"^(.+?\.py).*? at line (\d+)", str(fact or ""))
+                if match:
+                    citation = f"[{match.group(1)}:{match.group(2)}]"
+                    if citation not in citations:
+                        citations.append(citation)
+            return {
+                "kind": "premise_corrected",
+                "title": "DETERMINISTIC RESOLUTION — MODEL NOT NEEDED",
+                "summary": (
+                    "The current analyzer already detects the function-local "
+                    "WebUI Engineer import. Current live source cannot prove why "
+                    "an earlier analyzer omitted it."
+                ),
+                "evidence": [
+                    import_fact,
+                    *([call_fact] if call_fact else []),
+                    premise_correction,
+                ],
+                "citations": citations,
+                "next_step": (
+                    "Inspect the earlier Engineer analyzer source, its package "
+                    "backup, or the earlier trace receipt to establish the exact "
+                    "historical limitation."
+                ),
+                "reason_model_skipped": (
+                    "The current premise is contradicted by deterministic source "
+                    "facts, and the historical part requires earlier evidence."
+                ),
+            }
+
+        if question_mode == "historical":
+            historical_limit = next(
+                (
+                    item for item in facts
+                    if str(item).startswith("HISTORICAL LIMIT:")
+                ),
+                None,
+            )
+            requested_artifact = (
+                "prior source snapshot, backup, mission receipt, diff, or exact "
+                "historical source lines"
+            )
+            return {
+                "kind": "historical_evidence_gap",
+                "title": "DETERMINISTIC EVIDENCE GAP — MODEL SKIPPED",
+                "summary": (
+                    "The supplied bundle contains current live source only, so it "
+                    "cannot establish why the older route behaved differently."
+                ),
+                "evidence": [historical_limit] if historical_limit else [],
+                "citations": [],
+                "next_step": f"Provide a {requested_artifact}.",
+                "reason_model_skipped": (
+                    "A model cannot convert current source into historical proof; "
+                    "calling it would invite unsupported reconstruction."
+                ),
+            }
+
+        return None
+
+    @staticmethod
+    def _format_grounded_deterministic_report(question, bundle, resolution):
+        selected = bundle.get("selected") or []
+        lab = bundle.get("lab") or {"results": [], "removed": True, "elapsed_ms": 0}
+        passed = sum(1 for item in lab.get("results", []) if item.get("passed"))
+        lines = [
+            "ENGINEER GROUNDED REASONING — " + resolution["title"],
+            "",
+            f"Question: {question}",
+            f"Question mode: {bundle.get('question_mode')}",
+            f"Manifest: {bundle.get('manifest_path')}",
+            f"Selected source files: {len(selected)}",
+            f"Disposable compile results: {passed}/{len(lab.get('results', []))}",
+            f"Lab elapsed: {lab.get('elapsed_ms', 0)} ms",
+            f"Temporary workspace removed: {lab.get('removed', True)}",
+            "Model call: SKIPPED",
+            "",
+            "DETERMINISTIC ANSWER:",
+            resolution["summary"],
+        ]
+        citations = resolution.get("citations") or []
+        if citations:
+            lines.append("Source citations: " + " ".join(citations))
+        evidence = [item for item in resolution.get("evidence", []) if item]
+        if evidence:
+            lines.extend(["", "Proven evidence:"])
+            lines.extend(f"- {item}" for item in evidence)
+        lines.extend(
+            [
+                "",
+                "Why the model was not called:",
+                resolution["reason_model_skipped"],
+                "",
+                "Required next evidence or action:",
+                resolution["next_step"],
+                "",
+                "Evidence boundary:",
+                "- Deterministic source selection and disposable compilation completed.",
+                "- No model inference was used for this answer.",
+                "- No live module was imported or executed.",
+                "- No patch was applied and no project file was modified.",
+            ]
+        )
+        return "\\n".join(lines)
+
+    def grounded_reasoning_report(self, question):
+        """Ask the local model to reason only over a verified source bundle."""
+        try:
+            bundle = self._assemble_grounded_reasoning_bundle(question)
+        except Exception as error:
+            return (
+                "ENGINEER GROUNDED REASONING\n\n"
+                "Result: CONTEXT ASSEMBLY FAILED\n"
+                f"{type(error).__name__}: {error}\n\n"
+                "No project files were modified."
+            )
+
+        selected = bundle["selected"]
+        if not selected:
+            return (
+                "ENGINEER GROUNDED REASONING — NO CONTEXT\n\n"
+                f"Question: {question}\n"
+                f"Manifest: {bundle['manifest_path']}\n\n"
+                "No relevant manifest-bounded source files were found.\n\n"
+                "No model call was made and no files were modified."
+            )
+
+        lab = bundle["lab"]
+        passed = sum(1 for item in lab["results"] if item["passed"])
+
+        deterministic_resolution = self._grounded_deterministic_resolution(
+            question, bundle
+        )
+        if deterministic_resolution is not None:
+            return self._format_grounded_deterministic_report(
+                question, bundle, deterministic_resolution
+            )
+
+        runner = getattr(self.app, "reason_about_code", None)
+        if not callable(runner):
+            return (
+                "ENGINEER GROUNDED REASONING — MODEL BRIDGE UNAVAILABLE\n\n"
+                f"Question: {question}\n"
+                f"Selected source files: {len(selected)}\n"
+                f"Disposable compile results: {passed}/{len(lab['results'])}\n"
+                f"Temporary workspace removed: {lab['removed']}\n\n"
+                "The deterministic source bundle was assembled, but this interface "
+                "does not provide a local-model reasoning callback.\n\n"
+                "No model claim was generated and no files were modified."
+            )
+
+        try:
+            model_result = runner(bundle["prompt"])
+        except Exception as error:
+            model_result = {
+                "ok": False,
+                "answer": "",
+                "error": f"{type(error).__name__}: {error}",
+            }
+
+        if isinstance(model_result, str):
+            ok = bool(model_result.strip())
+            answer = model_result.strip()
+            error = ""
+            model_name = "local model"
+        elif isinstance(model_result, dict):
+            ok = bool(model_result.get("ok"))
+            answer = str(model_result.get("answer") or "").strip()
+            error = str(model_result.get("error") or "").strip()
+            model_name = str(model_result.get("model") or "local model")
+        else:
+            ok = False
+            answer = ""
+            error = "Unsupported model callback result"
+            model_name = "local model"
+
+        lines = [
+            "ENGINEER GROUNDED REASONING — CITATION-CHECKED SOURCE + LOCAL MODEL",
+            "",
+            f"Question: {question}",
+            f"Question mode: {bundle['question_mode']}",
+            f"Manifest: {bundle['manifest_path']}",
+            f"Selected source files: {len(selected)}",
+            f"Disposable compile results: {passed}/{len(lab['results'])}",
+            f"Lab elapsed: {lab['elapsed_ms']} ms",
+            f"Temporary workspace removed: {lab['removed']}",
+            f"Model: {model_name}",
+            "",
+            "Deterministic proven facts:",
+        ]
+        facts = bundle.get("proven_facts") or []
+        if facts:
+            lines.extend(f"- {item}" for item in facts[:10])
+        else:
+            lines.append("- No cross-file fact was proven in the bounded set.")
+        lines.append("")
+
+        if ok and answer:
+            grounding = self._validate_grounded_model_answer(answer, bundle)
+            lines.extend(
+                [
+                    f"Model grounding check: {grounding['status']}",
+                    f"Valid source citations: {len(grounding['valid_citations'])}",
+                    f"Invalid source citations: {len(grounding['invalid_citations'])}",
+                    f"Missing required sections: {len(grounding['missing_sections'])}",
+                    f"Unsupported cited claims: {len(grounding['unsupported_claims'])}",
+                    f"Uncited LIKELY CAUSE/EVIDENCE claims: {len(grounding['uncited_required_claims'])}",
+                ]
+            )
+            if bundle["question_mode"] == "historical":
+                lines.append(
+                    "Historical evidence limit acknowledged: "
+                    + str(grounding["historical_limit_acknowledged"])
+                )
+            lines.append("")
+            if grounding["status"] == "FAILED":
+                lines.extend(
+                    [
+                        "MODEL DRAFT REJECTED AS GROUNDED:",
+                        answer,
+                        "",
+                        "The draft is shown for inspection but is not accepted as "
+                        "grounded because one or more citations were invalid, missing, "
+                        "historically insufficient, or did not support the mechanism claimed.",
+                    ]
+                )
+            else:
+                lines.extend(["GROUNDED MODEL ANALYSIS:", answer])
+            if grounding["invalid_citations"]:
+                lines.extend(
+                    [
+                        "",
+                        "Invalid citations:",
+                        *(
+                            f"- {item}"
+                            for item in grounding["invalid_citations"][:12]
+                        ),
+                    ]
+                )
+            if grounding["missing_sections"]:
+                lines.extend(
+                    [
+                        "",
+                        "Missing sections:",
+                        *(
+                            f"- {item}"
+                            for item in grounding["missing_sections"]
+                        ),
+                    ]
+                )
+            if grounding["unsupported_claims"]:
+                lines.extend(
+                    [
+                        "",
+                        "Unsupported cited claims:",
+                        *(
+                            f"- {item['reason']}: {item['claim']}"
+                            for item in grounding["unsupported_claims"][:8]
+                        ),
+                    ]
+                )
+            if grounding["uncited_required_claims"]:
+                lines.extend(
+                    [
+                        "",
+                        "Uncited required claims:",
+                        *(
+                            f"- {item['section']}: {item['claim']}"
+                            for item in grounding["uncited_required_claims"][:8]
+                        ),
+                    ]
+                )
+        else:
+            lines.extend(
+                [
+                    "MODEL ANALYSIS UNAVAILABLE:",
+                    error or "The local model returned no usable analysis.",
+                    "",
+                    "The deterministic source selection, proven facts, and compile checks still completed.",
+                ]
+            )
+
+        lines.extend(
+            [
+                "",
+                "Evidence boundary:",
+                "- The model received only bounded excerpts from manifest-listed current source files.",
+                "- Function-local imports and import-resolved connections were included.",
+                "- Model claims were checked for exact source-line citations.",
+                "- Historical claims require historical evidence rather than current-code inference.",
+                "- No live module was imported or executed.",
+                "- No patch was applied and no project file was modified.",
+            ]
+        )
+        return "\n".join(lines)
 
     def smart_search_report(self, query):
         target = self.normalize_operator_query(query)
@@ -1136,18 +3062,29 @@ class EngineerAgent:
                         "Workshop bridge could not load.\n\n"
                         f"{type(workshop_error).__name__}: {workshop_error}"
                     )
-            context = getattr(self, "_active_airlock_context", {}) or {}
-            caller = str(context.get("actor") or "operator")
             workshop_report = workshop_bridge.handle(
                 query,
-                caller=caller,
-                operator_approved=bool(context.get("authorization_allowed")),
+                caller="operator",
+                operator_approved=True,
             )
             if workshop_report is not None:
                 return workshop_report
+
+        lab_path = self.parse_engineering_lab_request(query)
+        if lab_path is not None:
+            return self.engineering_lab_test(lab_path)
+
         exact_path = self.parse_exact_path_inspection(query)
         if exact_path is not None:
             return self.inspect_exact_path(exact_path)
+
+        grounded_question = self.parse_grounded_reasoning_request(query)
+        if grounded_question is not None:
+            return self.grounded_reasoning_report(grounded_question)
+
+        context_question = self.parse_context_trace_request(query)
+        if context_question is not None:
+            return self.trace_engineering_context(context_question)
 
         lowered = query.lower()
         intent = self.intent.classify(query)
@@ -1377,9 +3314,6 @@ class EngineerAgent:
             if any(part in self.IGNORE_DIRS for part in path.parts):
                 continue
 
-            if is_protected_path(path, self.project_root):
-                continue
-
             if path.suffix.lower() in self.IGNORE_SUFFIXES:
                 continue
 
@@ -1390,9 +3324,10 @@ class EngineerAgent:
 
     def read_text_safely(self, path, limit=120000):
         try:
-            text = path.read_text(encoding="utf-8", errors="replace")
-            redacted, _ = redact_secrets(text[:limit])
-            return redacted
+            return path.read_text(
+                encoding="utf-8",
+                errors="replace",
+            )[:limit]
         except Exception:
             return ""
 

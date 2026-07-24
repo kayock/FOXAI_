@@ -1,0 +1,28 @@
+Traceback (most recent call last):
+  File "Z:\FOXAI\_LAB\DirtyPythonLab\dirty_python_lab.py", line 190, in _request
+    with urlopen(request, timeout=self.config.request_timeout_seconds) as response:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "urllib\request.py", line 215, in urlopen
+  File "urllib\request.py", line 515, in open
+  File "urllib\request.py", line 532, in _open
+  File "urllib\request.py", line 492, in _call_chain
+  File "urllib\request.py", line 1373, in http_open
+  File "urllib\request.py", line 1348, in do_open
+  File "http\client.py", line 1428, in getresponse
+  File "http\client.py", line 331, in begin
+  File "http\client.py", line 292, in _read_status
+  File "socket.py", line 708, in readinto
+TimeoutError: timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "Z:\FOXAI\_LAB\DirtyPythonLab\dirty_python_lab.py", line 360, in run
+    response_text, code = self.client.generate(prompt)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "Z:\FOXAI\_LAB\DirtyPythonLab\dirty_python_lab.py", line 233, in generate
+    response = self._request(
+               ^^^^^^^^^^^^^^
+  File "Z:\FOXAI\_LAB\DirtyPythonLab\dirty_python_lab.py", line 201, in _request
+    raise RuntimeError("Qwen request timed out.") from exc
+RuntimeError: Qwen request timed out.

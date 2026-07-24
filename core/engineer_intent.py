@@ -1,40 +1,115 @@
 class EngineerIntent:
-    """
-    Engineer Intent Classifier RC2
+    """Engineer intent classifier focused on useful source work.
 
-    Classifies engineering questions before falling back to raw project search.
+    Read-only inspection, Python Lab testing, architecture, performance, bugs,
+    and project search are recognized directly. Generic words such as "safe"
+    or "permission" no longer divert ordinary engineering questions into a
+    security-review dead end.
     """
+
+    CONTEXT_TRACE_TERMS = [
+        "context trace",
+        "trace context",
+        "build context",
+        "trace why",
+        "trace how",
+        "call path",
+        "routing path",
+        "investigate how",
+        "investigate why",
+        "who calls",
+        "what calls",
+    ]
+
+    PYTHON_LAB_TERMS = [
+        "lab test",
+        "lab compile",
+        "python lab",
+        "test in lab",
+        "compile in lab",
+        "isolated test",
+    ]
+
+    SOURCE_INSPECTION_TERMS = [
+        "inspect ",
+        "explain ",
+        "read ",
+        "open ",
+        "summarize ",
+        "describe ",
+        "review file",
+        "explain file",
+        "what does ",
+    ]
 
     ARCHITECTURE_TERMS = [
-        "review your code", "evaluate your code", "review the workshop",
-        "evaluate the workshop", "architecture review", "design review",
-        "code and design", "recommendations for upgrade",
-        "recommendations for smoothness", "smoothness", "prominent detail",
-        "prominate detail", "overall design"
+        "review your code",
+        "evaluate your code",
+        "review the workshop",
+        "evaluate the workshop",
+        "architecture review",
+        "design review",
+        "code and design",
+        "recommendations for upgrade",
+        "recommendations for smoothness",
+        "smoothness",
+        "prominent detail",
+        "prominate detail",
+        "overall design",
     ]
 
     UI_INVESTIGATION_TERMS = [
-        "right click", "right-click", "context menu", "menu comes up",
-        "popup menu", "spell check menu", "ui menu", "mouse menu", "button-3"
+        "right click",
+        "right-click",
+        "context menu",
+        "menu comes up",
+        "popup menu",
+        "spell check menu",
+        "ui menu",
+        "mouse menu",
+        "button-3",
     ]
 
     PERFORMANCE_TERMS = [
-        "slow", "lag", "freeze", "frozen", "performance",
-        "takes too long", "stutter", "startup time"
+        "slow",
+        "lag",
+        "freeze",
+        "frozen",
+        "performance",
+        "takes too long",
+        "stutter",
+        "startup time",
     ]
 
+    # Security is intentionally narrow and explicit. It does not capture
+    # ordinary words such as safe, permission, admin, or sandbox.
     SECURITY_TERMS = [
-        "security", "safe", "unsafe", "risk", "permission",
-        "admin", "sandbox", "password", "credentials"
+        "security review",
+        "security audit",
+        "credential leak",
+        "secret leak",
     ]
 
     BUG_TERMS = [
-        "bug", "broken", "error", "doesn't work", "does not work",
-        "not working", "fails", "crash"
+        "bug",
+        "broken",
+        "error",
+        "doesn't work",
+        "does not work",
+        "not working",
+        "fails",
+        "crash",
+        "traceback",
+        "syntaxerror",
     ]
 
     SEARCH_TERMS = [
-        "find", "where is", "where are", "search", "locate", "defined"
+        "find",
+        "where is",
+        "where are",
+        "search",
+        "locate",
+        "defined",
     ]
 
     FORGE_TERMS = [
@@ -58,39 +133,76 @@ class EngineerIntent:
     def classify(self, query):
         lowered = (query or "").lower()
 
+        if self.has_any(lowered, self.CONTEXT_TRACE_TERMS):
+            return {
+                "intent": "context_trace",
+                "label": "Context Trace",
+                "reason": (
+                    "Operator requested manifest-bounded multi-file source "
+                    "and dependency context."
+                ),
+            }
+
+        if self.has_any(lowered, self.PYTHON_LAB_TERMS):
+            return {
+                "intent": "python_lab",
+                "label": "Python Lab",
+                "reason": (
+                    "Operator requested an isolated compile or Lab test "
+                    "of an exact Python file."
+                ),
+            }
+
+        if self.has_any(lowered, self.SOURCE_INSPECTION_TERMS):
+            return {
+                "intent": "source_inspection",
+                "label": "Source Inspection",
+                "reason": (
+                    "Operator requested direct explanation of source or "
+                    "a named project file."
+                ),
+            }
+
         if self.has_any(lowered, self.FORGE_TERMS):
             return {
                 "intent": "forge_build",
                 "label": "Forge Build",
-                "reason": "Operator requested implementation of a new component or Forge Sprint.",
+                "reason": (
+                    "Operator requested implementation of a new component "
+                    "or Forge Sprint."
+                ),
             }
 
         if self.has_any(lowered, self.UI_INVESTIGATION_TERMS):
             return {
                 "intent": "ui_investigation",
                 "label": "UI Investigation",
-                "reason": "Question mentions context menu / right-click UI behavior.",
+                "reason": (
+                    "Question mentions context menu or right-click UI behavior."
+                ),
             }
 
         if self.has_any(lowered, self.ARCHITECTURE_TERMS):
             return {
                 "intent": "architecture_review",
                 "label": "Architecture Review",
-                "reason": "Question asks for overall code/design evaluation.",
+                "reason": "Question asks for overall code or design evaluation.",
             }
 
         if self.has_any(lowered, self.PERFORMANCE_TERMS):
             return {
                 "intent": "performance_review",
                 "label": "Performance Review",
-                "reason": "Question mentions speed, lag, freezing, or performance.",
+                "reason": (
+                    "Question mentions speed, lag, freezing, or performance."
+                ),
             }
 
         if self.has_any(lowered, self.SECURITY_TERMS):
             return {
                 "intent": "security_review",
                 "label": "Security Review",
-                "reason": "Question mentions safety, security, permissions, or credentials.",
+                "reason": "Operator explicitly requested a security review.",
             }
 
         if self.has_any(lowered, self.BUG_TERMS):
@@ -110,10 +222,14 @@ class EngineerIntent:
         return {
             "intent": "project_search",
             "label": "Project Search",
-            "reason": "No specialized intent matched. Falling back to project search.",
+            "reason": (
+                "No specialized intent matched. Falling back to bounded "
+                "project search."
+            ),
         }
 
-    def has_any(self, text, terms):
+    @staticmethod
+    def has_any(text, terms):
         return any(term in text for term in terms)
 
     def report(self, query):

@@ -8,26 +8,29 @@ from pathlib import Path
 from typing import Any
 from uuid import uuid4
 
-from Departments.Engineering.evidence import sha256_json, utc_now, write_json
+from Departments.Engineering.evidence import sha256_json, write_json
 from Departments.Engineering.workshop import EngineeringWorkshop, WorkshopError
-from core.security_containment import (
-    authorize_department_route,
-    authorize_repair_action,
-)
 
 
 class EngineeringWorkshopBridge:
-    """Expose the controlled Engineering Workshop through explicit /engineer commands.
+    """Expose Engineering Workshop stability tools without containment gating.
 
-    Ordinary Engineer analysis remains read-only. Project writes are possible only
-    through an exact JSON plan that has already been previewed and whose SHA-256 is
-    repeated in the operator's exact APPLY confirmation.
+    Read-only inspection, mission staging, source locating, plan saving, and
+    previewing are not authorization-gated. Project writes remain controlled by
+    an exact previewed plan, an exact SHA-256 confirmation, targeted snapshots,
+    validation, receipts, and rollback on failure.
     """
 
     _PREFIX = re.compile(r"^(?:/engineer\s+)?workshop\b", re.IGNORECASE)
-    _OPERATORS = {"operator", "human_operator", "eric", "ui_operator"}
+    _EXACT_READER_FULL_FILE_LIMIT_BYTES = 2 * 1024 * 1024
+    _EXACT_READER_MAX_LINES = 200
+    _EXACT_READER_MAX_OUTPUT_BYTES = 256 * 1024
+    _EXACT_READER_BINARY_SAMPLE_BYTES = 64 * 1024
 
     def __init__(self, engineer_agent: Any):
+        # Kept for compatibility with the existing bridge constructor. The
+        # conversational Engineer can be connected separately without forcing
+        # read-only Workshop operations through a security layer.
         self.engineer_agent = engineer_agent
         self.project_root = Path(__file__).resolve().parents[1]
         self.data_root = self.project_root / "System" / "EngineeringWorkshop"
@@ -42,10 +45,15 @@ class EngineeringWorkshopBridge:
         caller: str = "operator",
         operator_approved: bool = False,
     ) -> str | None:
+        # caller and operator_approved remain in the public signature so current
+        # callers do not break, but this bridge no longer uses them as gates.
+        _ = caller, operator_approved
+
         text = (query or "").strip()
         match = self._PREFIX.match(text)
         if not match:
             return None
+
         remainder = text[match.end() :].strip()
         if not remainder or remainder.lower() in {"help", "?"}:
             return self.help_report()
@@ -57,18 +65,20 @@ class EngineeringWorkshopBridge:
         try:
             if command in {"status", "continue", "resume"}:
                 return self.status_report(payload or None)
-            if command in {"begin", "stage"}:
-                return self.begin_report(payload, caller=caller)
-            if command == "locate":
-                return self.locate_report(payload, caller=caller)
+            if command in {"begin", "stage", "start", "new"}:
+                return self.begin_report(payload)
+            if command in {"locate", "find", "search"}:
+                return self.locate_report(payload)
+            if command in {"read", "open", "cat"}:
+                return self.read_report(payload)
             if command in {"save-plan", "saveplan"}:
-                return self.save_plan_report(payload, caller=caller)
+                return self.save_plan_report(payload)
             if command == "preview":
-                return self.preview_report(payload, caller=caller)
+                return self.preview_report(payload)
             if command == "apply":
-                return self.apply_report(payload, caller=caller)
+                return self.apply_report(payload)
             if command == "rollback":
-                return self.rollback_report(payload, caller=caller)
+                return self.rollback_report(payload)
             if command == "capabilities":
                 return self.capabilities_report()
             return (
@@ -85,51 +95,59 @@ class EngineeringWorkshopBridge:
 
     def help_report(self) -> str:
         return (
-            "ENGINEERING WORKSHOP V1.1\n\n"
-            "Ordinary Engineer analysis remains read-only. Controlled project changes "
-            "use an exact plan, preview hash, targeted snapshot, explicit approval, "
-            "validation, receipt, and rollback on failure.\n\n"
+            "ENGINEERING WORKSHOP — SIMPLIFIED\n\n"
+            "Read-only inspection, mission staging, source locating, plan saving, "
+            "and previewing have no containment or operator-authorization gate. "
+            "Actual file changes still use an exact plan, preview hash, targeted "
+            "snapshot, exact APPLY confirmation, validation, receipt, and rollback.\n\n"
             "Commands:\n"
             "/engineer workshop status\n"
-            "/engineer workshop begin TITLE :: IMPLEMENTATION MISSION\n"
+            "/engineer workshop begin describe the mission normally\n"
+            "/engineer workshop locate search terms for the active mission\n"
             "/engineer workshop locate MISSION-ID :: term one | term two\n"
+            "/engineer workshop read EXACT-PROJECT-PATH\n"
+            "/engineer workshop read EXACT-PROJECT-PATH :: LINES 201-400\n"
             "/engineer workshop save-plan MISSION-ID :: {JSON PLAN}\n"
             "/engineer workshop preview \"ABSOLUTE PLAN PATH\"\n"
             "/engineer workshop apply \"ABSOLUTE PLAN PATH\" :: APPLY PLAN-SHA256\n"
             "/engineer workshop rollback MISSION-ID :: ROLLBACK MISSION-ID\n"
             "/engineer workshop capabilities\n\n"
-            "No natural-language request is allowed to write files by itself."
+            "Only apply and rollback require exact confirmations."
         )
-
-    def _authorize_preview(self, caller: str) -> None:
-        decision = authorize_department_route(
-            caller,
-            "engineering_airlock",
-            "preview",
-            operator_approved=False,
-        )
-        if not decision.allowed:
-            raise WorkshopError(decision.reason)
-
-    def _require_operator(self, caller: str) -> None:
-        if (caller or "").strip().lower() not in self._OPERATORS:
-            raise WorkshopError("Only the trusted operator UI may control Workshop state")
 
     def _new_mission_id(self) -> str:
         stamp = datetime.now(timezone.utc).strftime("%Y%m%d-%H%M%S")
         return f"ENG-{stamp}-{uuid4().hex[:6].upper()}"
 
-    def begin_report(self, payload: str, *, caller: str) -> str:
-        self._require_operator(caller)
-        self._authorize_preview(caller)
-        title, sep, mission_text = payload.partition("::")
-        if not sep or not title.strip() or not mission_text.strip():
-            raise ValueError("Use: workshop begin TITLE :: IMPLEMENTATION MISSION")
+    @staticmethod
+    def _derive_title(mission_text: str) -> str:
+        compact = " ".join(mission_text.split())
+        if not compact:
+            return "Engineering Mission"
+        first_sentence = re.split(r"(?<=[.!?])\s+", compact, maxsplit=1)[0]
+        return first_sentence[:96].rstrip(" .,:;-") or "Engineering Mission"
+
+    def begin_report(self, payload: str, *, caller: str = "operator") -> str:
+        _ = caller
+        text = payload.strip()
+        if not text:
+            raise ValueError("Describe the mission after workshop begin")
+
+        title_text, sep, mission_text = text.partition("::")
+        if sep:
+            title = title_text.strip()
+            mission = mission_text.strip()
+            if not title or not mission:
+                raise ValueError("Both title and mission text are required around ::")
+        else:
+            mission = text
+            title = self._derive_title(mission)
+
         mission_id = self._new_mission_id()
         state = self.workshop.begin_mission(
             mission_id,
-            title.strip(),
-            mission_text.strip(),
+            title,
+            mission,
             self.project_root,
         )
         return (
@@ -137,10 +155,9 @@ class EngineeringWorkshopBridge:
             f"Mission ID: {state.mission_id}\n"
             f"Title: {state.title}\n"
             f"Route: {state.mission_type}\n"
-            f"Explicit implementation authorization detected: {state.authorized}\n"
             f"Project root: {state.project_root}\n"
             f"Stage: {state.stage}\n\n"
-            "No project files were changed. Next: locate relevant source or save an exact JSON plan."
+            "No project files were changed. The mission is now active."
         )
 
     def status_report(self, mission_id: str | None = None) -> str:
@@ -151,6 +168,7 @@ class EngineeringWorkshopBridge:
         )
         if state is None:
             return "ENGINEERING WORKSHOP STATUS\n\nNo active mission."
+
         data = state.to_dict()
         lines = [
             "ENGINEERING WORKSHOP STATUS",
@@ -158,7 +176,6 @@ class EngineeringWorkshopBridge:
             f"Mission ID: {data['mission_id']}",
             f"Title: {data['title']}",
             f"Route: {data['mission_type']}",
-            f"Authorized: {data['authorized']}",
             f"Stage: {data['stage']}",
             f"Plan SHA-256: {data.get('plan_sha256') or '[none]'}",
             f"Snapshot: {data.get('snapshot_path') or '[none]'}",
@@ -173,17 +190,73 @@ class EngineeringWorkshopBridge:
             lines.extend(f"• {item}" for item in data["outstanding_validations"])
         return "\n".join(lines)
 
-    def locate_report(self, payload: str, *, caller: str) -> str:
-        self._require_operator(caller)
-        self._authorize_preview(caller)
-        mission_id, sep, terms_text = payload.partition("::")
-        mission_id = self._clean_token(mission_id)
-        terms = [term.strip() for term in terms_text.split("|") if term.strip()]
-        if not sep or not mission_id or not terms:
-            raise ValueError("Use: workshop locate MISSION-ID :: term one | term two")
+    def _active_mission_id(self) -> str:
+        state = self.workshop.state_store.load_active()
+        if state is None:
+            raise WorkshopError("No active mission. Start one with workshop begin.")
+        return str(state.mission_id)
+
+    def _resolve_exact_project_path(self, value: str) -> Path | None:
+        token = self._clean_token(value)
+        if not token:
+            return None
+
+        candidate = Path(token)
+        if not candidate.is_absolute():
+            candidate = self.project_root / candidate
+
+        resolved = candidate.resolve(strict=False)
+        root = self.project_root.resolve(strict=False)
+        try:
+            resolved.relative_to(root)
+        except ValueError:
+            return None
+
+        return resolved if resolved.exists() else None
+
+    def locate_report(self, payload: str, *, caller: str = "operator") -> str:
+        _ = caller
+        text = payload.strip()
+        if not text:
+            raise ValueError("Provide an exact project path or search terms")
+
+        mission_text, sep, terms_text = text.partition("::")
+        if sep:
+            mission_id = self._clean_token(mission_text)
+            search_text = terms_text.strip()
+            if not mission_id:
+                mission_id = self._active_mission_id()
+        else:
+            mission_id = self._active_mission_id()
+            search_text = text
+
+        terms = [term.strip() for term in search_text.split("|") if term.strip()]
+        if not terms:
+            raise ValueError("Provide an exact project path or search terms")
+
+        # Exact existing paths are opened deterministically before fuzzy source
+        # discovery. This prevents a manifest path from becoming a broad score.
+        if len(terms) == 1:
+            exact = self._resolve_exact_project_path(terms[0])
+            if exact is not None:
+                relative = exact.relative_to(self.project_root.resolve(strict=False))
+                kind = "folder" if exact.is_dir() else "file"
+                details = []
+                if exact.is_file():
+                    details.append(f"Size: {exact.stat().st_size} bytes")
+                return (
+                    "ENGINEERING WORKSHOP — EXACT SOURCE LOCATED\n\n"
+                    f"Mission ID: {mission_id}\n"
+                    f"Type: {kind}\n"
+                    f"Path: {exact}\n"
+                    f"Relative path: {relative}\n"
+                    + ("\n".join(details) + "\n" if details else "")
+                    + "\nSafety: read-only; no project files changed."
+                )
+
         results = self.workshop.locate(mission_id, terms)
         lines = [
-            "ENGINEERING WORKSHOP — LIVE SOURCE DISCOVERY",
+            "ENGINEERING WORKSHOP — SOURCE DISCOVERY",
             "",
             f"Mission ID: {mission_id}",
             f"Terms: {', '.join(terms)}",
@@ -196,40 +269,257 @@ class EngineeringWorkshopBridge:
                     f"• {item['relative_path']} — score {item['score']} ({item['reason']})"
                 )
         else:
-            lines.append("No matching live source found inside the approved project root.")
+            lines.append("No matching live source found inside the project root.")
         lines.extend(["", "Safety: read-only discovery; no project files changed."])
         return "\n".join(lines)
 
-    def save_plan_report(self, payload: str, *, caller: str) -> str:
-        self._require_operator(caller)
-        self._authorize_preview(caller)
-        mission_id, sep, json_text = payload.partition("::")
-        mission_id = self._clean_token(mission_id)
-        if not sep or not mission_id or not json_text.strip():
-            raise ValueError("Use: workshop save-plan MISSION-ID :: {JSON PLAN}")
+    @classmethod
+    def _parse_line_bounds(cls, value: str) -> tuple[int, int]:
+        text = value.strip()
+        if not text:
+            return 1, cls._EXACT_READER_MAX_LINES
+
+        match = re.fullmatch(
+            r"(?i)(?:lines?\s+)?(\d+)(?:\s*-\s*(\d+))?",
+            text,
+        )
+        if not match:
+            raise ValueError(
+                "Use a line request such as LINES 1-200 or LINES 201-400"
+            )
+
+        start = int(match.group(1))
+        end = int(match.group(2) or start)
+        if start < 1 or end < start:
+            raise ValueError("Line range must start at 1 or greater and end after start")
+        if end - start + 1 > cls._EXACT_READER_MAX_LINES:
+            raise ValueError(
+                f"Read at most {cls._EXACT_READER_MAX_LINES} lines per request"
+            )
+        return start, end
+
+    @classmethod
+    def _parse_line_request(cls, value: str, total_lines: int) -> tuple[int, int]:
+        start, requested_end = cls._parse_line_bounds(value)
+        if total_lines == 0:
+            return 1, 0
+        if start > total_lines:
+            raise ValueError(
+                f"Requested line {start}, but the file has only {total_lines} lines"
+            )
+        return start, min(requested_end, total_lines)
+
+    @classmethod
+    def _stream_requested_lines(
+        cls,
+        path: Path,
+        start: int,
+        requested_end: int,
+        *,
+        errors: str,
+    ) -> tuple[list[str], int, bool]:
+        selected: list[str] = []
+        observed_lines = 0
+        has_more = False
+        output_bytes = 0
+
+        with path.open(
+            "r",
+            encoding="utf-8-sig",
+            errors=errors,
+            newline=None,
+        ) as handle:
+            for line_number, line in enumerate(handle, start=1):
+                observed_lines = line_number
+                if line_number > requested_end:
+                    has_more = True
+                    break
+                if line_number < start:
+                    continue
+
+                value = line.rstrip("\r\n")
+                rendered = f"{line_number:>5}: {value}\n"
+                output_bytes += len(rendered.encode("utf-8"))
+                if output_bytes > cls._EXACT_READER_MAX_OUTPUT_BYTES:
+                    raise ValueError(
+                        "Requested lines exceed the 256 KiB exact-reader output limit"
+                    )
+                selected.append(value)
+
+        return selected, observed_lines, has_more
+
+    def read_report(self, payload: str, *, caller: str = "operator") -> str:
+        _ = caller
+        text = payload.strip()
+        if not text:
+            raise ValueError("Provide one exact project file path")
+
+        path_text, sep, line_text = text.partition("::")
+        exact = self._resolve_exact_project_path(path_text.strip())
+        if exact is None:
+            raise ValueError(
+                "Exact file was not found inside the FOXAI project root"
+            )
+        if not exact.is_file():
+            raise ValueError(f"Exact path is not a file: {exact}")
+
+        size = exact.stat().st_size
+        explicit_range = bool(sep and line_text.strip())
+        if (
+            size > self._EXACT_READER_FULL_FILE_LIMIT_BYTES
+            and not explicit_range
+        ):
+            raise ValueError(
+                f"File is {size} bytes. Large files require a bounded request, "
+                "for example: :: LINES 1-200"
+            )
+
+        with exact.open("rb") as handle:
+            binary_sample = handle.read(self._EXACT_READER_BINARY_SAMPLE_BYTES)
+        if b"\x00" in binary_sample:
+            raise ValueError(
+                "Binary files cannot be displayed by the exact text reader"
+            )
+
+        relative = exact.relative_to(self.project_root.resolve(strict=False))
+
+        if explicit_range:
+            start, requested_end = self._parse_line_bounds(line_text)
+            try:
+                selected, observed_lines, has_more = self._stream_requested_lines(
+                    exact,
+                    start,
+                    requested_end,
+                    errors="strict",
+                )
+                encoding = "utf-8"
+            except UnicodeDecodeError:
+                selected, observed_lines, has_more = self._stream_requested_lines(
+                    exact,
+                    start,
+                    requested_end,
+                    errors="replace",
+                )
+                encoding = "utf-8 with replacement characters"
+
+            if not selected and observed_lines == 0 and start == 1:
+                end = 0
+                numbered = ""
+                extent = "0"
+            elif not selected:
+                available = observed_lines
+                raise ValueError(
+                    f"Requested line {start}, but the file has only "
+                    f"{available} line(s)"
+                )
+            else:
+                end = start + len(selected) - 1
+                numbered = "\n".join(
+                    f"{line_number:>5}: {line}"
+                    for line_number, line in enumerate(selected, start=start)
+                )
+                extent = (
+                    f"more than {end} (bounded stream; full file was not loaded)"
+                    if has_more
+                    else str(observed_lines)
+                )
+        else:
+            raw = exact.read_bytes()
+            try:
+                content = raw.decode("utf-8-sig")
+                encoding = "utf-8"
+            except UnicodeDecodeError:
+                content = raw.decode("utf-8", errors="replace")
+                encoding = "utf-8 with replacement characters"
+
+            lines = content.splitlines()
+            start, end = self._parse_line_request("", len(lines))
+            selected = lines[start - 1 : end] if end else []
+            numbered = "\n".join(
+                f"{line_number:>5}: {line}"
+                for line_number, line in enumerate(selected, start=start)
+            )
+            observed_lines = len(lines)
+            has_more = end < len(lines)
+            extent = str(len(lines))
+
+        response = [
+            "ENGINEERING WORKSHOP — EXACT FILE CONTENT",
+            "",
+            f"Mission ID: {self._active_mission_id()}",
+            f"Path: {exact}",
+            f"Relative path: {relative}",
+            f"Encoding: {encoding}",
+            f"Size: {size} bytes",
+            f"Total lines: {extent}",
+            f"Showing lines: {start}-{end}" if selected else "Showing lines: [empty file]",
+            "",
+            numbered if numbered else "[empty file]",
+        ]
+
+        if has_more:
+            next_start = end + 1
+            next_end = end + self._EXACT_READER_MAX_LINES
+            response.extend(
+                [
+                    "",
+                    "More content is available. Continue with:",
+                    f"/engineer workshop read {relative} :: LINES {next_start}-{next_end}",
+                ]
+            )
+
+        response.extend(
+            [
+                "",
+                "Safety: exact-path, bounded, read-only file access; nothing changed.",
+            ]
+        )
+        return "\n".join(response)
+
+    def save_plan_report(self, payload: str, *, caller: str = "operator") -> str:
+        _ = caller
+        text = payload.strip()
+        if not text:
+            raise ValueError("Provide a JSON plan")
+
+        mission_id_text, sep, json_text = text.partition("::")
+        if sep:
+            mission_id = self._clean_token(mission_id_text)
+            plan_text = json_text.strip()
+        else:
+            mission_id = self._active_mission_id()
+            plan_text = text
+
+        if not mission_id or not plan_text:
+            raise ValueError("Provide a mission ID and JSON plan")
+
         state = self.workshop.state_store.load(mission_id)
         if state is None:
             raise WorkshopError(f"Unknown mission: {mission_id}")
-        plan = json.loads(json_text.strip())
+
+        plan = json.loads(plan_text)
         if not isinstance(plan, dict):
             raise ValueError("Plan JSON must be one object")
+
         supplied_mission = str(plan.get("mission_id") or mission_id)
         if supplied_mission != mission_id:
             raise WorkshopError("Plan mission_id does not match the staged mission")
+
         plan["schema"] = "foxai.engineering.plan.v1"
         plan["mission_id"] = mission_id
         plan["project_root"] = str(self.project_root)
+
         mission_dir = self.plan_root / mission_id
         mission_dir.mkdir(parents=True, exist_ok=True)
         plan_sha = sha256_json(plan)
         path = mission_dir / f"{plan_sha}.plan.json"
         write_json(path, plan)
+
         preview = self.workshop.preview_plan(path)
         return self._format_preview(preview, saved_plan=path)
 
-    def preview_report(self, payload: str, *, caller: str) -> str:
-        self._require_operator(caller)
-        self._authorize_preview(caller)
+    def preview_report(self, payload: str, *, caller: str = "operator") -> str:
+        _ = caller
         path = self._parse_path(payload)
         preview = self.workshop.preview_plan(path)
         return self._format_preview(preview, saved_plan=path)
@@ -250,29 +540,26 @@ class EngineeringWorkshopBridge:
             [
                 "",
                 "Nothing has been applied.",
-                "To approve this exact plan, enter:",
+                "To apply this exact previewed plan, enter:",
                 f'/engineer workshop apply "{saved_plan}" :: APPLY {preview["plan_sha256"]}',
             ]
         )
         return "\n".join(lines)
 
-    def apply_report(self, payload: str, *, caller: str) -> str:
-        self._require_operator(caller)
+    def apply_report(self, payload: str, *, caller: str = "operator") -> str:
+        _ = caller
         path_text, sep, confirmation = payload.partition("::")
         if not sep:
             raise ValueError(
                 'Use: workshop apply "ABSOLUTE PLAN PATH" :: APPLY PLAN-SHA256'
             )
+
         path = self._parse_path(path_text)
-        plan, plan_sha = self.workshop.patch_engine.load_plan(path)
-        decision = authorize_repair_action(
-            caller,
-            "ui_operator",
-            confirmation.strip(),
-            plan_sha,
-        )
-        if not decision.allowed:
-            raise WorkshopError(decision.reason)
+        _plan, plan_sha = self.workshop.patch_engine.load_plan(path)
+        expected = f"APPLY {plan_sha}".upper()
+        if confirmation.strip().upper() != expected:
+            raise WorkshopError(f"Exact confirmation required: {expected}")
+
         receipt = self.workshop.apply_plan(path, plan_sha)
         lines = [
             "ENGINEERING WORKSHOP — IMPLEMENTATION RECEIPT",
@@ -291,13 +578,14 @@ class EngineeringWorkshopBridge:
             lines.extend(["", f"Failure: {receipt['failure']}"])
         return "\n".join(lines)
 
-    def rollback_report(self, payload: str, *, caller: str) -> str:
-        self._require_operator(caller)
+    def rollback_report(self, payload: str, *, caller: str = "operator") -> str:
+        _ = caller
         mission_text, sep, confirmation = payload.partition("::")
         mission_id = self._clean_token(mission_text)
         expected = f"ROLLBACK {mission_id}".upper()
         if not sep or confirmation.strip().upper() != expected:
             raise WorkshopError(f"Exact confirmation required: {expected}")
+
         result = self.workshop.rollback(mission_id)
         return (
             "ENGINEERING WORKSHOP — ROLLBACK RECEIPT\n\n"
@@ -330,6 +618,7 @@ class EngineeringWorkshopBridge:
             raise ValueError(f"Invalid quoted path: {exc}") from exc
         if len(parts) != 1:
             raise ValueError("Supply exactly one absolute plan path")
+
         cleaned = parts[0].strip().strip('"').strip("'")
         path = Path(cleaned).expanduser().resolve(strict=False)
         if not path.exists() or not path.is_file():

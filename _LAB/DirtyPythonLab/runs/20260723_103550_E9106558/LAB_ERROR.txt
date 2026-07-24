@@ -1,0 +1,38 @@
+Traceback (most recent call last):
+  File "urllib\request.py", line 1344, in do_open
+  File "http\client.py", line 1336, in request
+  File "http\client.py", line 1382, in _send_request
+  File "http\client.py", line 1331, in endheaders
+  File "http\client.py", line 1091, in _send_output
+  File "http\client.py", line 1035, in send
+  File "http\client.py", line 1001, in connect
+  File "socket.py", line 853, in create_connection
+  File "socket.py", line 838, in create_connection
+ConnectionRefusedError: [WinError 10061] No connection could be made because the target machine actively refused it
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "Z:\FOXAI\_LAB\DirtyPythonLab\dirty_python_lab.py", line 190, in _request
+    with urlopen(request, timeout=self.config.request_timeout_seconds) as response:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "urllib\request.py", line 215, in urlopen
+  File "urllib\request.py", line 515, in open
+  File "urllib\request.py", line 532, in _open
+  File "urllib\request.py", line 492, in _call_chain
+  File "urllib\request.py", line 1373, in http_open
+  File "urllib\request.py", line 1347, in do_open
+urllib.error.URLError: <urlopen error [WinError 10061] No connection could be made because the target machine actively refused it>
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "Z:\FOXAI\_LAB\DirtyPythonLab\dirty_python_lab.py", line 360, in run
+    response_text, code = self.client.generate(prompt)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "Z:\FOXAI\_LAB\DirtyPythonLab\dirty_python_lab.py", line 233, in generate
+    response = self._request(
+               ^^^^^^^^^^^^^^
+  File "Z:\FOXAI\_LAB\DirtyPythonLab\dirty_python_lab.py", line 196, in _request
+    raise RuntimeError(
+RuntimeError: Qwen endpoint is not reachable at http://127.0.0.1:8080/v1/chat/completions. Start the shared Qwen server and try again.

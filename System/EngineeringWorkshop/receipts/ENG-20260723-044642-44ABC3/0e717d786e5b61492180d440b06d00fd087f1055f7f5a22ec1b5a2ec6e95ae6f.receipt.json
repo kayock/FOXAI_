@@ -1,0 +1,50 @@
+{
+  "authorized": true,
+  "changes": [
+    {
+      "action": "replace_text",
+      "after_sha256": "3a82004a79849361bb7e79664b37d4715eb0fafab57be578c2c927b633b72a74",
+      "after_size": 5826,
+      "before_sha256": "1397b0ce5d1e21b9fc49eabef76ffa64467d716061b12d1a2c670167597d7d55",
+      "before_size": 7003,
+      "relative_path": "core/director.py"
+    }
+  ],
+  "created_at": "2026-07-23T04:54:40.031902Z",
+  "evidence_is_tool_generated": true,
+  "failure": "Validation failed: Verify exact one-file unified chat patch and original source reconstruction (return code 1)",
+  "mission_id": "ENG-20260723-044642-44ABC3",
+  "mission_title": "Unified Agent Fox Chat Reset",
+  "mission_type": "implement",
+  "no_deletions": true,
+  "no_renames": true,
+  "plan_path": "Z:\\FOXAI\\_STAGING\\CURRENT_MISSION\\PLAN.json",
+  "plan_sha256": "0e717d786e5b61492180d440b06d00fd087f1055f7f5a22ec1b5a2ec6e95ae6f",
+  "project_root": "Z:\\FOXAI",
+  "result": "rolled_back",
+  "rolled_back": true,
+  "schema": "foxai.engineering.receipt.v1",
+  "snapshot_manifest": "Z:\\FOXAI\\System\\EngineeringWorkshop\\snapshots\\ENG-20260723-044642-44ABC3\\snapshot_20260723T045439937569Z.manifest.json",
+  "snapshot_path": "Z:\\FOXAI\\System\\EngineeringWorkshop\\snapshots\\ENG-20260723-044642-44ABC3\\snapshot_20260723T045439937569Z.zip",
+  "snapshot_sha256": "9bf3fe1ba901d062ed46932b71178a1e4d0e8a88b88194613a0cbd28a486b7ed",
+  "validations": [
+    {
+      "argv": [
+        "Z:\\FOXAI\\Runtime\\Desktop\\python\\python.exe",
+        "-I",
+        "-B",
+        "-S",
+        "-c",
+        "from pathlib import Path\nimport hashlib\npath=Path(r\"Z:\\FOXAI\\core\\director.py\")\ndata=path.read_bytes()\ntext=data.decode(\"utf-8\")\ncompile(text,str(path),\"exec\")\nold='    if lowered.startswith(\"/image \"):\\n        scores[\"red_canvas\"] += 100\\n        reasons[\"red_canvas\"].append(\"explicit /image command\")\\n\\n    library_score, library_hits = _score_terms(lowered, LIBRARY_TRIGGERS, 40)\\n    scores[\"iron_library\"] += library_score\\n    reasons[\"iron_library\"].extend([f\"library trigger: {hit}\" for hit in library_hits])\\n\\n    if is_explicit_engineer_command(text):\\n        scores[\"engineer\"] += 100\\n        reasons[\"engineer\"].append(\"explicit operator Engineer command\")\\n\\n    engineer_score, engineer_hits = _score_terms(lowered, ENGINEER_TRIGGERS, 35)\\n    scores[\"engineer\"] += engineer_score\\n    reasons[\"engineer\"].extend([f\"engineering trigger: {hit}\" for hit in engineer_hits])\\n\\n    explicit_image_score, explicit_image_hits = _score_terms(lowered, IMAGE_EXPLICIT_TRIGGERS, 45)\\n    scores[\"red_canvas\"] += explicit_image_score\\n    reasons[\"red_canvas\"].extend([f\"image trigger: {hit}\" for hit in explicit_image_hits])\\n\\n    style_score, style_hits = _score_terms(lowered, IMAGE_STYLE_TERMS, 12)\\n    scores[\"red_canvas\"] += style_score\\n    reasons[\"red_canvas\"].extend([f\"visual style term: {hit}\" for hit in style_hits])\\n\\n    # Quoted art prompts often arrive without \"draw\" or \"image\"; boost if they look like a pure visual prompt.\\n    visual_prompt_markers = len(style_hits)\\n    if visual_prompt_markers >= 3 and len(lowered) > 80:\\n        scores[\"red_canvas\"] += 35\\n        reasons[\"red_canvas\"].append(\"long visual prompt with multiple art/photo descriptors\")\\n\\n    # Prevent broad phrases like \"make me laugh\" from becoming image requests.\\n    if \"make me laugh\" in lowered or \"make me a plan\" in lowered:\\n        scores[\"red_canvas\"] -= 50\\n        reasons[\"chat\"].append(\"common non-image phrase detected\")\\n\\n    selected = max(scores, key=scores.get)\\n'\nnew='    # Unified Agent Fox chat:\\n    # ordinary language always remains in the main Agent Fox conversation.\\n    # Departments are selected only by an explicit command.\\n    if lowered.startswith(\"/image \"):\\n        scores[\"red_canvas\"] = 100\\n        reasons[\"red_canvas\"].append(\"explicit /image command\")\\n    elif is_explicit_engineer_command(text):\\n        scores[\"engineer\"] = 100\\n        reasons[\"engineer\"].append(\"explicit operator Engineer command\")\\n    else:\\n        reasons[\"chat\"].append(\\n            \"normal message remains in unified Agent Fox chat\"\\n        )\\n\\n    selected = max(scores, key=scores.get)\\n'\nassert text.count(new)==1,text.count(new)\nbase=text.replace(new,old,1).encode(\"utf-8\")\nassert len(base)==7019,len(base)\nassert hashlib.sha256(base).hexdigest()==\"6b390b00d260113c958e1d6866c31fcde59a831c9af774a84994767191eef5fd\"\nassert \"normal message remains in unified Agent Fox chat\" in text\nprint(\"UNIFIED_AGENT_FOX_EXACT_ONE_FILE_PATCH_OK\")\n"
+      ],
+      "cwd": "Z:\\FOXAI",
+      "finished_at": "2026-07-23T04:54:40.029443Z",
+      "name": "Verify exact one-file unified chat patch and original source reconstruction",
+      "returncode": 1,
+      "started_at": "2026-07-23T04:54:39.950425Z",
+      "stderr": "Traceback (most recent call last):\n  File \"<string>\", line 11, in <module>\n    assert len(base)==7019,len(base)\n           ^^^^^^^^^^^^^^^\nAssertionError: 7003\n",
+      "stdout": "",
+      "timed_out": false
+    }
+  ]
+}

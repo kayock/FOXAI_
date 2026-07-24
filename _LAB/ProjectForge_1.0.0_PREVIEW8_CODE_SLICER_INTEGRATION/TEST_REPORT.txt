@@ -1,0 +1,73 @@
+PROJECT FORGE PREVIEW 8 — PACKAGE TEST REPORT
+================================================
+created_at: 2026-07-23T21:10:54.776814-06:00
+package_status: READY_FOR_WINDOWS_LIVE_INTEGRATION_TEST
+
+Authoritative slicer
+--------------------
+Exact uploaded Code Slicer V1 copied byte-for-byte.
+SHA-256: d2385086ba36a66692f9c596ff58cb4e41143e23bc83d8a12ba58022df4ec98d
+No slicer revisions were made.
+
+Deterministic integration proof
+-------------------------------
+- Synthetic Dirty Python Lab target: exactly 1,044 lines.
+- Code Slicer V1 mapped nested qualified symbols and extracted only named slices.
+- The OpenCode agent-view folder physically excluded dirty_python_lab.py.
+- A fake OpenCode process could write only PROPOSED.patch.
+- A unified patch targeting dirty_python_lab.py passed safety validation.
+- The patch applied only to the disposable Git copy.
+- Python compilation and the complete protected unittest suite passed.
+- Protected tests remained byte-for-byte unchanged.
+- Original source manifest remained unchanged.
+- Host OpenCode profile write count remained zero.
+- Rollback reset the disposable Git project to its baseline and removed ignored artifacts.
+
+Live gates included
+-------------------
+- Exact model ID must be reported by http://127.0.0.1:8080/v1/models.
+- meta.n_ctx must equal 16384.
+- Preview 7 is not imported, installed, or run.
+- No original-source apply route exists.
+- No Workshop, tkinter, installer, package installation, shared-runtime edit, or live FOXAI edit.
+
+Automated test output
+---------------------
+test_agent_view_physically_excludes_target (test_preview8.Preview8Tests.test_agent_view_physically_excludes_target) ... ok
+test_end_to_end_disposable_build_and_rollback (test_preview8.Preview8Tests.test_end_to_end_disposable_build_and_rollback) ... ok
+test_exact_uploaded_slicer_hash (test_preview8.Preview8Tests.test_exact_uploaded_slicer_hash) ... ok
+test_patch_validator_rejects_protected_test_edit (test_preview8.Preview8Tests.test_patch_validator_rejects_protected_test_edit) ... ok
+test_review_detects_1044_lines_without_modifying_source (test_preview8.Preview8Tests.test_review_detects_1044_lines_without_modifying_source) ... ok
+test_slicer_maps_and_extracts_qualified_symbols (test_preview8.Preview8Tests.test_slicer_maps_and_extracts_qualified_symbols) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 1.162s
+
+OK
+
+CLI parse check
+---------------
+usage: project_forge_preview8.py [-h] [--config CONFIG] [--source SOURCE]
+                                 [--workspace-root WORKSPACE_ROOT]
+                                 [--host HOST] [--port PORT] [--no-browser]
+                                 [--self-test] [--review] [--run-build]
+                                 [--task-file TASK_FILE]
+
+Project Forge Preview 8 — Code Slicer Integration
+
+options:
+  -h, --help            show this help message and exit
+  --config CONFIG
+  --source SOURCE
+  --workspace-root WORKSPACE_ROOT
+  --host HOST
+  --port PORT
+  --no-browser
+  --self-test
+  --review
+  --run-build
+  --task-file TASK_FILE
+
+Environment boundary
+--------------------
+This package was built and fully exercised in a fresh disposable Linux sandbox using a synthetic 1,044-line Dirty Python Lab and a fake OpenCode executable. The sandbox cannot access Eric's Windows Z: drive, native OpenCode installation, live Qwen endpoint, or original Dirty Python Lab. Therefore the final native Windows/Qwen run remains the intended on-machine integration test; the package will stop before any original-source application.

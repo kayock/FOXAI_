@@ -1,0 +1,1 @@
+print("DIRTY PYTHON LAB LIVE TEST OK")

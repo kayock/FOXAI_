@@ -1,0 +1,53 @@
+--- a/core/director.py
++++ b/core/director.py
+@@ -149,40 +149,19 @@
+         "engineer": [],
+     }
+ 
++    # Unified Agent Fox chat:
++    # ordinary language always remains in the main Agent Fox conversation.
++    # Departments are selected only by an explicit command.
+     if lowered.startswith("/image "):
+-        scores["red_canvas"] += 100
++        scores["red_canvas"] = 100
+         reasons["red_canvas"].append("explicit /image command")
+-
+-    library_score, library_hits = _score_terms(lowered, LIBRARY_TRIGGERS, 40)
+-    scores["iron_library"] += library_score
+-    reasons["iron_library"].extend([f"library trigger: {hit}" for hit in library_hits])
+-
+-    if is_explicit_engineer_command(text):
+-        scores["engineer"] += 100
++    elif is_explicit_engineer_command(text):
++        scores["engineer"] = 100
+         reasons["engineer"].append("explicit operator Engineer command")
+-
+-    engineer_score, engineer_hits = _score_terms(lowered, ENGINEER_TRIGGERS, 35)
+-    scores["engineer"] += engineer_score
+-    reasons["engineer"].extend([f"engineering trigger: {hit}" for hit in engineer_hits])
+-
+-    explicit_image_score, explicit_image_hits = _score_terms(lowered, IMAGE_EXPLICIT_TRIGGERS, 45)
+-    scores["red_canvas"] += explicit_image_score
+-    reasons["red_canvas"].extend([f"image trigger: {hit}" for hit in explicit_image_hits])
+-
+-    style_score, style_hits = _score_terms(lowered, IMAGE_STYLE_TERMS, 12)
+-    scores["red_canvas"] += style_score
+-    reasons["red_canvas"].extend([f"visual style term: {hit}" for hit in style_hits])
+-
+-    # Quoted art prompts often arrive without "draw" or "image"; boost if they look like a pure visual prompt.
+-    visual_prompt_markers = len(style_hits)
+-    if visual_prompt_markers >= 3 and len(lowered) > 80:
+-        scores["red_canvas"] += 35
+-        reasons["red_canvas"].append("long visual prompt with multiple art/photo descriptors")
+-
+-    # Prevent broad phrases like "make me laugh" from becoming image requests.
+-    if "make me laugh" in lowered or "make me a plan" in lowered:
+-        scores["red_canvas"] -= 50
+-        reasons["chat"].append("common non-image phrase detected")
++    else:
++        reasons["chat"].append(
++            "normal message remains in unified Agent Fox chat"
++        )
+ 
+     selected = max(scores, key=scores.get)
+ 
